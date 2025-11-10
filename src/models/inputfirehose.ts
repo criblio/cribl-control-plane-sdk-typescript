@@ -4,151 +4,49 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  ConnectionsType,
+  ConnectionsType$inboundSchema,
+  ConnectionsType$Outbound,
+  ConnectionsType$outboundSchema,
+} from "./connectionstype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  Metadata1Type,
+  Metadata1Type$inboundSchema,
+  Metadata1Type$Outbound,
+  Metadata1Type$outboundSchema,
+} from "./metadata1type.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  Tls2Type,
+  Tls2Type$inboundSchema,
+  Tls2Type$Outbound,
+  Tls2Type$outboundSchema,
+} from "./tls2type.js";
 
-export const InputFirehoseType = {
+export const InputFirehoseType4 = {
   Firehose: "firehose",
 } as const;
-export type InputFirehoseType = ClosedEnum<typeof InputFirehoseType>;
+export type InputFirehoseType4 = ClosedEnum<typeof InputFirehoseType4>;
 
-export type InputFirehoseConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputFirehoseMode = {
-  Smart: "smart",
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputFirehoseMode = OpenEnum<typeof InputFirehoseMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputFirehoseCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputFirehoseCompression = OpenEnum<
-  typeof InputFirehoseCompression
->;
-
-export type InputFirehosePqControls = {};
-
-export type InputFirehosePq = {
+export type InputFirehoseFirehose4 = {
   /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  mode?: InputFirehoseMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputFirehoseCompression | undefined;
-  pqControls?: InputFirehosePqControls | undefined;
-};
-
-export const InputFirehoseMinimumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputFirehoseMinimumTLSVersion = OpenEnum<
-  typeof InputFirehoseMinimumTLSVersion
->;
-
-export const InputFirehoseMaximumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputFirehoseMaximumTLSVersion = OpenEnum<
-  typeof InputFirehoseMaximumTLSVersion
->;
-
-export type InputFirehoseTLSSettingsServerSide = {
-  disabled?: boolean | undefined;
-  /**
-   * The name of the predefined certificate
-   */
-  certificateName?: string | undefined;
-  /**
-   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
-   */
-  privKeyPath?: string | undefined;
-  /**
-   * Passphrase to use to decrypt private key
-   */
-  passphrase?: string | undefined;
-  /**
-   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  certPath?: string | undefined;
-  /**
-   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  caPath?: string | undefined;
-  /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
-  minVersion?: InputFirehoseMinimumTLSVersion | undefined;
-  maxVersion?: InputFirehoseMaximumTLSVersion | undefined;
-};
-
-export type InputFirehoseMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
-
-export type InputFirehose = {
+  pqEnabled?: boolean | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputFirehoseType;
+  type: InputFirehoseType4;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -163,18 +61,14 @@ export type InputFirehose = {
    */
   environment?: string | undefined;
   /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  /**
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputFirehoseConnection> | undefined;
-  pq?: InputFirehosePq | undefined;
+  connections?: Array<ConnectionsType> | undefined;
+  pq: PqType;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -187,7 +81,7 @@ export type InputFirehose = {
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
   authTokens?: Array<string> | undefined;
-  tls?: InputFirehoseTLSSettingsServerSide | undefined;
+  tls?: Tls2Type | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -235,504 +129,348 @@ export type InputFirehose = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputFirehoseMetadatum> | undefined;
+  metadata?: Array<Metadata1Type> | undefined;
   description?: string | undefined;
 };
 
-/** @internal */
-export const InputFirehoseType$inboundSchema: z.ZodNativeEnum<
-  typeof InputFirehoseType
-> = z.nativeEnum(InputFirehoseType);
+export const InputFirehoseType3 = {
+  Firehose: "firehose",
+} as const;
+export type InputFirehoseType3 = ClosedEnum<typeof InputFirehoseType3>;
 
-/** @internal */
-export const InputFirehoseType$outboundSchema: z.ZodNativeEnum<
-  typeof InputFirehoseType
-> = InputFirehoseType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputFirehoseType$ {
-  /** @deprecated use `InputFirehoseType$inboundSchema` instead. */
-  export const inboundSchema = InputFirehoseType$inboundSchema;
-  /** @deprecated use `InputFirehoseType$outboundSchema` instead. */
-  export const outboundSchema = InputFirehoseType$outboundSchema;
-}
-
-/** @internal */
-export const InputFirehoseConnection$inboundSchema: z.ZodType<
-  InputFirehoseConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-/** @internal */
-export type InputFirehoseConnection$Outbound = {
+export type InputFirehoseFirehose3 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputFirehoseType3;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
   pipeline?: string | undefined;
-  output: string;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<string> | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  description?: string | undefined;
 };
 
-/** @internal */
-export const InputFirehoseConnection$outboundSchema: z.ZodType<
-  InputFirehoseConnection$Outbound,
-  z.ZodTypeDef,
-  InputFirehoseConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
+export const InputFirehoseType2 = {
+  Firehose: "firehose",
+} as const;
+export type InputFirehoseType2 = ClosedEnum<typeof InputFirehoseType2>;
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputFirehoseConnection$ {
-  /** @deprecated use `InputFirehoseConnection$inboundSchema` instead. */
-  export const inboundSchema = InputFirehoseConnection$inboundSchema;
-  /** @deprecated use `InputFirehoseConnection$outboundSchema` instead. */
-  export const outboundSchema = InputFirehoseConnection$outboundSchema;
-  /** @deprecated use `InputFirehoseConnection$Outbound` instead. */
-  export type Outbound = InputFirehoseConnection$Outbound;
-}
-
-export function inputFirehoseConnectionToJSON(
-  inputFirehoseConnection: InputFirehoseConnection,
-): string {
-  return JSON.stringify(
-    InputFirehoseConnection$outboundSchema.parse(inputFirehoseConnection),
-  );
-}
-
-export function inputFirehoseConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputFirehoseConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputFirehoseConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputFirehoseConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputFirehoseMode$inboundSchema: z.ZodType<
-  InputFirehoseMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputFirehoseMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputFirehoseMode$outboundSchema: z.ZodType<
-  InputFirehoseMode,
-  z.ZodTypeDef,
-  InputFirehoseMode
-> = z.union([
-  z.nativeEnum(InputFirehoseMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputFirehoseMode$ {
-  /** @deprecated use `InputFirehoseMode$inboundSchema` instead. */
-  export const inboundSchema = InputFirehoseMode$inboundSchema;
-  /** @deprecated use `InputFirehoseMode$outboundSchema` instead. */
-  export const outboundSchema = InputFirehoseMode$outboundSchema;
-}
-
-/** @internal */
-export const InputFirehoseCompression$inboundSchema: z.ZodType<
-  InputFirehoseCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputFirehoseCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputFirehoseCompression$outboundSchema: z.ZodType<
-  InputFirehoseCompression,
-  z.ZodTypeDef,
-  InputFirehoseCompression
-> = z.union([
-  z.nativeEnum(InputFirehoseCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputFirehoseCompression$ {
-  /** @deprecated use `InputFirehoseCompression$inboundSchema` instead. */
-  export const inboundSchema = InputFirehoseCompression$inboundSchema;
-  /** @deprecated use `InputFirehoseCompression$outboundSchema` instead. */
-  export const outboundSchema = InputFirehoseCompression$outboundSchema;
-}
-
-/** @internal */
-export const InputFirehosePqControls$inboundSchema: z.ZodType<
-  InputFirehosePqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type InputFirehosePqControls$Outbound = {};
-
-/** @internal */
-export const InputFirehosePqControls$outboundSchema: z.ZodType<
-  InputFirehosePqControls$Outbound,
-  z.ZodTypeDef,
-  InputFirehosePqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputFirehosePqControls$ {
-  /** @deprecated use `InputFirehosePqControls$inboundSchema` instead. */
-  export const inboundSchema = InputFirehosePqControls$inboundSchema;
-  /** @deprecated use `InputFirehosePqControls$outboundSchema` instead. */
-  export const outboundSchema = InputFirehosePqControls$outboundSchema;
-  /** @deprecated use `InputFirehosePqControls$Outbound` instead. */
-  export type Outbound = InputFirehosePqControls$Outbound;
-}
-
-export function inputFirehosePqControlsToJSON(
-  inputFirehosePqControls: InputFirehosePqControls,
-): string {
-  return JSON.stringify(
-    InputFirehosePqControls$outboundSchema.parse(inputFirehosePqControls),
-  );
-}
-
-export function inputFirehosePqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputFirehosePqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputFirehosePqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputFirehosePqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputFirehosePq$inboundSchema: z.ZodType<
-  InputFirehosePq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputFirehoseMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputFirehoseCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputFirehosePqControls$inboundSchema).optional(),
-});
-
-/** @internal */
-export type InputFirehosePq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputFirehosePqControls$Outbound | undefined;
+export type InputFirehoseFirehose2 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputFirehoseType2;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections: Array<ConnectionsType>;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<string> | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  description?: string | undefined;
 };
 
-/** @internal */
-export const InputFirehosePq$outboundSchema: z.ZodType<
-  InputFirehosePq$Outbound,
-  z.ZodTypeDef,
-  InputFirehosePq
-> = z.object({
-  mode: InputFirehoseMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputFirehoseCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputFirehosePqControls$outboundSchema).optional(),
-});
+export const InputFirehoseType1 = {
+  Firehose: "firehose",
+} as const;
+export type InputFirehoseType1 = ClosedEnum<typeof InputFirehoseType1>;
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputFirehosePq$ {
-  /** @deprecated use `InputFirehosePq$inboundSchema` instead. */
-  export const inboundSchema = InputFirehosePq$inboundSchema;
-  /** @deprecated use `InputFirehosePq$outboundSchema` instead. */
-  export const outboundSchema = InputFirehosePq$outboundSchema;
-  /** @deprecated use `InputFirehosePq$Outbound` instead. */
-  export type Outbound = InputFirehosePq$Outbound;
-}
-
-export function inputFirehosePqToJSON(
-  inputFirehosePq: InputFirehosePq,
-): string {
-  return JSON.stringify(InputFirehosePq$outboundSchema.parse(inputFirehosePq));
-}
-
-export function inputFirehosePqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputFirehosePq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputFirehosePq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputFirehosePq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputFirehoseMinimumTLSVersion$inboundSchema: z.ZodType<
-  InputFirehoseMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputFirehoseMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputFirehoseMinimumTLSVersion$outboundSchema: z.ZodType<
-  InputFirehoseMinimumTLSVersion,
-  z.ZodTypeDef,
-  InputFirehoseMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(InputFirehoseMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputFirehoseMinimumTLSVersion$ {
-  /** @deprecated use `InputFirehoseMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputFirehoseMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `InputFirehoseMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputFirehoseMinimumTLSVersion$outboundSchema;
-}
-
-/** @internal */
-export const InputFirehoseMaximumTLSVersion$inboundSchema: z.ZodType<
-  InputFirehoseMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputFirehoseMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputFirehoseMaximumTLSVersion$outboundSchema: z.ZodType<
-  InputFirehoseMaximumTLSVersion,
-  z.ZodTypeDef,
-  InputFirehoseMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(InputFirehoseMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputFirehoseMaximumTLSVersion$ {
-  /** @deprecated use `InputFirehoseMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputFirehoseMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `InputFirehoseMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputFirehoseMaximumTLSVersion$outboundSchema;
-}
-
-/** @internal */
-export const InputFirehoseTLSSettingsServerSide$inboundSchema: z.ZodType<
-  InputFirehoseTLSSettingsServerSide,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(true),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
-  minVersion: InputFirehoseMinimumTLSVersion$inboundSchema.optional(),
-  maxVersion: InputFirehoseMaximumTLSVersion$inboundSchema.optional(),
-});
-
-/** @internal */
-export type InputFirehoseTLSSettingsServerSide$Outbound = {
-  disabled: boolean;
-  certificateName?: string | undefined;
-  privKeyPath?: string | undefined;
-  passphrase?: string | undefined;
-  certPath?: string | undefined;
-  caPath?: string | undefined;
-  requestCert: boolean;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
-  minVersion?: string | undefined;
-  maxVersion?: string | undefined;
+export type InputFirehoseFirehose1 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputFirehoseType1;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<string> | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  description?: string | undefined;
 };
 
-/** @internal */
-export const InputFirehoseTLSSettingsServerSide$outboundSchema: z.ZodType<
-  InputFirehoseTLSSettingsServerSide$Outbound,
-  z.ZodTypeDef,
-  InputFirehoseTLSSettingsServerSide
-> = z.object({
-  disabled: z.boolean().default(true),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
-  minVersion: InputFirehoseMinimumTLSVersion$outboundSchema.optional(),
-  maxVersion: InputFirehoseMaximumTLSVersion$outboundSchema.optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputFirehoseTLSSettingsServerSide$ {
-  /** @deprecated use `InputFirehoseTLSSettingsServerSide$inboundSchema` instead. */
-  export const inboundSchema = InputFirehoseTLSSettingsServerSide$inboundSchema;
-  /** @deprecated use `InputFirehoseTLSSettingsServerSide$outboundSchema` instead. */
-  export const outboundSchema =
-    InputFirehoseTLSSettingsServerSide$outboundSchema;
-  /** @deprecated use `InputFirehoseTLSSettingsServerSide$Outbound` instead. */
-  export type Outbound = InputFirehoseTLSSettingsServerSide$Outbound;
-}
-
-export function inputFirehoseTLSSettingsServerSideToJSON(
-  inputFirehoseTLSSettingsServerSide: InputFirehoseTLSSettingsServerSide,
-): string {
-  return JSON.stringify(
-    InputFirehoseTLSSettingsServerSide$outboundSchema.parse(
-      inputFirehoseTLSSettingsServerSide,
-    ),
-  );
-}
-
-export function inputFirehoseTLSSettingsServerSideFromJSON(
-  jsonString: string,
-): SafeParseResult<InputFirehoseTLSSettingsServerSide, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputFirehoseTLSSettingsServerSide$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputFirehoseTLSSettingsServerSide' from JSON`,
-  );
-}
+export type InputFirehose =
+  | InputFirehoseFirehose2
+  | InputFirehoseFirehose4
+  | InputFirehoseFirehose1
+  | InputFirehoseFirehose3;
 
 /** @internal */
-export const InputFirehoseMetadatum$inboundSchema: z.ZodType<
-  InputFirehoseMetadatum,
+export const InputFirehoseType4$inboundSchema: z.ZodNativeEnum<
+  typeof InputFirehoseType4
+> = z.nativeEnum(InputFirehoseType4);
+/** @internal */
+export const InputFirehoseType4$outboundSchema: z.ZodNativeEnum<
+  typeof InputFirehoseType4
+> = InputFirehoseType4$inboundSchema;
+
+/** @internal */
+export const InputFirehoseFirehose4$inboundSchema: z.ZodType<
+  InputFirehoseFirehose4,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type InputFirehoseMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputFirehoseMetadatum$outboundSchema: z.ZodType<
-  InputFirehoseMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputFirehoseMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputFirehoseMetadatum$ {
-  /** @deprecated use `InputFirehoseMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputFirehoseMetadatum$inboundSchema;
-  /** @deprecated use `InputFirehoseMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputFirehoseMetadatum$outboundSchema;
-  /** @deprecated use `InputFirehoseMetadatum$Outbound` instead. */
-  export type Outbound = InputFirehoseMetadatum$Outbound;
-}
-
-export function inputFirehoseMetadatumToJSON(
-  inputFirehoseMetadatum: InputFirehoseMetadatum,
-): string {
-  return JSON.stringify(
-    InputFirehoseMetadatum$outboundSchema.parse(inputFirehoseMetadatum),
-  );
-}
-
-export function inputFirehoseMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputFirehoseMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputFirehoseMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputFirehoseMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputFirehose$inboundSchema: z.ZodType<
-  InputFirehose,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+  pqEnabled: z.boolean().default(false),
   id: z.string().optional(),
-  type: InputFirehoseType$inboundSchema,
+  type: InputFirehoseType4$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputFirehoseConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputFirehosePq$inboundSchema).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema,
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   authTokens: z.array(z.string()).optional(),
-  tls: z.lazy(() => InputFirehoseTLSSettingsServerSide$inboundSchema)
-    .optional(),
+  tls: Tls2Type$inboundSchema.optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -744,27 +482,25 @@ export const InputFirehose$inboundSchema: z.ZodType<
   enableHealthCheck: z.boolean().default(false),
   ipAllowlistRegex: z.string().default("/.*/"),
   ipDenylistRegex: z.string().default("/^$/"),
-  metadata: z.array(z.lazy(() => InputFirehoseMetadatum$inboundSchema))
-    .optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
   description: z.string().optional(),
 });
-
 /** @internal */
-export type InputFirehose$Outbound = {
+export type InputFirehoseFirehose4$Outbound = {
+  pqEnabled: boolean;
   id?: string | undefined;
   type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
   environment?: string | undefined;
-  pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputFirehoseConnection$Outbound> | undefined;
-  pq?: InputFirehosePq$Outbound | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq: PqType$Outbound;
   host: string;
   port: number;
   authTokens?: Array<string> | undefined;
-  tls?: InputFirehoseTLSSettingsServerSide$Outbound | undefined;
+  tls?: Tls2Type$Outbound | undefined;
   maxActiveReq: number;
   maxRequestsPerSocket: number;
   enableProxyHeader: boolean;
@@ -776,32 +512,30 @@ export type InputFirehose$Outbound = {
   enableHealthCheck: boolean;
   ipAllowlistRegex: string;
   ipDenylistRegex: string;
-  metadata?: Array<InputFirehoseMetadatum$Outbound> | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
   description?: string | undefined;
 };
 
 /** @internal */
-export const InputFirehose$outboundSchema: z.ZodType<
-  InputFirehose$Outbound,
+export const InputFirehoseFirehose4$outboundSchema: z.ZodType<
+  InputFirehoseFirehose4$Outbound,
   z.ZodTypeDef,
-  InputFirehose
+  InputFirehoseFirehose4
 > = z.object({
+  pqEnabled: z.boolean().default(false),
   id: z.string().optional(),
-  type: InputFirehoseType$outboundSchema,
+  type: InputFirehoseType4$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputFirehoseConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputFirehosePq$outboundSchema).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema,
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   authTokens: z.array(z.string()).optional(),
-  tls: z.lazy(() => InputFirehoseTLSSettingsServerSide$outboundSchema)
-    .optional(),
+  tls: Tls2Type$outboundSchema.optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -813,28 +547,438 @@ export const InputFirehose$outboundSchema: z.ZodType<
   enableHealthCheck: z.boolean().default(false),
   ipAllowlistRegex: z.string().default("/.*/"),
   ipDenylistRegex: z.string().default("/^$/"),
-  metadata: z.array(z.lazy(() => InputFirehoseMetadatum$outboundSchema))
-    .optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputFirehose$ {
-  /** @deprecated use `InputFirehose$inboundSchema` instead. */
-  export const inboundSchema = InputFirehose$inboundSchema;
-  /** @deprecated use `InputFirehose$outboundSchema` instead. */
-  export const outboundSchema = InputFirehose$outboundSchema;
-  /** @deprecated use `InputFirehose$Outbound` instead. */
-  export type Outbound = InputFirehose$Outbound;
+export function inputFirehoseFirehose4ToJSON(
+  inputFirehoseFirehose4: InputFirehoseFirehose4,
+): string {
+  return JSON.stringify(
+    InputFirehoseFirehose4$outboundSchema.parse(inputFirehoseFirehose4),
+  );
 }
+export function inputFirehoseFirehose4FromJSON(
+  jsonString: string,
+): SafeParseResult<InputFirehoseFirehose4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputFirehoseFirehose4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputFirehoseFirehose4' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputFirehoseType3$inboundSchema: z.ZodNativeEnum<
+  typeof InputFirehoseType3
+> = z.nativeEnum(InputFirehoseType3);
+/** @internal */
+export const InputFirehoseType3$outboundSchema: z.ZodNativeEnum<
+  typeof InputFirehoseType3
+> = InputFirehoseType3$inboundSchema;
+
+/** @internal */
+export const InputFirehoseFirehose3$inboundSchema: z.ZodType<
+  InputFirehoseFirehose3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputFirehoseType3$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputFirehoseFirehose3$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<string> | undefined;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputFirehoseFirehose3$outboundSchema: z.ZodType<
+  InputFirehoseFirehose3$Outbound,
+  z.ZodTypeDef,
+  InputFirehoseFirehose3
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputFirehoseType3$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  description: z.string().optional(),
+});
+
+export function inputFirehoseFirehose3ToJSON(
+  inputFirehoseFirehose3: InputFirehoseFirehose3,
+): string {
+  return JSON.stringify(
+    InputFirehoseFirehose3$outboundSchema.parse(inputFirehoseFirehose3),
+  );
+}
+export function inputFirehoseFirehose3FromJSON(
+  jsonString: string,
+): SafeParseResult<InputFirehoseFirehose3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputFirehoseFirehose3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputFirehoseFirehose3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputFirehoseType2$inboundSchema: z.ZodNativeEnum<
+  typeof InputFirehoseType2
+> = z.nativeEnum(InputFirehoseType2);
+/** @internal */
+export const InputFirehoseType2$outboundSchema: z.ZodNativeEnum<
+  typeof InputFirehoseType2
+> = InputFirehoseType2$inboundSchema;
+
+/** @internal */
+export const InputFirehoseFirehose2$inboundSchema: z.ZodType<
+  InputFirehoseFirehose2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputFirehoseType2$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputFirehoseFirehose2$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections: Array<ConnectionsType$Outbound>;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<string> | undefined;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputFirehoseFirehose2$outboundSchema: z.ZodType<
+  InputFirehoseFirehose2$Outbound,
+  z.ZodTypeDef,
+  InputFirehoseFirehose2
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputFirehoseType2$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  description: z.string().optional(),
+});
+
+export function inputFirehoseFirehose2ToJSON(
+  inputFirehoseFirehose2: InputFirehoseFirehose2,
+): string {
+  return JSON.stringify(
+    InputFirehoseFirehose2$outboundSchema.parse(inputFirehoseFirehose2),
+  );
+}
+export function inputFirehoseFirehose2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputFirehoseFirehose2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputFirehoseFirehose2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputFirehoseFirehose2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputFirehoseType1$inboundSchema: z.ZodNativeEnum<
+  typeof InputFirehoseType1
+> = z.nativeEnum(InputFirehoseType1);
+/** @internal */
+export const InputFirehoseType1$outboundSchema: z.ZodNativeEnum<
+  typeof InputFirehoseType1
+> = InputFirehoseType1$inboundSchema;
+
+/** @internal */
+export const InputFirehoseFirehose1$inboundSchema: z.ZodType<
+  InputFirehoseFirehose1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputFirehoseType1$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputFirehoseFirehose1$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<string> | undefined;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputFirehoseFirehose1$outboundSchema: z.ZodType<
+  InputFirehoseFirehose1$Outbound,
+  z.ZodTypeDef,
+  InputFirehoseFirehose1
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputFirehoseType1$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  description: z.string().optional(),
+});
+
+export function inputFirehoseFirehose1ToJSON(
+  inputFirehoseFirehose1: InputFirehoseFirehose1,
+): string {
+  return JSON.stringify(
+    InputFirehoseFirehose1$outboundSchema.parse(inputFirehoseFirehose1),
+  );
+}
+export function inputFirehoseFirehose1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputFirehoseFirehose1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputFirehoseFirehose1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputFirehoseFirehose1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputFirehose$inboundSchema: z.ZodType<
+  InputFirehose,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputFirehoseFirehose2$inboundSchema),
+  z.lazy(() => InputFirehoseFirehose4$inboundSchema),
+  z.lazy(() => InputFirehoseFirehose1$inboundSchema),
+  z.lazy(() => InputFirehoseFirehose3$inboundSchema),
+]);
+/** @internal */
+export type InputFirehose$Outbound =
+  | InputFirehoseFirehose2$Outbound
+  | InputFirehoseFirehose4$Outbound
+  | InputFirehoseFirehose1$Outbound
+  | InputFirehoseFirehose3$Outbound;
+
+/** @internal */
+export const InputFirehose$outboundSchema: z.ZodType<
+  InputFirehose$Outbound,
+  z.ZodTypeDef,
+  InputFirehose
+> = z.union([
+  z.lazy(() => InputFirehoseFirehose2$outboundSchema),
+  z.lazy(() => InputFirehoseFirehose4$outboundSchema),
+  z.lazy(() => InputFirehoseFirehose1$outboundSchema),
+  z.lazy(() => InputFirehoseFirehose3$outboundSchema),
+]);
 
 export function inputFirehoseToJSON(inputFirehose: InputFirehose): string {
   return JSON.stringify(InputFirehose$outboundSchema.parse(inputFirehose));
 }
-
 export function inputFirehoseFromJSON(
   jsonString: string,
 ): SafeParseResult<InputFirehose, SDKValidationError> {

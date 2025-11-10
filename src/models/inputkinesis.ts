@@ -6,164 +6,117 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import {
   catchUnrecognizedEnum,
-  ClosedEnum,
   OpenEnum,
   Unrecognized,
 } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AwsAuthenticationMethodOptions,
+  AwsAuthenticationMethodOptions$inboundSchema,
+  AwsAuthenticationMethodOptions$outboundSchema,
+} from "./awsauthenticationmethodoptions.js";
+import {
+  ConnectionsType,
+  ConnectionsType$inboundSchema,
+  ConnectionsType$Outbound,
+  ConnectionsType$outboundSchema,
+} from "./connectionstype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputKinesisType = {
-  Kinesis: "kinesis",
-} as const;
-export type InputKinesisType = ClosedEnum<typeof InputKinesisType>;
-
-export type InputKinesisConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputKinesisMode = {
-  Smart: "smart",
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputKinesisMode = OpenEnum<typeof InputKinesisMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputKinesisCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputKinesisCompression = OpenEnum<typeof InputKinesisCompression>;
-
-export type InputKinesisPqControls = {};
-
-export type InputKinesisPq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputKinesisMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputKinesisCompression | undefined;
-  pqControls?: InputKinesisPqControls | undefined;
-};
+import {
+  Metadata1Type,
+  Metadata1Type$inboundSchema,
+  Metadata1Type$Outbound,
+  Metadata1Type$outboundSchema,
+} from "./metadata1type.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  SignatureVersionOptions,
+  SignatureVersionOptions$inboundSchema,
+  SignatureVersionOptions$outboundSchema,
+} from "./signatureversionoptions.js";
+import {
+  TypeKinesisOption,
+  TypeKinesisOption$inboundSchema,
+  TypeKinesisOption$outboundSchema,
+} from "./typekinesisoption.js";
 
 /**
  * Location at which to start reading a shard for the first time
  */
-export const ShardIteratorStart = {
+export const ShardIteratorStart7 = {
+  /**
+   * Earliest record
+   */
   TrimHorizon: "TRIM_HORIZON",
+  /**
+   * Latest record
+   */
   Latest: "LATEST",
 } as const;
 /**
  * Location at which to start reading a shard for the first time
  */
-export type ShardIteratorStart = OpenEnum<typeof ShardIteratorStart>;
+export type ShardIteratorStart7 = OpenEnum<typeof ShardIteratorStart7>;
 
 /**
  * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
  */
-export const InputKinesisRecordDataFormat = {
+export const RecordDataFormat7 = {
+  /**
+   * Cribl
+   */
   Cribl: "cribl",
+  /**
+   * Newline JSON
+   */
   Ndjson: "ndjson",
+  /**
+   * Cloudwatch Logs
+   */
   Cloudwatch: "cloudwatch",
+  /**
+   * Event per line
+   */
   Line: "line",
 } as const;
 /**
  * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
  */
-export type InputKinesisRecordDataFormat = OpenEnum<
-  typeof InputKinesisRecordDataFormat
->;
+export type RecordDataFormat7 = OpenEnum<typeof RecordDataFormat7>;
 
 /**
  * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
  */
-export const ShardLoadBalancing = {
+export const ShardLoadBalancing7 = {
+  /**
+   * Consistent Hashing
+   */
   ConsistentHashing: "ConsistentHashing",
+  /**
+   * Round Robin
+   */
   RoundRobin: "RoundRobin",
 } as const;
 /**
  * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
  */
-export type ShardLoadBalancing = OpenEnum<typeof ShardLoadBalancing>;
+export type ShardLoadBalancing7 = OpenEnum<typeof ShardLoadBalancing7>;
 
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export const InputKinesisAuthenticationMethod = {
-  Auto: "auto",
-  Manual: "manual",
-  Secret: "secret",
-} as const;
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export type InputKinesisAuthenticationMethod = OpenEnum<
-  typeof InputKinesisAuthenticationMethod
->;
-
-/**
- * Signature version to use for signing Kinesis stream requests
- */
-export const InputKinesisSignatureVersion = {
-  V2: "v2",
-  V4: "v4",
-} as const;
-/**
- * Signature version to use for signing Kinesis stream requests
- */
-export type InputKinesisSignatureVersion = OpenEnum<
-  typeof InputKinesisSignatureVersion
->;
-
-export type InputKinesisMetadatum = {
-  name: string;
+export type InputKinesisKinesis7 = {
   /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   * AWS authentication method. Choose Auto to use IAM roles.
    */
-  value: string;
-};
-
-export type InputKinesis = {
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputKinesisType;
+  type: TypeKinesisOption;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -188,8 +141,8 @@ export type InputKinesis = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputKinesisConnection> | undefined;
-  pq?: InputKinesisPq | undefined;
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
   /**
    * Kinesis Data Stream to read data from
    */
@@ -205,11 +158,11 @@ export type InputKinesis = {
   /**
    * Location at which to start reading a shard for the first time
    */
-  shardIteratorType?: ShardIteratorStart | undefined;
+  shardIteratorType?: ShardIteratorStart7 | undefined;
   /**
    * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
    */
-  payloadFormat?: InputKinesisRecordDataFormat | undefined;
+  payloadFormat?: RecordDataFormat7 | undefined;
   /**
    * Maximum number of records per getRecords call
    */
@@ -221,11 +174,7 @@ export type InputKinesis = {
   /**
    * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
    */
-  loadBalancingAlgorithm?: ShardLoadBalancing | undefined;
-  /**
-   * AWS authentication method. Choose Auto to use IAM roles.
-   */
-  awsAuthenticationMethod?: InputKinesisAuthenticationMethod | undefined;
+  loadBalancingAlgorithm?: ShardLoadBalancing7 | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the Kinesis stream is located
@@ -236,9 +185,9 @@ export type InputKinesis = {
    */
   endpoint?: string | undefined;
   /**
-   * Signature version to use for signing Kinesis stream requests
+   * Signature version to use for signing MSK cluster requests
    */
-  signatureVersion?: InputKinesisSignatureVersion | undefined;
+  signatureVersion?: SignatureVersionOptions | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -274,7 +223,381 @@ export type InputKinesis = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputKinesisMetadatum> | undefined;
+  metadata?: Array<Metadata1Type> | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret: string;
+};
+
+/**
+ * Location at which to start reading a shard for the first time
+ */
+export const ShardIteratorStart6 = {
+  /**
+   * Earliest record
+   */
+  TrimHorizon: "TRIM_HORIZON",
+  /**
+   * Latest record
+   */
+  Latest: "LATEST",
+} as const;
+/**
+ * Location at which to start reading a shard for the first time
+ */
+export type ShardIteratorStart6 = OpenEnum<typeof ShardIteratorStart6>;
+
+/**
+ * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
+ */
+export const RecordDataFormat6 = {
+  /**
+   * Cribl
+   */
+  Cribl: "cribl",
+  /**
+   * Newline JSON
+   */
+  Ndjson: "ndjson",
+  /**
+   * Cloudwatch Logs
+   */
+  Cloudwatch: "cloudwatch",
+  /**
+   * Event per line
+   */
+  Line: "line",
+} as const;
+/**
+ * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
+ */
+export type RecordDataFormat6 = OpenEnum<typeof RecordDataFormat6>;
+
+/**
+ * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
+ */
+export const ShardLoadBalancing6 = {
+  /**
+   * Consistent Hashing
+   */
+  ConsistentHashing: "ConsistentHashing",
+  /**
+   * Round Robin
+   */
+  RoundRobin: "RoundRobin",
+} as const;
+/**
+ * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
+ */
+export type ShardLoadBalancing6 = OpenEnum<typeof ShardLoadBalancing6>;
+
+export type InputKinesisKinesis6 = {
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeKinesisOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Kinesis Data Stream to read data from
+   */
+  streamName: string;
+  /**
+   * Time interval in minutes between consecutive service calls
+   */
+  serviceInterval?: number | undefined;
+  /**
+   * A JavaScript expression to be called with each shardId for the stream. If the expression evaluates to a truthy value, the shard will be processed.
+   */
+  shardExpr?: string | undefined;
+  /**
+   * Location at which to start reading a shard for the first time
+   */
+  shardIteratorType?: ShardIteratorStart6 | undefined;
+  /**
+   * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
+   */
+  payloadFormat?: RecordDataFormat6 | undefined;
+  /**
+   * Maximum number of records per getRecords call
+   */
+  getRecordsLimit?: number | undefined;
+  /**
+   * Maximum number of records, across all shards, to pull down at once per Worker Process
+   */
+  getRecordsLimitTotal?: number | undefined;
+  /**
+   * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
+   */
+  loadBalancingAlgorithm?: ShardLoadBalancing6 | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the Kinesis stream is located
+   */
+  region: string;
+  /**
+   * Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access Kinesis stream
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Verify Kinesis Producer Library (KPL) event checksums
+   */
+  verifyKPLCheckSums?: boolean | undefined;
+  /**
+   * When resuming streaming from a stored state, Stream will read the next available record, rather than rereading the last-read record. Enabling this setting can cause data loss after a Worker Node's unexpected shutdown or restart.
+   */
+  avoidDuplicates?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  description?: string | undefined;
+  awsApiKey: string;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+};
+
+/**
+ * Location at which to start reading a shard for the first time
+ */
+export const ShardIteratorStart5 = {
+  /**
+   * Earliest record
+   */
+  TrimHorizon: "TRIM_HORIZON",
+  /**
+   * Latest record
+   */
+  Latest: "LATEST",
+} as const;
+/**
+ * Location at which to start reading a shard for the first time
+ */
+export type ShardIteratorStart5 = OpenEnum<typeof ShardIteratorStart5>;
+
+/**
+ * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
+ */
+export const RecordDataFormat5 = {
+  /**
+   * Cribl
+   */
+  Cribl: "cribl",
+  /**
+   * Newline JSON
+   */
+  Ndjson: "ndjson",
+  /**
+   * Cloudwatch Logs
+   */
+  Cloudwatch: "cloudwatch",
+  /**
+   * Event per line
+   */
+  Line: "line",
+} as const;
+/**
+ * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
+ */
+export type RecordDataFormat5 = OpenEnum<typeof RecordDataFormat5>;
+
+/**
+ * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
+ */
+export const ShardLoadBalancing5 = {
+  /**
+   * Consistent Hashing
+   */
+  ConsistentHashing: "ConsistentHashing",
+  /**
+   * Round Robin
+   */
+  RoundRobin: "RoundRobin",
+} as const;
+/**
+ * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
+ */
+export type ShardLoadBalancing5 = OpenEnum<typeof ShardLoadBalancing5>;
+
+export type InputKinesisKinesis5 = {
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeKinesisOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Kinesis Data Stream to read data from
+   */
+  streamName: string;
+  /**
+   * Time interval in minutes between consecutive service calls
+   */
+  serviceInterval?: number | undefined;
+  /**
+   * A JavaScript expression to be called with each shardId for the stream. If the expression evaluates to a truthy value, the shard will be processed.
+   */
+  shardExpr?: string | undefined;
+  /**
+   * Location at which to start reading a shard for the first time
+   */
+  shardIteratorType?: ShardIteratorStart5 | undefined;
+  /**
+   * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
+   */
+  payloadFormat?: RecordDataFormat5 | undefined;
+  /**
+   * Maximum number of records per getRecords call
+   */
+  getRecordsLimit?: number | undefined;
+  /**
+   * Maximum number of records, across all shards, to pull down at once per Worker Process
+   */
+  getRecordsLimitTotal?: number | undefined;
+  /**
+   * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
+   */
+  loadBalancingAlgorithm?: ShardLoadBalancing5 | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the Kinesis stream is located
+   */
+  region: string;
+  /**
+   * Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access Kinesis stream
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Verify Kinesis Producer Library (KPL) event checksums
+   */
+  verifyKPLCheckSums?: boolean | undefined;
+  /**
+   * When resuming streaming from a stored state, Stream will read the next available record, rather than rereading the last-read record. Enabling this setting can cause data loss after a Worker Node's unexpected shutdown or restart.
+   */
+  avoidDuplicates?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   /**
@@ -283,517 +606,856 @@ export type InputKinesis = {
   awsSecret?: string | undefined;
 };
 
-/** @internal */
-export const InputKinesisType$inboundSchema: z.ZodNativeEnum<
-  typeof InputKinesisType
-> = z.nativeEnum(InputKinesisType);
-
-/** @internal */
-export const InputKinesisType$outboundSchema: z.ZodNativeEnum<
-  typeof InputKinesisType
-> = InputKinesisType$inboundSchema;
+/**
+ * Location at which to start reading a shard for the first time
+ */
+export const ShardIteratorStart4 = {
+  /**
+   * Earliest record
+   */
+  TrimHorizon: "TRIM_HORIZON",
+  /**
+   * Latest record
+   */
+  Latest: "LATEST",
+} as const;
+/**
+ * Location at which to start reading a shard for the first time
+ */
+export type ShardIteratorStart4 = OpenEnum<typeof ShardIteratorStart4>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
  */
-export namespace InputKinesisType$ {
-  /** @deprecated use `InputKinesisType$inboundSchema` instead. */
-  export const inboundSchema = InputKinesisType$inboundSchema;
-  /** @deprecated use `InputKinesisType$outboundSchema` instead. */
-  export const outboundSchema = InputKinesisType$outboundSchema;
-}
+export const RecordDataFormat4 = {
+  /**
+   * Cribl
+   */
+  Cribl: "cribl",
+  /**
+   * Newline JSON
+   */
+  Ndjson: "ndjson",
+  /**
+   * Cloudwatch Logs
+   */
+  Cloudwatch: "cloudwatch",
+  /**
+   * Event per line
+   */
+  Line: "line",
+} as const;
+/**
+ * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
+ */
+export type RecordDataFormat4 = OpenEnum<typeof RecordDataFormat4>;
 
-/** @internal */
-export const InputKinesisConnection$inboundSchema: z.ZodType<
-  InputKinesisConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
+/**
+ * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
+ */
+export const ShardLoadBalancing4 = {
+  /**
+   * Consistent Hashing
+   */
+  ConsistentHashing: "ConsistentHashing",
+  /**
+   * Round Robin
+   */
+  RoundRobin: "RoundRobin",
+} as const;
+/**
+ * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
+ */
+export type ShardLoadBalancing4 = OpenEnum<typeof ShardLoadBalancing4>;
 
-/** @internal */
-export type InputKinesisConnection$Outbound = {
+export type InputKinesisKinesis4 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeKinesisOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
   pipeline?: string | undefined;
-  output: string;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq: PqType;
+  /**
+   * Kinesis Data Stream to read data from
+   */
+  streamName: string;
+  /**
+   * Time interval in minutes between consecutive service calls
+   */
+  serviceInterval?: number | undefined;
+  /**
+   * A JavaScript expression to be called with each shardId for the stream. If the expression evaluates to a truthy value, the shard will be processed.
+   */
+  shardExpr?: string | undefined;
+  /**
+   * Location at which to start reading a shard for the first time
+   */
+  shardIteratorType?: ShardIteratorStart4 | undefined;
+  /**
+   * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
+   */
+  payloadFormat?: RecordDataFormat4 | undefined;
+  /**
+   * Maximum number of records per getRecords call
+   */
+  getRecordsLimit?: number | undefined;
+  /**
+   * Maximum number of records, across all shards, to pull down at once per Worker Process
+   */
+  getRecordsLimitTotal?: number | undefined;
+  /**
+   * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
+   */
+  loadBalancingAlgorithm?: ShardLoadBalancing4 | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the Kinesis stream is located
+   */
+  region: string;
+  /**
+   * Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access Kinesis stream
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Verify Kinesis Producer Library (KPL) event checksums
+   */
+  verifyKPLCheckSums?: boolean | undefined;
+  /**
+   * When resuming streaming from a stored state, Stream will read the next available record, rather than rereading the last-read record. Enabling this setting can cause data loss after a Worker Node's unexpected shutdown or restart.
+   */
+  avoidDuplicates?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
 };
 
-/** @internal */
-export const InputKinesisConnection$outboundSchema: z.ZodType<
-  InputKinesisConnection$Outbound,
-  z.ZodTypeDef,
-  InputKinesisConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
+/**
+ * Location at which to start reading a shard for the first time
+ */
+export const ShardIteratorStart3 = {
+  /**
+   * Earliest record
+   */
+  TrimHorizon: "TRIM_HORIZON",
+  /**
+   * Latest record
+   */
+  Latest: "LATEST",
+} as const;
+/**
+ * Location at which to start reading a shard for the first time
+ */
+export type ShardIteratorStart3 = OpenEnum<typeof ShardIteratorStart3>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
  */
-export namespace InputKinesisConnection$ {
-  /** @deprecated use `InputKinesisConnection$inboundSchema` instead. */
-  export const inboundSchema = InputKinesisConnection$inboundSchema;
-  /** @deprecated use `InputKinesisConnection$outboundSchema` instead. */
-  export const outboundSchema = InputKinesisConnection$outboundSchema;
-  /** @deprecated use `InputKinesisConnection$Outbound` instead. */
-  export type Outbound = InputKinesisConnection$Outbound;
-}
-
-export function inputKinesisConnectionToJSON(
-  inputKinesisConnection: InputKinesisConnection,
-): string {
-  return JSON.stringify(
-    InputKinesisConnection$outboundSchema.parse(inputKinesisConnection),
-  );
-}
-
-export function inputKinesisConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputKinesisConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputKinesisConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputKinesisConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputKinesisMode$inboundSchema: z.ZodType<
-  InputKinesisMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputKinesisMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputKinesisMode$outboundSchema: z.ZodType<
-  InputKinesisMode,
-  z.ZodTypeDef,
-  InputKinesisMode
-> = z.union([
-  z.nativeEnum(InputKinesisMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const RecordDataFormat3 = {
+  /**
+   * Cribl
+   */
+  Cribl: "cribl",
+  /**
+   * Newline JSON
+   */
+  Ndjson: "ndjson",
+  /**
+   * Cloudwatch Logs
+   */
+  Cloudwatch: "cloudwatch",
+  /**
+   * Event per line
+   */
+  Line: "line",
+} as const;
+/**
+ * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
+ */
+export type RecordDataFormat3 = OpenEnum<typeof RecordDataFormat3>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
  */
-export namespace InputKinesisMode$ {
-  /** @deprecated use `InputKinesisMode$inboundSchema` instead. */
-  export const inboundSchema = InputKinesisMode$inboundSchema;
-  /** @deprecated use `InputKinesisMode$outboundSchema` instead. */
-  export const outboundSchema = InputKinesisMode$outboundSchema;
-}
-
-/** @internal */
-export const InputKinesisCompression$inboundSchema: z.ZodType<
-  InputKinesisCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputKinesisCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputKinesisCompression$outboundSchema: z.ZodType<
-  InputKinesisCompression,
-  z.ZodTypeDef,
-  InputKinesisCompression
-> = z.union([
-  z.nativeEnum(InputKinesisCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
+export const ShardLoadBalancing3 = {
+  /**
+   * Consistent Hashing
+   */
+  ConsistentHashing: "ConsistentHashing",
+  /**
+   * Round Robin
+   */
+  RoundRobin: "RoundRobin",
+} as const;
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
  */
-export namespace InputKinesisCompression$ {
-  /** @deprecated use `InputKinesisCompression$inboundSchema` instead. */
-  export const inboundSchema = InputKinesisCompression$inboundSchema;
-  /** @deprecated use `InputKinesisCompression$outboundSchema` instead. */
-  export const outboundSchema = InputKinesisCompression$outboundSchema;
-}
+export type ShardLoadBalancing3 = OpenEnum<typeof ShardLoadBalancing3>;
 
-/** @internal */
-export const InputKinesisPqControls$inboundSchema: z.ZodType<
-  InputKinesisPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type InputKinesisPqControls$Outbound = {};
-
-/** @internal */
-export const InputKinesisPqControls$outboundSchema: z.ZodType<
-  InputKinesisPqControls$Outbound,
-  z.ZodTypeDef,
-  InputKinesisPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKinesisPqControls$ {
-  /** @deprecated use `InputKinesisPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputKinesisPqControls$inboundSchema;
-  /** @deprecated use `InputKinesisPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputKinesisPqControls$outboundSchema;
-  /** @deprecated use `InputKinesisPqControls$Outbound` instead. */
-  export type Outbound = InputKinesisPqControls$Outbound;
-}
-
-export function inputKinesisPqControlsToJSON(
-  inputKinesisPqControls: InputKinesisPqControls,
-): string {
-  return JSON.stringify(
-    InputKinesisPqControls$outboundSchema.parse(inputKinesisPqControls),
-  );
-}
-
-export function inputKinesisPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputKinesisPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputKinesisPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputKinesisPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputKinesisPq$inboundSchema: z.ZodType<
-  InputKinesisPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputKinesisMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputKinesisCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputKinesisPqControls$inboundSchema).optional(),
-});
-
-/** @internal */
-export type InputKinesisPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputKinesisPqControls$Outbound | undefined;
+export type InputKinesisKinesis3 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeKinesisOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Kinesis Data Stream to read data from
+   */
+  streamName: string;
+  /**
+   * Time interval in minutes between consecutive service calls
+   */
+  serviceInterval?: number | undefined;
+  /**
+   * A JavaScript expression to be called with each shardId for the stream. If the expression evaluates to a truthy value, the shard will be processed.
+   */
+  shardExpr?: string | undefined;
+  /**
+   * Location at which to start reading a shard for the first time
+   */
+  shardIteratorType?: ShardIteratorStart3 | undefined;
+  /**
+   * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
+   */
+  payloadFormat?: RecordDataFormat3 | undefined;
+  /**
+   * Maximum number of records per getRecords call
+   */
+  getRecordsLimit?: number | undefined;
+  /**
+   * Maximum number of records, across all shards, to pull down at once per Worker Process
+   */
+  getRecordsLimitTotal?: number | undefined;
+  /**
+   * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
+   */
+  loadBalancingAlgorithm?: ShardLoadBalancing3 | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the Kinesis stream is located
+   */
+  region: string;
+  /**
+   * Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access Kinesis stream
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Verify Kinesis Producer Library (KPL) event checksums
+   */
+  verifyKPLCheckSums?: boolean | undefined;
+  /**
+   * When resuming streaming from a stored state, Stream will read the next available record, rather than rereading the last-read record. Enabling this setting can cause data loss after a Worker Node's unexpected shutdown or restart.
+   */
+  avoidDuplicates?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
 };
 
-/** @internal */
-export const InputKinesisPq$outboundSchema: z.ZodType<
-  InputKinesisPq$Outbound,
-  z.ZodTypeDef,
-  InputKinesisPq
-> = z.object({
-  mode: InputKinesisMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputKinesisCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputKinesisPqControls$outboundSchema).optional(),
-});
+/**
+ * Location at which to start reading a shard for the first time
+ */
+export const ShardIteratorStart2 = {
+  /**
+   * Earliest record
+   */
+  TrimHorizon: "TRIM_HORIZON",
+  /**
+   * Latest record
+   */
+  Latest: "LATEST",
+} as const;
+/**
+ * Location at which to start reading a shard for the first time
+ */
+export type ShardIteratorStart2 = OpenEnum<typeof ShardIteratorStart2>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
  */
-export namespace InputKinesisPq$ {
-  /** @deprecated use `InputKinesisPq$inboundSchema` instead. */
-  export const inboundSchema = InputKinesisPq$inboundSchema;
-  /** @deprecated use `InputKinesisPq$outboundSchema` instead. */
-  export const outboundSchema = InputKinesisPq$outboundSchema;
-  /** @deprecated use `InputKinesisPq$Outbound` instead. */
-  export type Outbound = InputKinesisPq$Outbound;
-}
-
-export function inputKinesisPqToJSON(inputKinesisPq: InputKinesisPq): string {
-  return JSON.stringify(InputKinesisPq$outboundSchema.parse(inputKinesisPq));
-}
-
-export function inputKinesisPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputKinesisPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputKinesisPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputKinesisPq' from JSON`,
-  );
-}
-
-/** @internal */
-export const ShardIteratorStart$inboundSchema: z.ZodType<
-  ShardIteratorStart,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(ShardIteratorStart),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const ShardIteratorStart$outboundSchema: z.ZodType<
-  ShardIteratorStart,
-  z.ZodTypeDef,
-  ShardIteratorStart
-> = z.union([
-  z.nativeEnum(ShardIteratorStart),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const RecordDataFormat2 = {
+  /**
+   * Cribl
+   */
+  Cribl: "cribl",
+  /**
+   * Newline JSON
+   */
+  Ndjson: "ndjson",
+  /**
+   * Cloudwatch Logs
+   */
+  Cloudwatch: "cloudwatch",
+  /**
+   * Event per line
+   */
+  Line: "line",
+} as const;
+/**
+ * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
+ */
+export type RecordDataFormat2 = OpenEnum<typeof RecordDataFormat2>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
  */
-export namespace ShardIteratorStart$ {
-  /** @deprecated use `ShardIteratorStart$inboundSchema` instead. */
-  export const inboundSchema = ShardIteratorStart$inboundSchema;
-  /** @deprecated use `ShardIteratorStart$outboundSchema` instead. */
-  export const outboundSchema = ShardIteratorStart$outboundSchema;
-}
-
-/** @internal */
-export const InputKinesisRecordDataFormat$inboundSchema: z.ZodType<
-  InputKinesisRecordDataFormat,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputKinesisRecordDataFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputKinesisRecordDataFormat$outboundSchema: z.ZodType<
-  InputKinesisRecordDataFormat,
-  z.ZodTypeDef,
-  InputKinesisRecordDataFormat
-> = z.union([
-  z.nativeEnum(InputKinesisRecordDataFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
+export const ShardLoadBalancing2 = {
+  /**
+   * Consistent Hashing
+   */
+  ConsistentHashing: "ConsistentHashing",
+  /**
+   * Round Robin
+   */
+  RoundRobin: "RoundRobin",
+} as const;
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
  */
-export namespace InputKinesisRecordDataFormat$ {
-  /** @deprecated use `InputKinesisRecordDataFormat$inboundSchema` instead. */
-  export const inboundSchema = InputKinesisRecordDataFormat$inboundSchema;
-  /** @deprecated use `InputKinesisRecordDataFormat$outboundSchema` instead. */
-  export const outboundSchema = InputKinesisRecordDataFormat$outboundSchema;
-}
+export type ShardLoadBalancing2 = OpenEnum<typeof ShardLoadBalancing2>;
 
-/** @internal */
-export const ShardLoadBalancing$inboundSchema: z.ZodType<
-  ShardLoadBalancing,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(ShardLoadBalancing),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const ShardLoadBalancing$outboundSchema: z.ZodType<
-  ShardLoadBalancing,
-  z.ZodTypeDef,
-  ShardLoadBalancing
-> = z.union([
-  z.nativeEnum(ShardLoadBalancing),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ShardLoadBalancing$ {
-  /** @deprecated use `ShardLoadBalancing$inboundSchema` instead. */
-  export const inboundSchema = ShardLoadBalancing$inboundSchema;
-  /** @deprecated use `ShardLoadBalancing$outboundSchema` instead. */
-  export const outboundSchema = ShardLoadBalancing$outboundSchema;
-}
-
-/** @internal */
-export const InputKinesisAuthenticationMethod$inboundSchema: z.ZodType<
-  InputKinesisAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputKinesisAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputKinesisAuthenticationMethod$outboundSchema: z.ZodType<
-  InputKinesisAuthenticationMethod,
-  z.ZodTypeDef,
-  InputKinesisAuthenticationMethod
-> = z.union([
-  z.nativeEnum(InputKinesisAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKinesisAuthenticationMethod$ {
-  /** @deprecated use `InputKinesisAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = InputKinesisAuthenticationMethod$inboundSchema;
-  /** @deprecated use `InputKinesisAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema = InputKinesisAuthenticationMethod$outboundSchema;
-}
-
-/** @internal */
-export const InputKinesisSignatureVersion$inboundSchema: z.ZodType<
-  InputKinesisSignatureVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputKinesisSignatureVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputKinesisSignatureVersion$outboundSchema: z.ZodType<
-  InputKinesisSignatureVersion,
-  z.ZodTypeDef,
-  InputKinesisSignatureVersion
-> = z.union([
-  z.nativeEnum(InputKinesisSignatureVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKinesisSignatureVersion$ {
-  /** @deprecated use `InputKinesisSignatureVersion$inboundSchema` instead. */
-  export const inboundSchema = InputKinesisSignatureVersion$inboundSchema;
-  /** @deprecated use `InputKinesisSignatureVersion$outboundSchema` instead. */
-  export const outboundSchema = InputKinesisSignatureVersion$outboundSchema;
-}
-
-/** @internal */
-export const InputKinesisMetadatum$inboundSchema: z.ZodType<
-  InputKinesisMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type InputKinesisMetadatum$Outbound = {
-  name: string;
-  value: string;
+export type InputKinesisKinesis2 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeKinesisOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections: Array<ConnectionsType>;
+  pq?: PqType | undefined;
+  /**
+   * Kinesis Data Stream to read data from
+   */
+  streamName: string;
+  /**
+   * Time interval in minutes between consecutive service calls
+   */
+  serviceInterval?: number | undefined;
+  /**
+   * A JavaScript expression to be called with each shardId for the stream. If the expression evaluates to a truthy value, the shard will be processed.
+   */
+  shardExpr?: string | undefined;
+  /**
+   * Location at which to start reading a shard for the first time
+   */
+  shardIteratorType?: ShardIteratorStart2 | undefined;
+  /**
+   * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
+   */
+  payloadFormat?: RecordDataFormat2 | undefined;
+  /**
+   * Maximum number of records per getRecords call
+   */
+  getRecordsLimit?: number | undefined;
+  /**
+   * Maximum number of records, across all shards, to pull down at once per Worker Process
+   */
+  getRecordsLimitTotal?: number | undefined;
+  /**
+   * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
+   */
+  loadBalancingAlgorithm?: ShardLoadBalancing2 | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the Kinesis stream is located
+   */
+  region: string;
+  /**
+   * Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access Kinesis stream
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Verify Kinesis Producer Library (KPL) event checksums
+   */
+  verifyKPLCheckSums?: boolean | undefined;
+  /**
+   * When resuming streaming from a stored state, Stream will read the next available record, rather than rereading the last-read record. Enabling this setting can cause data loss after a Worker Node's unexpected shutdown or restart.
+   */
+  avoidDuplicates?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
 };
 
-/** @internal */
-export const InputKinesisMetadatum$outboundSchema: z.ZodType<
-  InputKinesisMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputKinesisMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
+/**
+ * Location at which to start reading a shard for the first time
+ */
+export const ShardIteratorStart1 = {
+  /**
+   * Earliest record
+   */
+  TrimHorizon: "TRIM_HORIZON",
+  /**
+   * Latest record
+   */
+  Latest: "LATEST",
+} as const;
+/**
+ * Location at which to start reading a shard for the first time
+ */
+export type ShardIteratorStart1 = OpenEnum<typeof ShardIteratorStart1>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
  */
-export namespace InputKinesisMetadatum$ {
-  /** @deprecated use `InputKinesisMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputKinesisMetadatum$inboundSchema;
-  /** @deprecated use `InputKinesisMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputKinesisMetadatum$outboundSchema;
-  /** @deprecated use `InputKinesisMetadatum$Outbound` instead. */
-  export type Outbound = InputKinesisMetadatum$Outbound;
-}
+export const RecordDataFormat1 = {
+  /**
+   * Cribl
+   */
+  Cribl: "cribl",
+  /**
+   * Newline JSON
+   */
+  Ndjson: "ndjson",
+  /**
+   * Cloudwatch Logs
+   */
+  Cloudwatch: "cloudwatch",
+  /**
+   * Event per line
+   */
+  Line: "line",
+} as const;
+/**
+ * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
+ */
+export type RecordDataFormat1 = OpenEnum<typeof RecordDataFormat1>;
 
-export function inputKinesisMetadatumToJSON(
-  inputKinesisMetadatum: InputKinesisMetadatum,
-): string {
-  return JSON.stringify(
-    InputKinesisMetadatum$outboundSchema.parse(inputKinesisMetadatum),
-  );
-}
+/**
+ * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
+ */
+export const ShardLoadBalancing1 = {
+  /**
+   * Consistent Hashing
+   */
+  ConsistentHashing: "ConsistentHashing",
+  /**
+   * Round Robin
+   */
+  RoundRobin: "RoundRobin",
+} as const;
+/**
+ * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
+ */
+export type ShardLoadBalancing1 = OpenEnum<typeof ShardLoadBalancing1>;
 
-export function inputKinesisMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputKinesisMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputKinesisMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputKinesisMetadatum' from JSON`,
-  );
-}
+export type InputKinesisKinesis1 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeKinesisOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Kinesis Data Stream to read data from
+   */
+  streamName: string;
+  /**
+   * Time interval in minutes between consecutive service calls
+   */
+  serviceInterval?: number | undefined;
+  /**
+   * A JavaScript expression to be called with each shardId for the stream. If the expression evaluates to a truthy value, the shard will be processed.
+   */
+  shardExpr?: string | undefined;
+  /**
+   * Location at which to start reading a shard for the first time
+   */
+  shardIteratorType?: ShardIteratorStart1 | undefined;
+  /**
+   * Format of data inside the Kinesis Stream records. Gzip compression is automatically detected.
+   */
+  payloadFormat?: RecordDataFormat1 | undefined;
+  /**
+   * Maximum number of records per getRecords call
+   */
+  getRecordsLimit?: number | undefined;
+  /**
+   * Maximum number of records, across all shards, to pull down at once per Worker Process
+   */
+  getRecordsLimitTotal?: number | undefined;
+  /**
+   * The load-balancing algorithm to use for spreading out shards across Workers and Worker Processes
+   */
+  loadBalancingAlgorithm?: ShardLoadBalancing1 | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the Kinesis stream is located
+   */
+  region: string;
+  /**
+   * Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access Kinesis stream
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Verify Kinesis Producer Library (KPL) event checksums
+   */
+  verifyKPLCheckSums?: boolean | undefined;
+  /**
+   * When resuming streaming from a stored state, Stream will read the next available record, rather than rereading the last-read record. Enabling this setting can cause data loss after a Worker Node's unexpected shutdown or restart.
+   */
+  avoidDuplicates?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+};
+
+export type InputKinesis =
+  | InputKinesisKinesis2
+  | InputKinesisKinesis4
+  | InputKinesisKinesis6
+  | InputKinesisKinesis7
+  | InputKinesisKinesis1
+  | InputKinesisKinesis3
+  | InputKinesisKinesis5;
 
 /** @internal */
-export const InputKinesis$inboundSchema: z.ZodType<
-  InputKinesis,
+export const ShardIteratorStart7$inboundSchema: z.ZodType<
+  ShardIteratorStart7,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ShardIteratorStart7),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ShardIteratorStart7$outboundSchema: z.ZodType<
+  ShardIteratorStart7,
+  z.ZodTypeDef,
+  ShardIteratorStart7
+> = z.union([
+  z.nativeEnum(ShardIteratorStart7),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const RecordDataFormat7$inboundSchema: z.ZodType<
+  RecordDataFormat7,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(RecordDataFormat7),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const RecordDataFormat7$outboundSchema: z.ZodType<
+  RecordDataFormat7,
+  z.ZodTypeDef,
+  RecordDataFormat7
+> = z.union([
+  z.nativeEnum(RecordDataFormat7),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ShardLoadBalancing7$inboundSchema: z.ZodType<
+  ShardLoadBalancing7,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ShardLoadBalancing7),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ShardLoadBalancing7$outboundSchema: z.ZodType<
+  ShardLoadBalancing7,
+  z.ZodTypeDef,
+  ShardLoadBalancing7
+> = z.union([
+  z.nativeEnum(ShardLoadBalancing7),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputKinesisKinesis7$inboundSchema: z.ZodType<
+  InputKinesisKinesis7,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
   id: z.string().optional(),
-  type: InputKinesisType$inboundSchema,
+  type: TypeKinesisOption$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputKinesisConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputKinesisPq$inboundSchema).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
   streamName: z.string(),
   serviceInterval: z.number().default(1),
   shardExpr: z.string().default("true"),
-  shardIteratorType: ShardIteratorStart$inboundSchema.default("TRIM_HORIZON"),
-  payloadFormat: InputKinesisRecordDataFormat$inboundSchema.default("cribl"),
+  shardIteratorType: ShardIteratorStart7$inboundSchema.default("TRIM_HORIZON"),
+  payloadFormat: RecordDataFormat7$inboundSchema.default("cribl"),
   getRecordsLimit: z.number().default(5000),
   getRecordsLimitTotal: z.number().default(20000),
-  loadBalancingAlgorithm: ShardLoadBalancing$inboundSchema.default(
+  loadBalancingAlgorithm: ShardLoadBalancing7$inboundSchema.default(
     "ConsistentHashing",
   ),
-  awsAuthenticationMethod: InputKinesisAuthenticationMethod$inboundSchema
-    .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
-  signatureVersion: InputKinesisSignatureVersion$inboundSchema.default("v4"),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   enableAssumeRole: z.boolean().default(false),
@@ -802,15 +1464,14 @@ export const InputKinesis$inboundSchema: z.ZodType<
   durationSeconds: z.number().default(3600),
   verifyKPLCheckSums: z.boolean().default(false),
   avoidDuplicates: z.boolean().default(false),
-  metadata: z.array(z.lazy(() => InputKinesisMetadatum$inboundSchema))
-    .optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
-  awsSecret: z.string().optional(),
+  awsSecret: z.string(),
 });
-
 /** @internal */
-export type InputKinesis$Outbound = {
+export type InputKinesisKinesis7$Outbound = {
+  awsAuthenticationMethod: string;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -819,8 +1480,631 @@ export type InputKinesis$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputKinesisConnection$Outbound> | undefined;
-  pq?: InputKinesisPq$Outbound | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  streamName: string;
+  serviceInterval: number;
+  shardExpr: string;
+  shardIteratorType: string;
+  payloadFormat: string;
+  getRecordsLimit: number;
+  getRecordsLimitTotal: number;
+  loadBalancingAlgorithm: string;
+  awsSecretKey?: string | undefined;
+  region: string;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  verifyKPLCheckSums: boolean;
+  avoidDuplicates: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret: string;
+};
+
+/** @internal */
+export const InputKinesisKinesis7$outboundSchema: z.ZodType<
+  InputKinesisKinesis7$Outbound,
+  z.ZodTypeDef,
+  InputKinesisKinesis7
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  id: z.string().optional(),
+  type: TypeKinesisOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  streamName: z.string(),
+  serviceInterval: z.number().default(1),
+  shardExpr: z.string().default("true"),
+  shardIteratorType: ShardIteratorStart7$outboundSchema.default("TRIM_HORIZON"),
+  payloadFormat: RecordDataFormat7$outboundSchema.default("cribl"),
+  getRecordsLimit: z.number().default(5000),
+  getRecordsLimitTotal: z.number().default(20000),
+  loadBalancingAlgorithm: ShardLoadBalancing7$outboundSchema.default(
+    "ConsistentHashing",
+  ),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  verifyKPLCheckSums: z.boolean().default(false),
+  avoidDuplicates: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string(),
+});
+
+export function inputKinesisKinesis7ToJSON(
+  inputKinesisKinesis7: InputKinesisKinesis7,
+): string {
+  return JSON.stringify(
+    InputKinesisKinesis7$outboundSchema.parse(inputKinesisKinesis7),
+  );
+}
+export function inputKinesisKinesis7FromJSON(
+  jsonString: string,
+): SafeParseResult<InputKinesisKinesis7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputKinesisKinesis7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKinesisKinesis7' from JSON`,
+  );
+}
+
+/** @internal */
+export const ShardIteratorStart6$inboundSchema: z.ZodType<
+  ShardIteratorStart6,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ShardIteratorStart6),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ShardIteratorStart6$outboundSchema: z.ZodType<
+  ShardIteratorStart6,
+  z.ZodTypeDef,
+  ShardIteratorStart6
+> = z.union([
+  z.nativeEnum(ShardIteratorStart6),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const RecordDataFormat6$inboundSchema: z.ZodType<
+  RecordDataFormat6,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(RecordDataFormat6),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const RecordDataFormat6$outboundSchema: z.ZodType<
+  RecordDataFormat6,
+  z.ZodTypeDef,
+  RecordDataFormat6
+> = z.union([
+  z.nativeEnum(RecordDataFormat6),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ShardLoadBalancing6$inboundSchema: z.ZodType<
+  ShardLoadBalancing6,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ShardLoadBalancing6),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ShardLoadBalancing6$outboundSchema: z.ZodType<
+  ShardLoadBalancing6,
+  z.ZodTypeDef,
+  ShardLoadBalancing6
+> = z.union([
+  z.nativeEnum(ShardLoadBalancing6),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputKinesisKinesis6$inboundSchema: z.ZodType<
+  InputKinesisKinesis6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  id: z.string().optional(),
+  type: TypeKinesisOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  streamName: z.string(),
+  serviceInterval: z.number().default(1),
+  shardExpr: z.string().default("true"),
+  shardIteratorType: ShardIteratorStart6$inboundSchema.default("TRIM_HORIZON"),
+  payloadFormat: RecordDataFormat6$inboundSchema.default("cribl"),
+  getRecordsLimit: z.number().default(5000),
+  getRecordsLimitTotal: z.number().default(20000),
+  loadBalancingAlgorithm: ShardLoadBalancing6$inboundSchema.default(
+    "ConsistentHashing",
+  ),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  verifyKPLCheckSums: z.boolean().default(false),
+  avoidDuplicates: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string(),
+  awsSecret: z.string().optional(),
+});
+/** @internal */
+export type InputKinesisKinesis6$Outbound = {
+  awsAuthenticationMethod: string;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  streamName: string;
+  serviceInterval: number;
+  shardExpr: string;
+  shardIteratorType: string;
+  payloadFormat: string;
+  getRecordsLimit: number;
+  getRecordsLimitTotal: number;
+  loadBalancingAlgorithm: string;
+  awsSecretKey?: string | undefined;
+  region: string;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  verifyKPLCheckSums: boolean;
+  avoidDuplicates: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  description?: string | undefined;
+  awsApiKey: string;
+  awsSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputKinesisKinesis6$outboundSchema: z.ZodType<
+  InputKinesisKinesis6$Outbound,
+  z.ZodTypeDef,
+  InputKinesisKinesis6
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  id: z.string().optional(),
+  type: TypeKinesisOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  streamName: z.string(),
+  serviceInterval: z.number().default(1),
+  shardExpr: z.string().default("true"),
+  shardIteratorType: ShardIteratorStart6$outboundSchema.default("TRIM_HORIZON"),
+  payloadFormat: RecordDataFormat6$outboundSchema.default("cribl"),
+  getRecordsLimit: z.number().default(5000),
+  getRecordsLimitTotal: z.number().default(20000),
+  loadBalancingAlgorithm: ShardLoadBalancing6$outboundSchema.default(
+    "ConsistentHashing",
+  ),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  verifyKPLCheckSums: z.boolean().default(false),
+  avoidDuplicates: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string(),
+  awsSecret: z.string().optional(),
+});
+
+export function inputKinesisKinesis6ToJSON(
+  inputKinesisKinesis6: InputKinesisKinesis6,
+): string {
+  return JSON.stringify(
+    InputKinesisKinesis6$outboundSchema.parse(inputKinesisKinesis6),
+  );
+}
+export function inputKinesisKinesis6FromJSON(
+  jsonString: string,
+): SafeParseResult<InputKinesisKinesis6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputKinesisKinesis6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKinesisKinesis6' from JSON`,
+  );
+}
+
+/** @internal */
+export const ShardIteratorStart5$inboundSchema: z.ZodType<
+  ShardIteratorStart5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ShardIteratorStart5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ShardIteratorStart5$outboundSchema: z.ZodType<
+  ShardIteratorStart5,
+  z.ZodTypeDef,
+  ShardIteratorStart5
+> = z.union([
+  z.nativeEnum(ShardIteratorStart5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const RecordDataFormat5$inboundSchema: z.ZodType<
+  RecordDataFormat5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(RecordDataFormat5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const RecordDataFormat5$outboundSchema: z.ZodType<
+  RecordDataFormat5,
+  z.ZodTypeDef,
+  RecordDataFormat5
+> = z.union([
+  z.nativeEnum(RecordDataFormat5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ShardLoadBalancing5$inboundSchema: z.ZodType<
+  ShardLoadBalancing5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ShardLoadBalancing5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ShardLoadBalancing5$outboundSchema: z.ZodType<
+  ShardLoadBalancing5,
+  z.ZodTypeDef,
+  ShardLoadBalancing5
+> = z.union([
+  z.nativeEnum(ShardLoadBalancing5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputKinesisKinesis5$inboundSchema: z.ZodType<
+  InputKinesisKinesis5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  id: z.string().optional(),
+  type: TypeKinesisOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  streamName: z.string(),
+  serviceInterval: z.number().default(1),
+  shardExpr: z.string().default("true"),
+  shardIteratorType: ShardIteratorStart5$inboundSchema.default("TRIM_HORIZON"),
+  payloadFormat: RecordDataFormat5$inboundSchema.default("cribl"),
+  getRecordsLimit: z.number().default(5000),
+  getRecordsLimitTotal: z.number().default(20000),
+  loadBalancingAlgorithm: ShardLoadBalancing5$inboundSchema.default(
+    "ConsistentHashing",
+  ),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  verifyKPLCheckSums: z.boolean().default(false),
+  avoidDuplicates: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+});
+/** @internal */
+export type InputKinesisKinesis5$Outbound = {
+  awsAuthenticationMethod: string;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  streamName: string;
+  serviceInterval: number;
+  shardExpr: string;
+  shardIteratorType: string;
+  payloadFormat: string;
+  getRecordsLimit: number;
+  getRecordsLimitTotal: number;
+  loadBalancingAlgorithm: string;
+  awsSecretKey?: string | undefined;
+  region: string;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  verifyKPLCheckSums: boolean;
+  avoidDuplicates: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputKinesisKinesis5$outboundSchema: z.ZodType<
+  InputKinesisKinesis5$Outbound,
+  z.ZodTypeDef,
+  InputKinesisKinesis5
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  id: z.string().optional(),
+  type: TypeKinesisOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  streamName: z.string(),
+  serviceInterval: z.number().default(1),
+  shardExpr: z.string().default("true"),
+  shardIteratorType: ShardIteratorStart5$outboundSchema.default("TRIM_HORIZON"),
+  payloadFormat: RecordDataFormat5$outboundSchema.default("cribl"),
+  getRecordsLimit: z.number().default(5000),
+  getRecordsLimitTotal: z.number().default(20000),
+  loadBalancingAlgorithm: ShardLoadBalancing5$outboundSchema.default(
+    "ConsistentHashing",
+  ),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  verifyKPLCheckSums: z.boolean().default(false),
+  avoidDuplicates: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+});
+
+export function inputKinesisKinesis5ToJSON(
+  inputKinesisKinesis5: InputKinesisKinesis5,
+): string {
+  return JSON.stringify(
+    InputKinesisKinesis5$outboundSchema.parse(inputKinesisKinesis5),
+  );
+}
+export function inputKinesisKinesis5FromJSON(
+  jsonString: string,
+): SafeParseResult<InputKinesisKinesis5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputKinesisKinesis5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKinesisKinesis5' from JSON`,
+  );
+}
+
+/** @internal */
+export const ShardIteratorStart4$inboundSchema: z.ZodType<
+  ShardIteratorStart4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ShardIteratorStart4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ShardIteratorStart4$outboundSchema: z.ZodType<
+  ShardIteratorStart4,
+  z.ZodTypeDef,
+  ShardIteratorStart4
+> = z.union([
+  z.nativeEnum(ShardIteratorStart4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const RecordDataFormat4$inboundSchema: z.ZodType<
+  RecordDataFormat4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(RecordDataFormat4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const RecordDataFormat4$outboundSchema: z.ZodType<
+  RecordDataFormat4,
+  z.ZodTypeDef,
+  RecordDataFormat4
+> = z.union([
+  z.nativeEnum(RecordDataFormat4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ShardLoadBalancing4$inboundSchema: z.ZodType<
+  ShardLoadBalancing4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ShardLoadBalancing4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ShardLoadBalancing4$outboundSchema: z.ZodType<
+  ShardLoadBalancing4,
+  z.ZodTypeDef,
+  ShardLoadBalancing4
+> = z.union([
+  z.nativeEnum(ShardLoadBalancing4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputKinesisKinesis4$inboundSchema: z.ZodType<
+  InputKinesisKinesis4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: TypeKinesisOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema,
+  streamName: z.string(),
+  serviceInterval: z.number().default(1),
+  shardExpr: z.string().default("true"),
+  shardIteratorType: ShardIteratorStart4$inboundSchema.default("TRIM_HORIZON"),
+  payloadFormat: RecordDataFormat4$inboundSchema.default("cribl"),
+  getRecordsLimit: z.number().default(5000),
+  getRecordsLimitTotal: z.number().default(20000),
+  loadBalancingAlgorithm: ShardLoadBalancing4$inboundSchema.default(
+    "ConsistentHashing",
+  ),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  verifyKPLCheckSums: z.boolean().default(false),
+  avoidDuplicates: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+});
+/** @internal */
+export type InputKinesisKinesis4$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq: PqType$Outbound;
   streamName: string;
   serviceInterval: number;
   shardExpr: string;
@@ -842,45 +2126,44 @@ export type InputKinesis$Outbound = {
   durationSeconds: number;
   verifyKPLCheckSums: boolean;
   avoidDuplicates: boolean;
-  metadata?: Array<InputKinesisMetadatum$Outbound> | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
 };
 
 /** @internal */
-export const InputKinesis$outboundSchema: z.ZodType<
-  InputKinesis$Outbound,
+export const InputKinesisKinesis4$outboundSchema: z.ZodType<
+  InputKinesisKinesis4$Outbound,
   z.ZodTypeDef,
-  InputKinesis
+  InputKinesisKinesis4
 > = z.object({
+  pqEnabled: z.boolean().default(false),
   id: z.string().optional(),
-  type: InputKinesisType$outboundSchema,
+  type: TypeKinesisOption$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputKinesisConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputKinesisPq$outboundSchema).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema,
   streamName: z.string(),
   serviceInterval: z.number().default(1),
   shardExpr: z.string().default("true"),
-  shardIteratorType: ShardIteratorStart$outboundSchema.default("TRIM_HORIZON"),
-  payloadFormat: InputKinesisRecordDataFormat$outboundSchema.default("cribl"),
+  shardIteratorType: ShardIteratorStart4$outboundSchema.default("TRIM_HORIZON"),
+  payloadFormat: RecordDataFormat4$outboundSchema.default("cribl"),
   getRecordsLimit: z.number().default(5000),
   getRecordsLimitTotal: z.number().default(20000),
-  loadBalancingAlgorithm: ShardLoadBalancing$outboundSchema.default(
+  loadBalancingAlgorithm: ShardLoadBalancing4$outboundSchema.default(
     "ConsistentHashing",
   ),
-  awsAuthenticationMethod: InputKinesisAuthenticationMethod$outboundSchema
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
     .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
-  signatureVersion: InputKinesisSignatureVersion$outboundSchema.default("v4"),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   enableAssumeRole: z.boolean().default(false),
@@ -889,30 +2172,695 @@ export const InputKinesis$outboundSchema: z.ZodType<
   durationSeconds: z.number().default(3600),
   verifyKPLCheckSums: z.boolean().default(false),
   avoidDuplicates: z.boolean().default(false),
-  metadata: z.array(z.lazy(() => InputKinesisMetadatum$outboundSchema))
-    .optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKinesis$ {
-  /** @deprecated use `InputKinesis$inboundSchema` instead. */
-  export const inboundSchema = InputKinesis$inboundSchema;
-  /** @deprecated use `InputKinesis$outboundSchema` instead. */
-  export const outboundSchema = InputKinesis$outboundSchema;
-  /** @deprecated use `InputKinesis$Outbound` instead. */
-  export type Outbound = InputKinesis$Outbound;
+export function inputKinesisKinesis4ToJSON(
+  inputKinesisKinesis4: InputKinesisKinesis4,
+): string {
+  return JSON.stringify(
+    InputKinesisKinesis4$outboundSchema.parse(inputKinesisKinesis4),
+  );
 }
+export function inputKinesisKinesis4FromJSON(
+  jsonString: string,
+): SafeParseResult<InputKinesisKinesis4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputKinesisKinesis4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKinesisKinesis4' from JSON`,
+  );
+}
+
+/** @internal */
+export const ShardIteratorStart3$inboundSchema: z.ZodType<
+  ShardIteratorStart3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ShardIteratorStart3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ShardIteratorStart3$outboundSchema: z.ZodType<
+  ShardIteratorStart3,
+  z.ZodTypeDef,
+  ShardIteratorStart3
+> = z.union([
+  z.nativeEnum(ShardIteratorStart3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const RecordDataFormat3$inboundSchema: z.ZodType<
+  RecordDataFormat3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(RecordDataFormat3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const RecordDataFormat3$outboundSchema: z.ZodType<
+  RecordDataFormat3,
+  z.ZodTypeDef,
+  RecordDataFormat3
+> = z.union([
+  z.nativeEnum(RecordDataFormat3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ShardLoadBalancing3$inboundSchema: z.ZodType<
+  ShardLoadBalancing3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ShardLoadBalancing3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ShardLoadBalancing3$outboundSchema: z.ZodType<
+  ShardLoadBalancing3,
+  z.ZodTypeDef,
+  ShardLoadBalancing3
+> = z.union([
+  z.nativeEnum(ShardLoadBalancing3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputKinesisKinesis3$inboundSchema: z.ZodType<
+  InputKinesisKinesis3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: TypeKinesisOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  streamName: z.string(),
+  serviceInterval: z.number().default(1),
+  shardExpr: z.string().default("true"),
+  shardIteratorType: ShardIteratorStart3$inboundSchema.default("TRIM_HORIZON"),
+  payloadFormat: RecordDataFormat3$inboundSchema.default("cribl"),
+  getRecordsLimit: z.number().default(5000),
+  getRecordsLimitTotal: z.number().default(20000),
+  loadBalancingAlgorithm: ShardLoadBalancing3$inboundSchema.default(
+    "ConsistentHashing",
+  ),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  verifyKPLCheckSums: z.boolean().default(false),
+  avoidDuplicates: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+});
+/** @internal */
+export type InputKinesisKinesis3$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  streamName: string;
+  serviceInterval: number;
+  shardExpr: string;
+  shardIteratorType: string;
+  payloadFormat: string;
+  getRecordsLimit: number;
+  getRecordsLimitTotal: number;
+  loadBalancingAlgorithm: string;
+  awsAuthenticationMethod: string;
+  awsSecretKey?: string | undefined;
+  region: string;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  verifyKPLCheckSums: boolean;
+  avoidDuplicates: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputKinesisKinesis3$outboundSchema: z.ZodType<
+  InputKinesisKinesis3$Outbound,
+  z.ZodTypeDef,
+  InputKinesisKinesis3
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: TypeKinesisOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  streamName: z.string(),
+  serviceInterval: z.number().default(1),
+  shardExpr: z.string().default("true"),
+  shardIteratorType: ShardIteratorStart3$outboundSchema.default("TRIM_HORIZON"),
+  payloadFormat: RecordDataFormat3$outboundSchema.default("cribl"),
+  getRecordsLimit: z.number().default(5000),
+  getRecordsLimitTotal: z.number().default(20000),
+  loadBalancingAlgorithm: ShardLoadBalancing3$outboundSchema.default(
+    "ConsistentHashing",
+  ),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  verifyKPLCheckSums: z.boolean().default(false),
+  avoidDuplicates: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+});
+
+export function inputKinesisKinesis3ToJSON(
+  inputKinesisKinesis3: InputKinesisKinesis3,
+): string {
+  return JSON.stringify(
+    InputKinesisKinesis3$outboundSchema.parse(inputKinesisKinesis3),
+  );
+}
+export function inputKinesisKinesis3FromJSON(
+  jsonString: string,
+): SafeParseResult<InputKinesisKinesis3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputKinesisKinesis3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKinesisKinesis3' from JSON`,
+  );
+}
+
+/** @internal */
+export const ShardIteratorStart2$inboundSchema: z.ZodType<
+  ShardIteratorStart2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ShardIteratorStart2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ShardIteratorStart2$outboundSchema: z.ZodType<
+  ShardIteratorStart2,
+  z.ZodTypeDef,
+  ShardIteratorStart2
+> = z.union([
+  z.nativeEnum(ShardIteratorStart2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const RecordDataFormat2$inboundSchema: z.ZodType<
+  RecordDataFormat2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(RecordDataFormat2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const RecordDataFormat2$outboundSchema: z.ZodType<
+  RecordDataFormat2,
+  z.ZodTypeDef,
+  RecordDataFormat2
+> = z.union([
+  z.nativeEnum(RecordDataFormat2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ShardLoadBalancing2$inboundSchema: z.ZodType<
+  ShardLoadBalancing2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ShardLoadBalancing2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ShardLoadBalancing2$outboundSchema: z.ZodType<
+  ShardLoadBalancing2,
+  z.ZodTypeDef,
+  ShardLoadBalancing2
+> = z.union([
+  z.nativeEnum(ShardLoadBalancing2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputKinesisKinesis2$inboundSchema: z.ZodType<
+  InputKinesisKinesis2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeKinesisOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema),
+  pq: PqType$inboundSchema.optional(),
+  streamName: z.string(),
+  serviceInterval: z.number().default(1),
+  shardExpr: z.string().default("true"),
+  shardIteratorType: ShardIteratorStart2$inboundSchema.default("TRIM_HORIZON"),
+  payloadFormat: RecordDataFormat2$inboundSchema.default("cribl"),
+  getRecordsLimit: z.number().default(5000),
+  getRecordsLimitTotal: z.number().default(20000),
+  loadBalancingAlgorithm: ShardLoadBalancing2$inboundSchema.default(
+    "ConsistentHashing",
+  ),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  verifyKPLCheckSums: z.boolean().default(false),
+  avoidDuplicates: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+});
+/** @internal */
+export type InputKinesisKinesis2$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections: Array<ConnectionsType$Outbound>;
+  pq?: PqType$Outbound | undefined;
+  streamName: string;
+  serviceInterval: number;
+  shardExpr: string;
+  shardIteratorType: string;
+  payloadFormat: string;
+  getRecordsLimit: number;
+  getRecordsLimitTotal: number;
+  loadBalancingAlgorithm: string;
+  awsAuthenticationMethod: string;
+  awsSecretKey?: string | undefined;
+  region: string;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  verifyKPLCheckSums: boolean;
+  avoidDuplicates: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputKinesisKinesis2$outboundSchema: z.ZodType<
+  InputKinesisKinesis2$Outbound,
+  z.ZodTypeDef,
+  InputKinesisKinesis2
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeKinesisOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema),
+  pq: PqType$outboundSchema.optional(),
+  streamName: z.string(),
+  serviceInterval: z.number().default(1),
+  shardExpr: z.string().default("true"),
+  shardIteratorType: ShardIteratorStart2$outboundSchema.default("TRIM_HORIZON"),
+  payloadFormat: RecordDataFormat2$outboundSchema.default("cribl"),
+  getRecordsLimit: z.number().default(5000),
+  getRecordsLimitTotal: z.number().default(20000),
+  loadBalancingAlgorithm: ShardLoadBalancing2$outboundSchema.default(
+    "ConsistentHashing",
+  ),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  verifyKPLCheckSums: z.boolean().default(false),
+  avoidDuplicates: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+});
+
+export function inputKinesisKinesis2ToJSON(
+  inputKinesisKinesis2: InputKinesisKinesis2,
+): string {
+  return JSON.stringify(
+    InputKinesisKinesis2$outboundSchema.parse(inputKinesisKinesis2),
+  );
+}
+export function inputKinesisKinesis2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputKinesisKinesis2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputKinesisKinesis2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKinesisKinesis2' from JSON`,
+  );
+}
+
+/** @internal */
+export const ShardIteratorStart1$inboundSchema: z.ZodType<
+  ShardIteratorStart1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ShardIteratorStart1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ShardIteratorStart1$outboundSchema: z.ZodType<
+  ShardIteratorStart1,
+  z.ZodTypeDef,
+  ShardIteratorStart1
+> = z.union([
+  z.nativeEnum(ShardIteratorStart1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const RecordDataFormat1$inboundSchema: z.ZodType<
+  RecordDataFormat1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(RecordDataFormat1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const RecordDataFormat1$outboundSchema: z.ZodType<
+  RecordDataFormat1,
+  z.ZodTypeDef,
+  RecordDataFormat1
+> = z.union([
+  z.nativeEnum(RecordDataFormat1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ShardLoadBalancing1$inboundSchema: z.ZodType<
+  ShardLoadBalancing1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ShardLoadBalancing1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ShardLoadBalancing1$outboundSchema: z.ZodType<
+  ShardLoadBalancing1,
+  z.ZodTypeDef,
+  ShardLoadBalancing1
+> = z.union([
+  z.nativeEnum(ShardLoadBalancing1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputKinesisKinesis1$inboundSchema: z.ZodType<
+  InputKinesisKinesis1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeKinesisOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  streamName: z.string(),
+  serviceInterval: z.number().default(1),
+  shardExpr: z.string().default("true"),
+  shardIteratorType: ShardIteratorStart1$inboundSchema.default("TRIM_HORIZON"),
+  payloadFormat: RecordDataFormat1$inboundSchema.default("cribl"),
+  getRecordsLimit: z.number().default(5000),
+  getRecordsLimitTotal: z.number().default(20000),
+  loadBalancingAlgorithm: ShardLoadBalancing1$inboundSchema.default(
+    "ConsistentHashing",
+  ),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  verifyKPLCheckSums: z.boolean().default(false),
+  avoidDuplicates: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+});
+/** @internal */
+export type InputKinesisKinesis1$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  streamName: string;
+  serviceInterval: number;
+  shardExpr: string;
+  shardIteratorType: string;
+  payloadFormat: string;
+  getRecordsLimit: number;
+  getRecordsLimitTotal: number;
+  loadBalancingAlgorithm: string;
+  awsAuthenticationMethod: string;
+  awsSecretKey?: string | undefined;
+  region: string;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  verifyKPLCheckSums: boolean;
+  avoidDuplicates: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputKinesisKinesis1$outboundSchema: z.ZodType<
+  InputKinesisKinesis1$Outbound,
+  z.ZodTypeDef,
+  InputKinesisKinesis1
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeKinesisOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  streamName: z.string(),
+  serviceInterval: z.number().default(1),
+  shardExpr: z.string().default("true"),
+  shardIteratorType: ShardIteratorStart1$outboundSchema.default("TRIM_HORIZON"),
+  payloadFormat: RecordDataFormat1$outboundSchema.default("cribl"),
+  getRecordsLimit: z.number().default(5000),
+  getRecordsLimitTotal: z.number().default(20000),
+  loadBalancingAlgorithm: ShardLoadBalancing1$outboundSchema.default(
+    "ConsistentHashing",
+  ),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  verifyKPLCheckSums: z.boolean().default(false),
+  avoidDuplicates: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+});
+
+export function inputKinesisKinesis1ToJSON(
+  inputKinesisKinesis1: InputKinesisKinesis1,
+): string {
+  return JSON.stringify(
+    InputKinesisKinesis1$outboundSchema.parse(inputKinesisKinesis1),
+  );
+}
+export function inputKinesisKinesis1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputKinesisKinesis1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputKinesisKinesis1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKinesisKinesis1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputKinesis$inboundSchema: z.ZodType<
+  InputKinesis,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputKinesisKinesis2$inboundSchema),
+  z.lazy(() => InputKinesisKinesis4$inboundSchema),
+  z.lazy(() => InputKinesisKinesis6$inboundSchema),
+  z.lazy(() => InputKinesisKinesis7$inboundSchema),
+  z.lazy(() => InputKinesisKinesis1$inboundSchema),
+  z.lazy(() => InputKinesisKinesis3$inboundSchema),
+  z.lazy(() => InputKinesisKinesis5$inboundSchema),
+]);
+/** @internal */
+export type InputKinesis$Outbound =
+  | InputKinesisKinesis2$Outbound
+  | InputKinesisKinesis4$Outbound
+  | InputKinesisKinesis6$Outbound
+  | InputKinesisKinesis7$Outbound
+  | InputKinesisKinesis1$Outbound
+  | InputKinesisKinesis3$Outbound
+  | InputKinesisKinesis5$Outbound;
+
+/** @internal */
+export const InputKinesis$outboundSchema: z.ZodType<
+  InputKinesis$Outbound,
+  z.ZodTypeDef,
+  InputKinesis
+> = z.union([
+  z.lazy(() => InputKinesisKinesis2$outboundSchema),
+  z.lazy(() => InputKinesisKinesis4$outboundSchema),
+  z.lazy(() => InputKinesisKinesis6$outboundSchema),
+  z.lazy(() => InputKinesisKinesis7$outboundSchema),
+  z.lazy(() => InputKinesisKinesis1$outboundSchema),
+  z.lazy(() => InputKinesisKinesis3$outboundSchema),
+  z.lazy(() => InputKinesisKinesis5$outboundSchema),
+]);
 
 export function inputKinesisToJSON(inputKinesis: InputKinesis): string {
   return JSON.stringify(InputKinesis$outboundSchema.parse(inputKinesis));
 }
-
 export function inputKinesisFromJSON(
   jsonString: string,
 ): SafeParseResult<InputKinesis, SDKValidationError> {

@@ -101,7 +101,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateInputHecTokenByIdResponse](../../models/operations/createinputhectokenbyidresponse.md)\>**
+**Promise\<[models.CountedInputSplunkHec](../../models/countedinputsplunkhec.md)\>**
 
 ### Errors
 
@@ -203,7 +203,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.UpdateInputHecTokenByIdAndTokenResponse](../../models/operations/updateinputhectokenbyidandtokenresponse.md)\>**
+**Promise\<[models.CountedInputSplunkHec](../../models/countedinputsplunkhec.md)\>**
 
 ### Errors
 

@@ -1,11 +1,12 @@
 # OutputPrometheus
 
-## Example Usage
+
+## Supported Types
+
+### `models.OutputPrometheusPrometheus1`
 
 ```typescript
-import { OutputPrometheus } from "cribl-control-plane/models";
-
-let value: OutputPrometheus = {
+const value: models.OutputPrometheusPrometheus1 = {
   id: "<id>",
   type: "prometheus",
   pipeline: "<value>",
@@ -15,10 +16,8 @@ let value: OutputPrometheus = {
   environment: "<value>",
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
-  url: "https://appropriate-atrium.name/",
+  url: "https://glaring-dusk.org/",
   extraHttpHeaders: [
     {
       name: "<value>",
@@ -28,22 +27,23 @@ let value: OutputPrometheus = {
   safeHeaders: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   responseRetrySettings: [
     {
-      httpStatus: 6711.09,
+      httpStatus: 5033.96,
     },
   ],
   timeoutRetrySettings: {},
   description:
-    "spear jealously along oof ah by secondary amongst symbolise upbeat",
+    "switchboard where unique bah stylish miserly unzip modulo remorseful attest",
   pqControls: {},
-  username: "Irwin_Yundt3",
-  password: "mjqyShc60BORjFC",
+  username: "Shawna.Willms59",
+  password: "U6i8GSLeqTav7JN",
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://direct-smoke.info/",
+  loginUrl: "https://sore-sprinkles.info/",
   secretParamName: "<value>",
   secret: "<value>",
   tokenAttributeName: "<value>",
@@ -62,53 +62,528 @@ let value: OutputPrometheus = {
 };
 ```
 
-## Fields
+### `models.OutputPrometheusPrometheus2`
 
-| Field                                                                                                                                                                                                                                                                                                                                            | Type                                                                                                                                                                                                                                                                                                                                             | Required                                                                                                                                                                                                                                                                                                                                         | Description                                                                                                                                                                                                                                                                                                                                      |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `id`                                                                                                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Unique ID for this output                                                                                                                                                                                                                                                                                                                        |
-| `type`                                                                                                                                                                                                                                                                                                                                           | [models.OutputPrometheusType](../models/outputprometheustype.md)                                                                                                                                                                                                                                                                                 | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
-| `pipeline`                                                                                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Pipeline to process data before sending out to this output                                                                                                                                                                                                                                                                                       |
-| `systemFields`                                                                                                                                                                                                                                                                                                                                   | *string*[]                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions to generated metrics.                                                                                                                                                                                                        |
-| `environment`                                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                                                                                                                             |
-| `streamtags`                                                                                                                                                                                                                                                                                                                                     | *string*[]                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Tags for filtering and grouping in @{product}                                                                                                                                                                                                                                                                                                    |
-| `url`                                                                                                                                                                                                                                                                                                                                            | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                               | The endpoint to send metrics to                                                                                                                                                                                                                                                                                                                  |
-| `metricRenameExpr`                                                                                                                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | JavaScript expression that can be used to rename metrics. For example, name.replace(/\./g, '_') will replace all '.' characters in a metric's name with the supported '_' character. Use the 'name' global variable to access the metric's name. You can access event fields' values via __e.<fieldName>.                                        |
-| `sendMetadata`                                                                                                                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Generate and send metadata (`type` and `metricFamilyName`) requests                                                                                                                                                                                                                                                                              |
-| `concurrency`                                                                                                                                                                                                                                                                                                                                    | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Maximum number of ongoing requests before blocking                                                                                                                                                                                                                                                                                               |
-| `maxPayloadSizeKB`                                                                                                                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Maximum size, in KB, of the request body                                                                                                                                                                                                                                                                                                         |
-| `maxPayloadEvents`                                                                                                                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Maximum number of events to include in the request body. Default is 0 (unlimited).                                                                                                                                                                                                                                                               |
-| `rejectUnauthorized`                                                                                                                                                                                                                                                                                                                             | *boolean*                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).<br/>        Enabled by default. When this setting is also present in TLS Settings (Client Side),<br/>        that value will take precedence.                                                                             |
-| `timeoutSec`                                                                                                                                                                                                                                                                                                                                     | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Amount of time, in seconds, to wait for a request to complete before canceling it                                                                                                                                                                                                                                                                |
-| `flushPeriodSec`                                                                                                                                                                                                                                                                                                                                 | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.                                                                                                                                                                                                                      |
-| `extraHttpHeaders`                                                                                                                                                                                                                                                                                                                               | [models.OutputPrometheusExtraHttpHeader](../models/outputprometheusextrahttpheader.md)[]                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Headers to add to all events                                                                                                                                                                                                                                                                                                                     |
-| `useRoundRobinDns`                                                                                                                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.                                                                                                               |
-| `failedRequestLoggingMode`                                                                                                                                                                                                                                                                                                                       | [models.OutputPrometheusFailedRequestLoggingMode](../models/outputprometheusfailedrequestloggingmode.md)                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.                                                                                                                                                                                                                                      |
-| `safeHeaders`                                                                                                                                                                                                                                                                                                                                    | *string*[]                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | List of headers that are safe to log in plain text                                                                                                                                                                                                                                                                                               |
-| `responseRetrySettings`                                                                                                                                                                                                                                                                                                                          | [models.OutputPrometheusResponseRetrySetting](../models/outputprometheusresponseretrysetting.md)[]                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)                                                                                                                                                                                                                       |
-| `timeoutRetrySettings`                                                                                                                                                                                                                                                                                                                           | [models.OutputPrometheusTimeoutRetrySettings](../models/outputprometheustimeoutretrysettings.md)                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
-| `responseHonorRetryAfterHeader`                                                                                                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored. |
-| `onBackpressure`                                                                                                                                                                                                                                                                                                                                 | [models.OutputPrometheusBackpressureBehavior](../models/outputprometheusbackpressurebehavior.md)                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | How to handle events when all receivers are exerting backpressure                                                                                                                                                                                                                                                                                |
-| `authType`                                                                                                                                                                                                                                                                                                                                       | [models.OutputPrometheusAuthenticationType](../models/outputprometheusauthenticationtype.md)                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Remote Write authentication type                                                                                                                                                                                                                                                                                                                 |
-| `description`                                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
-| `metricsFlushPeriodSec`                                                                                                                                                                                                                                                                                                                          | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | How frequently metrics metadata is sent out. Value cannot be smaller than the base Flush period set above.                                                                                                                                                                                                                                       |
-| `pqMaxFileSize`                                                                                                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)                                                                                                                                                                                                                                            |
-| `pqMaxSize`                                                                                                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.                                                                                                                                                                                           |
-| `pqPath`                                                                                                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.                                                                                                                                                                                                                            |
-| `pqCompress`                                                                                                                                                                                                                                                                                                                                     | [models.OutputPrometheusCompression](../models/outputprometheuscompression.md)                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Codec to use to compress the persisted data                                                                                                                                                                                                                                                                                                      |
-| `pqOnBackpressure`                                                                                                                                                                                                                                                                                                                               | [models.OutputPrometheusQueueFullBehavior](../models/outputprometheusqueuefullbehavior.md)                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.                                                                                                            |
-| `pqMode`                                                                                                                                                                                                                                                                                                                                         | [models.OutputPrometheusMode](../models/outputprometheusmode.md)                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.                                                                                   |
-| `pqControls`                                                                                                                                                                                                                                                                                                                                     | [models.OutputPrometheusPqControls](../models/outputprometheuspqcontrols.md)                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
-| `username`                                                                                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
-| `password`                                                                                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
-| `token`                                                                                                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Bearer token to include in the authorization header                                                                                                                                                                                                                                                                                              |
-| `credentialsSecret`                                                                                                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Select or create a secret that references your credentials                                                                                                                                                                                                                                                                                       |
-| `textSecret`                                                                                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Select or create a stored text secret                                                                                                                                                                                                                                                                                                            |
-| `loginUrl`                                                                                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | URL for OAuth                                                                                                                                                                                                                                                                                                                                    |
-| `secretParamName`                                                                                                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Secret parameter name to pass in request body                                                                                                                                                                                                                                                                                                    |
-| `secret`                                                                                                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Secret parameter value to pass in request body                                                                                                                                                                                                                                                                                                   |
-| `tokenAttributeName`                                                                                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').                                                                                                                                                                                                        |
-| `authHeaderExpr`                                                                                                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.                                                                                                                                                  |
-| `tokenTimeoutSecs`                                                                                                                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | How often the OAuth token should be refreshed.                                                                                                                                                                                                                                                                                                   |
-| `oauthParams`                                                                                                                                                                                                                                                                                                                                    | [models.OutputPrometheusOauthParam](../models/outputprometheusoauthparam.md)[]                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.          |
-| `oauthHeaders`                                                                                                                                                                                                                                                                                                                                   | [models.OutputPrometheusOauthHeader](../models/outputprometheusoauthheader.md)[]                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.                                                                                                                                                                  |
+```typescript
+const value: models.OutputPrometheusPrometheus2 = {
+  id: "<id>",
+  type: "prometheus",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  url: "https://simple-collaboration.org",
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description:
+    "daddy more edge for cinema quicker gradient frizz impure object",
+  pqControls: {},
+  username: "Bethel.Daugherty",
+  password: "2d5927rnIE3DHoR",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://stable-essence.com/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+};
+```
+
+### `models.OutputPrometheusPrometheus3`
+
+```typescript
+const value: models.OutputPrometheusPrometheus3 = {
+  id: "<id>",
+  type: "prometheus",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  url: "https://extra-large-promise.info/",
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description:
+    "inasmuch the selfishly randomize anti hmph deliberately miserably",
+  pqControls: {},
+  username: "Elwyn_Becker5",
+  password: "k5nCWFdrGb3eMMh",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://brisk-stump.name/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+};
+```
+
+### `models.OutputPrometheusPrometheus4`
+
+```typescript
+const value: models.OutputPrometheusPrometheus4 = {
+  id: "<id>",
+  type: "prometheus",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  url: "https://wise-marathon.net/",
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "till too er beside than",
+  pqControls: {},
+  username: "Brady93",
+  password: "3Y0iTSNw8mLUSd0",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://aching-countess.name",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+};
+```
+
+### `models.OutputPrometheusPrometheus5`
+
+```typescript
+const value: models.OutputPrometheusPrometheus5 = {
+  id: "<id>",
+  type: "prometheus",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  url: "https://burdensome-horst.net",
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "yearly satirize what bravely pish under father",
+  pqControls: {},
+  username: "Wilfred.McKenzie",
+  password: "XgZ7TcTr3mKUKQO",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://realistic-draw.net/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+};
+```
+
+### `models.OutputPrometheusPrometheus6`
+
+```typescript
+const value: models.OutputPrometheusPrometheus6 = {
+  id: "<id>",
+  type: "prometheus",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  url: "https://gloomy-footrest.info/",
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "but even ouch gigantic besides",
+  pqControls: {},
+  username: "Dolly16",
+  password: "F_SNkVAc7iiJtmM",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://boring-pecan.info",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+};
+```
+
+### `models.OutputPrometheusPrometheus7`
+
+```typescript
+const value: models.OutputPrometheusPrometheus7 = {
+  id: "<id>",
+  type: "prometheus",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  url: "https://pretty-millet.net/",
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "eyeliner degenerate although postbox than gah",
+  pqControls: {},
+  username: "Montana92",
+  password: "vyDV03A18KBvYPF",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://made-up-topsail.com/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+};
+```
+
+### `models.OutputPrometheusPrometheus8`
+
+```typescript
+const value: models.OutputPrometheusPrometheus8 = {
+  id: "<id>",
+  type: "prometheus",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  url: "https://drab-beret.biz",
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "ew breastplate hm house skyscraper ick regarding hoick ick",
+  pqControls: {},
+  username: "Stephan.Dietrich59",
+  password: "S4LhKnSlVTERDd6",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://clueless-monster.net",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+};
+```
+
+### `models.OutputPrometheusPrometheus9`
+
+```typescript
+const value: models.OutputPrometheusPrometheus9 = {
+  id: "<id>",
+  type: "prometheus",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  url: "https://guilty-pharmacopoeia.name/",
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description: "pro incline afore",
+  pqControls: {},
+  username: "Greg.Lemke",
+  password: "02cF1pCS2RYd7ju",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://tepid-deed.net/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+};
+```
+
+### `models.OutputPrometheusPrometheus10`
+
+```typescript
+const value: models.OutputPrometheusPrometheus10 = {
+  id: "<id>",
+  type: "prometheus",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  url: "https://rusty-morning.info",
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  description:
+    "under exploration since decisive boastfully quinoa feline gee who",
+  pqControls: {},
+  username: "Logan_Mohr56",
+  password: "v3GWRzezO16FSj9",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://unlawful-cinder.org/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [],
+};
+```
+

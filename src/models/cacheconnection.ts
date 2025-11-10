@@ -41,7 +41,6 @@ export const CacheConnection$inboundSchema: z.ZodType<
   migrationQueryId: z.string().optional(),
   retentionInDays: z.number(),
 });
-
 /** @internal */
 export type CacheConnection$Outbound = {
   acceleratedFields?: Array<string> | undefined;
@@ -68,25 +67,11 @@ export const CacheConnection$outboundSchema: z.ZodType<
   retentionInDays: z.number(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CacheConnection$ {
-  /** @deprecated use `CacheConnection$inboundSchema` instead. */
-  export const inboundSchema = CacheConnection$inboundSchema;
-  /** @deprecated use `CacheConnection$outboundSchema` instead. */
-  export const outboundSchema = CacheConnection$outboundSchema;
-  /** @deprecated use `CacheConnection$Outbound` instead. */
-  export type Outbound = CacheConnection$Outbound;
-}
-
 export function cacheConnectionToJSON(
   cacheConnection: CacheConnection,
 ): string {
   return JSON.stringify(CacheConnection$outboundSchema.parse(cacheConnection));
 }
-
 export function cacheConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<CacheConnection, SDKValidationError> {

@@ -11,25 +11,95 @@ import {
   Unrecognized,
 } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  CompressionLevelOptions,
+  CompressionLevelOptions$inboundSchema,
+  CompressionLevelOptions$outboundSchema,
+} from "./compressionleveloptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  Format1Options,
+  Format1Options$inboundSchema,
+  Format1Options$outboundSchema,
+} from "./format1options.js";
+import {
+  MetadataType,
+  MetadataType$inboundSchema,
+  MetadataType$Outbound,
+  MetadataType$outboundSchema,
+} from "./metadatatype.js";
+import {
+  OnBackpressureOptions,
+  OnBackpressureOptions$inboundSchema,
+  OnBackpressureOptions$outboundSchema,
+} from "./onbackpressureoptions.js";
+import {
+  ParquetDataPageVersionOptions,
+  ParquetDataPageVersionOptions$inboundSchema,
+  ParquetDataPageVersionOptions$outboundSchema,
+} from "./parquetdatapageversionoptions.js";
+import {
+  ParquetVersionOptions,
+  ParquetVersionOptions$inboundSchema,
+  ParquetVersionOptions$outboundSchema,
+} from "./parquetversionoptions.js";
+import {
+  PqCompressOptions,
+  PqCompressOptions$inboundSchema,
+  PqCompressOptions$outboundSchema,
+} from "./pqcompressoptions.js";
+import {
+  PqModeOptions,
+  PqModeOptions$inboundSchema,
+  PqModeOptions$outboundSchema,
+} from "./pqmodeoptions.js";
+import {
+  PqOnBackpressureOptions,
+  PqOnBackpressureOptions$inboundSchema,
+  PqOnBackpressureOptions$outboundSchema,
+} from "./pqonbackpressureoptions.js";
+import {
+  ResponseRetrySettingsType,
+  ResponseRetrySettingsType$inboundSchema,
+  ResponseRetrySettingsType$Outbound,
+  ResponseRetrySettingsType$outboundSchema,
+} from "./responseretrysettingstype.js";
+import {
+  TagsType,
+  TagsType$inboundSchema,
+  TagsType$Outbound,
+  TagsType$outboundSchema,
+} from "./tagstype.js";
+import {
+  TimeoutRetrySettingsType,
+  TimeoutRetrySettingsType$inboundSchema,
+  TimeoutRetrySettingsType$Outbound,
+  TimeoutRetrySettingsType$outboundSchema,
+} from "./timeoutretrysettingstype.js";
 
-export const OutputAzureDataExplorerType = {
+export const OutputAzureDataExplorerType9 = {
   AzureDataExplorer: "azure_data_explorer",
 } as const;
-export type OutputAzureDataExplorerType = ClosedEnum<
-  typeof OutputAzureDataExplorerType
+export type OutputAzureDataExplorerType9 = ClosedEnum<
+  typeof OutputAzureDataExplorerType9
 >;
 
-export const IngestionMode = {
+export const IngestionMode9 = {
+  /**
+   * Batching
+   */
   Batching: "batching",
+  /**
+   * Streaming
+   */
   Streaming: "streaming",
 } as const;
-export type IngestionMode = OpenEnum<typeof IngestionMode>;
+export type IngestionMode9 = OpenEnum<typeof IngestionMode9>;
 
 /**
  * Endpoint used to acquire authentication tokens from Azure
  */
-export const MicrosoftEntraIDAuthenticationEndpoint = {
+export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint9 = {
   HttpsLoginMicrosoftonlineCom: "https://login.microsoftonline.com",
   HttpsLoginMicrosoftonlineUs: "https://login.microsoftonline.us",
   HttpsLoginPartnerMicrosoftonlineCn:
@@ -38,222 +108,117 @@ export const MicrosoftEntraIDAuthenticationEndpoint = {
 /**
  * Endpoint used to acquire authentication tokens from Azure
  */
-export type MicrosoftEntraIDAuthenticationEndpoint = OpenEnum<
-  typeof MicrosoftEntraIDAuthenticationEndpoint
->;
+export type OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint9 =
+  OpenEnum<
+    typeof OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint9
+  >;
 
 /**
  * The type of OAuth 2.0 client credentials grant flow to use
  */
-export const OutputAzureDataExplorerAuthenticationMethod = {
+export const OutputAzureDataExplorerAuthenticationMethod9 = {
+  /**
+   * Client secret
+   */
   ClientSecret: "clientSecret",
+  /**
+   * Client secret (text secret)
+   */
   ClientTextSecret: "clientTextSecret",
+  /**
+   * Certificate
+   */
   Certificate: "certificate",
 } as const;
 /**
  * The type of OAuth 2.0 client credentials grant flow to use
  */
-export type OutputAzureDataExplorerAuthenticationMethod = OpenEnum<
-  typeof OutputAzureDataExplorerAuthenticationMethod
+export type OutputAzureDataExplorerAuthenticationMethod9 = OpenEnum<
+  typeof OutputAzureDataExplorerAuthenticationMethod9
 >;
 
-export type OutputAzureDataExplorerCertificate = {
+export type Certificate9 = {
   /**
    * The certificate you registered as credentials for your app in the Azure portal
    */
   certificateName?: string | undefined;
 };
 
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputAzureDataExplorerBackpressureBehavior = {
-  Block: "block",
-  Drop: "drop",
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputAzureDataExplorerBackpressureBehavior = OpenEnum<
-  typeof OutputAzureDataExplorerBackpressureBehavior
->;
-
-/**
- * Format of the output data
- */
-export const OutputAzureDataExplorerDataFormat = {
-  Json: "json",
-  Raw: "raw",
-  Parquet: "parquet",
-} as const;
-/**
- * Format of the output data
- */
-export type OutputAzureDataExplorerDataFormat = OpenEnum<
-  typeof OutputAzureDataExplorerDataFormat
->;
-
-/**
- * How to handle events when disk space is below the global 'Min free disk space' limit
- */
-export const OutputAzureDataExplorerDiskSpaceProtection = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when disk space is below the global 'Min free disk space' limit
- */
-export type OutputAzureDataExplorerDiskSpaceProtection = OpenEnum<
-  typeof OutputAzureDataExplorerDiskSpaceProtection
->;
-
-export const PrefixOptional = {
+export const PrefixOptional9 = {
+  /**
+   * drop-by
+   */
   DropBy: "dropBy",
+  /**
+   * ingest-by
+   */
   IngestBy: "ingestBy",
 } as const;
-export type PrefixOptional = OpenEnum<typeof PrefixOptional>;
+export type PrefixOptional9 = OpenEnum<typeof PrefixOptional9>;
 
-export type ExtentTag = {
-  prefix?: PrefixOptional | undefined;
+export type ExtentTag9 = {
+  prefix?: PrefixOptional9 | undefined;
   value: string;
 };
 
-export type IngestIfNotExist = {
+export type IngestIfNotExist9 = {
   value: string;
 };
 
 /**
  * Level of ingestion status reporting. Defaults to FailuresOnly.
  */
-export const ReportLevel = {
+export const ReportLevel9 = {
+  /**
+   * FailuresOnly
+   */
   FailuresOnly: "failuresOnly",
+  /**
+   * DoNotReport
+   */
   DoNotReport: "doNotReport",
+  /**
+   * FailuresAndSuccesses
+   */
   FailuresAndSuccesses: "failuresAndSuccesses",
 } as const;
 /**
  * Level of ingestion status reporting. Defaults to FailuresOnly.
  */
-export type ReportLevel = OpenEnum<typeof ReportLevel>;
+export type ReportLevel9 = OpenEnum<typeof ReportLevel9>;
 
 /**
  * Target of the ingestion status reporting. Defaults to Queue.
  */
-export const ReportMethod = {
+export const ReportMethod9 = {
+  /**
+   * Queue
+   */
   Queue: "queue",
+  /**
+   * Table
+   */
   Table: "table",
+  /**
+   * QueueAndTable
+   */
   QueueAndTable: "queueAndTable",
 } as const;
 /**
  * Target of the ingestion status reporting. Defaults to Queue.
  */
-export type ReportMethod = OpenEnum<typeof ReportMethod>;
+export type ReportMethod9 = OpenEnum<typeof ReportMethod9>;
 
-export type AdditionalProperty = {
-  key: string;
-  value: string;
-};
-
-export type OutputAzureDataExplorerResponseRetrySetting = {
+export type OutputAzureDataExplorerAzureDataExplorer9 = {
   /**
-   * The HTTP response status code that will trigger retries
+   * Remove empty staging directories after moving files
    */
-  httpStatus: number;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-export type OutputAzureDataExplorerTimeoutRetrySettings = {
-  timeoutRetry?: boolean | undefined;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-/**
- * Data compression format to apply to HTTP content before it is delivered
- */
-export const OutputAzureDataExplorerCompressCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Data compression format to apply to HTTP content before it is delivered
- */
-export type OutputAzureDataExplorerCompressCompression = OpenEnum<
-  typeof OutputAzureDataExplorerCompressCompression
->;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputAzureDataExplorerPqCompressCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputAzureDataExplorerPqCompressCompression = OpenEnum<
-  typeof OutputAzureDataExplorerPqCompressCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputAzureDataExplorerQueueFullBehavior = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputAzureDataExplorerQueueFullBehavior = OpenEnum<
-  typeof OutputAzureDataExplorerQueueFullBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputAzureDataExplorerMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputAzureDataExplorerMode = OpenEnum<
-  typeof OutputAzureDataExplorerMode
->;
-
-export type OutputAzureDataExplorerPqControls = {};
-
-export type OutputAzureDataExplorer = {
+  removeEmptyDirs?: boolean | undefined;
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputAzureDataExplorerType;
+  type: OutputAzureDataExplorerType9;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -286,11 +251,13 @@ export type OutputAzureDataExplorer = {
    * When saving or starting the Destination, validate the database name and credentials; also validate table name, except when creating a new table. Disable if your Azure app does not have both the Database Viewer and the Table Viewer role.
    */
   validateDatabaseSettings?: boolean | undefined;
-  ingestMode?: IngestionMode | undefined;
+  ingestMode?: IngestionMode9 | undefined;
   /**
    * Endpoint used to acquire authentication tokens from Azure
    */
-  oauthEndpoint?: MicrosoftEntraIDAuthenticationEndpoint | undefined;
+  oauthEndpoint?:
+    | OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint9
+    | undefined;
   /**
    * Directory ID (tenant identifier) in Azure Active Directory
    */
@@ -306,7 +273,7 @@ export type OutputAzureDataExplorer = {
   /**
    * The type of OAuth 2.0 client credentials grant flow to use
    */
-  oauthType?: OutputAzureDataExplorerAuthenticationMethod | undefined;
+  oauthType?: OutputAzureDataExplorerAuthenticationMethod9 | undefined;
   description?: string | undefined;
   /**
    * The client secret that you generated for your app in the Azure portal
@@ -316,7 +283,91 @@ export type OutputAzureDataExplorer = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
-  certificate?: OutputAzureDataExplorerCertificate | undefined;
+  certificate?: Certificate9 | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+  /**
+   * Send a JSON mapping object instead of specifying an existing named data mapping
+   */
+  isMappingObj?: boolean | undefined;
+  /**
+   * Enter a JSON object that defines your desired data mapping
+   */
+  mappingObj?: string | undefined;
+  /**
+   * Enter the name of a data mapping associated with your target table. Or, if incoming event and target table fields match exactly, you can leave the field empty.
+   */
+  mappingRef?: string | undefined;
   /**
    * The ingestion service URI for your cluster. Typically, `https://ingest-<cluster>.<region>.kusto.windows.net`.
    */
@@ -324,15 +375,7 @@ export type OutputAzureDataExplorer = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputAzureDataExplorerBackpressureBehavior | undefined;
-  /**
-   * Send a JSON mapping object instead of specifying an existing named data mapping
-   */
-  isMappingObj?: boolean | undefined;
-  /**
-   * Format of the output data
-   */
-  format?: OutputAzureDataExplorerDataFormat | undefined;
+  onBackpressure?: OnBackpressureOptions | undefined;
   /**
    * Filesystem location in which to buffer files before compressing and moving to final destination. Use performant and stable storage.
    */
@@ -362,23 +405,13 @@ export type OutputAzureDataExplorer = {
    */
   maxConcurrentFileParts?: number | undefined;
   /**
-   * How to handle events when disk space is below the global 'Min free disk space' limit
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  onDiskFullBackpressure?:
-    | OutputAzureDataExplorerDiskSpaceProtection
-    | undefined;
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
   /**
    * Add the Output ID value to staging location
    */
   addIdToStagePath?: boolean | undefined;
-  /**
-   * Remove empty staging directories after moving files
-   */
-  removeEmptyDirs?: boolean | undefined;
-  /**
-   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
-   */
-  deadletterEnabled?: boolean | undefined;
   /**
    * Amount of time, in seconds, to wait for a request to complete before canceling it
    */
@@ -394,44 +427,32 @@ export type OutputAzureDataExplorer = {
   /**
    * Strings or tags associated with the extent (ingested data shard)
    */
-  extentTags?: Array<ExtentTag> | undefined;
+  extentTags?: Array<ExtentTag9> | undefined;
   /**
    * Prevents duplicate ingestion by verifying whether an extent with the specified ingest-by tag already exists
    */
-  ingestIfNotExists?: Array<IngestIfNotExist> | undefined;
+  ingestIfNotExists?: Array<IngestIfNotExist9> | undefined;
   /**
    * Level of ingestion status reporting. Defaults to FailuresOnly.
    */
-  reportLevel?: ReportLevel | undefined;
+  reportLevel?: ReportLevel9 | undefined;
   /**
    * Target of the ingestion status reporting. Defaults to Queue.
    */
-  reportMethod?: ReportMethod | undefined;
+  reportMethod?: ReportMethod9 | undefined;
   /**
    * Optionally, enter additional configuration properties to send to the ingestion service
    */
-  additionalProperties?: Array<AdditionalProperty> | undefined;
+  additionalProperties?: Array<TagsType> | undefined;
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?:
-    | Array<OutputAzureDataExplorerResponseRetrySetting>
-    | undefined;
-  timeoutRetrySettings?:
-    | OutputAzureDataExplorerTimeoutRetrySettings
-    | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
-  /**
-   * Data compression format to apply to HTTP content before it is delivered
-   */
-  compress?: OutputAzureDataExplorerCompressCompression | undefined;
-  /**
-   * Enter the name of a data mapping associated with your target table. Or, if incoming event and target table fields match exactly, you can leave the field empty.
-   */
-  mappingRef?: string | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -465,6 +486,26 @@ export type OutputAzureDataExplorer = {
    */
   keepAlive?: boolean | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -479,911 +520,3891 @@ export type OutputAzureDataExplorer = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputAzureDataExplorerPqCompressCompression | undefined;
+  pqCompress?: PqCompressOptions | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputAzureDataExplorerQueueFullBehavior | undefined;
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export const OutputAzureDataExplorerType8 = {
+  AzureDataExplorer: "azure_data_explorer",
+} as const;
+export type OutputAzureDataExplorerType8 = ClosedEnum<
+  typeof OutputAzureDataExplorerType8
+>;
+
+export const IngestionMode8 = {
   /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   * Batching
    */
-  pqMode?: OutputAzureDataExplorerMode | undefined;
-  pqControls?: OutputAzureDataExplorerPqControls | undefined;
+  Batching: "batching",
+  /**
+   * Streaming
+   */
+  Streaming: "streaming",
+} as const;
+export type IngestionMode8 = OpenEnum<typeof IngestionMode8>;
+
+/**
+ * Endpoint used to acquire authentication tokens from Azure
+ */
+export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint8 = {
+  HttpsLoginMicrosoftonlineCom: "https://login.microsoftonline.com",
+  HttpsLoginMicrosoftonlineUs: "https://login.microsoftonline.us",
+  HttpsLoginPartnerMicrosoftonlineCn:
+    "https://login.partner.microsoftonline.cn",
+} as const;
+/**
+ * Endpoint used to acquire authentication tokens from Azure
+ */
+export type OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint8 =
+  OpenEnum<
+    typeof OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint8
+  >;
+
+/**
+ * The type of OAuth 2.0 client credentials grant flow to use
+ */
+export const OutputAzureDataExplorerAuthenticationMethod8 = {
+  /**
+   * Client secret
+   */
+  ClientSecret: "clientSecret",
+  /**
+   * Client secret (text secret)
+   */
+  ClientTextSecret: "clientTextSecret",
+  /**
+   * Certificate
+   */
+  Certificate: "certificate",
+} as const;
+/**
+ * The type of OAuth 2.0 client credentials grant flow to use
+ */
+export type OutputAzureDataExplorerAuthenticationMethod8 = OpenEnum<
+  typeof OutputAzureDataExplorerAuthenticationMethod8
+>;
+
+export type Certificate8 = {
+  /**
+   * The certificate you registered as credentials for your app in the Azure portal
+   */
+  certificateName?: string | undefined;
+};
+
+export const PrefixOptional8 = {
+  /**
+   * drop-by
+   */
+  DropBy: "dropBy",
+  /**
+   * ingest-by
+   */
+  IngestBy: "ingestBy",
+} as const;
+export type PrefixOptional8 = OpenEnum<typeof PrefixOptional8>;
+
+export type ExtentTag8 = {
+  prefix?: PrefixOptional8 | undefined;
+  value: string;
+};
+
+export type IngestIfNotExist8 = {
+  value: string;
+};
+
+/**
+ * Level of ingestion status reporting. Defaults to FailuresOnly.
+ */
+export const ReportLevel8 = {
+  /**
+   * FailuresOnly
+   */
+  FailuresOnly: "failuresOnly",
+  /**
+   * DoNotReport
+   */
+  DoNotReport: "doNotReport",
+  /**
+   * FailuresAndSuccesses
+   */
+  FailuresAndSuccesses: "failuresAndSuccesses",
+} as const;
+/**
+ * Level of ingestion status reporting. Defaults to FailuresOnly.
+ */
+export type ReportLevel8 = OpenEnum<typeof ReportLevel8>;
+
+/**
+ * Target of the ingestion status reporting. Defaults to Queue.
+ */
+export const ReportMethod8 = {
+  /**
+   * Queue
+   */
+  Queue: "queue",
+  /**
+   * Table
+   */
+  Table: "table",
+  /**
+   * QueueAndTable
+   */
+  QueueAndTable: "queueAndTable",
+} as const;
+/**
+ * Target of the ingestion status reporting. Defaults to Queue.
+ */
+export type ReportMethod8 = OpenEnum<typeof ReportMethod8>;
+
+export type OutputAzureDataExplorerAzureDataExplorer8 = {
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputAzureDataExplorerType8;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The base URI for your cluster. Typically, `https://<cluster>.<region>.kusto.windows.net`.
+   */
+  clusterUrl: string;
+  /**
+   * Name of the database containing the table where data will be ingested
+   */
+  database: string;
+  /**
+   * Name of the table to ingest data into
+   */
+  table: string;
+  /**
+   * When saving or starting the Destination, validate the database name and credentials; also validate table name, except when creating a new table. Disable if your Azure app does not have both the Database Viewer and the Table Viewer role.
+   */
+  validateDatabaseSettings?: boolean | undefined;
+  ingestMode?: IngestionMode8 | undefined;
+  /**
+   * Endpoint used to acquire authentication tokens from Azure
+   */
+  oauthEndpoint?:
+    | OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint8
+    | undefined;
+  /**
+   * Directory ID (tenant identifier) in Azure Active Directory
+   */
+  tenantId: string;
+  /**
+   * client_id to pass in the OAuth request parameter
+   */
+  clientId: string;
+  /**
+   * Scope to pass in the OAuth request parameter
+   */
+  scope: string;
+  /**
+   * The type of OAuth 2.0 client credentials grant flow to use
+   */
+  oauthType?: OutputAzureDataExplorerAuthenticationMethod8 | undefined;
+  description?: string | undefined;
+  /**
+   * The client secret that you generated for your app in the Azure portal
+   */
+  clientSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  certificate?: Certificate8 | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
   /**
    * How frequently, in seconds, to clean up empty directories
    */
   emptyDirCleanupSec?: number | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+  /**
+   * Send a JSON mapping object instead of specifying an existing named data mapping
+   */
+  isMappingObj?: boolean | undefined;
+  /**
+   * Enter a JSON object that defines your desired data mapping
+   */
+  mappingObj?: string | undefined;
+  /**
+   * Enter the name of a data mapping associated with your target table. Or, if incoming event and target table fields match exactly, you can leave the field empty.
+   */
+  mappingRef?: string | undefined;
+  /**
+   * The ingestion service URI for your cluster. Typically, `https://ingest-<cluster>.<region>.kusto.windows.net`.
+   */
+  ingestUrl?: string | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Filesystem location in which to buffer files before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Bypass the data management service's aggregation mechanism
+   */
+  flushImmediately?: boolean | undefined;
+  /**
+   * Prevent blob deletion after ingestion is complete
+   */
+  retainBlobOnSuccess?: boolean | undefined;
+  /**
+   * Strings or tags associated with the extent (ingested data shard)
+   */
+  extentTags?: Array<ExtentTag8> | undefined;
+  /**
+   * Prevents duplicate ingestion by verifying whether an extent with the specified ingest-by tag already exists
+   */
+  ingestIfNotExists?: Array<IngestIfNotExist8> | undefined;
+  /**
+   * Level of ingestion status reporting. Defaults to FailuresOnly.
+   */
+  reportLevel?: ReportLevel8 | undefined;
+  /**
+   * Target of the ingestion status reporting. Defaults to Queue.
+   */
+  reportMethod?: ReportMethod8 | undefined;
+  /**
+   * Optionally, enter additional configuration properties to send to the ingestion service
+   */
+  additionalProperties?: Array<TagsType> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Disable to close the connection immediately after sending the outgoing request
+   */
+  keepAlive?: boolean | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
 };
 
-/** @internal */
-export const OutputAzureDataExplorerType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureDataExplorerType
-> = z.nativeEnum(OutputAzureDataExplorerType);
+export const OutputAzureDataExplorerType7 = {
+  AzureDataExplorer: "azure_data_explorer",
+} as const;
+export type OutputAzureDataExplorerType7 = ClosedEnum<
+  typeof OutputAzureDataExplorerType7
+>;
 
-/** @internal */
-export const OutputAzureDataExplorerType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureDataExplorerType
-> = OutputAzureDataExplorerType$inboundSchema;
+export const IngestionMode7 = {
+  /**
+   * Batching
+   */
+  Batching: "batching",
+  /**
+   * Streaming
+   */
+  Streaming: "streaming",
+} as const;
+export type IngestionMode7 = OpenEnum<typeof IngestionMode7>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Endpoint used to acquire authentication tokens from Azure
  */
-export namespace OutputAzureDataExplorerType$ {
-  /** @deprecated use `OutputAzureDataExplorerType$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureDataExplorerType$inboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerType$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureDataExplorerType$outboundSchema;
-}
+export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint7 = {
+  HttpsLoginMicrosoftonlineCom: "https://login.microsoftonline.com",
+  HttpsLoginMicrosoftonlineUs: "https://login.microsoftonline.us",
+  HttpsLoginPartnerMicrosoftonlineCn:
+    "https://login.partner.microsoftonline.cn",
+} as const;
+/**
+ * Endpoint used to acquire authentication tokens from Azure
+ */
+export type OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint7 =
+  OpenEnum<
+    typeof OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint7
+  >;
+
+/**
+ * The type of OAuth 2.0 client credentials grant flow to use
+ */
+export const OutputAzureDataExplorerAuthenticationMethod7 = {
+  /**
+   * Client secret
+   */
+  ClientSecret: "clientSecret",
+  /**
+   * Client secret (text secret)
+   */
+  ClientTextSecret: "clientTextSecret",
+  /**
+   * Certificate
+   */
+  Certificate: "certificate",
+} as const;
+/**
+ * The type of OAuth 2.0 client credentials grant flow to use
+ */
+export type OutputAzureDataExplorerAuthenticationMethod7 = OpenEnum<
+  typeof OutputAzureDataExplorerAuthenticationMethod7
+>;
+
+export type Certificate7 = {
+  /**
+   * The certificate you registered as credentials for your app in the Azure portal
+   */
+  certificateName?: string | undefined;
+};
+
+export const PrefixOptional7 = {
+  /**
+   * drop-by
+   */
+  DropBy: "dropBy",
+  /**
+   * ingest-by
+   */
+  IngestBy: "ingestBy",
+} as const;
+export type PrefixOptional7 = OpenEnum<typeof PrefixOptional7>;
+
+export type ExtentTag7 = {
+  prefix?: PrefixOptional7 | undefined;
+  value: string;
+};
+
+export type IngestIfNotExist7 = {
+  value: string;
+};
+
+/**
+ * Level of ingestion status reporting. Defaults to FailuresOnly.
+ */
+export const ReportLevel7 = {
+  /**
+   * FailuresOnly
+   */
+  FailuresOnly: "failuresOnly",
+  /**
+   * DoNotReport
+   */
+  DoNotReport: "doNotReport",
+  /**
+   * FailuresAndSuccesses
+   */
+  FailuresAndSuccesses: "failuresAndSuccesses",
+} as const;
+/**
+ * Level of ingestion status reporting. Defaults to FailuresOnly.
+ */
+export type ReportLevel7 = OpenEnum<typeof ReportLevel7>;
+
+/**
+ * Target of the ingestion status reporting. Defaults to Queue.
+ */
+export const ReportMethod7 = {
+  /**
+   * Queue
+   */
+  Queue: "queue",
+  /**
+   * Table
+   */
+  Table: "table",
+  /**
+   * QueueAndTable
+   */
+  QueueAndTable: "queueAndTable",
+} as const;
+/**
+ * Target of the ingestion status reporting. Defaults to Queue.
+ */
+export type ReportMethod7 = OpenEnum<typeof ReportMethod7>;
+
+export type OutputAzureDataExplorerAzureDataExplorer7 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputAzureDataExplorerType7;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The base URI for your cluster. Typically, `https://<cluster>.<region>.kusto.windows.net`.
+   */
+  clusterUrl: string;
+  /**
+   * Name of the database containing the table where data will be ingested
+   */
+  database: string;
+  /**
+   * Name of the table to ingest data into
+   */
+  table: string;
+  /**
+   * When saving or starting the Destination, validate the database name and credentials; also validate table name, except when creating a new table. Disable if your Azure app does not have both the Database Viewer and the Table Viewer role.
+   */
+  validateDatabaseSettings?: boolean | undefined;
+  ingestMode?: IngestionMode7 | undefined;
+  /**
+   * Endpoint used to acquire authentication tokens from Azure
+   */
+  oauthEndpoint?:
+    | OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint7
+    | undefined;
+  /**
+   * Directory ID (tenant identifier) in Azure Active Directory
+   */
+  tenantId: string;
+  /**
+   * client_id to pass in the OAuth request parameter
+   */
+  clientId: string;
+  /**
+   * Scope to pass in the OAuth request parameter
+   */
+  scope: string;
+  /**
+   * The type of OAuth 2.0 client credentials grant flow to use
+   */
+  oauthType?: OutputAzureDataExplorerAuthenticationMethod7 | undefined;
+  description?: string | undefined;
+  /**
+   * The client secret that you generated for your app in the Azure portal
+   */
+  clientSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  certificate?: Certificate7 | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+  /**
+   * Send a JSON mapping object instead of specifying an existing named data mapping
+   */
+  isMappingObj?: boolean | undefined;
+  /**
+   * Enter a JSON object that defines your desired data mapping
+   */
+  mappingObj?: string | undefined;
+  /**
+   * Enter the name of a data mapping associated with your target table. Or, if incoming event and target table fields match exactly, you can leave the field empty.
+   */
+  mappingRef?: string | undefined;
+  /**
+   * The ingestion service URI for your cluster. Typically, `https://ingest-<cluster>.<region>.kusto.windows.net`.
+   */
+  ingestUrl?: string | undefined;
+  /**
+   * Filesystem location in which to buffer files before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Bypass the data management service's aggregation mechanism
+   */
+  flushImmediately?: boolean | undefined;
+  /**
+   * Prevent blob deletion after ingestion is complete
+   */
+  retainBlobOnSuccess?: boolean | undefined;
+  /**
+   * Strings or tags associated with the extent (ingested data shard)
+   */
+  extentTags?: Array<ExtentTag7> | undefined;
+  /**
+   * Prevents duplicate ingestion by verifying whether an extent with the specified ingest-by tag already exists
+   */
+  ingestIfNotExists?: Array<IngestIfNotExist7> | undefined;
+  /**
+   * Level of ingestion status reporting. Defaults to FailuresOnly.
+   */
+  reportLevel?: ReportLevel7 | undefined;
+  /**
+   * Target of the ingestion status reporting. Defaults to Queue.
+   */
+  reportMethod?: ReportMethod7 | undefined;
+  /**
+   * Optionally, enter additional configuration properties to send to the ingestion service
+   */
+  additionalProperties?: Array<TagsType> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Disable to close the connection immediately after sending the outgoing request
+   */
+  keepAlive?: boolean | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls: MetadataType;
+};
+
+export const OutputAzureDataExplorerType6 = {
+  AzureDataExplorer: "azure_data_explorer",
+} as const;
+export type OutputAzureDataExplorerType6 = ClosedEnum<
+  typeof OutputAzureDataExplorerType6
+>;
+
+export const IngestionMode6 = {
+  /**
+   * Batching
+   */
+  Batching: "batching",
+  /**
+   * Streaming
+   */
+  Streaming: "streaming",
+} as const;
+export type IngestionMode6 = OpenEnum<typeof IngestionMode6>;
+
+/**
+ * Endpoint used to acquire authentication tokens from Azure
+ */
+export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint6 = {
+  HttpsLoginMicrosoftonlineCom: "https://login.microsoftonline.com",
+  HttpsLoginMicrosoftonlineUs: "https://login.microsoftonline.us",
+  HttpsLoginPartnerMicrosoftonlineCn:
+    "https://login.partner.microsoftonline.cn",
+} as const;
+/**
+ * Endpoint used to acquire authentication tokens from Azure
+ */
+export type OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint6 =
+  OpenEnum<
+    typeof OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint6
+  >;
+
+/**
+ * The type of OAuth 2.0 client credentials grant flow to use
+ */
+export const OutputAzureDataExplorerAuthenticationMethod6 = {
+  /**
+   * Client secret
+   */
+  ClientSecret: "clientSecret",
+  /**
+   * Client secret (text secret)
+   */
+  ClientTextSecret: "clientTextSecret",
+  /**
+   * Certificate
+   */
+  Certificate: "certificate",
+} as const;
+/**
+ * The type of OAuth 2.0 client credentials grant flow to use
+ */
+export type OutputAzureDataExplorerAuthenticationMethod6 = OpenEnum<
+  typeof OutputAzureDataExplorerAuthenticationMethod6
+>;
+
+export type Certificate6 = {
+  /**
+   * The certificate you registered as credentials for your app in the Azure portal
+   */
+  certificateName?: string | undefined;
+};
+
+export const PrefixOptional6 = {
+  /**
+   * drop-by
+   */
+  DropBy: "dropBy",
+  /**
+   * ingest-by
+   */
+  IngestBy: "ingestBy",
+} as const;
+export type PrefixOptional6 = OpenEnum<typeof PrefixOptional6>;
+
+export type ExtentTag6 = {
+  prefix?: PrefixOptional6 | undefined;
+  value: string;
+};
+
+export type IngestIfNotExist6 = {
+  value: string;
+};
+
+/**
+ * Level of ingestion status reporting. Defaults to FailuresOnly.
+ */
+export const ReportLevel6 = {
+  /**
+   * FailuresOnly
+   */
+  FailuresOnly: "failuresOnly",
+  /**
+   * DoNotReport
+   */
+  DoNotReport: "doNotReport",
+  /**
+   * FailuresAndSuccesses
+   */
+  FailuresAndSuccesses: "failuresAndSuccesses",
+} as const;
+/**
+ * Level of ingestion status reporting. Defaults to FailuresOnly.
+ */
+export type ReportLevel6 = OpenEnum<typeof ReportLevel6>;
+
+/**
+ * Target of the ingestion status reporting. Defaults to Queue.
+ */
+export const ReportMethod6 = {
+  /**
+   * Queue
+   */
+  Queue: "queue",
+  /**
+   * Table
+   */
+  Table: "table",
+  /**
+   * QueueAndTable
+   */
+  QueueAndTable: "queueAndTable",
+} as const;
+/**
+ * Target of the ingestion status reporting. Defaults to Queue.
+ */
+export type ReportMethod6 = OpenEnum<typeof ReportMethod6>;
+
+export type OutputAzureDataExplorerAzureDataExplorer6 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputAzureDataExplorerType6;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The base URI for your cluster. Typically, `https://<cluster>.<region>.kusto.windows.net`.
+   */
+  clusterUrl: string;
+  /**
+   * Name of the database containing the table where data will be ingested
+   */
+  database: string;
+  /**
+   * Name of the table to ingest data into
+   */
+  table: string;
+  /**
+   * When saving or starting the Destination, validate the database name and credentials; also validate table name, except when creating a new table. Disable if your Azure app does not have both the Database Viewer and the Table Viewer role.
+   */
+  validateDatabaseSettings?: boolean | undefined;
+  ingestMode?: IngestionMode6 | undefined;
+  /**
+   * Endpoint used to acquire authentication tokens from Azure
+   */
+  oauthEndpoint?:
+    | OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint6
+    | undefined;
+  /**
+   * Directory ID (tenant identifier) in Azure Active Directory
+   */
+  tenantId: string;
+  /**
+   * client_id to pass in the OAuth request parameter
+   */
+  clientId: string;
+  /**
+   * Scope to pass in the OAuth request parameter
+   */
+  scope: string;
+  /**
+   * The type of OAuth 2.0 client credentials grant flow to use
+   */
+  oauthType?: OutputAzureDataExplorerAuthenticationMethod6 | undefined;
+  description?: string | undefined;
+  /**
+   * The client secret that you generated for your app in the Azure portal
+   */
+  clientSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  certificate?: Certificate6 | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+  /**
+   * Send a JSON mapping object instead of specifying an existing named data mapping
+   */
+  isMappingObj?: boolean | undefined;
+  /**
+   * Enter a JSON object that defines your desired data mapping
+   */
+  mappingObj?: string | undefined;
+  /**
+   * Enter the name of a data mapping associated with your target table. Or, if incoming event and target table fields match exactly, you can leave the field empty.
+   */
+  mappingRef?: string | undefined;
+  /**
+   * The ingestion service URI for your cluster. Typically, `https://ingest-<cluster>.<region>.kusto.windows.net`.
+   */
+  ingestUrl?: string | undefined;
+  /**
+   * Filesystem location in which to buffer files before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Bypass the data management service's aggregation mechanism
+   */
+  flushImmediately?: boolean | undefined;
+  /**
+   * Prevent blob deletion after ingestion is complete
+   */
+  retainBlobOnSuccess?: boolean | undefined;
+  /**
+   * Strings or tags associated with the extent (ingested data shard)
+   */
+  extentTags?: Array<ExtentTag6> | undefined;
+  /**
+   * Prevents duplicate ingestion by verifying whether an extent with the specified ingest-by tag already exists
+   */
+  ingestIfNotExists?: Array<IngestIfNotExist6> | undefined;
+  /**
+   * Level of ingestion status reporting. Defaults to FailuresOnly.
+   */
+  reportLevel?: ReportLevel6 | undefined;
+  /**
+   * Target of the ingestion status reporting. Defaults to Queue.
+   */
+  reportMethod?: ReportMethod6 | undefined;
+  /**
+   * Optionally, enter additional configuration properties to send to the ingestion service
+   */
+  additionalProperties?: Array<TagsType> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Disable to close the connection immediately after sending the outgoing request
+   */
+  keepAlive?: boolean | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export const IngestionMode5 = {
+  /**
+   * Batching
+   */
+  Batching: "batching",
+  /**
+   * Streaming
+   */
+  Streaming: "streaming",
+} as const;
+export type IngestionMode5 = OpenEnum<typeof IngestionMode5>;
+
+export const OutputAzureDataExplorerType5 = {
+  AzureDataExplorer: "azure_data_explorer",
+} as const;
+export type OutputAzureDataExplorerType5 = ClosedEnum<
+  typeof OutputAzureDataExplorerType5
+>;
+
+/**
+ * Endpoint used to acquire authentication tokens from Azure
+ */
+export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint5 = {
+  HttpsLoginMicrosoftonlineCom: "https://login.microsoftonline.com",
+  HttpsLoginMicrosoftonlineUs: "https://login.microsoftonline.us",
+  HttpsLoginPartnerMicrosoftonlineCn:
+    "https://login.partner.microsoftonline.cn",
+} as const;
+/**
+ * Endpoint used to acquire authentication tokens from Azure
+ */
+export type OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint5 =
+  OpenEnum<
+    typeof OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint5
+  >;
+
+/**
+ * The type of OAuth 2.0 client credentials grant flow to use
+ */
+export const OutputAzureDataExplorerAuthenticationMethod5 = {
+  /**
+   * Client secret
+   */
+  ClientSecret: "clientSecret",
+  /**
+   * Client secret (text secret)
+   */
+  ClientTextSecret: "clientTextSecret",
+  /**
+   * Certificate
+   */
+  Certificate: "certificate",
+} as const;
+/**
+ * The type of OAuth 2.0 client credentials grant flow to use
+ */
+export type OutputAzureDataExplorerAuthenticationMethod5 = OpenEnum<
+  typeof OutputAzureDataExplorerAuthenticationMethod5
+>;
+
+export type Certificate5 = {
+  /**
+   * The certificate you registered as credentials for your app in the Azure portal
+   */
+  certificateName?: string | undefined;
+};
+
+export const PrefixOptional5 = {
+  /**
+   * drop-by
+   */
+  DropBy: "dropBy",
+  /**
+   * ingest-by
+   */
+  IngestBy: "ingestBy",
+} as const;
+export type PrefixOptional5 = OpenEnum<typeof PrefixOptional5>;
+
+export type ExtentTag5 = {
+  prefix?: PrefixOptional5 | undefined;
+  value: string;
+};
+
+export type IngestIfNotExist5 = {
+  value: string;
+};
+
+/**
+ * Level of ingestion status reporting. Defaults to FailuresOnly.
+ */
+export const ReportLevel5 = {
+  /**
+   * FailuresOnly
+   */
+  FailuresOnly: "failuresOnly",
+  /**
+   * DoNotReport
+   */
+  DoNotReport: "doNotReport",
+  /**
+   * FailuresAndSuccesses
+   */
+  FailuresAndSuccesses: "failuresAndSuccesses",
+} as const;
+/**
+ * Level of ingestion status reporting. Defaults to FailuresOnly.
+ */
+export type ReportLevel5 = OpenEnum<typeof ReportLevel5>;
+
+/**
+ * Target of the ingestion status reporting. Defaults to Queue.
+ */
+export const ReportMethod5 = {
+  /**
+   * Queue
+   */
+  Queue: "queue",
+  /**
+   * Table
+   */
+  Table: "table",
+  /**
+   * QueueAndTable
+   */
+  QueueAndTable: "queueAndTable",
+} as const;
+/**
+ * Target of the ingestion status reporting. Defaults to Queue.
+ */
+export type ReportMethod5 = OpenEnum<typeof ReportMethod5>;
+
+export type OutputAzureDataExplorerAzureDataExplorer5 = {
+  ingestMode?: IngestionMode5 | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputAzureDataExplorerType5;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The base URI for your cluster. Typically, `https://<cluster>.<region>.kusto.windows.net`.
+   */
+  clusterUrl: string;
+  /**
+   * Name of the database containing the table where data will be ingested
+   */
+  database: string;
+  /**
+   * Name of the table to ingest data into
+   */
+  table: string;
+  /**
+   * When saving or starting the Destination, validate the database name and credentials; also validate table name, except when creating a new table. Disable if your Azure app does not have both the Database Viewer and the Table Viewer role.
+   */
+  validateDatabaseSettings?: boolean | undefined;
+  /**
+   * Endpoint used to acquire authentication tokens from Azure
+   */
+  oauthEndpoint?:
+    | OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint5
+    | undefined;
+  /**
+   * Directory ID (tenant identifier) in Azure Active Directory
+   */
+  tenantId: string;
+  /**
+   * client_id to pass in the OAuth request parameter
+   */
+  clientId: string;
+  /**
+   * Scope to pass in the OAuth request parameter
+   */
+  scope: string;
+  /**
+   * The type of OAuth 2.0 client credentials grant flow to use
+   */
+  oauthType?: OutputAzureDataExplorerAuthenticationMethod5 | undefined;
+  description?: string | undefined;
+  /**
+   * The client secret that you generated for your app in the Azure portal
+   */
+  clientSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  certificate?: Certificate5 | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+  /**
+   * Send a JSON mapping object instead of specifying an existing named data mapping
+   */
+  isMappingObj?: boolean | undefined;
+  /**
+   * Enter a JSON object that defines your desired data mapping
+   */
+  mappingObj?: string | undefined;
+  /**
+   * Enter the name of a data mapping associated with your target table. Or, if incoming event and target table fields match exactly, you can leave the field empty.
+   */
+  mappingRef: string;
+  /**
+   * The ingestion service URI for your cluster. Typically, `https://ingest-<cluster>.<region>.kusto.windows.net`.
+   */
+  ingestUrl?: string | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Filesystem location in which to buffer files before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Bypass the data management service's aggregation mechanism
+   */
+  flushImmediately?: boolean | undefined;
+  /**
+   * Prevent blob deletion after ingestion is complete
+   */
+  retainBlobOnSuccess?: boolean | undefined;
+  /**
+   * Strings or tags associated with the extent (ingested data shard)
+   */
+  extentTags?: Array<ExtentTag5> | undefined;
+  /**
+   * Prevents duplicate ingestion by verifying whether an extent with the specified ingest-by tag already exists
+   */
+  ingestIfNotExists?: Array<IngestIfNotExist5> | undefined;
+  /**
+   * Level of ingestion status reporting. Defaults to FailuresOnly.
+   */
+  reportLevel?: ReportLevel5 | undefined;
+  /**
+   * Target of the ingestion status reporting. Defaults to Queue.
+   */
+  reportMethod?: ReportMethod5 | undefined;
+  /**
+   * Optionally, enter additional configuration properties to send to the ingestion service
+   */
+  additionalProperties?: Array<TagsType> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings: Array<ResponseRetrySettingsType>;
+  timeoutRetrySettings: TimeoutRetrySettingsType;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Disable to close the connection immediately after sending the outgoing request
+   */
+  keepAlive?: boolean | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export const IngestionMode4 = {
+  /**
+   * Batching
+   */
+  Batching: "batching",
+  /**
+   * Streaming
+   */
+  Streaming: "streaming",
+} as const;
+export type IngestionMode4 = OpenEnum<typeof IngestionMode4>;
+
+export const OutputAzureDataExplorerType4 = {
+  AzureDataExplorer: "azure_data_explorer",
+} as const;
+export type OutputAzureDataExplorerType4 = ClosedEnum<
+  typeof OutputAzureDataExplorerType4
+>;
+
+/**
+ * Endpoint used to acquire authentication tokens from Azure
+ */
+export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint4 = {
+  HttpsLoginMicrosoftonlineCom: "https://login.microsoftonline.com",
+  HttpsLoginMicrosoftonlineUs: "https://login.microsoftonline.us",
+  HttpsLoginPartnerMicrosoftonlineCn:
+    "https://login.partner.microsoftonline.cn",
+} as const;
+/**
+ * Endpoint used to acquire authentication tokens from Azure
+ */
+export type OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint4 =
+  OpenEnum<
+    typeof OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint4
+  >;
+
+/**
+ * The type of OAuth 2.0 client credentials grant flow to use
+ */
+export const OutputAzureDataExplorerAuthenticationMethod4 = {
+  /**
+   * Client secret
+   */
+  ClientSecret: "clientSecret",
+  /**
+   * Client secret (text secret)
+   */
+  ClientTextSecret: "clientTextSecret",
+  /**
+   * Certificate
+   */
+  Certificate: "certificate",
+} as const;
+/**
+ * The type of OAuth 2.0 client credentials grant flow to use
+ */
+export type OutputAzureDataExplorerAuthenticationMethod4 = OpenEnum<
+  typeof OutputAzureDataExplorerAuthenticationMethod4
+>;
+
+export type Certificate4 = {
+  /**
+   * The certificate you registered as credentials for your app in the Azure portal
+   */
+  certificateName?: string | undefined;
+};
+
+export const PrefixOptional4 = {
+  /**
+   * drop-by
+   */
+  DropBy: "dropBy",
+  /**
+   * ingest-by
+   */
+  IngestBy: "ingestBy",
+} as const;
+export type PrefixOptional4 = OpenEnum<typeof PrefixOptional4>;
+
+export type ExtentTag4 = {
+  prefix?: PrefixOptional4 | undefined;
+  value: string;
+};
+
+export type IngestIfNotExist4 = {
+  value: string;
+};
+
+/**
+ * Level of ingestion status reporting. Defaults to FailuresOnly.
+ */
+export const ReportLevel4 = {
+  /**
+   * FailuresOnly
+   */
+  FailuresOnly: "failuresOnly",
+  /**
+   * DoNotReport
+   */
+  DoNotReport: "doNotReport",
+  /**
+   * FailuresAndSuccesses
+   */
+  FailuresAndSuccesses: "failuresAndSuccesses",
+} as const;
+/**
+ * Level of ingestion status reporting. Defaults to FailuresOnly.
+ */
+export type ReportLevel4 = OpenEnum<typeof ReportLevel4>;
+
+/**
+ * Target of the ingestion status reporting. Defaults to Queue.
+ */
+export const ReportMethod4 = {
+  /**
+   * Queue
+   */
+  Queue: "queue",
+  /**
+   * Table
+   */
+  Table: "table",
+  /**
+   * QueueAndTable
+   */
+  QueueAndTable: "queueAndTable",
+} as const;
+/**
+ * Target of the ingestion status reporting. Defaults to Queue.
+ */
+export type ReportMethod4 = OpenEnum<typeof ReportMethod4>;
+
+export type OutputAzureDataExplorerAzureDataExplorer4 = {
+  ingestMode?: IngestionMode4 | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputAzureDataExplorerType4;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The base URI for your cluster. Typically, `https://<cluster>.<region>.kusto.windows.net`.
+   */
+  clusterUrl: string;
+  /**
+   * Name of the database containing the table where data will be ingested
+   */
+  database: string;
+  /**
+   * Name of the table to ingest data into
+   */
+  table: string;
+  /**
+   * When saving or starting the Destination, validate the database name and credentials; also validate table name, except when creating a new table. Disable if your Azure app does not have both the Database Viewer and the Table Viewer role.
+   */
+  validateDatabaseSettings?: boolean | undefined;
+  /**
+   * Endpoint used to acquire authentication tokens from Azure
+   */
+  oauthEndpoint?:
+    | OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint4
+    | undefined;
+  /**
+   * Directory ID (tenant identifier) in Azure Active Directory
+   */
+  tenantId: string;
+  /**
+   * client_id to pass in the OAuth request parameter
+   */
+  clientId: string;
+  /**
+   * Scope to pass in the OAuth request parameter
+   */
+  scope: string;
+  /**
+   * The type of OAuth 2.0 client credentials grant flow to use
+   */
+  oauthType?: OutputAzureDataExplorerAuthenticationMethod4 | undefined;
+  description?: string | undefined;
+  /**
+   * The client secret that you generated for your app in the Azure portal
+   */
+  clientSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  certificate?: Certificate4 | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+  /**
+   * Send a JSON mapping object instead of specifying an existing named data mapping
+   */
+  isMappingObj?: boolean | undefined;
+  /**
+   * Enter a JSON object that defines your desired data mapping
+   */
+  mappingObj?: string | undefined;
+  /**
+   * Enter the name of a data mapping associated with your target table. Or, if incoming event and target table fields match exactly, you can leave the field empty.
+   */
+  mappingRef?: string | undefined;
+  /**
+   * The ingestion service URI for your cluster. Typically, `https://ingest-<cluster>.<region>.kusto.windows.net`.
+   */
+  ingestUrl: string;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Filesystem location in which to buffer files before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Bypass the data management service's aggregation mechanism
+   */
+  flushImmediately?: boolean | undefined;
+  /**
+   * Prevent blob deletion after ingestion is complete
+   */
+  retainBlobOnSuccess?: boolean | undefined;
+  /**
+   * Strings or tags associated with the extent (ingested data shard)
+   */
+  extentTags: Array<ExtentTag4>;
+  /**
+   * Prevents duplicate ingestion by verifying whether an extent with the specified ingest-by tag already exists
+   */
+  ingestIfNotExists: Array<IngestIfNotExist4>;
+  /**
+   * Level of ingestion status reporting. Defaults to FailuresOnly.
+   */
+  reportLevel?: ReportLevel4 | undefined;
+  /**
+   * Target of the ingestion status reporting. Defaults to Queue.
+   */
+  reportMethod?: ReportMethod4 | undefined;
+  /**
+   * Optionally, enter additional configuration properties to send to the ingestion service
+   */
+  additionalProperties: Array<TagsType>;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Disable to close the connection immediately after sending the outgoing request
+   */
+  keepAlive?: boolean | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+/**
+ * The type of OAuth 2.0 client credentials grant flow to use
+ */
+export const OutputAzureDataExplorerAuthenticationMethod3 = {
+  /**
+   * Client secret
+   */
+  ClientSecret: "clientSecret",
+  /**
+   * Client secret (text secret)
+   */
+  ClientTextSecret: "clientTextSecret",
+  /**
+   * Certificate
+   */
+  Certificate: "certificate",
+} as const;
+/**
+ * The type of OAuth 2.0 client credentials grant flow to use
+ */
+export type OutputAzureDataExplorerAuthenticationMethod3 = OpenEnum<
+  typeof OutputAzureDataExplorerAuthenticationMethod3
+>;
+
+export const OutputAzureDataExplorerType3 = {
+  AzureDataExplorer: "azure_data_explorer",
+} as const;
+export type OutputAzureDataExplorerType3 = ClosedEnum<
+  typeof OutputAzureDataExplorerType3
+>;
+
+export const IngestionMode3 = {
+  /**
+   * Batching
+   */
+  Batching: "batching",
+  /**
+   * Streaming
+   */
+  Streaming: "streaming",
+} as const;
+export type IngestionMode3 = OpenEnum<typeof IngestionMode3>;
+
+/**
+ * Endpoint used to acquire authentication tokens from Azure
+ */
+export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint3 = {
+  HttpsLoginMicrosoftonlineCom: "https://login.microsoftonline.com",
+  HttpsLoginMicrosoftonlineUs: "https://login.microsoftonline.us",
+  HttpsLoginPartnerMicrosoftonlineCn:
+    "https://login.partner.microsoftonline.cn",
+} as const;
+/**
+ * Endpoint used to acquire authentication tokens from Azure
+ */
+export type OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint3 =
+  OpenEnum<
+    typeof OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint3
+  >;
+
+export type Certificate3 = {
+  /**
+   * The certificate you registered as credentials for your app in the Azure portal
+   */
+  certificateName?: string | undefined;
+};
+
+export const PrefixOptional3 = {
+  /**
+   * drop-by
+   */
+  DropBy: "dropBy",
+  /**
+   * ingest-by
+   */
+  IngestBy: "ingestBy",
+} as const;
+export type PrefixOptional3 = OpenEnum<typeof PrefixOptional3>;
+
+export type ExtentTag3 = {
+  prefix?: PrefixOptional3 | undefined;
+  value: string;
+};
+
+export type IngestIfNotExist3 = {
+  value: string;
+};
+
+/**
+ * Level of ingestion status reporting. Defaults to FailuresOnly.
+ */
+export const ReportLevel3 = {
+  /**
+   * FailuresOnly
+   */
+  FailuresOnly: "failuresOnly",
+  /**
+   * DoNotReport
+   */
+  DoNotReport: "doNotReport",
+  /**
+   * FailuresAndSuccesses
+   */
+  FailuresAndSuccesses: "failuresAndSuccesses",
+} as const;
+/**
+ * Level of ingestion status reporting. Defaults to FailuresOnly.
+ */
+export type ReportLevel3 = OpenEnum<typeof ReportLevel3>;
+
+/**
+ * Target of the ingestion status reporting. Defaults to Queue.
+ */
+export const ReportMethod3 = {
+  /**
+   * Queue
+   */
+  Queue: "queue",
+  /**
+   * Table
+   */
+  Table: "table",
+  /**
+   * QueueAndTable
+   */
+  QueueAndTable: "queueAndTable",
+} as const;
+/**
+ * Target of the ingestion status reporting. Defaults to Queue.
+ */
+export type ReportMethod3 = OpenEnum<typeof ReportMethod3>;
+
+export type OutputAzureDataExplorerAzureDataExplorer3 = {
+  /**
+   * The type of OAuth 2.0 client credentials grant flow to use
+   */
+  oauthType?: OutputAzureDataExplorerAuthenticationMethod3 | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputAzureDataExplorerType3;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The base URI for your cluster. Typically, `https://<cluster>.<region>.kusto.windows.net`.
+   */
+  clusterUrl: string;
+  /**
+   * Name of the database containing the table where data will be ingested
+   */
+  database: string;
+  /**
+   * Name of the table to ingest data into
+   */
+  table: string;
+  /**
+   * When saving or starting the Destination, validate the database name and credentials; also validate table name, except when creating a new table. Disable if your Azure app does not have both the Database Viewer and the Table Viewer role.
+   */
+  validateDatabaseSettings?: boolean | undefined;
+  ingestMode?: IngestionMode3 | undefined;
+  /**
+   * Endpoint used to acquire authentication tokens from Azure
+   */
+  oauthEndpoint?:
+    | OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint3
+    | undefined;
+  /**
+   * Directory ID (tenant identifier) in Azure Active Directory
+   */
+  tenantId: string;
+  /**
+   * client_id to pass in the OAuth request parameter
+   */
+  clientId: string;
+  /**
+   * Scope to pass in the OAuth request parameter
+   */
+  scope: string;
+  description?: string | undefined;
+  /**
+   * The client secret that you generated for your app in the Azure portal
+   */
+  clientSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  certificate: Certificate3;
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+  /**
+   * Send a JSON mapping object instead of specifying an existing named data mapping
+   */
+  isMappingObj?: boolean | undefined;
+  /**
+   * Enter a JSON object that defines your desired data mapping
+   */
+  mappingObj?: string | undefined;
+  /**
+   * Enter the name of a data mapping associated with your target table. Or, if incoming event and target table fields match exactly, you can leave the field empty.
+   */
+  mappingRef?: string | undefined;
+  /**
+   * The ingestion service URI for your cluster. Typically, `https://ingest-<cluster>.<region>.kusto.windows.net`.
+   */
+  ingestUrl?: string | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Filesystem location in which to buffer files before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Bypass the data management service's aggregation mechanism
+   */
+  flushImmediately?: boolean | undefined;
+  /**
+   * Prevent blob deletion after ingestion is complete
+   */
+  retainBlobOnSuccess?: boolean | undefined;
+  /**
+   * Strings or tags associated with the extent (ingested data shard)
+   */
+  extentTags?: Array<ExtentTag3> | undefined;
+  /**
+   * Prevents duplicate ingestion by verifying whether an extent with the specified ingest-by tag already exists
+   */
+  ingestIfNotExists?: Array<IngestIfNotExist3> | undefined;
+  /**
+   * Level of ingestion status reporting. Defaults to FailuresOnly.
+   */
+  reportLevel?: ReportLevel3 | undefined;
+  /**
+   * Target of the ingestion status reporting. Defaults to Queue.
+   */
+  reportMethod?: ReportMethod3 | undefined;
+  /**
+   * Optionally, enter additional configuration properties to send to the ingestion service
+   */
+  additionalProperties?: Array<TagsType> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Disable to close the connection immediately after sending the outgoing request
+   */
+  keepAlive?: boolean | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+/**
+ * The type of OAuth 2.0 client credentials grant flow to use
+ */
+export const OutputAzureDataExplorerAuthenticationMethod2 = {
+  /**
+   * Client secret
+   */
+  ClientSecret: "clientSecret",
+  /**
+   * Client secret (text secret)
+   */
+  ClientTextSecret: "clientTextSecret",
+  /**
+   * Certificate
+   */
+  Certificate: "certificate",
+} as const;
+/**
+ * The type of OAuth 2.0 client credentials grant flow to use
+ */
+export type OutputAzureDataExplorerAuthenticationMethod2 = OpenEnum<
+  typeof OutputAzureDataExplorerAuthenticationMethod2
+>;
+
+export const OutputAzureDataExplorerType2 = {
+  AzureDataExplorer: "azure_data_explorer",
+} as const;
+export type OutputAzureDataExplorerType2 = ClosedEnum<
+  typeof OutputAzureDataExplorerType2
+>;
+
+export const IngestionMode2 = {
+  /**
+   * Batching
+   */
+  Batching: "batching",
+  /**
+   * Streaming
+   */
+  Streaming: "streaming",
+} as const;
+export type IngestionMode2 = OpenEnum<typeof IngestionMode2>;
+
+/**
+ * Endpoint used to acquire authentication tokens from Azure
+ */
+export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint2 = {
+  HttpsLoginMicrosoftonlineCom: "https://login.microsoftonline.com",
+  HttpsLoginMicrosoftonlineUs: "https://login.microsoftonline.us",
+  HttpsLoginPartnerMicrosoftonlineCn:
+    "https://login.partner.microsoftonline.cn",
+} as const;
+/**
+ * Endpoint used to acquire authentication tokens from Azure
+ */
+export type OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint2 =
+  OpenEnum<
+    typeof OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint2
+  >;
+
+export type Certificate2 = {
+  /**
+   * The certificate you registered as credentials for your app in the Azure portal
+   */
+  certificateName?: string | undefined;
+};
+
+export const PrefixOptional2 = {
+  /**
+   * drop-by
+   */
+  DropBy: "dropBy",
+  /**
+   * ingest-by
+   */
+  IngestBy: "ingestBy",
+} as const;
+export type PrefixOptional2 = OpenEnum<typeof PrefixOptional2>;
+
+export type ExtentTag2 = {
+  prefix?: PrefixOptional2 | undefined;
+  value: string;
+};
+
+export type IngestIfNotExist2 = {
+  value: string;
+};
+
+/**
+ * Level of ingestion status reporting. Defaults to FailuresOnly.
+ */
+export const ReportLevel2 = {
+  /**
+   * FailuresOnly
+   */
+  FailuresOnly: "failuresOnly",
+  /**
+   * DoNotReport
+   */
+  DoNotReport: "doNotReport",
+  /**
+   * FailuresAndSuccesses
+   */
+  FailuresAndSuccesses: "failuresAndSuccesses",
+} as const;
+/**
+ * Level of ingestion status reporting. Defaults to FailuresOnly.
+ */
+export type ReportLevel2 = OpenEnum<typeof ReportLevel2>;
+
+/**
+ * Target of the ingestion status reporting. Defaults to Queue.
+ */
+export const ReportMethod2 = {
+  /**
+   * Queue
+   */
+  Queue: "queue",
+  /**
+   * Table
+   */
+  Table: "table",
+  /**
+   * QueueAndTable
+   */
+  QueueAndTable: "queueAndTable",
+} as const;
+/**
+ * Target of the ingestion status reporting. Defaults to Queue.
+ */
+export type ReportMethod2 = OpenEnum<typeof ReportMethod2>;
+
+export type OutputAzureDataExplorerAzureDataExplorer2 = {
+  /**
+   * The type of OAuth 2.0 client credentials grant flow to use
+   */
+  oauthType?: OutputAzureDataExplorerAuthenticationMethod2 | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputAzureDataExplorerType2;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The base URI for your cluster. Typically, `https://<cluster>.<region>.kusto.windows.net`.
+   */
+  clusterUrl: string;
+  /**
+   * Name of the database containing the table where data will be ingested
+   */
+  database: string;
+  /**
+   * Name of the table to ingest data into
+   */
+  table: string;
+  /**
+   * When saving or starting the Destination, validate the database name and credentials; also validate table name, except when creating a new table. Disable if your Azure app does not have both the Database Viewer and the Table Viewer role.
+   */
+  validateDatabaseSettings?: boolean | undefined;
+  ingestMode?: IngestionMode2 | undefined;
+  /**
+   * Endpoint used to acquire authentication tokens from Azure
+   */
+  oauthEndpoint?:
+    | OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint2
+    | undefined;
+  /**
+   * Directory ID (tenant identifier) in Azure Active Directory
+   */
+  tenantId: string;
+  /**
+   * client_id to pass in the OAuth request parameter
+   */
+  clientId: string;
+  /**
+   * Scope to pass in the OAuth request parameter
+   */
+  scope: string;
+  description?: string | undefined;
+  /**
+   * The client secret that you generated for your app in the Azure portal
+   */
+  clientSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret: string;
+  certificate?: Certificate2 | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+  /**
+   * Send a JSON mapping object instead of specifying an existing named data mapping
+   */
+  isMappingObj?: boolean | undefined;
+  /**
+   * Enter a JSON object that defines your desired data mapping
+   */
+  mappingObj?: string | undefined;
+  /**
+   * Enter the name of a data mapping associated with your target table. Or, if incoming event and target table fields match exactly, you can leave the field empty.
+   */
+  mappingRef?: string | undefined;
+  /**
+   * The ingestion service URI for your cluster. Typically, `https://ingest-<cluster>.<region>.kusto.windows.net`.
+   */
+  ingestUrl?: string | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Filesystem location in which to buffer files before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Bypass the data management service's aggregation mechanism
+   */
+  flushImmediately?: boolean | undefined;
+  /**
+   * Prevent blob deletion after ingestion is complete
+   */
+  retainBlobOnSuccess?: boolean | undefined;
+  /**
+   * Strings or tags associated with the extent (ingested data shard)
+   */
+  extentTags?: Array<ExtentTag2> | undefined;
+  /**
+   * Prevents duplicate ingestion by verifying whether an extent with the specified ingest-by tag already exists
+   */
+  ingestIfNotExists?: Array<IngestIfNotExist2> | undefined;
+  /**
+   * Level of ingestion status reporting. Defaults to FailuresOnly.
+   */
+  reportLevel?: ReportLevel2 | undefined;
+  /**
+   * Target of the ingestion status reporting. Defaults to Queue.
+   */
+  reportMethod?: ReportMethod2 | undefined;
+  /**
+   * Optionally, enter additional configuration properties to send to the ingestion service
+   */
+  additionalProperties?: Array<TagsType> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Disable to close the connection immediately after sending the outgoing request
+   */
+  keepAlive?: boolean | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+/**
+ * The type of OAuth 2.0 client credentials grant flow to use
+ */
+export const OutputAzureDataExplorerAuthenticationMethod1 = {
+  /**
+   * Client secret
+   */
+  ClientSecret: "clientSecret",
+  /**
+   * Client secret (text secret)
+   */
+  ClientTextSecret: "clientTextSecret",
+  /**
+   * Certificate
+   */
+  Certificate: "certificate",
+} as const;
+/**
+ * The type of OAuth 2.0 client credentials grant flow to use
+ */
+export type OutputAzureDataExplorerAuthenticationMethod1 = OpenEnum<
+  typeof OutputAzureDataExplorerAuthenticationMethod1
+>;
+
+export const OutputAzureDataExplorerType1 = {
+  AzureDataExplorer: "azure_data_explorer",
+} as const;
+export type OutputAzureDataExplorerType1 = ClosedEnum<
+  typeof OutputAzureDataExplorerType1
+>;
+
+export const IngestionMode1 = {
+  /**
+   * Batching
+   */
+  Batching: "batching",
+  /**
+   * Streaming
+   */
+  Streaming: "streaming",
+} as const;
+export type IngestionMode1 = OpenEnum<typeof IngestionMode1>;
+
+/**
+ * Endpoint used to acquire authentication tokens from Azure
+ */
+export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint1 = {
+  HttpsLoginMicrosoftonlineCom: "https://login.microsoftonline.com",
+  HttpsLoginMicrosoftonlineUs: "https://login.microsoftonline.us",
+  HttpsLoginPartnerMicrosoftonlineCn:
+    "https://login.partner.microsoftonline.cn",
+} as const;
+/**
+ * Endpoint used to acquire authentication tokens from Azure
+ */
+export type OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint1 =
+  OpenEnum<
+    typeof OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint1
+  >;
+
+export type Certificate1 = {
+  /**
+   * The certificate you registered as credentials for your app in the Azure portal
+   */
+  certificateName?: string | undefined;
+};
+
+export const PrefixOptional1 = {
+  /**
+   * drop-by
+   */
+  DropBy: "dropBy",
+  /**
+   * ingest-by
+   */
+  IngestBy: "ingestBy",
+} as const;
+export type PrefixOptional1 = OpenEnum<typeof PrefixOptional1>;
+
+export type ExtentTag1 = {
+  prefix?: PrefixOptional1 | undefined;
+  value: string;
+};
+
+export type IngestIfNotExist1 = {
+  value: string;
+};
+
+/**
+ * Level of ingestion status reporting. Defaults to FailuresOnly.
+ */
+export const ReportLevel1 = {
+  /**
+   * FailuresOnly
+   */
+  FailuresOnly: "failuresOnly",
+  /**
+   * DoNotReport
+   */
+  DoNotReport: "doNotReport",
+  /**
+   * FailuresAndSuccesses
+   */
+  FailuresAndSuccesses: "failuresAndSuccesses",
+} as const;
+/**
+ * Level of ingestion status reporting. Defaults to FailuresOnly.
+ */
+export type ReportLevel1 = OpenEnum<typeof ReportLevel1>;
+
+/**
+ * Target of the ingestion status reporting. Defaults to Queue.
+ */
+export const ReportMethod1 = {
+  /**
+   * Queue
+   */
+  Queue: "queue",
+  /**
+   * Table
+   */
+  Table: "table",
+  /**
+   * QueueAndTable
+   */
+  QueueAndTable: "queueAndTable",
+} as const;
+/**
+ * Target of the ingestion status reporting. Defaults to Queue.
+ */
+export type ReportMethod1 = OpenEnum<typeof ReportMethod1>;
+
+export type OutputAzureDataExplorerAzureDataExplorer1 = {
+  /**
+   * The type of OAuth 2.0 client credentials grant flow to use
+   */
+  oauthType?: OutputAzureDataExplorerAuthenticationMethod1 | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputAzureDataExplorerType1;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The base URI for your cluster. Typically, `https://<cluster>.<region>.kusto.windows.net`.
+   */
+  clusterUrl: string;
+  /**
+   * Name of the database containing the table where data will be ingested
+   */
+  database: string;
+  /**
+   * Name of the table to ingest data into
+   */
+  table: string;
+  /**
+   * When saving or starting the Destination, validate the database name and credentials; also validate table name, except when creating a new table. Disable if your Azure app does not have both the Database Viewer and the Table Viewer role.
+   */
+  validateDatabaseSettings?: boolean | undefined;
+  ingestMode?: IngestionMode1 | undefined;
+  /**
+   * Endpoint used to acquire authentication tokens from Azure
+   */
+  oauthEndpoint?:
+    | OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint1
+    | undefined;
+  /**
+   * Directory ID (tenant identifier) in Azure Active Directory
+   */
+  tenantId: string;
+  /**
+   * client_id to pass in the OAuth request parameter
+   */
+  clientId: string;
+  /**
+   * Scope to pass in the OAuth request parameter
+   */
+  scope: string;
+  description?: string | undefined;
+  /**
+   * The client secret that you generated for your app in the Azure portal
+   */
+  clientSecret: string;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  certificate?: Certificate1 | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+  /**
+   * Send a JSON mapping object instead of specifying an existing named data mapping
+   */
+  isMappingObj?: boolean | undefined;
+  /**
+   * Enter a JSON object that defines your desired data mapping
+   */
+  mappingObj?: string | undefined;
+  /**
+   * Enter the name of a data mapping associated with your target table. Or, if incoming event and target table fields match exactly, you can leave the field empty.
+   */
+  mappingRef?: string | undefined;
+  /**
+   * The ingestion service URI for your cluster. Typically, `https://ingest-<cluster>.<region>.kusto.windows.net`.
+   */
+  ingestUrl?: string | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Filesystem location in which to buffer files before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Bypass the data management service's aggregation mechanism
+   */
+  flushImmediately?: boolean | undefined;
+  /**
+   * Prevent blob deletion after ingestion is complete
+   */
+  retainBlobOnSuccess?: boolean | undefined;
+  /**
+   * Strings or tags associated with the extent (ingested data shard)
+   */
+  extentTags?: Array<ExtentTag1> | undefined;
+  /**
+   * Prevents duplicate ingestion by verifying whether an extent with the specified ingest-by tag already exists
+   */
+  ingestIfNotExists?: Array<IngestIfNotExist1> | undefined;
+  /**
+   * Level of ingestion status reporting. Defaults to FailuresOnly.
+   */
+  reportLevel?: ReportLevel1 | undefined;
+  /**
+   * Target of the ingestion status reporting. Defaults to Queue.
+   */
+  reportMethod?: ReportMethod1 | undefined;
+  /**
+   * Optionally, enter additional configuration properties to send to the ingestion service
+   */
+  additionalProperties?: Array<TagsType> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Disable to close the connection immediately after sending the outgoing request
+   */
+  keepAlive?: boolean | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export type OutputAzureDataExplorer =
+  | OutputAzureDataExplorerAzureDataExplorer4
+  | OutputAzureDataExplorerAzureDataExplorer5
+  | OutputAzureDataExplorerAzureDataExplorer1
+  | OutputAzureDataExplorerAzureDataExplorer2
+  | OutputAzureDataExplorerAzureDataExplorer3
+  | OutputAzureDataExplorerAzureDataExplorer7
+  | OutputAzureDataExplorerAzureDataExplorer6
+  | OutputAzureDataExplorerAzureDataExplorer8
+  | OutputAzureDataExplorerAzureDataExplorer9;
 
 /** @internal */
-export const IngestionMode$inboundSchema: z.ZodType<
-  IngestionMode,
+export const OutputAzureDataExplorerType9$inboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureDataExplorerType9
+> = z.nativeEnum(OutputAzureDataExplorerType9);
+/** @internal */
+export const OutputAzureDataExplorerType9$outboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureDataExplorerType9
+> = OutputAzureDataExplorerType9$inboundSchema;
+
+/** @internal */
+export const IngestionMode9$inboundSchema: z.ZodType<
+  IngestionMode9,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(IngestionMode),
+    z.nativeEnum(IngestionMode9),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
-export const IngestionMode$outboundSchema: z.ZodType<
-  IngestionMode,
+export const IngestionMode9$outboundSchema: z.ZodType<
+  IngestionMode9,
   z.ZodTypeDef,
-  IngestionMode
+  IngestionMode9
 > = z.union([
-  z.nativeEnum(IngestionMode),
+  z.nativeEnum(IngestionMode9),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace IngestionMode$ {
-  /** @deprecated use `IngestionMode$inboundSchema` instead. */
-  export const inboundSchema = IngestionMode$inboundSchema;
-  /** @deprecated use `IngestionMode$outboundSchema` instead. */
-  export const outboundSchema = IngestionMode$outboundSchema;
-}
-
 /** @internal */
-export const MicrosoftEntraIDAuthenticationEndpoint$inboundSchema: z.ZodType<
-  MicrosoftEntraIDAuthenticationEndpoint,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(MicrosoftEntraIDAuthenticationEndpoint),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const MicrosoftEntraIDAuthenticationEndpoint$outboundSchema: z.ZodType<
-  MicrosoftEntraIDAuthenticationEndpoint,
-  z.ZodTypeDef,
-  MicrosoftEntraIDAuthenticationEndpoint
-> = z.union([
-  z.nativeEnum(MicrosoftEntraIDAuthenticationEndpoint),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MicrosoftEntraIDAuthenticationEndpoint$ {
-  /** @deprecated use `MicrosoftEntraIDAuthenticationEndpoint$inboundSchema` instead. */
-  export const inboundSchema =
-    MicrosoftEntraIDAuthenticationEndpoint$inboundSchema;
-  /** @deprecated use `MicrosoftEntraIDAuthenticationEndpoint$outboundSchema` instead. */
-  export const outboundSchema =
-    MicrosoftEntraIDAuthenticationEndpoint$outboundSchema;
-}
-
-/** @internal */
-export const OutputAzureDataExplorerAuthenticationMethod$inboundSchema:
+export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint9$inboundSchema:
   z.ZodType<
-    OutputAzureDataExplorerAuthenticationMethod,
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint9,
     z.ZodTypeDef,
     unknown
   > = z
     .union([
-      z.nativeEnum(OutputAzureDataExplorerAuthenticationMethod),
+      z.nativeEnum(
+        OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint9,
+      ),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
-export const OutputAzureDataExplorerAuthenticationMethod$outboundSchema:
+export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint9$outboundSchema:
   z.ZodType<
-    OutputAzureDataExplorerAuthenticationMethod,
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint9,
     z.ZodTypeDef,
-    OutputAzureDataExplorerAuthenticationMethod
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint9
   > = z.union([
-    z.nativeEnum(OutputAzureDataExplorerAuthenticationMethod),
+    z.nativeEnum(
+      OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint9,
+    ),
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureDataExplorerAuthenticationMethod$ {
-  /** @deprecated use `OutputAzureDataExplorerAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureDataExplorerAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureDataExplorerAuthenticationMethod$outboundSchema;
-}
+/** @internal */
+export const OutputAzureDataExplorerAuthenticationMethod9$inboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerAuthenticationMethod9,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(OutputAzureDataExplorerAuthenticationMethod9),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const OutputAzureDataExplorerAuthenticationMethod9$outboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerAuthenticationMethod9,
+    z.ZodTypeDef,
+    OutputAzureDataExplorerAuthenticationMethod9
+  > = z.union([
+    z.nativeEnum(OutputAzureDataExplorerAuthenticationMethod9),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
 
 /** @internal */
-export const OutputAzureDataExplorerCertificate$inboundSchema: z.ZodType<
-  OutputAzureDataExplorerCertificate,
+export const Certificate9$inboundSchema: z.ZodType<
+  Certificate9,
   z.ZodTypeDef,
   unknown
 > = z.object({
   certificateName: z.string().optional(),
 });
-
 /** @internal */
-export type OutputAzureDataExplorerCertificate$Outbound = {
+export type Certificate9$Outbound = {
   certificateName?: string | undefined;
 };
 
 /** @internal */
-export const OutputAzureDataExplorerCertificate$outboundSchema: z.ZodType<
-  OutputAzureDataExplorerCertificate$Outbound,
+export const Certificate9$outboundSchema: z.ZodType<
+  Certificate9$Outbound,
   z.ZodTypeDef,
-  OutputAzureDataExplorerCertificate
+  Certificate9
 > = z.object({
   certificateName: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureDataExplorerCertificate$ {
-  /** @deprecated use `OutputAzureDataExplorerCertificate$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureDataExplorerCertificate$inboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerCertificate$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureDataExplorerCertificate$outboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerCertificate$Outbound` instead. */
-  export type Outbound = OutputAzureDataExplorerCertificate$Outbound;
+export function certificate9ToJSON(certificate9: Certificate9): string {
+  return JSON.stringify(Certificate9$outboundSchema.parse(certificate9));
 }
-
-export function outputAzureDataExplorerCertificateToJSON(
-  outputAzureDataExplorerCertificate: OutputAzureDataExplorerCertificate,
-): string {
-  return JSON.stringify(
-    OutputAzureDataExplorerCertificate$outboundSchema.parse(
-      outputAzureDataExplorerCertificate,
-    ),
-  );
-}
-
-export function outputAzureDataExplorerCertificateFromJSON(
+export function certificate9FromJSON(
   jsonString: string,
-): SafeParseResult<OutputAzureDataExplorerCertificate, SDKValidationError> {
+): SafeParseResult<Certificate9, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) =>
-      OutputAzureDataExplorerCertificate$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputAzureDataExplorerCertificate' from JSON`,
+    (x) => Certificate9$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Certificate9' from JSON`,
   );
 }
 
 /** @internal */
-export const OutputAzureDataExplorerBackpressureBehavior$inboundSchema:
-  z.ZodType<
-    OutputAzureDataExplorerBackpressureBehavior,
-    z.ZodTypeDef,
-    unknown
-  > = z
-    .union([
-      z.nativeEnum(OutputAzureDataExplorerBackpressureBehavior),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
-
-/** @internal */
-export const OutputAzureDataExplorerBackpressureBehavior$outboundSchema:
-  z.ZodType<
-    OutputAzureDataExplorerBackpressureBehavior,
-    z.ZodTypeDef,
-    OutputAzureDataExplorerBackpressureBehavior
-  > = z.union([
-    z.nativeEnum(OutputAzureDataExplorerBackpressureBehavior),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureDataExplorerBackpressureBehavior$ {
-  /** @deprecated use `OutputAzureDataExplorerBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureDataExplorerBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureDataExplorerBackpressureBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputAzureDataExplorerDataFormat$inboundSchema: z.ZodType<
-  OutputAzureDataExplorerDataFormat,
+export const PrefixOptional9$inboundSchema: z.ZodType<
+  PrefixOptional9,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(OutputAzureDataExplorerDataFormat),
+    z.nativeEnum(PrefixOptional9),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
-export const OutputAzureDataExplorerDataFormat$outboundSchema: z.ZodType<
-  OutputAzureDataExplorerDataFormat,
+export const PrefixOptional9$outboundSchema: z.ZodType<
+  PrefixOptional9,
   z.ZodTypeDef,
-  OutputAzureDataExplorerDataFormat
+  PrefixOptional9
 > = z.union([
-  z.nativeEnum(OutputAzureDataExplorerDataFormat),
+  z.nativeEnum(PrefixOptional9),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureDataExplorerDataFormat$ {
-  /** @deprecated use `OutputAzureDataExplorerDataFormat$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureDataExplorerDataFormat$inboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerDataFormat$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureDataExplorerDataFormat$outboundSchema;
-}
-
 /** @internal */
-export const OutputAzureDataExplorerDiskSpaceProtection$inboundSchema:
-  z.ZodType<OutputAzureDataExplorerDiskSpaceProtection, z.ZodTypeDef, unknown> =
-    z
-      .union([
-        z.nativeEnum(OutputAzureDataExplorerDiskSpaceProtection),
-        z.string().transform(catchUnrecognizedEnum),
-      ]);
-
-/** @internal */
-export const OutputAzureDataExplorerDiskSpaceProtection$outboundSchema:
-  z.ZodType<
-    OutputAzureDataExplorerDiskSpaceProtection,
-    z.ZodTypeDef,
-    OutputAzureDataExplorerDiskSpaceProtection
-  > = z.union([
-    z.nativeEnum(OutputAzureDataExplorerDiskSpaceProtection),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureDataExplorerDiskSpaceProtection$ {
-  /** @deprecated use `OutputAzureDataExplorerDiskSpaceProtection$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureDataExplorerDiskSpaceProtection$inboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerDiskSpaceProtection$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureDataExplorerDiskSpaceProtection$outboundSchema;
-}
-
-/** @internal */
-export const PrefixOptional$inboundSchema: z.ZodType<
-  PrefixOptional,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(PrefixOptional),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const PrefixOptional$outboundSchema: z.ZodType<
-  PrefixOptional,
-  z.ZodTypeDef,
-  PrefixOptional
-> = z.union([
-  z.nativeEnum(PrefixOptional),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PrefixOptional$ {
-  /** @deprecated use `PrefixOptional$inboundSchema` instead. */
-  export const inboundSchema = PrefixOptional$inboundSchema;
-  /** @deprecated use `PrefixOptional$outboundSchema` instead. */
-  export const outboundSchema = PrefixOptional$outboundSchema;
-}
-
-/** @internal */
-export const ExtentTag$inboundSchema: z.ZodType<
-  ExtentTag,
+export const ExtentTag9$inboundSchema: z.ZodType<
+  ExtentTag9,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  prefix: PrefixOptional$inboundSchema.optional(),
+  prefix: PrefixOptional9$inboundSchema.optional(),
   value: z.string(),
 });
-
 /** @internal */
-export type ExtentTag$Outbound = {
+export type ExtentTag9$Outbound = {
   prefix?: string | undefined;
   value: string;
 };
 
 /** @internal */
-export const ExtentTag$outboundSchema: z.ZodType<
-  ExtentTag$Outbound,
+export const ExtentTag9$outboundSchema: z.ZodType<
+  ExtentTag9$Outbound,
   z.ZodTypeDef,
-  ExtentTag
+  ExtentTag9
 > = z.object({
-  prefix: PrefixOptional$outboundSchema.optional(),
+  prefix: PrefixOptional9$outboundSchema.optional(),
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ExtentTag$ {
-  /** @deprecated use `ExtentTag$inboundSchema` instead. */
-  export const inboundSchema = ExtentTag$inboundSchema;
-  /** @deprecated use `ExtentTag$outboundSchema` instead. */
-  export const outboundSchema = ExtentTag$outboundSchema;
-  /** @deprecated use `ExtentTag$Outbound` instead. */
-  export type Outbound = ExtentTag$Outbound;
+export function extentTag9ToJSON(extentTag9: ExtentTag9): string {
+  return JSON.stringify(ExtentTag9$outboundSchema.parse(extentTag9));
 }
-
-export function extentTagToJSON(extentTag: ExtentTag): string {
-  return JSON.stringify(ExtentTag$outboundSchema.parse(extentTag));
-}
-
-export function extentTagFromJSON(
+export function extentTag9FromJSON(
   jsonString: string,
-): SafeParseResult<ExtentTag, SDKValidationError> {
+): SafeParseResult<ExtentTag9, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => ExtentTag$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ExtentTag' from JSON`,
+    (x) => ExtentTag9$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ExtentTag9' from JSON`,
   );
 }
 
 /** @internal */
-export const IngestIfNotExist$inboundSchema: z.ZodType<
-  IngestIfNotExist,
+export const IngestIfNotExist9$inboundSchema: z.ZodType<
+  IngestIfNotExist9,
   z.ZodTypeDef,
   unknown
 > = z.object({
   value: z.string(),
 });
-
 /** @internal */
-export type IngestIfNotExist$Outbound = {
+export type IngestIfNotExist9$Outbound = {
   value: string;
 };
 
 /** @internal */
-export const IngestIfNotExist$outboundSchema: z.ZodType<
-  IngestIfNotExist$Outbound,
+export const IngestIfNotExist9$outboundSchema: z.ZodType<
+  IngestIfNotExist9$Outbound,
   z.ZodTypeDef,
-  IngestIfNotExist
+  IngestIfNotExist9
 > = z.object({
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace IngestIfNotExist$ {
-  /** @deprecated use `IngestIfNotExist$inboundSchema` instead. */
-  export const inboundSchema = IngestIfNotExist$inboundSchema;
-  /** @deprecated use `IngestIfNotExist$outboundSchema` instead. */
-  export const outboundSchema = IngestIfNotExist$outboundSchema;
-  /** @deprecated use `IngestIfNotExist$Outbound` instead. */
-  export type Outbound = IngestIfNotExist$Outbound;
-}
-
-export function ingestIfNotExistToJSON(
-  ingestIfNotExist: IngestIfNotExist,
+export function ingestIfNotExist9ToJSON(
+  ingestIfNotExist9: IngestIfNotExist9,
 ): string {
   return JSON.stringify(
-    IngestIfNotExist$outboundSchema.parse(ingestIfNotExist),
+    IngestIfNotExist9$outboundSchema.parse(ingestIfNotExist9),
   );
 }
-
-export function ingestIfNotExistFromJSON(
+export function ingestIfNotExist9FromJSON(
   jsonString: string,
-): SafeParseResult<IngestIfNotExist, SDKValidationError> {
+): SafeParseResult<IngestIfNotExist9, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => IngestIfNotExist$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'IngestIfNotExist' from JSON`,
+    (x) => IngestIfNotExist9$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'IngestIfNotExist9' from JSON`,
   );
 }
 
 /** @internal */
-export const ReportLevel$inboundSchema: z.ZodType<
-  ReportLevel,
+export const ReportLevel9$inboundSchema: z.ZodType<
+  ReportLevel9,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(ReportLevel),
+    z.nativeEnum(ReportLevel9),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
-export const ReportLevel$outboundSchema: z.ZodType<
-  ReportLevel,
+export const ReportLevel9$outboundSchema: z.ZodType<
+  ReportLevel9,
   z.ZodTypeDef,
-  ReportLevel
+  ReportLevel9
 > = z.union([
-  z.nativeEnum(ReportLevel),
+  z.nativeEnum(ReportLevel9),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ReportLevel$ {
-  /** @deprecated use `ReportLevel$inboundSchema` instead. */
-  export const inboundSchema = ReportLevel$inboundSchema;
-  /** @deprecated use `ReportLevel$outboundSchema` instead. */
-  export const outboundSchema = ReportLevel$outboundSchema;
-}
-
 /** @internal */
-export const ReportMethod$inboundSchema: z.ZodType<
-  ReportMethod,
+export const ReportMethod9$inboundSchema: z.ZodType<
+  ReportMethod9,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(ReportMethod),
+    z.nativeEnum(ReportMethod9),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
-export const ReportMethod$outboundSchema: z.ZodType<
-  ReportMethod,
+export const ReportMethod9$outboundSchema: z.ZodType<
+  ReportMethod9,
   z.ZodTypeDef,
-  ReportMethod
+  ReportMethod9
 > = z.union([
-  z.nativeEnum(ReportMethod),
+  z.nativeEnum(ReportMethod9),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ReportMethod$ {
-  /** @deprecated use `ReportMethod$inboundSchema` instead. */
-  export const inboundSchema = ReportMethod$inboundSchema;
-  /** @deprecated use `ReportMethod$outboundSchema` instead. */
-  export const outboundSchema = ReportMethod$outboundSchema;
-}
-
 /** @internal */
-export const AdditionalProperty$inboundSchema: z.ZodType<
-  AdditionalProperty,
+export const OutputAzureDataExplorerAzureDataExplorer9$inboundSchema: z.ZodType<
+  OutputAzureDataExplorerAzureDataExplorer9,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  key: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type AdditionalProperty$Outbound = {
-  key: string;
-  value: string;
-};
-
-/** @internal */
-export const AdditionalProperty$outboundSchema: z.ZodType<
-  AdditionalProperty$Outbound,
-  z.ZodTypeDef,
-  AdditionalProperty
-> = z.object({
-  key: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AdditionalProperty$ {
-  /** @deprecated use `AdditionalProperty$inboundSchema` instead. */
-  export const inboundSchema = AdditionalProperty$inboundSchema;
-  /** @deprecated use `AdditionalProperty$outboundSchema` instead. */
-  export const outboundSchema = AdditionalProperty$outboundSchema;
-  /** @deprecated use `AdditionalProperty$Outbound` instead. */
-  export type Outbound = AdditionalProperty$Outbound;
-}
-
-export function additionalPropertyToJSON(
-  additionalProperty: AdditionalProperty,
-): string {
-  return JSON.stringify(
-    AdditionalProperty$outboundSchema.parse(additionalProperty),
-  );
-}
-
-export function additionalPropertyFromJSON(
-  jsonString: string,
-): SafeParseResult<AdditionalProperty, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => AdditionalProperty$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'AdditionalProperty' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputAzureDataExplorerResponseRetrySetting$inboundSchema:
-  z.ZodType<
-    OutputAzureDataExplorerResponseRetrySetting,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    httpStatus: z.number(),
-    initialBackoff: z.number().default(1000),
-    backoffRate: z.number().default(2),
-    maxBackoff: z.number().default(10000),
-  });
-
-/** @internal */
-export type OutputAzureDataExplorerResponseRetrySetting$Outbound = {
-  httpStatus: number;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputAzureDataExplorerResponseRetrySetting$outboundSchema:
-  z.ZodType<
-    OutputAzureDataExplorerResponseRetrySetting$Outbound,
-    z.ZodTypeDef,
-    OutputAzureDataExplorerResponseRetrySetting
-  > = z.object({
-    httpStatus: z.number(),
-    initialBackoff: z.number().default(1000),
-    backoffRate: z.number().default(2),
-    maxBackoff: z.number().default(10000),
-  });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureDataExplorerResponseRetrySetting$ {
-  /** @deprecated use `OutputAzureDataExplorerResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureDataExplorerResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureDataExplorerResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputAzureDataExplorerResponseRetrySetting$Outbound;
-}
-
-export function outputAzureDataExplorerResponseRetrySettingToJSON(
-  outputAzureDataExplorerResponseRetrySetting:
-    OutputAzureDataExplorerResponseRetrySetting,
-): string {
-  return JSON.stringify(
-    OutputAzureDataExplorerResponseRetrySetting$outboundSchema.parse(
-      outputAzureDataExplorerResponseRetrySetting,
-    ),
-  );
-}
-
-export function outputAzureDataExplorerResponseRetrySettingFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  OutputAzureDataExplorerResponseRetrySetting,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputAzureDataExplorerResponseRetrySetting$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'OutputAzureDataExplorerResponseRetrySetting' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputAzureDataExplorerTimeoutRetrySettings$inboundSchema:
-  z.ZodType<
-    OutputAzureDataExplorerTimeoutRetrySettings,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    timeoutRetry: z.boolean().default(false),
-    initialBackoff: z.number().default(1000),
-    backoffRate: z.number().default(2),
-    maxBackoff: z.number().default(10000),
-  });
-
-/** @internal */
-export type OutputAzureDataExplorerTimeoutRetrySettings$Outbound = {
-  timeoutRetry: boolean;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputAzureDataExplorerTimeoutRetrySettings$outboundSchema:
-  z.ZodType<
-    OutputAzureDataExplorerTimeoutRetrySettings$Outbound,
-    z.ZodTypeDef,
-    OutputAzureDataExplorerTimeoutRetrySettings
-  > = z.object({
-    timeoutRetry: z.boolean().default(false),
-    initialBackoff: z.number().default(1000),
-    backoffRate: z.number().default(2),
-    maxBackoff: z.number().default(10000),
-  });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureDataExplorerTimeoutRetrySettings$ {
-  /** @deprecated use `OutputAzureDataExplorerTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureDataExplorerTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureDataExplorerTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputAzureDataExplorerTimeoutRetrySettings$Outbound;
-}
-
-export function outputAzureDataExplorerTimeoutRetrySettingsToJSON(
-  outputAzureDataExplorerTimeoutRetrySettings:
-    OutputAzureDataExplorerTimeoutRetrySettings,
-): string {
-  return JSON.stringify(
-    OutputAzureDataExplorerTimeoutRetrySettings$outboundSchema.parse(
-      outputAzureDataExplorerTimeoutRetrySettings,
-    ),
-  );
-}
-
-export function outputAzureDataExplorerTimeoutRetrySettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  OutputAzureDataExplorerTimeoutRetrySettings,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputAzureDataExplorerTimeoutRetrySettings$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'OutputAzureDataExplorerTimeoutRetrySettings' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputAzureDataExplorerCompressCompression$inboundSchema:
-  z.ZodType<OutputAzureDataExplorerCompressCompression, z.ZodTypeDef, unknown> =
-    z
-      .union([
-        z.nativeEnum(OutputAzureDataExplorerCompressCompression),
-        z.string().transform(catchUnrecognizedEnum),
-      ]);
-
-/** @internal */
-export const OutputAzureDataExplorerCompressCompression$outboundSchema:
-  z.ZodType<
-    OutputAzureDataExplorerCompressCompression,
-    z.ZodTypeDef,
-    OutputAzureDataExplorerCompressCompression
-  > = z.union([
-    z.nativeEnum(OutputAzureDataExplorerCompressCompression),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureDataExplorerCompressCompression$ {
-  /** @deprecated use `OutputAzureDataExplorerCompressCompression$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureDataExplorerCompressCompression$inboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerCompressCompression$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureDataExplorerCompressCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputAzureDataExplorerPqCompressCompression$inboundSchema:
-  z.ZodType<
-    OutputAzureDataExplorerPqCompressCompression,
-    z.ZodTypeDef,
-    unknown
-  > = z
-    .union([
-      z.nativeEnum(OutputAzureDataExplorerPqCompressCompression),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
-
-/** @internal */
-export const OutputAzureDataExplorerPqCompressCompression$outboundSchema:
-  z.ZodType<
-    OutputAzureDataExplorerPqCompressCompression,
-    z.ZodTypeDef,
-    OutputAzureDataExplorerPqCompressCompression
-  > = z.union([
-    z.nativeEnum(OutputAzureDataExplorerPqCompressCompression),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureDataExplorerPqCompressCompression$ {
-  /** @deprecated use `OutputAzureDataExplorerPqCompressCompression$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureDataExplorerPqCompressCompression$inboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerPqCompressCompression$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureDataExplorerPqCompressCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputAzureDataExplorerQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputAzureDataExplorerQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureDataExplorerQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputAzureDataExplorerQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputAzureDataExplorerQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputAzureDataExplorerQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputAzureDataExplorerQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureDataExplorerQueueFullBehavior$ {
-  /** @deprecated use `OutputAzureDataExplorerQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureDataExplorerQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureDataExplorerQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputAzureDataExplorerMode$inboundSchema: z.ZodType<
-  OutputAzureDataExplorerMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureDataExplorerMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputAzureDataExplorerMode$outboundSchema: z.ZodType<
-  OutputAzureDataExplorerMode,
-  z.ZodTypeDef,
-  OutputAzureDataExplorerMode
-> = z.union([
-  z.nativeEnum(OutputAzureDataExplorerMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureDataExplorerMode$ {
-  /** @deprecated use `OutputAzureDataExplorerMode$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureDataExplorerMode$inboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerMode$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureDataExplorerMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputAzureDataExplorerPqControls$inboundSchema: z.ZodType<
-  OutputAzureDataExplorerPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type OutputAzureDataExplorerPqControls$Outbound = {};
-
-/** @internal */
-export const OutputAzureDataExplorerPqControls$outboundSchema: z.ZodType<
-  OutputAzureDataExplorerPqControls$Outbound,
-  z.ZodTypeDef,
-  OutputAzureDataExplorerPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureDataExplorerPqControls$ {
-  /** @deprecated use `OutputAzureDataExplorerPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureDataExplorerPqControls$inboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerPqControls$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureDataExplorerPqControls$outboundSchema;
-  /** @deprecated use `OutputAzureDataExplorerPqControls$Outbound` instead. */
-  export type Outbound = OutputAzureDataExplorerPqControls$Outbound;
-}
-
-export function outputAzureDataExplorerPqControlsToJSON(
-  outputAzureDataExplorerPqControls: OutputAzureDataExplorerPqControls,
-): string {
-  return JSON.stringify(
-    OutputAzureDataExplorerPqControls$outboundSchema.parse(
-      outputAzureDataExplorerPqControls,
-    ),
-  );
-}
-
-export function outputAzureDataExplorerPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputAzureDataExplorerPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputAzureDataExplorerPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputAzureDataExplorerPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputAzureDataExplorer$inboundSchema: z.ZodType<
-  OutputAzureDataExplorer,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+  removeEmptyDirs: z.boolean().default(true),
   id: z.string().optional(),
-  type: OutputAzureDataExplorerType$inboundSchema,
+  type: OutputAzureDataExplorerType9$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -1392,26 +4413,45 @@ export const OutputAzureDataExplorer$inboundSchema: z.ZodType<
   database: z.string(),
   table: z.string(),
   validateDatabaseSettings: z.boolean().default(true),
-  ingestMode: IngestionMode$inboundSchema.default("batching"),
-  oauthEndpoint: MicrosoftEntraIDAuthenticationEndpoint$inboundSchema.default(
-    "https://login.microsoftonline.com",
-  ),
+  ingestMode: IngestionMode9$inboundSchema.default("batching"),
+  oauthEndpoint:
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint9$inboundSchema
+      .default("https://login.microsoftonline.com"),
   tenantId: z.string(),
   clientId: z.string(),
   scope: z.string(),
-  oauthType: OutputAzureDataExplorerAuthenticationMethod$inboundSchema.default(
+  oauthType: OutputAzureDataExplorerAuthenticationMethod9$inboundSchema.default(
     "clientSecret",
   ),
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
-  certificate: z.lazy(() => OutputAzureDataExplorerCertificate$inboundSchema)
-    .optional(),
-  ingestUrl: z.string().optional(),
-  onBackpressure: OutputAzureDataExplorerBackpressureBehavior$inboundSchema
-    .default("block"),
+  certificate: z.lazy(() => Certificate9$inboundSchema).optional(),
+  format: Format1Options$inboundSchema.default("json"),
+  compress: PqCompressOptions$inboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterEnabled: z.boolean().default(false),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
   isMappingObj: z.boolean().default(false),
-  format: OutputAzureDataExplorerDataFormat$inboundSchema.default("json"),
+  mappingObj: z.string().optional(),
+  mappingRef: z.string().optional(),
+  ingestUrl: z.string().optional(),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
   stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
   fileNameSuffix: z.string().default(
     "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
@@ -1421,32 +4461,23 @@ export const OutputAzureDataExplorer$inboundSchema: z.ZodType<
   maxFileIdleTimeSec: z.number().default(30),
   maxOpenFiles: z.number().default(100),
   maxConcurrentFileParts: z.number().default(1),
-  onDiskFullBackpressure:
-    OutputAzureDataExplorerDiskSpaceProtection$inboundSchema.default("block"),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
   addIdToStagePath: z.boolean().default(true),
-  removeEmptyDirs: z.boolean().default(true),
-  deadletterEnabled: z.boolean().default(false),
   timeoutSec: z.number().default(30),
   flushImmediately: z.boolean().default(false),
   retainBlobOnSuccess: z.boolean().default(false),
-  extentTags: z.array(z.lazy(() => ExtentTag$inboundSchema)).optional(),
-  ingestIfNotExists: z.array(z.lazy(() => IngestIfNotExist$inboundSchema))
+  extentTags: z.array(z.lazy(() => ExtentTag9$inboundSchema)).optional(),
+  ingestIfNotExists: z.array(z.lazy(() => IngestIfNotExist9$inboundSchema))
     .optional(),
-  reportLevel: ReportLevel$inboundSchema.default("failuresOnly"),
-  reportMethod: ReportMethod$inboundSchema.default("queue"),
-  additionalProperties: z.array(z.lazy(() => AdditionalProperty$inboundSchema))
+  reportLevel: ReportLevel9$inboundSchema.default("failuresOnly"),
+  reportMethod: ReportMethod9$inboundSchema.default("queue"),
+  additionalProperties: z.array(TagsType$inboundSchema).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
     .optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputAzureDataExplorerResponseRetrySetting$inboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputAzureDataExplorerTimeoutRetrySettings$inboundSchema
-  ).optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
-  compress: OutputAzureDataExplorerCompressCompression$inboundSchema.default(
-    "gzip",
-  ),
-  mappingRef: z.string().optional(),
   concurrency: z.number().default(5),
   maxPayloadSizeKB: z.number().default(4096),
   maxPayloadEvents: z.number().default(0),
@@ -1454,21 +4485,21 @@ export const OutputAzureDataExplorer$inboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   useRoundRobinDns: z.boolean().default(false),
   keepAlive: z.boolean().default(true),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputAzureDataExplorerPqCompressCompression$inboundSchema
-    .default("none"),
-  pqOnBackpressure: OutputAzureDataExplorerQueueFullBehavior$inboundSchema
-    .default("block"),
-  pqMode: OutputAzureDataExplorerMode$inboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputAzureDataExplorerPqControls$inboundSchema)
-    .optional(),
-  emptyDirCleanupSec: z.number().default(300),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
 });
-
 /** @internal */
-export type OutputAzureDataExplorer$Outbound = {
+export type OutputAzureDataExplorerAzureDataExplorer9$Outbound = {
+  removeEmptyDirs: boolean;
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -1488,11 +4519,30 @@ export type OutputAzureDataExplorer$Outbound = {
   description?: string | undefined;
   clientSecret?: string | undefined;
   textSecret?: string | undefined;
-  certificate?: OutputAzureDataExplorerCertificate$Outbound | undefined;
+  certificate?: Certificate9$Outbound | undefined;
+  format: string;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  emptyDirCleanupSec: number;
+  deadletterEnabled: boolean;
+  deadletterPath: string;
+  maxRetryNum: number;
+  isMappingObj: boolean;
+  mappingObj?: string | undefined;
+  mappingRef?: string | undefined;
   ingestUrl?: string | undefined;
   onBackpressure: string;
-  isMappingObj: boolean;
-  format: string;
   stagePath: string;
   fileNameSuffix: string;
   maxFileSizeMB: number;
@@ -1502,25 +4552,17 @@ export type OutputAzureDataExplorer$Outbound = {
   maxConcurrentFileParts: number;
   onDiskFullBackpressure: string;
   addIdToStagePath: boolean;
-  removeEmptyDirs: boolean;
-  deadletterEnabled: boolean;
   timeoutSec: number;
   flushImmediately: boolean;
   retainBlobOnSuccess: boolean;
-  extentTags?: Array<ExtentTag$Outbound> | undefined;
-  ingestIfNotExists?: Array<IngestIfNotExist$Outbound> | undefined;
+  extentTags?: Array<ExtentTag9$Outbound> | undefined;
+  ingestIfNotExists?: Array<IngestIfNotExist9$Outbound> | undefined;
   reportLevel: string;
   reportMethod: string;
-  additionalProperties?: Array<AdditionalProperty$Outbound> | undefined;
-  responseRetrySettings?:
-    | Array<OutputAzureDataExplorerResponseRetrySetting$Outbound>
-    | undefined;
-  timeoutRetrySettings?:
-    | OutputAzureDataExplorerTimeoutRetrySettings$Outbound
-    | undefined;
+  additionalProperties?: Array<TagsType$Outbound> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader: boolean;
-  compress: string;
-  mappingRef?: string | undefined;
   concurrency: number;
   maxPayloadSizeKB: number;
   maxPayloadEvents: number;
@@ -1528,24 +4570,406 @@ export type OutputAzureDataExplorer$Outbound = {
   rejectUnauthorized: boolean;
   useRoundRobinDns: boolean;
   keepAlive: boolean;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
-  pqControls?: OutputAzureDataExplorerPqControls$Outbound | undefined;
-  emptyDirCleanupSec: number;
+  pqControls?: MetadataType$Outbound | undefined;
 };
 
 /** @internal */
-export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
-  OutputAzureDataExplorer$Outbound,
+export const OutputAzureDataExplorerAzureDataExplorer9$outboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerAzureDataExplorer9$Outbound,
+    z.ZodTypeDef,
+    OutputAzureDataExplorerAzureDataExplorer9
+  > = z.object({
+    removeEmptyDirs: z.boolean().default(true),
+    id: z.string().optional(),
+    type: OutputAzureDataExplorerType9$outboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    clusterUrl: z.string(),
+    database: z.string(),
+    table: z.string(),
+    validateDatabaseSettings: z.boolean().default(true),
+    ingestMode: IngestionMode9$outboundSchema.default("batching"),
+    oauthEndpoint:
+      OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint9$outboundSchema
+        .default("https://login.microsoftonline.com"),
+    tenantId: z.string(),
+    clientId: z.string(),
+    scope: z.string(),
+    oauthType: OutputAzureDataExplorerAuthenticationMethod9$outboundSchema
+      .default("clientSecret"),
+    description: z.string().optional(),
+    clientSecret: z.string().optional(),
+    textSecret: z.string().optional(),
+    certificate: z.lazy(() => Certificate9$outboundSchema).optional(),
+    format: Format1Options$outboundSchema.default("json"),
+    compress: PqCompressOptions$outboundSchema.default("none"),
+    compressionLevel: CompressionLevelOptions$outboundSchema.default(
+      "best_speed",
+    ),
+    automaticSchema: z.boolean().default(false),
+    parquetSchema: z.string().optional(),
+    parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+    parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema
+      .default("DATA_PAGE_V2"),
+    parquetRowGroupLength: z.number().default(10000),
+    parquetPageSize: z.string().default("1MB"),
+    shouldLogInvalidRows: z.boolean().optional(),
+    keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+    enableStatistics: z.boolean().default(true),
+    enableWritePageIndex: z.boolean().default(true),
+    enablePageChecksum: z.boolean().default(false),
+    emptyDirCleanupSec: z.number().default(300),
+    deadletterEnabled: z.boolean().default(false),
+    deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+    maxRetryNum: z.number().default(20),
+    isMappingObj: z.boolean().default(false),
+    mappingObj: z.string().optional(),
+    mappingRef: z.string().optional(),
+    ingestUrl: z.string().optional(),
+    onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+    stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+    fileNameSuffix: z.string().default(
+      "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+    ),
+    maxFileSizeMB: z.number().default(32),
+    maxFileOpenTimeSec: z.number().default(300),
+    maxFileIdleTimeSec: z.number().default(30),
+    maxOpenFiles: z.number().default(100),
+    maxConcurrentFileParts: z.number().default(1),
+    onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+      "block",
+    ),
+    addIdToStagePath: z.boolean().default(true),
+    timeoutSec: z.number().default(30),
+    flushImmediately: z.boolean().default(false),
+    retainBlobOnSuccess: z.boolean().default(false),
+    extentTags: z.array(z.lazy(() => ExtentTag9$outboundSchema)).optional(),
+    ingestIfNotExists: z.array(z.lazy(() => IngestIfNotExist9$outboundSchema))
+      .optional(),
+    reportLevel: ReportLevel9$outboundSchema.default("failuresOnly"),
+    reportMethod: ReportMethod9$outboundSchema.default("queue"),
+    additionalProperties: z.array(TagsType$outboundSchema).optional(),
+    responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+      .optional(),
+    timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+    responseHonorRetryAfterHeader: z.boolean().default(true),
+    concurrency: z.number().default(5),
+    maxPayloadSizeKB: z.number().default(4096),
+    maxPayloadEvents: z.number().default(0),
+    flushPeriodSec: z.number().default(1),
+    rejectUnauthorized: z.boolean().default(true),
+    useRoundRobinDns: z.boolean().default(false),
+    keepAlive: z.boolean().default(true),
+    pqStrictOrdering: z.boolean().default(true),
+    pqRatePerSec: z.number().default(0),
+    pqMode: PqModeOptions$outboundSchema.default("error"),
+    pqMaxBufferSize: z.number().default(42),
+    pqMaxBackpressureSec: z.number().default(30),
+    pqMaxFileSize: z.string().default("1 MB"),
+    pqMaxSize: z.string().default("5GB"),
+    pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+    pqCompress: PqCompressOptions$outboundSchema.default("none"),
+    pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+    pqControls: MetadataType$outboundSchema.optional(),
+  });
+
+export function outputAzureDataExplorerAzureDataExplorer9ToJSON(
+  outputAzureDataExplorerAzureDataExplorer9:
+    OutputAzureDataExplorerAzureDataExplorer9,
+): string {
+  return JSON.stringify(
+    OutputAzureDataExplorerAzureDataExplorer9$outboundSchema.parse(
+      outputAzureDataExplorerAzureDataExplorer9,
+    ),
+  );
+}
+export function outputAzureDataExplorerAzureDataExplorer9FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  OutputAzureDataExplorerAzureDataExplorer9,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputAzureDataExplorerAzureDataExplorer9$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'OutputAzureDataExplorerAzureDataExplorer9' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputAzureDataExplorerType8$inboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureDataExplorerType8
+> = z.nativeEnum(OutputAzureDataExplorerType8);
+/** @internal */
+export const OutputAzureDataExplorerType8$outboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureDataExplorerType8
+> = OutputAzureDataExplorerType8$inboundSchema;
+
+/** @internal */
+export const IngestionMode8$inboundSchema: z.ZodType<
+  IngestionMode8,
   z.ZodTypeDef,
-  OutputAzureDataExplorer
+  unknown
+> = z
+  .union([
+    z.nativeEnum(IngestionMode8),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const IngestionMode8$outboundSchema: z.ZodType<
+  IngestionMode8,
+  z.ZodTypeDef,
+  IngestionMode8
+> = z.union([
+  z.nativeEnum(IngestionMode8),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint8$inboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint8,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(
+        OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint8,
+      ),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint8$outboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint8,
+    z.ZodTypeDef,
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint8
+  > = z.union([
+    z.nativeEnum(
+      OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint8,
+    ),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const OutputAzureDataExplorerAuthenticationMethod8$inboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerAuthenticationMethod8,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(OutputAzureDataExplorerAuthenticationMethod8),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const OutputAzureDataExplorerAuthenticationMethod8$outboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerAuthenticationMethod8,
+    z.ZodTypeDef,
+    OutputAzureDataExplorerAuthenticationMethod8
+  > = z.union([
+    z.nativeEnum(OutputAzureDataExplorerAuthenticationMethod8),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const Certificate8$inboundSchema: z.ZodType<
+  Certificate8,
+  z.ZodTypeDef,
+  unknown
 > = z.object({
+  certificateName: z.string().optional(),
+});
+/** @internal */
+export type Certificate8$Outbound = {
+  certificateName?: string | undefined;
+};
+
+/** @internal */
+export const Certificate8$outboundSchema: z.ZodType<
+  Certificate8$Outbound,
+  z.ZodTypeDef,
+  Certificate8
+> = z.object({
+  certificateName: z.string().optional(),
+});
+
+export function certificate8ToJSON(certificate8: Certificate8): string {
+  return JSON.stringify(Certificate8$outboundSchema.parse(certificate8));
+}
+export function certificate8FromJSON(
+  jsonString: string,
+): SafeParseResult<Certificate8, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Certificate8$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Certificate8' from JSON`,
+  );
+}
+
+/** @internal */
+export const PrefixOptional8$inboundSchema: z.ZodType<
+  PrefixOptional8,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(PrefixOptional8),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const PrefixOptional8$outboundSchema: z.ZodType<
+  PrefixOptional8,
+  z.ZodTypeDef,
+  PrefixOptional8
+> = z.union([
+  z.nativeEnum(PrefixOptional8),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ExtentTag8$inboundSchema: z.ZodType<
+  ExtentTag8,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  prefix: PrefixOptional8$inboundSchema.optional(),
+  value: z.string(),
+});
+/** @internal */
+export type ExtentTag8$Outbound = {
+  prefix?: string | undefined;
+  value: string;
+};
+
+/** @internal */
+export const ExtentTag8$outboundSchema: z.ZodType<
+  ExtentTag8$Outbound,
+  z.ZodTypeDef,
+  ExtentTag8
+> = z.object({
+  prefix: PrefixOptional8$outboundSchema.optional(),
+  value: z.string(),
+});
+
+export function extentTag8ToJSON(extentTag8: ExtentTag8): string {
+  return JSON.stringify(ExtentTag8$outboundSchema.parse(extentTag8));
+}
+export function extentTag8FromJSON(
+  jsonString: string,
+): SafeParseResult<ExtentTag8, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ExtentTag8$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ExtentTag8' from JSON`,
+  );
+}
+
+/** @internal */
+export const IngestIfNotExist8$inboundSchema: z.ZodType<
+  IngestIfNotExist8,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  value: z.string(),
+});
+/** @internal */
+export type IngestIfNotExist8$Outbound = {
+  value: string;
+};
+
+/** @internal */
+export const IngestIfNotExist8$outboundSchema: z.ZodType<
+  IngestIfNotExist8$Outbound,
+  z.ZodTypeDef,
+  IngestIfNotExist8
+> = z.object({
+  value: z.string(),
+});
+
+export function ingestIfNotExist8ToJSON(
+  ingestIfNotExist8: IngestIfNotExist8,
+): string {
+  return JSON.stringify(
+    IngestIfNotExist8$outboundSchema.parse(ingestIfNotExist8),
+  );
+}
+export function ingestIfNotExist8FromJSON(
+  jsonString: string,
+): SafeParseResult<IngestIfNotExist8, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => IngestIfNotExist8$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'IngestIfNotExist8' from JSON`,
+  );
+}
+
+/** @internal */
+export const ReportLevel8$inboundSchema: z.ZodType<
+  ReportLevel8,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ReportLevel8),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ReportLevel8$outboundSchema: z.ZodType<
+  ReportLevel8,
+  z.ZodTypeDef,
+  ReportLevel8
+> = z.union([
+  z.nativeEnum(ReportLevel8),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ReportMethod8$inboundSchema: z.ZodType<
+  ReportMethod8,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ReportMethod8),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ReportMethod8$outboundSchema: z.ZodType<
+  ReportMethod8,
+  z.ZodTypeDef,
+  ReportMethod8
+> = z.union([
+  z.nativeEnum(ReportMethod8),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputAzureDataExplorerAzureDataExplorer8$inboundSchema: z.ZodType<
+  OutputAzureDataExplorerAzureDataExplorer8,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  removeEmptyDirs: z.boolean().default(true),
   id: z.string().optional(),
-  type: OutputAzureDataExplorerType$outboundSchema,
+  type: OutputAzureDataExplorerType8$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -1554,26 +4978,45 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   database: z.string(),
   table: z.string(),
   validateDatabaseSettings: z.boolean().default(true),
-  ingestMode: IngestionMode$outboundSchema.default("batching"),
-  oauthEndpoint: MicrosoftEntraIDAuthenticationEndpoint$outboundSchema.default(
-    "https://login.microsoftonline.com",
-  ),
+  ingestMode: IngestionMode8$inboundSchema.default("batching"),
+  oauthEndpoint:
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint8$inboundSchema
+      .default("https://login.microsoftonline.com"),
   tenantId: z.string(),
   clientId: z.string(),
   scope: z.string(),
-  oauthType: OutputAzureDataExplorerAuthenticationMethod$outboundSchema.default(
+  oauthType: OutputAzureDataExplorerAuthenticationMethod8$inboundSchema.default(
     "clientSecret",
   ),
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
-  certificate: z.lazy(() => OutputAzureDataExplorerCertificate$outboundSchema)
-    .optional(),
-  ingestUrl: z.string().optional(),
-  onBackpressure: OutputAzureDataExplorerBackpressureBehavior$outboundSchema
-    .default("block"),
+  certificate: z.lazy(() => Certificate8$inboundSchema).optional(),
+  format: Format1Options$inboundSchema.default("json"),
+  compress: PqCompressOptions$inboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterEnabled: z.boolean().default(false),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
   isMappingObj: z.boolean().default(false),
-  format: OutputAzureDataExplorerDataFormat$outboundSchema.default("json"),
+  mappingObj: z.string().optional(),
+  mappingRef: z.string().optional(),
+  ingestUrl: z.string().optional(),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
   stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
   fileNameSuffix: z.string().default(
     "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
@@ -1583,32 +5026,23 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   maxFileIdleTimeSec: z.number().default(30),
   maxOpenFiles: z.number().default(100),
   maxConcurrentFileParts: z.number().default(1),
-  onDiskFullBackpressure:
-    OutputAzureDataExplorerDiskSpaceProtection$outboundSchema.default("block"),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
   addIdToStagePath: z.boolean().default(true),
-  removeEmptyDirs: z.boolean().default(true),
-  deadletterEnabled: z.boolean().default(false),
   timeoutSec: z.number().default(30),
   flushImmediately: z.boolean().default(false),
   retainBlobOnSuccess: z.boolean().default(false),
-  extentTags: z.array(z.lazy(() => ExtentTag$outboundSchema)).optional(),
-  ingestIfNotExists: z.array(z.lazy(() => IngestIfNotExist$outboundSchema))
+  extentTags: z.array(z.lazy(() => ExtentTag8$inboundSchema)).optional(),
+  ingestIfNotExists: z.array(z.lazy(() => IngestIfNotExist8$inboundSchema))
     .optional(),
-  reportLevel: ReportLevel$outboundSchema.default("failuresOnly"),
-  reportMethod: ReportMethod$outboundSchema.default("queue"),
-  additionalProperties: z.array(z.lazy(() => AdditionalProperty$outboundSchema))
+  reportLevel: ReportLevel8$inboundSchema.default("failuresOnly"),
+  reportMethod: ReportMethod8$inboundSchema.default("queue"),
+  additionalProperties: z.array(TagsType$inboundSchema).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
     .optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputAzureDataExplorerResponseRetrySetting$outboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputAzureDataExplorerTimeoutRetrySettings$outboundSchema
-  ).optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
-  compress: OutputAzureDataExplorerCompressCompression$outboundSchema.default(
-    "gzip",
-  ),
-  mappingRef: z.string().optional(),
   concurrency: z.number().default(5),
   maxPayloadSizeKB: z.number().default(4096),
   maxPayloadEvents: z.number().default(0),
@@ -1616,31 +5050,4228 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   useRoundRobinDns: z.boolean().default(false),
   keepAlive: z.boolean().default(true),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputAzureDataExplorerPqCompressCompression$outboundSchema
-    .default("none"),
-  pqOnBackpressure: OutputAzureDataExplorerQueueFullBehavior$outboundSchema
-    .default("block"),
-  pqMode: OutputAzureDataExplorerMode$outboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputAzureDataExplorerPqControls$outboundSchema)
-    .optional(),
-  emptyDirCleanupSec: z.number().default(300),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputAzureDataExplorerAzureDataExplorer8$Outbound = {
+  removeEmptyDirs: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  clusterUrl: string;
+  database: string;
+  table: string;
+  validateDatabaseSettings: boolean;
+  ingestMode: string;
+  oauthEndpoint: string;
+  tenantId: string;
+  clientId: string;
+  scope: string;
+  oauthType: string;
+  description?: string | undefined;
+  clientSecret?: string | undefined;
+  textSecret?: string | undefined;
+  certificate?: Certificate8$Outbound | undefined;
+  format: string;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  emptyDirCleanupSec: number;
+  deadletterEnabled: boolean;
+  deadletterPath: string;
+  maxRetryNum: number;
+  isMappingObj: boolean;
+  mappingObj?: string | undefined;
+  mappingRef?: string | undefined;
+  ingestUrl?: string | undefined;
+  onBackpressure: string;
+  stagePath: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxOpenFiles: number;
+  maxConcurrentFileParts: number;
+  onDiskFullBackpressure: string;
+  addIdToStagePath: boolean;
+  timeoutSec: number;
+  flushImmediately: boolean;
+  retainBlobOnSuccess: boolean;
+  extentTags?: Array<ExtentTag8$Outbound> | undefined;
+  ingestIfNotExists?: Array<IngestIfNotExist8$Outbound> | undefined;
+  reportLevel: string;
+  reportMethod: string;
+  additionalProperties?: Array<TagsType$Outbound> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  flushPeriodSec: number;
+  rejectUnauthorized: boolean;
+  useRoundRobinDns: boolean;
+  keepAlive: boolean;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputAzureDataExplorerAzureDataExplorer8$outboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerAzureDataExplorer8$Outbound,
+    z.ZodTypeDef,
+    OutputAzureDataExplorerAzureDataExplorer8
+  > = z.object({
+    removeEmptyDirs: z.boolean().default(true),
+    id: z.string().optional(),
+    type: OutputAzureDataExplorerType8$outboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    clusterUrl: z.string(),
+    database: z.string(),
+    table: z.string(),
+    validateDatabaseSettings: z.boolean().default(true),
+    ingestMode: IngestionMode8$outboundSchema.default("batching"),
+    oauthEndpoint:
+      OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint8$outboundSchema
+        .default("https://login.microsoftonline.com"),
+    tenantId: z.string(),
+    clientId: z.string(),
+    scope: z.string(),
+    oauthType: OutputAzureDataExplorerAuthenticationMethod8$outboundSchema
+      .default("clientSecret"),
+    description: z.string().optional(),
+    clientSecret: z.string().optional(),
+    textSecret: z.string().optional(),
+    certificate: z.lazy(() => Certificate8$outboundSchema).optional(),
+    format: Format1Options$outboundSchema.default("json"),
+    compress: PqCompressOptions$outboundSchema.default("none"),
+    compressionLevel: CompressionLevelOptions$outboundSchema.default(
+      "best_speed",
+    ),
+    automaticSchema: z.boolean().default(false),
+    parquetSchema: z.string().optional(),
+    parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+    parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema
+      .default("DATA_PAGE_V2"),
+    parquetRowGroupLength: z.number().default(10000),
+    parquetPageSize: z.string().default("1MB"),
+    shouldLogInvalidRows: z.boolean().optional(),
+    keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+    enableStatistics: z.boolean().default(true),
+    enableWritePageIndex: z.boolean().default(true),
+    enablePageChecksum: z.boolean().default(false),
+    emptyDirCleanupSec: z.number().default(300),
+    deadletterEnabled: z.boolean().default(false),
+    deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+    maxRetryNum: z.number().default(20),
+    isMappingObj: z.boolean().default(false),
+    mappingObj: z.string().optional(),
+    mappingRef: z.string().optional(),
+    ingestUrl: z.string().optional(),
+    onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+    stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+    fileNameSuffix: z.string().default(
+      "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+    ),
+    maxFileSizeMB: z.number().default(32),
+    maxFileOpenTimeSec: z.number().default(300),
+    maxFileIdleTimeSec: z.number().default(30),
+    maxOpenFiles: z.number().default(100),
+    maxConcurrentFileParts: z.number().default(1),
+    onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+      "block",
+    ),
+    addIdToStagePath: z.boolean().default(true),
+    timeoutSec: z.number().default(30),
+    flushImmediately: z.boolean().default(false),
+    retainBlobOnSuccess: z.boolean().default(false),
+    extentTags: z.array(z.lazy(() => ExtentTag8$outboundSchema)).optional(),
+    ingestIfNotExists: z.array(z.lazy(() => IngestIfNotExist8$outboundSchema))
+      .optional(),
+    reportLevel: ReportLevel8$outboundSchema.default("failuresOnly"),
+    reportMethod: ReportMethod8$outboundSchema.default("queue"),
+    additionalProperties: z.array(TagsType$outboundSchema).optional(),
+    responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+      .optional(),
+    timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+    responseHonorRetryAfterHeader: z.boolean().default(true),
+    concurrency: z.number().default(5),
+    maxPayloadSizeKB: z.number().default(4096),
+    maxPayloadEvents: z.number().default(0),
+    flushPeriodSec: z.number().default(1),
+    rejectUnauthorized: z.boolean().default(true),
+    useRoundRobinDns: z.boolean().default(false),
+    keepAlive: z.boolean().default(true),
+    pqStrictOrdering: z.boolean().default(true),
+    pqRatePerSec: z.number().default(0),
+    pqMode: PqModeOptions$outboundSchema.default("error"),
+    pqMaxBufferSize: z.number().default(42),
+    pqMaxBackpressureSec: z.number().default(30),
+    pqMaxFileSize: z.string().default("1 MB"),
+    pqMaxSize: z.string().default("5GB"),
+    pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+    pqCompress: PqCompressOptions$outboundSchema.default("none"),
+    pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+    pqControls: MetadataType$outboundSchema.optional(),
+  });
+
+export function outputAzureDataExplorerAzureDataExplorer8ToJSON(
+  outputAzureDataExplorerAzureDataExplorer8:
+    OutputAzureDataExplorerAzureDataExplorer8,
+): string {
+  return JSON.stringify(
+    OutputAzureDataExplorerAzureDataExplorer8$outboundSchema.parse(
+      outputAzureDataExplorerAzureDataExplorer8,
+    ),
+  );
+}
+export function outputAzureDataExplorerAzureDataExplorer8FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  OutputAzureDataExplorerAzureDataExplorer8,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputAzureDataExplorerAzureDataExplorer8$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'OutputAzureDataExplorerAzureDataExplorer8' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputAzureDataExplorerType7$inboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureDataExplorerType7
+> = z.nativeEnum(OutputAzureDataExplorerType7);
+/** @internal */
+export const OutputAzureDataExplorerType7$outboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureDataExplorerType7
+> = OutputAzureDataExplorerType7$inboundSchema;
+
+/** @internal */
+export const IngestionMode7$inboundSchema: z.ZodType<
+  IngestionMode7,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(IngestionMode7),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const IngestionMode7$outboundSchema: z.ZodType<
+  IngestionMode7,
+  z.ZodTypeDef,
+  IngestionMode7
+> = z.union([
+  z.nativeEnum(IngestionMode7),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint7$inboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint7,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(
+        OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint7,
+      ),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint7$outboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint7,
+    z.ZodTypeDef,
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint7
+  > = z.union([
+    z.nativeEnum(
+      OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint7,
+    ),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const OutputAzureDataExplorerAuthenticationMethod7$inboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerAuthenticationMethod7,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(OutputAzureDataExplorerAuthenticationMethod7),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const OutputAzureDataExplorerAuthenticationMethod7$outboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerAuthenticationMethod7,
+    z.ZodTypeDef,
+    OutputAzureDataExplorerAuthenticationMethod7
+  > = z.union([
+    z.nativeEnum(OutputAzureDataExplorerAuthenticationMethod7),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const Certificate7$inboundSchema: z.ZodType<
+  Certificate7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  certificateName: z.string().optional(),
+});
+/** @internal */
+export type Certificate7$Outbound = {
+  certificateName?: string | undefined;
+};
+
+/** @internal */
+export const Certificate7$outboundSchema: z.ZodType<
+  Certificate7$Outbound,
+  z.ZodTypeDef,
+  Certificate7
+> = z.object({
+  certificateName: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureDataExplorer$ {
-  /** @deprecated use `OutputAzureDataExplorer$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureDataExplorer$inboundSchema;
-  /** @deprecated use `OutputAzureDataExplorer$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureDataExplorer$outboundSchema;
-  /** @deprecated use `OutputAzureDataExplorer$Outbound` instead. */
-  export type Outbound = OutputAzureDataExplorer$Outbound;
+export function certificate7ToJSON(certificate7: Certificate7): string {
+  return JSON.stringify(Certificate7$outboundSchema.parse(certificate7));
 }
+export function certificate7FromJSON(
+  jsonString: string,
+): SafeParseResult<Certificate7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Certificate7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Certificate7' from JSON`,
+  );
+}
+
+/** @internal */
+export const PrefixOptional7$inboundSchema: z.ZodType<
+  PrefixOptional7,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(PrefixOptional7),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const PrefixOptional7$outboundSchema: z.ZodType<
+  PrefixOptional7,
+  z.ZodTypeDef,
+  PrefixOptional7
+> = z.union([
+  z.nativeEnum(PrefixOptional7),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ExtentTag7$inboundSchema: z.ZodType<
+  ExtentTag7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  prefix: PrefixOptional7$inboundSchema.optional(),
+  value: z.string(),
+});
+/** @internal */
+export type ExtentTag7$Outbound = {
+  prefix?: string | undefined;
+  value: string;
+};
+
+/** @internal */
+export const ExtentTag7$outboundSchema: z.ZodType<
+  ExtentTag7$Outbound,
+  z.ZodTypeDef,
+  ExtentTag7
+> = z.object({
+  prefix: PrefixOptional7$outboundSchema.optional(),
+  value: z.string(),
+});
+
+export function extentTag7ToJSON(extentTag7: ExtentTag7): string {
+  return JSON.stringify(ExtentTag7$outboundSchema.parse(extentTag7));
+}
+export function extentTag7FromJSON(
+  jsonString: string,
+): SafeParseResult<ExtentTag7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ExtentTag7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ExtentTag7' from JSON`,
+  );
+}
+
+/** @internal */
+export const IngestIfNotExist7$inboundSchema: z.ZodType<
+  IngestIfNotExist7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  value: z.string(),
+});
+/** @internal */
+export type IngestIfNotExist7$Outbound = {
+  value: string;
+};
+
+/** @internal */
+export const IngestIfNotExist7$outboundSchema: z.ZodType<
+  IngestIfNotExist7$Outbound,
+  z.ZodTypeDef,
+  IngestIfNotExist7
+> = z.object({
+  value: z.string(),
+});
+
+export function ingestIfNotExist7ToJSON(
+  ingestIfNotExist7: IngestIfNotExist7,
+): string {
+  return JSON.stringify(
+    IngestIfNotExist7$outboundSchema.parse(ingestIfNotExist7),
+  );
+}
+export function ingestIfNotExist7FromJSON(
+  jsonString: string,
+): SafeParseResult<IngestIfNotExist7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => IngestIfNotExist7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'IngestIfNotExist7' from JSON`,
+  );
+}
+
+/** @internal */
+export const ReportLevel7$inboundSchema: z.ZodType<
+  ReportLevel7,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ReportLevel7),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ReportLevel7$outboundSchema: z.ZodType<
+  ReportLevel7,
+  z.ZodTypeDef,
+  ReportLevel7
+> = z.union([
+  z.nativeEnum(ReportLevel7),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ReportMethod7$inboundSchema: z.ZodType<
+  ReportMethod7,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ReportMethod7),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ReportMethod7$outboundSchema: z.ZodType<
+  ReportMethod7,
+  z.ZodTypeDef,
+  ReportMethod7
+> = z.union([
+  z.nativeEnum(ReportMethod7),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputAzureDataExplorerAzureDataExplorer7$inboundSchema: z.ZodType<
+  OutputAzureDataExplorerAzureDataExplorer7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputAzureDataExplorerType7$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  clusterUrl: z.string(),
+  database: z.string(),
+  table: z.string(),
+  validateDatabaseSettings: z.boolean().default(true),
+  ingestMode: IngestionMode7$inboundSchema.default("batching"),
+  oauthEndpoint:
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint7$inboundSchema
+      .default("https://login.microsoftonline.com"),
+  tenantId: z.string(),
+  clientId: z.string(),
+  scope: z.string(),
+  oauthType: OutputAzureDataExplorerAuthenticationMethod7$inboundSchema.default(
+    "clientSecret",
+  ),
+  description: z.string().optional(),
+  clientSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  certificate: z.lazy(() => Certificate7$inboundSchema).optional(),
+  format: Format1Options$inboundSchema.default("json"),
+  compress: PqCompressOptions$inboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  removeEmptyDirs: z.boolean().default(true),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterEnabled: z.boolean().default(false),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+  isMappingObj: z.boolean().default(false),
+  mappingObj: z.string().optional(),
+  mappingRef: z.string().optional(),
+  ingestUrl: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  maxConcurrentFileParts: z.number().default(1),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  addIdToStagePath: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushImmediately: z.boolean().default(false),
+  retainBlobOnSuccess: z.boolean().default(false),
+  extentTags: z.array(z.lazy(() => ExtentTag7$inboundSchema)).optional(),
+  ingestIfNotExists: z.array(z.lazy(() => IngestIfNotExist7$inboundSchema))
+    .optional(),
+  reportLevel: ReportLevel7$inboundSchema.default("failuresOnly"),
+  reportMethod: ReportMethod7$inboundSchema.default("queue"),
+  additionalProperties: z.array(TagsType$inboundSchema).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  flushPeriodSec: z.number().default(1),
+  rejectUnauthorized: z.boolean().default(true),
+  useRoundRobinDns: z.boolean().default(false),
+  keepAlive: z.boolean().default(true),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema,
+});
+/** @internal */
+export type OutputAzureDataExplorerAzureDataExplorer7$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  clusterUrl: string;
+  database: string;
+  table: string;
+  validateDatabaseSettings: boolean;
+  ingestMode: string;
+  oauthEndpoint: string;
+  tenantId: string;
+  clientId: string;
+  scope: string;
+  oauthType: string;
+  description?: string | undefined;
+  clientSecret?: string | undefined;
+  textSecret?: string | undefined;
+  certificate?: Certificate7$Outbound | undefined;
+  format: string;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  removeEmptyDirs: boolean;
+  emptyDirCleanupSec: number;
+  deadletterEnabled: boolean;
+  deadletterPath: string;
+  maxRetryNum: number;
+  isMappingObj: boolean;
+  mappingObj?: string | undefined;
+  mappingRef?: string | undefined;
+  ingestUrl?: string | undefined;
+  stagePath: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxOpenFiles: number;
+  maxConcurrentFileParts: number;
+  onDiskFullBackpressure: string;
+  addIdToStagePath: boolean;
+  timeoutSec: number;
+  flushImmediately: boolean;
+  retainBlobOnSuccess: boolean;
+  extentTags?: Array<ExtentTag7$Outbound> | undefined;
+  ingestIfNotExists?: Array<IngestIfNotExist7$Outbound> | undefined;
+  reportLevel: string;
+  reportMethod: string;
+  additionalProperties?: Array<TagsType$Outbound> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  flushPeriodSec: number;
+  rejectUnauthorized: boolean;
+  useRoundRobinDns: boolean;
+  keepAlive: boolean;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls: MetadataType$Outbound;
+};
+
+/** @internal */
+export const OutputAzureDataExplorerAzureDataExplorer7$outboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerAzureDataExplorer7$Outbound,
+    z.ZodTypeDef,
+    OutputAzureDataExplorerAzureDataExplorer7
+  > = z.object({
+    onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+    id: z.string().optional(),
+    type: OutputAzureDataExplorerType7$outboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    clusterUrl: z.string(),
+    database: z.string(),
+    table: z.string(),
+    validateDatabaseSettings: z.boolean().default(true),
+    ingestMode: IngestionMode7$outboundSchema.default("batching"),
+    oauthEndpoint:
+      OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint7$outboundSchema
+        .default("https://login.microsoftonline.com"),
+    tenantId: z.string(),
+    clientId: z.string(),
+    scope: z.string(),
+    oauthType: OutputAzureDataExplorerAuthenticationMethod7$outboundSchema
+      .default("clientSecret"),
+    description: z.string().optional(),
+    clientSecret: z.string().optional(),
+    textSecret: z.string().optional(),
+    certificate: z.lazy(() => Certificate7$outboundSchema).optional(),
+    format: Format1Options$outboundSchema.default("json"),
+    compress: PqCompressOptions$outboundSchema.default("none"),
+    compressionLevel: CompressionLevelOptions$outboundSchema.default(
+      "best_speed",
+    ),
+    automaticSchema: z.boolean().default(false),
+    parquetSchema: z.string().optional(),
+    parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+    parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema
+      .default("DATA_PAGE_V2"),
+    parquetRowGroupLength: z.number().default(10000),
+    parquetPageSize: z.string().default("1MB"),
+    shouldLogInvalidRows: z.boolean().optional(),
+    keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+    enableStatistics: z.boolean().default(true),
+    enableWritePageIndex: z.boolean().default(true),
+    enablePageChecksum: z.boolean().default(false),
+    removeEmptyDirs: z.boolean().default(true),
+    emptyDirCleanupSec: z.number().default(300),
+    deadletterEnabled: z.boolean().default(false),
+    deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+    maxRetryNum: z.number().default(20),
+    isMappingObj: z.boolean().default(false),
+    mappingObj: z.string().optional(),
+    mappingRef: z.string().optional(),
+    ingestUrl: z.string().optional(),
+    stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+    fileNameSuffix: z.string().default(
+      "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+    ),
+    maxFileSizeMB: z.number().default(32),
+    maxFileOpenTimeSec: z.number().default(300),
+    maxFileIdleTimeSec: z.number().default(30),
+    maxOpenFiles: z.number().default(100),
+    maxConcurrentFileParts: z.number().default(1),
+    onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+      "block",
+    ),
+    addIdToStagePath: z.boolean().default(true),
+    timeoutSec: z.number().default(30),
+    flushImmediately: z.boolean().default(false),
+    retainBlobOnSuccess: z.boolean().default(false),
+    extentTags: z.array(z.lazy(() => ExtentTag7$outboundSchema)).optional(),
+    ingestIfNotExists: z.array(z.lazy(() => IngestIfNotExist7$outboundSchema))
+      .optional(),
+    reportLevel: ReportLevel7$outboundSchema.default("failuresOnly"),
+    reportMethod: ReportMethod7$outboundSchema.default("queue"),
+    additionalProperties: z.array(TagsType$outboundSchema).optional(),
+    responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+      .optional(),
+    timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+    responseHonorRetryAfterHeader: z.boolean().default(true),
+    concurrency: z.number().default(5),
+    maxPayloadSizeKB: z.number().default(4096),
+    maxPayloadEvents: z.number().default(0),
+    flushPeriodSec: z.number().default(1),
+    rejectUnauthorized: z.boolean().default(true),
+    useRoundRobinDns: z.boolean().default(false),
+    keepAlive: z.boolean().default(true),
+    pqStrictOrdering: z.boolean().default(true),
+    pqRatePerSec: z.number().default(0),
+    pqMode: PqModeOptions$outboundSchema.default("error"),
+    pqMaxBufferSize: z.number().default(42),
+    pqMaxBackpressureSec: z.number().default(30),
+    pqMaxFileSize: z.string().default("1 MB"),
+    pqMaxSize: z.string().default("5GB"),
+    pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+    pqCompress: PqCompressOptions$outboundSchema.default("none"),
+    pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+    pqControls: MetadataType$outboundSchema,
+  });
+
+export function outputAzureDataExplorerAzureDataExplorer7ToJSON(
+  outputAzureDataExplorerAzureDataExplorer7:
+    OutputAzureDataExplorerAzureDataExplorer7,
+): string {
+  return JSON.stringify(
+    OutputAzureDataExplorerAzureDataExplorer7$outboundSchema.parse(
+      outputAzureDataExplorerAzureDataExplorer7,
+    ),
+  );
+}
+export function outputAzureDataExplorerAzureDataExplorer7FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  OutputAzureDataExplorerAzureDataExplorer7,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputAzureDataExplorerAzureDataExplorer7$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'OutputAzureDataExplorerAzureDataExplorer7' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputAzureDataExplorerType6$inboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureDataExplorerType6
+> = z.nativeEnum(OutputAzureDataExplorerType6);
+/** @internal */
+export const OutputAzureDataExplorerType6$outboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureDataExplorerType6
+> = OutputAzureDataExplorerType6$inboundSchema;
+
+/** @internal */
+export const IngestionMode6$inboundSchema: z.ZodType<
+  IngestionMode6,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(IngestionMode6),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const IngestionMode6$outboundSchema: z.ZodType<
+  IngestionMode6,
+  z.ZodTypeDef,
+  IngestionMode6
+> = z.union([
+  z.nativeEnum(IngestionMode6),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint6$inboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint6,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(
+        OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint6,
+      ),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint6$outboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint6,
+    z.ZodTypeDef,
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint6
+  > = z.union([
+    z.nativeEnum(
+      OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint6,
+    ),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const OutputAzureDataExplorerAuthenticationMethod6$inboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerAuthenticationMethod6,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(OutputAzureDataExplorerAuthenticationMethod6),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const OutputAzureDataExplorerAuthenticationMethod6$outboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerAuthenticationMethod6,
+    z.ZodTypeDef,
+    OutputAzureDataExplorerAuthenticationMethod6
+  > = z.union([
+    z.nativeEnum(OutputAzureDataExplorerAuthenticationMethod6),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const Certificate6$inboundSchema: z.ZodType<
+  Certificate6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  certificateName: z.string().optional(),
+});
+/** @internal */
+export type Certificate6$Outbound = {
+  certificateName?: string | undefined;
+};
+
+/** @internal */
+export const Certificate6$outboundSchema: z.ZodType<
+  Certificate6$Outbound,
+  z.ZodTypeDef,
+  Certificate6
+> = z.object({
+  certificateName: z.string().optional(),
+});
+
+export function certificate6ToJSON(certificate6: Certificate6): string {
+  return JSON.stringify(Certificate6$outboundSchema.parse(certificate6));
+}
+export function certificate6FromJSON(
+  jsonString: string,
+): SafeParseResult<Certificate6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Certificate6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Certificate6' from JSON`,
+  );
+}
+
+/** @internal */
+export const PrefixOptional6$inboundSchema: z.ZodType<
+  PrefixOptional6,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(PrefixOptional6),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const PrefixOptional6$outboundSchema: z.ZodType<
+  PrefixOptional6,
+  z.ZodTypeDef,
+  PrefixOptional6
+> = z.union([
+  z.nativeEnum(PrefixOptional6),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ExtentTag6$inboundSchema: z.ZodType<
+  ExtentTag6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  prefix: PrefixOptional6$inboundSchema.optional(),
+  value: z.string(),
+});
+/** @internal */
+export type ExtentTag6$Outbound = {
+  prefix?: string | undefined;
+  value: string;
+};
+
+/** @internal */
+export const ExtentTag6$outboundSchema: z.ZodType<
+  ExtentTag6$Outbound,
+  z.ZodTypeDef,
+  ExtentTag6
+> = z.object({
+  prefix: PrefixOptional6$outboundSchema.optional(),
+  value: z.string(),
+});
+
+export function extentTag6ToJSON(extentTag6: ExtentTag6): string {
+  return JSON.stringify(ExtentTag6$outboundSchema.parse(extentTag6));
+}
+export function extentTag6FromJSON(
+  jsonString: string,
+): SafeParseResult<ExtentTag6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ExtentTag6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ExtentTag6' from JSON`,
+  );
+}
+
+/** @internal */
+export const IngestIfNotExist6$inboundSchema: z.ZodType<
+  IngestIfNotExist6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  value: z.string(),
+});
+/** @internal */
+export type IngestIfNotExist6$Outbound = {
+  value: string;
+};
+
+/** @internal */
+export const IngestIfNotExist6$outboundSchema: z.ZodType<
+  IngestIfNotExist6$Outbound,
+  z.ZodTypeDef,
+  IngestIfNotExist6
+> = z.object({
+  value: z.string(),
+});
+
+export function ingestIfNotExist6ToJSON(
+  ingestIfNotExist6: IngestIfNotExist6,
+): string {
+  return JSON.stringify(
+    IngestIfNotExist6$outboundSchema.parse(ingestIfNotExist6),
+  );
+}
+export function ingestIfNotExist6FromJSON(
+  jsonString: string,
+): SafeParseResult<IngestIfNotExist6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => IngestIfNotExist6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'IngestIfNotExist6' from JSON`,
+  );
+}
+
+/** @internal */
+export const ReportLevel6$inboundSchema: z.ZodType<
+  ReportLevel6,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ReportLevel6),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ReportLevel6$outboundSchema: z.ZodType<
+  ReportLevel6,
+  z.ZodTypeDef,
+  ReportLevel6
+> = z.union([
+  z.nativeEnum(ReportLevel6),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ReportMethod6$inboundSchema: z.ZodType<
+  ReportMethod6,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ReportMethod6),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ReportMethod6$outboundSchema: z.ZodType<
+  ReportMethod6,
+  z.ZodTypeDef,
+  ReportMethod6
+> = z.union([
+  z.nativeEnum(ReportMethod6),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputAzureDataExplorerAzureDataExplorer6$inboundSchema: z.ZodType<
+  OutputAzureDataExplorerAzureDataExplorer6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputAzureDataExplorerType6$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  clusterUrl: z.string(),
+  database: z.string(),
+  table: z.string(),
+  validateDatabaseSettings: z.boolean().default(true),
+  ingestMode: IngestionMode6$inboundSchema.default("batching"),
+  oauthEndpoint:
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint6$inboundSchema
+      .default("https://login.microsoftonline.com"),
+  tenantId: z.string(),
+  clientId: z.string(),
+  scope: z.string(),
+  oauthType: OutputAzureDataExplorerAuthenticationMethod6$inboundSchema.default(
+    "clientSecret",
+  ),
+  description: z.string().optional(),
+  clientSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  certificate: z.lazy(() => Certificate6$inboundSchema).optional(),
+  format: Format1Options$inboundSchema.default("json"),
+  compress: PqCompressOptions$inboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  removeEmptyDirs: z.boolean().default(true),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterEnabled: z.boolean().default(false),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+  isMappingObj: z.boolean().default(false),
+  mappingObj: z.string().optional(),
+  mappingRef: z.string().optional(),
+  ingestUrl: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  maxConcurrentFileParts: z.number().default(1),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  addIdToStagePath: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushImmediately: z.boolean().default(false),
+  retainBlobOnSuccess: z.boolean().default(false),
+  extentTags: z.array(z.lazy(() => ExtentTag6$inboundSchema)).optional(),
+  ingestIfNotExists: z.array(z.lazy(() => IngestIfNotExist6$inboundSchema))
+    .optional(),
+  reportLevel: ReportLevel6$inboundSchema.default("failuresOnly"),
+  reportMethod: ReportMethod6$inboundSchema.default("queue"),
+  additionalProperties: z.array(TagsType$inboundSchema).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  flushPeriodSec: z.number().default(1),
+  rejectUnauthorized: z.boolean().default(true),
+  useRoundRobinDns: z.boolean().default(false),
+  keepAlive: z.boolean().default(true),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputAzureDataExplorerAzureDataExplorer6$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  clusterUrl: string;
+  database: string;
+  table: string;
+  validateDatabaseSettings: boolean;
+  ingestMode: string;
+  oauthEndpoint: string;
+  tenantId: string;
+  clientId: string;
+  scope: string;
+  oauthType: string;
+  description?: string | undefined;
+  clientSecret?: string | undefined;
+  textSecret?: string | undefined;
+  certificate?: Certificate6$Outbound | undefined;
+  format: string;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  removeEmptyDirs: boolean;
+  emptyDirCleanupSec: number;
+  deadletterEnabled: boolean;
+  deadletterPath: string;
+  maxRetryNum: number;
+  isMappingObj: boolean;
+  mappingObj?: string | undefined;
+  mappingRef?: string | undefined;
+  ingestUrl?: string | undefined;
+  stagePath: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxOpenFiles: number;
+  maxConcurrentFileParts: number;
+  onDiskFullBackpressure: string;
+  addIdToStagePath: boolean;
+  timeoutSec: number;
+  flushImmediately: boolean;
+  retainBlobOnSuccess: boolean;
+  extentTags?: Array<ExtentTag6$Outbound> | undefined;
+  ingestIfNotExists?: Array<IngestIfNotExist6$Outbound> | undefined;
+  reportLevel: string;
+  reportMethod: string;
+  additionalProperties?: Array<TagsType$Outbound> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  flushPeriodSec: number;
+  rejectUnauthorized: boolean;
+  useRoundRobinDns: boolean;
+  keepAlive: boolean;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputAzureDataExplorerAzureDataExplorer6$outboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerAzureDataExplorer6$Outbound,
+    z.ZodTypeDef,
+    OutputAzureDataExplorerAzureDataExplorer6
+  > = z.object({
+    onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+    id: z.string().optional(),
+    type: OutputAzureDataExplorerType6$outboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    clusterUrl: z.string(),
+    database: z.string(),
+    table: z.string(),
+    validateDatabaseSettings: z.boolean().default(true),
+    ingestMode: IngestionMode6$outboundSchema.default("batching"),
+    oauthEndpoint:
+      OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint6$outboundSchema
+        .default("https://login.microsoftonline.com"),
+    tenantId: z.string(),
+    clientId: z.string(),
+    scope: z.string(),
+    oauthType: OutputAzureDataExplorerAuthenticationMethod6$outboundSchema
+      .default("clientSecret"),
+    description: z.string().optional(),
+    clientSecret: z.string().optional(),
+    textSecret: z.string().optional(),
+    certificate: z.lazy(() => Certificate6$outboundSchema).optional(),
+    format: Format1Options$outboundSchema.default("json"),
+    compress: PqCompressOptions$outboundSchema.default("none"),
+    compressionLevel: CompressionLevelOptions$outboundSchema.default(
+      "best_speed",
+    ),
+    automaticSchema: z.boolean().default(false),
+    parquetSchema: z.string().optional(),
+    parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+    parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema
+      .default("DATA_PAGE_V2"),
+    parquetRowGroupLength: z.number().default(10000),
+    parquetPageSize: z.string().default("1MB"),
+    shouldLogInvalidRows: z.boolean().optional(),
+    keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+    enableStatistics: z.boolean().default(true),
+    enableWritePageIndex: z.boolean().default(true),
+    enablePageChecksum: z.boolean().default(false),
+    removeEmptyDirs: z.boolean().default(true),
+    emptyDirCleanupSec: z.number().default(300),
+    deadletterEnabled: z.boolean().default(false),
+    deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+    maxRetryNum: z.number().default(20),
+    isMappingObj: z.boolean().default(false),
+    mappingObj: z.string().optional(),
+    mappingRef: z.string().optional(),
+    ingestUrl: z.string().optional(),
+    stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+    fileNameSuffix: z.string().default(
+      "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+    ),
+    maxFileSizeMB: z.number().default(32),
+    maxFileOpenTimeSec: z.number().default(300),
+    maxFileIdleTimeSec: z.number().default(30),
+    maxOpenFiles: z.number().default(100),
+    maxConcurrentFileParts: z.number().default(1),
+    onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+      "block",
+    ),
+    addIdToStagePath: z.boolean().default(true),
+    timeoutSec: z.number().default(30),
+    flushImmediately: z.boolean().default(false),
+    retainBlobOnSuccess: z.boolean().default(false),
+    extentTags: z.array(z.lazy(() => ExtentTag6$outboundSchema)).optional(),
+    ingestIfNotExists: z.array(z.lazy(() => IngestIfNotExist6$outboundSchema))
+      .optional(),
+    reportLevel: ReportLevel6$outboundSchema.default("failuresOnly"),
+    reportMethod: ReportMethod6$outboundSchema.default("queue"),
+    additionalProperties: z.array(TagsType$outboundSchema).optional(),
+    responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+      .optional(),
+    timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+    responseHonorRetryAfterHeader: z.boolean().default(true),
+    concurrency: z.number().default(5),
+    maxPayloadSizeKB: z.number().default(4096),
+    maxPayloadEvents: z.number().default(0),
+    flushPeriodSec: z.number().default(1),
+    rejectUnauthorized: z.boolean().default(true),
+    useRoundRobinDns: z.boolean().default(false),
+    keepAlive: z.boolean().default(true),
+    pqStrictOrdering: z.boolean().default(true),
+    pqRatePerSec: z.number().default(0),
+    pqMode: PqModeOptions$outboundSchema.default("error"),
+    pqMaxBufferSize: z.number().default(42),
+    pqMaxBackpressureSec: z.number().default(30),
+    pqMaxFileSize: z.string().default("1 MB"),
+    pqMaxSize: z.string().default("5GB"),
+    pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+    pqCompress: PqCompressOptions$outboundSchema.default("none"),
+    pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+    pqControls: MetadataType$outboundSchema.optional(),
+  });
+
+export function outputAzureDataExplorerAzureDataExplorer6ToJSON(
+  outputAzureDataExplorerAzureDataExplorer6:
+    OutputAzureDataExplorerAzureDataExplorer6,
+): string {
+  return JSON.stringify(
+    OutputAzureDataExplorerAzureDataExplorer6$outboundSchema.parse(
+      outputAzureDataExplorerAzureDataExplorer6,
+    ),
+  );
+}
+export function outputAzureDataExplorerAzureDataExplorer6FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  OutputAzureDataExplorerAzureDataExplorer6,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputAzureDataExplorerAzureDataExplorer6$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'OutputAzureDataExplorerAzureDataExplorer6' from JSON`,
+  );
+}
+
+/** @internal */
+export const IngestionMode5$inboundSchema: z.ZodType<
+  IngestionMode5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(IngestionMode5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const IngestionMode5$outboundSchema: z.ZodType<
+  IngestionMode5,
+  z.ZodTypeDef,
+  IngestionMode5
+> = z.union([
+  z.nativeEnum(IngestionMode5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputAzureDataExplorerType5$inboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureDataExplorerType5
+> = z.nativeEnum(OutputAzureDataExplorerType5);
+/** @internal */
+export const OutputAzureDataExplorerType5$outboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureDataExplorerType5
+> = OutputAzureDataExplorerType5$inboundSchema;
+
+/** @internal */
+export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint5$inboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint5,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(
+        OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint5,
+      ),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint5$outboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint5,
+    z.ZodTypeDef,
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint5
+  > = z.union([
+    z.nativeEnum(
+      OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint5,
+    ),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const OutputAzureDataExplorerAuthenticationMethod5$inboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerAuthenticationMethod5,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(OutputAzureDataExplorerAuthenticationMethod5),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const OutputAzureDataExplorerAuthenticationMethod5$outboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerAuthenticationMethod5,
+    z.ZodTypeDef,
+    OutputAzureDataExplorerAuthenticationMethod5
+  > = z.union([
+    z.nativeEnum(OutputAzureDataExplorerAuthenticationMethod5),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const Certificate5$inboundSchema: z.ZodType<
+  Certificate5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  certificateName: z.string().optional(),
+});
+/** @internal */
+export type Certificate5$Outbound = {
+  certificateName?: string | undefined;
+};
+
+/** @internal */
+export const Certificate5$outboundSchema: z.ZodType<
+  Certificate5$Outbound,
+  z.ZodTypeDef,
+  Certificate5
+> = z.object({
+  certificateName: z.string().optional(),
+});
+
+export function certificate5ToJSON(certificate5: Certificate5): string {
+  return JSON.stringify(Certificate5$outboundSchema.parse(certificate5));
+}
+export function certificate5FromJSON(
+  jsonString: string,
+): SafeParseResult<Certificate5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Certificate5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Certificate5' from JSON`,
+  );
+}
+
+/** @internal */
+export const PrefixOptional5$inboundSchema: z.ZodType<
+  PrefixOptional5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(PrefixOptional5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const PrefixOptional5$outboundSchema: z.ZodType<
+  PrefixOptional5,
+  z.ZodTypeDef,
+  PrefixOptional5
+> = z.union([
+  z.nativeEnum(PrefixOptional5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ExtentTag5$inboundSchema: z.ZodType<
+  ExtentTag5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  prefix: PrefixOptional5$inboundSchema.optional(),
+  value: z.string(),
+});
+/** @internal */
+export type ExtentTag5$Outbound = {
+  prefix?: string | undefined;
+  value: string;
+};
+
+/** @internal */
+export const ExtentTag5$outboundSchema: z.ZodType<
+  ExtentTag5$Outbound,
+  z.ZodTypeDef,
+  ExtentTag5
+> = z.object({
+  prefix: PrefixOptional5$outboundSchema.optional(),
+  value: z.string(),
+});
+
+export function extentTag5ToJSON(extentTag5: ExtentTag5): string {
+  return JSON.stringify(ExtentTag5$outboundSchema.parse(extentTag5));
+}
+export function extentTag5FromJSON(
+  jsonString: string,
+): SafeParseResult<ExtentTag5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ExtentTag5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ExtentTag5' from JSON`,
+  );
+}
+
+/** @internal */
+export const IngestIfNotExist5$inboundSchema: z.ZodType<
+  IngestIfNotExist5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  value: z.string(),
+});
+/** @internal */
+export type IngestIfNotExist5$Outbound = {
+  value: string;
+};
+
+/** @internal */
+export const IngestIfNotExist5$outboundSchema: z.ZodType<
+  IngestIfNotExist5$Outbound,
+  z.ZodTypeDef,
+  IngestIfNotExist5
+> = z.object({
+  value: z.string(),
+});
+
+export function ingestIfNotExist5ToJSON(
+  ingestIfNotExist5: IngestIfNotExist5,
+): string {
+  return JSON.stringify(
+    IngestIfNotExist5$outboundSchema.parse(ingestIfNotExist5),
+  );
+}
+export function ingestIfNotExist5FromJSON(
+  jsonString: string,
+): SafeParseResult<IngestIfNotExist5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => IngestIfNotExist5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'IngestIfNotExist5' from JSON`,
+  );
+}
+
+/** @internal */
+export const ReportLevel5$inboundSchema: z.ZodType<
+  ReportLevel5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ReportLevel5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ReportLevel5$outboundSchema: z.ZodType<
+  ReportLevel5,
+  z.ZodTypeDef,
+  ReportLevel5
+> = z.union([
+  z.nativeEnum(ReportLevel5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ReportMethod5$inboundSchema: z.ZodType<
+  ReportMethod5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ReportMethod5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ReportMethod5$outboundSchema: z.ZodType<
+  ReportMethod5,
+  z.ZodTypeDef,
+  ReportMethod5
+> = z.union([
+  z.nativeEnum(ReportMethod5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputAzureDataExplorerAzureDataExplorer5$inboundSchema: z.ZodType<
+  OutputAzureDataExplorerAzureDataExplorer5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  ingestMode: IngestionMode5$inboundSchema.default("batching"),
+  id: z.string().optional(),
+  type: OutputAzureDataExplorerType5$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  clusterUrl: z.string(),
+  database: z.string(),
+  table: z.string(),
+  validateDatabaseSettings: z.boolean().default(true),
+  oauthEndpoint:
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint5$inboundSchema
+      .default("https://login.microsoftonline.com"),
+  tenantId: z.string(),
+  clientId: z.string(),
+  scope: z.string(),
+  oauthType: OutputAzureDataExplorerAuthenticationMethod5$inboundSchema.default(
+    "clientSecret",
+  ),
+  description: z.string().optional(),
+  clientSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  certificate: z.lazy(() => Certificate5$inboundSchema).optional(),
+  format: Format1Options$inboundSchema.default("json"),
+  compress: PqCompressOptions$inboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  removeEmptyDirs: z.boolean().default(true),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterEnabled: z.boolean().default(false),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+  isMappingObj: z.boolean().default(false),
+  mappingObj: z.string().optional(),
+  mappingRef: z.string(),
+  ingestUrl: z.string().optional(),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  maxConcurrentFileParts: z.number().default(1),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  addIdToStagePath: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushImmediately: z.boolean().default(false),
+  retainBlobOnSuccess: z.boolean().default(false),
+  extentTags: z.array(z.lazy(() => ExtentTag5$inboundSchema)).optional(),
+  ingestIfNotExists: z.array(z.lazy(() => IngestIfNotExist5$inboundSchema))
+    .optional(),
+  reportLevel: ReportLevel5$inboundSchema.default("failuresOnly"),
+  reportMethod: ReportMethod5$inboundSchema.default("queue"),
+  additionalProperties: z.array(TagsType$inboundSchema).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema,
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  flushPeriodSec: z.number().default(1),
+  rejectUnauthorized: z.boolean().default(true),
+  useRoundRobinDns: z.boolean().default(false),
+  keepAlive: z.boolean().default(true),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputAzureDataExplorerAzureDataExplorer5$Outbound = {
+  ingestMode: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  clusterUrl: string;
+  database: string;
+  table: string;
+  validateDatabaseSettings: boolean;
+  oauthEndpoint: string;
+  tenantId: string;
+  clientId: string;
+  scope: string;
+  oauthType: string;
+  description?: string | undefined;
+  clientSecret?: string | undefined;
+  textSecret?: string | undefined;
+  certificate?: Certificate5$Outbound | undefined;
+  format: string;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  removeEmptyDirs: boolean;
+  emptyDirCleanupSec: number;
+  deadletterEnabled: boolean;
+  deadletterPath: string;
+  maxRetryNum: number;
+  isMappingObj: boolean;
+  mappingObj?: string | undefined;
+  mappingRef: string;
+  ingestUrl?: string | undefined;
+  onBackpressure: string;
+  stagePath: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxOpenFiles: number;
+  maxConcurrentFileParts: number;
+  onDiskFullBackpressure: string;
+  addIdToStagePath: boolean;
+  timeoutSec: number;
+  flushImmediately: boolean;
+  retainBlobOnSuccess: boolean;
+  extentTags?: Array<ExtentTag5$Outbound> | undefined;
+  ingestIfNotExists?: Array<IngestIfNotExist5$Outbound> | undefined;
+  reportLevel: string;
+  reportMethod: string;
+  additionalProperties?: Array<TagsType$Outbound> | undefined;
+  responseRetrySettings: Array<ResponseRetrySettingsType$Outbound>;
+  timeoutRetrySettings: TimeoutRetrySettingsType$Outbound;
+  responseHonorRetryAfterHeader: boolean;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  flushPeriodSec: number;
+  rejectUnauthorized: boolean;
+  useRoundRobinDns: boolean;
+  keepAlive: boolean;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputAzureDataExplorerAzureDataExplorer5$outboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerAzureDataExplorer5$Outbound,
+    z.ZodTypeDef,
+    OutputAzureDataExplorerAzureDataExplorer5
+  > = z.object({
+    ingestMode: IngestionMode5$outboundSchema.default("batching"),
+    id: z.string().optional(),
+    type: OutputAzureDataExplorerType5$outboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    clusterUrl: z.string(),
+    database: z.string(),
+    table: z.string(),
+    validateDatabaseSettings: z.boolean().default(true),
+    oauthEndpoint:
+      OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint5$outboundSchema
+        .default("https://login.microsoftonline.com"),
+    tenantId: z.string(),
+    clientId: z.string(),
+    scope: z.string(),
+    oauthType: OutputAzureDataExplorerAuthenticationMethod5$outboundSchema
+      .default("clientSecret"),
+    description: z.string().optional(),
+    clientSecret: z.string().optional(),
+    textSecret: z.string().optional(),
+    certificate: z.lazy(() => Certificate5$outboundSchema).optional(),
+    format: Format1Options$outboundSchema.default("json"),
+    compress: PqCompressOptions$outboundSchema.default("none"),
+    compressionLevel: CompressionLevelOptions$outboundSchema.default(
+      "best_speed",
+    ),
+    automaticSchema: z.boolean().default(false),
+    parquetSchema: z.string().optional(),
+    parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+    parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema
+      .default("DATA_PAGE_V2"),
+    parquetRowGroupLength: z.number().default(10000),
+    parquetPageSize: z.string().default("1MB"),
+    shouldLogInvalidRows: z.boolean().optional(),
+    keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+    enableStatistics: z.boolean().default(true),
+    enableWritePageIndex: z.boolean().default(true),
+    enablePageChecksum: z.boolean().default(false),
+    removeEmptyDirs: z.boolean().default(true),
+    emptyDirCleanupSec: z.number().default(300),
+    deadletterEnabled: z.boolean().default(false),
+    deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+    maxRetryNum: z.number().default(20),
+    isMappingObj: z.boolean().default(false),
+    mappingObj: z.string().optional(),
+    mappingRef: z.string(),
+    ingestUrl: z.string().optional(),
+    onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+    stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+    fileNameSuffix: z.string().default(
+      "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+    ),
+    maxFileSizeMB: z.number().default(32),
+    maxFileOpenTimeSec: z.number().default(300),
+    maxFileIdleTimeSec: z.number().default(30),
+    maxOpenFiles: z.number().default(100),
+    maxConcurrentFileParts: z.number().default(1),
+    onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+      "block",
+    ),
+    addIdToStagePath: z.boolean().default(true),
+    timeoutSec: z.number().default(30),
+    flushImmediately: z.boolean().default(false),
+    retainBlobOnSuccess: z.boolean().default(false),
+    extentTags: z.array(z.lazy(() => ExtentTag5$outboundSchema)).optional(),
+    ingestIfNotExists: z.array(z.lazy(() => IngestIfNotExist5$outboundSchema))
+      .optional(),
+    reportLevel: ReportLevel5$outboundSchema.default("failuresOnly"),
+    reportMethod: ReportMethod5$outboundSchema.default("queue"),
+    additionalProperties: z.array(TagsType$outboundSchema).optional(),
+    responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema),
+    timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema,
+    responseHonorRetryAfterHeader: z.boolean().default(true),
+    concurrency: z.number().default(5),
+    maxPayloadSizeKB: z.number().default(4096),
+    maxPayloadEvents: z.number().default(0),
+    flushPeriodSec: z.number().default(1),
+    rejectUnauthorized: z.boolean().default(true),
+    useRoundRobinDns: z.boolean().default(false),
+    keepAlive: z.boolean().default(true),
+    pqStrictOrdering: z.boolean().default(true),
+    pqRatePerSec: z.number().default(0),
+    pqMode: PqModeOptions$outboundSchema.default("error"),
+    pqMaxBufferSize: z.number().default(42),
+    pqMaxBackpressureSec: z.number().default(30),
+    pqMaxFileSize: z.string().default("1 MB"),
+    pqMaxSize: z.string().default("5GB"),
+    pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+    pqCompress: PqCompressOptions$outboundSchema.default("none"),
+    pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+    pqControls: MetadataType$outboundSchema.optional(),
+  });
+
+export function outputAzureDataExplorerAzureDataExplorer5ToJSON(
+  outputAzureDataExplorerAzureDataExplorer5:
+    OutputAzureDataExplorerAzureDataExplorer5,
+): string {
+  return JSON.stringify(
+    OutputAzureDataExplorerAzureDataExplorer5$outboundSchema.parse(
+      outputAzureDataExplorerAzureDataExplorer5,
+    ),
+  );
+}
+export function outputAzureDataExplorerAzureDataExplorer5FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  OutputAzureDataExplorerAzureDataExplorer5,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputAzureDataExplorerAzureDataExplorer5$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'OutputAzureDataExplorerAzureDataExplorer5' from JSON`,
+  );
+}
+
+/** @internal */
+export const IngestionMode4$inboundSchema: z.ZodType<
+  IngestionMode4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(IngestionMode4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const IngestionMode4$outboundSchema: z.ZodType<
+  IngestionMode4,
+  z.ZodTypeDef,
+  IngestionMode4
+> = z.union([
+  z.nativeEnum(IngestionMode4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputAzureDataExplorerType4$inboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureDataExplorerType4
+> = z.nativeEnum(OutputAzureDataExplorerType4);
+/** @internal */
+export const OutputAzureDataExplorerType4$outboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureDataExplorerType4
+> = OutputAzureDataExplorerType4$inboundSchema;
+
+/** @internal */
+export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint4$inboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint4,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(
+        OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint4,
+      ),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint4$outboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint4,
+    z.ZodTypeDef,
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint4
+  > = z.union([
+    z.nativeEnum(
+      OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint4,
+    ),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const OutputAzureDataExplorerAuthenticationMethod4$inboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerAuthenticationMethod4,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(OutputAzureDataExplorerAuthenticationMethod4),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const OutputAzureDataExplorerAuthenticationMethod4$outboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerAuthenticationMethod4,
+    z.ZodTypeDef,
+    OutputAzureDataExplorerAuthenticationMethod4
+  > = z.union([
+    z.nativeEnum(OutputAzureDataExplorerAuthenticationMethod4),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const Certificate4$inboundSchema: z.ZodType<
+  Certificate4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  certificateName: z.string().optional(),
+});
+/** @internal */
+export type Certificate4$Outbound = {
+  certificateName?: string | undefined;
+};
+
+/** @internal */
+export const Certificate4$outboundSchema: z.ZodType<
+  Certificate4$Outbound,
+  z.ZodTypeDef,
+  Certificate4
+> = z.object({
+  certificateName: z.string().optional(),
+});
+
+export function certificate4ToJSON(certificate4: Certificate4): string {
+  return JSON.stringify(Certificate4$outboundSchema.parse(certificate4));
+}
+export function certificate4FromJSON(
+  jsonString: string,
+): SafeParseResult<Certificate4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Certificate4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Certificate4' from JSON`,
+  );
+}
+
+/** @internal */
+export const PrefixOptional4$inboundSchema: z.ZodType<
+  PrefixOptional4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(PrefixOptional4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const PrefixOptional4$outboundSchema: z.ZodType<
+  PrefixOptional4,
+  z.ZodTypeDef,
+  PrefixOptional4
+> = z.union([
+  z.nativeEnum(PrefixOptional4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ExtentTag4$inboundSchema: z.ZodType<
+  ExtentTag4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  prefix: PrefixOptional4$inboundSchema.optional(),
+  value: z.string(),
+});
+/** @internal */
+export type ExtentTag4$Outbound = {
+  prefix?: string | undefined;
+  value: string;
+};
+
+/** @internal */
+export const ExtentTag4$outboundSchema: z.ZodType<
+  ExtentTag4$Outbound,
+  z.ZodTypeDef,
+  ExtentTag4
+> = z.object({
+  prefix: PrefixOptional4$outboundSchema.optional(),
+  value: z.string(),
+});
+
+export function extentTag4ToJSON(extentTag4: ExtentTag4): string {
+  return JSON.stringify(ExtentTag4$outboundSchema.parse(extentTag4));
+}
+export function extentTag4FromJSON(
+  jsonString: string,
+): SafeParseResult<ExtentTag4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ExtentTag4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ExtentTag4' from JSON`,
+  );
+}
+
+/** @internal */
+export const IngestIfNotExist4$inboundSchema: z.ZodType<
+  IngestIfNotExist4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  value: z.string(),
+});
+/** @internal */
+export type IngestIfNotExist4$Outbound = {
+  value: string;
+};
+
+/** @internal */
+export const IngestIfNotExist4$outboundSchema: z.ZodType<
+  IngestIfNotExist4$Outbound,
+  z.ZodTypeDef,
+  IngestIfNotExist4
+> = z.object({
+  value: z.string(),
+});
+
+export function ingestIfNotExist4ToJSON(
+  ingestIfNotExist4: IngestIfNotExist4,
+): string {
+  return JSON.stringify(
+    IngestIfNotExist4$outboundSchema.parse(ingestIfNotExist4),
+  );
+}
+export function ingestIfNotExist4FromJSON(
+  jsonString: string,
+): SafeParseResult<IngestIfNotExist4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => IngestIfNotExist4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'IngestIfNotExist4' from JSON`,
+  );
+}
+
+/** @internal */
+export const ReportLevel4$inboundSchema: z.ZodType<
+  ReportLevel4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ReportLevel4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ReportLevel4$outboundSchema: z.ZodType<
+  ReportLevel4,
+  z.ZodTypeDef,
+  ReportLevel4
+> = z.union([
+  z.nativeEnum(ReportLevel4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ReportMethod4$inboundSchema: z.ZodType<
+  ReportMethod4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ReportMethod4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ReportMethod4$outboundSchema: z.ZodType<
+  ReportMethod4,
+  z.ZodTypeDef,
+  ReportMethod4
+> = z.union([
+  z.nativeEnum(ReportMethod4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputAzureDataExplorerAzureDataExplorer4$inboundSchema: z.ZodType<
+  OutputAzureDataExplorerAzureDataExplorer4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  ingestMode: IngestionMode4$inboundSchema.default("batching"),
+  id: z.string().optional(),
+  type: OutputAzureDataExplorerType4$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  clusterUrl: z.string(),
+  database: z.string(),
+  table: z.string(),
+  validateDatabaseSettings: z.boolean().default(true),
+  oauthEndpoint:
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint4$inboundSchema
+      .default("https://login.microsoftonline.com"),
+  tenantId: z.string(),
+  clientId: z.string(),
+  scope: z.string(),
+  oauthType: OutputAzureDataExplorerAuthenticationMethod4$inboundSchema.default(
+    "clientSecret",
+  ),
+  description: z.string().optional(),
+  clientSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  certificate: z.lazy(() => Certificate4$inboundSchema).optional(),
+  format: Format1Options$inboundSchema.default("json"),
+  compress: PqCompressOptions$inboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  removeEmptyDirs: z.boolean().default(true),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterEnabled: z.boolean().default(false),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+  isMappingObj: z.boolean().default(false),
+  mappingObj: z.string().optional(),
+  mappingRef: z.string().optional(),
+  ingestUrl: z.string(),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  maxConcurrentFileParts: z.number().default(1),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  addIdToStagePath: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushImmediately: z.boolean().default(false),
+  retainBlobOnSuccess: z.boolean().default(false),
+  extentTags: z.array(z.lazy(() => ExtentTag4$inboundSchema)),
+  ingestIfNotExists: z.array(z.lazy(() => IngestIfNotExist4$inboundSchema)),
+  reportLevel: ReportLevel4$inboundSchema.default("failuresOnly"),
+  reportMethod: ReportMethod4$inboundSchema.default("queue"),
+  additionalProperties: z.array(TagsType$inboundSchema),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  flushPeriodSec: z.number().default(1),
+  rejectUnauthorized: z.boolean().default(true),
+  useRoundRobinDns: z.boolean().default(false),
+  keepAlive: z.boolean().default(true),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputAzureDataExplorerAzureDataExplorer4$Outbound = {
+  ingestMode: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  clusterUrl: string;
+  database: string;
+  table: string;
+  validateDatabaseSettings: boolean;
+  oauthEndpoint: string;
+  tenantId: string;
+  clientId: string;
+  scope: string;
+  oauthType: string;
+  description?: string | undefined;
+  clientSecret?: string | undefined;
+  textSecret?: string | undefined;
+  certificate?: Certificate4$Outbound | undefined;
+  format: string;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  removeEmptyDirs: boolean;
+  emptyDirCleanupSec: number;
+  deadletterEnabled: boolean;
+  deadletterPath: string;
+  maxRetryNum: number;
+  isMappingObj: boolean;
+  mappingObj?: string | undefined;
+  mappingRef?: string | undefined;
+  ingestUrl: string;
+  onBackpressure: string;
+  stagePath: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxOpenFiles: number;
+  maxConcurrentFileParts: number;
+  onDiskFullBackpressure: string;
+  addIdToStagePath: boolean;
+  timeoutSec: number;
+  flushImmediately: boolean;
+  retainBlobOnSuccess: boolean;
+  extentTags: Array<ExtentTag4$Outbound>;
+  ingestIfNotExists: Array<IngestIfNotExist4$Outbound>;
+  reportLevel: string;
+  reportMethod: string;
+  additionalProperties: Array<TagsType$Outbound>;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  flushPeriodSec: number;
+  rejectUnauthorized: boolean;
+  useRoundRobinDns: boolean;
+  keepAlive: boolean;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputAzureDataExplorerAzureDataExplorer4$outboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerAzureDataExplorer4$Outbound,
+    z.ZodTypeDef,
+    OutputAzureDataExplorerAzureDataExplorer4
+  > = z.object({
+    ingestMode: IngestionMode4$outboundSchema.default("batching"),
+    id: z.string().optional(),
+    type: OutputAzureDataExplorerType4$outboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    clusterUrl: z.string(),
+    database: z.string(),
+    table: z.string(),
+    validateDatabaseSettings: z.boolean().default(true),
+    oauthEndpoint:
+      OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint4$outboundSchema
+        .default("https://login.microsoftonline.com"),
+    tenantId: z.string(),
+    clientId: z.string(),
+    scope: z.string(),
+    oauthType: OutputAzureDataExplorerAuthenticationMethod4$outboundSchema
+      .default("clientSecret"),
+    description: z.string().optional(),
+    clientSecret: z.string().optional(),
+    textSecret: z.string().optional(),
+    certificate: z.lazy(() => Certificate4$outboundSchema).optional(),
+    format: Format1Options$outboundSchema.default("json"),
+    compress: PqCompressOptions$outboundSchema.default("none"),
+    compressionLevel: CompressionLevelOptions$outboundSchema.default(
+      "best_speed",
+    ),
+    automaticSchema: z.boolean().default(false),
+    parquetSchema: z.string().optional(),
+    parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+    parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema
+      .default("DATA_PAGE_V2"),
+    parquetRowGroupLength: z.number().default(10000),
+    parquetPageSize: z.string().default("1MB"),
+    shouldLogInvalidRows: z.boolean().optional(),
+    keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+    enableStatistics: z.boolean().default(true),
+    enableWritePageIndex: z.boolean().default(true),
+    enablePageChecksum: z.boolean().default(false),
+    removeEmptyDirs: z.boolean().default(true),
+    emptyDirCleanupSec: z.number().default(300),
+    deadletterEnabled: z.boolean().default(false),
+    deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+    maxRetryNum: z.number().default(20),
+    isMappingObj: z.boolean().default(false),
+    mappingObj: z.string().optional(),
+    mappingRef: z.string().optional(),
+    ingestUrl: z.string(),
+    onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+    stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+    fileNameSuffix: z.string().default(
+      "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+    ),
+    maxFileSizeMB: z.number().default(32),
+    maxFileOpenTimeSec: z.number().default(300),
+    maxFileIdleTimeSec: z.number().default(30),
+    maxOpenFiles: z.number().default(100),
+    maxConcurrentFileParts: z.number().default(1),
+    onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+      "block",
+    ),
+    addIdToStagePath: z.boolean().default(true),
+    timeoutSec: z.number().default(30),
+    flushImmediately: z.boolean().default(false),
+    retainBlobOnSuccess: z.boolean().default(false),
+    extentTags: z.array(z.lazy(() => ExtentTag4$outboundSchema)),
+    ingestIfNotExists: z.array(z.lazy(() => IngestIfNotExist4$outboundSchema)),
+    reportLevel: ReportLevel4$outboundSchema.default("failuresOnly"),
+    reportMethod: ReportMethod4$outboundSchema.default("queue"),
+    additionalProperties: z.array(TagsType$outboundSchema),
+    responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+      .optional(),
+    timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+    responseHonorRetryAfterHeader: z.boolean().default(true),
+    concurrency: z.number().default(5),
+    maxPayloadSizeKB: z.number().default(4096),
+    maxPayloadEvents: z.number().default(0),
+    flushPeriodSec: z.number().default(1),
+    rejectUnauthorized: z.boolean().default(true),
+    useRoundRobinDns: z.boolean().default(false),
+    keepAlive: z.boolean().default(true),
+    pqStrictOrdering: z.boolean().default(true),
+    pqRatePerSec: z.number().default(0),
+    pqMode: PqModeOptions$outboundSchema.default("error"),
+    pqMaxBufferSize: z.number().default(42),
+    pqMaxBackpressureSec: z.number().default(30),
+    pqMaxFileSize: z.string().default("1 MB"),
+    pqMaxSize: z.string().default("5GB"),
+    pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+    pqCompress: PqCompressOptions$outboundSchema.default("none"),
+    pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+    pqControls: MetadataType$outboundSchema.optional(),
+  });
+
+export function outputAzureDataExplorerAzureDataExplorer4ToJSON(
+  outputAzureDataExplorerAzureDataExplorer4:
+    OutputAzureDataExplorerAzureDataExplorer4,
+): string {
+  return JSON.stringify(
+    OutputAzureDataExplorerAzureDataExplorer4$outboundSchema.parse(
+      outputAzureDataExplorerAzureDataExplorer4,
+    ),
+  );
+}
+export function outputAzureDataExplorerAzureDataExplorer4FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  OutputAzureDataExplorerAzureDataExplorer4,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputAzureDataExplorerAzureDataExplorer4$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'OutputAzureDataExplorerAzureDataExplorer4' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputAzureDataExplorerAuthenticationMethod3$inboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerAuthenticationMethod3,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(OutputAzureDataExplorerAuthenticationMethod3),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const OutputAzureDataExplorerAuthenticationMethod3$outboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerAuthenticationMethod3,
+    z.ZodTypeDef,
+    OutputAzureDataExplorerAuthenticationMethod3
+  > = z.union([
+    z.nativeEnum(OutputAzureDataExplorerAuthenticationMethod3),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const OutputAzureDataExplorerType3$inboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureDataExplorerType3
+> = z.nativeEnum(OutputAzureDataExplorerType3);
+/** @internal */
+export const OutputAzureDataExplorerType3$outboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureDataExplorerType3
+> = OutputAzureDataExplorerType3$inboundSchema;
+
+/** @internal */
+export const IngestionMode3$inboundSchema: z.ZodType<
+  IngestionMode3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(IngestionMode3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const IngestionMode3$outboundSchema: z.ZodType<
+  IngestionMode3,
+  z.ZodTypeDef,
+  IngestionMode3
+> = z.union([
+  z.nativeEnum(IngestionMode3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint3$inboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint3,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(
+        OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint3,
+      ),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint3$outboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint3,
+    z.ZodTypeDef,
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint3
+  > = z.union([
+    z.nativeEnum(
+      OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint3,
+    ),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const Certificate3$inboundSchema: z.ZodType<
+  Certificate3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  certificateName: z.string().optional(),
+});
+/** @internal */
+export type Certificate3$Outbound = {
+  certificateName?: string | undefined;
+};
+
+/** @internal */
+export const Certificate3$outboundSchema: z.ZodType<
+  Certificate3$Outbound,
+  z.ZodTypeDef,
+  Certificate3
+> = z.object({
+  certificateName: z.string().optional(),
+});
+
+export function certificate3ToJSON(certificate3: Certificate3): string {
+  return JSON.stringify(Certificate3$outboundSchema.parse(certificate3));
+}
+export function certificate3FromJSON(
+  jsonString: string,
+): SafeParseResult<Certificate3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Certificate3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Certificate3' from JSON`,
+  );
+}
+
+/** @internal */
+export const PrefixOptional3$inboundSchema: z.ZodType<
+  PrefixOptional3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(PrefixOptional3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const PrefixOptional3$outboundSchema: z.ZodType<
+  PrefixOptional3,
+  z.ZodTypeDef,
+  PrefixOptional3
+> = z.union([
+  z.nativeEnum(PrefixOptional3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ExtentTag3$inboundSchema: z.ZodType<
+  ExtentTag3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  prefix: PrefixOptional3$inboundSchema.optional(),
+  value: z.string(),
+});
+/** @internal */
+export type ExtentTag3$Outbound = {
+  prefix?: string | undefined;
+  value: string;
+};
+
+/** @internal */
+export const ExtentTag3$outboundSchema: z.ZodType<
+  ExtentTag3$Outbound,
+  z.ZodTypeDef,
+  ExtentTag3
+> = z.object({
+  prefix: PrefixOptional3$outboundSchema.optional(),
+  value: z.string(),
+});
+
+export function extentTag3ToJSON(extentTag3: ExtentTag3): string {
+  return JSON.stringify(ExtentTag3$outboundSchema.parse(extentTag3));
+}
+export function extentTag3FromJSON(
+  jsonString: string,
+): SafeParseResult<ExtentTag3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ExtentTag3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ExtentTag3' from JSON`,
+  );
+}
+
+/** @internal */
+export const IngestIfNotExist3$inboundSchema: z.ZodType<
+  IngestIfNotExist3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  value: z.string(),
+});
+/** @internal */
+export type IngestIfNotExist3$Outbound = {
+  value: string;
+};
+
+/** @internal */
+export const IngestIfNotExist3$outboundSchema: z.ZodType<
+  IngestIfNotExist3$Outbound,
+  z.ZodTypeDef,
+  IngestIfNotExist3
+> = z.object({
+  value: z.string(),
+});
+
+export function ingestIfNotExist3ToJSON(
+  ingestIfNotExist3: IngestIfNotExist3,
+): string {
+  return JSON.stringify(
+    IngestIfNotExist3$outboundSchema.parse(ingestIfNotExist3),
+  );
+}
+export function ingestIfNotExist3FromJSON(
+  jsonString: string,
+): SafeParseResult<IngestIfNotExist3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => IngestIfNotExist3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'IngestIfNotExist3' from JSON`,
+  );
+}
+
+/** @internal */
+export const ReportLevel3$inboundSchema: z.ZodType<
+  ReportLevel3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ReportLevel3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ReportLevel3$outboundSchema: z.ZodType<
+  ReportLevel3,
+  z.ZodTypeDef,
+  ReportLevel3
+> = z.union([
+  z.nativeEnum(ReportLevel3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ReportMethod3$inboundSchema: z.ZodType<
+  ReportMethod3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ReportMethod3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ReportMethod3$outboundSchema: z.ZodType<
+  ReportMethod3,
+  z.ZodTypeDef,
+  ReportMethod3
+> = z.union([
+  z.nativeEnum(ReportMethod3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputAzureDataExplorerAzureDataExplorer3$inboundSchema: z.ZodType<
+  OutputAzureDataExplorerAzureDataExplorer3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  oauthType: OutputAzureDataExplorerAuthenticationMethod3$inboundSchema.default(
+    "clientSecret",
+  ),
+  id: z.string().optional(),
+  type: OutputAzureDataExplorerType3$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  clusterUrl: z.string(),
+  database: z.string(),
+  table: z.string(),
+  validateDatabaseSettings: z.boolean().default(true),
+  ingestMode: IngestionMode3$inboundSchema.default("batching"),
+  oauthEndpoint:
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint3$inboundSchema
+      .default("https://login.microsoftonline.com"),
+  tenantId: z.string(),
+  clientId: z.string(),
+  scope: z.string(),
+  description: z.string().optional(),
+  clientSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  certificate: z.lazy(() => Certificate3$inboundSchema),
+  format: Format1Options$inboundSchema.default("json"),
+  compress: PqCompressOptions$inboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  removeEmptyDirs: z.boolean().default(true),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterEnabled: z.boolean().default(false),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+  isMappingObj: z.boolean().default(false),
+  mappingObj: z.string().optional(),
+  mappingRef: z.string().optional(),
+  ingestUrl: z.string().optional(),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  maxConcurrentFileParts: z.number().default(1),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  addIdToStagePath: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushImmediately: z.boolean().default(false),
+  retainBlobOnSuccess: z.boolean().default(false),
+  extentTags: z.array(z.lazy(() => ExtentTag3$inboundSchema)).optional(),
+  ingestIfNotExists: z.array(z.lazy(() => IngestIfNotExist3$inboundSchema))
+    .optional(),
+  reportLevel: ReportLevel3$inboundSchema.default("failuresOnly"),
+  reportMethod: ReportMethod3$inboundSchema.default("queue"),
+  additionalProperties: z.array(TagsType$inboundSchema).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  flushPeriodSec: z.number().default(1),
+  rejectUnauthorized: z.boolean().default(true),
+  useRoundRobinDns: z.boolean().default(false),
+  keepAlive: z.boolean().default(true),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputAzureDataExplorerAzureDataExplorer3$Outbound = {
+  oauthType: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  clusterUrl: string;
+  database: string;
+  table: string;
+  validateDatabaseSettings: boolean;
+  ingestMode: string;
+  oauthEndpoint: string;
+  tenantId: string;
+  clientId: string;
+  scope: string;
+  description?: string | undefined;
+  clientSecret?: string | undefined;
+  textSecret?: string | undefined;
+  certificate: Certificate3$Outbound;
+  format: string;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  removeEmptyDirs: boolean;
+  emptyDirCleanupSec: number;
+  deadletterEnabled: boolean;
+  deadletterPath: string;
+  maxRetryNum: number;
+  isMappingObj: boolean;
+  mappingObj?: string | undefined;
+  mappingRef?: string | undefined;
+  ingestUrl?: string | undefined;
+  onBackpressure: string;
+  stagePath: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxOpenFiles: number;
+  maxConcurrentFileParts: number;
+  onDiskFullBackpressure: string;
+  addIdToStagePath: boolean;
+  timeoutSec: number;
+  flushImmediately: boolean;
+  retainBlobOnSuccess: boolean;
+  extentTags?: Array<ExtentTag3$Outbound> | undefined;
+  ingestIfNotExists?: Array<IngestIfNotExist3$Outbound> | undefined;
+  reportLevel: string;
+  reportMethod: string;
+  additionalProperties?: Array<TagsType$Outbound> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  flushPeriodSec: number;
+  rejectUnauthorized: boolean;
+  useRoundRobinDns: boolean;
+  keepAlive: boolean;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputAzureDataExplorerAzureDataExplorer3$outboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerAzureDataExplorer3$Outbound,
+    z.ZodTypeDef,
+    OutputAzureDataExplorerAzureDataExplorer3
+  > = z.object({
+    oauthType: OutputAzureDataExplorerAuthenticationMethod3$outboundSchema
+      .default("clientSecret"),
+    id: z.string().optional(),
+    type: OutputAzureDataExplorerType3$outboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    clusterUrl: z.string(),
+    database: z.string(),
+    table: z.string(),
+    validateDatabaseSettings: z.boolean().default(true),
+    ingestMode: IngestionMode3$outboundSchema.default("batching"),
+    oauthEndpoint:
+      OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint3$outboundSchema
+        .default("https://login.microsoftonline.com"),
+    tenantId: z.string(),
+    clientId: z.string(),
+    scope: z.string(),
+    description: z.string().optional(),
+    clientSecret: z.string().optional(),
+    textSecret: z.string().optional(),
+    certificate: z.lazy(() => Certificate3$outboundSchema),
+    format: Format1Options$outboundSchema.default("json"),
+    compress: PqCompressOptions$outboundSchema.default("none"),
+    compressionLevel: CompressionLevelOptions$outboundSchema.default(
+      "best_speed",
+    ),
+    automaticSchema: z.boolean().default(false),
+    parquetSchema: z.string().optional(),
+    parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+    parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema
+      .default("DATA_PAGE_V2"),
+    parquetRowGroupLength: z.number().default(10000),
+    parquetPageSize: z.string().default("1MB"),
+    shouldLogInvalidRows: z.boolean().optional(),
+    keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+    enableStatistics: z.boolean().default(true),
+    enableWritePageIndex: z.boolean().default(true),
+    enablePageChecksum: z.boolean().default(false),
+    removeEmptyDirs: z.boolean().default(true),
+    emptyDirCleanupSec: z.number().default(300),
+    deadletterEnabled: z.boolean().default(false),
+    deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+    maxRetryNum: z.number().default(20),
+    isMappingObj: z.boolean().default(false),
+    mappingObj: z.string().optional(),
+    mappingRef: z.string().optional(),
+    ingestUrl: z.string().optional(),
+    onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+    stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+    fileNameSuffix: z.string().default(
+      "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+    ),
+    maxFileSizeMB: z.number().default(32),
+    maxFileOpenTimeSec: z.number().default(300),
+    maxFileIdleTimeSec: z.number().default(30),
+    maxOpenFiles: z.number().default(100),
+    maxConcurrentFileParts: z.number().default(1),
+    onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+      "block",
+    ),
+    addIdToStagePath: z.boolean().default(true),
+    timeoutSec: z.number().default(30),
+    flushImmediately: z.boolean().default(false),
+    retainBlobOnSuccess: z.boolean().default(false),
+    extentTags: z.array(z.lazy(() => ExtentTag3$outboundSchema)).optional(),
+    ingestIfNotExists: z.array(z.lazy(() => IngestIfNotExist3$outboundSchema))
+      .optional(),
+    reportLevel: ReportLevel3$outboundSchema.default("failuresOnly"),
+    reportMethod: ReportMethod3$outboundSchema.default("queue"),
+    additionalProperties: z.array(TagsType$outboundSchema).optional(),
+    responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+      .optional(),
+    timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+    responseHonorRetryAfterHeader: z.boolean().default(true),
+    concurrency: z.number().default(5),
+    maxPayloadSizeKB: z.number().default(4096),
+    maxPayloadEvents: z.number().default(0),
+    flushPeriodSec: z.number().default(1),
+    rejectUnauthorized: z.boolean().default(true),
+    useRoundRobinDns: z.boolean().default(false),
+    keepAlive: z.boolean().default(true),
+    pqStrictOrdering: z.boolean().default(true),
+    pqRatePerSec: z.number().default(0),
+    pqMode: PqModeOptions$outboundSchema.default("error"),
+    pqMaxBufferSize: z.number().default(42),
+    pqMaxBackpressureSec: z.number().default(30),
+    pqMaxFileSize: z.string().default("1 MB"),
+    pqMaxSize: z.string().default("5GB"),
+    pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+    pqCompress: PqCompressOptions$outboundSchema.default("none"),
+    pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+    pqControls: MetadataType$outboundSchema.optional(),
+  });
+
+export function outputAzureDataExplorerAzureDataExplorer3ToJSON(
+  outputAzureDataExplorerAzureDataExplorer3:
+    OutputAzureDataExplorerAzureDataExplorer3,
+): string {
+  return JSON.stringify(
+    OutputAzureDataExplorerAzureDataExplorer3$outboundSchema.parse(
+      outputAzureDataExplorerAzureDataExplorer3,
+    ),
+  );
+}
+export function outputAzureDataExplorerAzureDataExplorer3FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  OutputAzureDataExplorerAzureDataExplorer3,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputAzureDataExplorerAzureDataExplorer3$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'OutputAzureDataExplorerAzureDataExplorer3' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputAzureDataExplorerAuthenticationMethod2$inboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerAuthenticationMethod2,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(OutputAzureDataExplorerAuthenticationMethod2),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const OutputAzureDataExplorerAuthenticationMethod2$outboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerAuthenticationMethod2,
+    z.ZodTypeDef,
+    OutputAzureDataExplorerAuthenticationMethod2
+  > = z.union([
+    z.nativeEnum(OutputAzureDataExplorerAuthenticationMethod2),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const OutputAzureDataExplorerType2$inboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureDataExplorerType2
+> = z.nativeEnum(OutputAzureDataExplorerType2);
+/** @internal */
+export const OutputAzureDataExplorerType2$outboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureDataExplorerType2
+> = OutputAzureDataExplorerType2$inboundSchema;
+
+/** @internal */
+export const IngestionMode2$inboundSchema: z.ZodType<
+  IngestionMode2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(IngestionMode2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const IngestionMode2$outboundSchema: z.ZodType<
+  IngestionMode2,
+  z.ZodTypeDef,
+  IngestionMode2
+> = z.union([
+  z.nativeEnum(IngestionMode2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint2$inboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint2,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(
+        OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint2,
+      ),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint2$outboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint2,
+    z.ZodTypeDef,
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint2
+  > = z.union([
+    z.nativeEnum(
+      OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint2,
+    ),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const Certificate2$inboundSchema: z.ZodType<
+  Certificate2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  certificateName: z.string().optional(),
+});
+/** @internal */
+export type Certificate2$Outbound = {
+  certificateName?: string | undefined;
+};
+
+/** @internal */
+export const Certificate2$outboundSchema: z.ZodType<
+  Certificate2$Outbound,
+  z.ZodTypeDef,
+  Certificate2
+> = z.object({
+  certificateName: z.string().optional(),
+});
+
+export function certificate2ToJSON(certificate2: Certificate2): string {
+  return JSON.stringify(Certificate2$outboundSchema.parse(certificate2));
+}
+export function certificate2FromJSON(
+  jsonString: string,
+): SafeParseResult<Certificate2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Certificate2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Certificate2' from JSON`,
+  );
+}
+
+/** @internal */
+export const PrefixOptional2$inboundSchema: z.ZodType<
+  PrefixOptional2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(PrefixOptional2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const PrefixOptional2$outboundSchema: z.ZodType<
+  PrefixOptional2,
+  z.ZodTypeDef,
+  PrefixOptional2
+> = z.union([
+  z.nativeEnum(PrefixOptional2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ExtentTag2$inboundSchema: z.ZodType<
+  ExtentTag2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  prefix: PrefixOptional2$inboundSchema.optional(),
+  value: z.string(),
+});
+/** @internal */
+export type ExtentTag2$Outbound = {
+  prefix?: string | undefined;
+  value: string;
+};
+
+/** @internal */
+export const ExtentTag2$outboundSchema: z.ZodType<
+  ExtentTag2$Outbound,
+  z.ZodTypeDef,
+  ExtentTag2
+> = z.object({
+  prefix: PrefixOptional2$outboundSchema.optional(),
+  value: z.string(),
+});
+
+export function extentTag2ToJSON(extentTag2: ExtentTag2): string {
+  return JSON.stringify(ExtentTag2$outboundSchema.parse(extentTag2));
+}
+export function extentTag2FromJSON(
+  jsonString: string,
+): SafeParseResult<ExtentTag2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ExtentTag2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ExtentTag2' from JSON`,
+  );
+}
+
+/** @internal */
+export const IngestIfNotExist2$inboundSchema: z.ZodType<
+  IngestIfNotExist2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  value: z.string(),
+});
+/** @internal */
+export type IngestIfNotExist2$Outbound = {
+  value: string;
+};
+
+/** @internal */
+export const IngestIfNotExist2$outboundSchema: z.ZodType<
+  IngestIfNotExist2$Outbound,
+  z.ZodTypeDef,
+  IngestIfNotExist2
+> = z.object({
+  value: z.string(),
+});
+
+export function ingestIfNotExist2ToJSON(
+  ingestIfNotExist2: IngestIfNotExist2,
+): string {
+  return JSON.stringify(
+    IngestIfNotExist2$outboundSchema.parse(ingestIfNotExist2),
+  );
+}
+export function ingestIfNotExist2FromJSON(
+  jsonString: string,
+): SafeParseResult<IngestIfNotExist2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => IngestIfNotExist2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'IngestIfNotExist2' from JSON`,
+  );
+}
+
+/** @internal */
+export const ReportLevel2$inboundSchema: z.ZodType<
+  ReportLevel2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ReportLevel2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ReportLevel2$outboundSchema: z.ZodType<
+  ReportLevel2,
+  z.ZodTypeDef,
+  ReportLevel2
+> = z.union([
+  z.nativeEnum(ReportLevel2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ReportMethod2$inboundSchema: z.ZodType<
+  ReportMethod2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ReportMethod2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ReportMethod2$outboundSchema: z.ZodType<
+  ReportMethod2,
+  z.ZodTypeDef,
+  ReportMethod2
+> = z.union([
+  z.nativeEnum(ReportMethod2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputAzureDataExplorerAzureDataExplorer2$inboundSchema: z.ZodType<
+  OutputAzureDataExplorerAzureDataExplorer2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  oauthType: OutputAzureDataExplorerAuthenticationMethod2$inboundSchema.default(
+    "clientSecret",
+  ),
+  id: z.string().optional(),
+  type: OutputAzureDataExplorerType2$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  clusterUrl: z.string(),
+  database: z.string(),
+  table: z.string(),
+  validateDatabaseSettings: z.boolean().default(true),
+  ingestMode: IngestionMode2$inboundSchema.default("batching"),
+  oauthEndpoint:
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint2$inboundSchema
+      .default("https://login.microsoftonline.com"),
+  tenantId: z.string(),
+  clientId: z.string(),
+  scope: z.string(),
+  description: z.string().optional(),
+  clientSecret: z.string().optional(),
+  textSecret: z.string(),
+  certificate: z.lazy(() => Certificate2$inboundSchema).optional(),
+  format: Format1Options$inboundSchema.default("json"),
+  compress: PqCompressOptions$inboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  removeEmptyDirs: z.boolean().default(true),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterEnabled: z.boolean().default(false),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+  isMappingObj: z.boolean().default(false),
+  mappingObj: z.string().optional(),
+  mappingRef: z.string().optional(),
+  ingestUrl: z.string().optional(),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  maxConcurrentFileParts: z.number().default(1),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  addIdToStagePath: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushImmediately: z.boolean().default(false),
+  retainBlobOnSuccess: z.boolean().default(false),
+  extentTags: z.array(z.lazy(() => ExtentTag2$inboundSchema)).optional(),
+  ingestIfNotExists: z.array(z.lazy(() => IngestIfNotExist2$inboundSchema))
+    .optional(),
+  reportLevel: ReportLevel2$inboundSchema.default("failuresOnly"),
+  reportMethod: ReportMethod2$inboundSchema.default("queue"),
+  additionalProperties: z.array(TagsType$inboundSchema).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  flushPeriodSec: z.number().default(1),
+  rejectUnauthorized: z.boolean().default(true),
+  useRoundRobinDns: z.boolean().default(false),
+  keepAlive: z.boolean().default(true),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputAzureDataExplorerAzureDataExplorer2$Outbound = {
+  oauthType: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  clusterUrl: string;
+  database: string;
+  table: string;
+  validateDatabaseSettings: boolean;
+  ingestMode: string;
+  oauthEndpoint: string;
+  tenantId: string;
+  clientId: string;
+  scope: string;
+  description?: string | undefined;
+  clientSecret?: string | undefined;
+  textSecret: string;
+  certificate?: Certificate2$Outbound | undefined;
+  format: string;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  removeEmptyDirs: boolean;
+  emptyDirCleanupSec: number;
+  deadletterEnabled: boolean;
+  deadletterPath: string;
+  maxRetryNum: number;
+  isMappingObj: boolean;
+  mappingObj?: string | undefined;
+  mappingRef?: string | undefined;
+  ingestUrl?: string | undefined;
+  onBackpressure: string;
+  stagePath: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxOpenFiles: number;
+  maxConcurrentFileParts: number;
+  onDiskFullBackpressure: string;
+  addIdToStagePath: boolean;
+  timeoutSec: number;
+  flushImmediately: boolean;
+  retainBlobOnSuccess: boolean;
+  extentTags?: Array<ExtentTag2$Outbound> | undefined;
+  ingestIfNotExists?: Array<IngestIfNotExist2$Outbound> | undefined;
+  reportLevel: string;
+  reportMethod: string;
+  additionalProperties?: Array<TagsType$Outbound> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  flushPeriodSec: number;
+  rejectUnauthorized: boolean;
+  useRoundRobinDns: boolean;
+  keepAlive: boolean;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputAzureDataExplorerAzureDataExplorer2$outboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerAzureDataExplorer2$Outbound,
+    z.ZodTypeDef,
+    OutputAzureDataExplorerAzureDataExplorer2
+  > = z.object({
+    oauthType: OutputAzureDataExplorerAuthenticationMethod2$outboundSchema
+      .default("clientSecret"),
+    id: z.string().optional(),
+    type: OutputAzureDataExplorerType2$outboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    clusterUrl: z.string(),
+    database: z.string(),
+    table: z.string(),
+    validateDatabaseSettings: z.boolean().default(true),
+    ingestMode: IngestionMode2$outboundSchema.default("batching"),
+    oauthEndpoint:
+      OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint2$outboundSchema
+        .default("https://login.microsoftonline.com"),
+    tenantId: z.string(),
+    clientId: z.string(),
+    scope: z.string(),
+    description: z.string().optional(),
+    clientSecret: z.string().optional(),
+    textSecret: z.string(),
+    certificate: z.lazy(() => Certificate2$outboundSchema).optional(),
+    format: Format1Options$outboundSchema.default("json"),
+    compress: PqCompressOptions$outboundSchema.default("none"),
+    compressionLevel: CompressionLevelOptions$outboundSchema.default(
+      "best_speed",
+    ),
+    automaticSchema: z.boolean().default(false),
+    parquetSchema: z.string().optional(),
+    parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+    parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema
+      .default("DATA_PAGE_V2"),
+    parquetRowGroupLength: z.number().default(10000),
+    parquetPageSize: z.string().default("1MB"),
+    shouldLogInvalidRows: z.boolean().optional(),
+    keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+    enableStatistics: z.boolean().default(true),
+    enableWritePageIndex: z.boolean().default(true),
+    enablePageChecksum: z.boolean().default(false),
+    removeEmptyDirs: z.boolean().default(true),
+    emptyDirCleanupSec: z.number().default(300),
+    deadletterEnabled: z.boolean().default(false),
+    deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+    maxRetryNum: z.number().default(20),
+    isMappingObj: z.boolean().default(false),
+    mappingObj: z.string().optional(),
+    mappingRef: z.string().optional(),
+    ingestUrl: z.string().optional(),
+    onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+    stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+    fileNameSuffix: z.string().default(
+      "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+    ),
+    maxFileSizeMB: z.number().default(32),
+    maxFileOpenTimeSec: z.number().default(300),
+    maxFileIdleTimeSec: z.number().default(30),
+    maxOpenFiles: z.number().default(100),
+    maxConcurrentFileParts: z.number().default(1),
+    onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+      "block",
+    ),
+    addIdToStagePath: z.boolean().default(true),
+    timeoutSec: z.number().default(30),
+    flushImmediately: z.boolean().default(false),
+    retainBlobOnSuccess: z.boolean().default(false),
+    extentTags: z.array(z.lazy(() => ExtentTag2$outboundSchema)).optional(),
+    ingestIfNotExists: z.array(z.lazy(() => IngestIfNotExist2$outboundSchema))
+      .optional(),
+    reportLevel: ReportLevel2$outboundSchema.default("failuresOnly"),
+    reportMethod: ReportMethod2$outboundSchema.default("queue"),
+    additionalProperties: z.array(TagsType$outboundSchema).optional(),
+    responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+      .optional(),
+    timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+    responseHonorRetryAfterHeader: z.boolean().default(true),
+    concurrency: z.number().default(5),
+    maxPayloadSizeKB: z.number().default(4096),
+    maxPayloadEvents: z.number().default(0),
+    flushPeriodSec: z.number().default(1),
+    rejectUnauthorized: z.boolean().default(true),
+    useRoundRobinDns: z.boolean().default(false),
+    keepAlive: z.boolean().default(true),
+    pqStrictOrdering: z.boolean().default(true),
+    pqRatePerSec: z.number().default(0),
+    pqMode: PqModeOptions$outboundSchema.default("error"),
+    pqMaxBufferSize: z.number().default(42),
+    pqMaxBackpressureSec: z.number().default(30),
+    pqMaxFileSize: z.string().default("1 MB"),
+    pqMaxSize: z.string().default("5GB"),
+    pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+    pqCompress: PqCompressOptions$outboundSchema.default("none"),
+    pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+    pqControls: MetadataType$outboundSchema.optional(),
+  });
+
+export function outputAzureDataExplorerAzureDataExplorer2ToJSON(
+  outputAzureDataExplorerAzureDataExplorer2:
+    OutputAzureDataExplorerAzureDataExplorer2,
+): string {
+  return JSON.stringify(
+    OutputAzureDataExplorerAzureDataExplorer2$outboundSchema.parse(
+      outputAzureDataExplorerAzureDataExplorer2,
+    ),
+  );
+}
+export function outputAzureDataExplorerAzureDataExplorer2FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  OutputAzureDataExplorerAzureDataExplorer2,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputAzureDataExplorerAzureDataExplorer2$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'OutputAzureDataExplorerAzureDataExplorer2' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputAzureDataExplorerAuthenticationMethod1$inboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerAuthenticationMethod1,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(OutputAzureDataExplorerAuthenticationMethod1),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const OutputAzureDataExplorerAuthenticationMethod1$outboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerAuthenticationMethod1,
+    z.ZodTypeDef,
+    OutputAzureDataExplorerAuthenticationMethod1
+  > = z.union([
+    z.nativeEnum(OutputAzureDataExplorerAuthenticationMethod1),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const OutputAzureDataExplorerType1$inboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureDataExplorerType1
+> = z.nativeEnum(OutputAzureDataExplorerType1);
+/** @internal */
+export const OutputAzureDataExplorerType1$outboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureDataExplorerType1
+> = OutputAzureDataExplorerType1$inboundSchema;
+
+/** @internal */
+export const IngestionMode1$inboundSchema: z.ZodType<
+  IngestionMode1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(IngestionMode1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const IngestionMode1$outboundSchema: z.ZodType<
+  IngestionMode1,
+  z.ZodTypeDef,
+  IngestionMode1
+> = z.union([
+  z.nativeEnum(IngestionMode1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint1$inboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint1,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(
+        OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint1,
+      ),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint1$outboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint1,
+    z.ZodTypeDef,
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint1
+  > = z.union([
+    z.nativeEnum(
+      OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint1,
+    ),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const Certificate1$inboundSchema: z.ZodType<
+  Certificate1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  certificateName: z.string().optional(),
+});
+/** @internal */
+export type Certificate1$Outbound = {
+  certificateName?: string | undefined;
+};
+
+/** @internal */
+export const Certificate1$outboundSchema: z.ZodType<
+  Certificate1$Outbound,
+  z.ZodTypeDef,
+  Certificate1
+> = z.object({
+  certificateName: z.string().optional(),
+});
+
+export function certificate1ToJSON(certificate1: Certificate1): string {
+  return JSON.stringify(Certificate1$outboundSchema.parse(certificate1));
+}
+export function certificate1FromJSON(
+  jsonString: string,
+): SafeParseResult<Certificate1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Certificate1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Certificate1' from JSON`,
+  );
+}
+
+/** @internal */
+export const PrefixOptional1$inboundSchema: z.ZodType<
+  PrefixOptional1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(PrefixOptional1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const PrefixOptional1$outboundSchema: z.ZodType<
+  PrefixOptional1,
+  z.ZodTypeDef,
+  PrefixOptional1
+> = z.union([
+  z.nativeEnum(PrefixOptional1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ExtentTag1$inboundSchema: z.ZodType<
+  ExtentTag1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  prefix: PrefixOptional1$inboundSchema.optional(),
+  value: z.string(),
+});
+/** @internal */
+export type ExtentTag1$Outbound = {
+  prefix?: string | undefined;
+  value: string;
+};
+
+/** @internal */
+export const ExtentTag1$outboundSchema: z.ZodType<
+  ExtentTag1$Outbound,
+  z.ZodTypeDef,
+  ExtentTag1
+> = z.object({
+  prefix: PrefixOptional1$outboundSchema.optional(),
+  value: z.string(),
+});
+
+export function extentTag1ToJSON(extentTag1: ExtentTag1): string {
+  return JSON.stringify(ExtentTag1$outboundSchema.parse(extentTag1));
+}
+export function extentTag1FromJSON(
+  jsonString: string,
+): SafeParseResult<ExtentTag1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ExtentTag1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ExtentTag1' from JSON`,
+  );
+}
+
+/** @internal */
+export const IngestIfNotExist1$inboundSchema: z.ZodType<
+  IngestIfNotExist1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  value: z.string(),
+});
+/** @internal */
+export type IngestIfNotExist1$Outbound = {
+  value: string;
+};
+
+/** @internal */
+export const IngestIfNotExist1$outboundSchema: z.ZodType<
+  IngestIfNotExist1$Outbound,
+  z.ZodTypeDef,
+  IngestIfNotExist1
+> = z.object({
+  value: z.string(),
+});
+
+export function ingestIfNotExist1ToJSON(
+  ingestIfNotExist1: IngestIfNotExist1,
+): string {
+  return JSON.stringify(
+    IngestIfNotExist1$outboundSchema.parse(ingestIfNotExist1),
+  );
+}
+export function ingestIfNotExist1FromJSON(
+  jsonString: string,
+): SafeParseResult<IngestIfNotExist1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => IngestIfNotExist1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'IngestIfNotExist1' from JSON`,
+  );
+}
+
+/** @internal */
+export const ReportLevel1$inboundSchema: z.ZodType<
+  ReportLevel1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ReportLevel1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ReportLevel1$outboundSchema: z.ZodType<
+  ReportLevel1,
+  z.ZodTypeDef,
+  ReportLevel1
+> = z.union([
+  z.nativeEnum(ReportLevel1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ReportMethod1$inboundSchema: z.ZodType<
+  ReportMethod1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ReportMethod1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ReportMethod1$outboundSchema: z.ZodType<
+  ReportMethod1,
+  z.ZodTypeDef,
+  ReportMethod1
+> = z.union([
+  z.nativeEnum(ReportMethod1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputAzureDataExplorerAzureDataExplorer1$inboundSchema: z.ZodType<
+  OutputAzureDataExplorerAzureDataExplorer1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  oauthType: OutputAzureDataExplorerAuthenticationMethod1$inboundSchema.default(
+    "clientSecret",
+  ),
+  id: z.string().optional(),
+  type: OutputAzureDataExplorerType1$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  clusterUrl: z.string(),
+  database: z.string(),
+  table: z.string(),
+  validateDatabaseSettings: z.boolean().default(true),
+  ingestMode: IngestionMode1$inboundSchema.default("batching"),
+  oauthEndpoint:
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint1$inboundSchema
+      .default("https://login.microsoftonline.com"),
+  tenantId: z.string(),
+  clientId: z.string(),
+  scope: z.string(),
+  description: z.string().optional(),
+  clientSecret: z.string(),
+  textSecret: z.string().optional(),
+  certificate: z.lazy(() => Certificate1$inboundSchema).optional(),
+  format: Format1Options$inboundSchema.default("json"),
+  compress: PqCompressOptions$inboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  removeEmptyDirs: z.boolean().default(true),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterEnabled: z.boolean().default(false),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+  isMappingObj: z.boolean().default(false),
+  mappingObj: z.string().optional(),
+  mappingRef: z.string().optional(),
+  ingestUrl: z.string().optional(),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  maxConcurrentFileParts: z.number().default(1),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  addIdToStagePath: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushImmediately: z.boolean().default(false),
+  retainBlobOnSuccess: z.boolean().default(false),
+  extentTags: z.array(z.lazy(() => ExtentTag1$inboundSchema)).optional(),
+  ingestIfNotExists: z.array(z.lazy(() => IngestIfNotExist1$inboundSchema))
+    .optional(),
+  reportLevel: ReportLevel1$inboundSchema.default("failuresOnly"),
+  reportMethod: ReportMethod1$inboundSchema.default("queue"),
+  additionalProperties: z.array(TagsType$inboundSchema).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  flushPeriodSec: z.number().default(1),
+  rejectUnauthorized: z.boolean().default(true),
+  useRoundRobinDns: z.boolean().default(false),
+  keepAlive: z.boolean().default(true),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputAzureDataExplorerAzureDataExplorer1$Outbound = {
+  oauthType: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  clusterUrl: string;
+  database: string;
+  table: string;
+  validateDatabaseSettings: boolean;
+  ingestMode: string;
+  oauthEndpoint: string;
+  tenantId: string;
+  clientId: string;
+  scope: string;
+  description?: string | undefined;
+  clientSecret: string;
+  textSecret?: string | undefined;
+  certificate?: Certificate1$Outbound | undefined;
+  format: string;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  removeEmptyDirs: boolean;
+  emptyDirCleanupSec: number;
+  deadletterEnabled: boolean;
+  deadletterPath: string;
+  maxRetryNum: number;
+  isMappingObj: boolean;
+  mappingObj?: string | undefined;
+  mappingRef?: string | undefined;
+  ingestUrl?: string | undefined;
+  onBackpressure: string;
+  stagePath: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxOpenFiles: number;
+  maxConcurrentFileParts: number;
+  onDiskFullBackpressure: string;
+  addIdToStagePath: boolean;
+  timeoutSec: number;
+  flushImmediately: boolean;
+  retainBlobOnSuccess: boolean;
+  extentTags?: Array<ExtentTag1$Outbound> | undefined;
+  ingestIfNotExists?: Array<IngestIfNotExist1$Outbound> | undefined;
+  reportLevel: string;
+  reportMethod: string;
+  additionalProperties?: Array<TagsType$Outbound> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  flushPeriodSec: number;
+  rejectUnauthorized: boolean;
+  useRoundRobinDns: boolean;
+  keepAlive: boolean;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputAzureDataExplorerAzureDataExplorer1$outboundSchema:
+  z.ZodType<
+    OutputAzureDataExplorerAzureDataExplorer1$Outbound,
+    z.ZodTypeDef,
+    OutputAzureDataExplorerAzureDataExplorer1
+  > = z.object({
+    oauthType: OutputAzureDataExplorerAuthenticationMethod1$outboundSchema
+      .default("clientSecret"),
+    id: z.string().optional(),
+    type: OutputAzureDataExplorerType1$outboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    clusterUrl: z.string(),
+    database: z.string(),
+    table: z.string(),
+    validateDatabaseSettings: z.boolean().default(true),
+    ingestMode: IngestionMode1$outboundSchema.default("batching"),
+    oauthEndpoint:
+      OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint1$outboundSchema
+        .default("https://login.microsoftonline.com"),
+    tenantId: z.string(),
+    clientId: z.string(),
+    scope: z.string(),
+    description: z.string().optional(),
+    clientSecret: z.string(),
+    textSecret: z.string().optional(),
+    certificate: z.lazy(() => Certificate1$outboundSchema).optional(),
+    format: Format1Options$outboundSchema.default("json"),
+    compress: PqCompressOptions$outboundSchema.default("none"),
+    compressionLevel: CompressionLevelOptions$outboundSchema.default(
+      "best_speed",
+    ),
+    automaticSchema: z.boolean().default(false),
+    parquetSchema: z.string().optional(),
+    parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+    parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema
+      .default("DATA_PAGE_V2"),
+    parquetRowGroupLength: z.number().default(10000),
+    parquetPageSize: z.string().default("1MB"),
+    shouldLogInvalidRows: z.boolean().optional(),
+    keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+    enableStatistics: z.boolean().default(true),
+    enableWritePageIndex: z.boolean().default(true),
+    enablePageChecksum: z.boolean().default(false),
+    removeEmptyDirs: z.boolean().default(true),
+    emptyDirCleanupSec: z.number().default(300),
+    deadletterEnabled: z.boolean().default(false),
+    deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+    maxRetryNum: z.number().default(20),
+    isMappingObj: z.boolean().default(false),
+    mappingObj: z.string().optional(),
+    mappingRef: z.string().optional(),
+    ingestUrl: z.string().optional(),
+    onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+    stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+    fileNameSuffix: z.string().default(
+      "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+    ),
+    maxFileSizeMB: z.number().default(32),
+    maxFileOpenTimeSec: z.number().default(300),
+    maxFileIdleTimeSec: z.number().default(30),
+    maxOpenFiles: z.number().default(100),
+    maxConcurrentFileParts: z.number().default(1),
+    onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+      "block",
+    ),
+    addIdToStagePath: z.boolean().default(true),
+    timeoutSec: z.number().default(30),
+    flushImmediately: z.boolean().default(false),
+    retainBlobOnSuccess: z.boolean().default(false),
+    extentTags: z.array(z.lazy(() => ExtentTag1$outboundSchema)).optional(),
+    ingestIfNotExists: z.array(z.lazy(() => IngestIfNotExist1$outboundSchema))
+      .optional(),
+    reportLevel: ReportLevel1$outboundSchema.default("failuresOnly"),
+    reportMethod: ReportMethod1$outboundSchema.default("queue"),
+    additionalProperties: z.array(TagsType$outboundSchema).optional(),
+    responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+      .optional(),
+    timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+    responseHonorRetryAfterHeader: z.boolean().default(true),
+    concurrency: z.number().default(5),
+    maxPayloadSizeKB: z.number().default(4096),
+    maxPayloadEvents: z.number().default(0),
+    flushPeriodSec: z.number().default(1),
+    rejectUnauthorized: z.boolean().default(true),
+    useRoundRobinDns: z.boolean().default(false),
+    keepAlive: z.boolean().default(true),
+    pqStrictOrdering: z.boolean().default(true),
+    pqRatePerSec: z.number().default(0),
+    pqMode: PqModeOptions$outboundSchema.default("error"),
+    pqMaxBufferSize: z.number().default(42),
+    pqMaxBackpressureSec: z.number().default(30),
+    pqMaxFileSize: z.string().default("1 MB"),
+    pqMaxSize: z.string().default("5GB"),
+    pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+    pqCompress: PqCompressOptions$outboundSchema.default("none"),
+    pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+    pqControls: MetadataType$outboundSchema.optional(),
+  });
+
+export function outputAzureDataExplorerAzureDataExplorer1ToJSON(
+  outputAzureDataExplorerAzureDataExplorer1:
+    OutputAzureDataExplorerAzureDataExplorer1,
+): string {
+  return JSON.stringify(
+    OutputAzureDataExplorerAzureDataExplorer1$outboundSchema.parse(
+      outputAzureDataExplorerAzureDataExplorer1,
+    ),
+  );
+}
+export function outputAzureDataExplorerAzureDataExplorer1FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  OutputAzureDataExplorerAzureDataExplorer1,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputAzureDataExplorerAzureDataExplorer1$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'OutputAzureDataExplorerAzureDataExplorer1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputAzureDataExplorer$inboundSchema: z.ZodType<
+  OutputAzureDataExplorer,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => OutputAzureDataExplorerAzureDataExplorer4$inboundSchema),
+  z.lazy(() => OutputAzureDataExplorerAzureDataExplorer5$inboundSchema),
+  z.lazy(() => OutputAzureDataExplorerAzureDataExplorer1$inboundSchema),
+  z.lazy(() => OutputAzureDataExplorerAzureDataExplorer2$inboundSchema),
+  z.lazy(() => OutputAzureDataExplorerAzureDataExplorer3$inboundSchema),
+  z.lazy(() => OutputAzureDataExplorerAzureDataExplorer7$inboundSchema),
+  z.lazy(() => OutputAzureDataExplorerAzureDataExplorer6$inboundSchema),
+  z.lazy(() => OutputAzureDataExplorerAzureDataExplorer8$inboundSchema),
+  z.lazy(() => OutputAzureDataExplorerAzureDataExplorer9$inboundSchema),
+]);
+/** @internal */
+export type OutputAzureDataExplorer$Outbound =
+  | OutputAzureDataExplorerAzureDataExplorer4$Outbound
+  | OutputAzureDataExplorerAzureDataExplorer5$Outbound
+  | OutputAzureDataExplorerAzureDataExplorer1$Outbound
+  | OutputAzureDataExplorerAzureDataExplorer2$Outbound
+  | OutputAzureDataExplorerAzureDataExplorer3$Outbound
+  | OutputAzureDataExplorerAzureDataExplorer7$Outbound
+  | OutputAzureDataExplorerAzureDataExplorer6$Outbound
+  | OutputAzureDataExplorerAzureDataExplorer8$Outbound
+  | OutputAzureDataExplorerAzureDataExplorer9$Outbound;
+
+/** @internal */
+export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
+  OutputAzureDataExplorer$Outbound,
+  z.ZodTypeDef,
+  OutputAzureDataExplorer
+> = z.union([
+  z.lazy(() => OutputAzureDataExplorerAzureDataExplorer4$outboundSchema),
+  z.lazy(() => OutputAzureDataExplorerAzureDataExplorer5$outboundSchema),
+  z.lazy(() => OutputAzureDataExplorerAzureDataExplorer1$outboundSchema),
+  z.lazy(() => OutputAzureDataExplorerAzureDataExplorer2$outboundSchema),
+  z.lazy(() => OutputAzureDataExplorerAzureDataExplorer3$outboundSchema),
+  z.lazy(() => OutputAzureDataExplorerAzureDataExplorer7$outboundSchema),
+  z.lazy(() => OutputAzureDataExplorerAzureDataExplorer6$outboundSchema),
+  z.lazy(() => OutputAzureDataExplorerAzureDataExplorer8$outboundSchema),
+  z.lazy(() => OutputAzureDataExplorerAzureDataExplorer9$outboundSchema),
+]);
 
 export function outputAzureDataExplorerToJSON(
   outputAzureDataExplorer: OutputAzureDataExplorer,
@@ -1649,7 +9280,6 @@ export function outputAzureDataExplorerToJSON(
     OutputAzureDataExplorer$outboundSchema.parse(outputAzureDataExplorer),
   );
 }
-
 export function outputAzureDataExplorerFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputAzureDataExplorer, SDKValidationError> {

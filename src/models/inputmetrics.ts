@@ -4,149 +4,49 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  ConnectionsType,
+  ConnectionsType$inboundSchema,
+  ConnectionsType$Outbound,
+  ConnectionsType$outboundSchema,
+} from "./connectionstype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  Metadata1Type,
+  Metadata1Type$inboundSchema,
+  Metadata1Type$Outbound,
+  Metadata1Type$outboundSchema,
+} from "./metadata1type.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  Tls2Type,
+  Tls2Type$inboundSchema,
+  Tls2Type$Outbound,
+  Tls2Type$outboundSchema,
+} from "./tls2type.js";
 
-export const InputMetricsType = {
+export const InputMetricsType4 = {
   Metrics: "metrics",
 } as const;
-export type InputMetricsType = ClosedEnum<typeof InputMetricsType>;
+export type InputMetricsType4 = ClosedEnum<typeof InputMetricsType4>;
 
-export type InputMetricsConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputMetricsMode = {
-  Smart: "smart",
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputMetricsMode = OpenEnum<typeof InputMetricsMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputMetricsCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputMetricsCompression = OpenEnum<typeof InputMetricsCompression>;
-
-export type InputMetricsPqControls = {};
-
-export type InputMetricsPq = {
+export type InputMetricsMetrics4 = {
   /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  mode?: InputMetricsMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputMetricsCompression | undefined;
-  pqControls?: InputMetricsPqControls | undefined;
-};
-
-export const InputMetricsMinimumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputMetricsMinimumTLSVersion = OpenEnum<
-  typeof InputMetricsMinimumTLSVersion
->;
-
-export const InputMetricsMaximumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputMetricsMaximumTLSVersion = OpenEnum<
-  typeof InputMetricsMaximumTLSVersion
->;
-
-export type InputMetricsTLSSettingsServerSide = {
-  disabled?: boolean | undefined;
-  /**
-   * The name of the predefined certificate
-   */
-  certificateName?: string | undefined;
-  /**
-   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
-   */
-  privKeyPath?: string | undefined;
-  /**
-   * Passphrase to use to decrypt private key
-   */
-  passphrase?: string | undefined;
-  /**
-   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  certPath?: string | undefined;
-  /**
-   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  caPath?: string | undefined;
-  /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
-  minVersion?: InputMetricsMinimumTLSVersion | undefined;
-  maxVersion?: InputMetricsMaximumTLSVersion | undefined;
-};
-
-export type InputMetricsMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
-
-export type InputMetrics = {
+  pqEnabled?: boolean | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputMetricsType;
+  type: InputMetricsType4;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -161,18 +61,14 @@ export type InputMetrics = {
    */
   environment?: string | undefined;
   /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  /**
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputMetricsConnection> | undefined;
-  pq?: InputMetricsPq | undefined;
+  connections?: Array<ConnectionsType> | undefined;
+  pq: PqType;
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
    */
@@ -197,11 +93,11 @@ export type InputMetrics = {
    * Enable if the connection is proxied by a device that supports Proxy Protocol V1 or V2
    */
   enableProxyHeader?: boolean | undefined;
-  tls?: InputMetricsTLSSettingsServerSide | undefined;
+  tls?: Tls2Type | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputMetricsMetadatum> | undefined;
+  metadata?: Array<Metadata1Type> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
@@ -209,472 +105,648 @@ export type InputMetrics = {
   description?: string | undefined;
 };
 
-/** @internal */
-export const InputMetricsType$inboundSchema: z.ZodNativeEnum<
-  typeof InputMetricsType
-> = z.nativeEnum(InputMetricsType);
+export const InputMetricsType3 = {
+  Metrics: "metrics",
+} as const;
+export type InputMetricsType3 = ClosedEnum<typeof InputMetricsType3>;
 
-/** @internal */
-export const InputMetricsType$outboundSchema: z.ZodNativeEnum<
-  typeof InputMetricsType
-> = InputMetricsType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMetricsType$ {
-  /** @deprecated use `InputMetricsType$inboundSchema` instead. */
-  export const inboundSchema = InputMetricsType$inboundSchema;
-  /** @deprecated use `InputMetricsType$outboundSchema` instead. */
-  export const outboundSchema = InputMetricsType$outboundSchema;
-}
-
-/** @internal */
-export const InputMetricsConnection$inboundSchema: z.ZodType<
-  InputMetricsConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-/** @internal */
-export type InputMetricsConnection$Outbound = {
+export type InputMetricsMetrics3 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputMetricsType3;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
   pipeline?: string | undefined;
-  output: string;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+   */
+  host?: string | undefined;
+  /**
+   * Enter UDP port number to listen on. Not required if listening on TCP.
+   */
+  udpPort?: number | undefined;
+  /**
+   * Enter TCP port number to listen on. Not required if listening on UDP.
+   */
+  tcpPort?: number | undefined;
+  /**
+   * Maximum number of events to buffer when downstream is blocking. Only applies to UDP.
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * Regex matching IP addresses that are allowed to send data
+   */
+  ipWhitelistRegex?: string | undefined;
+  /**
+   * Enable if the connection is proxied by a device that supports Proxy Protocol V1 or V2
+   */
+  enableProxyHeader?: boolean | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+   */
+  udpSocketRxBufSize?: number | undefined;
+  description?: string | undefined;
 };
 
+export const InputMetricsType2 = {
+  Metrics: "metrics",
+} as const;
+export type InputMetricsType2 = ClosedEnum<typeof InputMetricsType2>;
+
+export type InputMetricsMetrics2 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputMetricsType2;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections: Array<ConnectionsType>;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+   */
+  host?: string | undefined;
+  /**
+   * Enter UDP port number to listen on. Not required if listening on TCP.
+   */
+  udpPort?: number | undefined;
+  /**
+   * Enter TCP port number to listen on. Not required if listening on UDP.
+   */
+  tcpPort?: number | undefined;
+  /**
+   * Maximum number of events to buffer when downstream is blocking. Only applies to UDP.
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * Regex matching IP addresses that are allowed to send data
+   */
+  ipWhitelistRegex?: string | undefined;
+  /**
+   * Enable if the connection is proxied by a device that supports Proxy Protocol V1 or V2
+   */
+  enableProxyHeader?: boolean | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+   */
+  udpSocketRxBufSize?: number | undefined;
+  description?: string | undefined;
+};
+
+export const InputMetricsType1 = {
+  Metrics: "metrics",
+} as const;
+export type InputMetricsType1 = ClosedEnum<typeof InputMetricsType1>;
+
+export type InputMetricsMetrics1 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputMetricsType1;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
+   */
+  host?: string | undefined;
+  /**
+   * Enter UDP port number to listen on. Not required if listening on TCP.
+   */
+  udpPort?: number | undefined;
+  /**
+   * Enter TCP port number to listen on. Not required if listening on UDP.
+   */
+  tcpPort?: number | undefined;
+  /**
+   * Maximum number of events to buffer when downstream is blocking. Only applies to UDP.
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * Regex matching IP addresses that are allowed to send data
+   */
+  ipWhitelistRegex?: string | undefined;
+  /**
+   * Enable if the connection is proxied by a device that supports Proxy Protocol V1 or V2
+   */
+  enableProxyHeader?: boolean | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
+   */
+  udpSocketRxBufSize?: number | undefined;
+  description?: string | undefined;
+};
+
+export type InputMetrics =
+  | InputMetricsMetrics2
+  | InputMetricsMetrics4
+  | InputMetricsMetrics1
+  | InputMetricsMetrics3;
+
 /** @internal */
-export const InputMetricsConnection$outboundSchema: z.ZodType<
-  InputMetricsConnection$Outbound,
+export const InputMetricsType4$inboundSchema: z.ZodNativeEnum<
+  typeof InputMetricsType4
+> = z.nativeEnum(InputMetricsType4);
+/** @internal */
+export const InputMetricsType4$outboundSchema: z.ZodNativeEnum<
+  typeof InputMetricsType4
+> = InputMetricsType4$inboundSchema;
+
+/** @internal */
+export const InputMetricsMetrics4$inboundSchema: z.ZodType<
+  InputMetricsMetrics4,
   z.ZodTypeDef,
-  InputMetricsConnection
+  unknown
 > = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputMetricsType4$inboundSchema,
+  disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMetricsConnection$ {
-  /** @deprecated use `InputMetricsConnection$inboundSchema` instead. */
-  export const inboundSchema = InputMetricsConnection$inboundSchema;
-  /** @deprecated use `InputMetricsConnection$outboundSchema` instead. */
-  export const outboundSchema = InputMetricsConnection$outboundSchema;
-  /** @deprecated use `InputMetricsConnection$Outbound` instead. */
-  export type Outbound = InputMetricsConnection$Outbound;
-}
-
-export function inputMetricsConnectionToJSON(
-  inputMetricsConnection: InputMetricsConnection,
-): string {
-  return JSON.stringify(
-    InputMetricsConnection$outboundSchema.parse(inputMetricsConnection),
-  );
-}
-
-export function inputMetricsConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputMetricsConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputMetricsConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputMetricsConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputMetricsMode$inboundSchema: z.ZodType<
-  InputMetricsMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputMetricsMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputMetricsMode$outboundSchema: z.ZodType<
-  InputMetricsMode,
-  z.ZodTypeDef,
-  InputMetricsMode
-> = z.union([
-  z.nativeEnum(InputMetricsMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMetricsMode$ {
-  /** @deprecated use `InputMetricsMode$inboundSchema` instead. */
-  export const inboundSchema = InputMetricsMode$inboundSchema;
-  /** @deprecated use `InputMetricsMode$outboundSchema` instead. */
-  export const outboundSchema = InputMetricsMode$outboundSchema;
-}
-
-/** @internal */
-export const InputMetricsCompression$inboundSchema: z.ZodType<
-  InputMetricsCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputMetricsCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputMetricsCompression$outboundSchema: z.ZodType<
-  InputMetricsCompression,
-  z.ZodTypeDef,
-  InputMetricsCompression
-> = z.union([
-  z.nativeEnum(InputMetricsCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMetricsCompression$ {
-  /** @deprecated use `InputMetricsCompression$inboundSchema` instead. */
-  export const inboundSchema = InputMetricsCompression$inboundSchema;
-  /** @deprecated use `InputMetricsCompression$outboundSchema` instead. */
-  export const outboundSchema = InputMetricsCompression$outboundSchema;
-}
-
-/** @internal */
-export const InputMetricsPqControls$inboundSchema: z.ZodType<
-  InputMetricsPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type InputMetricsPqControls$Outbound = {};
-
-/** @internal */
-export const InputMetricsPqControls$outboundSchema: z.ZodType<
-  InputMetricsPqControls$Outbound,
-  z.ZodTypeDef,
-  InputMetricsPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMetricsPqControls$ {
-  /** @deprecated use `InputMetricsPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputMetricsPqControls$inboundSchema;
-  /** @deprecated use `InputMetricsPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputMetricsPqControls$outboundSchema;
-  /** @deprecated use `InputMetricsPqControls$Outbound` instead. */
-  export type Outbound = InputMetricsPqControls$Outbound;
-}
-
-export function inputMetricsPqControlsToJSON(
-  inputMetricsPqControls: InputMetricsPqControls,
-): string {
-  return JSON.stringify(
-    InputMetricsPqControls$outboundSchema.parse(inputMetricsPqControls),
-  );
-}
-
-export function inputMetricsPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputMetricsPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputMetricsPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputMetricsPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputMetricsPq$inboundSchema: z.ZodType<
-  InputMetricsPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputMetricsMode$inboundSchema.default("always"),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema,
+  host: z.string().default("0.0.0.0"),
+  udpPort: z.number().optional(),
+  tcpPort: z.number().optional(),
   maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputMetricsCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputMetricsPqControls$inboundSchema).optional(),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  enableProxyHeader: z.boolean().default(false),
+  tls: Tls2Type$inboundSchema.optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  description: z.string().optional(),
 });
-
 /** @internal */
-export type InputMetricsPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputMetricsPqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputMetricsPq$outboundSchema: z.ZodType<
-  InputMetricsPq$Outbound,
-  z.ZodTypeDef,
-  InputMetricsPq
-> = z.object({
-  mode: InputMetricsMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputMetricsCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputMetricsPqControls$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMetricsPq$ {
-  /** @deprecated use `InputMetricsPq$inboundSchema` instead. */
-  export const inboundSchema = InputMetricsPq$inboundSchema;
-  /** @deprecated use `InputMetricsPq$outboundSchema` instead. */
-  export const outboundSchema = InputMetricsPq$outboundSchema;
-  /** @deprecated use `InputMetricsPq$Outbound` instead. */
-  export type Outbound = InputMetricsPq$Outbound;
-}
-
-export function inputMetricsPqToJSON(inputMetricsPq: InputMetricsPq): string {
-  return JSON.stringify(InputMetricsPq$outboundSchema.parse(inputMetricsPq));
-}
-
-export function inputMetricsPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputMetricsPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputMetricsPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputMetricsPq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputMetricsMinimumTLSVersion$inboundSchema: z.ZodType<
-  InputMetricsMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputMetricsMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputMetricsMinimumTLSVersion$outboundSchema: z.ZodType<
-  InputMetricsMinimumTLSVersion,
-  z.ZodTypeDef,
-  InputMetricsMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(InputMetricsMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMetricsMinimumTLSVersion$ {
-  /** @deprecated use `InputMetricsMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputMetricsMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `InputMetricsMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputMetricsMinimumTLSVersion$outboundSchema;
-}
-
-/** @internal */
-export const InputMetricsMaximumTLSVersion$inboundSchema: z.ZodType<
-  InputMetricsMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputMetricsMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputMetricsMaximumTLSVersion$outboundSchema: z.ZodType<
-  InputMetricsMaximumTLSVersion,
-  z.ZodTypeDef,
-  InputMetricsMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(InputMetricsMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMetricsMaximumTLSVersion$ {
-  /** @deprecated use `InputMetricsMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputMetricsMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `InputMetricsMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputMetricsMaximumTLSVersion$outboundSchema;
-}
-
-/** @internal */
-export const InputMetricsTLSSettingsServerSide$inboundSchema: z.ZodType<
-  InputMetricsTLSSettingsServerSide,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(true),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
-  minVersion: InputMetricsMinimumTLSVersion$inboundSchema.optional(),
-  maxVersion: InputMetricsMaximumTLSVersion$inboundSchema.optional(),
-});
-
-/** @internal */
-export type InputMetricsTLSSettingsServerSide$Outbound = {
+export type InputMetricsMetrics4$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
   disabled: boolean;
-  certificateName?: string | undefined;
-  privKeyPath?: string | undefined;
-  passphrase?: string | undefined;
-  certPath?: string | undefined;
-  caPath?: string | undefined;
-  requestCert: boolean;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
-  minVersion?: string | undefined;
-  maxVersion?: string | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq: PqType$Outbound;
+  host: string;
+  udpPort?: number | undefined;
+  tcpPort?: number | undefined;
+  maxBufferSize: number;
+  ipWhitelistRegex: string;
+  enableProxyHeader: boolean;
+  tls?: Tls2Type$Outbound | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  udpSocketRxBufSize?: number | undefined;
+  description?: string | undefined;
 };
 
 /** @internal */
-export const InputMetricsTLSSettingsServerSide$outboundSchema: z.ZodType<
-  InputMetricsTLSSettingsServerSide$Outbound,
+export const InputMetricsMetrics4$outboundSchema: z.ZodType<
+  InputMetricsMetrics4$Outbound,
   z.ZodTypeDef,
-  InputMetricsTLSSettingsServerSide
+  InputMetricsMetrics4
 > = z.object({
-  disabled: z.boolean().default(true),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
-  minVersion: InputMetricsMinimumTLSVersion$outboundSchema.optional(),
-  maxVersion: InputMetricsMaximumTLSVersion$outboundSchema.optional(),
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputMetricsType4$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema,
+  host: z.string().default("0.0.0.0"),
+  udpPort: z.number().optional(),
+  tcpPort: z.number().optional(),
+  maxBufferSize: z.number().default(1000),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  enableProxyHeader: z.boolean().default(false),
+  tls: Tls2Type$outboundSchema.optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMetricsTLSSettingsServerSide$ {
-  /** @deprecated use `InputMetricsTLSSettingsServerSide$inboundSchema` instead. */
-  export const inboundSchema = InputMetricsTLSSettingsServerSide$inboundSchema;
-  /** @deprecated use `InputMetricsTLSSettingsServerSide$outboundSchema` instead. */
-  export const outboundSchema =
-    InputMetricsTLSSettingsServerSide$outboundSchema;
-  /** @deprecated use `InputMetricsTLSSettingsServerSide$Outbound` instead. */
-  export type Outbound = InputMetricsTLSSettingsServerSide$Outbound;
-}
-
-export function inputMetricsTLSSettingsServerSideToJSON(
-  inputMetricsTLSSettingsServerSide: InputMetricsTLSSettingsServerSide,
+export function inputMetricsMetrics4ToJSON(
+  inputMetricsMetrics4: InputMetricsMetrics4,
 ): string {
   return JSON.stringify(
-    InputMetricsTLSSettingsServerSide$outboundSchema.parse(
-      inputMetricsTLSSettingsServerSide,
-    ),
+    InputMetricsMetrics4$outboundSchema.parse(inputMetricsMetrics4),
   );
 }
-
-export function inputMetricsTLSSettingsServerSideFromJSON(
+export function inputMetricsMetrics4FromJSON(
   jsonString: string,
-): SafeParseResult<InputMetricsTLSSettingsServerSide, SDKValidationError> {
+): SafeParseResult<InputMetricsMetrics4, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InputMetricsTLSSettingsServerSide$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputMetricsTLSSettingsServerSide' from JSON`,
+    (x) => InputMetricsMetrics4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputMetricsMetrics4' from JSON`,
   );
 }
 
 /** @internal */
-export const InputMetricsMetadatum$inboundSchema: z.ZodType<
-  InputMetricsMetadatum,
+export const InputMetricsType3$inboundSchema: z.ZodNativeEnum<
+  typeof InputMetricsType3
+> = z.nativeEnum(InputMetricsType3);
+/** @internal */
+export const InputMetricsType3$outboundSchema: z.ZodNativeEnum<
+  typeof InputMetricsType3
+> = InputMetricsType3$inboundSchema;
+
+/** @internal */
+export const InputMetricsMetrics3$inboundSchema: z.ZodType<
+  InputMetricsMetrics3,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
-  value: z.string(),
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputMetricsType3$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  udpPort: z.number().optional(),
+  tcpPort: z.number().optional(),
+  maxBufferSize: z.number().default(1000),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  enableProxyHeader: z.boolean().default(false),
+  tls: Tls2Type$inboundSchema.optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  description: z.string().optional(),
 });
-
 /** @internal */
-export type InputMetricsMetadatum$Outbound = {
-  name: string;
-  value: string;
+export type InputMetricsMetrics3$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  udpPort?: number | undefined;
+  tcpPort?: number | undefined;
+  maxBufferSize: number;
+  ipWhitelistRegex: string;
+  enableProxyHeader: boolean;
+  tls?: Tls2Type$Outbound | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  udpSocketRxBufSize?: number | undefined;
+  description?: string | undefined;
 };
 
 /** @internal */
-export const InputMetricsMetadatum$outboundSchema: z.ZodType<
-  InputMetricsMetadatum$Outbound,
+export const InputMetricsMetrics3$outboundSchema: z.ZodType<
+  InputMetricsMetrics3$Outbound,
   z.ZodTypeDef,
-  InputMetricsMetadatum
+  InputMetricsMetrics3
 > = z.object({
-  name: z.string(),
-  value: z.string(),
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputMetricsType3$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  udpPort: z.number().optional(),
+  tcpPort: z.number().optional(),
+  maxBufferSize: z.number().default(1000),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  enableProxyHeader: z.boolean().default(false),
+  tls: Tls2Type$outboundSchema.optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMetricsMetadatum$ {
-  /** @deprecated use `InputMetricsMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputMetricsMetadatum$inboundSchema;
-  /** @deprecated use `InputMetricsMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputMetricsMetadatum$outboundSchema;
-  /** @deprecated use `InputMetricsMetadatum$Outbound` instead. */
-  export type Outbound = InputMetricsMetadatum$Outbound;
-}
-
-export function inputMetricsMetadatumToJSON(
-  inputMetricsMetadatum: InputMetricsMetadatum,
+export function inputMetricsMetrics3ToJSON(
+  inputMetricsMetrics3: InputMetricsMetrics3,
 ): string {
   return JSON.stringify(
-    InputMetricsMetadatum$outboundSchema.parse(inputMetricsMetadatum),
+    InputMetricsMetrics3$outboundSchema.parse(inputMetricsMetrics3),
+  );
+}
+export function inputMetricsMetrics3FromJSON(
+  jsonString: string,
+): SafeParseResult<InputMetricsMetrics3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputMetricsMetrics3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputMetricsMetrics3' from JSON`,
   );
 }
 
-export function inputMetricsMetadatumFromJSON(
+/** @internal */
+export const InputMetricsType2$inboundSchema: z.ZodNativeEnum<
+  typeof InputMetricsType2
+> = z.nativeEnum(InputMetricsType2);
+/** @internal */
+export const InputMetricsType2$outboundSchema: z.ZodNativeEnum<
+  typeof InputMetricsType2
+> = InputMetricsType2$inboundSchema;
+
+/** @internal */
+export const InputMetricsMetrics2$inboundSchema: z.ZodType<
+  InputMetricsMetrics2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputMetricsType2$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  udpPort: z.number().optional(),
+  tcpPort: z.number().optional(),
+  maxBufferSize: z.number().default(1000),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  enableProxyHeader: z.boolean().default(false),
+  tls: Tls2Type$inboundSchema.optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputMetricsMetrics2$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections: Array<ConnectionsType$Outbound>;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  udpPort?: number | undefined;
+  tcpPort?: number | undefined;
+  maxBufferSize: number;
+  ipWhitelistRegex: string;
+  enableProxyHeader: boolean;
+  tls?: Tls2Type$Outbound | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  udpSocketRxBufSize?: number | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputMetricsMetrics2$outboundSchema: z.ZodType<
+  InputMetricsMetrics2$Outbound,
+  z.ZodTypeDef,
+  InputMetricsMetrics2
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputMetricsType2$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  udpPort: z.number().optional(),
+  tcpPort: z.number().optional(),
+  maxBufferSize: z.number().default(1000),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  enableProxyHeader: z.boolean().default(false),
+  tls: Tls2Type$outboundSchema.optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  description: z.string().optional(),
+});
+
+export function inputMetricsMetrics2ToJSON(
+  inputMetricsMetrics2: InputMetricsMetrics2,
+): string {
+  return JSON.stringify(
+    InputMetricsMetrics2$outboundSchema.parse(inputMetricsMetrics2),
+  );
+}
+export function inputMetricsMetrics2FromJSON(
   jsonString: string,
-): SafeParseResult<InputMetricsMetadatum, SDKValidationError> {
+): SafeParseResult<InputMetricsMetrics2, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InputMetricsMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputMetricsMetadatum' from JSON`,
+    (x) => InputMetricsMetrics2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputMetricsMetrics2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputMetricsType1$inboundSchema: z.ZodNativeEnum<
+  typeof InputMetricsType1
+> = z.nativeEnum(InputMetricsType1);
+/** @internal */
+export const InputMetricsType1$outboundSchema: z.ZodNativeEnum<
+  typeof InputMetricsType1
+> = InputMetricsType1$inboundSchema;
+
+/** @internal */
+export const InputMetricsMetrics1$inboundSchema: z.ZodType<
+  InputMetricsMetrics1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputMetricsType1$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  udpPort: z.number().optional(),
+  tcpPort: z.number().optional(),
+  maxBufferSize: z.number().default(1000),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  enableProxyHeader: z.boolean().default(false),
+  tls: Tls2Type$inboundSchema.optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputMetricsMetrics1$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  udpPort?: number | undefined;
+  tcpPort?: number | undefined;
+  maxBufferSize: number;
+  ipWhitelistRegex: string;
+  enableProxyHeader: boolean;
+  tls?: Tls2Type$Outbound | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  udpSocketRxBufSize?: number | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputMetricsMetrics1$outboundSchema: z.ZodType<
+  InputMetricsMetrics1$Outbound,
+  z.ZodTypeDef,
+  InputMetricsMetrics1
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputMetricsType1$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  udpPort: z.number().optional(),
+  tcpPort: z.number().optional(),
+  maxBufferSize: z.number().default(1000),
+  ipWhitelistRegex: z.string().default("/.*/"),
+  enableProxyHeader: z.boolean().default(false),
+  tls: Tls2Type$outboundSchema.optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  udpSocketRxBufSize: z.number().optional(),
+  description: z.string().optional(),
+});
+
+export function inputMetricsMetrics1ToJSON(
+  inputMetricsMetrics1: InputMetricsMetrics1,
+): string {
+  return JSON.stringify(
+    InputMetricsMetrics1$outboundSchema.parse(inputMetricsMetrics1),
+  );
+}
+export function inputMetricsMetrics1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputMetricsMetrics1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputMetricsMetrics1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputMetricsMetrics1' from JSON`,
   );
 }
 
@@ -683,103 +755,34 @@ export const InputMetrics$inboundSchema: z.ZodType<
   InputMetrics,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.string().optional(),
-  type: InputMetricsType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputMetricsConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputMetricsPq$inboundSchema).optional(),
-  host: z.string().default("0.0.0.0"),
-  udpPort: z.number().optional(),
-  tcpPort: z.number().optional(),
-  maxBufferSize: z.number().default(1000),
-  ipWhitelistRegex: z.string().default("/.*/"),
-  enableProxyHeader: z.boolean().default(false),
-  tls: z.lazy(() => InputMetricsTLSSettingsServerSide$inboundSchema).optional(),
-  metadata: z.array(z.lazy(() => InputMetricsMetadatum$inboundSchema))
-    .optional(),
-  udpSocketRxBufSize: z.number().optional(),
-  description: z.string().optional(),
-});
-
+> = z.union([
+  z.lazy(() => InputMetricsMetrics2$inboundSchema),
+  z.lazy(() => InputMetricsMetrics4$inboundSchema),
+  z.lazy(() => InputMetricsMetrics1$inboundSchema),
+  z.lazy(() => InputMetricsMetrics3$inboundSchema),
+]);
 /** @internal */
-export type InputMetrics$Outbound = {
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  sendToRoutes: boolean;
-  environment?: string | undefined;
-  pqEnabled: boolean;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<InputMetricsConnection$Outbound> | undefined;
-  pq?: InputMetricsPq$Outbound | undefined;
-  host: string;
-  udpPort?: number | undefined;
-  tcpPort?: number | undefined;
-  maxBufferSize: number;
-  ipWhitelistRegex: string;
-  enableProxyHeader: boolean;
-  tls?: InputMetricsTLSSettingsServerSide$Outbound | undefined;
-  metadata?: Array<InputMetricsMetadatum$Outbound> | undefined;
-  udpSocketRxBufSize?: number | undefined;
-  description?: string | undefined;
-};
+export type InputMetrics$Outbound =
+  | InputMetricsMetrics2$Outbound
+  | InputMetricsMetrics4$Outbound
+  | InputMetricsMetrics1$Outbound
+  | InputMetricsMetrics3$Outbound;
 
 /** @internal */
 export const InputMetrics$outboundSchema: z.ZodType<
   InputMetrics$Outbound,
   z.ZodTypeDef,
   InputMetrics
-> = z.object({
-  id: z.string().optional(),
-  type: InputMetricsType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputMetricsConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputMetricsPq$outboundSchema).optional(),
-  host: z.string().default("0.0.0.0"),
-  udpPort: z.number().optional(),
-  tcpPort: z.number().optional(),
-  maxBufferSize: z.number().default(1000),
-  ipWhitelistRegex: z.string().default("/.*/"),
-  enableProxyHeader: z.boolean().default(false),
-  tls: z.lazy(() => InputMetricsTLSSettingsServerSide$outboundSchema)
-    .optional(),
-  metadata: z.array(z.lazy(() => InputMetricsMetadatum$outboundSchema))
-    .optional(),
-  udpSocketRxBufSize: z.number().optional(),
-  description: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMetrics$ {
-  /** @deprecated use `InputMetrics$inboundSchema` instead. */
-  export const inboundSchema = InputMetrics$inboundSchema;
-  /** @deprecated use `InputMetrics$outboundSchema` instead. */
-  export const outboundSchema = InputMetrics$outboundSchema;
-  /** @deprecated use `InputMetrics$Outbound` instead. */
-  export type Outbound = InputMetrics$Outbound;
-}
+> = z.union([
+  z.lazy(() => InputMetricsMetrics2$outboundSchema),
+  z.lazy(() => InputMetricsMetrics4$outboundSchema),
+  z.lazy(() => InputMetricsMetrics1$outboundSchema),
+  z.lazy(() => InputMetricsMetrics3$outboundSchema),
+]);
 
 export function inputMetricsToJSON(inputMetrics: InputMetrics): string {
   return JSON.stringify(InputMetrics$outboundSchema.parse(inputMetrics));
 }
-
 export function inputMetricsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputMetrics, SDKValidationError> {

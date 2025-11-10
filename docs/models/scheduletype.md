@@ -1,19 +1,25 @@
 # ScheduleType
 
-Select a schedule type; either an interval (in seconds) or a cron-style schedule.
+Configuration for a scheduled job
 
 ## Example Usage
 
 ```typescript
 import { ScheduleType } from "cribl-control-plane/models";
 
-let value: ScheduleType = "cronSchedule";
+let value: ScheduleType = {
+  enabled: false,
+  run: {},
+};
 ```
 
-## Values
+## Fields
 
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
-
-```typescript
-"interval" | "cronSchedule" | Unrecognized<string>
-```
+| Field                                                                                                     | Type                                                                                                      | Required                                                                                                  | Description                                                                                               |
+| --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `enabled`                                                                                                 | *boolean*                                                                                                 | :heavy_minus_sign:                                                                                        | Enable to configure scheduling for this Collector                                                         |
+| `skippable`                                                                                               | *boolean*                                                                                                 | :heavy_minus_sign:                                                                                        | Skippable jobs can be delayed, up to their next run time, if the system is hitting concurrency limits     |
+| `resumeMissed`                                                                                            | *boolean*                                                                                                 | :heavy_minus_sign:                                                                                        | If Stream Leader (or single instance) restarts, run all missed jobs according to their original schedules |
+| `cronSchedule`                                                                                            | *string*                                                                                                  | :heavy_minus_sign:                                                                                        | A cron schedule on which to run this job                                                                  |
+| `maxConcurrentRuns`                                                                                       | *number*                                                                                                  | :heavy_minus_sign:                                                                                        | The maximum number of instances of this scheduled job that may be running at any time                     |
+| `run`                                                                                                     | [models.RunSettings](../models/runsettings.md)                                                            | :heavy_minus_sign:                                                                                        | N/A                                                                                                       |

@@ -4,123 +4,55 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  ConnectionsType,
+  ConnectionsType$inboundSchema,
+  ConnectionsType$Outbound,
+  ConnectionsType$outboundSchema,
+} from "./connectionstype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  Metadata1Type,
+  Metadata1Type$inboundSchema,
+  Metadata1Type$Outbound,
+  Metadata1Type$outboundSchema,
+} from "./metadata1type.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  Sasl1Type,
+  Sasl1Type$inboundSchema,
+  Sasl1Type$Outbound,
+  Sasl1Type$outboundSchema,
+} from "./sasl1type.js";
+import {
+  Tls3Type,
+  Tls3Type$inboundSchema,
+  Tls3Type$Outbound,
+  Tls3Type$outboundSchema,
+} from "./tls3type.js";
 
-export const InputEventhubType = {
+export const InputEventhubType4 = {
   Eventhub: "eventhub",
 } as const;
-export type InputEventhubType = ClosedEnum<typeof InputEventhubType>;
+export type InputEventhubType4 = ClosedEnum<typeof InputEventhubType4>;
 
-export type InputEventhubConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputEventhubMode = {
-  Smart: "smart",
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputEventhubMode = OpenEnum<typeof InputEventhubMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputEventhubCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputEventhubCompression = OpenEnum<
-  typeof InputEventhubCompression
->;
-
-export type InputEventhubPqControls = {};
-
-export type InputEventhubPq = {
+export type InputEventhubEventhub4 = {
   /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  mode?: InputEventhubMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputEventhubCompression | undefined;
-  pqControls?: InputEventhubPqControls | undefined;
-};
-
-export const InputEventhubSASLMechanism = {
-  Plain: "plain",
-  Oauthbearer: "oauthbearer",
-} as const;
-export type InputEventhubSASLMechanism = OpenEnum<
-  typeof InputEventhubSASLMechanism
->;
-
-/**
- * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
- */
-export type InputEventhubAuthentication = {
-  disabled?: boolean | undefined;
-  mechanism?: InputEventhubSASLMechanism | undefined;
-};
-
-export type InputEventhubTLSSettingsClientSide = {
-  disabled?: boolean | undefined;
-  /**
-   * Reject certificates that are not authorized by a CA in the CA certificate path, or by another trusted CA (such as the system's)
-   */
-  rejectUnauthorized?: boolean | undefined;
-};
-
-export type InputEventhubMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
-
-export type InputEventhub = {
+  pqEnabled?: boolean | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputEventhubType;
+  type: InputEventhubType4;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -135,18 +67,14 @@ export type InputEventhub = {
    */
   environment?: string | undefined;
   /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  /**
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputEventhubConnection> | undefined;
-  pq?: InputEventhubPq | undefined;
+  connections?: Array<ConnectionsType> | undefined;
+  pq: PqType;
   /**
    * List of Event Hubs Kafka brokers to connect to (example: yourdomain.servicebus.windows.net:9093). The hostname can be found in the host portion of the primary or secondary connection string in Shared Access Policies.
    */
@@ -198,8 +126,8 @@ export type InputEventhub = {
   /**
    * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
    */
-  sasl?: InputEventhubAuthentication | undefined;
-  tls?: InputEventhubTLSSettingsClientSide | undefined;
+  sasl?: Sasl1Type | undefined;
+  tls?: Tls3Type | undefined;
   /**
    *       Timeout (session.timeout.ms in Kafka domain) used to detect client failures when using Kafka's group-management facilities.
    *
@@ -252,499 +180,479 @@ export type InputEventhub = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputEventhubMetadatum> | undefined;
+  metadata?: Array<Metadata1Type> | undefined;
   description?: string | undefined;
 };
 
-/** @internal */
-export const InputEventhubType$inboundSchema: z.ZodNativeEnum<
-  typeof InputEventhubType
-> = z.nativeEnum(InputEventhubType);
+export const InputEventhubType3 = {
+  Eventhub: "eventhub",
+} as const;
+export type InputEventhubType3 = ClosedEnum<typeof InputEventhubType3>;
 
-/** @internal */
-export const InputEventhubType$outboundSchema: z.ZodNativeEnum<
-  typeof InputEventhubType
-> = InputEventhubType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEventhubType$ {
-  /** @deprecated use `InputEventhubType$inboundSchema` instead. */
-  export const inboundSchema = InputEventhubType$inboundSchema;
-  /** @deprecated use `InputEventhubType$outboundSchema` instead. */
-  export const outboundSchema = InputEventhubType$outboundSchema;
-}
-
-/** @internal */
-export const InputEventhubConnection$inboundSchema: z.ZodType<
-  InputEventhubConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-/** @internal */
-export type InputEventhubConnection$Outbound = {
+export type InputEventhubEventhub3 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputEventhubType3;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
   pipeline?: string | undefined;
-  output: string;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * List of Event Hubs Kafka brokers to connect to (example: yourdomain.servicebus.windows.net:9093). The hostname can be found in the host portion of the primary or secondary connection string in Shared Access Policies.
+   */
+  brokers: Array<string>;
+  /**
+   * The name of the Event Hub (Kafka topic) to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Event Hubs Source to only a single topic.
+   */
+  topics: Array<string>;
+  /**
+   * The consumer group this instance belongs to. Default is 'Cribl'.
+   */
+  groupId?: string | undefined;
+  /**
+   * Start reading from earliest available data; relevant only during initial subscription
+   */
+  fromBeginning?: boolean | undefined;
+  /**
+   * Maximum time to wait for a connection to complete successfully
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to a request
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+   */
+  maxRetries?: number | undefined;
+  /**
+   * The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+   */
+  maxBackOff?: number | undefined;
+  /**
+   * Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+   */
+  backoffRate?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to an authentication request
+   */
+  authenticationTimeout?: number | undefined;
+  /**
+   * Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+   */
+  reauthenticationThreshold?: number | undefined;
+  /**
+   * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
+   */
+  sasl?: Sasl1Type | undefined;
+  tls?: Tls3Type | undefined;
+  /**
+   *       Timeout (session.timeout.ms in Kafka domain) used to detect client failures when using Kafka's group-management facilities.
+   *
+   * @remarks
+   *       If the client sends no heartbeats to the broker before the timeout expires, the broker will remove the client from the group and initiate a rebalance.
+   *       Value must be lower than rebalanceTimeout.
+   *       See details [here](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
+   */
+  sessionTimeout?: number | undefined;
+  /**
+   *       Maximum allowed time (rebalance.timeout.ms in Kafka domain) for each worker to join the group after a rebalance begins.
+   *
+   * @remarks
+   *       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
+   *       See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
+   */
+  rebalanceTimeout?: number | undefined;
+  /**
+   *       Expected time (heartbeat.interval.ms in Kafka domain) between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
+   *
+   * @remarks
+   *       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
+   *       See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
+   */
+  heartbeatInterval?: number | undefined;
+  /**
+   * How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+   */
+  autoCommitInterval?: number | undefined;
+  /**
+   * How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+   */
+  autoCommitThreshold?: number | undefined;
+  /**
+   * Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).
+   */
+  maxBytesPerPartition?: number | undefined;
+  /**
+   * Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).
+   */
+  maxBytes?: number | undefined;
+  /**
+   * Maximum number of network errors before the consumer re-creates a socket
+   */
+  maxSocketErrors?: number | undefined;
+  /**
+   * Minimize duplicate events by starting only one consumer for each topic partition
+   */
+  minimizeDuplicates?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  description?: string | undefined;
 };
 
-/** @internal */
-export const InputEventhubConnection$outboundSchema: z.ZodType<
-  InputEventhubConnection$Outbound,
-  z.ZodTypeDef,
-  InputEventhubConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
+export const InputEventhubType2 = {
+  Eventhub: "eventhub",
+} as const;
+export type InputEventhubType2 = ClosedEnum<typeof InputEventhubType2>;
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEventhubConnection$ {
-  /** @deprecated use `InputEventhubConnection$inboundSchema` instead. */
-  export const inboundSchema = InputEventhubConnection$inboundSchema;
-  /** @deprecated use `InputEventhubConnection$outboundSchema` instead. */
-  export const outboundSchema = InputEventhubConnection$outboundSchema;
-  /** @deprecated use `InputEventhubConnection$Outbound` instead. */
-  export type Outbound = InputEventhubConnection$Outbound;
-}
-
-export function inputEventhubConnectionToJSON(
-  inputEventhubConnection: InputEventhubConnection,
-): string {
-  return JSON.stringify(
-    InputEventhubConnection$outboundSchema.parse(inputEventhubConnection),
-  );
-}
-
-export function inputEventhubConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputEventhubConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputEventhubConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputEventhubConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputEventhubMode$inboundSchema: z.ZodType<
-  InputEventhubMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputEventhubMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputEventhubMode$outboundSchema: z.ZodType<
-  InputEventhubMode,
-  z.ZodTypeDef,
-  InputEventhubMode
-> = z.union([
-  z.nativeEnum(InputEventhubMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEventhubMode$ {
-  /** @deprecated use `InputEventhubMode$inboundSchema` instead. */
-  export const inboundSchema = InputEventhubMode$inboundSchema;
-  /** @deprecated use `InputEventhubMode$outboundSchema` instead. */
-  export const outboundSchema = InputEventhubMode$outboundSchema;
-}
-
-/** @internal */
-export const InputEventhubCompression$inboundSchema: z.ZodType<
-  InputEventhubCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputEventhubCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputEventhubCompression$outboundSchema: z.ZodType<
-  InputEventhubCompression,
-  z.ZodTypeDef,
-  InputEventhubCompression
-> = z.union([
-  z.nativeEnum(InputEventhubCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEventhubCompression$ {
-  /** @deprecated use `InputEventhubCompression$inboundSchema` instead. */
-  export const inboundSchema = InputEventhubCompression$inboundSchema;
-  /** @deprecated use `InputEventhubCompression$outboundSchema` instead. */
-  export const outboundSchema = InputEventhubCompression$outboundSchema;
-}
-
-/** @internal */
-export const InputEventhubPqControls$inboundSchema: z.ZodType<
-  InputEventhubPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type InputEventhubPqControls$Outbound = {};
-
-/** @internal */
-export const InputEventhubPqControls$outboundSchema: z.ZodType<
-  InputEventhubPqControls$Outbound,
-  z.ZodTypeDef,
-  InputEventhubPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEventhubPqControls$ {
-  /** @deprecated use `InputEventhubPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputEventhubPqControls$inboundSchema;
-  /** @deprecated use `InputEventhubPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputEventhubPqControls$outboundSchema;
-  /** @deprecated use `InputEventhubPqControls$Outbound` instead. */
-  export type Outbound = InputEventhubPqControls$Outbound;
-}
-
-export function inputEventhubPqControlsToJSON(
-  inputEventhubPqControls: InputEventhubPqControls,
-): string {
-  return JSON.stringify(
-    InputEventhubPqControls$outboundSchema.parse(inputEventhubPqControls),
-  );
-}
-
-export function inputEventhubPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputEventhubPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputEventhubPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputEventhubPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputEventhubPq$inboundSchema: z.ZodType<
-  InputEventhubPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputEventhubMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputEventhubCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputEventhubPqControls$inboundSchema).optional(),
-});
-
-/** @internal */
-export type InputEventhubPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputEventhubPqControls$Outbound | undefined;
+export type InputEventhubEventhub2 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputEventhubType2;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections: Array<ConnectionsType>;
+  pq?: PqType | undefined;
+  /**
+   * List of Event Hubs Kafka brokers to connect to (example: yourdomain.servicebus.windows.net:9093). The hostname can be found in the host portion of the primary or secondary connection string in Shared Access Policies.
+   */
+  brokers: Array<string>;
+  /**
+   * The name of the Event Hub (Kafka topic) to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Event Hubs Source to only a single topic.
+   */
+  topics: Array<string>;
+  /**
+   * The consumer group this instance belongs to. Default is 'Cribl'.
+   */
+  groupId?: string | undefined;
+  /**
+   * Start reading from earliest available data; relevant only during initial subscription
+   */
+  fromBeginning?: boolean | undefined;
+  /**
+   * Maximum time to wait for a connection to complete successfully
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to a request
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+   */
+  maxRetries?: number | undefined;
+  /**
+   * The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+   */
+  maxBackOff?: number | undefined;
+  /**
+   * Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+   */
+  backoffRate?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to an authentication request
+   */
+  authenticationTimeout?: number | undefined;
+  /**
+   * Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+   */
+  reauthenticationThreshold?: number | undefined;
+  /**
+   * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
+   */
+  sasl?: Sasl1Type | undefined;
+  tls?: Tls3Type | undefined;
+  /**
+   *       Timeout (session.timeout.ms in Kafka domain) used to detect client failures when using Kafka's group-management facilities.
+   *
+   * @remarks
+   *       If the client sends no heartbeats to the broker before the timeout expires, the broker will remove the client from the group and initiate a rebalance.
+   *       Value must be lower than rebalanceTimeout.
+   *       See details [here](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
+   */
+  sessionTimeout?: number | undefined;
+  /**
+   *       Maximum allowed time (rebalance.timeout.ms in Kafka domain) for each worker to join the group after a rebalance begins.
+   *
+   * @remarks
+   *       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
+   *       See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
+   */
+  rebalanceTimeout?: number | undefined;
+  /**
+   *       Expected time (heartbeat.interval.ms in Kafka domain) between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
+   *
+   * @remarks
+   *       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
+   *       See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
+   */
+  heartbeatInterval?: number | undefined;
+  /**
+   * How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+   */
+  autoCommitInterval?: number | undefined;
+  /**
+   * How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+   */
+  autoCommitThreshold?: number | undefined;
+  /**
+   * Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).
+   */
+  maxBytesPerPartition?: number | undefined;
+  /**
+   * Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).
+   */
+  maxBytes?: number | undefined;
+  /**
+   * Maximum number of network errors before the consumer re-creates a socket
+   */
+  maxSocketErrors?: number | undefined;
+  /**
+   * Minimize duplicate events by starting only one consumer for each topic partition
+   */
+  minimizeDuplicates?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  description?: string | undefined;
 };
 
-/** @internal */
-export const InputEventhubPq$outboundSchema: z.ZodType<
-  InputEventhubPq$Outbound,
-  z.ZodTypeDef,
-  InputEventhubPq
-> = z.object({
-  mode: InputEventhubMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputEventhubCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputEventhubPqControls$outboundSchema).optional(),
-});
+export const InputEventhubType1 = {
+  Eventhub: "eventhub",
+} as const;
+export type InputEventhubType1 = ClosedEnum<typeof InputEventhubType1>;
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEventhubPq$ {
-  /** @deprecated use `InputEventhubPq$inboundSchema` instead. */
-  export const inboundSchema = InputEventhubPq$inboundSchema;
-  /** @deprecated use `InputEventhubPq$outboundSchema` instead. */
-  export const outboundSchema = InputEventhubPq$outboundSchema;
-  /** @deprecated use `InputEventhubPq$Outbound` instead. */
-  export type Outbound = InputEventhubPq$Outbound;
-}
-
-export function inputEventhubPqToJSON(
-  inputEventhubPq: InputEventhubPq,
-): string {
-  return JSON.stringify(InputEventhubPq$outboundSchema.parse(inputEventhubPq));
-}
-
-export function inputEventhubPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputEventhubPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputEventhubPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputEventhubPq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputEventhubSASLMechanism$inboundSchema: z.ZodType<
-  InputEventhubSASLMechanism,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputEventhubSASLMechanism),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputEventhubSASLMechanism$outboundSchema: z.ZodType<
-  InputEventhubSASLMechanism,
-  z.ZodTypeDef,
-  InputEventhubSASLMechanism
-> = z.union([
-  z.nativeEnum(InputEventhubSASLMechanism),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEventhubSASLMechanism$ {
-  /** @deprecated use `InputEventhubSASLMechanism$inboundSchema` instead. */
-  export const inboundSchema = InputEventhubSASLMechanism$inboundSchema;
-  /** @deprecated use `InputEventhubSASLMechanism$outboundSchema` instead. */
-  export const outboundSchema = InputEventhubSASLMechanism$outboundSchema;
-}
-
-/** @internal */
-export const InputEventhubAuthentication$inboundSchema: z.ZodType<
-  InputEventhubAuthentication,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(false),
-  mechanism: InputEventhubSASLMechanism$inboundSchema.default("plain"),
-});
-
-/** @internal */
-export type InputEventhubAuthentication$Outbound = {
-  disabled: boolean;
-  mechanism: string;
+export type InputEventhubEventhub1 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputEventhubType1;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * List of Event Hubs Kafka brokers to connect to (example: yourdomain.servicebus.windows.net:9093). The hostname can be found in the host portion of the primary or secondary connection string in Shared Access Policies.
+   */
+  brokers: Array<string>;
+  /**
+   * The name of the Event Hub (Kafka topic) to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Event Hubs Source to only a single topic.
+   */
+  topics: Array<string>;
+  /**
+   * The consumer group this instance belongs to. Default is 'Cribl'.
+   */
+  groupId?: string | undefined;
+  /**
+   * Start reading from earliest available data; relevant only during initial subscription
+   */
+  fromBeginning?: boolean | undefined;
+  /**
+   * Maximum time to wait for a connection to complete successfully
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to a request
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+   */
+  maxRetries?: number | undefined;
+  /**
+   * The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+   */
+  maxBackOff?: number | undefined;
+  /**
+   * Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+   */
+  backoffRate?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to an authentication request
+   */
+  authenticationTimeout?: number | undefined;
+  /**
+   * Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+   */
+  reauthenticationThreshold?: number | undefined;
+  /**
+   * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
+   */
+  sasl?: Sasl1Type | undefined;
+  tls?: Tls3Type | undefined;
+  /**
+   *       Timeout (session.timeout.ms in Kafka domain) used to detect client failures when using Kafka's group-management facilities.
+   *
+   * @remarks
+   *       If the client sends no heartbeats to the broker before the timeout expires, the broker will remove the client from the group and initiate a rebalance.
+   *       Value must be lower than rebalanceTimeout.
+   *       See details [here](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
+   */
+  sessionTimeout?: number | undefined;
+  /**
+   *       Maximum allowed time (rebalance.timeout.ms in Kafka domain) for each worker to join the group after a rebalance begins.
+   *
+   * @remarks
+   *       If the timeout is exceeded, the coordinator broker will remove the worker from the group.
+   *       See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
+   */
+  rebalanceTimeout?: number | undefined;
+  /**
+   *       Expected time (heartbeat.interval.ms in Kafka domain) between heartbeats to the consumer coordinator when using Kafka's group-management facilities.
+   *
+   * @remarks
+   *       Value must be lower than sessionTimeout and typically should not exceed 1/3 of the sessionTimeout value.
+   *       See [Recommended configurations](https://github.com/Azure/azure-event-hubs-for-kafka/blob/master/CONFIGURATION.md).
+   */
+  heartbeatInterval?: number | undefined;
+  /**
+   * How often to commit offsets. If both this and Offset commit threshold are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+   */
+  autoCommitInterval?: number | undefined;
+  /**
+   * How many events are needed to trigger an offset commit. If both this and Offset commit interval are set, @{product} commits offsets when either condition is met. If both are empty, @{product} commits offsets after each batch.
+   */
+  autoCommitThreshold?: number | undefined;
+  /**
+   * Maximum amount of data that Kafka will return per partition, per fetch request. Must equal or exceed the maximum message size (maxBytesPerPartition) that Kafka is configured to allow. Otherwise, @{product} can get stuck trying to retrieve messages. Defaults to 1048576 (1 MB).
+   */
+  maxBytesPerPartition?: number | undefined;
+  /**
+   * Maximum number of bytes that Kafka will return per fetch request. Defaults to 10485760 (10 MB).
+   */
+  maxBytes?: number | undefined;
+  /**
+   * Maximum number of network errors before the consumer re-creates a socket
+   */
+  maxSocketErrors?: number | undefined;
+  /**
+   * Minimize duplicate events by starting only one consumer for each topic partition
+   */
+  minimizeDuplicates?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  description?: string | undefined;
 };
 
-/** @internal */
-export const InputEventhubAuthentication$outboundSchema: z.ZodType<
-  InputEventhubAuthentication$Outbound,
-  z.ZodTypeDef,
-  InputEventhubAuthentication
-> = z.object({
-  disabled: z.boolean().default(false),
-  mechanism: InputEventhubSASLMechanism$outboundSchema.default("plain"),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEventhubAuthentication$ {
-  /** @deprecated use `InputEventhubAuthentication$inboundSchema` instead. */
-  export const inboundSchema = InputEventhubAuthentication$inboundSchema;
-  /** @deprecated use `InputEventhubAuthentication$outboundSchema` instead. */
-  export const outboundSchema = InputEventhubAuthentication$outboundSchema;
-  /** @deprecated use `InputEventhubAuthentication$Outbound` instead. */
-  export type Outbound = InputEventhubAuthentication$Outbound;
-}
-
-export function inputEventhubAuthenticationToJSON(
-  inputEventhubAuthentication: InputEventhubAuthentication,
-): string {
-  return JSON.stringify(
-    InputEventhubAuthentication$outboundSchema.parse(
-      inputEventhubAuthentication,
-    ),
-  );
-}
-
-export function inputEventhubAuthenticationFromJSON(
-  jsonString: string,
-): SafeParseResult<InputEventhubAuthentication, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputEventhubAuthentication$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputEventhubAuthentication' from JSON`,
-  );
-}
+export type InputEventhub =
+  | InputEventhubEventhub2
+  | InputEventhubEventhub4
+  | InputEventhubEventhub1
+  | InputEventhubEventhub3;
 
 /** @internal */
-export const InputEventhubTLSSettingsClientSide$inboundSchema: z.ZodType<
-  InputEventhubTLSSettingsClientSide,
+export const InputEventhubType4$inboundSchema: z.ZodNativeEnum<
+  typeof InputEventhubType4
+> = z.nativeEnum(InputEventhubType4);
+/** @internal */
+export const InputEventhubType4$outboundSchema: z.ZodNativeEnum<
+  typeof InputEventhubType4
+> = InputEventhubType4$inboundSchema;
+
+/** @internal */
+export const InputEventhubEventhub4$inboundSchema: z.ZodType<
+  InputEventhubEventhub4,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  disabled: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-});
-
-/** @internal */
-export type InputEventhubTLSSettingsClientSide$Outbound = {
-  disabled: boolean;
-  rejectUnauthorized: boolean;
-};
-
-/** @internal */
-export const InputEventhubTLSSettingsClientSide$outboundSchema: z.ZodType<
-  InputEventhubTLSSettingsClientSide$Outbound,
-  z.ZodTypeDef,
-  InputEventhubTLSSettingsClientSide
-> = z.object({
-  disabled: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEventhubTLSSettingsClientSide$ {
-  /** @deprecated use `InputEventhubTLSSettingsClientSide$inboundSchema` instead. */
-  export const inboundSchema = InputEventhubTLSSettingsClientSide$inboundSchema;
-  /** @deprecated use `InputEventhubTLSSettingsClientSide$outboundSchema` instead. */
-  export const outboundSchema =
-    InputEventhubTLSSettingsClientSide$outboundSchema;
-  /** @deprecated use `InputEventhubTLSSettingsClientSide$Outbound` instead. */
-  export type Outbound = InputEventhubTLSSettingsClientSide$Outbound;
-}
-
-export function inputEventhubTLSSettingsClientSideToJSON(
-  inputEventhubTLSSettingsClientSide: InputEventhubTLSSettingsClientSide,
-): string {
-  return JSON.stringify(
-    InputEventhubTLSSettingsClientSide$outboundSchema.parse(
-      inputEventhubTLSSettingsClientSide,
-    ),
-  );
-}
-
-export function inputEventhubTLSSettingsClientSideFromJSON(
-  jsonString: string,
-): SafeParseResult<InputEventhubTLSSettingsClientSide, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputEventhubTLSSettingsClientSide$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputEventhubTLSSettingsClientSide' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputEventhubMetadatum$inboundSchema: z.ZodType<
-  InputEventhubMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type InputEventhubMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputEventhubMetadatum$outboundSchema: z.ZodType<
-  InputEventhubMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputEventhubMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEventhubMetadatum$ {
-  /** @deprecated use `InputEventhubMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputEventhubMetadatum$inboundSchema;
-  /** @deprecated use `InputEventhubMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputEventhubMetadatum$outboundSchema;
-  /** @deprecated use `InputEventhubMetadatum$Outbound` instead. */
-  export type Outbound = InputEventhubMetadatum$Outbound;
-}
-
-export function inputEventhubMetadatumToJSON(
-  inputEventhubMetadatum: InputEventhubMetadatum,
-): string {
-  return JSON.stringify(
-    InputEventhubMetadatum$outboundSchema.parse(inputEventhubMetadatum),
-  );
-}
-
-export function inputEventhubMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputEventhubMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputEventhubMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputEventhubMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputEventhub$inboundSchema: z.ZodType<
-  InputEventhub,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+  pqEnabled: z.boolean().default(false),
   id: z.string().optional(),
-  type: InputEventhubType$inboundSchema,
+  type: InputEventhubType4$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputEventhubConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputEventhubPq$inboundSchema).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema,
   brokers: z.array(z.string()),
   topics: z.array(z.string()),
   groupId: z.string().default("Cribl"),
@@ -757,9 +665,8 @@ export const InputEventhub$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   authenticationTimeout: z.number().default(10000),
   reauthenticationThreshold: z.number().default(10000),
-  sasl: z.lazy(() => InputEventhubAuthentication$inboundSchema).optional(),
-  tls: z.lazy(() => InputEventhubTLSSettingsClientSide$inboundSchema)
-    .optional(),
+  sasl: Sasl1Type$inboundSchema.optional(),
+  tls: Tls3Type$inboundSchema.optional(),
   sessionTimeout: z.number().default(30000),
   rebalanceTimeout: z.number().default(60000),
   heartbeatInterval: z.number().default(3000),
@@ -769,23 +676,21 @@ export const InputEventhub$inboundSchema: z.ZodType<
   maxBytes: z.number().default(10485760),
   maxSocketErrors: z.number().default(0),
   minimizeDuplicates: z.boolean().default(false),
-  metadata: z.array(z.lazy(() => InputEventhubMetadatum$inboundSchema))
-    .optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
   description: z.string().optional(),
 });
-
 /** @internal */
-export type InputEventhub$Outbound = {
+export type InputEventhubEventhub4$Outbound = {
+  pqEnabled: boolean;
   id?: string | undefined;
   type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
   environment?: string | undefined;
-  pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputEventhubConnection$Outbound> | undefined;
-  pq?: InputEventhubPq$Outbound | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq: PqType$Outbound;
   brokers: Array<string>;
   topics: Array<string>;
   groupId: string;
@@ -798,8 +703,8 @@ export type InputEventhub$Outbound = {
   backoffRate: number;
   authenticationTimeout: number;
   reauthenticationThreshold: number;
-  sasl?: InputEventhubAuthentication$Outbound | undefined;
-  tls?: InputEventhubTLSSettingsClientSide$Outbound | undefined;
+  sasl?: Sasl1Type$Outbound | undefined;
+  tls?: Tls3Type$Outbound | undefined;
   sessionTimeout: number;
   rebalanceTimeout: number;
   heartbeatInterval: number;
@@ -809,27 +714,26 @@ export type InputEventhub$Outbound = {
   maxBytes: number;
   maxSocketErrors: number;
   minimizeDuplicates: boolean;
-  metadata?: Array<InputEventhubMetadatum$Outbound> | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
   description?: string | undefined;
 };
 
 /** @internal */
-export const InputEventhub$outboundSchema: z.ZodType<
-  InputEventhub$Outbound,
+export const InputEventhubEventhub4$outboundSchema: z.ZodType<
+  InputEventhubEventhub4$Outbound,
   z.ZodTypeDef,
-  InputEventhub
+  InputEventhubEventhub4
 > = z.object({
+  pqEnabled: z.boolean().default(false),
   id: z.string().optional(),
-  type: InputEventhubType$outboundSchema,
+  type: InputEventhubType4$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputEventhubConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputEventhubPq$outboundSchema).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema,
   brokers: z.array(z.string()),
   topics: z.array(z.string()),
   groupId: z.string().default("Cribl"),
@@ -842,9 +746,8 @@ export const InputEventhub$outboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   authenticationTimeout: z.number().default(10000),
   reauthenticationThreshold: z.number().default(10000),
-  sasl: z.lazy(() => InputEventhubAuthentication$outboundSchema).optional(),
-  tls: z.lazy(() => InputEventhubTLSSettingsClientSide$outboundSchema)
-    .optional(),
+  sasl: Sasl1Type$outboundSchema.optional(),
+  tls: Tls3Type$outboundSchema.optional(),
   sessionTimeout: z.number().default(30000),
   rebalanceTimeout: z.number().default(60000),
   heartbeatInterval: z.number().default(3000),
@@ -854,28 +757,510 @@ export const InputEventhub$outboundSchema: z.ZodType<
   maxBytes: z.number().default(10485760),
   maxSocketErrors: z.number().default(0),
   minimizeDuplicates: z.boolean().default(false),
-  metadata: z.array(z.lazy(() => InputEventhubMetadatum$outboundSchema))
-    .optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEventhub$ {
-  /** @deprecated use `InputEventhub$inboundSchema` instead. */
-  export const inboundSchema = InputEventhub$inboundSchema;
-  /** @deprecated use `InputEventhub$outboundSchema` instead. */
-  export const outboundSchema = InputEventhub$outboundSchema;
-  /** @deprecated use `InputEventhub$Outbound` instead. */
-  export type Outbound = InputEventhub$Outbound;
+export function inputEventhubEventhub4ToJSON(
+  inputEventhubEventhub4: InputEventhubEventhub4,
+): string {
+  return JSON.stringify(
+    InputEventhubEventhub4$outboundSchema.parse(inputEventhubEventhub4),
+  );
 }
+export function inputEventhubEventhub4FromJSON(
+  jsonString: string,
+): SafeParseResult<InputEventhubEventhub4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputEventhubEventhub4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputEventhubEventhub4' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputEventhubType3$inboundSchema: z.ZodNativeEnum<
+  typeof InputEventhubType3
+> = z.nativeEnum(InputEventhubType3);
+/** @internal */
+export const InputEventhubType3$outboundSchema: z.ZodNativeEnum<
+  typeof InputEventhubType3
+> = InputEventhubType3$inboundSchema;
+
+/** @internal */
+export const InputEventhubEventhub3$inboundSchema: z.ZodType<
+  InputEventhubEventhub3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputEventhubType3$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  brokers: z.array(z.string()),
+  topics: z.array(z.string()),
+  groupId: z.string().default("Cribl"),
+  fromBeginning: z.boolean().default(true),
+  connectionTimeout: z.number().default(10000),
+  requestTimeout: z.number().default(60000),
+  maxRetries: z.number().default(5),
+  maxBackOff: z.number().default(30000),
+  initialBackoff: z.number().default(300),
+  backoffRate: z.number().default(2),
+  authenticationTimeout: z.number().default(10000),
+  reauthenticationThreshold: z.number().default(10000),
+  sasl: Sasl1Type$inboundSchema.optional(),
+  tls: Tls3Type$inboundSchema.optional(),
+  sessionTimeout: z.number().default(30000),
+  rebalanceTimeout: z.number().default(60000),
+  heartbeatInterval: z.number().default(3000),
+  autoCommitInterval: z.number().optional(),
+  autoCommitThreshold: z.number().optional(),
+  maxBytesPerPartition: z.number().default(1048576),
+  maxBytes: z.number().default(10485760),
+  maxSocketErrors: z.number().default(0),
+  minimizeDuplicates: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputEventhubEventhub3$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  brokers: Array<string>;
+  topics: Array<string>;
+  groupId: string;
+  fromBeginning: boolean;
+  connectionTimeout: number;
+  requestTimeout: number;
+  maxRetries: number;
+  maxBackOff: number;
+  initialBackoff: number;
+  backoffRate: number;
+  authenticationTimeout: number;
+  reauthenticationThreshold: number;
+  sasl?: Sasl1Type$Outbound | undefined;
+  tls?: Tls3Type$Outbound | undefined;
+  sessionTimeout: number;
+  rebalanceTimeout: number;
+  heartbeatInterval: number;
+  autoCommitInterval?: number | undefined;
+  autoCommitThreshold?: number | undefined;
+  maxBytesPerPartition: number;
+  maxBytes: number;
+  maxSocketErrors: number;
+  minimizeDuplicates: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputEventhubEventhub3$outboundSchema: z.ZodType<
+  InputEventhubEventhub3$Outbound,
+  z.ZodTypeDef,
+  InputEventhubEventhub3
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputEventhubType3$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  brokers: z.array(z.string()),
+  topics: z.array(z.string()),
+  groupId: z.string().default("Cribl"),
+  fromBeginning: z.boolean().default(true),
+  connectionTimeout: z.number().default(10000),
+  requestTimeout: z.number().default(60000),
+  maxRetries: z.number().default(5),
+  maxBackOff: z.number().default(30000),
+  initialBackoff: z.number().default(300),
+  backoffRate: z.number().default(2),
+  authenticationTimeout: z.number().default(10000),
+  reauthenticationThreshold: z.number().default(10000),
+  sasl: Sasl1Type$outboundSchema.optional(),
+  tls: Tls3Type$outboundSchema.optional(),
+  sessionTimeout: z.number().default(30000),
+  rebalanceTimeout: z.number().default(60000),
+  heartbeatInterval: z.number().default(3000),
+  autoCommitInterval: z.number().optional(),
+  autoCommitThreshold: z.number().optional(),
+  maxBytesPerPartition: z.number().default(1048576),
+  maxBytes: z.number().default(10485760),
+  maxSocketErrors: z.number().default(0),
+  minimizeDuplicates: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  description: z.string().optional(),
+});
+
+export function inputEventhubEventhub3ToJSON(
+  inputEventhubEventhub3: InputEventhubEventhub3,
+): string {
+  return JSON.stringify(
+    InputEventhubEventhub3$outboundSchema.parse(inputEventhubEventhub3),
+  );
+}
+export function inputEventhubEventhub3FromJSON(
+  jsonString: string,
+): SafeParseResult<InputEventhubEventhub3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputEventhubEventhub3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputEventhubEventhub3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputEventhubType2$inboundSchema: z.ZodNativeEnum<
+  typeof InputEventhubType2
+> = z.nativeEnum(InputEventhubType2);
+/** @internal */
+export const InputEventhubType2$outboundSchema: z.ZodNativeEnum<
+  typeof InputEventhubType2
+> = InputEventhubType2$inboundSchema;
+
+/** @internal */
+export const InputEventhubEventhub2$inboundSchema: z.ZodType<
+  InputEventhubEventhub2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputEventhubType2$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema),
+  pq: PqType$inboundSchema.optional(),
+  brokers: z.array(z.string()),
+  topics: z.array(z.string()),
+  groupId: z.string().default("Cribl"),
+  fromBeginning: z.boolean().default(true),
+  connectionTimeout: z.number().default(10000),
+  requestTimeout: z.number().default(60000),
+  maxRetries: z.number().default(5),
+  maxBackOff: z.number().default(30000),
+  initialBackoff: z.number().default(300),
+  backoffRate: z.number().default(2),
+  authenticationTimeout: z.number().default(10000),
+  reauthenticationThreshold: z.number().default(10000),
+  sasl: Sasl1Type$inboundSchema.optional(),
+  tls: Tls3Type$inboundSchema.optional(),
+  sessionTimeout: z.number().default(30000),
+  rebalanceTimeout: z.number().default(60000),
+  heartbeatInterval: z.number().default(3000),
+  autoCommitInterval: z.number().optional(),
+  autoCommitThreshold: z.number().optional(),
+  maxBytesPerPartition: z.number().default(1048576),
+  maxBytes: z.number().default(10485760),
+  maxSocketErrors: z.number().default(0),
+  minimizeDuplicates: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputEventhubEventhub2$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections: Array<ConnectionsType$Outbound>;
+  pq?: PqType$Outbound | undefined;
+  brokers: Array<string>;
+  topics: Array<string>;
+  groupId: string;
+  fromBeginning: boolean;
+  connectionTimeout: number;
+  requestTimeout: number;
+  maxRetries: number;
+  maxBackOff: number;
+  initialBackoff: number;
+  backoffRate: number;
+  authenticationTimeout: number;
+  reauthenticationThreshold: number;
+  sasl?: Sasl1Type$Outbound | undefined;
+  tls?: Tls3Type$Outbound | undefined;
+  sessionTimeout: number;
+  rebalanceTimeout: number;
+  heartbeatInterval: number;
+  autoCommitInterval?: number | undefined;
+  autoCommitThreshold?: number | undefined;
+  maxBytesPerPartition: number;
+  maxBytes: number;
+  maxSocketErrors: number;
+  minimizeDuplicates: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputEventhubEventhub2$outboundSchema: z.ZodType<
+  InputEventhubEventhub2$Outbound,
+  z.ZodTypeDef,
+  InputEventhubEventhub2
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputEventhubType2$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema),
+  pq: PqType$outboundSchema.optional(),
+  brokers: z.array(z.string()),
+  topics: z.array(z.string()),
+  groupId: z.string().default("Cribl"),
+  fromBeginning: z.boolean().default(true),
+  connectionTimeout: z.number().default(10000),
+  requestTimeout: z.number().default(60000),
+  maxRetries: z.number().default(5),
+  maxBackOff: z.number().default(30000),
+  initialBackoff: z.number().default(300),
+  backoffRate: z.number().default(2),
+  authenticationTimeout: z.number().default(10000),
+  reauthenticationThreshold: z.number().default(10000),
+  sasl: Sasl1Type$outboundSchema.optional(),
+  tls: Tls3Type$outboundSchema.optional(),
+  sessionTimeout: z.number().default(30000),
+  rebalanceTimeout: z.number().default(60000),
+  heartbeatInterval: z.number().default(3000),
+  autoCommitInterval: z.number().optional(),
+  autoCommitThreshold: z.number().optional(),
+  maxBytesPerPartition: z.number().default(1048576),
+  maxBytes: z.number().default(10485760),
+  maxSocketErrors: z.number().default(0),
+  minimizeDuplicates: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  description: z.string().optional(),
+});
+
+export function inputEventhubEventhub2ToJSON(
+  inputEventhubEventhub2: InputEventhubEventhub2,
+): string {
+  return JSON.stringify(
+    InputEventhubEventhub2$outboundSchema.parse(inputEventhubEventhub2),
+  );
+}
+export function inputEventhubEventhub2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputEventhubEventhub2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputEventhubEventhub2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputEventhubEventhub2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputEventhubType1$inboundSchema: z.ZodNativeEnum<
+  typeof InputEventhubType1
+> = z.nativeEnum(InputEventhubType1);
+/** @internal */
+export const InputEventhubType1$outboundSchema: z.ZodNativeEnum<
+  typeof InputEventhubType1
+> = InputEventhubType1$inboundSchema;
+
+/** @internal */
+export const InputEventhubEventhub1$inboundSchema: z.ZodType<
+  InputEventhubEventhub1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputEventhubType1$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  brokers: z.array(z.string()),
+  topics: z.array(z.string()),
+  groupId: z.string().default("Cribl"),
+  fromBeginning: z.boolean().default(true),
+  connectionTimeout: z.number().default(10000),
+  requestTimeout: z.number().default(60000),
+  maxRetries: z.number().default(5),
+  maxBackOff: z.number().default(30000),
+  initialBackoff: z.number().default(300),
+  backoffRate: z.number().default(2),
+  authenticationTimeout: z.number().default(10000),
+  reauthenticationThreshold: z.number().default(10000),
+  sasl: Sasl1Type$inboundSchema.optional(),
+  tls: Tls3Type$inboundSchema.optional(),
+  sessionTimeout: z.number().default(30000),
+  rebalanceTimeout: z.number().default(60000),
+  heartbeatInterval: z.number().default(3000),
+  autoCommitInterval: z.number().optional(),
+  autoCommitThreshold: z.number().optional(),
+  maxBytesPerPartition: z.number().default(1048576),
+  maxBytes: z.number().default(10485760),
+  maxSocketErrors: z.number().default(0),
+  minimizeDuplicates: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputEventhubEventhub1$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  brokers: Array<string>;
+  topics: Array<string>;
+  groupId: string;
+  fromBeginning: boolean;
+  connectionTimeout: number;
+  requestTimeout: number;
+  maxRetries: number;
+  maxBackOff: number;
+  initialBackoff: number;
+  backoffRate: number;
+  authenticationTimeout: number;
+  reauthenticationThreshold: number;
+  sasl?: Sasl1Type$Outbound | undefined;
+  tls?: Tls3Type$Outbound | undefined;
+  sessionTimeout: number;
+  rebalanceTimeout: number;
+  heartbeatInterval: number;
+  autoCommitInterval?: number | undefined;
+  autoCommitThreshold?: number | undefined;
+  maxBytesPerPartition: number;
+  maxBytes: number;
+  maxSocketErrors: number;
+  minimizeDuplicates: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputEventhubEventhub1$outboundSchema: z.ZodType<
+  InputEventhubEventhub1$Outbound,
+  z.ZodTypeDef,
+  InputEventhubEventhub1
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputEventhubType1$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  brokers: z.array(z.string()),
+  topics: z.array(z.string()),
+  groupId: z.string().default("Cribl"),
+  fromBeginning: z.boolean().default(true),
+  connectionTimeout: z.number().default(10000),
+  requestTimeout: z.number().default(60000),
+  maxRetries: z.number().default(5),
+  maxBackOff: z.number().default(30000),
+  initialBackoff: z.number().default(300),
+  backoffRate: z.number().default(2),
+  authenticationTimeout: z.number().default(10000),
+  reauthenticationThreshold: z.number().default(10000),
+  sasl: Sasl1Type$outboundSchema.optional(),
+  tls: Tls3Type$outboundSchema.optional(),
+  sessionTimeout: z.number().default(30000),
+  rebalanceTimeout: z.number().default(60000),
+  heartbeatInterval: z.number().default(3000),
+  autoCommitInterval: z.number().optional(),
+  autoCommitThreshold: z.number().optional(),
+  maxBytesPerPartition: z.number().default(1048576),
+  maxBytes: z.number().default(10485760),
+  maxSocketErrors: z.number().default(0),
+  minimizeDuplicates: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  description: z.string().optional(),
+});
+
+export function inputEventhubEventhub1ToJSON(
+  inputEventhubEventhub1: InputEventhubEventhub1,
+): string {
+  return JSON.stringify(
+    InputEventhubEventhub1$outboundSchema.parse(inputEventhubEventhub1),
+  );
+}
+export function inputEventhubEventhub1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputEventhubEventhub1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputEventhubEventhub1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputEventhubEventhub1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputEventhub$inboundSchema: z.ZodType<
+  InputEventhub,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputEventhubEventhub2$inboundSchema),
+  z.lazy(() => InputEventhubEventhub4$inboundSchema),
+  z.lazy(() => InputEventhubEventhub1$inboundSchema),
+  z.lazy(() => InputEventhubEventhub3$inboundSchema),
+]);
+/** @internal */
+export type InputEventhub$Outbound =
+  | InputEventhubEventhub2$Outbound
+  | InputEventhubEventhub4$Outbound
+  | InputEventhubEventhub1$Outbound
+  | InputEventhubEventhub3$Outbound;
+
+/** @internal */
+export const InputEventhub$outboundSchema: z.ZodType<
+  InputEventhub$Outbound,
+  z.ZodTypeDef,
+  InputEventhub
+> = z.union([
+  z.lazy(() => InputEventhubEventhub2$outboundSchema),
+  z.lazy(() => InputEventhubEventhub4$outboundSchema),
+  z.lazy(() => InputEventhubEventhub1$outboundSchema),
+  z.lazy(() => InputEventhubEventhub3$outboundSchema),
+]);
 
 export function inputEventhubToJSON(inputEventhub: InputEventhub): string {
   return JSON.stringify(InputEventhub$outboundSchema.parse(inputEventhub));
 }
-
 export function inputEventhubFromJSON(
   jsonString: string,
 ): SafeParseResult<InputEventhub, SDKValidationError> {

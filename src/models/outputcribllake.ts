@@ -4,129 +4,57 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  FormatOptions,
+  FormatOptions$inboundSchema,
+  FormatOptions$outboundSchema,
+} from "./formatoptions.js";
+import {
+  MethodOptions,
+  MethodOptions$inboundSchema,
+  MethodOptions$outboundSchema,
+} from "./methodoptions.js";
+import {
+  ObjectAclOptions,
+  ObjectAclOptions$inboundSchema,
+  ObjectAclOptions$outboundSchema,
+} from "./objectacloptions.js";
+import {
+  PqOnBackpressureOptions,
+  PqOnBackpressureOptions$inboundSchema,
+  PqOnBackpressureOptions$outboundSchema,
+} from "./pqonbackpressureoptions.js";
+import {
+  ServerSideEncryptionOptions,
+  ServerSideEncryptionOptions$inboundSchema,
+  ServerSideEncryptionOptions$outboundSchema,
+} from "./serversideencryptionoptions.js";
+import {
+  SignatureVersionOptions,
+  SignatureVersionOptions$inboundSchema,
+  SignatureVersionOptions$outboundSchema,
+} from "./signatureversionoptions.js";
+import {
+  StorageClassOptions,
+  StorageClassOptions$inboundSchema,
+  StorageClassOptions$outboundSchema,
+} from "./storageclassoptions.js";
 
-export const OutputCriblLakeType = {
+export const OutputCriblLakeType6 = {
   CriblLake: "cribl_lake",
 } as const;
-export type OutputCriblLakeType = ClosedEnum<typeof OutputCriblLakeType>;
+export type OutputCriblLakeType6 = ClosedEnum<typeof OutputCriblLakeType6>;
 
-/**
- * Signature version to use for signing S3 requests
- */
-export const OutputCriblLakeSignatureVersion = {
-  V2: "v2",
-  V4: "v4",
-} as const;
-/**
- * Signature version to use for signing S3 requests
- */
-export type OutputCriblLakeSignatureVersion = OpenEnum<
-  typeof OutputCriblLakeSignatureVersion
->;
-
-/**
- * Object ACL to assign to uploaded objects
- */
-export const OutputCriblLakeObjectACL = {
-  Private: "private",
-  PublicRead: "public-read",
-  PublicReadWrite: "public-read-write",
-  AuthenticatedRead: "authenticated-read",
-  AwsExecRead: "aws-exec-read",
-  BucketOwnerRead: "bucket-owner-read",
-  BucketOwnerFullControl: "bucket-owner-full-control",
-} as const;
-/**
- * Object ACL to assign to uploaded objects
- */
-export type OutputCriblLakeObjectACL = OpenEnum<
-  typeof OutputCriblLakeObjectACL
->;
-
-/**
- * Storage class to select for uploaded objects
- */
-export const OutputCriblLakeStorageClass = {
-  Standard: "STANDARD",
-  ReducedRedundancy: "REDUCED_REDUNDANCY",
-  StandardIa: "STANDARD_IA",
-  OnezoneIa: "ONEZONE_IA",
-  IntelligentTiering: "INTELLIGENT_TIERING",
-  Glacier: "GLACIER",
-  GlacierIr: "GLACIER_IR",
-  DeepArchive: "DEEP_ARCHIVE",
-} as const;
-/**
- * Storage class to select for uploaded objects
- */
-export type OutputCriblLakeStorageClass = OpenEnum<
-  typeof OutputCriblLakeStorageClass
->;
-
-export const OutputCriblLakeServerSideEncryptionForUploadedObjects = {
-  Aes256: "AES256",
-  AwsKms: "aws:kms",
-} as const;
-export type OutputCriblLakeServerSideEncryptionForUploadedObjects = OpenEnum<
-  typeof OutputCriblLakeServerSideEncryptionForUploadedObjects
->;
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputCriblLakeBackpressureBehavior = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputCriblLakeBackpressureBehavior = OpenEnum<
-  typeof OutputCriblLakeBackpressureBehavior
->;
-
-/**
- * How to handle events when disk space is below the global 'Min free disk space' limit
- */
-export const OutputCriblLakeDiskSpaceProtection = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when disk space is below the global 'Min free disk space' limit
- */
-export type OutputCriblLakeDiskSpaceProtection = OpenEnum<
-  typeof OutputCriblLakeDiskSpaceProtection
->;
-
-export const AwsAuthenticationMethod = {
-  Auto: "auto",
-  AutoRpc: "auto_rpc",
-  Manual: "manual",
-} as const;
-export type AwsAuthenticationMethod = OpenEnum<typeof AwsAuthenticationMethod>;
-
-export const OutputCriblLakeFormat = {
-  Json: "json",
-  Parquet: "parquet",
-  Ddss: "ddss",
-} as const;
-export type OutputCriblLakeFormat = OpenEnum<typeof OutputCriblLakeFormat>;
-
-export type OutputCriblLake = {
+export type OutputCriblLakeCriblLake6 = {
+  serverSideEncryption: ServerSideEncryptionOptions;
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputCriblLakeType;
+  type: OutputCriblLakeType6;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -160,9 +88,9 @@ export type OutputCriblLake = {
    */
   endpoint?: string | undefined;
   /**
-   * Signature version to use for signing S3 requests
+   * Signature version to use for signing MSK cluster requests
    */
-  signatureVersion?: OutputCriblLakeSignatureVersion | undefined;
+  signatureVersion?: SignatureVersionOptions | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -202,14 +130,184 @@ export type OutputCriblLake = {
   /**
    * Object ACL to assign to uploaded objects
    */
-  objectACL?: OutputCriblLakeObjectACL | undefined;
+  objectACL?: ObjectAclOptions | undefined;
   /**
    * Storage class to select for uploaded objects
    */
-  storageClass?: OutputCriblLakeStorageClass | undefined;
-  serverSideEncryption?:
-    | OutputCriblLakeServerSideEncryptionForUploadedObjects
-    | undefined;
+  storageClass?: StorageClassOptions | undefined;
+  /**
+   * ID or ARN of the KMS customer-managed key to use for encryption
+   */
+  kmsKeyId: string;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Maximum number of files that can be waiting for upload before backpressure is applied
+   */
+  maxClosingFilesToBackpressure?: number | undefined;
+  awsAuthenticationMethod?: MethodOptions | undefined;
+  format?: FormatOptions | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  description?: string | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export const OutputCriblLakeType5 = {
+  CriblLake: "cribl_lake",
+} as const;
+export type OutputCriblLakeType5 = ClosedEnum<typeof OutputCriblLakeType5>;
+
+export type OutputCriblLakeCriblLake5 = {
+  serverSideEncryption: ServerSideEncryptionOptions;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputCriblLakeType5;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket?: string | undefined;
+  /**
+   * Region where the S3 bucket is located
+   */
+  region?: string | undefined;
+  /**
+   * Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access S3
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Lake dataset to send the data to.
+   */
+  destPath?: string | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: ObjectAclOptions | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClassOptions | undefined;
   /**
    * ID or ARN of the KMS customer-managed key to use for encryption
    */
@@ -243,17 +341,17 @@ export type OutputCriblLake = {
    */
   writeHighWaterMark?: number | undefined;
   /**
-   * How to handle events when all receivers are exerting backpressure
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  onBackpressure?: OutputCriblLakeBackpressureBehavior | undefined;
+  onBackpressure?: PqOnBackpressureOptions | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
   deadletterEnabled?: boolean | undefined;
   /**
-   * How to handle events when disk space is below the global 'Min free disk space' limit
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  onDiskFullBackpressure?: OutputCriblLakeDiskSpaceProtection | undefined;
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
   /**
    * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
    */
@@ -270,8 +368,8 @@ export type OutputCriblLake = {
    * Maximum number of files that can be waiting for upload before backpressure is applied
    */
   maxClosingFilesToBackpressure?: number | undefined;
-  awsAuthenticationMethod?: AwsAuthenticationMethod | undefined;
-  format?: OutputCriblLakeFormat | undefined;
+  awsAuthenticationMethod?: MethodOptions | undefined;
+  format?: FormatOptions | undefined;
   /**
    * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
    */
@@ -291,298 +389,724 @@ export type OutputCriblLake = {
   maxRetryNum?: number | undefined;
 };
 
-/** @internal */
-export const OutputCriblLakeType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputCriblLakeType
-> = z.nativeEnum(OutputCriblLakeType);
+export const OutputCriblLakeType4 = {
+  CriblLake: "cribl_lake",
+} as const;
+export type OutputCriblLakeType4 = ClosedEnum<typeof OutputCriblLakeType4>;
+
+export type OutputCriblLakeCriblLake4 = {
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputCriblLakeType4;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket?: string | undefined;
+  /**
+   * Region where the S3 bucket is located
+   */
+  region?: string | undefined;
+  /**
+   * Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access S3
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Lake dataset to send the data to.
+   */
+  destPath?: string | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: ObjectAclOptions | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClassOptions | undefined;
+  serverSideEncryption?: ServerSideEncryptionOptions | undefined;
+  /**
+   * ID or ARN of the KMS customer-managed key to use for encryption
+   */
+  kmsKeyId?: string | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Maximum number of files that can be waiting for upload before backpressure is applied
+   */
+  maxClosingFilesToBackpressure?: number | undefined;
+  awsAuthenticationMethod?: MethodOptions | undefined;
+  format?: FormatOptions | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  description?: string | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export const OutputCriblLakeType3 = {
+  CriblLake: "cribl_lake",
+} as const;
+export type OutputCriblLakeType3 = ClosedEnum<typeof OutputCriblLakeType3>;
+
+export type OutputCriblLakeCriblLake3 = {
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputCriblLakeType3;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket?: string | undefined;
+  /**
+   * Region where the S3 bucket is located
+   */
+  region?: string | undefined;
+  /**
+   * Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access S3
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Lake dataset to send the data to.
+   */
+  destPath?: string | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: ObjectAclOptions | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClassOptions | undefined;
+  serverSideEncryption?: ServerSideEncryptionOptions | undefined;
+  /**
+   * ID or ARN of the KMS customer-managed key to use for encryption
+   */
+  kmsKeyId?: string | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Maximum number of files that can be waiting for upload before backpressure is applied
+   */
+  maxClosingFilesToBackpressure?: number | undefined;
+  awsAuthenticationMethod?: MethodOptions | undefined;
+  format?: FormatOptions | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  description?: string | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export const OutputCriblLakeType2 = {
+  CriblLake: "cribl_lake",
+} as const;
+export type OutputCriblLakeType2 = ClosedEnum<typeof OutputCriblLakeType2>;
+
+export type OutputCriblLakeCriblLake2 = {
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputCriblLakeType2;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket?: string | undefined;
+  /**
+   * Region where the S3 bucket is located
+   */
+  region?: string | undefined;
+  /**
+   * Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access S3
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Lake dataset to send the data to.
+   */
+  destPath?: string | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: ObjectAclOptions | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClassOptions | undefined;
+  serverSideEncryption?: ServerSideEncryptionOptions | undefined;
+  /**
+   * ID or ARN of the KMS customer-managed key to use for encryption
+   */
+  kmsKeyId?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Maximum number of files that can be waiting for upload before backpressure is applied
+   */
+  maxClosingFilesToBackpressure?: number | undefined;
+  awsAuthenticationMethod?: MethodOptions | undefined;
+  format?: FormatOptions | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  description?: string | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export const OutputCriblLakeType1 = {
+  CriblLake: "cribl_lake",
+} as const;
+export type OutputCriblLakeType1 = ClosedEnum<typeof OutputCriblLakeType1>;
+
+export type OutputCriblLakeCriblLake1 = {
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputCriblLakeType1;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket?: string | undefined;
+  /**
+   * Region where the S3 bucket is located
+   */
+  region?: string | undefined;
+  /**
+   * Secret key. This value can be a constant or a JavaScript expression. Example: `${C.env.SOME_SECRET}`)
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access S3
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Lake dataset to send the data to.
+   */
+  destPath?: string | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: ObjectAclOptions | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClassOptions | undefined;
+  serverSideEncryption?: ServerSideEncryptionOptions | undefined;
+  /**
+   * ID or ARN of the KMS customer-managed key to use for encryption
+   */
+  kmsKeyId?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Maximum number of files that can be waiting for upload before backpressure is applied
+   */
+  maxClosingFilesToBackpressure?: number | undefined;
+  awsAuthenticationMethod?: MethodOptions | undefined;
+  format?: FormatOptions | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  description?: string | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export type OutputCriblLake =
+  | OutputCriblLakeCriblLake6
+  | OutputCriblLakeCriblLake5
+  | OutputCriblLakeCriblLake1
+  | OutputCriblLakeCriblLake2
+  | OutputCriblLakeCriblLake3
+  | OutputCriblLakeCriblLake4;
 
 /** @internal */
-export const OutputCriblLakeType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputCriblLakeType
-> = OutputCriblLakeType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblLakeType$ {
-  /** @deprecated use `OutputCriblLakeType$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblLakeType$inboundSchema;
-  /** @deprecated use `OutputCriblLakeType$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblLakeType$outboundSchema;
-}
+export const OutputCriblLakeType6$inboundSchema: z.ZodNativeEnum<
+  typeof OutputCriblLakeType6
+> = z.nativeEnum(OutputCriblLakeType6);
+/** @internal */
+export const OutputCriblLakeType6$outboundSchema: z.ZodNativeEnum<
+  typeof OutputCriblLakeType6
+> = OutputCriblLakeType6$inboundSchema;
 
 /** @internal */
-export const OutputCriblLakeSignatureVersion$inboundSchema: z.ZodType<
-  OutputCriblLakeSignatureVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCriblLakeSignatureVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputCriblLakeSignatureVersion$outboundSchema: z.ZodType<
-  OutputCriblLakeSignatureVersion,
-  z.ZodTypeDef,
-  OutputCriblLakeSignatureVersion
-> = z.union([
-  z.nativeEnum(OutputCriblLakeSignatureVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblLakeSignatureVersion$ {
-  /** @deprecated use `OutputCriblLakeSignatureVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblLakeSignatureVersion$inboundSchema;
-  /** @deprecated use `OutputCriblLakeSignatureVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblLakeSignatureVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputCriblLakeObjectACL$inboundSchema: z.ZodType<
-  OutputCriblLakeObjectACL,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCriblLakeObjectACL),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputCriblLakeObjectACL$outboundSchema: z.ZodType<
-  OutputCriblLakeObjectACL,
-  z.ZodTypeDef,
-  OutputCriblLakeObjectACL
-> = z.union([
-  z.nativeEnum(OutputCriblLakeObjectACL),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblLakeObjectACL$ {
-  /** @deprecated use `OutputCriblLakeObjectACL$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblLakeObjectACL$inboundSchema;
-  /** @deprecated use `OutputCriblLakeObjectACL$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblLakeObjectACL$outboundSchema;
-}
-
-/** @internal */
-export const OutputCriblLakeStorageClass$inboundSchema: z.ZodType<
-  OutputCriblLakeStorageClass,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCriblLakeStorageClass),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputCriblLakeStorageClass$outboundSchema: z.ZodType<
-  OutputCriblLakeStorageClass,
-  z.ZodTypeDef,
-  OutputCriblLakeStorageClass
-> = z.union([
-  z.nativeEnum(OutputCriblLakeStorageClass),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblLakeStorageClass$ {
-  /** @deprecated use `OutputCriblLakeStorageClass$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblLakeStorageClass$inboundSchema;
-  /** @deprecated use `OutputCriblLakeStorageClass$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblLakeStorageClass$outboundSchema;
-}
-
-/** @internal */
-export const OutputCriblLakeServerSideEncryptionForUploadedObjects$inboundSchema:
-  z.ZodType<
-    OutputCriblLakeServerSideEncryptionForUploadedObjects,
-    z.ZodTypeDef,
-    unknown
-  > = z
-    .union([
-      z.nativeEnum(OutputCriblLakeServerSideEncryptionForUploadedObjects),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
-
-/** @internal */
-export const OutputCriblLakeServerSideEncryptionForUploadedObjects$outboundSchema:
-  z.ZodType<
-    OutputCriblLakeServerSideEncryptionForUploadedObjects,
-    z.ZodTypeDef,
-    OutputCriblLakeServerSideEncryptionForUploadedObjects
-  > = z.union([
-    z.nativeEnum(OutputCriblLakeServerSideEncryptionForUploadedObjects),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblLakeServerSideEncryptionForUploadedObjects$ {
-  /** @deprecated use `OutputCriblLakeServerSideEncryptionForUploadedObjects$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputCriblLakeServerSideEncryptionForUploadedObjects$inboundSchema;
-  /** @deprecated use `OutputCriblLakeServerSideEncryptionForUploadedObjects$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCriblLakeServerSideEncryptionForUploadedObjects$outboundSchema;
-}
-
-/** @internal */
-export const OutputCriblLakeBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputCriblLakeBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCriblLakeBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputCriblLakeBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputCriblLakeBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputCriblLakeBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputCriblLakeBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblLakeBackpressureBehavior$ {
-  /** @deprecated use `OutputCriblLakeBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputCriblLakeBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputCriblLakeBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCriblLakeBackpressureBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputCriblLakeDiskSpaceProtection$inboundSchema: z.ZodType<
-  OutputCriblLakeDiskSpaceProtection,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCriblLakeDiskSpaceProtection),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputCriblLakeDiskSpaceProtection$outboundSchema: z.ZodType<
-  OutputCriblLakeDiskSpaceProtection,
-  z.ZodTypeDef,
-  OutputCriblLakeDiskSpaceProtection
-> = z.union([
-  z.nativeEnum(OutputCriblLakeDiskSpaceProtection),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblLakeDiskSpaceProtection$ {
-  /** @deprecated use `OutputCriblLakeDiskSpaceProtection$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblLakeDiskSpaceProtection$inboundSchema;
-  /** @deprecated use `OutputCriblLakeDiskSpaceProtection$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCriblLakeDiskSpaceProtection$outboundSchema;
-}
-
-/** @internal */
-export const AwsAuthenticationMethod$inboundSchema: z.ZodType<
-  AwsAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(AwsAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const AwsAuthenticationMethod$outboundSchema: z.ZodType<
-  AwsAuthenticationMethod,
-  z.ZodTypeDef,
-  AwsAuthenticationMethod
-> = z.union([
-  z.nativeEnum(AwsAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AwsAuthenticationMethod$ {
-  /** @deprecated use `AwsAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = AwsAuthenticationMethod$inboundSchema;
-  /** @deprecated use `AwsAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema = AwsAuthenticationMethod$outboundSchema;
-}
-
-/** @internal */
-export const OutputCriblLakeFormat$inboundSchema: z.ZodType<
-  OutputCriblLakeFormat,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCriblLakeFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputCriblLakeFormat$outboundSchema: z.ZodType<
-  OutputCriblLakeFormat,
-  z.ZodTypeDef,
-  OutputCriblLakeFormat
-> = z.union([
-  z.nativeEnum(OutputCriblLakeFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblLakeFormat$ {
-  /** @deprecated use `OutputCriblLakeFormat$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblLakeFormat$inboundSchema;
-  /** @deprecated use `OutputCriblLakeFormat$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblLakeFormat$outboundSchema;
-}
-
-/** @internal */
-export const OutputCriblLake$inboundSchema: z.ZodType<
-  OutputCriblLake,
+export const OutputCriblLakeCriblLake6$inboundSchema: z.ZodType<
+  OutputCriblLakeCriblLake6,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  serverSideEncryption: ServerSideEncryptionOptions$inboundSchema,
   id: z.string().optional(),
-  type: OutputCriblLakeType$inboundSchema,
+  type: OutputCriblLakeType6$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -591,7 +1115,7 @@ export const OutputCriblLake$inboundSchema: z.ZodType<
   region: z.string().optional(),
   awsSecretKey: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: OutputCriblLakeSignatureVersion$inboundSchema.default("v4"),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   enableAssumeRole: z.boolean().default(false),
@@ -601,11 +1125,196 @@ export const OutputCriblLake$inboundSchema: z.ZodType<
   stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
   addIdToStagePath: z.boolean().default(true),
   destPath: z.string().optional(),
-  objectACL: OutputCriblLakeObjectACL$inboundSchema.default("private"),
-  storageClass: OutputCriblLakeStorageClass$inboundSchema.optional(),
-  serverSideEncryption:
-    OutputCriblLakeServerSideEncryptionForUploadedObjects$inboundSchema
-      .optional(),
+  objectACL: ObjectAclOptions$inboundSchema.default("private"),
+  storageClass: StorageClassOptions$inboundSchema.optional(),
+  kmsKeyId: z.string(),
+  removeEmptyDirs: z.boolean().default(true),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(64),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(300),
+  verifyPermissions: z.boolean().default(true),
+  maxClosingFilesToBackpressure: z.number().default(100),
+  awsAuthenticationMethod: MethodOptions$inboundSchema.optional(),
+  format: FormatOptions$inboundSchema.optional(),
+  maxConcurrentFileParts: z.number().default(1),
+  description: z.string().optional(),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+/** @internal */
+export type OutputCriblLakeCriblLake6$Outbound = {
+  serverSideEncryption: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  bucket?: string | undefined;
+  region?: string | undefined;
+  awsSecretKey?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  stagePath: string;
+  addIdToStagePath: boolean;
+  destPath?: string | undefined;
+  objectACL: string;
+  storageClass?: string | undefined;
+  kmsKeyId: string;
+  removeEmptyDirs: boolean;
+  baseFileName: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  verifyPermissions: boolean;
+  maxClosingFilesToBackpressure: number;
+  awsAuthenticationMethod?: string | undefined;
+  format?: string | undefined;
+  maxConcurrentFileParts: number;
+  description?: string | undefined;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+};
+
+/** @internal */
+export const OutputCriblLakeCriblLake6$outboundSchema: z.ZodType<
+  OutputCriblLakeCriblLake6$Outbound,
+  z.ZodTypeDef,
+  OutputCriblLakeCriblLake6
+> = z.object({
+  serverSideEncryption: ServerSideEncryptionOptions$outboundSchema,
+  id: z.string().optional(),
+  type: OutputCriblLakeType6$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string().optional(),
+  region: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  destPath: z.string().optional(),
+  objectACL: ObjectAclOptions$outboundSchema.default("private"),
+  storageClass: StorageClassOptions$outboundSchema.optional(),
+  kmsKeyId: z.string(),
+  removeEmptyDirs: z.boolean().default(true),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(64),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(300),
+  verifyPermissions: z.boolean().default(true),
+  maxClosingFilesToBackpressure: z.number().default(100),
+  awsAuthenticationMethod: MethodOptions$outboundSchema.optional(),
+  format: FormatOptions$outboundSchema.optional(),
+  maxConcurrentFileParts: z.number().default(1),
+  description: z.string().optional(),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+
+export function outputCriblLakeCriblLake6ToJSON(
+  outputCriblLakeCriblLake6: OutputCriblLakeCriblLake6,
+): string {
+  return JSON.stringify(
+    OutputCriblLakeCriblLake6$outboundSchema.parse(outputCriblLakeCriblLake6),
+  );
+}
+export function outputCriblLakeCriblLake6FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputCriblLakeCriblLake6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputCriblLakeCriblLake6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputCriblLakeCriblLake6' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputCriblLakeType5$inboundSchema: z.ZodNativeEnum<
+  typeof OutputCriblLakeType5
+> = z.nativeEnum(OutputCriblLakeType5);
+/** @internal */
+export const OutputCriblLakeType5$outboundSchema: z.ZodNativeEnum<
+  typeof OutputCriblLakeType5
+> = OutputCriblLakeType5$inboundSchema;
+
+/** @internal */
+export const OutputCriblLakeCriblLake5$inboundSchema: z.ZodType<
+  OutputCriblLakeCriblLake5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  serverSideEncryption: ServerSideEncryptionOptions$inboundSchema,
+  id: z.string().optional(),
+  type: OutputCriblLakeType5$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string().optional(),
+  region: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  destPath: z.string().optional(),
+  objectACL: ObjectAclOptions$inboundSchema.default("private"),
+  storageClass: StorageClassOptions$inboundSchema.optional(),
   kmsKeyId: z.string().optional(),
   removeEmptyDirs: z.boolean().default(true),
   baseFileName: z.string().default("`CriblOut`"),
@@ -616,20 +1325,122 @@ export const OutputCriblLake$inboundSchema: z.ZodType<
   maxOpenFiles: z.number().default(100),
   headerLine: z.string().default(""),
   writeHighWaterMark: z.number().default(64),
-  onBackpressure: OutputCriblLakeBackpressureBehavior$inboundSchema.default(
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
     "block",
   ),
-  deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: OutputCriblLakeDiskSpaceProtection$inboundSchema
-    .default("block"),
   maxFileOpenTimeSec: z.number().default(300),
   maxFileIdleTimeSec: z.number().default(300),
   verifyPermissions: z.boolean().default(true),
   maxClosingFilesToBackpressure: z.number().default(100),
-  awsAuthenticationMethod: AwsAuthenticationMethod$inboundSchema.default(
-    "auto",
+  awsAuthenticationMethod: MethodOptions$inboundSchema.optional(),
+  format: FormatOptions$inboundSchema.optional(),
+  maxConcurrentFileParts: z.number().default(1),
+  description: z.string().optional(),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+/** @internal */
+export type OutputCriblLakeCriblLake5$Outbound = {
+  serverSideEncryption: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  bucket?: string | undefined;
+  region?: string | undefined;
+  awsSecretKey?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  stagePath: string;
+  addIdToStagePath: boolean;
+  destPath?: string | undefined;
+  objectACL: string;
+  storageClass?: string | undefined;
+  kmsKeyId?: string | undefined;
+  removeEmptyDirs: boolean;
+  baseFileName: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  verifyPermissions: boolean;
+  maxClosingFilesToBackpressure: number;
+  awsAuthenticationMethod?: string | undefined;
+  format?: string | undefined;
+  maxConcurrentFileParts: number;
+  description?: string | undefined;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+};
+
+/** @internal */
+export const OutputCriblLakeCriblLake5$outboundSchema: z.ZodType<
+  OutputCriblLakeCriblLake5$Outbound,
+  z.ZodTypeDef,
+  OutputCriblLakeCriblLake5
+> = z.object({
+  serverSideEncryption: ServerSideEncryptionOptions$outboundSchema,
+  id: z.string().optional(),
+  type: OutputCriblLakeType5$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string().optional(),
+  region: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  destPath: z.string().optional(),
+  objectACL: ObjectAclOptions$outboundSchema.default("private"),
+  storageClass: StorageClassOptions$outboundSchema.optional(),
+  kmsKeyId: z.string().optional(),
+  removeEmptyDirs: z.boolean().default(true),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
   ),
-  format: OutputCriblLakeFormat$inboundSchema.optional(),
+  maxFileSizeMB: z.number().default(64),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(300),
+  verifyPermissions: z.boolean().default(true),
+  maxClosingFilesToBackpressure: z.number().default(100),
+  awsAuthenticationMethod: MethodOptions$outboundSchema.optional(),
+  format: FormatOptions$outboundSchema.optional(),
   maxConcurrentFileParts: z.number().default(1),
   description: z.string().optional(),
   emptyDirCleanupSec: z.number().default(300),
@@ -637,8 +1448,91 @@ export const OutputCriblLake$inboundSchema: z.ZodType<
   maxRetryNum: z.number().default(20),
 });
 
+export function outputCriblLakeCriblLake5ToJSON(
+  outputCriblLakeCriblLake5: OutputCriblLakeCriblLake5,
+): string {
+  return JSON.stringify(
+    OutputCriblLakeCriblLake5$outboundSchema.parse(outputCriblLakeCriblLake5),
+  );
+}
+export function outputCriblLakeCriblLake5FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputCriblLakeCriblLake5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputCriblLakeCriblLake5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputCriblLakeCriblLake5' from JSON`,
+  );
+}
+
 /** @internal */
-export type OutputCriblLake$Outbound = {
+export const OutputCriblLakeType4$inboundSchema: z.ZodNativeEnum<
+  typeof OutputCriblLakeType4
+> = z.nativeEnum(OutputCriblLakeType4);
+/** @internal */
+export const OutputCriblLakeType4$outboundSchema: z.ZodNativeEnum<
+  typeof OutputCriblLakeType4
+> = OutputCriblLakeType4$inboundSchema;
+
+/** @internal */
+export const OutputCriblLakeCriblLake4$inboundSchema: z.ZodType<
+  OutputCriblLakeCriblLake4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  deadletterEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: OutputCriblLakeType4$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string().optional(),
+  region: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  destPath: z.string().optional(),
+  objectACL: ObjectAclOptions$inboundSchema.default("private"),
+  storageClass: StorageClassOptions$inboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryptionOptions$inboundSchema.optional(),
+  kmsKeyId: z.string().optional(),
+  removeEmptyDirs: z.boolean().default(true),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(64),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(300),
+  verifyPermissions: z.boolean().default(true),
+  maxClosingFilesToBackpressure: z.number().default(100),
+  awsAuthenticationMethod: MethodOptions$inboundSchema.optional(),
+  format: FormatOptions$inboundSchema.optional(),
+  maxConcurrentFileParts: z.number().default(1),
+  description: z.string().optional(),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+/** @internal */
+export type OutputCriblLakeCriblLake4$Outbound = {
+  deadletterEnabled: boolean;
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -671,13 +1565,12 @@ export type OutputCriblLake$Outbound = {
   headerLine: string;
   writeHighWaterMark: number;
   onBackpressure: string;
-  deadletterEnabled: boolean;
   onDiskFullBackpressure: string;
   maxFileOpenTimeSec: number;
   maxFileIdleTimeSec: number;
   verifyPermissions: boolean;
   maxClosingFilesToBackpressure: number;
-  awsAuthenticationMethod: string;
+  awsAuthenticationMethod?: string | undefined;
   format?: string | undefined;
   maxConcurrentFileParts: number;
   description?: string | undefined;
@@ -687,13 +1580,14 @@ export type OutputCriblLake$Outbound = {
 };
 
 /** @internal */
-export const OutputCriblLake$outboundSchema: z.ZodType<
-  OutputCriblLake$Outbound,
+export const OutputCriblLakeCriblLake4$outboundSchema: z.ZodType<
+  OutputCriblLakeCriblLake4$Outbound,
   z.ZodTypeDef,
-  OutputCriblLake
+  OutputCriblLakeCriblLake4
 > = z.object({
+  deadletterEnabled: z.boolean().default(false),
   id: z.string().optional(),
-  type: OutputCriblLakeType$outboundSchema,
+  type: OutputCriblLakeType4$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -702,9 +1596,7 @@ export const OutputCriblLake$outboundSchema: z.ZodType<
   region: z.string().optional(),
   awsSecretKey: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: OutputCriblLakeSignatureVersion$outboundSchema.default(
-    "v4",
-  ),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   enableAssumeRole: z.boolean().default(false),
@@ -714,11 +1606,9 @@ export const OutputCriblLake$outboundSchema: z.ZodType<
   stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
   addIdToStagePath: z.boolean().default(true),
   destPath: z.string().optional(),
-  objectACL: OutputCriblLakeObjectACL$outboundSchema.default("private"),
-  storageClass: OutputCriblLakeStorageClass$outboundSchema.optional(),
-  serverSideEncryption:
-    OutputCriblLakeServerSideEncryptionForUploadedObjects$outboundSchema
-      .optional(),
+  objectACL: ObjectAclOptions$outboundSchema.default("private"),
+  storageClass: StorageClassOptions$outboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryptionOptions$outboundSchema.optional(),
   kmsKeyId: z.string().optional(),
   removeEmptyDirs: z.boolean().default(true),
   baseFileName: z.string().default("`CriblOut`"),
@@ -729,20 +1619,16 @@ export const OutputCriblLake$outboundSchema: z.ZodType<
   maxOpenFiles: z.number().default(100),
   headerLine: z.string().default(""),
   writeHighWaterMark: z.number().default(64),
-  onBackpressure: OutputCriblLakeBackpressureBehavior$outboundSchema.default(
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
     "block",
   ),
-  deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: OutputCriblLakeDiskSpaceProtection$outboundSchema
-    .default("block"),
   maxFileOpenTimeSec: z.number().default(300),
   maxFileIdleTimeSec: z.number().default(300),
   verifyPermissions: z.boolean().default(true),
   maxClosingFilesToBackpressure: z.number().default(100),
-  awsAuthenticationMethod: AwsAuthenticationMethod$outboundSchema.default(
-    "auto",
-  ),
-  format: OutputCriblLakeFormat$outboundSchema.optional(),
+  awsAuthenticationMethod: MethodOptions$outboundSchema.optional(),
+  format: FormatOptions$outboundSchema.optional(),
   maxConcurrentFileParts: z.number().default(1),
   description: z.string().optional(),
   emptyDirCleanupSec: z.number().default(300),
@@ -750,25 +1636,628 @@ export const OutputCriblLake$outboundSchema: z.ZodType<
   maxRetryNum: z.number().default(20),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblLake$ {
-  /** @deprecated use `OutputCriblLake$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblLake$inboundSchema;
-  /** @deprecated use `OutputCriblLake$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblLake$outboundSchema;
-  /** @deprecated use `OutputCriblLake$Outbound` instead. */
-  export type Outbound = OutputCriblLake$Outbound;
+export function outputCriblLakeCriblLake4ToJSON(
+  outputCriblLakeCriblLake4: OutputCriblLakeCriblLake4,
+): string {
+  return JSON.stringify(
+    OutputCriblLakeCriblLake4$outboundSchema.parse(outputCriblLakeCriblLake4),
+  );
 }
+export function outputCriblLakeCriblLake4FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputCriblLakeCriblLake4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputCriblLakeCriblLake4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputCriblLakeCriblLake4' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputCriblLakeType3$inboundSchema: z.ZodNativeEnum<
+  typeof OutputCriblLakeType3
+> = z.nativeEnum(OutputCriblLakeType3);
+/** @internal */
+export const OutputCriblLakeType3$outboundSchema: z.ZodNativeEnum<
+  typeof OutputCriblLakeType3
+> = OutputCriblLakeType3$inboundSchema;
+
+/** @internal */
+export const OutputCriblLakeCriblLake3$inboundSchema: z.ZodType<
+  OutputCriblLakeCriblLake3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  deadletterEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: OutputCriblLakeType3$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string().optional(),
+  region: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  destPath: z.string().optional(),
+  objectACL: ObjectAclOptions$inboundSchema.default("private"),
+  storageClass: StorageClassOptions$inboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryptionOptions$inboundSchema.optional(),
+  kmsKeyId: z.string().optional(),
+  removeEmptyDirs: z.boolean().default(true),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(64),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(300),
+  verifyPermissions: z.boolean().default(true),
+  maxClosingFilesToBackpressure: z.number().default(100),
+  awsAuthenticationMethod: MethodOptions$inboundSchema.optional(),
+  format: FormatOptions$inboundSchema.optional(),
+  maxConcurrentFileParts: z.number().default(1),
+  description: z.string().optional(),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+/** @internal */
+export type OutputCriblLakeCriblLake3$Outbound = {
+  deadletterEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  bucket?: string | undefined;
+  region?: string | undefined;
+  awsSecretKey?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  stagePath: string;
+  addIdToStagePath: boolean;
+  destPath?: string | undefined;
+  objectACL: string;
+  storageClass?: string | undefined;
+  serverSideEncryption?: string | undefined;
+  kmsKeyId?: string | undefined;
+  removeEmptyDirs: boolean;
+  baseFileName: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  onDiskFullBackpressure: string;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  verifyPermissions: boolean;
+  maxClosingFilesToBackpressure: number;
+  awsAuthenticationMethod?: string | undefined;
+  format?: string | undefined;
+  maxConcurrentFileParts: number;
+  description?: string | undefined;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+};
+
+/** @internal */
+export const OutputCriblLakeCriblLake3$outboundSchema: z.ZodType<
+  OutputCriblLakeCriblLake3$Outbound,
+  z.ZodTypeDef,
+  OutputCriblLakeCriblLake3
+> = z.object({
+  deadletterEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: OutputCriblLakeType3$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string().optional(),
+  region: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  destPath: z.string().optional(),
+  objectACL: ObjectAclOptions$outboundSchema.default("private"),
+  storageClass: StorageClassOptions$outboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryptionOptions$outboundSchema.optional(),
+  kmsKeyId: z.string().optional(),
+  removeEmptyDirs: z.boolean().default(true),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(64),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(300),
+  verifyPermissions: z.boolean().default(true),
+  maxClosingFilesToBackpressure: z.number().default(100),
+  awsAuthenticationMethod: MethodOptions$outboundSchema.optional(),
+  format: FormatOptions$outboundSchema.optional(),
+  maxConcurrentFileParts: z.number().default(1),
+  description: z.string().optional(),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+
+export function outputCriblLakeCriblLake3ToJSON(
+  outputCriblLakeCriblLake3: OutputCriblLakeCriblLake3,
+): string {
+  return JSON.stringify(
+    OutputCriblLakeCriblLake3$outboundSchema.parse(outputCriblLakeCriblLake3),
+  );
+}
+export function outputCriblLakeCriblLake3FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputCriblLakeCriblLake3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputCriblLakeCriblLake3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputCriblLakeCriblLake3' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputCriblLakeType2$inboundSchema: z.ZodNativeEnum<
+  typeof OutputCriblLakeType2
+> = z.nativeEnum(OutputCriblLakeType2);
+/** @internal */
+export const OutputCriblLakeType2$outboundSchema: z.ZodNativeEnum<
+  typeof OutputCriblLakeType2
+> = OutputCriblLakeType2$inboundSchema;
+
+/** @internal */
+export const OutputCriblLakeCriblLake2$inboundSchema: z.ZodType<
+  OutputCriblLakeCriblLake2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  removeEmptyDirs: z.boolean().default(true),
+  id: z.string().optional(),
+  type: OutputCriblLakeType2$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string().optional(),
+  region: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  destPath: z.string().optional(),
+  objectACL: ObjectAclOptions$inboundSchema.default("private"),
+  storageClass: StorageClassOptions$inboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryptionOptions$inboundSchema.optional(),
+  kmsKeyId: z.string().optional(),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(64),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(300),
+  verifyPermissions: z.boolean().default(true),
+  maxClosingFilesToBackpressure: z.number().default(100),
+  awsAuthenticationMethod: MethodOptions$inboundSchema.optional(),
+  format: FormatOptions$inboundSchema.optional(),
+  maxConcurrentFileParts: z.number().default(1),
+  description: z.string().optional(),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+/** @internal */
+export type OutputCriblLakeCriblLake2$Outbound = {
+  removeEmptyDirs: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  bucket?: string | undefined;
+  region?: string | undefined;
+  awsSecretKey?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  stagePath: string;
+  addIdToStagePath: boolean;
+  destPath?: string | undefined;
+  objectACL: string;
+  storageClass?: string | undefined;
+  serverSideEncryption?: string | undefined;
+  kmsKeyId?: string | undefined;
+  baseFileName: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  verifyPermissions: boolean;
+  maxClosingFilesToBackpressure: number;
+  awsAuthenticationMethod?: string | undefined;
+  format?: string | undefined;
+  maxConcurrentFileParts: number;
+  description?: string | undefined;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+};
+
+/** @internal */
+export const OutputCriblLakeCriblLake2$outboundSchema: z.ZodType<
+  OutputCriblLakeCriblLake2$Outbound,
+  z.ZodTypeDef,
+  OutputCriblLakeCriblLake2
+> = z.object({
+  removeEmptyDirs: z.boolean().default(true),
+  id: z.string().optional(),
+  type: OutputCriblLakeType2$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string().optional(),
+  region: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  destPath: z.string().optional(),
+  objectACL: ObjectAclOptions$outboundSchema.default("private"),
+  storageClass: StorageClassOptions$outboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryptionOptions$outboundSchema.optional(),
+  kmsKeyId: z.string().optional(),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(64),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(300),
+  verifyPermissions: z.boolean().default(true),
+  maxClosingFilesToBackpressure: z.number().default(100),
+  awsAuthenticationMethod: MethodOptions$outboundSchema.optional(),
+  format: FormatOptions$outboundSchema.optional(),
+  maxConcurrentFileParts: z.number().default(1),
+  description: z.string().optional(),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+
+export function outputCriblLakeCriblLake2ToJSON(
+  outputCriblLakeCriblLake2: OutputCriblLakeCriblLake2,
+): string {
+  return JSON.stringify(
+    OutputCriblLakeCriblLake2$outboundSchema.parse(outputCriblLakeCriblLake2),
+  );
+}
+export function outputCriblLakeCriblLake2FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputCriblLakeCriblLake2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputCriblLakeCriblLake2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputCriblLakeCriblLake2' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputCriblLakeType1$inboundSchema: z.ZodNativeEnum<
+  typeof OutputCriblLakeType1
+> = z.nativeEnum(OutputCriblLakeType1);
+/** @internal */
+export const OutputCriblLakeType1$outboundSchema: z.ZodNativeEnum<
+  typeof OutputCriblLakeType1
+> = OutputCriblLakeType1$inboundSchema;
+
+/** @internal */
+export const OutputCriblLakeCriblLake1$inboundSchema: z.ZodType<
+  OutputCriblLakeCriblLake1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  removeEmptyDirs: z.boolean().default(true),
+  id: z.string().optional(),
+  type: OutputCriblLakeType1$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string().optional(),
+  region: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  destPath: z.string().optional(),
+  objectACL: ObjectAclOptions$inboundSchema.default("private"),
+  storageClass: StorageClassOptions$inboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryptionOptions$inboundSchema.optional(),
+  kmsKeyId: z.string().optional(),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(64),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(300),
+  verifyPermissions: z.boolean().default(true),
+  maxClosingFilesToBackpressure: z.number().default(100),
+  awsAuthenticationMethod: MethodOptions$inboundSchema.optional(),
+  format: FormatOptions$inboundSchema.optional(),
+  maxConcurrentFileParts: z.number().default(1),
+  description: z.string().optional(),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+/** @internal */
+export type OutputCriblLakeCriblLake1$Outbound = {
+  removeEmptyDirs: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  bucket?: string | undefined;
+  region?: string | undefined;
+  awsSecretKey?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  stagePath: string;
+  addIdToStagePath: boolean;
+  destPath?: string | undefined;
+  objectACL: string;
+  storageClass?: string | undefined;
+  serverSideEncryption?: string | undefined;
+  kmsKeyId?: string | undefined;
+  baseFileName: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  verifyPermissions: boolean;
+  maxClosingFilesToBackpressure: number;
+  awsAuthenticationMethod?: string | undefined;
+  format?: string | undefined;
+  maxConcurrentFileParts: number;
+  description?: string | undefined;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+};
+
+/** @internal */
+export const OutputCriblLakeCriblLake1$outboundSchema: z.ZodType<
+  OutputCriblLakeCriblLake1$Outbound,
+  z.ZodTypeDef,
+  OutputCriblLakeCriblLake1
+> = z.object({
+  removeEmptyDirs: z.boolean().default(true),
+  id: z.string().optional(),
+  type: OutputCriblLakeType1$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string().optional(),
+  region: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  destPath: z.string().optional(),
+  objectACL: ObjectAclOptions$outboundSchema.default("private"),
+  storageClass: StorageClassOptions$outboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryptionOptions$outboundSchema.optional(),
+  kmsKeyId: z.string().optional(),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(64),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(300),
+  verifyPermissions: z.boolean().default(true),
+  maxClosingFilesToBackpressure: z.number().default(100),
+  awsAuthenticationMethod: MethodOptions$outboundSchema.optional(),
+  format: FormatOptions$outboundSchema.optional(),
+  maxConcurrentFileParts: z.number().default(1),
+  description: z.string().optional(),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+
+export function outputCriblLakeCriblLake1ToJSON(
+  outputCriblLakeCriblLake1: OutputCriblLakeCriblLake1,
+): string {
+  return JSON.stringify(
+    OutputCriblLakeCriblLake1$outboundSchema.parse(outputCriblLakeCriblLake1),
+  );
+}
+export function outputCriblLakeCriblLake1FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputCriblLakeCriblLake1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputCriblLakeCriblLake1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputCriblLakeCriblLake1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputCriblLake$inboundSchema: z.ZodType<
+  OutputCriblLake,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => OutputCriblLakeCriblLake6$inboundSchema),
+  z.lazy(() => OutputCriblLakeCriblLake5$inboundSchema),
+  z.lazy(() => OutputCriblLakeCriblLake1$inboundSchema),
+  z.lazy(() => OutputCriblLakeCriblLake2$inboundSchema),
+  z.lazy(() => OutputCriblLakeCriblLake3$inboundSchema),
+  z.lazy(() => OutputCriblLakeCriblLake4$inboundSchema),
+]);
+/** @internal */
+export type OutputCriblLake$Outbound =
+  | OutputCriblLakeCriblLake6$Outbound
+  | OutputCriblLakeCriblLake5$Outbound
+  | OutputCriblLakeCriblLake1$Outbound
+  | OutputCriblLakeCriblLake2$Outbound
+  | OutputCriblLakeCriblLake3$Outbound
+  | OutputCriblLakeCriblLake4$Outbound;
+
+/** @internal */
+export const OutputCriblLake$outboundSchema: z.ZodType<
+  OutputCriblLake$Outbound,
+  z.ZodTypeDef,
+  OutputCriblLake
+> = z.union([
+  z.lazy(() => OutputCriblLakeCriblLake6$outboundSchema),
+  z.lazy(() => OutputCriblLakeCriblLake5$outboundSchema),
+  z.lazy(() => OutputCriblLakeCriblLake1$outboundSchema),
+  z.lazy(() => OutputCriblLakeCriblLake2$outboundSchema),
+  z.lazy(() => OutputCriblLakeCriblLake3$outboundSchema),
+  z.lazy(() => OutputCriblLakeCriblLake4$outboundSchema),
+]);
 
 export function outputCriblLakeToJSON(
   outputCriblLake: OutputCriblLake,
 ): string {
   return JSON.stringify(OutputCriblLake$outboundSchema.parse(outputCriblLake));
 }
-
 export function outputCriblLakeFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputCriblLake, SDKValidationError> {

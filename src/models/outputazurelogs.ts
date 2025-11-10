@@ -4,153 +4,79 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthType2Options,
+  AuthType2Options$inboundSchema,
+  AuthType2Options$outboundSchema,
+} from "./authtype2options.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  ExtraHttpHeadersType,
+  ExtraHttpHeadersType$inboundSchema,
+  ExtraHttpHeadersType$Outbound,
+  ExtraHttpHeadersType$outboundSchema,
+} from "./extrahttpheaderstype.js";
+import {
+  FailedRequestLoggingModeOptions,
+  FailedRequestLoggingModeOptions$inboundSchema,
+  FailedRequestLoggingModeOptions$outboundSchema,
+} from "./failedrequestloggingmodeoptions.js";
+import {
+  MetadataType,
+  MetadataType$inboundSchema,
+  MetadataType$Outbound,
+  MetadataType$outboundSchema,
+} from "./metadatatype.js";
+import {
+  OnBackpressureOptions,
+  OnBackpressureOptions$inboundSchema,
+  OnBackpressureOptions$outboundSchema,
+} from "./onbackpressureoptions.js";
+import {
+  PqCompressOptions,
+  PqCompressOptions$inboundSchema,
+  PqCompressOptions$outboundSchema,
+} from "./pqcompressoptions.js";
+import {
+  PqModeOptions,
+  PqModeOptions$inboundSchema,
+  PqModeOptions$outboundSchema,
+} from "./pqmodeoptions.js";
+import {
+  PqOnBackpressureOptions,
+  PqOnBackpressureOptions$inboundSchema,
+  PqOnBackpressureOptions$outboundSchema,
+} from "./pqonbackpressureoptions.js";
+import {
+  ResponseRetrySettingsType,
+  ResponseRetrySettingsType$inboundSchema,
+  ResponseRetrySettingsType$Outbound,
+  ResponseRetrySettingsType$outboundSchema,
+} from "./responseretrysettingstype.js";
+import {
+  TimeoutRetrySettingsType,
+  TimeoutRetrySettingsType$inboundSchema,
+  TimeoutRetrySettingsType$Outbound,
+  TimeoutRetrySettingsType$outboundSchema,
+} from "./timeoutretrysettingstype.js";
 
-export const OutputAzureLogsType = {
+export const OutputAzureLogsType4 = {
   AzureLogs: "azure_logs",
 } as const;
-export type OutputAzureLogsType = ClosedEnum<typeof OutputAzureLogsType>;
+export type OutputAzureLogsType4 = ClosedEnum<typeof OutputAzureLogsType4>;
 
-export type OutputAzureLogsExtraHttpHeader = {
-  name?: string | undefined;
-  value: string;
-};
-
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export const OutputAzureLogsFailedRequestLoggingMode = {
-  Payload: "payload",
-  PayloadAndHeaders: "payloadAndHeaders",
-  None: "none",
-} as const;
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export type OutputAzureLogsFailedRequestLoggingMode = OpenEnum<
-  typeof OutputAzureLogsFailedRequestLoggingMode
->;
-
-export type OutputAzureLogsResponseRetrySetting = {
+export type OutputAzureLogsAzureLogs4 = {
   /**
-   * The HTTP response status code that will trigger retries
+   * Enter credentials directly, or select a stored secret
    */
-  httpStatus: number;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-export type OutputAzureLogsTimeoutRetrySettings = {
-  timeoutRetry?: boolean | undefined;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputAzureLogsBackpressureBehavior = {
-  Block: "block",
-  Drop: "drop",
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputAzureLogsBackpressureBehavior = OpenEnum<
-  typeof OutputAzureLogsBackpressureBehavior
->;
-
-/**
- * Enter workspace ID and workspace key directly, or select a stored secret
- */
-export const OutputAzureLogsAuthenticationMethod = {
-  Manual: "manual",
-  Secret: "secret",
-} as const;
-/**
- * Enter workspace ID and workspace key directly, or select a stored secret
- */
-export type OutputAzureLogsAuthenticationMethod = OpenEnum<
-  typeof OutputAzureLogsAuthenticationMethod
->;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputAzureLogsCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputAzureLogsCompression = OpenEnum<
-  typeof OutputAzureLogsCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputAzureLogsQueueFullBehavior = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputAzureLogsQueueFullBehavior = OpenEnum<
-  typeof OutputAzureLogsQueueFullBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputAzureLogsMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputAzureLogsMode = OpenEnum<typeof OutputAzureLogsMode>;
-
-export type OutputAzureLogsPqControls = {};
-
-export type OutputAzureLogs = {
+  authType?: AuthType2Options | undefined;
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputAzureLogsType;
+  type: OutputAzureLogsType4;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -207,7 +133,7 @@ export type OutputAzureLogs = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<OutputAzureLogsExtraHttpHeader> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -215,9 +141,7 @@ export type OutputAzureLogs = {
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
-  failedRequestLoggingMode?:
-    | OutputAzureLogsFailedRequestLoggingMode
-    | undefined;
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -229,10 +153,8 @@ export type OutputAzureLogs = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?:
-    | Array<OutputAzureLogsResponseRetrySetting>
-    | undefined;
-  timeoutRetrySettings?: OutputAzureLogsTimeoutRetrySettings | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
@@ -240,12 +162,28 @@ export type OutputAzureLogs = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputAzureLogsBackpressureBehavior | undefined;
-  /**
-   * Enter workspace ID and workspace key directly, or select a stored secret
-   */
-  authType?: OutputAzureLogsAuthenticationMethod | undefined;
+  onBackpressure?: OnBackpressureOptions | undefined;
   description?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
   /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
@@ -261,16 +199,326 @@ export type OutputAzureLogs = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputAzureLogsCompression | undefined;
+  pqCompress?: PqCompressOptions | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputAzureLogsQueueFullBehavior | undefined;
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * Azure Log Analytics Workspace ID. See Azure Dashboard Workspace > Advanced settings.
+   */
+  workspaceId?: string | undefined;
+  /**
+   * Azure Log Analytics Workspace Primary or Secondary Shared Key. See Azure Dashboard Workspace > Advanced settings.
+   */
+  workspaceKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  keypairSecret: string;
+};
+
+export const OutputAzureLogsType3 = {
+  AzureLogs: "azure_logs",
+} as const;
+export type OutputAzureLogsType3 = ClosedEnum<typeof OutputAzureLogsType3>;
+
+export type OutputAzureLogsAzureLogs3 = {
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputAzureLogsType3;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The Log Type of events sent to this LogAnalytics workspace. Defaults to `Cribl`. Use only letters, numbers, and `_` characters, and can't exceed 100 characters. Can be overwritten by event field __logType.
+   */
+  logType?: string | undefined;
+  /**
+   * Optional Resource ID of the Azure resource to associate the data with. Can be overridden by the __resourceId event field. This ID populates the _ResourceId property, allowing the data to be included in resource-centric queries. If the ID is neither specified nor overridden, resource-centric queries will omit the data.
+   */
+  resourceId?: string | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * The DNS name of the Log API endpoint that sends log data to a Log Analytics workspace in Azure Monitor. Defaults to .ods.opinsights.azure.com. @{product} will add a prefix and suffix to construct a URI in this format: <https://<Workspace_ID><your_DNS_name>/api/logs?api-version=<API version>.
+   */
+  apiUrl?: string | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputAzureLogsMode | undefined;
-  pqControls?: OutputAzureLogsPqControls | undefined;
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * Azure Log Analytics Workspace ID. See Azure Dashboard Workspace > Advanced settings.
+   */
+  workspaceId: string;
+  /**
+   * Azure Log Analytics Workspace Primary or Secondary Shared Key. See Azure Dashboard Workspace > Advanced settings.
+   */
+  workspaceKey: string;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  keypairSecret?: string | undefined;
+};
+
+export const OutputAzureLogsType2 = {
+  AzureLogs: "azure_logs",
+} as const;
+export type OutputAzureLogsType2 = ClosedEnum<typeof OutputAzureLogsType2>;
+
+export type OutputAzureLogsAzureLogs2 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputAzureLogsType2;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The Log Type of events sent to this LogAnalytics workspace. Defaults to `Cribl`. Use only letters, numbers, and `_` characters, and can't exceed 100 characters. Can be overwritten by event field __logType.
+   */
+  logType?: string | undefined;
+  /**
+   * Optional Resource ID of the Azure resource to associate the data with. Can be overridden by the __resourceId event field. This ID populates the _ResourceId property, allowing the data to be included in resource-centric queries. If the ID is neither specified nor overridden, resource-centric queries will omit the data.
+   */
+  resourceId?: string | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * The DNS name of the Log API endpoint that sends log data to a Log Analytics workspace in Azure Monitor. Defaults to .ods.opinsights.azure.com. @{product} will add a prefix and suffix to construct a URI in this format: <https://<Workspace_ID><your_DNS_name>/api/logs?api-version=<API version>.
+   */
+  apiUrl?: string | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  description?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls: MetadataType;
   /**
    * Azure Log Analytics Workspace ID. See Azure Dashboard Workspace > Advanced settings.
    */
@@ -285,476 +533,187 @@ export type OutputAzureLogs = {
   keypairSecret?: string | undefined;
 };
 
-/** @internal */
-export const OutputAzureLogsType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureLogsType
-> = z.nativeEnum(OutputAzureLogsType);
+export const OutputAzureLogsType1 = {
+  AzureLogs: "azure_logs",
+} as const;
+export type OutputAzureLogsType1 = ClosedEnum<typeof OutputAzureLogsType1>;
 
-/** @internal */
-export const OutputAzureLogsType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureLogsType
-> = OutputAzureLogsType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureLogsType$ {
-  /** @deprecated use `OutputAzureLogsType$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureLogsType$inboundSchema;
-  /** @deprecated use `OutputAzureLogsType$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureLogsType$outboundSchema;
-}
-
-/** @internal */
-export const OutputAzureLogsExtraHttpHeader$inboundSchema: z.ZodType<
-  OutputAzureLogsExtraHttpHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-/** @internal */
-export type OutputAzureLogsExtraHttpHeader$Outbound = {
-  name?: string | undefined;
-  value: string;
+export type OutputAzureLogsAzureLogs1 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputAzureLogsType1;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The Log Type of events sent to this LogAnalytics workspace. Defaults to `Cribl`. Use only letters, numbers, and `_` characters, and can't exceed 100 characters. Can be overwritten by event field __logType.
+   */
+  logType?: string | undefined;
+  /**
+   * Optional Resource ID of the Azure resource to associate the data with. Can be overridden by the __resourceId event field. This ID populates the _ResourceId property, allowing the data to be included in resource-centric queries. If the ID is neither specified nor overridden, resource-centric queries will omit the data.
+   */
+  resourceId?: string | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * The DNS name of the Log API endpoint that sends log data to a Log Analytics workspace in Azure Monitor. Defaults to .ods.opinsights.azure.com. @{product} will add a prefix and suffix to construct a URI in this format: <https://<Workspace_ID><your_DNS_name>/api/logs?api-version=<API version>.
+   */
+  apiUrl?: string | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  description?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * Azure Log Analytics Workspace ID. See Azure Dashboard Workspace > Advanced settings.
+   */
+  workspaceId?: string | undefined;
+  /**
+   * Azure Log Analytics Workspace Primary or Secondary Shared Key. See Azure Dashboard Workspace > Advanced settings.
+   */
+  workspaceKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  keypairSecret?: string | undefined;
 };
 
-/** @internal */
-export const OutputAzureLogsExtraHttpHeader$outboundSchema: z.ZodType<
-  OutputAzureLogsExtraHttpHeader$Outbound,
-  z.ZodTypeDef,
-  OutputAzureLogsExtraHttpHeader
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureLogsExtraHttpHeader$ {
-  /** @deprecated use `OutputAzureLogsExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureLogsExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputAzureLogsExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureLogsExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputAzureLogsExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputAzureLogsExtraHttpHeader$Outbound;
-}
-
-export function outputAzureLogsExtraHttpHeaderToJSON(
-  outputAzureLogsExtraHttpHeader: OutputAzureLogsExtraHttpHeader,
-): string {
-  return JSON.stringify(
-    OutputAzureLogsExtraHttpHeader$outboundSchema.parse(
-      outputAzureLogsExtraHttpHeader,
-    ),
-  );
-}
-
-export function outputAzureLogsExtraHttpHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputAzureLogsExtraHttpHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputAzureLogsExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputAzureLogsExtraHttpHeader' from JSON`,
-  );
-}
+export type OutputAzureLogs =
+  | OutputAzureLogsAzureLogs3
+  | OutputAzureLogsAzureLogs2
+  | OutputAzureLogsAzureLogs4
+  | OutputAzureLogsAzureLogs1;
 
 /** @internal */
-export const OutputAzureLogsFailedRequestLoggingMode$inboundSchema: z.ZodType<
-  OutputAzureLogsFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureLogsFailedRequestLoggingMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputAzureLogsType4$inboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureLogsType4
+> = z.nativeEnum(OutputAzureLogsType4);
+/** @internal */
+export const OutputAzureLogsType4$outboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureLogsType4
+> = OutputAzureLogsType4$inboundSchema;
 
 /** @internal */
-export const OutputAzureLogsFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  OutputAzureLogsFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  OutputAzureLogsFailedRequestLoggingMode
-> = z.union([
-  z.nativeEnum(OutputAzureLogsFailedRequestLoggingMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureLogsFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputAzureLogsFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureLogsFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputAzureLogsFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureLogsFailedRequestLoggingMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputAzureLogsResponseRetrySetting$inboundSchema: z.ZodType<
-  OutputAzureLogsResponseRetrySetting,
+export const OutputAzureLogsAzureLogs4$inboundSchema: z.ZodType<
+  OutputAzureLogsAzureLogs4,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/** @internal */
-export type OutputAzureLogsResponseRetrySetting$Outbound = {
-  httpStatus: number;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputAzureLogsResponseRetrySetting$outboundSchema: z.ZodType<
-  OutputAzureLogsResponseRetrySetting$Outbound,
-  z.ZodTypeDef,
-  OutputAzureLogsResponseRetrySetting
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureLogsResponseRetrySetting$ {
-  /** @deprecated use `OutputAzureLogsResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureLogsResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputAzureLogsResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureLogsResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputAzureLogsResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputAzureLogsResponseRetrySetting$Outbound;
-}
-
-export function outputAzureLogsResponseRetrySettingToJSON(
-  outputAzureLogsResponseRetrySetting: OutputAzureLogsResponseRetrySetting,
-): string {
-  return JSON.stringify(
-    OutputAzureLogsResponseRetrySetting$outboundSchema.parse(
-      outputAzureLogsResponseRetrySetting,
-    ),
-  );
-}
-
-export function outputAzureLogsResponseRetrySettingFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputAzureLogsResponseRetrySetting, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputAzureLogsResponseRetrySetting$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputAzureLogsResponseRetrySetting' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputAzureLogsTimeoutRetrySettings$inboundSchema: z.ZodType<
-  OutputAzureLogsTimeoutRetrySettings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/** @internal */
-export type OutputAzureLogsTimeoutRetrySettings$Outbound = {
-  timeoutRetry: boolean;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputAzureLogsTimeoutRetrySettings$outboundSchema: z.ZodType<
-  OutputAzureLogsTimeoutRetrySettings$Outbound,
-  z.ZodTypeDef,
-  OutputAzureLogsTimeoutRetrySettings
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureLogsTimeoutRetrySettings$ {
-  /** @deprecated use `OutputAzureLogsTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureLogsTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputAzureLogsTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureLogsTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputAzureLogsTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputAzureLogsTimeoutRetrySettings$Outbound;
-}
-
-export function outputAzureLogsTimeoutRetrySettingsToJSON(
-  outputAzureLogsTimeoutRetrySettings: OutputAzureLogsTimeoutRetrySettings,
-): string {
-  return JSON.stringify(
-    OutputAzureLogsTimeoutRetrySettings$outboundSchema.parse(
-      outputAzureLogsTimeoutRetrySettings,
-    ),
-  );
-}
-
-export function outputAzureLogsTimeoutRetrySettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputAzureLogsTimeoutRetrySettings, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputAzureLogsTimeoutRetrySettings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputAzureLogsTimeoutRetrySettings' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputAzureLogsBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputAzureLogsBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureLogsBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputAzureLogsBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputAzureLogsBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputAzureLogsBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputAzureLogsBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureLogsBackpressureBehavior$ {
-  /** @deprecated use `OutputAzureLogsBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureLogsBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputAzureLogsBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureLogsBackpressureBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputAzureLogsAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputAzureLogsAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureLogsAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputAzureLogsAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputAzureLogsAuthenticationMethod,
-  z.ZodTypeDef,
-  OutputAzureLogsAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputAzureLogsAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureLogsAuthenticationMethod$ {
-  /** @deprecated use `OutputAzureLogsAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureLogsAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputAzureLogsAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureLogsAuthenticationMethod$outboundSchema;
-}
-
-/** @internal */
-export const OutputAzureLogsCompression$inboundSchema: z.ZodType<
-  OutputAzureLogsCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureLogsCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputAzureLogsCompression$outboundSchema: z.ZodType<
-  OutputAzureLogsCompression,
-  z.ZodTypeDef,
-  OutputAzureLogsCompression
-> = z.union([
-  z.nativeEnum(OutputAzureLogsCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureLogsCompression$ {
-  /** @deprecated use `OutputAzureLogsCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureLogsCompression$inboundSchema;
-  /** @deprecated use `OutputAzureLogsCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureLogsCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputAzureLogsQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputAzureLogsQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureLogsQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputAzureLogsQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputAzureLogsQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputAzureLogsQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputAzureLogsQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureLogsQueueFullBehavior$ {
-  /** @deprecated use `OutputAzureLogsQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureLogsQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputAzureLogsQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureLogsQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputAzureLogsMode$inboundSchema: z.ZodType<
-  OutputAzureLogsMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureLogsMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputAzureLogsMode$outboundSchema: z.ZodType<
-  OutputAzureLogsMode,
-  z.ZodTypeDef,
-  OutputAzureLogsMode
-> = z.union([
-  z.nativeEnum(OutputAzureLogsMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureLogsMode$ {
-  /** @deprecated use `OutputAzureLogsMode$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureLogsMode$inboundSchema;
-  /** @deprecated use `OutputAzureLogsMode$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureLogsMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputAzureLogsPqControls$inboundSchema: z.ZodType<
-  OutputAzureLogsPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type OutputAzureLogsPqControls$Outbound = {};
-
-/** @internal */
-export const OutputAzureLogsPqControls$outboundSchema: z.ZodType<
-  OutputAzureLogsPqControls$Outbound,
-  z.ZodTypeDef,
-  OutputAzureLogsPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureLogsPqControls$ {
-  /** @deprecated use `OutputAzureLogsPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureLogsPqControls$inboundSchema;
-  /** @deprecated use `OutputAzureLogsPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureLogsPqControls$outboundSchema;
-  /** @deprecated use `OutputAzureLogsPqControls$Outbound` instead. */
-  export type Outbound = OutputAzureLogsPqControls$Outbound;
-}
-
-export function outputAzureLogsPqControlsToJSON(
-  outputAzureLogsPqControls: OutputAzureLogsPqControls,
-): string {
-  return JSON.stringify(
-    OutputAzureLogsPqControls$outboundSchema.parse(outputAzureLogsPqControls),
-  );
-}
-
-export function outputAzureLogsPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputAzureLogsPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputAzureLogsPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputAzureLogsPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputAzureLogs$inboundSchema: z.ZodType<
-  OutputAzureLogs,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+  authType: AuthType2Options$inboundSchema.default("manual"),
   id: z.string().optional(),
-  type: OutputAzureLogsType$inboundSchema,
+  type: OutputAzureLogsType4$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -768,42 +727,36 @@ export const OutputAzureLogs$inboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputAzureLogsExtraHttpHeader$inboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
   useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode:
-    OutputAzureLogsFailedRequestLoggingMode$inboundSchema.default("none"),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
   safeHeaders: z.array(z.string()).optional(),
   apiUrl: z.string().default(".ods.opinsights.azure.com"),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputAzureLogsResponseRetrySetting$inboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputAzureLogsTimeoutRetrySettings$inboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: OutputAzureLogsBackpressureBehavior$inboundSchema.default(
-    "block",
-  ),
-  authType: OutputAzureLogsAuthenticationMethod$inboundSchema.default("manual"),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
   description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputAzureLogsCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputAzureLogsQueueFullBehavior$inboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputAzureLogsMode$inboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputAzureLogsPqControls$inboundSchema).optional(),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
   workspaceId: z.string().optional(),
   workspaceKey: z.string().optional(),
-  keypairSecret: z.string().optional(),
+  keypairSecret: z.string(),
 });
-
 /** @internal */
-export type OutputAzureLogs$Outbound = {
+export type OutputAzureLogsAzureLogs4$Outbound = {
+  authType: string;
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -819,41 +772,41 @@ export type OutputAzureLogs$Outbound = {
   rejectUnauthorized: boolean;
   timeoutSec: number;
   flushPeriodSec: number;
-  extraHttpHeaders?: Array<OutputAzureLogsExtraHttpHeader$Outbound> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
   useRoundRobinDns: boolean;
   failedRequestLoggingMode: string;
   safeHeaders?: Array<string> | undefined;
   apiUrl: string;
-  responseRetrySettings?:
-    | Array<OutputAzureLogsResponseRetrySetting$Outbound>
-    | undefined;
-  timeoutRetrySettings?:
-    | OutputAzureLogsTimeoutRetrySettings$Outbound
-    | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader: boolean;
   onBackpressure: string;
-  authType: string;
   description?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
-  pqControls?: OutputAzureLogsPqControls$Outbound | undefined;
+  pqControls?: MetadataType$Outbound | undefined;
   workspaceId?: string | undefined;
   workspaceKey?: string | undefined;
-  keypairSecret?: string | undefined;
+  keypairSecret: string;
 };
 
 /** @internal */
-export const OutputAzureLogs$outboundSchema: z.ZodType<
-  OutputAzureLogs$Outbound,
+export const OutputAzureLogsAzureLogs4$outboundSchema: z.ZodType<
+  OutputAzureLogsAzureLogs4$Outbound,
   z.ZodTypeDef,
-  OutputAzureLogs
+  OutputAzureLogsAzureLogs4
 > = z.object({
+  authType: AuthType2Options$outboundSchema.default("manual"),
   id: z.string().optional(),
-  type: OutputAzureLogsType$outboundSchema,
+  type: OutputAzureLogsType4$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -867,61 +820,593 @@ export const OutputAzureLogs$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputAzureLogsExtraHttpHeader$outboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
   useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode:
-    OutputAzureLogsFailedRequestLoggingMode$outboundSchema.default("none"),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
   safeHeaders: z.array(z.string()).optional(),
   apiUrl: z.string().default(".ods.opinsights.azure.com"),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputAzureLogsResponseRetrySetting$outboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputAzureLogsTimeoutRetrySettings$outboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: OutputAzureLogsBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
-  authType: OutputAzureLogsAuthenticationMethod$outboundSchema.default(
-    "manual",
-  ),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
   description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputAzureLogsCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputAzureLogsQueueFullBehavior$outboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputAzureLogsMode$outboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputAzureLogsPqControls$outboundSchema).optional(),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  workspaceId: z.string().optional(),
+  workspaceKey: z.string().optional(),
+  keypairSecret: z.string(),
+});
+
+export function outputAzureLogsAzureLogs4ToJSON(
+  outputAzureLogsAzureLogs4: OutputAzureLogsAzureLogs4,
+): string {
+  return JSON.stringify(
+    OutputAzureLogsAzureLogs4$outboundSchema.parse(outputAzureLogsAzureLogs4),
+  );
+}
+export function outputAzureLogsAzureLogs4FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputAzureLogsAzureLogs4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputAzureLogsAzureLogs4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputAzureLogsAzureLogs4' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputAzureLogsType3$inboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureLogsType3
+> = z.nativeEnum(OutputAzureLogsType3);
+/** @internal */
+export const OutputAzureLogsType3$outboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureLogsType3
+> = OutputAzureLogsType3$inboundSchema;
+
+/** @internal */
+export const OutputAzureLogsAzureLogs3$inboundSchema: z.ZodType<
+  OutputAzureLogsAzureLogs3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: OutputAzureLogsType3$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  logType: z.string().default("Cribl"),
+  resourceId: z.string().optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  apiUrl: z.string().default(".ods.opinsights.azure.com"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  workspaceId: z.string(),
+  workspaceKey: z.string(),
+  keypairSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputAzureLogsAzureLogs3$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  logType: string;
+  resourceId?: string | undefined;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress?: boolean | undefined;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  apiUrl: string;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  onBackpressure: string;
+  description?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  workspaceId: string;
+  workspaceKey: string;
+  keypairSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputAzureLogsAzureLogs3$outboundSchema: z.ZodType<
+  OutputAzureLogsAzureLogs3$Outbound,
+  z.ZodTypeDef,
+  OutputAzureLogsAzureLogs3
+> = z.object({
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: OutputAzureLogsType3$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  logType: z.string().default("Cribl"),
+  resourceId: z.string().optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  apiUrl: z.string().default(".ods.opinsights.azure.com"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  workspaceId: z.string(),
+  workspaceKey: z.string(),
+  keypairSecret: z.string().optional(),
+});
+
+export function outputAzureLogsAzureLogs3ToJSON(
+  outputAzureLogsAzureLogs3: OutputAzureLogsAzureLogs3,
+): string {
+  return JSON.stringify(
+    OutputAzureLogsAzureLogs3$outboundSchema.parse(outputAzureLogsAzureLogs3),
+  );
+}
+export function outputAzureLogsAzureLogs3FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputAzureLogsAzureLogs3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputAzureLogsAzureLogs3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputAzureLogsAzureLogs3' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputAzureLogsType2$inboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureLogsType2
+> = z.nativeEnum(OutputAzureLogsType2);
+/** @internal */
+export const OutputAzureLogsType2$outboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureLogsType2
+> = OutputAzureLogsType2$inboundSchema;
+
+/** @internal */
+export const OutputAzureLogsAzureLogs2$inboundSchema: z.ZodType<
+  OutputAzureLogsAzureLogs2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputAzureLogsType2$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  logType: z.string().default("Cribl"),
+  resourceId: z.string().optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  apiUrl: z.string().default(".ods.opinsights.azure.com"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema,
+  workspaceId: z.string().optional(),
+  workspaceKey: z.string().optional(),
+  keypairSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputAzureLogsAzureLogs2$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  logType: string;
+  resourceId?: string | undefined;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress?: boolean | undefined;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  apiUrl: string;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  authType: string;
+  description?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls: MetadataType$Outbound;
+  workspaceId?: string | undefined;
+  workspaceKey?: string | undefined;
+  keypairSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputAzureLogsAzureLogs2$outboundSchema: z.ZodType<
+  OutputAzureLogsAzureLogs2$Outbound,
+  z.ZodTypeDef,
+  OutputAzureLogsAzureLogs2
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputAzureLogsType2$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  logType: z.string().default("Cribl"),
+  resourceId: z.string().optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  apiUrl: z.string().default(".ods.opinsights.azure.com"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema,
   workspaceId: z.string().optional(),
   workspaceKey: z.string().optional(),
   keypairSecret: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureLogs$ {
-  /** @deprecated use `OutputAzureLogs$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureLogs$inboundSchema;
-  /** @deprecated use `OutputAzureLogs$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureLogs$outboundSchema;
-  /** @deprecated use `OutputAzureLogs$Outbound` instead. */
-  export type Outbound = OutputAzureLogs$Outbound;
+export function outputAzureLogsAzureLogs2ToJSON(
+  outputAzureLogsAzureLogs2: OutputAzureLogsAzureLogs2,
+): string {
+  return JSON.stringify(
+    OutputAzureLogsAzureLogs2$outboundSchema.parse(outputAzureLogsAzureLogs2),
+  );
 }
+export function outputAzureLogsAzureLogs2FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputAzureLogsAzureLogs2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputAzureLogsAzureLogs2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputAzureLogsAzureLogs2' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputAzureLogsType1$inboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureLogsType1
+> = z.nativeEnum(OutputAzureLogsType1);
+/** @internal */
+export const OutputAzureLogsType1$outboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureLogsType1
+> = OutputAzureLogsType1$inboundSchema;
+
+/** @internal */
+export const OutputAzureLogsAzureLogs1$inboundSchema: z.ZodType<
+  OutputAzureLogsAzureLogs1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputAzureLogsType1$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  logType: z.string().default("Cribl"),
+  resourceId: z.string().optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  apiUrl: z.string().default(".ods.opinsights.azure.com"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  workspaceId: z.string().optional(),
+  workspaceKey: z.string().optional(),
+  keypairSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputAzureLogsAzureLogs1$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  logType: string;
+  resourceId?: string | undefined;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress?: boolean | undefined;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  apiUrl: string;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  authType: string;
+  description?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  workspaceId?: string | undefined;
+  workspaceKey?: string | undefined;
+  keypairSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputAzureLogsAzureLogs1$outboundSchema: z.ZodType<
+  OutputAzureLogsAzureLogs1$Outbound,
+  z.ZodTypeDef,
+  OutputAzureLogsAzureLogs1
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputAzureLogsType1$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  logType: z.string().default("Cribl"),
+  resourceId: z.string().optional(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(1024),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().optional(),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  apiUrl: z.string().default(".ods.opinsights.azure.com"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  workspaceId: z.string().optional(),
+  workspaceKey: z.string().optional(),
+  keypairSecret: z.string().optional(),
+});
+
+export function outputAzureLogsAzureLogs1ToJSON(
+  outputAzureLogsAzureLogs1: OutputAzureLogsAzureLogs1,
+): string {
+  return JSON.stringify(
+    OutputAzureLogsAzureLogs1$outboundSchema.parse(outputAzureLogsAzureLogs1),
+  );
+}
+export function outputAzureLogsAzureLogs1FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputAzureLogsAzureLogs1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputAzureLogsAzureLogs1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputAzureLogsAzureLogs1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputAzureLogs$inboundSchema: z.ZodType<
+  OutputAzureLogs,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => OutputAzureLogsAzureLogs3$inboundSchema),
+  z.lazy(() => OutputAzureLogsAzureLogs2$inboundSchema),
+  z.lazy(() => OutputAzureLogsAzureLogs4$inboundSchema),
+  z.lazy(() => OutputAzureLogsAzureLogs1$inboundSchema),
+]);
+/** @internal */
+export type OutputAzureLogs$Outbound =
+  | OutputAzureLogsAzureLogs3$Outbound
+  | OutputAzureLogsAzureLogs2$Outbound
+  | OutputAzureLogsAzureLogs4$Outbound
+  | OutputAzureLogsAzureLogs1$Outbound;
+
+/** @internal */
+export const OutputAzureLogs$outboundSchema: z.ZodType<
+  OutputAzureLogs$Outbound,
+  z.ZodTypeDef,
+  OutputAzureLogs
+> = z.union([
+  z.lazy(() => OutputAzureLogsAzureLogs3$outboundSchema),
+  z.lazy(() => OutputAzureLogsAzureLogs2$outboundSchema),
+  z.lazy(() => OutputAzureLogsAzureLogs4$outboundSchema),
+  z.lazy(() => OutputAzureLogsAzureLogs1$outboundSchema),
+]);
 
 export function outputAzureLogsToJSON(
   outputAzureLogs: OutputAzureLogs,
 ): string {
   return JSON.stringify(OutputAzureLogs$outboundSchema.parse(outputAzureLogs));
 }
-
 export function outputAzureLogsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputAzureLogs, SDKValidationError> {

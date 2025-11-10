@@ -6,11 +6,7 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  RbacResource,
-  RbacResource$inboundSchema,
-  RbacResource$outboundSchema,
-} from "./rbacresource.js";
+import { RbacResource, RbacResource$inboundSchema } from "./rbacresource.js";
 
 export type ResourcePolicy = {
   gid: string;
@@ -30,43 +26,6 @@ export const ResourcePolicy$inboundSchema: z.ZodType<
   policy: z.string(),
   type: RbacResource$inboundSchema,
 });
-
-/** @internal */
-export type ResourcePolicy$Outbound = {
-  gid: string;
-  id?: string | undefined;
-  policy: string;
-  type: string;
-};
-
-/** @internal */
-export const ResourcePolicy$outboundSchema: z.ZodType<
-  ResourcePolicy$Outbound,
-  z.ZodTypeDef,
-  ResourcePolicy
-> = z.object({
-  gid: z.string(),
-  id: z.string().optional(),
-  policy: z.string(),
-  type: RbacResource$outboundSchema,
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ResourcePolicy$ {
-  /** @deprecated use `ResourcePolicy$inboundSchema` instead. */
-  export const inboundSchema = ResourcePolicy$inboundSchema;
-  /** @deprecated use `ResourcePolicy$outboundSchema` instead. */
-  export const outboundSchema = ResourcePolicy$outboundSchema;
-  /** @deprecated use `ResourcePolicy$Outbound` instead. */
-  export type Outbound = ResourcePolicy$Outbound;
-}
-
-export function resourcePolicyToJSON(resourcePolicy: ResourcePolicy): string {
-  return JSON.stringify(ResourcePolicy$outboundSchema.parse(resourcePolicy));
-}
 
 export function resourcePolicyFromJSON(
   jsonString: string,

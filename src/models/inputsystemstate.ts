@@ -4,255 +4,173 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  ConnectionsType,
+  ConnectionsType$inboundSchema,
+  ConnectionsType$Outbound,
+  ConnectionsType$outboundSchema,
+} from "./connectionstype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  Metadata1Type,
+  Metadata1Type$inboundSchema,
+  Metadata1Type$Outbound,
+  Metadata1Type$outboundSchema,
+} from "./metadata1type.js";
+import {
+  Persistence1Type,
+  Persistence1Type$inboundSchema,
+  Persistence1Type$Outbound,
+  Persistence1Type$outboundSchema,
+} from "./persistence1type.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
 
-export const InputSystemStateType = {
+export const InputSystemStateType4 = {
   SystemState: "system_state",
 } as const;
-export type InputSystemStateType = ClosedEnum<typeof InputSystemStateType>;
-
-export type InputSystemStateConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputSystemStateMode = {
-  Smart: "smart",
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputSystemStateMode = OpenEnum<typeof InputSystemStateMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputSystemStateCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputSystemStateCompression = OpenEnum<
-  typeof InputSystemStateCompression
->;
-
-export type InputSystemStatePqControls = {};
-
-export type InputSystemStatePq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputSystemStateMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputSystemStateCompression | undefined;
-  pqControls?: InputSystemStatePqControls | undefined;
-};
-
-export type InputSystemStateMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
+export type InputSystemStateType4 = ClosedEnum<typeof InputSystemStateType4>;
 
 /**
  * Creates events based on entries collected from the hosts file
  */
-export type HostsFile = {
+export type HostsFile4 = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events for each of the host’s network interfaces
  */
-export type Interfaces = {
+export type Interfaces4 = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events for physical disks, partitions, and file systems
  */
-export type DisksAndFileSystems = {
+export type DisksAndFileSystems4 = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events based on the host system’s current state
  */
-export type HostInfo = {
+export type HostInfo4 = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events based on entries collected from the host’s network routes
  */
-export type InputSystemStateRoutes = {
+export type InputSystemStateRoutes4 = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events for DNS resolvers and search entries
  */
-export type Dns = {
+export type Dns4 = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events for local users and groups
  */
-export type UsersAndGroups = {
+export type UsersAndGroups4 = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events for Firewall rules entries
  */
-export type Firewall = {
+export type Firewall4 = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events from the list of services
  */
-export type Services = {
+export type Services4 = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events from list of listening ports
  */
-export type ListeningPorts = {
+export type ListeningPorts4 = {
   enable?: boolean | undefined;
 };
 
 /**
  * Creates events from list of logged-in users
  */
-export type LoggedInUsers = {
+export type LoggedInUsers4 = {
   enable?: boolean | undefined;
 };
 
-export type Collectors = {
+export type Collectors4 = {
   /**
    * Creates events based on entries collected from the hosts file
    */
-  hostsfile?: HostsFile | undefined;
+  hostsfile?: HostsFile4 | undefined;
   /**
    * Creates events for each of the host’s network interfaces
    */
-  interfaces?: Interfaces | undefined;
+  interfaces?: Interfaces4 | undefined;
   /**
    * Creates events for physical disks, partitions, and file systems
    */
-  disk?: DisksAndFileSystems | undefined;
+  disk?: DisksAndFileSystems4 | undefined;
   /**
    * Creates events based on the host system’s current state
    */
-  metadata?: HostInfo | undefined;
+  metadata?: HostInfo4 | undefined;
   /**
    * Creates events based on entries collected from the host’s network routes
    */
-  routes?: InputSystemStateRoutes | undefined;
+  routes?: InputSystemStateRoutes4 | undefined;
   /**
    * Creates events for DNS resolvers and search entries
    */
-  dns?: Dns | undefined;
+  dns?: Dns4 | undefined;
   /**
    * Creates events for local users and groups
    */
-  user?: UsersAndGroups | undefined;
+  user?: UsersAndGroups4 | undefined;
   /**
    * Creates events for Firewall rules entries
    */
-  firewall?: Firewall | undefined;
+  firewall?: Firewall4 | undefined;
   /**
    * Creates events from the list of services
    */
-  services?: Services | undefined;
+  services?: Services4 | undefined;
   /**
    * Creates events from list of listening ports
    */
-  ports?: ListeningPorts | undefined;
+  ports?: ListeningPorts4 | undefined;
   /**
    * Creates events from list of logged-in users
    */
-  loginUsers?: LoggedInUsers | undefined;
+  loginUsers?: LoggedInUsers4 | undefined;
 };
 
-export const InputSystemStateDataCompressionFormat = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-export type InputSystemStateDataCompressionFormat = OpenEnum<
-  typeof InputSystemStateDataCompressionFormat
->;
-
-export type InputSystemStatePersistence = {
+export type InputSystemStateSystemState4 = {
   /**
-   * Spool metrics to disk for Cribl Edge and Search
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  enable?: boolean | undefined;
-  /**
-   * Time span for each file bucket
-   */
-  timeWindow?: string | undefined;
-  /**
-   * Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
-   */
-  maxDataSize?: string | undefined;
-  /**
-   * Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-   */
-  maxDataTime?: string | undefined;
-  compress?: InputSystemStateDataCompressionFormat | undefined;
-  /**
-   * Path to use to write metrics. Defaults to $CRIBL_HOME/state/system_state
-   */
-  destPath?: string | undefined;
-};
-
-export type InputSystemState = {
+  pqEnabled?: boolean | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputSystemStateType;
+  type: InputSystemStateType4;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -262,6 +180,358 @@ export type InputSystemState = {
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq: PqType;
+  /**
+   * Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
+   */
+  interval?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  collectors?: Collectors4 | undefined;
+  persistence?: Persistence1Type | undefined;
+  /**
+   * Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
+   */
+  disableNativeModule?: boolean | undefined;
+  description?: string | undefined;
+};
+
+export const InputSystemStateType3 = {
+  SystemState: "system_state",
+} as const;
+export type InputSystemStateType3 = ClosedEnum<typeof InputSystemStateType3>;
+
+/**
+ * Creates events based on entries collected from the hosts file
+ */
+export type HostsFile3 = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events for each of the host’s network interfaces
+ */
+export type Interfaces3 = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events for physical disks, partitions, and file systems
+ */
+export type DisksAndFileSystems3 = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events based on the host system’s current state
+ */
+export type HostInfo3 = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events based on entries collected from the host’s network routes
+ */
+export type InputSystemStateRoutes3 = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events for DNS resolvers and search entries
+ */
+export type Dns3 = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events for local users and groups
+ */
+export type UsersAndGroups3 = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events for Firewall rules entries
+ */
+export type Firewall3 = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events from the list of services
+ */
+export type Services3 = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events from list of listening ports
+ */
+export type ListeningPorts3 = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events from list of logged-in users
+ */
+export type LoggedInUsers3 = {
+  enable?: boolean | undefined;
+};
+
+export type Collectors3 = {
+  /**
+   * Creates events based on entries collected from the hosts file
+   */
+  hostsfile?: HostsFile3 | undefined;
+  /**
+   * Creates events for each of the host’s network interfaces
+   */
+  interfaces?: Interfaces3 | undefined;
+  /**
+   * Creates events for physical disks, partitions, and file systems
+   */
+  disk?: DisksAndFileSystems3 | undefined;
+  /**
+   * Creates events based on the host system’s current state
+   */
+  metadata?: HostInfo3 | undefined;
+  /**
+   * Creates events based on entries collected from the host’s network routes
+   */
+  routes?: InputSystemStateRoutes3 | undefined;
+  /**
+   * Creates events for DNS resolvers and search entries
+   */
+  dns?: Dns3 | undefined;
+  /**
+   * Creates events for local users and groups
+   */
+  user?: UsersAndGroups3 | undefined;
+  /**
+   * Creates events for Firewall rules entries
+   */
+  firewall?: Firewall3 | undefined;
+  /**
+   * Creates events from the list of services
+   */
+  services?: Services3 | undefined;
+  /**
+   * Creates events from list of listening ports
+   */
+  ports?: ListeningPorts3 | undefined;
+  /**
+   * Creates events from list of logged-in users
+   */
+  loginUsers?: LoggedInUsers3 | undefined;
+};
+
+export type InputSystemStateSystemState3 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputSystemStateType3;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
+   */
+  interval?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  collectors?: Collectors3 | undefined;
+  persistence?: Persistence1Type | undefined;
+  /**
+   * Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
+   */
+  disableNativeModule?: boolean | undefined;
+  description?: string | undefined;
+};
+
+export const InputSystemStateType2 = {
+  SystemState: "system_state",
+} as const;
+export type InputSystemStateType2 = ClosedEnum<typeof InputSystemStateType2>;
+
+/**
+ * Creates events based on entries collected from the hosts file
+ */
+export type HostsFile2 = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events for each of the host’s network interfaces
+ */
+export type Interfaces2 = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events for physical disks, partitions, and file systems
+ */
+export type DisksAndFileSystems2 = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events based on the host system’s current state
+ */
+export type HostInfo2 = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events based on entries collected from the host’s network routes
+ */
+export type InputSystemStateRoutes2 = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events for DNS resolvers and search entries
+ */
+export type Dns2 = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events for local users and groups
+ */
+export type UsersAndGroups2 = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events for Firewall rules entries
+ */
+export type Firewall2 = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events from the list of services
+ */
+export type Services2 = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events from list of listening ports
+ */
+export type ListeningPorts2 = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events from list of logged-in users
+ */
+export type LoggedInUsers2 = {
+  enable?: boolean | undefined;
+};
+
+export type Collectors2 = {
+  /**
+   * Creates events based on entries collected from the hosts file
+   */
+  hostsfile?: HostsFile2 | undefined;
+  /**
+   * Creates events for each of the host’s network interfaces
+   */
+  interfaces?: Interfaces2 | undefined;
+  /**
+   * Creates events for physical disks, partitions, and file systems
+   */
+  disk?: DisksAndFileSystems2 | undefined;
+  /**
+   * Creates events based on the host system’s current state
+   */
+  metadata?: HostInfo2 | undefined;
+  /**
+   * Creates events based on entries collected from the host’s network routes
+   */
+  routes?: InputSystemStateRoutes2 | undefined;
+  /**
+   * Creates events for DNS resolvers and search entries
+   */
+  dns?: Dns2 | undefined;
+  /**
+   * Creates events for local users and groups
+   */
+  user?: UsersAndGroups2 | undefined;
+  /**
+   * Creates events for Firewall rules entries
+   */
+  firewall?: Firewall2 | undefined;
+  /**
+   * Creates events from the list of services
+   */
+  services?: Services2 | undefined;
+  /**
+   * Creates events from list of listening ports
+   */
+  ports?: ListeningPorts2 | undefined;
+  /**
+   * Creates events from list of logged-in users
+   */
+  loginUsers?: LoggedInUsers2 | undefined;
+};
+
+export type InputSystemStateSystemState2 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputSystemStateType2;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -277,8 +547,8 @@ export type InputSystemState = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputSystemStateConnection> | undefined;
-  pq?: InputSystemStatePq | undefined;
+  connections: Array<ConnectionsType>;
+  pq?: PqType | undefined;
   /**
    * Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
    */
@@ -286,9 +556,9 @@ export type InputSystemState = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputSystemStateMetadatum> | undefined;
-  collectors?: Collectors | undefined;
-  persistence?: InputSystemStatePersistence | undefined;
+  metadata?: Array<Metadata1Type> | undefined;
+  collectors?: Collectors2 | undefined;
+  persistence?: Persistence1Type | undefined;
   /**
    * Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
    */
@@ -296,1065 +566,2391 @@ export type InputSystemState = {
   description?: string | undefined;
 };
 
-/** @internal */
-export const InputSystemStateType$inboundSchema: z.ZodNativeEnum<
-  typeof InputSystemStateType
-> = z.nativeEnum(InputSystemStateType);
-
-/** @internal */
-export const InputSystemStateType$outboundSchema: z.ZodNativeEnum<
-  typeof InputSystemStateType
-> = InputSystemStateType$inboundSchema;
+export const InputSystemStateType1 = {
+  SystemState: "system_state",
+} as const;
+export type InputSystemStateType1 = ClosedEnum<typeof InputSystemStateType1>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Creates events based on entries collected from the hosts file
  */
-export namespace InputSystemStateType$ {
-  /** @deprecated use `InputSystemStateType$inboundSchema` instead. */
-  export const inboundSchema = InputSystemStateType$inboundSchema;
-  /** @deprecated use `InputSystemStateType$outboundSchema` instead. */
-  export const outboundSchema = InputSystemStateType$outboundSchema;
-}
+export type HostsFile1 = {
+  enable?: boolean | undefined;
+};
 
-/** @internal */
-export const InputSystemStateConnection$inboundSchema: z.ZodType<
-  InputSystemStateConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
+/**
+ * Creates events for each of the host’s network interfaces
+ */
+export type Interfaces1 = {
+  enable?: boolean | undefined;
+};
 
-/** @internal */
-export type InputSystemStateConnection$Outbound = {
+/**
+ * Creates events for physical disks, partitions, and file systems
+ */
+export type DisksAndFileSystems1 = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events based on the host system’s current state
+ */
+export type HostInfo1 = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events based on entries collected from the host’s network routes
+ */
+export type InputSystemStateRoutes1 = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events for DNS resolvers and search entries
+ */
+export type Dns1 = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events for local users and groups
+ */
+export type UsersAndGroups1 = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events for Firewall rules entries
+ */
+export type Firewall1 = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events from the list of services
+ */
+export type Services1 = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events from list of listening ports
+ */
+export type ListeningPorts1 = {
+  enable?: boolean | undefined;
+};
+
+/**
+ * Creates events from list of logged-in users
+ */
+export type LoggedInUsers1 = {
+  enable?: boolean | undefined;
+};
+
+export type Collectors1 = {
+  /**
+   * Creates events based on entries collected from the hosts file
+   */
+  hostsfile?: HostsFile1 | undefined;
+  /**
+   * Creates events for each of the host’s network interfaces
+   */
+  interfaces?: Interfaces1 | undefined;
+  /**
+   * Creates events for physical disks, partitions, and file systems
+   */
+  disk?: DisksAndFileSystems1 | undefined;
+  /**
+   * Creates events based on the host system’s current state
+   */
+  metadata?: HostInfo1 | undefined;
+  /**
+   * Creates events based on entries collected from the host’s network routes
+   */
+  routes?: InputSystemStateRoutes1 | undefined;
+  /**
+   * Creates events for DNS resolvers and search entries
+   */
+  dns?: Dns1 | undefined;
+  /**
+   * Creates events for local users and groups
+   */
+  user?: UsersAndGroups1 | undefined;
+  /**
+   * Creates events for Firewall rules entries
+   */
+  firewall?: Firewall1 | undefined;
+  /**
+   * Creates events from the list of services
+   */
+  services?: Services1 | undefined;
+  /**
+   * Creates events from list of listening ports
+   */
+  ports?: ListeningPorts1 | undefined;
+  /**
+   * Creates events from list of logged-in users
+   */
+  loginUsers?: LoggedInUsers1 | undefined;
+};
+
+export type InputSystemStateSystemState1 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputSystemStateType1;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
   pipeline?: string | undefined;
-  output: string;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Time, in seconds, between consecutive state collections. Default is 300 seconds (5 minutes).
+   */
+  interval?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  collectors?: Collectors1 | undefined;
+  persistence?: Persistence1Type | undefined;
+  /**
+   * Enable to use built-in tools (PowerShell) to collect events instead of native API (default) [Learn more](https://docs.cribl.io/edge/sources-system-state/#advanced-tab)
+   */
+  disableNativeModule?: boolean | undefined;
+  description?: string | undefined;
+};
+
+export type InputSystemState =
+  | InputSystemStateSystemState2
+  | InputSystemStateSystemState4
+  | InputSystemStateSystemState1
+  | InputSystemStateSystemState3;
+
+/** @internal */
+export const InputSystemStateType4$inboundSchema: z.ZodNativeEnum<
+  typeof InputSystemStateType4
+> = z.nativeEnum(InputSystemStateType4);
+/** @internal */
+export const InputSystemStateType4$outboundSchema: z.ZodNativeEnum<
+  typeof InputSystemStateType4
+> = InputSystemStateType4$inboundSchema;
+
+/** @internal */
+export const HostsFile4$inboundSchema: z.ZodType<
+  HostsFile4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type HostsFile4$Outbound = {
+  enable: boolean;
 };
 
 /** @internal */
-export const InputSystemStateConnection$outboundSchema: z.ZodType<
-  InputSystemStateConnection$Outbound,
+export const HostsFile4$outboundSchema: z.ZodType<
+  HostsFile4$Outbound,
   z.ZodTypeDef,
-  InputSystemStateConnection
+  HostsFile4
 > = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function hostsFile4ToJSON(hostsFile4: HostsFile4): string {
+  return JSON.stringify(HostsFile4$outboundSchema.parse(hostsFile4));
+}
+export function hostsFile4FromJSON(
+  jsonString: string,
+): SafeParseResult<HostsFile4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => HostsFile4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'HostsFile4' from JSON`,
+  );
+}
+
+/** @internal */
+export const Interfaces4$inboundSchema: z.ZodType<
+  Interfaces4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type Interfaces4$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const Interfaces4$outboundSchema: z.ZodType<
+  Interfaces4$Outbound,
+  z.ZodTypeDef,
+  Interfaces4
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function interfaces4ToJSON(interfaces4: Interfaces4): string {
+  return JSON.stringify(Interfaces4$outboundSchema.parse(interfaces4));
+}
+export function interfaces4FromJSON(
+  jsonString: string,
+): SafeParseResult<Interfaces4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Interfaces4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Interfaces4' from JSON`,
+  );
+}
+
+/** @internal */
+export const DisksAndFileSystems4$inboundSchema: z.ZodType<
+  DisksAndFileSystems4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type DisksAndFileSystems4$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const DisksAndFileSystems4$outboundSchema: z.ZodType<
+  DisksAndFileSystems4$Outbound,
+  z.ZodTypeDef,
+  DisksAndFileSystems4
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function disksAndFileSystems4ToJSON(
+  disksAndFileSystems4: DisksAndFileSystems4,
+): string {
+  return JSON.stringify(
+    DisksAndFileSystems4$outboundSchema.parse(disksAndFileSystems4),
+  );
+}
+export function disksAndFileSystems4FromJSON(
+  jsonString: string,
+): SafeParseResult<DisksAndFileSystems4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => DisksAndFileSystems4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DisksAndFileSystems4' from JSON`,
+  );
+}
+
+/** @internal */
+export const HostInfo4$inboundSchema: z.ZodType<
+  HostInfo4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type HostInfo4$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const HostInfo4$outboundSchema: z.ZodType<
+  HostInfo4$Outbound,
+  z.ZodTypeDef,
+  HostInfo4
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function hostInfo4ToJSON(hostInfo4: HostInfo4): string {
+  return JSON.stringify(HostInfo4$outboundSchema.parse(hostInfo4));
+}
+export function hostInfo4FromJSON(
+  jsonString: string,
+): SafeParseResult<HostInfo4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => HostInfo4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'HostInfo4' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemStateRoutes4$inboundSchema: z.ZodType<
+  InputSystemStateRoutes4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type InputSystemStateRoutes4$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const InputSystemStateRoutes4$outboundSchema: z.ZodType<
+  InputSystemStateRoutes4$Outbound,
+  z.ZodTypeDef,
+  InputSystemStateRoutes4
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function inputSystemStateRoutes4ToJSON(
+  inputSystemStateRoutes4: InputSystemStateRoutes4,
+): string {
+  return JSON.stringify(
+    InputSystemStateRoutes4$outboundSchema.parse(inputSystemStateRoutes4),
+  );
+}
+export function inputSystemStateRoutes4FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSystemStateRoutes4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSystemStateRoutes4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemStateRoutes4' from JSON`,
+  );
+}
+
+/** @internal */
+export const Dns4$inboundSchema: z.ZodType<Dns4, z.ZodTypeDef, unknown> = z
+  .object({
+    enable: z.boolean().default(true),
+  });
+/** @internal */
+export type Dns4$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const Dns4$outboundSchema: z.ZodType<Dns4$Outbound, z.ZodTypeDef, Dns4> =
+  z.object({
+    enable: z.boolean().default(true),
+  });
+
+export function dns4ToJSON(dns4: Dns4): string {
+  return JSON.stringify(Dns4$outboundSchema.parse(dns4));
+}
+export function dns4FromJSON(
+  jsonString: string,
+): SafeParseResult<Dns4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Dns4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Dns4' from JSON`,
+  );
+}
+
+/** @internal */
+export const UsersAndGroups4$inboundSchema: z.ZodType<
+  UsersAndGroups4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type UsersAndGroups4$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const UsersAndGroups4$outboundSchema: z.ZodType<
+  UsersAndGroups4$Outbound,
+  z.ZodTypeDef,
+  UsersAndGroups4
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function usersAndGroups4ToJSON(
+  usersAndGroups4: UsersAndGroups4,
+): string {
+  return JSON.stringify(UsersAndGroups4$outboundSchema.parse(usersAndGroups4));
+}
+export function usersAndGroups4FromJSON(
+  jsonString: string,
+): SafeParseResult<UsersAndGroups4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UsersAndGroups4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UsersAndGroups4' from JSON`,
+  );
+}
+
+/** @internal */
+export const Firewall4$inboundSchema: z.ZodType<
+  Firewall4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type Firewall4$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const Firewall4$outboundSchema: z.ZodType<
+  Firewall4$Outbound,
+  z.ZodTypeDef,
+  Firewall4
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function firewall4ToJSON(firewall4: Firewall4): string {
+  return JSON.stringify(Firewall4$outboundSchema.parse(firewall4));
+}
+export function firewall4FromJSON(
+  jsonString: string,
+): SafeParseResult<Firewall4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Firewall4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Firewall4' from JSON`,
+  );
+}
+
+/** @internal */
+export const Services4$inboundSchema: z.ZodType<
+  Services4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type Services4$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const Services4$outboundSchema: z.ZodType<
+  Services4$Outbound,
+  z.ZodTypeDef,
+  Services4
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function services4ToJSON(services4: Services4): string {
+  return JSON.stringify(Services4$outboundSchema.parse(services4));
+}
+export function services4FromJSON(
+  jsonString: string,
+): SafeParseResult<Services4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Services4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Services4' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListeningPorts4$inboundSchema: z.ZodType<
+  ListeningPorts4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type ListeningPorts4$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const ListeningPorts4$outboundSchema: z.ZodType<
+  ListeningPorts4$Outbound,
+  z.ZodTypeDef,
+  ListeningPorts4
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function listeningPorts4ToJSON(
+  listeningPorts4: ListeningPorts4,
+): string {
+  return JSON.stringify(ListeningPorts4$outboundSchema.parse(listeningPorts4));
+}
+export function listeningPorts4FromJSON(
+  jsonString: string,
+): SafeParseResult<ListeningPorts4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListeningPorts4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListeningPorts4' from JSON`,
+  );
+}
+
+/** @internal */
+export const LoggedInUsers4$inboundSchema: z.ZodType<
+  LoggedInUsers4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type LoggedInUsers4$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const LoggedInUsers4$outboundSchema: z.ZodType<
+  LoggedInUsers4$Outbound,
+  z.ZodTypeDef,
+  LoggedInUsers4
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function loggedInUsers4ToJSON(loggedInUsers4: LoggedInUsers4): string {
+  return JSON.stringify(LoggedInUsers4$outboundSchema.parse(loggedInUsers4));
+}
+export function loggedInUsers4FromJSON(
+  jsonString: string,
+): SafeParseResult<LoggedInUsers4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => LoggedInUsers4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'LoggedInUsers4' from JSON`,
+  );
+}
+
+/** @internal */
+export const Collectors4$inboundSchema: z.ZodType<
+  Collectors4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  hostsfile: z.lazy(() => HostsFile4$inboundSchema).optional(),
+  interfaces: z.lazy(() => Interfaces4$inboundSchema).optional(),
+  disk: z.lazy(() => DisksAndFileSystems4$inboundSchema).optional(),
+  metadata: z.lazy(() => HostInfo4$inboundSchema).optional(),
+  routes: z.lazy(() => InputSystemStateRoutes4$inboundSchema).optional(),
+  dns: z.lazy(() => Dns4$inboundSchema).optional(),
+  user: z.lazy(() => UsersAndGroups4$inboundSchema).optional(),
+  firewall: z.lazy(() => Firewall4$inboundSchema).optional(),
+  services: z.lazy(() => Services4$inboundSchema).optional(),
+  ports: z.lazy(() => ListeningPorts4$inboundSchema).optional(),
+  loginUsers: z.lazy(() => LoggedInUsers4$inboundSchema).optional(),
+});
+/** @internal */
+export type Collectors4$Outbound = {
+  hostsfile?: HostsFile4$Outbound | undefined;
+  interfaces?: Interfaces4$Outbound | undefined;
+  disk?: DisksAndFileSystems4$Outbound | undefined;
+  metadata?: HostInfo4$Outbound | undefined;
+  routes?: InputSystemStateRoutes4$Outbound | undefined;
+  dns?: Dns4$Outbound | undefined;
+  user?: UsersAndGroups4$Outbound | undefined;
+  firewall?: Firewall4$Outbound | undefined;
+  services?: Services4$Outbound | undefined;
+  ports?: ListeningPorts4$Outbound | undefined;
+  loginUsers?: LoggedInUsers4$Outbound | undefined;
+};
+
+/** @internal */
+export const Collectors4$outboundSchema: z.ZodType<
+  Collectors4$Outbound,
+  z.ZodTypeDef,
+  Collectors4
+> = z.object({
+  hostsfile: z.lazy(() => HostsFile4$outboundSchema).optional(),
+  interfaces: z.lazy(() => Interfaces4$outboundSchema).optional(),
+  disk: z.lazy(() => DisksAndFileSystems4$outboundSchema).optional(),
+  metadata: z.lazy(() => HostInfo4$outboundSchema).optional(),
+  routes: z.lazy(() => InputSystemStateRoutes4$outboundSchema).optional(),
+  dns: z.lazy(() => Dns4$outboundSchema).optional(),
+  user: z.lazy(() => UsersAndGroups4$outboundSchema).optional(),
+  firewall: z.lazy(() => Firewall4$outboundSchema).optional(),
+  services: z.lazy(() => Services4$outboundSchema).optional(),
+  ports: z.lazy(() => ListeningPorts4$outboundSchema).optional(),
+  loginUsers: z.lazy(() => LoggedInUsers4$outboundSchema).optional(),
+});
+
+export function collectors4ToJSON(collectors4: Collectors4): string {
+  return JSON.stringify(Collectors4$outboundSchema.parse(collectors4));
+}
+export function collectors4FromJSON(
+  jsonString: string,
+): SafeParseResult<Collectors4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Collectors4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Collectors4' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemStateSystemState4$inboundSchema: z.ZodType<
+  InputSystemStateSystemState4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputSystemStateType4$inboundSchema,
+  disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
-  output: z.string(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema,
+  interval: z.number().default(300),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  collectors: z.lazy(() => Collectors4$inboundSchema).optional(),
+  persistence: Persistence1Type$inboundSchema.optional(),
+  disableNativeModule: z.boolean().default(false),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputSystemStateSystemState4$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq: PqType$Outbound;
+  interval: number;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  collectors?: Collectors4$Outbound | undefined;
+  persistence?: Persistence1Type$Outbound | undefined;
+  disableNativeModule: boolean;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputSystemStateSystemState4$outboundSchema: z.ZodType<
+  InputSystemStateSystemState4$Outbound,
+  z.ZodTypeDef,
+  InputSystemStateSystemState4
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputSystemStateType4$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema,
+  interval: z.number().default(300),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  collectors: z.lazy(() => Collectors4$outboundSchema).optional(),
+  persistence: Persistence1Type$outboundSchema.optional(),
+  disableNativeModule: z.boolean().default(false),
+  description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemStateConnection$ {
-  /** @deprecated use `InputSystemStateConnection$inboundSchema` instead. */
-  export const inboundSchema = InputSystemStateConnection$inboundSchema;
-  /** @deprecated use `InputSystemStateConnection$outboundSchema` instead. */
-  export const outboundSchema = InputSystemStateConnection$outboundSchema;
-  /** @deprecated use `InputSystemStateConnection$Outbound` instead. */
-  export type Outbound = InputSystemStateConnection$Outbound;
-}
-
-export function inputSystemStateConnectionToJSON(
-  inputSystemStateConnection: InputSystemStateConnection,
+export function inputSystemStateSystemState4ToJSON(
+  inputSystemStateSystemState4: InputSystemStateSystemState4,
 ): string {
   return JSON.stringify(
-    InputSystemStateConnection$outboundSchema.parse(inputSystemStateConnection),
-  );
-}
-
-export function inputSystemStateConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSystemStateConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSystemStateConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSystemStateConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSystemStateMode$inboundSchema: z.ZodType<
-  InputSystemStateMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputSystemStateMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputSystemStateMode$outboundSchema: z.ZodType<
-  InputSystemStateMode,
-  z.ZodTypeDef,
-  InputSystemStateMode
-> = z.union([
-  z.nativeEnum(InputSystemStateMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemStateMode$ {
-  /** @deprecated use `InputSystemStateMode$inboundSchema` instead. */
-  export const inboundSchema = InputSystemStateMode$inboundSchema;
-  /** @deprecated use `InputSystemStateMode$outboundSchema` instead. */
-  export const outboundSchema = InputSystemStateMode$outboundSchema;
-}
-
-/** @internal */
-export const InputSystemStateCompression$inboundSchema: z.ZodType<
-  InputSystemStateCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputSystemStateCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputSystemStateCompression$outboundSchema: z.ZodType<
-  InputSystemStateCompression,
-  z.ZodTypeDef,
-  InputSystemStateCompression
-> = z.union([
-  z.nativeEnum(InputSystemStateCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemStateCompression$ {
-  /** @deprecated use `InputSystemStateCompression$inboundSchema` instead. */
-  export const inboundSchema = InputSystemStateCompression$inboundSchema;
-  /** @deprecated use `InputSystemStateCompression$outboundSchema` instead. */
-  export const outboundSchema = InputSystemStateCompression$outboundSchema;
-}
-
-/** @internal */
-export const InputSystemStatePqControls$inboundSchema: z.ZodType<
-  InputSystemStatePqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type InputSystemStatePqControls$Outbound = {};
-
-/** @internal */
-export const InputSystemStatePqControls$outboundSchema: z.ZodType<
-  InputSystemStatePqControls$Outbound,
-  z.ZodTypeDef,
-  InputSystemStatePqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemStatePqControls$ {
-  /** @deprecated use `InputSystemStatePqControls$inboundSchema` instead. */
-  export const inboundSchema = InputSystemStatePqControls$inboundSchema;
-  /** @deprecated use `InputSystemStatePqControls$outboundSchema` instead. */
-  export const outboundSchema = InputSystemStatePqControls$outboundSchema;
-  /** @deprecated use `InputSystemStatePqControls$Outbound` instead. */
-  export type Outbound = InputSystemStatePqControls$Outbound;
-}
-
-export function inputSystemStatePqControlsToJSON(
-  inputSystemStatePqControls: InputSystemStatePqControls,
-): string {
-  return JSON.stringify(
-    InputSystemStatePqControls$outboundSchema.parse(inputSystemStatePqControls),
-  );
-}
-
-export function inputSystemStatePqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSystemStatePqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSystemStatePqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSystemStatePqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSystemStatePq$inboundSchema: z.ZodType<
-  InputSystemStatePq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputSystemStateMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputSystemStateCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputSystemStatePqControls$inboundSchema).optional(),
-});
-
-/** @internal */
-export type InputSystemStatePq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputSystemStatePqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputSystemStatePq$outboundSchema: z.ZodType<
-  InputSystemStatePq$Outbound,
-  z.ZodTypeDef,
-  InputSystemStatePq
-> = z.object({
-  mode: InputSystemStateMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputSystemStateCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputSystemStatePqControls$outboundSchema)
-    .optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemStatePq$ {
-  /** @deprecated use `InputSystemStatePq$inboundSchema` instead. */
-  export const inboundSchema = InputSystemStatePq$inboundSchema;
-  /** @deprecated use `InputSystemStatePq$outboundSchema` instead. */
-  export const outboundSchema = InputSystemStatePq$outboundSchema;
-  /** @deprecated use `InputSystemStatePq$Outbound` instead. */
-  export type Outbound = InputSystemStatePq$Outbound;
-}
-
-export function inputSystemStatePqToJSON(
-  inputSystemStatePq: InputSystemStatePq,
-): string {
-  return JSON.stringify(
-    InputSystemStatePq$outboundSchema.parse(inputSystemStatePq),
-  );
-}
-
-export function inputSystemStatePqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSystemStatePq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSystemStatePq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSystemStatePq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSystemStateMetadatum$inboundSchema: z.ZodType<
-  InputSystemStateMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type InputSystemStateMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputSystemStateMetadatum$outboundSchema: z.ZodType<
-  InputSystemStateMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputSystemStateMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemStateMetadatum$ {
-  /** @deprecated use `InputSystemStateMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputSystemStateMetadatum$inboundSchema;
-  /** @deprecated use `InputSystemStateMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputSystemStateMetadatum$outboundSchema;
-  /** @deprecated use `InputSystemStateMetadatum$Outbound` instead. */
-  export type Outbound = InputSystemStateMetadatum$Outbound;
-}
-
-export function inputSystemStateMetadatumToJSON(
-  inputSystemStateMetadatum: InputSystemStateMetadatum,
-): string {
-  return JSON.stringify(
-    InputSystemStateMetadatum$outboundSchema.parse(inputSystemStateMetadatum),
-  );
-}
-
-export function inputSystemStateMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSystemStateMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSystemStateMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSystemStateMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const HostsFile$inboundSchema: z.ZodType<
-  HostsFile,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enable: z.boolean().default(true),
-});
-
-/** @internal */
-export type HostsFile$Outbound = {
-  enable: boolean;
-};
-
-/** @internal */
-export const HostsFile$outboundSchema: z.ZodType<
-  HostsFile$Outbound,
-  z.ZodTypeDef,
-  HostsFile
-> = z.object({
-  enable: z.boolean().default(true),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace HostsFile$ {
-  /** @deprecated use `HostsFile$inboundSchema` instead. */
-  export const inboundSchema = HostsFile$inboundSchema;
-  /** @deprecated use `HostsFile$outboundSchema` instead. */
-  export const outboundSchema = HostsFile$outboundSchema;
-  /** @deprecated use `HostsFile$Outbound` instead. */
-  export type Outbound = HostsFile$Outbound;
-}
-
-export function hostsFileToJSON(hostsFile: HostsFile): string {
-  return JSON.stringify(HostsFile$outboundSchema.parse(hostsFile));
-}
-
-export function hostsFileFromJSON(
-  jsonString: string,
-): SafeParseResult<HostsFile, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => HostsFile$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'HostsFile' from JSON`,
-  );
-}
-
-/** @internal */
-export const Interfaces$inboundSchema: z.ZodType<
-  Interfaces,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enable: z.boolean().default(true),
-});
-
-/** @internal */
-export type Interfaces$Outbound = {
-  enable: boolean;
-};
-
-/** @internal */
-export const Interfaces$outboundSchema: z.ZodType<
-  Interfaces$Outbound,
-  z.ZodTypeDef,
-  Interfaces
-> = z.object({
-  enable: z.boolean().default(true),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Interfaces$ {
-  /** @deprecated use `Interfaces$inboundSchema` instead. */
-  export const inboundSchema = Interfaces$inboundSchema;
-  /** @deprecated use `Interfaces$outboundSchema` instead. */
-  export const outboundSchema = Interfaces$outboundSchema;
-  /** @deprecated use `Interfaces$Outbound` instead. */
-  export type Outbound = Interfaces$Outbound;
-}
-
-export function interfacesToJSON(interfaces: Interfaces): string {
-  return JSON.stringify(Interfaces$outboundSchema.parse(interfaces));
-}
-
-export function interfacesFromJSON(
-  jsonString: string,
-): SafeParseResult<Interfaces, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Interfaces$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Interfaces' from JSON`,
-  );
-}
-
-/** @internal */
-export const DisksAndFileSystems$inboundSchema: z.ZodType<
-  DisksAndFileSystems,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enable: z.boolean().default(true),
-});
-
-/** @internal */
-export type DisksAndFileSystems$Outbound = {
-  enable: boolean;
-};
-
-/** @internal */
-export const DisksAndFileSystems$outboundSchema: z.ZodType<
-  DisksAndFileSystems$Outbound,
-  z.ZodTypeDef,
-  DisksAndFileSystems
-> = z.object({
-  enable: z.boolean().default(true),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DisksAndFileSystems$ {
-  /** @deprecated use `DisksAndFileSystems$inboundSchema` instead. */
-  export const inboundSchema = DisksAndFileSystems$inboundSchema;
-  /** @deprecated use `DisksAndFileSystems$outboundSchema` instead. */
-  export const outboundSchema = DisksAndFileSystems$outboundSchema;
-  /** @deprecated use `DisksAndFileSystems$Outbound` instead. */
-  export type Outbound = DisksAndFileSystems$Outbound;
-}
-
-export function disksAndFileSystemsToJSON(
-  disksAndFileSystems: DisksAndFileSystems,
-): string {
-  return JSON.stringify(
-    DisksAndFileSystems$outboundSchema.parse(disksAndFileSystems),
-  );
-}
-
-export function disksAndFileSystemsFromJSON(
-  jsonString: string,
-): SafeParseResult<DisksAndFileSystems, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DisksAndFileSystems$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DisksAndFileSystems' from JSON`,
-  );
-}
-
-/** @internal */
-export const HostInfo$inboundSchema: z.ZodType<
-  HostInfo,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enable: z.boolean().default(true),
-});
-
-/** @internal */
-export type HostInfo$Outbound = {
-  enable: boolean;
-};
-
-/** @internal */
-export const HostInfo$outboundSchema: z.ZodType<
-  HostInfo$Outbound,
-  z.ZodTypeDef,
-  HostInfo
-> = z.object({
-  enable: z.boolean().default(true),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace HostInfo$ {
-  /** @deprecated use `HostInfo$inboundSchema` instead. */
-  export const inboundSchema = HostInfo$inboundSchema;
-  /** @deprecated use `HostInfo$outboundSchema` instead. */
-  export const outboundSchema = HostInfo$outboundSchema;
-  /** @deprecated use `HostInfo$Outbound` instead. */
-  export type Outbound = HostInfo$Outbound;
-}
-
-export function hostInfoToJSON(hostInfo: HostInfo): string {
-  return JSON.stringify(HostInfo$outboundSchema.parse(hostInfo));
-}
-
-export function hostInfoFromJSON(
-  jsonString: string,
-): SafeParseResult<HostInfo, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => HostInfo$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'HostInfo' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSystemStateRoutes$inboundSchema: z.ZodType<
-  InputSystemStateRoutes,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enable: z.boolean().default(true),
-});
-
-/** @internal */
-export type InputSystemStateRoutes$Outbound = {
-  enable: boolean;
-};
-
-/** @internal */
-export const InputSystemStateRoutes$outboundSchema: z.ZodType<
-  InputSystemStateRoutes$Outbound,
-  z.ZodTypeDef,
-  InputSystemStateRoutes
-> = z.object({
-  enable: z.boolean().default(true),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemStateRoutes$ {
-  /** @deprecated use `InputSystemStateRoutes$inboundSchema` instead. */
-  export const inboundSchema = InputSystemStateRoutes$inboundSchema;
-  /** @deprecated use `InputSystemStateRoutes$outboundSchema` instead. */
-  export const outboundSchema = InputSystemStateRoutes$outboundSchema;
-  /** @deprecated use `InputSystemStateRoutes$Outbound` instead. */
-  export type Outbound = InputSystemStateRoutes$Outbound;
-}
-
-export function inputSystemStateRoutesToJSON(
-  inputSystemStateRoutes: InputSystemStateRoutes,
-): string {
-  return JSON.stringify(
-    InputSystemStateRoutes$outboundSchema.parse(inputSystemStateRoutes),
-  );
-}
-
-export function inputSystemStateRoutesFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSystemStateRoutes, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSystemStateRoutes$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSystemStateRoutes' from JSON`,
-  );
-}
-
-/** @internal */
-export const Dns$inboundSchema: z.ZodType<Dns, z.ZodTypeDef, unknown> = z
-  .object({
-    enable: z.boolean().default(true),
-  });
-
-/** @internal */
-export type Dns$Outbound = {
-  enable: boolean;
-};
-
-/** @internal */
-export const Dns$outboundSchema: z.ZodType<Dns$Outbound, z.ZodTypeDef, Dns> = z
-  .object({
-    enable: z.boolean().default(true),
-  });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Dns$ {
-  /** @deprecated use `Dns$inboundSchema` instead. */
-  export const inboundSchema = Dns$inboundSchema;
-  /** @deprecated use `Dns$outboundSchema` instead. */
-  export const outboundSchema = Dns$outboundSchema;
-  /** @deprecated use `Dns$Outbound` instead. */
-  export type Outbound = Dns$Outbound;
-}
-
-export function dnsToJSON(dns: Dns): string {
-  return JSON.stringify(Dns$outboundSchema.parse(dns));
-}
-
-export function dnsFromJSON(
-  jsonString: string,
-): SafeParseResult<Dns, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Dns$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Dns' from JSON`,
-  );
-}
-
-/** @internal */
-export const UsersAndGroups$inboundSchema: z.ZodType<
-  UsersAndGroups,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enable: z.boolean().default(true),
-});
-
-/** @internal */
-export type UsersAndGroups$Outbound = {
-  enable: boolean;
-};
-
-/** @internal */
-export const UsersAndGroups$outboundSchema: z.ZodType<
-  UsersAndGroups$Outbound,
-  z.ZodTypeDef,
-  UsersAndGroups
-> = z.object({
-  enable: z.boolean().default(true),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UsersAndGroups$ {
-  /** @deprecated use `UsersAndGroups$inboundSchema` instead. */
-  export const inboundSchema = UsersAndGroups$inboundSchema;
-  /** @deprecated use `UsersAndGroups$outboundSchema` instead. */
-  export const outboundSchema = UsersAndGroups$outboundSchema;
-  /** @deprecated use `UsersAndGroups$Outbound` instead. */
-  export type Outbound = UsersAndGroups$Outbound;
-}
-
-export function usersAndGroupsToJSON(usersAndGroups: UsersAndGroups): string {
-  return JSON.stringify(UsersAndGroups$outboundSchema.parse(usersAndGroups));
-}
-
-export function usersAndGroupsFromJSON(
-  jsonString: string,
-): SafeParseResult<UsersAndGroups, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UsersAndGroups$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UsersAndGroups' from JSON`,
-  );
-}
-
-/** @internal */
-export const Firewall$inboundSchema: z.ZodType<
-  Firewall,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enable: z.boolean().default(true),
-});
-
-/** @internal */
-export type Firewall$Outbound = {
-  enable: boolean;
-};
-
-/** @internal */
-export const Firewall$outboundSchema: z.ZodType<
-  Firewall$Outbound,
-  z.ZodTypeDef,
-  Firewall
-> = z.object({
-  enable: z.boolean().default(true),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Firewall$ {
-  /** @deprecated use `Firewall$inboundSchema` instead. */
-  export const inboundSchema = Firewall$inboundSchema;
-  /** @deprecated use `Firewall$outboundSchema` instead. */
-  export const outboundSchema = Firewall$outboundSchema;
-  /** @deprecated use `Firewall$Outbound` instead. */
-  export type Outbound = Firewall$Outbound;
-}
-
-export function firewallToJSON(firewall: Firewall): string {
-  return JSON.stringify(Firewall$outboundSchema.parse(firewall));
-}
-
-export function firewallFromJSON(
-  jsonString: string,
-): SafeParseResult<Firewall, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Firewall$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Firewall' from JSON`,
-  );
-}
-
-/** @internal */
-export const Services$inboundSchema: z.ZodType<
-  Services,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enable: z.boolean().default(true),
-});
-
-/** @internal */
-export type Services$Outbound = {
-  enable: boolean;
-};
-
-/** @internal */
-export const Services$outboundSchema: z.ZodType<
-  Services$Outbound,
-  z.ZodTypeDef,
-  Services
-> = z.object({
-  enable: z.boolean().default(true),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Services$ {
-  /** @deprecated use `Services$inboundSchema` instead. */
-  export const inboundSchema = Services$inboundSchema;
-  /** @deprecated use `Services$outboundSchema` instead. */
-  export const outboundSchema = Services$outboundSchema;
-  /** @deprecated use `Services$Outbound` instead. */
-  export type Outbound = Services$Outbound;
-}
-
-export function servicesToJSON(services: Services): string {
-  return JSON.stringify(Services$outboundSchema.parse(services));
-}
-
-export function servicesFromJSON(
-  jsonString: string,
-): SafeParseResult<Services, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Services$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Services' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListeningPorts$inboundSchema: z.ZodType<
-  ListeningPorts,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enable: z.boolean().default(true),
-});
-
-/** @internal */
-export type ListeningPorts$Outbound = {
-  enable: boolean;
-};
-
-/** @internal */
-export const ListeningPorts$outboundSchema: z.ZodType<
-  ListeningPorts$Outbound,
-  z.ZodTypeDef,
-  ListeningPorts
-> = z.object({
-  enable: z.boolean().default(true),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListeningPorts$ {
-  /** @deprecated use `ListeningPorts$inboundSchema` instead. */
-  export const inboundSchema = ListeningPorts$inboundSchema;
-  /** @deprecated use `ListeningPorts$outboundSchema` instead. */
-  export const outboundSchema = ListeningPorts$outboundSchema;
-  /** @deprecated use `ListeningPorts$Outbound` instead. */
-  export type Outbound = ListeningPorts$Outbound;
-}
-
-export function listeningPortsToJSON(listeningPorts: ListeningPorts): string {
-  return JSON.stringify(ListeningPorts$outboundSchema.parse(listeningPorts));
-}
-
-export function listeningPortsFromJSON(
-  jsonString: string,
-): SafeParseResult<ListeningPorts, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListeningPorts$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListeningPorts' from JSON`,
-  );
-}
-
-/** @internal */
-export const LoggedInUsers$inboundSchema: z.ZodType<
-  LoggedInUsers,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enable: z.boolean().default(true),
-});
-
-/** @internal */
-export type LoggedInUsers$Outbound = {
-  enable: boolean;
-};
-
-/** @internal */
-export const LoggedInUsers$outboundSchema: z.ZodType<
-  LoggedInUsers$Outbound,
-  z.ZodTypeDef,
-  LoggedInUsers
-> = z.object({
-  enable: z.boolean().default(true),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace LoggedInUsers$ {
-  /** @deprecated use `LoggedInUsers$inboundSchema` instead. */
-  export const inboundSchema = LoggedInUsers$inboundSchema;
-  /** @deprecated use `LoggedInUsers$outboundSchema` instead. */
-  export const outboundSchema = LoggedInUsers$outboundSchema;
-  /** @deprecated use `LoggedInUsers$Outbound` instead. */
-  export type Outbound = LoggedInUsers$Outbound;
-}
-
-export function loggedInUsersToJSON(loggedInUsers: LoggedInUsers): string {
-  return JSON.stringify(LoggedInUsers$outboundSchema.parse(loggedInUsers));
-}
-
-export function loggedInUsersFromJSON(
-  jsonString: string,
-): SafeParseResult<LoggedInUsers, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => LoggedInUsers$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'LoggedInUsers' from JSON`,
-  );
-}
-
-/** @internal */
-export const Collectors$inboundSchema: z.ZodType<
-  Collectors,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  hostsfile: z.lazy(() => HostsFile$inboundSchema).optional(),
-  interfaces: z.lazy(() => Interfaces$inboundSchema).optional(),
-  disk: z.lazy(() => DisksAndFileSystems$inboundSchema).optional(),
-  metadata: z.lazy(() => HostInfo$inboundSchema).optional(),
-  routes: z.lazy(() => InputSystemStateRoutes$inboundSchema).optional(),
-  dns: z.lazy(() => Dns$inboundSchema).optional(),
-  user: z.lazy(() => UsersAndGroups$inboundSchema).optional(),
-  firewall: z.lazy(() => Firewall$inboundSchema).optional(),
-  services: z.lazy(() => Services$inboundSchema).optional(),
-  ports: z.lazy(() => ListeningPorts$inboundSchema).optional(),
-  loginUsers: z.lazy(() => LoggedInUsers$inboundSchema).optional(),
-});
-
-/** @internal */
-export type Collectors$Outbound = {
-  hostsfile?: HostsFile$Outbound | undefined;
-  interfaces?: Interfaces$Outbound | undefined;
-  disk?: DisksAndFileSystems$Outbound | undefined;
-  metadata?: HostInfo$Outbound | undefined;
-  routes?: InputSystemStateRoutes$Outbound | undefined;
-  dns?: Dns$Outbound | undefined;
-  user?: UsersAndGroups$Outbound | undefined;
-  firewall?: Firewall$Outbound | undefined;
-  services?: Services$Outbound | undefined;
-  ports?: ListeningPorts$Outbound | undefined;
-  loginUsers?: LoggedInUsers$Outbound | undefined;
-};
-
-/** @internal */
-export const Collectors$outboundSchema: z.ZodType<
-  Collectors$Outbound,
-  z.ZodTypeDef,
-  Collectors
-> = z.object({
-  hostsfile: z.lazy(() => HostsFile$outboundSchema).optional(),
-  interfaces: z.lazy(() => Interfaces$outboundSchema).optional(),
-  disk: z.lazy(() => DisksAndFileSystems$outboundSchema).optional(),
-  metadata: z.lazy(() => HostInfo$outboundSchema).optional(),
-  routes: z.lazy(() => InputSystemStateRoutes$outboundSchema).optional(),
-  dns: z.lazy(() => Dns$outboundSchema).optional(),
-  user: z.lazy(() => UsersAndGroups$outboundSchema).optional(),
-  firewall: z.lazy(() => Firewall$outboundSchema).optional(),
-  services: z.lazy(() => Services$outboundSchema).optional(),
-  ports: z.lazy(() => ListeningPorts$outboundSchema).optional(),
-  loginUsers: z.lazy(() => LoggedInUsers$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Collectors$ {
-  /** @deprecated use `Collectors$inboundSchema` instead. */
-  export const inboundSchema = Collectors$inboundSchema;
-  /** @deprecated use `Collectors$outboundSchema` instead. */
-  export const outboundSchema = Collectors$outboundSchema;
-  /** @deprecated use `Collectors$Outbound` instead. */
-  export type Outbound = Collectors$Outbound;
-}
-
-export function collectorsToJSON(collectors: Collectors): string {
-  return JSON.stringify(Collectors$outboundSchema.parse(collectors));
-}
-
-export function collectorsFromJSON(
-  jsonString: string,
-): SafeParseResult<Collectors, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Collectors$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Collectors' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSystemStateDataCompressionFormat$inboundSchema: z.ZodType<
-  InputSystemStateDataCompressionFormat,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputSystemStateDataCompressionFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputSystemStateDataCompressionFormat$outboundSchema: z.ZodType<
-  InputSystemStateDataCompressionFormat,
-  z.ZodTypeDef,
-  InputSystemStateDataCompressionFormat
-> = z.union([
-  z.nativeEnum(InputSystemStateDataCompressionFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemStateDataCompressionFormat$ {
-  /** @deprecated use `InputSystemStateDataCompressionFormat$inboundSchema` instead. */
-  export const inboundSchema =
-    InputSystemStateDataCompressionFormat$inboundSchema;
-  /** @deprecated use `InputSystemStateDataCompressionFormat$outboundSchema` instead. */
-  export const outboundSchema =
-    InputSystemStateDataCompressionFormat$outboundSchema;
-}
-
-/** @internal */
-export const InputSystemStatePersistence$inboundSchema: z.ZodType<
-  InputSystemStatePersistence,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enable: z.boolean().default(false),
-  timeWindow: z.string().default("10m"),
-  maxDataSize: z.string().default("1GB"),
-  maxDataTime: z.string().default("24h"),
-  compress: InputSystemStateDataCompressionFormat$inboundSchema.default("none"),
-  destPath: z.string().default("$CRIBL_HOME/state/system_state"),
-});
-
-/** @internal */
-export type InputSystemStatePersistence$Outbound = {
-  enable: boolean;
-  timeWindow: string;
-  maxDataSize: string;
-  maxDataTime: string;
-  compress: string;
-  destPath: string;
-};
-
-/** @internal */
-export const InputSystemStatePersistence$outboundSchema: z.ZodType<
-  InputSystemStatePersistence$Outbound,
-  z.ZodTypeDef,
-  InputSystemStatePersistence
-> = z.object({
-  enable: z.boolean().default(false),
-  timeWindow: z.string().default("10m"),
-  maxDataSize: z.string().default("1GB"),
-  maxDataTime: z.string().default("24h"),
-  compress: InputSystemStateDataCompressionFormat$outboundSchema.default(
-    "none",
-  ),
-  destPath: z.string().default("$CRIBL_HOME/state/system_state"),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemStatePersistence$ {
-  /** @deprecated use `InputSystemStatePersistence$inboundSchema` instead. */
-  export const inboundSchema = InputSystemStatePersistence$inboundSchema;
-  /** @deprecated use `InputSystemStatePersistence$outboundSchema` instead. */
-  export const outboundSchema = InputSystemStatePersistence$outboundSchema;
-  /** @deprecated use `InputSystemStatePersistence$Outbound` instead. */
-  export type Outbound = InputSystemStatePersistence$Outbound;
-}
-
-export function inputSystemStatePersistenceToJSON(
-  inputSystemStatePersistence: InputSystemStatePersistence,
-): string {
-  return JSON.stringify(
-    InputSystemStatePersistence$outboundSchema.parse(
-      inputSystemStatePersistence,
+    InputSystemStateSystemState4$outboundSchema.parse(
+      inputSystemStateSystemState4,
     ),
   );
 }
-
-export function inputSystemStatePersistenceFromJSON(
+export function inputSystemStateSystemState4FromJSON(
   jsonString: string,
-): SafeParseResult<InputSystemStatePersistence, SDKValidationError> {
+): SafeParseResult<InputSystemStateSystemState4, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InputSystemStatePersistence$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSystemStatePersistence' from JSON`,
+    (x) => InputSystemStateSystemState4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemStateSystemState4' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemStateType3$inboundSchema: z.ZodNativeEnum<
+  typeof InputSystemStateType3
+> = z.nativeEnum(InputSystemStateType3);
+/** @internal */
+export const InputSystemStateType3$outboundSchema: z.ZodNativeEnum<
+  typeof InputSystemStateType3
+> = InputSystemStateType3$inboundSchema;
+
+/** @internal */
+export const HostsFile3$inboundSchema: z.ZodType<
+  HostsFile3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type HostsFile3$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const HostsFile3$outboundSchema: z.ZodType<
+  HostsFile3$Outbound,
+  z.ZodTypeDef,
+  HostsFile3
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function hostsFile3ToJSON(hostsFile3: HostsFile3): string {
+  return JSON.stringify(HostsFile3$outboundSchema.parse(hostsFile3));
+}
+export function hostsFile3FromJSON(
+  jsonString: string,
+): SafeParseResult<HostsFile3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => HostsFile3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'HostsFile3' from JSON`,
+  );
+}
+
+/** @internal */
+export const Interfaces3$inboundSchema: z.ZodType<
+  Interfaces3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type Interfaces3$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const Interfaces3$outboundSchema: z.ZodType<
+  Interfaces3$Outbound,
+  z.ZodTypeDef,
+  Interfaces3
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function interfaces3ToJSON(interfaces3: Interfaces3): string {
+  return JSON.stringify(Interfaces3$outboundSchema.parse(interfaces3));
+}
+export function interfaces3FromJSON(
+  jsonString: string,
+): SafeParseResult<Interfaces3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Interfaces3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Interfaces3' from JSON`,
+  );
+}
+
+/** @internal */
+export const DisksAndFileSystems3$inboundSchema: z.ZodType<
+  DisksAndFileSystems3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type DisksAndFileSystems3$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const DisksAndFileSystems3$outboundSchema: z.ZodType<
+  DisksAndFileSystems3$Outbound,
+  z.ZodTypeDef,
+  DisksAndFileSystems3
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function disksAndFileSystems3ToJSON(
+  disksAndFileSystems3: DisksAndFileSystems3,
+): string {
+  return JSON.stringify(
+    DisksAndFileSystems3$outboundSchema.parse(disksAndFileSystems3),
+  );
+}
+export function disksAndFileSystems3FromJSON(
+  jsonString: string,
+): SafeParseResult<DisksAndFileSystems3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => DisksAndFileSystems3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DisksAndFileSystems3' from JSON`,
+  );
+}
+
+/** @internal */
+export const HostInfo3$inboundSchema: z.ZodType<
+  HostInfo3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type HostInfo3$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const HostInfo3$outboundSchema: z.ZodType<
+  HostInfo3$Outbound,
+  z.ZodTypeDef,
+  HostInfo3
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function hostInfo3ToJSON(hostInfo3: HostInfo3): string {
+  return JSON.stringify(HostInfo3$outboundSchema.parse(hostInfo3));
+}
+export function hostInfo3FromJSON(
+  jsonString: string,
+): SafeParseResult<HostInfo3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => HostInfo3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'HostInfo3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemStateRoutes3$inboundSchema: z.ZodType<
+  InputSystemStateRoutes3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type InputSystemStateRoutes3$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const InputSystemStateRoutes3$outboundSchema: z.ZodType<
+  InputSystemStateRoutes3$Outbound,
+  z.ZodTypeDef,
+  InputSystemStateRoutes3
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function inputSystemStateRoutes3ToJSON(
+  inputSystemStateRoutes3: InputSystemStateRoutes3,
+): string {
+  return JSON.stringify(
+    InputSystemStateRoutes3$outboundSchema.parse(inputSystemStateRoutes3),
+  );
+}
+export function inputSystemStateRoutes3FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSystemStateRoutes3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSystemStateRoutes3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemStateRoutes3' from JSON`,
+  );
+}
+
+/** @internal */
+export const Dns3$inboundSchema: z.ZodType<Dns3, z.ZodTypeDef, unknown> = z
+  .object({
+    enable: z.boolean().default(true),
+  });
+/** @internal */
+export type Dns3$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const Dns3$outboundSchema: z.ZodType<Dns3$Outbound, z.ZodTypeDef, Dns3> =
+  z.object({
+    enable: z.boolean().default(true),
+  });
+
+export function dns3ToJSON(dns3: Dns3): string {
+  return JSON.stringify(Dns3$outboundSchema.parse(dns3));
+}
+export function dns3FromJSON(
+  jsonString: string,
+): SafeParseResult<Dns3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Dns3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Dns3' from JSON`,
+  );
+}
+
+/** @internal */
+export const UsersAndGroups3$inboundSchema: z.ZodType<
+  UsersAndGroups3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type UsersAndGroups3$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const UsersAndGroups3$outboundSchema: z.ZodType<
+  UsersAndGroups3$Outbound,
+  z.ZodTypeDef,
+  UsersAndGroups3
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function usersAndGroups3ToJSON(
+  usersAndGroups3: UsersAndGroups3,
+): string {
+  return JSON.stringify(UsersAndGroups3$outboundSchema.parse(usersAndGroups3));
+}
+export function usersAndGroups3FromJSON(
+  jsonString: string,
+): SafeParseResult<UsersAndGroups3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UsersAndGroups3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UsersAndGroups3' from JSON`,
+  );
+}
+
+/** @internal */
+export const Firewall3$inboundSchema: z.ZodType<
+  Firewall3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type Firewall3$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const Firewall3$outboundSchema: z.ZodType<
+  Firewall3$Outbound,
+  z.ZodTypeDef,
+  Firewall3
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function firewall3ToJSON(firewall3: Firewall3): string {
+  return JSON.stringify(Firewall3$outboundSchema.parse(firewall3));
+}
+export function firewall3FromJSON(
+  jsonString: string,
+): SafeParseResult<Firewall3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Firewall3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Firewall3' from JSON`,
+  );
+}
+
+/** @internal */
+export const Services3$inboundSchema: z.ZodType<
+  Services3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type Services3$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const Services3$outboundSchema: z.ZodType<
+  Services3$Outbound,
+  z.ZodTypeDef,
+  Services3
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function services3ToJSON(services3: Services3): string {
+  return JSON.stringify(Services3$outboundSchema.parse(services3));
+}
+export function services3FromJSON(
+  jsonString: string,
+): SafeParseResult<Services3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Services3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Services3' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListeningPorts3$inboundSchema: z.ZodType<
+  ListeningPorts3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type ListeningPorts3$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const ListeningPorts3$outboundSchema: z.ZodType<
+  ListeningPorts3$Outbound,
+  z.ZodTypeDef,
+  ListeningPorts3
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function listeningPorts3ToJSON(
+  listeningPorts3: ListeningPorts3,
+): string {
+  return JSON.stringify(ListeningPorts3$outboundSchema.parse(listeningPorts3));
+}
+export function listeningPorts3FromJSON(
+  jsonString: string,
+): SafeParseResult<ListeningPorts3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListeningPorts3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListeningPorts3' from JSON`,
+  );
+}
+
+/** @internal */
+export const LoggedInUsers3$inboundSchema: z.ZodType<
+  LoggedInUsers3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type LoggedInUsers3$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const LoggedInUsers3$outboundSchema: z.ZodType<
+  LoggedInUsers3$Outbound,
+  z.ZodTypeDef,
+  LoggedInUsers3
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function loggedInUsers3ToJSON(loggedInUsers3: LoggedInUsers3): string {
+  return JSON.stringify(LoggedInUsers3$outboundSchema.parse(loggedInUsers3));
+}
+export function loggedInUsers3FromJSON(
+  jsonString: string,
+): SafeParseResult<LoggedInUsers3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => LoggedInUsers3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'LoggedInUsers3' from JSON`,
+  );
+}
+
+/** @internal */
+export const Collectors3$inboundSchema: z.ZodType<
+  Collectors3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  hostsfile: z.lazy(() => HostsFile3$inboundSchema).optional(),
+  interfaces: z.lazy(() => Interfaces3$inboundSchema).optional(),
+  disk: z.lazy(() => DisksAndFileSystems3$inboundSchema).optional(),
+  metadata: z.lazy(() => HostInfo3$inboundSchema).optional(),
+  routes: z.lazy(() => InputSystemStateRoutes3$inboundSchema).optional(),
+  dns: z.lazy(() => Dns3$inboundSchema).optional(),
+  user: z.lazy(() => UsersAndGroups3$inboundSchema).optional(),
+  firewall: z.lazy(() => Firewall3$inboundSchema).optional(),
+  services: z.lazy(() => Services3$inboundSchema).optional(),
+  ports: z.lazy(() => ListeningPorts3$inboundSchema).optional(),
+  loginUsers: z.lazy(() => LoggedInUsers3$inboundSchema).optional(),
+});
+/** @internal */
+export type Collectors3$Outbound = {
+  hostsfile?: HostsFile3$Outbound | undefined;
+  interfaces?: Interfaces3$Outbound | undefined;
+  disk?: DisksAndFileSystems3$Outbound | undefined;
+  metadata?: HostInfo3$Outbound | undefined;
+  routes?: InputSystemStateRoutes3$Outbound | undefined;
+  dns?: Dns3$Outbound | undefined;
+  user?: UsersAndGroups3$Outbound | undefined;
+  firewall?: Firewall3$Outbound | undefined;
+  services?: Services3$Outbound | undefined;
+  ports?: ListeningPorts3$Outbound | undefined;
+  loginUsers?: LoggedInUsers3$Outbound | undefined;
+};
+
+/** @internal */
+export const Collectors3$outboundSchema: z.ZodType<
+  Collectors3$Outbound,
+  z.ZodTypeDef,
+  Collectors3
+> = z.object({
+  hostsfile: z.lazy(() => HostsFile3$outboundSchema).optional(),
+  interfaces: z.lazy(() => Interfaces3$outboundSchema).optional(),
+  disk: z.lazy(() => DisksAndFileSystems3$outboundSchema).optional(),
+  metadata: z.lazy(() => HostInfo3$outboundSchema).optional(),
+  routes: z.lazy(() => InputSystemStateRoutes3$outboundSchema).optional(),
+  dns: z.lazy(() => Dns3$outboundSchema).optional(),
+  user: z.lazy(() => UsersAndGroups3$outboundSchema).optional(),
+  firewall: z.lazy(() => Firewall3$outboundSchema).optional(),
+  services: z.lazy(() => Services3$outboundSchema).optional(),
+  ports: z.lazy(() => ListeningPorts3$outboundSchema).optional(),
+  loginUsers: z.lazy(() => LoggedInUsers3$outboundSchema).optional(),
+});
+
+export function collectors3ToJSON(collectors3: Collectors3): string {
+  return JSON.stringify(Collectors3$outboundSchema.parse(collectors3));
+}
+export function collectors3FromJSON(
+  jsonString: string,
+): SafeParseResult<Collectors3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Collectors3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Collectors3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemStateSystemState3$inboundSchema: z.ZodType<
+  InputSystemStateSystemState3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputSystemStateType3$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  interval: z.number().default(300),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  collectors: z.lazy(() => Collectors3$inboundSchema).optional(),
+  persistence: Persistence1Type$inboundSchema.optional(),
+  disableNativeModule: z.boolean().default(false),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputSystemStateSystemState3$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  interval: number;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  collectors?: Collectors3$Outbound | undefined;
+  persistence?: Persistence1Type$Outbound | undefined;
+  disableNativeModule: boolean;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputSystemStateSystemState3$outboundSchema: z.ZodType<
+  InputSystemStateSystemState3$Outbound,
+  z.ZodTypeDef,
+  InputSystemStateSystemState3
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputSystemStateType3$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  interval: z.number().default(300),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  collectors: z.lazy(() => Collectors3$outboundSchema).optional(),
+  persistence: Persistence1Type$outboundSchema.optional(),
+  disableNativeModule: z.boolean().default(false),
+  description: z.string().optional(),
+});
+
+export function inputSystemStateSystemState3ToJSON(
+  inputSystemStateSystemState3: InputSystemStateSystemState3,
+): string {
+  return JSON.stringify(
+    InputSystemStateSystemState3$outboundSchema.parse(
+      inputSystemStateSystemState3,
+    ),
+  );
+}
+export function inputSystemStateSystemState3FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSystemStateSystemState3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSystemStateSystemState3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemStateSystemState3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemStateType2$inboundSchema: z.ZodNativeEnum<
+  typeof InputSystemStateType2
+> = z.nativeEnum(InputSystemStateType2);
+/** @internal */
+export const InputSystemStateType2$outboundSchema: z.ZodNativeEnum<
+  typeof InputSystemStateType2
+> = InputSystemStateType2$inboundSchema;
+
+/** @internal */
+export const HostsFile2$inboundSchema: z.ZodType<
+  HostsFile2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type HostsFile2$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const HostsFile2$outboundSchema: z.ZodType<
+  HostsFile2$Outbound,
+  z.ZodTypeDef,
+  HostsFile2
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function hostsFile2ToJSON(hostsFile2: HostsFile2): string {
+  return JSON.stringify(HostsFile2$outboundSchema.parse(hostsFile2));
+}
+export function hostsFile2FromJSON(
+  jsonString: string,
+): SafeParseResult<HostsFile2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => HostsFile2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'HostsFile2' from JSON`,
+  );
+}
+
+/** @internal */
+export const Interfaces2$inboundSchema: z.ZodType<
+  Interfaces2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type Interfaces2$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const Interfaces2$outboundSchema: z.ZodType<
+  Interfaces2$Outbound,
+  z.ZodTypeDef,
+  Interfaces2
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function interfaces2ToJSON(interfaces2: Interfaces2): string {
+  return JSON.stringify(Interfaces2$outboundSchema.parse(interfaces2));
+}
+export function interfaces2FromJSON(
+  jsonString: string,
+): SafeParseResult<Interfaces2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Interfaces2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Interfaces2' from JSON`,
+  );
+}
+
+/** @internal */
+export const DisksAndFileSystems2$inboundSchema: z.ZodType<
+  DisksAndFileSystems2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type DisksAndFileSystems2$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const DisksAndFileSystems2$outboundSchema: z.ZodType<
+  DisksAndFileSystems2$Outbound,
+  z.ZodTypeDef,
+  DisksAndFileSystems2
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function disksAndFileSystems2ToJSON(
+  disksAndFileSystems2: DisksAndFileSystems2,
+): string {
+  return JSON.stringify(
+    DisksAndFileSystems2$outboundSchema.parse(disksAndFileSystems2),
+  );
+}
+export function disksAndFileSystems2FromJSON(
+  jsonString: string,
+): SafeParseResult<DisksAndFileSystems2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => DisksAndFileSystems2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DisksAndFileSystems2' from JSON`,
+  );
+}
+
+/** @internal */
+export const HostInfo2$inboundSchema: z.ZodType<
+  HostInfo2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type HostInfo2$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const HostInfo2$outboundSchema: z.ZodType<
+  HostInfo2$Outbound,
+  z.ZodTypeDef,
+  HostInfo2
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function hostInfo2ToJSON(hostInfo2: HostInfo2): string {
+  return JSON.stringify(HostInfo2$outboundSchema.parse(hostInfo2));
+}
+export function hostInfo2FromJSON(
+  jsonString: string,
+): SafeParseResult<HostInfo2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => HostInfo2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'HostInfo2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemStateRoutes2$inboundSchema: z.ZodType<
+  InputSystemStateRoutes2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type InputSystemStateRoutes2$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const InputSystemStateRoutes2$outboundSchema: z.ZodType<
+  InputSystemStateRoutes2$Outbound,
+  z.ZodTypeDef,
+  InputSystemStateRoutes2
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function inputSystemStateRoutes2ToJSON(
+  inputSystemStateRoutes2: InputSystemStateRoutes2,
+): string {
+  return JSON.stringify(
+    InputSystemStateRoutes2$outboundSchema.parse(inputSystemStateRoutes2),
+  );
+}
+export function inputSystemStateRoutes2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSystemStateRoutes2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSystemStateRoutes2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemStateRoutes2' from JSON`,
+  );
+}
+
+/** @internal */
+export const Dns2$inboundSchema: z.ZodType<Dns2, z.ZodTypeDef, unknown> = z
+  .object({
+    enable: z.boolean().default(true),
+  });
+/** @internal */
+export type Dns2$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const Dns2$outboundSchema: z.ZodType<Dns2$Outbound, z.ZodTypeDef, Dns2> =
+  z.object({
+    enable: z.boolean().default(true),
+  });
+
+export function dns2ToJSON(dns2: Dns2): string {
+  return JSON.stringify(Dns2$outboundSchema.parse(dns2));
+}
+export function dns2FromJSON(
+  jsonString: string,
+): SafeParseResult<Dns2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Dns2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Dns2' from JSON`,
+  );
+}
+
+/** @internal */
+export const UsersAndGroups2$inboundSchema: z.ZodType<
+  UsersAndGroups2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type UsersAndGroups2$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const UsersAndGroups2$outboundSchema: z.ZodType<
+  UsersAndGroups2$Outbound,
+  z.ZodTypeDef,
+  UsersAndGroups2
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function usersAndGroups2ToJSON(
+  usersAndGroups2: UsersAndGroups2,
+): string {
+  return JSON.stringify(UsersAndGroups2$outboundSchema.parse(usersAndGroups2));
+}
+export function usersAndGroups2FromJSON(
+  jsonString: string,
+): SafeParseResult<UsersAndGroups2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UsersAndGroups2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UsersAndGroups2' from JSON`,
+  );
+}
+
+/** @internal */
+export const Firewall2$inboundSchema: z.ZodType<
+  Firewall2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type Firewall2$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const Firewall2$outboundSchema: z.ZodType<
+  Firewall2$Outbound,
+  z.ZodTypeDef,
+  Firewall2
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function firewall2ToJSON(firewall2: Firewall2): string {
+  return JSON.stringify(Firewall2$outboundSchema.parse(firewall2));
+}
+export function firewall2FromJSON(
+  jsonString: string,
+): SafeParseResult<Firewall2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Firewall2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Firewall2' from JSON`,
+  );
+}
+
+/** @internal */
+export const Services2$inboundSchema: z.ZodType<
+  Services2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type Services2$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const Services2$outboundSchema: z.ZodType<
+  Services2$Outbound,
+  z.ZodTypeDef,
+  Services2
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function services2ToJSON(services2: Services2): string {
+  return JSON.stringify(Services2$outboundSchema.parse(services2));
+}
+export function services2FromJSON(
+  jsonString: string,
+): SafeParseResult<Services2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Services2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Services2' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListeningPorts2$inboundSchema: z.ZodType<
+  ListeningPorts2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type ListeningPorts2$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const ListeningPorts2$outboundSchema: z.ZodType<
+  ListeningPorts2$Outbound,
+  z.ZodTypeDef,
+  ListeningPorts2
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function listeningPorts2ToJSON(
+  listeningPorts2: ListeningPorts2,
+): string {
+  return JSON.stringify(ListeningPorts2$outboundSchema.parse(listeningPorts2));
+}
+export function listeningPorts2FromJSON(
+  jsonString: string,
+): SafeParseResult<ListeningPorts2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListeningPorts2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListeningPorts2' from JSON`,
+  );
+}
+
+/** @internal */
+export const LoggedInUsers2$inboundSchema: z.ZodType<
+  LoggedInUsers2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type LoggedInUsers2$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const LoggedInUsers2$outboundSchema: z.ZodType<
+  LoggedInUsers2$Outbound,
+  z.ZodTypeDef,
+  LoggedInUsers2
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function loggedInUsers2ToJSON(loggedInUsers2: LoggedInUsers2): string {
+  return JSON.stringify(LoggedInUsers2$outboundSchema.parse(loggedInUsers2));
+}
+export function loggedInUsers2FromJSON(
+  jsonString: string,
+): SafeParseResult<LoggedInUsers2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => LoggedInUsers2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'LoggedInUsers2' from JSON`,
+  );
+}
+
+/** @internal */
+export const Collectors2$inboundSchema: z.ZodType<
+  Collectors2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  hostsfile: z.lazy(() => HostsFile2$inboundSchema).optional(),
+  interfaces: z.lazy(() => Interfaces2$inboundSchema).optional(),
+  disk: z.lazy(() => DisksAndFileSystems2$inboundSchema).optional(),
+  metadata: z.lazy(() => HostInfo2$inboundSchema).optional(),
+  routes: z.lazy(() => InputSystemStateRoutes2$inboundSchema).optional(),
+  dns: z.lazy(() => Dns2$inboundSchema).optional(),
+  user: z.lazy(() => UsersAndGroups2$inboundSchema).optional(),
+  firewall: z.lazy(() => Firewall2$inboundSchema).optional(),
+  services: z.lazy(() => Services2$inboundSchema).optional(),
+  ports: z.lazy(() => ListeningPorts2$inboundSchema).optional(),
+  loginUsers: z.lazy(() => LoggedInUsers2$inboundSchema).optional(),
+});
+/** @internal */
+export type Collectors2$Outbound = {
+  hostsfile?: HostsFile2$Outbound | undefined;
+  interfaces?: Interfaces2$Outbound | undefined;
+  disk?: DisksAndFileSystems2$Outbound | undefined;
+  metadata?: HostInfo2$Outbound | undefined;
+  routes?: InputSystemStateRoutes2$Outbound | undefined;
+  dns?: Dns2$Outbound | undefined;
+  user?: UsersAndGroups2$Outbound | undefined;
+  firewall?: Firewall2$Outbound | undefined;
+  services?: Services2$Outbound | undefined;
+  ports?: ListeningPorts2$Outbound | undefined;
+  loginUsers?: LoggedInUsers2$Outbound | undefined;
+};
+
+/** @internal */
+export const Collectors2$outboundSchema: z.ZodType<
+  Collectors2$Outbound,
+  z.ZodTypeDef,
+  Collectors2
+> = z.object({
+  hostsfile: z.lazy(() => HostsFile2$outboundSchema).optional(),
+  interfaces: z.lazy(() => Interfaces2$outboundSchema).optional(),
+  disk: z.lazy(() => DisksAndFileSystems2$outboundSchema).optional(),
+  metadata: z.lazy(() => HostInfo2$outboundSchema).optional(),
+  routes: z.lazy(() => InputSystemStateRoutes2$outboundSchema).optional(),
+  dns: z.lazy(() => Dns2$outboundSchema).optional(),
+  user: z.lazy(() => UsersAndGroups2$outboundSchema).optional(),
+  firewall: z.lazy(() => Firewall2$outboundSchema).optional(),
+  services: z.lazy(() => Services2$outboundSchema).optional(),
+  ports: z.lazy(() => ListeningPorts2$outboundSchema).optional(),
+  loginUsers: z.lazy(() => LoggedInUsers2$outboundSchema).optional(),
+});
+
+export function collectors2ToJSON(collectors2: Collectors2): string {
+  return JSON.stringify(Collectors2$outboundSchema.parse(collectors2));
+}
+export function collectors2FromJSON(
+  jsonString: string,
+): SafeParseResult<Collectors2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Collectors2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Collectors2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemStateSystemState2$inboundSchema: z.ZodType<
+  InputSystemStateSystemState2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputSystemStateType2$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema),
+  pq: PqType$inboundSchema.optional(),
+  interval: z.number().default(300),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  collectors: z.lazy(() => Collectors2$inboundSchema).optional(),
+  persistence: Persistence1Type$inboundSchema.optional(),
+  disableNativeModule: z.boolean().default(false),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputSystemStateSystemState2$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections: Array<ConnectionsType$Outbound>;
+  pq?: PqType$Outbound | undefined;
+  interval: number;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  collectors?: Collectors2$Outbound | undefined;
+  persistence?: Persistence1Type$Outbound | undefined;
+  disableNativeModule: boolean;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputSystemStateSystemState2$outboundSchema: z.ZodType<
+  InputSystemStateSystemState2$Outbound,
+  z.ZodTypeDef,
+  InputSystemStateSystemState2
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputSystemStateType2$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema),
+  pq: PqType$outboundSchema.optional(),
+  interval: z.number().default(300),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  collectors: z.lazy(() => Collectors2$outboundSchema).optional(),
+  persistence: Persistence1Type$outboundSchema.optional(),
+  disableNativeModule: z.boolean().default(false),
+  description: z.string().optional(),
+});
+
+export function inputSystemStateSystemState2ToJSON(
+  inputSystemStateSystemState2: InputSystemStateSystemState2,
+): string {
+  return JSON.stringify(
+    InputSystemStateSystemState2$outboundSchema.parse(
+      inputSystemStateSystemState2,
+    ),
+  );
+}
+export function inputSystemStateSystemState2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSystemStateSystemState2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSystemStateSystemState2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemStateSystemState2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemStateType1$inboundSchema: z.ZodNativeEnum<
+  typeof InputSystemStateType1
+> = z.nativeEnum(InputSystemStateType1);
+/** @internal */
+export const InputSystemStateType1$outboundSchema: z.ZodNativeEnum<
+  typeof InputSystemStateType1
+> = InputSystemStateType1$inboundSchema;
+
+/** @internal */
+export const HostsFile1$inboundSchema: z.ZodType<
+  HostsFile1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type HostsFile1$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const HostsFile1$outboundSchema: z.ZodType<
+  HostsFile1$Outbound,
+  z.ZodTypeDef,
+  HostsFile1
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function hostsFile1ToJSON(hostsFile1: HostsFile1): string {
+  return JSON.stringify(HostsFile1$outboundSchema.parse(hostsFile1));
+}
+export function hostsFile1FromJSON(
+  jsonString: string,
+): SafeParseResult<HostsFile1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => HostsFile1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'HostsFile1' from JSON`,
+  );
+}
+
+/** @internal */
+export const Interfaces1$inboundSchema: z.ZodType<
+  Interfaces1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type Interfaces1$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const Interfaces1$outboundSchema: z.ZodType<
+  Interfaces1$Outbound,
+  z.ZodTypeDef,
+  Interfaces1
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function interfaces1ToJSON(interfaces1: Interfaces1): string {
+  return JSON.stringify(Interfaces1$outboundSchema.parse(interfaces1));
+}
+export function interfaces1FromJSON(
+  jsonString: string,
+): SafeParseResult<Interfaces1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Interfaces1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Interfaces1' from JSON`,
+  );
+}
+
+/** @internal */
+export const DisksAndFileSystems1$inboundSchema: z.ZodType<
+  DisksAndFileSystems1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type DisksAndFileSystems1$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const DisksAndFileSystems1$outboundSchema: z.ZodType<
+  DisksAndFileSystems1$Outbound,
+  z.ZodTypeDef,
+  DisksAndFileSystems1
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function disksAndFileSystems1ToJSON(
+  disksAndFileSystems1: DisksAndFileSystems1,
+): string {
+  return JSON.stringify(
+    DisksAndFileSystems1$outboundSchema.parse(disksAndFileSystems1),
+  );
+}
+export function disksAndFileSystems1FromJSON(
+  jsonString: string,
+): SafeParseResult<DisksAndFileSystems1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => DisksAndFileSystems1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DisksAndFileSystems1' from JSON`,
+  );
+}
+
+/** @internal */
+export const HostInfo1$inboundSchema: z.ZodType<
+  HostInfo1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type HostInfo1$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const HostInfo1$outboundSchema: z.ZodType<
+  HostInfo1$Outbound,
+  z.ZodTypeDef,
+  HostInfo1
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function hostInfo1ToJSON(hostInfo1: HostInfo1): string {
+  return JSON.stringify(HostInfo1$outboundSchema.parse(hostInfo1));
+}
+export function hostInfo1FromJSON(
+  jsonString: string,
+): SafeParseResult<HostInfo1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => HostInfo1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'HostInfo1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemStateRoutes1$inboundSchema: z.ZodType<
+  InputSystemStateRoutes1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type InputSystemStateRoutes1$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const InputSystemStateRoutes1$outboundSchema: z.ZodType<
+  InputSystemStateRoutes1$Outbound,
+  z.ZodTypeDef,
+  InputSystemStateRoutes1
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function inputSystemStateRoutes1ToJSON(
+  inputSystemStateRoutes1: InputSystemStateRoutes1,
+): string {
+  return JSON.stringify(
+    InputSystemStateRoutes1$outboundSchema.parse(inputSystemStateRoutes1),
+  );
+}
+export function inputSystemStateRoutes1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSystemStateRoutes1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSystemStateRoutes1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemStateRoutes1' from JSON`,
+  );
+}
+
+/** @internal */
+export const Dns1$inboundSchema: z.ZodType<Dns1, z.ZodTypeDef, unknown> = z
+  .object({
+    enable: z.boolean().default(true),
+  });
+/** @internal */
+export type Dns1$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const Dns1$outboundSchema: z.ZodType<Dns1$Outbound, z.ZodTypeDef, Dns1> =
+  z.object({
+    enable: z.boolean().default(true),
+  });
+
+export function dns1ToJSON(dns1: Dns1): string {
+  return JSON.stringify(Dns1$outboundSchema.parse(dns1));
+}
+export function dns1FromJSON(
+  jsonString: string,
+): SafeParseResult<Dns1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Dns1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Dns1' from JSON`,
+  );
+}
+
+/** @internal */
+export const UsersAndGroups1$inboundSchema: z.ZodType<
+  UsersAndGroups1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type UsersAndGroups1$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const UsersAndGroups1$outboundSchema: z.ZodType<
+  UsersAndGroups1$Outbound,
+  z.ZodTypeDef,
+  UsersAndGroups1
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function usersAndGroups1ToJSON(
+  usersAndGroups1: UsersAndGroups1,
+): string {
+  return JSON.stringify(UsersAndGroups1$outboundSchema.parse(usersAndGroups1));
+}
+export function usersAndGroups1FromJSON(
+  jsonString: string,
+): SafeParseResult<UsersAndGroups1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => UsersAndGroups1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'UsersAndGroups1' from JSON`,
+  );
+}
+
+/** @internal */
+export const Firewall1$inboundSchema: z.ZodType<
+  Firewall1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type Firewall1$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const Firewall1$outboundSchema: z.ZodType<
+  Firewall1$Outbound,
+  z.ZodTypeDef,
+  Firewall1
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function firewall1ToJSON(firewall1: Firewall1): string {
+  return JSON.stringify(Firewall1$outboundSchema.parse(firewall1));
+}
+export function firewall1FromJSON(
+  jsonString: string,
+): SafeParseResult<Firewall1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Firewall1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Firewall1' from JSON`,
+  );
+}
+
+/** @internal */
+export const Services1$inboundSchema: z.ZodType<
+  Services1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type Services1$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const Services1$outboundSchema: z.ZodType<
+  Services1$Outbound,
+  z.ZodTypeDef,
+  Services1
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function services1ToJSON(services1: Services1): string {
+  return JSON.stringify(Services1$outboundSchema.parse(services1));
+}
+export function services1FromJSON(
+  jsonString: string,
+): SafeParseResult<Services1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Services1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Services1' from JSON`,
+  );
+}
+
+/** @internal */
+export const ListeningPorts1$inboundSchema: z.ZodType<
+  ListeningPorts1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type ListeningPorts1$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const ListeningPorts1$outboundSchema: z.ZodType<
+  ListeningPorts1$Outbound,
+  z.ZodTypeDef,
+  ListeningPorts1
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function listeningPorts1ToJSON(
+  listeningPorts1: ListeningPorts1,
+): string {
+  return JSON.stringify(ListeningPorts1$outboundSchema.parse(listeningPorts1));
+}
+export function listeningPorts1FromJSON(
+  jsonString: string,
+): SafeParseResult<ListeningPorts1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ListeningPorts1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ListeningPorts1' from JSON`,
+  );
+}
+
+/** @internal */
+export const LoggedInUsers1$inboundSchema: z.ZodType<
+  LoggedInUsers1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(true),
+});
+/** @internal */
+export type LoggedInUsers1$Outbound = {
+  enable: boolean;
+};
+
+/** @internal */
+export const LoggedInUsers1$outboundSchema: z.ZodType<
+  LoggedInUsers1$Outbound,
+  z.ZodTypeDef,
+  LoggedInUsers1
+> = z.object({
+  enable: z.boolean().default(true),
+});
+
+export function loggedInUsers1ToJSON(loggedInUsers1: LoggedInUsers1): string {
+  return JSON.stringify(LoggedInUsers1$outboundSchema.parse(loggedInUsers1));
+}
+export function loggedInUsers1FromJSON(
+  jsonString: string,
+): SafeParseResult<LoggedInUsers1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => LoggedInUsers1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'LoggedInUsers1' from JSON`,
+  );
+}
+
+/** @internal */
+export const Collectors1$inboundSchema: z.ZodType<
+  Collectors1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  hostsfile: z.lazy(() => HostsFile1$inboundSchema).optional(),
+  interfaces: z.lazy(() => Interfaces1$inboundSchema).optional(),
+  disk: z.lazy(() => DisksAndFileSystems1$inboundSchema).optional(),
+  metadata: z.lazy(() => HostInfo1$inboundSchema).optional(),
+  routes: z.lazy(() => InputSystemStateRoutes1$inboundSchema).optional(),
+  dns: z.lazy(() => Dns1$inboundSchema).optional(),
+  user: z.lazy(() => UsersAndGroups1$inboundSchema).optional(),
+  firewall: z.lazy(() => Firewall1$inboundSchema).optional(),
+  services: z.lazy(() => Services1$inboundSchema).optional(),
+  ports: z.lazy(() => ListeningPorts1$inboundSchema).optional(),
+  loginUsers: z.lazy(() => LoggedInUsers1$inboundSchema).optional(),
+});
+/** @internal */
+export type Collectors1$Outbound = {
+  hostsfile?: HostsFile1$Outbound | undefined;
+  interfaces?: Interfaces1$Outbound | undefined;
+  disk?: DisksAndFileSystems1$Outbound | undefined;
+  metadata?: HostInfo1$Outbound | undefined;
+  routes?: InputSystemStateRoutes1$Outbound | undefined;
+  dns?: Dns1$Outbound | undefined;
+  user?: UsersAndGroups1$Outbound | undefined;
+  firewall?: Firewall1$Outbound | undefined;
+  services?: Services1$Outbound | undefined;
+  ports?: ListeningPorts1$Outbound | undefined;
+  loginUsers?: LoggedInUsers1$Outbound | undefined;
+};
+
+/** @internal */
+export const Collectors1$outboundSchema: z.ZodType<
+  Collectors1$Outbound,
+  z.ZodTypeDef,
+  Collectors1
+> = z.object({
+  hostsfile: z.lazy(() => HostsFile1$outboundSchema).optional(),
+  interfaces: z.lazy(() => Interfaces1$outboundSchema).optional(),
+  disk: z.lazy(() => DisksAndFileSystems1$outboundSchema).optional(),
+  metadata: z.lazy(() => HostInfo1$outboundSchema).optional(),
+  routes: z.lazy(() => InputSystemStateRoutes1$outboundSchema).optional(),
+  dns: z.lazy(() => Dns1$outboundSchema).optional(),
+  user: z.lazy(() => UsersAndGroups1$outboundSchema).optional(),
+  firewall: z.lazy(() => Firewall1$outboundSchema).optional(),
+  services: z.lazy(() => Services1$outboundSchema).optional(),
+  ports: z.lazy(() => ListeningPorts1$outboundSchema).optional(),
+  loginUsers: z.lazy(() => LoggedInUsers1$outboundSchema).optional(),
+});
+
+export function collectors1ToJSON(collectors1: Collectors1): string {
+  return JSON.stringify(Collectors1$outboundSchema.parse(collectors1));
+}
+export function collectors1FromJSON(
+  jsonString: string,
+): SafeParseResult<Collectors1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Collectors1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Collectors1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSystemStateSystemState1$inboundSchema: z.ZodType<
+  InputSystemStateSystemState1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputSystemStateType1$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  interval: z.number().default(300),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  collectors: z.lazy(() => Collectors1$inboundSchema).optional(),
+  persistence: Persistence1Type$inboundSchema.optional(),
+  disableNativeModule: z.boolean().default(false),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputSystemStateSystemState1$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  interval: number;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  collectors?: Collectors1$Outbound | undefined;
+  persistence?: Persistence1Type$Outbound | undefined;
+  disableNativeModule: boolean;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputSystemStateSystemState1$outboundSchema: z.ZodType<
+  InputSystemStateSystemState1$Outbound,
+  z.ZodTypeDef,
+  InputSystemStateSystemState1
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputSystemStateType1$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  interval: z.number().default(300),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  collectors: z.lazy(() => Collectors1$outboundSchema).optional(),
+  persistence: Persistence1Type$outboundSchema.optional(),
+  disableNativeModule: z.boolean().default(false),
+  description: z.string().optional(),
+});
+
+export function inputSystemStateSystemState1ToJSON(
+  inputSystemStateSystemState1: InputSystemStateSystemState1,
+): string {
+  return JSON.stringify(
+    InputSystemStateSystemState1$outboundSchema.parse(
+      inputSystemStateSystemState1,
+    ),
+  );
+}
+export function inputSystemStateSystemState1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSystemStateSystemState1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSystemStateSystemState1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSystemStateSystemState1' from JSON`,
   );
 }
 
@@ -1363,87 +2959,30 @@ export const InputSystemState$inboundSchema: z.ZodType<
   InputSystemState,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.string().optional(),
-  type: InputSystemStateType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputSystemStateConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputSystemStatePq$inboundSchema).optional(),
-  interval: z.number().default(300),
-  metadata: z.array(z.lazy(() => InputSystemStateMetadatum$inboundSchema))
-    .optional(),
-  collectors: z.lazy(() => Collectors$inboundSchema).optional(),
-  persistence: z.lazy(() => InputSystemStatePersistence$inboundSchema)
-    .optional(),
-  disableNativeModule: z.boolean().default(false),
-  description: z.string().optional(),
-});
-
+> = z.union([
+  z.lazy(() => InputSystemStateSystemState2$inboundSchema),
+  z.lazy(() => InputSystemStateSystemState4$inboundSchema),
+  z.lazy(() => InputSystemStateSystemState1$inboundSchema),
+  z.lazy(() => InputSystemStateSystemState3$inboundSchema),
+]);
 /** @internal */
-export type InputSystemState$Outbound = {
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  sendToRoutes: boolean;
-  environment?: string | undefined;
-  pqEnabled: boolean;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<InputSystemStateConnection$Outbound> | undefined;
-  pq?: InputSystemStatePq$Outbound | undefined;
-  interval: number;
-  metadata?: Array<InputSystemStateMetadatum$Outbound> | undefined;
-  collectors?: Collectors$Outbound | undefined;
-  persistence?: InputSystemStatePersistence$Outbound | undefined;
-  disableNativeModule: boolean;
-  description?: string | undefined;
-};
+export type InputSystemState$Outbound =
+  | InputSystemStateSystemState2$Outbound
+  | InputSystemStateSystemState4$Outbound
+  | InputSystemStateSystemState1$Outbound
+  | InputSystemStateSystemState3$Outbound;
 
 /** @internal */
 export const InputSystemState$outboundSchema: z.ZodType<
   InputSystemState$Outbound,
   z.ZodTypeDef,
   InputSystemState
-> = z.object({
-  id: z.string().optional(),
-  type: InputSystemStateType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputSystemStateConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputSystemStatePq$outboundSchema).optional(),
-  interval: z.number().default(300),
-  metadata: z.array(z.lazy(() => InputSystemStateMetadatum$outboundSchema))
-    .optional(),
-  collectors: z.lazy(() => Collectors$outboundSchema).optional(),
-  persistence: z.lazy(() => InputSystemStatePersistence$outboundSchema)
-    .optional(),
-  disableNativeModule: z.boolean().default(false),
-  description: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSystemState$ {
-  /** @deprecated use `InputSystemState$inboundSchema` instead. */
-  export const inboundSchema = InputSystemState$inboundSchema;
-  /** @deprecated use `InputSystemState$outboundSchema` instead. */
-  export const outboundSchema = InputSystemState$outboundSchema;
-  /** @deprecated use `InputSystemState$Outbound` instead. */
-  export type Outbound = InputSystemState$Outbound;
-}
+> = z.union([
+  z.lazy(() => InputSystemStateSystemState2$outboundSchema),
+  z.lazy(() => InputSystemStateSystemState4$outboundSchema),
+  z.lazy(() => InputSystemStateSystemState1$outboundSchema),
+  z.lazy(() => InputSystemStateSystemState3$outboundSchema),
+]);
 
 export function inputSystemStateToJSON(
   inputSystemState: InputSystemState,
@@ -1452,7 +2991,6 @@ export function inputSystemStateToJSON(
     InputSystemState$outboundSchema.parse(inputSystemState),
   );
 }
-
 export function inputSystemStateFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSystemState, SDKValidationError> {

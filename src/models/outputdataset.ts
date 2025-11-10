@@ -11,176 +11,137 @@ import {
   Unrecognized,
 } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthType2Options,
+  AuthType2Options$inboundSchema,
+  AuthType2Options$outboundSchema,
+} from "./authtype2options.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  ExtraHttpHeadersType,
+  ExtraHttpHeadersType$inboundSchema,
+  ExtraHttpHeadersType$Outbound,
+  ExtraHttpHeadersType$outboundSchema,
+} from "./extrahttpheaderstype.js";
+import {
+  FailedRequestLoggingModeOptions,
+  FailedRequestLoggingModeOptions$inboundSchema,
+  FailedRequestLoggingModeOptions$outboundSchema,
+} from "./failedrequestloggingmodeoptions.js";
+import {
+  MetadataType,
+  MetadataType$inboundSchema,
+  MetadataType$Outbound,
+  MetadataType$outboundSchema,
+} from "./metadatatype.js";
+import {
+  OnBackpressureOptions,
+  OnBackpressureOptions$inboundSchema,
+  OnBackpressureOptions$outboundSchema,
+} from "./onbackpressureoptions.js";
+import {
+  PqCompressOptions,
+  PqCompressOptions$inboundSchema,
+  PqCompressOptions$outboundSchema,
+} from "./pqcompressoptions.js";
+import {
+  PqModeOptions,
+  PqModeOptions$inboundSchema,
+  PqModeOptions$outboundSchema,
+} from "./pqmodeoptions.js";
+import {
+  PqOnBackpressureOptions,
+  PqOnBackpressureOptions$inboundSchema,
+  PqOnBackpressureOptions$outboundSchema,
+} from "./pqonbackpressureoptions.js";
+import {
+  ResponseRetrySettingsType,
+  ResponseRetrySettingsType$inboundSchema,
+  ResponseRetrySettingsType$Outbound,
+  ResponseRetrySettingsType$outboundSchema,
+} from "./responseretrysettingstype.js";
+import {
+  TimeoutRetrySettingsType,
+  TimeoutRetrySettingsType$inboundSchema,
+  TimeoutRetrySettingsType$Outbound,
+  TimeoutRetrySettingsType$outboundSchema,
+} from "./timeoutretrysettingstype.js";
 
-export const OutputDatasetType = {
+export const OutputDatasetType6 = {
   Dataset: "dataset",
 } as const;
-export type OutputDatasetType = ClosedEnum<typeof OutputDatasetType>;
+export type OutputDatasetType6 = ClosedEnum<typeof OutputDatasetType6>;
 
 /**
  * Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
  */
-export const OutputDatasetSeverity = {
+export const OutputDatasetSeverity6 = {
+  /**
+   * 0 - finest
+   */
   Finest: "finest",
+  /**
+   * 1 - finer
+   */
   Finer: "finer",
+  /**
+   * 2 - fine
+   */
   Fine: "fine",
+  /**
+   * 3 - info
+   */
   Info: "info",
+  /**
+   * 4 - warning
+   */
   Warning: "warning",
+  /**
+   * 5 - error
+   */
   Error: "error",
+  /**
+   * 6 - fatal
+   */
   Fatal: "fatal",
 } as const;
 /**
  * Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
  */
-export type OutputDatasetSeverity = OpenEnum<typeof OutputDatasetSeverity>;
-
-export type OutputDatasetResponseRetrySetting = {
-  /**
-   * The HTTP response status code that will trigger retries
-   */
-  httpStatus: number;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-export type OutputDatasetTimeoutRetrySettings = {
-  timeoutRetry?: boolean | undefined;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
+export type OutputDatasetSeverity6 = OpenEnum<typeof OutputDatasetSeverity6>;
 
 /**
  * DataSet site to which events should be sent
  */
-export const DataSetSite = {
+export const DataSetSite6 = {
+  /**
+   * US
+   */
   Us: "us",
+  /**
+   * Europe
+   */
   Eu: "eu",
+  /**
+   * Custom
+   */
   Custom: "custom",
 } as const;
 /**
  * DataSet site to which events should be sent
  */
-export type DataSetSite = OpenEnum<typeof DataSetSite>;
+export type DataSetSite6 = OpenEnum<typeof DataSetSite6>;
 
-export type OutputDatasetExtraHttpHeader = {
-  name?: string | undefined;
-  value: string;
-};
-
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export const OutputDatasetFailedRequestLoggingMode = {
-  Payload: "payload",
-  PayloadAndHeaders: "payloadAndHeaders",
-  None: "none",
-} as const;
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export type OutputDatasetFailedRequestLoggingMode = OpenEnum<
-  typeof OutputDatasetFailedRequestLoggingMode
->;
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputDatasetBackpressureBehavior = {
-  Block: "block",
-  Drop: "drop",
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputDatasetBackpressureBehavior = OpenEnum<
-  typeof OutputDatasetBackpressureBehavior
->;
-
-/**
- * Enter API key directly, or select a stored secret
- */
-export const OutputDatasetAuthenticationMethod = {
-  Manual: "manual",
-  Secret: "secret",
-} as const;
-/**
- * Enter API key directly, or select a stored secret
- */
-export type OutputDatasetAuthenticationMethod = OpenEnum<
-  typeof OutputDatasetAuthenticationMethod
->;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputDatasetCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputDatasetCompression = OpenEnum<
-  typeof OutputDatasetCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputDatasetQueueFullBehavior = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputDatasetQueueFullBehavior = OpenEnum<
-  typeof OutputDatasetQueueFullBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputDatasetMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputDatasetMode = OpenEnum<typeof OutputDatasetMode>;
-
-export type OutputDatasetPqControls = {};
-
-export type OutputDataset = {
+export type OutputDatasetDataset6 = {
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputDatasetType;
+  type: OutputDatasetType6;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -216,12 +177,12 @@ export type OutputDataset = {
   /**
    * Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
    */
-  defaultSeverity?: OutputDatasetSeverity | undefined;
+  defaultSeverity?: OutputDatasetSeverity6 | undefined;
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<OutputDatasetResponseRetrySetting> | undefined;
-  timeoutRetrySettings?: OutputDatasetTimeoutRetrySettings | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
@@ -229,7 +190,7 @@ export type OutputDataset = {
   /**
    * DataSet site to which events should be sent
    */
-  site?: DataSetSite | undefined;
+  site?: DataSetSite6 | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -265,7 +226,7 @@ export type OutputDataset = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<OutputDatasetExtraHttpHeader> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -273,7 +234,7 @@ export type OutputDataset = {
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
-  failedRequestLoggingMode?: OutputDatasetFailedRequestLoggingMode | undefined;
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -281,17 +242,33 @@ export type OutputDataset = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputDatasetBackpressureBehavior | undefined;
-  /**
-   * Enter API key directly, or select a stored secret
-   */
-  authType?: OutputDatasetAuthenticationMethod | undefined;
+  onBackpressure?: OnBackpressureOptions | undefined;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
   customUrl?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
   /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
@@ -307,16 +284,478 @@ export type OutputDataset = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputDatasetCompression | undefined;
+  pqCompress?: PqCompressOptions | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputDatasetQueueFullBehavior | undefined;
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * A 'Log Write Access' API key for the DataSet account
+   */
+  apiKey?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret: string;
+};
+
+export const OutputDatasetType5 = {
+  Dataset: "dataset",
+} as const;
+export type OutputDatasetType5 = ClosedEnum<typeof OutputDatasetType5>;
+
+/**
+ * Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
+ */
+export const OutputDatasetSeverity5 = {
+  /**
+   * 0 - finest
+   */
+  Finest: "finest",
+  /**
+   * 1 - finer
+   */
+  Finer: "finer",
+  /**
+   * 2 - fine
+   */
+  Fine: "fine",
+  /**
+   * 3 - info
+   */
+  Info: "info",
+  /**
+   * 4 - warning
+   */
+  Warning: "warning",
+  /**
+   * 5 - error
+   */
+  Error: "error",
+  /**
+   * 6 - fatal
+   */
+  Fatal: "fatal",
+} as const;
+/**
+ * Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
+ */
+export type OutputDatasetSeverity5 = OpenEnum<typeof OutputDatasetSeverity5>;
+
+/**
+ * DataSet site to which events should be sent
+ */
+export const DataSetSite5 = {
+  /**
+   * US
+   */
+  Us: "us",
+  /**
+   * Europe
+   */
+  Eu: "eu",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+} as const;
+/**
+ * DataSet site to which events should be sent
+ */
+export type DataSetSite5 = OpenEnum<typeof DataSetSite5>;
+
+export type OutputDatasetDataset5 = {
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputDatasetType5;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the event field that contains the message or attributes to send. If not specified, all of the event's non-internal fields will be sent as attributes.
+   */
+  messageField?: string | undefined;
+  /**
+   * Fields to exclude from the event if the Message field is either unspecified or refers to an object. Ignored if the Message field is a string. If empty, we send all non-internal fields.
+   */
+  excludeFields?: Array<string> | undefined;
+  /**
+   * Name of the event field that contains the `serverHost` identifier. If not specified, defaults to `cribl_<outputId>`.
+   */
+  serverHostField?: string | undefined;
+  /**
+   * Name of the event field that contains the timestamp. If not specified, defaults to `ts`, `_time`, or `Date.now()`, in that order.
+   */
+  timestampField?: string | undefined;
+  /**
+   * Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
+   */
+  defaultSeverity?: OutputDatasetSeverity5 | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * DataSet site to which events should be sent
+   */
+  site?: DataSetSite5 | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputDatasetMode | undefined;
-  pqControls?: OutputDatasetPqControls | undefined;
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * A 'Log Write Access' API key for the DataSet account
+   */
+  apiKey: string;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export const OutputDatasetType4 = {
+  Dataset: "dataset",
+} as const;
+export type OutputDatasetType4 = ClosedEnum<typeof OutputDatasetType4>;
+
+/**
+ * Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
+ */
+export const OutputDatasetSeverity4 = {
+  /**
+   * 0 - finest
+   */
+  Finest: "finest",
+  /**
+   * 1 - finer
+   */
+  Finer: "finer",
+  /**
+   * 2 - fine
+   */
+  Fine: "fine",
+  /**
+   * 3 - info
+   */
+  Info: "info",
+  /**
+   * 4 - warning
+   */
+  Warning: "warning",
+  /**
+   * 5 - error
+   */
+  Error: "error",
+  /**
+   * 6 - fatal
+   */
+  Fatal: "fatal",
+} as const;
+/**
+ * Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
+ */
+export type OutputDatasetSeverity4 = OpenEnum<typeof OutputDatasetSeverity4>;
+
+/**
+ * DataSet site to which events should be sent
+ */
+export const DataSetSite4 = {
+  /**
+   * US
+   */
+  Us: "us",
+  /**
+   * Europe
+   */
+  Eu: "eu",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+} as const;
+/**
+ * DataSet site to which events should be sent
+ */
+export type DataSetSite4 = OpenEnum<typeof DataSetSite4>;
+
+export type OutputDatasetDataset4 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputDatasetType4;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the event field that contains the message or attributes to send. If not specified, all of the event's non-internal fields will be sent as attributes.
+   */
+  messageField?: string | undefined;
+  /**
+   * Fields to exclude from the event if the Message field is either unspecified or refers to an object. Ignored if the Message field is a string. If empty, we send all non-internal fields.
+   */
+  excludeFields?: Array<string> | undefined;
+  /**
+   * Name of the event field that contains the `serverHost` identifier. If not specified, defaults to `cribl_<outputId>`.
+   */
+  serverHostField?: string | undefined;
+  /**
+   * Name of the event field that contains the timestamp. If not specified, defaults to `ts`, `_time`, or `Date.now()`, in that order.
+   */
+  timestampField?: string | undefined;
+  /**
+   * Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
+   */
+  defaultSeverity?: OutputDatasetSeverity4 | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * DataSet site to which events should be sent
+   */
+  site?: DataSetSite4 | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls: MetadataType;
   /**
    * A 'Log Write Access' API key for the DataSet account
    */
@@ -327,534 +766,771 @@ export type OutputDataset = {
   textSecret?: string | undefined;
 };
 
-/** @internal */
-export const OutputDatasetType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputDatasetType
-> = z.nativeEnum(OutputDatasetType);
-
-/** @internal */
-export const OutputDatasetType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputDatasetType
-> = OutputDatasetType$inboundSchema;
+export const OutputDatasetType3 = {
+  Dataset: "dataset",
+} as const;
+export type OutputDatasetType3 = ClosedEnum<typeof OutputDatasetType3>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
  */
-export namespace OutputDatasetType$ {
-  /** @deprecated use `OutputDatasetType$inboundSchema` instead. */
-  export const inboundSchema = OutputDatasetType$inboundSchema;
-  /** @deprecated use `OutputDatasetType$outboundSchema` instead. */
-  export const outboundSchema = OutputDatasetType$outboundSchema;
-}
-
-/** @internal */
-export const OutputDatasetSeverity$inboundSchema: z.ZodType<
-  OutputDatasetSeverity,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatasetSeverity),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputDatasetSeverity$outboundSchema: z.ZodType<
-  OutputDatasetSeverity,
-  z.ZodTypeDef,
-  OutputDatasetSeverity
-> = z.union([
-  z.nativeEnum(OutputDatasetSeverity),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputDatasetSeverity3 = {
+  /**
+   * 0 - finest
+   */
+  Finest: "finest",
+  /**
+   * 1 - finer
+   */
+  Finer: "finer",
+  /**
+   * 2 - fine
+   */
+  Fine: "fine",
+  /**
+   * 3 - info
+   */
+  Info: "info",
+  /**
+   * 4 - warning
+   */
+  Warning: "warning",
+  /**
+   * 5 - error
+   */
+  Error: "error",
+  /**
+   * 6 - fatal
+   */
+  Fatal: "fatal",
+} as const;
+/**
+ * Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
+ */
+export type OutputDatasetSeverity3 = OpenEnum<typeof OutputDatasetSeverity3>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * DataSet site to which events should be sent
  */
-export namespace OutputDatasetSeverity$ {
-  /** @deprecated use `OutputDatasetSeverity$inboundSchema` instead. */
-  export const inboundSchema = OutputDatasetSeverity$inboundSchema;
-  /** @deprecated use `OutputDatasetSeverity$outboundSchema` instead. */
-  export const outboundSchema = OutputDatasetSeverity$outboundSchema;
-}
+export const DataSetSite3 = {
+  /**
+   * US
+   */
+  Us: "us",
+  /**
+   * Europe
+   */
+  Eu: "eu",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+} as const;
+/**
+ * DataSet site to which events should be sent
+ */
+export type DataSetSite3 = OpenEnum<typeof DataSetSite3>;
 
-/** @internal */
-export const OutputDatasetResponseRetrySetting$inboundSchema: z.ZodType<
-  OutputDatasetResponseRetrySetting,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/** @internal */
-export type OutputDatasetResponseRetrySetting$Outbound = {
-  httpStatus: number;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
+export type OutputDatasetDataset3 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputDatasetType3;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the event field that contains the message or attributes to send. If not specified, all of the event's non-internal fields will be sent as attributes.
+   */
+  messageField?: string | undefined;
+  /**
+   * Fields to exclude from the event if the Message field is either unspecified or refers to an object. Ignored if the Message field is a string. If empty, we send all non-internal fields.
+   */
+  excludeFields?: Array<string> | undefined;
+  /**
+   * Name of the event field that contains the `serverHost` identifier. If not specified, defaults to `cribl_<outputId>`.
+   */
+  serverHostField?: string | undefined;
+  /**
+   * Name of the event field that contains the timestamp. If not specified, defaults to `ts`, `_time`, or `Date.now()`, in that order.
+   */
+  timestampField?: string | undefined;
+  /**
+   * Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
+   */
+  defaultSeverity?: OutputDatasetSeverity3 | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * DataSet site to which events should be sent
+   */
+  site?: DataSetSite3 | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * A 'Log Write Access' API key for the DataSet account
+   */
+  apiKey?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
 };
 
-/** @internal */
-export const OutputDatasetResponseRetrySetting$outboundSchema: z.ZodType<
-  OutputDatasetResponseRetrySetting$Outbound,
-  z.ZodTypeDef,
-  OutputDatasetResponseRetrySetting
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
+/**
+ * DataSet site to which events should be sent
+ */
+export const DataSetSite2 = {
+  /**
+   * US
+   */
+  Us: "us",
+  /**
+   * Europe
+   */
+  Eu: "eu",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+} as const;
+/**
+ * DataSet site to which events should be sent
+ */
+export type DataSetSite2 = OpenEnum<typeof DataSetSite2>;
+
+export const OutputDatasetType2 = {
+  Dataset: "dataset",
+} as const;
+export type OutputDatasetType2 = ClosedEnum<typeof OutputDatasetType2>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
  */
-export namespace OutputDatasetResponseRetrySetting$ {
-  /** @deprecated use `OutputDatasetResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema = OutputDatasetResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputDatasetResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDatasetResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputDatasetResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputDatasetResponseRetrySetting$Outbound;
-}
+export const OutputDatasetSeverity2 = {
+  /**
+   * 0 - finest
+   */
+  Finest: "finest",
+  /**
+   * 1 - finer
+   */
+  Finer: "finer",
+  /**
+   * 2 - fine
+   */
+  Fine: "fine",
+  /**
+   * 3 - info
+   */
+  Info: "info",
+  /**
+   * 4 - warning
+   */
+  Warning: "warning",
+  /**
+   * 5 - error
+   */
+  Error: "error",
+  /**
+   * 6 - fatal
+   */
+  Fatal: "fatal",
+} as const;
+/**
+ * Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
+ */
+export type OutputDatasetSeverity2 = OpenEnum<typeof OutputDatasetSeverity2>;
 
-export function outputDatasetResponseRetrySettingToJSON(
-  outputDatasetResponseRetrySetting: OutputDatasetResponseRetrySetting,
-): string {
-  return JSON.stringify(
-    OutputDatasetResponseRetrySetting$outboundSchema.parse(
-      outputDatasetResponseRetrySetting,
-    ),
-  );
-}
-
-export function outputDatasetResponseRetrySettingFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputDatasetResponseRetrySetting, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputDatasetResponseRetrySetting$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputDatasetResponseRetrySetting' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputDatasetTimeoutRetrySettings$inboundSchema: z.ZodType<
-  OutputDatasetTimeoutRetrySettings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/** @internal */
-export type OutputDatasetTimeoutRetrySettings$Outbound = {
-  timeoutRetry: boolean;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
+export type OutputDatasetDataset2 = {
+  /**
+   * DataSet site to which events should be sent
+   */
+  site?: DataSetSite2 | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputDatasetType2;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the event field that contains the message or attributes to send. If not specified, all of the event's non-internal fields will be sent as attributes.
+   */
+  messageField?: string | undefined;
+  /**
+   * Fields to exclude from the event if the Message field is either unspecified or refers to an object. Ignored if the Message field is a string. If empty, we send all non-internal fields.
+   */
+  excludeFields?: Array<string> | undefined;
+  /**
+   * Name of the event field that contains the `serverHost` identifier. If not specified, defaults to `cribl_<outputId>`.
+   */
+  serverHostField?: string | undefined;
+  /**
+   * Name of the event field that contains the timestamp. If not specified, defaults to `ts`, `_time`, or `Date.now()`, in that order.
+   */
+  timestampField?: string | undefined;
+  /**
+   * Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
+   */
+  defaultSeverity?: OutputDatasetSeverity2 | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * A 'Log Write Access' API key for the DataSet account
+   */
+  apiKey?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
 };
 
-/** @internal */
-export const OutputDatasetTimeoutRetrySettings$outboundSchema: z.ZodType<
-  OutputDatasetTimeoutRetrySettings$Outbound,
-  z.ZodTypeDef,
-  OutputDatasetTimeoutRetrySettings
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
+/**
+ * DataSet site to which events should be sent
+ */
+export const DataSetSite1 = {
+  /**
+   * US
+   */
+  Us: "us",
+  /**
+   * Europe
+   */
+  Eu: "eu",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+} as const;
+/**
+ * DataSet site to which events should be sent
+ */
+export type DataSetSite1 = OpenEnum<typeof DataSetSite1>;
+
+export const OutputDatasetType1 = {
+  Dataset: "dataset",
+} as const;
+export type OutputDatasetType1 = ClosedEnum<typeof OutputDatasetType1>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
  */
-export namespace OutputDatasetTimeoutRetrySettings$ {
-  /** @deprecated use `OutputDatasetTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema = OutputDatasetTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputDatasetTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDatasetTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputDatasetTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputDatasetTimeoutRetrySettings$Outbound;
-}
-
-export function outputDatasetTimeoutRetrySettingsToJSON(
-  outputDatasetTimeoutRetrySettings: OutputDatasetTimeoutRetrySettings,
-): string {
-  return JSON.stringify(
-    OutputDatasetTimeoutRetrySettings$outboundSchema.parse(
-      outputDatasetTimeoutRetrySettings,
-    ),
-  );
-}
-
-export function outputDatasetTimeoutRetrySettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputDatasetTimeoutRetrySettings, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputDatasetTimeoutRetrySettings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputDatasetTimeoutRetrySettings' from JSON`,
-  );
-}
-
-/** @internal */
-export const DataSetSite$inboundSchema: z.ZodType<
-  DataSetSite,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(DataSetSite),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const DataSetSite$outboundSchema: z.ZodType<
-  DataSetSite,
-  z.ZodTypeDef,
-  DataSetSite
-> = z.union([
-  z.nativeEnum(DataSetSite),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
+export const OutputDatasetSeverity1 = {
+  /**
+   * 0 - finest
+   */
+  Finest: "finest",
+  /**
+   * 1 - finer
+   */
+  Finer: "finer",
+  /**
+   * 2 - fine
+   */
+  Fine: "fine",
+  /**
+   * 3 - info
+   */
+  Info: "info",
+  /**
+   * 4 - warning
+   */
+  Warning: "warning",
+  /**
+   * 5 - error
+   */
+  Error: "error",
+  /**
+   * 6 - fatal
+   */
+  Fatal: "fatal",
+} as const;
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
  */
-export namespace DataSetSite$ {
-  /** @deprecated use `DataSetSite$inboundSchema` instead. */
-  export const inboundSchema = DataSetSite$inboundSchema;
-  /** @deprecated use `DataSetSite$outboundSchema` instead. */
-  export const outboundSchema = DataSetSite$outboundSchema;
-}
+export type OutputDatasetSeverity1 = OpenEnum<typeof OutputDatasetSeverity1>;
 
-/** @internal */
-export const OutputDatasetExtraHttpHeader$inboundSchema: z.ZodType<
-  OutputDatasetExtraHttpHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-/** @internal */
-export type OutputDatasetExtraHttpHeader$Outbound = {
-  name?: string | undefined;
-  value: string;
+export type OutputDatasetDataset1 = {
+  /**
+   * DataSet site to which events should be sent
+   */
+  site?: DataSetSite1 | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputDatasetType1;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the event field that contains the message or attributes to send. If not specified, all of the event's non-internal fields will be sent as attributes.
+   */
+  messageField?: string | undefined;
+  /**
+   * Fields to exclude from the event if the Message field is either unspecified or refers to an object. Ignored if the Message field is a string. If empty, we send all non-internal fields.
+   */
+  excludeFields?: Array<string> | undefined;
+  /**
+   * Name of the event field that contains the `serverHost` identifier. If not specified, defaults to `cribl_<outputId>`.
+   */
+  serverHostField?: string | undefined;
+  /**
+   * Name of the event field that contains the timestamp. If not specified, defaults to `ts`, `_time`, or `Date.now()`, in that order.
+   */
+  timestampField?: string | undefined;
+  /**
+   * Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
+   */
+  defaultSeverity?: OutputDatasetSeverity1 | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl: string;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * A 'Log Write Access' API key for the DataSet account
+   */
+  apiKey?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
 };
 
-/** @internal */
-export const OutputDatasetExtraHttpHeader$outboundSchema: z.ZodType<
-  OutputDatasetExtraHttpHeader$Outbound,
-  z.ZodTypeDef,
-  OutputDatasetExtraHttpHeader
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatasetExtraHttpHeader$ {
-  /** @deprecated use `OutputDatasetExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputDatasetExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputDatasetExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputDatasetExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputDatasetExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputDatasetExtraHttpHeader$Outbound;
-}
-
-export function outputDatasetExtraHttpHeaderToJSON(
-  outputDatasetExtraHttpHeader: OutputDatasetExtraHttpHeader,
-): string {
-  return JSON.stringify(
-    OutputDatasetExtraHttpHeader$outboundSchema.parse(
-      outputDatasetExtraHttpHeader,
-    ),
-  );
-}
-
-export function outputDatasetExtraHttpHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputDatasetExtraHttpHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputDatasetExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputDatasetExtraHttpHeader' from JSON`,
-  );
-}
+export type OutputDataset =
+  | OutputDatasetDataset1
+  | OutputDatasetDataset4
+  | OutputDatasetDataset5
+  | OutputDatasetDataset6
+  | OutputDatasetDataset2
+  | OutputDatasetDataset3;
 
 /** @internal */
-export const OutputDatasetFailedRequestLoggingMode$inboundSchema: z.ZodType<
-  OutputDatasetFailedRequestLoggingMode,
+export const OutputDatasetType6$inboundSchema: z.ZodNativeEnum<
+  typeof OutputDatasetType6
+> = z.nativeEnum(OutputDatasetType6);
+/** @internal */
+export const OutputDatasetType6$outboundSchema: z.ZodNativeEnum<
+  typeof OutputDatasetType6
+> = OutputDatasetType6$inboundSchema;
+
+/** @internal */
+export const OutputDatasetSeverity6$inboundSchema: z.ZodType<
+  OutputDatasetSeverity6,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(OutputDatasetFailedRequestLoggingMode),
+    z.nativeEnum(OutputDatasetSeverity6),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
-export const OutputDatasetFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  OutputDatasetFailedRequestLoggingMode,
+export const OutputDatasetSeverity6$outboundSchema: z.ZodType<
+  OutputDatasetSeverity6,
   z.ZodTypeDef,
-  OutputDatasetFailedRequestLoggingMode
+  OutputDatasetSeverity6
 > = z.union([
-  z.nativeEnum(OutputDatasetFailedRequestLoggingMode),
+  z.nativeEnum(OutputDatasetSeverity6),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatasetFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputDatasetFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputDatasetFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputDatasetFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDatasetFailedRequestLoggingMode$outboundSchema;
-}
-
 /** @internal */
-export const OutputDatasetBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputDatasetBackpressureBehavior,
+export const DataSetSite6$inboundSchema: z.ZodType<
+  DataSetSite6,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(OutputDatasetBackpressureBehavior),
+    z.nativeEnum(DataSetSite6),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
-export const OutputDatasetBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputDatasetBackpressureBehavior,
+export const DataSetSite6$outboundSchema: z.ZodType<
+  DataSetSite6,
   z.ZodTypeDef,
-  OutputDatasetBackpressureBehavior
+  DataSetSite6
 > = z.union([
-  z.nativeEnum(OutputDatasetBackpressureBehavior),
+  z.nativeEnum(DataSetSite6),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatasetBackpressureBehavior$ {
-  /** @deprecated use `OutputDatasetBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputDatasetBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputDatasetBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDatasetBackpressureBehavior$outboundSchema;
-}
-
 /** @internal */
-export const OutputDatasetAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputDatasetAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatasetAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputDatasetAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputDatasetAuthenticationMethod,
-  z.ZodTypeDef,
-  OutputDatasetAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputDatasetAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatasetAuthenticationMethod$ {
-  /** @deprecated use `OutputDatasetAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = OutputDatasetAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputDatasetAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDatasetAuthenticationMethod$outboundSchema;
-}
-
-/** @internal */
-export const OutputDatasetCompression$inboundSchema: z.ZodType<
-  OutputDatasetCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatasetCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputDatasetCompression$outboundSchema: z.ZodType<
-  OutputDatasetCompression,
-  z.ZodTypeDef,
-  OutputDatasetCompression
-> = z.union([
-  z.nativeEnum(OutputDatasetCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatasetCompression$ {
-  /** @deprecated use `OutputDatasetCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputDatasetCompression$inboundSchema;
-  /** @deprecated use `OutputDatasetCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputDatasetCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputDatasetQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputDatasetQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatasetQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputDatasetQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputDatasetQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputDatasetQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputDatasetQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatasetQueueFullBehavior$ {
-  /** @deprecated use `OutputDatasetQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputDatasetQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputDatasetQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputDatasetQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputDatasetMode$inboundSchema: z.ZodType<
-  OutputDatasetMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatasetMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputDatasetMode$outboundSchema: z.ZodType<
-  OutputDatasetMode,
-  z.ZodTypeDef,
-  OutputDatasetMode
-> = z.union([
-  z.nativeEnum(OutputDatasetMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatasetMode$ {
-  /** @deprecated use `OutputDatasetMode$inboundSchema` instead. */
-  export const inboundSchema = OutputDatasetMode$inboundSchema;
-  /** @deprecated use `OutputDatasetMode$outboundSchema` instead. */
-  export const outboundSchema = OutputDatasetMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputDatasetPqControls$inboundSchema: z.ZodType<
-  OutputDatasetPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type OutputDatasetPqControls$Outbound = {};
-
-/** @internal */
-export const OutputDatasetPqControls$outboundSchema: z.ZodType<
-  OutputDatasetPqControls$Outbound,
-  z.ZodTypeDef,
-  OutputDatasetPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatasetPqControls$ {
-  /** @deprecated use `OutputDatasetPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputDatasetPqControls$inboundSchema;
-  /** @deprecated use `OutputDatasetPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputDatasetPqControls$outboundSchema;
-  /** @deprecated use `OutputDatasetPqControls$Outbound` instead. */
-  export type Outbound = OutputDatasetPqControls$Outbound;
-}
-
-export function outputDatasetPqControlsToJSON(
-  outputDatasetPqControls: OutputDatasetPqControls,
-): string {
-  return JSON.stringify(
-    OutputDatasetPqControls$outboundSchema.parse(outputDatasetPqControls),
-  );
-}
-
-export function outputDatasetPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputDatasetPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputDatasetPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputDatasetPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputDataset$inboundSchema: z.ZodType<
-  OutputDataset,
+export const OutputDatasetDataset6$inboundSchema: z.ZodType<
+  OutputDatasetDataset6,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  authType: AuthType2Options$inboundSchema.default("manual"),
   id: z.string().optional(),
-  type: OutputDatasetType$inboundSchema,
+  type: OutputDatasetType6$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -863,15 +1539,12 @@ export const OutputDataset$inboundSchema: z.ZodType<
   excludeFields: z.array(z.string()).optional(),
   serverHostField: z.string().optional(),
   timestampField: z.string().optional(),
-  defaultSeverity: OutputDatasetSeverity$inboundSchema.default("info"),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputDatasetResponseRetrySetting$inboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputDatasetTimeoutRetrySettings$inboundSchema
-  ).optional(),
+  defaultSeverity: OutputDatasetSeverity6$inboundSchema.default("info"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(false),
-  site: DataSetSite$inboundSchema.default("us"),
+  site: DataSetSite6$inboundSchema.default("us"),
   concurrency: z.number().default(5),
   maxPayloadSizeKB: z.number().default(4096),
   maxPayloadEvents: z.number().default(0),
@@ -879,35 +1552,32 @@ export const OutputDataset$inboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputDatasetExtraHttpHeader$inboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
   useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode: OutputDatasetFailedRequestLoggingMode$inboundSchema
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
     .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  onBackpressure: OutputDatasetBackpressureBehavior$inboundSchema.default(
-    "block",
-  ),
-  authType: OutputDatasetAuthenticationMethod$inboundSchema.default("manual"),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputDatasetCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputDatasetQueueFullBehavior$inboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputDatasetMode$inboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputDatasetPqControls$inboundSchema).optional(),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
   apiKey: z.string().optional(),
-  textSecret: z.string().optional(),
+  textSecret: z.string(),
 });
-
 /** @internal */
-export type OutputDataset$Outbound = {
+export type OutputDatasetDataset6$Outbound = {
+  authType: string;
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -919,10 +1589,8 @@ export type OutputDataset$Outbound = {
   serverHostField?: string | undefined;
   timestampField?: string | undefined;
   defaultSeverity: string;
-  responseRetrySettings?:
-    | Array<OutputDatasetResponseRetrySetting$Outbound>
-    | undefined;
-  timeoutRetrySettings?: OutputDatasetTimeoutRetrySettings$Outbound | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader: boolean;
   site: string;
   concurrency: number;
@@ -932,34 +1600,38 @@ export type OutputDataset$Outbound = {
   rejectUnauthorized: boolean;
   timeoutSec: number;
   flushPeriodSec: number;
-  extraHttpHeaders?: Array<OutputDatasetExtraHttpHeader$Outbound> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
   useRoundRobinDns: boolean;
   failedRequestLoggingMode: string;
   safeHeaders?: Array<string> | undefined;
   onBackpressure: string;
-  authType: string;
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
   customUrl?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
-  pqControls?: OutputDatasetPqControls$Outbound | undefined;
+  pqControls?: MetadataType$Outbound | undefined;
   apiKey?: string | undefined;
-  textSecret?: string | undefined;
+  textSecret: string;
 };
 
 /** @internal */
-export const OutputDataset$outboundSchema: z.ZodType<
-  OutputDataset$Outbound,
+export const OutputDatasetDataset6$outboundSchema: z.ZodType<
+  OutputDatasetDataset6$Outbound,
   z.ZodTypeDef,
-  OutputDataset
+  OutputDatasetDataset6
 > = z.object({
+  authType: AuthType2Options$outboundSchema.default("manual"),
   id: z.string().optional(),
-  type: OutputDatasetType$outboundSchema,
+  type: OutputDatasetType6$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -968,15 +1640,12 @@ export const OutputDataset$outboundSchema: z.ZodType<
   excludeFields: z.array(z.string()).optional(),
   serverHostField: z.string().optional(),
   timestampField: z.string().optional(),
-  defaultSeverity: OutputDatasetSeverity$outboundSchema.default("info"),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputDatasetResponseRetrySetting$outboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputDatasetTimeoutRetrySettings$outboundSchema
-  ).optional(),
+  defaultSeverity: OutputDatasetSeverity6$outboundSchema.default("info"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(false),
-  site: DataSetSite$outboundSchema.default("us"),
+  site: DataSetSite6$outboundSchema.default("us"),
   concurrency: z.number().default(5),
   maxPayloadSizeKB: z.number().default(4096),
   maxPayloadEvents: z.number().default(0),
@@ -984,50 +1653,1191 @@ export const OutputDataset$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputDatasetExtraHttpHeader$outboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
   useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode: OutputDatasetFailedRequestLoggingMode$outboundSchema
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
     .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  onBackpressure: OutputDatasetBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
-  authType: OutputDatasetAuthenticationMethod$outboundSchema.default("manual"),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputDatasetCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputDatasetQueueFullBehavior$outboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputDatasetMode$outboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputDatasetPqControls$outboundSchema).optional(),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  apiKey: z.string().optional(),
+  textSecret: z.string(),
+});
+
+export function outputDatasetDataset6ToJSON(
+  outputDatasetDataset6: OutputDatasetDataset6,
+): string {
+  return JSON.stringify(
+    OutputDatasetDataset6$outboundSchema.parse(outputDatasetDataset6),
+  );
+}
+export function outputDatasetDataset6FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputDatasetDataset6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputDatasetDataset6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputDatasetDataset6' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputDatasetType5$inboundSchema: z.ZodNativeEnum<
+  typeof OutputDatasetType5
+> = z.nativeEnum(OutputDatasetType5);
+/** @internal */
+export const OutputDatasetType5$outboundSchema: z.ZodNativeEnum<
+  typeof OutputDatasetType5
+> = OutputDatasetType5$inboundSchema;
+
+/** @internal */
+export const OutputDatasetSeverity5$inboundSchema: z.ZodType<
+  OutputDatasetSeverity5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputDatasetSeverity5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputDatasetSeverity5$outboundSchema: z.ZodType<
+  OutputDatasetSeverity5,
+  z.ZodTypeDef,
+  OutputDatasetSeverity5
+> = z.union([
+  z.nativeEnum(OutputDatasetSeverity5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const DataSetSite5$inboundSchema: z.ZodType<
+  DataSetSite5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(DataSetSite5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const DataSetSite5$outboundSchema: z.ZodType<
+  DataSetSite5,
+  z.ZodTypeDef,
+  DataSetSite5
+> = z.union([
+  z.nativeEnum(DataSetSite5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputDatasetDataset5$inboundSchema: z.ZodType<
+  OutputDatasetDataset5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: OutputDatasetType5$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  messageField: z.string().optional(),
+  excludeFields: z.array(z.string()).optional(),
+  serverHostField: z.string().optional(),
+  timestampField: z.string().optional(),
+  defaultSeverity: OutputDatasetSeverity5$inboundSchema.default("info"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  site: DataSetSite5$inboundSchema.default("us"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  apiKey: z.string(),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputDatasetDataset5$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  messageField?: string | undefined;
+  excludeFields?: Array<string> | undefined;
+  serverHostField?: string | undefined;
+  timestampField?: string | undefined;
+  defaultSeverity: string;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  site: string;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  onBackpressure: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  apiKey: string;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputDatasetDataset5$outboundSchema: z.ZodType<
+  OutputDatasetDataset5$Outbound,
+  z.ZodTypeDef,
+  OutputDatasetDataset5
+> = z.object({
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: OutputDatasetType5$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  messageField: z.string().optional(),
+  excludeFields: z.array(z.string()).optional(),
+  serverHostField: z.string().optional(),
+  timestampField: z.string().optional(),
+  defaultSeverity: OutputDatasetSeverity5$outboundSchema.default("info"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  site: DataSetSite5$outboundSchema.default("us"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  apiKey: z.string(),
+  textSecret: z.string().optional(),
+});
+
+export function outputDatasetDataset5ToJSON(
+  outputDatasetDataset5: OutputDatasetDataset5,
+): string {
+  return JSON.stringify(
+    OutputDatasetDataset5$outboundSchema.parse(outputDatasetDataset5),
+  );
+}
+export function outputDatasetDataset5FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputDatasetDataset5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputDatasetDataset5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputDatasetDataset5' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputDatasetType4$inboundSchema: z.ZodNativeEnum<
+  typeof OutputDatasetType4
+> = z.nativeEnum(OutputDatasetType4);
+/** @internal */
+export const OutputDatasetType4$outboundSchema: z.ZodNativeEnum<
+  typeof OutputDatasetType4
+> = OutputDatasetType4$inboundSchema;
+
+/** @internal */
+export const OutputDatasetSeverity4$inboundSchema: z.ZodType<
+  OutputDatasetSeverity4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputDatasetSeverity4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputDatasetSeverity4$outboundSchema: z.ZodType<
+  OutputDatasetSeverity4,
+  z.ZodTypeDef,
+  OutputDatasetSeverity4
+> = z.union([
+  z.nativeEnum(OutputDatasetSeverity4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const DataSetSite4$inboundSchema: z.ZodType<
+  DataSetSite4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(DataSetSite4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const DataSetSite4$outboundSchema: z.ZodType<
+  DataSetSite4,
+  z.ZodTypeDef,
+  DataSetSite4
+> = z.union([
+  z.nativeEnum(DataSetSite4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputDatasetDataset4$inboundSchema: z.ZodType<
+  OutputDatasetDataset4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputDatasetType4$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  messageField: z.string().optional(),
+  excludeFields: z.array(z.string()).optional(),
+  serverHostField: z.string().optional(),
+  timestampField: z.string().optional(),
+  defaultSeverity: OutputDatasetSeverity4$inboundSchema.default("info"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  site: DataSetSite4$inboundSchema.default("us"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema,
+  apiKey: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputDatasetDataset4$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  messageField?: string | undefined;
+  excludeFields?: Array<string> | undefined;
+  serverHostField?: string | undefined;
+  timestampField?: string | undefined;
+  defaultSeverity: string;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  site: string;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  authType: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls: MetadataType$Outbound;
+  apiKey?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputDatasetDataset4$outboundSchema: z.ZodType<
+  OutputDatasetDataset4$Outbound,
+  z.ZodTypeDef,
+  OutputDatasetDataset4
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputDatasetType4$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  messageField: z.string().optional(),
+  excludeFields: z.array(z.string()).optional(),
+  serverHostField: z.string().optional(),
+  timestampField: z.string().optional(),
+  defaultSeverity: OutputDatasetSeverity4$outboundSchema.default("info"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  site: DataSetSite4$outboundSchema.default("us"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema,
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDataset$ {
-  /** @deprecated use `OutputDataset$inboundSchema` instead. */
-  export const inboundSchema = OutputDataset$inboundSchema;
-  /** @deprecated use `OutputDataset$outboundSchema` instead. */
-  export const outboundSchema = OutputDataset$outboundSchema;
-  /** @deprecated use `OutputDataset$Outbound` instead. */
-  export type Outbound = OutputDataset$Outbound;
+export function outputDatasetDataset4ToJSON(
+  outputDatasetDataset4: OutputDatasetDataset4,
+): string {
+  return JSON.stringify(
+    OutputDatasetDataset4$outboundSchema.parse(outputDatasetDataset4),
+  );
 }
+export function outputDatasetDataset4FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputDatasetDataset4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputDatasetDataset4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputDatasetDataset4' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputDatasetType3$inboundSchema: z.ZodNativeEnum<
+  typeof OutputDatasetType3
+> = z.nativeEnum(OutputDatasetType3);
+/** @internal */
+export const OutputDatasetType3$outboundSchema: z.ZodNativeEnum<
+  typeof OutputDatasetType3
+> = OutputDatasetType3$inboundSchema;
+
+/** @internal */
+export const OutputDatasetSeverity3$inboundSchema: z.ZodType<
+  OutputDatasetSeverity3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputDatasetSeverity3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputDatasetSeverity3$outboundSchema: z.ZodType<
+  OutputDatasetSeverity3,
+  z.ZodTypeDef,
+  OutputDatasetSeverity3
+> = z.union([
+  z.nativeEnum(OutputDatasetSeverity3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const DataSetSite3$inboundSchema: z.ZodType<
+  DataSetSite3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(DataSetSite3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const DataSetSite3$outboundSchema: z.ZodType<
+  DataSetSite3,
+  z.ZodTypeDef,
+  DataSetSite3
+> = z.union([
+  z.nativeEnum(DataSetSite3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputDatasetDataset3$inboundSchema: z.ZodType<
+  OutputDatasetDataset3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputDatasetType3$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  messageField: z.string().optional(),
+  excludeFields: z.array(z.string()).optional(),
+  serverHostField: z.string().optional(),
+  timestampField: z.string().optional(),
+  defaultSeverity: OutputDatasetSeverity3$inboundSchema.default("info"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  site: DataSetSite3$inboundSchema.default("us"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  apiKey: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputDatasetDataset3$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  messageField?: string | undefined;
+  excludeFields?: Array<string> | undefined;
+  serverHostField?: string | undefined;
+  timestampField?: string | undefined;
+  defaultSeverity: string;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  site: string;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  authType: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  apiKey?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputDatasetDataset3$outboundSchema: z.ZodType<
+  OutputDatasetDataset3$Outbound,
+  z.ZodTypeDef,
+  OutputDatasetDataset3
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputDatasetType3$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  messageField: z.string().optional(),
+  excludeFields: z.array(z.string()).optional(),
+  serverHostField: z.string().optional(),
+  timestampField: z.string().optional(),
+  defaultSeverity: OutputDatasetSeverity3$outboundSchema.default("info"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  site: DataSetSite3$outboundSchema.default("us"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  apiKey: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+
+export function outputDatasetDataset3ToJSON(
+  outputDatasetDataset3: OutputDatasetDataset3,
+): string {
+  return JSON.stringify(
+    OutputDatasetDataset3$outboundSchema.parse(outputDatasetDataset3),
+  );
+}
+export function outputDatasetDataset3FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputDatasetDataset3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputDatasetDataset3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputDatasetDataset3' from JSON`,
+  );
+}
+
+/** @internal */
+export const DataSetSite2$inboundSchema: z.ZodType<
+  DataSetSite2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(DataSetSite2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const DataSetSite2$outboundSchema: z.ZodType<
+  DataSetSite2,
+  z.ZodTypeDef,
+  DataSetSite2
+> = z.union([
+  z.nativeEnum(DataSetSite2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputDatasetType2$inboundSchema: z.ZodNativeEnum<
+  typeof OutputDatasetType2
+> = z.nativeEnum(OutputDatasetType2);
+/** @internal */
+export const OutputDatasetType2$outboundSchema: z.ZodNativeEnum<
+  typeof OutputDatasetType2
+> = OutputDatasetType2$inboundSchema;
+
+/** @internal */
+export const OutputDatasetSeverity2$inboundSchema: z.ZodType<
+  OutputDatasetSeverity2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputDatasetSeverity2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputDatasetSeverity2$outboundSchema: z.ZodType<
+  OutputDatasetSeverity2,
+  z.ZodTypeDef,
+  OutputDatasetSeverity2
+> = z.union([
+  z.nativeEnum(OutputDatasetSeverity2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputDatasetDataset2$inboundSchema: z.ZodType<
+  OutputDatasetDataset2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  site: DataSetSite2$inboundSchema.default("us"),
+  id: z.string().optional(),
+  type: OutputDatasetType2$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  messageField: z.string().optional(),
+  excludeFields: z.array(z.string()).optional(),
+  serverHostField: z.string().optional(),
+  timestampField: z.string().optional(),
+  defaultSeverity: OutputDatasetSeverity2$inboundSchema.default("info"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  apiKey: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputDatasetDataset2$Outbound = {
+  site: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  messageField?: string | undefined;
+  excludeFields?: Array<string> | undefined;
+  serverHostField?: string | undefined;
+  timestampField?: string | undefined;
+  defaultSeverity: string;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  onBackpressure: string;
+  authType: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  apiKey?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputDatasetDataset2$outboundSchema: z.ZodType<
+  OutputDatasetDataset2$Outbound,
+  z.ZodTypeDef,
+  OutputDatasetDataset2
+> = z.object({
+  site: DataSetSite2$outboundSchema.default("us"),
+  id: z.string().optional(),
+  type: OutputDatasetType2$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  messageField: z.string().optional(),
+  excludeFields: z.array(z.string()).optional(),
+  serverHostField: z.string().optional(),
+  timestampField: z.string().optional(),
+  defaultSeverity: OutputDatasetSeverity2$outboundSchema.default("info"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  apiKey: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+
+export function outputDatasetDataset2ToJSON(
+  outputDatasetDataset2: OutputDatasetDataset2,
+): string {
+  return JSON.stringify(
+    OutputDatasetDataset2$outboundSchema.parse(outputDatasetDataset2),
+  );
+}
+export function outputDatasetDataset2FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputDatasetDataset2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputDatasetDataset2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputDatasetDataset2' from JSON`,
+  );
+}
+
+/** @internal */
+export const DataSetSite1$inboundSchema: z.ZodType<
+  DataSetSite1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(DataSetSite1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const DataSetSite1$outboundSchema: z.ZodType<
+  DataSetSite1,
+  z.ZodTypeDef,
+  DataSetSite1
+> = z.union([
+  z.nativeEnum(DataSetSite1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputDatasetType1$inboundSchema: z.ZodNativeEnum<
+  typeof OutputDatasetType1
+> = z.nativeEnum(OutputDatasetType1);
+/** @internal */
+export const OutputDatasetType1$outboundSchema: z.ZodNativeEnum<
+  typeof OutputDatasetType1
+> = OutputDatasetType1$inboundSchema;
+
+/** @internal */
+export const OutputDatasetSeverity1$inboundSchema: z.ZodType<
+  OutputDatasetSeverity1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputDatasetSeverity1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputDatasetSeverity1$outboundSchema: z.ZodType<
+  OutputDatasetSeverity1,
+  z.ZodTypeDef,
+  OutputDatasetSeverity1
+> = z.union([
+  z.nativeEnum(OutputDatasetSeverity1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputDatasetDataset1$inboundSchema: z.ZodType<
+  OutputDatasetDataset1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  site: DataSetSite1$inboundSchema.default("us"),
+  id: z.string().optional(),
+  type: OutputDatasetType1$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  messageField: z.string().optional(),
+  excludeFields: z.array(z.string()).optional(),
+  serverHostField: z.string().optional(),
+  timestampField: z.string().optional(),
+  defaultSeverity: OutputDatasetSeverity1$inboundSchema.default("info"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customUrl: z.string(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  apiKey: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputDatasetDataset1$Outbound = {
+  site: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  messageField?: string | undefined;
+  excludeFields?: Array<string> | undefined;
+  serverHostField?: string | undefined;
+  timestampField?: string | undefined;
+  defaultSeverity: string;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  onBackpressure: string;
+  authType: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  apiKey?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputDatasetDataset1$outboundSchema: z.ZodType<
+  OutputDatasetDataset1$Outbound,
+  z.ZodTypeDef,
+  OutputDatasetDataset1
+> = z.object({
+  site: DataSetSite1$outboundSchema.default("us"),
+  id: z.string().optional(),
+  type: OutputDatasetType1$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  messageField: z.string().optional(),
+  excludeFields: z.array(z.string()).optional(),
+  serverHostField: z.string().optional(),
+  timestampField: z.string().optional(),
+  defaultSeverity: OutputDatasetSeverity1$outboundSchema.default("info"),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customUrl: z.string(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  apiKey: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+
+export function outputDatasetDataset1ToJSON(
+  outputDatasetDataset1: OutputDatasetDataset1,
+): string {
+  return JSON.stringify(
+    OutputDatasetDataset1$outboundSchema.parse(outputDatasetDataset1),
+  );
+}
+export function outputDatasetDataset1FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputDatasetDataset1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputDatasetDataset1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputDatasetDataset1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputDataset$inboundSchema: z.ZodType<
+  OutputDataset,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => OutputDatasetDataset1$inboundSchema),
+  z.lazy(() => OutputDatasetDataset4$inboundSchema),
+  z.lazy(() => OutputDatasetDataset5$inboundSchema),
+  z.lazy(() => OutputDatasetDataset6$inboundSchema),
+  z.lazy(() => OutputDatasetDataset2$inboundSchema),
+  z.lazy(() => OutputDatasetDataset3$inboundSchema),
+]);
+/** @internal */
+export type OutputDataset$Outbound =
+  | OutputDatasetDataset1$Outbound
+  | OutputDatasetDataset4$Outbound
+  | OutputDatasetDataset5$Outbound
+  | OutputDatasetDataset6$Outbound
+  | OutputDatasetDataset2$Outbound
+  | OutputDatasetDataset3$Outbound;
+
+/** @internal */
+export const OutputDataset$outboundSchema: z.ZodType<
+  OutputDataset$Outbound,
+  z.ZodTypeDef,
+  OutputDataset
+> = z.union([
+  z.lazy(() => OutputDatasetDataset1$outboundSchema),
+  z.lazy(() => OutputDatasetDataset4$outboundSchema),
+  z.lazy(() => OutputDatasetDataset5$outboundSchema),
+  z.lazy(() => OutputDatasetDataset6$outboundSchema),
+  z.lazy(() => OutputDatasetDataset2$outboundSchema),
+  z.lazy(() => OutputDatasetDataset3$outboundSchema),
+]);
 
 export function outputDatasetToJSON(outputDataset: OutputDataset): string {
   return JSON.stringify(OutputDataset$outboundSchema.parse(outputDataset));
 }
-
 export function outputDatasetFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputDataset, SDKValidationError> {

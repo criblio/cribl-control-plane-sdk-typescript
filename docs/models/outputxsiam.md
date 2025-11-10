@@ -1,11 +1,235 @@
 # OutputXsiam
 
-## Example Usage
+
+## Supported Types
+
+### `models.OutputXsiamXsiam1`
 
 ```typescript
-import { OutputXsiam } from "cribl-control-plane/models";
+const value: models.OutputXsiamXsiam1 = {
+  id: "<id>",
+  type: "xsiam",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  totalMemoryLimitKB: 1105.88,
+  description: "flawless sheepishly peppery",
+  urls: [
+    {
+      url: "https://respectful-traffic.net",
+    },
+  ],
+  token: "<value>",
+  textSecret: "<value>",
+  pqControls: {},
+};
+```
 
-let value: OutputXsiam = {
+### `models.OutputXsiamXsiam2`
+
+```typescript
+const value: models.OutputXsiamXsiam2 = {
+  id: "<id>",
+  type: "xsiam",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  totalMemoryLimitKB: 3721.75,
+  description: "knowingly than within spring helpfully and",
+  urls: [
+    {
+      url: "https://dirty-pacemaker.net/",
+    },
+  ],
+  token: "<value>",
+  textSecret: "<value>",
+  pqControls: {},
+};
+```
+
+### `models.OutputXsiamXsiam3`
+
+```typescript
+const value: models.OutputXsiamXsiam3 = {
+  id: "<id>",
+  type: "xsiam",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  totalMemoryLimitKB: 465.43,
+  description: "liberalize hm regarding but",
+  urls: [
+    {
+      url: "https://ambitious-alb.name",
+    },
+  ],
+  token: "<value>",
+  textSecret: "<value>",
+  pqControls: {},
+};
+```
+
+### `models.OutputXsiamXsiam4`
+
+```typescript
+const value: models.OutputXsiamXsiam4 = {
+  id: "<id>",
+  type: "xsiam",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  totalMemoryLimitKB: 2550.54,
+  description: "psst and colligate lonely cauliflower",
+  urls: [
+    {
+      url: "https://political-collaboration.com",
+    },
+  ],
+  token: "<value>",
+  textSecret: "<value>",
+  pqControls: {},
+};
+```
+
+### `models.OutputXsiamXsiam5`
+
+```typescript
+const value: models.OutputXsiamXsiam5 = {
+  id: "<id>",
+  type: "xsiam",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  totalMemoryLimitKB: 602.06,
+  description: "aftermath bind silently the rudely tremendously near",
+  urls: [
+    {
+      url: "https://official-solvency.name/",
+    },
+  ],
+  token: "<value>",
+  textSecret: "<value>",
+  pqControls: {},
+};
+```
+
+### `models.OutputXsiamXsiam6`
+
+```typescript
+const value: models.OutputXsiamXsiam6 = {
   id: "<id>",
   type: "xsiam",
   pipeline: "<value>",
@@ -26,20 +250,18 @@ let value: OutputXsiam = {
   ],
   safeHeaders: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   responseRetrySettings: [
     {
-      httpStatus: 7784.84,
+      httpStatus: 5033.96,
     },
   ],
   timeoutRetrySettings: {},
-  totalMemoryLimitKB: 847.48,
-  description: "tattered bony offset vainly blaspheme",
+  totalMemoryLimitKB: 1260.36,
+  description: "elegantly notwithstanding yahoo medium",
   urls: [
     {
-      url: "https://respectful-traffic.net",
+      url: "https://criminal-premier.name",
     },
   ],
   token: "<value>",
@@ -48,46 +270,3 @@ let value: OutputXsiam = {
 };
 ```
 
-## Fields
-
-| Field                                                                                                                                                                                                                                                                                                                                            | Type                                                                                                                                                                                                                                                                                                                                             | Required                                                                                                                                                                                                                                                                                                                                         | Description                                                                                                                                                                                                                                                                                                                                      |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `id`                                                                                                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Unique ID for this output                                                                                                                                                                                                                                                                                                                        |
-| `type`                                                                                                                                                                                                                                                                                                                                           | [models.OutputXsiamType](../models/outputxsiamtype.md)                                                                                                                                                                                                                                                                                           | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
-| `pipeline`                                                                                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Pipeline to process data before sending out to this output                                                                                                                                                                                                                                                                                       |
-| `systemFields`                                                                                                                                                                                                                                                                                                                                   | *string*[]                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Fields to automatically add to events, such as cribl_pipe. Supports wildcards.                                                                                                                                                                                                                                                                   |
-| `environment`                                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                                                                                                                             |
-| `streamtags`                                                                                                                                                                                                                                                                                                                                     | *string*[]                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Tags for filtering and grouping in @{product}                                                                                                                                                                                                                                                                                                    |
-| `loadBalanced`                                                                                                                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.                                                                                                                                                                                                    |
-| `concurrency`                                                                                                                                                                                                                                                                                                                                    | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Maximum number of ongoing requests before blocking                                                                                                                                                                                                                                                                                               |
-| `maxPayloadSizeKB`                                                                                                                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Maximum size, in KB, of the request body                                                                                                                                                                                                                                                                                                         |
-| `maxPayloadEvents`                                                                                                                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Maximum number of events to include in the request body. Default is 0 (unlimited).                                                                                                                                                                                                                                                               |
-| `rejectUnauthorized`                                                                                                                                                                                                                                                                                                                             | *boolean*                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).<br/>        Enabled by default. When this setting is also present in TLS Settings (Client Side),<br/>        that value will take precedence.                                                                             |
-| `timeoutSec`                                                                                                                                                                                                                                                                                                                                     | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Amount of time, in seconds, to wait for a request to complete before canceling it                                                                                                                                                                                                                                                                |
-| `flushPeriodSec`                                                                                                                                                                                                                                                                                                                                 | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.                                                                                                                                                                                                                      |
-| `extraHttpHeaders`                                                                                                                                                                                                                                                                                                                               | [models.OutputXsiamExtraHttpHeader](../models/outputxsiamextrahttpheader.md)[]                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Headers to add to all events                                                                                                                                                                                                                                                                                                                     |
-| `failedRequestLoggingMode`                                                                                                                                                                                                                                                                                                                       | [models.OutputXsiamFailedRequestLoggingMode](../models/outputxsiamfailedrequestloggingmode.md)                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.                                                                                                                                                                                                                                      |
-| `safeHeaders`                                                                                                                                                                                                                                                                                                                                    | *string*[]                                                                                                                                                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | List of headers that are safe to log in plain text                                                                                                                                                                                                                                                                                               |
-| `authType`                                                                                                                                                                                                                                                                                                                                       | [models.OutputXsiamAuthenticationMethod](../models/outputxsiamauthenticationmethod.md)                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Enter a token directly, or provide a secret referencing a token                                                                                                                                                                                                                                                                                  |
-| `responseRetrySettings`                                                                                                                                                                                                                                                                                                                          | [models.OutputXsiamResponseRetrySetting](../models/outputxsiamresponseretrysetting.md)[]                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)                                                                                                                                                                                                                       |
-| `timeoutRetrySettings`                                                                                                                                                                                                                                                                                                                           | [models.OutputXsiamTimeoutRetrySettings](../models/outputxsiamtimeoutretrysettings.md)                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
-| `responseHonorRetryAfterHeader`                                                                                                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored. |
-| `throttleRateReqPerSec`                                                                                                                                                                                                                                                                                                                          | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Maximum number of requests to limit to per second                                                                                                                                                                                                                                                                                                |
-| `onBackpressure`                                                                                                                                                                                                                                                                                                                                 | [models.OutputXsiamBackpressureBehavior](../models/outputxsiambackpressurebehavior.md)                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | How to handle events when all receivers are exerting backpressure                                                                                                                                                                                                                                                                                |
-| `totalMemoryLimitKB`                                                                                                                                                                                                                                                                                                                             | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.                                                                                                                                                                                                 |
-| `description`                                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
-| `url`                                                                                                                                                                                                                                                                                                                                            | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | XSIAM endpoint URL to send events to, such as https://api-{tenant external URL}/logs/v1/event                                                                                                                                                                                                                                                    |
-| `useRoundRobinDns`                                                                                                                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.                                                                                                               |
-| `excludeSelf`                                                                                                                                                                                                                                                                                                                                    | *boolean*                                                                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Exclude all IPs of the current host from the list of any resolved hostnames                                                                                                                                                                                                                                                                      |
-| `urls`                                                                                                                                                                                                                                                                                                                                           | [models.OutputXsiamUrl](../models/outputxsiamurl.md)[]                                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |
-| `dnsResolvePeriodSec`                                                                                                                                                                                                                                                                                                                            | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | The interval in which to re-resolve any hostnames and pick up destinations from A records                                                                                                                                                                                                                                                        |
-| `loadBalanceStatsPeriodSec`                                                                                                                                                                                                                                                                                                                      | *number*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | How far back in time to keep traffic stats for load balancing purposes                                                                                                                                                                                                                                                                           |
-| `token`                                                                                                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | XSIAM authentication token                                                                                                                                                                                                                                                                                                                       |
-| `textSecret`                                                                                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Select or create a stored text secret                                                                                                                                                                                                                                                                                                            |
-| `pqMaxFileSize`                                                                                                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)                                                                                                                                                                                                                                            |
-| `pqMaxSize`                                                                                                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.                                                                                                                                                                                           |
-| `pqPath`                                                                                                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.                                                                                                                                                                                                                            |
-| `pqCompress`                                                                                                                                                                                                                                                                                                                                     | [models.OutputXsiamCompression](../models/outputxsiamcompression.md)                                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | Codec to use to compress the persisted data                                                                                                                                                                                                                                                                                                      |
-| `pqOnBackpressure`                                                                                                                                                                                                                                                                                                                               | [models.OutputXsiamQueueFullBehavior](../models/outputxsiamqueuefullbehavior.md)                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.                                                                                                            |
-| `pqMode`                                                                                                                                                                                                                                                                                                                                         | [models.OutputXsiamMode](../models/outputxsiammode.md)                                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.                                                                                   |
-| `pqControls`                                                                                                                                                                                                                                                                                                                                     | [models.OutputXsiamPqControls](../models/outputxsiampqcontrols.md)                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                                                                                                                              |

@@ -4,110 +4,49 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  ConnectionsType,
+  ConnectionsType$inboundSchema,
+  ConnectionsType$Outbound,
+  ConnectionsType$outboundSchema,
+} from "./connectionstype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  Metadata1Type,
+  Metadata1Type$inboundSchema,
+  Metadata1Type$Outbound,
+  Metadata1Type$outboundSchema,
+} from "./metadata1type.js";
+import {
+  PodFilterType,
+  PodFilterType$inboundSchema,
+  PodFilterType$Outbound,
+  PodFilterType$outboundSchema,
+} from "./podfiltertype.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
 
-export const InputKubeEventsType = {
+export const InputKubeEventsType4 = {
   KubeEvents: "kube_events",
 } as const;
-export type InputKubeEventsType = ClosedEnum<typeof InputKubeEventsType>;
+export type InputKubeEventsType4 = ClosedEnum<typeof InputKubeEventsType4>;
 
-export type InputKubeEventsConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputKubeEventsMode = {
-  Smart: "smart",
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputKubeEventsMode = OpenEnum<typeof InputKubeEventsMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputKubeEventsCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputKubeEventsCompression = OpenEnum<
-  typeof InputKubeEventsCompression
->;
-
-export type InputKubeEventsPqControls = {};
-
-export type InputKubeEventsPq = {
+export type InputKubeEventsKubeEvents4 = {
   /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  mode?: InputKubeEventsMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputKubeEventsCompression | undefined;
-  pqControls?: InputKubeEventsPqControls | undefined;
-};
-
-export type InputKubeEventsRule = {
-  /**
-   * JavaScript expression applied to Kubernetes objects. Return 'true' to include it.
-   */
-  filter: string;
-  /**
-   * Optional description of this rule's purpose
-   */
-  description?: string | undefined;
-};
-
-export type InputKubeEventsMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
-
-export type InputKubeEvents = {
+  pqEnabled?: boolean | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputKubeEventsType;
+  type: InputKubeEventsType4;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -117,6 +56,98 @@ export type InputKubeEvents = {
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq: PqType;
+  /**
+   * Filtering on event fields
+   */
+  rules?: Array<PodFilterType> | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  description?: string | undefined;
+};
+
+export const InputKubeEventsType3 = {
+  KubeEvents: "kube_events",
+} as const;
+export type InputKubeEventsType3 = ClosedEnum<typeof InputKubeEventsType3>;
+
+export type InputKubeEventsKubeEvents3 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputKubeEventsType3;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Filtering on event fields
+   */
+  rules?: Array<PodFilterType> | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  description?: string | undefined;
+};
+
+export const InputKubeEventsType2 = {
+  KubeEvents: "kube_events",
+} as const;
+export type InputKubeEventsType2 = ClosedEnum<typeof InputKubeEventsType2>;
+
+export type InputKubeEventsKubeEvents2 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputKubeEventsType2;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -132,395 +163,406 @@ export type InputKubeEvents = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputKubeEventsConnection> | undefined;
-  pq?: InputKubeEventsPq | undefined;
+  connections: Array<ConnectionsType>;
+  pq?: PqType | undefined;
   /**
    * Filtering on event fields
    */
-  rules?: Array<InputKubeEventsRule> | undefined;
+  rules?: Array<PodFilterType> | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputKubeEventsMetadatum> | undefined;
+  metadata?: Array<Metadata1Type> | undefined;
   description?: string | undefined;
 };
 
-/** @internal */
-export const InputKubeEventsType$inboundSchema: z.ZodNativeEnum<
-  typeof InputKubeEventsType
-> = z.nativeEnum(InputKubeEventsType);
+export const InputKubeEventsType1 = {
+  KubeEvents: "kube_events",
+} as const;
+export type InputKubeEventsType1 = ClosedEnum<typeof InputKubeEventsType1>;
 
-/** @internal */
-export const InputKubeEventsType$outboundSchema: z.ZodNativeEnum<
-  typeof InputKubeEventsType
-> = InputKubeEventsType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKubeEventsType$ {
-  /** @deprecated use `InputKubeEventsType$inboundSchema` instead. */
-  export const inboundSchema = InputKubeEventsType$inboundSchema;
-  /** @deprecated use `InputKubeEventsType$outboundSchema` instead. */
-  export const outboundSchema = InputKubeEventsType$outboundSchema;
-}
-
-/** @internal */
-export const InputKubeEventsConnection$inboundSchema: z.ZodType<
-  InputKubeEventsConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-/** @internal */
-export type InputKubeEventsConnection$Outbound = {
+export type InputKubeEventsKubeEvents1 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputKubeEventsType1;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
   pipeline?: string | undefined;
-  output: string;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Filtering on event fields
+   */
+  rules?: Array<PodFilterType> | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  description?: string | undefined;
 };
 
+export type InputKubeEvents =
+  | InputKubeEventsKubeEvents2
+  | InputKubeEventsKubeEvents4
+  | InputKubeEventsKubeEvents1
+  | InputKubeEventsKubeEvents3;
+
 /** @internal */
-export const InputKubeEventsConnection$outboundSchema: z.ZodType<
-  InputKubeEventsConnection$Outbound,
+export const InputKubeEventsType4$inboundSchema: z.ZodNativeEnum<
+  typeof InputKubeEventsType4
+> = z.nativeEnum(InputKubeEventsType4);
+/** @internal */
+export const InputKubeEventsType4$outboundSchema: z.ZodNativeEnum<
+  typeof InputKubeEventsType4
+> = InputKubeEventsType4$inboundSchema;
+
+/** @internal */
+export const InputKubeEventsKubeEvents4$inboundSchema: z.ZodType<
+  InputKubeEventsKubeEvents4,
   z.ZodTypeDef,
-  InputKubeEventsConnection
+  unknown
 > = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputKubeEventsType4$inboundSchema,
+  disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKubeEventsConnection$ {
-  /** @deprecated use `InputKubeEventsConnection$inboundSchema` instead. */
-  export const inboundSchema = InputKubeEventsConnection$inboundSchema;
-  /** @deprecated use `InputKubeEventsConnection$outboundSchema` instead. */
-  export const outboundSchema = InputKubeEventsConnection$outboundSchema;
-  /** @deprecated use `InputKubeEventsConnection$Outbound` instead. */
-  export type Outbound = InputKubeEventsConnection$Outbound;
-}
-
-export function inputKubeEventsConnectionToJSON(
-  inputKubeEventsConnection: InputKubeEventsConnection,
-): string {
-  return JSON.stringify(
-    InputKubeEventsConnection$outboundSchema.parse(inputKubeEventsConnection),
-  );
-}
-
-export function inputKubeEventsConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputKubeEventsConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputKubeEventsConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputKubeEventsConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputKubeEventsMode$inboundSchema: z.ZodType<
-  InputKubeEventsMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputKubeEventsMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputKubeEventsMode$outboundSchema: z.ZodType<
-  InputKubeEventsMode,
-  z.ZodTypeDef,
-  InputKubeEventsMode
-> = z.union([
-  z.nativeEnum(InputKubeEventsMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKubeEventsMode$ {
-  /** @deprecated use `InputKubeEventsMode$inboundSchema` instead. */
-  export const inboundSchema = InputKubeEventsMode$inboundSchema;
-  /** @deprecated use `InputKubeEventsMode$outboundSchema` instead. */
-  export const outboundSchema = InputKubeEventsMode$outboundSchema;
-}
-
-/** @internal */
-export const InputKubeEventsCompression$inboundSchema: z.ZodType<
-  InputKubeEventsCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputKubeEventsCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputKubeEventsCompression$outboundSchema: z.ZodType<
-  InputKubeEventsCompression,
-  z.ZodTypeDef,
-  InputKubeEventsCompression
-> = z.union([
-  z.nativeEnum(InputKubeEventsCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKubeEventsCompression$ {
-  /** @deprecated use `InputKubeEventsCompression$inboundSchema` instead. */
-  export const inboundSchema = InputKubeEventsCompression$inboundSchema;
-  /** @deprecated use `InputKubeEventsCompression$outboundSchema` instead. */
-  export const outboundSchema = InputKubeEventsCompression$outboundSchema;
-}
-
-/** @internal */
-export const InputKubeEventsPqControls$inboundSchema: z.ZodType<
-  InputKubeEventsPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type InputKubeEventsPqControls$Outbound = {};
-
-/** @internal */
-export const InputKubeEventsPqControls$outboundSchema: z.ZodType<
-  InputKubeEventsPqControls$Outbound,
-  z.ZodTypeDef,
-  InputKubeEventsPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKubeEventsPqControls$ {
-  /** @deprecated use `InputKubeEventsPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputKubeEventsPqControls$inboundSchema;
-  /** @deprecated use `InputKubeEventsPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputKubeEventsPqControls$outboundSchema;
-  /** @deprecated use `InputKubeEventsPqControls$Outbound` instead. */
-  export type Outbound = InputKubeEventsPqControls$Outbound;
-}
-
-export function inputKubeEventsPqControlsToJSON(
-  inputKubeEventsPqControls: InputKubeEventsPqControls,
-): string {
-  return JSON.stringify(
-    InputKubeEventsPqControls$outboundSchema.parse(inputKubeEventsPqControls),
-  );
-}
-
-export function inputKubeEventsPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputKubeEventsPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputKubeEventsPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputKubeEventsPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputKubeEventsPq$inboundSchema: z.ZodType<
-  InputKubeEventsPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputKubeEventsMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputKubeEventsCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputKubeEventsPqControls$inboundSchema).optional(),
-});
-
-/** @internal */
-export type InputKubeEventsPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputKubeEventsPqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputKubeEventsPq$outboundSchema: z.ZodType<
-  InputKubeEventsPq$Outbound,
-  z.ZodTypeDef,
-  InputKubeEventsPq
-> = z.object({
-  mode: InputKubeEventsMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputKubeEventsCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputKubeEventsPqControls$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKubeEventsPq$ {
-  /** @deprecated use `InputKubeEventsPq$inboundSchema` instead. */
-  export const inboundSchema = InputKubeEventsPq$inboundSchema;
-  /** @deprecated use `InputKubeEventsPq$outboundSchema` instead. */
-  export const outboundSchema = InputKubeEventsPq$outboundSchema;
-  /** @deprecated use `InputKubeEventsPq$Outbound` instead. */
-  export type Outbound = InputKubeEventsPq$Outbound;
-}
-
-export function inputKubeEventsPqToJSON(
-  inputKubeEventsPq: InputKubeEventsPq,
-): string {
-  return JSON.stringify(
-    InputKubeEventsPq$outboundSchema.parse(inputKubeEventsPq),
-  );
-}
-
-export function inputKubeEventsPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputKubeEventsPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputKubeEventsPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputKubeEventsPq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputKubeEventsRule$inboundSchema: z.ZodType<
-  InputKubeEventsRule,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  filter: z.string(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema,
+  rules: z.array(PodFilterType$inboundSchema).optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
   description: z.string().optional(),
 });
-
 /** @internal */
-export type InputKubeEventsRule$Outbound = {
-  filter: string;
+export type InputKubeEventsKubeEvents4$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq: PqType$Outbound;
+  rules?: Array<PodFilterType$Outbound> | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
   description?: string | undefined;
 };
 
 /** @internal */
-export const InputKubeEventsRule$outboundSchema: z.ZodType<
-  InputKubeEventsRule$Outbound,
+export const InputKubeEventsKubeEvents4$outboundSchema: z.ZodType<
+  InputKubeEventsKubeEvents4$Outbound,
   z.ZodTypeDef,
-  InputKubeEventsRule
+  InputKubeEventsKubeEvents4
 > = z.object({
-  filter: z.string(),
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputKubeEventsType4$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema,
+  rules: z.array(PodFilterType$outboundSchema).optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKubeEventsRule$ {
-  /** @deprecated use `InputKubeEventsRule$inboundSchema` instead. */
-  export const inboundSchema = InputKubeEventsRule$inboundSchema;
-  /** @deprecated use `InputKubeEventsRule$outboundSchema` instead. */
-  export const outboundSchema = InputKubeEventsRule$outboundSchema;
-  /** @deprecated use `InputKubeEventsRule$Outbound` instead. */
-  export type Outbound = InputKubeEventsRule$Outbound;
-}
-
-export function inputKubeEventsRuleToJSON(
-  inputKubeEventsRule: InputKubeEventsRule,
+export function inputKubeEventsKubeEvents4ToJSON(
+  inputKubeEventsKubeEvents4: InputKubeEventsKubeEvents4,
 ): string {
   return JSON.stringify(
-    InputKubeEventsRule$outboundSchema.parse(inputKubeEventsRule),
+    InputKubeEventsKubeEvents4$outboundSchema.parse(inputKubeEventsKubeEvents4),
   );
 }
-
-export function inputKubeEventsRuleFromJSON(
+export function inputKubeEventsKubeEvents4FromJSON(
   jsonString: string,
-): SafeParseResult<InputKubeEventsRule, SDKValidationError> {
+): SafeParseResult<InputKubeEventsKubeEvents4, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InputKubeEventsRule$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputKubeEventsRule' from JSON`,
+    (x) => InputKubeEventsKubeEvents4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKubeEventsKubeEvents4' from JSON`,
   );
 }
 
 /** @internal */
-export const InputKubeEventsMetadatum$inboundSchema: z.ZodType<
-  InputKubeEventsMetadatum,
+export const InputKubeEventsType3$inboundSchema: z.ZodNativeEnum<
+  typeof InputKubeEventsType3
+> = z.nativeEnum(InputKubeEventsType3);
+/** @internal */
+export const InputKubeEventsType3$outboundSchema: z.ZodNativeEnum<
+  typeof InputKubeEventsType3
+> = InputKubeEventsType3$inboundSchema;
+
+/** @internal */
+export const InputKubeEventsKubeEvents3$inboundSchema: z.ZodType<
+  InputKubeEventsKubeEvents3,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  name: z.string(),
-  value: z.string(),
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputKubeEventsType3$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  rules: z.array(PodFilterType$inboundSchema).optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  description: z.string().optional(),
 });
-
 /** @internal */
-export type InputKubeEventsMetadatum$Outbound = {
-  name: string;
-  value: string;
+export type InputKubeEventsKubeEvents3$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  rules?: Array<PodFilterType$Outbound> | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  description?: string | undefined;
 };
 
 /** @internal */
-export const InputKubeEventsMetadatum$outboundSchema: z.ZodType<
-  InputKubeEventsMetadatum$Outbound,
+export const InputKubeEventsKubeEvents3$outboundSchema: z.ZodType<
+  InputKubeEventsKubeEvents3$Outbound,
   z.ZodTypeDef,
-  InputKubeEventsMetadatum
+  InputKubeEventsKubeEvents3
 > = z.object({
-  name: z.string(),
-  value: z.string(),
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputKubeEventsType3$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  rules: z.array(PodFilterType$outboundSchema).optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKubeEventsMetadatum$ {
-  /** @deprecated use `InputKubeEventsMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputKubeEventsMetadatum$inboundSchema;
-  /** @deprecated use `InputKubeEventsMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputKubeEventsMetadatum$outboundSchema;
-  /** @deprecated use `InputKubeEventsMetadatum$Outbound` instead. */
-  export type Outbound = InputKubeEventsMetadatum$Outbound;
-}
-
-export function inputKubeEventsMetadatumToJSON(
-  inputKubeEventsMetadatum: InputKubeEventsMetadatum,
+export function inputKubeEventsKubeEvents3ToJSON(
+  inputKubeEventsKubeEvents3: InputKubeEventsKubeEvents3,
 ): string {
   return JSON.stringify(
-    InputKubeEventsMetadatum$outboundSchema.parse(inputKubeEventsMetadatum),
+    InputKubeEventsKubeEvents3$outboundSchema.parse(inputKubeEventsKubeEvents3),
+  );
+}
+export function inputKubeEventsKubeEvents3FromJSON(
+  jsonString: string,
+): SafeParseResult<InputKubeEventsKubeEvents3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputKubeEventsKubeEvents3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKubeEventsKubeEvents3' from JSON`,
   );
 }
 
-export function inputKubeEventsMetadatumFromJSON(
+/** @internal */
+export const InputKubeEventsType2$inboundSchema: z.ZodNativeEnum<
+  typeof InputKubeEventsType2
+> = z.nativeEnum(InputKubeEventsType2);
+/** @internal */
+export const InputKubeEventsType2$outboundSchema: z.ZodNativeEnum<
+  typeof InputKubeEventsType2
+> = InputKubeEventsType2$inboundSchema;
+
+/** @internal */
+export const InputKubeEventsKubeEvents2$inboundSchema: z.ZodType<
+  InputKubeEventsKubeEvents2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputKubeEventsType2$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema),
+  pq: PqType$inboundSchema.optional(),
+  rules: z.array(PodFilterType$inboundSchema).optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputKubeEventsKubeEvents2$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections: Array<ConnectionsType$Outbound>;
+  pq?: PqType$Outbound | undefined;
+  rules?: Array<PodFilterType$Outbound> | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputKubeEventsKubeEvents2$outboundSchema: z.ZodType<
+  InputKubeEventsKubeEvents2$Outbound,
+  z.ZodTypeDef,
+  InputKubeEventsKubeEvents2
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputKubeEventsType2$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema),
+  pq: PqType$outboundSchema.optional(),
+  rules: z.array(PodFilterType$outboundSchema).optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  description: z.string().optional(),
+});
+
+export function inputKubeEventsKubeEvents2ToJSON(
+  inputKubeEventsKubeEvents2: InputKubeEventsKubeEvents2,
+): string {
+  return JSON.stringify(
+    InputKubeEventsKubeEvents2$outboundSchema.parse(inputKubeEventsKubeEvents2),
+  );
+}
+export function inputKubeEventsKubeEvents2FromJSON(
   jsonString: string,
-): SafeParseResult<InputKubeEventsMetadatum, SDKValidationError> {
+): SafeParseResult<InputKubeEventsKubeEvents2, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InputKubeEventsMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputKubeEventsMetadatum' from JSON`,
+    (x) => InputKubeEventsKubeEvents2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKubeEventsKubeEvents2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputKubeEventsType1$inboundSchema: z.ZodNativeEnum<
+  typeof InputKubeEventsType1
+> = z.nativeEnum(InputKubeEventsType1);
+/** @internal */
+export const InputKubeEventsType1$outboundSchema: z.ZodNativeEnum<
+  typeof InputKubeEventsType1
+> = InputKubeEventsType1$inboundSchema;
+
+/** @internal */
+export const InputKubeEventsKubeEvents1$inboundSchema: z.ZodType<
+  InputKubeEventsKubeEvents1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputKubeEventsType1$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  rules: z.array(PodFilterType$inboundSchema).optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputKubeEventsKubeEvents1$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  rules?: Array<PodFilterType$Outbound> | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputKubeEventsKubeEvents1$outboundSchema: z.ZodType<
+  InputKubeEventsKubeEvents1$Outbound,
+  z.ZodTypeDef,
+  InputKubeEventsKubeEvents1
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputKubeEventsType1$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  rules: z.array(PodFilterType$outboundSchema).optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  description: z.string().optional(),
+});
+
+export function inputKubeEventsKubeEvents1ToJSON(
+  inputKubeEventsKubeEvents1: InputKubeEventsKubeEvents1,
+): string {
+  return JSON.stringify(
+    InputKubeEventsKubeEvents1$outboundSchema.parse(inputKubeEventsKubeEvents1),
+  );
+}
+export function inputKubeEventsKubeEvents1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputKubeEventsKubeEvents1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputKubeEventsKubeEvents1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKubeEventsKubeEvents1' from JSON`,
   );
 }
 
@@ -529,83 +571,36 @@ export const InputKubeEvents$inboundSchema: z.ZodType<
   InputKubeEvents,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.string().optional(),
-  type: InputKubeEventsType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputKubeEventsConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputKubeEventsPq$inboundSchema).optional(),
-  rules: z.array(z.lazy(() => InputKubeEventsRule$inboundSchema)).optional(),
-  metadata: z.array(z.lazy(() => InputKubeEventsMetadatum$inboundSchema))
-    .optional(),
-  description: z.string().optional(),
-});
-
+> = z.union([
+  z.lazy(() => InputKubeEventsKubeEvents2$inboundSchema),
+  z.lazy(() => InputKubeEventsKubeEvents4$inboundSchema),
+  z.lazy(() => InputKubeEventsKubeEvents1$inboundSchema),
+  z.lazy(() => InputKubeEventsKubeEvents3$inboundSchema),
+]);
 /** @internal */
-export type InputKubeEvents$Outbound = {
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  sendToRoutes: boolean;
-  environment?: string | undefined;
-  pqEnabled: boolean;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<InputKubeEventsConnection$Outbound> | undefined;
-  pq?: InputKubeEventsPq$Outbound | undefined;
-  rules?: Array<InputKubeEventsRule$Outbound> | undefined;
-  metadata?: Array<InputKubeEventsMetadatum$Outbound> | undefined;
-  description?: string | undefined;
-};
+export type InputKubeEvents$Outbound =
+  | InputKubeEventsKubeEvents2$Outbound
+  | InputKubeEventsKubeEvents4$Outbound
+  | InputKubeEventsKubeEvents1$Outbound
+  | InputKubeEventsKubeEvents3$Outbound;
 
 /** @internal */
 export const InputKubeEvents$outboundSchema: z.ZodType<
   InputKubeEvents$Outbound,
   z.ZodTypeDef,
   InputKubeEvents
-> = z.object({
-  id: z.string().optional(),
-  type: InputKubeEventsType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputKubeEventsConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputKubeEventsPq$outboundSchema).optional(),
-  rules: z.array(z.lazy(() => InputKubeEventsRule$outboundSchema)).optional(),
-  metadata: z.array(z.lazy(() => InputKubeEventsMetadatum$outboundSchema))
-    .optional(),
-  description: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKubeEvents$ {
-  /** @deprecated use `InputKubeEvents$inboundSchema` instead. */
-  export const inboundSchema = InputKubeEvents$inboundSchema;
-  /** @deprecated use `InputKubeEvents$outboundSchema` instead. */
-  export const outboundSchema = InputKubeEvents$outboundSchema;
-  /** @deprecated use `InputKubeEvents$Outbound` instead. */
-  export type Outbound = InputKubeEvents$Outbound;
-}
+> = z.union([
+  z.lazy(() => InputKubeEventsKubeEvents2$outboundSchema),
+  z.lazy(() => InputKubeEventsKubeEvents4$outboundSchema),
+  z.lazy(() => InputKubeEventsKubeEvents1$outboundSchema),
+  z.lazy(() => InputKubeEventsKubeEvents3$outboundSchema),
+]);
 
 export function inputKubeEventsToJSON(
   inputKubeEvents: InputKubeEvents,
 ): string {
   return JSON.stringify(InputKubeEvents$outboundSchema.parse(inputKubeEvents));
 }
-
 export function inputKubeEventsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputKubeEvents, SDKValidationError> {

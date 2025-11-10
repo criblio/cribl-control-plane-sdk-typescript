@@ -4,123 +4,65 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AwsAuthenticationMethodOptions,
+  AwsAuthenticationMethodOptions$inboundSchema,
+  AwsAuthenticationMethodOptions$outboundSchema,
+} from "./awsauthenticationmethodoptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  MetadataType,
+  MetadataType$inboundSchema,
+  MetadataType$Outbound,
+  MetadataType$outboundSchema,
+} from "./metadatatype.js";
+import {
+  OnBackpressureOptions,
+  OnBackpressureOptions$inboundSchema,
+  OnBackpressureOptions$outboundSchema,
+} from "./onbackpressureoptions.js";
+import {
+  PqCompressOptions,
+  PqCompressOptions$inboundSchema,
+  PqCompressOptions$outboundSchema,
+} from "./pqcompressoptions.js";
+import {
+  PqModeOptions,
+  PqModeOptions$inboundSchema,
+  PqModeOptions$outboundSchema,
+} from "./pqmodeoptions.js";
+import {
+  PqOnBackpressureOptions,
+  PqOnBackpressureOptions$inboundSchema,
+  PqOnBackpressureOptions$outboundSchema,
+} from "./pqonbackpressureoptions.js";
+import {
+  QueueTypeOptions,
+  QueueTypeOptions$inboundSchema,
+  QueueTypeOptions$outboundSchema,
+} from "./queuetypeoptions.js";
+import {
+  SignatureVersionOptions,
+  SignatureVersionOptions$inboundSchema,
+  SignatureVersionOptions$outboundSchema,
+} from "./signatureversionoptions.js";
+import {
+  TypeSqsOption,
+  TypeSqsOption$inboundSchema,
+  TypeSqsOption$outboundSchema,
+} from "./typesqsoption.js";
 
-export const OutputSqsType = {
-  Sqs: "sqs",
-} as const;
-export type OutputSqsType = ClosedEnum<typeof OutputSqsType>;
-
-/**
- * The queue type used (or created). Defaults to Standard.
- */
-export const OutputSqsQueueType = {
-  Standard: "standard",
-  Fifo: "fifo",
-} as const;
-/**
- * The queue type used (or created). Defaults to Standard.
- */
-export type OutputSqsQueueType = OpenEnum<typeof OutputSqsQueueType>;
-
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export const OutputSqsAuthenticationMethod = {
-  Auto: "auto",
-  Manual: "manual",
-  Secret: "secret",
-} as const;
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export type OutputSqsAuthenticationMethod = OpenEnum<
-  typeof OutputSqsAuthenticationMethod
->;
-
-/**
- * Signature version to use for signing SQS requests
- */
-export const OutputSqsSignatureVersion = {
-  V2: "v2",
-  V4: "v4",
-} as const;
-/**
- * Signature version to use for signing SQS requests
- */
-export type OutputSqsSignatureVersion = OpenEnum<
-  typeof OutputSqsSignatureVersion
->;
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputSqsBackpressureBehavior = {
-  Block: "block",
-  Drop: "drop",
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputSqsBackpressureBehavior = OpenEnum<
-  typeof OutputSqsBackpressureBehavior
->;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputSqsCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputSqsCompression = OpenEnum<typeof OutputSqsCompression>;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputSqsQueueFullBehavior = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputSqsQueueFullBehavior = OpenEnum<
-  typeof OutputSqsQueueFullBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputSqsMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputSqsMode = OpenEnum<typeof OutputSqsMode>;
-
-export type OutputSqsPqControls = {};
-
-export type OutputSqs = {
+export type OutputSqsSqs5 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputSqsType;
+  type: TypeSqsOption;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -142,9 +84,9 @@ export type OutputSqs = {
    */
   queueName: string;
   /**
-   * The queue type used (or created). Defaults to Standard.
+   * The queue type used (or created)
    */
-  queueType: OutputSqsQueueType;
+  queueType: QueueTypeOptions;
   /**
    * SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
    */
@@ -160,7 +102,7 @@ export type OutputSqs = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: OutputSqsAuthenticationMethod | undefined;
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -171,9 +113,309 @@ export type OutputSqs = {
    */
   endpoint?: string | undefined;
   /**
-   * Signature version to use for signing SQS requests
+   * Signature version to use for signing MSK cluster requests
    */
-  signatureVersion?: OutputSqsSignatureVersion | undefined;
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access SQS
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Maximum number of queued batches before blocking.
+   */
+  maxQueueSize?: number | undefined;
+  /**
+   * Maximum size (KB) of batches to send. Per the SQS spec, the max allowed value is 256 KB.
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * The maximum number of in-progress API requests before backpressure is applied.
+   */
+  maxInProgress?: number | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls: MetadataType;
+};
+
+export type OutputSqsSqs4 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeSqsOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The name, URL, or ARN of the SQS queue to send events to. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+   */
+  queueName: string;
+  /**
+   * The queue type used (or created)
+   */
+  queueType: QueueTypeOptions;
+  /**
+   * SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+   */
+  awsAccountId?: string | undefined;
+  /**
+   * This parameter applies only to FIFO queues. The tag that specifies that a message belongs to a specific message group. Messages that belong to the same message group are processed in a FIFO manner. Use event field __messageGroupId to override this value.
+   */
+  messageGroupId?: string | undefined;
+  /**
+   * Create queue if it does not exist.
+   */
+  createQueue?: boolean | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+   */
+  region?: string | undefined;
+  /**
+   * SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access SQS
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Maximum number of queued batches before blocking.
+   */
+  maxQueueSize?: number | undefined;
+  /**
+   * Maximum size (KB) of batches to send. Per the SQS spec, the max allowed value is 256 KB.
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * The maximum number of in-progress API requests before backpressure is applied.
+   */
+  maxInProgress?: number | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export type OutputSqsSqs3 = {
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeSqsOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The name, URL, or ARN of the SQS queue to send events to. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+   */
+  queueName: string;
+  /**
+   * The queue type used (or created)
+   */
+  queueType: QueueTypeOptions;
+  /**
+   * SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+   */
+  awsAccountId?: string | undefined;
+  /**
+   * This parameter applies only to FIFO queues. The tag that specifies that a message belongs to a specific message group. Messages that belong to the same message group are processed in a FIFO manner. Use event field __messageGroupId to override this value.
+   */
+  messageGroupId?: string | undefined;
+  /**
+   * Create queue if it does not exist.
+   */
+  createQueue?: boolean | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+   */
+  region?: string | undefined;
+  /**
+   * SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -217,13 +459,33 @@ export type OutputSqs = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputSqsBackpressureBehavior | undefined;
+  onBackpressure?: OnBackpressureOptions | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
    */
-  awsSecret?: string | undefined;
+  awsSecret: string;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
   /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
@@ -239,335 +501,350 @@ export type OutputSqs = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputSqsCompression | undefined;
+  pqCompress?: PqCompressOptions | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputSqsQueueFullBehavior | undefined;
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export type OutputSqsSqs2 = {
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeSqsOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The name, URL, or ARN of the SQS queue to send events to. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+   */
+  queueName: string;
+  /**
+   * The queue type used (or created)
+   */
+  queueType: QueueTypeOptions;
+  /**
+   * SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+   */
+  awsAccountId?: string | undefined;
+  /**
+   * This parameter applies only to FIFO queues. The tag that specifies that a message belongs to a specific message group. Messages that belong to the same message group are processed in a FIFO manner. Use event field __messageGroupId to override this value.
+   */
+  messageGroupId?: string | undefined;
+  /**
+   * Create queue if it does not exist.
+   */
+  createQueue?: boolean | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+   */
+  region?: string | undefined;
+  /**
+   * SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access SQS
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Maximum number of queued batches before blocking.
+   */
+  maxQueueSize?: number | undefined;
+  /**
+   * Maximum size (KB) of batches to send. Per the SQS spec, the max allowed value is 256 KB.
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * The maximum number of in-progress API requests before backpressure is applied.
+   */
+  maxInProgress?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  awsApiKey: string;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputSqsMode | undefined;
-  pqControls?: OutputSqsPqControls | undefined;
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
 };
 
-/** @internal */
-export const OutputSqsType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSqsType
-> = z.nativeEnum(OutputSqsType);
+export type OutputSqsSqs1 = {
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeSqsOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The name, URL, or ARN of the SQS queue to send events to. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
+   */
+  queueName: string;
+  /**
+   * The queue type used (or created)
+   */
+  queueType: QueueTypeOptions;
+  /**
+   * SQS queue owner's AWS account ID. Leave empty if SQS queue is in same AWS account.
+   */
+  awsAccountId?: string | undefined;
+  /**
+   * This parameter applies only to FIFO queues. The tag that specifies that a message belongs to a specific message group. Messages that belong to the same message group are processed in a FIFO manner. Use event field __messageGroupId to override this value.
+   */
+  messageGroupId?: string | undefined;
+  /**
+   * Create queue if it does not exist.
+   */
+  createQueue?: boolean | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * AWS Region where the SQS queue is located. Required, unless the Queue entry is a URL or ARN that includes a Region.
+   */
+  region?: string | undefined;
+  /**
+   * SQS service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to SQS-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access SQS
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Maximum number of queued batches before blocking.
+   */
+  maxQueueSize?: number | undefined;
+  /**
+   * Maximum size (KB) of batches to send. Per the SQS spec, the max allowed value is 256 KB.
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * The maximum number of in-progress API requests before backpressure is applied.
+   */
+  maxInProgress?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export type OutputSqs =
+  | OutputSqsSqs2
+  | OutputSqsSqs3
+  | OutputSqsSqs5
+  | OutputSqsSqs1
+  | OutputSqsSqs4;
 
 /** @internal */
-export const OutputSqsType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSqsType
-> = OutputSqsType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSqsType$ {
-  /** @deprecated use `OutputSqsType$inboundSchema` instead. */
-  export const inboundSchema = OutputSqsType$inboundSchema;
-  /** @deprecated use `OutputSqsType$outboundSchema` instead. */
-  export const outboundSchema = OutputSqsType$outboundSchema;
-}
-
-/** @internal */
-export const OutputSqsQueueType$inboundSchema: z.ZodType<
-  OutputSqsQueueType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSqsQueueType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSqsQueueType$outboundSchema: z.ZodType<
-  OutputSqsQueueType,
-  z.ZodTypeDef,
-  OutputSqsQueueType
-> = z.union([
-  z.nativeEnum(OutputSqsQueueType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSqsQueueType$ {
-  /** @deprecated use `OutputSqsQueueType$inboundSchema` instead. */
-  export const inboundSchema = OutputSqsQueueType$inboundSchema;
-  /** @deprecated use `OutputSqsQueueType$outboundSchema` instead. */
-  export const outboundSchema = OutputSqsQueueType$outboundSchema;
-}
-
-/** @internal */
-export const OutputSqsAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputSqsAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSqsAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSqsAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputSqsAuthenticationMethod,
-  z.ZodTypeDef,
-  OutputSqsAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputSqsAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSqsAuthenticationMethod$ {
-  /** @deprecated use `OutputSqsAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = OutputSqsAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputSqsAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema = OutputSqsAuthenticationMethod$outboundSchema;
-}
-
-/** @internal */
-export const OutputSqsSignatureVersion$inboundSchema: z.ZodType<
-  OutputSqsSignatureVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSqsSignatureVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSqsSignatureVersion$outboundSchema: z.ZodType<
-  OutputSqsSignatureVersion,
-  z.ZodTypeDef,
-  OutputSqsSignatureVersion
-> = z.union([
-  z.nativeEnum(OutputSqsSignatureVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSqsSignatureVersion$ {
-  /** @deprecated use `OutputSqsSignatureVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputSqsSignatureVersion$inboundSchema;
-  /** @deprecated use `OutputSqsSignatureVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputSqsSignatureVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputSqsBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputSqsBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSqsBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSqsBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputSqsBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputSqsBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputSqsBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSqsBackpressureBehavior$ {
-  /** @deprecated use `OutputSqsBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputSqsBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputSqsBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputSqsBackpressureBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputSqsCompression$inboundSchema: z.ZodType<
-  OutputSqsCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSqsCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSqsCompression$outboundSchema: z.ZodType<
-  OutputSqsCompression,
-  z.ZodTypeDef,
-  OutputSqsCompression
-> = z.union([
-  z.nativeEnum(OutputSqsCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSqsCompression$ {
-  /** @deprecated use `OutputSqsCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputSqsCompression$inboundSchema;
-  /** @deprecated use `OutputSqsCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputSqsCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputSqsQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputSqsQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSqsQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSqsQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputSqsQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputSqsQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputSqsQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSqsQueueFullBehavior$ {
-  /** @deprecated use `OutputSqsQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputSqsQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputSqsQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputSqsQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputSqsMode$inboundSchema: z.ZodType<
-  OutputSqsMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSqsMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSqsMode$outboundSchema: z.ZodType<
-  OutputSqsMode,
-  z.ZodTypeDef,
-  OutputSqsMode
-> = z.union([
-  z.nativeEnum(OutputSqsMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSqsMode$ {
-  /** @deprecated use `OutputSqsMode$inboundSchema` instead. */
-  export const inboundSchema = OutputSqsMode$inboundSchema;
-  /** @deprecated use `OutputSqsMode$outboundSchema` instead. */
-  export const outboundSchema = OutputSqsMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputSqsPqControls$inboundSchema: z.ZodType<
-  OutputSqsPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type OutputSqsPqControls$Outbound = {};
-
-/** @internal */
-export const OutputSqsPqControls$outboundSchema: z.ZodType<
-  OutputSqsPqControls$Outbound,
-  z.ZodTypeDef,
-  OutputSqsPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSqsPqControls$ {
-  /** @deprecated use `OutputSqsPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputSqsPqControls$inboundSchema;
-  /** @deprecated use `OutputSqsPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputSqsPqControls$outboundSchema;
-  /** @deprecated use `OutputSqsPqControls$Outbound` instead. */
-  export type Outbound = OutputSqsPqControls$Outbound;
-}
-
-export function outputSqsPqControlsToJSON(
-  outputSqsPqControls: OutputSqsPqControls,
-): string {
-  return JSON.stringify(
-    OutputSqsPqControls$outboundSchema.parse(outputSqsPqControls),
-  );
-}
-
-export function outputSqsPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSqsPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputSqsPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSqsPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputSqs$inboundSchema: z.ZodType<
-  OutputSqs,
+export const OutputSqsSqs5$inboundSchema: z.ZodType<
+  OutputSqsSqs5,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
   id: z.string().optional(),
-  type: OutputSqsType$inboundSchema,
+  type: TypeSqsOption$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   queueName: z.string(),
-  queueType: OutputSqsQueueType$inboundSchema,
+  queueType: QueueTypeOptions$inboundSchema,
   awsAccountId: z.string().optional(),
   messageGroupId: z.string().default("cribl"),
   createQueue: z.boolean().default(true),
-  awsAuthenticationMethod: OutputSqsAuthenticationMethod$inboundSchema.default(
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
     "auto",
   ),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: OutputSqsSignatureVersion$inboundSchema.default("v4"),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   enableAssumeRole: z.boolean().default(false),
@@ -578,21 +855,24 @@ export const OutputSqs$inboundSchema: z.ZodType<
   maxRecordSizeKB: z.number().default(256),
   flushPeriodSec: z.number().default(1),
   maxInProgress: z.number().default(10),
-  onBackpressure: OutputSqsBackpressureBehavior$inboundSchema.default("block"),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputSqsCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputSqsQueueFullBehavior$inboundSchema.default("block"),
-  pqMode: OutputSqsMode$inboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputSqsPqControls$inboundSchema).optional(),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema,
 });
-
 /** @internal */
-export type OutputSqs$Outbound = {
+export type OutputSqsSqs5$Outbound = {
+  onBackpressure: string;
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -619,43 +899,46 @@ export type OutputSqs$Outbound = {
   maxRecordSizeKB: number;
   flushPeriodSec: number;
   maxInProgress: number;
-  onBackpressure: string;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
-  pqControls?: OutputSqsPqControls$Outbound | undefined;
+  pqControls: MetadataType$Outbound;
 };
 
 /** @internal */
-export const OutputSqs$outboundSchema: z.ZodType<
-  OutputSqs$Outbound,
+export const OutputSqsSqs5$outboundSchema: z.ZodType<
+  OutputSqsSqs5$Outbound,
   z.ZodTypeDef,
-  OutputSqs
+  OutputSqsSqs5
 > = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
   id: z.string().optional(),
-  type: OutputSqsType$outboundSchema,
+  type: TypeSqsOption$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   queueName: z.string(),
-  queueType: OutputSqsQueueType$outboundSchema,
+  queueType: QueueTypeOptions$outboundSchema,
   awsAccountId: z.string().optional(),
   messageGroupId: z.string().default("cribl"),
   createQueue: z.boolean().default(true),
-  awsAuthenticationMethod: OutputSqsAuthenticationMethod$outboundSchema.default(
-    "auto",
-  ),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: OutputSqsSignatureVersion$outboundSchema.default("v4"),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   enableAssumeRole: z.boolean().default(false),
@@ -666,36 +949,703 @@ export const OutputSqs$outboundSchema: z.ZodType<
   maxRecordSizeKB: z.number().default(256),
   flushPeriodSec: z.number().default(1),
   maxInProgress: z.number().default(10),
-  onBackpressure: OutputSqsBackpressureBehavior$outboundSchema.default("block"),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputSqsCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputSqsQueueFullBehavior$outboundSchema.default("block"),
-  pqMode: OutputSqsMode$outboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputSqsPqControls$outboundSchema).optional(),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSqs$ {
-  /** @deprecated use `OutputSqs$inboundSchema` instead. */
-  export const inboundSchema = OutputSqs$inboundSchema;
-  /** @deprecated use `OutputSqs$outboundSchema` instead. */
-  export const outboundSchema = OutputSqs$outboundSchema;
-  /** @deprecated use `OutputSqs$Outbound` instead. */
-  export type Outbound = OutputSqs$Outbound;
+export function outputSqsSqs5ToJSON(outputSqsSqs5: OutputSqsSqs5): string {
+  return JSON.stringify(OutputSqsSqs5$outboundSchema.parse(outputSqsSqs5));
 }
+export function outputSqsSqs5FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSqsSqs5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSqsSqs5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSqsSqs5' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSqsSqs4$inboundSchema: z.ZodType<
+  OutputSqsSqs4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: TypeSqsOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  queueName: z.string(),
+  queueType: QueueTypeOptions$inboundSchema,
+  awsAccountId: z.string().optional(),
+  messageGroupId: z.string().default("cribl"),
+  createQueue: z.boolean().default(true),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxQueueSize: z.number().default(100),
+  maxRecordSizeKB: z.number().default(256),
+  flushPeriodSec: z.number().default(1),
+  maxInProgress: z.number().default(10),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputSqsSqs4$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  queueName: string;
+  queueType: string;
+  awsAccountId?: string | undefined;
+  messageGroupId: string;
+  createQueue: boolean;
+  awsAuthenticationMethod: string;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  maxQueueSize: number;
+  maxRecordSizeKB: number;
+  flushPeriodSec: number;
+  maxInProgress: number;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputSqsSqs4$outboundSchema: z.ZodType<
+  OutputSqsSqs4$Outbound,
+  z.ZodTypeDef,
+  OutputSqsSqs4
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: TypeSqsOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  queueName: z.string(),
+  queueType: QueueTypeOptions$outboundSchema,
+  awsAccountId: z.string().optional(),
+  messageGroupId: z.string().default("cribl"),
+  createQueue: z.boolean().default(true),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxQueueSize: z.number().default(100),
+  maxRecordSizeKB: z.number().default(256),
+  flushPeriodSec: z.number().default(1),
+  maxInProgress: z.number().default(10),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputSqsSqs4ToJSON(outputSqsSqs4: OutputSqsSqs4): string {
+  return JSON.stringify(OutputSqsSqs4$outboundSchema.parse(outputSqsSqs4));
+}
+export function outputSqsSqs4FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSqsSqs4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSqsSqs4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSqsSqs4' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSqsSqs3$inboundSchema: z.ZodType<
+  OutputSqsSqs3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  id: z.string().optional(),
+  type: TypeSqsOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  queueName: z.string(),
+  queueType: QueueTypeOptions$inboundSchema,
+  awsAccountId: z.string().optional(),
+  messageGroupId: z.string().default("cribl"),
+  createQueue: z.boolean().default(true),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxQueueSize: z.number().default(100),
+  maxRecordSizeKB: z.number().default(256),
+  flushPeriodSec: z.number().default(1),
+  maxInProgress: z.number().default(10),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputSqsSqs3$Outbound = {
+  awsAuthenticationMethod: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  queueName: string;
+  queueType: string;
+  awsAccountId?: string | undefined;
+  messageGroupId: string;
+  createQueue: boolean;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  maxQueueSize: number;
+  maxRecordSizeKB: number;
+  flushPeriodSec: number;
+  maxInProgress: number;
+  onBackpressure: string;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputSqsSqs3$outboundSchema: z.ZodType<
+  OutputSqsSqs3$Outbound,
+  z.ZodTypeDef,
+  OutputSqsSqs3
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  id: z.string().optional(),
+  type: TypeSqsOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  queueName: z.string(),
+  queueType: QueueTypeOptions$outboundSchema,
+  awsAccountId: z.string().optional(),
+  messageGroupId: z.string().default("cribl"),
+  createQueue: z.boolean().default(true),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxQueueSize: z.number().default(100),
+  maxRecordSizeKB: z.number().default(256),
+  flushPeriodSec: z.number().default(1),
+  maxInProgress: z.number().default(10),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputSqsSqs3ToJSON(outputSqsSqs3: OutputSqsSqs3): string {
+  return JSON.stringify(OutputSqsSqs3$outboundSchema.parse(outputSqsSqs3));
+}
+export function outputSqsSqs3FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSqsSqs3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSqsSqs3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSqsSqs3' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSqsSqs2$inboundSchema: z.ZodType<
+  OutputSqsSqs2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  id: z.string().optional(),
+  type: TypeSqsOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  queueName: z.string(),
+  queueType: QueueTypeOptions$inboundSchema,
+  awsAccountId: z.string().optional(),
+  messageGroupId: z.string().default("cribl"),
+  createQueue: z.boolean().default(true),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxQueueSize: z.number().default(100),
+  maxRecordSizeKB: z.number().default(256),
+  flushPeriodSec: z.number().default(1),
+  maxInProgress: z.number().default(10),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  awsApiKey: z.string(),
+  awsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputSqsSqs2$Outbound = {
+  awsAuthenticationMethod: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  queueName: string;
+  queueType: string;
+  awsAccountId?: string | undefined;
+  messageGroupId: string;
+  createQueue: boolean;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  maxQueueSize: number;
+  maxRecordSizeKB: number;
+  flushPeriodSec: number;
+  maxInProgress: number;
+  onBackpressure: string;
+  description?: string | undefined;
+  awsApiKey: string;
+  awsSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputSqsSqs2$outboundSchema: z.ZodType<
+  OutputSqsSqs2$Outbound,
+  z.ZodTypeDef,
+  OutputSqsSqs2
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  id: z.string().optional(),
+  type: TypeSqsOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  queueName: z.string(),
+  queueType: QueueTypeOptions$outboundSchema,
+  awsAccountId: z.string().optional(),
+  messageGroupId: z.string().default("cribl"),
+  createQueue: z.boolean().default(true),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxQueueSize: z.number().default(100),
+  maxRecordSizeKB: z.number().default(256),
+  flushPeriodSec: z.number().default(1),
+  maxInProgress: z.number().default(10),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  awsApiKey: z.string(),
+  awsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputSqsSqs2ToJSON(outputSqsSqs2: OutputSqsSqs2): string {
+  return JSON.stringify(OutputSqsSqs2$outboundSchema.parse(outputSqsSqs2));
+}
+export function outputSqsSqs2FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSqsSqs2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSqsSqs2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSqsSqs2' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSqsSqs1$inboundSchema: z.ZodType<
+  OutputSqsSqs1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  id: z.string().optional(),
+  type: TypeSqsOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  queueName: z.string(),
+  queueType: QueueTypeOptions$inboundSchema,
+  awsAccountId: z.string().optional(),
+  messageGroupId: z.string().default("cribl"),
+  createQueue: z.boolean().default(true),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxQueueSize: z.number().default(100),
+  maxRecordSizeKB: z.number().default(256),
+  flushPeriodSec: z.number().default(1),
+  maxInProgress: z.number().default(10),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputSqsSqs1$Outbound = {
+  awsAuthenticationMethod: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  queueName: string;
+  queueType: string;
+  awsAccountId?: string | undefined;
+  messageGroupId: string;
+  createQueue: boolean;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  maxQueueSize: number;
+  maxRecordSizeKB: number;
+  flushPeriodSec: number;
+  maxInProgress: number;
+  onBackpressure: string;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputSqsSqs1$outboundSchema: z.ZodType<
+  OutputSqsSqs1$Outbound,
+  z.ZodTypeDef,
+  OutputSqsSqs1
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  id: z.string().optional(),
+  type: TypeSqsOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  queueName: z.string(),
+  queueType: QueueTypeOptions$outboundSchema,
+  awsAccountId: z.string().optional(),
+  messageGroupId: z.string().default("cribl"),
+  createQueue: z.boolean().default(true),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxQueueSize: z.number().default(100),
+  maxRecordSizeKB: z.number().default(256),
+  flushPeriodSec: z.number().default(1),
+  maxInProgress: z.number().default(10),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputSqsSqs1ToJSON(outputSqsSqs1: OutputSqsSqs1): string {
+  return JSON.stringify(OutputSqsSqs1$outboundSchema.parse(outputSqsSqs1));
+}
+export function outputSqsSqs1FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSqsSqs1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSqsSqs1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSqsSqs1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSqs$inboundSchema: z.ZodType<
+  OutputSqs,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => OutputSqsSqs2$inboundSchema),
+  z.lazy(() => OutputSqsSqs3$inboundSchema),
+  z.lazy(() => OutputSqsSqs5$inboundSchema),
+  z.lazy(() => OutputSqsSqs1$inboundSchema),
+  z.lazy(() => OutputSqsSqs4$inboundSchema),
+]);
+/** @internal */
+export type OutputSqs$Outbound =
+  | OutputSqsSqs2$Outbound
+  | OutputSqsSqs3$Outbound
+  | OutputSqsSqs5$Outbound
+  | OutputSqsSqs1$Outbound
+  | OutputSqsSqs4$Outbound;
+
+/** @internal */
+export const OutputSqs$outboundSchema: z.ZodType<
+  OutputSqs$Outbound,
+  z.ZodTypeDef,
+  OutputSqs
+> = z.union([
+  z.lazy(() => OutputSqsSqs2$outboundSchema),
+  z.lazy(() => OutputSqsSqs3$outboundSchema),
+  z.lazy(() => OutputSqsSqs5$outboundSchema),
+  z.lazy(() => OutputSqsSqs1$outboundSchema),
+  z.lazy(() => OutputSqsSqs4$outboundSchema),
+]);
 
 export function outputSqsToJSON(outputSqs: OutputSqs): string {
   return JSON.stringify(OutputSqs$outboundSchema.parse(outputSqs));
 }
-
 export function outputSqsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSqs, SDKValidationError> {

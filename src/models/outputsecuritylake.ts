@@ -4,164 +4,70 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AwsAuthenticationMethodOptions,
+  AwsAuthenticationMethodOptions$inboundSchema,
+  AwsAuthenticationMethodOptions$outboundSchema,
+} from "./awsauthenticationmethodoptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  ObjectAclOptions,
+  ObjectAclOptions$inboundSchema,
+  ObjectAclOptions$outboundSchema,
+} from "./objectacloptions.js";
+import {
+  ParquetDataPageVersionOptions,
+  ParquetDataPageVersionOptions$inboundSchema,
+  ParquetDataPageVersionOptions$outboundSchema,
+} from "./parquetdatapageversionoptions.js";
+import {
+  ParquetVersionOptions,
+  ParquetVersionOptions$inboundSchema,
+  ParquetVersionOptions$outboundSchema,
+} from "./parquetversionoptions.js";
+import {
+  PqOnBackpressureOptions,
+  PqOnBackpressureOptions$inboundSchema,
+  PqOnBackpressureOptions$outboundSchema,
+} from "./pqonbackpressureoptions.js";
+import {
+  ServerSideEncryptionOptions,
+  ServerSideEncryptionOptions$inboundSchema,
+  ServerSideEncryptionOptions$outboundSchema,
+} from "./serversideencryptionoptions.js";
+import {
+  SignatureVersionOptions,
+  SignatureVersionOptions$inboundSchema,
+  SignatureVersionOptions$outboundSchema,
+} from "./signatureversionoptions.js";
+import {
+  StorageClassOptions,
+  StorageClassOptions$inboundSchema,
+  StorageClassOptions$outboundSchema,
+} from "./storageclassoptions.js";
+import {
+  TagsType,
+  TagsType$inboundSchema,
+  TagsType$Outbound,
+  TagsType$outboundSchema,
+} from "./tagstype.js";
+import {
+  TypeSecurityLakeOption,
+  TypeSecurityLakeOption$inboundSchema,
+  TypeSecurityLakeOption$outboundSchema,
+} from "./typesecuritylakeoption.js";
 
-export const OutputSecurityLakeType = {
-  SecurityLake: "security_lake",
-} as const;
-export type OutputSecurityLakeType = ClosedEnum<typeof OutputSecurityLakeType>;
-
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export const OutputSecurityLakeAuthenticationMethod = {
-  Auto: "auto",
-  Manual: "manual",
-  Secret: "secret",
-} as const;
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export type OutputSecurityLakeAuthenticationMethod = OpenEnum<
-  typeof OutputSecurityLakeAuthenticationMethod
->;
-
-/**
- * Signature version to use for signing Amazon Security Lake requests
- */
-export const OutputSecurityLakeSignatureVersion = {
-  V2: "v2",
-  V4: "v4",
-} as const;
-/**
- * Signature version to use for signing Amazon Security Lake requests
- */
-export type OutputSecurityLakeSignatureVersion = OpenEnum<
-  typeof OutputSecurityLakeSignatureVersion
->;
-
-/**
- * Object ACL to assign to uploaded objects
- */
-export const OutputSecurityLakeObjectACL = {
-  Private: "private",
-  PublicRead: "public-read",
-  PublicReadWrite: "public-read-write",
-  AuthenticatedRead: "authenticated-read",
-  AwsExecRead: "aws-exec-read",
-  BucketOwnerRead: "bucket-owner-read",
-  BucketOwnerFullControl: "bucket-owner-full-control",
-} as const;
-/**
- * Object ACL to assign to uploaded objects
- */
-export type OutputSecurityLakeObjectACL = OpenEnum<
-  typeof OutputSecurityLakeObjectACL
->;
-
-/**
- * Storage class to select for uploaded objects
- */
-export const OutputSecurityLakeStorageClass = {
-  Standard: "STANDARD",
-  ReducedRedundancy: "REDUCED_REDUNDANCY",
-  StandardIa: "STANDARD_IA",
-  OnezoneIa: "ONEZONE_IA",
-  IntelligentTiering: "INTELLIGENT_TIERING",
-  Glacier: "GLACIER",
-  GlacierIr: "GLACIER_IR",
-  DeepArchive: "DEEP_ARCHIVE",
-} as const;
-/**
- * Storage class to select for uploaded objects
- */
-export type OutputSecurityLakeStorageClass = OpenEnum<
-  typeof OutputSecurityLakeStorageClass
->;
-
-export const OutputSecurityLakeServerSideEncryptionForUploadedObjects = {
-  Aes256: "AES256",
-  AwsKms: "aws:kms",
-} as const;
-export type OutputSecurityLakeServerSideEncryptionForUploadedObjects = OpenEnum<
-  typeof OutputSecurityLakeServerSideEncryptionForUploadedObjects
->;
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputSecurityLakeBackpressureBehavior = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputSecurityLakeBackpressureBehavior = OpenEnum<
-  typeof OutputSecurityLakeBackpressureBehavior
->;
-
-/**
- * How to handle events when disk space is below the global 'Min free disk space' limit
- */
-export const OutputSecurityLakeDiskSpaceProtection = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when disk space is below the global 'Min free disk space' limit
- */
-export type OutputSecurityLakeDiskSpaceProtection = OpenEnum<
-  typeof OutputSecurityLakeDiskSpaceProtection
->;
-
-/**
- * Determines which data types are supported and how they are represented
- */
-export const OutputSecurityLakeParquetVersion = {
-  Parquet10: "PARQUET_1_0",
-  Parquet24: "PARQUET_2_4",
-  Parquet26: "PARQUET_2_6",
-} as const;
-/**
- * Determines which data types are supported and how they are represented
- */
-export type OutputSecurityLakeParquetVersion = OpenEnum<
-  typeof OutputSecurityLakeParquetVersion
->;
-
-/**
- * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
- */
-export const OutputSecurityLakeDataPageVersion = {
-  DataPageV1: "DATA_PAGE_V1",
-  DataPageV2: "DATA_PAGE_V2",
-} as const;
-/**
- * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
- */
-export type OutputSecurityLakeDataPageVersion = OpenEnum<
-  typeof OutputSecurityLakeDataPageVersion
->;
-
-export type OutputSecurityLakeKeyValueMetadatum = {
-  key?: string | undefined;
-  value: string;
-};
-
-export type OutputSecurityLake = {
+export type OutputSecurityLakeSecurityLake11 = {
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputSecurityLakeType;
+  type: TypeSecurityLakeOption;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -190,15 +96,15 @@ export type OutputSecurityLake = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: OutputSecurityLakeAuthenticationMethod | undefined;
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
   /**
    * Amazon Security Lake service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Amazon Security Lake-compatible endpoint.
    */
   endpoint?: string | undefined;
   /**
-   * Signature version to use for signing Amazon Security Lake requests
+   * Signature version to use for signing MSK cluster requests
    */
-  signatureVersion?: OutputSecurityLakeSignatureVersion | undefined;
+  signatureVersion?: SignatureVersionOptions | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -234,14 +140,12 @@ export type OutputSecurityLake = {
   /**
    * Object ACL to assign to uploaded objects
    */
-  objectACL?: OutputSecurityLakeObjectACL | undefined;
+  objectACL?: ObjectAclOptions | undefined;
   /**
    * Storage class to select for uploaded objects
    */
-  storageClass?: OutputSecurityLakeStorageClass | undefined;
-  serverSideEncryption?:
-    | OutputSecurityLakeServerSideEncryptionForUploadedObjects
-    | undefined;
+  storageClass?: StorageClassOptions | undefined;
+  serverSideEncryption?: ServerSideEncryptionOptions | undefined;
   /**
    * ID or ARN of the KMS customer-managed key to use for encryption
    */
@@ -271,17 +175,13 @@ export type OutputSecurityLake = {
    */
   writeHighWaterMark?: number | undefined;
   /**
-   * How to handle events when all receivers are exerting backpressure
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  onBackpressure?: OutputSecurityLakeBackpressureBehavior | undefined;
+  onBackpressure?: PqOnBackpressureOptions | undefined;
   /**
-   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  deadletterEnabled?: boolean | undefined;
-  /**
-   * How to handle events when disk space is below the global 'Min free disk space' limit
-   */
-  onDiskFullBackpressure?: OutputSecurityLakeDiskSpaceProtection | undefined;
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
   /**
    * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
    */
@@ -317,11 +217,11 @@ export type OutputSecurityLake = {
   /**
    * Determines which data types are supported and how they are represented
    */
-  parquetVersion?: OutputSecurityLakeParquetVersion | undefined;
+  parquetVersion?: ParquetVersionOptions | undefined;
   /**
    * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
    */
-  parquetDataPageVersion?: OutputSecurityLakeDataPageVersion | undefined;
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
   /**
    * The number of rows that every group will contain. The final group can contain a smaller number of rows.
    */
@@ -337,7 +237,7 @@ export type OutputSecurityLake = {
   /**
    * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
    */
-  keyValueMetadata?: Array<OutputSecurityLakeKeyValueMetadatum> | undefined;
+  keyValueMetadata?: Array<TagsType> | undefined;
   /**
    * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
    */
@@ -377,397 +277,2218 @@ export type OutputSecurityLake = {
   maxRetryNum?: number | undefined;
 };
 
-/** @internal */
-export const OutputSecurityLakeType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSecurityLakeType
-> = z.nativeEnum(OutputSecurityLakeType);
-
-/** @internal */
-export const OutputSecurityLakeType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSecurityLakeType
-> = OutputSecurityLakeType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSecurityLakeType$ {
-  /** @deprecated use `OutputSecurityLakeType$inboundSchema` instead. */
-  export const inboundSchema = OutputSecurityLakeType$inboundSchema;
-  /** @deprecated use `OutputSecurityLakeType$outboundSchema` instead. */
-  export const outboundSchema = OutputSecurityLakeType$outboundSchema;
-}
-
-/** @internal */
-export const OutputSecurityLakeAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputSecurityLakeAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSecurityLakeAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSecurityLakeAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputSecurityLakeAuthenticationMethod,
-  z.ZodTypeDef,
-  OutputSecurityLakeAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputSecurityLakeAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSecurityLakeAuthenticationMethod$ {
-  /** @deprecated use `OutputSecurityLakeAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSecurityLakeAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputSecurityLakeAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSecurityLakeAuthenticationMethod$outboundSchema;
-}
-
-/** @internal */
-export const OutputSecurityLakeSignatureVersion$inboundSchema: z.ZodType<
-  OutputSecurityLakeSignatureVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSecurityLakeSignatureVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSecurityLakeSignatureVersion$outboundSchema: z.ZodType<
-  OutputSecurityLakeSignatureVersion,
-  z.ZodTypeDef,
-  OutputSecurityLakeSignatureVersion
-> = z.union([
-  z.nativeEnum(OutputSecurityLakeSignatureVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSecurityLakeSignatureVersion$ {
-  /** @deprecated use `OutputSecurityLakeSignatureVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputSecurityLakeSignatureVersion$inboundSchema;
-  /** @deprecated use `OutputSecurityLakeSignatureVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSecurityLakeSignatureVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputSecurityLakeObjectACL$inboundSchema: z.ZodType<
-  OutputSecurityLakeObjectACL,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSecurityLakeObjectACL),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSecurityLakeObjectACL$outboundSchema: z.ZodType<
-  OutputSecurityLakeObjectACL,
-  z.ZodTypeDef,
-  OutputSecurityLakeObjectACL
-> = z.union([
-  z.nativeEnum(OutputSecurityLakeObjectACL),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSecurityLakeObjectACL$ {
-  /** @deprecated use `OutputSecurityLakeObjectACL$inboundSchema` instead. */
-  export const inboundSchema = OutputSecurityLakeObjectACL$inboundSchema;
-  /** @deprecated use `OutputSecurityLakeObjectACL$outboundSchema` instead. */
-  export const outboundSchema = OutputSecurityLakeObjectACL$outboundSchema;
-}
-
-/** @internal */
-export const OutputSecurityLakeStorageClass$inboundSchema: z.ZodType<
-  OutputSecurityLakeStorageClass,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSecurityLakeStorageClass),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSecurityLakeStorageClass$outboundSchema: z.ZodType<
-  OutputSecurityLakeStorageClass,
-  z.ZodTypeDef,
-  OutputSecurityLakeStorageClass
-> = z.union([
-  z.nativeEnum(OutputSecurityLakeStorageClass),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSecurityLakeStorageClass$ {
-  /** @deprecated use `OutputSecurityLakeStorageClass$inboundSchema` instead. */
-  export const inboundSchema = OutputSecurityLakeStorageClass$inboundSchema;
-  /** @deprecated use `OutputSecurityLakeStorageClass$outboundSchema` instead. */
-  export const outboundSchema = OutputSecurityLakeStorageClass$outboundSchema;
-}
-
-/** @internal */
-export const OutputSecurityLakeServerSideEncryptionForUploadedObjects$inboundSchema:
-  z.ZodType<
-    OutputSecurityLakeServerSideEncryptionForUploadedObjects,
-    z.ZodTypeDef,
-    unknown
-  > = z
-    .union([
-      z.nativeEnum(OutputSecurityLakeServerSideEncryptionForUploadedObjects),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
-
-/** @internal */
-export const OutputSecurityLakeServerSideEncryptionForUploadedObjects$outboundSchema:
-  z.ZodType<
-    OutputSecurityLakeServerSideEncryptionForUploadedObjects,
-    z.ZodTypeDef,
-    OutputSecurityLakeServerSideEncryptionForUploadedObjects
-  > = z.union([
-    z.nativeEnum(OutputSecurityLakeServerSideEncryptionForUploadedObjects),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSecurityLakeServerSideEncryptionForUploadedObjects$ {
-  /** @deprecated use `OutputSecurityLakeServerSideEncryptionForUploadedObjects$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSecurityLakeServerSideEncryptionForUploadedObjects$inboundSchema;
-  /** @deprecated use `OutputSecurityLakeServerSideEncryptionForUploadedObjects$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSecurityLakeServerSideEncryptionForUploadedObjects$outboundSchema;
-}
-
-/** @internal */
-export const OutputSecurityLakeBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputSecurityLakeBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSecurityLakeBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSecurityLakeBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputSecurityLakeBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputSecurityLakeBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputSecurityLakeBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSecurityLakeBackpressureBehavior$ {
-  /** @deprecated use `OutputSecurityLakeBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSecurityLakeBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputSecurityLakeBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSecurityLakeBackpressureBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputSecurityLakeDiskSpaceProtection$inboundSchema: z.ZodType<
-  OutputSecurityLakeDiskSpaceProtection,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSecurityLakeDiskSpaceProtection),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSecurityLakeDiskSpaceProtection$outboundSchema: z.ZodType<
-  OutputSecurityLakeDiskSpaceProtection,
-  z.ZodTypeDef,
-  OutputSecurityLakeDiskSpaceProtection
-> = z.union([
-  z.nativeEnum(OutputSecurityLakeDiskSpaceProtection),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSecurityLakeDiskSpaceProtection$ {
-  /** @deprecated use `OutputSecurityLakeDiskSpaceProtection$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSecurityLakeDiskSpaceProtection$inboundSchema;
-  /** @deprecated use `OutputSecurityLakeDiskSpaceProtection$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSecurityLakeDiskSpaceProtection$outboundSchema;
-}
-
-/** @internal */
-export const OutputSecurityLakeParquetVersion$inboundSchema: z.ZodType<
-  OutputSecurityLakeParquetVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSecurityLakeParquetVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSecurityLakeParquetVersion$outboundSchema: z.ZodType<
-  OutputSecurityLakeParquetVersion,
-  z.ZodTypeDef,
-  OutputSecurityLakeParquetVersion
-> = z.union([
-  z.nativeEnum(OutputSecurityLakeParquetVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSecurityLakeParquetVersion$ {
-  /** @deprecated use `OutputSecurityLakeParquetVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputSecurityLakeParquetVersion$inboundSchema;
-  /** @deprecated use `OutputSecurityLakeParquetVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputSecurityLakeParquetVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputSecurityLakeDataPageVersion$inboundSchema: z.ZodType<
-  OutputSecurityLakeDataPageVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSecurityLakeDataPageVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSecurityLakeDataPageVersion$outboundSchema: z.ZodType<
-  OutputSecurityLakeDataPageVersion,
-  z.ZodTypeDef,
-  OutputSecurityLakeDataPageVersion
-> = z.union([
-  z.nativeEnum(OutputSecurityLakeDataPageVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSecurityLakeDataPageVersion$ {
-  /** @deprecated use `OutputSecurityLakeDataPageVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputSecurityLakeDataPageVersion$inboundSchema;
-  /** @deprecated use `OutputSecurityLakeDataPageVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSecurityLakeDataPageVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputSecurityLakeKeyValueMetadatum$inboundSchema: z.ZodType<
-  OutputSecurityLakeKeyValueMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  key: z.string().default(""),
-  value: z.string(),
-});
-
-/** @internal */
-export type OutputSecurityLakeKeyValueMetadatum$Outbound = {
-  key: string;
-  value: string;
+export type OutputSecurityLakeSecurityLake10 = {
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeSecurityLakeOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions and labels to generated metrics and logs, respectively.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket: string;
+  /**
+   * Region where the Amazon Security Lake is located.
+   */
+  region: string;
+  awsSecretKey?: string | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Amazon Security Lake service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Amazon Security Lake-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access S3
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn: string;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: ObjectAclOptions | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClassOptions | undefined;
+  serverSideEncryption?: ServerSideEncryptionOptions | undefined;
+  /**
+   * ID or ARN of the KMS customer-managed key to use for encryption
+   */
+  kmsKeyId?: string | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Maximum number of files that can be waiting for upload before backpressure is applied
+   */
+  maxClosingFilesToBackpressure?: number | undefined;
+  /**
+   * ID of the AWS account whose data the Destination will write to Security Lake. This should have been configured when creating the Amazon Security Lake custom source.
+   */
+  accountId: string;
+  /**
+   * Name of the custom source configured in Amazon Security Lake
+   */
+  customSource: string;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
 };
 
+export type OutputSecurityLakeSecurityLake9 = {
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeSecurityLakeOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions and labels to generated metrics and logs, respectively.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket: string;
+  /**
+   * Region where the Amazon Security Lake is located.
+   */
+  region: string;
+  awsSecretKey?: string | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Amazon Security Lake service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Amazon Security Lake-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access S3
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn: string;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: ObjectAclOptions | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClassOptions | undefined;
+  serverSideEncryption?: ServerSideEncryptionOptions | undefined;
+  /**
+   * ID or ARN of the KMS customer-managed key to use for encryption
+   */
+  kmsKeyId?: string | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Maximum number of files that can be waiting for upload before backpressure is applied
+   */
+  maxClosingFilesToBackpressure?: number | undefined;
+  /**
+   * ID of the AWS account whose data the Destination will write to Security Lake. This should have been configured when creating the Amazon Security Lake custom source.
+   */
+  accountId: string;
+  /**
+   * Name of the custom source configured in Amazon Security Lake
+   */
+  customSource: string;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export type OutputSecurityLakeSecurityLake8 = {
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeSecurityLakeOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions and labels to generated metrics and logs, respectively.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket: string;
+  /**
+   * Region where the Amazon Security Lake is located.
+   */
+  region: string;
+  awsSecretKey?: string | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Amazon Security Lake service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Amazon Security Lake-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access S3
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn: string;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: ObjectAclOptions | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClassOptions | undefined;
+  serverSideEncryption?: ServerSideEncryptionOptions | undefined;
+  /**
+   * ID or ARN of the KMS customer-managed key to use for encryption
+   */
+  kmsKeyId?: string | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Maximum number of files that can be waiting for upload before backpressure is applied
+   */
+  maxClosingFilesToBackpressure?: number | undefined;
+  /**
+   * ID of the AWS account whose data the Destination will write to Security Lake. This should have been configured when creating the Amazon Security Lake custom source.
+   */
+  accountId: string;
+  /**
+   * Name of the custom source configured in Amazon Security Lake
+   */
+  customSource: string;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema: string;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export type OutputSecurityLakeSecurityLake7 = {
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeSecurityLakeOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions and labels to generated metrics and logs, respectively.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket: string;
+  /**
+   * Region where the Amazon Security Lake is located.
+   */
+  region: string;
+  awsSecretKey?: string | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Amazon Security Lake service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Amazon Security Lake-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access S3
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn: string;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: ObjectAclOptions | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClassOptions | undefined;
+  serverSideEncryption?: ServerSideEncryptionOptions | undefined;
+  /**
+   * ID or ARN of the KMS customer-managed key to use for encryption
+   */
+  kmsKeyId?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Maximum number of files that can be waiting for upload before backpressure is applied
+   */
+  maxClosingFilesToBackpressure?: number | undefined;
+  /**
+   * ID of the AWS account whose data the Destination will write to Security Lake. This should have been configured when creating the Amazon Security Lake custom source.
+   */
+  accountId: string;
+  /**
+   * Name of the custom source configured in Amazon Security Lake
+   */
+  customSource: string;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export type OutputSecurityLakeSecurityLake6 = {
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeSecurityLakeOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions and labels to generated metrics and logs, respectively.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket: string;
+  /**
+   * Region where the Amazon Security Lake is located.
+   */
+  region: string;
+  awsSecretKey?: string | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Amazon Security Lake service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Amazon Security Lake-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access S3
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn: string;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: ObjectAclOptions | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClassOptions | undefined;
+  serverSideEncryption?: ServerSideEncryptionOptions | undefined;
+  /**
+   * ID or ARN of the KMS customer-managed key to use for encryption
+   */
+  kmsKeyId?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Maximum number of files that can be waiting for upload before backpressure is applied
+   */
+  maxClosingFilesToBackpressure?: number | undefined;
+  /**
+   * ID of the AWS account whose data the Destination will write to Security Lake. This should have been configured when creating the Amazon Security Lake custom source.
+   */
+  accountId: string;
+  /**
+   * Name of the custom source configured in Amazon Security Lake
+   */
+  customSource: string;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export type OutputSecurityLakeSecurityLake5 = {
+  serverSideEncryption: ServerSideEncryptionOptions;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeSecurityLakeOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions and labels to generated metrics and logs, respectively.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket: string;
+  /**
+   * Region where the Amazon Security Lake is located.
+   */
+  region: string;
+  awsSecretKey?: string | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Amazon Security Lake service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Amazon Security Lake-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access S3
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn: string;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: ObjectAclOptions | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClassOptions | undefined;
+  /**
+   * ID or ARN of the KMS customer-managed key to use for encryption
+   */
+  kmsKeyId: string;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Maximum number of files that can be waiting for upload before backpressure is applied
+   */
+  maxClosingFilesToBackpressure?: number | undefined;
+  /**
+   * ID of the AWS account whose data the Destination will write to Security Lake. This should have been configured when creating the Amazon Security Lake custom source.
+   */
+  accountId: string;
+  /**
+   * Name of the custom source configured in Amazon Security Lake
+   */
+  customSource: string;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export type OutputSecurityLakeSecurityLake4 = {
+  serverSideEncryption: ServerSideEncryptionOptions;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeSecurityLakeOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions and labels to generated metrics and logs, respectively.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket: string;
+  /**
+   * Region where the Amazon Security Lake is located.
+   */
+  region: string;
+  awsSecretKey?: string | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Amazon Security Lake service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Amazon Security Lake-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access S3
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn: string;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: ObjectAclOptions | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClassOptions | undefined;
+  /**
+   * ID or ARN of the KMS customer-managed key to use for encryption
+   */
+  kmsKeyId?: string | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Maximum number of files that can be waiting for upload before backpressure is applied
+   */
+  maxClosingFilesToBackpressure?: number | undefined;
+  /**
+   * ID of the AWS account whose data the Destination will write to Security Lake. This should have been configured when creating the Amazon Security Lake custom source.
+   */
+  accountId: string;
+  /**
+   * Name of the custom source configured in Amazon Security Lake
+   */
+  customSource: string;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export type OutputSecurityLakeSecurityLake3 = {
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeSecurityLakeOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions and labels to generated metrics and logs, respectively.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket: string;
+  /**
+   * Region where the Amazon Security Lake is located.
+   */
+  region: string;
+  awsSecretKey?: string | undefined;
+  /**
+   * Amazon Security Lake service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Amazon Security Lake-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access S3
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn: string;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: ObjectAclOptions | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClassOptions | undefined;
+  serverSideEncryption?: ServerSideEncryptionOptions | undefined;
+  /**
+   * ID or ARN of the KMS customer-managed key to use for encryption
+   */
+  kmsKeyId?: string | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Maximum number of files that can be waiting for upload before backpressure is applied
+   */
+  maxClosingFilesToBackpressure?: number | undefined;
+  /**
+   * ID of the AWS account whose data the Destination will write to Security Lake. This should have been configured when creating the Amazon Security Lake custom source.
+   */
+  accountId: string;
+  /**
+   * Name of the custom source configured in Amazon Security Lake
+   */
+  customSource: string;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret: string;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export type OutputSecurityLakeSecurityLake2 = {
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeSecurityLakeOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions and labels to generated metrics and logs, respectively.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket: string;
+  /**
+   * Region where the Amazon Security Lake is located.
+   */
+  region: string;
+  awsSecretKey?: string | undefined;
+  /**
+   * Amazon Security Lake service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Amazon Security Lake-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access S3
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn: string;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: ObjectAclOptions | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClassOptions | undefined;
+  serverSideEncryption?: ServerSideEncryptionOptions | undefined;
+  /**
+   * ID or ARN of the KMS customer-managed key to use for encryption
+   */
+  kmsKeyId?: string | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Maximum number of files that can be waiting for upload before backpressure is applied
+   */
+  maxClosingFilesToBackpressure?: number | undefined;
+  /**
+   * ID of the AWS account whose data the Destination will write to Security Lake. This should have been configured when creating the Amazon Security Lake custom source.
+   */
+  accountId: string;
+  /**
+   * Name of the custom source configured in Amazon Security Lake
+   */
+  customSource: string;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+   */
+  awsApiKey: string;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export type OutputSecurityLakeSecurityLake1 = {
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeSecurityLakeOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions and labels to generated metrics and logs, respectively.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket: string;
+  /**
+   * Region where the Amazon Security Lake is located.
+   */
+  region: string;
+  awsSecretKey?: string | undefined;
+  /**
+   * Amazon Security Lake service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Amazon Security Lake-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access S3
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn: string;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: ObjectAclOptions | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClassOptions | undefined;
+  serverSideEncryption?: ServerSideEncryptionOptions | undefined;
+  /**
+   * ID or ARN of the KMS customer-managed key to use for encryption
+   */
+  kmsKeyId?: string | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Maximum number of files that can be waiting for upload before backpressure is applied
+   */
+  maxClosingFilesToBackpressure?: number | undefined;
+  /**
+   * ID of the AWS account whose data the Destination will write to Security Lake. This should have been configured when creating the Amazon Security Lake custom source.
+   */
+  accountId: string;
+  /**
+   * Name of the custom source configured in Amazon Security Lake
+   */
+  customSource: string;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export type OutputSecurityLake =
+  | OutputSecurityLakeSecurityLake5
+  | OutputSecurityLakeSecurityLake2
+  | OutputSecurityLakeSecurityLake3
+  | OutputSecurityLakeSecurityLake4
+  | OutputSecurityLakeSecurityLake8
+  | OutputSecurityLakeSecurityLake1
+  | OutputSecurityLakeSecurityLake6
+  | OutputSecurityLakeSecurityLake7
+  | OutputSecurityLakeSecurityLake9
+  | OutputSecurityLakeSecurityLake10
+  | OutputSecurityLakeSecurityLake11;
+
 /** @internal */
-export const OutputSecurityLakeKeyValueMetadatum$outboundSchema: z.ZodType<
-  OutputSecurityLakeKeyValueMetadatum$Outbound,
-  z.ZodTypeDef,
-  OutputSecurityLakeKeyValueMetadatum
-> = z.object({
-  key: z.string().default(""),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSecurityLakeKeyValueMetadatum$ {
-  /** @deprecated use `OutputSecurityLakeKeyValueMetadatum$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSecurityLakeKeyValueMetadatum$inboundSchema;
-  /** @deprecated use `OutputSecurityLakeKeyValueMetadatum$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSecurityLakeKeyValueMetadatum$outboundSchema;
-  /** @deprecated use `OutputSecurityLakeKeyValueMetadatum$Outbound` instead. */
-  export type Outbound = OutputSecurityLakeKeyValueMetadatum$Outbound;
-}
-
-export function outputSecurityLakeKeyValueMetadatumToJSON(
-  outputSecurityLakeKeyValueMetadatum: OutputSecurityLakeKeyValueMetadatum,
-): string {
-  return JSON.stringify(
-    OutputSecurityLakeKeyValueMetadatum$outboundSchema.parse(
-      outputSecurityLakeKeyValueMetadatum,
-    ),
-  );
-}
-
-export function outputSecurityLakeKeyValueMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSecurityLakeKeyValueMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputSecurityLakeKeyValueMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSecurityLakeKeyValueMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputSecurityLake$inboundSchema: z.ZodType<
-  OutputSecurityLake,
+export const OutputSecurityLakeSecurityLake11$inboundSchema: z.ZodType<
+  OutputSecurityLakeSecurityLake11,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  deadletterEnabled: z.boolean().default(false),
   id: z.string().optional(),
-  type: OutputSecurityLakeType$inboundSchema,
+  type: TypeSecurityLakeOption$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -775,12 +2496,11 @@ export const OutputSecurityLake$inboundSchema: z.ZodType<
   bucket: z.string(),
   region: z.string(),
   awsSecretKey: z.string().optional(),
-  awsAuthenticationMethod: OutputSecurityLakeAuthenticationMethod$inboundSchema
-    .default("auto"),
-  endpoint: z.string().optional(),
-  signatureVersion: OutputSecurityLakeSignatureVersion$inboundSchema.default(
-    "v4",
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
   ),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   enableAssumeRole: z.boolean().default(false),
@@ -789,11 +2509,9 @@ export const OutputSecurityLake$inboundSchema: z.ZodType<
   durationSeconds: z.number().default(3600),
   stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
   addIdToStagePath: z.boolean().default(true),
-  objectACL: OutputSecurityLakeObjectACL$inboundSchema.default("private"),
-  storageClass: OutputSecurityLakeStorageClass$inboundSchema.optional(),
-  serverSideEncryption:
-    OutputSecurityLakeServerSideEncryptionForUploadedObjects$inboundSchema
-      .optional(),
+  objectACL: ObjectAclOptions$inboundSchema.default("private"),
+  storageClass: StorageClassOptions$inboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryptionOptions$inboundSchema.optional(),
   kmsKeyId: z.string().optional(),
   removeEmptyDirs: z.boolean().default(true),
   baseFileName: z.string().default("`CriblOut`"),
@@ -801,12 +2519,10 @@ export const OutputSecurityLake$inboundSchema: z.ZodType<
   maxOpenFiles: z.number().default(100),
   headerLine: z.string().default(""),
   writeHighWaterMark: z.number().default(64),
-  onBackpressure: OutputSecurityLakeBackpressureBehavior$inboundSchema.default(
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
     "block",
   ),
-  deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: OutputSecurityLakeDiskSpaceProtection$inboundSchema
-    .default("block"),
   maxFileOpenTimeSec: z.number().default(300),
   maxFileIdleTimeSec: z.number().default(30),
   maxConcurrentFileParts: z.number().default(4),
@@ -815,17 +2531,144 @@ export const OutputSecurityLake$inboundSchema: z.ZodType<
   accountId: z.string(),
   customSource: z.string(),
   automaticSchema: z.boolean().default(false),
-  parquetVersion: OutputSecurityLakeParquetVersion$inboundSchema.default(
-    "PARQUET_2_6",
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
   ),
-  parquetDataPageVersion: OutputSecurityLakeDataPageVersion$inboundSchema
-    .default("DATA_PAGE_V2"),
   parquetRowGroupLength: z.number().default(10000),
   parquetPageSize: z.string().default("1MB"),
   shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(
-    z.lazy(() => OutputSecurityLakeKeyValueMetadatum$inboundSchema),
-  ).optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  emptyDirCleanupSec: z.number().default(300),
+  parquetSchema: z.string().optional(),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+/** @internal */
+export type OutputSecurityLakeSecurityLake11$Outbound = {
+  deadletterEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  bucket: string;
+  region: string;
+  awsSecretKey?: string | undefined;
+  awsAuthenticationMethod: string;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn: string;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  stagePath: string;
+  addIdToStagePath: boolean;
+  objectACL: string;
+  storageClass?: string | undefined;
+  serverSideEncryption?: string | undefined;
+  kmsKeyId?: string | undefined;
+  removeEmptyDirs: boolean;
+  baseFileName: string;
+  maxFileSizeMB: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  onDiskFullBackpressure: string;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxConcurrentFileParts: number;
+  verifyPermissions: boolean;
+  maxClosingFilesToBackpressure: number;
+  accountId: string;
+  customSource: string;
+  automaticSchema: boolean;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  emptyDirCleanupSec: number;
+  parquetSchema?: string | undefined;
+  deadletterPath: string;
+  maxRetryNum: number;
+};
+
+/** @internal */
+export const OutputSecurityLakeSecurityLake11$outboundSchema: z.ZodType<
+  OutputSecurityLakeSecurityLake11$Outbound,
+  z.ZodTypeDef,
+  OutputSecurityLakeSecurityLake11
+> = z.object({
+  deadletterEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: TypeSecurityLakeOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string(),
+  region: z.string(),
+  awsSecretKey: z.string().optional(),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  objectACL: ObjectAclOptions$outboundSchema.default("private"),
+  storageClass: StorageClassOptions$outboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryptionOptions$outboundSchema.optional(),
+  kmsKeyId: z.string().optional(),
+  removeEmptyDirs: z.boolean().default(true),
+  baseFileName: z.string().default("`CriblOut`"),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  verifyPermissions: z.boolean().default(true),
+  maxClosingFilesToBackpressure: z.number().default(100),
+  accountId: z.string(),
+  customSource: z.string(),
+  automaticSchema: z.boolean().default(false),
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
   enableStatistics: z.boolean().default(true),
   enableWritePageIndex: z.boolean().default(true),
   enablePageChecksum: z.boolean().default(false),
@@ -838,8 +2681,318 @@ export const OutputSecurityLake$inboundSchema: z.ZodType<
   maxRetryNum: z.number().default(20),
 });
 
+export function outputSecurityLakeSecurityLake11ToJSON(
+  outputSecurityLakeSecurityLake11: OutputSecurityLakeSecurityLake11,
+): string {
+  return JSON.stringify(
+    OutputSecurityLakeSecurityLake11$outboundSchema.parse(
+      outputSecurityLakeSecurityLake11,
+    ),
+  );
+}
+export function outputSecurityLakeSecurityLake11FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSecurityLakeSecurityLake11, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSecurityLakeSecurityLake11$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSecurityLakeSecurityLake11' from JSON`,
+  );
+}
+
 /** @internal */
-export type OutputSecurityLake$Outbound = {
+export const OutputSecurityLakeSecurityLake10$inboundSchema: z.ZodType<
+  OutputSecurityLakeSecurityLake10,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  deadletterEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: TypeSecurityLakeOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string(),
+  region: z.string(),
+  awsSecretKey: z.string().optional(),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  objectACL: ObjectAclOptions$inboundSchema.default("private"),
+  storageClass: StorageClassOptions$inboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryptionOptions$inboundSchema.optional(),
+  kmsKeyId: z.string().optional(),
+  removeEmptyDirs: z.boolean().default(true),
+  baseFileName: z.string().default("`CriblOut`"),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  verifyPermissions: z.boolean().default(true),
+  maxClosingFilesToBackpressure: z.number().default(100),
+  accountId: z.string(),
+  customSource: z.string(),
+  automaticSchema: z.boolean().default(false),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  emptyDirCleanupSec: z.number().default(300),
+  parquetSchema: z.string().optional(),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+/** @internal */
+export type OutputSecurityLakeSecurityLake10$Outbound = {
+  deadletterEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  bucket: string;
+  region: string;
+  awsSecretKey?: string | undefined;
+  awsAuthenticationMethod: string;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn: string;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  stagePath: string;
+  addIdToStagePath: boolean;
+  objectACL: string;
+  storageClass?: string | undefined;
+  serverSideEncryption?: string | undefined;
+  kmsKeyId?: string | undefined;
+  removeEmptyDirs: boolean;
+  baseFileName: string;
+  maxFileSizeMB: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  onDiskFullBackpressure: string;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxConcurrentFileParts: number;
+  verifyPermissions: boolean;
+  maxClosingFilesToBackpressure: number;
+  accountId: string;
+  customSource: string;
+  automaticSchema: boolean;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  emptyDirCleanupSec: number;
+  parquetSchema?: string | undefined;
+  deadletterPath: string;
+  maxRetryNum: number;
+};
+
+/** @internal */
+export const OutputSecurityLakeSecurityLake10$outboundSchema: z.ZodType<
+  OutputSecurityLakeSecurityLake10$Outbound,
+  z.ZodTypeDef,
+  OutputSecurityLakeSecurityLake10
+> = z.object({
+  deadletterEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: TypeSecurityLakeOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string(),
+  region: z.string(),
+  awsSecretKey: z.string().optional(),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  objectACL: ObjectAclOptions$outboundSchema.default("private"),
+  storageClass: StorageClassOptions$outboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryptionOptions$outboundSchema.optional(),
+  kmsKeyId: z.string().optional(),
+  removeEmptyDirs: z.boolean().default(true),
+  baseFileName: z.string().default("`CriblOut`"),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  verifyPermissions: z.boolean().default(true),
+  maxClosingFilesToBackpressure: z.number().default(100),
+  accountId: z.string(),
+  customSource: z.string(),
+  automaticSchema: z.boolean().default(false),
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  emptyDirCleanupSec: z.number().default(300),
+  parquetSchema: z.string().optional(),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+
+export function outputSecurityLakeSecurityLake10ToJSON(
+  outputSecurityLakeSecurityLake10: OutputSecurityLakeSecurityLake10,
+): string {
+  return JSON.stringify(
+    OutputSecurityLakeSecurityLake10$outboundSchema.parse(
+      outputSecurityLakeSecurityLake10,
+    ),
+  );
+}
+export function outputSecurityLakeSecurityLake10FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSecurityLakeSecurityLake10, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSecurityLakeSecurityLake10$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSecurityLakeSecurityLake10' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSecurityLakeSecurityLake9$inboundSchema: z.ZodType<
+  OutputSecurityLakeSecurityLake9,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  automaticSchema: z.boolean().default(false),
+  id: z.string().optional(),
+  type: TypeSecurityLakeOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string(),
+  region: z.string(),
+  awsSecretKey: z.string().optional(),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  objectACL: ObjectAclOptions$inboundSchema.default("private"),
+  storageClass: StorageClassOptions$inboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryptionOptions$inboundSchema.optional(),
+  kmsKeyId: z.string().optional(),
+  removeEmptyDirs: z.boolean().default(true),
+  baseFileName: z.string().default("`CriblOut`"),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  verifyPermissions: z.boolean().default(true),
+  maxClosingFilesToBackpressure: z.number().default(100),
+  accountId: z.string(),
+  customSource: z.string(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  emptyDirCleanupSec: z.number().default(300),
+  parquetSchema: z.string().optional(),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+/** @internal */
+export type OutputSecurityLakeSecurityLake9$Outbound = {
+  automaticSchema: boolean;
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -880,15 +3033,12 @@ export type OutputSecurityLake$Outbound = {
   maxClosingFilesToBackpressure: number;
   accountId: string;
   customSource: string;
-  automaticSchema: boolean;
   parquetVersion: string;
   parquetDataPageVersion: string;
   parquetRowGroupLength: number;
   parquetPageSize: string;
   shouldLogInvalidRows?: boolean | undefined;
-  keyValueMetadata?:
-    | Array<OutputSecurityLakeKeyValueMetadatum$Outbound>
-    | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
   enableStatistics: boolean;
   enableWritePageIndex: boolean;
   enablePageChecksum: boolean;
@@ -902,13 +3052,14 @@ export type OutputSecurityLake$Outbound = {
 };
 
 /** @internal */
-export const OutputSecurityLake$outboundSchema: z.ZodType<
-  OutputSecurityLake$Outbound,
+export const OutputSecurityLakeSecurityLake9$outboundSchema: z.ZodType<
+  OutputSecurityLakeSecurityLake9$Outbound,
   z.ZodTypeDef,
-  OutputSecurityLake
+  OutputSecurityLakeSecurityLake9
 > = z.object({
+  automaticSchema: z.boolean().default(false),
   id: z.string().optional(),
-  type: OutputSecurityLakeType$outboundSchema,
+  type: TypeSecurityLakeOption$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -916,12 +3067,10 @@ export const OutputSecurityLake$outboundSchema: z.ZodType<
   bucket: z.string(),
   region: z.string(),
   awsSecretKey: z.string().optional(),
-  awsAuthenticationMethod: OutputSecurityLakeAuthenticationMethod$outboundSchema
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
     .default("auto"),
   endpoint: z.string().optional(),
-  signatureVersion: OutputSecurityLakeSignatureVersion$outboundSchema.default(
-    "v4",
-  ),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   enableAssumeRole: z.boolean().default(false),
@@ -930,11 +3079,9 @@ export const OutputSecurityLake$outboundSchema: z.ZodType<
   durationSeconds: z.number().default(3600),
   stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
   addIdToStagePath: z.boolean().default(true),
-  objectACL: OutputSecurityLakeObjectACL$outboundSchema.default("private"),
-  storageClass: OutputSecurityLakeStorageClass$outboundSchema.optional(),
-  serverSideEncryption:
-    OutputSecurityLakeServerSideEncryptionForUploadedObjects$outboundSchema
-      .optional(),
+  objectACL: ObjectAclOptions$outboundSchema.default("private"),
+  storageClass: StorageClassOptions$outboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryptionOptions$outboundSchema.optional(),
   kmsKeyId: z.string().optional(),
   removeEmptyDirs: z.boolean().default(true),
   baseFileName: z.string().default("`CriblOut`"),
@@ -942,12 +3089,11 @@ export const OutputSecurityLake$outboundSchema: z.ZodType<
   maxOpenFiles: z.number().default(100),
   headerLine: z.string().default(""),
   writeHighWaterMark: z.number().default(64),
-  onBackpressure: OutputSecurityLakeBackpressureBehavior$outboundSchema.default(
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
     "block",
   ),
-  deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: OutputSecurityLakeDiskSpaceProtection$outboundSchema
-    .default("block"),
   maxFileOpenTimeSec: z.number().default(300),
   maxFileIdleTimeSec: z.number().default(30),
   maxConcurrentFileParts: z.number().default(4),
@@ -955,18 +3101,14 @@ export const OutputSecurityLake$outboundSchema: z.ZodType<
   maxClosingFilesToBackpressure: z.number().default(100),
   accountId: z.string(),
   customSource: z.string(),
-  automaticSchema: z.boolean().default(false),
-  parquetVersion: OutputSecurityLakeParquetVersion$outboundSchema.default(
-    "PARQUET_2_6",
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
   ),
-  parquetDataPageVersion: OutputSecurityLakeDataPageVersion$outboundSchema
-    .default("DATA_PAGE_V2"),
   parquetRowGroupLength: z.number().default(10000),
   parquetPageSize: z.string().default("1MB"),
   shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(
-    z.lazy(() => OutputSecurityLakeKeyValueMetadatum$outboundSchema),
-  ).optional(),
+  keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
   enableStatistics: z.boolean().default(true),
   enableWritePageIndex: z.boolean().default(true),
   enablePageChecksum: z.boolean().default(false),
@@ -979,18 +3121,1835 @@ export const OutputSecurityLake$outboundSchema: z.ZodType<
   maxRetryNum: z.number().default(20),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSecurityLake$ {
-  /** @deprecated use `OutputSecurityLake$inboundSchema` instead. */
-  export const inboundSchema = OutputSecurityLake$inboundSchema;
-  /** @deprecated use `OutputSecurityLake$outboundSchema` instead. */
-  export const outboundSchema = OutputSecurityLake$outboundSchema;
-  /** @deprecated use `OutputSecurityLake$Outbound` instead. */
-  export type Outbound = OutputSecurityLake$Outbound;
+export function outputSecurityLakeSecurityLake9ToJSON(
+  outputSecurityLakeSecurityLake9: OutputSecurityLakeSecurityLake9,
+): string {
+  return JSON.stringify(
+    OutputSecurityLakeSecurityLake9$outboundSchema.parse(
+      outputSecurityLakeSecurityLake9,
+    ),
+  );
 }
+export function outputSecurityLakeSecurityLake9FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSecurityLakeSecurityLake9, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSecurityLakeSecurityLake9$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSecurityLakeSecurityLake9' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSecurityLakeSecurityLake8$inboundSchema: z.ZodType<
+  OutputSecurityLakeSecurityLake8,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  automaticSchema: z.boolean().default(false),
+  id: z.string().optional(),
+  type: TypeSecurityLakeOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string(),
+  region: z.string(),
+  awsSecretKey: z.string().optional(),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  objectACL: ObjectAclOptions$inboundSchema.default("private"),
+  storageClass: StorageClassOptions$inboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryptionOptions$inboundSchema.optional(),
+  kmsKeyId: z.string().optional(),
+  removeEmptyDirs: z.boolean().default(true),
+  baseFileName: z.string().default("`CriblOut`"),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  verifyPermissions: z.boolean().default(true),
+  maxClosingFilesToBackpressure: z.number().default(100),
+  accountId: z.string(),
+  customSource: z.string(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  emptyDirCleanupSec: z.number().default(300),
+  parquetSchema: z.string(),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+/** @internal */
+export type OutputSecurityLakeSecurityLake8$Outbound = {
+  automaticSchema: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  bucket: string;
+  region: string;
+  awsSecretKey?: string | undefined;
+  awsAuthenticationMethod: string;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn: string;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  stagePath: string;
+  addIdToStagePath: boolean;
+  objectACL: string;
+  storageClass?: string | undefined;
+  serverSideEncryption?: string | undefined;
+  kmsKeyId?: string | undefined;
+  removeEmptyDirs: boolean;
+  baseFileName: string;
+  maxFileSizeMB: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxConcurrentFileParts: number;
+  verifyPermissions: boolean;
+  maxClosingFilesToBackpressure: number;
+  accountId: string;
+  customSource: string;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  emptyDirCleanupSec: number;
+  parquetSchema: string;
+  deadletterPath: string;
+  maxRetryNum: number;
+};
+
+/** @internal */
+export const OutputSecurityLakeSecurityLake8$outboundSchema: z.ZodType<
+  OutputSecurityLakeSecurityLake8$Outbound,
+  z.ZodTypeDef,
+  OutputSecurityLakeSecurityLake8
+> = z.object({
+  automaticSchema: z.boolean().default(false),
+  id: z.string().optional(),
+  type: TypeSecurityLakeOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string(),
+  region: z.string(),
+  awsSecretKey: z.string().optional(),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  objectACL: ObjectAclOptions$outboundSchema.default("private"),
+  storageClass: StorageClassOptions$outboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryptionOptions$outboundSchema.optional(),
+  kmsKeyId: z.string().optional(),
+  removeEmptyDirs: z.boolean().default(true),
+  baseFileName: z.string().default("`CriblOut`"),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  verifyPermissions: z.boolean().default(true),
+  maxClosingFilesToBackpressure: z.number().default(100),
+  accountId: z.string(),
+  customSource: z.string(),
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  emptyDirCleanupSec: z.number().default(300),
+  parquetSchema: z.string(),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+
+export function outputSecurityLakeSecurityLake8ToJSON(
+  outputSecurityLakeSecurityLake8: OutputSecurityLakeSecurityLake8,
+): string {
+  return JSON.stringify(
+    OutputSecurityLakeSecurityLake8$outboundSchema.parse(
+      outputSecurityLakeSecurityLake8,
+    ),
+  );
+}
+export function outputSecurityLakeSecurityLake8FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSecurityLakeSecurityLake8, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSecurityLakeSecurityLake8$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSecurityLakeSecurityLake8' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSecurityLakeSecurityLake7$inboundSchema: z.ZodType<
+  OutputSecurityLakeSecurityLake7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  removeEmptyDirs: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeSecurityLakeOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string(),
+  region: z.string(),
+  awsSecretKey: z.string().optional(),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  objectACL: ObjectAclOptions$inboundSchema.default("private"),
+  storageClass: StorageClassOptions$inboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryptionOptions$inboundSchema.optional(),
+  kmsKeyId: z.string().optional(),
+  baseFileName: z.string().default("`CriblOut`"),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  verifyPermissions: z.boolean().default(true),
+  maxClosingFilesToBackpressure: z.number().default(100),
+  accountId: z.string(),
+  customSource: z.string(),
+  automaticSchema: z.boolean().default(false),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  emptyDirCleanupSec: z.number().default(300),
+  parquetSchema: z.string().optional(),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+/** @internal */
+export type OutputSecurityLakeSecurityLake7$Outbound = {
+  removeEmptyDirs: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  bucket: string;
+  region: string;
+  awsSecretKey?: string | undefined;
+  awsAuthenticationMethod: string;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn: string;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  stagePath: string;
+  addIdToStagePath: boolean;
+  objectACL: string;
+  storageClass?: string | undefined;
+  serverSideEncryption?: string | undefined;
+  kmsKeyId?: string | undefined;
+  baseFileName: string;
+  maxFileSizeMB: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxConcurrentFileParts: number;
+  verifyPermissions: boolean;
+  maxClosingFilesToBackpressure: number;
+  accountId: string;
+  customSource: string;
+  automaticSchema: boolean;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  emptyDirCleanupSec: number;
+  parquetSchema?: string | undefined;
+  deadletterPath: string;
+  maxRetryNum: number;
+};
+
+/** @internal */
+export const OutputSecurityLakeSecurityLake7$outboundSchema: z.ZodType<
+  OutputSecurityLakeSecurityLake7$Outbound,
+  z.ZodTypeDef,
+  OutputSecurityLakeSecurityLake7
+> = z.object({
+  removeEmptyDirs: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeSecurityLakeOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string(),
+  region: z.string(),
+  awsSecretKey: z.string().optional(),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  objectACL: ObjectAclOptions$outboundSchema.default("private"),
+  storageClass: StorageClassOptions$outboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryptionOptions$outboundSchema.optional(),
+  kmsKeyId: z.string().optional(),
+  baseFileName: z.string().default("`CriblOut`"),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  verifyPermissions: z.boolean().default(true),
+  maxClosingFilesToBackpressure: z.number().default(100),
+  accountId: z.string(),
+  customSource: z.string(),
+  automaticSchema: z.boolean().default(false),
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  emptyDirCleanupSec: z.number().default(300),
+  parquetSchema: z.string().optional(),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+
+export function outputSecurityLakeSecurityLake7ToJSON(
+  outputSecurityLakeSecurityLake7: OutputSecurityLakeSecurityLake7,
+): string {
+  return JSON.stringify(
+    OutputSecurityLakeSecurityLake7$outboundSchema.parse(
+      outputSecurityLakeSecurityLake7,
+    ),
+  );
+}
+export function outputSecurityLakeSecurityLake7FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSecurityLakeSecurityLake7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSecurityLakeSecurityLake7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSecurityLakeSecurityLake7' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSecurityLakeSecurityLake6$inboundSchema: z.ZodType<
+  OutputSecurityLakeSecurityLake6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  removeEmptyDirs: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeSecurityLakeOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string(),
+  region: z.string(),
+  awsSecretKey: z.string().optional(),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  objectACL: ObjectAclOptions$inboundSchema.default("private"),
+  storageClass: StorageClassOptions$inboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryptionOptions$inboundSchema.optional(),
+  kmsKeyId: z.string().optional(),
+  baseFileName: z.string().default("`CriblOut`"),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  verifyPermissions: z.boolean().default(true),
+  maxClosingFilesToBackpressure: z.number().default(100),
+  accountId: z.string(),
+  customSource: z.string(),
+  automaticSchema: z.boolean().default(false),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  emptyDirCleanupSec: z.number().default(300),
+  parquetSchema: z.string().optional(),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+/** @internal */
+export type OutputSecurityLakeSecurityLake6$Outbound = {
+  removeEmptyDirs: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  bucket: string;
+  region: string;
+  awsSecretKey?: string | undefined;
+  awsAuthenticationMethod: string;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn: string;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  stagePath: string;
+  addIdToStagePath: boolean;
+  objectACL: string;
+  storageClass?: string | undefined;
+  serverSideEncryption?: string | undefined;
+  kmsKeyId?: string | undefined;
+  baseFileName: string;
+  maxFileSizeMB: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxConcurrentFileParts: number;
+  verifyPermissions: boolean;
+  maxClosingFilesToBackpressure: number;
+  accountId: string;
+  customSource: string;
+  automaticSchema: boolean;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  emptyDirCleanupSec: number;
+  parquetSchema?: string | undefined;
+  deadletterPath: string;
+  maxRetryNum: number;
+};
+
+/** @internal */
+export const OutputSecurityLakeSecurityLake6$outboundSchema: z.ZodType<
+  OutputSecurityLakeSecurityLake6$Outbound,
+  z.ZodTypeDef,
+  OutputSecurityLakeSecurityLake6
+> = z.object({
+  removeEmptyDirs: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeSecurityLakeOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string(),
+  region: z.string(),
+  awsSecretKey: z.string().optional(),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  objectACL: ObjectAclOptions$outboundSchema.default("private"),
+  storageClass: StorageClassOptions$outboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryptionOptions$outboundSchema.optional(),
+  kmsKeyId: z.string().optional(),
+  baseFileName: z.string().default("`CriblOut`"),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  verifyPermissions: z.boolean().default(true),
+  maxClosingFilesToBackpressure: z.number().default(100),
+  accountId: z.string(),
+  customSource: z.string(),
+  automaticSchema: z.boolean().default(false),
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  emptyDirCleanupSec: z.number().default(300),
+  parquetSchema: z.string().optional(),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+
+export function outputSecurityLakeSecurityLake6ToJSON(
+  outputSecurityLakeSecurityLake6: OutputSecurityLakeSecurityLake6,
+): string {
+  return JSON.stringify(
+    OutputSecurityLakeSecurityLake6$outboundSchema.parse(
+      outputSecurityLakeSecurityLake6,
+    ),
+  );
+}
+export function outputSecurityLakeSecurityLake6FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSecurityLakeSecurityLake6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSecurityLakeSecurityLake6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSecurityLakeSecurityLake6' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSecurityLakeSecurityLake5$inboundSchema: z.ZodType<
+  OutputSecurityLakeSecurityLake5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  serverSideEncryption: ServerSideEncryptionOptions$inboundSchema,
+  id: z.string().optional(),
+  type: TypeSecurityLakeOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string(),
+  region: z.string(),
+  awsSecretKey: z.string().optional(),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  objectACL: ObjectAclOptions$inboundSchema.default("private"),
+  storageClass: StorageClassOptions$inboundSchema.optional(),
+  kmsKeyId: z.string(),
+  removeEmptyDirs: z.boolean().default(true),
+  baseFileName: z.string().default("`CriblOut`"),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  verifyPermissions: z.boolean().default(true),
+  maxClosingFilesToBackpressure: z.number().default(100),
+  accountId: z.string(),
+  customSource: z.string(),
+  automaticSchema: z.boolean().default(false),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  emptyDirCleanupSec: z.number().default(300),
+  parquetSchema: z.string().optional(),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+/** @internal */
+export type OutputSecurityLakeSecurityLake5$Outbound = {
+  serverSideEncryption: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  bucket: string;
+  region: string;
+  awsSecretKey?: string | undefined;
+  awsAuthenticationMethod: string;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn: string;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  stagePath: string;
+  addIdToStagePath: boolean;
+  objectACL: string;
+  storageClass?: string | undefined;
+  kmsKeyId: string;
+  removeEmptyDirs: boolean;
+  baseFileName: string;
+  maxFileSizeMB: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxConcurrentFileParts: number;
+  verifyPermissions: boolean;
+  maxClosingFilesToBackpressure: number;
+  accountId: string;
+  customSource: string;
+  automaticSchema: boolean;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  emptyDirCleanupSec: number;
+  parquetSchema?: string | undefined;
+  deadletterPath: string;
+  maxRetryNum: number;
+};
+
+/** @internal */
+export const OutputSecurityLakeSecurityLake5$outboundSchema: z.ZodType<
+  OutputSecurityLakeSecurityLake5$Outbound,
+  z.ZodTypeDef,
+  OutputSecurityLakeSecurityLake5
+> = z.object({
+  serverSideEncryption: ServerSideEncryptionOptions$outboundSchema,
+  id: z.string().optional(),
+  type: TypeSecurityLakeOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string(),
+  region: z.string(),
+  awsSecretKey: z.string().optional(),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  objectACL: ObjectAclOptions$outboundSchema.default("private"),
+  storageClass: StorageClassOptions$outboundSchema.optional(),
+  kmsKeyId: z.string(),
+  removeEmptyDirs: z.boolean().default(true),
+  baseFileName: z.string().default("`CriblOut`"),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  verifyPermissions: z.boolean().default(true),
+  maxClosingFilesToBackpressure: z.number().default(100),
+  accountId: z.string(),
+  customSource: z.string(),
+  automaticSchema: z.boolean().default(false),
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  emptyDirCleanupSec: z.number().default(300),
+  parquetSchema: z.string().optional(),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+
+export function outputSecurityLakeSecurityLake5ToJSON(
+  outputSecurityLakeSecurityLake5: OutputSecurityLakeSecurityLake5,
+): string {
+  return JSON.stringify(
+    OutputSecurityLakeSecurityLake5$outboundSchema.parse(
+      outputSecurityLakeSecurityLake5,
+    ),
+  );
+}
+export function outputSecurityLakeSecurityLake5FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSecurityLakeSecurityLake5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSecurityLakeSecurityLake5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSecurityLakeSecurityLake5' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSecurityLakeSecurityLake4$inboundSchema: z.ZodType<
+  OutputSecurityLakeSecurityLake4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  serverSideEncryption: ServerSideEncryptionOptions$inboundSchema,
+  id: z.string().optional(),
+  type: TypeSecurityLakeOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string(),
+  region: z.string(),
+  awsSecretKey: z.string().optional(),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  objectACL: ObjectAclOptions$inboundSchema.default("private"),
+  storageClass: StorageClassOptions$inboundSchema.optional(),
+  kmsKeyId: z.string().optional(),
+  removeEmptyDirs: z.boolean().default(true),
+  baseFileName: z.string().default("`CriblOut`"),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  verifyPermissions: z.boolean().default(true),
+  maxClosingFilesToBackpressure: z.number().default(100),
+  accountId: z.string(),
+  customSource: z.string(),
+  automaticSchema: z.boolean().default(false),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  emptyDirCleanupSec: z.number().default(300),
+  parquetSchema: z.string().optional(),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+/** @internal */
+export type OutputSecurityLakeSecurityLake4$Outbound = {
+  serverSideEncryption: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  bucket: string;
+  region: string;
+  awsSecretKey?: string | undefined;
+  awsAuthenticationMethod: string;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn: string;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  stagePath: string;
+  addIdToStagePath: boolean;
+  objectACL: string;
+  storageClass?: string | undefined;
+  kmsKeyId?: string | undefined;
+  removeEmptyDirs: boolean;
+  baseFileName: string;
+  maxFileSizeMB: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxConcurrentFileParts: number;
+  verifyPermissions: boolean;
+  maxClosingFilesToBackpressure: number;
+  accountId: string;
+  customSource: string;
+  automaticSchema: boolean;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  emptyDirCleanupSec: number;
+  parquetSchema?: string | undefined;
+  deadletterPath: string;
+  maxRetryNum: number;
+};
+
+/** @internal */
+export const OutputSecurityLakeSecurityLake4$outboundSchema: z.ZodType<
+  OutputSecurityLakeSecurityLake4$Outbound,
+  z.ZodTypeDef,
+  OutputSecurityLakeSecurityLake4
+> = z.object({
+  serverSideEncryption: ServerSideEncryptionOptions$outboundSchema,
+  id: z.string().optional(),
+  type: TypeSecurityLakeOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string(),
+  region: z.string(),
+  awsSecretKey: z.string().optional(),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  objectACL: ObjectAclOptions$outboundSchema.default("private"),
+  storageClass: StorageClassOptions$outboundSchema.optional(),
+  kmsKeyId: z.string().optional(),
+  removeEmptyDirs: z.boolean().default(true),
+  baseFileName: z.string().default("`CriblOut`"),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  verifyPermissions: z.boolean().default(true),
+  maxClosingFilesToBackpressure: z.number().default(100),
+  accountId: z.string(),
+  customSource: z.string(),
+  automaticSchema: z.boolean().default(false),
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  emptyDirCleanupSec: z.number().default(300),
+  parquetSchema: z.string().optional(),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+
+export function outputSecurityLakeSecurityLake4ToJSON(
+  outputSecurityLakeSecurityLake4: OutputSecurityLakeSecurityLake4,
+): string {
+  return JSON.stringify(
+    OutputSecurityLakeSecurityLake4$outboundSchema.parse(
+      outputSecurityLakeSecurityLake4,
+    ),
+  );
+}
+export function outputSecurityLakeSecurityLake4FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSecurityLakeSecurityLake4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSecurityLakeSecurityLake4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSecurityLakeSecurityLake4' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSecurityLakeSecurityLake3$inboundSchema: z.ZodType<
+  OutputSecurityLakeSecurityLake3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  id: z.string().optional(),
+  type: TypeSecurityLakeOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string(),
+  region: z.string(),
+  awsSecretKey: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  objectACL: ObjectAclOptions$inboundSchema.default("private"),
+  storageClass: StorageClassOptions$inboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryptionOptions$inboundSchema.optional(),
+  kmsKeyId: z.string().optional(),
+  removeEmptyDirs: z.boolean().default(true),
+  baseFileName: z.string().default("`CriblOut`"),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  verifyPermissions: z.boolean().default(true),
+  maxClosingFilesToBackpressure: z.number().default(100),
+  accountId: z.string(),
+  customSource: z.string(),
+  automaticSchema: z.boolean().default(false),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string(),
+  emptyDirCleanupSec: z.number().default(300),
+  parquetSchema: z.string().optional(),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+/** @internal */
+export type OutputSecurityLakeSecurityLake3$Outbound = {
+  awsAuthenticationMethod: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  bucket: string;
+  region: string;
+  awsSecretKey?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn: string;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  stagePath: string;
+  addIdToStagePath: boolean;
+  objectACL: string;
+  storageClass?: string | undefined;
+  serverSideEncryption?: string | undefined;
+  kmsKeyId?: string | undefined;
+  removeEmptyDirs: boolean;
+  baseFileName: string;
+  maxFileSizeMB: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxConcurrentFileParts: number;
+  verifyPermissions: boolean;
+  maxClosingFilesToBackpressure: number;
+  accountId: string;
+  customSource: string;
+  automaticSchema: boolean;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret: string;
+  emptyDirCleanupSec: number;
+  parquetSchema?: string | undefined;
+  deadletterPath: string;
+  maxRetryNum: number;
+};
+
+/** @internal */
+export const OutputSecurityLakeSecurityLake3$outboundSchema: z.ZodType<
+  OutputSecurityLakeSecurityLake3$Outbound,
+  z.ZodTypeDef,
+  OutputSecurityLakeSecurityLake3
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  id: z.string().optional(),
+  type: TypeSecurityLakeOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string(),
+  region: z.string(),
+  awsSecretKey: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  objectACL: ObjectAclOptions$outboundSchema.default("private"),
+  storageClass: StorageClassOptions$outboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryptionOptions$outboundSchema.optional(),
+  kmsKeyId: z.string().optional(),
+  removeEmptyDirs: z.boolean().default(true),
+  baseFileName: z.string().default("`CriblOut`"),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  verifyPermissions: z.boolean().default(true),
+  maxClosingFilesToBackpressure: z.number().default(100),
+  accountId: z.string(),
+  customSource: z.string(),
+  automaticSchema: z.boolean().default(false),
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string(),
+  emptyDirCleanupSec: z.number().default(300),
+  parquetSchema: z.string().optional(),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+
+export function outputSecurityLakeSecurityLake3ToJSON(
+  outputSecurityLakeSecurityLake3: OutputSecurityLakeSecurityLake3,
+): string {
+  return JSON.stringify(
+    OutputSecurityLakeSecurityLake3$outboundSchema.parse(
+      outputSecurityLakeSecurityLake3,
+    ),
+  );
+}
+export function outputSecurityLakeSecurityLake3FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSecurityLakeSecurityLake3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSecurityLakeSecurityLake3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSecurityLakeSecurityLake3' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSecurityLakeSecurityLake2$inboundSchema: z.ZodType<
+  OutputSecurityLakeSecurityLake2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  id: z.string().optional(),
+  type: TypeSecurityLakeOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string(),
+  region: z.string(),
+  awsSecretKey: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  objectACL: ObjectAclOptions$inboundSchema.default("private"),
+  storageClass: StorageClassOptions$inboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryptionOptions$inboundSchema.optional(),
+  kmsKeyId: z.string().optional(),
+  removeEmptyDirs: z.boolean().default(true),
+  baseFileName: z.string().default("`CriblOut`"),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  verifyPermissions: z.boolean().default(true),
+  maxClosingFilesToBackpressure: z.number().default(100),
+  accountId: z.string(),
+  customSource: z.string(),
+  automaticSchema: z.boolean().default(false),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  description: z.string().optional(),
+  awsApiKey: z.string(),
+  awsSecret: z.string().optional(),
+  emptyDirCleanupSec: z.number().default(300),
+  parquetSchema: z.string().optional(),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+/** @internal */
+export type OutputSecurityLakeSecurityLake2$Outbound = {
+  awsAuthenticationMethod: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  bucket: string;
+  region: string;
+  awsSecretKey?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn: string;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  stagePath: string;
+  addIdToStagePath: boolean;
+  objectACL: string;
+  storageClass?: string | undefined;
+  serverSideEncryption?: string | undefined;
+  kmsKeyId?: string | undefined;
+  removeEmptyDirs: boolean;
+  baseFileName: string;
+  maxFileSizeMB: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxConcurrentFileParts: number;
+  verifyPermissions: boolean;
+  maxClosingFilesToBackpressure: number;
+  accountId: string;
+  customSource: string;
+  automaticSchema: boolean;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  description?: string | undefined;
+  awsApiKey: string;
+  awsSecret?: string | undefined;
+  emptyDirCleanupSec: number;
+  parquetSchema?: string | undefined;
+  deadletterPath: string;
+  maxRetryNum: number;
+};
+
+/** @internal */
+export const OutputSecurityLakeSecurityLake2$outboundSchema: z.ZodType<
+  OutputSecurityLakeSecurityLake2$Outbound,
+  z.ZodTypeDef,
+  OutputSecurityLakeSecurityLake2
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  id: z.string().optional(),
+  type: TypeSecurityLakeOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string(),
+  region: z.string(),
+  awsSecretKey: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  objectACL: ObjectAclOptions$outboundSchema.default("private"),
+  storageClass: StorageClassOptions$outboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryptionOptions$outboundSchema.optional(),
+  kmsKeyId: z.string().optional(),
+  removeEmptyDirs: z.boolean().default(true),
+  baseFileName: z.string().default("`CriblOut`"),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  verifyPermissions: z.boolean().default(true),
+  maxClosingFilesToBackpressure: z.number().default(100),
+  accountId: z.string(),
+  customSource: z.string(),
+  automaticSchema: z.boolean().default(false),
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  description: z.string().optional(),
+  awsApiKey: z.string(),
+  awsSecret: z.string().optional(),
+  emptyDirCleanupSec: z.number().default(300),
+  parquetSchema: z.string().optional(),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+
+export function outputSecurityLakeSecurityLake2ToJSON(
+  outputSecurityLakeSecurityLake2: OutputSecurityLakeSecurityLake2,
+): string {
+  return JSON.stringify(
+    OutputSecurityLakeSecurityLake2$outboundSchema.parse(
+      outputSecurityLakeSecurityLake2,
+    ),
+  );
+}
+export function outputSecurityLakeSecurityLake2FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSecurityLakeSecurityLake2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSecurityLakeSecurityLake2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSecurityLakeSecurityLake2' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSecurityLakeSecurityLake1$inboundSchema: z.ZodType<
+  OutputSecurityLakeSecurityLake1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  id: z.string().optional(),
+  type: TypeSecurityLakeOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string(),
+  region: z.string(),
+  awsSecretKey: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  objectACL: ObjectAclOptions$inboundSchema.default("private"),
+  storageClass: StorageClassOptions$inboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryptionOptions$inboundSchema.optional(),
+  kmsKeyId: z.string().optional(),
+  removeEmptyDirs: z.boolean().default(true),
+  baseFileName: z.string().default("`CriblOut`"),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  verifyPermissions: z.boolean().default(true),
+  maxClosingFilesToBackpressure: z.number().default(100),
+  accountId: z.string(),
+  customSource: z.string(),
+  automaticSchema: z.boolean().default(false),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  emptyDirCleanupSec: z.number().default(300),
+  parquetSchema: z.string().optional(),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+/** @internal */
+export type OutputSecurityLakeSecurityLake1$Outbound = {
+  awsAuthenticationMethod: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  bucket: string;
+  region: string;
+  awsSecretKey?: string | undefined;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn: string;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  stagePath: string;
+  addIdToStagePath: boolean;
+  objectACL: string;
+  storageClass?: string | undefined;
+  serverSideEncryption?: string | undefined;
+  kmsKeyId?: string | undefined;
+  removeEmptyDirs: boolean;
+  baseFileName: string;
+  maxFileSizeMB: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxConcurrentFileParts: number;
+  verifyPermissions: boolean;
+  maxClosingFilesToBackpressure: number;
+  accountId: string;
+  customSource: string;
+  automaticSchema: boolean;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  emptyDirCleanupSec: number;
+  parquetSchema?: string | undefined;
+  deadletterPath: string;
+  maxRetryNum: number;
+};
+
+/** @internal */
+export const OutputSecurityLakeSecurityLake1$outboundSchema: z.ZodType<
+  OutputSecurityLakeSecurityLake1$Outbound,
+  z.ZodTypeDef,
+  OutputSecurityLakeSecurityLake1
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  id: z.string().optional(),
+  type: TypeSecurityLakeOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  bucket: z.string(),
+  region: z.string(),
+  awsSecretKey: z.string().optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  objectACL: ObjectAclOptions$outboundSchema.default("private"),
+  storageClass: StorageClassOptions$outboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryptionOptions$outboundSchema.optional(),
+  kmsKeyId: z.string().optional(),
+  removeEmptyDirs: z.boolean().default(true),
+  baseFileName: z.string().default("`CriblOut`"),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  verifyPermissions: z.boolean().default(true),
+  maxClosingFilesToBackpressure: z.number().default(100),
+  accountId: z.string(),
+  customSource: z.string(),
+  automaticSchema: z.boolean().default(false),
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  emptyDirCleanupSec: z.number().default(300),
+  parquetSchema: z.string().optional(),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+
+export function outputSecurityLakeSecurityLake1ToJSON(
+  outputSecurityLakeSecurityLake1: OutputSecurityLakeSecurityLake1,
+): string {
+  return JSON.stringify(
+    OutputSecurityLakeSecurityLake1$outboundSchema.parse(
+      outputSecurityLakeSecurityLake1,
+    ),
+  );
+}
+export function outputSecurityLakeSecurityLake1FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSecurityLakeSecurityLake1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputSecurityLakeSecurityLake1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSecurityLakeSecurityLake1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputSecurityLake$inboundSchema: z.ZodType<
+  OutputSecurityLake,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => OutputSecurityLakeSecurityLake5$inboundSchema),
+  z.lazy(() => OutputSecurityLakeSecurityLake2$inboundSchema),
+  z.lazy(() => OutputSecurityLakeSecurityLake3$inboundSchema),
+  z.lazy(() => OutputSecurityLakeSecurityLake4$inboundSchema),
+  z.lazy(() => OutputSecurityLakeSecurityLake8$inboundSchema),
+  z.lazy(() => OutputSecurityLakeSecurityLake1$inboundSchema),
+  z.lazy(() => OutputSecurityLakeSecurityLake6$inboundSchema),
+  z.lazy(() => OutputSecurityLakeSecurityLake7$inboundSchema),
+  z.lazy(() => OutputSecurityLakeSecurityLake9$inboundSchema),
+  z.lazy(() => OutputSecurityLakeSecurityLake10$inboundSchema),
+  z.lazy(() => OutputSecurityLakeSecurityLake11$inboundSchema),
+]);
+/** @internal */
+export type OutputSecurityLake$Outbound =
+  | OutputSecurityLakeSecurityLake5$Outbound
+  | OutputSecurityLakeSecurityLake2$Outbound
+  | OutputSecurityLakeSecurityLake3$Outbound
+  | OutputSecurityLakeSecurityLake4$Outbound
+  | OutputSecurityLakeSecurityLake8$Outbound
+  | OutputSecurityLakeSecurityLake1$Outbound
+  | OutputSecurityLakeSecurityLake6$Outbound
+  | OutputSecurityLakeSecurityLake7$Outbound
+  | OutputSecurityLakeSecurityLake9$Outbound
+  | OutputSecurityLakeSecurityLake10$Outbound
+  | OutputSecurityLakeSecurityLake11$Outbound;
+
+/** @internal */
+export const OutputSecurityLake$outboundSchema: z.ZodType<
+  OutputSecurityLake$Outbound,
+  z.ZodTypeDef,
+  OutputSecurityLake
+> = z.union([
+  z.lazy(() => OutputSecurityLakeSecurityLake5$outboundSchema),
+  z.lazy(() => OutputSecurityLakeSecurityLake2$outboundSchema),
+  z.lazy(() => OutputSecurityLakeSecurityLake3$outboundSchema),
+  z.lazy(() => OutputSecurityLakeSecurityLake4$outboundSchema),
+  z.lazy(() => OutputSecurityLakeSecurityLake8$outboundSchema),
+  z.lazy(() => OutputSecurityLakeSecurityLake1$outboundSchema),
+  z.lazy(() => OutputSecurityLakeSecurityLake6$outboundSchema),
+  z.lazy(() => OutputSecurityLakeSecurityLake7$outboundSchema),
+  z.lazy(() => OutputSecurityLakeSecurityLake9$outboundSchema),
+  z.lazy(() => OutputSecurityLakeSecurityLake10$outboundSchema),
+  z.lazy(() => OutputSecurityLakeSecurityLake11$outboundSchema),
+]);
 
 export function outputSecurityLakeToJSON(
   outputSecurityLake: OutputSecurityLake,
@@ -999,7 +4958,6 @@ export function outputSecurityLakeToJSON(
     OutputSecurityLake$outboundSchema.parse(outputSecurityLake),
   );
 }
-
 export function outputSecurityLakeFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSecurityLake, SDKValidationError> {

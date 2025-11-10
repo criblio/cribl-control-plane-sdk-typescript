@@ -4,153 +4,79 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthType2Options,
+  AuthType2Options$inboundSchema,
+  AuthType2Options$outboundSchema,
+} from "./authtype2options.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  ExtraHttpHeadersType,
+  ExtraHttpHeadersType$inboundSchema,
+  ExtraHttpHeadersType$Outbound,
+  ExtraHttpHeadersType$outboundSchema,
+} from "./extrahttpheaderstype.js";
+import {
+  FailedRequestLoggingModeOptions,
+  FailedRequestLoggingModeOptions$inboundSchema,
+  FailedRequestLoggingModeOptions$outboundSchema,
+} from "./failedrequestloggingmodeoptions.js";
+import {
+  MetadataType,
+  MetadataType$inboundSchema,
+  MetadataType$Outbound,
+  MetadataType$outboundSchema,
+} from "./metadatatype.js";
+import {
+  OnBackpressureOptions,
+  OnBackpressureOptions$inboundSchema,
+  OnBackpressureOptions$outboundSchema,
+} from "./onbackpressureoptions.js";
+import {
+  PqCompressOptions,
+  PqCompressOptions$inboundSchema,
+  PqCompressOptions$outboundSchema,
+} from "./pqcompressoptions.js";
+import {
+  PqModeOptions,
+  PqModeOptions$inboundSchema,
+  PqModeOptions$outboundSchema,
+} from "./pqmodeoptions.js";
+import {
+  PqOnBackpressureOptions,
+  PqOnBackpressureOptions$inboundSchema,
+  PqOnBackpressureOptions$outboundSchema,
+} from "./pqonbackpressureoptions.js";
+import {
+  ResponseRetrySettingsType,
+  ResponseRetrySettingsType$inboundSchema,
+  ResponseRetrySettingsType$Outbound,
+  ResponseRetrySettingsType$outboundSchema,
+} from "./responseretrysettingstype.js";
+import {
+  TimeoutRetrySettingsType,
+  TimeoutRetrySettingsType$inboundSchema,
+  TimeoutRetrySettingsType$Outbound,
+  TimeoutRetrySettingsType$outboundSchema,
+} from "./timeoutretrysettingstype.js";
 
-export const OutputWavefrontType = {
+export const OutputWavefrontType4 = {
   Wavefront: "wavefront",
 } as const;
-export type OutputWavefrontType = ClosedEnum<typeof OutputWavefrontType>;
+export type OutputWavefrontType4 = ClosedEnum<typeof OutputWavefrontType4>;
 
-/**
- * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
- */
-export const OutputWavefrontAuthenticationMethod = {
-  Manual: "manual",
-  Secret: "secret",
-} as const;
-/**
- * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
- */
-export type OutputWavefrontAuthenticationMethod = OpenEnum<
-  typeof OutputWavefrontAuthenticationMethod
->;
-
-export type OutputWavefrontExtraHttpHeader = {
-  name?: string | undefined;
-  value: string;
-};
-
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export const OutputWavefrontFailedRequestLoggingMode = {
-  Payload: "payload",
-  PayloadAndHeaders: "payloadAndHeaders",
-  None: "none",
-} as const;
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export type OutputWavefrontFailedRequestLoggingMode = OpenEnum<
-  typeof OutputWavefrontFailedRequestLoggingMode
->;
-
-export type OutputWavefrontResponseRetrySetting = {
+export type OutputWavefrontWavefront4 = {
   /**
-   * The HTTP response status code that will trigger retries
+   * How to handle events when all receivers are exerting backpressure
    */
-  httpStatus: number;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-export type OutputWavefrontTimeoutRetrySettings = {
-  timeoutRetry?: boolean | undefined;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputWavefrontBackpressureBehavior = {
-  Block: "block",
-  Drop: "drop",
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputWavefrontBackpressureBehavior = OpenEnum<
-  typeof OutputWavefrontBackpressureBehavior
->;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputWavefrontCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputWavefrontCompression = OpenEnum<
-  typeof OutputWavefrontCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputWavefrontQueueFullBehavior = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputWavefrontQueueFullBehavior = OpenEnum<
-  typeof OutputWavefrontQueueFullBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputWavefrontMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputWavefrontMode = OpenEnum<typeof OutputWavefrontMode>;
-
-export type OutputWavefrontPqControls = {};
-
-export type OutputWavefront = {
+  onBackpressure?: OnBackpressureOptions | undefined;
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputWavefrontType;
+  type: OutputWavefrontType4;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -168,9 +94,9 @@ export type OutputWavefront = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+   * Enter credentials directly, or select a stored secret
    */
-  authType?: OutputWavefrontAuthenticationMethod | undefined;
+  authType?: AuthType2Options | undefined;
   /**
    * WaveFront domain name, e.g. "longboard"
    */
@@ -210,7 +136,7 @@ export type OutputWavefront = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<OutputWavefrontExtraHttpHeader> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -218,9 +144,7 @@ export type OutputWavefront = {
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
-  failedRequestLoggingMode?:
-    | OutputWavefrontFailedRequestLoggingMode
-    | undefined;
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -228,18 +152,12 @@ export type OutputWavefront = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?:
-    | Array<OutputWavefrontResponseRetrySetting>
-    | undefined;
-  timeoutRetrySettings?: OutputWavefrontTimeoutRetrySettings | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
   responseHonorRetryAfterHeader?: boolean | undefined;
-  /**
-   * How to handle events when all receivers are exerting backpressure
-   */
-  onBackpressure?: OutputWavefrontBackpressureBehavior | undefined;
   description?: string | undefined;
   /**
    * WaveFront API authentication token (see [here](https://docs.wavefront.com/wavefront_api.html#generating-an-api-token))
@@ -249,6 +167,26 @@ export type OutputWavefront = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
   /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
@@ -264,493 +202,487 @@ export type OutputWavefront = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputWavefrontCompression | undefined;
+  pqCompress?: PqCompressOptions | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputWavefrontQueueFullBehavior | undefined;
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls: MetadataType;
+};
+
+export const OutputWavefrontType3 = {
+  Wavefront: "wavefront",
+} as const;
+export type OutputWavefrontType3 = ClosedEnum<typeof OutputWavefrontType3>;
+
+export type OutputWavefrontWavefront3 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputWavefrontType3;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * WaveFront domain name, e.g. "longboard"
+   */
+  domain?: string | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  description?: string | undefined;
+  /**
+   * WaveFront API authentication token (see [here](https://docs.wavefront.com/wavefront_api.html#generating-an-api-token))
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputWavefrontMode | undefined;
-  pqControls?: OutputWavefrontPqControls | undefined;
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
 };
 
-/** @internal */
-export const OutputWavefrontType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputWavefrontType
-> = z.nativeEnum(OutputWavefrontType);
+export const OutputWavefrontType2 = {
+  Wavefront: "wavefront",
+} as const;
+export type OutputWavefrontType2 = ClosedEnum<typeof OutputWavefrontType2>;
 
-/** @internal */
-export const OutputWavefrontType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputWavefrontType
-> = OutputWavefrontType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefrontType$ {
-  /** @deprecated use `OutputWavefrontType$inboundSchema` instead. */
-  export const inboundSchema = OutputWavefrontType$inboundSchema;
-  /** @deprecated use `OutputWavefrontType$outboundSchema` instead. */
-  export const outboundSchema = OutputWavefrontType$outboundSchema;
-}
-
-/** @internal */
-export const OutputWavefrontAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputWavefrontAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputWavefrontAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputWavefrontAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputWavefrontAuthenticationMethod,
-  z.ZodTypeDef,
-  OutputWavefrontAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputWavefrontAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefrontAuthenticationMethod$ {
-  /** @deprecated use `OutputWavefrontAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputWavefrontAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputWavefrontAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputWavefrontAuthenticationMethod$outboundSchema;
-}
-
-/** @internal */
-export const OutputWavefrontExtraHttpHeader$inboundSchema: z.ZodType<
-  OutputWavefrontExtraHttpHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-/** @internal */
-export type OutputWavefrontExtraHttpHeader$Outbound = {
-  name?: string | undefined;
-  value: string;
+export type OutputWavefrontWavefront2 = {
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputWavefrontType2;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * WaveFront domain name, e.g. "longboard"
+   */
+  domain?: string | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * WaveFront API authentication token (see [here](https://docs.wavefront.com/wavefront_api.html#generating-an-api-token))
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret: string;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
 };
 
-/** @internal */
-export const OutputWavefrontExtraHttpHeader$outboundSchema: z.ZodType<
-  OutputWavefrontExtraHttpHeader$Outbound,
-  z.ZodTypeDef,
-  OutputWavefrontExtraHttpHeader
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
+export const OutputWavefrontType1 = {
+  Wavefront: "wavefront",
+} as const;
+export type OutputWavefrontType1 = ClosedEnum<typeof OutputWavefrontType1>;
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefrontExtraHttpHeader$ {
-  /** @deprecated use `OutputWavefrontExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputWavefrontExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputWavefrontExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputWavefrontExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputWavefrontExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputWavefrontExtraHttpHeader$Outbound;
-}
-
-export function outputWavefrontExtraHttpHeaderToJSON(
-  outputWavefrontExtraHttpHeader: OutputWavefrontExtraHttpHeader,
-): string {
-  return JSON.stringify(
-    OutputWavefrontExtraHttpHeader$outboundSchema.parse(
-      outputWavefrontExtraHttpHeader,
-    ),
-  );
-}
-
-export function outputWavefrontExtraHttpHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputWavefrontExtraHttpHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputWavefrontExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputWavefrontExtraHttpHeader' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputWavefrontFailedRequestLoggingMode$inboundSchema: z.ZodType<
-  OutputWavefrontFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputWavefrontFailedRequestLoggingMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputWavefrontFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  OutputWavefrontFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  OutputWavefrontFailedRequestLoggingMode
-> = z.union([
-  z.nativeEnum(OutputWavefrontFailedRequestLoggingMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefrontFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputWavefrontFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputWavefrontFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputWavefrontFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputWavefrontFailedRequestLoggingMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputWavefrontResponseRetrySetting$inboundSchema: z.ZodType<
-  OutputWavefrontResponseRetrySetting,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/** @internal */
-export type OutputWavefrontResponseRetrySetting$Outbound = {
-  httpStatus: number;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
+export type OutputWavefrontWavefront1 = {
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputWavefrontType1;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * WaveFront domain name, e.g. "longboard"
+   */
+  domain?: string | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * WaveFront API authentication token (see [here](https://docs.wavefront.com/wavefront_api.html#generating-an-api-token))
+   */
+  token: string;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
 };
 
-/** @internal */
-export const OutputWavefrontResponseRetrySetting$outboundSchema: z.ZodType<
-  OutputWavefrontResponseRetrySetting$Outbound,
-  z.ZodTypeDef,
-  OutputWavefrontResponseRetrySetting
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefrontResponseRetrySetting$ {
-  /** @deprecated use `OutputWavefrontResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputWavefrontResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputWavefrontResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputWavefrontResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputWavefrontResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputWavefrontResponseRetrySetting$Outbound;
-}
-
-export function outputWavefrontResponseRetrySettingToJSON(
-  outputWavefrontResponseRetrySetting: OutputWavefrontResponseRetrySetting,
-): string {
-  return JSON.stringify(
-    OutputWavefrontResponseRetrySetting$outboundSchema.parse(
-      outputWavefrontResponseRetrySetting,
-    ),
-  );
-}
-
-export function outputWavefrontResponseRetrySettingFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputWavefrontResponseRetrySetting, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputWavefrontResponseRetrySetting$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputWavefrontResponseRetrySetting' from JSON`,
-  );
-}
+export type OutputWavefront =
+  | OutputWavefrontWavefront1
+  | OutputWavefrontWavefront2
+  | OutputWavefrontWavefront4
+  | OutputWavefrontWavefront3;
 
 /** @internal */
-export const OutputWavefrontTimeoutRetrySettings$inboundSchema: z.ZodType<
-  OutputWavefrontTimeoutRetrySettings,
+export const OutputWavefrontType4$inboundSchema: z.ZodNativeEnum<
+  typeof OutputWavefrontType4
+> = z.nativeEnum(OutputWavefrontType4);
+/** @internal */
+export const OutputWavefrontType4$outboundSchema: z.ZodNativeEnum<
+  typeof OutputWavefrontType4
+> = OutputWavefrontType4$inboundSchema;
+
+/** @internal */
+export const OutputWavefrontWavefront4$inboundSchema: z.ZodType<
+  OutputWavefrontWavefront4,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/** @internal */
-export type OutputWavefrontTimeoutRetrySettings$Outbound = {
-  timeoutRetry: boolean;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputWavefrontTimeoutRetrySettings$outboundSchema: z.ZodType<
-  OutputWavefrontTimeoutRetrySettings$Outbound,
-  z.ZodTypeDef,
-  OutputWavefrontTimeoutRetrySettings
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefrontTimeoutRetrySettings$ {
-  /** @deprecated use `OutputWavefrontTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputWavefrontTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputWavefrontTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputWavefrontTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputWavefrontTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputWavefrontTimeoutRetrySettings$Outbound;
-}
-
-export function outputWavefrontTimeoutRetrySettingsToJSON(
-  outputWavefrontTimeoutRetrySettings: OutputWavefrontTimeoutRetrySettings,
-): string {
-  return JSON.stringify(
-    OutputWavefrontTimeoutRetrySettings$outboundSchema.parse(
-      outputWavefrontTimeoutRetrySettings,
-    ),
-  );
-}
-
-export function outputWavefrontTimeoutRetrySettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputWavefrontTimeoutRetrySettings, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputWavefrontTimeoutRetrySettings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputWavefrontTimeoutRetrySettings' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputWavefrontBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputWavefrontBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputWavefrontBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputWavefrontBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputWavefrontBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputWavefrontBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputWavefrontBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefrontBackpressureBehavior$ {
-  /** @deprecated use `OutputWavefrontBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputWavefrontBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputWavefrontBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputWavefrontBackpressureBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputWavefrontCompression$inboundSchema: z.ZodType<
-  OutputWavefrontCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputWavefrontCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputWavefrontCompression$outboundSchema: z.ZodType<
-  OutputWavefrontCompression,
-  z.ZodTypeDef,
-  OutputWavefrontCompression
-> = z.union([
-  z.nativeEnum(OutputWavefrontCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefrontCompression$ {
-  /** @deprecated use `OutputWavefrontCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputWavefrontCompression$inboundSchema;
-  /** @deprecated use `OutputWavefrontCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputWavefrontCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputWavefrontQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputWavefrontQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputWavefrontQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputWavefrontQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputWavefrontQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputWavefrontQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputWavefrontQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefrontQueueFullBehavior$ {
-  /** @deprecated use `OutputWavefrontQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputWavefrontQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputWavefrontQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputWavefrontQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputWavefrontMode$inboundSchema: z.ZodType<
-  OutputWavefrontMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputWavefrontMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputWavefrontMode$outboundSchema: z.ZodType<
-  OutputWavefrontMode,
-  z.ZodTypeDef,
-  OutputWavefrontMode
-> = z.union([
-  z.nativeEnum(OutputWavefrontMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefrontMode$ {
-  /** @deprecated use `OutputWavefrontMode$inboundSchema` instead. */
-  export const inboundSchema = OutputWavefrontMode$inboundSchema;
-  /** @deprecated use `OutputWavefrontMode$outboundSchema` instead. */
-  export const outboundSchema = OutputWavefrontMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputWavefrontPqControls$inboundSchema: z.ZodType<
-  OutputWavefrontPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type OutputWavefrontPqControls$Outbound = {};
-
-/** @internal */
-export const OutputWavefrontPqControls$outboundSchema: z.ZodType<
-  OutputWavefrontPqControls$Outbound,
-  z.ZodTypeDef,
-  OutputWavefrontPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefrontPqControls$ {
-  /** @deprecated use `OutputWavefrontPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputWavefrontPqControls$inboundSchema;
-  /** @deprecated use `OutputWavefrontPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputWavefrontPqControls$outboundSchema;
-  /** @deprecated use `OutputWavefrontPqControls$Outbound` instead. */
-  export type Outbound = OutputWavefrontPqControls$Outbound;
-}
-
-export function outputWavefrontPqControlsToJSON(
-  outputWavefrontPqControls: OutputWavefrontPqControls,
-): string {
-  return JSON.stringify(
-    OutputWavefrontPqControls$outboundSchema.parse(outputWavefrontPqControls),
-  );
-}
-
-export function outputWavefrontPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputWavefrontPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputWavefrontPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputWavefrontPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputWavefront$inboundSchema: z.ZodType<
-  OutputWavefront,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
   id: z.string().optional(),
-  type: OutputWavefrontType$inboundSchema,
+  type: OutputWavefrontType4$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  authType: OutputWavefrontAuthenticationMethod$inboundSchema.default("manual"),
+  authType: AuthType2Options$inboundSchema.default("manual"),
   domain: z.string().default("longboard"),
   concurrency: z.number().default(5),
   maxPayloadSizeKB: z.number().default(4096),
@@ -759,39 +691,33 @@ export const OutputWavefront$inboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputWavefrontExtraHttpHeader$inboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
   useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode:
-    OutputWavefrontFailedRequestLoggingMode$inboundSchema.default("none"),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputWavefrontResponseRetrySetting$inboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputWavefrontTimeoutRetrySettings$inboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: OutputWavefrontBackpressureBehavior$inboundSchema.default(
-    "block",
-  ),
   description: z.string().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputWavefrontCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputWavefrontQueueFullBehavior$inboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputWavefrontMode$inboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputWavefrontPqControls$inboundSchema).optional(),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema,
 });
-
 /** @internal */
-export type OutputWavefront$Outbound = {
+export type OutputWavefrontWavefront4$Outbound = {
+  onBackpressure: string;
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -807,45 +733,43 @@ export type OutputWavefront$Outbound = {
   rejectUnauthorized: boolean;
   timeoutSec: number;
   flushPeriodSec: number;
-  extraHttpHeaders?: Array<OutputWavefrontExtraHttpHeader$Outbound> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
   useRoundRobinDns: boolean;
   failedRequestLoggingMode: string;
   safeHeaders?: Array<string> | undefined;
-  responseRetrySettings?:
-    | Array<OutputWavefrontResponseRetrySetting$Outbound>
-    | undefined;
-  timeoutRetrySettings?:
-    | OutputWavefrontTimeoutRetrySettings$Outbound
-    | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader: boolean;
-  onBackpressure: string;
   description?: string | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
-  pqControls?: OutputWavefrontPqControls$Outbound | undefined;
+  pqControls: MetadataType$Outbound;
 };
 
 /** @internal */
-export const OutputWavefront$outboundSchema: z.ZodType<
-  OutputWavefront$Outbound,
+export const OutputWavefrontWavefront4$outboundSchema: z.ZodType<
+  OutputWavefrontWavefront4$Outbound,
   z.ZodTypeDef,
-  OutputWavefront
+  OutputWavefrontWavefront4
 > = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
   id: z.string().optional(),
-  type: OutputWavefrontType$outboundSchema,
+  type: OutputWavefrontType4$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  authType: OutputWavefrontAuthenticationMethod$outboundSchema.default(
-    "manual",
-  ),
+  authType: AuthType2Options$outboundSchema.default("manual"),
   domain: z.string().default("longboard"),
   concurrency: z.number().default(5),
   maxPayloadSizeKB: z.number().default(4096),
@@ -854,56 +778,563 @@ export const OutputWavefront$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputWavefrontExtraHttpHeader$outboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
   useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode:
-    OutputWavefrontFailedRequestLoggingMode$outboundSchema.default("none"),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputWavefrontResponseRetrySetting$outboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputWavefrontTimeoutRetrySettings$outboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: OutputWavefrontBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
   description: z.string().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputWavefrontCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputWavefrontQueueFullBehavior$outboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputWavefrontMode$outboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputWavefrontPqControls$outboundSchema).optional(),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefront$ {
-  /** @deprecated use `OutputWavefront$inboundSchema` instead. */
-  export const inboundSchema = OutputWavefront$inboundSchema;
-  /** @deprecated use `OutputWavefront$outboundSchema` instead. */
-  export const outboundSchema = OutputWavefront$outboundSchema;
-  /** @deprecated use `OutputWavefront$Outbound` instead. */
-  export type Outbound = OutputWavefront$Outbound;
+export function outputWavefrontWavefront4ToJSON(
+  outputWavefrontWavefront4: OutputWavefrontWavefront4,
+): string {
+  return JSON.stringify(
+    OutputWavefrontWavefront4$outboundSchema.parse(outputWavefrontWavefront4),
+  );
 }
+export function outputWavefrontWavefront4FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputWavefrontWavefront4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputWavefrontWavefront4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputWavefrontWavefront4' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputWavefrontType3$inboundSchema: z.ZodNativeEnum<
+  typeof OutputWavefrontType3
+> = z.nativeEnum(OutputWavefrontType3);
+/** @internal */
+export const OutputWavefrontType3$outboundSchema: z.ZodNativeEnum<
+  typeof OutputWavefrontType3
+> = OutputWavefrontType3$inboundSchema;
+
+/** @internal */
+export const OutputWavefrontWavefront3$inboundSchema: z.ZodType<
+  OutputWavefrontWavefront3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputWavefrontType3$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  domain: z.string().default("longboard"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  description: z.string().optional(),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputWavefrontWavefront3$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  authType: string;
+  domain: string;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  description?: string | undefined;
+  token?: string | undefined;
+  textSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputWavefrontWavefront3$outboundSchema: z.ZodType<
+  OutputWavefrontWavefront3$Outbound,
+  z.ZodTypeDef,
+  OutputWavefrontWavefront3
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputWavefrontType3$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  domain: z.string().default("longboard"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  description: z.string().optional(),
+  token: z.string().optional(),
+  textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputWavefrontWavefront3ToJSON(
+  outputWavefrontWavefront3: OutputWavefrontWavefront3,
+): string {
+  return JSON.stringify(
+    OutputWavefrontWavefront3$outboundSchema.parse(outputWavefrontWavefront3),
+  );
+}
+export function outputWavefrontWavefront3FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputWavefrontWavefront3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputWavefrontWavefront3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputWavefrontWavefront3' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputWavefrontType2$inboundSchema: z.ZodNativeEnum<
+  typeof OutputWavefrontType2
+> = z.nativeEnum(OutputWavefrontType2);
+/** @internal */
+export const OutputWavefrontType2$outboundSchema: z.ZodNativeEnum<
+  typeof OutputWavefrontType2
+> = OutputWavefrontType2$inboundSchema;
+
+/** @internal */
+export const OutputWavefrontWavefront2$inboundSchema: z.ZodType<
+  OutputWavefrontWavefront2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: OutputWavefrontType2$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  domain: z.string().default("longboard"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  token: z.string().optional(),
+  textSecret: z.string(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputWavefrontWavefront2$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  domain: string;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  onBackpressure: string;
+  description?: string | undefined;
+  token?: string | undefined;
+  textSecret: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputWavefrontWavefront2$outboundSchema: z.ZodType<
+  OutputWavefrontWavefront2$Outbound,
+  z.ZodTypeDef,
+  OutputWavefrontWavefront2
+> = z.object({
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: OutputWavefrontType2$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  domain: z.string().default("longboard"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  token: z.string().optional(),
+  textSecret: z.string(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputWavefrontWavefront2ToJSON(
+  outputWavefrontWavefront2: OutputWavefrontWavefront2,
+): string {
+  return JSON.stringify(
+    OutputWavefrontWavefront2$outboundSchema.parse(outputWavefrontWavefront2),
+  );
+}
+export function outputWavefrontWavefront2FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputWavefrontWavefront2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputWavefrontWavefront2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputWavefrontWavefront2' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputWavefrontType1$inboundSchema: z.ZodNativeEnum<
+  typeof OutputWavefrontType1
+> = z.nativeEnum(OutputWavefrontType1);
+/** @internal */
+export const OutputWavefrontType1$outboundSchema: z.ZodNativeEnum<
+  typeof OutputWavefrontType1
+> = OutputWavefrontType1$inboundSchema;
+
+/** @internal */
+export const OutputWavefrontWavefront1$inboundSchema: z.ZodType<
+  OutputWavefrontWavefront1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: OutputWavefrontType1$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  domain: z.string().default("longboard"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  token: z.string(),
+  textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputWavefrontWavefront1$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  domain: string;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  onBackpressure: string;
+  description?: string | undefined;
+  token: string;
+  textSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputWavefrontWavefront1$outboundSchema: z.ZodType<
+  OutputWavefrontWavefront1$Outbound,
+  z.ZodTypeDef,
+  OutputWavefrontWavefront1
+> = z.object({
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: OutputWavefrontType1$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  domain: z.string().default("longboard"),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  token: z.string(),
+  textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputWavefrontWavefront1ToJSON(
+  outputWavefrontWavefront1: OutputWavefrontWavefront1,
+): string {
+  return JSON.stringify(
+    OutputWavefrontWavefront1$outboundSchema.parse(outputWavefrontWavefront1),
+  );
+}
+export function outputWavefrontWavefront1FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputWavefrontWavefront1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputWavefrontWavefront1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputWavefrontWavefront1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputWavefront$inboundSchema: z.ZodType<
+  OutputWavefront,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => OutputWavefrontWavefront1$inboundSchema),
+  z.lazy(() => OutputWavefrontWavefront2$inboundSchema),
+  z.lazy(() => OutputWavefrontWavefront4$inboundSchema),
+  z.lazy(() => OutputWavefrontWavefront3$inboundSchema),
+]);
+/** @internal */
+export type OutputWavefront$Outbound =
+  | OutputWavefrontWavefront1$Outbound
+  | OutputWavefrontWavefront2$Outbound
+  | OutputWavefrontWavefront4$Outbound
+  | OutputWavefrontWavefront3$Outbound;
+
+/** @internal */
+export const OutputWavefront$outboundSchema: z.ZodType<
+  OutputWavefront$Outbound,
+  z.ZodTypeDef,
+  OutputWavefront
+> = z.union([
+  z.lazy(() => OutputWavefrontWavefront1$outboundSchema),
+  z.lazy(() => OutputWavefrontWavefront2$outboundSchema),
+  z.lazy(() => OutputWavefrontWavefront4$outboundSchema),
+  z.lazy(() => OutputWavefrontWavefront3$outboundSchema),
+]);
 
 export function outputWavefrontToJSON(
   outputWavefront: OutputWavefront,
 ): string {
   return JSON.stringify(OutputWavefront$outboundSchema.parse(outputWavefront));
 }
-
 export function outputWavefrontFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputWavefront, SDKValidationError> {

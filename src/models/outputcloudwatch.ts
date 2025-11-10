@@ -4,99 +4,56 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AwsAuthenticationMethodOptions,
+  AwsAuthenticationMethodOptions$inboundSchema,
+  AwsAuthenticationMethodOptions$outboundSchema,
+} from "./awsauthenticationmethodoptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  MetadataType,
+  MetadataType$inboundSchema,
+  MetadataType$Outbound,
+  MetadataType$outboundSchema,
+} from "./metadatatype.js";
+import {
+  OnBackpressureOptions,
+  OnBackpressureOptions$inboundSchema,
+  OnBackpressureOptions$outboundSchema,
+} from "./onbackpressureoptions.js";
+import {
+  PqCompressOptions,
+  PqCompressOptions$inboundSchema,
+  PqCompressOptions$outboundSchema,
+} from "./pqcompressoptions.js";
+import {
+  PqModeOptions,
+  PqModeOptions$inboundSchema,
+  PqModeOptions$outboundSchema,
+} from "./pqmodeoptions.js";
+import {
+  PqOnBackpressureOptions,
+  PqOnBackpressureOptions$inboundSchema,
+  PqOnBackpressureOptions$outboundSchema,
+} from "./pqonbackpressureoptions.js";
 
-export const OutputCloudwatchType = {
+export const OutputCloudwatchType5 = {
   Cloudwatch: "cloudwatch",
 } as const;
-export type OutputCloudwatchType = ClosedEnum<typeof OutputCloudwatchType>;
+export type OutputCloudwatchType5 = ClosedEnum<typeof OutputCloudwatchType5>;
 
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export const OutputCloudwatchAuthenticationMethod = {
-  Auto: "auto",
-  Manual: "manual",
-  Secret: "secret",
-} as const;
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export type OutputCloudwatchAuthenticationMethod = OpenEnum<
-  typeof OutputCloudwatchAuthenticationMethod
->;
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputCloudwatchBackpressureBehavior = {
-  Block: "block",
-  Drop: "drop",
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputCloudwatchBackpressureBehavior = OpenEnum<
-  typeof OutputCloudwatchBackpressureBehavior
->;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputCloudwatchCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputCloudwatchCompression = OpenEnum<
-  typeof OutputCloudwatchCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputCloudwatchQueueFullBehavior = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputCloudwatchQueueFullBehavior = OpenEnum<
-  typeof OutputCloudwatchQueueFullBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputCloudwatchMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputCloudwatchMode = OpenEnum<typeof OutputCloudwatchMode>;
-
-export type OutputCloudwatchPqControls = {};
-
-export type OutputCloudwatch = {
+export type OutputCloudwatchCloudwatch5 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputCloudwatchType;
+  type: OutputCloudwatchType5;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -124,7 +81,277 @@ export type OutputCloudwatch = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: OutputCloudwatchAuthenticationMethod | undefined;
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the CloudWatchLogs is located
+   */
+  region: string;
+  /**
+   * CloudWatchLogs service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to CloudWatchLogs-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access CloudWatchLogs
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Maximum number of queued batches before blocking
+   */
+  maxQueueSize?: number | undefined;
+  /**
+   * Maximum size (KB) of each individual record before compression. For non compressible data 1MB is the max recommended size
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+   */
+  flushPeriodSec?: number | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls: MetadataType;
+};
+
+export const OutputCloudwatchType4 = {
+  Cloudwatch: "cloudwatch",
+} as const;
+export type OutputCloudwatchType4 = ClosedEnum<typeof OutputCloudwatchType4>;
+
+export type OutputCloudwatchCloudwatch4 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputCloudwatchType4;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * CloudWatch log group to associate events with
+   */
+  logGroupName: string;
+  /**
+   * Prefix for CloudWatch log stream name. This prefix will be used to generate a unique log stream name per cribl instance, for example: myStream_myHost_myOutputId
+   */
+  logStreamName: string;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the CloudWatchLogs is located
+   */
+  region: string;
+  /**
+   * CloudWatchLogs service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to CloudWatchLogs-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access CloudWatchLogs
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Maximum number of queued batches before blocking
+   */
+  maxQueueSize?: number | undefined;
+  /**
+   * Maximum size (KB) of each individual record before compression. For non compressible data 1MB is the max recommended size
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+   */
+  flushPeriodSec?: number | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export const OutputCloudwatchType3 = {
+  Cloudwatch: "cloudwatch",
+} as const;
+export type OutputCloudwatchType3 = ClosedEnum<typeof OutputCloudwatchType3>;
+
+export type OutputCloudwatchCloudwatch3 = {
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputCloudwatchType3;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * CloudWatch log group to associate events with
+   */
+  logGroupName: string;
+  /**
+   * Prefix for CloudWatch log stream name. This prefix will be used to generate a unique log stream name per cribl instance, for example: myStream_myHost_myOutputId
+   */
+  logStreamName: string;
   awsSecretKey?: string | undefined;
   /**
    * Region where the CloudWatchLogs is located
@@ -173,13 +400,33 @@ export type OutputCloudwatch = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputCloudwatchBackpressureBehavior | undefined;
+  onBackpressure?: OnBackpressureOptions | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
    */
-  awsSecret?: string | undefined;
+  awsSecret: string;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
   /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
@@ -195,268 +442,322 @@ export type OutputCloudwatch = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputCloudwatchCompression | undefined;
+  pqCompress?: PqCompressOptions | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputCloudwatchQueueFullBehavior | undefined;
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export const OutputCloudwatchType2 = {
+  Cloudwatch: "cloudwatch",
+} as const;
+export type OutputCloudwatchType2 = ClosedEnum<typeof OutputCloudwatchType2>;
+
+export type OutputCloudwatchCloudwatch2 = {
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputCloudwatchType2;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * CloudWatch log group to associate events with
+   */
+  logGroupName: string;
+  /**
+   * Prefix for CloudWatch log stream name. This prefix will be used to generate a unique log stream name per cribl instance, for example: myStream_myHost_myOutputId
+   */
+  logStreamName: string;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the CloudWatchLogs is located
+   */
+  region: string;
+  /**
+   * CloudWatchLogs service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to CloudWatchLogs-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access CloudWatchLogs
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Maximum number of queued batches before blocking
+   */
+  maxQueueSize?: number | undefined;
+  /**
+   * Maximum size (KB) of each individual record before compression. For non compressible data 1MB is the max recommended size
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  awsApiKey: string;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputCloudwatchMode | undefined;
-  pqControls?: OutputCloudwatchPqControls | undefined;
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
 };
 
-/** @internal */
-export const OutputCloudwatchType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputCloudwatchType
-> = z.nativeEnum(OutputCloudwatchType);
+export const OutputCloudwatchType1 = {
+  Cloudwatch: "cloudwatch",
+} as const;
+export type OutputCloudwatchType1 = ClosedEnum<typeof OutputCloudwatchType1>;
+
+export type OutputCloudwatchCloudwatch1 = {
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputCloudwatchType1;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * CloudWatch log group to associate events with
+   */
+  logGroupName: string;
+  /**
+   * Prefix for CloudWatch log stream name. This prefix will be used to generate a unique log stream name per cribl instance, for example: myStream_myHost_myOutputId
+   */
+  logStreamName: string;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the CloudWatchLogs is located
+   */
+  region: string;
+  /**
+   * CloudWatchLogs service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to CloudWatchLogs-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access CloudWatchLogs
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Maximum number of queued batches before blocking
+   */
+  maxQueueSize?: number | undefined;
+  /**
+   * Maximum size (KB) of each individual record before compression. For non compressible data 1MB is the max recommended size
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export type OutputCloudwatch =
+  | OutputCloudwatchCloudwatch2
+  | OutputCloudwatchCloudwatch3
+  | OutputCloudwatchCloudwatch5
+  | OutputCloudwatchCloudwatch1
+  | OutputCloudwatchCloudwatch4;
 
 /** @internal */
-export const OutputCloudwatchType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputCloudwatchType
-> = OutputCloudwatchType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCloudwatchType$ {
-  /** @deprecated use `OutputCloudwatchType$inboundSchema` instead. */
-  export const inboundSchema = OutputCloudwatchType$inboundSchema;
-  /** @deprecated use `OutputCloudwatchType$outboundSchema` instead. */
-  export const outboundSchema = OutputCloudwatchType$outboundSchema;
-}
+export const OutputCloudwatchType5$inboundSchema: z.ZodNativeEnum<
+  typeof OutputCloudwatchType5
+> = z.nativeEnum(OutputCloudwatchType5);
+/** @internal */
+export const OutputCloudwatchType5$outboundSchema: z.ZodNativeEnum<
+  typeof OutputCloudwatchType5
+> = OutputCloudwatchType5$inboundSchema;
 
 /** @internal */
-export const OutputCloudwatchAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputCloudwatchAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCloudwatchAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputCloudwatchAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputCloudwatchAuthenticationMethod,
-  z.ZodTypeDef,
-  OutputCloudwatchAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputCloudwatchAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCloudwatchAuthenticationMethod$ {
-  /** @deprecated use `OutputCloudwatchAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputCloudwatchAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputCloudwatchAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCloudwatchAuthenticationMethod$outboundSchema;
-}
-
-/** @internal */
-export const OutputCloudwatchBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputCloudwatchBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCloudwatchBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputCloudwatchBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputCloudwatchBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputCloudwatchBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputCloudwatchBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCloudwatchBackpressureBehavior$ {
-  /** @deprecated use `OutputCloudwatchBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputCloudwatchBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputCloudwatchBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCloudwatchBackpressureBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputCloudwatchCompression$inboundSchema: z.ZodType<
-  OutputCloudwatchCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCloudwatchCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputCloudwatchCompression$outboundSchema: z.ZodType<
-  OutputCloudwatchCompression,
-  z.ZodTypeDef,
-  OutputCloudwatchCompression
-> = z.union([
-  z.nativeEnum(OutputCloudwatchCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCloudwatchCompression$ {
-  /** @deprecated use `OutputCloudwatchCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputCloudwatchCompression$inboundSchema;
-  /** @deprecated use `OutputCloudwatchCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputCloudwatchCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputCloudwatchQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputCloudwatchQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCloudwatchQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputCloudwatchQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputCloudwatchQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputCloudwatchQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputCloudwatchQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCloudwatchQueueFullBehavior$ {
-  /** @deprecated use `OutputCloudwatchQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputCloudwatchQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputCloudwatchQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCloudwatchQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputCloudwatchMode$inboundSchema: z.ZodType<
-  OutputCloudwatchMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCloudwatchMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputCloudwatchMode$outboundSchema: z.ZodType<
-  OutputCloudwatchMode,
-  z.ZodTypeDef,
-  OutputCloudwatchMode
-> = z.union([
-  z.nativeEnum(OutputCloudwatchMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCloudwatchMode$ {
-  /** @deprecated use `OutputCloudwatchMode$inboundSchema` instead. */
-  export const inboundSchema = OutputCloudwatchMode$inboundSchema;
-  /** @deprecated use `OutputCloudwatchMode$outboundSchema` instead. */
-  export const outboundSchema = OutputCloudwatchMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputCloudwatchPqControls$inboundSchema: z.ZodType<
-  OutputCloudwatchPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type OutputCloudwatchPqControls$Outbound = {};
-
-/** @internal */
-export const OutputCloudwatchPqControls$outboundSchema: z.ZodType<
-  OutputCloudwatchPqControls$Outbound,
-  z.ZodTypeDef,
-  OutputCloudwatchPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCloudwatchPqControls$ {
-  /** @deprecated use `OutputCloudwatchPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputCloudwatchPqControls$inboundSchema;
-  /** @deprecated use `OutputCloudwatchPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputCloudwatchPqControls$outboundSchema;
-  /** @deprecated use `OutputCloudwatchPqControls$Outbound` instead. */
-  export type Outbound = OutputCloudwatchPqControls$Outbound;
-}
-
-export function outputCloudwatchPqControlsToJSON(
-  outputCloudwatchPqControls: OutputCloudwatchPqControls,
-): string {
-  return JSON.stringify(
-    OutputCloudwatchPqControls$outboundSchema.parse(outputCloudwatchPqControls),
-  );
-}
-
-export function outputCloudwatchPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputCloudwatchPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputCloudwatchPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputCloudwatchPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputCloudwatch$inboundSchema: z.ZodType<
-  OutputCloudwatch,
+export const OutputCloudwatchCloudwatch5$inboundSchema: z.ZodType<
+  OutputCloudwatchCloudwatch5,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
   id: z.string().optional(),
-  type: OutputCloudwatchType$inboundSchema,
+  type: OutputCloudwatchType5$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   logGroupName: z.string(),
   logStreamName: z.string(),
-  awsAuthenticationMethod: OutputCloudwatchAuthenticationMethod$inboundSchema
-    .default("auto"),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
@@ -469,25 +770,24 @@ export const OutputCloudwatch$inboundSchema: z.ZodType<
   maxQueueSize: z.number().default(5),
   maxRecordSizeKB: z.number().default(1024),
   flushPeriodSec: z.number().default(1),
-  onBackpressure: OutputCloudwatchBackpressureBehavior$inboundSchema.default(
-    "block",
-  ),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputCloudwatchCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputCloudwatchQueueFullBehavior$inboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputCloudwatchMode$inboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputCloudwatchPqControls$inboundSchema).optional(),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema,
 });
-
 /** @internal */
-export type OutputCloudwatch$Outbound = {
+export type OutputCloudwatchCloudwatch5$Outbound = {
+  onBackpressure: string;
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -509,34 +809,38 @@ export type OutputCloudwatch$Outbound = {
   maxQueueSize: number;
   maxRecordSizeKB: number;
   flushPeriodSec: number;
-  onBackpressure: string;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
-  pqControls?: OutputCloudwatchPqControls$Outbound | undefined;
+  pqControls: MetadataType$Outbound;
 };
 
 /** @internal */
-export const OutputCloudwatch$outboundSchema: z.ZodType<
-  OutputCloudwatch$Outbound,
+export const OutputCloudwatchCloudwatch5$outboundSchema: z.ZodType<
+  OutputCloudwatchCloudwatch5$Outbound,
   z.ZodTypeDef,
-  OutputCloudwatch
+  OutputCloudwatchCloudwatch5
 > = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
   id: z.string().optional(),
-  type: OutputCloudwatchType$outboundSchema,
+  type: OutputCloudwatchType5$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   logGroupName: z.string(),
   logStreamName: z.string(),
-  awsAuthenticationMethod: OutputCloudwatchAuthenticationMethod$outboundSchema
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
     .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string(),
@@ -550,36 +854,705 @@ export const OutputCloudwatch$outboundSchema: z.ZodType<
   maxQueueSize: z.number().default(5),
   maxRecordSizeKB: z.number().default(1024),
   flushPeriodSec: z.number().default(1),
-  onBackpressure: OutputCloudwatchBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputCloudwatchCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputCloudwatchQueueFullBehavior$outboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputCloudwatchMode$outboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputCloudwatchPqControls$outboundSchema)
-    .optional(),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCloudwatch$ {
-  /** @deprecated use `OutputCloudwatch$inboundSchema` instead. */
-  export const inboundSchema = OutputCloudwatch$inboundSchema;
-  /** @deprecated use `OutputCloudwatch$outboundSchema` instead. */
-  export const outboundSchema = OutputCloudwatch$outboundSchema;
-  /** @deprecated use `OutputCloudwatch$Outbound` instead. */
-  export type Outbound = OutputCloudwatch$Outbound;
+export function outputCloudwatchCloudwatch5ToJSON(
+  outputCloudwatchCloudwatch5: OutputCloudwatchCloudwatch5,
+): string {
+  return JSON.stringify(
+    OutputCloudwatchCloudwatch5$outboundSchema.parse(
+      outputCloudwatchCloudwatch5,
+    ),
+  );
 }
+export function outputCloudwatchCloudwatch5FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputCloudwatchCloudwatch5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputCloudwatchCloudwatch5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputCloudwatchCloudwatch5' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputCloudwatchType4$inboundSchema: z.ZodNativeEnum<
+  typeof OutputCloudwatchType4
+> = z.nativeEnum(OutputCloudwatchType4);
+/** @internal */
+export const OutputCloudwatchType4$outboundSchema: z.ZodNativeEnum<
+  typeof OutputCloudwatchType4
+> = OutputCloudwatchType4$inboundSchema;
+
+/** @internal */
+export const OutputCloudwatchCloudwatch4$inboundSchema: z.ZodType<
+  OutputCloudwatchCloudwatch4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputCloudwatchType4$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  logGroupName: z.string(),
+  logStreamName: z.string(),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxQueueSize: z.number().default(5),
+  maxRecordSizeKB: z.number().default(1024),
+  flushPeriodSec: z.number().default(1),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputCloudwatchCloudwatch4$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  logGroupName: string;
+  logStreamName: string;
+  awsAuthenticationMethod: string;
+  awsSecretKey?: string | undefined;
+  region: string;
+  endpoint?: string | undefined;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  maxQueueSize: number;
+  maxRecordSizeKB: number;
+  flushPeriodSec: number;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputCloudwatchCloudwatch4$outboundSchema: z.ZodType<
+  OutputCloudwatchCloudwatch4$Outbound,
+  z.ZodTypeDef,
+  OutputCloudwatchCloudwatch4
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputCloudwatchType4$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  logGroupName: z.string(),
+  logStreamName: z.string(),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxQueueSize: z.number().default(5),
+  maxRecordSizeKB: z.number().default(1024),
+  flushPeriodSec: z.number().default(1),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputCloudwatchCloudwatch4ToJSON(
+  outputCloudwatchCloudwatch4: OutputCloudwatchCloudwatch4,
+): string {
+  return JSON.stringify(
+    OutputCloudwatchCloudwatch4$outboundSchema.parse(
+      outputCloudwatchCloudwatch4,
+    ),
+  );
+}
+export function outputCloudwatchCloudwatch4FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputCloudwatchCloudwatch4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputCloudwatchCloudwatch4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputCloudwatchCloudwatch4' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputCloudwatchType3$inboundSchema: z.ZodNativeEnum<
+  typeof OutputCloudwatchType3
+> = z.nativeEnum(OutputCloudwatchType3);
+/** @internal */
+export const OutputCloudwatchType3$outboundSchema: z.ZodNativeEnum<
+  typeof OutputCloudwatchType3
+> = OutputCloudwatchType3$inboundSchema;
+
+/** @internal */
+export const OutputCloudwatchCloudwatch3$inboundSchema: z.ZodType<
+  OutputCloudwatchCloudwatch3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  id: z.string().optional(),
+  type: OutputCloudwatchType3$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  logGroupName: z.string(),
+  logStreamName: z.string(),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxQueueSize: z.number().default(5),
+  maxRecordSizeKB: z.number().default(1024),
+  flushPeriodSec: z.number().default(1),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputCloudwatchCloudwatch3$Outbound = {
+  awsAuthenticationMethod: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  logGroupName: string;
+  logStreamName: string;
+  awsSecretKey?: string | undefined;
+  region: string;
+  endpoint?: string | undefined;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  maxQueueSize: number;
+  maxRecordSizeKB: number;
+  flushPeriodSec: number;
+  onBackpressure: string;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputCloudwatchCloudwatch3$outboundSchema: z.ZodType<
+  OutputCloudwatchCloudwatch3$Outbound,
+  z.ZodTypeDef,
+  OutputCloudwatchCloudwatch3
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  id: z.string().optional(),
+  type: OutputCloudwatchType3$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  logGroupName: z.string(),
+  logStreamName: z.string(),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxQueueSize: z.number().default(5),
+  maxRecordSizeKB: z.number().default(1024),
+  flushPeriodSec: z.number().default(1),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputCloudwatchCloudwatch3ToJSON(
+  outputCloudwatchCloudwatch3: OutputCloudwatchCloudwatch3,
+): string {
+  return JSON.stringify(
+    OutputCloudwatchCloudwatch3$outboundSchema.parse(
+      outputCloudwatchCloudwatch3,
+    ),
+  );
+}
+export function outputCloudwatchCloudwatch3FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputCloudwatchCloudwatch3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputCloudwatchCloudwatch3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputCloudwatchCloudwatch3' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputCloudwatchType2$inboundSchema: z.ZodNativeEnum<
+  typeof OutputCloudwatchType2
+> = z.nativeEnum(OutputCloudwatchType2);
+/** @internal */
+export const OutputCloudwatchType2$outboundSchema: z.ZodNativeEnum<
+  typeof OutputCloudwatchType2
+> = OutputCloudwatchType2$inboundSchema;
+
+/** @internal */
+export const OutputCloudwatchCloudwatch2$inboundSchema: z.ZodType<
+  OutputCloudwatchCloudwatch2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  id: z.string().optional(),
+  type: OutputCloudwatchType2$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  logGroupName: z.string(),
+  logStreamName: z.string(),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxQueueSize: z.number().default(5),
+  maxRecordSizeKB: z.number().default(1024),
+  flushPeriodSec: z.number().default(1),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  awsApiKey: z.string(),
+  awsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputCloudwatchCloudwatch2$Outbound = {
+  awsAuthenticationMethod: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  logGroupName: string;
+  logStreamName: string;
+  awsSecretKey?: string | undefined;
+  region: string;
+  endpoint?: string | undefined;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  maxQueueSize: number;
+  maxRecordSizeKB: number;
+  flushPeriodSec: number;
+  onBackpressure: string;
+  description?: string | undefined;
+  awsApiKey: string;
+  awsSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputCloudwatchCloudwatch2$outboundSchema: z.ZodType<
+  OutputCloudwatchCloudwatch2$Outbound,
+  z.ZodTypeDef,
+  OutputCloudwatchCloudwatch2
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  id: z.string().optional(),
+  type: OutputCloudwatchType2$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  logGroupName: z.string(),
+  logStreamName: z.string(),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxQueueSize: z.number().default(5),
+  maxRecordSizeKB: z.number().default(1024),
+  flushPeriodSec: z.number().default(1),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  awsApiKey: z.string(),
+  awsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputCloudwatchCloudwatch2ToJSON(
+  outputCloudwatchCloudwatch2: OutputCloudwatchCloudwatch2,
+): string {
+  return JSON.stringify(
+    OutputCloudwatchCloudwatch2$outboundSchema.parse(
+      outputCloudwatchCloudwatch2,
+    ),
+  );
+}
+export function outputCloudwatchCloudwatch2FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputCloudwatchCloudwatch2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputCloudwatchCloudwatch2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputCloudwatchCloudwatch2' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputCloudwatchType1$inboundSchema: z.ZodNativeEnum<
+  typeof OutputCloudwatchType1
+> = z.nativeEnum(OutputCloudwatchType1);
+/** @internal */
+export const OutputCloudwatchType1$outboundSchema: z.ZodNativeEnum<
+  typeof OutputCloudwatchType1
+> = OutputCloudwatchType1$inboundSchema;
+
+/** @internal */
+export const OutputCloudwatchCloudwatch1$inboundSchema: z.ZodType<
+  OutputCloudwatchCloudwatch1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  id: z.string().optional(),
+  type: OutputCloudwatchType1$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  logGroupName: z.string(),
+  logStreamName: z.string(),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxQueueSize: z.number().default(5),
+  maxRecordSizeKB: z.number().default(1024),
+  flushPeriodSec: z.number().default(1),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputCloudwatchCloudwatch1$Outbound = {
+  awsAuthenticationMethod: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  logGroupName: string;
+  logStreamName: string;
+  awsSecretKey?: string | undefined;
+  region: string;
+  endpoint?: string | undefined;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  maxQueueSize: number;
+  maxRecordSizeKB: number;
+  flushPeriodSec: number;
+  onBackpressure: string;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputCloudwatchCloudwatch1$outboundSchema: z.ZodType<
+  OutputCloudwatchCloudwatch1$Outbound,
+  z.ZodTypeDef,
+  OutputCloudwatchCloudwatch1
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  id: z.string().optional(),
+  type: OutputCloudwatchType1$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  logGroupName: z.string(),
+  logStreamName: z.string(),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxQueueSize: z.number().default(5),
+  maxRecordSizeKB: z.number().default(1024),
+  flushPeriodSec: z.number().default(1),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputCloudwatchCloudwatch1ToJSON(
+  outputCloudwatchCloudwatch1: OutputCloudwatchCloudwatch1,
+): string {
+  return JSON.stringify(
+    OutputCloudwatchCloudwatch1$outboundSchema.parse(
+      outputCloudwatchCloudwatch1,
+    ),
+  );
+}
+export function outputCloudwatchCloudwatch1FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputCloudwatchCloudwatch1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputCloudwatchCloudwatch1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputCloudwatchCloudwatch1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputCloudwatch$inboundSchema: z.ZodType<
+  OutputCloudwatch,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => OutputCloudwatchCloudwatch2$inboundSchema),
+  z.lazy(() => OutputCloudwatchCloudwatch3$inboundSchema),
+  z.lazy(() => OutputCloudwatchCloudwatch5$inboundSchema),
+  z.lazy(() => OutputCloudwatchCloudwatch1$inboundSchema),
+  z.lazy(() => OutputCloudwatchCloudwatch4$inboundSchema),
+]);
+/** @internal */
+export type OutputCloudwatch$Outbound =
+  | OutputCloudwatchCloudwatch2$Outbound
+  | OutputCloudwatchCloudwatch3$Outbound
+  | OutputCloudwatchCloudwatch5$Outbound
+  | OutputCloudwatchCloudwatch1$Outbound
+  | OutputCloudwatchCloudwatch4$Outbound;
+
+/** @internal */
+export const OutputCloudwatch$outboundSchema: z.ZodType<
+  OutputCloudwatch$Outbound,
+  z.ZodTypeDef,
+  OutputCloudwatch
+> = z.union([
+  z.lazy(() => OutputCloudwatchCloudwatch2$outboundSchema),
+  z.lazy(() => OutputCloudwatchCloudwatch3$outboundSchema),
+  z.lazy(() => OutputCloudwatchCloudwatch5$outboundSchema),
+  z.lazy(() => OutputCloudwatchCloudwatch1$outboundSchema),
+  z.lazy(() => OutputCloudwatchCloudwatch4$outboundSchema),
+]);
 
 export function outputCloudwatchToJSON(
   outputCloudwatch: OutputCloudwatch,
@@ -588,7 +1561,6 @@ export function outputCloudwatchToJSON(
     OutputCloudwatch$outboundSchema.parse(outputCloudwatch),
   );
 }
-
 export function outputCloudwatchFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputCloudwatch, SDKValidationError> {

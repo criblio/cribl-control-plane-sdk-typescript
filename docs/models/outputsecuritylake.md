@@ -1,11 +1,54 @@
 # OutputSecurityLake
 
-## Example Usage
+
+## Supported Types
+
+### `models.OutputSecurityLakeSecurityLake1`
 
 ```typescript
-import { OutputSecurityLake } from "cribl-control-plane/models";
+const value: models.OutputSecurityLakeSecurityLake1 = {
+  id: "<id>",
+  type: "security_lake",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  bucket: "<value>",
+  region: "<value>",
+  awsSecretKey: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  storageClass: "STANDARD_IA",
+  serverSideEncryption: "AES256",
+  kmsKeyId: "<id>",
+  accountId: "<id>",
+  customSource: "<value>",
+  shouldLogInvalidRows: true,
+  keyValueMetadata: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+  description: "athwart omelet meanwhile atop zowie knavishly um whereas or",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  parquetSchema: "<value>",
+};
+```
 
-let value: OutputSecurityLake = {
+### `models.OutputSecurityLakeSecurityLake2`
+
+```typescript
+const value: models.OutputSecurityLakeSecurityLake2 = {
   id: "<id>",
   type: "security_lake",
   pipeline: "<value>",
@@ -22,7 +65,176 @@ let value: OutputSecurityLake = {
   endpoint: "<value>",
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
+  storageClass: "ONEZONE_IA",
+  serverSideEncryption: "aws:kms",
+  kmsKeyId: "<id>",
+  accountId: "<id>",
+  customSource: "<value>",
+  shouldLogInvalidRows: false,
+  keyValueMetadata: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+  description: "er eek pantyhose gah afterwards",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  parquetSchema: "<value>",
+};
+```
+
+### `models.OutputSecurityLakeSecurityLake3`
+
+```typescript
+const value: models.OutputSecurityLakeSecurityLake3 = {
+  id: "<id>",
+  type: "security_lake",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  bucket: "<value>",
+  region: "<value>",
+  awsSecretKey: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
   storageClass: "GLACIER",
+  serverSideEncryption: "aws:kms",
+  kmsKeyId: "<id>",
+  accountId: "<id>",
+  customSource: "<value>",
+  shouldLogInvalidRows: true,
+  keyValueMetadata: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+  description:
+    "far babyish however yarmulke considering frightfully terribly that forgather rightfully",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  parquetSchema: "<value>",
+};
+```
+
+### `models.OutputSecurityLakeSecurityLake4`
+
+```typescript
+const value: models.OutputSecurityLakeSecurityLake4 = {
+  serverSideEncryption: "AES256",
+  id: "<id>",
+  type: "security_lake",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  bucket: "<value>",
+  region: "<value>",
+  awsSecretKey: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  storageClass: "DEEP_ARCHIVE",
+  kmsKeyId: "<id>",
+  accountId: "<id>",
+  customSource: "<value>",
+  shouldLogInvalidRows: true,
+  keyValueMetadata: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+  description: "how vacantly muted",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  parquetSchema: "<value>",
+};
+```
+
+### `models.OutputSecurityLakeSecurityLake5`
+
+```typescript
+const value: models.OutputSecurityLakeSecurityLake5 = {
+  serverSideEncryption: "aws:kms",
+  id: "<id>",
+  type: "security_lake",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  bucket: "<value>",
+  region: "<value>",
+  awsSecretKey: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  storageClass: "STANDARD",
+  kmsKeyId: "<id>",
+  accountId: "<id>",
+  customSource: "<value>",
+  shouldLogInvalidRows: true,
+  keyValueMetadata: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+  description:
+    "redesign physically ferret above ouch remand density atop likable ha",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  parquetSchema: "<value>",
+};
+```
+
+### `models.OutputSecurityLakeSecurityLake6`
+
+```typescript
+const value: models.OutputSecurityLakeSecurityLake6 = {
+  id: "<id>",
+  type: "security_lake",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  bucket: "<value>",
+  region: "<value>",
+  awsSecretKey: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  storageClass: "ONEZONE_IA",
   serverSideEncryption: "AES256",
   kmsKeyId: "<id>",
   accountId: "<id>",
@@ -30,74 +242,226 @@ let value: OutputSecurityLake = {
   shouldLogInvalidRows: false,
   keyValueMetadata: [
     {
+      key: "<key>",
       value: "<value>",
     },
   ],
-  description: "ew anenst bruised fervently stiffen lace deform",
+  description:
+    "bossy ouch since yuck next edge against athwart cauliflower briskly",
   awsApiKey: "<value>",
   awsSecret: "<value>",
   parquetSchema: "<value>",
 };
 ```
 
-## Fields
+### `models.OutputSecurityLakeSecurityLake7`
 
-| Field                                                                                                                                                                                                                                                         | Type                                                                                                                                                                                                                                                          | Required                                                                                                                                                                                                                                                      | Description                                                                                                                                                                                                                                                   |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                            | Unique ID for this output                                                                                                                                                                                                                                     |
-| `type`                                                                                                                                                                                                                                                        | [models.OutputSecurityLakeType](../models/outputsecuritylaketype.md)                                                                                                                                                                                          | :heavy_check_mark:                                                                                                                                                                                                                                            | N/A                                                                                                                                                                                                                                                           |
-| `pipeline`                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                            | Pipeline to process data before sending out to this output                                                                                                                                                                                                    |
-| `systemFields`                                                                                                                                                                                                                                                | *string*[]                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                            | Fields to automatically add to events, such as cribl_pipe. Supports wildcards. These fields are added as dimensions and labels to generated metrics and logs, respectively.                                                                                   |
-| `environment`                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                            | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                                          |
-| `streamtags`                                                                                                                                                                                                                                                  | *string*[]                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                            | Tags for filtering and grouping in @{product}                                                                                                                                                                                                                 |
-| `bucket`                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                      | :heavy_check_mark:                                                                                                                                                                                                                                            | Name of the destination S3 bucket. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at initialization time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}` |
-| `region`                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                      | :heavy_check_mark:                                                                                                                                                                                                                                            | Region where the Amazon Security Lake is located.                                                                                                                                                                                                             |
-| `awsSecretKey`                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                            | N/A                                                                                                                                                                                                                                                           |
-| `awsAuthenticationMethod`                                                                                                                                                                                                                                     | [models.OutputSecurityLakeAuthenticationMethod](../models/outputsecuritylakeauthenticationmethod.md)                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                            | AWS authentication method. Choose Auto to use IAM roles.                                                                                                                                                                                                      |
-| `endpoint`                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                            | Amazon Security Lake service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Amazon Security Lake-compatible endpoint.                                                                                          |
-| `signatureVersion`                                                                                                                                                                                                                                            | [models.OutputSecurityLakeSignatureVersion](../models/outputsecuritylakesignatureversion.md)                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                            | Signature version to use for signing Amazon Security Lake requests                                                                                                                                                                                            |
-| `reuseConnections`                                                                                                                                                                                                                                            | *boolean*                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                            | Reuse connections between requests, which can improve performance                                                                                                                                                                                             |
-| `rejectUnauthorized`                                                                                                                                                                                                                                          | *boolean*                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                            | Reject certificates that cannot be verified against a valid CA, such as self-signed certificates                                                                                                                                                              |
-| `enableAssumeRole`                                                                                                                                                                                                                                            | *boolean*                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                            | Use Assume Role credentials to access S3                                                                                                                                                                                                                      |
-| `assumeRoleArn`                                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                                      | :heavy_check_mark:                                                                                                                                                                                                                                            | Amazon Resource Name (ARN) of the role to assume                                                                                                                                                                                                              |
-| `assumeRoleExternalId`                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                            | External ID to use when assuming role                                                                                                                                                                                                                         |
-| `durationSeconds`                                                                                                                                                                                                                                             | *number*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                            | Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).                                                                                                                   |
-| `stagePath`                                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                            | Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.                                                                                                                          |
-| `addIdToStagePath`                                                                                                                                                                                                                                            | *boolean*                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                            | Add the Output ID value to staging location                                                                                                                                                                                                                   |
-| `objectACL`                                                                                                                                                                                                                                                   | [models.OutputSecurityLakeObjectACL](../models/outputsecuritylakeobjectacl.md)                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                            | Object ACL to assign to uploaded objects                                                                                                                                                                                                                      |
-| `storageClass`                                                                                                                                                                                                                                                | [models.OutputSecurityLakeStorageClass](../models/outputsecuritylakestorageclass.md)                                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                            | Storage class to select for uploaded objects                                                                                                                                                                                                                  |
-| `serverSideEncryption`                                                                                                                                                                                                                                        | [models.OutputSecurityLakeServerSideEncryptionForUploadedObjects](../models/outputsecuritylakeserversideencryptionforuploadedobjects.md)                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                            | N/A                                                                                                                                                                                                                                                           |
-| `kmsKeyId`                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                            | ID or ARN of the KMS customer-managed key to use for encryption                                                                                                                                                                                               |
-| `removeEmptyDirs`                                                                                                                                                                                                                                             | *boolean*                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                            | Remove empty staging directories after moving files                                                                                                                                                                                                           |
-| `baseFileName`                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                            | JavaScript expression to define the output filename prefix (can be constant)                                                                                                                                                                                  |
-| `maxFileSizeMB`                                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                            | Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.                                                                                                                                                  |
-| `maxOpenFiles`                                                                                                                                                                                                                                                | *number*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                            | Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.                                                                                                     |
-| `headerLine`                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                            | If set, this line will be written to the beginning of each output file                                                                                                                                                                                        |
-| `writeHighWaterMark`                                                                                                                                                                                                                                          | *number*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                            | Buffer size used to write to a file                                                                                                                                                                                                                           |
-| `onBackpressure`                                                                                                                                                                                                                                              | [models.OutputSecurityLakeBackpressureBehavior](../models/outputsecuritylakebackpressurebehavior.md)                                                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                                                                                            | How to handle events when all receivers are exerting backpressure                                                                                                                                                                                             |
-| `deadletterEnabled`                                                                                                                                                                                                                                           | *boolean*                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                            | If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors                                                                                                             |
-| `onDiskFullBackpressure`                                                                                                                                                                                                                                      | [models.OutputSecurityLakeDiskSpaceProtection](../models/outputsecuritylakediskspaceprotection.md)                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                            | How to handle events when disk space is below the global 'Min free disk space' limit                                                                                                                                                                          |
-| `maxFileOpenTimeSec`                                                                                                                                                                                                                                          | *number*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                            | Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.                                                                                                                                 |
-| `maxFileIdleTimeSec`                                                                                                                                                                                                                                          | *number*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                            | Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.                                                                                                                        |
-| `maxConcurrentFileParts`                                                                                                                                                                                                                                      | *number*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                            | Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.                                                                                                                                                                             |
-| `verifyPermissions`                                                                                                                                                                                                                                           | *boolean*                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                            | Disable if you can access files within the bucket but not the bucket itself                                                                                                                                                                                   |
-| `maxClosingFilesToBackpressure`                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                            | Maximum number of files that can be waiting for upload before backpressure is applied                                                                                                                                                                         |
-| `accountId`                                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                                      | :heavy_check_mark:                                                                                                                                                                                                                                            | ID of the AWS account whose data the Destination will write to Security Lake. This should have been configured when creating the Amazon Security Lake custom source.                                                                                          |
-| `customSource`                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                      | :heavy_check_mark:                                                                                                                                                                                                                                            | Name of the custom source configured in Amazon Security Lake                                                                                                                                                                                                  |
-| `automaticSchema`                                                                                                                                                                                                                                             | *boolean*                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                            | Automatically calculate the schema based on the events of each Parquet file generated                                                                                                                                                                         |
-| `parquetVersion`                                                                                                                                                                                                                                              | [models.OutputSecurityLakeParquetVersion](../models/outputsecuritylakeparquetversion.md)                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                            | Determines which data types are supported and how they are represented                                                                                                                                                                                        |
-| `parquetDataPageVersion`                                                                                                                                                                                                                                      | [models.OutputSecurityLakeDataPageVersion](../models/outputsecuritylakedatapageversion.md)                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                            | Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.                                                                                                     |
-| `parquetRowGroupLength`                                                                                                                                                                                                                                       | *number*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                            | The number of rows that every group will contain. The final group can contain a smaller number of rows.                                                                                                                                                       |
-| `parquetPageSize`                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                            | Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.                                                                                                           |
-| `shouldLogInvalidRows`                                                                                                                                                                                                                                        | *boolean*                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                            | Log up to 3 rows that @{product} skips due to data mismatch                                                                                                                                                                                                   |
-| `keyValueMetadata`                                                                                                                                                                                                                                            | [models.OutputSecurityLakeKeyValueMetadatum](../models/outputsecuritylakekeyvaluemetadatum.md)[]                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                            | The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"                                                                              |
-| `enableStatistics`                                                                                                                                                                                                                                            | *boolean*                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                            | Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.                                                                                                        |
-| `enableWritePageIndex`                                                                                                                                                                                                                                        | *boolean*                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                            | One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.                                                                                                                                                 |
-| `enablePageChecksum`                                                                                                                                                                                                                                          | *boolean*                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                            | Parquet tools can use the checksum of a Parquet page to verify data integrity                                                                                                                                                                                 |
-| `description`                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                            | N/A                                                                                                                                                                                                                                                           |
-| `awsApiKey`                                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                            | This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)                                                                                                                                                                          |
-| `awsSecret`                                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                            | Select or create a stored secret that references your access key and secret key                                                                                                                                                                               |
-| `emptyDirCleanupSec`                                                                                                                                                                                                                                          | *number*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                            | How frequently, in seconds, to clean up empty directories                                                                                                                                                                                                     |
-| `parquetSchema`                                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                            | To add a new schema, navigate to Processing > Knowledge > Parquet Schemas                                                                                                                                                                                     |
-| `deadletterPath`                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                            | Storage location for files that fail to reach their final destination after maximum retries are exceeded                                                                                                                                                      |
-| `maxRetryNum`                                                                                                                                                                                                                                                 | *number*                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                            | The maximum number of times a file will attempt to move to its final destination before being dead-lettered                                                                                                                                                   |
+```typescript
+const value: models.OutputSecurityLakeSecurityLake7 = {
+  id: "<id>",
+  type: "security_lake",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  bucket: "<value>",
+  region: "<value>",
+  awsSecretKey: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  storageClass: "REDUCED_REDUNDANCY",
+  serverSideEncryption: "aws:kms",
+  kmsKeyId: "<id>",
+  accountId: "<id>",
+  customSource: "<value>",
+  shouldLogInvalidRows: false,
+  keyValueMetadata: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+  description:
+    "naturally brr over whose wherever whoever never astride owlishly overconfidently",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  parquetSchema: "<value>",
+};
+```
+
+### `models.OutputSecurityLakeSecurityLake8`
+
+```typescript
+const value: models.OutputSecurityLakeSecurityLake8 = {
+  id: "<id>",
+  type: "security_lake",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  bucket: "<value>",
+  region: "<value>",
+  awsSecretKey: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  storageClass: "DEEP_ARCHIVE",
+  serverSideEncryption: "AES256",
+  kmsKeyId: "<id>",
+  accountId: "<id>",
+  customSource: "<value>",
+  shouldLogInvalidRows: true,
+  keyValueMetadata: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+  description: "hungrily cassava ha per vet gee representation",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  parquetSchema: "<value>",
+};
+```
+
+### `models.OutputSecurityLakeSecurityLake9`
+
+```typescript
+const value: models.OutputSecurityLakeSecurityLake9 = {
+  id: "<id>",
+  type: "security_lake",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  bucket: "<value>",
+  region: "<value>",
+  awsSecretKey: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  storageClass: "STANDARD",
+  serverSideEncryption: "aws:kms",
+  kmsKeyId: "<id>",
+  accountId: "<id>",
+  customSource: "<value>",
+  shouldLogInvalidRows: true,
+  keyValueMetadata: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+  description: "reiterate aw after apud um jealously for anenst",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  parquetSchema: "<value>",
+};
+```
+
+### `models.OutputSecurityLakeSecurityLake10`
+
+```typescript
+const value: models.OutputSecurityLakeSecurityLake10 = {
+  id: "<id>",
+  type: "security_lake",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  bucket: "<value>",
+  region: "<value>",
+  awsSecretKey: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  storageClass: "REDUCED_REDUNDANCY",
+  serverSideEncryption: "aws:kms",
+  kmsKeyId: "<id>",
+  accountId: "<id>",
+  customSource: "<value>",
+  shouldLogInvalidRows: false,
+  keyValueMetadata: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+  description: "guacamole teammate gee brr that better vista mostly",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  parquetSchema: "<value>",
+};
+```
+
+### `models.OutputSecurityLakeSecurityLake11`
+
+```typescript
+const value: models.OutputSecurityLakeSecurityLake11 = {
+  id: "<id>",
+  type: "security_lake",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  bucket: "<value>",
+  region: "<value>",
+  awsSecretKey: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  storageClass: "GLACIER_IR",
+  serverSideEncryption: "aws:kms",
+  kmsKeyId: "<id>",
+  accountId: "<id>",
+  customSource: "<value>",
+  shouldLogInvalidRows: true,
+  keyValueMetadata: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+  description: "as amongst of aha black-and-white abaft",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  parquetSchema: "<value>",
+};
+```
+

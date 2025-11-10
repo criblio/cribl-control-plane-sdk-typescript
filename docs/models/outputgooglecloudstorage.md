@@ -1,11 +1,213 @@
 # OutputGoogleCloudStorage
 
-## Example Usage
+
+## Supported Types
+
+### `models.OutputGoogleCloudStorageGoogleCloudStorage1`
 
 ```typescript
-import { OutputGoogleCloudStorage } from "cribl-control-plane/models";
+const value: models.OutputGoogleCloudStorageGoogleCloudStorage1 = {
+  id: "<id>",
+  type: "google_cloud_storage",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  bucket: "<value>",
+  region: "<value>",
+  storageClass: "COLDLINE",
+  description:
+    "fluctuate vainly ethical repeatedly tuxedo slimy over like cautiously",
+  parquetSchema: "<value>",
+  shouldLogInvalidRows: false,
+  keyValueMetadata: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+  awsApiKey: "<value>",
+  awsSecretKey: "<value>",
+  awsSecret: "<value>",
+};
+```
 
-let value: OutputGoogleCloudStorage = {
+### `models.OutputGoogleCloudStorageGoogleCloudStorage2`
+
+```typescript
+const value: models.OutputGoogleCloudStorageGoogleCloudStorage2 = {
+  id: "<id>",
+  type: "google_cloud_storage",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  bucket: "<value>",
+  region: "<value>",
+  storageClass: "STANDARD",
+  description: "chubby brandish usefully",
+  parquetSchema: "<value>",
+  shouldLogInvalidRows: true,
+  keyValueMetadata: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+  awsApiKey: "<value>",
+  awsSecretKey: "<value>",
+  awsSecret: "<value>",
+};
+```
+
+### `models.OutputGoogleCloudStorageGoogleCloudStorage3`
+
+```typescript
+const value: models.OutputGoogleCloudStorageGoogleCloudStorage3 = {
+  id: "<id>",
+  type: "google_cloud_storage",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  bucket: "<value>",
+  region: "<value>",
+  storageClass: "ARCHIVE",
+  description: "huzzah reassuringly nicely concerned",
+  parquetSchema: "<value>",
+  shouldLogInvalidRows: true,
+  keyValueMetadata: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+  awsApiKey: "<value>",
+  awsSecretKey: "<value>",
+  awsSecret: "<value>",
+};
+```
+
+### `models.OutputGoogleCloudStorageGoogleCloudStorage4`
+
+```typescript
+const value: models.OutputGoogleCloudStorageGoogleCloudStorage4 = {
+  id: "<id>",
+  type: "google_cloud_storage",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  bucket: "<value>",
+  region: "<value>",
+  storageClass: "STANDARD",
+  description:
+    "strange forgather wafer belabor through explode wherever especially since",
+  parquetSchema: "<value>",
+  shouldLogInvalidRows: true,
+  keyValueMetadata: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+  awsApiKey: "<value>",
+  awsSecretKey: "<value>",
+  awsSecret: "<value>",
+};
+```
+
+### `models.OutputGoogleCloudStorageGoogleCloudStorage5`
+
+```typescript
+const value: models.OutputGoogleCloudStorageGoogleCloudStorage5 = {
+  id: "<id>",
+  type: "google_cloud_storage",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  bucket: "<value>",
+  region: "<value>",
+  storageClass: "COLDLINE",
+  description: "provided opposite roasted unused meh along until idle",
+  parquetSchema: "<value>",
+  shouldLogInvalidRows: false,
+  keyValueMetadata: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+  awsApiKey: "<value>",
+  awsSecretKey: "<value>",
+  awsSecret: "<value>",
+};
+```
+
+### `models.OutputGoogleCloudStorageGoogleCloudStorage6`
+
+```typescript
+const value: models.OutputGoogleCloudStorageGoogleCloudStorage6 = {
+  id: "<id>",
+  type: "google_cloud_storage",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  bucket: "<value>",
+  region: "<value>",
+  storageClass: "STANDARD",
+  description: "gosh magnetize transplant huzzah supposing orientate for",
+  parquetSchema: "<value>",
+  shouldLogInvalidRows: false,
+  keyValueMetadata: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+  awsApiKey: "<value>",
+  awsSecretKey: "<value>",
+  awsSecret: "<value>",
+};
+```
+
+### `models.OutputGoogleCloudStorageGoogleCloudStorage7`
+
+```typescript
+const value: models.OutputGoogleCloudStorageGoogleCloudStorage7 = {
   id: "<id>",
   type: "google_cloud_storage",
   pipeline: "<value>",
@@ -17,14 +219,17 @@ let value: OutputGoogleCloudStorage = {
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
   bucket: "<value>",
   region: "<value>",
-  storageClass: "ARCHIVE",
-  description: "piglet unnaturally near reassuringly since",
+  storageClass: "COLDLINE",
+  description: "footrest questionably failing educated volunteer misreport",
+  parquetSchema: "<value>",
   shouldLogInvalidRows: false,
   keyValueMetadata: [
     {
+      key: "<key>",
       value: "<value>",
     },
   ],
@@ -34,59 +239,71 @@ let value: OutputGoogleCloudStorage = {
 };
 ```
 
-## Fields
+### `models.OutputGoogleCloudStorageGoogleCloudStorage8`
 
-| Field                                                                                                                                                                                                                                                                | Type                                                                                                                                                                                                                                                                 | Required                                                                                                                                                                                                                                                             | Description                                                                                                                                                                                                                                                          |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`                                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Unique ID for this output                                                                                                                                                                                                                                            |
-| `type`                                                                                                                                                                                                                                                               | [models.OutputGoogleCloudStorageType](../models/outputgooglecloudstoragetype.md)                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                                                                   | N/A                                                                                                                                                                                                                                                                  |
-| `pipeline`                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Pipeline to process data before sending out to this output                                                                                                                                                                                                           |
-| `systemFields`                                                                                                                                                                                                                                                       | *string*[]                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Fields to automatically add to events, such as cribl_pipe. Supports wildcards.                                                                                                                                                                                       |
-| `environment`                                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                                                 |
-| `streamtags`                                                                                                                                                                                                                                                         | *string*[]                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Tags for filtering and grouping in @{product}                                                                                                                                                                                                                        |
-| `bucket`                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                                                                                                                   | Name of the destination bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example of referencing a Global Variable: `myBucket-${C.vars.myVar}`.                                                               |
-| `region`                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                                                                                                                   | Region where the bucket is located                                                                                                                                                                                                                                   |
-| `endpoint`                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Google Cloud Storage service endpoint                                                                                                                                                                                                                                |
-| `signatureVersion`                                                                                                                                                                                                                                                   | [models.OutputGoogleCloudStorageSignatureVersion](../models/outputgooglecloudstoragesignatureversion.md)                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Signature version to use for signing Google Cloud Storage requests                                                                                                                                                                                                   |
-| `awsAuthenticationMethod`                                                                                                                                                                                                                                            | [models.OutputGoogleCloudStorageAuthenticationMethod](../models/outputgooglecloudstorageauthenticationmethod.md)                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                   | N/A                                                                                                                                                                                                                                                                  |
-| `stagePath`                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.                                                                                                                                 |
-| `destPath`                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`     |
-| `verifyPermissions`                                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Disable if you can access files within the bucket but not the bucket itself                                                                                                                                                                                          |
-| `objectACL`                                                                                                                                                                                                                                                          | [models.OutputGoogleCloudStorageObjectACL](../models/outputgooglecloudstorageobjectacl.md)                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Object ACL to assign to uploaded objects                                                                                                                                                                                                                             |
-| `storageClass`                                                                                                                                                                                                                                                       | [models.OutputGoogleCloudStorageStorageClass](../models/outputgooglecloudstoragestorageclass.md)                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Storage class to select for uploaded objects                                                                                                                                                                                                                         |
-| `reuseConnections`                                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Reuse connections between requests, which can improve performance                                                                                                                                                                                                    |
-| `rejectUnauthorized`                                                                                                                                                                                                                                                 | *boolean*                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Reject certificates that cannot be verified against a valid CA, such as self-signed certificates                                                                                                                                                                     |
-| `addIdToStagePath`                                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Add the Output ID value to staging location                                                                                                                                                                                                                          |
-| `removeEmptyDirs`                                                                                                                                                                                                                                                    | *boolean*                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Remove empty staging directories after moving files                                                                                                                                                                                                                  |
-| `partitionExpr`                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.                                    |
-| `format`                                                                                                                                                                                                                                                             | [models.OutputGoogleCloudStorageDataFormat](../models/outputgooglecloudstoragedataformat.md)                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Format of the output data                                                                                                                                                                                                                                            |
-| `baseFileName`                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | JavaScript expression to define the output filename prefix (can be constant)                                                                                                                                                                                         |
-| `fileNameSuffix`                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`). |
-| `maxFileSizeMB`                                                                                                                                                                                                                                                      | *number*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.                                                                                                                                                         |
-| `maxFileOpenTimeSec`                                                                                                                                                                                                                                                 | *number*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.                                                                                                                                        |
-| `maxFileIdleTimeSec`                                                                                                                                                                                                                                                 | *number*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.                                                                                                                               |
-| `maxOpenFiles`                                                                                                                                                                                                                                                       | *number*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.                                                                                                            |
-| `headerLine`                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | If set, this line will be written to the beginning of each output file                                                                                                                                                                                               |
-| `writeHighWaterMark`                                                                                                                                                                                                                                                 | *number*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Buffer size used to write to a file                                                                                                                                                                                                                                  |
-| `onBackpressure`                                                                                                                                                                                                                                                     | [models.OutputGoogleCloudStorageBackpressureBehavior](../models/outputgooglecloudstoragebackpressurebehavior.md)                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                   | How to handle events when all receivers are exerting backpressure                                                                                                                                                                                                    |
-| `deadletterEnabled`                                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                   | If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors                                                                                                                    |
-| `onDiskFullBackpressure`                                                                                                                                                                                                                                             | [models.OutputGoogleCloudStorageDiskSpaceProtection](../models/outputgooglecloudstoragediskspaceprotection.md)                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                   | How to handle events when disk space is below the global 'Min free disk space' limit                                                                                                                                                                                 |
-| `description`                                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | N/A                                                                                                                                                                                                                                                                  |
-| `compress`                                                                                                                                                                                                                                                           | [models.OutputGoogleCloudStorageCompression](../models/outputgooglecloudstoragecompression.md)                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Data compression format to apply to HTTP content before it is delivered                                                                                                                                                                                              |
-| `compressionLevel`                                                                                                                                                                                                                                                   | [models.OutputGoogleCloudStorageCompressionLevel](../models/outputgooglecloudstoragecompressionlevel.md)                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Compression level to apply before moving files to final destination                                                                                                                                                                                                  |
-| `automaticSchema`                                                                                                                                                                                                                                                    | *boolean*                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Automatically calculate the schema based on the events of each Parquet file generated                                                                                                                                                                                |
-| `parquetVersion`                                                                                                                                                                                                                                                     | [models.OutputGoogleCloudStorageParquetVersion](../models/outputgooglecloudstorageparquetversion.md)                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Determines which data types are supported and how they are represented                                                                                                                                                                                               |
-| `parquetDataPageVersion`                                                                                                                                                                                                                                             | [models.OutputGoogleCloudStorageDataPageVersion](../models/outputgooglecloudstoragedatapageversion.md)                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.                                                                                                            |
-| `parquetRowGroupLength`                                                                                                                                                                                                                                              | *number*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | The number of rows that every group will contain. The final group can contain a smaller number of rows.                                                                                                                                                              |
-| `parquetPageSize`                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.                                                                                                                  |
-| `shouldLogInvalidRows`                                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Log up to 3 rows that @{product} skips due to data mismatch                                                                                                                                                                                                          |
-| `keyValueMetadata`                                                                                                                                                                                                                                                   | [models.OutputGoogleCloudStorageKeyValueMetadatum](../models/outputgooglecloudstoragekeyvaluemetadatum.md)[]                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                   | The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"                                                                                     |
-| `enableStatistics`                                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.                                                                                                               |
-| `enableWritePageIndex`                                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                   | One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.                                                                                                                                                        |
-| `enablePageChecksum`                                                                                                                                                                                                                                                 | *boolean*                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Parquet tools can use the checksum of a Parquet page to verify data integrity                                                                                                                                                                                        |
-| `emptyDirCleanupSec`                                                                                                                                                                                                                                                 | *number*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | How frequently, in seconds, to clean up empty directories                                                                                                                                                                                                            |
-| `deadletterPath`                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Storage location for files that fail to reach their final destination after maximum retries are exceeded                                                                                                                                                             |
-| `maxRetryNum`                                                                                                                                                                                                                                                        | *number*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | The maximum number of times a file will attempt to move to its final destination before being dead-lettered                                                                                                                                                          |
-| `awsApiKey`                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | HMAC access key. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.                                                                                                                                                         |
-| `awsSecretKey`                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | HMAC secret. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.                                                                                                                                                                 |
-| `awsSecret`                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Select or create a stored secret that references your access key and secret key                                                                                                                                                                                      |
+```typescript
+const value: models.OutputGoogleCloudStorageGoogleCloudStorage8 = {
+  id: "<id>",
+  type: "google_cloud_storage",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  bucket: "<value>",
+  region: "<value>",
+  storageClass: "COLDLINE",
+  description: "since hassle why",
+  parquetSchema: "<value>",
+  shouldLogInvalidRows: true,
+  keyValueMetadata: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+  awsApiKey: "<value>",
+  awsSecretKey: "<value>",
+  awsSecret: "<value>",
+};
+```
+
+### `models.OutputGoogleCloudStorageGoogleCloudStorage9`
+
+```typescript
+const value: models.OutputGoogleCloudStorageGoogleCloudStorage9 = {
+  id: "<id>",
+  type: "google_cloud_storage",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  bucket: "<value>",
+  region: "<value>",
+  storageClass: "COLDLINE",
+  description:
+    "neighboring formation pension limply phew since rarely likewise",
+  parquetSchema: "<value>",
+  shouldLogInvalidRows: false,
+  keyValueMetadata: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+  awsApiKey: "<value>",
+  awsSecretKey: "<value>",
+  awsSecret: "<value>",
+};
+```
+

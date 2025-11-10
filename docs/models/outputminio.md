@@ -1,11 +1,260 @@
 # OutputMinio
 
-## Example Usage
+
+## Supported Types
+
+### `models.OutputMinioMinio1`
 
 ```typescript
-import { OutputMinio } from "cribl-control-plane/models";
+const value: models.OutputMinioMinio1 = {
+  id: "<id>",
+  type: "minio",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  endpoint: "<value>",
+  bucket: "<value>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  destPath: "<value>",
+  storageClass: "REDUCED_REDUNDANCY",
+  serverSideEncryption: "AES256",
+  description: "than yippee broadside reboot blah smug blossom internalise",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  parquetSchema: "<value>",
+  shouldLogInvalidRows: true,
+  keyValueMetadata: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+};
+```
 
-let value: OutputMinio = {
+### `models.OutputMinioMinio2`
+
+```typescript
+const value: models.OutputMinioMinio2 = {
+  id: "<id>",
+  type: "minio",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  endpoint: "<value>",
+  bucket: "<value>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  destPath: "<value>",
+  storageClass: "STANDARD",
+  serverSideEncryption: "AES256",
+  description:
+    "far-off into blaspheme past instead considering energetically gastropod",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  parquetSchema: "<value>",
+  shouldLogInvalidRows: false,
+  keyValueMetadata: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+};
+```
+
+### `models.OutputMinioMinio3`
+
+```typescript
+const value: models.OutputMinioMinio3 = {
+  id: "<id>",
+  type: "minio",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  endpoint: "<value>",
+  bucket: "<value>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  destPath: "<value>",
+  storageClass: "STANDARD",
+  serverSideEncryption: "AES256",
+  description: "disapprove if dime",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  parquetSchema: "<value>",
+  shouldLogInvalidRows: true,
+  keyValueMetadata: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+};
+```
+
+### `models.OutputMinioMinio4`
+
+```typescript
+const value: models.OutputMinioMinio4 = {
+  id: "<id>",
+  type: "minio",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  endpoint: "<value>",
+  bucket: "<value>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  destPath: "<value>",
+  storageClass: "REDUCED_REDUNDANCY",
+  serverSideEncryption: "AES256",
+  description: "deserted bleakly round acidly quizzically dental via",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  parquetSchema: "<value>",
+  shouldLogInvalidRows: false,
+  keyValueMetadata: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+};
+```
+
+### `models.OutputMinioMinio5`
+
+```typescript
+const value: models.OutputMinioMinio5 = {
+  id: "<id>",
+  type: "minio",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  endpoint: "<value>",
+  bucket: "<value>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  destPath: "<value>",
+  storageClass: "STANDARD",
+  serverSideEncryption: "AES256",
+  description:
+    "hose slowly where sprinkles wetly at hypothesise fold wetly whether",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  parquetSchema: "<value>",
+  shouldLogInvalidRows: false,
+  keyValueMetadata: [],
+};
+```
+
+### `models.OutputMinioMinio6`
+
+```typescript
+const value: models.OutputMinioMinio6 = {
+  id: "<id>",
+  type: "minio",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  endpoint: "<value>",
+  bucket: "<value>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  destPath: "<value>",
+  storageClass: "REDUCED_REDUNDANCY",
+  serverSideEncryption: "AES256",
+  description:
+    "while blissfully than status sonata spew slipper solidly separately",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  parquetSchema: "<value>",
+  shouldLogInvalidRows: false,
+  keyValueMetadata: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+};
+```
+
+### `models.OutputMinioMinio7`
+
+```typescript
+const value: models.OutputMinioMinio7 = {
+  id: "<id>",
+  type: "minio",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  endpoint: "<value>",
+  bucket: "<value>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  destPath: "<value>",
+  storageClass: "REDUCED_REDUNDANCY",
+  serverSideEncryption: "AES256",
+  description: "midst genuine impish married baggy knottily",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  parquetSchema: "<value>",
+  shouldLogInvalidRows: false,
+  keyValueMetadata: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+};
+```
+
+### `models.OutputMinioMinio8`
+
+```typescript
+const value: models.OutputMinioMinio8 = {
   id: "<id>",
   type: "minio",
   pipeline: "<value>",
@@ -23,75 +272,57 @@ let value: OutputMinio = {
   awsSecretKey: "<value>",
   region: "<value>",
   destPath: "<value>",
-  storageClass: "REDUCED_REDUNDANCY",
+  storageClass: "STANDARD",
   serverSideEncryption: "AES256",
-  description: "yet fidget reassuringly mid worth mountain save haversack",
+  description: "whereas deck even while bump neat naturally yippee hourly",
   awsApiKey: "<value>",
   awsSecret: "<value>",
+  parquetSchema: "<value>",
   shouldLogInvalidRows: false,
   keyValueMetadata: [
     {
+      key: "<key>",
       value: "<value>",
     },
   ],
 };
 ```
 
-## Fields
+### `models.OutputMinioMinio9`
 
-| Field                                                                                                                                                                                                                                                                | Type                                                                                                                                                                                                                                                                 | Required                                                                                                                                                                                                                                                             | Description                                                                                                                                                                                                                                                          |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`                                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Unique ID for this output                                                                                                                                                                                                                                            |
-| `type`                                                                                                                                                                                                                                                               | [models.OutputMinioType](../models/outputminiotype.md)                                                                                                                                                                                                               | :heavy_check_mark:                                                                                                                                                                                                                                                   | N/A                                                                                                                                                                                                                                                                  |
-| `pipeline`                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Pipeline to process data before sending out to this output                                                                                                                                                                                                           |
-| `systemFields`                                                                                                                                                                                                                                                       | *string*[]                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Fields to automatically add to events, such as cribl_pipe. Supports wildcards.                                                                                                                                                                                       |
-| `environment`                                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                                                 |
-| `streamtags`                                                                                                                                                                                                                                                         | *string*[]                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Tags for filtering and grouping in @{product}                                                                                                                                                                                                                        |
-| `endpoint`                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                                                                                                                   | MinIO service url (e.g. http://minioHost:9000)                                                                                                                                                                                                                       |
-| `bucket`                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                             | :heavy_check_mark:                                                                                                                                                                                                                                                   | Name of the destination MinIO bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`                                                             |
-| `awsAuthenticationMethod`                                                                                                                                                                                                                                            | [models.OutputMinioAuthenticationMethod](../models/outputminioauthenticationmethod.md)                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                   | AWS authentication method. Choose Auto to use IAM roles.                                                                                                                                                                                                             |
-| `awsSecretKey`                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).                                                                                                                                                                |
-| `region`                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Region where the MinIO service/cluster is located                                                                                                                                                                                                                    |
-| `stagePath`                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.                                                                                                                                     |
-| `addIdToStagePath`                                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Add the Output ID value to staging location                                                                                                                                                                                                                          |
-| `destPath`                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Root directory to prepend to path before uploading. Enter a constant, or a JavaScript expression enclosed in quotes or backticks.                                                                                                                                    |
-| `signatureVersion`                                                                                                                                                                                                                                                   | [models.OutputMinioSignatureVersion](../models/outputminiosignatureversion.md)                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Signature version to use for signing MinIO requests                                                                                                                                                                                                                  |
-| `objectACL`                                                                                                                                                                                                                                                          | [models.OutputMinioObjectACL](../models/outputminioobjectacl.md)                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Object ACL to assign to uploaded objects                                                                                                                                                                                                                             |
-| `storageClass`                                                                                                                                                                                                                                                       | [models.OutputMinioStorageClass](../models/outputminiostorageclass.md)                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Storage class to select for uploaded objects                                                                                                                                                                                                                         |
-| `serverSideEncryption`                                                                                                                                                                                                                                               | [models.ServerSideEncryption](../models/serversideencryption.md)                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Server-side encryption for uploaded objects                                                                                                                                                                                                                          |
-| `reuseConnections`                                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Reuse connections between requests, which can improve performance                                                                                                                                                                                                    |
-| `rejectUnauthorized`                                                                                                                                                                                                                                                 | *boolean*                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Reject certificates that cannot be verified against a valid CA, such as self-signed certificates)                                                                                                                                                                    |
-| `verifyPermissions`                                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Disable if you can access files within the bucket but not the bucket itself                                                                                                                                                                                          |
-| `removeEmptyDirs`                                                                                                                                                                                                                                                    | *boolean*                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Remove empty staging directories after moving files                                                                                                                                                                                                                  |
-| `partitionExpr`                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.                                    |
-| `format`                                                                                                                                                                                                                                                             | [models.OutputMinioDataFormat](../models/outputminiodataformat.md)                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Format of the output data                                                                                                                                                                                                                                            |
-| `baseFileName`                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | JavaScript expression to define the output filename prefix (can be constant)                                                                                                                                                                                         |
-| `fileNameSuffix`                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`). |
-| `maxFileSizeMB`                                                                                                                                                                                                                                                      | *number*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.                                                                                                                                                         |
-| `maxOpenFiles`                                                                                                                                                                                                                                                       | *number*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.                                                                                                            |
-| `headerLine`                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | If set, this line will be written to the beginning of each output file                                                                                                                                                                                               |
-| `writeHighWaterMark`                                                                                                                                                                                                                                                 | *number*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Buffer size used to write to a file                                                                                                                                                                                                                                  |
-| `onBackpressure`                                                                                                                                                                                                                                                     | [models.OutputMinioBackpressureBehavior](../models/outputminiobackpressurebehavior.md)                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                   | How to handle events when all receivers are exerting backpressure                                                                                                                                                                                                    |
-| `deadletterEnabled`                                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                   | If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors                                                                                                                    |
-| `onDiskFullBackpressure`                                                                                                                                                                                                                                             | [models.OutputMinioDiskSpaceProtection](../models/outputminiodiskspaceprotection.md)                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                   | How to handle events when disk space is below the global 'Min free disk space' limit                                                                                                                                                                                 |
-| `maxFileOpenTimeSec`                                                                                                                                                                                                                                                 | *number*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.                                                                                                                                        |
-| `maxFileIdleTimeSec`                                                                                                                                                                                                                                                 | *number*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.                                                                                                                               |
-| `maxConcurrentFileParts`                                                                                                                                                                                                                                             | *number*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.                                                                                                                                                                                    |
-| `description`                                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | N/A                                                                                                                                                                                                                                                                  |
-| `awsApiKey`                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)                                                                                                                                                                                 |
-| `awsSecret`                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Select or create a stored secret that references your access key and secret key                                                                                                                                                                                      |
-| `compress`                                                                                                                                                                                                                                                           | [models.OutputMinioCompression](../models/outputminiocompression.md)                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Data compression format to apply to HTTP content before it is delivered                                                                                                                                                                                              |
-| `compressionLevel`                                                                                                                                                                                                                                                   | [models.OutputMinioCompressionLevel](../models/outputminiocompressionlevel.md)                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Compression level to apply before moving files to final destination                                                                                                                                                                                                  |
-| `automaticSchema`                                                                                                                                                                                                                                                    | *boolean*                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Automatically calculate the schema based on the events of each Parquet file generated                                                                                                                                                                                |
-| `parquetVersion`                                                                                                                                                                                                                                                     | [models.OutputMinioParquetVersion](../models/outputminioparquetversion.md)                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Determines which data types are supported and how they are represented                                                                                                                                                                                               |
-| `parquetDataPageVersion`                                                                                                                                                                                                                                             | [models.OutputMinioDataPageVersion](../models/outputminiodatapageversion.md)                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.                                                                                                            |
-| `parquetRowGroupLength`                                                                                                                                                                                                                                              | *number*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | The number of rows that every group will contain. The final group can contain a smaller number of rows.                                                                                                                                                              |
-| `parquetPageSize`                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.                                                                                                                  |
-| `shouldLogInvalidRows`                                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Log up to 3 rows that @{product} skips due to data mismatch                                                                                                                                                                                                          |
-| `keyValueMetadata`                                                                                                                                                                                                                                                   | [models.OutputMinioKeyValueMetadatum](../models/outputminiokeyvaluemetadatum.md)[]                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                   | The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"                                                                                     |
-| `enableStatistics`                                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.                                                                                                               |
-| `enableWritePageIndex`                                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                   | One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.                                                                                                                                                        |
-| `enablePageChecksum`                                                                                                                                                                                                                                                 | *boolean*                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Parquet tools can use the checksum of a Parquet page to verify data integrity                                                                                                                                                                                        |
-| `emptyDirCleanupSec`                                                                                                                                                                                                                                                 | *number*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | How frequently, in seconds, to clean up empty directories                                                                                                                                                                                                            |
-| `deadletterPath`                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | Storage location for files that fail to reach their final destination after maximum retries are exceeded                                                                                                                                                             |
-| `maxRetryNum`                                                                                                                                                                                                                                                        | *number*                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                   | The maximum number of times a file will attempt to move to its final destination before being dead-lettered                                                                                                                                                          |
+```typescript
+const value: models.OutputMinioMinio9 = {
+  id: "<id>",
+  type: "minio",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  endpoint: "<value>",
+  bucket: "<value>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  destPath: "<value>",
+  storageClass: "STANDARD",
+  serverSideEncryption: "AES256",
+  description: "pro well-made as where before object",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  parquetSchema: "<value>",
+  shouldLogInvalidRows: true,
+  keyValueMetadata: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+};
+```
+

@@ -4,142 +4,55 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  ConnectionsType,
+  ConnectionsType$inboundSchema,
+  ConnectionsType$Outbound,
+  ConnectionsType$outboundSchema,
+} from "./connectionstype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  Metadata1Type,
+  Metadata1Type$inboundSchema,
+  Metadata1Type$Outbound,
+  Metadata1Type$outboundSchema,
+} from "./metadata1type.js";
+import {
+  Persistence1Type,
+  Persistence1Type$inboundSchema,
+  Persistence1Type$Outbound,
+  Persistence1Type$outboundSchema,
+} from "./persistence1type.js";
+import {
+  PodFilterType,
+  PodFilterType$inboundSchema,
+  PodFilterType$Outbound,
+  PodFilterType$outboundSchema,
+} from "./podfiltertype.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
 
-export const InputKubeMetricsType = {
+export const InputKubeMetricsType4 = {
   KubeMetrics: "kube_metrics",
 } as const;
-export type InputKubeMetricsType = ClosedEnum<typeof InputKubeMetricsType>;
+export type InputKubeMetricsType4 = ClosedEnum<typeof InputKubeMetricsType4>;
 
-export type InputKubeMetricsConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputKubeMetricsMode = {
-  Smart: "smart",
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputKubeMetricsMode = OpenEnum<typeof InputKubeMetricsMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputKubeMetricsCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputKubeMetricsCompression = OpenEnum<
-  typeof InputKubeMetricsCompression
->;
-
-export type InputKubeMetricsPqControls = {};
-
-export type InputKubeMetricsPq = {
+export type InputKubeMetricsKubeMetrics4 = {
   /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  mode?: InputKubeMetricsMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputKubeMetricsCompression | undefined;
-  pqControls?: InputKubeMetricsPqControls | undefined;
-};
-
-export type InputKubeMetricsRule = {
-  /**
-   * JavaScript expression applied to Kubernetes objects. Return 'true' to include it.
-   */
-  filter: string;
-  /**
-   * Optional description of this rule's purpose
-   */
-  description?: string | undefined;
-};
-
-export type InputKubeMetricsMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
-
-export const InputKubeMetricsDataCompressionFormat = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-export type InputKubeMetricsDataCompressionFormat = OpenEnum<
-  typeof InputKubeMetricsDataCompressionFormat
->;
-
-export type InputKubeMetricsPersistence = {
-  /**
-   * Spool metrics on disk for Cribl Search
-   */
-  enable?: boolean | undefined;
-  /**
-   * Time span for each file bucket
-   */
-  timeWindow?: string | undefined;
-  /**
-   * Maximum disk space allowed to be consumed (examples: 420MB, 4GB). When limit is reached, older data will be deleted.
-   */
-  maxDataSize?: string | undefined;
-  /**
-   * Maximum amount of time to retain data (examples: 2h, 4d). When limit is reached, older data will be deleted.
-   */
-  maxDataTime?: string | undefined;
-  compress?: InputKubeMetricsDataCompressionFormat | undefined;
-  /**
-   * Path to use to write metrics. Defaults to $CRIBL_HOME/state/<id>
-   */
-  destPath?: string | undefined;
-};
-
-export type InputKubeMetrics = {
+  pqEnabled?: boolean | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputKubeMetricsType;
+  type: InputKubeMetricsType4;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -149,6 +62,108 @@ export type InputKubeMetrics = {
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq: PqType;
+  /**
+   * Time, in seconds, between consecutive metrics collections. Default is 15 secs.
+   */
+  interval?: number | undefined;
+  /**
+   * Add rules to decide which Kubernetes objects to generate metrics for. Events are generated if no rules are given or of all the rules' expressions evaluate to true.
+   */
+  rules?: Array<PodFilterType> | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  persistence?: Persistence1Type | undefined;
+  description?: string | undefined;
+};
+
+export const InputKubeMetricsType3 = {
+  KubeMetrics: "kube_metrics",
+} as const;
+export type InputKubeMetricsType3 = ClosedEnum<typeof InputKubeMetricsType3>;
+
+export type InputKubeMetricsKubeMetrics3 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputKubeMetricsType3;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Time, in seconds, between consecutive metrics collections. Default is 15 secs.
+   */
+  interval?: number | undefined;
+  /**
+   * Add rules to decide which Kubernetes objects to generate metrics for. Events are generated if no rules are given or of all the rules' expressions evaluate to true.
+   */
+  rules?: Array<PodFilterType> | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  persistence?: Persistence1Type | undefined;
+  description?: string | undefined;
+};
+
+export const InputKubeMetricsType2 = {
+  KubeMetrics: "kube_metrics",
+} as const;
+export type InputKubeMetricsType2 = ClosedEnum<typeof InputKubeMetricsType2>;
+
+export type InputKubeMetricsKubeMetrics2 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputKubeMetricsType2;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -164,8 +179,8 @@ export type InputKubeMetrics = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputKubeMetricsConnection> | undefined;
-  pq?: InputKubeMetricsPq | undefined;
+  connections: Array<ConnectionsType>;
+  pq?: PqType | undefined;
   /**
    * Time, in seconds, between consecutive metrics collections. Default is 15 secs.
    */
@@ -173,499 +188,439 @@ export type InputKubeMetrics = {
   /**
    * Add rules to decide which Kubernetes objects to generate metrics for. Events are generated if no rules are given or of all the rules' expressions evaluate to true.
    */
-  rules?: Array<InputKubeMetricsRule> | undefined;
+  rules?: Array<PodFilterType> | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputKubeMetricsMetadatum> | undefined;
-  persistence?: InputKubeMetricsPersistence | undefined;
+  metadata?: Array<Metadata1Type> | undefined;
+  persistence?: Persistence1Type | undefined;
   description?: string | undefined;
 };
 
-/** @internal */
-export const InputKubeMetricsType$inboundSchema: z.ZodNativeEnum<
-  typeof InputKubeMetricsType
-> = z.nativeEnum(InputKubeMetricsType);
+export const InputKubeMetricsType1 = {
+  KubeMetrics: "kube_metrics",
+} as const;
+export type InputKubeMetricsType1 = ClosedEnum<typeof InputKubeMetricsType1>;
 
-/** @internal */
-export const InputKubeMetricsType$outboundSchema: z.ZodNativeEnum<
-  typeof InputKubeMetricsType
-> = InputKubeMetricsType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKubeMetricsType$ {
-  /** @deprecated use `InputKubeMetricsType$inboundSchema` instead. */
-  export const inboundSchema = InputKubeMetricsType$inboundSchema;
-  /** @deprecated use `InputKubeMetricsType$outboundSchema` instead. */
-  export const outboundSchema = InputKubeMetricsType$outboundSchema;
-}
-
-/** @internal */
-export const InputKubeMetricsConnection$inboundSchema: z.ZodType<
-  InputKubeMetricsConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-/** @internal */
-export type InputKubeMetricsConnection$Outbound = {
+export type InputKubeMetricsKubeMetrics1 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputKubeMetricsType1;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
   pipeline?: string | undefined;
-  output: string;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Time, in seconds, between consecutive metrics collections. Default is 15 secs.
+   */
+  interval?: number | undefined;
+  /**
+   * Add rules to decide which Kubernetes objects to generate metrics for. Events are generated if no rules are given or of all the rules' expressions evaluate to true.
+   */
+  rules?: Array<PodFilterType> | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  persistence?: Persistence1Type | undefined;
+  description?: string | undefined;
 };
 
+export type InputKubeMetrics =
+  | InputKubeMetricsKubeMetrics2
+  | InputKubeMetricsKubeMetrics4
+  | InputKubeMetricsKubeMetrics1
+  | InputKubeMetricsKubeMetrics3;
+
 /** @internal */
-export const InputKubeMetricsConnection$outboundSchema: z.ZodType<
-  InputKubeMetricsConnection$Outbound,
+export const InputKubeMetricsType4$inboundSchema: z.ZodNativeEnum<
+  typeof InputKubeMetricsType4
+> = z.nativeEnum(InputKubeMetricsType4);
+/** @internal */
+export const InputKubeMetricsType4$outboundSchema: z.ZodNativeEnum<
+  typeof InputKubeMetricsType4
+> = InputKubeMetricsType4$inboundSchema;
+
+/** @internal */
+export const InputKubeMetricsKubeMetrics4$inboundSchema: z.ZodType<
+  InputKubeMetricsKubeMetrics4,
   z.ZodTypeDef,
-  InputKubeMetricsConnection
+  unknown
 > = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputKubeMetricsType4$inboundSchema,
+  disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKubeMetricsConnection$ {
-  /** @deprecated use `InputKubeMetricsConnection$inboundSchema` instead. */
-  export const inboundSchema = InputKubeMetricsConnection$inboundSchema;
-  /** @deprecated use `InputKubeMetricsConnection$outboundSchema` instead. */
-  export const outboundSchema = InputKubeMetricsConnection$outboundSchema;
-  /** @deprecated use `InputKubeMetricsConnection$Outbound` instead. */
-  export type Outbound = InputKubeMetricsConnection$Outbound;
-}
-
-export function inputKubeMetricsConnectionToJSON(
-  inputKubeMetricsConnection: InputKubeMetricsConnection,
-): string {
-  return JSON.stringify(
-    InputKubeMetricsConnection$outboundSchema.parse(inputKubeMetricsConnection),
-  );
-}
-
-export function inputKubeMetricsConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputKubeMetricsConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputKubeMetricsConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputKubeMetricsConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputKubeMetricsMode$inboundSchema: z.ZodType<
-  InputKubeMetricsMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputKubeMetricsMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputKubeMetricsMode$outboundSchema: z.ZodType<
-  InputKubeMetricsMode,
-  z.ZodTypeDef,
-  InputKubeMetricsMode
-> = z.union([
-  z.nativeEnum(InputKubeMetricsMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKubeMetricsMode$ {
-  /** @deprecated use `InputKubeMetricsMode$inboundSchema` instead. */
-  export const inboundSchema = InputKubeMetricsMode$inboundSchema;
-  /** @deprecated use `InputKubeMetricsMode$outboundSchema` instead. */
-  export const outboundSchema = InputKubeMetricsMode$outboundSchema;
-}
-
-/** @internal */
-export const InputKubeMetricsCompression$inboundSchema: z.ZodType<
-  InputKubeMetricsCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputKubeMetricsCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputKubeMetricsCompression$outboundSchema: z.ZodType<
-  InputKubeMetricsCompression,
-  z.ZodTypeDef,
-  InputKubeMetricsCompression
-> = z.union([
-  z.nativeEnum(InputKubeMetricsCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKubeMetricsCompression$ {
-  /** @deprecated use `InputKubeMetricsCompression$inboundSchema` instead. */
-  export const inboundSchema = InputKubeMetricsCompression$inboundSchema;
-  /** @deprecated use `InputKubeMetricsCompression$outboundSchema` instead. */
-  export const outboundSchema = InputKubeMetricsCompression$outboundSchema;
-}
-
-/** @internal */
-export const InputKubeMetricsPqControls$inboundSchema: z.ZodType<
-  InputKubeMetricsPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type InputKubeMetricsPqControls$Outbound = {};
-
-/** @internal */
-export const InputKubeMetricsPqControls$outboundSchema: z.ZodType<
-  InputKubeMetricsPqControls$Outbound,
-  z.ZodTypeDef,
-  InputKubeMetricsPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKubeMetricsPqControls$ {
-  /** @deprecated use `InputKubeMetricsPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputKubeMetricsPqControls$inboundSchema;
-  /** @deprecated use `InputKubeMetricsPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputKubeMetricsPqControls$outboundSchema;
-  /** @deprecated use `InputKubeMetricsPqControls$Outbound` instead. */
-  export type Outbound = InputKubeMetricsPqControls$Outbound;
-}
-
-export function inputKubeMetricsPqControlsToJSON(
-  inputKubeMetricsPqControls: InputKubeMetricsPqControls,
-): string {
-  return JSON.stringify(
-    InputKubeMetricsPqControls$outboundSchema.parse(inputKubeMetricsPqControls),
-  );
-}
-
-export function inputKubeMetricsPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputKubeMetricsPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputKubeMetricsPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputKubeMetricsPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputKubeMetricsPq$inboundSchema: z.ZodType<
-  InputKubeMetricsPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputKubeMetricsMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputKubeMetricsCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputKubeMetricsPqControls$inboundSchema).optional(),
-});
-
-/** @internal */
-export type InputKubeMetricsPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputKubeMetricsPqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputKubeMetricsPq$outboundSchema: z.ZodType<
-  InputKubeMetricsPq$Outbound,
-  z.ZodTypeDef,
-  InputKubeMetricsPq
-> = z.object({
-  mode: InputKubeMetricsMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputKubeMetricsCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputKubeMetricsPqControls$outboundSchema)
-    .optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKubeMetricsPq$ {
-  /** @deprecated use `InputKubeMetricsPq$inboundSchema` instead. */
-  export const inboundSchema = InputKubeMetricsPq$inboundSchema;
-  /** @deprecated use `InputKubeMetricsPq$outboundSchema` instead. */
-  export const outboundSchema = InputKubeMetricsPq$outboundSchema;
-  /** @deprecated use `InputKubeMetricsPq$Outbound` instead. */
-  export type Outbound = InputKubeMetricsPq$Outbound;
-}
-
-export function inputKubeMetricsPqToJSON(
-  inputKubeMetricsPq: InputKubeMetricsPq,
-): string {
-  return JSON.stringify(
-    InputKubeMetricsPq$outboundSchema.parse(inputKubeMetricsPq),
-  );
-}
-
-export function inputKubeMetricsPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputKubeMetricsPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputKubeMetricsPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputKubeMetricsPq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputKubeMetricsRule$inboundSchema: z.ZodType<
-  InputKubeMetricsRule,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  filter: z.string(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema,
+  interval: z.number().default(15),
+  rules: z.array(PodFilterType$inboundSchema).optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  persistence: Persistence1Type$inboundSchema.optional(),
   description: z.string().optional(),
 });
-
 /** @internal */
-export type InputKubeMetricsRule$Outbound = {
-  filter: string;
+export type InputKubeMetricsKubeMetrics4$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq: PqType$Outbound;
+  interval: number;
+  rules?: Array<PodFilterType$Outbound> | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  persistence?: Persistence1Type$Outbound | undefined;
   description?: string | undefined;
 };
 
 /** @internal */
-export const InputKubeMetricsRule$outboundSchema: z.ZodType<
-  InputKubeMetricsRule$Outbound,
+export const InputKubeMetricsKubeMetrics4$outboundSchema: z.ZodType<
+  InputKubeMetricsKubeMetrics4$Outbound,
   z.ZodTypeDef,
-  InputKubeMetricsRule
+  InputKubeMetricsKubeMetrics4
 > = z.object({
-  filter: z.string(),
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputKubeMetricsType4$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema,
+  interval: z.number().default(15),
+  rules: z.array(PodFilterType$outboundSchema).optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  persistence: Persistence1Type$outboundSchema.optional(),
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKubeMetricsRule$ {
-  /** @deprecated use `InputKubeMetricsRule$inboundSchema` instead. */
-  export const inboundSchema = InputKubeMetricsRule$inboundSchema;
-  /** @deprecated use `InputKubeMetricsRule$outboundSchema` instead. */
-  export const outboundSchema = InputKubeMetricsRule$outboundSchema;
-  /** @deprecated use `InputKubeMetricsRule$Outbound` instead. */
-  export type Outbound = InputKubeMetricsRule$Outbound;
-}
-
-export function inputKubeMetricsRuleToJSON(
-  inputKubeMetricsRule: InputKubeMetricsRule,
+export function inputKubeMetricsKubeMetrics4ToJSON(
+  inputKubeMetricsKubeMetrics4: InputKubeMetricsKubeMetrics4,
 ): string {
   return JSON.stringify(
-    InputKubeMetricsRule$outboundSchema.parse(inputKubeMetricsRule),
-  );
-}
-
-export function inputKubeMetricsRuleFromJSON(
-  jsonString: string,
-): SafeParseResult<InputKubeMetricsRule, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputKubeMetricsRule$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputKubeMetricsRule' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputKubeMetricsMetadatum$inboundSchema: z.ZodType<
-  InputKubeMetricsMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type InputKubeMetricsMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputKubeMetricsMetadatum$outboundSchema: z.ZodType<
-  InputKubeMetricsMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputKubeMetricsMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKubeMetricsMetadatum$ {
-  /** @deprecated use `InputKubeMetricsMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputKubeMetricsMetadatum$inboundSchema;
-  /** @deprecated use `InputKubeMetricsMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputKubeMetricsMetadatum$outboundSchema;
-  /** @deprecated use `InputKubeMetricsMetadatum$Outbound` instead. */
-  export type Outbound = InputKubeMetricsMetadatum$Outbound;
-}
-
-export function inputKubeMetricsMetadatumToJSON(
-  inputKubeMetricsMetadatum: InputKubeMetricsMetadatum,
-): string {
-  return JSON.stringify(
-    InputKubeMetricsMetadatum$outboundSchema.parse(inputKubeMetricsMetadatum),
-  );
-}
-
-export function inputKubeMetricsMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputKubeMetricsMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputKubeMetricsMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputKubeMetricsMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputKubeMetricsDataCompressionFormat$inboundSchema: z.ZodType<
-  InputKubeMetricsDataCompressionFormat,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputKubeMetricsDataCompressionFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputKubeMetricsDataCompressionFormat$outboundSchema: z.ZodType<
-  InputKubeMetricsDataCompressionFormat,
-  z.ZodTypeDef,
-  InputKubeMetricsDataCompressionFormat
-> = z.union([
-  z.nativeEnum(InputKubeMetricsDataCompressionFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKubeMetricsDataCompressionFormat$ {
-  /** @deprecated use `InputKubeMetricsDataCompressionFormat$inboundSchema` instead. */
-  export const inboundSchema =
-    InputKubeMetricsDataCompressionFormat$inboundSchema;
-  /** @deprecated use `InputKubeMetricsDataCompressionFormat$outboundSchema` instead. */
-  export const outboundSchema =
-    InputKubeMetricsDataCompressionFormat$outboundSchema;
-}
-
-/** @internal */
-export const InputKubeMetricsPersistence$inboundSchema: z.ZodType<
-  InputKubeMetricsPersistence,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enable: z.boolean().default(false),
-  timeWindow: z.string().default("10m"),
-  maxDataSize: z.string().default("1GB"),
-  maxDataTime: z.string().default("24h"),
-  compress: InputKubeMetricsDataCompressionFormat$inboundSchema.default("gzip"),
-  destPath: z.string().default("$CRIBL_HOME/state/kube_metrics"),
-});
-
-/** @internal */
-export type InputKubeMetricsPersistence$Outbound = {
-  enable: boolean;
-  timeWindow: string;
-  maxDataSize: string;
-  maxDataTime: string;
-  compress: string;
-  destPath: string;
-};
-
-/** @internal */
-export const InputKubeMetricsPersistence$outboundSchema: z.ZodType<
-  InputKubeMetricsPersistence$Outbound,
-  z.ZodTypeDef,
-  InputKubeMetricsPersistence
-> = z.object({
-  enable: z.boolean().default(false),
-  timeWindow: z.string().default("10m"),
-  maxDataSize: z.string().default("1GB"),
-  maxDataTime: z.string().default("24h"),
-  compress: InputKubeMetricsDataCompressionFormat$outboundSchema.default(
-    "gzip",
-  ),
-  destPath: z.string().default("$CRIBL_HOME/state/kube_metrics"),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKubeMetricsPersistence$ {
-  /** @deprecated use `InputKubeMetricsPersistence$inboundSchema` instead. */
-  export const inboundSchema = InputKubeMetricsPersistence$inboundSchema;
-  /** @deprecated use `InputKubeMetricsPersistence$outboundSchema` instead. */
-  export const outboundSchema = InputKubeMetricsPersistence$outboundSchema;
-  /** @deprecated use `InputKubeMetricsPersistence$Outbound` instead. */
-  export type Outbound = InputKubeMetricsPersistence$Outbound;
-}
-
-export function inputKubeMetricsPersistenceToJSON(
-  inputKubeMetricsPersistence: InputKubeMetricsPersistence,
-): string {
-  return JSON.stringify(
-    InputKubeMetricsPersistence$outboundSchema.parse(
-      inputKubeMetricsPersistence,
+    InputKubeMetricsKubeMetrics4$outboundSchema.parse(
+      inputKubeMetricsKubeMetrics4,
     ),
   );
 }
-
-export function inputKubeMetricsPersistenceFromJSON(
+export function inputKubeMetricsKubeMetrics4FromJSON(
   jsonString: string,
-): SafeParseResult<InputKubeMetricsPersistence, SDKValidationError> {
+): SafeParseResult<InputKubeMetricsKubeMetrics4, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InputKubeMetricsPersistence$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputKubeMetricsPersistence' from JSON`,
+    (x) => InputKubeMetricsKubeMetrics4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKubeMetricsKubeMetrics4' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputKubeMetricsType3$inboundSchema: z.ZodNativeEnum<
+  typeof InputKubeMetricsType3
+> = z.nativeEnum(InputKubeMetricsType3);
+/** @internal */
+export const InputKubeMetricsType3$outboundSchema: z.ZodNativeEnum<
+  typeof InputKubeMetricsType3
+> = InputKubeMetricsType3$inboundSchema;
+
+/** @internal */
+export const InputKubeMetricsKubeMetrics3$inboundSchema: z.ZodType<
+  InputKubeMetricsKubeMetrics3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputKubeMetricsType3$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  interval: z.number().default(15),
+  rules: z.array(PodFilterType$inboundSchema).optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  persistence: Persistence1Type$inboundSchema.optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputKubeMetricsKubeMetrics3$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  interval: number;
+  rules?: Array<PodFilterType$Outbound> | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  persistence?: Persistence1Type$Outbound | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputKubeMetricsKubeMetrics3$outboundSchema: z.ZodType<
+  InputKubeMetricsKubeMetrics3$Outbound,
+  z.ZodTypeDef,
+  InputKubeMetricsKubeMetrics3
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputKubeMetricsType3$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  interval: z.number().default(15),
+  rules: z.array(PodFilterType$outboundSchema).optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  persistence: Persistence1Type$outboundSchema.optional(),
+  description: z.string().optional(),
+});
+
+export function inputKubeMetricsKubeMetrics3ToJSON(
+  inputKubeMetricsKubeMetrics3: InputKubeMetricsKubeMetrics3,
+): string {
+  return JSON.stringify(
+    InputKubeMetricsKubeMetrics3$outboundSchema.parse(
+      inputKubeMetricsKubeMetrics3,
+    ),
+  );
+}
+export function inputKubeMetricsKubeMetrics3FromJSON(
+  jsonString: string,
+): SafeParseResult<InputKubeMetricsKubeMetrics3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputKubeMetricsKubeMetrics3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKubeMetricsKubeMetrics3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputKubeMetricsType2$inboundSchema: z.ZodNativeEnum<
+  typeof InputKubeMetricsType2
+> = z.nativeEnum(InputKubeMetricsType2);
+/** @internal */
+export const InputKubeMetricsType2$outboundSchema: z.ZodNativeEnum<
+  typeof InputKubeMetricsType2
+> = InputKubeMetricsType2$inboundSchema;
+
+/** @internal */
+export const InputKubeMetricsKubeMetrics2$inboundSchema: z.ZodType<
+  InputKubeMetricsKubeMetrics2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputKubeMetricsType2$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema),
+  pq: PqType$inboundSchema.optional(),
+  interval: z.number().default(15),
+  rules: z.array(PodFilterType$inboundSchema).optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  persistence: Persistence1Type$inboundSchema.optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputKubeMetricsKubeMetrics2$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections: Array<ConnectionsType$Outbound>;
+  pq?: PqType$Outbound | undefined;
+  interval: number;
+  rules?: Array<PodFilterType$Outbound> | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  persistence?: Persistence1Type$Outbound | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputKubeMetricsKubeMetrics2$outboundSchema: z.ZodType<
+  InputKubeMetricsKubeMetrics2$Outbound,
+  z.ZodTypeDef,
+  InputKubeMetricsKubeMetrics2
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputKubeMetricsType2$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema),
+  pq: PqType$outboundSchema.optional(),
+  interval: z.number().default(15),
+  rules: z.array(PodFilterType$outboundSchema).optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  persistence: Persistence1Type$outboundSchema.optional(),
+  description: z.string().optional(),
+});
+
+export function inputKubeMetricsKubeMetrics2ToJSON(
+  inputKubeMetricsKubeMetrics2: InputKubeMetricsKubeMetrics2,
+): string {
+  return JSON.stringify(
+    InputKubeMetricsKubeMetrics2$outboundSchema.parse(
+      inputKubeMetricsKubeMetrics2,
+    ),
+  );
+}
+export function inputKubeMetricsKubeMetrics2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputKubeMetricsKubeMetrics2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputKubeMetricsKubeMetrics2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKubeMetricsKubeMetrics2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputKubeMetricsType1$inboundSchema: z.ZodNativeEnum<
+  typeof InputKubeMetricsType1
+> = z.nativeEnum(InputKubeMetricsType1);
+/** @internal */
+export const InputKubeMetricsType1$outboundSchema: z.ZodNativeEnum<
+  typeof InputKubeMetricsType1
+> = InputKubeMetricsType1$inboundSchema;
+
+/** @internal */
+export const InputKubeMetricsKubeMetrics1$inboundSchema: z.ZodType<
+  InputKubeMetricsKubeMetrics1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputKubeMetricsType1$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  interval: z.number().default(15),
+  rules: z.array(PodFilterType$inboundSchema).optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  persistence: Persistence1Type$inboundSchema.optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputKubeMetricsKubeMetrics1$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  interval: number;
+  rules?: Array<PodFilterType$Outbound> | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  persistence?: Persistence1Type$Outbound | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputKubeMetricsKubeMetrics1$outboundSchema: z.ZodType<
+  InputKubeMetricsKubeMetrics1$Outbound,
+  z.ZodTypeDef,
+  InputKubeMetricsKubeMetrics1
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputKubeMetricsType1$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  interval: z.number().default(15),
+  rules: z.array(PodFilterType$outboundSchema).optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  persistence: Persistence1Type$outboundSchema.optional(),
+  description: z.string().optional(),
+});
+
+export function inputKubeMetricsKubeMetrics1ToJSON(
+  inputKubeMetricsKubeMetrics1: InputKubeMetricsKubeMetrics1,
+): string {
+  return JSON.stringify(
+    InputKubeMetricsKubeMetrics1$outboundSchema.parse(
+      inputKubeMetricsKubeMetrics1,
+    ),
+  );
+}
+export function inputKubeMetricsKubeMetrics1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputKubeMetricsKubeMetrics1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputKubeMetricsKubeMetrics1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKubeMetricsKubeMetrics1' from JSON`,
   );
 }
 
@@ -674,84 +629,30 @@ export const InputKubeMetrics$inboundSchema: z.ZodType<
   InputKubeMetrics,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.string().optional(),
-  type: InputKubeMetricsType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputKubeMetricsConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputKubeMetricsPq$inboundSchema).optional(),
-  interval: z.number().default(15),
-  rules: z.array(z.lazy(() => InputKubeMetricsRule$inboundSchema)).optional(),
-  metadata: z.array(z.lazy(() => InputKubeMetricsMetadatum$inboundSchema))
-    .optional(),
-  persistence: z.lazy(() => InputKubeMetricsPersistence$inboundSchema)
-    .optional(),
-  description: z.string().optional(),
-});
-
+> = z.union([
+  z.lazy(() => InputKubeMetricsKubeMetrics2$inboundSchema),
+  z.lazy(() => InputKubeMetricsKubeMetrics4$inboundSchema),
+  z.lazy(() => InputKubeMetricsKubeMetrics1$inboundSchema),
+  z.lazy(() => InputKubeMetricsKubeMetrics3$inboundSchema),
+]);
 /** @internal */
-export type InputKubeMetrics$Outbound = {
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  sendToRoutes: boolean;
-  environment?: string | undefined;
-  pqEnabled: boolean;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<InputKubeMetricsConnection$Outbound> | undefined;
-  pq?: InputKubeMetricsPq$Outbound | undefined;
-  interval: number;
-  rules?: Array<InputKubeMetricsRule$Outbound> | undefined;
-  metadata?: Array<InputKubeMetricsMetadatum$Outbound> | undefined;
-  persistence?: InputKubeMetricsPersistence$Outbound | undefined;
-  description?: string | undefined;
-};
+export type InputKubeMetrics$Outbound =
+  | InputKubeMetricsKubeMetrics2$Outbound
+  | InputKubeMetricsKubeMetrics4$Outbound
+  | InputKubeMetricsKubeMetrics1$Outbound
+  | InputKubeMetricsKubeMetrics3$Outbound;
 
 /** @internal */
 export const InputKubeMetrics$outboundSchema: z.ZodType<
   InputKubeMetrics$Outbound,
   z.ZodTypeDef,
   InputKubeMetrics
-> = z.object({
-  id: z.string().optional(),
-  type: InputKubeMetricsType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputKubeMetricsConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputKubeMetricsPq$outboundSchema).optional(),
-  interval: z.number().default(15),
-  rules: z.array(z.lazy(() => InputKubeMetricsRule$outboundSchema)).optional(),
-  metadata: z.array(z.lazy(() => InputKubeMetricsMetadatum$outboundSchema))
-    .optional(),
-  persistence: z.lazy(() => InputKubeMetricsPersistence$outboundSchema)
-    .optional(),
-  description: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputKubeMetrics$ {
-  /** @deprecated use `InputKubeMetrics$inboundSchema` instead. */
-  export const inboundSchema = InputKubeMetrics$inboundSchema;
-  /** @deprecated use `InputKubeMetrics$outboundSchema` instead. */
-  export const outboundSchema = InputKubeMetrics$outboundSchema;
-  /** @deprecated use `InputKubeMetrics$Outbound` instead. */
-  export type Outbound = InputKubeMetrics$Outbound;
-}
+> = z.union([
+  z.lazy(() => InputKubeMetricsKubeMetrics2$outboundSchema),
+  z.lazy(() => InputKubeMetricsKubeMetrics4$outboundSchema),
+  z.lazy(() => InputKubeMetricsKubeMetrics1$outboundSchema),
+  z.lazy(() => InputKubeMetricsKubeMetrics3$outboundSchema),
+]);
 
 export function inputKubeMetricsToJSON(
   inputKubeMetrics: InputKubeMetrics,
@@ -760,7 +661,6 @@ export function inputKubeMetricsToJSON(
     InputKubeMetrics$outboundSchema.parse(inputKubeMetrics),
   );
 }
-
 export function inputKubeMetricsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputKubeMetrics, SDKValidationError> {

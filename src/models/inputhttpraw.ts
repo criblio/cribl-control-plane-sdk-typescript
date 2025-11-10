@@ -4,169 +4,55 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthTokensExtType,
+  AuthTokensExtType$inboundSchema,
+  AuthTokensExtType$Outbound,
+  AuthTokensExtType$outboundSchema,
+} from "./authtokensexttype.js";
+import {
+  ConnectionsType,
+  ConnectionsType$inboundSchema,
+  ConnectionsType$Outbound,
+  ConnectionsType$outboundSchema,
+} from "./connectionstype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  Metadata1Type,
+  Metadata1Type$inboundSchema,
+  Metadata1Type$Outbound,
+  Metadata1Type$outboundSchema,
+} from "./metadata1type.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  Tls2Type,
+  Tls2Type$inboundSchema,
+  Tls2Type$Outbound,
+  Tls2Type$outboundSchema,
+} from "./tls2type.js";
 
-export const InputHttpRawType = {
+export const InputHttpRawType4 = {
   HttpRaw: "http_raw",
 } as const;
-export type InputHttpRawType = ClosedEnum<typeof InputHttpRawType>;
+export type InputHttpRawType4 = ClosedEnum<typeof InputHttpRawType4>;
 
-export type InputHttpRawConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputHttpRawMode = {
-  Smart: "smart",
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputHttpRawMode = OpenEnum<typeof InputHttpRawMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputHttpRawCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputHttpRawCompression = OpenEnum<typeof InputHttpRawCompression>;
-
-export type InputHttpRawPqControls = {};
-
-export type InputHttpRawPq = {
+export type InputHTTPRawHTTPRaw4 = {
   /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  mode?: InputHttpRawMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputHttpRawCompression | undefined;
-  pqControls?: InputHttpRawPqControls | undefined;
-};
-
-export const InputHttpRawMinimumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputHttpRawMinimumTLSVersion = OpenEnum<
-  typeof InputHttpRawMinimumTLSVersion
->;
-
-export const InputHttpRawMaximumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputHttpRawMaximumTLSVersion = OpenEnum<
-  typeof InputHttpRawMaximumTLSVersion
->;
-
-export type InputHttpRawTLSSettingsServerSide = {
-  disabled?: boolean | undefined;
-  /**
-   * The name of the predefined certificate
-   */
-  certificateName?: string | undefined;
-  /**
-   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
-   */
-  privKeyPath?: string | undefined;
-  /**
-   * Passphrase to use to decrypt private key
-   */
-  passphrase?: string | undefined;
-  /**
-   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  certPath?: string | undefined;
-  /**
-   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  caPath?: string | undefined;
-  /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
-  minVersion?: InputHttpRawMinimumTLSVersion | undefined;
-  maxVersion?: InputHttpRawMaximumTLSVersion | undefined;
-};
-
-export type InputHttpRawMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
-
-export type InputHttpRawAuthTokensExtMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
-
-export type InputHttpRawAuthTokensExt = {
-  /**
-   * Shared secret to be provided by any client (Authorization: <token>)
-   */
-  token: string;
-  description?: string | undefined;
-  /**
-   * Fields to add to events referencing this token
-   */
-  metadata?: Array<InputHttpRawAuthTokensExtMetadatum> | undefined;
-};
-
-export type InputHttpRaw = {
+  pqEnabled?: boolean | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputHttpRawType;
+  type: InputHttpRawType4;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -181,18 +67,14 @@ export type InputHttpRaw = {
    */
   environment?: string | undefined;
   /**
-   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
-   */
-  pqEnabled?: boolean | undefined;
-  /**
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputHttpRawConnection> | undefined;
-  pq?: InputHttpRawPq | undefined;
+  connections?: Array<ConnectionsType> | undefined;
+  pq: PqType;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -205,7 +87,7 @@ export type InputHttpRaw = {
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
   authTokens?: Array<string> | undefined;
-  tls?: InputHttpRawTLSSettingsServerSide | undefined;
+  tls?: Tls2Type | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -261,7 +143,7 @@ export type InputHttpRaw = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputHttpRawMetadatum> | undefined;
+  metadata?: Array<Metadata1Type> | undefined;
   /**
    * List of URI paths accepted by this input, wildcards are supported, e.g /api/v* /hook. Defaults to allow all.
    */
@@ -273,625 +155,408 @@ export type InputHttpRaw = {
   /**
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
-  authTokensExt?: Array<InputHttpRawAuthTokensExt> | undefined;
+  authTokensExt?: Array<AuthTokensExtType> | undefined;
   description?: string | undefined;
 };
 
-/** @internal */
-export const InputHttpRawType$inboundSchema: z.ZodNativeEnum<
-  typeof InputHttpRawType
-> = z.nativeEnum(InputHttpRawType);
+export const InputHttpRawType3 = {
+  HttpRaw: "http_raw",
+} as const;
+export type InputHttpRawType3 = ClosedEnum<typeof InputHttpRawType3>;
 
-/** @internal */
-export const InputHttpRawType$outboundSchema: z.ZodNativeEnum<
-  typeof InputHttpRawType
-> = InputHttpRawType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpRawType$ {
-  /** @deprecated use `InputHttpRawType$inboundSchema` instead. */
-  export const inboundSchema = InputHttpRawType$inboundSchema;
-  /** @deprecated use `InputHttpRawType$outboundSchema` instead. */
-  export const outboundSchema = InputHttpRawType$outboundSchema;
-}
-
-/** @internal */
-export const InputHttpRawConnection$inboundSchema: z.ZodType<
-  InputHttpRawConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-/** @internal */
-export type InputHttpRawConnection$Outbound = {
+export type InputHTTPRawHTTPRaw3 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputHttpRawType3;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
   pipeline?: string | undefined;
-  output: string;
-};
-
-/** @internal */
-export const InputHttpRawConnection$outboundSchema: z.ZodType<
-  InputHttpRawConnection$Outbound,
-  z.ZodTypeDef,
-  InputHttpRawConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpRawConnection$ {
-  /** @deprecated use `InputHttpRawConnection$inboundSchema` instead. */
-  export const inboundSchema = InputHttpRawConnection$inboundSchema;
-  /** @deprecated use `InputHttpRawConnection$outboundSchema` instead. */
-  export const outboundSchema = InputHttpRawConnection$outboundSchema;
-  /** @deprecated use `InputHttpRawConnection$Outbound` instead. */
-  export type Outbound = InputHttpRawConnection$Outbound;
-}
-
-export function inputHttpRawConnectionToJSON(
-  inputHttpRawConnection: InputHttpRawConnection,
-): string {
-  return JSON.stringify(
-    InputHttpRawConnection$outboundSchema.parse(inputHttpRawConnection),
-  );
-}
-
-export function inputHttpRawConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputHttpRawConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputHttpRawConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputHttpRawConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputHttpRawMode$inboundSchema: z.ZodType<
-  InputHttpRawMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputHttpRawMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputHttpRawMode$outboundSchema: z.ZodType<
-  InputHttpRawMode,
-  z.ZodTypeDef,
-  InputHttpRawMode
-> = z.union([
-  z.nativeEnum(InputHttpRawMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpRawMode$ {
-  /** @deprecated use `InputHttpRawMode$inboundSchema` instead. */
-  export const inboundSchema = InputHttpRawMode$inboundSchema;
-  /** @deprecated use `InputHttpRawMode$outboundSchema` instead. */
-  export const outboundSchema = InputHttpRawMode$outboundSchema;
-}
-
-/** @internal */
-export const InputHttpRawCompression$inboundSchema: z.ZodType<
-  InputHttpRawCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputHttpRawCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputHttpRawCompression$outboundSchema: z.ZodType<
-  InputHttpRawCompression,
-  z.ZodTypeDef,
-  InputHttpRawCompression
-> = z.union([
-  z.nativeEnum(InputHttpRawCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpRawCompression$ {
-  /** @deprecated use `InputHttpRawCompression$inboundSchema` instead. */
-  export const inboundSchema = InputHttpRawCompression$inboundSchema;
-  /** @deprecated use `InputHttpRawCompression$outboundSchema` instead. */
-  export const outboundSchema = InputHttpRawCompression$outboundSchema;
-}
-
-/** @internal */
-export const InputHttpRawPqControls$inboundSchema: z.ZodType<
-  InputHttpRawPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type InputHttpRawPqControls$Outbound = {};
-
-/** @internal */
-export const InputHttpRawPqControls$outboundSchema: z.ZodType<
-  InputHttpRawPqControls$Outbound,
-  z.ZodTypeDef,
-  InputHttpRawPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpRawPqControls$ {
-  /** @deprecated use `InputHttpRawPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputHttpRawPqControls$inboundSchema;
-  /** @deprecated use `InputHttpRawPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputHttpRawPqControls$outboundSchema;
-  /** @deprecated use `InputHttpRawPqControls$Outbound` instead. */
-  export type Outbound = InputHttpRawPqControls$Outbound;
-}
-
-export function inputHttpRawPqControlsToJSON(
-  inputHttpRawPqControls: InputHttpRawPqControls,
-): string {
-  return JSON.stringify(
-    InputHttpRawPqControls$outboundSchema.parse(inputHttpRawPqControls),
-  );
-}
-
-export function inputHttpRawPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputHttpRawPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputHttpRawPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputHttpRawPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputHttpRawPq$inboundSchema: z.ZodType<
-  InputHttpRawPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputHttpRawMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputHttpRawCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputHttpRawPqControls$inboundSchema).optional(),
-});
-
-/** @internal */
-export type InputHttpRawPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputHttpRawPqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputHttpRawPq$outboundSchema: z.ZodType<
-  InputHttpRawPq$Outbound,
-  z.ZodTypeDef,
-  InputHttpRawPq
-> = z.object({
-  mode: InputHttpRawMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputHttpRawCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputHttpRawPqControls$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpRawPq$ {
-  /** @deprecated use `InputHttpRawPq$inboundSchema` instead. */
-  export const inboundSchema = InputHttpRawPq$inboundSchema;
-  /** @deprecated use `InputHttpRawPq$outboundSchema` instead. */
-  export const outboundSchema = InputHttpRawPq$outboundSchema;
-  /** @deprecated use `InputHttpRawPq$Outbound` instead. */
-  export type Outbound = InputHttpRawPq$Outbound;
-}
-
-export function inputHttpRawPqToJSON(inputHttpRawPq: InputHttpRawPq): string {
-  return JSON.stringify(InputHttpRawPq$outboundSchema.parse(inputHttpRawPq));
-}
-
-export function inputHttpRawPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputHttpRawPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputHttpRawPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputHttpRawPq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputHttpRawMinimumTLSVersion$inboundSchema: z.ZodType<
-  InputHttpRawMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputHttpRawMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputHttpRawMinimumTLSVersion$outboundSchema: z.ZodType<
-  InputHttpRawMinimumTLSVersion,
-  z.ZodTypeDef,
-  InputHttpRawMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(InputHttpRawMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpRawMinimumTLSVersion$ {
-  /** @deprecated use `InputHttpRawMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputHttpRawMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `InputHttpRawMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputHttpRawMinimumTLSVersion$outboundSchema;
-}
-
-/** @internal */
-export const InputHttpRawMaximumTLSVersion$inboundSchema: z.ZodType<
-  InputHttpRawMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputHttpRawMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputHttpRawMaximumTLSVersion$outboundSchema: z.ZodType<
-  InputHttpRawMaximumTLSVersion,
-  z.ZodTypeDef,
-  InputHttpRawMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(InputHttpRawMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpRawMaximumTLSVersion$ {
-  /** @deprecated use `InputHttpRawMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputHttpRawMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `InputHttpRawMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputHttpRawMaximumTLSVersion$outboundSchema;
-}
-
-/** @internal */
-export const InputHttpRawTLSSettingsServerSide$inboundSchema: z.ZodType<
-  InputHttpRawTLSSettingsServerSide,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(true),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
-  minVersion: InputHttpRawMinimumTLSVersion$inboundSchema.optional(),
-  maxVersion: InputHttpRawMaximumTLSVersion$inboundSchema.optional(),
-});
-
-/** @internal */
-export type InputHttpRawTLSSettingsServerSide$Outbound = {
-  disabled: boolean;
-  certificateName?: string | undefined;
-  privKeyPath?: string | undefined;
-  passphrase?: string | undefined;
-  certPath?: string | undefined;
-  caPath?: string | undefined;
-  requestCert: boolean;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
-  minVersion?: string | undefined;
-  maxVersion?: string | undefined;
-};
-
-/** @internal */
-export const InputHttpRawTLSSettingsServerSide$outboundSchema: z.ZodType<
-  InputHttpRawTLSSettingsServerSide$Outbound,
-  z.ZodTypeDef,
-  InputHttpRawTLSSettingsServerSide
-> = z.object({
-  disabled: z.boolean().default(true),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
-  minVersion: InputHttpRawMinimumTLSVersion$outboundSchema.optional(),
-  maxVersion: InputHttpRawMaximumTLSVersion$outboundSchema.optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpRawTLSSettingsServerSide$ {
-  /** @deprecated use `InputHttpRawTLSSettingsServerSide$inboundSchema` instead. */
-  export const inboundSchema = InputHttpRawTLSSettingsServerSide$inboundSchema;
-  /** @deprecated use `InputHttpRawTLSSettingsServerSide$outboundSchema` instead. */
-  export const outboundSchema =
-    InputHttpRawTLSSettingsServerSide$outboundSchema;
-  /** @deprecated use `InputHttpRawTLSSettingsServerSide$Outbound` instead. */
-  export type Outbound = InputHttpRawTLSSettingsServerSide$Outbound;
-}
-
-export function inputHttpRawTLSSettingsServerSideToJSON(
-  inputHttpRawTLSSettingsServerSide: InputHttpRawTLSSettingsServerSide,
-): string {
-  return JSON.stringify(
-    InputHttpRawTLSSettingsServerSide$outboundSchema.parse(
-      inputHttpRawTLSSettingsServerSide,
-    ),
-  );
-}
-
-export function inputHttpRawTLSSettingsServerSideFromJSON(
-  jsonString: string,
-): SafeParseResult<InputHttpRawTLSSettingsServerSide, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputHttpRawTLSSettingsServerSide$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputHttpRawTLSSettingsServerSide' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputHttpRawMetadatum$inboundSchema: z.ZodType<
-  InputHttpRawMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type InputHttpRawMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputHttpRawMetadatum$outboundSchema: z.ZodType<
-  InputHttpRawMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputHttpRawMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpRawMetadatum$ {
-  /** @deprecated use `InputHttpRawMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputHttpRawMetadatum$inboundSchema;
-  /** @deprecated use `InputHttpRawMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputHttpRawMetadatum$outboundSchema;
-  /** @deprecated use `InputHttpRawMetadatum$Outbound` instead. */
-  export type Outbound = InputHttpRawMetadatum$Outbound;
-}
-
-export function inputHttpRawMetadatumToJSON(
-  inputHttpRawMetadatum: InputHttpRawMetadatum,
-): string {
-  return JSON.stringify(
-    InputHttpRawMetadatum$outboundSchema.parse(inputHttpRawMetadatum),
-  );
-}
-
-export function inputHttpRawMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputHttpRawMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputHttpRawMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputHttpRawMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputHttpRawAuthTokensExtMetadatum$inboundSchema: z.ZodType<
-  InputHttpRawAuthTokensExtMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type InputHttpRawAuthTokensExtMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputHttpRawAuthTokensExtMetadatum$outboundSchema: z.ZodType<
-  InputHttpRawAuthTokensExtMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputHttpRawAuthTokensExtMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpRawAuthTokensExtMetadatum$ {
-  /** @deprecated use `InputHttpRawAuthTokensExtMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputHttpRawAuthTokensExtMetadatum$inboundSchema;
-  /** @deprecated use `InputHttpRawAuthTokensExtMetadatum$outboundSchema` instead. */
-  export const outboundSchema =
-    InputHttpRawAuthTokensExtMetadatum$outboundSchema;
-  /** @deprecated use `InputHttpRawAuthTokensExtMetadatum$Outbound` instead. */
-  export type Outbound = InputHttpRawAuthTokensExtMetadatum$Outbound;
-}
-
-export function inputHttpRawAuthTokensExtMetadatumToJSON(
-  inputHttpRawAuthTokensExtMetadatum: InputHttpRawAuthTokensExtMetadatum,
-): string {
-  return JSON.stringify(
-    InputHttpRawAuthTokensExtMetadatum$outboundSchema.parse(
-      inputHttpRawAuthTokensExtMetadatum,
-    ),
-  );
-}
-
-export function inputHttpRawAuthTokensExtMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputHttpRawAuthTokensExtMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputHttpRawAuthTokensExtMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputHttpRawAuthTokensExtMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputHttpRawAuthTokensExt$inboundSchema: z.ZodType<
-  InputHttpRawAuthTokensExt,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  token: z.string(),
-  description: z.string().optional(),
-  metadata: z.array(
-    z.lazy(() => InputHttpRawAuthTokensExtMetadatum$inboundSchema),
-  ).optional(),
-});
-
-/** @internal */
-export type InputHttpRawAuthTokensExt$Outbound = {
-  token: string;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<string> | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * List of URI paths accepted by this input, wildcards are supported, e.g /api/v* /hook. Defaults to allow all.
+   */
+  allowedPaths?: Array<string> | undefined;
+  /**
+   * List of HTTP methods accepted by this input. Wildcards are supported (such as P*, GET). Defaults to allow all.
+   */
+  allowedMethods?: Array<string> | undefined;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokensExt?: Array<AuthTokensExtType> | undefined;
   description?: string | undefined;
-  metadata?: Array<InputHttpRawAuthTokensExtMetadatum$Outbound> | undefined;
 };
 
+export const InputHttpRawType2 = {
+  HttpRaw: "http_raw",
+} as const;
+export type InputHttpRawType2 = ClosedEnum<typeof InputHttpRawType2>;
+
+export type InputHTTPRawHTTPRaw2 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputHttpRawType2;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections: Array<ConnectionsType>;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<string> | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * List of URI paths accepted by this input, wildcards are supported, e.g /api/v* /hook. Defaults to allow all.
+   */
+  allowedPaths?: Array<string> | undefined;
+  /**
+   * List of HTTP methods accepted by this input. Wildcards are supported (such as P*, GET). Defaults to allow all.
+   */
+  allowedMethods?: Array<string> | undefined;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokensExt?: Array<AuthTokensExtType> | undefined;
+  description?: string | undefined;
+};
+
+export const InputHttpRawType1 = {
+  HttpRaw: "http_raw",
+} as const;
+export type InputHttpRawType1 = ClosedEnum<typeof InputHttpRawType1>;
+
+export type InputHTTPRawHTTPRaw1 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputHttpRawType1;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokens?: Array<string> | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * List of URI paths accepted by this input, wildcards are supported, e.g /api/v* /hook. Defaults to allow all.
+   */
+  allowedPaths?: Array<string> | undefined;
+  /**
+   * List of HTTP methods accepted by this input. Wildcards are supported (such as P*, GET). Defaults to allow all.
+   */
+  allowedMethods?: Array<string> | undefined;
+  /**
+   * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
+   */
+  authTokensExt?: Array<AuthTokensExtType> | undefined;
+  description?: string | undefined;
+};
+
+export type InputHttpRaw =
+  | InputHTTPRawHTTPRaw2
+  | InputHTTPRawHTTPRaw4
+  | InputHTTPRawHTTPRaw1
+  | InputHTTPRawHTTPRaw3;
+
 /** @internal */
-export const InputHttpRawAuthTokensExt$outboundSchema: z.ZodType<
-  InputHttpRawAuthTokensExt$Outbound,
-  z.ZodTypeDef,
-  InputHttpRawAuthTokensExt
-> = z.object({
-  token: z.string(),
-  description: z.string().optional(),
-  metadata: z.array(
-    z.lazy(() => InputHttpRawAuthTokensExtMetadatum$outboundSchema),
-  ).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpRawAuthTokensExt$ {
-  /** @deprecated use `InputHttpRawAuthTokensExt$inboundSchema` instead. */
-  export const inboundSchema = InputHttpRawAuthTokensExt$inboundSchema;
-  /** @deprecated use `InputHttpRawAuthTokensExt$outboundSchema` instead. */
-  export const outboundSchema = InputHttpRawAuthTokensExt$outboundSchema;
-  /** @deprecated use `InputHttpRawAuthTokensExt$Outbound` instead. */
-  export type Outbound = InputHttpRawAuthTokensExt$Outbound;
-}
-
-export function inputHttpRawAuthTokensExtToJSON(
-  inputHttpRawAuthTokensExt: InputHttpRawAuthTokensExt,
-): string {
-  return JSON.stringify(
-    InputHttpRawAuthTokensExt$outboundSchema.parse(inputHttpRawAuthTokensExt),
-  );
-}
-
-export function inputHttpRawAuthTokensExtFromJSON(
-  jsonString: string,
-): SafeParseResult<InputHttpRawAuthTokensExt, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputHttpRawAuthTokensExt$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputHttpRawAuthTokensExt' from JSON`,
-  );
-}
+export const InputHttpRawType4$inboundSchema: z.ZodNativeEnum<
+  typeof InputHttpRawType4
+> = z.nativeEnum(InputHttpRawType4);
+/** @internal */
+export const InputHttpRawType4$outboundSchema: z.ZodNativeEnum<
+  typeof InputHttpRawType4
+> = InputHttpRawType4$inboundSchema;
 
 /** @internal */
-export const InputHttpRaw$inboundSchema: z.ZodType<
-  InputHttpRaw,
+export const InputHTTPRawHTTPRaw4$inboundSchema: z.ZodType<
+  InputHTTPRawHTTPRaw4,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  pqEnabled: z.boolean().default(false),
   id: z.string().optional(),
-  type: InputHttpRawType$inboundSchema,
+  type: InputHttpRawType4$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputHttpRawConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputHttpRawPq$inboundSchema).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema,
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   authTokens: z.array(z.string()).optional(),
-  tls: z.lazy(() => InputHttpRawTLSSettingsServerSide$inboundSchema).optional(),
+  tls: Tls2Type$inboundSchema.optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -905,31 +570,28 @@ export const InputHttpRaw$inboundSchema: z.ZodType<
   ipDenylistRegex: z.string().default("/^$/"),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().default(10000),
-  metadata: z.array(z.lazy(() => InputHttpRawMetadatum$inboundSchema))
-    .optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
   allowedPaths: z.array(z.string()).optional(),
   allowedMethods: z.array(z.string()).optional(),
-  authTokensExt: z.array(z.lazy(() => InputHttpRawAuthTokensExt$inboundSchema))
-    .optional(),
+  authTokensExt: z.array(AuthTokensExtType$inboundSchema).optional(),
   description: z.string().optional(),
 });
-
 /** @internal */
-export type InputHttpRaw$Outbound = {
+export type InputHTTPRawHTTPRaw4$Outbound = {
+  pqEnabled: boolean;
   id?: string | undefined;
   type: string;
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
   environment?: string | undefined;
-  pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputHttpRawConnection$Outbound> | undefined;
-  pq?: InputHttpRawPq$Outbound | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq: PqType$Outbound;
   host: string;
   port: number;
   authTokens?: Array<string> | undefined;
-  tls?: InputHttpRawTLSSettingsServerSide$Outbound | undefined;
+  tls?: Tls2Type$Outbound | undefined;
   maxActiveReq: number;
   maxRequestsPerSocket: number;
   enableProxyHeader: boolean;
@@ -943,35 +605,33 @@ export type InputHttpRaw$Outbound = {
   ipDenylistRegex: string;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs: number;
-  metadata?: Array<InputHttpRawMetadatum$Outbound> | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
   allowedPaths?: Array<string> | undefined;
   allowedMethods?: Array<string> | undefined;
-  authTokensExt?: Array<InputHttpRawAuthTokensExt$Outbound> | undefined;
+  authTokensExt?: Array<AuthTokensExtType$Outbound> | undefined;
   description?: string | undefined;
 };
 
 /** @internal */
-export const InputHttpRaw$outboundSchema: z.ZodType<
-  InputHttpRaw$Outbound,
+export const InputHTTPRawHTTPRaw4$outboundSchema: z.ZodType<
+  InputHTTPRawHTTPRaw4$Outbound,
   z.ZodTypeDef,
-  InputHttpRaw
+  InputHTTPRawHTTPRaw4
 > = z.object({
+  pqEnabled: z.boolean().default(false),
   id: z.string().optional(),
-  type: InputHttpRawType$outboundSchema,
+  type: InputHttpRawType4$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputHttpRawConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputHttpRawPq$outboundSchema).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema,
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   authTokens: z.array(z.string()).optional(),
-  tls: z.lazy(() => InputHttpRawTLSSettingsServerSide$outboundSchema)
-    .optional(),
+  tls: Tls2Type$outboundSchema.optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -985,32 +645,486 @@ export const InputHttpRaw$outboundSchema: z.ZodType<
   ipDenylistRegex: z.string().default("/^$/"),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().default(10000),
-  metadata: z.array(z.lazy(() => InputHttpRawMetadatum$outboundSchema))
-    .optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
   allowedPaths: z.array(z.string()).optional(),
   allowedMethods: z.array(z.string()).optional(),
-  authTokensExt: z.array(z.lazy(() => InputHttpRawAuthTokensExt$outboundSchema))
-    .optional(),
+  authTokensExt: z.array(AuthTokensExtType$outboundSchema).optional(),
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpRaw$ {
-  /** @deprecated use `InputHttpRaw$inboundSchema` instead. */
-  export const inboundSchema = InputHttpRaw$inboundSchema;
-  /** @deprecated use `InputHttpRaw$outboundSchema` instead. */
-  export const outboundSchema = InputHttpRaw$outboundSchema;
-  /** @deprecated use `InputHttpRaw$Outbound` instead. */
-  export type Outbound = InputHttpRaw$Outbound;
+export function inputHTTPRawHTTPRaw4ToJSON(
+  inputHTTPRawHTTPRaw4: InputHTTPRawHTTPRaw4,
+): string {
+  return JSON.stringify(
+    InputHTTPRawHTTPRaw4$outboundSchema.parse(inputHTTPRawHTTPRaw4),
+  );
 }
+export function inputHTTPRawHTTPRaw4FromJSON(
+  jsonString: string,
+): SafeParseResult<InputHTTPRawHTTPRaw4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputHTTPRawHTTPRaw4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputHTTPRawHTTPRaw4' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputHttpRawType3$inboundSchema: z.ZodNativeEnum<
+  typeof InputHttpRawType3
+> = z.nativeEnum(InputHttpRawType3);
+/** @internal */
+export const InputHttpRawType3$outboundSchema: z.ZodNativeEnum<
+  typeof InputHttpRawType3
+> = InputHttpRawType3$inboundSchema;
+
+/** @internal */
+export const InputHTTPRawHTTPRaw3$inboundSchema: z.ZodType<
+  InputHTTPRawHTTPRaw3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputHttpRawType3$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  allowedPaths: z.array(z.string()).optional(),
+  allowedMethods: z.array(z.string()).optional(),
+  authTokensExt: z.array(AuthTokensExtType$inboundSchema).optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputHTTPRawHTTPRaw3$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<string> | undefined;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs: number;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  allowedPaths?: Array<string> | undefined;
+  allowedMethods?: Array<string> | undefined;
+  authTokensExt?: Array<AuthTokensExtType$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputHTTPRawHTTPRaw3$outboundSchema: z.ZodType<
+  InputHTTPRawHTTPRaw3$Outbound,
+  z.ZodTypeDef,
+  InputHTTPRawHTTPRaw3
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputHttpRawType3$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  allowedPaths: z.array(z.string()).optional(),
+  allowedMethods: z.array(z.string()).optional(),
+  authTokensExt: z.array(AuthTokensExtType$outboundSchema).optional(),
+  description: z.string().optional(),
+});
+
+export function inputHTTPRawHTTPRaw3ToJSON(
+  inputHTTPRawHTTPRaw3: InputHTTPRawHTTPRaw3,
+): string {
+  return JSON.stringify(
+    InputHTTPRawHTTPRaw3$outboundSchema.parse(inputHTTPRawHTTPRaw3),
+  );
+}
+export function inputHTTPRawHTTPRaw3FromJSON(
+  jsonString: string,
+): SafeParseResult<InputHTTPRawHTTPRaw3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputHTTPRawHTTPRaw3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputHTTPRawHTTPRaw3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputHttpRawType2$inboundSchema: z.ZodNativeEnum<
+  typeof InputHttpRawType2
+> = z.nativeEnum(InputHttpRawType2);
+/** @internal */
+export const InputHttpRawType2$outboundSchema: z.ZodNativeEnum<
+  typeof InputHttpRawType2
+> = InputHttpRawType2$inboundSchema;
+
+/** @internal */
+export const InputHTTPRawHTTPRaw2$inboundSchema: z.ZodType<
+  InputHTTPRawHTTPRaw2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputHttpRawType2$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  allowedPaths: z.array(z.string()).optional(),
+  allowedMethods: z.array(z.string()).optional(),
+  authTokensExt: z.array(AuthTokensExtType$inboundSchema).optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputHTTPRawHTTPRaw2$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections: Array<ConnectionsType$Outbound>;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<string> | undefined;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs: number;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  allowedPaths?: Array<string> | undefined;
+  allowedMethods?: Array<string> | undefined;
+  authTokensExt?: Array<AuthTokensExtType$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputHTTPRawHTTPRaw2$outboundSchema: z.ZodType<
+  InputHTTPRawHTTPRaw2$Outbound,
+  z.ZodTypeDef,
+  InputHTTPRawHTTPRaw2
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputHttpRawType2$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  allowedPaths: z.array(z.string()).optional(),
+  allowedMethods: z.array(z.string()).optional(),
+  authTokensExt: z.array(AuthTokensExtType$outboundSchema).optional(),
+  description: z.string().optional(),
+});
+
+export function inputHTTPRawHTTPRaw2ToJSON(
+  inputHTTPRawHTTPRaw2: InputHTTPRawHTTPRaw2,
+): string {
+  return JSON.stringify(
+    InputHTTPRawHTTPRaw2$outboundSchema.parse(inputHTTPRawHTTPRaw2),
+  );
+}
+export function inputHTTPRawHTTPRaw2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputHTTPRawHTTPRaw2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputHTTPRawHTTPRaw2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputHTTPRawHTTPRaw2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputHttpRawType1$inboundSchema: z.ZodNativeEnum<
+  typeof InputHttpRawType1
+> = z.nativeEnum(InputHttpRawType1);
+/** @internal */
+export const InputHttpRawType1$outboundSchema: z.ZodNativeEnum<
+  typeof InputHttpRawType1
+> = InputHttpRawType1$inboundSchema;
+
+/** @internal */
+export const InputHTTPRawHTTPRaw1$inboundSchema: z.ZodType<
+  InputHTTPRawHTTPRaw1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputHttpRawType1$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  allowedPaths: z.array(z.string()).optional(),
+  allowedMethods: z.array(z.string()).optional(),
+  authTokensExt: z.array(AuthTokensExtType$inboundSchema).optional(),
+  description: z.string().optional(),
+});
+/** @internal */
+export type InputHTTPRawHTTPRaw1$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  authTokens?: Array<string> | undefined;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs: number;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  allowedPaths?: Array<string> | undefined;
+  allowedMethods?: Array<string> | undefined;
+  authTokensExt?: Array<AuthTokensExtType$Outbound> | undefined;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputHTTPRawHTTPRaw1$outboundSchema: z.ZodType<
+  InputHTTPRawHTTPRaw1$Outbound,
+  z.ZodTypeDef,
+  InputHTTPRawHTTPRaw1
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputHttpRawType1$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  authTokens: z.array(z.string()).optional(),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  allowedPaths: z.array(z.string()).optional(),
+  allowedMethods: z.array(z.string()).optional(),
+  authTokensExt: z.array(AuthTokensExtType$outboundSchema).optional(),
+  description: z.string().optional(),
+});
+
+export function inputHTTPRawHTTPRaw1ToJSON(
+  inputHTTPRawHTTPRaw1: InputHTTPRawHTTPRaw1,
+): string {
+  return JSON.stringify(
+    InputHTTPRawHTTPRaw1$outboundSchema.parse(inputHTTPRawHTTPRaw1),
+  );
+}
+export function inputHTTPRawHTTPRaw1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputHTTPRawHTTPRaw1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputHTTPRawHTTPRaw1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputHTTPRawHTTPRaw1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputHttpRaw$inboundSchema: z.ZodType<
+  InputHttpRaw,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputHTTPRawHTTPRaw2$inboundSchema),
+  z.lazy(() => InputHTTPRawHTTPRaw4$inboundSchema),
+  z.lazy(() => InputHTTPRawHTTPRaw1$inboundSchema),
+  z.lazy(() => InputHTTPRawHTTPRaw3$inboundSchema),
+]);
+/** @internal */
+export type InputHttpRaw$Outbound =
+  | InputHTTPRawHTTPRaw2$Outbound
+  | InputHTTPRawHTTPRaw4$Outbound
+  | InputHTTPRawHTTPRaw1$Outbound
+  | InputHTTPRawHTTPRaw3$Outbound;
+
+/** @internal */
+export const InputHttpRaw$outboundSchema: z.ZodType<
+  InputHttpRaw$Outbound,
+  z.ZodTypeDef,
+  InputHttpRaw
+> = z.union([
+  z.lazy(() => InputHTTPRawHTTPRaw2$outboundSchema),
+  z.lazy(() => InputHTTPRawHTTPRaw4$outboundSchema),
+  z.lazy(() => InputHTTPRawHTTPRaw1$outboundSchema),
+  z.lazy(() => InputHTTPRawHTTPRaw3$outboundSchema),
+]);
 
 export function inputHttpRawToJSON(inputHttpRaw: InputHttpRaw): string {
   return JSON.stringify(InputHttpRaw$outboundSchema.parse(inputHttpRaw));
 }
-
 export function inputHttpRawFromJSON(
   jsonString: string,
 ): SafeParseResult<InputHttpRaw, SDKValidationError> {

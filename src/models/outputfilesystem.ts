@@ -4,132 +4,61 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  CompressionLevelOptions,
+  CompressionLevelOptions$inboundSchema,
+  CompressionLevelOptions$outboundSchema,
+} from "./compressionleveloptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  Format1Options,
+  Format1Options$inboundSchema,
+  Format1Options$outboundSchema,
+} from "./format1options.js";
+import {
+  ParquetDataPageVersionOptions,
+  ParquetDataPageVersionOptions$inboundSchema,
+  ParquetDataPageVersionOptions$outboundSchema,
+} from "./parquetdatapageversionoptions.js";
+import {
+  ParquetVersionOptions,
+  ParquetVersionOptions$inboundSchema,
+  ParquetVersionOptions$outboundSchema,
+} from "./parquetversionoptions.js";
+import {
+  PqCompressOptions,
+  PqCompressOptions$inboundSchema,
+  PqCompressOptions$outboundSchema,
+} from "./pqcompressoptions.js";
+import {
+  PqOnBackpressureOptions,
+  PqOnBackpressureOptions$inboundSchema,
+  PqOnBackpressureOptions$outboundSchema,
+} from "./pqonbackpressureoptions.js";
+import {
+  TagsType,
+  TagsType$inboundSchema,
+  TagsType$Outbound,
+  TagsType$outboundSchema,
+} from "./tagstype.js";
 
-export const OutputFilesystemType = {
+export const OutputFilesystemType6 = {
   Filesystem: "filesystem",
 } as const;
-export type OutputFilesystemType = ClosedEnum<typeof OutputFilesystemType>;
+export type OutputFilesystemType6 = ClosedEnum<typeof OutputFilesystemType6>;
 
-/**
- * Format of the output data
- */
-export const OutputFilesystemDataFormat = {
-  Json: "json",
-  Raw: "raw",
-  Parquet: "parquet",
-} as const;
-/**
- * Format of the output data
- */
-export type OutputFilesystemDataFormat = OpenEnum<
-  typeof OutputFilesystemDataFormat
->;
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputFilesystemBackpressureBehavior = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputFilesystemBackpressureBehavior = OpenEnum<
-  typeof OutputFilesystemBackpressureBehavior
->;
-
-/**
- * How to handle events when disk space is below the global 'Min free disk space' limit
- */
-export const OutputFilesystemDiskSpaceProtection = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when disk space is below the global 'Min free disk space' limit
- */
-export type OutputFilesystemDiskSpaceProtection = OpenEnum<
-  typeof OutputFilesystemDiskSpaceProtection
->;
-
-/**
- * Data compression format to apply to HTTP content before it is delivered
- */
-export const OutputFilesystemCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Data compression format to apply to HTTP content before it is delivered
- */
-export type OutputFilesystemCompression = OpenEnum<
-  typeof OutputFilesystemCompression
->;
-
-/**
- * Compression level to apply before moving files to final destination
- */
-export const OutputFilesystemCompressionLevel = {
-  BestSpeed: "best_speed",
-  Normal: "normal",
-  BestCompression: "best_compression",
-} as const;
-/**
- * Compression level to apply before moving files to final destination
- */
-export type OutputFilesystemCompressionLevel = OpenEnum<
-  typeof OutputFilesystemCompressionLevel
->;
-
-/**
- * Determines which data types are supported and how they are represented
- */
-export const OutputFilesystemParquetVersion = {
-  Parquet10: "PARQUET_1_0",
-  Parquet24: "PARQUET_2_4",
-  Parquet26: "PARQUET_2_6",
-} as const;
-/**
- * Determines which data types are supported and how they are represented
- */
-export type OutputFilesystemParquetVersion = OpenEnum<
-  typeof OutputFilesystemParquetVersion
->;
-
-/**
- * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
- */
-export const OutputFilesystemDataPageVersion = {
-  DataPageV1: "DATA_PAGE_V1",
-  DataPageV2: "DATA_PAGE_V2",
-} as const;
-/**
- * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
- */
-export type OutputFilesystemDataPageVersion = OpenEnum<
-  typeof OutputFilesystemDataPageVersion
->;
-
-export type OutputFilesystemKeyValueMetadatum = {
-  key?: string | undefined;
-  value: string;
-};
-
-export type OutputFilesystem = {
+export type OutputFilesystemFilesystem6 = {
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputFilesystemType;
+  type: OutputFilesystemType6;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -169,7 +98,7 @@ export type OutputFilesystem = {
   /**
    * Format of the output data
    */
-  format?: OutputFilesystemDataFormat | undefined;
+  format?: Format1Options | undefined;
   /**
    * JavaScript expression to define the output filename prefix (can be constant)
    */
@@ -203,38 +132,38 @@ export type OutputFilesystem = {
    */
   writeHighWaterMark?: number | undefined;
   /**
-   * How to handle events when all receivers are exerting backpressure
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  onBackpressure?: OutputFilesystemBackpressureBehavior | undefined;
+  onBackpressure?: PqOnBackpressureOptions | undefined;
   /**
-   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  deadletterEnabled?: boolean | undefined;
-  /**
-   * How to handle events when disk space is below the global 'Min free disk space' limit
-   */
-  onDiskFullBackpressure?: OutputFilesystemDiskSpaceProtection | undefined;
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
   description?: string | undefined;
   /**
-   * Data compression format to apply to HTTP content before it is delivered
+   * Codec to use to compress the persisted data
    */
-  compress?: OutputFilesystemCompression | undefined;
+  compress?: PqCompressOptions | undefined;
   /**
    * Compression level to apply before moving files to final destination
    */
-  compressionLevel?: OutputFilesystemCompressionLevel | undefined;
+  compressionLevel?: CompressionLevelOptions | undefined;
   /**
    * Automatically calculate the schema based on the events of each Parquet file generated
    */
   automaticSchema?: boolean | undefined;
   /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
    * Determines which data types are supported and how they are represented
    */
-  parquetVersion?: OutputFilesystemParquetVersion | undefined;
+  parquetVersion?: ParquetVersionOptions | undefined;
   /**
    * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
    */
-  parquetDataPageVersion?: OutputFilesystemDataPageVersion | undefined;
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
   /**
    * The number of rows that every group will contain. The final group can contain a smaller number of rows.
    */
@@ -250,7 +179,7 @@ export type OutputFilesystem = {
   /**
    * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
    */
-  keyValueMetadata?: Array<OutputFilesystemKeyValueMetadatum> | undefined;
+  keyValueMetadata?: Array<TagsType> | undefined;
   /**
    * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
    */
@@ -277,323 +206,842 @@ export type OutputFilesystem = {
   maxRetryNum?: number | undefined;
 };
 
-/** @internal */
-export const OutputFilesystemType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputFilesystemType
-> = z.nativeEnum(OutputFilesystemType);
+export const OutputFilesystemType5 = {
+  Filesystem: "filesystem",
+} as const;
+export type OutputFilesystemType5 = ClosedEnum<typeof OutputFilesystemType5>;
 
-/** @internal */
-export const OutputFilesystemType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputFilesystemType
-> = OutputFilesystemType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputFilesystemType$ {
-  /** @deprecated use `OutputFilesystemType$inboundSchema` instead. */
-  export const inboundSchema = OutputFilesystemType$inboundSchema;
-  /** @deprecated use `OutputFilesystemType$outboundSchema` instead. */
-  export const outboundSchema = OutputFilesystemType$outboundSchema;
-}
-
-/** @internal */
-export const OutputFilesystemDataFormat$inboundSchema: z.ZodType<
-  OutputFilesystemDataFormat,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputFilesystemDataFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputFilesystemDataFormat$outboundSchema: z.ZodType<
-  OutputFilesystemDataFormat,
-  z.ZodTypeDef,
-  OutputFilesystemDataFormat
-> = z.union([
-  z.nativeEnum(OutputFilesystemDataFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputFilesystemDataFormat$ {
-  /** @deprecated use `OutputFilesystemDataFormat$inboundSchema` instead. */
-  export const inboundSchema = OutputFilesystemDataFormat$inboundSchema;
-  /** @deprecated use `OutputFilesystemDataFormat$outboundSchema` instead. */
-  export const outboundSchema = OutputFilesystemDataFormat$outboundSchema;
-}
-
-/** @internal */
-export const OutputFilesystemBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputFilesystemBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputFilesystemBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputFilesystemBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputFilesystemBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputFilesystemBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputFilesystemBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputFilesystemBackpressureBehavior$ {
-  /** @deprecated use `OutputFilesystemBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputFilesystemBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputFilesystemBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputFilesystemBackpressureBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputFilesystemDiskSpaceProtection$inboundSchema: z.ZodType<
-  OutputFilesystemDiskSpaceProtection,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputFilesystemDiskSpaceProtection),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputFilesystemDiskSpaceProtection$outboundSchema: z.ZodType<
-  OutputFilesystemDiskSpaceProtection,
-  z.ZodTypeDef,
-  OutputFilesystemDiskSpaceProtection
-> = z.union([
-  z.nativeEnum(OutputFilesystemDiskSpaceProtection),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputFilesystemDiskSpaceProtection$ {
-  /** @deprecated use `OutputFilesystemDiskSpaceProtection$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputFilesystemDiskSpaceProtection$inboundSchema;
-  /** @deprecated use `OutputFilesystemDiskSpaceProtection$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputFilesystemDiskSpaceProtection$outboundSchema;
-}
-
-/** @internal */
-export const OutputFilesystemCompression$inboundSchema: z.ZodType<
-  OutputFilesystemCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputFilesystemCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputFilesystemCompression$outboundSchema: z.ZodType<
-  OutputFilesystemCompression,
-  z.ZodTypeDef,
-  OutputFilesystemCompression
-> = z.union([
-  z.nativeEnum(OutputFilesystemCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputFilesystemCompression$ {
-  /** @deprecated use `OutputFilesystemCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputFilesystemCompression$inboundSchema;
-  /** @deprecated use `OutputFilesystemCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputFilesystemCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputFilesystemCompressionLevel$inboundSchema: z.ZodType<
-  OutputFilesystemCompressionLevel,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputFilesystemCompressionLevel),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputFilesystemCompressionLevel$outboundSchema: z.ZodType<
-  OutputFilesystemCompressionLevel,
-  z.ZodTypeDef,
-  OutputFilesystemCompressionLevel
-> = z.union([
-  z.nativeEnum(OutputFilesystemCompressionLevel),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputFilesystemCompressionLevel$ {
-  /** @deprecated use `OutputFilesystemCompressionLevel$inboundSchema` instead. */
-  export const inboundSchema = OutputFilesystemCompressionLevel$inboundSchema;
-  /** @deprecated use `OutputFilesystemCompressionLevel$outboundSchema` instead. */
-  export const outboundSchema = OutputFilesystemCompressionLevel$outboundSchema;
-}
-
-/** @internal */
-export const OutputFilesystemParquetVersion$inboundSchema: z.ZodType<
-  OutputFilesystemParquetVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputFilesystemParquetVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputFilesystemParquetVersion$outboundSchema: z.ZodType<
-  OutputFilesystemParquetVersion,
-  z.ZodTypeDef,
-  OutputFilesystemParquetVersion
-> = z.union([
-  z.nativeEnum(OutputFilesystemParquetVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputFilesystemParquetVersion$ {
-  /** @deprecated use `OutputFilesystemParquetVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputFilesystemParquetVersion$inboundSchema;
-  /** @deprecated use `OutputFilesystemParquetVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputFilesystemParquetVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputFilesystemDataPageVersion$inboundSchema: z.ZodType<
-  OutputFilesystemDataPageVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputFilesystemDataPageVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputFilesystemDataPageVersion$outboundSchema: z.ZodType<
-  OutputFilesystemDataPageVersion,
-  z.ZodTypeDef,
-  OutputFilesystemDataPageVersion
-> = z.union([
-  z.nativeEnum(OutputFilesystemDataPageVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputFilesystemDataPageVersion$ {
-  /** @deprecated use `OutputFilesystemDataPageVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputFilesystemDataPageVersion$inboundSchema;
-  /** @deprecated use `OutputFilesystemDataPageVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputFilesystemDataPageVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputFilesystemKeyValueMetadatum$inboundSchema: z.ZodType<
-  OutputFilesystemKeyValueMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  key: z.string().default(""),
-  value: z.string(),
-});
-
-/** @internal */
-export type OutputFilesystemKeyValueMetadatum$Outbound = {
-  key: string;
-  value: string;
+export type OutputFilesystemFilesystem5 = {
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputFilesystemType5;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Final destination for the output files
+   */
+  destPath: string;
+  /**
+   * Filesystem location in which to buffer files before compressing and moving to final destination. Use performant, stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
 };
 
+export const OutputFilesystemType4 = {
+  Filesystem: "filesystem",
+} as const;
+export type OutputFilesystemType4 = ClosedEnum<typeof OutputFilesystemType4>;
+
+export type OutputFilesystemFilesystem4 = {
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputFilesystemType4;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Final destination for the output files
+   */
+  destPath: string;
+  /**
+   * Filesystem location in which to buffer files before compressing and moving to final destination. Use performant, stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export const OutputFilesystemType3 = {
+  Filesystem: "filesystem",
+} as const;
+export type OutputFilesystemType3 = ClosedEnum<typeof OutputFilesystemType3>;
+
+export type OutputFilesystemFilesystem3 = {
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputFilesystemType3;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Final destination for the output files
+   */
+  destPath: string;
+  /**
+   * Filesystem location in which to buffer files before compressing and moving to final destination. Use performant, stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export const OutputFilesystemType2 = {
+  Filesystem: "filesystem",
+} as const;
+export type OutputFilesystemType2 = ClosedEnum<typeof OutputFilesystemType2>;
+
+export type OutputFilesystemFilesystem2 = {
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputFilesystemType2;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Final destination for the output files
+   */
+  destPath: string;
+  /**
+   * Filesystem location in which to buffer files before compressing and moving to final destination. Use performant, stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows: boolean;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata: Array<TagsType>;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export const OutputFilesystemType1 = {
+  Filesystem: "filesystem",
+} as const;
+export type OutputFilesystemType1 = ClosedEnum<typeof OutputFilesystemType1>;
+
+export type OutputFilesystemFilesystem1 = {
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputFilesystemType1;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Final destination for the output files
+   */
+  destPath: string;
+  /**
+   * Filesystem location in which to buffer files before compressing and moving to final destination. Use performant, stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export type OutputFilesystem =
+  | OutputFilesystemFilesystem2
+  | OutputFilesystemFilesystem1
+  | OutputFilesystemFilesystem3
+  | OutputFilesystemFilesystem4
+  | OutputFilesystemFilesystem5
+  | OutputFilesystemFilesystem6;
+
 /** @internal */
-export const OutputFilesystemKeyValueMetadatum$outboundSchema: z.ZodType<
-  OutputFilesystemKeyValueMetadatum$Outbound,
-  z.ZodTypeDef,
-  OutputFilesystemKeyValueMetadatum
-> = z.object({
-  key: z.string().default(""),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputFilesystemKeyValueMetadatum$ {
-  /** @deprecated use `OutputFilesystemKeyValueMetadatum$inboundSchema` instead. */
-  export const inboundSchema = OutputFilesystemKeyValueMetadatum$inboundSchema;
-  /** @deprecated use `OutputFilesystemKeyValueMetadatum$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputFilesystemKeyValueMetadatum$outboundSchema;
-  /** @deprecated use `OutputFilesystemKeyValueMetadatum$Outbound` instead. */
-  export type Outbound = OutputFilesystemKeyValueMetadatum$Outbound;
-}
-
-export function outputFilesystemKeyValueMetadatumToJSON(
-  outputFilesystemKeyValueMetadatum: OutputFilesystemKeyValueMetadatum,
-): string {
-  return JSON.stringify(
-    OutputFilesystemKeyValueMetadatum$outboundSchema.parse(
-      outputFilesystemKeyValueMetadatum,
-    ),
-  );
-}
-
-export function outputFilesystemKeyValueMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputFilesystemKeyValueMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputFilesystemKeyValueMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputFilesystemKeyValueMetadatum' from JSON`,
-  );
-}
+export const OutputFilesystemType6$inboundSchema: z.ZodNativeEnum<
+  typeof OutputFilesystemType6
+> = z.nativeEnum(OutputFilesystemType6);
+/** @internal */
+export const OutputFilesystemType6$outboundSchema: z.ZodNativeEnum<
+  typeof OutputFilesystemType6
+> = OutputFilesystemType6$inboundSchema;
 
 /** @internal */
-export const OutputFilesystem$inboundSchema: z.ZodType<
-  OutputFilesystem,
+export const OutputFilesystemFilesystem6$inboundSchema: z.ZodType<
+  OutputFilesystemFilesystem6,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  deadletterEnabled: z.boolean().default(false),
   id: z.string().optional(),
-  type: OutputFilesystemType$inboundSchema,
+  type: OutputFilesystemType6$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -605,7 +1053,7 @@ export const OutputFilesystem$inboundSchema: z.ZodType<
   partitionExpr: z.string().default(
     "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
   ),
-  format: OutputFilesystemDataFormat$inboundSchema.default("json"),
+  format: Format1Options$inboundSchema.default("json"),
   baseFileName: z.string().default("`CriblOut`"),
   fileNameSuffix: z.string().default(
     "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
@@ -616,30 +1064,23 @@ export const OutputFilesystem$inboundSchema: z.ZodType<
   maxOpenFiles: z.number().default(100),
   headerLine: z.string().default(""),
   writeHighWaterMark: z.number().default(64),
-  onBackpressure: OutputFilesystemBackpressureBehavior$inboundSchema.default(
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
     "block",
   ),
-  deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: OutputFilesystemDiskSpaceProtection$inboundSchema
-    .default("block"),
   description: z.string().optional(),
-  compress: OutputFilesystemCompression$inboundSchema.default("gzip"),
-  compressionLevel: OutputFilesystemCompressionLevel$inboundSchema.default(
-    "best_speed",
-  ),
+  compress: PqCompressOptions$inboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
   automaticSchema: z.boolean().default(false),
-  parquetVersion: OutputFilesystemParquetVersion$inboundSchema.default(
-    "PARQUET_2_6",
-  ),
-  parquetDataPageVersion: OutputFilesystemDataPageVersion$inboundSchema.default(
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
     "DATA_PAGE_V2",
   ),
   parquetRowGroupLength: z.number().default(10000),
   parquetPageSize: z.string().default("1MB"),
   shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(
-    z.lazy(() => OutputFilesystemKeyValueMetadatum$inboundSchema),
-  ).optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
   enableStatistics: z.boolean().default(true),
   enableWritePageIndex: z.boolean().default(true),
   enablePageChecksum: z.boolean().default(false),
@@ -647,9 +1088,9 @@ export const OutputFilesystem$inboundSchema: z.ZodType<
   deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
   maxRetryNum: z.number().default(20),
 });
-
 /** @internal */
-export type OutputFilesystem$Outbound = {
+export type OutputFilesystemFilesystem6$Outbound = {
+  deadletterEnabled: boolean;
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -671,20 +1112,18 @@ export type OutputFilesystem$Outbound = {
   headerLine: string;
   writeHighWaterMark: number;
   onBackpressure: string;
-  deadletterEnabled: boolean;
   onDiskFullBackpressure: string;
   description?: string | undefined;
   compress: string;
   compressionLevel: string;
   automaticSchema: boolean;
+  parquetSchema?: string | undefined;
   parquetVersion: string;
   parquetDataPageVersion: string;
   parquetRowGroupLength: number;
   parquetPageSize: string;
   shouldLogInvalidRows?: boolean | undefined;
-  keyValueMetadata?:
-    | Array<OutputFilesystemKeyValueMetadatum$Outbound>
-    | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
   enableStatistics: boolean;
   enableWritePageIndex: boolean;
   enablePageChecksum: boolean;
@@ -694,13 +1133,14 @@ export type OutputFilesystem$Outbound = {
 };
 
 /** @internal */
-export const OutputFilesystem$outboundSchema: z.ZodType<
-  OutputFilesystem$Outbound,
+export const OutputFilesystemFilesystem6$outboundSchema: z.ZodType<
+  OutputFilesystemFilesystem6$Outbound,
   z.ZodTypeDef,
-  OutputFilesystem
+  OutputFilesystemFilesystem6
 > = z.object({
+  deadletterEnabled: z.boolean().default(false),
   id: z.string().optional(),
-  type: OutputFilesystemType$outboundSchema,
+  type: OutputFilesystemType6$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -712,7 +1152,7 @@ export const OutputFilesystem$outboundSchema: z.ZodType<
   partitionExpr: z.string().default(
     "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
   ),
-  format: OutputFilesystemDataFormat$outboundSchema.default("json"),
+  format: Format1Options$outboundSchema.default("json"),
   baseFileName: z.string().default("`CriblOut`"),
   fileNameSuffix: z.string().default(
     "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
@@ -723,29 +1163,25 @@ export const OutputFilesystem$outboundSchema: z.ZodType<
   maxOpenFiles: z.number().default(100),
   headerLine: z.string().default(""),
   writeHighWaterMark: z.number().default(64),
-  onBackpressure: OutputFilesystemBackpressureBehavior$outboundSchema.default(
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
     "block",
   ),
-  deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: OutputFilesystemDiskSpaceProtection$outboundSchema
-    .default("block"),
   description: z.string().optional(),
-  compress: OutputFilesystemCompression$outboundSchema.default("gzip"),
-  compressionLevel: OutputFilesystemCompressionLevel$outboundSchema.default(
+  compress: PqCompressOptions$outboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$outboundSchema.default(
     "best_speed",
   ),
   automaticSchema: z.boolean().default(false),
-  parquetVersion: OutputFilesystemParquetVersion$outboundSchema.default(
-    "PARQUET_2_6",
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
   ),
-  parquetDataPageVersion: OutputFilesystemDataPageVersion$outboundSchema
-    .default("DATA_PAGE_V2"),
   parquetRowGroupLength: z.number().default(10000),
   parquetPageSize: z.string().default("1MB"),
   shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(
-    z.lazy(() => OutputFilesystemKeyValueMetadatum$outboundSchema),
-  ).optional(),
+  keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
   enableStatistics: z.boolean().default(true),
   enableWritePageIndex: z.boolean().default(true),
   enablePageChecksum: z.boolean().default(false),
@@ -754,18 +1190,985 @@ export const OutputFilesystem$outboundSchema: z.ZodType<
   maxRetryNum: z.number().default(20),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputFilesystem$ {
-  /** @deprecated use `OutputFilesystem$inboundSchema` instead. */
-  export const inboundSchema = OutputFilesystem$inboundSchema;
-  /** @deprecated use `OutputFilesystem$outboundSchema` instead. */
-  export const outboundSchema = OutputFilesystem$outboundSchema;
-  /** @deprecated use `OutputFilesystem$Outbound` instead. */
-  export type Outbound = OutputFilesystem$Outbound;
+export function outputFilesystemFilesystem6ToJSON(
+  outputFilesystemFilesystem6: OutputFilesystemFilesystem6,
+): string {
+  return JSON.stringify(
+    OutputFilesystemFilesystem6$outboundSchema.parse(
+      outputFilesystemFilesystem6,
+    ),
+  );
 }
+export function outputFilesystemFilesystem6FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputFilesystemFilesystem6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputFilesystemFilesystem6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputFilesystemFilesystem6' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputFilesystemType5$inboundSchema: z.ZodNativeEnum<
+  typeof OutputFilesystemType5
+> = z.nativeEnum(OutputFilesystemType5);
+/** @internal */
+export const OutputFilesystemType5$outboundSchema: z.ZodNativeEnum<
+  typeof OutputFilesystemType5
+> = OutputFilesystemType5$inboundSchema;
+
+/** @internal */
+export const OutputFilesystemFilesystem5$inboundSchema: z.ZodType<
+  OutputFilesystemFilesystem5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  deadletterEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: OutputFilesystemType5$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  destPath: z.string(),
+  stagePath: z.string().optional(),
+  addIdToStagePath: z.boolean().default(true),
+  removeEmptyDirs: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  format: Format1Options$inboundSchema.default("json"),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  description: z.string().optional(),
+  compress: PqCompressOptions$inboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+/** @internal */
+export type OutputFilesystemFilesystem5$Outbound = {
+  deadletterEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  destPath: string;
+  stagePath?: string | undefined;
+  addIdToStagePath: boolean;
+  removeEmptyDirs: boolean;
+  partitionExpr: string;
+  format: string;
+  baseFileName: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  onDiskFullBackpressure: string;
+  description?: string | undefined;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+};
+
+/** @internal */
+export const OutputFilesystemFilesystem5$outboundSchema: z.ZodType<
+  OutputFilesystemFilesystem5$Outbound,
+  z.ZodTypeDef,
+  OutputFilesystemFilesystem5
+> = z.object({
+  deadletterEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: OutputFilesystemType5$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  destPath: z.string(),
+  stagePath: z.string().optional(),
+  addIdToStagePath: z.boolean().default(true),
+  removeEmptyDirs: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  format: Format1Options$outboundSchema.default("json"),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  description: z.string().optional(),
+  compress: PqCompressOptions$outboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$outboundSchema.default(
+    "best_speed",
+  ),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+
+export function outputFilesystemFilesystem5ToJSON(
+  outputFilesystemFilesystem5: OutputFilesystemFilesystem5,
+): string {
+  return JSON.stringify(
+    OutputFilesystemFilesystem5$outboundSchema.parse(
+      outputFilesystemFilesystem5,
+    ),
+  );
+}
+export function outputFilesystemFilesystem5FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputFilesystemFilesystem5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputFilesystemFilesystem5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputFilesystemFilesystem5' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputFilesystemType4$inboundSchema: z.ZodNativeEnum<
+  typeof OutputFilesystemType4
+> = z.nativeEnum(OutputFilesystemType4);
+/** @internal */
+export const OutputFilesystemType4$outboundSchema: z.ZodNativeEnum<
+  typeof OutputFilesystemType4
+> = OutputFilesystemType4$inboundSchema;
+
+/** @internal */
+export const OutputFilesystemFilesystem4$inboundSchema: z.ZodType<
+  OutputFilesystemFilesystem4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  removeEmptyDirs: z.boolean().default(true),
+  id: z.string().optional(),
+  type: OutputFilesystemType4$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  destPath: z.string(),
+  stagePath: z.string().optional(),
+  addIdToStagePath: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  format: Format1Options$inboundSchema.default("json"),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  description: z.string().optional(),
+  compress: PqCompressOptions$inboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+/** @internal */
+export type OutputFilesystemFilesystem4$Outbound = {
+  removeEmptyDirs: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  destPath: string;
+  stagePath?: string | undefined;
+  addIdToStagePath: boolean;
+  partitionExpr: string;
+  format: string;
+  baseFileName: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  description?: string | undefined;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+};
+
+/** @internal */
+export const OutputFilesystemFilesystem4$outboundSchema: z.ZodType<
+  OutputFilesystemFilesystem4$Outbound,
+  z.ZodTypeDef,
+  OutputFilesystemFilesystem4
+> = z.object({
+  removeEmptyDirs: z.boolean().default(true),
+  id: z.string().optional(),
+  type: OutputFilesystemType4$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  destPath: z.string(),
+  stagePath: z.string().optional(),
+  addIdToStagePath: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  format: Format1Options$outboundSchema.default("json"),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  description: z.string().optional(),
+  compress: PqCompressOptions$outboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$outboundSchema.default(
+    "best_speed",
+  ),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+
+export function outputFilesystemFilesystem4ToJSON(
+  outputFilesystemFilesystem4: OutputFilesystemFilesystem4,
+): string {
+  return JSON.stringify(
+    OutputFilesystemFilesystem4$outboundSchema.parse(
+      outputFilesystemFilesystem4,
+    ),
+  );
+}
+export function outputFilesystemFilesystem4FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputFilesystemFilesystem4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputFilesystemFilesystem4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputFilesystemFilesystem4' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputFilesystemType3$inboundSchema: z.ZodNativeEnum<
+  typeof OutputFilesystemType3
+> = z.nativeEnum(OutputFilesystemType3);
+/** @internal */
+export const OutputFilesystemType3$outboundSchema: z.ZodNativeEnum<
+  typeof OutputFilesystemType3
+> = OutputFilesystemType3$inboundSchema;
+
+/** @internal */
+export const OutputFilesystemFilesystem3$inboundSchema: z.ZodType<
+  OutputFilesystemFilesystem3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  removeEmptyDirs: z.boolean().default(true),
+  id: z.string().optional(),
+  type: OutputFilesystemType3$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  destPath: z.string(),
+  stagePath: z.string().optional(),
+  addIdToStagePath: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  format: Format1Options$inboundSchema.default("json"),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  description: z.string().optional(),
+  compress: PqCompressOptions$inboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+/** @internal */
+export type OutputFilesystemFilesystem3$Outbound = {
+  removeEmptyDirs: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  destPath: string;
+  stagePath?: string | undefined;
+  addIdToStagePath: boolean;
+  partitionExpr: string;
+  format: string;
+  baseFileName: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  description?: string | undefined;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+};
+
+/** @internal */
+export const OutputFilesystemFilesystem3$outboundSchema: z.ZodType<
+  OutputFilesystemFilesystem3$Outbound,
+  z.ZodTypeDef,
+  OutputFilesystemFilesystem3
+> = z.object({
+  removeEmptyDirs: z.boolean().default(true),
+  id: z.string().optional(),
+  type: OutputFilesystemType3$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  destPath: z.string(),
+  stagePath: z.string().optional(),
+  addIdToStagePath: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  format: Format1Options$outboundSchema.default("json"),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  description: z.string().optional(),
+  compress: PqCompressOptions$outboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$outboundSchema.default(
+    "best_speed",
+  ),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+
+export function outputFilesystemFilesystem3ToJSON(
+  outputFilesystemFilesystem3: OutputFilesystemFilesystem3,
+): string {
+  return JSON.stringify(
+    OutputFilesystemFilesystem3$outboundSchema.parse(
+      outputFilesystemFilesystem3,
+    ),
+  );
+}
+export function outputFilesystemFilesystem3FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputFilesystemFilesystem3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputFilesystemFilesystem3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputFilesystemFilesystem3' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputFilesystemType2$inboundSchema: z.ZodNativeEnum<
+  typeof OutputFilesystemType2
+> = z.nativeEnum(OutputFilesystemType2);
+/** @internal */
+export const OutputFilesystemType2$outboundSchema: z.ZodNativeEnum<
+  typeof OutputFilesystemType2
+> = OutputFilesystemType2$inboundSchema;
+
+/** @internal */
+export const OutputFilesystemFilesystem2$inboundSchema: z.ZodType<
+  OutputFilesystemFilesystem2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  format: Format1Options$inboundSchema.default("json"),
+  id: z.string().optional(),
+  type: OutputFilesystemType2$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  destPath: z.string(),
+  stagePath: z.string().optional(),
+  addIdToStagePath: z.boolean().default(true),
+  removeEmptyDirs: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  description: z.string().optional(),
+  compress: PqCompressOptions$inboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean(),
+  keyValueMetadata: z.array(TagsType$inboundSchema),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+/** @internal */
+export type OutputFilesystemFilesystem2$Outbound = {
+  format: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  destPath: string;
+  stagePath?: string | undefined;
+  addIdToStagePath: boolean;
+  removeEmptyDirs: boolean;
+  partitionExpr: string;
+  baseFileName: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  description?: string | undefined;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows: boolean;
+  keyValueMetadata: Array<TagsType$Outbound>;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+};
+
+/** @internal */
+export const OutputFilesystemFilesystem2$outboundSchema: z.ZodType<
+  OutputFilesystemFilesystem2$Outbound,
+  z.ZodTypeDef,
+  OutputFilesystemFilesystem2
+> = z.object({
+  format: Format1Options$outboundSchema.default("json"),
+  id: z.string().optional(),
+  type: OutputFilesystemType2$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  destPath: z.string(),
+  stagePath: z.string().optional(),
+  addIdToStagePath: z.boolean().default(true),
+  removeEmptyDirs: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  description: z.string().optional(),
+  compress: PqCompressOptions$outboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$outboundSchema.default(
+    "best_speed",
+  ),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean(),
+  keyValueMetadata: z.array(TagsType$outboundSchema),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+
+export function outputFilesystemFilesystem2ToJSON(
+  outputFilesystemFilesystem2: OutputFilesystemFilesystem2,
+): string {
+  return JSON.stringify(
+    OutputFilesystemFilesystem2$outboundSchema.parse(
+      outputFilesystemFilesystem2,
+    ),
+  );
+}
+export function outputFilesystemFilesystem2FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputFilesystemFilesystem2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputFilesystemFilesystem2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputFilesystemFilesystem2' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputFilesystemType1$inboundSchema: z.ZodNativeEnum<
+  typeof OutputFilesystemType1
+> = z.nativeEnum(OutputFilesystemType1);
+/** @internal */
+export const OutputFilesystemType1$outboundSchema: z.ZodNativeEnum<
+  typeof OutputFilesystemType1
+> = OutputFilesystemType1$inboundSchema;
+
+/** @internal */
+export const OutputFilesystemFilesystem1$inboundSchema: z.ZodType<
+  OutputFilesystemFilesystem1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  format: Format1Options$inboundSchema.default("json"),
+  id: z.string().optional(),
+  type: OutputFilesystemType1$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  destPath: z.string(),
+  stagePath: z.string().optional(),
+  addIdToStagePath: z.boolean().default(true),
+  removeEmptyDirs: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  description: z.string().optional(),
+  compress: PqCompressOptions$inboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+/** @internal */
+export type OutputFilesystemFilesystem1$Outbound = {
+  format: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  destPath: string;
+  stagePath?: string | undefined;
+  addIdToStagePath: boolean;
+  removeEmptyDirs: boolean;
+  partitionExpr: string;
+  baseFileName: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  description?: string | undefined;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+};
+
+/** @internal */
+export const OutputFilesystemFilesystem1$outboundSchema: z.ZodType<
+  OutputFilesystemFilesystem1$Outbound,
+  z.ZodTypeDef,
+  OutputFilesystemFilesystem1
+> = z.object({
+  format: Format1Options$outboundSchema.default("json"),
+  id: z.string().optional(),
+  type: OutputFilesystemType1$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  destPath: z.string(),
+  stagePath: z.string().optional(),
+  addIdToStagePath: z.boolean().default(true),
+  removeEmptyDirs: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  description: z.string().optional(),
+  compress: PqCompressOptions$outboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$outboundSchema.default(
+    "best_speed",
+  ),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+
+export function outputFilesystemFilesystem1ToJSON(
+  outputFilesystemFilesystem1: OutputFilesystemFilesystem1,
+): string {
+  return JSON.stringify(
+    OutputFilesystemFilesystem1$outboundSchema.parse(
+      outputFilesystemFilesystem1,
+    ),
+  );
+}
+export function outputFilesystemFilesystem1FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputFilesystemFilesystem1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputFilesystemFilesystem1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputFilesystemFilesystem1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputFilesystem$inboundSchema: z.ZodType<
+  OutputFilesystem,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => OutputFilesystemFilesystem2$inboundSchema),
+  z.lazy(() => OutputFilesystemFilesystem1$inboundSchema),
+  z.lazy(() => OutputFilesystemFilesystem3$inboundSchema),
+  z.lazy(() => OutputFilesystemFilesystem4$inboundSchema),
+  z.lazy(() => OutputFilesystemFilesystem5$inboundSchema),
+  z.lazy(() => OutputFilesystemFilesystem6$inboundSchema),
+]);
+/** @internal */
+export type OutputFilesystem$Outbound =
+  | OutputFilesystemFilesystem2$Outbound
+  | OutputFilesystemFilesystem1$Outbound
+  | OutputFilesystemFilesystem3$Outbound
+  | OutputFilesystemFilesystem4$Outbound
+  | OutputFilesystemFilesystem5$Outbound
+  | OutputFilesystemFilesystem6$Outbound;
+
+/** @internal */
+export const OutputFilesystem$outboundSchema: z.ZodType<
+  OutputFilesystem$Outbound,
+  z.ZodTypeDef,
+  OutputFilesystem
+> = z.union([
+  z.lazy(() => OutputFilesystemFilesystem2$outboundSchema),
+  z.lazy(() => OutputFilesystemFilesystem1$outboundSchema),
+  z.lazy(() => OutputFilesystemFilesystem3$outboundSchema),
+  z.lazy(() => OutputFilesystemFilesystem4$outboundSchema),
+  z.lazy(() => OutputFilesystemFilesystem5$outboundSchema),
+  z.lazy(() => OutputFilesystemFilesystem6$outboundSchema),
+]);
 
 export function outputFilesystemToJSON(
   outputFilesystem: OutputFilesystem,
@@ -774,7 +2177,6 @@ export function outputFilesystemToJSON(
     OutputFilesystem$outboundSchema.parse(outputFilesystem),
   );
 }
-
 export function outputFilesystemFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputFilesystem, SDKValidationError> {

@@ -4,96 +4,56 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  MetadataType,
+  MetadataType$inboundSchema,
+  MetadataType$Outbound,
+  MetadataType$outboundSchema,
+} from "./metadatatype.js";
+import {
+  OnBackpressureOptions,
+  OnBackpressureOptions$inboundSchema,
+  OnBackpressureOptions$outboundSchema,
+} from "./onbackpressureoptions.js";
+import {
+  PqCompressOptions,
+  PqCompressOptions$inboundSchema,
+  PqCompressOptions$outboundSchema,
+} from "./pqcompressoptions.js";
+import {
+  PqModeOptions,
+  PqModeOptions$inboundSchema,
+  PqModeOptions$outboundSchema,
+} from "./pqmodeoptions.js";
+import {
+  PqOnBackpressureOptions,
+  PqOnBackpressureOptions$inboundSchema,
+  PqOnBackpressureOptions$outboundSchema,
+} from "./pqonbackpressureoptions.js";
+import {
+  Protocol1Options,
+  Protocol1Options$inboundSchema,
+  Protocol1Options$outboundSchema,
+} from "./protocol1options.js";
 
-export const OutputStatsdType = {
+export const OutputStatsdType4 = {
   Statsd: "statsd",
 } as const;
-export type OutputStatsdType = ClosedEnum<typeof OutputStatsdType>;
+export type OutputStatsdType4 = ClosedEnum<typeof OutputStatsdType4>;
 
-/**
- * Protocol to use when communicating with the destination.
- */
-export const OutputStatsdDestinationProtocol = {
-  Udp: "udp",
-  Tcp: "tcp",
-} as const;
-/**
- * Protocol to use when communicating with the destination.
- */
-export type OutputStatsdDestinationProtocol = OpenEnum<
-  typeof OutputStatsdDestinationProtocol
->;
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputStatsdBackpressureBehavior = {
-  Block: "block",
-  Drop: "drop",
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputStatsdBackpressureBehavior = OpenEnum<
-  typeof OutputStatsdBackpressureBehavior
->;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputStatsdCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputStatsdCompression = OpenEnum<typeof OutputStatsdCompression>;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputStatsdQueueFullBehavior = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputStatsdQueueFullBehavior = OpenEnum<
-  typeof OutputStatsdQueueFullBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputStatsdMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputStatsdMode = OpenEnum<typeof OutputStatsdMode>;
-
-export type OutputStatsdPqControls = {};
-
-export type OutputStatsd = {
+export type OutputStatsdStatsd4 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputStatsdType;
+  type: OutputStatsdType4;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -111,9 +71,227 @@ export type OutputStatsd = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * Protocol to use when communicating with the destination.
+   * The network protocol to use for sending out syslog messages
    */
-  protocol?: OutputStatsdDestinationProtocol | undefined;
+  protocol?: Protocol1Options | undefined;
+  /**
+   * The hostname of the destination.
+   */
+  host: string;
+  /**
+   * Destination port.
+   */
+  port?: number | undefined;
+  /**
+   * When protocol is UDP, specifies the maximum size of packets sent to the destination. Also known as the MTU for the network path to the destination system.
+   */
+  mtu?: number | undefined;
+  /**
+   * When protocol is TCP, specifies how often buffers should be flushed, resulting in records sent to the destination.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * How often to resolve the destination hostname to an IP address. Ignored if the destination is an IP address. A value of 0 means every batch sent will incur a DNS lookup.
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+   */
+  writeTimeout?: number | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls: MetadataType;
+};
+
+export const OutputStatsdType3 = {
+  Statsd: "statsd",
+} as const;
+export type OutputStatsdType3 = ClosedEnum<typeof OutputStatsdType3>;
+
+export type OutputStatsdStatsd3 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputStatsdType3;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The network protocol to use for sending out syslog messages
+   */
+  protocol?: Protocol1Options | undefined;
+  /**
+   * The hostname of the destination.
+   */
+  host: string;
+  /**
+   * Destination port.
+   */
+  port?: number | undefined;
+  /**
+   * When protocol is UDP, specifies the maximum size of packets sent to the destination. Also known as the MTU for the network path to the destination system.
+   */
+  mtu?: number | undefined;
+  /**
+   * When protocol is TCP, specifies how often buffers should be flushed, resulting in records sent to the destination.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * How often to resolve the destination hostname to an IP address. Ignored if the destination is an IP address. A value of 0 means every batch sent will incur a DNS lookup.
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+   */
+  writeTimeout?: number | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export const OutputStatsdType2 = {
+  Statsd: "statsd",
+} as const;
+export type OutputStatsdType2 = ClosedEnum<typeof OutputStatsdType2>;
+
+export type OutputStatsdStatsd2 = {
+  /**
+   * The network protocol to use for sending out syslog messages
+   */
+  protocol?: Protocol1Options | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputStatsdType2;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
   /**
    * The hostname of the destination.
    */
@@ -150,7 +328,27 @@ export type OutputStatsd = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputStatsdBackpressureBehavior | undefined;
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
   /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
@@ -166,260 +364,154 @@ export type OutputStatsd = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputStatsdCompression | undefined;
+  pqCompress?: PqCompressOptions | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputStatsdQueueFullBehavior | undefined;
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export const OutputStatsdType1 = {
+  Statsd: "statsd",
+} as const;
+export type OutputStatsdType1 = ClosedEnum<typeof OutputStatsdType1>;
+
+export type OutputStatsdStatsd1 = {
+  /**
+   * The network protocol to use for sending out syslog messages
+   */
+  protocol?: Protocol1Options | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputStatsdType1;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The hostname of the destination.
+   */
+  host: string;
+  /**
+   * Destination port.
+   */
+  port?: number | undefined;
+  /**
+   * When protocol is UDP, specifies the maximum size of packets sent to the destination. Also known as the MTU for the network path to the destination system.
+   */
+  mtu?: number | undefined;
+  /**
+   * When protocol is TCP, specifies how often buffers should be flushed, resulting in records sent to the destination.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * How often to resolve the destination hostname to an IP address. Ignored if the destination is an IP address. A value of 0 means every batch sent will incur a DNS lookup.
+   */
+  dnsResolvePeriodSec?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for the connection to establish before retrying
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Amount of time (milliseconds) to wait for a write to complete before assuming connection is dead
+   */
+  writeTimeout?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputStatsdMode | undefined;
-  pqControls?: OutputStatsdPqControls | undefined;
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
 };
 
-/** @internal */
-export const OutputStatsdType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputStatsdType
-> = z.nativeEnum(OutputStatsdType);
+export type OutputStatsd =
+  | OutputStatsdStatsd4
+  | OutputStatsdStatsd1
+  | OutputStatsdStatsd2
+  | OutputStatsdStatsd3;
 
 /** @internal */
-export const OutputStatsdType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputStatsdType
-> = OutputStatsdType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputStatsdType$ {
-  /** @deprecated use `OutputStatsdType$inboundSchema` instead. */
-  export const inboundSchema = OutputStatsdType$inboundSchema;
-  /** @deprecated use `OutputStatsdType$outboundSchema` instead. */
-  export const outboundSchema = OutputStatsdType$outboundSchema;
-}
+export const OutputStatsdType4$inboundSchema: z.ZodNativeEnum<
+  typeof OutputStatsdType4
+> = z.nativeEnum(OutputStatsdType4);
+/** @internal */
+export const OutputStatsdType4$outboundSchema: z.ZodNativeEnum<
+  typeof OutputStatsdType4
+> = OutputStatsdType4$inboundSchema;
 
 /** @internal */
-export const OutputStatsdDestinationProtocol$inboundSchema: z.ZodType<
-  OutputStatsdDestinationProtocol,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputStatsdDestinationProtocol),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputStatsdDestinationProtocol$outboundSchema: z.ZodType<
-  OutputStatsdDestinationProtocol,
-  z.ZodTypeDef,
-  OutputStatsdDestinationProtocol
-> = z.union([
-  z.nativeEnum(OutputStatsdDestinationProtocol),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputStatsdDestinationProtocol$ {
-  /** @deprecated use `OutputStatsdDestinationProtocol$inboundSchema` instead. */
-  export const inboundSchema = OutputStatsdDestinationProtocol$inboundSchema;
-  /** @deprecated use `OutputStatsdDestinationProtocol$outboundSchema` instead. */
-  export const outboundSchema = OutputStatsdDestinationProtocol$outboundSchema;
-}
-
-/** @internal */
-export const OutputStatsdBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputStatsdBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputStatsdBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputStatsdBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputStatsdBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputStatsdBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputStatsdBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputStatsdBackpressureBehavior$ {
-  /** @deprecated use `OutputStatsdBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputStatsdBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputStatsdBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputStatsdBackpressureBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputStatsdCompression$inboundSchema: z.ZodType<
-  OutputStatsdCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputStatsdCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputStatsdCompression$outboundSchema: z.ZodType<
-  OutputStatsdCompression,
-  z.ZodTypeDef,
-  OutputStatsdCompression
-> = z.union([
-  z.nativeEnum(OutputStatsdCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputStatsdCompression$ {
-  /** @deprecated use `OutputStatsdCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputStatsdCompression$inboundSchema;
-  /** @deprecated use `OutputStatsdCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputStatsdCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputStatsdQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputStatsdQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputStatsdQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputStatsdQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputStatsdQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputStatsdQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputStatsdQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputStatsdQueueFullBehavior$ {
-  /** @deprecated use `OutputStatsdQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputStatsdQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputStatsdQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputStatsdQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputStatsdMode$inboundSchema: z.ZodType<
-  OutputStatsdMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputStatsdMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputStatsdMode$outboundSchema: z.ZodType<
-  OutputStatsdMode,
-  z.ZodTypeDef,
-  OutputStatsdMode
-> = z.union([
-  z.nativeEnum(OutputStatsdMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputStatsdMode$ {
-  /** @deprecated use `OutputStatsdMode$inboundSchema` instead. */
-  export const inboundSchema = OutputStatsdMode$inboundSchema;
-  /** @deprecated use `OutputStatsdMode$outboundSchema` instead. */
-  export const outboundSchema = OutputStatsdMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputStatsdPqControls$inboundSchema: z.ZodType<
-  OutputStatsdPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type OutputStatsdPqControls$Outbound = {};
-
-/** @internal */
-export const OutputStatsdPqControls$outboundSchema: z.ZodType<
-  OutputStatsdPqControls$Outbound,
-  z.ZodTypeDef,
-  OutputStatsdPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputStatsdPqControls$ {
-  /** @deprecated use `OutputStatsdPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputStatsdPqControls$inboundSchema;
-  /** @deprecated use `OutputStatsdPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputStatsdPqControls$outboundSchema;
-  /** @deprecated use `OutputStatsdPqControls$Outbound` instead. */
-  export type Outbound = OutputStatsdPqControls$Outbound;
-}
-
-export function outputStatsdPqControlsToJSON(
-  outputStatsdPqControls: OutputStatsdPqControls,
-): string {
-  return JSON.stringify(
-    OutputStatsdPqControls$outboundSchema.parse(outputStatsdPqControls),
-  );
-}
-
-export function outputStatsdPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputStatsdPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputStatsdPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputStatsdPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputStatsd$inboundSchema: z.ZodType<
-  OutputStatsd,
+export const OutputStatsdStatsd4$inboundSchema: z.ZodType<
+  OutputStatsdStatsd4,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
   id: z.string().optional(),
-  type: OutputStatsdType$inboundSchema,
+  type: OutputStatsdType4$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  protocol: OutputStatsdDestinationProtocol$inboundSchema.default("udp"),
+  protocol: Protocol1Options$inboundSchema.default("tcp"),
   host: z.string(),
   port: z.number().default(8125),
   mtu: z.number().default(512),
@@ -429,22 +521,21 @@ export const OutputStatsd$inboundSchema: z.ZodType<
   throttleRatePerSec: z.string().default("0"),
   connectionTimeout: z.number().default(10000),
   writeTimeout: z.number().default(60000),
-  onBackpressure: OutputStatsdBackpressureBehavior$inboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputStatsdCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputStatsdQueueFullBehavior$inboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputStatsdMode$inboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputStatsdPqControls$inboundSchema).optional(),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema,
 });
-
 /** @internal */
-export type OutputStatsd$Outbound = {
+export type OutputStatsdStatsd4$Outbound = {
+  onBackpressure: string;
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -461,29 +552,33 @@ export type OutputStatsd$Outbound = {
   throttleRatePerSec: string;
   connectionTimeout: number;
   writeTimeout: number;
-  onBackpressure: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
-  pqControls?: OutputStatsdPqControls$Outbound | undefined;
+  pqControls: MetadataType$Outbound;
 };
 
 /** @internal */
-export const OutputStatsd$outboundSchema: z.ZodType<
-  OutputStatsd$Outbound,
+export const OutputStatsdStatsd4$outboundSchema: z.ZodType<
+  OutputStatsdStatsd4$Outbound,
   z.ZodTypeDef,
-  OutputStatsd
+  OutputStatsdStatsd4
 > = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
   id: z.string().optional(),
-  type: OutputStatsdType$outboundSchema,
+  type: OutputStatsdType4$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  protocol: OutputStatsdDestinationProtocol$outboundSchema.default("udp"),
+  protocol: Protocol1Options$outboundSchema.default("tcp"),
   host: z.string(),
   port: z.number().default(8125),
   mtu: z.number().default(512),
@@ -493,37 +588,456 @@ export const OutputStatsd$outboundSchema: z.ZodType<
   throttleRatePerSec: z.string().default("0"),
   connectionTimeout: z.number().default(10000),
   writeTimeout: z.number().default(60000),
-  onBackpressure: OutputStatsdBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputStatsdCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputStatsdQueueFullBehavior$outboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputStatsdMode$outboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputStatsdPqControls$outboundSchema).optional(),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputStatsd$ {
-  /** @deprecated use `OutputStatsd$inboundSchema` instead. */
-  export const inboundSchema = OutputStatsd$inboundSchema;
-  /** @deprecated use `OutputStatsd$outboundSchema` instead. */
-  export const outboundSchema = OutputStatsd$outboundSchema;
-  /** @deprecated use `OutputStatsd$Outbound` instead. */
-  export type Outbound = OutputStatsd$Outbound;
+export function outputStatsdStatsd4ToJSON(
+  outputStatsdStatsd4: OutputStatsdStatsd4,
+): string {
+  return JSON.stringify(
+    OutputStatsdStatsd4$outboundSchema.parse(outputStatsdStatsd4),
+  );
 }
+export function outputStatsdStatsd4FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputStatsdStatsd4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputStatsdStatsd4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputStatsdStatsd4' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputStatsdType3$inboundSchema: z.ZodNativeEnum<
+  typeof OutputStatsdType3
+> = z.nativeEnum(OutputStatsdType3);
+/** @internal */
+export const OutputStatsdType3$outboundSchema: z.ZodNativeEnum<
+  typeof OutputStatsdType3
+> = OutputStatsdType3$inboundSchema;
+
+/** @internal */
+export const OutputStatsdStatsd3$inboundSchema: z.ZodType<
+  OutputStatsdStatsd3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputStatsdType3$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  protocol: Protocol1Options$inboundSchema.default("tcp"),
+  host: z.string(),
+  port: z.number().default(8125),
+  mtu: z.number().default(512),
+  flushPeriodSec: z.number().default(1),
+  dnsResolvePeriodSec: z.number().default(0),
+  description: z.string().optional(),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputStatsdStatsd3$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  protocol: string;
+  host: string;
+  port: number;
+  mtu: number;
+  flushPeriodSec: number;
+  dnsResolvePeriodSec: number;
+  description?: string | undefined;
+  throttleRatePerSec: string;
+  connectionTimeout: number;
+  writeTimeout: number;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputStatsdStatsd3$outboundSchema: z.ZodType<
+  OutputStatsdStatsd3$Outbound,
+  z.ZodTypeDef,
+  OutputStatsdStatsd3
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputStatsdType3$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  protocol: Protocol1Options$outboundSchema.default("tcp"),
+  host: z.string(),
+  port: z.number().default(8125),
+  mtu: z.number().default(512),
+  flushPeriodSec: z.number().default(1),
+  dnsResolvePeriodSec: z.number().default(0),
+  description: z.string().optional(),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputStatsdStatsd3ToJSON(
+  outputStatsdStatsd3: OutputStatsdStatsd3,
+): string {
+  return JSON.stringify(
+    OutputStatsdStatsd3$outboundSchema.parse(outputStatsdStatsd3),
+  );
+}
+export function outputStatsdStatsd3FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputStatsdStatsd3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputStatsdStatsd3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputStatsdStatsd3' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputStatsdType2$inboundSchema: z.ZodNativeEnum<
+  typeof OutputStatsdType2
+> = z.nativeEnum(OutputStatsdType2);
+/** @internal */
+export const OutputStatsdType2$outboundSchema: z.ZodNativeEnum<
+  typeof OutputStatsdType2
+> = OutputStatsdType2$inboundSchema;
+
+/** @internal */
+export const OutputStatsdStatsd2$inboundSchema: z.ZodType<
+  OutputStatsdStatsd2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  protocol: Protocol1Options$inboundSchema.default("tcp"),
+  id: z.string().optional(),
+  type: OutputStatsdType2$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  host: z.string(),
+  port: z.number().default(8125),
+  mtu: z.number().default(512),
+  flushPeriodSec: z.number().default(1),
+  dnsResolvePeriodSec: z.number().default(0),
+  description: z.string().optional(),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputStatsdStatsd2$Outbound = {
+  protocol: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  host: string;
+  port: number;
+  mtu: number;
+  flushPeriodSec: number;
+  dnsResolvePeriodSec: number;
+  description?: string | undefined;
+  throttleRatePerSec: string;
+  connectionTimeout: number;
+  writeTimeout: number;
+  onBackpressure: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputStatsdStatsd2$outboundSchema: z.ZodType<
+  OutputStatsdStatsd2$Outbound,
+  z.ZodTypeDef,
+  OutputStatsdStatsd2
+> = z.object({
+  protocol: Protocol1Options$outboundSchema.default("tcp"),
+  id: z.string().optional(),
+  type: OutputStatsdType2$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  host: z.string(),
+  port: z.number().default(8125),
+  mtu: z.number().default(512),
+  flushPeriodSec: z.number().default(1),
+  dnsResolvePeriodSec: z.number().default(0),
+  description: z.string().optional(),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputStatsdStatsd2ToJSON(
+  outputStatsdStatsd2: OutputStatsdStatsd2,
+): string {
+  return JSON.stringify(
+    OutputStatsdStatsd2$outboundSchema.parse(outputStatsdStatsd2),
+  );
+}
+export function outputStatsdStatsd2FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputStatsdStatsd2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputStatsdStatsd2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputStatsdStatsd2' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputStatsdType1$inboundSchema: z.ZodNativeEnum<
+  typeof OutputStatsdType1
+> = z.nativeEnum(OutputStatsdType1);
+/** @internal */
+export const OutputStatsdType1$outboundSchema: z.ZodNativeEnum<
+  typeof OutputStatsdType1
+> = OutputStatsdType1$inboundSchema;
+
+/** @internal */
+export const OutputStatsdStatsd1$inboundSchema: z.ZodType<
+  OutputStatsdStatsd1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  protocol: Protocol1Options$inboundSchema.default("tcp"),
+  id: z.string().optional(),
+  type: OutputStatsdType1$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  host: z.string(),
+  port: z.number().default(8125),
+  mtu: z.number().default(512),
+  flushPeriodSec: z.number().default(1),
+  dnsResolvePeriodSec: z.number().default(0),
+  description: z.string().optional(),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputStatsdStatsd1$Outbound = {
+  protocol: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  host: string;
+  port: number;
+  mtu: number;
+  flushPeriodSec: number;
+  dnsResolvePeriodSec: number;
+  description?: string | undefined;
+  throttleRatePerSec: string;
+  connectionTimeout: number;
+  writeTimeout: number;
+  onBackpressure: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputStatsdStatsd1$outboundSchema: z.ZodType<
+  OutputStatsdStatsd1$Outbound,
+  z.ZodTypeDef,
+  OutputStatsdStatsd1
+> = z.object({
+  protocol: Protocol1Options$outboundSchema.default("tcp"),
+  id: z.string().optional(),
+  type: OutputStatsdType1$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  host: z.string(),
+  port: z.number().default(8125),
+  mtu: z.number().default(512),
+  flushPeriodSec: z.number().default(1),
+  dnsResolvePeriodSec: z.number().default(0),
+  description: z.string().optional(),
+  throttleRatePerSec: z.string().default("0"),
+  connectionTimeout: z.number().default(10000),
+  writeTimeout: z.number().default(60000),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputStatsdStatsd1ToJSON(
+  outputStatsdStatsd1: OutputStatsdStatsd1,
+): string {
+  return JSON.stringify(
+    OutputStatsdStatsd1$outboundSchema.parse(outputStatsdStatsd1),
+  );
+}
+export function outputStatsdStatsd1FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputStatsdStatsd1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputStatsdStatsd1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputStatsdStatsd1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputStatsd$inboundSchema: z.ZodType<
+  OutputStatsd,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => OutputStatsdStatsd4$inboundSchema),
+  z.lazy(() => OutputStatsdStatsd1$inboundSchema),
+  z.lazy(() => OutputStatsdStatsd2$inboundSchema),
+  z.lazy(() => OutputStatsdStatsd3$inboundSchema),
+]);
+/** @internal */
+export type OutputStatsd$Outbound =
+  | OutputStatsdStatsd4$Outbound
+  | OutputStatsdStatsd1$Outbound
+  | OutputStatsdStatsd2$Outbound
+  | OutputStatsdStatsd3$Outbound;
+
+/** @internal */
+export const OutputStatsd$outboundSchema: z.ZodType<
+  OutputStatsd$Outbound,
+  z.ZodTypeDef,
+  OutputStatsd
+> = z.union([
+  z.lazy(() => OutputStatsdStatsd4$outboundSchema),
+  z.lazy(() => OutputStatsdStatsd1$outboundSchema),
+  z.lazy(() => OutputStatsdStatsd2$outboundSchema),
+  z.lazy(() => OutputStatsdStatsd3$outboundSchema),
+]);
 
 export function outputStatsdToJSON(outputStatsd: OutputStatsd): string {
   return JSON.stringify(OutputStatsd$outboundSchema.parse(outputStatsd));
 }
-
 export function outputStatsdFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputStatsd, SDKValidationError> {

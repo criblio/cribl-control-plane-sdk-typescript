@@ -41,22 +41,10 @@ export type OutputDevnull = {
 export const OutputDevnullType$inboundSchema: z.ZodNativeEnum<
   typeof OutputDevnullType
 > = z.nativeEnum(OutputDevnullType);
-
 /** @internal */
 export const OutputDevnullType$outboundSchema: z.ZodNativeEnum<
   typeof OutputDevnullType
 > = OutputDevnullType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDevnullType$ {
-  /** @deprecated use `OutputDevnullType$inboundSchema` instead. */
-  export const inboundSchema = OutputDevnullType$inboundSchema;
-  /** @deprecated use `OutputDevnullType$outboundSchema` instead. */
-  export const outboundSchema = OutputDevnullType$outboundSchema;
-}
 
 /** @internal */
 export const OutputDevnull$inboundSchema: z.ZodType<
@@ -71,7 +59,6 @@ export const OutputDevnull$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
 });
-
 /** @internal */
 export type OutputDevnull$Outbound = {
   id?: string | undefined;
@@ -96,23 +83,9 @@ export const OutputDevnull$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDevnull$ {
-  /** @deprecated use `OutputDevnull$inboundSchema` instead. */
-  export const inboundSchema = OutputDevnull$inboundSchema;
-  /** @deprecated use `OutputDevnull$outboundSchema` instead. */
-  export const outboundSchema = OutputDevnull$outboundSchema;
-  /** @deprecated use `OutputDevnull$Outbound` instead. */
-  export type Outbound = OutputDevnull$Outbound;
-}
-
 export function outputDevnullToJSON(outputDevnull: OutputDevnull): string {
   return JSON.stringify(OutputDevnull$outboundSchema.parse(outputDevnull));
 }
-
 export function outputDevnullFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputDevnull, SDKValidationError> {

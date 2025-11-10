@@ -7,6 +7,7 @@ import { routesGet } from "../funcs/routesGet.js";
 import { routesList } from "../funcs/routesList.js";
 import { routesUpdate } from "../funcs/routesUpdate.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -19,7 +20,7 @@ export class Routes extends ClientSDK {
    */
   async list(
     options?: RequestOptions,
-  ): Promise<operations.ListRoutesResponse> {
+  ): Promise<models.CountedRoutes> {
     return unwrapAsync(routesList(
       this,
       options,
@@ -35,7 +36,7 @@ export class Routes extends ClientSDK {
   async get(
     request: operations.GetRoutesByIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetRoutesByIdResponse> {
+  ): Promise<models.CountedRoutes> {
     return unwrapAsync(routesGet(
       this,
       request,
@@ -52,7 +53,7 @@ export class Routes extends ClientSDK {
   async update(
     request: operations.UpdateRoutesByIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.UpdateRoutesByIdResponse> {
+  ): Promise<models.CountedRoutes> {
     return unwrapAsync(routesUpdate(
       this,
       request,
@@ -61,15 +62,15 @@ export class Routes extends ClientSDK {
   }
 
   /**
-   * Append a Route to the end of the Routing table
+   * Add a Route to the end of the Routing table
    *
    * @remarks
-   * Append a Route to the end of the specified Routing table.</br></br>Provide a complete representation of the Routing table, including the Route that you want to append, in the request body. Cribl removes any omitted Routes and fields in the Routing table when appending the Route.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the Routing table might not function as expected.
+   * Add a Route to the end of the specified Routing table.
    */
   async append(
     request: operations.CreateRoutesAppendByIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.CreateRoutesAppendByIdResponse> {
+  ): Promise<models.CountedRoutes> {
     return unwrapAsync(routesAppend(
       this,
       request,

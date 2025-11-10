@@ -4,191 +4,83 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AwsAuthenticationMethodOptions,
+  AwsAuthenticationMethodOptions$inboundSchema,
+  AwsAuthenticationMethodOptions$outboundSchema,
+} from "./awsauthenticationmethodoptions.js";
+import {
+  CompressionLevelOptions,
+  CompressionLevelOptions$inboundSchema,
+  CompressionLevelOptions$outboundSchema,
+} from "./compressionleveloptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  Format1Options,
+  Format1Options$inboundSchema,
+  Format1Options$outboundSchema,
+} from "./format1options.js";
+import {
+  ObjectAcl1Options,
+  ObjectAcl1Options$inboundSchema,
+  ObjectAcl1Options$outboundSchema,
+} from "./objectacl1options.js";
+import {
+  ParquetDataPageVersionOptions,
+  ParquetDataPageVersionOptions$inboundSchema,
+  ParquetDataPageVersionOptions$outboundSchema,
+} from "./parquetdatapageversionoptions.js";
+import {
+  ParquetVersionOptions,
+  ParquetVersionOptions$inboundSchema,
+  ParquetVersionOptions$outboundSchema,
+} from "./parquetversionoptions.js";
+import {
+  PqCompressOptions,
+  PqCompressOptions$inboundSchema,
+  PqCompressOptions$outboundSchema,
+} from "./pqcompressoptions.js";
+import {
+  PqOnBackpressureOptions,
+  PqOnBackpressureOptions$inboundSchema,
+  PqOnBackpressureOptions$outboundSchema,
+} from "./pqonbackpressureoptions.js";
+import {
+  SignatureVersionOptions,
+  SignatureVersionOptions$inboundSchema,
+  SignatureVersionOptions$outboundSchema,
+} from "./signatureversionoptions.js";
+import {
+  StorageClass1Options,
+  StorageClass1Options$inboundSchema,
+  StorageClass1Options$outboundSchema,
+} from "./storageclass1options.js";
+import {
+  TagsType,
+  TagsType$inboundSchema,
+  TagsType$Outbound,
+  TagsType$outboundSchema,
+} from "./tagstype.js";
 
-export const OutputGoogleCloudStorageType = {
+export const OutputGoogleCloudStorageType9 = {
   GoogleCloudStorage: "google_cloud_storage",
 } as const;
-export type OutputGoogleCloudStorageType = ClosedEnum<
-  typeof OutputGoogleCloudStorageType
+export type OutputGoogleCloudStorageType9 = ClosedEnum<
+  typeof OutputGoogleCloudStorageType9
 >;
 
-/**
- * Signature version to use for signing Google Cloud Storage requests
- */
-export const OutputGoogleCloudStorageSignatureVersion = {
-  V2: "v2",
-  V4: "v4",
-} as const;
-/**
- * Signature version to use for signing Google Cloud Storage requests
- */
-export type OutputGoogleCloudStorageSignatureVersion = OpenEnum<
-  typeof OutputGoogleCloudStorageSignatureVersion
->;
-
-export const OutputGoogleCloudStorageAuthenticationMethod = {
-  Auto: "auto",
-  Manual: "manual",
-  Secret: "secret",
-} as const;
-export type OutputGoogleCloudStorageAuthenticationMethod = OpenEnum<
-  typeof OutputGoogleCloudStorageAuthenticationMethod
->;
-
-/**
- * Object ACL to assign to uploaded objects
- */
-export const OutputGoogleCloudStorageObjectACL = {
-  Private: "private",
-  BucketOwnerRead: "bucket-owner-read",
-  BucketOwnerFullControl: "bucket-owner-full-control",
-  ProjectPrivate: "project-private",
-  AuthenticatedRead: "authenticated-read",
-  PublicRead: "public-read",
-} as const;
-/**
- * Object ACL to assign to uploaded objects
- */
-export type OutputGoogleCloudStorageObjectACL = OpenEnum<
-  typeof OutputGoogleCloudStorageObjectACL
->;
-
-/**
- * Storage class to select for uploaded objects
- */
-export const OutputGoogleCloudStorageStorageClass = {
-  Standard: "STANDARD",
-  Nearline: "NEARLINE",
-  Coldline: "COLDLINE",
-  Archive: "ARCHIVE",
-} as const;
-/**
- * Storage class to select for uploaded objects
- */
-export type OutputGoogleCloudStorageStorageClass = OpenEnum<
-  typeof OutputGoogleCloudStorageStorageClass
->;
-
-/**
- * Format of the output data
- */
-export const OutputGoogleCloudStorageDataFormat = {
-  Json: "json",
-  Raw: "raw",
-  Parquet: "parquet",
-} as const;
-/**
- * Format of the output data
- */
-export type OutputGoogleCloudStorageDataFormat = OpenEnum<
-  typeof OutputGoogleCloudStorageDataFormat
->;
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputGoogleCloudStorageBackpressureBehavior = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputGoogleCloudStorageBackpressureBehavior = OpenEnum<
-  typeof OutputGoogleCloudStorageBackpressureBehavior
->;
-
-/**
- * How to handle events when disk space is below the global 'Min free disk space' limit
- */
-export const OutputGoogleCloudStorageDiskSpaceProtection = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when disk space is below the global 'Min free disk space' limit
- */
-export type OutputGoogleCloudStorageDiskSpaceProtection = OpenEnum<
-  typeof OutputGoogleCloudStorageDiskSpaceProtection
->;
-
-/**
- * Data compression format to apply to HTTP content before it is delivered
- */
-export const OutputGoogleCloudStorageCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Data compression format to apply to HTTP content before it is delivered
- */
-export type OutputGoogleCloudStorageCompression = OpenEnum<
-  typeof OutputGoogleCloudStorageCompression
->;
-
-/**
- * Compression level to apply before moving files to final destination
- */
-export const OutputGoogleCloudStorageCompressionLevel = {
-  BestSpeed: "best_speed",
-  Normal: "normal",
-  BestCompression: "best_compression",
-} as const;
-/**
- * Compression level to apply before moving files to final destination
- */
-export type OutputGoogleCloudStorageCompressionLevel = OpenEnum<
-  typeof OutputGoogleCloudStorageCompressionLevel
->;
-
-/**
- * Determines which data types are supported and how they are represented
- */
-export const OutputGoogleCloudStorageParquetVersion = {
-  Parquet10: "PARQUET_1_0",
-  Parquet24: "PARQUET_2_4",
-  Parquet26: "PARQUET_2_6",
-} as const;
-/**
- * Determines which data types are supported and how they are represented
- */
-export type OutputGoogleCloudStorageParquetVersion = OpenEnum<
-  typeof OutputGoogleCloudStorageParquetVersion
->;
-
-/**
- * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
- */
-export const OutputGoogleCloudStorageDataPageVersion = {
-  DataPageV1: "DATA_PAGE_V1",
-  DataPageV2: "DATA_PAGE_V2",
-} as const;
-/**
- * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
- */
-export type OutputGoogleCloudStorageDataPageVersion = OpenEnum<
-  typeof OutputGoogleCloudStorageDataPageVersion
->;
-
-export type OutputGoogleCloudStorageKeyValueMetadatum = {
-  key?: string | undefined;
-  value: string;
-};
-
-export type OutputGoogleCloudStorage = {
+export type OutputGoogleCloudStorageGoogleCloudStorage9 = {
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputGoogleCloudStorageType;
+  type: OutputGoogleCloudStorageType9;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -218,12 +110,9 @@ export type OutputGoogleCloudStorage = {
    */
   endpoint?: string | undefined;
   /**
-   * Signature version to use for signing Google Cloud Storage requests
+   * Signature version to use for signing MSK cluster requests
    */
-  signatureVersion?: OutputGoogleCloudStorageSignatureVersion | undefined;
-  awsAuthenticationMethod?:
-    | OutputGoogleCloudStorageAuthenticationMethod
-    | undefined;
+  signatureVersion?: SignatureVersionOptions | undefined;
   /**
    * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
    */
@@ -239,11 +128,11 @@ export type OutputGoogleCloudStorage = {
   /**
    * Object ACL to assign to uploaded objects
    */
-  objectACL?: OutputGoogleCloudStorageObjectACL | undefined;
+  objectACL?: ObjectAcl1Options | undefined;
   /**
    * Storage class to select for uploaded objects
    */
-  storageClass?: OutputGoogleCloudStorageStorageClass | undefined;
+  storageClass?: StorageClass1Options | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -267,7 +156,7 @@ export type OutputGoogleCloudStorage = {
   /**
    * Format of the output data
    */
-  format?: OutputGoogleCloudStorageDataFormat | undefined;
+  format?: Format1Options | undefined;
   /**
    * JavaScript expression to define the output filename prefix (can be constant)
    */
@@ -301,40 +190,42 @@ export type OutputGoogleCloudStorage = {
    */
   writeHighWaterMark?: number | undefined;
   /**
-   * How to handle events when all receivers are exerting backpressure
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  onBackpressure?: OutputGoogleCloudStorageBackpressureBehavior | undefined;
+  onBackpressure?: PqOnBackpressureOptions | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
   deadletterEnabled?: boolean | undefined;
   /**
-   * How to handle events when disk space is below the global 'Min free disk space' limit
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  onDiskFullBackpressure?:
-    | OutputGoogleCloudStorageDiskSpaceProtection
-    | undefined;
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
   description?: string | undefined;
   /**
-   * Data compression format to apply to HTTP content before it is delivered
+   * Codec to use to compress the persisted data
    */
-  compress?: OutputGoogleCloudStorageCompression | undefined;
+  compress?: PqCompressOptions | undefined;
   /**
    * Compression level to apply before moving files to final destination
    */
-  compressionLevel?: OutputGoogleCloudStorageCompressionLevel | undefined;
+  compressionLevel?: CompressionLevelOptions | undefined;
   /**
    * Automatically calculate the schema based on the events of each Parquet file generated
    */
   automaticSchema?: boolean | undefined;
   /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
    * Determines which data types are supported and how they are represented
    */
-  parquetVersion?: OutputGoogleCloudStorageParquetVersion | undefined;
+  parquetVersion?: ParquetVersionOptions | undefined;
   /**
    * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
    */
-  parquetDataPageVersion?: OutputGoogleCloudStorageDataPageVersion | undefined;
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
   /**
    * The number of rows that every group will contain. The final group can contain a smaller number of rows.
    */
@@ -350,9 +241,439 @@ export type OutputGoogleCloudStorage = {
   /**
    * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
    */
-  keyValueMetadata?:
-    | Array<OutputGoogleCloudStorageKeyValueMetadatum>
-    | undefined;
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+  /**
+   * HMAC access key. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * HMAC secret. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret: string;
+};
+
+export const OutputGoogleCloudStorageType8 = {
+  GoogleCloudStorage: "google_cloud_storage",
+} as const;
+export type OutputGoogleCloudStorageType8 = ClosedEnum<
+  typeof OutputGoogleCloudStorageType8
+>;
+
+export type OutputGoogleCloudStorageGoogleCloudStorage8 = {
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputGoogleCloudStorageType8;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example of referencing a Global Variable: `myBucket-${C.vars.myVar}`.
+   */
+  bucket: string;
+  /**
+   * Region where the bucket is located
+   */
+  region: string;
+  /**
+   * Google Cloud Storage service endpoint
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+   */
+  destPath?: string | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: ObjectAcl1Options | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClass1Options | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+  /**
+   * HMAC access key. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.
+   */
+  awsApiKey: string;
+  /**
+   * HMAC secret. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
+   */
+  awsSecretKey: string;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+};
+
+export const OutputGoogleCloudStorageType7 = {
+  GoogleCloudStorage: "google_cloud_storage",
+} as const;
+export type OutputGoogleCloudStorageType7 = ClosedEnum<
+  typeof OutputGoogleCloudStorageType7
+>;
+
+export type OutputGoogleCloudStorageGoogleCloudStorage7 = {
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputGoogleCloudStorageType7;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example of referencing a Global Variable: `myBucket-${C.vars.myVar}`.
+   */
+  bucket: string;
+  /**
+   * Region where the bucket is located
+   */
+  region: string;
+  /**
+   * Google Cloud Storage service endpoint
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+   */
+  destPath?: string | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: ObjectAcl1Options | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClass1Options | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
   /**
    * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
    */
@@ -391,552 +712,2105 @@ export type OutputGoogleCloudStorage = {
   awsSecret?: string | undefined;
 };
 
-/** @internal */
-export const OutputGoogleCloudStorageType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputGoogleCloudStorageType
-> = z.nativeEnum(OutputGoogleCloudStorageType);
+export const OutputGoogleCloudStorageType6 = {
+  GoogleCloudStorage: "google_cloud_storage",
+} as const;
+export type OutputGoogleCloudStorageType6 = ClosedEnum<
+  typeof OutputGoogleCloudStorageType6
+>;
+
+export type OutputGoogleCloudStorageGoogleCloudStorage6 = {
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputGoogleCloudStorageType6;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example of referencing a Global Variable: `myBucket-${C.vars.myVar}`.
+   */
+  bucket: string;
+  /**
+   * Region where the bucket is located
+   */
+  region: string;
+  /**
+   * Google Cloud Storage service endpoint
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+   */
+  destPath?: string | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: ObjectAcl1Options | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClass1Options | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+  /**
+   * HMAC access key. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * HMAC secret. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+};
+
+export const OutputGoogleCloudStorageType5 = {
+  GoogleCloudStorage: "google_cloud_storage",
+} as const;
+export type OutputGoogleCloudStorageType5 = ClosedEnum<
+  typeof OutputGoogleCloudStorageType5
+>;
+
+export type OutputGoogleCloudStorageGoogleCloudStorage5 = {
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputGoogleCloudStorageType5;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example of referencing a Global Variable: `myBucket-${C.vars.myVar}`.
+   */
+  bucket: string;
+  /**
+   * Region where the bucket is located
+   */
+  region: string;
+  /**
+   * Google Cloud Storage service endpoint
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+   */
+  destPath?: string | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: ObjectAcl1Options | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClass1Options | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+  /**
+   * HMAC access key. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * HMAC secret. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+};
+
+export const OutputGoogleCloudStorageType4 = {
+  GoogleCloudStorage: "google_cloud_storage",
+} as const;
+export type OutputGoogleCloudStorageType4 = ClosedEnum<
+  typeof OutputGoogleCloudStorageType4
+>;
+
+export type OutputGoogleCloudStorageGoogleCloudStorage4 = {
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputGoogleCloudStorageType4;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example of referencing a Global Variable: `myBucket-${C.vars.myVar}`.
+   */
+  bucket: string;
+  /**
+   * Region where the bucket is located
+   */
+  region: string;
+  /**
+   * Google Cloud Storage service endpoint
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+   */
+  destPath?: string | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: ObjectAcl1Options | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClass1Options | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+  /**
+   * HMAC access key. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * HMAC secret. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+};
+
+export const OutputGoogleCloudStorageType3 = {
+  GoogleCloudStorage: "google_cloud_storage",
+} as const;
+export type OutputGoogleCloudStorageType3 = ClosedEnum<
+  typeof OutputGoogleCloudStorageType3
+>;
+
+export type OutputGoogleCloudStorageGoogleCloudStorage3 = {
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputGoogleCloudStorageType3;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example of referencing a Global Variable: `myBucket-${C.vars.myVar}`.
+   */
+  bucket: string;
+  /**
+   * Region where the bucket is located
+   */
+  region: string;
+  /**
+   * Google Cloud Storage service endpoint
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+   */
+  destPath?: string | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: ObjectAcl1Options | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClass1Options | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+  /**
+   * HMAC access key. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * HMAC secret. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+};
+
+export const OutputGoogleCloudStorageType2 = {
+  GoogleCloudStorage: "google_cloud_storage",
+} as const;
+export type OutputGoogleCloudStorageType2 = ClosedEnum<
+  typeof OutputGoogleCloudStorageType2
+>;
+
+export type OutputGoogleCloudStorageGoogleCloudStorage2 = {
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputGoogleCloudStorageType2;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example of referencing a Global Variable: `myBucket-${C.vars.myVar}`.
+   */
+  bucket: string;
+  /**
+   * Region where the bucket is located
+   */
+  region: string;
+  /**
+   * Google Cloud Storage service endpoint
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+   */
+  destPath?: string | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: ObjectAcl1Options | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClass1Options | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows: boolean;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata: Array<TagsType>;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+  /**
+   * HMAC access key. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * HMAC secret. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+};
+
+export const OutputGoogleCloudStorageType1 = {
+  GoogleCloudStorage: "google_cloud_storage",
+} as const;
+export type OutputGoogleCloudStorageType1 = ClosedEnum<
+  typeof OutputGoogleCloudStorageType1
+>;
+
+export type OutputGoogleCloudStorageGoogleCloudStorage1 = {
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputGoogleCloudStorageType1;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the destination bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example of referencing a Global Variable: `myBucket-${C.vars.myVar}`.
+   */
+  bucket: string;
+  /**
+   * Region where the bucket is located
+   */
+  region: string;
+  /**
+   * Google Cloud Storage service endpoint
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Prefix to prepend to files before uploading. Must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `myKeyPrefix-${C.vars.myVar}`
+   */
+  destPath?: string | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: ObjectAcl1Options | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClass1Options | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+  /**
+   * HMAC access key. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_ACCESS_KEY}`.
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * HMAC secret. This value can be a constant or a JavaScript expression, such as `${C.env.GCS_SECRET}`.
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+};
+
+export type OutputGoogleCloudStorage =
+  | OutputGoogleCloudStorageGoogleCloudStorage2
+  | OutputGoogleCloudStorageGoogleCloudStorage8
+  | OutputGoogleCloudStorageGoogleCloudStorage9
+  | OutputGoogleCloudStorageGoogleCloudStorage1
+  | OutputGoogleCloudStorageGoogleCloudStorage3
+  | OutputGoogleCloudStorageGoogleCloudStorage4
+  | OutputGoogleCloudStorageGoogleCloudStorage5
+  | OutputGoogleCloudStorageGoogleCloudStorage6
+  | OutputGoogleCloudStorageGoogleCloudStorage7;
 
 /** @internal */
-export const OutputGoogleCloudStorageType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputGoogleCloudStorageType
-> = OutputGoogleCloudStorageType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudStorageType$ {
-  /** @deprecated use `OutputGoogleCloudStorageType$inboundSchema` instead. */
-  export const inboundSchema = OutputGoogleCloudStorageType$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudStorageType$outboundSchema` instead. */
-  export const outboundSchema = OutputGoogleCloudStorageType$outboundSchema;
-}
+export const OutputGoogleCloudStorageType9$inboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleCloudStorageType9
+> = z.nativeEnum(OutputGoogleCloudStorageType9);
+/** @internal */
+export const OutputGoogleCloudStorageType9$outboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleCloudStorageType9
+> = OutputGoogleCloudStorageType9$inboundSchema;
 
 /** @internal */
-export const OutputGoogleCloudStorageSignatureVersion$inboundSchema: z.ZodType<
-  OutputGoogleCloudStorageSignatureVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGoogleCloudStorageSignatureVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputGoogleCloudStorageSignatureVersion$outboundSchema: z.ZodType<
-  OutputGoogleCloudStorageSignatureVersion,
-  z.ZodTypeDef,
-  OutputGoogleCloudStorageSignatureVersion
-> = z.union([
-  z.nativeEnum(OutputGoogleCloudStorageSignatureVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudStorageSignatureVersion$ {
-  /** @deprecated use `OutputGoogleCloudStorageSignatureVersion$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleCloudStorageSignatureVersion$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudStorageSignatureVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleCloudStorageSignatureVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputGoogleCloudStorageAuthenticationMethod$inboundSchema:
+export const OutputGoogleCloudStorageGoogleCloudStorage9$inboundSchema:
   z.ZodType<
-    OutputGoogleCloudStorageAuthenticationMethod,
+    OutputGoogleCloudStorageGoogleCloudStorage9,
     z.ZodTypeDef,
     unknown
-  > = z
-    .union([
-      z.nativeEnum(OutputGoogleCloudStorageAuthenticationMethod),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
-
+  > = z.object({
+    awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema
+      .default("auto"),
+    id: z.string().optional(),
+    type: OutputGoogleCloudStorageType9$inboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    bucket: z.string(),
+    region: z.string(),
+    endpoint: z.string().default("https://storage.googleapis.com"),
+    signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+    stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+    destPath: z.string().default(""),
+    verifyPermissions: z.boolean().default(true),
+    objectACL: ObjectAcl1Options$inboundSchema.default("private"),
+    storageClass: StorageClass1Options$inboundSchema.optional(),
+    reuseConnections: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    addIdToStagePath: z.boolean().default(true),
+    removeEmptyDirs: z.boolean().default(true),
+    partitionExpr: z.string().default(
+      "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+    ),
+    format: Format1Options$inboundSchema.default("json"),
+    baseFileName: z.string().default("`CriblOut`"),
+    fileNameSuffix: z.string().default(
+      "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+    ),
+    maxFileSizeMB: z.number().default(32),
+    maxFileOpenTimeSec: z.number().default(300),
+    maxFileIdleTimeSec: z.number().default(30),
+    maxOpenFiles: z.number().default(100),
+    headerLine: z.string().default(""),
+    writeHighWaterMark: z.number().default(64),
+    onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+    deadletterEnabled: z.boolean().default(false),
+    onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+      "block",
+    ),
+    description: z.string().optional(),
+    compress: PqCompressOptions$inboundSchema.default("none"),
+    compressionLevel: CompressionLevelOptions$inboundSchema.default(
+      "best_speed",
+    ),
+    automaticSchema: z.boolean().default(false),
+    parquetSchema: z.string().optional(),
+    parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+    parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+      "DATA_PAGE_V2",
+    ),
+    parquetRowGroupLength: z.number().default(10000),
+    parquetPageSize: z.string().default("1MB"),
+    shouldLogInvalidRows: z.boolean().optional(),
+    keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+    enableStatistics: z.boolean().default(true),
+    enableWritePageIndex: z.boolean().default(true),
+    enablePageChecksum: z.boolean().default(false),
+    emptyDirCleanupSec: z.number().default(300),
+    deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+    maxRetryNum: z.number().default(20),
+    awsApiKey: z.string().optional(),
+    awsSecretKey: z.string().optional(),
+    awsSecret: z.string(),
+  });
 /** @internal */
-export const OutputGoogleCloudStorageAuthenticationMethod$outboundSchema:
-  z.ZodType<
-    OutputGoogleCloudStorageAuthenticationMethod,
-    z.ZodTypeDef,
-    OutputGoogleCloudStorageAuthenticationMethod
-  > = z.union([
-    z.nativeEnum(OutputGoogleCloudStorageAuthenticationMethod),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudStorageAuthenticationMethod$ {
-  /** @deprecated use `OutputGoogleCloudStorageAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleCloudStorageAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudStorageAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleCloudStorageAuthenticationMethod$outboundSchema;
-}
-
-/** @internal */
-export const OutputGoogleCloudStorageObjectACL$inboundSchema: z.ZodType<
-  OutputGoogleCloudStorageObjectACL,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGoogleCloudStorageObjectACL),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputGoogleCloudStorageObjectACL$outboundSchema: z.ZodType<
-  OutputGoogleCloudStorageObjectACL,
-  z.ZodTypeDef,
-  OutputGoogleCloudStorageObjectACL
-> = z.union([
-  z.nativeEnum(OutputGoogleCloudStorageObjectACL),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudStorageObjectACL$ {
-  /** @deprecated use `OutputGoogleCloudStorageObjectACL$inboundSchema` instead. */
-  export const inboundSchema = OutputGoogleCloudStorageObjectACL$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudStorageObjectACL$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleCloudStorageObjectACL$outboundSchema;
-}
-
-/** @internal */
-export const OutputGoogleCloudStorageStorageClass$inboundSchema: z.ZodType<
-  OutputGoogleCloudStorageStorageClass,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGoogleCloudStorageStorageClass),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputGoogleCloudStorageStorageClass$outboundSchema: z.ZodType<
-  OutputGoogleCloudStorageStorageClass,
-  z.ZodTypeDef,
-  OutputGoogleCloudStorageStorageClass
-> = z.union([
-  z.nativeEnum(OutputGoogleCloudStorageStorageClass),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudStorageStorageClass$ {
-  /** @deprecated use `OutputGoogleCloudStorageStorageClass$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleCloudStorageStorageClass$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudStorageStorageClass$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleCloudStorageStorageClass$outboundSchema;
-}
-
-/** @internal */
-export const OutputGoogleCloudStorageDataFormat$inboundSchema: z.ZodType<
-  OutputGoogleCloudStorageDataFormat,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGoogleCloudStorageDataFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputGoogleCloudStorageDataFormat$outboundSchema: z.ZodType<
-  OutputGoogleCloudStorageDataFormat,
-  z.ZodTypeDef,
-  OutputGoogleCloudStorageDataFormat
-> = z.union([
-  z.nativeEnum(OutputGoogleCloudStorageDataFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudStorageDataFormat$ {
-  /** @deprecated use `OutputGoogleCloudStorageDataFormat$inboundSchema` instead. */
-  export const inboundSchema = OutputGoogleCloudStorageDataFormat$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudStorageDataFormat$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleCloudStorageDataFormat$outboundSchema;
-}
-
-/** @internal */
-export const OutputGoogleCloudStorageBackpressureBehavior$inboundSchema:
-  z.ZodType<
-    OutputGoogleCloudStorageBackpressureBehavior,
-    z.ZodTypeDef,
-    unknown
-  > = z
-    .union([
-      z.nativeEnum(OutputGoogleCloudStorageBackpressureBehavior),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
-
-/** @internal */
-export const OutputGoogleCloudStorageBackpressureBehavior$outboundSchema:
-  z.ZodType<
-    OutputGoogleCloudStorageBackpressureBehavior,
-    z.ZodTypeDef,
-    OutputGoogleCloudStorageBackpressureBehavior
-  > = z.union([
-    z.nativeEnum(OutputGoogleCloudStorageBackpressureBehavior),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudStorageBackpressureBehavior$ {
-  /** @deprecated use `OutputGoogleCloudStorageBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleCloudStorageBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudStorageBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleCloudStorageBackpressureBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputGoogleCloudStorageDiskSpaceProtection$inboundSchema:
-  z.ZodType<
-    OutputGoogleCloudStorageDiskSpaceProtection,
-    z.ZodTypeDef,
-    unknown
-  > = z
-    .union([
-      z.nativeEnum(OutputGoogleCloudStorageDiskSpaceProtection),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
-
-/** @internal */
-export const OutputGoogleCloudStorageDiskSpaceProtection$outboundSchema:
-  z.ZodType<
-    OutputGoogleCloudStorageDiskSpaceProtection,
-    z.ZodTypeDef,
-    OutputGoogleCloudStorageDiskSpaceProtection
-  > = z.union([
-    z.nativeEnum(OutputGoogleCloudStorageDiskSpaceProtection),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudStorageDiskSpaceProtection$ {
-  /** @deprecated use `OutputGoogleCloudStorageDiskSpaceProtection$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleCloudStorageDiskSpaceProtection$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudStorageDiskSpaceProtection$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleCloudStorageDiskSpaceProtection$outboundSchema;
-}
-
-/** @internal */
-export const OutputGoogleCloudStorageCompression$inboundSchema: z.ZodType<
-  OutputGoogleCloudStorageCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGoogleCloudStorageCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputGoogleCloudStorageCompression$outboundSchema: z.ZodType<
-  OutputGoogleCloudStorageCompression,
-  z.ZodTypeDef,
-  OutputGoogleCloudStorageCompression
-> = z.union([
-  z.nativeEnum(OutputGoogleCloudStorageCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudStorageCompression$ {
-  /** @deprecated use `OutputGoogleCloudStorageCompression$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleCloudStorageCompression$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudStorageCompression$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleCloudStorageCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputGoogleCloudStorageCompressionLevel$inboundSchema: z.ZodType<
-  OutputGoogleCloudStorageCompressionLevel,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGoogleCloudStorageCompressionLevel),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputGoogleCloudStorageCompressionLevel$outboundSchema: z.ZodType<
-  OutputGoogleCloudStorageCompressionLevel,
-  z.ZodTypeDef,
-  OutputGoogleCloudStorageCompressionLevel
-> = z.union([
-  z.nativeEnum(OutputGoogleCloudStorageCompressionLevel),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudStorageCompressionLevel$ {
-  /** @deprecated use `OutputGoogleCloudStorageCompressionLevel$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleCloudStorageCompressionLevel$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudStorageCompressionLevel$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleCloudStorageCompressionLevel$outboundSchema;
-}
-
-/** @internal */
-export const OutputGoogleCloudStorageParquetVersion$inboundSchema: z.ZodType<
-  OutputGoogleCloudStorageParquetVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGoogleCloudStorageParquetVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputGoogleCloudStorageParquetVersion$outboundSchema: z.ZodType<
-  OutputGoogleCloudStorageParquetVersion,
-  z.ZodTypeDef,
-  OutputGoogleCloudStorageParquetVersion
-> = z.union([
-  z.nativeEnum(OutputGoogleCloudStorageParquetVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudStorageParquetVersion$ {
-  /** @deprecated use `OutputGoogleCloudStorageParquetVersion$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleCloudStorageParquetVersion$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudStorageParquetVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleCloudStorageParquetVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputGoogleCloudStorageDataPageVersion$inboundSchema: z.ZodType<
-  OutputGoogleCloudStorageDataPageVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGoogleCloudStorageDataPageVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputGoogleCloudStorageDataPageVersion$outboundSchema: z.ZodType<
-  OutputGoogleCloudStorageDataPageVersion,
-  z.ZodTypeDef,
-  OutputGoogleCloudStorageDataPageVersion
-> = z.union([
-  z.nativeEnum(OutputGoogleCloudStorageDataPageVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudStorageDataPageVersion$ {
-  /** @deprecated use `OutputGoogleCloudStorageDataPageVersion$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleCloudStorageDataPageVersion$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudStorageDataPageVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleCloudStorageDataPageVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputGoogleCloudStorageKeyValueMetadatum$inboundSchema: z.ZodType<
-  OutputGoogleCloudStorageKeyValueMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  key: z.string().default(""),
-  value: z.string(),
-});
-
-/** @internal */
-export type OutputGoogleCloudStorageKeyValueMetadatum$Outbound = {
-  key: string;
-  value: string;
+export type OutputGoogleCloudStorageGoogleCloudStorage9$Outbound = {
+  awsAuthenticationMethod: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  bucket: string;
+  region: string;
+  endpoint: string;
+  signatureVersion: string;
+  stagePath: string;
+  destPath: string;
+  verifyPermissions: boolean;
+  objectACL: string;
+  storageClass?: string | undefined;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  addIdToStagePath: boolean;
+  removeEmptyDirs: boolean;
+  partitionExpr: string;
+  format: string;
+  baseFileName: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  description?: string | undefined;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+  awsApiKey?: string | undefined;
+  awsSecretKey?: string | undefined;
+  awsSecret: string;
 };
 
 /** @internal */
-export const OutputGoogleCloudStorageKeyValueMetadatum$outboundSchema:
+export const OutputGoogleCloudStorageGoogleCloudStorage9$outboundSchema:
   z.ZodType<
-    OutputGoogleCloudStorageKeyValueMetadatum$Outbound,
+    OutputGoogleCloudStorageGoogleCloudStorage9$Outbound,
     z.ZodTypeDef,
-    OutputGoogleCloudStorageKeyValueMetadatum
+    OutputGoogleCloudStorageGoogleCloudStorage9
   > = z.object({
-    key: z.string().default(""),
-    value: z.string(),
+    awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+      .default("auto"),
+    id: z.string().optional(),
+    type: OutputGoogleCloudStorageType9$outboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    bucket: z.string(),
+    region: z.string(),
+    endpoint: z.string().default("https://storage.googleapis.com"),
+    signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+    stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+    destPath: z.string().default(""),
+    verifyPermissions: z.boolean().default(true),
+    objectACL: ObjectAcl1Options$outboundSchema.default("private"),
+    storageClass: StorageClass1Options$outboundSchema.optional(),
+    reuseConnections: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    addIdToStagePath: z.boolean().default(true),
+    removeEmptyDirs: z.boolean().default(true),
+    partitionExpr: z.string().default(
+      "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+    ),
+    format: Format1Options$outboundSchema.default("json"),
+    baseFileName: z.string().default("`CriblOut`"),
+    fileNameSuffix: z.string().default(
+      "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+    ),
+    maxFileSizeMB: z.number().default(32),
+    maxFileOpenTimeSec: z.number().default(300),
+    maxFileIdleTimeSec: z.number().default(30),
+    maxOpenFiles: z.number().default(100),
+    headerLine: z.string().default(""),
+    writeHighWaterMark: z.number().default(64),
+    onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+    deadletterEnabled: z.boolean().default(false),
+    onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+      "block",
+    ),
+    description: z.string().optional(),
+    compress: PqCompressOptions$outboundSchema.default("none"),
+    compressionLevel: CompressionLevelOptions$outboundSchema.default(
+      "best_speed",
+    ),
+    automaticSchema: z.boolean().default(false),
+    parquetSchema: z.string().optional(),
+    parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+    parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema
+      .default("DATA_PAGE_V2"),
+    parquetRowGroupLength: z.number().default(10000),
+    parquetPageSize: z.string().default("1MB"),
+    shouldLogInvalidRows: z.boolean().optional(),
+    keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+    enableStatistics: z.boolean().default(true),
+    enableWritePageIndex: z.boolean().default(true),
+    enablePageChecksum: z.boolean().default(false),
+    emptyDirCleanupSec: z.number().default(300),
+    deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+    maxRetryNum: z.number().default(20),
+    awsApiKey: z.string().optional(),
+    awsSecretKey: z.string().optional(),
+    awsSecret: z.string(),
   });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudStorageKeyValueMetadatum$ {
-  /** @deprecated use `OutputGoogleCloudStorageKeyValueMetadatum$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleCloudStorageKeyValueMetadatum$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudStorageKeyValueMetadatum$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleCloudStorageKeyValueMetadatum$outboundSchema;
-  /** @deprecated use `OutputGoogleCloudStorageKeyValueMetadatum$Outbound` instead. */
-  export type Outbound = OutputGoogleCloudStorageKeyValueMetadatum$Outbound;
-}
-
-export function outputGoogleCloudStorageKeyValueMetadatumToJSON(
-  outputGoogleCloudStorageKeyValueMetadatum:
-    OutputGoogleCloudStorageKeyValueMetadatum,
+export function outputGoogleCloudStorageGoogleCloudStorage9ToJSON(
+  outputGoogleCloudStorageGoogleCloudStorage9:
+    OutputGoogleCloudStorageGoogleCloudStorage9,
 ): string {
   return JSON.stringify(
-    OutputGoogleCloudStorageKeyValueMetadatum$outboundSchema.parse(
-      outputGoogleCloudStorageKeyValueMetadatum,
+    OutputGoogleCloudStorageGoogleCloudStorage9$outboundSchema.parse(
+      outputGoogleCloudStorageGoogleCloudStorage9,
     ),
   );
 }
-
-export function outputGoogleCloudStorageKeyValueMetadatumFromJSON(
+export function outputGoogleCloudStorageGoogleCloudStorage9FromJSON(
   jsonString: string,
 ): SafeParseResult<
-  OutputGoogleCloudStorageKeyValueMetadatum,
+  OutputGoogleCloudStorageGoogleCloudStorage9,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      OutputGoogleCloudStorageKeyValueMetadatum$inboundSchema.parse(
+      OutputGoogleCloudStorageGoogleCloudStorage9$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'OutputGoogleCloudStorageKeyValueMetadatum' from JSON`,
+    `Failed to parse 'OutputGoogleCloudStorageGoogleCloudStorage9' from JSON`,
   );
 }
 
 /** @internal */
-export const OutputGoogleCloudStorage$inboundSchema: z.ZodType<
-  OutputGoogleCloudStorage,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.string().optional(),
-  type: OutputGoogleCloudStorageType$inboundSchema,
-  pipeline: z.string().optional(),
-  systemFields: z.array(z.string()).optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  bucket: z.string(),
-  region: z.string(),
-  endpoint: z.string().default("https://storage.googleapis.com"),
-  signatureVersion: OutputGoogleCloudStorageSignatureVersion$inboundSchema
-    .default("v4"),
-  awsAuthenticationMethod:
-    OutputGoogleCloudStorageAuthenticationMethod$inboundSchema.default(
-      "manual",
-    ),
-  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
-  destPath: z.string().default(""),
-  verifyPermissions: z.boolean().default(true),
-  objectACL: OutputGoogleCloudStorageObjectACL$inboundSchema.default("private"),
-  storageClass: OutputGoogleCloudStorageStorageClass$inboundSchema.optional(),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  addIdToStagePath: z.boolean().default(true),
-  removeEmptyDirs: z.boolean().default(true),
-  partitionExpr: z.string().default(
-    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
-  ),
-  format: OutputGoogleCloudStorageDataFormat$inboundSchema.default("json"),
-  baseFileName: z.string().default("`CriblOut`"),
-  fileNameSuffix: z.string().default(
-    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
-  ),
-  maxFileSizeMB: z.number().default(32),
-  maxFileOpenTimeSec: z.number().default(300),
-  maxFileIdleTimeSec: z.number().default(30),
-  maxOpenFiles: z.number().default(100),
-  headerLine: z.string().default(""),
-  writeHighWaterMark: z.number().default(64),
-  onBackpressure: OutputGoogleCloudStorageBackpressureBehavior$inboundSchema
-    .default("block"),
-  deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure:
-    OutputGoogleCloudStorageDiskSpaceProtection$inboundSchema.default("block"),
-  description: z.string().optional(),
-  compress: OutputGoogleCloudStorageCompression$inboundSchema.default("gzip"),
-  compressionLevel: OutputGoogleCloudStorageCompressionLevel$inboundSchema
-    .default("best_speed"),
-  automaticSchema: z.boolean().default(false),
-  parquetVersion: OutputGoogleCloudStorageParquetVersion$inboundSchema.default(
-    "PARQUET_2_6",
-  ),
-  parquetDataPageVersion: OutputGoogleCloudStorageDataPageVersion$inboundSchema
-    .default("DATA_PAGE_V2"),
-  parquetRowGroupLength: z.number().default(10000),
-  parquetPageSize: z.string().default("1MB"),
-  shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(
-    z.lazy(() => OutputGoogleCloudStorageKeyValueMetadatum$inboundSchema),
-  ).optional(),
-  enableStatistics: z.boolean().default(true),
-  enableWritePageIndex: z.boolean().default(true),
-  enablePageChecksum: z.boolean().default(false),
-  emptyDirCleanupSec: z.number().default(300),
-  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
-  maxRetryNum: z.number().default(20),
-  awsApiKey: z.string().optional(),
-  awsSecretKey: z.string().optional(),
-  awsSecret: z.string().optional(),
-});
+export const OutputGoogleCloudStorageType8$inboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleCloudStorageType8
+> = z.nativeEnum(OutputGoogleCloudStorageType8);
+/** @internal */
+export const OutputGoogleCloudStorageType8$outboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleCloudStorageType8
+> = OutputGoogleCloudStorageType8$inboundSchema;
 
 /** @internal */
-export type OutputGoogleCloudStorage$Outbound = {
+export const OutputGoogleCloudStorageGoogleCloudStorage8$inboundSchema:
+  z.ZodType<
+    OutputGoogleCloudStorageGoogleCloudStorage8,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema
+      .default("auto"),
+    id: z.string().optional(),
+    type: OutputGoogleCloudStorageType8$inboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    bucket: z.string(),
+    region: z.string(),
+    endpoint: z.string().default("https://storage.googleapis.com"),
+    signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+    stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+    destPath: z.string().default(""),
+    verifyPermissions: z.boolean().default(true),
+    objectACL: ObjectAcl1Options$inboundSchema.default("private"),
+    storageClass: StorageClass1Options$inboundSchema.optional(),
+    reuseConnections: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    addIdToStagePath: z.boolean().default(true),
+    removeEmptyDirs: z.boolean().default(true),
+    partitionExpr: z.string().default(
+      "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+    ),
+    format: Format1Options$inboundSchema.default("json"),
+    baseFileName: z.string().default("`CriblOut`"),
+    fileNameSuffix: z.string().default(
+      "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+    ),
+    maxFileSizeMB: z.number().default(32),
+    maxFileOpenTimeSec: z.number().default(300),
+    maxFileIdleTimeSec: z.number().default(30),
+    maxOpenFiles: z.number().default(100),
+    headerLine: z.string().default(""),
+    writeHighWaterMark: z.number().default(64),
+    onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+    deadletterEnabled: z.boolean().default(false),
+    onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+      "block",
+    ),
+    description: z.string().optional(),
+    compress: PqCompressOptions$inboundSchema.default("none"),
+    compressionLevel: CompressionLevelOptions$inboundSchema.default(
+      "best_speed",
+    ),
+    automaticSchema: z.boolean().default(false),
+    parquetSchema: z.string().optional(),
+    parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+    parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+      "DATA_PAGE_V2",
+    ),
+    parquetRowGroupLength: z.number().default(10000),
+    parquetPageSize: z.string().default("1MB"),
+    shouldLogInvalidRows: z.boolean().optional(),
+    keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+    enableStatistics: z.boolean().default(true),
+    enableWritePageIndex: z.boolean().default(true),
+    enablePageChecksum: z.boolean().default(false),
+    emptyDirCleanupSec: z.number().default(300),
+    deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+    maxRetryNum: z.number().default(20),
+    awsApiKey: z.string(),
+    awsSecretKey: z.string(),
+    awsSecret: z.string().optional(),
+  });
+/** @internal */
+export type OutputGoogleCloudStorageGoogleCloudStorage8$Outbound = {
+  awsAuthenticationMethod: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  bucket: string;
+  region: string;
+  endpoint: string;
+  signatureVersion: string;
+  stagePath: string;
+  destPath: string;
+  verifyPermissions: boolean;
+  objectACL: string;
+  storageClass?: string | undefined;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  addIdToStagePath: boolean;
+  removeEmptyDirs: boolean;
+  partitionExpr: string;
+  format: string;
+  baseFileName: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  description?: string | undefined;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+  awsApiKey: string;
+  awsSecretKey: string;
+  awsSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputGoogleCloudStorageGoogleCloudStorage8$outboundSchema:
+  z.ZodType<
+    OutputGoogleCloudStorageGoogleCloudStorage8$Outbound,
+    z.ZodTypeDef,
+    OutputGoogleCloudStorageGoogleCloudStorage8
+  > = z.object({
+    awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+      .default("auto"),
+    id: z.string().optional(),
+    type: OutputGoogleCloudStorageType8$outboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    bucket: z.string(),
+    region: z.string(),
+    endpoint: z.string().default("https://storage.googleapis.com"),
+    signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+    stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+    destPath: z.string().default(""),
+    verifyPermissions: z.boolean().default(true),
+    objectACL: ObjectAcl1Options$outboundSchema.default("private"),
+    storageClass: StorageClass1Options$outboundSchema.optional(),
+    reuseConnections: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    addIdToStagePath: z.boolean().default(true),
+    removeEmptyDirs: z.boolean().default(true),
+    partitionExpr: z.string().default(
+      "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+    ),
+    format: Format1Options$outboundSchema.default("json"),
+    baseFileName: z.string().default("`CriblOut`"),
+    fileNameSuffix: z.string().default(
+      "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+    ),
+    maxFileSizeMB: z.number().default(32),
+    maxFileOpenTimeSec: z.number().default(300),
+    maxFileIdleTimeSec: z.number().default(30),
+    maxOpenFiles: z.number().default(100),
+    headerLine: z.string().default(""),
+    writeHighWaterMark: z.number().default(64),
+    onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+    deadletterEnabled: z.boolean().default(false),
+    onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+      "block",
+    ),
+    description: z.string().optional(),
+    compress: PqCompressOptions$outboundSchema.default("none"),
+    compressionLevel: CompressionLevelOptions$outboundSchema.default(
+      "best_speed",
+    ),
+    automaticSchema: z.boolean().default(false),
+    parquetSchema: z.string().optional(),
+    parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+    parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema
+      .default("DATA_PAGE_V2"),
+    parquetRowGroupLength: z.number().default(10000),
+    parquetPageSize: z.string().default("1MB"),
+    shouldLogInvalidRows: z.boolean().optional(),
+    keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+    enableStatistics: z.boolean().default(true),
+    enableWritePageIndex: z.boolean().default(true),
+    enablePageChecksum: z.boolean().default(false),
+    emptyDirCleanupSec: z.number().default(300),
+    deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+    maxRetryNum: z.number().default(20),
+    awsApiKey: z.string(),
+    awsSecretKey: z.string(),
+    awsSecret: z.string().optional(),
+  });
+
+export function outputGoogleCloudStorageGoogleCloudStorage8ToJSON(
+  outputGoogleCloudStorageGoogleCloudStorage8:
+    OutputGoogleCloudStorageGoogleCloudStorage8,
+): string {
+  return JSON.stringify(
+    OutputGoogleCloudStorageGoogleCloudStorage8$outboundSchema.parse(
+      outputGoogleCloudStorageGoogleCloudStorage8,
+    ),
+  );
+}
+export function outputGoogleCloudStorageGoogleCloudStorage8FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  OutputGoogleCloudStorageGoogleCloudStorage8,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputGoogleCloudStorageGoogleCloudStorage8$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'OutputGoogleCloudStorageGoogleCloudStorage8' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputGoogleCloudStorageType7$inboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleCloudStorageType7
+> = z.nativeEnum(OutputGoogleCloudStorageType7);
+/** @internal */
+export const OutputGoogleCloudStorageType7$outboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleCloudStorageType7
+> = OutputGoogleCloudStorageType7$inboundSchema;
+
+/** @internal */
+export const OutputGoogleCloudStorageGoogleCloudStorage7$inboundSchema:
+  z.ZodType<
+    OutputGoogleCloudStorageGoogleCloudStorage7,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema
+      .default("auto"),
+    id: z.string().optional(),
+    type: OutputGoogleCloudStorageType7$inboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    bucket: z.string(),
+    region: z.string(),
+    endpoint: z.string().default("https://storage.googleapis.com"),
+    signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+    stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+    destPath: z.string().default(""),
+    verifyPermissions: z.boolean().default(true),
+    objectACL: ObjectAcl1Options$inboundSchema.default("private"),
+    storageClass: StorageClass1Options$inboundSchema.optional(),
+    reuseConnections: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    addIdToStagePath: z.boolean().default(true),
+    removeEmptyDirs: z.boolean().default(true),
+    partitionExpr: z.string().default(
+      "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+    ),
+    format: Format1Options$inboundSchema.default("json"),
+    baseFileName: z.string().default("`CriblOut`"),
+    fileNameSuffix: z.string().default(
+      "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+    ),
+    maxFileSizeMB: z.number().default(32),
+    maxFileOpenTimeSec: z.number().default(300),
+    maxFileIdleTimeSec: z.number().default(30),
+    maxOpenFiles: z.number().default(100),
+    headerLine: z.string().default(""),
+    writeHighWaterMark: z.number().default(64),
+    onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+    deadletterEnabled: z.boolean().default(false),
+    onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+      "block",
+    ),
+    description: z.string().optional(),
+    compress: PqCompressOptions$inboundSchema.default("none"),
+    compressionLevel: CompressionLevelOptions$inboundSchema.default(
+      "best_speed",
+    ),
+    automaticSchema: z.boolean().default(false),
+    parquetSchema: z.string().optional(),
+    parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+    parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+      "DATA_PAGE_V2",
+    ),
+    parquetRowGroupLength: z.number().default(10000),
+    parquetPageSize: z.string().default("1MB"),
+    shouldLogInvalidRows: z.boolean().optional(),
+    keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+    enableStatistics: z.boolean().default(true),
+    enableWritePageIndex: z.boolean().default(true),
+    enablePageChecksum: z.boolean().default(false),
+    emptyDirCleanupSec: z.number().default(300),
+    deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+    maxRetryNum: z.number().default(20),
+    awsApiKey: z.string().optional(),
+    awsSecretKey: z.string().optional(),
+    awsSecret: z.string().optional(),
+  });
+/** @internal */
+export type OutputGoogleCloudStorageGoogleCloudStorage7$Outbound = {
+  awsAuthenticationMethod: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  bucket: string;
+  region: string;
+  endpoint: string;
+  signatureVersion: string;
+  stagePath: string;
+  destPath: string;
+  verifyPermissions: boolean;
+  objectACL: string;
+  storageClass?: string | undefined;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  addIdToStagePath: boolean;
+  removeEmptyDirs: boolean;
+  partitionExpr: string;
+  format: string;
+  baseFileName: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  description?: string | undefined;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+  awsApiKey?: string | undefined;
+  awsSecretKey?: string | undefined;
+  awsSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputGoogleCloudStorageGoogleCloudStorage7$outboundSchema:
+  z.ZodType<
+    OutputGoogleCloudStorageGoogleCloudStorage7$Outbound,
+    z.ZodTypeDef,
+    OutputGoogleCloudStorageGoogleCloudStorage7
+  > = z.object({
+    awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+      .default("auto"),
+    id: z.string().optional(),
+    type: OutputGoogleCloudStorageType7$outboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    bucket: z.string(),
+    region: z.string(),
+    endpoint: z.string().default("https://storage.googleapis.com"),
+    signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+    stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+    destPath: z.string().default(""),
+    verifyPermissions: z.boolean().default(true),
+    objectACL: ObjectAcl1Options$outboundSchema.default("private"),
+    storageClass: StorageClass1Options$outboundSchema.optional(),
+    reuseConnections: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    addIdToStagePath: z.boolean().default(true),
+    removeEmptyDirs: z.boolean().default(true),
+    partitionExpr: z.string().default(
+      "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+    ),
+    format: Format1Options$outboundSchema.default("json"),
+    baseFileName: z.string().default("`CriblOut`"),
+    fileNameSuffix: z.string().default(
+      "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+    ),
+    maxFileSizeMB: z.number().default(32),
+    maxFileOpenTimeSec: z.number().default(300),
+    maxFileIdleTimeSec: z.number().default(30),
+    maxOpenFiles: z.number().default(100),
+    headerLine: z.string().default(""),
+    writeHighWaterMark: z.number().default(64),
+    onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+    deadletterEnabled: z.boolean().default(false),
+    onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+      "block",
+    ),
+    description: z.string().optional(),
+    compress: PqCompressOptions$outboundSchema.default("none"),
+    compressionLevel: CompressionLevelOptions$outboundSchema.default(
+      "best_speed",
+    ),
+    automaticSchema: z.boolean().default(false),
+    parquetSchema: z.string().optional(),
+    parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+    parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema
+      .default("DATA_PAGE_V2"),
+    parquetRowGroupLength: z.number().default(10000),
+    parquetPageSize: z.string().default("1MB"),
+    shouldLogInvalidRows: z.boolean().optional(),
+    keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+    enableStatistics: z.boolean().default(true),
+    enableWritePageIndex: z.boolean().default(true),
+    enablePageChecksum: z.boolean().default(false),
+    emptyDirCleanupSec: z.number().default(300),
+    deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+    maxRetryNum: z.number().default(20),
+    awsApiKey: z.string().optional(),
+    awsSecretKey: z.string().optional(),
+    awsSecret: z.string().optional(),
+  });
+
+export function outputGoogleCloudStorageGoogleCloudStorage7ToJSON(
+  outputGoogleCloudStorageGoogleCloudStorage7:
+    OutputGoogleCloudStorageGoogleCloudStorage7,
+): string {
+  return JSON.stringify(
+    OutputGoogleCloudStorageGoogleCloudStorage7$outboundSchema.parse(
+      outputGoogleCloudStorageGoogleCloudStorage7,
+    ),
+  );
+}
+export function outputGoogleCloudStorageGoogleCloudStorage7FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  OutputGoogleCloudStorageGoogleCloudStorage7,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputGoogleCloudStorageGoogleCloudStorage7$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'OutputGoogleCloudStorageGoogleCloudStorage7' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputGoogleCloudStorageType6$inboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleCloudStorageType6
+> = z.nativeEnum(OutputGoogleCloudStorageType6);
+/** @internal */
+export const OutputGoogleCloudStorageType6$outboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleCloudStorageType6
+> = OutputGoogleCloudStorageType6$inboundSchema;
+
+/** @internal */
+export const OutputGoogleCloudStorageGoogleCloudStorage6$inboundSchema:
+  z.ZodType<
+    OutputGoogleCloudStorageGoogleCloudStorage6,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    deadletterEnabled: z.boolean().default(false),
+    id: z.string().optional(),
+    type: OutputGoogleCloudStorageType6$inboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    bucket: z.string(),
+    region: z.string(),
+    endpoint: z.string().default("https://storage.googleapis.com"),
+    signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+    awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema
+      .default("auto"),
+    stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+    destPath: z.string().default(""),
+    verifyPermissions: z.boolean().default(true),
+    objectACL: ObjectAcl1Options$inboundSchema.default("private"),
+    storageClass: StorageClass1Options$inboundSchema.optional(),
+    reuseConnections: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    addIdToStagePath: z.boolean().default(true),
+    removeEmptyDirs: z.boolean().default(true),
+    partitionExpr: z.string().default(
+      "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+    ),
+    format: Format1Options$inboundSchema.default("json"),
+    baseFileName: z.string().default("`CriblOut`"),
+    fileNameSuffix: z.string().default(
+      "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+    ),
+    maxFileSizeMB: z.number().default(32),
+    maxFileOpenTimeSec: z.number().default(300),
+    maxFileIdleTimeSec: z.number().default(30),
+    maxOpenFiles: z.number().default(100),
+    headerLine: z.string().default(""),
+    writeHighWaterMark: z.number().default(64),
+    onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+    onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+      "block",
+    ),
+    description: z.string().optional(),
+    compress: PqCompressOptions$inboundSchema.default("none"),
+    compressionLevel: CompressionLevelOptions$inboundSchema.default(
+      "best_speed",
+    ),
+    automaticSchema: z.boolean().default(false),
+    parquetSchema: z.string().optional(),
+    parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+    parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+      "DATA_PAGE_V2",
+    ),
+    parquetRowGroupLength: z.number().default(10000),
+    parquetPageSize: z.string().default("1MB"),
+    shouldLogInvalidRows: z.boolean().optional(),
+    keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+    enableStatistics: z.boolean().default(true),
+    enableWritePageIndex: z.boolean().default(true),
+    enablePageChecksum: z.boolean().default(false),
+    emptyDirCleanupSec: z.number().default(300),
+    deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+    maxRetryNum: z.number().default(20),
+    awsApiKey: z.string().optional(),
+    awsSecretKey: z.string().optional(),
+    awsSecret: z.string().optional(),
+  });
+/** @internal */
+export type OutputGoogleCloudStorageGoogleCloudStorage6$Outbound = {
+  deadletterEnabled: boolean;
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -968,20 +2842,18 @@ export type OutputGoogleCloudStorage$Outbound = {
   headerLine: string;
   writeHighWaterMark: number;
   onBackpressure: string;
-  deadletterEnabled: boolean;
   onDiskFullBackpressure: string;
   description?: string | undefined;
   compress: string;
   compressionLevel: string;
   automaticSchema: boolean;
+  parquetSchema?: string | undefined;
   parquetVersion: string;
   parquetDataPageVersion: string;
   parquetRowGroupLength: number;
   parquetPageSize: string;
   shouldLogInvalidRows?: boolean | undefined;
-  keyValueMetadata?:
-    | Array<OutputGoogleCloudStorageKeyValueMetadatum$Outbound>
-    | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
   enableStatistics: boolean;
   enableWritePageIndex: boolean;
   enablePageChecksum: boolean;
@@ -994,95 +2866,1327 @@ export type OutputGoogleCloudStorage$Outbound = {
 };
 
 /** @internal */
+export const OutputGoogleCloudStorageGoogleCloudStorage6$outboundSchema:
+  z.ZodType<
+    OutputGoogleCloudStorageGoogleCloudStorage6$Outbound,
+    z.ZodTypeDef,
+    OutputGoogleCloudStorageGoogleCloudStorage6
+  > = z.object({
+    deadletterEnabled: z.boolean().default(false),
+    id: z.string().optional(),
+    type: OutputGoogleCloudStorageType6$outboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    bucket: z.string(),
+    region: z.string(),
+    endpoint: z.string().default("https://storage.googleapis.com"),
+    signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+    awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+      .default("auto"),
+    stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+    destPath: z.string().default(""),
+    verifyPermissions: z.boolean().default(true),
+    objectACL: ObjectAcl1Options$outboundSchema.default("private"),
+    storageClass: StorageClass1Options$outboundSchema.optional(),
+    reuseConnections: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    addIdToStagePath: z.boolean().default(true),
+    removeEmptyDirs: z.boolean().default(true),
+    partitionExpr: z.string().default(
+      "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+    ),
+    format: Format1Options$outboundSchema.default("json"),
+    baseFileName: z.string().default("`CriblOut`"),
+    fileNameSuffix: z.string().default(
+      "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+    ),
+    maxFileSizeMB: z.number().default(32),
+    maxFileOpenTimeSec: z.number().default(300),
+    maxFileIdleTimeSec: z.number().default(30),
+    maxOpenFiles: z.number().default(100),
+    headerLine: z.string().default(""),
+    writeHighWaterMark: z.number().default(64),
+    onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+    onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+      "block",
+    ),
+    description: z.string().optional(),
+    compress: PqCompressOptions$outboundSchema.default("none"),
+    compressionLevel: CompressionLevelOptions$outboundSchema.default(
+      "best_speed",
+    ),
+    automaticSchema: z.boolean().default(false),
+    parquetSchema: z.string().optional(),
+    parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+    parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema
+      .default("DATA_PAGE_V2"),
+    parquetRowGroupLength: z.number().default(10000),
+    parquetPageSize: z.string().default("1MB"),
+    shouldLogInvalidRows: z.boolean().optional(),
+    keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+    enableStatistics: z.boolean().default(true),
+    enableWritePageIndex: z.boolean().default(true),
+    enablePageChecksum: z.boolean().default(false),
+    emptyDirCleanupSec: z.number().default(300),
+    deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+    maxRetryNum: z.number().default(20),
+    awsApiKey: z.string().optional(),
+    awsSecretKey: z.string().optional(),
+    awsSecret: z.string().optional(),
+  });
+
+export function outputGoogleCloudStorageGoogleCloudStorage6ToJSON(
+  outputGoogleCloudStorageGoogleCloudStorage6:
+    OutputGoogleCloudStorageGoogleCloudStorage6,
+): string {
+  return JSON.stringify(
+    OutputGoogleCloudStorageGoogleCloudStorage6$outboundSchema.parse(
+      outputGoogleCloudStorageGoogleCloudStorage6,
+    ),
+  );
+}
+export function outputGoogleCloudStorageGoogleCloudStorage6FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  OutputGoogleCloudStorageGoogleCloudStorage6,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputGoogleCloudStorageGoogleCloudStorage6$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'OutputGoogleCloudStorageGoogleCloudStorage6' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputGoogleCloudStorageType5$inboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleCloudStorageType5
+> = z.nativeEnum(OutputGoogleCloudStorageType5);
+/** @internal */
+export const OutputGoogleCloudStorageType5$outboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleCloudStorageType5
+> = OutputGoogleCloudStorageType5$inboundSchema;
+
+/** @internal */
+export const OutputGoogleCloudStorageGoogleCloudStorage5$inboundSchema:
+  z.ZodType<
+    OutputGoogleCloudStorageGoogleCloudStorage5,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    deadletterEnabled: z.boolean().default(false),
+    id: z.string().optional(),
+    type: OutputGoogleCloudStorageType5$inboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    bucket: z.string(),
+    region: z.string(),
+    endpoint: z.string().default("https://storage.googleapis.com"),
+    signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+    awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema
+      .default("auto"),
+    stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+    destPath: z.string().default(""),
+    verifyPermissions: z.boolean().default(true),
+    objectACL: ObjectAcl1Options$inboundSchema.default("private"),
+    storageClass: StorageClass1Options$inboundSchema.optional(),
+    reuseConnections: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    addIdToStagePath: z.boolean().default(true),
+    removeEmptyDirs: z.boolean().default(true),
+    partitionExpr: z.string().default(
+      "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+    ),
+    format: Format1Options$inboundSchema.default("json"),
+    baseFileName: z.string().default("`CriblOut`"),
+    fileNameSuffix: z.string().default(
+      "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+    ),
+    maxFileSizeMB: z.number().default(32),
+    maxFileOpenTimeSec: z.number().default(300),
+    maxFileIdleTimeSec: z.number().default(30),
+    maxOpenFiles: z.number().default(100),
+    headerLine: z.string().default(""),
+    writeHighWaterMark: z.number().default(64),
+    onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+    onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+      "block",
+    ),
+    description: z.string().optional(),
+    compress: PqCompressOptions$inboundSchema.default("none"),
+    compressionLevel: CompressionLevelOptions$inboundSchema.default(
+      "best_speed",
+    ),
+    automaticSchema: z.boolean().default(false),
+    parquetSchema: z.string().optional(),
+    parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+    parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+      "DATA_PAGE_V2",
+    ),
+    parquetRowGroupLength: z.number().default(10000),
+    parquetPageSize: z.string().default("1MB"),
+    shouldLogInvalidRows: z.boolean().optional(),
+    keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+    enableStatistics: z.boolean().default(true),
+    enableWritePageIndex: z.boolean().default(true),
+    enablePageChecksum: z.boolean().default(false),
+    emptyDirCleanupSec: z.number().default(300),
+    deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+    maxRetryNum: z.number().default(20),
+    awsApiKey: z.string().optional(),
+    awsSecretKey: z.string().optional(),
+    awsSecret: z.string().optional(),
+  });
+/** @internal */
+export type OutputGoogleCloudStorageGoogleCloudStorage5$Outbound = {
+  deadletterEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  bucket: string;
+  region: string;
+  endpoint: string;
+  signatureVersion: string;
+  awsAuthenticationMethod: string;
+  stagePath: string;
+  destPath: string;
+  verifyPermissions: boolean;
+  objectACL: string;
+  storageClass?: string | undefined;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  addIdToStagePath: boolean;
+  removeEmptyDirs: boolean;
+  partitionExpr: string;
+  format: string;
+  baseFileName: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  onDiskFullBackpressure: string;
+  description?: string | undefined;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+  awsApiKey?: string | undefined;
+  awsSecretKey?: string | undefined;
+  awsSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputGoogleCloudStorageGoogleCloudStorage5$outboundSchema:
+  z.ZodType<
+    OutputGoogleCloudStorageGoogleCloudStorage5$Outbound,
+    z.ZodTypeDef,
+    OutputGoogleCloudStorageGoogleCloudStorage5
+  > = z.object({
+    deadletterEnabled: z.boolean().default(false),
+    id: z.string().optional(),
+    type: OutputGoogleCloudStorageType5$outboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    bucket: z.string(),
+    region: z.string(),
+    endpoint: z.string().default("https://storage.googleapis.com"),
+    signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+    awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+      .default("auto"),
+    stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+    destPath: z.string().default(""),
+    verifyPermissions: z.boolean().default(true),
+    objectACL: ObjectAcl1Options$outboundSchema.default("private"),
+    storageClass: StorageClass1Options$outboundSchema.optional(),
+    reuseConnections: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    addIdToStagePath: z.boolean().default(true),
+    removeEmptyDirs: z.boolean().default(true),
+    partitionExpr: z.string().default(
+      "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+    ),
+    format: Format1Options$outboundSchema.default("json"),
+    baseFileName: z.string().default("`CriblOut`"),
+    fileNameSuffix: z.string().default(
+      "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+    ),
+    maxFileSizeMB: z.number().default(32),
+    maxFileOpenTimeSec: z.number().default(300),
+    maxFileIdleTimeSec: z.number().default(30),
+    maxOpenFiles: z.number().default(100),
+    headerLine: z.string().default(""),
+    writeHighWaterMark: z.number().default(64),
+    onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+    onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+      "block",
+    ),
+    description: z.string().optional(),
+    compress: PqCompressOptions$outboundSchema.default("none"),
+    compressionLevel: CompressionLevelOptions$outboundSchema.default(
+      "best_speed",
+    ),
+    automaticSchema: z.boolean().default(false),
+    parquetSchema: z.string().optional(),
+    parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+    parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema
+      .default("DATA_PAGE_V2"),
+    parquetRowGroupLength: z.number().default(10000),
+    parquetPageSize: z.string().default("1MB"),
+    shouldLogInvalidRows: z.boolean().optional(),
+    keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+    enableStatistics: z.boolean().default(true),
+    enableWritePageIndex: z.boolean().default(true),
+    enablePageChecksum: z.boolean().default(false),
+    emptyDirCleanupSec: z.number().default(300),
+    deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+    maxRetryNum: z.number().default(20),
+    awsApiKey: z.string().optional(),
+    awsSecretKey: z.string().optional(),
+    awsSecret: z.string().optional(),
+  });
+
+export function outputGoogleCloudStorageGoogleCloudStorage5ToJSON(
+  outputGoogleCloudStorageGoogleCloudStorage5:
+    OutputGoogleCloudStorageGoogleCloudStorage5,
+): string {
+  return JSON.stringify(
+    OutputGoogleCloudStorageGoogleCloudStorage5$outboundSchema.parse(
+      outputGoogleCloudStorageGoogleCloudStorage5,
+    ),
+  );
+}
+export function outputGoogleCloudStorageGoogleCloudStorage5FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  OutputGoogleCloudStorageGoogleCloudStorage5,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputGoogleCloudStorageGoogleCloudStorage5$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'OutputGoogleCloudStorageGoogleCloudStorage5' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputGoogleCloudStorageType4$inboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleCloudStorageType4
+> = z.nativeEnum(OutputGoogleCloudStorageType4);
+/** @internal */
+export const OutputGoogleCloudStorageType4$outboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleCloudStorageType4
+> = OutputGoogleCloudStorageType4$inboundSchema;
+
+/** @internal */
+export const OutputGoogleCloudStorageGoogleCloudStorage4$inboundSchema:
+  z.ZodType<
+    OutputGoogleCloudStorageGoogleCloudStorage4,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    removeEmptyDirs: z.boolean().default(true),
+    id: z.string().optional(),
+    type: OutputGoogleCloudStorageType4$inboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    bucket: z.string(),
+    region: z.string(),
+    endpoint: z.string().default("https://storage.googleapis.com"),
+    signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+    awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema
+      .default("auto"),
+    stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+    destPath: z.string().default(""),
+    verifyPermissions: z.boolean().default(true),
+    objectACL: ObjectAcl1Options$inboundSchema.default("private"),
+    storageClass: StorageClass1Options$inboundSchema.optional(),
+    reuseConnections: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    addIdToStagePath: z.boolean().default(true),
+    partitionExpr: z.string().default(
+      "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+    ),
+    format: Format1Options$inboundSchema.default("json"),
+    baseFileName: z.string().default("`CriblOut`"),
+    fileNameSuffix: z.string().default(
+      "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+    ),
+    maxFileSizeMB: z.number().default(32),
+    maxFileOpenTimeSec: z.number().default(300),
+    maxFileIdleTimeSec: z.number().default(30),
+    maxOpenFiles: z.number().default(100),
+    headerLine: z.string().default(""),
+    writeHighWaterMark: z.number().default(64),
+    onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+    deadletterEnabled: z.boolean().default(false),
+    onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+      "block",
+    ),
+    description: z.string().optional(),
+    compress: PqCompressOptions$inboundSchema.default("none"),
+    compressionLevel: CompressionLevelOptions$inboundSchema.default(
+      "best_speed",
+    ),
+    automaticSchema: z.boolean().default(false),
+    parquetSchema: z.string().optional(),
+    parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+    parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+      "DATA_PAGE_V2",
+    ),
+    parquetRowGroupLength: z.number().default(10000),
+    parquetPageSize: z.string().default("1MB"),
+    shouldLogInvalidRows: z.boolean().optional(),
+    keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+    enableStatistics: z.boolean().default(true),
+    enableWritePageIndex: z.boolean().default(true),
+    enablePageChecksum: z.boolean().default(false),
+    emptyDirCleanupSec: z.number().default(300),
+    deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+    maxRetryNum: z.number().default(20),
+    awsApiKey: z.string().optional(),
+    awsSecretKey: z.string().optional(),
+    awsSecret: z.string().optional(),
+  });
+/** @internal */
+export type OutputGoogleCloudStorageGoogleCloudStorage4$Outbound = {
+  removeEmptyDirs: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  bucket: string;
+  region: string;
+  endpoint: string;
+  signatureVersion: string;
+  awsAuthenticationMethod: string;
+  stagePath: string;
+  destPath: string;
+  verifyPermissions: boolean;
+  objectACL: string;
+  storageClass?: string | undefined;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  addIdToStagePath: boolean;
+  partitionExpr: string;
+  format: string;
+  baseFileName: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  description?: string | undefined;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+  awsApiKey?: string | undefined;
+  awsSecretKey?: string | undefined;
+  awsSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputGoogleCloudStorageGoogleCloudStorage4$outboundSchema:
+  z.ZodType<
+    OutputGoogleCloudStorageGoogleCloudStorage4$Outbound,
+    z.ZodTypeDef,
+    OutputGoogleCloudStorageGoogleCloudStorage4
+  > = z.object({
+    removeEmptyDirs: z.boolean().default(true),
+    id: z.string().optional(),
+    type: OutputGoogleCloudStorageType4$outboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    bucket: z.string(),
+    region: z.string(),
+    endpoint: z.string().default("https://storage.googleapis.com"),
+    signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+    awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+      .default("auto"),
+    stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+    destPath: z.string().default(""),
+    verifyPermissions: z.boolean().default(true),
+    objectACL: ObjectAcl1Options$outboundSchema.default("private"),
+    storageClass: StorageClass1Options$outboundSchema.optional(),
+    reuseConnections: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    addIdToStagePath: z.boolean().default(true),
+    partitionExpr: z.string().default(
+      "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+    ),
+    format: Format1Options$outboundSchema.default("json"),
+    baseFileName: z.string().default("`CriblOut`"),
+    fileNameSuffix: z.string().default(
+      "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+    ),
+    maxFileSizeMB: z.number().default(32),
+    maxFileOpenTimeSec: z.number().default(300),
+    maxFileIdleTimeSec: z.number().default(30),
+    maxOpenFiles: z.number().default(100),
+    headerLine: z.string().default(""),
+    writeHighWaterMark: z.number().default(64),
+    onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+    deadletterEnabled: z.boolean().default(false),
+    onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+      "block",
+    ),
+    description: z.string().optional(),
+    compress: PqCompressOptions$outboundSchema.default("none"),
+    compressionLevel: CompressionLevelOptions$outboundSchema.default(
+      "best_speed",
+    ),
+    automaticSchema: z.boolean().default(false),
+    parquetSchema: z.string().optional(),
+    parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+    parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema
+      .default("DATA_PAGE_V2"),
+    parquetRowGroupLength: z.number().default(10000),
+    parquetPageSize: z.string().default("1MB"),
+    shouldLogInvalidRows: z.boolean().optional(),
+    keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+    enableStatistics: z.boolean().default(true),
+    enableWritePageIndex: z.boolean().default(true),
+    enablePageChecksum: z.boolean().default(false),
+    emptyDirCleanupSec: z.number().default(300),
+    deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+    maxRetryNum: z.number().default(20),
+    awsApiKey: z.string().optional(),
+    awsSecretKey: z.string().optional(),
+    awsSecret: z.string().optional(),
+  });
+
+export function outputGoogleCloudStorageGoogleCloudStorage4ToJSON(
+  outputGoogleCloudStorageGoogleCloudStorage4:
+    OutputGoogleCloudStorageGoogleCloudStorage4,
+): string {
+  return JSON.stringify(
+    OutputGoogleCloudStorageGoogleCloudStorage4$outboundSchema.parse(
+      outputGoogleCloudStorageGoogleCloudStorage4,
+    ),
+  );
+}
+export function outputGoogleCloudStorageGoogleCloudStorage4FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  OutputGoogleCloudStorageGoogleCloudStorage4,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputGoogleCloudStorageGoogleCloudStorage4$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'OutputGoogleCloudStorageGoogleCloudStorage4' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputGoogleCloudStorageType3$inboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleCloudStorageType3
+> = z.nativeEnum(OutputGoogleCloudStorageType3);
+/** @internal */
+export const OutputGoogleCloudStorageType3$outboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleCloudStorageType3
+> = OutputGoogleCloudStorageType3$inboundSchema;
+
+/** @internal */
+export const OutputGoogleCloudStorageGoogleCloudStorage3$inboundSchema:
+  z.ZodType<
+    OutputGoogleCloudStorageGoogleCloudStorage3,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    removeEmptyDirs: z.boolean().default(true),
+    id: z.string().optional(),
+    type: OutputGoogleCloudStorageType3$inboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    bucket: z.string(),
+    region: z.string(),
+    endpoint: z.string().default("https://storage.googleapis.com"),
+    signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+    awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema
+      .default("auto"),
+    stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+    destPath: z.string().default(""),
+    verifyPermissions: z.boolean().default(true),
+    objectACL: ObjectAcl1Options$inboundSchema.default("private"),
+    storageClass: StorageClass1Options$inboundSchema.optional(),
+    reuseConnections: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    addIdToStagePath: z.boolean().default(true),
+    partitionExpr: z.string().default(
+      "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+    ),
+    format: Format1Options$inboundSchema.default("json"),
+    baseFileName: z.string().default("`CriblOut`"),
+    fileNameSuffix: z.string().default(
+      "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+    ),
+    maxFileSizeMB: z.number().default(32),
+    maxFileOpenTimeSec: z.number().default(300),
+    maxFileIdleTimeSec: z.number().default(30),
+    maxOpenFiles: z.number().default(100),
+    headerLine: z.string().default(""),
+    writeHighWaterMark: z.number().default(64),
+    onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+    deadletterEnabled: z.boolean().default(false),
+    onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+      "block",
+    ),
+    description: z.string().optional(),
+    compress: PqCompressOptions$inboundSchema.default("none"),
+    compressionLevel: CompressionLevelOptions$inboundSchema.default(
+      "best_speed",
+    ),
+    automaticSchema: z.boolean().default(false),
+    parquetSchema: z.string().optional(),
+    parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+    parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+      "DATA_PAGE_V2",
+    ),
+    parquetRowGroupLength: z.number().default(10000),
+    parquetPageSize: z.string().default("1MB"),
+    shouldLogInvalidRows: z.boolean().optional(),
+    keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+    enableStatistics: z.boolean().default(true),
+    enableWritePageIndex: z.boolean().default(true),
+    enablePageChecksum: z.boolean().default(false),
+    emptyDirCleanupSec: z.number().default(300),
+    deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+    maxRetryNum: z.number().default(20),
+    awsApiKey: z.string().optional(),
+    awsSecretKey: z.string().optional(),
+    awsSecret: z.string().optional(),
+  });
+/** @internal */
+export type OutputGoogleCloudStorageGoogleCloudStorage3$Outbound = {
+  removeEmptyDirs: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  bucket: string;
+  region: string;
+  endpoint: string;
+  signatureVersion: string;
+  awsAuthenticationMethod: string;
+  stagePath: string;
+  destPath: string;
+  verifyPermissions: boolean;
+  objectACL: string;
+  storageClass?: string | undefined;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  addIdToStagePath: boolean;
+  partitionExpr: string;
+  format: string;
+  baseFileName: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  description?: string | undefined;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+  awsApiKey?: string | undefined;
+  awsSecretKey?: string | undefined;
+  awsSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputGoogleCloudStorageGoogleCloudStorage3$outboundSchema:
+  z.ZodType<
+    OutputGoogleCloudStorageGoogleCloudStorage3$Outbound,
+    z.ZodTypeDef,
+    OutputGoogleCloudStorageGoogleCloudStorage3
+  > = z.object({
+    removeEmptyDirs: z.boolean().default(true),
+    id: z.string().optional(),
+    type: OutputGoogleCloudStorageType3$outboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    bucket: z.string(),
+    region: z.string(),
+    endpoint: z.string().default("https://storage.googleapis.com"),
+    signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+    awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+      .default("auto"),
+    stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+    destPath: z.string().default(""),
+    verifyPermissions: z.boolean().default(true),
+    objectACL: ObjectAcl1Options$outboundSchema.default("private"),
+    storageClass: StorageClass1Options$outboundSchema.optional(),
+    reuseConnections: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    addIdToStagePath: z.boolean().default(true),
+    partitionExpr: z.string().default(
+      "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+    ),
+    format: Format1Options$outboundSchema.default("json"),
+    baseFileName: z.string().default("`CriblOut`"),
+    fileNameSuffix: z.string().default(
+      "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+    ),
+    maxFileSizeMB: z.number().default(32),
+    maxFileOpenTimeSec: z.number().default(300),
+    maxFileIdleTimeSec: z.number().default(30),
+    maxOpenFiles: z.number().default(100),
+    headerLine: z.string().default(""),
+    writeHighWaterMark: z.number().default(64),
+    onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+    deadletterEnabled: z.boolean().default(false),
+    onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+      "block",
+    ),
+    description: z.string().optional(),
+    compress: PqCompressOptions$outboundSchema.default("none"),
+    compressionLevel: CompressionLevelOptions$outboundSchema.default(
+      "best_speed",
+    ),
+    automaticSchema: z.boolean().default(false),
+    parquetSchema: z.string().optional(),
+    parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+    parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema
+      .default("DATA_PAGE_V2"),
+    parquetRowGroupLength: z.number().default(10000),
+    parquetPageSize: z.string().default("1MB"),
+    shouldLogInvalidRows: z.boolean().optional(),
+    keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+    enableStatistics: z.boolean().default(true),
+    enableWritePageIndex: z.boolean().default(true),
+    enablePageChecksum: z.boolean().default(false),
+    emptyDirCleanupSec: z.number().default(300),
+    deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+    maxRetryNum: z.number().default(20),
+    awsApiKey: z.string().optional(),
+    awsSecretKey: z.string().optional(),
+    awsSecret: z.string().optional(),
+  });
+
+export function outputGoogleCloudStorageGoogleCloudStorage3ToJSON(
+  outputGoogleCloudStorageGoogleCloudStorage3:
+    OutputGoogleCloudStorageGoogleCloudStorage3,
+): string {
+  return JSON.stringify(
+    OutputGoogleCloudStorageGoogleCloudStorage3$outboundSchema.parse(
+      outputGoogleCloudStorageGoogleCloudStorage3,
+    ),
+  );
+}
+export function outputGoogleCloudStorageGoogleCloudStorage3FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  OutputGoogleCloudStorageGoogleCloudStorage3,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputGoogleCloudStorageGoogleCloudStorage3$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'OutputGoogleCloudStorageGoogleCloudStorage3' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputGoogleCloudStorageType2$inboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleCloudStorageType2
+> = z.nativeEnum(OutputGoogleCloudStorageType2);
+/** @internal */
+export const OutputGoogleCloudStorageType2$outboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleCloudStorageType2
+> = OutputGoogleCloudStorageType2$inboundSchema;
+
+/** @internal */
+export const OutputGoogleCloudStorageGoogleCloudStorage2$inboundSchema:
+  z.ZodType<
+    OutputGoogleCloudStorageGoogleCloudStorage2,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    format: Format1Options$inboundSchema.default("json"),
+    id: z.string().optional(),
+    type: OutputGoogleCloudStorageType2$inboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    bucket: z.string(),
+    region: z.string(),
+    endpoint: z.string().default("https://storage.googleapis.com"),
+    signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+    awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema
+      .default("auto"),
+    stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+    destPath: z.string().default(""),
+    verifyPermissions: z.boolean().default(true),
+    objectACL: ObjectAcl1Options$inboundSchema.default("private"),
+    storageClass: StorageClass1Options$inboundSchema.optional(),
+    reuseConnections: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    addIdToStagePath: z.boolean().default(true),
+    removeEmptyDirs: z.boolean().default(true),
+    partitionExpr: z.string().default(
+      "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+    ),
+    baseFileName: z.string().default("`CriblOut`"),
+    fileNameSuffix: z.string().default(
+      "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+    ),
+    maxFileSizeMB: z.number().default(32),
+    maxFileOpenTimeSec: z.number().default(300),
+    maxFileIdleTimeSec: z.number().default(30),
+    maxOpenFiles: z.number().default(100),
+    headerLine: z.string().default(""),
+    writeHighWaterMark: z.number().default(64),
+    onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+    deadletterEnabled: z.boolean().default(false),
+    onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+      "block",
+    ),
+    description: z.string().optional(),
+    compress: PqCompressOptions$inboundSchema.default("none"),
+    compressionLevel: CompressionLevelOptions$inboundSchema.default(
+      "best_speed",
+    ),
+    automaticSchema: z.boolean().default(false),
+    parquetSchema: z.string().optional(),
+    parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+    parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+      "DATA_PAGE_V2",
+    ),
+    parquetRowGroupLength: z.number().default(10000),
+    parquetPageSize: z.string().default("1MB"),
+    shouldLogInvalidRows: z.boolean(),
+    keyValueMetadata: z.array(TagsType$inboundSchema),
+    enableStatistics: z.boolean().default(true),
+    enableWritePageIndex: z.boolean().default(true),
+    enablePageChecksum: z.boolean().default(false),
+    emptyDirCleanupSec: z.number().default(300),
+    deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+    maxRetryNum: z.number().default(20),
+    awsApiKey: z.string().optional(),
+    awsSecretKey: z.string().optional(),
+    awsSecret: z.string().optional(),
+  });
+/** @internal */
+export type OutputGoogleCloudStorageGoogleCloudStorage2$Outbound = {
+  format: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  bucket: string;
+  region: string;
+  endpoint: string;
+  signatureVersion: string;
+  awsAuthenticationMethod: string;
+  stagePath: string;
+  destPath: string;
+  verifyPermissions: boolean;
+  objectACL: string;
+  storageClass?: string | undefined;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  addIdToStagePath: boolean;
+  removeEmptyDirs: boolean;
+  partitionExpr: string;
+  baseFileName: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  description?: string | undefined;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows: boolean;
+  keyValueMetadata: Array<TagsType$Outbound>;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+  awsApiKey?: string | undefined;
+  awsSecretKey?: string | undefined;
+  awsSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputGoogleCloudStorageGoogleCloudStorage2$outboundSchema:
+  z.ZodType<
+    OutputGoogleCloudStorageGoogleCloudStorage2$Outbound,
+    z.ZodTypeDef,
+    OutputGoogleCloudStorageGoogleCloudStorage2
+  > = z.object({
+    format: Format1Options$outboundSchema.default("json"),
+    id: z.string().optional(),
+    type: OutputGoogleCloudStorageType2$outboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    bucket: z.string(),
+    region: z.string(),
+    endpoint: z.string().default("https://storage.googleapis.com"),
+    signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+    awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+      .default("auto"),
+    stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+    destPath: z.string().default(""),
+    verifyPermissions: z.boolean().default(true),
+    objectACL: ObjectAcl1Options$outboundSchema.default("private"),
+    storageClass: StorageClass1Options$outboundSchema.optional(),
+    reuseConnections: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    addIdToStagePath: z.boolean().default(true),
+    removeEmptyDirs: z.boolean().default(true),
+    partitionExpr: z.string().default(
+      "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+    ),
+    baseFileName: z.string().default("`CriblOut`"),
+    fileNameSuffix: z.string().default(
+      "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+    ),
+    maxFileSizeMB: z.number().default(32),
+    maxFileOpenTimeSec: z.number().default(300),
+    maxFileIdleTimeSec: z.number().default(30),
+    maxOpenFiles: z.number().default(100),
+    headerLine: z.string().default(""),
+    writeHighWaterMark: z.number().default(64),
+    onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+    deadletterEnabled: z.boolean().default(false),
+    onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+      "block",
+    ),
+    description: z.string().optional(),
+    compress: PqCompressOptions$outboundSchema.default("none"),
+    compressionLevel: CompressionLevelOptions$outboundSchema.default(
+      "best_speed",
+    ),
+    automaticSchema: z.boolean().default(false),
+    parquetSchema: z.string().optional(),
+    parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+    parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema
+      .default("DATA_PAGE_V2"),
+    parquetRowGroupLength: z.number().default(10000),
+    parquetPageSize: z.string().default("1MB"),
+    shouldLogInvalidRows: z.boolean(),
+    keyValueMetadata: z.array(TagsType$outboundSchema),
+    enableStatistics: z.boolean().default(true),
+    enableWritePageIndex: z.boolean().default(true),
+    enablePageChecksum: z.boolean().default(false),
+    emptyDirCleanupSec: z.number().default(300),
+    deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+    maxRetryNum: z.number().default(20),
+    awsApiKey: z.string().optional(),
+    awsSecretKey: z.string().optional(),
+    awsSecret: z.string().optional(),
+  });
+
+export function outputGoogleCloudStorageGoogleCloudStorage2ToJSON(
+  outputGoogleCloudStorageGoogleCloudStorage2:
+    OutputGoogleCloudStorageGoogleCloudStorage2,
+): string {
+  return JSON.stringify(
+    OutputGoogleCloudStorageGoogleCloudStorage2$outboundSchema.parse(
+      outputGoogleCloudStorageGoogleCloudStorage2,
+    ),
+  );
+}
+export function outputGoogleCloudStorageGoogleCloudStorage2FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  OutputGoogleCloudStorageGoogleCloudStorage2,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputGoogleCloudStorageGoogleCloudStorage2$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'OutputGoogleCloudStorageGoogleCloudStorage2' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputGoogleCloudStorageType1$inboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleCloudStorageType1
+> = z.nativeEnum(OutputGoogleCloudStorageType1);
+/** @internal */
+export const OutputGoogleCloudStorageType1$outboundSchema: z.ZodNativeEnum<
+  typeof OutputGoogleCloudStorageType1
+> = OutputGoogleCloudStorageType1$inboundSchema;
+
+/** @internal */
+export const OutputGoogleCloudStorageGoogleCloudStorage1$inboundSchema:
+  z.ZodType<
+    OutputGoogleCloudStorageGoogleCloudStorage1,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    format: Format1Options$inboundSchema.default("json"),
+    id: z.string().optional(),
+    type: OutputGoogleCloudStorageType1$inboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    bucket: z.string(),
+    region: z.string(),
+    endpoint: z.string().default("https://storage.googleapis.com"),
+    signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+    awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema
+      .default("auto"),
+    stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+    destPath: z.string().default(""),
+    verifyPermissions: z.boolean().default(true),
+    objectACL: ObjectAcl1Options$inboundSchema.default("private"),
+    storageClass: StorageClass1Options$inboundSchema.optional(),
+    reuseConnections: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    addIdToStagePath: z.boolean().default(true),
+    removeEmptyDirs: z.boolean().default(true),
+    partitionExpr: z.string().default(
+      "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+    ),
+    baseFileName: z.string().default("`CriblOut`"),
+    fileNameSuffix: z.string().default(
+      "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+    ),
+    maxFileSizeMB: z.number().default(32),
+    maxFileOpenTimeSec: z.number().default(300),
+    maxFileIdleTimeSec: z.number().default(30),
+    maxOpenFiles: z.number().default(100),
+    headerLine: z.string().default(""),
+    writeHighWaterMark: z.number().default(64),
+    onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+    deadletterEnabled: z.boolean().default(false),
+    onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+      "block",
+    ),
+    description: z.string().optional(),
+    compress: PqCompressOptions$inboundSchema.default("none"),
+    compressionLevel: CompressionLevelOptions$inboundSchema.default(
+      "best_speed",
+    ),
+    automaticSchema: z.boolean().default(false),
+    parquetSchema: z.string().optional(),
+    parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+    parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+      "DATA_PAGE_V2",
+    ),
+    parquetRowGroupLength: z.number().default(10000),
+    parquetPageSize: z.string().default("1MB"),
+    shouldLogInvalidRows: z.boolean().optional(),
+    keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+    enableStatistics: z.boolean().default(true),
+    enableWritePageIndex: z.boolean().default(true),
+    enablePageChecksum: z.boolean().default(false),
+    emptyDirCleanupSec: z.number().default(300),
+    deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+    maxRetryNum: z.number().default(20),
+    awsApiKey: z.string().optional(),
+    awsSecretKey: z.string().optional(),
+    awsSecret: z.string().optional(),
+  });
+/** @internal */
+export type OutputGoogleCloudStorageGoogleCloudStorage1$Outbound = {
+  format: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  bucket: string;
+  region: string;
+  endpoint: string;
+  signatureVersion: string;
+  awsAuthenticationMethod: string;
+  stagePath: string;
+  destPath: string;
+  verifyPermissions: boolean;
+  objectACL: string;
+  storageClass?: string | undefined;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  addIdToStagePath: boolean;
+  removeEmptyDirs: boolean;
+  partitionExpr: string;
+  baseFileName: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  description?: string | undefined;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+  awsApiKey?: string | undefined;
+  awsSecretKey?: string | undefined;
+  awsSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputGoogleCloudStorageGoogleCloudStorage1$outboundSchema:
+  z.ZodType<
+    OutputGoogleCloudStorageGoogleCloudStorage1$Outbound,
+    z.ZodTypeDef,
+    OutputGoogleCloudStorageGoogleCloudStorage1
+  > = z.object({
+    format: Format1Options$outboundSchema.default("json"),
+    id: z.string().optional(),
+    type: OutputGoogleCloudStorageType1$outboundSchema,
+    pipeline: z.string().optional(),
+    systemFields: z.array(z.string()).optional(),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    bucket: z.string(),
+    region: z.string(),
+    endpoint: z.string().default("https://storage.googleapis.com"),
+    signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+    awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+      .default("auto"),
+    stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+    destPath: z.string().default(""),
+    verifyPermissions: z.boolean().default(true),
+    objectACL: ObjectAcl1Options$outboundSchema.default("private"),
+    storageClass: StorageClass1Options$outboundSchema.optional(),
+    reuseConnections: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    addIdToStagePath: z.boolean().default(true),
+    removeEmptyDirs: z.boolean().default(true),
+    partitionExpr: z.string().default(
+      "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+    ),
+    baseFileName: z.string().default("`CriblOut`"),
+    fileNameSuffix: z.string().default(
+      "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+    ),
+    maxFileSizeMB: z.number().default(32),
+    maxFileOpenTimeSec: z.number().default(300),
+    maxFileIdleTimeSec: z.number().default(30),
+    maxOpenFiles: z.number().default(100),
+    headerLine: z.string().default(""),
+    writeHighWaterMark: z.number().default(64),
+    onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+    deadletterEnabled: z.boolean().default(false),
+    onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+      "block",
+    ),
+    description: z.string().optional(),
+    compress: PqCompressOptions$outboundSchema.default("none"),
+    compressionLevel: CompressionLevelOptions$outboundSchema.default(
+      "best_speed",
+    ),
+    automaticSchema: z.boolean().default(false),
+    parquetSchema: z.string().optional(),
+    parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+    parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema
+      .default("DATA_PAGE_V2"),
+    parquetRowGroupLength: z.number().default(10000),
+    parquetPageSize: z.string().default("1MB"),
+    shouldLogInvalidRows: z.boolean().optional(),
+    keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+    enableStatistics: z.boolean().default(true),
+    enableWritePageIndex: z.boolean().default(true),
+    enablePageChecksum: z.boolean().default(false),
+    emptyDirCleanupSec: z.number().default(300),
+    deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+    maxRetryNum: z.number().default(20),
+    awsApiKey: z.string().optional(),
+    awsSecretKey: z.string().optional(),
+    awsSecret: z.string().optional(),
+  });
+
+export function outputGoogleCloudStorageGoogleCloudStorage1ToJSON(
+  outputGoogleCloudStorageGoogleCloudStorage1:
+    OutputGoogleCloudStorageGoogleCloudStorage1,
+): string {
+  return JSON.stringify(
+    OutputGoogleCloudStorageGoogleCloudStorage1$outboundSchema.parse(
+      outputGoogleCloudStorageGoogleCloudStorage1,
+    ),
+  );
+}
+export function outputGoogleCloudStorageGoogleCloudStorage1FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  OutputGoogleCloudStorageGoogleCloudStorage1,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputGoogleCloudStorageGoogleCloudStorage1$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'OutputGoogleCloudStorageGoogleCloudStorage1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputGoogleCloudStorage$inboundSchema: z.ZodType<
+  OutputGoogleCloudStorage,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => OutputGoogleCloudStorageGoogleCloudStorage2$inboundSchema),
+  z.lazy(() => OutputGoogleCloudStorageGoogleCloudStorage8$inboundSchema),
+  z.lazy(() => OutputGoogleCloudStorageGoogleCloudStorage9$inboundSchema),
+  z.lazy(() => OutputGoogleCloudStorageGoogleCloudStorage1$inboundSchema),
+  z.lazy(() => OutputGoogleCloudStorageGoogleCloudStorage3$inboundSchema),
+  z.lazy(() => OutputGoogleCloudStorageGoogleCloudStorage4$inboundSchema),
+  z.lazy(() => OutputGoogleCloudStorageGoogleCloudStorage5$inboundSchema),
+  z.lazy(() => OutputGoogleCloudStorageGoogleCloudStorage6$inboundSchema),
+  z.lazy(() => OutputGoogleCloudStorageGoogleCloudStorage7$inboundSchema),
+]);
+/** @internal */
+export type OutputGoogleCloudStorage$Outbound =
+  | OutputGoogleCloudStorageGoogleCloudStorage2$Outbound
+  | OutputGoogleCloudStorageGoogleCloudStorage8$Outbound
+  | OutputGoogleCloudStorageGoogleCloudStorage9$Outbound
+  | OutputGoogleCloudStorageGoogleCloudStorage1$Outbound
+  | OutputGoogleCloudStorageGoogleCloudStorage3$Outbound
+  | OutputGoogleCloudStorageGoogleCloudStorage4$Outbound
+  | OutputGoogleCloudStorageGoogleCloudStorage5$Outbound
+  | OutputGoogleCloudStorageGoogleCloudStorage6$Outbound
+  | OutputGoogleCloudStorageGoogleCloudStorage7$Outbound;
+
+/** @internal */
 export const OutputGoogleCloudStorage$outboundSchema: z.ZodType<
   OutputGoogleCloudStorage$Outbound,
   z.ZodTypeDef,
   OutputGoogleCloudStorage
-> = z.object({
-  id: z.string().optional(),
-  type: OutputGoogleCloudStorageType$outboundSchema,
-  pipeline: z.string().optional(),
-  systemFields: z.array(z.string()).optional(),
-  environment: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  bucket: z.string(),
-  region: z.string(),
-  endpoint: z.string().default("https://storage.googleapis.com"),
-  signatureVersion: OutputGoogleCloudStorageSignatureVersion$outboundSchema
-    .default("v4"),
-  awsAuthenticationMethod:
-    OutputGoogleCloudStorageAuthenticationMethod$outboundSchema.default(
-      "manual",
-    ),
-  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
-  destPath: z.string().default(""),
-  verifyPermissions: z.boolean().default(true),
-  objectACL: OutputGoogleCloudStorageObjectACL$outboundSchema.default(
-    "private",
-  ),
-  storageClass: OutputGoogleCloudStorageStorageClass$outboundSchema.optional(),
-  reuseConnections: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(true),
-  addIdToStagePath: z.boolean().default(true),
-  removeEmptyDirs: z.boolean().default(true),
-  partitionExpr: z.string().default(
-    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
-  ),
-  format: OutputGoogleCloudStorageDataFormat$outboundSchema.default("json"),
-  baseFileName: z.string().default("`CriblOut`"),
-  fileNameSuffix: z.string().default(
-    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
-  ),
-  maxFileSizeMB: z.number().default(32),
-  maxFileOpenTimeSec: z.number().default(300),
-  maxFileIdleTimeSec: z.number().default(30),
-  maxOpenFiles: z.number().default(100),
-  headerLine: z.string().default(""),
-  writeHighWaterMark: z.number().default(64),
-  onBackpressure: OutputGoogleCloudStorageBackpressureBehavior$outboundSchema
-    .default("block"),
-  deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure:
-    OutputGoogleCloudStorageDiskSpaceProtection$outboundSchema.default("block"),
-  description: z.string().optional(),
-  compress: OutputGoogleCloudStorageCompression$outboundSchema.default("gzip"),
-  compressionLevel: OutputGoogleCloudStorageCompressionLevel$outboundSchema
-    .default("best_speed"),
-  automaticSchema: z.boolean().default(false),
-  parquetVersion: OutputGoogleCloudStorageParquetVersion$outboundSchema.default(
-    "PARQUET_2_6",
-  ),
-  parquetDataPageVersion: OutputGoogleCloudStorageDataPageVersion$outboundSchema
-    .default("DATA_PAGE_V2"),
-  parquetRowGroupLength: z.number().default(10000),
-  parquetPageSize: z.string().default("1MB"),
-  shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(
-    z.lazy(() => OutputGoogleCloudStorageKeyValueMetadatum$outboundSchema),
-  ).optional(),
-  enableStatistics: z.boolean().default(true),
-  enableWritePageIndex: z.boolean().default(true),
-  enablePageChecksum: z.boolean().default(false),
-  emptyDirCleanupSec: z.number().default(300),
-  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
-  maxRetryNum: z.number().default(20),
-  awsApiKey: z.string().optional(),
-  awsSecretKey: z.string().optional(),
-  awsSecret: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudStorage$ {
-  /** @deprecated use `OutputGoogleCloudStorage$inboundSchema` instead. */
-  export const inboundSchema = OutputGoogleCloudStorage$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudStorage$outboundSchema` instead. */
-  export const outboundSchema = OutputGoogleCloudStorage$outboundSchema;
-  /** @deprecated use `OutputGoogleCloudStorage$Outbound` instead. */
-  export type Outbound = OutputGoogleCloudStorage$Outbound;
-}
+> = z.union([
+  z.lazy(() => OutputGoogleCloudStorageGoogleCloudStorage2$outboundSchema),
+  z.lazy(() => OutputGoogleCloudStorageGoogleCloudStorage8$outboundSchema),
+  z.lazy(() => OutputGoogleCloudStorageGoogleCloudStorage9$outboundSchema),
+  z.lazy(() => OutputGoogleCloudStorageGoogleCloudStorage1$outboundSchema),
+  z.lazy(() => OutputGoogleCloudStorageGoogleCloudStorage3$outboundSchema),
+  z.lazy(() => OutputGoogleCloudStorageGoogleCloudStorage4$outboundSchema),
+  z.lazy(() => OutputGoogleCloudStorageGoogleCloudStorage5$outboundSchema),
+  z.lazy(() => OutputGoogleCloudStorageGoogleCloudStorage6$outboundSchema),
+  z.lazy(() => OutputGoogleCloudStorageGoogleCloudStorage7$outboundSchema),
+]);
 
 export function outputGoogleCloudStorageToJSON(
   outputGoogleCloudStorage: OutputGoogleCloudStorage,
@@ -1091,7 +4195,6 @@ export function outputGoogleCloudStorageToJSON(
     OutputGoogleCloudStorage$outboundSchema.parse(outputGoogleCloudStorage),
   );
 }
-
 export function outputGoogleCloudStorageFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputGoogleCloudStorage, SDKValidationError> {

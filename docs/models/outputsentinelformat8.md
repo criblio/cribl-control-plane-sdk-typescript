@@ -1,0 +1,17 @@
+# OutputSentinelFormat8
+
+## Example Usage
+
+```typescript
+import { OutputSentinelFormat8 } from "cribl-control-plane/models";
+
+let value: OutputSentinelFormat8 = "advanced";
+```
+
+## Values
+
+This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
+
+```typescript
+"ndjson" | "json_array" | "custom" | "advanced" | Unrecognized<string>
+```

@@ -1,11 +1,244 @@
 # OutputWebhook
 
-## Example Usage
+
+## Supported Types
+
+### `models.OutputWebhookWebhook1`
 
 ```typescript
-import { OutputWebhook } from "cribl-control-plane/models";
+const value: models.OutputWebhookWebhook1 = {
+  id: "<id>",
+  type: "webhook",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
+  },
+  totalMemoryLimitKB: 6056.8,
+  description: "doubter unto as on",
+  formatEventCode: "<value>",
+  formatPayloadCode: "<value>",
+  pqControls: {},
+  username: "Kaleigh_Reinger72",
+  password: "eOm98MW4o5pwEon",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://outrageous-dime.biz/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  url: "https://jittery-disconnection.org",
+  urls: [
+    {
+      url: "https://delicious-doubter.net",
+    },
+  ],
+};
+```
 
-let value: OutputWebhook = {
+### `models.OutputWebhookWebhook2`
+
+```typescript
+const value: models.OutputWebhookWebhook2 = {
+  id: "<id>",
+  type: "webhook",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
+  },
+  totalMemoryLimitKB: 4209.95,
+  description: "mismatch too vet",
+  formatEventCode: "<value>",
+  formatPayloadCode: "<value>",
+  pqControls: {},
+  username: "Emmanuel95",
+  password: "CiySuRhkD942nqH",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://lone-desk.org/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  url: "https://motionless-extension.net",
+  urls: [
+    {
+      url: "https://delicious-doubter.net",
+    },
+  ],
+};
+```
+
+### `models.OutputWebhookWebhook3`
+
+```typescript
+const value: models.OutputWebhookWebhook3 = {
+  id: "<id>",
+  type: "webhook",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
+  },
+  totalMemoryLimitKB: 4095.27,
+  description: "casement pro after readmit mockingly spattering which",
+  formatEventCode: "<value>",
+  formatPayloadCode: "<value>",
+  pqControls: {},
+  username: "Dallas65",
+  password: "29btw4YdYV1mJka",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://rusty-footrest.name",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  url: "https://poor-innovation.net/",
+  urls: [
+    {
+      url: "https://delicious-doubter.net",
+    },
+  ],
+};
+```
+
+### `models.OutputWebhookWebhook4`
+
+```typescript
+const value: models.OutputWebhookWebhook4 = {
   id: "<id>",
   type: "webhook",
   pipeline: "<value>",
@@ -30,7 +263,7 @@ let value: OutputWebhook = {
   ],
   responseRetrySettings: [
     {
-      httpStatus: 5955.24,
+      httpStatus: 5033.96,
     },
   ],
   timeoutRetrySettings: {},
@@ -44,18 +277,17 @@ let value: OutputWebhook = {
     minVersion: "TLSv1.2",
     maxVersion: "TLSv1.2",
   },
-  totalMemoryLimitKB: 470.04,
-  description:
-    "corner bookcase fedora cultivated conservation chow alongside if revere demob",
+  totalMemoryLimitKB: 1779.64,
+  description: "apricot inside cow afterwards furthermore ouch slowly brace",
   formatEventCode: "<value>",
   formatPayloadCode: "<value>",
   pqControls: {},
-  username: "Myrtie_Smitham",
-  password: "oBYKyE0yu0PN6hG",
+  username: "Jess.Breitenberg",
+  password: "XINQ5YrBfPAwRcp",
   token: "<value>",
   credentialsSecret: "<value>",
   textSecret: "<value>",
-  loginUrl: "https://deserted-lady.com/",
+  loginUrl: "https://bustling-armchair.biz/",
   secretParamName: "<value>",
   secret: "<value>",
   tokenAttributeName: "<value>",
@@ -71,7 +303,7 @@ let value: OutputWebhook = {
       value: "<value>",
     },
   ],
-  url: "https://far-flung-status.name/",
+  url: "https://foolish-tomatillo.name",
   urls: [
     {
       url: "https://delicious-doubter.net",
@@ -80,69 +312,764 @@ let value: OutputWebhook = {
 };
 ```
 
-## Fields
+### `models.OutputWebhookWebhook5`
 
-| Field                                                                                                                                                                                                                                                                                                                                                                     | Type                                                                                                                                                                                                                                                                                                                                                                      | Required                                                                                                                                                                                                                                                                                                                                                                  | Description                                                                                                                                                                                                                                                                                                                                                               |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`                                                                                                                                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Unique ID for this output                                                                                                                                                                                                                                                                                                                                                 |
-| `type`                                                                                                                                                                                                                                                                                                                                                                    | [models.OutputWebhookType](../models/outputwebhooktype.md)                                                                                                                                                                                                                                                                                                                | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                        | N/A                                                                                                                                                                                                                                                                                                                                                                       |
-| `pipeline`                                                                                                                                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Pipeline to process data before sending out to this output                                                                                                                                                                                                                                                                                                                |
-| `systemFields`                                                                                                                                                                                                                                                                                                                                                            | *string*[]                                                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Fields to automatically add to events, such as cribl_pipe. Supports wildcards.                                                                                                                                                                                                                                                                                            |
-| `environment`                                                                                                                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                                                                                                                                                      |
-| `streamtags`                                                                                                                                                                                                                                                                                                                                                              | *string*[]                                                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Tags for filtering and grouping in @{product}                                                                                                                                                                                                                                                                                                                             |
-| `method`                                                                                                                                                                                                                                                                                                                                                                  | [models.OutputWebhookMethod](../models/outputwebhookmethod.md)                                                                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | The method to use when sending events                                                                                                                                                                                                                                                                                                                                     |
-| `format`                                                                                                                                                                                                                                                                                                                                                                  | [models.OutputWebhookFormat](../models/outputwebhookformat.md)                                                                                                                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | How to format events before sending out                                                                                                                                                                                                                                                                                                                                   |
-| `keepAlive`                                                                                                                                                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Disable to close the connection immediately after sending the outgoing request                                                                                                                                                                                                                                                                                            |
-| `concurrency`                                                                                                                                                                                                                                                                                                                                                             | *number*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Maximum number of ongoing requests before blocking                                                                                                                                                                                                                                                                                                                        |
-| `maxPayloadSizeKB`                                                                                                                                                                                                                                                                                                                                                        | *number*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Maximum size, in KB, of the request body                                                                                                                                                                                                                                                                                                                                  |
-| `maxPayloadEvents`                                                                                                                                                                                                                                                                                                                                                        | *number*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Maximum number of events to include in the request body. Default is 0 (unlimited).                                                                                                                                                                                                                                                                                        |
-| `compress`                                                                                                                                                                                                                                                                                                                                                                | *boolean*                                                                                                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Compress the payload body before sending                                                                                                                                                                                                                                                                                                                                  |
-| `rejectUnauthorized`                                                                                                                                                                                                                                                                                                                                                      | *boolean*                                                                                                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).<br/>        Enabled by default. When this setting is also present in TLS Settings (Client Side),<br/>        that value will take precedence.                                                                                                      |
-| `timeoutSec`                                                                                                                                                                                                                                                                                                                                                              | *number*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Amount of time, in seconds, to wait for a request to complete before canceling it                                                                                                                                                                                                                                                                                         |
-| `flushPeriodSec`                                                                                                                                                                                                                                                                                                                                                          | *number*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.                                                                                                                                                                                                                                               |
-| `extraHttpHeaders`                                                                                                                                                                                                                                                                                                                                                        | [models.OutputWebhookExtraHttpHeader](../models/outputwebhookextrahttpheader.md)[]                                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Headers to add to all events. You can also add headers dynamically on a per-event basis in the __headers field, as explained in [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook/#internal-fields).                                                                                                                                                         |
-| `useRoundRobinDns`                                                                                                                                                                                                                                                                                                                                                        | *boolean*                                                                                                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.                                                                                                                                        |
-| `failedRequestLoggingMode`                                                                                                                                                                                                                                                                                                                                                | [models.OutputWebhookFailedRequestLoggingMode](../models/outputwebhookfailedrequestloggingmode.md)                                                                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.                                                                                                                                                                                                                                                               |
-| `safeHeaders`                                                                                                                                                                                                                                                                                                                                                             | *string*[]                                                                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | List of headers that are safe to log in plain text                                                                                                                                                                                                                                                                                                                        |
-| `responseRetrySettings`                                                                                                                                                                                                                                                                                                                                                   | [models.OutputWebhookResponseRetrySetting](../models/outputwebhookresponseretrysetting.md)[]                                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)                                                                                                                                                                                                                                                |
-| `timeoutRetrySettings`                                                                                                                                                                                                                                                                                                                                                    | [models.OutputWebhookTimeoutRetrySettings](../models/outputwebhooktimeoutretrysettings.md)                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | N/A                                                                                                                                                                                                                                                                                                                                                                       |
-| `responseHonorRetryAfterHeader`                                                                                                                                                                                                                                                                                                                                           | *boolean*                                                                                                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.                          |
-| `onBackpressure`                                                                                                                                                                                                                                                                                                                                                          | [models.OutputWebhookBackpressureBehavior](../models/outputwebhookbackpressurebehavior.md)                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | How to handle events when all receivers are exerting backpressure                                                                                                                                                                                                                                                                                                         |
-| `authType`                                                                                                                                                                                                                                                                                                                                                                | [models.OutputWebhookAuthenticationType](../models/outputwebhookauthenticationtype.md)                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Authentication method to use for the HTTP request                                                                                                                                                                                                                                                                                                                         |
-| `tls`                                                                                                                                                                                                                                                                                                                                                                     | [models.OutputWebhookTLSSettingsClientSide](../models/outputwebhooktlssettingsclientside.md)                                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | N/A                                                                                                                                                                                                                                                                                                                                                                       |
-| `totalMemoryLimitKB`                                                                                                                                                                                                                                                                                                                                                      | *number*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.                                                                                                                                                                                                                          |
-| `loadBalanced`                                                                                                                                                                                                                                                                                                                                                            | *boolean*                                                                                                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Enable for optimal performance. Even if you have one hostname, it can expand to multiple IPs. If disabled, consider enabling round-robin DNS.                                                                                                                                                                                                                             |
-| `description`                                                                                                                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | N/A                                                                                                                                                                                                                                                                                                                                                                       |
-| `customSourceExpression`                                                                                                                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Expression to evaluate on events to generate output. Example: `raw=${_raw}`. See [Cribl Docs](https://docs.cribl.io/stream/destinations-webhook#custom-format) for other examples. If empty, the full event is sent as stringified JSON.                                                                                                                                  |
-| `customDropWhenNull`                                                                                                                                                                                                                                                                                                                                                      | *boolean*                                                                                                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Whether to drop events when the source expression evaluates to null                                                                                                                                                                                                                                                                                                       |
-| `customEventDelimiter`                                                                                                                                                                                                                                                                                                                                                    | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Delimiter string to insert between individual events. Defaults to newline character.                                                                                                                                                                                                                                                                                      |
-| `customContentType`                                                                                                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Content type to use for request. Defaults to application/x-ndjson. Any content types set in Advanced Settings > Extra HTTP headers will override this entry.                                                                                                                                                                                                              |
-| `customPayloadExpression`                                                                                                                                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Expression specifying how to format the payload for each batch. To reference the events to send, use the `${events}` variable. Example expression: `{ "items" : [${events}] }` would send the batch inside a JSON object.                                                                                                                                                 |
-| `advancedContentType`                                                                                                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | HTTP content-type header value                                                                                                                                                                                                                                                                                                                                            |
-| `formatEventCode`                                                                                                                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Custom JavaScript code to format incoming event data accessible through the __e variable. The formatted content is added to (__e['__eventOut']) if available. Otherwise, the original event is serialized as JSON. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code.                                     |
-| `formatPayloadCode`                                                                                                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Optional JavaScript code to format the payload sent to the Destination. The payload, containing a batch of formatted events, is accessible through the __e['payload'] variable. The formatted payload is returned in the __e['__payloadOut'] variable. Caution: This function is evaluated in an unprotected context, allowing you to execute almost any JavaScript code. |
-| `pqMaxFileSize`                                                                                                                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)                                                                                                                                                                                                                                                                     |
-| `pqMaxSize`                                                                                                                                                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.                                                                                                                                                                                                                    |
-| `pqPath`                                                                                                                                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.                                                                                                                                                                                                                                                     |
-| `pqCompress`                                                                                                                                                                                                                                                                                                                                                              | [models.OutputWebhookCompression](../models/outputwebhookcompression.md)                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Codec to use to compress the persisted data                                                                                                                                                                                                                                                                                                                               |
-| `pqOnBackpressure`                                                                                                                                                                                                                                                                                                                                                        | [models.OutputWebhookQueueFullBehavior](../models/outputwebhookqueuefullbehavior.md)                                                                                                                                                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.                                                                                                                                     |
-| `pqMode`                                                                                                                                                                                                                                                                                                                                                                  | [models.OutputWebhookMode](../models/outputwebhookmode.md)                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.                                                                                                            |
-| `pqControls`                                                                                                                                                                                                                                                                                                                                                              | [models.OutputWebhookPqControls](../models/outputwebhookpqcontrols.md)                                                                                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | N/A                                                                                                                                                                                                                                                                                                                                                                       |
-| `username`                                                                                                                                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | N/A                                                                                                                                                                                                                                                                                                                                                                       |
-| `password`                                                                                                                                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | N/A                                                                                                                                                                                                                                                                                                                                                                       |
-| `token`                                                                                                                                                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Bearer token to include in the authorization header                                                                                                                                                                                                                                                                                                                       |
-| `credentialsSecret`                                                                                                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Select or create a secret that references your credentials                                                                                                                                                                                                                                                                                                                |
-| `textSecret`                                                                                                                                                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Select or create a stored text secret                                                                                                                                                                                                                                                                                                                                     |
-| `loginUrl`                                                                                                                                                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | URL for OAuth                                                                                                                                                                                                                                                                                                                                                             |
-| `secretParamName`                                                                                                                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Secret parameter name to pass in request body                                                                                                                                                                                                                                                                                                                             |
-| `secret`                                                                                                                                                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Secret parameter value to pass in request body                                                                                                                                                                                                                                                                                                                            |
-| `tokenAttributeName`                                                                                                                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').                                                                                                                                                                                                                                 |
-| `authHeaderExpr`                                                                                                                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.                                                                                                                                                                           |
-| `tokenTimeoutSecs`                                                                                                                                                                                                                                                                                                                                                        | *number*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | How often the OAuth token should be refreshed.                                                                                                                                                                                                                                                                                                                            |
-| `oauthParams`                                                                                                                                                                                                                                                                                                                                                             | [models.OutputWebhookOauthParam](../models/outputwebhookoauthparam.md)[]                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.                                   |
-| `oauthHeaders`                                                                                                                                                                                                                                                                                                                                                            | [models.OutputWebhookOauthHeader](../models/outputwebhookoauthheader.md)[]                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.                                                                                                                                                                                           |
-| `url`                                                                                                                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | URL of a webhook endpoint to send events to, such as http://localhost:10200                                                                                                                                                                                                                                                                                               |
-| `excludeSelf`                                                                                                                                                                                                                                                                                                                                                             | *boolean*                                                                                                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | Exclude all IPs of the current host from the list of any resolved hostnames                                                                                                                                                                                                                                                                                               |
-| `urls`                                                                                                                                                                                                                                                                                                                                                                    | [models.OutputWebhookUrl](../models/outputwebhookurl.md)[]                                                                                                                                                                                                                                                                                                                | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | N/A                                                                                                                                                                                                                                                                                                                                                                       |
-| `dnsResolvePeriodSec`                                                                                                                                                                                                                                                                                                                                                     | *number*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | The interval in which to re-resolve any hostnames and pick up destinations from A records                                                                                                                                                                                                                                                                                 |
-| `loadBalanceStatsPeriodSec`                                                                                                                                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                        | How far back in time to keep traffic stats for load balancing purposes                                                                                                                                                                                                                                                                                                    |
+```typescript
+const value: models.OutputWebhookWebhook5 = {
+  id: "<id>",
+  type: "webhook",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
+  },
+  totalMemoryLimitKB: 2584.05,
+  description:
+    "horde suddenly lest towards woot by good-natured responsibility hm",
+  formatEventCode: "<value>",
+  formatPayloadCode: "<value>",
+  pqControls: {},
+  username: "Enola58",
+  password: "3aociLmHAN8Ph2b",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://rubbery-almighty.biz",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  url: "https://narrow-commodity.info/",
+  urls: [
+    {
+      url: "https://delicious-doubter.net",
+    },
+  ],
+};
+```
+
+### `models.OutputWebhookWebhook6`
+
+```typescript
+const value: models.OutputWebhookWebhook6 = {
+  id: "<id>",
+  type: "webhook",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
+  },
+  totalMemoryLimitKB: 5069.13,
+  description:
+    "petticoat complete blissfully cultivated next near enormously ugh needy",
+  formatEventCode: "<value>",
+  formatPayloadCode: "<value>",
+  pqControls: {},
+  username: "Nicole81",
+  password: "d1oAfPIWQ5zmE13",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://back-calculus.name",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  url: "https://limping-boyfriend.org/",
+  urls: [
+    {
+      url: "https://delicious-doubter.net",
+    },
+  ],
+};
+```
+
+### `models.OutputWebhookWebhook7`
+
+```typescript
+const value: models.OutputWebhookWebhook7 = {
+  id: "<id>",
+  type: "webhook",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
+  },
+  totalMemoryLimitKB: 4511.48,
+  description: "contravene fantastic brr airbrush below",
+  formatEventCode: "<value>",
+  formatPayloadCode: "<value>",
+  pqControls: {},
+  username: "Jordan_Kirlin",
+  password: "beAO8vchYgK5AP8",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://sugary-statue.com",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  url: "https://elderly-extension.org",
+  urls: [
+    {
+      url: "https://delicious-doubter.net",
+    },
+  ],
+};
+```
+
+### `models.OutputWebhookWebhook8`
+
+```typescript
+const value: models.OutputWebhookWebhook8 = {
+  id: "<id>",
+  type: "webhook",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
+  },
+  totalMemoryLimitKB: 3706,
+  description: "through with as warmhearted however what petticoat",
+  formatEventCode: "<value>",
+  formatPayloadCode: "<value>",
+  pqControls: {},
+  username: "Karlee.Lesch",
+  password: "ESfqrNQA8W6Dc5v",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://meaty-statue.info",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  url: "https://improbable-accompanist.info",
+  urls: [
+    {
+      url: "https://delicious-doubter.net",
+    },
+  ],
+};
+```
+
+### `models.OutputWebhookWebhook9`
+
+```typescript
+const value: models.OutputWebhookWebhook9 = {
+  id: "<id>",
+  type: "webhook",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
+  },
+  totalMemoryLimitKB: 7539.75,
+  description: "woot bliss hmph teriyaki",
+  formatEventCode: "<value>",
+  formatPayloadCode: "<value>",
+  pqControls: {},
+  username: "Lenore.Parker89",
+  password: "SEjO8tcLPgNE8C1",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://lost-octave.biz",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  url: "https://competent-providence.biz",
+  urls: [
+    {
+      url: "https://delicious-doubter.net",
+    },
+  ],
+};
+```
+
+### `models.OutputWebhookWebhook10`
+
+```typescript
+const value: models.OutputWebhookWebhook10 = {
+  id: "<id>",
+  type: "webhook",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
+  },
+  totalMemoryLimitKB: 9054.78,
+  description: "over whereas crocodile import meal halt geez mom an",
+  formatEventCode: "<value>",
+  formatPayloadCode: "<value>",
+  pqControls: {},
+  username: "Palma_Fahey22",
+  password: "UuY706WKox52gOH",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://thin-formula.name",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  url: "https://next-scorn.name",
+  urls: [
+    {
+      url: "https://delicious-doubter.net",
+    },
+  ],
+};
+```
+
+### `models.OutputWebhookWebhook11`
+
+```typescript
+const value: models.OutputWebhookWebhook11 = {
+  id: "<id>",
+  type: "webhook",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
+  },
+  totalMemoryLimitKB: 9892.46,
+  description: "rigidly inculcate airline meanwhile",
+  formatEventCode: "<value>",
+  formatPayloadCode: "<value>",
+  pqControls: {},
+  username: "Joel_Kuhic37",
+  password: "hGdIexo5bymhAr1",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://metallic-comparison.name/",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  url: "https://gullible-cantaloupe.biz",
+  urls: [
+    {
+      url: "https://delicious-doubter.net",
+    },
+  ],
+};
+```
+
+### `models.OutputWebhookWebhook12`
+
+```typescript
+const value: models.OutputWebhookWebhook12 = {
+  id: "<id>",
+  type: "webhook",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
+  },
+  totalMemoryLimitKB: 4148.32,
+  description: "um powerfully bah than stage up plus spirit",
+  formatEventCode: "<value>",
+  formatPayloadCode: "<value>",
+  pqControls: {},
+  username: "Keaton_Gerlach91",
+  password: "4l1efh3cPU_5RVs",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://illiterate-kiss.org",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  url: "https://disloyal-address.org/",
+  urls: [
+    {
+      url: "https://delicious-doubter.net",
+    },
+  ],
+};
+```
+
+### `models.OutputWebhookWebhook13`
+
+```typescript
+const value: models.OutputWebhookWebhook13 = {
+  id: "<id>",
+  type: "webhook",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
+  },
+  totalMemoryLimitKB: 6073.99,
+  description: "any emerge pant among depend woot provided",
+  formatEventCode: "<value>",
+  formatPayloadCode: "<value>",
+  pqControls: {},
+  username: "Garrick.Mosciski",
+  password: "N19EfwGY8kx47Hy",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://thick-typewriter.org",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  url: "https://spherical-daughter.info",
+  urls: [
+    {
+      url: "https://delicious-doubter.net",
+    },
+  ],
+};
+```
+
+### `models.OutputWebhookWebhook14`
+
+```typescript
+const value: models.OutputWebhookWebhook14 = {
+  id: "<id>",
+  type: "webhook",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5033.96,
+    },
+  ],
+  timeoutRetrySettings: {},
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
+  },
+  totalMemoryLimitKB: 566.45,
+  description: "outside rewarding meanwhile ick till oh",
+  formatEventCode: "<value>",
+  formatPayloadCode: "<value>",
+  pqControls: {},
+  username: "Oceane_Bosco16",
+  password: "EzmSblgXySxmnOy",
+  token: "<value>",
+  credentialsSecret: "<value>",
+  textSecret: "<value>",
+  loginUrl: "https://brilliant-bin.net",
+  secretParamName: "<value>",
+  secret: "<value>",
+  tokenAttributeName: "<value>",
+  oauthParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  oauthHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  url: "https://brisk-toothpick.info/",
+  urls: [
+    {
+      url: "https://delicious-doubter.net",
+    },
+  ],
+};
+```
+

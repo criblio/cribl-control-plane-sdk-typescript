@@ -1,11 +1,12 @@
 # OutputAzureBlob
 
-## Example Usage
+
+## Supported Types
+
+### `models.OutputAzureBlobAzureBlob1`
 
 ```typescript
-import { OutputAzureBlob } from "cribl-control-plane/models";
-
-let value: OutputAzureBlob = {
+const value: models.OutputAzureBlobAzureBlob1 = {
   id: "<id>",
   type: "azure_blob",
   pipeline: "<value>",
@@ -21,10 +22,12 @@ let value: OutputAzureBlob = {
   ],
   containerName: "<value>",
   destPath: "<value>",
-  description: "rigidly off athwart very despite above abaft",
-  shouldLogInvalidRows: true,
+  description: "beneath zowie spanish upon kookily geez unlike obsess often",
+  parquetSchema: "<value>",
+  shouldLogInvalidRows: false,
   keyValueMetadata: [
     {
+      key: "<key>",
       value: "<value>",
     },
   ],
@@ -42,60 +45,378 @@ let value: OutputAzureBlob = {
 };
 ```
 
-## Fields
+### `models.OutputAzureBlobAzureBlob2`
 
-| Field                                                                                                                                                                                                                                                                                                                                                                  | Type                                                                                                                                                                                                                                                                                                                                                                   | Required                                                                                                                                                                                                                                                                                                                                                               | Description                                                                                                                                                                                                                                                                                                                                                            |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`                                                                                                                                                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Unique ID for this output                                                                                                                                                                                                                                                                                                                                              |
-| `type`                                                                                                                                                                                                                                                                                                                                                                 | [models.OutputAzureBlobType](../models/outputazureblobtype.md)                                                                                                                                                                                                                                                                                                         | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                     | N/A                                                                                                                                                                                                                                                                                                                                                                    |
-| `pipeline`                                                                                                                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Pipeline to process data before sending out to this output                                                                                                                                                                                                                                                                                                             |
-| `systemFields`                                                                                                                                                                                                                                                                                                                                                         | *string*[]                                                                                                                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Fields to automatically add to events, such as cribl_pipe. Supports wildcards.                                                                                                                                                                                                                                                                                         |
-| `environment`                                                                                                                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                                                                                                                                                   |
-| `streamtags`                                                                                                                                                                                                                                                                                                                                                           | *string*[]                                                                                                                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Tags for filtering and grouping in @{product}                                                                                                                                                                                                                                                                                                                          |
-| `containerName`                                                                                                                                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                                                                                                                                               | :heavy_check_mark:                                                                                                                                                                                                                                                                                                                                                     | The Azure Blob Storage container name. Name can include only lowercase letters, numbers, and hyphens. For dynamic container names, enter a JavaScript expression within quotes or backticks, to be evaluated at initialization. The expression can evaluate to a constant value and can reference Global Variables, such as `myContainer-${C.env["CRIBL_WORKER_ID"]}`. |
-| `createContainer`                                                                                                                                                                                                                                                                                                                                                      | *boolean*                                                                                                                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Create the configured container in Azure Blob Storage if it does not already exist                                                                                                                                                                                                                                                                                     |
-| `destPath`                                                                                                                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Root directory prepended to path before uploading. Value can be a JavaScript expression enclosed in quotes or backticks, to be evaluated at initialization. The expression can evaluate to a constant value and can reference Global Variables, such as `myBlobPrefix-${C.env["CRIBL_WORKER_ID"]}`.                                                                    |
-| `stagePath`                                                                                                                                                                                                                                                                                                                                                            | *string*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Filesystem location in which to buffer files before compressing and moving to final destination. Use performant and stable storage.                                                                                                                                                                                                                                    |
-| `addIdToStagePath`                                                                                                                                                                                                                                                                                                                                                     | *boolean*                                                                                                                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Add the Output ID value to staging location                                                                                                                                                                                                                                                                                                                            |
-| `maxConcurrentFileParts`                                                                                                                                                                                                                                                                                                                                               | *number*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Maximum number of parts to upload in parallel per file                                                                                                                                                                                                                                                                                                                 |
-| `removeEmptyDirs`                                                                                                                                                                                                                                                                                                                                                      | *boolean*                                                                                                                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Remove empty staging directories after moving files                                                                                                                                                                                                                                                                                                                    |
-| `partitionExpr`                                                                                                                                                                                                                                                                                                                                                        | *string*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.                                                                                                                                      |
-| `format`                                                                                                                                                                                                                                                                                                                                                               | [models.OutputAzureBlobDataFormat](../models/outputazureblobdataformat.md)                                                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Format of the output data                                                                                                                                                                                                                                                                                                                                              |
-| `baseFileName`                                                                                                                                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | JavaScript expression to define the output filename prefix (can be constant)                                                                                                                                                                                                                                                                                           |
-| `fileNameSuffix`                                                                                                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).                                                                                                   |
-| `maxFileSizeMB`                                                                                                                                                                                                                                                                                                                                                        | *number*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.                                                                                                                                                                                                                                                           |
-| `maxFileOpenTimeSec`                                                                                                                                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.                                                                                                                                                                                                                                          |
-| `maxFileIdleTimeSec`                                                                                                                                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.                                                                                                                                                                                                                                 |
-| `maxOpenFiles`                                                                                                                                                                                                                                                                                                                                                         | *number*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.                                                                                                                                                                                                              |
-| `headerLine`                                                                                                                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | If set, this line will be written to the beginning of each output file                                                                                                                                                                                                                                                                                                 |
-| `writeHighWaterMark`                                                                                                                                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Buffer size used to write to a file                                                                                                                                                                                                                                                                                                                                    |
-| `onBackpressure`                                                                                                                                                                                                                                                                                                                                                       | [models.OutputAzureBlobBackpressureBehavior](../models/outputazureblobbackpressurebehavior.md)                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | How to handle events when all receivers are exerting backpressure                                                                                                                                                                                                                                                                                                      |
-| `deadletterEnabled`                                                                                                                                                                                                                                                                                                                                                    | *boolean*                                                                                                                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors                                                                                                                                                                                                                      |
-| `onDiskFullBackpressure`                                                                                                                                                                                                                                                                                                                                               | [models.OutputAzureBlobDiskSpaceProtection](../models/outputazureblobdiskspaceprotection.md)                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | How to handle events when disk space is below the global 'Min free disk space' limit                                                                                                                                                                                                                                                                                   |
-| `authType`                                                                                                                                                                                                                                                                                                                                                             | [models.OutputAzureBlobAuthenticationMethod](../models/outputazureblobauthenticationmethod.md)                                                                                                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | N/A                                                                                                                                                                                                                                                                                                                                                                    |
-| `storageClass`                                                                                                                                                                                                                                                                                                                                                         | [models.BlobAccessTier](../models/blobaccesstier.md)                                                                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | N/A                                                                                                                                                                                                                                                                                                                                                                    |
-| `description`                                                                                                                                                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | N/A                                                                                                                                                                                                                                                                                                                                                                    |
-| `compress`                                                                                                                                                                                                                                                                                                                                                             | [models.OutputAzureBlobCompression](../models/outputazureblobcompression.md)                                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Data compression format to apply to HTTP content before it is delivered                                                                                                                                                                                                                                                                                                |
-| `compressionLevel`                                                                                                                                                                                                                                                                                                                                                     | [models.OutputAzureBlobCompressionLevel](../models/outputazureblobcompressionlevel.md)                                                                                                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Compression level to apply before moving files to final destination                                                                                                                                                                                                                                                                                                    |
-| `automaticSchema`                                                                                                                                                                                                                                                                                                                                                      | *boolean*                                                                                                                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Automatically calculate the schema based on the events of each Parquet file generated                                                                                                                                                                                                                                                                                  |
-| `parquetVersion`                                                                                                                                                                                                                                                                                                                                                       | [models.OutputAzureBlobParquetVersion](../models/outputazureblobparquetversion.md)                                                                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Determines which data types are supported and how they are represented                                                                                                                                                                                                                                                                                                 |
-| `parquetDataPageVersion`                                                                                                                                                                                                                                                                                                                                               | [models.OutputAzureBlobDataPageVersion](../models/outputazureblobdatapageversion.md)                                                                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.                                                                                                                                                                                                              |
-| `parquetRowGroupLength`                                                                                                                                                                                                                                                                                                                                                | *number*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | The number of rows that every group will contain. The final group can contain a smaller number of rows.                                                                                                                                                                                                                                                                |
-| `parquetPageSize`                                                                                                                                                                                                                                                                                                                                                      | *string*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.                                                                                                                                                                                                                    |
-| `shouldLogInvalidRows`                                                                                                                                                                                                                                                                                                                                                 | *boolean*                                                                                                                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Log up to 3 rows that @{product} skips due to data mismatch                                                                                                                                                                                                                                                                                                            |
-| `keyValueMetadata`                                                                                                                                                                                                                                                                                                                                                     | [models.OutputAzureBlobKeyValueMetadatum](../models/outputazureblobkeyvaluemetadatum.md)[]                                                                                                                                                                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"                                                                                                                                                                                       |
-| `enableStatistics`                                                                                                                                                                                                                                                                                                                                                     | *boolean*                                                                                                                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.                                                                                                                                                                                                                 |
-| `enableWritePageIndex`                                                                                                                                                                                                                                                                                                                                                 | *boolean*                                                                                                                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.                                                                                                                                                                                                                                                          |
-| `enablePageChecksum`                                                                                                                                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Parquet tools can use the checksum of a Parquet page to verify data integrity                                                                                                                                                                                                                                                                                          |
-| `emptyDirCleanupSec`                                                                                                                                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | How frequently, in seconds, to clean up empty directories                                                                                                                                                                                                                                                                                                              |
-| `deadletterPath`                                                                                                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Storage location for files that fail to reach their final destination after maximum retries are exceeded                                                                                                                                                                                                                                                               |
-| `maxRetryNum`                                                                                                                                                                                                                                                                                                                                                          | *number*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | The maximum number of times a file will attempt to move to its final destination before being dead-lettered                                                                                                                                                                                                                                                            |
-| `connectionString`                                                                                                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.                                                                                                                                                                                                                                       |
-| `textSecret`                                                                                                                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Select or create a stored text secret                                                                                                                                                                                                                                                                                                                                  |
-| `storageAccountName`                                                                                                                                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | The name of your Azure storage account                                                                                                                                                                                                                                                                                                                                 |
-| `tenantId`                                                                                                                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | The service principal's tenant ID                                                                                                                                                                                                                                                                                                                                      |
-| `clientId`                                                                                                                                                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | The service principal's client ID                                                                                                                                                                                                                                                                                                                                      |
-| `azureCloud`                                                                                                                                                                                                                                                                                                                                                           | *string*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | The Azure cloud to use. Defaults to Azure Public Cloud.                                                                                                                                                                                                                                                                                                                |
-| `endpointSuffix`                                                                                                                                                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.                                                                                                                                                                                                                                                      |
-| `clientTextSecret`                                                                                                                                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | Select or create a stored text secret                                                                                                                                                                                                                                                                                                                                  |
-| `certificate`                                                                                                                                                                                                                                                                                                                                                          | [models.OutputAzureBlobCertificate](../models/outputazureblobcertificate.md)                                                                                                                                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                                                                                                                                                     | N/A                                                                                                                                                                                                                                                                                                                                                                    |
+```typescript
+const value: models.OutputAzureBlobAzureBlob2 = {
+  id: "<id>",
+  type: "azure_blob",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  containerName: "<value>",
+  destPath: "<value>",
+  description: "gradient as before version tangible dowse pace justly while",
+  parquetSchema: "<value>",
+  shouldLogInvalidRows: false,
+  keyValueMetadata: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+  connectionString: "<value>",
+  textSecret: "<value>",
+  storageAccountName: "<value>",
+  tenantId: "<id>",
+  clientId: "<id>",
+  azureCloud: "<value>",
+  endpointSuffix: "<value>",
+  clientTextSecret: "<value>",
+  certificate: {
+    certificateName: "<value>",
+  },
+};
+```
+
+### `models.OutputAzureBlobAzureBlob3`
+
+```typescript
+const value: models.OutputAzureBlobAzureBlob3 = {
+  id: "<id>",
+  type: "azure_blob",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  containerName: "<value>",
+  destPath: "<value>",
+  description:
+    "wisely for pish sternly following lift majestically which hastily",
+  parquetSchema: "<value>",
+  shouldLogInvalidRows: true,
+  keyValueMetadata: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+  connectionString: "<value>",
+  textSecret: "<value>",
+  storageAccountName: "<value>",
+  tenantId: "<id>",
+  clientId: "<id>",
+  azureCloud: "<value>",
+  endpointSuffix: "<value>",
+  clientTextSecret: "<value>",
+  certificate: {
+    certificateName: "<value>",
+  },
+};
+```
+
+### `models.OutputAzureBlobAzureBlob4`
+
+```typescript
+const value: models.OutputAzureBlobAzureBlob4 = {
+  id: "<id>",
+  type: "azure_blob",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  containerName: "<value>",
+  destPath: "<value>",
+  description:
+    "less thongs liberalize sleepily neck arbitrate digitize coliseum for but",
+  parquetSchema: "<value>",
+  shouldLogInvalidRows: false,
+  keyValueMetadata: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+  connectionString: "<value>",
+  textSecret: "<value>",
+  storageAccountName: "<value>",
+  tenantId: "<id>",
+  clientId: "<id>",
+  azureCloud: "<value>",
+  endpointSuffix: "<value>",
+  clientTextSecret: "<value>",
+  certificate: {
+    certificateName: "<value>",
+  },
+};
+```
+
+### `models.OutputAzureBlobAzureBlob5`
+
+```typescript
+const value: models.OutputAzureBlobAzureBlob5 = {
+  id: "<id>",
+  type: "azure_blob",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  containerName: "<value>",
+  destPath: "<value>",
+  description: "mockingly drag supposing of um excluding",
+  parquetSchema: "<value>",
+  shouldLogInvalidRows: false,
+  keyValueMetadata: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+  connectionString: "<value>",
+  textSecret: "<value>",
+  storageAccountName: "<value>",
+  tenantId: "<id>",
+  clientId: "<id>",
+  azureCloud: "<value>",
+  endpointSuffix: "<value>",
+  clientTextSecret: "<value>",
+  certificate: {
+    certificateName: "<value>",
+  },
+};
+```
+
+### `models.OutputAzureBlobAzureBlob6`
+
+```typescript
+const value: models.OutputAzureBlobAzureBlob6 = {
+  id: "<id>",
+  type: "azure_blob",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  containerName: "<value>",
+  destPath: "<value>",
+  description: "like but worriedly",
+  parquetSchema: "<value>",
+  shouldLogInvalidRows: false,
+  keyValueMetadata: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+  connectionString: "<value>",
+  textSecret: "<value>",
+  storageAccountName: "<value>",
+  tenantId: "<id>",
+  clientId: "<id>",
+  azureCloud: "<value>",
+  endpointSuffix: "<value>",
+  clientTextSecret: "<value>",
+  certificate: {
+    certificateName: "<value>",
+  },
+};
+```
+
+### `models.OutputAzureBlobAzureBlob7`
+
+```typescript
+const value: models.OutputAzureBlobAzureBlob7 = {
+  id: "<id>",
+  type: "azure_blob",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  containerName: "<value>",
+  destPath: "<value>",
+  description: "trust noteworthy excluding bewail fedora across quickly",
+  parquetSchema: "<value>",
+  shouldLogInvalidRows: true,
+  keyValueMetadata: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+  connectionString: "<value>",
+  textSecret: "<value>",
+  storageAccountName: "<value>",
+  tenantId: "<id>",
+  clientId: "<id>",
+  azureCloud: "<value>",
+  endpointSuffix: "<value>",
+  clientTextSecret: "<value>",
+  certificate: {
+    certificateName: "<value>",
+  },
+};
+```
+
+### `models.OutputAzureBlobAzureBlob8`
+
+```typescript
+const value: models.OutputAzureBlobAzureBlob8 = {
+  id: "<id>",
+  type: "azure_blob",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  containerName: "<value>",
+  destPath: "<value>",
+  description: "yippee rosin whoa an hoof livid wobbly duh debit new",
+  parquetSchema: "<value>",
+  shouldLogInvalidRows: true,
+  keyValueMetadata: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+  connectionString: "<value>",
+  textSecret: "<value>",
+  storageAccountName: "<value>",
+  tenantId: "<id>",
+  clientId: "<id>",
+  azureCloud: "<value>",
+  endpointSuffix: "<value>",
+  clientTextSecret: "<value>",
+  certificate: {
+    certificateName: "<value>",
+  },
+};
+```
+
+### `models.OutputAzureBlobAzureBlob9`
+
+```typescript
+const value: models.OutputAzureBlobAzureBlob9 = {
+  id: "<id>",
+  type: "azure_blob",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  containerName: "<value>",
+  destPath: "<value>",
+  description: "explode eggplant arrogantly atop",
+  parquetSchema: "<value>",
+  shouldLogInvalidRows: false,
+  keyValueMetadata: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+  connectionString: "<value>",
+  textSecret: "<value>",
+  storageAccountName: "<value>",
+  tenantId: "<id>",
+  clientId: "<id>",
+  azureCloud: "<value>",
+  endpointSuffix: "<value>",
+  clientTextSecret: "<value>",
+  certificate: {
+    certificateName: "<value>",
+  },
+};
+```
+
+### `models.OutputAzureBlobAzureBlob10`
+
+```typescript
+const value: models.OutputAzureBlobAzureBlob10 = {
+  id: "<id>",
+  type: "azure_blob",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  containerName: "<value>",
+  destPath: "<value>",
+  description:
+    "priesthood best-seller scarily like till whereas trust the colorfully",
+  parquetSchema: "<value>",
+  shouldLogInvalidRows: false,
+  keyValueMetadata: [
+    {
+      key: "<key>",
+      value: "<value>",
+    },
+  ],
+  connectionString: "<value>",
+  textSecret: "<value>",
+  storageAccountName: "<value>",
+  tenantId: "<id>",
+  clientId: "<id>",
+  azureCloud: "<value>",
+  endpointSuffix: "<value>",
+  clientTextSecret: "<value>",
+  certificate: {
+    certificateName: "<value>",
+  },
+};
+```
+

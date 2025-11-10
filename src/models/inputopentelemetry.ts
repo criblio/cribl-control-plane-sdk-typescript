@@ -4,219 +4,63 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthTypeOptions,
+  AuthTypeOptions$inboundSchema,
+  AuthTypeOptions$outboundSchema,
+} from "./authtypeoptions.js";
+import {
+  ConnectionsType,
+  ConnectionsType$inboundSchema,
+  ConnectionsType$Outbound,
+  ConnectionsType$outboundSchema,
+} from "./connectionstype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  Metadata1Type,
+  Metadata1Type$inboundSchema,
+  Metadata1Type$Outbound,
+  Metadata1Type$outboundSchema,
+} from "./metadata1type.js";
+import {
+  OtlpVersionOptions,
+  OtlpVersionOptions$inboundSchema,
+  OtlpVersionOptions$outboundSchema,
+} from "./otlpversionoptions.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  ProtocolOptions,
+  ProtocolOptions$inboundSchema,
+  ProtocolOptions$outboundSchema,
+} from "./protocoloptions.js";
+import {
+  Tls2Type,
+  Tls2Type$inboundSchema,
+  Tls2Type$Outbound,
+  Tls2Type$outboundSchema,
+} from "./tls2type.js";
+import {
+  TypeOpenTelemetryOption,
+  TypeOpenTelemetryOption$inboundSchema,
+  TypeOpenTelemetryOption$outboundSchema,
+} from "./typeopentelemetryoption.js";
 
-export const InputOpenTelemetryType = {
-  OpenTelemetry: "open_telemetry",
-} as const;
-export type InputOpenTelemetryType = ClosedEnum<typeof InputOpenTelemetryType>;
-
-export type InputOpenTelemetryConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputOpenTelemetryMode = {
-  Smart: "smart",
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputOpenTelemetryMode = OpenEnum<typeof InputOpenTelemetryMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputOpenTelemetryCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputOpenTelemetryCompression = OpenEnum<
-  typeof InputOpenTelemetryCompression
->;
-
-export type InputOpenTelemetryPqControls = {};
-
-export type InputOpenTelemetryPq = {
+export type InputOpenTelemetryOpenTelemetry14 = {
   /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   * Select whether to leverage gRPC or HTTP for OpenTelemetry
    */
-  mode?: InputOpenTelemetryMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputOpenTelemetryCompression | undefined;
-  pqControls?: InputOpenTelemetryPqControls | undefined;
-};
-
-export const InputOpenTelemetryMinimumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputOpenTelemetryMinimumTLSVersion = OpenEnum<
-  typeof InputOpenTelemetryMinimumTLSVersion
->;
-
-export const InputOpenTelemetryMaximumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputOpenTelemetryMaximumTLSVersion = OpenEnum<
-  typeof InputOpenTelemetryMaximumTLSVersion
->;
-
-export type InputOpenTelemetryTLSSettingsServerSide = {
-  disabled?: boolean | undefined;
-  /**
-   * The name of the predefined certificate
-   */
-  certificateName?: string | undefined;
-  /**
-   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
-   */
-  privKeyPath?: string | undefined;
-  /**
-   * Passphrase to use to decrypt private key
-   */
-  passphrase?: string | undefined;
-  /**
-   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  certPath?: string | undefined;
-  /**
-   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  caPath?: string | undefined;
-  /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
-  minVersion?: InputOpenTelemetryMinimumTLSVersion | undefined;
-  maxVersion?: InputOpenTelemetryMaximumTLSVersion | undefined;
-};
-
-/**
- * Select whether to leverage gRPC or HTTP for OpenTelemetry
- */
-export const InputOpenTelemetryProtocol = {
-  Grpc: "grpc",
-  Http: "http",
-} as const;
-/**
- * Select whether to leverage gRPC or HTTP for OpenTelemetry
- */
-export type InputOpenTelemetryProtocol = OpenEnum<
-  typeof InputOpenTelemetryProtocol
->;
-
-/**
- * The version of OTLP Protobuf definitions to use when interpreting received data
- */
-export const InputOpenTelemetryOTLPVersion = {
-  ZeroDot10Dot0: "0.10.0",
-  OneDot3Dot1: "1.3.1",
-} as const;
-/**
- * The version of OTLP Protobuf definitions to use when interpreting received data
- */
-export type InputOpenTelemetryOTLPVersion = OpenEnum<
-  typeof InputOpenTelemetryOTLPVersion
->;
-
-/**
- * OpenTelemetry authentication type
- */
-export const InputOpenTelemetryAuthenticationType = {
-  None: "none",
-  Basic: "basic",
-  CredentialsSecret: "credentialsSecret",
-  Token: "token",
-  TextSecret: "textSecret",
-  Oauth: "oauth",
-} as const;
-/**
- * OpenTelemetry authentication type
- */
-export type InputOpenTelemetryAuthenticationType = OpenEnum<
-  typeof InputOpenTelemetryAuthenticationType
->;
-
-export type InputOpenTelemetryMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
-
-export type InputOpenTelemetryOauthParam = {
-  /**
-   * OAuth parameter name
-   */
-  name: string;
-  /**
-   * OAuth parameter value
-   */
-  value: string;
-};
-
-export type InputOpenTelemetryOauthHeader = {
-  /**
-   * OAuth header name
-   */
-  name: string;
-  /**
-   * OAuth header value
-   */
-  value: string;
-};
-
-export type InputOpenTelemetry = {
+  protocol?: ProtocolOptions | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputOpenTelemetryType;
+  type: TypeOpenTelemetryOption;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -241,8 +85,8 @@ export type InputOpenTelemetry = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputOpenTelemetryConnection> | undefined;
-  pq?: InputOpenTelemetryPq | undefined;
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -251,7 +95,7 @@ export type InputOpenTelemetry = {
    * Port to listen on
    */
   port?: number | undefined;
-  tls?: InputOpenTelemetryTLSSettingsServerSide | undefined;
+  tls: Tls2Type;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -288,10 +132,6 @@ export type InputOpenTelemetry = {
    */
   ipDenylistRegex?: string | undefined;
   /**
-   * Select whether to leverage gRPC or HTTP for OpenTelemetry
-   */
-  protocol?: InputOpenTelemetryProtocol | undefined;
-  /**
    * Enable to extract each incoming span to a separate event
    */
   extractSpans?: boolean | undefined;
@@ -302,15 +142,15 @@ export type InputOpenTelemetry = {
   /**
    * The version of OTLP Protobuf definitions to use when interpreting received data
    */
-  otlpVersion?: InputOpenTelemetryOTLPVersion | undefined;
+  otlpVersion?: OtlpVersionOptions | undefined;
   /**
-   * OpenTelemetry authentication type
+   * Splunk Search authentication type
    */
-  authType?: InputOpenTelemetryAuthenticationType | undefined;
+  authType?: AuthTypeOptions | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputOpenTelemetryMetadatum> | undefined;
+  metadata?: Array<Metadata1Type> | undefined;
   /**
    * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
    */
@@ -357,747 +197,2094 @@ export type InputOpenTelemetry = {
   /**
    * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthParams?: Array<InputOpenTelemetryOauthParam> | undefined;
+  oauthParams?: Array<Metadata1Type> | undefined;
   /**
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthHeaders?: Array<InputOpenTelemetryOauthHeader> | undefined;
+  oauthHeaders?: Array<Metadata1Type> | undefined;
   /**
    * Enable to extract each incoming log record to a separate event
    */
   extractLogs?: boolean | undefined;
 };
 
-/** @internal */
-export const InputOpenTelemetryType$inboundSchema: z.ZodNativeEnum<
-  typeof InputOpenTelemetryType
-> = z.nativeEnum(InputOpenTelemetryType);
-
-/** @internal */
-export const InputOpenTelemetryType$outboundSchema: z.ZodNativeEnum<
-  typeof InputOpenTelemetryType
-> = InputOpenTelemetryType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOpenTelemetryType$ {
-  /** @deprecated use `InputOpenTelemetryType$inboundSchema` instead. */
-  export const inboundSchema = InputOpenTelemetryType$inboundSchema;
-  /** @deprecated use `InputOpenTelemetryType$outboundSchema` instead. */
-  export const outboundSchema = InputOpenTelemetryType$outboundSchema;
-}
-
-/** @internal */
-export const InputOpenTelemetryConnection$inboundSchema: z.ZodType<
-  InputOpenTelemetryConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-/** @internal */
-export type InputOpenTelemetryConnection$Outbound = {
+export type InputOpenTelemetryOpenTelemetry13 = {
+  /**
+   * Select whether to leverage gRPC or HTTP for OpenTelemetry
+   */
+  protocol?: ProtocolOptions | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeOpenTelemetryOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
   pipeline?: string | undefined;
-  output: string;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  tls: Tls2Type;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: any | undefined;
+  captureHeaders?: any | undefined;
+  activityLogSampleRate?: any | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 sec.; maximum 600 sec. (10 min.).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Enable to expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist.
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Enable to extract each incoming span to a separate event
+   */
+  extractSpans?: boolean | undefined;
+  /**
+   * Enable to extract each incoming Gauge or IntGauge metric to multiple events, one per data point
+   */
+  extractMetrics?: boolean | undefined;
+  /**
+   * The version of OTLP Protobuf definitions to use when interpreting received data
+   */
+  otlpVersion?: OtlpVersionOptions | undefined;
+  /**
+   * Splunk Search authentication type
+   */
+  authType?: AuthTypeOptions | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<Metadata1Type> | undefined;
+  /**
+   * Enable to extract each incoming log record to a separate event
+   */
+  extractLogs?: boolean | undefined;
 };
 
-/** @internal */
-export const InputOpenTelemetryConnection$outboundSchema: z.ZodType<
-  InputOpenTelemetryConnection$Outbound,
-  z.ZodTypeDef,
-  InputOpenTelemetryConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOpenTelemetryConnection$ {
-  /** @deprecated use `InputOpenTelemetryConnection$inboundSchema` instead. */
-  export const inboundSchema = InputOpenTelemetryConnection$inboundSchema;
-  /** @deprecated use `InputOpenTelemetryConnection$outboundSchema` instead. */
-  export const outboundSchema = InputOpenTelemetryConnection$outboundSchema;
-  /** @deprecated use `InputOpenTelemetryConnection$Outbound` instead. */
-  export type Outbound = InputOpenTelemetryConnection$Outbound;
-}
-
-export function inputOpenTelemetryConnectionToJSON(
-  inputOpenTelemetryConnection: InputOpenTelemetryConnection,
-): string {
-  return JSON.stringify(
-    InputOpenTelemetryConnection$outboundSchema.parse(
-      inputOpenTelemetryConnection,
-    ),
-  );
-}
-
-export function inputOpenTelemetryConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputOpenTelemetryConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputOpenTelemetryConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputOpenTelemetryConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputOpenTelemetryMode$inboundSchema: z.ZodType<
-  InputOpenTelemetryMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputOpenTelemetryMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputOpenTelemetryMode$outboundSchema: z.ZodType<
-  InputOpenTelemetryMode,
-  z.ZodTypeDef,
-  InputOpenTelemetryMode
-> = z.union([
-  z.nativeEnum(InputOpenTelemetryMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOpenTelemetryMode$ {
-  /** @deprecated use `InputOpenTelemetryMode$inboundSchema` instead. */
-  export const inboundSchema = InputOpenTelemetryMode$inboundSchema;
-  /** @deprecated use `InputOpenTelemetryMode$outboundSchema` instead. */
-  export const outboundSchema = InputOpenTelemetryMode$outboundSchema;
-}
-
-/** @internal */
-export const InputOpenTelemetryCompression$inboundSchema: z.ZodType<
-  InputOpenTelemetryCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputOpenTelemetryCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputOpenTelemetryCompression$outboundSchema: z.ZodType<
-  InputOpenTelemetryCompression,
-  z.ZodTypeDef,
-  InputOpenTelemetryCompression
-> = z.union([
-  z.nativeEnum(InputOpenTelemetryCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOpenTelemetryCompression$ {
-  /** @deprecated use `InputOpenTelemetryCompression$inboundSchema` instead. */
-  export const inboundSchema = InputOpenTelemetryCompression$inboundSchema;
-  /** @deprecated use `InputOpenTelemetryCompression$outboundSchema` instead. */
-  export const outboundSchema = InputOpenTelemetryCompression$outboundSchema;
-}
-
-/** @internal */
-export const InputOpenTelemetryPqControls$inboundSchema: z.ZodType<
-  InputOpenTelemetryPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type InputOpenTelemetryPqControls$Outbound = {};
-
-/** @internal */
-export const InputOpenTelemetryPqControls$outboundSchema: z.ZodType<
-  InputOpenTelemetryPqControls$Outbound,
-  z.ZodTypeDef,
-  InputOpenTelemetryPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOpenTelemetryPqControls$ {
-  /** @deprecated use `InputOpenTelemetryPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputOpenTelemetryPqControls$inboundSchema;
-  /** @deprecated use `InputOpenTelemetryPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputOpenTelemetryPqControls$outboundSchema;
-  /** @deprecated use `InputOpenTelemetryPqControls$Outbound` instead. */
-  export type Outbound = InputOpenTelemetryPqControls$Outbound;
-}
-
-export function inputOpenTelemetryPqControlsToJSON(
-  inputOpenTelemetryPqControls: InputOpenTelemetryPqControls,
-): string {
-  return JSON.stringify(
-    InputOpenTelemetryPqControls$outboundSchema.parse(
-      inputOpenTelemetryPqControls,
-    ),
-  );
-}
-
-export function inputOpenTelemetryPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputOpenTelemetryPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputOpenTelemetryPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputOpenTelemetryPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputOpenTelemetryPq$inboundSchema: z.ZodType<
-  InputOpenTelemetryPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputOpenTelemetryMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputOpenTelemetryCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputOpenTelemetryPqControls$inboundSchema)
-    .optional(),
-});
-
-/** @internal */
-export type InputOpenTelemetryPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputOpenTelemetryPqControls$Outbound | undefined;
+export type InputOpenTelemetryOpenTelemetry12 = {
+  /**
+   * The version of OTLP Protobuf definitions to use when interpreting received data
+   */
+  otlpVersion?: OtlpVersionOptions | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeOpenTelemetryOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: any | undefined;
+  captureHeaders?: any | undefined;
+  activityLogSampleRate?: any | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 sec.; maximum 600 sec. (10 min.).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Enable to expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist.
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Select whether to leverage gRPC or HTTP for OpenTelemetry
+   */
+  protocol?: ProtocolOptions | undefined;
+  /**
+   * Enable to extract each incoming span to a separate event
+   */
+  extractSpans?: boolean | undefined;
+  /**
+   * Enable to extract each incoming Gauge or IntGauge metric to multiple events, one per data point
+   */
+  extractMetrics?: boolean | undefined;
+  /**
+   * Splunk Search authentication type
+   */
+  authType?: AuthTypeOptions | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<Metadata1Type> | undefined;
+  /**
+   * Enable to extract each incoming log record to a separate event
+   */
+  extractLogs?: boolean | undefined;
 };
 
-/** @internal */
-export const InputOpenTelemetryPq$outboundSchema: z.ZodType<
-  InputOpenTelemetryPq$Outbound,
-  z.ZodTypeDef,
-  InputOpenTelemetryPq
-> = z.object({
-  mode: InputOpenTelemetryMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputOpenTelemetryCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputOpenTelemetryPqControls$outboundSchema)
-    .optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOpenTelemetryPq$ {
-  /** @deprecated use `InputOpenTelemetryPq$inboundSchema` instead. */
-  export const inboundSchema = InputOpenTelemetryPq$inboundSchema;
-  /** @deprecated use `InputOpenTelemetryPq$outboundSchema` instead. */
-  export const outboundSchema = InputOpenTelemetryPq$outboundSchema;
-  /** @deprecated use `InputOpenTelemetryPq$Outbound` instead. */
-  export type Outbound = InputOpenTelemetryPq$Outbound;
-}
-
-export function inputOpenTelemetryPqToJSON(
-  inputOpenTelemetryPq: InputOpenTelemetryPq,
-): string {
-  return JSON.stringify(
-    InputOpenTelemetryPq$outboundSchema.parse(inputOpenTelemetryPq),
-  );
-}
-
-export function inputOpenTelemetryPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputOpenTelemetryPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputOpenTelemetryPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputOpenTelemetryPq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputOpenTelemetryMinimumTLSVersion$inboundSchema: z.ZodType<
-  InputOpenTelemetryMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputOpenTelemetryMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputOpenTelemetryMinimumTLSVersion$outboundSchema: z.ZodType<
-  InputOpenTelemetryMinimumTLSVersion,
-  z.ZodTypeDef,
-  InputOpenTelemetryMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(InputOpenTelemetryMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOpenTelemetryMinimumTLSVersion$ {
-  /** @deprecated use `InputOpenTelemetryMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema =
-    InputOpenTelemetryMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `InputOpenTelemetryMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    InputOpenTelemetryMinimumTLSVersion$outboundSchema;
-}
-
-/** @internal */
-export const InputOpenTelemetryMaximumTLSVersion$inboundSchema: z.ZodType<
-  InputOpenTelemetryMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputOpenTelemetryMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputOpenTelemetryMaximumTLSVersion$outboundSchema: z.ZodType<
-  InputOpenTelemetryMaximumTLSVersion,
-  z.ZodTypeDef,
-  InputOpenTelemetryMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(InputOpenTelemetryMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOpenTelemetryMaximumTLSVersion$ {
-  /** @deprecated use `InputOpenTelemetryMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema =
-    InputOpenTelemetryMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `InputOpenTelemetryMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    InputOpenTelemetryMaximumTLSVersion$outboundSchema;
-}
-
-/** @internal */
-export const InputOpenTelemetryTLSSettingsServerSide$inboundSchema: z.ZodType<
-  InputOpenTelemetryTLSSettingsServerSide,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(true),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
-  minVersion: InputOpenTelemetryMinimumTLSVersion$inboundSchema.optional(),
-  maxVersion: InputOpenTelemetryMaximumTLSVersion$inboundSchema.optional(),
-});
-
-/** @internal */
-export type InputOpenTelemetryTLSSettingsServerSide$Outbound = {
-  disabled: boolean;
-  certificateName?: string | undefined;
-  privKeyPath?: string | undefined;
-  passphrase?: string | undefined;
-  certPath?: string | undefined;
-  caPath?: string | undefined;
-  requestCert: boolean;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
-  minVersion?: string | undefined;
-  maxVersion?: string | undefined;
+export type InputOpenTelemetryOpenTelemetry11 = {
+  /**
+   * The version of OTLP Protobuf definitions to use when interpreting received data
+   */
+  otlpVersion?: OtlpVersionOptions | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeOpenTelemetryOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: any | undefined;
+  captureHeaders?: any | undefined;
+  activityLogSampleRate?: any | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 sec.; maximum 600 sec. (10 min.).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Enable to expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist.
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Select whether to leverage gRPC or HTTP for OpenTelemetry
+   */
+  protocol?: ProtocolOptions | undefined;
+  /**
+   * Enable to extract each incoming span to a separate event
+   */
+  extractSpans?: boolean | undefined;
+  /**
+   * Enable to extract each incoming Gauge or IntGauge metric to multiple events, one per data point
+   */
+  extractMetrics?: boolean | undefined;
+  /**
+   * Splunk Search authentication type
+   */
+  authType?: AuthTypeOptions | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<Metadata1Type> | undefined;
+  /**
+   * Enable to extract each incoming log record to a separate event
+   */
+  extractLogs?: boolean | undefined;
 };
 
-/** @internal */
-export const InputOpenTelemetryTLSSettingsServerSide$outboundSchema: z.ZodType<
-  InputOpenTelemetryTLSSettingsServerSide$Outbound,
-  z.ZodTypeDef,
-  InputOpenTelemetryTLSSettingsServerSide
-> = z.object({
-  disabled: z.boolean().default(true),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
-  minVersion: InputOpenTelemetryMinimumTLSVersion$outboundSchema.optional(),
-  maxVersion: InputOpenTelemetryMaximumTLSVersion$outboundSchema.optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOpenTelemetryTLSSettingsServerSide$ {
-  /** @deprecated use `InputOpenTelemetryTLSSettingsServerSide$inboundSchema` instead. */
-  export const inboundSchema =
-    InputOpenTelemetryTLSSettingsServerSide$inboundSchema;
-  /** @deprecated use `InputOpenTelemetryTLSSettingsServerSide$outboundSchema` instead. */
-  export const outboundSchema =
-    InputOpenTelemetryTLSSettingsServerSide$outboundSchema;
-  /** @deprecated use `InputOpenTelemetryTLSSettingsServerSide$Outbound` instead. */
-  export type Outbound = InputOpenTelemetryTLSSettingsServerSide$Outbound;
-}
-
-export function inputOpenTelemetryTLSSettingsServerSideToJSON(
-  inputOpenTelemetryTLSSettingsServerSide:
-    InputOpenTelemetryTLSSettingsServerSide,
-): string {
-  return JSON.stringify(
-    InputOpenTelemetryTLSSettingsServerSide$outboundSchema.parse(
-      inputOpenTelemetryTLSSettingsServerSide,
-    ),
-  );
-}
-
-export function inputOpenTelemetryTLSSettingsServerSideFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  InputOpenTelemetryTLSSettingsServerSide,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputOpenTelemetryTLSSettingsServerSide$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'InputOpenTelemetryTLSSettingsServerSide' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputOpenTelemetryProtocol$inboundSchema: z.ZodType<
-  InputOpenTelemetryProtocol,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputOpenTelemetryProtocol),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputOpenTelemetryProtocol$outboundSchema: z.ZodType<
-  InputOpenTelemetryProtocol,
-  z.ZodTypeDef,
-  InputOpenTelemetryProtocol
-> = z.union([
-  z.nativeEnum(InputOpenTelemetryProtocol),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOpenTelemetryProtocol$ {
-  /** @deprecated use `InputOpenTelemetryProtocol$inboundSchema` instead. */
-  export const inboundSchema = InputOpenTelemetryProtocol$inboundSchema;
-  /** @deprecated use `InputOpenTelemetryProtocol$outboundSchema` instead. */
-  export const outboundSchema = InputOpenTelemetryProtocol$outboundSchema;
-}
-
-/** @internal */
-export const InputOpenTelemetryOTLPVersion$inboundSchema: z.ZodType<
-  InputOpenTelemetryOTLPVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputOpenTelemetryOTLPVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputOpenTelemetryOTLPVersion$outboundSchema: z.ZodType<
-  InputOpenTelemetryOTLPVersion,
-  z.ZodTypeDef,
-  InputOpenTelemetryOTLPVersion
-> = z.union([
-  z.nativeEnum(InputOpenTelemetryOTLPVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOpenTelemetryOTLPVersion$ {
-  /** @deprecated use `InputOpenTelemetryOTLPVersion$inboundSchema` instead. */
-  export const inboundSchema = InputOpenTelemetryOTLPVersion$inboundSchema;
-  /** @deprecated use `InputOpenTelemetryOTLPVersion$outboundSchema` instead. */
-  export const outboundSchema = InputOpenTelemetryOTLPVersion$outboundSchema;
-}
-
-/** @internal */
-export const InputOpenTelemetryAuthenticationType$inboundSchema: z.ZodType<
-  InputOpenTelemetryAuthenticationType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputOpenTelemetryAuthenticationType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputOpenTelemetryAuthenticationType$outboundSchema: z.ZodType<
-  InputOpenTelemetryAuthenticationType,
-  z.ZodTypeDef,
-  InputOpenTelemetryAuthenticationType
-> = z.union([
-  z.nativeEnum(InputOpenTelemetryAuthenticationType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOpenTelemetryAuthenticationType$ {
-  /** @deprecated use `InputOpenTelemetryAuthenticationType$inboundSchema` instead. */
-  export const inboundSchema =
-    InputOpenTelemetryAuthenticationType$inboundSchema;
-  /** @deprecated use `InputOpenTelemetryAuthenticationType$outboundSchema` instead. */
-  export const outboundSchema =
-    InputOpenTelemetryAuthenticationType$outboundSchema;
-}
-
-/** @internal */
-export const InputOpenTelemetryMetadatum$inboundSchema: z.ZodType<
-  InputOpenTelemetryMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type InputOpenTelemetryMetadatum$Outbound = {
-  name: string;
-  value: string;
+export type InputOpenTelemetryOpenTelemetry10 = {
+  /**
+   * Splunk Search authentication type
+   */
+  authType?: AuthTypeOptions | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeOpenTelemetryOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: any | undefined;
+  captureHeaders?: any | undefined;
+  activityLogSampleRate?: any | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 sec.; maximum 600 sec. (10 min.).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Enable to expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist.
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Select whether to leverage gRPC or HTTP for OpenTelemetry
+   */
+  protocol?: ProtocolOptions | undefined;
+  /**
+   * Enable to extract each incoming span to a separate event
+   */
+  extractSpans?: boolean | undefined;
+  /**
+   * Enable to extract each incoming Gauge or IntGauge metric to multiple events, one per data point
+   */
+  extractMetrics?: boolean | undefined;
+  /**
+   * The version of OTLP Protobuf definitions to use when interpreting received data
+   */
+  otlpVersion?: OtlpVersionOptions | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl: string;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName: string;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret: string;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName: string;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams: Array<Metadata1Type>;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders: Array<Metadata1Type>;
+  /**
+   * Enable to extract each incoming log record to a separate event
+   */
+  extractLogs?: boolean | undefined;
 };
 
-/** @internal */
-export const InputOpenTelemetryMetadatum$outboundSchema: z.ZodType<
-  InputOpenTelemetryMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputOpenTelemetryMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOpenTelemetryMetadatum$ {
-  /** @deprecated use `InputOpenTelemetryMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputOpenTelemetryMetadatum$inboundSchema;
-  /** @deprecated use `InputOpenTelemetryMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputOpenTelemetryMetadatum$outboundSchema;
-  /** @deprecated use `InputOpenTelemetryMetadatum$Outbound` instead. */
-  export type Outbound = InputOpenTelemetryMetadatum$Outbound;
-}
-
-export function inputOpenTelemetryMetadatumToJSON(
-  inputOpenTelemetryMetadatum: InputOpenTelemetryMetadatum,
-): string {
-  return JSON.stringify(
-    InputOpenTelemetryMetadatum$outboundSchema.parse(
-      inputOpenTelemetryMetadatum,
-    ),
-  );
-}
-
-export function inputOpenTelemetryMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputOpenTelemetryMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputOpenTelemetryMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputOpenTelemetryMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputOpenTelemetryOauthParam$inboundSchema: z.ZodType<
-  InputOpenTelemetryOauthParam,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type InputOpenTelemetryOauthParam$Outbound = {
-  name: string;
-  value: string;
+export type InputOpenTelemetryOpenTelemetry9 = {
+  /**
+   * Splunk Search authentication type
+   */
+  authType?: AuthTypeOptions | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeOpenTelemetryOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: any | undefined;
+  captureHeaders?: any | undefined;
+  activityLogSampleRate?: any | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 sec.; maximum 600 sec. (10 min.).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Enable to expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist.
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Select whether to leverage gRPC or HTTP for OpenTelemetry
+   */
+  protocol?: ProtocolOptions | undefined;
+  /**
+   * Enable to extract each incoming span to a separate event
+   */
+  extractSpans?: boolean | undefined;
+  /**
+   * Enable to extract each incoming Gauge or IntGauge metric to multiple events, one per data point
+   */
+  extractMetrics?: boolean | undefined;
+  /**
+   * The version of OTLP Protobuf definitions to use when interpreting received data
+   */
+  otlpVersion?: OtlpVersionOptions | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret: string;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<Metadata1Type> | undefined;
+  /**
+   * Enable to extract each incoming log record to a separate event
+   */
+  extractLogs?: boolean | undefined;
 };
 
-/** @internal */
-export const InputOpenTelemetryOauthParam$outboundSchema: z.ZodType<
-  InputOpenTelemetryOauthParam$Outbound,
-  z.ZodTypeDef,
-  InputOpenTelemetryOauthParam
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOpenTelemetryOauthParam$ {
-  /** @deprecated use `InputOpenTelemetryOauthParam$inboundSchema` instead. */
-  export const inboundSchema = InputOpenTelemetryOauthParam$inboundSchema;
-  /** @deprecated use `InputOpenTelemetryOauthParam$outboundSchema` instead. */
-  export const outboundSchema = InputOpenTelemetryOauthParam$outboundSchema;
-  /** @deprecated use `InputOpenTelemetryOauthParam$Outbound` instead. */
-  export type Outbound = InputOpenTelemetryOauthParam$Outbound;
-}
-
-export function inputOpenTelemetryOauthParamToJSON(
-  inputOpenTelemetryOauthParam: InputOpenTelemetryOauthParam,
-): string {
-  return JSON.stringify(
-    InputOpenTelemetryOauthParam$outboundSchema.parse(
-      inputOpenTelemetryOauthParam,
-    ),
-  );
-}
-
-export function inputOpenTelemetryOauthParamFromJSON(
-  jsonString: string,
-): SafeParseResult<InputOpenTelemetryOauthParam, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputOpenTelemetryOauthParam$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputOpenTelemetryOauthParam' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputOpenTelemetryOauthHeader$inboundSchema: z.ZodType<
-  InputOpenTelemetryOauthHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type InputOpenTelemetryOauthHeader$Outbound = {
-  name: string;
-  value: string;
+export type InputOpenTelemetryOpenTelemetry8 = {
+  /**
+   * Splunk Search authentication type
+   */
+  authType?: AuthTypeOptions | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeOpenTelemetryOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: any | undefined;
+  captureHeaders?: any | undefined;
+  activityLogSampleRate?: any | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 sec.; maximum 600 sec. (10 min.).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Enable to expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist.
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Select whether to leverage gRPC or HTTP for OpenTelemetry
+   */
+  protocol?: ProtocolOptions | undefined;
+  /**
+   * Enable to extract each incoming span to a separate event
+   */
+  extractSpans?: boolean | undefined;
+  /**
+   * Enable to extract each incoming Gauge or IntGauge metric to multiple events, one per data point
+   */
+  extractMetrics?: boolean | undefined;
+  /**
+   * The version of OTLP Protobuf definitions to use when interpreting received data
+   */
+  otlpVersion?: OtlpVersionOptions | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret: string;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<Metadata1Type> | undefined;
+  /**
+   * Enable to extract each incoming log record to a separate event
+   */
+  extractLogs?: boolean | undefined;
 };
 
+export type InputOpenTelemetryOpenTelemetry7 = {
+  /**
+   * Splunk Search authentication type
+   */
+  authType?: AuthTypeOptions | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeOpenTelemetryOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: any | undefined;
+  captureHeaders?: any | undefined;
+  activityLogSampleRate?: any | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 sec.; maximum 600 sec. (10 min.).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Enable to expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist.
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Select whether to leverage gRPC or HTTP for OpenTelemetry
+   */
+  protocol?: ProtocolOptions | undefined;
+  /**
+   * Enable to extract each incoming span to a separate event
+   */
+  extractSpans?: boolean | undefined;
+  /**
+   * Enable to extract each incoming Gauge or IntGauge metric to multiple events, one per data point
+   */
+  extractMetrics?: boolean | undefined;
+  /**
+   * The version of OTLP Protobuf definitions to use when interpreting received data
+   */
+  otlpVersion?: OtlpVersionOptions | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token: string;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<Metadata1Type> | undefined;
+  /**
+   * Enable to extract each incoming log record to a separate event
+   */
+  extractLogs?: boolean | undefined;
+};
+
+export type InputOpenTelemetryOpenTelemetry6 = {
+  /**
+   * Splunk Search authentication type
+   */
+  authType?: AuthTypeOptions | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeOpenTelemetryOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: any | undefined;
+  captureHeaders?: any | undefined;
+  activityLogSampleRate?: any | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 sec.; maximum 600 sec. (10 min.).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Enable to expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist.
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Select whether to leverage gRPC or HTTP for OpenTelemetry
+   */
+  protocol?: ProtocolOptions | undefined;
+  /**
+   * Enable to extract each incoming span to a separate event
+   */
+  extractSpans?: boolean | undefined;
+  /**
+   * Enable to extract each incoming Gauge or IntGauge metric to multiple events, one per data point
+   */
+  extractMetrics?: boolean | undefined;
+  /**
+   * The version of OTLP Protobuf definitions to use when interpreting received data
+   */
+  otlpVersion?: OtlpVersionOptions | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  description?: string | undefined;
+  username: string;
+  password: string;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<Metadata1Type> | undefined;
+  /**
+   * Enable to extract each incoming log record to a separate event
+   */
+  extractLogs?: boolean | undefined;
+};
+
+export type InputOpenTelemetryOpenTelemetry5 = {
+  /**
+   * Splunk Search authentication type
+   */
+  authType?: AuthTypeOptions | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeOpenTelemetryOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: any | undefined;
+  captureHeaders?: any | undefined;
+  activityLogSampleRate?: any | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 sec.; maximum 600 sec. (10 min.).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Enable to expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist.
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Select whether to leverage gRPC or HTTP for OpenTelemetry
+   */
+  protocol?: ProtocolOptions | undefined;
+  /**
+   * Enable to extract each incoming span to a separate event
+   */
+  extractSpans?: boolean | undefined;
+  /**
+   * Enable to extract each incoming Gauge or IntGauge metric to multiple events, one per data point
+   */
+  extractMetrics?: boolean | undefined;
+  /**
+   * The version of OTLP Protobuf definitions to use when interpreting received data
+   */
+  otlpVersion?: OtlpVersionOptions | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<Metadata1Type> | undefined;
+  /**
+   * Enable to extract each incoming log record to a separate event
+   */
+  extractLogs?: boolean | undefined;
+};
+
+export type InputOpenTelemetryOpenTelemetry4 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeOpenTelemetryOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq: PqType;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: any | undefined;
+  captureHeaders?: any | undefined;
+  activityLogSampleRate?: any | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 sec.; maximum 600 sec. (10 min.).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Enable to expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist.
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Select whether to leverage gRPC or HTTP for OpenTelemetry
+   */
+  protocol?: ProtocolOptions | undefined;
+  /**
+   * Enable to extract each incoming span to a separate event
+   */
+  extractSpans?: boolean | undefined;
+  /**
+   * Enable to extract each incoming Gauge or IntGauge metric to multiple events, one per data point
+   */
+  extractMetrics?: boolean | undefined;
+  /**
+   * The version of OTLP Protobuf definitions to use when interpreting received data
+   */
+  otlpVersion?: OtlpVersionOptions | undefined;
+  /**
+   * Splunk Search authentication type
+   */
+  authType?: AuthTypeOptions | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<Metadata1Type> | undefined;
+  /**
+   * Enable to extract each incoming log record to a separate event
+   */
+  extractLogs?: boolean | undefined;
+};
+
+export type InputOpenTelemetryOpenTelemetry3 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeOpenTelemetryOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: any | undefined;
+  captureHeaders?: any | undefined;
+  activityLogSampleRate?: any | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 sec.; maximum 600 sec. (10 min.).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Enable to expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist.
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Select whether to leverage gRPC or HTTP for OpenTelemetry
+   */
+  protocol?: ProtocolOptions | undefined;
+  /**
+   * Enable to extract each incoming span to a separate event
+   */
+  extractSpans?: boolean | undefined;
+  /**
+   * Enable to extract each incoming Gauge or IntGauge metric to multiple events, one per data point
+   */
+  extractMetrics?: boolean | undefined;
+  /**
+   * The version of OTLP Protobuf definitions to use when interpreting received data
+   */
+  otlpVersion?: OtlpVersionOptions | undefined;
+  /**
+   * Splunk Search authentication type
+   */
+  authType?: AuthTypeOptions | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<Metadata1Type> | undefined;
+  /**
+   * Enable to extract each incoming log record to a separate event
+   */
+  extractLogs?: boolean | undefined;
+};
+
+export type InputOpenTelemetryOpenTelemetry2 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeOpenTelemetryOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections: Array<ConnectionsType>;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: any | undefined;
+  captureHeaders?: any | undefined;
+  activityLogSampleRate?: any | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 sec.; maximum 600 sec. (10 min.).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Enable to expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist.
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Select whether to leverage gRPC or HTTP for OpenTelemetry
+   */
+  protocol?: ProtocolOptions | undefined;
+  /**
+   * Enable to extract each incoming span to a separate event
+   */
+  extractSpans?: boolean | undefined;
+  /**
+   * Enable to extract each incoming Gauge or IntGauge metric to multiple events, one per data point
+   */
+  extractMetrics?: boolean | undefined;
+  /**
+   * The version of OTLP Protobuf definitions to use when interpreting received data
+   */
+  otlpVersion?: OtlpVersionOptions | undefined;
+  /**
+   * Splunk Search authentication type
+   */
+  authType?: AuthTypeOptions | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<Metadata1Type> | undefined;
+  /**
+   * Enable to extract each incoming log record to a separate event
+   */
+  extractLogs?: boolean | undefined;
+};
+
+export type InputOpenTelemetryOpenTelemetry1 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeOpenTelemetryOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  enableProxyHeader?: any | undefined;
+  captureHeaders?: any | undefined;
+  activityLogSampleRate?: any | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 sec.; maximum 600 sec. (10 min.).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Enable to expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist.
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Select whether to leverage gRPC or HTTP for OpenTelemetry
+   */
+  protocol?: ProtocolOptions | undefined;
+  /**
+   * Enable to extract each incoming span to a separate event
+   */
+  extractSpans?: boolean | undefined;
+  /**
+   * Enable to extract each incoming Gauge or IntGauge metric to multiple events, one per data point
+   */
+  extractMetrics?: boolean | undefined;
+  /**
+   * The version of OTLP Protobuf definitions to use when interpreting received data
+   */
+  otlpVersion?: OtlpVersionOptions | undefined;
+  /**
+   * Splunk Search authentication type
+   */
+  authType?: AuthTypeOptions | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<Metadata1Type> | undefined;
+  /**
+   * Enable to extract each incoming log record to a separate event
+   */
+  extractLogs?: boolean | undefined;
+};
+
+export type InputOpenTelemetry =
+  | InputOpenTelemetryOpenTelemetry10
+  | InputOpenTelemetryOpenTelemetry6
+  | InputOpenTelemetryOpenTelemetry2
+  | InputOpenTelemetryOpenTelemetry4
+  | InputOpenTelemetryOpenTelemetry7
+  | InputOpenTelemetryOpenTelemetry8
+  | InputOpenTelemetryOpenTelemetry9
+  | InputOpenTelemetryOpenTelemetry13
+  | InputOpenTelemetryOpenTelemetry14
+  | InputOpenTelemetryOpenTelemetry1
+  | InputOpenTelemetryOpenTelemetry3
+  | InputOpenTelemetryOpenTelemetry5
+  | InputOpenTelemetryOpenTelemetry11
+  | InputOpenTelemetryOpenTelemetry12;
+
 /** @internal */
-export const InputOpenTelemetryOauthHeader$outboundSchema: z.ZodType<
-  InputOpenTelemetryOauthHeader$Outbound,
-  z.ZodTypeDef,
-  InputOpenTelemetryOauthHeader
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOpenTelemetryOauthHeader$ {
-  /** @deprecated use `InputOpenTelemetryOauthHeader$inboundSchema` instead. */
-  export const inboundSchema = InputOpenTelemetryOauthHeader$inboundSchema;
-  /** @deprecated use `InputOpenTelemetryOauthHeader$outboundSchema` instead. */
-  export const outboundSchema = InputOpenTelemetryOauthHeader$outboundSchema;
-  /** @deprecated use `InputOpenTelemetryOauthHeader$Outbound` instead. */
-  export type Outbound = InputOpenTelemetryOauthHeader$Outbound;
-}
-
-export function inputOpenTelemetryOauthHeaderToJSON(
-  inputOpenTelemetryOauthHeader: InputOpenTelemetryOauthHeader,
-): string {
-  return JSON.stringify(
-    InputOpenTelemetryOauthHeader$outboundSchema.parse(
-      inputOpenTelemetryOauthHeader,
-    ),
-  );
-}
-
-export function inputOpenTelemetryOauthHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<InputOpenTelemetryOauthHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputOpenTelemetryOauthHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputOpenTelemetryOauthHeader' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputOpenTelemetry$inboundSchema: z.ZodType<
-  InputOpenTelemetry,
+export const InputOpenTelemetryOpenTelemetry14$inboundSchema: z.ZodType<
+  InputOpenTelemetryOpenTelemetry14,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  protocol: ProtocolOptions$inboundSchema.default("grpc"),
   id: z.string().optional(),
-  type: InputOpenTelemetryType$inboundSchema,
+  type: TypeOpenTelemetryOption$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputOpenTelemetryConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputOpenTelemetryPq$inboundSchema).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number().default(4317),
-  tls: z.lazy(() => InputOpenTelemetryTLSSettingsServerSide$inboundSchema)
-    .optional(),
+  tls: Tls2Type$inboundSchema,
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.any().optional(),
@@ -1109,13 +2296,11 @@ export const InputOpenTelemetry$inboundSchema: z.ZodType<
   enableHealthCheck: z.boolean().default(false),
   ipAllowlistRegex: z.string().default("/.*/"),
   ipDenylistRegex: z.string().default("/^$/"),
-  protocol: InputOpenTelemetryProtocol$inboundSchema.default("grpc"),
   extractSpans: z.boolean().default(false),
   extractMetrics: z.boolean().default(false),
-  otlpVersion: InputOpenTelemetryOTLPVersion$inboundSchema.default("0.10.0"),
-  authType: InputOpenTelemetryAuthenticationType$inboundSchema.default("none"),
-  metadata: z.array(z.lazy(() => InputOpenTelemetryMetadatum$inboundSchema))
-    .optional(),
+  otlpVersion: OtlpVersionOptions$inboundSchema.default("0.10.0"),
+  authType: AuthTypeOptions$inboundSchema.default("basic"),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
   maxActiveCxn: z.number().default(1000),
   description: z.string().optional(),
   username: z.string().optional(),
@@ -1129,16 +2314,13 @@ export const InputOpenTelemetry$inboundSchema: z.ZodType<
   tokenAttributeName: z.string().optional(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
   tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(z.lazy(() => InputOpenTelemetryOauthParam$inboundSchema))
-    .optional(),
-  oauthHeaders: z.array(
-    z.lazy(() => InputOpenTelemetryOauthHeader$inboundSchema),
-  ).optional(),
+  oauthParams: z.array(Metadata1Type$inboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$inboundSchema).optional(),
   extractLogs: z.boolean().default(false),
 });
-
 /** @internal */
-export type InputOpenTelemetry$Outbound = {
+export type InputOpenTelemetryOpenTelemetry14$Outbound = {
+  protocol: string;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -1147,11 +2329,1770 @@ export type InputOpenTelemetry$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputOpenTelemetryConnection$Outbound> | undefined;
-  pq?: InputOpenTelemetryPq$Outbound | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
-  tls?: InputOpenTelemetryTLSSettingsServerSide$Outbound | undefined;
+  tls: Tls2Type$Outbound;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader?: any | undefined;
+  captureHeaders?: any | undefined;
+  activityLogSampleRate?: any | undefined;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  extractSpans: boolean;
+  extractMetrics: boolean;
+  otlpVersion: string;
+  authType: string;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  maxActiveCxn: number;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr: string;
+  tokenTimeoutSecs: number;
+  oauthParams?: Array<Metadata1Type$Outbound> | undefined;
+  oauthHeaders?: Array<Metadata1Type$Outbound> | undefined;
+  extractLogs: boolean;
+};
+
+/** @internal */
+export const InputOpenTelemetryOpenTelemetry14$outboundSchema: z.ZodType<
+  InputOpenTelemetryOpenTelemetry14$Outbound,
+  z.ZodTypeDef,
+  InputOpenTelemetryOpenTelemetry14
+> = z.object({
+  protocol: ProtocolOptions$outboundSchema.default("grpc"),
+  id: z.string().optional(),
+  type: TypeOpenTelemetryOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(4317),
+  tls: Tls2Type$outboundSchema,
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.any().optional(),
+  captureHeaders: z.any().optional(),
+  activityLogSampleRate: z.any().optional(),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(15),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  extractSpans: z.boolean().default(false),
+  extractMetrics: z.boolean().default(false),
+  otlpVersion: OtlpVersionOptions$outboundSchema.default("0.10.0"),
+  authType: AuthTypeOptions$outboundSchema.default("basic"),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  maxActiveCxn: z.number().default(1000),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$outboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+  extractLogs: z.boolean().default(false),
+});
+
+export function inputOpenTelemetryOpenTelemetry14ToJSON(
+  inputOpenTelemetryOpenTelemetry14: InputOpenTelemetryOpenTelemetry14,
+): string {
+  return JSON.stringify(
+    InputOpenTelemetryOpenTelemetry14$outboundSchema.parse(
+      inputOpenTelemetryOpenTelemetry14,
+    ),
+  );
+}
+export function inputOpenTelemetryOpenTelemetry14FromJSON(
+  jsonString: string,
+): SafeParseResult<InputOpenTelemetryOpenTelemetry14, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputOpenTelemetryOpenTelemetry14$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputOpenTelemetryOpenTelemetry14' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOpenTelemetryOpenTelemetry13$inboundSchema: z.ZodType<
+  InputOpenTelemetryOpenTelemetry13,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  protocol: ProtocolOptions$inboundSchema.default("grpc"),
+  id: z.string().optional(),
+  type: TypeOpenTelemetryOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(4317),
+  tls: Tls2Type$inboundSchema,
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.any().optional(),
+  captureHeaders: z.any().optional(),
+  activityLogSampleRate: z.any().optional(),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(15),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  extractSpans: z.boolean().default(false),
+  extractMetrics: z.boolean().default(false),
+  otlpVersion: OtlpVersionOptions$inboundSchema.default("0.10.0"),
+  authType: AuthTypeOptions$inboundSchema.default("basic"),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  maxActiveCxn: z.number().default(1000),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$inboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+  extractLogs: z.boolean().default(false),
+});
+/** @internal */
+export type InputOpenTelemetryOpenTelemetry13$Outbound = {
+  protocol: string;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls: Tls2Type$Outbound;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader?: any | undefined;
+  captureHeaders?: any | undefined;
+  activityLogSampleRate?: any | undefined;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  extractSpans: boolean;
+  extractMetrics: boolean;
+  otlpVersion: string;
+  authType: string;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  maxActiveCxn: number;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr: string;
+  tokenTimeoutSecs: number;
+  oauthParams?: Array<Metadata1Type$Outbound> | undefined;
+  oauthHeaders?: Array<Metadata1Type$Outbound> | undefined;
+  extractLogs: boolean;
+};
+
+/** @internal */
+export const InputOpenTelemetryOpenTelemetry13$outboundSchema: z.ZodType<
+  InputOpenTelemetryOpenTelemetry13$Outbound,
+  z.ZodTypeDef,
+  InputOpenTelemetryOpenTelemetry13
+> = z.object({
+  protocol: ProtocolOptions$outboundSchema.default("grpc"),
+  id: z.string().optional(),
+  type: TypeOpenTelemetryOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(4317),
+  tls: Tls2Type$outboundSchema,
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.any().optional(),
+  captureHeaders: z.any().optional(),
+  activityLogSampleRate: z.any().optional(),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(15),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  extractSpans: z.boolean().default(false),
+  extractMetrics: z.boolean().default(false),
+  otlpVersion: OtlpVersionOptions$outboundSchema.default("0.10.0"),
+  authType: AuthTypeOptions$outboundSchema.default("basic"),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  maxActiveCxn: z.number().default(1000),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$outboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+  extractLogs: z.boolean().default(false),
+});
+
+export function inputOpenTelemetryOpenTelemetry13ToJSON(
+  inputOpenTelemetryOpenTelemetry13: InputOpenTelemetryOpenTelemetry13,
+): string {
+  return JSON.stringify(
+    InputOpenTelemetryOpenTelemetry13$outboundSchema.parse(
+      inputOpenTelemetryOpenTelemetry13,
+    ),
+  );
+}
+export function inputOpenTelemetryOpenTelemetry13FromJSON(
+  jsonString: string,
+): SafeParseResult<InputOpenTelemetryOpenTelemetry13, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputOpenTelemetryOpenTelemetry13$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputOpenTelemetryOpenTelemetry13' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOpenTelemetryOpenTelemetry12$inboundSchema: z.ZodType<
+  InputOpenTelemetryOpenTelemetry12,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  otlpVersion: OtlpVersionOptions$inboundSchema.default("0.10.0"),
+  id: z.string().optional(),
+  type: TypeOpenTelemetryOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(4317),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.any().optional(),
+  captureHeaders: z.any().optional(),
+  activityLogSampleRate: z.any().optional(),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(15),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  protocol: ProtocolOptions$inboundSchema.default("grpc"),
+  extractSpans: z.boolean().default(false),
+  extractMetrics: z.boolean().default(false),
+  authType: AuthTypeOptions$inboundSchema.default("basic"),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  maxActiveCxn: z.number().default(1000),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$inboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+  extractLogs: z.boolean().default(false),
+});
+/** @internal */
+export type InputOpenTelemetryOpenTelemetry12$Outbound = {
+  otlpVersion: string;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader?: any | undefined;
+  captureHeaders?: any | undefined;
+  activityLogSampleRate?: any | undefined;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  protocol: string;
+  extractSpans: boolean;
+  extractMetrics: boolean;
+  authType: string;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  maxActiveCxn: number;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr: string;
+  tokenTimeoutSecs: number;
+  oauthParams?: Array<Metadata1Type$Outbound> | undefined;
+  oauthHeaders?: Array<Metadata1Type$Outbound> | undefined;
+  extractLogs: boolean;
+};
+
+/** @internal */
+export const InputOpenTelemetryOpenTelemetry12$outboundSchema: z.ZodType<
+  InputOpenTelemetryOpenTelemetry12$Outbound,
+  z.ZodTypeDef,
+  InputOpenTelemetryOpenTelemetry12
+> = z.object({
+  otlpVersion: OtlpVersionOptions$outboundSchema.default("0.10.0"),
+  id: z.string().optional(),
+  type: TypeOpenTelemetryOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(4317),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.any().optional(),
+  captureHeaders: z.any().optional(),
+  activityLogSampleRate: z.any().optional(),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(15),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  protocol: ProtocolOptions$outboundSchema.default("grpc"),
+  extractSpans: z.boolean().default(false),
+  extractMetrics: z.boolean().default(false),
+  authType: AuthTypeOptions$outboundSchema.default("basic"),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  maxActiveCxn: z.number().default(1000),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$outboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+  extractLogs: z.boolean().default(false),
+});
+
+export function inputOpenTelemetryOpenTelemetry12ToJSON(
+  inputOpenTelemetryOpenTelemetry12: InputOpenTelemetryOpenTelemetry12,
+): string {
+  return JSON.stringify(
+    InputOpenTelemetryOpenTelemetry12$outboundSchema.parse(
+      inputOpenTelemetryOpenTelemetry12,
+    ),
+  );
+}
+export function inputOpenTelemetryOpenTelemetry12FromJSON(
+  jsonString: string,
+): SafeParseResult<InputOpenTelemetryOpenTelemetry12, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputOpenTelemetryOpenTelemetry12$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputOpenTelemetryOpenTelemetry12' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOpenTelemetryOpenTelemetry11$inboundSchema: z.ZodType<
+  InputOpenTelemetryOpenTelemetry11,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  otlpVersion: OtlpVersionOptions$inboundSchema.default("0.10.0"),
+  id: z.string().optional(),
+  type: TypeOpenTelemetryOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(4317),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.any().optional(),
+  captureHeaders: z.any().optional(),
+  activityLogSampleRate: z.any().optional(),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(15),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  protocol: ProtocolOptions$inboundSchema.default("grpc"),
+  extractSpans: z.boolean().default(false),
+  extractMetrics: z.boolean().default(false),
+  authType: AuthTypeOptions$inboundSchema.default("basic"),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  maxActiveCxn: z.number().default(1000),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$inboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+  extractLogs: z.boolean().default(false),
+});
+/** @internal */
+export type InputOpenTelemetryOpenTelemetry11$Outbound = {
+  otlpVersion: string;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader?: any | undefined;
+  captureHeaders?: any | undefined;
+  activityLogSampleRate?: any | undefined;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  protocol: string;
+  extractSpans: boolean;
+  extractMetrics: boolean;
+  authType: string;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  maxActiveCxn: number;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr: string;
+  tokenTimeoutSecs: number;
+  oauthParams?: Array<Metadata1Type$Outbound> | undefined;
+  oauthHeaders?: Array<Metadata1Type$Outbound> | undefined;
+  extractLogs: boolean;
+};
+
+/** @internal */
+export const InputOpenTelemetryOpenTelemetry11$outboundSchema: z.ZodType<
+  InputOpenTelemetryOpenTelemetry11$Outbound,
+  z.ZodTypeDef,
+  InputOpenTelemetryOpenTelemetry11
+> = z.object({
+  otlpVersion: OtlpVersionOptions$outboundSchema.default("0.10.0"),
+  id: z.string().optional(),
+  type: TypeOpenTelemetryOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(4317),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.any().optional(),
+  captureHeaders: z.any().optional(),
+  activityLogSampleRate: z.any().optional(),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(15),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  protocol: ProtocolOptions$outboundSchema.default("grpc"),
+  extractSpans: z.boolean().default(false),
+  extractMetrics: z.boolean().default(false),
+  authType: AuthTypeOptions$outboundSchema.default("basic"),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  maxActiveCxn: z.number().default(1000),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$outboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+  extractLogs: z.boolean().default(false),
+});
+
+export function inputOpenTelemetryOpenTelemetry11ToJSON(
+  inputOpenTelemetryOpenTelemetry11: InputOpenTelemetryOpenTelemetry11,
+): string {
+  return JSON.stringify(
+    InputOpenTelemetryOpenTelemetry11$outboundSchema.parse(
+      inputOpenTelemetryOpenTelemetry11,
+    ),
+  );
+}
+export function inputOpenTelemetryOpenTelemetry11FromJSON(
+  jsonString: string,
+): SafeParseResult<InputOpenTelemetryOpenTelemetry11, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputOpenTelemetryOpenTelemetry11$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputOpenTelemetryOpenTelemetry11' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOpenTelemetryOpenTelemetry10$inboundSchema: z.ZodType<
+  InputOpenTelemetryOpenTelemetry10,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthTypeOptions$inboundSchema.default("basic"),
+  id: z.string().optional(),
+  type: TypeOpenTelemetryOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(4317),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.any().optional(),
+  captureHeaders: z.any().optional(),
+  activityLogSampleRate: z.any().optional(),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(15),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  protocol: ProtocolOptions$inboundSchema.default("grpc"),
+  extractSpans: z.boolean().default(false),
+  extractMetrics: z.boolean().default(false),
+  otlpVersion: OtlpVersionOptions$inboundSchema.default("0.10.0"),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  maxActiveCxn: z.number().default(1000),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string(),
+  secretParamName: z.string(),
+  secret: z.string(),
+  tokenAttributeName: z.string(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$inboundSchema),
+  oauthHeaders: z.array(Metadata1Type$inboundSchema),
+  extractLogs: z.boolean().default(false),
+});
+/** @internal */
+export type InputOpenTelemetryOpenTelemetry10$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader?: any | undefined;
+  captureHeaders?: any | undefined;
+  activityLogSampleRate?: any | undefined;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  protocol: string;
+  extractSpans: boolean;
+  extractMetrics: boolean;
+  otlpVersion: string;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  maxActiveCxn: number;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl: string;
+  secretParamName: string;
+  secret: string;
+  tokenAttributeName: string;
+  authHeaderExpr: string;
+  tokenTimeoutSecs: number;
+  oauthParams: Array<Metadata1Type$Outbound>;
+  oauthHeaders: Array<Metadata1Type$Outbound>;
+  extractLogs: boolean;
+};
+
+/** @internal */
+export const InputOpenTelemetryOpenTelemetry10$outboundSchema: z.ZodType<
+  InputOpenTelemetryOpenTelemetry10$Outbound,
+  z.ZodTypeDef,
+  InputOpenTelemetryOpenTelemetry10
+> = z.object({
+  authType: AuthTypeOptions$outboundSchema.default("basic"),
+  id: z.string().optional(),
+  type: TypeOpenTelemetryOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(4317),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.any().optional(),
+  captureHeaders: z.any().optional(),
+  activityLogSampleRate: z.any().optional(),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(15),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  protocol: ProtocolOptions$outboundSchema.default("grpc"),
+  extractSpans: z.boolean().default(false),
+  extractMetrics: z.boolean().default(false),
+  otlpVersion: OtlpVersionOptions$outboundSchema.default("0.10.0"),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  maxActiveCxn: z.number().default(1000),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string(),
+  secretParamName: z.string(),
+  secret: z.string(),
+  tokenAttributeName: z.string(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$outboundSchema),
+  oauthHeaders: z.array(Metadata1Type$outboundSchema),
+  extractLogs: z.boolean().default(false),
+});
+
+export function inputOpenTelemetryOpenTelemetry10ToJSON(
+  inputOpenTelemetryOpenTelemetry10: InputOpenTelemetryOpenTelemetry10,
+): string {
+  return JSON.stringify(
+    InputOpenTelemetryOpenTelemetry10$outboundSchema.parse(
+      inputOpenTelemetryOpenTelemetry10,
+    ),
+  );
+}
+export function inputOpenTelemetryOpenTelemetry10FromJSON(
+  jsonString: string,
+): SafeParseResult<InputOpenTelemetryOpenTelemetry10, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputOpenTelemetryOpenTelemetry10$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputOpenTelemetryOpenTelemetry10' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOpenTelemetryOpenTelemetry9$inboundSchema: z.ZodType<
+  InputOpenTelemetryOpenTelemetry9,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthTypeOptions$inboundSchema.default("basic"),
+  id: z.string().optional(),
+  type: TypeOpenTelemetryOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(4317),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.any().optional(),
+  captureHeaders: z.any().optional(),
+  activityLogSampleRate: z.any().optional(),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(15),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  protocol: ProtocolOptions$inboundSchema.default("grpc"),
+  extractSpans: z.boolean().default(false),
+  extractMetrics: z.boolean().default(false),
+  otlpVersion: OtlpVersionOptions$inboundSchema.default("0.10.0"),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  maxActiveCxn: z.number().default(1000),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$inboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+  extractLogs: z.boolean().default(false),
+});
+/** @internal */
+export type InputOpenTelemetryOpenTelemetry9$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader?: any | undefined;
+  captureHeaders?: any | undefined;
+  activityLogSampleRate?: any | undefined;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  protocol: string;
+  extractSpans: boolean;
+  extractMetrics: boolean;
+  otlpVersion: string;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  maxActiveCxn: number;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret: string;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr: string;
+  tokenTimeoutSecs: number;
+  oauthParams?: Array<Metadata1Type$Outbound> | undefined;
+  oauthHeaders?: Array<Metadata1Type$Outbound> | undefined;
+  extractLogs: boolean;
+};
+
+/** @internal */
+export const InputOpenTelemetryOpenTelemetry9$outboundSchema: z.ZodType<
+  InputOpenTelemetryOpenTelemetry9$Outbound,
+  z.ZodTypeDef,
+  InputOpenTelemetryOpenTelemetry9
+> = z.object({
+  authType: AuthTypeOptions$outboundSchema.default("basic"),
+  id: z.string().optional(),
+  type: TypeOpenTelemetryOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(4317),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.any().optional(),
+  captureHeaders: z.any().optional(),
+  activityLogSampleRate: z.any().optional(),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(15),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  protocol: ProtocolOptions$outboundSchema.default("grpc"),
+  extractSpans: z.boolean().default(false),
+  extractMetrics: z.boolean().default(false),
+  otlpVersion: OtlpVersionOptions$outboundSchema.default("0.10.0"),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  maxActiveCxn: z.number().default(1000),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$outboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+  extractLogs: z.boolean().default(false),
+});
+
+export function inputOpenTelemetryOpenTelemetry9ToJSON(
+  inputOpenTelemetryOpenTelemetry9: InputOpenTelemetryOpenTelemetry9,
+): string {
+  return JSON.stringify(
+    InputOpenTelemetryOpenTelemetry9$outboundSchema.parse(
+      inputOpenTelemetryOpenTelemetry9,
+    ),
+  );
+}
+export function inputOpenTelemetryOpenTelemetry9FromJSON(
+  jsonString: string,
+): SafeParseResult<InputOpenTelemetryOpenTelemetry9, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputOpenTelemetryOpenTelemetry9$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputOpenTelemetryOpenTelemetry9' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOpenTelemetryOpenTelemetry8$inboundSchema: z.ZodType<
+  InputOpenTelemetryOpenTelemetry8,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthTypeOptions$inboundSchema.default("basic"),
+  id: z.string().optional(),
+  type: TypeOpenTelemetryOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(4317),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.any().optional(),
+  captureHeaders: z.any().optional(),
+  activityLogSampleRate: z.any().optional(),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(15),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  protocol: ProtocolOptions$inboundSchema.default("grpc"),
+  extractSpans: z.boolean().default(false),
+  extractMetrics: z.boolean().default(false),
+  otlpVersion: OtlpVersionOptions$inboundSchema.default("0.10.0"),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  maxActiveCxn: z.number().default(1000),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$inboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+  extractLogs: z.boolean().default(false),
+});
+/** @internal */
+export type InputOpenTelemetryOpenTelemetry8$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader?: any | undefined;
+  captureHeaders?: any | undefined;
+  activityLogSampleRate?: any | undefined;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  protocol: string;
+  extractSpans: boolean;
+  extractMetrics: boolean;
+  otlpVersion: string;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  maxActiveCxn: number;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret: string;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr: string;
+  tokenTimeoutSecs: number;
+  oauthParams?: Array<Metadata1Type$Outbound> | undefined;
+  oauthHeaders?: Array<Metadata1Type$Outbound> | undefined;
+  extractLogs: boolean;
+};
+
+/** @internal */
+export const InputOpenTelemetryOpenTelemetry8$outboundSchema: z.ZodType<
+  InputOpenTelemetryOpenTelemetry8$Outbound,
+  z.ZodTypeDef,
+  InputOpenTelemetryOpenTelemetry8
+> = z.object({
+  authType: AuthTypeOptions$outboundSchema.default("basic"),
+  id: z.string().optional(),
+  type: TypeOpenTelemetryOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(4317),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.any().optional(),
+  captureHeaders: z.any().optional(),
+  activityLogSampleRate: z.any().optional(),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(15),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  protocol: ProtocolOptions$outboundSchema.default("grpc"),
+  extractSpans: z.boolean().default(false),
+  extractMetrics: z.boolean().default(false),
+  otlpVersion: OtlpVersionOptions$outboundSchema.default("0.10.0"),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  maxActiveCxn: z.number().default(1000),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$outboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+  extractLogs: z.boolean().default(false),
+});
+
+export function inputOpenTelemetryOpenTelemetry8ToJSON(
+  inputOpenTelemetryOpenTelemetry8: InputOpenTelemetryOpenTelemetry8,
+): string {
+  return JSON.stringify(
+    InputOpenTelemetryOpenTelemetry8$outboundSchema.parse(
+      inputOpenTelemetryOpenTelemetry8,
+    ),
+  );
+}
+export function inputOpenTelemetryOpenTelemetry8FromJSON(
+  jsonString: string,
+): SafeParseResult<InputOpenTelemetryOpenTelemetry8, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputOpenTelemetryOpenTelemetry8$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputOpenTelemetryOpenTelemetry8' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOpenTelemetryOpenTelemetry7$inboundSchema: z.ZodType<
+  InputOpenTelemetryOpenTelemetry7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthTypeOptions$inboundSchema.default("basic"),
+  id: z.string().optional(),
+  type: TypeOpenTelemetryOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(4317),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.any().optional(),
+  captureHeaders: z.any().optional(),
+  activityLogSampleRate: z.any().optional(),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(15),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  protocol: ProtocolOptions$inboundSchema.default("grpc"),
+  extractSpans: z.boolean().default(false),
+  extractMetrics: z.boolean().default(false),
+  otlpVersion: OtlpVersionOptions$inboundSchema.default("0.10.0"),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  maxActiveCxn: z.number().default(1000),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$inboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+  extractLogs: z.boolean().default(false),
+});
+/** @internal */
+export type InputOpenTelemetryOpenTelemetry7$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader?: any | undefined;
+  captureHeaders?: any | undefined;
+  activityLogSampleRate?: any | undefined;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  protocol: string;
+  extractSpans: boolean;
+  extractMetrics: boolean;
+  otlpVersion: string;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  maxActiveCxn: number;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token: string;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr: string;
+  tokenTimeoutSecs: number;
+  oauthParams?: Array<Metadata1Type$Outbound> | undefined;
+  oauthHeaders?: Array<Metadata1Type$Outbound> | undefined;
+  extractLogs: boolean;
+};
+
+/** @internal */
+export const InputOpenTelemetryOpenTelemetry7$outboundSchema: z.ZodType<
+  InputOpenTelemetryOpenTelemetry7$Outbound,
+  z.ZodTypeDef,
+  InputOpenTelemetryOpenTelemetry7
+> = z.object({
+  authType: AuthTypeOptions$outboundSchema.default("basic"),
+  id: z.string().optional(),
+  type: TypeOpenTelemetryOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(4317),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.any().optional(),
+  captureHeaders: z.any().optional(),
+  activityLogSampleRate: z.any().optional(),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(15),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  protocol: ProtocolOptions$outboundSchema.default("grpc"),
+  extractSpans: z.boolean().default(false),
+  extractMetrics: z.boolean().default(false),
+  otlpVersion: OtlpVersionOptions$outboundSchema.default("0.10.0"),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  maxActiveCxn: z.number().default(1000),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$outboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+  extractLogs: z.boolean().default(false),
+});
+
+export function inputOpenTelemetryOpenTelemetry7ToJSON(
+  inputOpenTelemetryOpenTelemetry7: InputOpenTelemetryOpenTelemetry7,
+): string {
+  return JSON.stringify(
+    InputOpenTelemetryOpenTelemetry7$outboundSchema.parse(
+      inputOpenTelemetryOpenTelemetry7,
+    ),
+  );
+}
+export function inputOpenTelemetryOpenTelemetry7FromJSON(
+  jsonString: string,
+): SafeParseResult<InputOpenTelemetryOpenTelemetry7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputOpenTelemetryOpenTelemetry7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputOpenTelemetryOpenTelemetry7' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOpenTelemetryOpenTelemetry6$inboundSchema: z.ZodType<
+  InputOpenTelemetryOpenTelemetry6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthTypeOptions$inboundSchema.default("basic"),
+  id: z.string().optional(),
+  type: TypeOpenTelemetryOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(4317),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.any().optional(),
+  captureHeaders: z.any().optional(),
+  activityLogSampleRate: z.any().optional(),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(15),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  protocol: ProtocolOptions$inboundSchema.default("grpc"),
+  extractSpans: z.boolean().default(false),
+  extractMetrics: z.boolean().default(false),
+  otlpVersion: OtlpVersionOptions$inboundSchema.default("0.10.0"),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  maxActiveCxn: z.number().default(1000),
+  description: z.string().optional(),
+  username: z.string(),
+  password: z.string(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$inboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+  extractLogs: z.boolean().default(false),
+});
+/** @internal */
+export type InputOpenTelemetryOpenTelemetry6$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader?: any | undefined;
+  captureHeaders?: any | undefined;
+  activityLogSampleRate?: any | undefined;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  protocol: string;
+  extractSpans: boolean;
+  extractMetrics: boolean;
+  otlpVersion: string;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  maxActiveCxn: number;
+  description?: string | undefined;
+  username: string;
+  password: string;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr: string;
+  tokenTimeoutSecs: number;
+  oauthParams?: Array<Metadata1Type$Outbound> | undefined;
+  oauthHeaders?: Array<Metadata1Type$Outbound> | undefined;
+  extractLogs: boolean;
+};
+
+/** @internal */
+export const InputOpenTelemetryOpenTelemetry6$outboundSchema: z.ZodType<
+  InputOpenTelemetryOpenTelemetry6$Outbound,
+  z.ZodTypeDef,
+  InputOpenTelemetryOpenTelemetry6
+> = z.object({
+  authType: AuthTypeOptions$outboundSchema.default("basic"),
+  id: z.string().optional(),
+  type: TypeOpenTelemetryOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(4317),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.any().optional(),
+  captureHeaders: z.any().optional(),
+  activityLogSampleRate: z.any().optional(),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(15),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  protocol: ProtocolOptions$outboundSchema.default("grpc"),
+  extractSpans: z.boolean().default(false),
+  extractMetrics: z.boolean().default(false),
+  otlpVersion: OtlpVersionOptions$outboundSchema.default("0.10.0"),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  maxActiveCxn: z.number().default(1000),
+  description: z.string().optional(),
+  username: z.string(),
+  password: z.string(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$outboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+  extractLogs: z.boolean().default(false),
+});
+
+export function inputOpenTelemetryOpenTelemetry6ToJSON(
+  inputOpenTelemetryOpenTelemetry6: InputOpenTelemetryOpenTelemetry6,
+): string {
+  return JSON.stringify(
+    InputOpenTelemetryOpenTelemetry6$outboundSchema.parse(
+      inputOpenTelemetryOpenTelemetry6,
+    ),
+  );
+}
+export function inputOpenTelemetryOpenTelemetry6FromJSON(
+  jsonString: string,
+): SafeParseResult<InputOpenTelemetryOpenTelemetry6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputOpenTelemetryOpenTelemetry6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputOpenTelemetryOpenTelemetry6' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOpenTelemetryOpenTelemetry5$inboundSchema: z.ZodType<
+  InputOpenTelemetryOpenTelemetry5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthTypeOptions$inboundSchema.default("basic"),
+  id: z.string().optional(),
+  type: TypeOpenTelemetryOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(4317),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.any().optional(),
+  captureHeaders: z.any().optional(),
+  activityLogSampleRate: z.any().optional(),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(15),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  protocol: ProtocolOptions$inboundSchema.default("grpc"),
+  extractSpans: z.boolean().default(false),
+  extractMetrics: z.boolean().default(false),
+  otlpVersion: OtlpVersionOptions$inboundSchema.default("0.10.0"),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  maxActiveCxn: z.number().default(1000),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$inboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+  extractLogs: z.boolean().default(false),
+});
+/** @internal */
+export type InputOpenTelemetryOpenTelemetry5$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader?: any | undefined;
+  captureHeaders?: any | undefined;
+  activityLogSampleRate?: any | undefined;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  protocol: string;
+  extractSpans: boolean;
+  extractMetrics: boolean;
+  otlpVersion: string;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  maxActiveCxn: number;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr: string;
+  tokenTimeoutSecs: number;
+  oauthParams?: Array<Metadata1Type$Outbound> | undefined;
+  oauthHeaders?: Array<Metadata1Type$Outbound> | undefined;
+  extractLogs: boolean;
+};
+
+/** @internal */
+export const InputOpenTelemetryOpenTelemetry5$outboundSchema: z.ZodType<
+  InputOpenTelemetryOpenTelemetry5$Outbound,
+  z.ZodTypeDef,
+  InputOpenTelemetryOpenTelemetry5
+> = z.object({
+  authType: AuthTypeOptions$outboundSchema.default("basic"),
+  id: z.string().optional(),
+  type: TypeOpenTelemetryOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(4317),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.any().optional(),
+  captureHeaders: z.any().optional(),
+  activityLogSampleRate: z.any().optional(),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(15),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  protocol: ProtocolOptions$outboundSchema.default("grpc"),
+  extractSpans: z.boolean().default(false),
+  extractMetrics: z.boolean().default(false),
+  otlpVersion: OtlpVersionOptions$outboundSchema.default("0.10.0"),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  maxActiveCxn: z.number().default(1000),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$outboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+  extractLogs: z.boolean().default(false),
+});
+
+export function inputOpenTelemetryOpenTelemetry5ToJSON(
+  inputOpenTelemetryOpenTelemetry5: InputOpenTelemetryOpenTelemetry5,
+): string {
+  return JSON.stringify(
+    InputOpenTelemetryOpenTelemetry5$outboundSchema.parse(
+      inputOpenTelemetryOpenTelemetry5,
+    ),
+  );
+}
+export function inputOpenTelemetryOpenTelemetry5FromJSON(
+  jsonString: string,
+): SafeParseResult<InputOpenTelemetryOpenTelemetry5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputOpenTelemetryOpenTelemetry5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputOpenTelemetryOpenTelemetry5' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOpenTelemetryOpenTelemetry4$inboundSchema: z.ZodType<
+  InputOpenTelemetryOpenTelemetry4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: TypeOpenTelemetryOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema,
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(4317),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.any().optional(),
+  captureHeaders: z.any().optional(),
+  activityLogSampleRate: z.any().optional(),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(15),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  protocol: ProtocolOptions$inboundSchema.default("grpc"),
+  extractSpans: z.boolean().default(false),
+  extractMetrics: z.boolean().default(false),
+  otlpVersion: OtlpVersionOptions$inboundSchema.default("0.10.0"),
+  authType: AuthTypeOptions$inboundSchema.default("basic"),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  maxActiveCxn: z.number().default(1000),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$inboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+  extractLogs: z.boolean().default(false),
+});
+/** @internal */
+export type InputOpenTelemetryOpenTelemetry4$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq: PqType$Outbound;
+  host: string;
+  port: number;
+  tls?: Tls2Type$Outbound | undefined;
   maxActiveReq: number;
   maxRequestsPerSocket: number;
   enableProxyHeader?: any | undefined;
@@ -1168,7 +4109,7 @@ export type InputOpenTelemetry$Outbound = {
   extractMetrics: boolean;
   otlpVersion: string;
   authType: string;
-  metadata?: Array<InputOpenTelemetryMetadatum$Outbound> | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
   maxActiveCxn: number;
   description?: string | undefined;
   username?: string | undefined;
@@ -1182,33 +4123,30 @@ export type InputOpenTelemetry$Outbound = {
   tokenAttributeName?: string | undefined;
   authHeaderExpr: string;
   tokenTimeoutSecs: number;
-  oauthParams?: Array<InputOpenTelemetryOauthParam$Outbound> | undefined;
-  oauthHeaders?: Array<InputOpenTelemetryOauthHeader$Outbound> | undefined;
+  oauthParams?: Array<Metadata1Type$Outbound> | undefined;
+  oauthHeaders?: Array<Metadata1Type$Outbound> | undefined;
   extractLogs: boolean;
 };
 
 /** @internal */
-export const InputOpenTelemetry$outboundSchema: z.ZodType<
-  InputOpenTelemetry$Outbound,
+export const InputOpenTelemetryOpenTelemetry4$outboundSchema: z.ZodType<
+  InputOpenTelemetryOpenTelemetry4$Outbound,
   z.ZodTypeDef,
-  InputOpenTelemetry
+  InputOpenTelemetryOpenTelemetry4
 > = z.object({
+  pqEnabled: z.boolean().default(false),
   id: z.string().optional(),
-  type: InputOpenTelemetryType$outboundSchema,
+  type: TypeOpenTelemetryOption$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(
-    z.lazy(() => InputOpenTelemetryConnection$outboundSchema),
-  ).optional(),
-  pq: z.lazy(() => InputOpenTelemetryPq$outboundSchema).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema,
   host: z.string().default("0.0.0.0"),
   port: z.number().default(4317),
-  tls: z.lazy(() => InputOpenTelemetryTLSSettingsServerSide$outboundSchema)
-    .optional(),
+  tls: Tls2Type$outboundSchema.optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.any().optional(),
@@ -1220,13 +4158,12 @@ export const InputOpenTelemetry$outboundSchema: z.ZodType<
   enableHealthCheck: z.boolean().default(false),
   ipAllowlistRegex: z.string().default("/.*/"),
   ipDenylistRegex: z.string().default("/^$/"),
-  protocol: InputOpenTelemetryProtocol$outboundSchema.default("grpc"),
+  protocol: ProtocolOptions$outboundSchema.default("grpc"),
   extractSpans: z.boolean().default(false),
   extractMetrics: z.boolean().default(false),
-  otlpVersion: InputOpenTelemetryOTLPVersion$outboundSchema.default("0.10.0"),
-  authType: InputOpenTelemetryAuthenticationType$outboundSchema.default("none"),
-  metadata: z.array(z.lazy(() => InputOpenTelemetryMetadatum$outboundSchema))
-    .optional(),
+  otlpVersion: OtlpVersionOptions$outboundSchema.default("0.10.0"),
+  authType: AuthTypeOptions$outboundSchema.default("basic"),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
   maxActiveCxn: z.number().default(1000),
   description: z.string().optional(),
   username: z.string().optional(),
@@ -1240,27 +4177,617 @@ export const InputOpenTelemetry$outboundSchema: z.ZodType<
   tokenAttributeName: z.string().optional(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
   tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(
-    z.lazy(() => InputOpenTelemetryOauthParam$outboundSchema),
-  ).optional(),
-  oauthHeaders: z.array(
-    z.lazy(() => InputOpenTelemetryOauthHeader$outboundSchema),
-  ).optional(),
+  oauthParams: z.array(Metadata1Type$outboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$outboundSchema).optional(),
   extractLogs: z.boolean().default(false),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOpenTelemetry$ {
-  /** @deprecated use `InputOpenTelemetry$inboundSchema` instead. */
-  export const inboundSchema = InputOpenTelemetry$inboundSchema;
-  /** @deprecated use `InputOpenTelemetry$outboundSchema` instead. */
-  export const outboundSchema = InputOpenTelemetry$outboundSchema;
-  /** @deprecated use `InputOpenTelemetry$Outbound` instead. */
-  export type Outbound = InputOpenTelemetry$Outbound;
+export function inputOpenTelemetryOpenTelemetry4ToJSON(
+  inputOpenTelemetryOpenTelemetry4: InputOpenTelemetryOpenTelemetry4,
+): string {
+  return JSON.stringify(
+    InputOpenTelemetryOpenTelemetry4$outboundSchema.parse(
+      inputOpenTelemetryOpenTelemetry4,
+    ),
+  );
 }
+export function inputOpenTelemetryOpenTelemetry4FromJSON(
+  jsonString: string,
+): SafeParseResult<InputOpenTelemetryOpenTelemetry4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputOpenTelemetryOpenTelemetry4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputOpenTelemetryOpenTelemetry4' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOpenTelemetryOpenTelemetry3$inboundSchema: z.ZodType<
+  InputOpenTelemetryOpenTelemetry3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: TypeOpenTelemetryOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(4317),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.any().optional(),
+  captureHeaders: z.any().optional(),
+  activityLogSampleRate: z.any().optional(),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(15),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  protocol: ProtocolOptions$inboundSchema.default("grpc"),
+  extractSpans: z.boolean().default(false),
+  extractMetrics: z.boolean().default(false),
+  otlpVersion: OtlpVersionOptions$inboundSchema.default("0.10.0"),
+  authType: AuthTypeOptions$inboundSchema.default("basic"),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  maxActiveCxn: z.number().default(1000),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$inboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+  extractLogs: z.boolean().default(false),
+});
+/** @internal */
+export type InputOpenTelemetryOpenTelemetry3$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader?: any | undefined;
+  captureHeaders?: any | undefined;
+  activityLogSampleRate?: any | undefined;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  protocol: string;
+  extractSpans: boolean;
+  extractMetrics: boolean;
+  otlpVersion: string;
+  authType: string;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  maxActiveCxn: number;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr: string;
+  tokenTimeoutSecs: number;
+  oauthParams?: Array<Metadata1Type$Outbound> | undefined;
+  oauthHeaders?: Array<Metadata1Type$Outbound> | undefined;
+  extractLogs: boolean;
+};
+
+/** @internal */
+export const InputOpenTelemetryOpenTelemetry3$outboundSchema: z.ZodType<
+  InputOpenTelemetryOpenTelemetry3$Outbound,
+  z.ZodTypeDef,
+  InputOpenTelemetryOpenTelemetry3
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: TypeOpenTelemetryOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(4317),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.any().optional(),
+  captureHeaders: z.any().optional(),
+  activityLogSampleRate: z.any().optional(),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(15),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  protocol: ProtocolOptions$outboundSchema.default("grpc"),
+  extractSpans: z.boolean().default(false),
+  extractMetrics: z.boolean().default(false),
+  otlpVersion: OtlpVersionOptions$outboundSchema.default("0.10.0"),
+  authType: AuthTypeOptions$outboundSchema.default("basic"),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  maxActiveCxn: z.number().default(1000),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$outboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+  extractLogs: z.boolean().default(false),
+});
+
+export function inputOpenTelemetryOpenTelemetry3ToJSON(
+  inputOpenTelemetryOpenTelemetry3: InputOpenTelemetryOpenTelemetry3,
+): string {
+  return JSON.stringify(
+    InputOpenTelemetryOpenTelemetry3$outboundSchema.parse(
+      inputOpenTelemetryOpenTelemetry3,
+    ),
+  );
+}
+export function inputOpenTelemetryOpenTelemetry3FromJSON(
+  jsonString: string,
+): SafeParseResult<InputOpenTelemetryOpenTelemetry3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputOpenTelemetryOpenTelemetry3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputOpenTelemetryOpenTelemetry3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOpenTelemetryOpenTelemetry2$inboundSchema: z.ZodType<
+  InputOpenTelemetryOpenTelemetry2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeOpenTelemetryOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(4317),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.any().optional(),
+  captureHeaders: z.any().optional(),
+  activityLogSampleRate: z.any().optional(),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(15),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  protocol: ProtocolOptions$inboundSchema.default("grpc"),
+  extractSpans: z.boolean().default(false),
+  extractMetrics: z.boolean().default(false),
+  otlpVersion: OtlpVersionOptions$inboundSchema.default("0.10.0"),
+  authType: AuthTypeOptions$inboundSchema.default("basic"),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  maxActiveCxn: z.number().default(1000),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$inboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+  extractLogs: z.boolean().default(false),
+});
+/** @internal */
+export type InputOpenTelemetryOpenTelemetry2$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections: Array<ConnectionsType$Outbound>;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader?: any | undefined;
+  captureHeaders?: any | undefined;
+  activityLogSampleRate?: any | undefined;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  protocol: string;
+  extractSpans: boolean;
+  extractMetrics: boolean;
+  otlpVersion: string;
+  authType: string;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  maxActiveCxn: number;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr: string;
+  tokenTimeoutSecs: number;
+  oauthParams?: Array<Metadata1Type$Outbound> | undefined;
+  oauthHeaders?: Array<Metadata1Type$Outbound> | undefined;
+  extractLogs: boolean;
+};
+
+/** @internal */
+export const InputOpenTelemetryOpenTelemetry2$outboundSchema: z.ZodType<
+  InputOpenTelemetryOpenTelemetry2$Outbound,
+  z.ZodTypeDef,
+  InputOpenTelemetryOpenTelemetry2
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeOpenTelemetryOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(4317),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.any().optional(),
+  captureHeaders: z.any().optional(),
+  activityLogSampleRate: z.any().optional(),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(15),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  protocol: ProtocolOptions$outboundSchema.default("grpc"),
+  extractSpans: z.boolean().default(false),
+  extractMetrics: z.boolean().default(false),
+  otlpVersion: OtlpVersionOptions$outboundSchema.default("0.10.0"),
+  authType: AuthTypeOptions$outboundSchema.default("basic"),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  maxActiveCxn: z.number().default(1000),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$outboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+  extractLogs: z.boolean().default(false),
+});
+
+export function inputOpenTelemetryOpenTelemetry2ToJSON(
+  inputOpenTelemetryOpenTelemetry2: InputOpenTelemetryOpenTelemetry2,
+): string {
+  return JSON.stringify(
+    InputOpenTelemetryOpenTelemetry2$outboundSchema.parse(
+      inputOpenTelemetryOpenTelemetry2,
+    ),
+  );
+}
+export function inputOpenTelemetryOpenTelemetry2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputOpenTelemetryOpenTelemetry2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputOpenTelemetryOpenTelemetry2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputOpenTelemetryOpenTelemetry2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOpenTelemetryOpenTelemetry1$inboundSchema: z.ZodType<
+  InputOpenTelemetryOpenTelemetry1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeOpenTelemetryOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(4317),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.any().optional(),
+  captureHeaders: z.any().optional(),
+  activityLogSampleRate: z.any().optional(),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(15),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  protocol: ProtocolOptions$inboundSchema.default("grpc"),
+  extractSpans: z.boolean().default(false),
+  extractMetrics: z.boolean().default(false),
+  otlpVersion: OtlpVersionOptions$inboundSchema.default("0.10.0"),
+  authType: AuthTypeOptions$inboundSchema.default("basic"),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  maxActiveCxn: z.number().default(1000),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$inboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+  extractLogs: z.boolean().default(false),
+});
+/** @internal */
+export type InputOpenTelemetryOpenTelemetry1$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader?: any | undefined;
+  captureHeaders?: any | undefined;
+  activityLogSampleRate?: any | undefined;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  protocol: string;
+  extractSpans: boolean;
+  extractMetrics: boolean;
+  otlpVersion: string;
+  authType: string;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  maxActiveCxn: number;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr: string;
+  tokenTimeoutSecs: number;
+  oauthParams?: Array<Metadata1Type$Outbound> | undefined;
+  oauthHeaders?: Array<Metadata1Type$Outbound> | undefined;
+  extractLogs: boolean;
+};
+
+/** @internal */
+export const InputOpenTelemetryOpenTelemetry1$outboundSchema: z.ZodType<
+  InputOpenTelemetryOpenTelemetry1$Outbound,
+  z.ZodTypeDef,
+  InputOpenTelemetryOpenTelemetry1
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeOpenTelemetryOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number().default(4317),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.any().optional(),
+  captureHeaders: z.any().optional(),
+  activityLogSampleRate: z.any().optional(),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(15),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  protocol: ProtocolOptions$outboundSchema.default("grpc"),
+  extractSpans: z.boolean().default(false),
+  extractMetrics: z.boolean().default(false),
+  otlpVersion: OtlpVersionOptions$outboundSchema.default("0.10.0"),
+  authType: AuthTypeOptions$outboundSchema.default("basic"),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  maxActiveCxn: z.number().default(1000),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$outboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+  extractLogs: z.boolean().default(false),
+});
+
+export function inputOpenTelemetryOpenTelemetry1ToJSON(
+  inputOpenTelemetryOpenTelemetry1: InputOpenTelemetryOpenTelemetry1,
+): string {
+  return JSON.stringify(
+    InputOpenTelemetryOpenTelemetry1$outboundSchema.parse(
+      inputOpenTelemetryOpenTelemetry1,
+    ),
+  );
+}
+export function inputOpenTelemetryOpenTelemetry1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputOpenTelemetryOpenTelemetry1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputOpenTelemetryOpenTelemetry1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputOpenTelemetryOpenTelemetry1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputOpenTelemetry$inboundSchema: z.ZodType<
+  InputOpenTelemetry,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputOpenTelemetryOpenTelemetry10$inboundSchema),
+  z.lazy(() => InputOpenTelemetryOpenTelemetry6$inboundSchema),
+  z.lazy(() => InputOpenTelemetryOpenTelemetry2$inboundSchema),
+  z.lazy(() => InputOpenTelemetryOpenTelemetry4$inboundSchema),
+  z.lazy(() => InputOpenTelemetryOpenTelemetry7$inboundSchema),
+  z.lazy(() => InputOpenTelemetryOpenTelemetry8$inboundSchema),
+  z.lazy(() => InputOpenTelemetryOpenTelemetry9$inboundSchema),
+  z.lazy(() => InputOpenTelemetryOpenTelemetry13$inboundSchema),
+  z.lazy(() => InputOpenTelemetryOpenTelemetry14$inboundSchema),
+  z.lazy(() => InputOpenTelemetryOpenTelemetry1$inboundSchema),
+  z.lazy(() => InputOpenTelemetryOpenTelemetry3$inboundSchema),
+  z.lazy(() => InputOpenTelemetryOpenTelemetry5$inboundSchema),
+  z.lazy(() => InputOpenTelemetryOpenTelemetry11$inboundSchema),
+  z.lazy(() => InputOpenTelemetryOpenTelemetry12$inboundSchema),
+]);
+/** @internal */
+export type InputOpenTelemetry$Outbound =
+  | InputOpenTelemetryOpenTelemetry10$Outbound
+  | InputOpenTelemetryOpenTelemetry6$Outbound
+  | InputOpenTelemetryOpenTelemetry2$Outbound
+  | InputOpenTelemetryOpenTelemetry4$Outbound
+  | InputOpenTelemetryOpenTelemetry7$Outbound
+  | InputOpenTelemetryOpenTelemetry8$Outbound
+  | InputOpenTelemetryOpenTelemetry9$Outbound
+  | InputOpenTelemetryOpenTelemetry13$Outbound
+  | InputOpenTelemetryOpenTelemetry14$Outbound
+  | InputOpenTelemetryOpenTelemetry1$Outbound
+  | InputOpenTelemetryOpenTelemetry3$Outbound
+  | InputOpenTelemetryOpenTelemetry5$Outbound
+  | InputOpenTelemetryOpenTelemetry11$Outbound
+  | InputOpenTelemetryOpenTelemetry12$Outbound;
+
+/** @internal */
+export const InputOpenTelemetry$outboundSchema: z.ZodType<
+  InputOpenTelemetry$Outbound,
+  z.ZodTypeDef,
+  InputOpenTelemetry
+> = z.union([
+  z.lazy(() => InputOpenTelemetryOpenTelemetry10$outboundSchema),
+  z.lazy(() => InputOpenTelemetryOpenTelemetry6$outboundSchema),
+  z.lazy(() => InputOpenTelemetryOpenTelemetry2$outboundSchema),
+  z.lazy(() => InputOpenTelemetryOpenTelemetry4$outboundSchema),
+  z.lazy(() => InputOpenTelemetryOpenTelemetry7$outboundSchema),
+  z.lazy(() => InputOpenTelemetryOpenTelemetry8$outboundSchema),
+  z.lazy(() => InputOpenTelemetryOpenTelemetry9$outboundSchema),
+  z.lazy(() => InputOpenTelemetryOpenTelemetry13$outboundSchema),
+  z.lazy(() => InputOpenTelemetryOpenTelemetry14$outboundSchema),
+  z.lazy(() => InputOpenTelemetryOpenTelemetry1$outboundSchema),
+  z.lazy(() => InputOpenTelemetryOpenTelemetry3$outboundSchema),
+  z.lazy(() => InputOpenTelemetryOpenTelemetry5$outboundSchema),
+  z.lazy(() => InputOpenTelemetryOpenTelemetry11$outboundSchema),
+  z.lazy(() => InputOpenTelemetryOpenTelemetry12$outboundSchema),
+]);
 
 export function inputOpenTelemetryToJSON(
   inputOpenTelemetry: InputOpenTelemetry,
@@ -1269,7 +4796,6 @@ export function inputOpenTelemetryToJSON(
     InputOpenTelemetry$outboundSchema.parse(inputOpenTelemetry),
   );
 }
-
 export function inputOpenTelemetryFromJSON(
   jsonString: string,
 ): SafeParseResult<InputOpenTelemetry, SDKValidationError> {

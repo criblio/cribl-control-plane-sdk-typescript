@@ -6,156 +6,95 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import {
   catchUnrecognizedEnum,
-  ClosedEnum,
   OpenEnum,
   Unrecognized,
 } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthType1Options,
+  AuthType1Options$inboundSchema,
+  AuthType1Options$outboundSchema,
+} from "./authtype1options.js";
+import {
+  CertificateType,
+  CertificateType$inboundSchema,
+  CertificateType$Outbound,
+  CertificateType$outboundSchema,
+} from "./certificatetype.js";
+import {
+  CompressionLevelOptions,
+  CompressionLevelOptions$inboundSchema,
+  CompressionLevelOptions$outboundSchema,
+} from "./compressionleveloptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  Format1Options,
+  Format1Options$inboundSchema,
+  Format1Options$outboundSchema,
+} from "./format1options.js";
+import {
+  ParquetDataPageVersionOptions,
+  ParquetDataPageVersionOptions$inboundSchema,
+  ParquetDataPageVersionOptions$outboundSchema,
+} from "./parquetdatapageversionoptions.js";
+import {
+  ParquetVersionOptions,
+  ParquetVersionOptions$inboundSchema,
+  ParquetVersionOptions$outboundSchema,
+} from "./parquetversionoptions.js";
+import {
+  PqCompressOptions,
+  PqCompressOptions$inboundSchema,
+  PqCompressOptions$outboundSchema,
+} from "./pqcompressoptions.js";
+import {
+  PqOnBackpressureOptions,
+  PqOnBackpressureOptions$inboundSchema,
+  PqOnBackpressureOptions$outboundSchema,
+} from "./pqonbackpressureoptions.js";
+import {
+  TagsType,
+  TagsType$inboundSchema,
+  TagsType$Outbound,
+  TagsType$outboundSchema,
+} from "./tagstype.js";
+import {
+  TypeAzureBlobOption,
+  TypeAzureBlobOption$inboundSchema,
+  TypeAzureBlobOption$outboundSchema,
+} from "./typeazurebloboption.js";
 
-export const OutputAzureBlobType = {
-  AzureBlob: "azure_blob",
-} as const;
-export type OutputAzureBlobType = ClosedEnum<typeof OutputAzureBlobType>;
-
-/**
- * Format of the output data
- */
-export const OutputAzureBlobDataFormat = {
-  Json: "json",
-  Raw: "raw",
-  Parquet: "parquet",
-} as const;
-/**
- * Format of the output data
- */
-export type OutputAzureBlobDataFormat = OpenEnum<
-  typeof OutputAzureBlobDataFormat
->;
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputAzureBlobBackpressureBehavior = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputAzureBlobBackpressureBehavior = OpenEnum<
-  typeof OutputAzureBlobBackpressureBehavior
->;
-
-/**
- * How to handle events when disk space is below the global 'Min free disk space' limit
- */
-export const OutputAzureBlobDiskSpaceProtection = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when disk space is below the global 'Min free disk space' limit
- */
-export type OutputAzureBlobDiskSpaceProtection = OpenEnum<
-  typeof OutputAzureBlobDiskSpaceProtection
->;
-
-export const OutputAzureBlobAuthenticationMethod = {
-  Manual: "manual",
-  Secret: "secret",
-  ClientSecret: "clientSecret",
-  ClientCert: "clientCert",
-} as const;
-export type OutputAzureBlobAuthenticationMethod = OpenEnum<
-  typeof OutputAzureBlobAuthenticationMethod
->;
-
-export const BlobAccessTier = {
+export const BlobAccessTier10 = {
+  /**
+   * Default account access tier
+   */
   Inferred: "Inferred",
+  /**
+   * Hot tier
+   */
   Hot: "Hot",
+  /**
+   * Cool tier
+   */
   Cool: "Cool",
+  /**
+   * Cold tier
+   */
   Cold: "Cold",
+  /**
+   * Archive tier
+   */
   Archive: "Archive",
 } as const;
-export type BlobAccessTier = OpenEnum<typeof BlobAccessTier>;
+export type BlobAccessTier10 = OpenEnum<typeof BlobAccessTier10>;
 
-/**
- * Data compression format to apply to HTTP content before it is delivered
- */
-export const OutputAzureBlobCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Data compression format to apply to HTTP content before it is delivered
- */
-export type OutputAzureBlobCompression = OpenEnum<
-  typeof OutputAzureBlobCompression
->;
-
-/**
- * Compression level to apply before moving files to final destination
- */
-export const OutputAzureBlobCompressionLevel = {
-  BestSpeed: "best_speed",
-  Normal: "normal",
-  BestCompression: "best_compression",
-} as const;
-/**
- * Compression level to apply before moving files to final destination
- */
-export type OutputAzureBlobCompressionLevel = OpenEnum<
-  typeof OutputAzureBlobCompressionLevel
->;
-
-/**
- * Determines which data types are supported and how they are represented
- */
-export const OutputAzureBlobParquetVersion = {
-  Parquet10: "PARQUET_1_0",
-  Parquet24: "PARQUET_2_4",
-  Parquet26: "PARQUET_2_6",
-} as const;
-/**
- * Determines which data types are supported and how they are represented
- */
-export type OutputAzureBlobParquetVersion = OpenEnum<
-  typeof OutputAzureBlobParquetVersion
->;
-
-/**
- * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
- */
-export const OutputAzureBlobDataPageVersion = {
-  DataPageV1: "DATA_PAGE_V1",
-  DataPageV2: "DATA_PAGE_V2",
-} as const;
-/**
- * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
- */
-export type OutputAzureBlobDataPageVersion = OpenEnum<
-  typeof OutputAzureBlobDataPageVersion
->;
-
-export type OutputAzureBlobKeyValueMetadatum = {
-  key?: string | undefined;
-  value: string;
-};
-
-export type OutputAzureBlobCertificate = {
-  /**
-   * The certificate you registered as credentials for your app in the Azure portal
-   */
-  certificateName: string;
-};
-
-export type OutputAzureBlob = {
+export type OutputAzureBlobAzureBlob10 = {
+  authType?: AuthType1Options | undefined;
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputAzureBlobType;
+  type: TypeAzureBlobOption;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -207,7 +146,7 @@ export type OutputAzureBlob = {
   /**
    * Format of the output data
    */
-  format?: OutputAzureBlobDataFormat | undefined;
+  format?: Format1Options | undefined;
   /**
    * JavaScript expression to define the output filename prefix (can be constant)
    */
@@ -241,40 +180,43 @@ export type OutputAzureBlob = {
    */
   writeHighWaterMark?: number | undefined;
   /**
-   * How to handle events when all receivers are exerting backpressure
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  onBackpressure?: OutputAzureBlobBackpressureBehavior | undefined;
+  onBackpressure?: PqOnBackpressureOptions | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
   deadletterEnabled?: boolean | undefined;
   /**
-   * How to handle events when disk space is below the global 'Min free disk space' limit
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  onDiskFullBackpressure?: OutputAzureBlobDiskSpaceProtection | undefined;
-  authType?: OutputAzureBlobAuthenticationMethod | undefined;
-  storageClass?: BlobAccessTier | undefined;
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  storageClass?: BlobAccessTier10 | undefined;
   description?: string | undefined;
   /**
-   * Data compression format to apply to HTTP content before it is delivered
+   * Codec to use to compress the persisted data
    */
-  compress?: OutputAzureBlobCompression | undefined;
+  compress?: PqCompressOptions | undefined;
   /**
    * Compression level to apply before moving files to final destination
    */
-  compressionLevel?: OutputAzureBlobCompressionLevel | undefined;
+  compressionLevel?: CompressionLevelOptions | undefined;
   /**
    * Automatically calculate the schema based on the events of each Parquet file generated
    */
   automaticSchema?: boolean | undefined;
   /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
    * Determines which data types are supported and how they are represented
    */
-  parquetVersion?: OutputAzureBlobParquetVersion | undefined;
+  parquetVersion?: ParquetVersionOptions | undefined;
   /**
    * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
    */
-  parquetDataPageVersion?: OutputAzureBlobDataPageVersion | undefined;
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
   /**
    * The number of rows that every group will contain. The final group can contain a smaller number of rows.
    */
@@ -290,7 +232,919 @@ export type OutputAzureBlob = {
   /**
    * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
    */
-  keyValueMetadata?: Array<OutputAzureBlobKeyValueMetadatum> | undefined;
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+  /**
+   * Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
+   */
+  connectionString?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * The name of your Azure storage account
+   */
+  storageAccountName: string;
+  /**
+   * The service principal's tenant ID
+   */
+  tenantId: string;
+  /**
+   * The service principal's client ID
+   */
+  clientId: string;
+  /**
+   * The Azure cloud to use. Defaults to Azure Public Cloud.
+   */
+  azureCloud: string;
+  /**
+   * Endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
+   */
+  endpointSuffix: string;
+  /**
+   * Select or create a stored text secret
+   */
+  clientTextSecret?: string | undefined;
+  certificate: CertificateType;
+};
+
+export const BlobAccessTier9 = {
+  /**
+   * Default account access tier
+   */
+  Inferred: "Inferred",
+  /**
+   * Hot tier
+   */
+  Hot: "Hot",
+  /**
+   * Cool tier
+   */
+  Cool: "Cool",
+  /**
+   * Cold tier
+   */
+  Cold: "Cold",
+  /**
+   * Archive tier
+   */
+  Archive: "Archive",
+} as const;
+export type BlobAccessTier9 = OpenEnum<typeof BlobAccessTier9>;
+
+export type OutputAzureBlobAzureBlob9 = {
+  authType?: AuthType1Options | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeAzureBlobOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The Azure Blob Storage container name. Name can include only lowercase letters, numbers, and hyphens. For dynamic container names, enter a JavaScript expression within quotes or backticks, to be evaluated at initialization. The expression can evaluate to a constant value and can reference Global Variables, such as `myContainer-${C.env["CRIBL_WORKER_ID"]}`.
+   */
+  containerName: string;
+  /**
+   * Create the configured container in Azure Blob Storage if it does not already exist
+   */
+  createContainer?: boolean | undefined;
+  /**
+   * Root directory prepended to path before uploading. Value can be a JavaScript expression enclosed in quotes or backticks, to be evaluated at initialization. The expression can evaluate to a constant value and can reference Global Variables, such as `myBlobPrefix-${C.env["CRIBL_WORKER_ID"]}`.
+   */
+  destPath?: string | undefined;
+  /**
+   * Filesystem location in which to buffer files before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  storageClass?: BlobAccessTier9 | undefined;
+  description?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+  /**
+   * Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
+   */
+  connectionString?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * The name of your Azure storage account
+   */
+  storageAccountName: string;
+  /**
+   * The service principal's tenant ID
+   */
+  tenantId: string;
+  /**
+   * The service principal's client ID
+   */
+  clientId: string;
+  /**
+   * The Azure cloud to use. Defaults to Azure Public Cloud.
+   */
+  azureCloud: string;
+  /**
+   * Endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
+   */
+  endpointSuffix: string;
+  /**
+   * Select or create a stored text secret
+   */
+  clientTextSecret: string;
+  certificate?: CertificateType | undefined;
+};
+
+export const BlobAccessTier8 = {
+  /**
+   * Default account access tier
+   */
+  Inferred: "Inferred",
+  /**
+   * Hot tier
+   */
+  Hot: "Hot",
+  /**
+   * Cool tier
+   */
+  Cool: "Cool",
+  /**
+   * Cold tier
+   */
+  Cold: "Cold",
+  /**
+   * Archive tier
+   */
+  Archive: "Archive",
+} as const;
+export type BlobAccessTier8 = OpenEnum<typeof BlobAccessTier8>;
+
+export type OutputAzureBlobAzureBlob8 = {
+  authType?: AuthType1Options | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeAzureBlobOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The Azure Blob Storage container name. Name can include only lowercase letters, numbers, and hyphens. For dynamic container names, enter a JavaScript expression within quotes or backticks, to be evaluated at initialization. The expression can evaluate to a constant value and can reference Global Variables, such as `myContainer-${C.env["CRIBL_WORKER_ID"]}`.
+   */
+  containerName: string;
+  /**
+   * Create the configured container in Azure Blob Storage if it does not already exist
+   */
+  createContainer?: boolean | undefined;
+  /**
+   * Root directory prepended to path before uploading. Value can be a JavaScript expression enclosed in quotes or backticks, to be evaluated at initialization. The expression can evaluate to a constant value and can reference Global Variables, such as `myBlobPrefix-${C.env["CRIBL_WORKER_ID"]}`.
+   */
+  destPath?: string | undefined;
+  /**
+   * Filesystem location in which to buffer files before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  storageClass?: BlobAccessTier8 | undefined;
+  description?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+  /**
+   * Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
+   */
+  connectionString?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret: string;
+  /**
+   * The name of your Azure storage account
+   */
+  storageAccountName?: string | undefined;
+  /**
+   * The service principal's tenant ID
+   */
+  tenantId?: string | undefined;
+  /**
+   * The service principal's client ID
+   */
+  clientId?: string | undefined;
+  /**
+   * The Azure cloud to use. Defaults to Azure Public Cloud.
+   */
+  azureCloud?: string | undefined;
+  /**
+   * Endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
+   */
+  endpointSuffix?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  clientTextSecret?: string | undefined;
+  certificate?: CertificateType | undefined;
+};
+
+export const BlobAccessTier7 = {
+  /**
+   * Default account access tier
+   */
+  Inferred: "Inferred",
+  /**
+   * Hot tier
+   */
+  Hot: "Hot",
+  /**
+   * Cool tier
+   */
+  Cool: "Cool",
+  /**
+   * Cold tier
+   */
+  Cold: "Cold",
+  /**
+   * Archive tier
+   */
+  Archive: "Archive",
+} as const;
+export type BlobAccessTier7 = OpenEnum<typeof BlobAccessTier7>;
+
+export type OutputAzureBlobAzureBlob7 = {
+  authType?: AuthType1Options | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeAzureBlobOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The Azure Blob Storage container name. Name can include only lowercase letters, numbers, and hyphens. For dynamic container names, enter a JavaScript expression within quotes or backticks, to be evaluated at initialization. The expression can evaluate to a constant value and can reference Global Variables, such as `myContainer-${C.env["CRIBL_WORKER_ID"]}`.
+   */
+  containerName: string;
+  /**
+   * Create the configured container in Azure Blob Storage if it does not already exist
+   */
+  createContainer?: boolean | undefined;
+  /**
+   * Root directory prepended to path before uploading. Value can be a JavaScript expression enclosed in quotes or backticks, to be evaluated at initialization. The expression can evaluate to a constant value and can reference Global Variables, such as `myBlobPrefix-${C.env["CRIBL_WORKER_ID"]}`.
+   */
+  destPath?: string | undefined;
+  /**
+   * Filesystem location in which to buffer files before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  storageClass?: BlobAccessTier7 | undefined;
+  description?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+  /**
+   * Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
+   */
+  connectionString: string;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * The name of your Azure storage account
+   */
+  storageAccountName?: string | undefined;
+  /**
+   * The service principal's tenant ID
+   */
+  tenantId?: string | undefined;
+  /**
+   * The service principal's client ID
+   */
+  clientId?: string | undefined;
+  /**
+   * The Azure cloud to use. Defaults to Azure Public Cloud.
+   */
+  azureCloud?: string | undefined;
+  /**
+   * Endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
+   */
+  endpointSuffix?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  clientTextSecret?: string | undefined;
+  certificate?: CertificateType | undefined;
+};
+
+export const BlobAccessTier6 = {
+  /**
+   * Default account access tier
+   */
+  Inferred: "Inferred",
+  /**
+   * Hot tier
+   */
+  Hot: "Hot",
+  /**
+   * Cool tier
+   */
+  Cool: "Cool",
+  /**
+   * Cold tier
+   */
+  Cold: "Cold",
+  /**
+   * Archive tier
+   */
+  Archive: "Archive",
+} as const;
+export type BlobAccessTier6 = OpenEnum<typeof BlobAccessTier6>;
+
+export type OutputAzureBlobAzureBlob6 = {
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeAzureBlobOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The Azure Blob Storage container name. Name can include only lowercase letters, numbers, and hyphens. For dynamic container names, enter a JavaScript expression within quotes or backticks, to be evaluated at initialization. The expression can evaluate to a constant value and can reference Global Variables, such as `myContainer-${C.env["CRIBL_WORKER_ID"]}`.
+   */
+  containerName: string;
+  /**
+   * Create the configured container in Azure Blob Storage if it does not already exist
+   */
+  createContainer?: boolean | undefined;
+  /**
+   * Root directory prepended to path before uploading. Value can be a JavaScript expression enclosed in quotes or backticks, to be evaluated at initialization. The expression can evaluate to a constant value and can reference Global Variables, such as `myBlobPrefix-${C.env["CRIBL_WORKER_ID"]}`.
+   */
+  destPath?: string | undefined;
+  /**
+   * Filesystem location in which to buffer files before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  authType?: AuthType1Options | undefined;
+  storageClass?: BlobAccessTier6 | undefined;
+  description?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
   /**
    * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
    */
@@ -347,444 +1201,1190 @@ export type OutputAzureBlob = {
    * Select or create a stored text secret
    */
   clientTextSecret?: string | undefined;
-  certificate?: OutputAzureBlobCertificate | undefined;
+  certificate?: CertificateType | undefined;
 };
 
-/** @internal */
-export const OutputAzureBlobType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureBlobType
-> = z.nativeEnum(OutputAzureBlobType);
+export const BlobAccessTier5 = {
+  /**
+   * Default account access tier
+   */
+  Inferred: "Inferred",
+  /**
+   * Hot tier
+   */
+  Hot: "Hot",
+  /**
+   * Cool tier
+   */
+  Cool: "Cool",
+  /**
+   * Cold tier
+   */
+  Cold: "Cold",
+  /**
+   * Archive tier
+   */
+  Archive: "Archive",
+} as const;
+export type BlobAccessTier5 = OpenEnum<typeof BlobAccessTier5>;
 
-/** @internal */
-export const OutputAzureBlobType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureBlobType
-> = OutputAzureBlobType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureBlobType$ {
-  /** @deprecated use `OutputAzureBlobType$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureBlobType$inboundSchema;
-  /** @deprecated use `OutputAzureBlobType$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureBlobType$outboundSchema;
-}
-
-/** @internal */
-export const OutputAzureBlobDataFormat$inboundSchema: z.ZodType<
-  OutputAzureBlobDataFormat,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureBlobDataFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputAzureBlobDataFormat$outboundSchema: z.ZodType<
-  OutputAzureBlobDataFormat,
-  z.ZodTypeDef,
-  OutputAzureBlobDataFormat
-> = z.union([
-  z.nativeEnum(OutputAzureBlobDataFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureBlobDataFormat$ {
-  /** @deprecated use `OutputAzureBlobDataFormat$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureBlobDataFormat$inboundSchema;
-  /** @deprecated use `OutputAzureBlobDataFormat$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureBlobDataFormat$outboundSchema;
-}
-
-/** @internal */
-export const OutputAzureBlobBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputAzureBlobBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureBlobBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputAzureBlobBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputAzureBlobBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputAzureBlobBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputAzureBlobBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureBlobBackpressureBehavior$ {
-  /** @deprecated use `OutputAzureBlobBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureBlobBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputAzureBlobBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureBlobBackpressureBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputAzureBlobDiskSpaceProtection$inboundSchema: z.ZodType<
-  OutputAzureBlobDiskSpaceProtection,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureBlobDiskSpaceProtection),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputAzureBlobDiskSpaceProtection$outboundSchema: z.ZodType<
-  OutputAzureBlobDiskSpaceProtection,
-  z.ZodTypeDef,
-  OutputAzureBlobDiskSpaceProtection
-> = z.union([
-  z.nativeEnum(OutputAzureBlobDiskSpaceProtection),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureBlobDiskSpaceProtection$ {
-  /** @deprecated use `OutputAzureBlobDiskSpaceProtection$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureBlobDiskSpaceProtection$inboundSchema;
-  /** @deprecated use `OutputAzureBlobDiskSpaceProtection$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureBlobDiskSpaceProtection$outboundSchema;
-}
-
-/** @internal */
-export const OutputAzureBlobAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputAzureBlobAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureBlobAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputAzureBlobAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputAzureBlobAuthenticationMethod,
-  z.ZodTypeDef,
-  OutputAzureBlobAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputAzureBlobAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureBlobAuthenticationMethod$ {
-  /** @deprecated use `OutputAzureBlobAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureBlobAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputAzureBlobAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureBlobAuthenticationMethod$outboundSchema;
-}
-
-/** @internal */
-export const BlobAccessTier$inboundSchema: z.ZodType<
-  BlobAccessTier,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(BlobAccessTier),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const BlobAccessTier$outboundSchema: z.ZodType<
-  BlobAccessTier,
-  z.ZodTypeDef,
-  BlobAccessTier
-> = z.union([
-  z.nativeEnum(BlobAccessTier),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace BlobAccessTier$ {
-  /** @deprecated use `BlobAccessTier$inboundSchema` instead. */
-  export const inboundSchema = BlobAccessTier$inboundSchema;
-  /** @deprecated use `BlobAccessTier$outboundSchema` instead. */
-  export const outboundSchema = BlobAccessTier$outboundSchema;
-}
-
-/** @internal */
-export const OutputAzureBlobCompression$inboundSchema: z.ZodType<
-  OutputAzureBlobCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureBlobCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputAzureBlobCompression$outboundSchema: z.ZodType<
-  OutputAzureBlobCompression,
-  z.ZodTypeDef,
-  OutputAzureBlobCompression
-> = z.union([
-  z.nativeEnum(OutputAzureBlobCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureBlobCompression$ {
-  /** @deprecated use `OutputAzureBlobCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureBlobCompression$inboundSchema;
-  /** @deprecated use `OutputAzureBlobCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureBlobCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputAzureBlobCompressionLevel$inboundSchema: z.ZodType<
-  OutputAzureBlobCompressionLevel,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureBlobCompressionLevel),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputAzureBlobCompressionLevel$outboundSchema: z.ZodType<
-  OutputAzureBlobCompressionLevel,
-  z.ZodTypeDef,
-  OutputAzureBlobCompressionLevel
-> = z.union([
-  z.nativeEnum(OutputAzureBlobCompressionLevel),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureBlobCompressionLevel$ {
-  /** @deprecated use `OutputAzureBlobCompressionLevel$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureBlobCompressionLevel$inboundSchema;
-  /** @deprecated use `OutputAzureBlobCompressionLevel$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureBlobCompressionLevel$outboundSchema;
-}
-
-/** @internal */
-export const OutputAzureBlobParquetVersion$inboundSchema: z.ZodType<
-  OutputAzureBlobParquetVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureBlobParquetVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputAzureBlobParquetVersion$outboundSchema: z.ZodType<
-  OutputAzureBlobParquetVersion,
-  z.ZodTypeDef,
-  OutputAzureBlobParquetVersion
-> = z.union([
-  z.nativeEnum(OutputAzureBlobParquetVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureBlobParquetVersion$ {
-  /** @deprecated use `OutputAzureBlobParquetVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureBlobParquetVersion$inboundSchema;
-  /** @deprecated use `OutputAzureBlobParquetVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureBlobParquetVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputAzureBlobDataPageVersion$inboundSchema: z.ZodType<
-  OutputAzureBlobDataPageVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureBlobDataPageVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputAzureBlobDataPageVersion$outboundSchema: z.ZodType<
-  OutputAzureBlobDataPageVersion,
-  z.ZodTypeDef,
-  OutputAzureBlobDataPageVersion
-> = z.union([
-  z.nativeEnum(OutputAzureBlobDataPageVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureBlobDataPageVersion$ {
-  /** @deprecated use `OutputAzureBlobDataPageVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureBlobDataPageVersion$inboundSchema;
-  /** @deprecated use `OutputAzureBlobDataPageVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureBlobDataPageVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputAzureBlobKeyValueMetadatum$inboundSchema: z.ZodType<
-  OutputAzureBlobKeyValueMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  key: z.string().default(""),
-  value: z.string(),
-});
-
-/** @internal */
-export type OutputAzureBlobKeyValueMetadatum$Outbound = {
-  key: string;
-  value: string;
+export type OutputAzureBlobAzureBlob5 = {
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeAzureBlobOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The Azure Blob Storage container name. Name can include only lowercase letters, numbers, and hyphens. For dynamic container names, enter a JavaScript expression within quotes or backticks, to be evaluated at initialization. The expression can evaluate to a constant value and can reference Global Variables, such as `myContainer-${C.env["CRIBL_WORKER_ID"]}`.
+   */
+  containerName: string;
+  /**
+   * Create the configured container in Azure Blob Storage if it does not already exist
+   */
+  createContainer?: boolean | undefined;
+  /**
+   * Root directory prepended to path before uploading. Value can be a JavaScript expression enclosed in quotes or backticks, to be evaluated at initialization. The expression can evaluate to a constant value and can reference Global Variables, such as `myBlobPrefix-${C.env["CRIBL_WORKER_ID"]}`.
+   */
+  destPath?: string | undefined;
+  /**
+   * Filesystem location in which to buffer files before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  authType?: AuthType1Options | undefined;
+  storageClass?: BlobAccessTier5 | undefined;
+  description?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+  /**
+   * Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
+   */
+  connectionString?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * The name of your Azure storage account
+   */
+  storageAccountName?: string | undefined;
+  /**
+   * The service principal's tenant ID
+   */
+  tenantId?: string | undefined;
+  /**
+   * The service principal's client ID
+   */
+  clientId?: string | undefined;
+  /**
+   * The Azure cloud to use. Defaults to Azure Public Cloud.
+   */
+  azureCloud?: string | undefined;
+  /**
+   * Endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
+   */
+  endpointSuffix?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  clientTextSecret?: string | undefined;
+  certificate?: CertificateType | undefined;
 };
 
-/** @internal */
-export const OutputAzureBlobKeyValueMetadatum$outboundSchema: z.ZodType<
-  OutputAzureBlobKeyValueMetadatum$Outbound,
-  z.ZodTypeDef,
-  OutputAzureBlobKeyValueMetadatum
-> = z.object({
-  key: z.string().default(""),
-  value: z.string(),
-});
+export const BlobAccessTier4 = {
+  /**
+   * Default account access tier
+   */
+  Inferred: "Inferred",
+  /**
+   * Hot tier
+   */
+  Hot: "Hot",
+  /**
+   * Cool tier
+   */
+  Cool: "Cool",
+  /**
+   * Cold tier
+   */
+  Cold: "Cold",
+  /**
+   * Archive tier
+   */
+  Archive: "Archive",
+} as const;
+export type BlobAccessTier4 = OpenEnum<typeof BlobAccessTier4>;
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureBlobKeyValueMetadatum$ {
-  /** @deprecated use `OutputAzureBlobKeyValueMetadatum$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureBlobKeyValueMetadatum$inboundSchema;
-  /** @deprecated use `OutputAzureBlobKeyValueMetadatum$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureBlobKeyValueMetadatum$outboundSchema;
-  /** @deprecated use `OutputAzureBlobKeyValueMetadatum$Outbound` instead. */
-  export type Outbound = OutputAzureBlobKeyValueMetadatum$Outbound;
-}
-
-export function outputAzureBlobKeyValueMetadatumToJSON(
-  outputAzureBlobKeyValueMetadatum: OutputAzureBlobKeyValueMetadatum,
-): string {
-  return JSON.stringify(
-    OutputAzureBlobKeyValueMetadatum$outboundSchema.parse(
-      outputAzureBlobKeyValueMetadatum,
-    ),
-  );
-}
-
-export function outputAzureBlobKeyValueMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputAzureBlobKeyValueMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputAzureBlobKeyValueMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputAzureBlobKeyValueMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputAzureBlobCertificate$inboundSchema: z.ZodType<
-  OutputAzureBlobCertificate,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  certificateName: z.string(),
-});
-
-/** @internal */
-export type OutputAzureBlobCertificate$Outbound = {
-  certificateName: string;
+export type OutputAzureBlobAzureBlob4 = {
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeAzureBlobOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The Azure Blob Storage container name. Name can include only lowercase letters, numbers, and hyphens. For dynamic container names, enter a JavaScript expression within quotes or backticks, to be evaluated at initialization. The expression can evaluate to a constant value and can reference Global Variables, such as `myContainer-${C.env["CRIBL_WORKER_ID"]}`.
+   */
+  containerName: string;
+  /**
+   * Create the configured container in Azure Blob Storage if it does not already exist
+   */
+  createContainer?: boolean | undefined;
+  /**
+   * Root directory prepended to path before uploading. Value can be a JavaScript expression enclosed in quotes or backticks, to be evaluated at initialization. The expression can evaluate to a constant value and can reference Global Variables, such as `myBlobPrefix-${C.env["CRIBL_WORKER_ID"]}`.
+   */
+  destPath?: string | undefined;
+  /**
+   * Filesystem location in which to buffer files before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  authType?: AuthType1Options | undefined;
+  storageClass?: BlobAccessTier4 | undefined;
+  description?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+  /**
+   * Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
+   */
+  connectionString?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * The name of your Azure storage account
+   */
+  storageAccountName?: string | undefined;
+  /**
+   * The service principal's tenant ID
+   */
+  tenantId?: string | undefined;
+  /**
+   * The service principal's client ID
+   */
+  clientId?: string | undefined;
+  /**
+   * The Azure cloud to use. Defaults to Azure Public Cloud.
+   */
+  azureCloud?: string | undefined;
+  /**
+   * Endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
+   */
+  endpointSuffix?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  clientTextSecret?: string | undefined;
+  certificate?: CertificateType | undefined;
 };
 
+export const BlobAccessTier3 = {
+  /**
+   * Default account access tier
+   */
+  Inferred: "Inferred",
+  /**
+   * Hot tier
+   */
+  Hot: "Hot",
+  /**
+   * Cool tier
+   */
+  Cool: "Cool",
+  /**
+   * Cold tier
+   */
+  Cold: "Cold",
+  /**
+   * Archive tier
+   */
+  Archive: "Archive",
+} as const;
+export type BlobAccessTier3 = OpenEnum<typeof BlobAccessTier3>;
+
+export type OutputAzureBlobAzureBlob3 = {
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeAzureBlobOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The Azure Blob Storage container name. Name can include only lowercase letters, numbers, and hyphens. For dynamic container names, enter a JavaScript expression within quotes or backticks, to be evaluated at initialization. The expression can evaluate to a constant value and can reference Global Variables, such as `myContainer-${C.env["CRIBL_WORKER_ID"]}`.
+   */
+  containerName: string;
+  /**
+   * Create the configured container in Azure Blob Storage if it does not already exist
+   */
+  createContainer?: boolean | undefined;
+  /**
+   * Root directory prepended to path before uploading. Value can be a JavaScript expression enclosed in quotes or backticks, to be evaluated at initialization. The expression can evaluate to a constant value and can reference Global Variables, such as `myBlobPrefix-${C.env["CRIBL_WORKER_ID"]}`.
+   */
+  destPath?: string | undefined;
+  /**
+   * Filesystem location in which to buffer files before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  authType?: AuthType1Options | undefined;
+  storageClass?: BlobAccessTier3 | undefined;
+  description?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+  /**
+   * Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
+   */
+  connectionString?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * The name of your Azure storage account
+   */
+  storageAccountName?: string | undefined;
+  /**
+   * The service principal's tenant ID
+   */
+  tenantId?: string | undefined;
+  /**
+   * The service principal's client ID
+   */
+  clientId?: string | undefined;
+  /**
+   * The Azure cloud to use. Defaults to Azure Public Cloud.
+   */
+  azureCloud?: string | undefined;
+  /**
+   * Endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
+   */
+  endpointSuffix?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  clientTextSecret?: string | undefined;
+  certificate?: CertificateType | undefined;
+};
+
+export const BlobAccessTier2 = {
+  /**
+   * Default account access tier
+   */
+  Inferred: "Inferred",
+  /**
+   * Hot tier
+   */
+  Hot: "Hot",
+  /**
+   * Cool tier
+   */
+  Cool: "Cool",
+  /**
+   * Cold tier
+   */
+  Cold: "Cold",
+  /**
+   * Archive tier
+   */
+  Archive: "Archive",
+} as const;
+export type BlobAccessTier2 = OpenEnum<typeof BlobAccessTier2>;
+
+export type OutputAzureBlobAzureBlob2 = {
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeAzureBlobOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The Azure Blob Storage container name. Name can include only lowercase letters, numbers, and hyphens. For dynamic container names, enter a JavaScript expression within quotes or backticks, to be evaluated at initialization. The expression can evaluate to a constant value and can reference Global Variables, such as `myContainer-${C.env["CRIBL_WORKER_ID"]}`.
+   */
+  containerName: string;
+  /**
+   * Create the configured container in Azure Blob Storage if it does not already exist
+   */
+  createContainer?: boolean | undefined;
+  /**
+   * Root directory prepended to path before uploading. Value can be a JavaScript expression enclosed in quotes or backticks, to be evaluated at initialization. The expression can evaluate to a constant value and can reference Global Variables, such as `myBlobPrefix-${C.env["CRIBL_WORKER_ID"]}`.
+   */
+  destPath?: string | undefined;
+  /**
+   * Filesystem location in which to buffer files before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  authType?: AuthType1Options | undefined;
+  storageClass?: BlobAccessTier2 | undefined;
+  description?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows: boolean;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata: Array<TagsType>;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+  /**
+   * Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
+   */
+  connectionString?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * The name of your Azure storage account
+   */
+  storageAccountName?: string | undefined;
+  /**
+   * The service principal's tenant ID
+   */
+  tenantId?: string | undefined;
+  /**
+   * The service principal's client ID
+   */
+  clientId?: string | undefined;
+  /**
+   * The Azure cloud to use. Defaults to Azure Public Cloud.
+   */
+  azureCloud?: string | undefined;
+  /**
+   * Endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
+   */
+  endpointSuffix?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  clientTextSecret?: string | undefined;
+  certificate?: CertificateType | undefined;
+};
+
+export const BlobAccessTier1 = {
+  /**
+   * Default account access tier
+   */
+  Inferred: "Inferred",
+  /**
+   * Hot tier
+   */
+  Hot: "Hot",
+  /**
+   * Cool tier
+   */
+  Cool: "Cool",
+  /**
+   * Cold tier
+   */
+  Cold: "Cold",
+  /**
+   * Archive tier
+   */
+  Archive: "Archive",
+} as const;
+export type BlobAccessTier1 = OpenEnum<typeof BlobAccessTier1>;
+
+export type OutputAzureBlobAzureBlob1 = {
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeAzureBlobOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * The Azure Blob Storage container name. Name can include only lowercase letters, numbers, and hyphens. For dynamic container names, enter a JavaScript expression within quotes or backticks, to be evaluated at initialization. The expression can evaluate to a constant value and can reference Global Variables, such as `myContainer-${C.env["CRIBL_WORKER_ID"]}`.
+   */
+  containerName: string;
+  /**
+   * Create the configured container in Azure Blob Storage if it does not already exist
+   */
+  createContainer?: boolean | undefined;
+  /**
+   * Root directory prepended to path before uploading. Value can be a JavaScript expression enclosed in quotes or backticks, to be evaluated at initialization. The expression can evaluate to a constant value and can reference Global Variables, such as `myBlobPrefix-${C.env["CRIBL_WORKER_ID"]}`.
+   */
+  destPath?: string | undefined;
+  /**
+   * Filesystem location in which to buffer files before compressing and moving to final destination. Use performant and stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file
+   */
+  maxConcurrentFileParts?: number | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  authType?: AuthType1Options | undefined;
+  storageClass?: BlobAccessTier1 | undefined;
+  description?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+  /**
+   * Enter your Azure Storage account connection string. If left blank, Stream will fall back to env.AZURE_STORAGE_CONNECTION_STRING.
+   */
+  connectionString?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * The name of your Azure storage account
+   */
+  storageAccountName?: string | undefined;
+  /**
+   * The service principal's tenant ID
+   */
+  tenantId?: string | undefined;
+  /**
+   * The service principal's client ID
+   */
+  clientId?: string | undefined;
+  /**
+   * The Azure cloud to use. Defaults to Azure Public Cloud.
+   */
+  azureCloud?: string | undefined;
+  /**
+   * Endpoint suffix for the service URL. Takes precedence over the Azure Cloud setting. Defaults to core.windows.net.
+   */
+  endpointSuffix?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  clientTextSecret?: string | undefined;
+  certificate?: CertificateType | undefined;
+};
+
+export type OutputAzureBlob =
+  | OutputAzureBlobAzureBlob9
+  | OutputAzureBlobAzureBlob10
+  | OutputAzureBlobAzureBlob2
+  | OutputAzureBlobAzureBlob7
+  | OutputAzureBlobAzureBlob8
+  | OutputAzureBlobAzureBlob1
+  | OutputAzureBlobAzureBlob3
+  | OutputAzureBlobAzureBlob4
+  | OutputAzureBlobAzureBlob5
+  | OutputAzureBlobAzureBlob6;
+
 /** @internal */
-export const OutputAzureBlobCertificate$outboundSchema: z.ZodType<
-  OutputAzureBlobCertificate$Outbound,
+export const BlobAccessTier10$inboundSchema: z.ZodType<
+  BlobAccessTier10,
   z.ZodTypeDef,
-  OutputAzureBlobCertificate
-> = z.object({
-  certificateName: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureBlobCertificate$ {
-  /** @deprecated use `OutputAzureBlobCertificate$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureBlobCertificate$inboundSchema;
-  /** @deprecated use `OutputAzureBlobCertificate$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureBlobCertificate$outboundSchema;
-  /** @deprecated use `OutputAzureBlobCertificate$Outbound` instead. */
-  export type Outbound = OutputAzureBlobCertificate$Outbound;
-}
-
-export function outputAzureBlobCertificateToJSON(
-  outputAzureBlobCertificate: OutputAzureBlobCertificate,
-): string {
-  return JSON.stringify(
-    OutputAzureBlobCertificate$outboundSchema.parse(outputAzureBlobCertificate),
-  );
-}
-
-export function outputAzureBlobCertificateFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputAzureBlobCertificate, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputAzureBlobCertificate$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputAzureBlobCertificate' from JSON`,
-  );
-}
+  unknown
+> = z
+  .union([
+    z.nativeEnum(BlobAccessTier10),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const BlobAccessTier10$outboundSchema: z.ZodType<
+  BlobAccessTier10,
+  z.ZodTypeDef,
+  BlobAccessTier10
+> = z.union([
+  z.nativeEnum(BlobAccessTier10),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /** @internal */
-export const OutputAzureBlob$inboundSchema: z.ZodType<
-  OutputAzureBlob,
+export const OutputAzureBlobAzureBlob10$inboundSchema: z.ZodType<
+  OutputAzureBlobAzureBlob10,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  authType: AuthType1Options$inboundSchema.default("manual"),
   id: z.string().optional(),
-  type: OutputAzureBlobType$inboundSchema,
+  type: TypeAzureBlobOption$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -799,7 +2399,7 @@ export const OutputAzureBlob$inboundSchema: z.ZodType<
   partitionExpr: z.string().default(
     "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
   ),
-  format: OutputAzureBlobDataFormat$inboundSchema.default("json"),
+  format: Format1Options$inboundSchema.default("json"),
   baseFileName: z.string().default("`CriblOut`"),
   fileNameSuffix: z.string().default(
     "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
@@ -810,32 +2410,25 @@ export const OutputAzureBlob$inboundSchema: z.ZodType<
   maxOpenFiles: z.number().default(100),
   headerLine: z.string().default(""),
   writeHighWaterMark: z.number().default(64),
-  onBackpressure: OutputAzureBlobBackpressureBehavior$inboundSchema.default(
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
     "block",
   ),
-  deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: OutputAzureBlobDiskSpaceProtection$inboundSchema
-    .default("block"),
-  authType: OutputAzureBlobAuthenticationMethod$inboundSchema.default("manual"),
-  storageClass: BlobAccessTier$inboundSchema.default("Inferred"),
+  storageClass: BlobAccessTier10$inboundSchema.default("Inferred"),
   description: z.string().optional(),
-  compress: OutputAzureBlobCompression$inboundSchema.default("gzip"),
-  compressionLevel: OutputAzureBlobCompressionLevel$inboundSchema.default(
-    "best_speed",
-  ),
+  compress: PqCompressOptions$inboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
   automaticSchema: z.boolean().default(false),
-  parquetVersion: OutputAzureBlobParquetVersion$inboundSchema.default(
-    "PARQUET_2_6",
-  ),
-  parquetDataPageVersion: OutputAzureBlobDataPageVersion$inboundSchema.default(
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
     "DATA_PAGE_V2",
   ),
   parquetRowGroupLength: z.number().default(10000),
   parquetPageSize: z.string().default("1MB"),
   shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(
-    z.lazy(() => OutputAzureBlobKeyValueMetadatum$inboundSchema),
-  ).optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
   enableStatistics: z.boolean().default(true),
   enableWritePageIndex: z.boolean().default(true),
   enablePageChecksum: z.boolean().default(false),
@@ -844,18 +2437,17 @@ export const OutputAzureBlob$inboundSchema: z.ZodType<
   maxRetryNum: z.number().default(20),
   connectionString: z.string().optional(),
   textSecret: z.string().optional(),
-  storageAccountName: z.string().optional(),
-  tenantId: z.string().optional(),
-  clientId: z.string().optional(),
-  azureCloud: z.string().optional(),
-  endpointSuffix: z.string().optional(),
+  storageAccountName: z.string(),
+  tenantId: z.string(),
+  clientId: z.string(),
+  azureCloud: z.string(),
+  endpointSuffix: z.string(),
   clientTextSecret: z.string().optional(),
-  certificate: z.lazy(() => OutputAzureBlobCertificate$inboundSchema)
-    .optional(),
+  certificate: CertificateType$inboundSchema,
 });
-
 /** @internal */
-export type OutputAzureBlob$Outbound = {
+export type OutputAzureBlobAzureBlob10$Outbound = {
+  authType: string;
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -882,20 +2474,18 @@ export type OutputAzureBlob$Outbound = {
   onBackpressure: string;
   deadletterEnabled: boolean;
   onDiskFullBackpressure: string;
-  authType: string;
   storageClass: string;
   description?: string | undefined;
   compress: string;
   compressionLevel: string;
   automaticSchema: boolean;
+  parquetSchema?: string | undefined;
   parquetVersion: string;
   parquetDataPageVersion: string;
   parquetRowGroupLength: number;
   parquetPageSize: string;
   shouldLogInvalidRows?: boolean | undefined;
-  keyValueMetadata?:
-    | Array<OutputAzureBlobKeyValueMetadatum$Outbound>
-    | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
   enableStatistics: boolean;
   enableWritePageIndex: boolean;
   enablePageChecksum: boolean;
@@ -904,23 +2494,24 @@ export type OutputAzureBlob$Outbound = {
   maxRetryNum: number;
   connectionString?: string | undefined;
   textSecret?: string | undefined;
-  storageAccountName?: string | undefined;
-  tenantId?: string | undefined;
-  clientId?: string | undefined;
-  azureCloud?: string | undefined;
-  endpointSuffix?: string | undefined;
+  storageAccountName: string;
+  tenantId: string;
+  clientId: string;
+  azureCloud: string;
+  endpointSuffix: string;
   clientTextSecret?: string | undefined;
-  certificate?: OutputAzureBlobCertificate$Outbound | undefined;
+  certificate: CertificateType$Outbound;
 };
 
 /** @internal */
-export const OutputAzureBlob$outboundSchema: z.ZodType<
-  OutputAzureBlob$Outbound,
+export const OutputAzureBlobAzureBlob10$outboundSchema: z.ZodType<
+  OutputAzureBlobAzureBlob10$Outbound,
   z.ZodTypeDef,
-  OutputAzureBlob
+  OutputAzureBlobAzureBlob10
 > = z.object({
+  authType: AuthType1Options$outboundSchema.default("manual"),
   id: z.string().optional(),
-  type: OutputAzureBlobType$outboundSchema,
+  type: TypeAzureBlobOption$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -935,7 +2526,7 @@ export const OutputAzureBlob$outboundSchema: z.ZodType<
   partitionExpr: z.string().default(
     "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
   ),
-  format: OutputAzureBlobDataFormat$outboundSchema.default("json"),
+  format: Format1Options$outboundSchema.default("json"),
   baseFileName: z.string().default("`CriblOut`"),
   fileNameSuffix: z.string().default(
     "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
@@ -946,34 +2537,842 @@ export const OutputAzureBlob$outboundSchema: z.ZodType<
   maxOpenFiles: z.number().default(100),
   headerLine: z.string().default(""),
   writeHighWaterMark: z.number().default(64),
-  onBackpressure: OutputAzureBlobBackpressureBehavior$outboundSchema.default(
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
     "block",
   ),
-  deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: OutputAzureBlobDiskSpaceProtection$outboundSchema
-    .default("block"),
-  authType: OutputAzureBlobAuthenticationMethod$outboundSchema.default(
-    "manual",
-  ),
-  storageClass: BlobAccessTier$outboundSchema.default("Inferred"),
+  storageClass: BlobAccessTier10$outboundSchema.default("Inferred"),
   description: z.string().optional(),
-  compress: OutputAzureBlobCompression$outboundSchema.default("gzip"),
-  compressionLevel: OutputAzureBlobCompressionLevel$outboundSchema.default(
+  compress: PqCompressOptions$outboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$outboundSchema.default(
     "best_speed",
   ),
   automaticSchema: z.boolean().default(false),
-  parquetVersion: OutputAzureBlobParquetVersion$outboundSchema.default(
-    "PARQUET_2_6",
-  ),
-  parquetDataPageVersion: OutputAzureBlobDataPageVersion$outboundSchema.default(
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
     "DATA_PAGE_V2",
   ),
   parquetRowGroupLength: z.number().default(10000),
   parquetPageSize: z.string().default("1MB"),
   shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(
-    z.lazy(() => OutputAzureBlobKeyValueMetadatum$outboundSchema),
-  ).optional(),
+  keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+  connectionString: z.string().optional(),
+  textSecret: z.string().optional(),
+  storageAccountName: z.string(),
+  tenantId: z.string(),
+  clientId: z.string(),
+  azureCloud: z.string(),
+  endpointSuffix: z.string(),
+  clientTextSecret: z.string().optional(),
+  certificate: CertificateType$outboundSchema,
+});
+
+export function outputAzureBlobAzureBlob10ToJSON(
+  outputAzureBlobAzureBlob10: OutputAzureBlobAzureBlob10,
+): string {
+  return JSON.stringify(
+    OutputAzureBlobAzureBlob10$outboundSchema.parse(outputAzureBlobAzureBlob10),
+  );
+}
+export function outputAzureBlobAzureBlob10FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputAzureBlobAzureBlob10, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputAzureBlobAzureBlob10$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputAzureBlobAzureBlob10' from JSON`,
+  );
+}
+
+/** @internal */
+export const BlobAccessTier9$inboundSchema: z.ZodType<
+  BlobAccessTier9,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(BlobAccessTier9),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const BlobAccessTier9$outboundSchema: z.ZodType<
+  BlobAccessTier9,
+  z.ZodTypeDef,
+  BlobAccessTier9
+> = z.union([
+  z.nativeEnum(BlobAccessTier9),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputAzureBlobAzureBlob9$inboundSchema: z.ZodType<
+  OutputAzureBlobAzureBlob9,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthType1Options$inboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: TypeAzureBlobOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  containerName: z.string(),
+  createContainer: z.boolean().default(false),
+  destPath: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  maxConcurrentFileParts: z.number().default(1),
+  removeEmptyDirs: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  format: Format1Options$inboundSchema.default("json"),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  storageClass: BlobAccessTier9$inboundSchema.default("Inferred"),
+  description: z.string().optional(),
+  compress: PqCompressOptions$inboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+  connectionString: z.string().optional(),
+  textSecret: z.string().optional(),
+  storageAccountName: z.string(),
+  tenantId: z.string(),
+  clientId: z.string(),
+  azureCloud: z.string(),
+  endpointSuffix: z.string(),
+  clientTextSecret: z.string(),
+  certificate: CertificateType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputAzureBlobAzureBlob9$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  containerName: string;
+  createContainer: boolean;
+  destPath?: string | undefined;
+  stagePath: string;
+  addIdToStagePath: boolean;
+  maxConcurrentFileParts: number;
+  removeEmptyDirs: boolean;
+  partitionExpr: string;
+  format: string;
+  baseFileName: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  storageClass: string;
+  description?: string | undefined;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+  connectionString?: string | undefined;
+  textSecret?: string | undefined;
+  storageAccountName: string;
+  tenantId: string;
+  clientId: string;
+  azureCloud: string;
+  endpointSuffix: string;
+  clientTextSecret: string;
+  certificate?: CertificateType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputAzureBlobAzureBlob9$outboundSchema: z.ZodType<
+  OutputAzureBlobAzureBlob9$Outbound,
+  z.ZodTypeDef,
+  OutputAzureBlobAzureBlob9
+> = z.object({
+  authType: AuthType1Options$outboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: TypeAzureBlobOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  containerName: z.string(),
+  createContainer: z.boolean().default(false),
+  destPath: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  maxConcurrentFileParts: z.number().default(1),
+  removeEmptyDirs: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  format: Format1Options$outboundSchema.default("json"),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  storageClass: BlobAccessTier9$outboundSchema.default("Inferred"),
+  description: z.string().optional(),
+  compress: PqCompressOptions$outboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$outboundSchema.default(
+    "best_speed",
+  ),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+  connectionString: z.string().optional(),
+  textSecret: z.string().optional(),
+  storageAccountName: z.string(),
+  tenantId: z.string(),
+  clientId: z.string(),
+  azureCloud: z.string(),
+  endpointSuffix: z.string(),
+  clientTextSecret: z.string(),
+  certificate: CertificateType$outboundSchema.optional(),
+});
+
+export function outputAzureBlobAzureBlob9ToJSON(
+  outputAzureBlobAzureBlob9: OutputAzureBlobAzureBlob9,
+): string {
+  return JSON.stringify(
+    OutputAzureBlobAzureBlob9$outboundSchema.parse(outputAzureBlobAzureBlob9),
+  );
+}
+export function outputAzureBlobAzureBlob9FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputAzureBlobAzureBlob9, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputAzureBlobAzureBlob9$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputAzureBlobAzureBlob9' from JSON`,
+  );
+}
+
+/** @internal */
+export const BlobAccessTier8$inboundSchema: z.ZodType<
+  BlobAccessTier8,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(BlobAccessTier8),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const BlobAccessTier8$outboundSchema: z.ZodType<
+  BlobAccessTier8,
+  z.ZodTypeDef,
+  BlobAccessTier8
+> = z.union([
+  z.nativeEnum(BlobAccessTier8),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputAzureBlobAzureBlob8$inboundSchema: z.ZodType<
+  OutputAzureBlobAzureBlob8,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthType1Options$inboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: TypeAzureBlobOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  containerName: z.string(),
+  createContainer: z.boolean().default(false),
+  destPath: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  maxConcurrentFileParts: z.number().default(1),
+  removeEmptyDirs: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  format: Format1Options$inboundSchema.default("json"),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  storageClass: BlobAccessTier8$inboundSchema.default("Inferred"),
+  description: z.string().optional(),
+  compress: PqCompressOptions$inboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+  connectionString: z.string().optional(),
+  textSecret: z.string(),
+  storageAccountName: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  azureCloud: z.string().optional(),
+  endpointSuffix: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+  certificate: CertificateType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputAzureBlobAzureBlob8$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  containerName: string;
+  createContainer: boolean;
+  destPath?: string | undefined;
+  stagePath: string;
+  addIdToStagePath: boolean;
+  maxConcurrentFileParts: number;
+  removeEmptyDirs: boolean;
+  partitionExpr: string;
+  format: string;
+  baseFileName: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  storageClass: string;
+  description?: string | undefined;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+  connectionString?: string | undefined;
+  textSecret: string;
+  storageAccountName?: string | undefined;
+  tenantId?: string | undefined;
+  clientId?: string | undefined;
+  azureCloud?: string | undefined;
+  endpointSuffix?: string | undefined;
+  clientTextSecret?: string | undefined;
+  certificate?: CertificateType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputAzureBlobAzureBlob8$outboundSchema: z.ZodType<
+  OutputAzureBlobAzureBlob8$Outbound,
+  z.ZodTypeDef,
+  OutputAzureBlobAzureBlob8
+> = z.object({
+  authType: AuthType1Options$outboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: TypeAzureBlobOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  containerName: z.string(),
+  createContainer: z.boolean().default(false),
+  destPath: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  maxConcurrentFileParts: z.number().default(1),
+  removeEmptyDirs: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  format: Format1Options$outboundSchema.default("json"),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  storageClass: BlobAccessTier8$outboundSchema.default("Inferred"),
+  description: z.string().optional(),
+  compress: PqCompressOptions$outboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$outboundSchema.default(
+    "best_speed",
+  ),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+  connectionString: z.string().optional(),
+  textSecret: z.string(),
+  storageAccountName: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  azureCloud: z.string().optional(),
+  endpointSuffix: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+  certificate: CertificateType$outboundSchema.optional(),
+});
+
+export function outputAzureBlobAzureBlob8ToJSON(
+  outputAzureBlobAzureBlob8: OutputAzureBlobAzureBlob8,
+): string {
+  return JSON.stringify(
+    OutputAzureBlobAzureBlob8$outboundSchema.parse(outputAzureBlobAzureBlob8),
+  );
+}
+export function outputAzureBlobAzureBlob8FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputAzureBlobAzureBlob8, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputAzureBlobAzureBlob8$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputAzureBlobAzureBlob8' from JSON`,
+  );
+}
+
+/** @internal */
+export const BlobAccessTier7$inboundSchema: z.ZodType<
+  BlobAccessTier7,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(BlobAccessTier7),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const BlobAccessTier7$outboundSchema: z.ZodType<
+  BlobAccessTier7,
+  z.ZodTypeDef,
+  BlobAccessTier7
+> = z.union([
+  z.nativeEnum(BlobAccessTier7),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputAzureBlobAzureBlob7$inboundSchema: z.ZodType<
+  OutputAzureBlobAzureBlob7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthType1Options$inboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: TypeAzureBlobOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  containerName: z.string(),
+  createContainer: z.boolean().default(false),
+  destPath: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  maxConcurrentFileParts: z.number().default(1),
+  removeEmptyDirs: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  format: Format1Options$inboundSchema.default("json"),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  storageClass: BlobAccessTier7$inboundSchema.default("Inferred"),
+  description: z.string().optional(),
+  compress: PqCompressOptions$inboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+  connectionString: z.string(),
+  textSecret: z.string().optional(),
+  storageAccountName: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  azureCloud: z.string().optional(),
+  endpointSuffix: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+  certificate: CertificateType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputAzureBlobAzureBlob7$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  containerName: string;
+  createContainer: boolean;
+  destPath?: string | undefined;
+  stagePath: string;
+  addIdToStagePath: boolean;
+  maxConcurrentFileParts: number;
+  removeEmptyDirs: boolean;
+  partitionExpr: string;
+  format: string;
+  baseFileName: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  storageClass: string;
+  description?: string | undefined;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+  connectionString: string;
+  textSecret?: string | undefined;
+  storageAccountName?: string | undefined;
+  tenantId?: string | undefined;
+  clientId?: string | undefined;
+  azureCloud?: string | undefined;
+  endpointSuffix?: string | undefined;
+  clientTextSecret?: string | undefined;
+  certificate?: CertificateType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputAzureBlobAzureBlob7$outboundSchema: z.ZodType<
+  OutputAzureBlobAzureBlob7$Outbound,
+  z.ZodTypeDef,
+  OutputAzureBlobAzureBlob7
+> = z.object({
+  authType: AuthType1Options$outboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: TypeAzureBlobOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  containerName: z.string(),
+  createContainer: z.boolean().default(false),
+  destPath: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  maxConcurrentFileParts: z.number().default(1),
+  removeEmptyDirs: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  format: Format1Options$outboundSchema.default("json"),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  storageClass: BlobAccessTier7$outboundSchema.default("Inferred"),
+  description: z.string().optional(),
+  compress: PqCompressOptions$outboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$outboundSchema.default(
+    "best_speed",
+  ),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+  connectionString: z.string(),
+  textSecret: z.string().optional(),
+  storageAccountName: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  azureCloud: z.string().optional(),
+  endpointSuffix: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+  certificate: CertificateType$outboundSchema.optional(),
+});
+
+export function outputAzureBlobAzureBlob7ToJSON(
+  outputAzureBlobAzureBlob7: OutputAzureBlobAzureBlob7,
+): string {
+  return JSON.stringify(
+    OutputAzureBlobAzureBlob7$outboundSchema.parse(outputAzureBlobAzureBlob7),
+  );
+}
+export function outputAzureBlobAzureBlob7FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputAzureBlobAzureBlob7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputAzureBlobAzureBlob7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputAzureBlobAzureBlob7' from JSON`,
+  );
+}
+
+/** @internal */
+export const BlobAccessTier6$inboundSchema: z.ZodType<
+  BlobAccessTier6,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(BlobAccessTier6),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const BlobAccessTier6$outboundSchema: z.ZodType<
+  BlobAccessTier6,
+  z.ZodTypeDef,
+  BlobAccessTier6
+> = z.union([
+  z.nativeEnum(BlobAccessTier6),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputAzureBlobAzureBlob6$inboundSchema: z.ZodType<
+  OutputAzureBlobAzureBlob6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  deadletterEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: TypeAzureBlobOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  containerName: z.string(),
+  createContainer: z.boolean().default(false),
+  destPath: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  maxConcurrentFileParts: z.number().default(1),
+  removeEmptyDirs: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  format: Format1Options$inboundSchema.default("json"),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  authType: AuthType1Options$inboundSchema.default("manual"),
+  storageClass: BlobAccessTier6$inboundSchema.default("Inferred"),
+  description: z.string().optional(),
+  compress: PqCompressOptions$inboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
   enableStatistics: z.boolean().default(true),
   enableWritePageIndex: z.boolean().default(true),
   enablePageChecksum: z.boolean().default(false),
@@ -988,29 +3387,1388 @@ export const OutputAzureBlob$outboundSchema: z.ZodType<
   azureCloud: z.string().optional(),
   endpointSuffix: z.string().optional(),
   clientTextSecret: z.string().optional(),
-  certificate: z.lazy(() => OutputAzureBlobCertificate$outboundSchema)
-    .optional(),
+  certificate: CertificateType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputAzureBlobAzureBlob6$Outbound = {
+  deadletterEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  containerName: string;
+  createContainer: boolean;
+  destPath?: string | undefined;
+  stagePath: string;
+  addIdToStagePath: boolean;
+  maxConcurrentFileParts: number;
+  removeEmptyDirs: boolean;
+  partitionExpr: string;
+  format: string;
+  baseFileName: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  onDiskFullBackpressure: string;
+  authType: string;
+  storageClass: string;
+  description?: string | undefined;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+  connectionString?: string | undefined;
+  textSecret?: string | undefined;
+  storageAccountName?: string | undefined;
+  tenantId?: string | undefined;
+  clientId?: string | undefined;
+  azureCloud?: string | undefined;
+  endpointSuffix?: string | undefined;
+  clientTextSecret?: string | undefined;
+  certificate?: CertificateType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputAzureBlobAzureBlob6$outboundSchema: z.ZodType<
+  OutputAzureBlobAzureBlob6$Outbound,
+  z.ZodTypeDef,
+  OutputAzureBlobAzureBlob6
+> = z.object({
+  deadletterEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: TypeAzureBlobOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  containerName: z.string(),
+  createContainer: z.boolean().default(false),
+  destPath: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  maxConcurrentFileParts: z.number().default(1),
+  removeEmptyDirs: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  format: Format1Options$outboundSchema.default("json"),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  authType: AuthType1Options$outboundSchema.default("manual"),
+  storageClass: BlobAccessTier6$outboundSchema.default("Inferred"),
+  description: z.string().optional(),
+  compress: PqCompressOptions$outboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$outboundSchema.default(
+    "best_speed",
+  ),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+  connectionString: z.string().optional(),
+  textSecret: z.string().optional(),
+  storageAccountName: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  azureCloud: z.string().optional(),
+  endpointSuffix: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+  certificate: CertificateType$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureBlob$ {
-  /** @deprecated use `OutputAzureBlob$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureBlob$inboundSchema;
-  /** @deprecated use `OutputAzureBlob$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureBlob$outboundSchema;
-  /** @deprecated use `OutputAzureBlob$Outbound` instead. */
-  export type Outbound = OutputAzureBlob$Outbound;
+export function outputAzureBlobAzureBlob6ToJSON(
+  outputAzureBlobAzureBlob6: OutputAzureBlobAzureBlob6,
+): string {
+  return JSON.stringify(
+    OutputAzureBlobAzureBlob6$outboundSchema.parse(outputAzureBlobAzureBlob6),
+  );
 }
+export function outputAzureBlobAzureBlob6FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputAzureBlobAzureBlob6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputAzureBlobAzureBlob6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputAzureBlobAzureBlob6' from JSON`,
+  );
+}
+
+/** @internal */
+export const BlobAccessTier5$inboundSchema: z.ZodType<
+  BlobAccessTier5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(BlobAccessTier5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const BlobAccessTier5$outboundSchema: z.ZodType<
+  BlobAccessTier5,
+  z.ZodTypeDef,
+  BlobAccessTier5
+> = z.union([
+  z.nativeEnum(BlobAccessTier5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputAzureBlobAzureBlob5$inboundSchema: z.ZodType<
+  OutputAzureBlobAzureBlob5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  deadletterEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: TypeAzureBlobOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  containerName: z.string(),
+  createContainer: z.boolean().default(false),
+  destPath: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  maxConcurrentFileParts: z.number().default(1),
+  removeEmptyDirs: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  format: Format1Options$inboundSchema.default("json"),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  authType: AuthType1Options$inboundSchema.default("manual"),
+  storageClass: BlobAccessTier5$inboundSchema.default("Inferred"),
+  description: z.string().optional(),
+  compress: PqCompressOptions$inboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+  connectionString: z.string().optional(),
+  textSecret: z.string().optional(),
+  storageAccountName: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  azureCloud: z.string().optional(),
+  endpointSuffix: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+  certificate: CertificateType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputAzureBlobAzureBlob5$Outbound = {
+  deadletterEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  containerName: string;
+  createContainer: boolean;
+  destPath?: string | undefined;
+  stagePath: string;
+  addIdToStagePath: boolean;
+  maxConcurrentFileParts: number;
+  removeEmptyDirs: boolean;
+  partitionExpr: string;
+  format: string;
+  baseFileName: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  onDiskFullBackpressure: string;
+  authType: string;
+  storageClass: string;
+  description?: string | undefined;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+  connectionString?: string | undefined;
+  textSecret?: string | undefined;
+  storageAccountName?: string | undefined;
+  tenantId?: string | undefined;
+  clientId?: string | undefined;
+  azureCloud?: string | undefined;
+  endpointSuffix?: string | undefined;
+  clientTextSecret?: string | undefined;
+  certificate?: CertificateType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputAzureBlobAzureBlob5$outboundSchema: z.ZodType<
+  OutputAzureBlobAzureBlob5$Outbound,
+  z.ZodTypeDef,
+  OutputAzureBlobAzureBlob5
+> = z.object({
+  deadletterEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: TypeAzureBlobOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  containerName: z.string(),
+  createContainer: z.boolean().default(false),
+  destPath: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  maxConcurrentFileParts: z.number().default(1),
+  removeEmptyDirs: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  format: Format1Options$outboundSchema.default("json"),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  authType: AuthType1Options$outboundSchema.default("manual"),
+  storageClass: BlobAccessTier5$outboundSchema.default("Inferred"),
+  description: z.string().optional(),
+  compress: PqCompressOptions$outboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$outboundSchema.default(
+    "best_speed",
+  ),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+  connectionString: z.string().optional(),
+  textSecret: z.string().optional(),
+  storageAccountName: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  azureCloud: z.string().optional(),
+  endpointSuffix: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+  certificate: CertificateType$outboundSchema.optional(),
+});
+
+export function outputAzureBlobAzureBlob5ToJSON(
+  outputAzureBlobAzureBlob5: OutputAzureBlobAzureBlob5,
+): string {
+  return JSON.stringify(
+    OutputAzureBlobAzureBlob5$outboundSchema.parse(outputAzureBlobAzureBlob5),
+  );
+}
+export function outputAzureBlobAzureBlob5FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputAzureBlobAzureBlob5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputAzureBlobAzureBlob5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputAzureBlobAzureBlob5' from JSON`,
+  );
+}
+
+/** @internal */
+export const BlobAccessTier4$inboundSchema: z.ZodType<
+  BlobAccessTier4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(BlobAccessTier4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const BlobAccessTier4$outboundSchema: z.ZodType<
+  BlobAccessTier4,
+  z.ZodTypeDef,
+  BlobAccessTier4
+> = z.union([
+  z.nativeEnum(BlobAccessTier4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputAzureBlobAzureBlob4$inboundSchema: z.ZodType<
+  OutputAzureBlobAzureBlob4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  removeEmptyDirs: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeAzureBlobOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  containerName: z.string(),
+  createContainer: z.boolean().default(false),
+  destPath: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  maxConcurrentFileParts: z.number().default(1),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  format: Format1Options$inboundSchema.default("json"),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  authType: AuthType1Options$inboundSchema.default("manual"),
+  storageClass: BlobAccessTier4$inboundSchema.default("Inferred"),
+  description: z.string().optional(),
+  compress: PqCompressOptions$inboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+  connectionString: z.string().optional(),
+  textSecret: z.string().optional(),
+  storageAccountName: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  azureCloud: z.string().optional(),
+  endpointSuffix: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+  certificate: CertificateType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputAzureBlobAzureBlob4$Outbound = {
+  removeEmptyDirs: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  containerName: string;
+  createContainer: boolean;
+  destPath?: string | undefined;
+  stagePath: string;
+  addIdToStagePath: boolean;
+  maxConcurrentFileParts: number;
+  partitionExpr: string;
+  format: string;
+  baseFileName: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  authType: string;
+  storageClass: string;
+  description?: string | undefined;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+  connectionString?: string | undefined;
+  textSecret?: string | undefined;
+  storageAccountName?: string | undefined;
+  tenantId?: string | undefined;
+  clientId?: string | undefined;
+  azureCloud?: string | undefined;
+  endpointSuffix?: string | undefined;
+  clientTextSecret?: string | undefined;
+  certificate?: CertificateType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputAzureBlobAzureBlob4$outboundSchema: z.ZodType<
+  OutputAzureBlobAzureBlob4$Outbound,
+  z.ZodTypeDef,
+  OutputAzureBlobAzureBlob4
+> = z.object({
+  removeEmptyDirs: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeAzureBlobOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  containerName: z.string(),
+  createContainer: z.boolean().default(false),
+  destPath: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  maxConcurrentFileParts: z.number().default(1),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  format: Format1Options$outboundSchema.default("json"),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  authType: AuthType1Options$outboundSchema.default("manual"),
+  storageClass: BlobAccessTier4$outboundSchema.default("Inferred"),
+  description: z.string().optional(),
+  compress: PqCompressOptions$outboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$outboundSchema.default(
+    "best_speed",
+  ),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+  connectionString: z.string().optional(),
+  textSecret: z.string().optional(),
+  storageAccountName: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  azureCloud: z.string().optional(),
+  endpointSuffix: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+  certificate: CertificateType$outboundSchema.optional(),
+});
+
+export function outputAzureBlobAzureBlob4ToJSON(
+  outputAzureBlobAzureBlob4: OutputAzureBlobAzureBlob4,
+): string {
+  return JSON.stringify(
+    OutputAzureBlobAzureBlob4$outboundSchema.parse(outputAzureBlobAzureBlob4),
+  );
+}
+export function outputAzureBlobAzureBlob4FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputAzureBlobAzureBlob4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputAzureBlobAzureBlob4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputAzureBlobAzureBlob4' from JSON`,
+  );
+}
+
+/** @internal */
+export const BlobAccessTier3$inboundSchema: z.ZodType<
+  BlobAccessTier3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(BlobAccessTier3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const BlobAccessTier3$outboundSchema: z.ZodType<
+  BlobAccessTier3,
+  z.ZodTypeDef,
+  BlobAccessTier3
+> = z.union([
+  z.nativeEnum(BlobAccessTier3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputAzureBlobAzureBlob3$inboundSchema: z.ZodType<
+  OutputAzureBlobAzureBlob3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  removeEmptyDirs: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeAzureBlobOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  containerName: z.string(),
+  createContainer: z.boolean().default(false),
+  destPath: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  maxConcurrentFileParts: z.number().default(1),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  format: Format1Options$inboundSchema.default("json"),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  authType: AuthType1Options$inboundSchema.default("manual"),
+  storageClass: BlobAccessTier3$inboundSchema.default("Inferred"),
+  description: z.string().optional(),
+  compress: PqCompressOptions$inboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+  connectionString: z.string().optional(),
+  textSecret: z.string().optional(),
+  storageAccountName: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  azureCloud: z.string().optional(),
+  endpointSuffix: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+  certificate: CertificateType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputAzureBlobAzureBlob3$Outbound = {
+  removeEmptyDirs: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  containerName: string;
+  createContainer: boolean;
+  destPath?: string | undefined;
+  stagePath: string;
+  addIdToStagePath: boolean;
+  maxConcurrentFileParts: number;
+  partitionExpr: string;
+  format: string;
+  baseFileName: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  authType: string;
+  storageClass: string;
+  description?: string | undefined;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+  connectionString?: string | undefined;
+  textSecret?: string | undefined;
+  storageAccountName?: string | undefined;
+  tenantId?: string | undefined;
+  clientId?: string | undefined;
+  azureCloud?: string | undefined;
+  endpointSuffix?: string | undefined;
+  clientTextSecret?: string | undefined;
+  certificate?: CertificateType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputAzureBlobAzureBlob3$outboundSchema: z.ZodType<
+  OutputAzureBlobAzureBlob3$Outbound,
+  z.ZodTypeDef,
+  OutputAzureBlobAzureBlob3
+> = z.object({
+  removeEmptyDirs: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeAzureBlobOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  containerName: z.string(),
+  createContainer: z.boolean().default(false),
+  destPath: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  maxConcurrentFileParts: z.number().default(1),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  format: Format1Options$outboundSchema.default("json"),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  authType: AuthType1Options$outboundSchema.default("manual"),
+  storageClass: BlobAccessTier3$outboundSchema.default("Inferred"),
+  description: z.string().optional(),
+  compress: PqCompressOptions$outboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$outboundSchema.default(
+    "best_speed",
+  ),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+  connectionString: z.string().optional(),
+  textSecret: z.string().optional(),
+  storageAccountName: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  azureCloud: z.string().optional(),
+  endpointSuffix: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+  certificate: CertificateType$outboundSchema.optional(),
+});
+
+export function outputAzureBlobAzureBlob3ToJSON(
+  outputAzureBlobAzureBlob3: OutputAzureBlobAzureBlob3,
+): string {
+  return JSON.stringify(
+    OutputAzureBlobAzureBlob3$outboundSchema.parse(outputAzureBlobAzureBlob3),
+  );
+}
+export function outputAzureBlobAzureBlob3FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputAzureBlobAzureBlob3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputAzureBlobAzureBlob3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputAzureBlobAzureBlob3' from JSON`,
+  );
+}
+
+/** @internal */
+export const BlobAccessTier2$inboundSchema: z.ZodType<
+  BlobAccessTier2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(BlobAccessTier2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const BlobAccessTier2$outboundSchema: z.ZodType<
+  BlobAccessTier2,
+  z.ZodTypeDef,
+  BlobAccessTier2
+> = z.union([
+  z.nativeEnum(BlobAccessTier2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputAzureBlobAzureBlob2$inboundSchema: z.ZodType<
+  OutputAzureBlobAzureBlob2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  format: Format1Options$inboundSchema.default("json"),
+  id: z.string().optional(),
+  type: TypeAzureBlobOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  containerName: z.string(),
+  createContainer: z.boolean().default(false),
+  destPath: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  maxConcurrentFileParts: z.number().default(1),
+  removeEmptyDirs: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  authType: AuthType1Options$inboundSchema.default("manual"),
+  storageClass: BlobAccessTier2$inboundSchema.default("Inferred"),
+  description: z.string().optional(),
+  compress: PqCompressOptions$inboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean(),
+  keyValueMetadata: z.array(TagsType$inboundSchema),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+  connectionString: z.string().optional(),
+  textSecret: z.string().optional(),
+  storageAccountName: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  azureCloud: z.string().optional(),
+  endpointSuffix: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+  certificate: CertificateType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputAzureBlobAzureBlob2$Outbound = {
+  format: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  containerName: string;
+  createContainer: boolean;
+  destPath?: string | undefined;
+  stagePath: string;
+  addIdToStagePath: boolean;
+  maxConcurrentFileParts: number;
+  removeEmptyDirs: boolean;
+  partitionExpr: string;
+  baseFileName: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  authType: string;
+  storageClass: string;
+  description?: string | undefined;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows: boolean;
+  keyValueMetadata: Array<TagsType$Outbound>;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+  connectionString?: string | undefined;
+  textSecret?: string | undefined;
+  storageAccountName?: string | undefined;
+  tenantId?: string | undefined;
+  clientId?: string | undefined;
+  azureCloud?: string | undefined;
+  endpointSuffix?: string | undefined;
+  clientTextSecret?: string | undefined;
+  certificate?: CertificateType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputAzureBlobAzureBlob2$outboundSchema: z.ZodType<
+  OutputAzureBlobAzureBlob2$Outbound,
+  z.ZodTypeDef,
+  OutputAzureBlobAzureBlob2
+> = z.object({
+  format: Format1Options$outboundSchema.default("json"),
+  id: z.string().optional(),
+  type: TypeAzureBlobOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  containerName: z.string(),
+  createContainer: z.boolean().default(false),
+  destPath: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  maxConcurrentFileParts: z.number().default(1),
+  removeEmptyDirs: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  authType: AuthType1Options$outboundSchema.default("manual"),
+  storageClass: BlobAccessTier2$outboundSchema.default("Inferred"),
+  description: z.string().optional(),
+  compress: PqCompressOptions$outboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$outboundSchema.default(
+    "best_speed",
+  ),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean(),
+  keyValueMetadata: z.array(TagsType$outboundSchema),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+  connectionString: z.string().optional(),
+  textSecret: z.string().optional(),
+  storageAccountName: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  azureCloud: z.string().optional(),
+  endpointSuffix: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+  certificate: CertificateType$outboundSchema.optional(),
+});
+
+export function outputAzureBlobAzureBlob2ToJSON(
+  outputAzureBlobAzureBlob2: OutputAzureBlobAzureBlob2,
+): string {
+  return JSON.stringify(
+    OutputAzureBlobAzureBlob2$outboundSchema.parse(outputAzureBlobAzureBlob2),
+  );
+}
+export function outputAzureBlobAzureBlob2FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputAzureBlobAzureBlob2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputAzureBlobAzureBlob2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputAzureBlobAzureBlob2' from JSON`,
+  );
+}
+
+/** @internal */
+export const BlobAccessTier1$inboundSchema: z.ZodType<
+  BlobAccessTier1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(BlobAccessTier1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const BlobAccessTier1$outboundSchema: z.ZodType<
+  BlobAccessTier1,
+  z.ZodTypeDef,
+  BlobAccessTier1
+> = z.union([
+  z.nativeEnum(BlobAccessTier1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputAzureBlobAzureBlob1$inboundSchema: z.ZodType<
+  OutputAzureBlobAzureBlob1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  format: Format1Options$inboundSchema.default("json"),
+  id: z.string().optional(),
+  type: TypeAzureBlobOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  containerName: z.string(),
+  createContainer: z.boolean().default(false),
+  destPath: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  maxConcurrentFileParts: z.number().default(1),
+  removeEmptyDirs: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  authType: AuthType1Options$inboundSchema.default("manual"),
+  storageClass: BlobAccessTier1$inboundSchema.default("Inferred"),
+  description: z.string().optional(),
+  compress: PqCompressOptions$inboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+  connectionString: z.string().optional(),
+  textSecret: z.string().optional(),
+  storageAccountName: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  azureCloud: z.string().optional(),
+  endpointSuffix: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+  certificate: CertificateType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputAzureBlobAzureBlob1$Outbound = {
+  format: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  containerName: string;
+  createContainer: boolean;
+  destPath?: string | undefined;
+  stagePath: string;
+  addIdToStagePath: boolean;
+  maxConcurrentFileParts: number;
+  removeEmptyDirs: boolean;
+  partitionExpr: string;
+  baseFileName: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  authType: string;
+  storageClass: string;
+  description?: string | undefined;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+  connectionString?: string | undefined;
+  textSecret?: string | undefined;
+  storageAccountName?: string | undefined;
+  tenantId?: string | undefined;
+  clientId?: string | undefined;
+  azureCloud?: string | undefined;
+  endpointSuffix?: string | undefined;
+  clientTextSecret?: string | undefined;
+  certificate?: CertificateType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputAzureBlobAzureBlob1$outboundSchema: z.ZodType<
+  OutputAzureBlobAzureBlob1$Outbound,
+  z.ZodTypeDef,
+  OutputAzureBlobAzureBlob1
+> = z.object({
+  format: Format1Options$outboundSchema.default("json"),
+  id: z.string().optional(),
+  type: TypeAzureBlobOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  containerName: z.string(),
+  createContainer: z.boolean().default(false),
+  destPath: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  maxConcurrentFileParts: z.number().default(1),
+  removeEmptyDirs: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  authType: AuthType1Options$outboundSchema.default("manual"),
+  storageClass: BlobAccessTier1$outboundSchema.default("Inferred"),
+  description: z.string().optional(),
+  compress: PqCompressOptions$outboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$outboundSchema.default(
+    "best_speed",
+  ),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+  connectionString: z.string().optional(),
+  textSecret: z.string().optional(),
+  storageAccountName: z.string().optional(),
+  tenantId: z.string().optional(),
+  clientId: z.string().optional(),
+  azureCloud: z.string().optional(),
+  endpointSuffix: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+  certificate: CertificateType$outboundSchema.optional(),
+});
+
+export function outputAzureBlobAzureBlob1ToJSON(
+  outputAzureBlobAzureBlob1: OutputAzureBlobAzureBlob1,
+): string {
+  return JSON.stringify(
+    OutputAzureBlobAzureBlob1$outboundSchema.parse(outputAzureBlobAzureBlob1),
+  );
+}
+export function outputAzureBlobAzureBlob1FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputAzureBlobAzureBlob1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputAzureBlobAzureBlob1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputAzureBlobAzureBlob1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputAzureBlob$inboundSchema: z.ZodType<
+  OutputAzureBlob,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => OutputAzureBlobAzureBlob9$inboundSchema),
+  z.lazy(() => OutputAzureBlobAzureBlob10$inboundSchema),
+  z.lazy(() => OutputAzureBlobAzureBlob2$inboundSchema),
+  z.lazy(() => OutputAzureBlobAzureBlob7$inboundSchema),
+  z.lazy(() => OutputAzureBlobAzureBlob8$inboundSchema),
+  z.lazy(() => OutputAzureBlobAzureBlob1$inboundSchema),
+  z.lazy(() => OutputAzureBlobAzureBlob3$inboundSchema),
+  z.lazy(() => OutputAzureBlobAzureBlob4$inboundSchema),
+  z.lazy(() => OutputAzureBlobAzureBlob5$inboundSchema),
+  z.lazy(() => OutputAzureBlobAzureBlob6$inboundSchema),
+]);
+/** @internal */
+export type OutputAzureBlob$Outbound =
+  | OutputAzureBlobAzureBlob9$Outbound
+  | OutputAzureBlobAzureBlob10$Outbound
+  | OutputAzureBlobAzureBlob2$Outbound
+  | OutputAzureBlobAzureBlob7$Outbound
+  | OutputAzureBlobAzureBlob8$Outbound
+  | OutputAzureBlobAzureBlob1$Outbound
+  | OutputAzureBlobAzureBlob3$Outbound
+  | OutputAzureBlobAzureBlob4$Outbound
+  | OutputAzureBlobAzureBlob5$Outbound
+  | OutputAzureBlobAzureBlob6$Outbound;
+
+/** @internal */
+export const OutputAzureBlob$outboundSchema: z.ZodType<
+  OutputAzureBlob$Outbound,
+  z.ZodTypeDef,
+  OutputAzureBlob
+> = z.union([
+  z.lazy(() => OutputAzureBlobAzureBlob9$outboundSchema),
+  z.lazy(() => OutputAzureBlobAzureBlob10$outboundSchema),
+  z.lazy(() => OutputAzureBlobAzureBlob2$outboundSchema),
+  z.lazy(() => OutputAzureBlobAzureBlob7$outboundSchema),
+  z.lazy(() => OutputAzureBlobAzureBlob8$outboundSchema),
+  z.lazy(() => OutputAzureBlobAzureBlob1$outboundSchema),
+  z.lazy(() => OutputAzureBlobAzureBlob3$outboundSchema),
+  z.lazy(() => OutputAzureBlobAzureBlob4$outboundSchema),
+  z.lazy(() => OutputAzureBlobAzureBlob5$outboundSchema),
+  z.lazy(() => OutputAzureBlobAzureBlob6$outboundSchema),
+]);
 
 export function outputAzureBlobToJSON(
   outputAzureBlob: OutputAzureBlob,
 ): string {
   return JSON.stringify(OutputAzureBlob$outboundSchema.parse(outputAzureBlob));
 }
-
 export function outputAzureBlobFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputAzureBlob, SDKValidationError> {

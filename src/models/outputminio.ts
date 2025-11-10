@@ -11,190 +11,106 @@ import {
   Unrecognized,
 } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AwsAuthenticationMethodOptions,
+  AwsAuthenticationMethodOptions$inboundSchema,
+  AwsAuthenticationMethodOptions$outboundSchema,
+} from "./awsauthenticationmethodoptions.js";
+import {
+  CompressionLevelOptions,
+  CompressionLevelOptions$inboundSchema,
+  CompressionLevelOptions$outboundSchema,
+} from "./compressionleveloptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  Format1Options,
+  Format1Options$inboundSchema,
+  Format1Options$outboundSchema,
+} from "./format1options.js";
+import {
+  ObjectAclOptions,
+  ObjectAclOptions$inboundSchema,
+  ObjectAclOptions$outboundSchema,
+} from "./objectacloptions.js";
+import {
+  ParquetDataPageVersionOptions,
+  ParquetDataPageVersionOptions$inboundSchema,
+  ParquetDataPageVersionOptions$outboundSchema,
+} from "./parquetdatapageversionoptions.js";
+import {
+  ParquetVersionOptions,
+  ParquetVersionOptions$inboundSchema,
+  ParquetVersionOptions$outboundSchema,
+} from "./parquetversionoptions.js";
+import {
+  PqCompressOptions,
+  PqCompressOptions$inboundSchema,
+  PqCompressOptions$outboundSchema,
+} from "./pqcompressoptions.js";
+import {
+  PqOnBackpressureOptions,
+  PqOnBackpressureOptions$inboundSchema,
+  PqOnBackpressureOptions$outboundSchema,
+} from "./pqonbackpressureoptions.js";
+import {
+  SignatureVersionOptions,
+  SignatureVersionOptions$inboundSchema,
+  SignatureVersionOptions$outboundSchema,
+} from "./signatureversionoptions.js";
+import {
+  TagsType,
+  TagsType$inboundSchema,
+  TagsType$Outbound,
+  TagsType$outboundSchema,
+} from "./tagstype.js";
 
-export const OutputMinioType = {
+export const OutputMinioType9 = {
   Minio: "minio",
 } as const;
-export type OutputMinioType = ClosedEnum<typeof OutputMinioType>;
-
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export const OutputMinioAuthenticationMethod = {
-  Auto: "auto",
-  Manual: "manual",
-  Secret: "secret",
-} as const;
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export type OutputMinioAuthenticationMethod = OpenEnum<
-  typeof OutputMinioAuthenticationMethod
->;
-
-/**
- * Signature version to use for signing MinIO requests
- */
-export const OutputMinioSignatureVersion = {
-  V2: "v2",
-  V4: "v4",
-} as const;
-/**
- * Signature version to use for signing MinIO requests
- */
-export type OutputMinioSignatureVersion = OpenEnum<
-  typeof OutputMinioSignatureVersion
->;
-
-/**
- * Object ACL to assign to uploaded objects
- */
-export const OutputMinioObjectACL = {
-  Private: "private",
-  PublicRead: "public-read",
-  PublicReadWrite: "public-read-write",
-  AuthenticatedRead: "authenticated-read",
-  AwsExecRead: "aws-exec-read",
-  BucketOwnerRead: "bucket-owner-read",
-  BucketOwnerFullControl: "bucket-owner-full-control",
-} as const;
-/**
- * Object ACL to assign to uploaded objects
- */
-export type OutputMinioObjectACL = OpenEnum<typeof OutputMinioObjectACL>;
+export type OutputMinioType9 = ClosedEnum<typeof OutputMinioType9>;
 
 /**
  * Storage class to select for uploaded objects
  */
-export const OutputMinioStorageClass = {
+export const StorageClass9 = {
+  /**
+   * Standard
+   */
   Standard: "STANDARD",
+  /**
+   * Reduced Redundancy Storage
+   */
   ReducedRedundancy: "REDUCED_REDUNDANCY",
 } as const;
 /**
  * Storage class to select for uploaded objects
  */
-export type OutputMinioStorageClass = OpenEnum<typeof OutputMinioStorageClass>;
+export type StorageClass9 = OpenEnum<typeof StorageClass9>;
 
 /**
  * Server-side encryption for uploaded objects
  */
-export const ServerSideEncryption = {
+export const ServerSideEncryption9 = {
+  /**
+   * Amazon S3 Managed Key
+   */
   Aes256: "AES256",
 } as const;
 /**
  * Server-side encryption for uploaded objects
  */
-export type ServerSideEncryption = OpenEnum<typeof ServerSideEncryption>;
+export type ServerSideEncryption9 = OpenEnum<typeof ServerSideEncryption9>;
 
-/**
- * Format of the output data
- */
-export const OutputMinioDataFormat = {
-  Json: "json",
-  Raw: "raw",
-  Parquet: "parquet",
-} as const;
-/**
- * Format of the output data
- */
-export type OutputMinioDataFormat = OpenEnum<typeof OutputMinioDataFormat>;
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputMinioBackpressureBehavior = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputMinioBackpressureBehavior = OpenEnum<
-  typeof OutputMinioBackpressureBehavior
->;
-
-/**
- * How to handle events when disk space is below the global 'Min free disk space' limit
- */
-export const OutputMinioDiskSpaceProtection = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when disk space is below the global 'Min free disk space' limit
- */
-export type OutputMinioDiskSpaceProtection = OpenEnum<
-  typeof OutputMinioDiskSpaceProtection
->;
-
-/**
- * Data compression format to apply to HTTP content before it is delivered
- */
-export const OutputMinioCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Data compression format to apply to HTTP content before it is delivered
- */
-export type OutputMinioCompression = OpenEnum<typeof OutputMinioCompression>;
-
-/**
- * Compression level to apply before moving files to final destination
- */
-export const OutputMinioCompressionLevel = {
-  BestSpeed: "best_speed",
-  Normal: "normal",
-  BestCompression: "best_compression",
-} as const;
-/**
- * Compression level to apply before moving files to final destination
- */
-export type OutputMinioCompressionLevel = OpenEnum<
-  typeof OutputMinioCompressionLevel
->;
-
-/**
- * Determines which data types are supported and how they are represented
- */
-export const OutputMinioParquetVersion = {
-  Parquet10: "PARQUET_1_0",
-  Parquet24: "PARQUET_2_4",
-  Parquet26: "PARQUET_2_6",
-} as const;
-/**
- * Determines which data types are supported and how they are represented
- */
-export type OutputMinioParquetVersion = OpenEnum<
-  typeof OutputMinioParquetVersion
->;
-
-/**
- * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
- */
-export const OutputMinioDataPageVersion = {
-  DataPageV1: "DATA_PAGE_V1",
-  DataPageV2: "DATA_PAGE_V2",
-} as const;
-/**
- * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
- */
-export type OutputMinioDataPageVersion = OpenEnum<
-  typeof OutputMinioDataPageVersion
->;
-
-export type OutputMinioKeyValueMetadatum = {
-  key?: string | undefined;
-  value: string;
-};
-
-export type OutputMinio = {
+export type OutputMinioMinio9 = {
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputMinioType;
+  type: OutputMinioType9;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -222,7 +138,7 @@ export type OutputMinio = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: OutputMinioAuthenticationMethod | undefined;
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
   /**
    * Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
    */
@@ -244,21 +160,21 @@ export type OutputMinio = {
    */
   destPath?: string | undefined;
   /**
-   * Signature version to use for signing MinIO requests
+   * Signature version to use for signing MSK cluster requests
    */
-  signatureVersion?: OutputMinioSignatureVersion | undefined;
+  signatureVersion?: SignatureVersionOptions | undefined;
   /**
    * Object ACL to assign to uploaded objects
    */
-  objectACL?: OutputMinioObjectACL | undefined;
+  objectACL?: ObjectAclOptions | undefined;
   /**
    * Storage class to select for uploaded objects
    */
-  storageClass?: OutputMinioStorageClass | undefined;
+  storageClass?: StorageClass9 | undefined;
   /**
    * Server-side encryption for uploaded objects
    */
-  serverSideEncryption?: ServerSideEncryption | undefined;
+  serverSideEncryption?: ServerSideEncryption9 | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -282,7 +198,7 @@ export type OutputMinio = {
   /**
    * Format of the output data
    */
-  format?: OutputMinioDataFormat | undefined;
+  format?: Format1Options | undefined;
   /**
    * JavaScript expression to define the output filename prefix (can be constant)
    */
@@ -308,17 +224,13 @@ export type OutputMinio = {
    */
   writeHighWaterMark?: number | undefined;
   /**
-   * How to handle events when all receivers are exerting backpressure
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  onBackpressure?: OutputMinioBackpressureBehavior | undefined;
+  onBackpressure?: PqOnBackpressureOptions | undefined;
   /**
-   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  deadletterEnabled?: boolean | undefined;
-  /**
-   * How to handle events when disk space is below the global 'Min free disk space' limit
-   */
-  onDiskFullBackpressure?: OutputMinioDiskSpaceProtection | undefined;
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
   /**
    * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
    */
@@ -341,25 +253,29 @@ export type OutputMinio = {
    */
   awsSecret?: string | undefined;
   /**
-   * Data compression format to apply to HTTP content before it is delivered
+   * Codec to use to compress the persisted data
    */
-  compress?: OutputMinioCompression | undefined;
+  compress?: PqCompressOptions | undefined;
   /**
    * Compression level to apply before moving files to final destination
    */
-  compressionLevel?: OutputMinioCompressionLevel | undefined;
+  compressionLevel?: CompressionLevelOptions | undefined;
   /**
    * Automatically calculate the schema based on the events of each Parquet file generated
    */
   automaticSchema?: boolean | undefined;
   /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
    * Determines which data types are supported and how they are represented
    */
-  parquetVersion?: OutputMinioParquetVersion | undefined;
+  parquetVersion?: ParquetVersionOptions | undefined;
   /**
    * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
    */
-  parquetDataPageVersion?: OutputMinioDataPageVersion | undefined;
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
   /**
    * The number of rows that every group will contain. The final group can contain a smaller number of rows.
    */
@@ -375,7 +291,7 @@ export type OutputMinio = {
   /**
    * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
    */
-  keyValueMetadata?: Array<OutputMinioKeyValueMetadatum> | undefined;
+  keyValueMetadata?: Array<TagsType> | undefined;
   /**
    * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
    */
@@ -402,495 +318,2125 @@ export type OutputMinio = {
   maxRetryNum?: number | undefined;
 };
 
-/** @internal */
-export const OutputMinioType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputMinioType
-> = z.nativeEnum(OutputMinioType);
-
-/** @internal */
-export const OutputMinioType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputMinioType
-> = OutputMinioType$inboundSchema;
+export const OutputMinioType8 = {
+  Minio: "minio",
+} as const;
+export type OutputMinioType8 = ClosedEnum<typeof OutputMinioType8>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Storage class to select for uploaded objects
  */
-export namespace OutputMinioType$ {
-  /** @deprecated use `OutputMinioType$inboundSchema` instead. */
-  export const inboundSchema = OutputMinioType$inboundSchema;
-  /** @deprecated use `OutputMinioType$outboundSchema` instead. */
-  export const outboundSchema = OutputMinioType$outboundSchema;
-}
-
-/** @internal */
-export const OutputMinioAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputMinioAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMinioAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputMinioAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputMinioAuthenticationMethod,
-  z.ZodTypeDef,
-  OutputMinioAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputMinioAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const StorageClass8 = {
+  /**
+   * Standard
+   */
+  Standard: "STANDARD",
+  /**
+   * Reduced Redundancy Storage
+   */
+  ReducedRedundancy: "REDUCED_REDUNDANCY",
+} as const;
+/**
+ * Storage class to select for uploaded objects
+ */
+export type StorageClass8 = OpenEnum<typeof StorageClass8>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Server-side encryption for uploaded objects
  */
-export namespace OutputMinioAuthenticationMethod$ {
-  /** @deprecated use `OutputMinioAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = OutputMinioAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputMinioAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema = OutputMinioAuthenticationMethod$outboundSchema;
-}
-
-/** @internal */
-export const OutputMinioSignatureVersion$inboundSchema: z.ZodType<
-  OutputMinioSignatureVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMinioSignatureVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputMinioSignatureVersion$outboundSchema: z.ZodType<
-  OutputMinioSignatureVersion,
-  z.ZodTypeDef,
-  OutputMinioSignatureVersion
-> = z.union([
-  z.nativeEnum(OutputMinioSignatureVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
+export const ServerSideEncryption8 = {
+  /**
+   * Amazon S3 Managed Key
+   */
+  Aes256: "AES256",
+} as const;
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Server-side encryption for uploaded objects
  */
-export namespace OutputMinioSignatureVersion$ {
-  /** @deprecated use `OutputMinioSignatureVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputMinioSignatureVersion$inboundSchema;
-  /** @deprecated use `OutputMinioSignatureVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputMinioSignatureVersion$outboundSchema;
-}
+export type ServerSideEncryption8 = OpenEnum<typeof ServerSideEncryption8>;
 
-/** @internal */
-export const OutputMinioObjectACL$inboundSchema: z.ZodType<
-  OutputMinioObjectACL,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMinioObjectACL),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputMinioObjectACL$outboundSchema: z.ZodType<
-  OutputMinioObjectACL,
-  z.ZodTypeDef,
-  OutputMinioObjectACL
-> = z.union([
-  z.nativeEnum(OutputMinioObjectACL),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMinioObjectACL$ {
-  /** @deprecated use `OutputMinioObjectACL$inboundSchema` instead. */
-  export const inboundSchema = OutputMinioObjectACL$inboundSchema;
-  /** @deprecated use `OutputMinioObjectACL$outboundSchema` instead. */
-  export const outboundSchema = OutputMinioObjectACL$outboundSchema;
-}
-
-/** @internal */
-export const OutputMinioStorageClass$inboundSchema: z.ZodType<
-  OutputMinioStorageClass,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMinioStorageClass),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputMinioStorageClass$outboundSchema: z.ZodType<
-  OutputMinioStorageClass,
-  z.ZodTypeDef,
-  OutputMinioStorageClass
-> = z.union([
-  z.nativeEnum(OutputMinioStorageClass),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMinioStorageClass$ {
-  /** @deprecated use `OutputMinioStorageClass$inboundSchema` instead. */
-  export const inboundSchema = OutputMinioStorageClass$inboundSchema;
-  /** @deprecated use `OutputMinioStorageClass$outboundSchema` instead. */
-  export const outboundSchema = OutputMinioStorageClass$outboundSchema;
-}
-
-/** @internal */
-export const ServerSideEncryption$inboundSchema: z.ZodType<
-  ServerSideEncryption,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(ServerSideEncryption),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const ServerSideEncryption$outboundSchema: z.ZodType<
-  ServerSideEncryption,
-  z.ZodTypeDef,
-  ServerSideEncryption
-> = z.union([
-  z.nativeEnum(ServerSideEncryption),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ServerSideEncryption$ {
-  /** @deprecated use `ServerSideEncryption$inboundSchema` instead. */
-  export const inboundSchema = ServerSideEncryption$inboundSchema;
-  /** @deprecated use `ServerSideEncryption$outboundSchema` instead. */
-  export const outboundSchema = ServerSideEncryption$outboundSchema;
-}
-
-/** @internal */
-export const OutputMinioDataFormat$inboundSchema: z.ZodType<
-  OutputMinioDataFormat,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMinioDataFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputMinioDataFormat$outboundSchema: z.ZodType<
-  OutputMinioDataFormat,
-  z.ZodTypeDef,
-  OutputMinioDataFormat
-> = z.union([
-  z.nativeEnum(OutputMinioDataFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMinioDataFormat$ {
-  /** @deprecated use `OutputMinioDataFormat$inboundSchema` instead. */
-  export const inboundSchema = OutputMinioDataFormat$inboundSchema;
-  /** @deprecated use `OutputMinioDataFormat$outboundSchema` instead. */
-  export const outboundSchema = OutputMinioDataFormat$outboundSchema;
-}
-
-/** @internal */
-export const OutputMinioBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputMinioBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMinioBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputMinioBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputMinioBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputMinioBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputMinioBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMinioBackpressureBehavior$ {
-  /** @deprecated use `OutputMinioBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputMinioBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputMinioBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputMinioBackpressureBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputMinioDiskSpaceProtection$inboundSchema: z.ZodType<
-  OutputMinioDiskSpaceProtection,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMinioDiskSpaceProtection),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputMinioDiskSpaceProtection$outboundSchema: z.ZodType<
-  OutputMinioDiskSpaceProtection,
-  z.ZodTypeDef,
-  OutputMinioDiskSpaceProtection
-> = z.union([
-  z.nativeEnum(OutputMinioDiskSpaceProtection),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMinioDiskSpaceProtection$ {
-  /** @deprecated use `OutputMinioDiskSpaceProtection$inboundSchema` instead. */
-  export const inboundSchema = OutputMinioDiskSpaceProtection$inboundSchema;
-  /** @deprecated use `OutputMinioDiskSpaceProtection$outboundSchema` instead. */
-  export const outboundSchema = OutputMinioDiskSpaceProtection$outboundSchema;
-}
-
-/** @internal */
-export const OutputMinioCompression$inboundSchema: z.ZodType<
-  OutputMinioCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMinioCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputMinioCompression$outboundSchema: z.ZodType<
-  OutputMinioCompression,
-  z.ZodTypeDef,
-  OutputMinioCompression
-> = z.union([
-  z.nativeEnum(OutputMinioCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMinioCompression$ {
-  /** @deprecated use `OutputMinioCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputMinioCompression$inboundSchema;
-  /** @deprecated use `OutputMinioCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputMinioCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputMinioCompressionLevel$inboundSchema: z.ZodType<
-  OutputMinioCompressionLevel,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMinioCompressionLevel),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputMinioCompressionLevel$outboundSchema: z.ZodType<
-  OutputMinioCompressionLevel,
-  z.ZodTypeDef,
-  OutputMinioCompressionLevel
-> = z.union([
-  z.nativeEnum(OutputMinioCompressionLevel),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMinioCompressionLevel$ {
-  /** @deprecated use `OutputMinioCompressionLevel$inboundSchema` instead. */
-  export const inboundSchema = OutputMinioCompressionLevel$inboundSchema;
-  /** @deprecated use `OutputMinioCompressionLevel$outboundSchema` instead. */
-  export const outboundSchema = OutputMinioCompressionLevel$outboundSchema;
-}
-
-/** @internal */
-export const OutputMinioParquetVersion$inboundSchema: z.ZodType<
-  OutputMinioParquetVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMinioParquetVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputMinioParquetVersion$outboundSchema: z.ZodType<
-  OutputMinioParquetVersion,
-  z.ZodTypeDef,
-  OutputMinioParquetVersion
-> = z.union([
-  z.nativeEnum(OutputMinioParquetVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMinioParquetVersion$ {
-  /** @deprecated use `OutputMinioParquetVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputMinioParquetVersion$inboundSchema;
-  /** @deprecated use `OutputMinioParquetVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputMinioParquetVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputMinioDataPageVersion$inboundSchema: z.ZodType<
-  OutputMinioDataPageVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMinioDataPageVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputMinioDataPageVersion$outboundSchema: z.ZodType<
-  OutputMinioDataPageVersion,
-  z.ZodTypeDef,
-  OutputMinioDataPageVersion
-> = z.union([
-  z.nativeEnum(OutputMinioDataPageVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMinioDataPageVersion$ {
-  /** @deprecated use `OutputMinioDataPageVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputMinioDataPageVersion$inboundSchema;
-  /** @deprecated use `OutputMinioDataPageVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputMinioDataPageVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputMinioKeyValueMetadatum$inboundSchema: z.ZodType<
-  OutputMinioKeyValueMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  key: z.string().default(""),
-  value: z.string(),
-});
-
-/** @internal */
-export type OutputMinioKeyValueMetadatum$Outbound = {
-  key: string;
-  value: string;
+export type OutputMinioMinio8 = {
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputMinioType8;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * MinIO service url (e.g. http://minioHost:9000)
+   */
+  endpoint: string;
+  /**
+   * Name of the destination MinIO bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket: string;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the MinIO service/cluster is located
+   */
+  region?: string | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Root directory to prepend to path before uploading. Enter a constant, or a JavaScript expression enclosed in quotes or backticks.
+   */
+  destPath?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: ObjectAclOptions | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClass8 | undefined;
+  /**
+   * Server-side encryption for uploaded objects
+   */
+  serverSideEncryption?: ServerSideEncryption8 | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  description?: string | undefined;
+  /**
+   * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
 };
 
-/** @internal */
-export const OutputMinioKeyValueMetadatum$outboundSchema: z.ZodType<
-  OutputMinioKeyValueMetadatum$Outbound,
-  z.ZodTypeDef,
-  OutputMinioKeyValueMetadatum
-> = z.object({
-  key: z.string().default(""),
-  value: z.string(),
-});
+export const OutputMinioType7 = {
+  Minio: "minio",
+} as const;
+export type OutputMinioType7 = ClosedEnum<typeof OutputMinioType7>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Storage class to select for uploaded objects
  */
-export namespace OutputMinioKeyValueMetadatum$ {
-  /** @deprecated use `OutputMinioKeyValueMetadatum$inboundSchema` instead. */
-  export const inboundSchema = OutputMinioKeyValueMetadatum$inboundSchema;
-  /** @deprecated use `OutputMinioKeyValueMetadatum$outboundSchema` instead. */
-  export const outboundSchema = OutputMinioKeyValueMetadatum$outboundSchema;
-  /** @deprecated use `OutputMinioKeyValueMetadatum$Outbound` instead. */
-  export type Outbound = OutputMinioKeyValueMetadatum$Outbound;
-}
+export const StorageClass7 = {
+  /**
+   * Standard
+   */
+  Standard: "STANDARD",
+  /**
+   * Reduced Redundancy Storage
+   */
+  ReducedRedundancy: "REDUCED_REDUNDANCY",
+} as const;
+/**
+ * Storage class to select for uploaded objects
+ */
+export type StorageClass7 = OpenEnum<typeof StorageClass7>;
 
-export function outputMinioKeyValueMetadatumToJSON(
-  outputMinioKeyValueMetadatum: OutputMinioKeyValueMetadatum,
-): string {
-  return JSON.stringify(
-    OutputMinioKeyValueMetadatum$outboundSchema.parse(
-      outputMinioKeyValueMetadatum,
-    ),
-  );
-}
+/**
+ * Server-side encryption for uploaded objects
+ */
+export const ServerSideEncryption7 = {
+  /**
+   * Amazon S3 Managed Key
+   */
+  Aes256: "AES256",
+} as const;
+/**
+ * Server-side encryption for uploaded objects
+ */
+export type ServerSideEncryption7 = OpenEnum<typeof ServerSideEncryption7>;
 
-export function outputMinioKeyValueMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputMinioKeyValueMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputMinioKeyValueMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputMinioKeyValueMetadatum' from JSON`,
-  );
-}
+export type OutputMinioMinio7 = {
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputMinioType7;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * MinIO service url (e.g. http://minioHost:9000)
+   */
+  endpoint: string;
+  /**
+   * Name of the destination MinIO bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket: string;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the MinIO service/cluster is located
+   */
+  region?: string | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Root directory to prepend to path before uploading. Enter a constant, or a JavaScript expression enclosed in quotes or backticks.
+   */
+  destPath?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: ObjectAclOptions | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClass7 | undefined;
+  /**
+   * Server-side encryption for uploaded objects
+   */
+  serverSideEncryption?: ServerSideEncryption7 | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  description?: string | undefined;
+  /**
+   * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export const OutputMinioType6 = {
+  Minio: "minio",
+} as const;
+export type OutputMinioType6 = ClosedEnum<typeof OutputMinioType6>;
+
+/**
+ * Storage class to select for uploaded objects
+ */
+export const StorageClass6 = {
+  /**
+   * Standard
+   */
+  Standard: "STANDARD",
+  /**
+   * Reduced Redundancy Storage
+   */
+  ReducedRedundancy: "REDUCED_REDUNDANCY",
+} as const;
+/**
+ * Storage class to select for uploaded objects
+ */
+export type StorageClass6 = OpenEnum<typeof StorageClass6>;
+
+/**
+ * Server-side encryption for uploaded objects
+ */
+export const ServerSideEncryption6 = {
+  /**
+   * Amazon S3 Managed Key
+   */
+  Aes256: "AES256",
+} as const;
+/**
+ * Server-side encryption for uploaded objects
+ */
+export type ServerSideEncryption6 = OpenEnum<typeof ServerSideEncryption6>;
+
+export type OutputMinioMinio6 = {
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputMinioType6;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * MinIO service url (e.g. http://minioHost:9000)
+   */
+  endpoint: string;
+  /**
+   * Name of the destination MinIO bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket: string;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the MinIO service/cluster is located
+   */
+  region?: string | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Root directory to prepend to path before uploading. Enter a constant, or a JavaScript expression enclosed in quotes or backticks.
+   */
+  destPath?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: ObjectAclOptions | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClass6 | undefined;
+  /**
+   * Server-side encryption for uploaded objects
+   */
+  serverSideEncryption?: ServerSideEncryption6 | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  description?: string | undefined;
+  /**
+   * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export const OutputMinioType5 = {
+  Minio: "minio",
+} as const;
+export type OutputMinioType5 = ClosedEnum<typeof OutputMinioType5>;
+
+/**
+ * Storage class to select for uploaded objects
+ */
+export const StorageClass5 = {
+  /**
+   * Standard
+   */
+  Standard: "STANDARD",
+  /**
+   * Reduced Redundancy Storage
+   */
+  ReducedRedundancy: "REDUCED_REDUNDANCY",
+} as const;
+/**
+ * Storage class to select for uploaded objects
+ */
+export type StorageClass5 = OpenEnum<typeof StorageClass5>;
+
+/**
+ * Server-side encryption for uploaded objects
+ */
+export const ServerSideEncryption5 = {
+  /**
+   * Amazon S3 Managed Key
+   */
+  Aes256: "AES256",
+} as const;
+/**
+ * Server-side encryption for uploaded objects
+ */
+export type ServerSideEncryption5 = OpenEnum<typeof ServerSideEncryption5>;
+
+export type OutputMinioMinio5 = {
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputMinioType5;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * MinIO service url (e.g. http://minioHost:9000)
+   */
+  endpoint: string;
+  /**
+   * Name of the destination MinIO bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket: string;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the MinIO service/cluster is located
+   */
+  region?: string | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Root directory to prepend to path before uploading. Enter a constant, or a JavaScript expression enclosed in quotes or backticks.
+   */
+  destPath?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: ObjectAclOptions | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClass5 | undefined;
+  /**
+   * Server-side encryption for uploaded objects
+   */
+  serverSideEncryption?: ServerSideEncryption5 | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  description?: string | undefined;
+  /**
+   * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows: boolean;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata: Array<TagsType>;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export const OutputMinioType4 = {
+  Minio: "minio",
+} as const;
+export type OutputMinioType4 = ClosedEnum<typeof OutputMinioType4>;
+
+/**
+ * Storage class to select for uploaded objects
+ */
+export const StorageClass4 = {
+  /**
+   * Standard
+   */
+  Standard: "STANDARD",
+  /**
+   * Reduced Redundancy Storage
+   */
+  ReducedRedundancy: "REDUCED_REDUNDANCY",
+} as const;
+/**
+ * Storage class to select for uploaded objects
+ */
+export type StorageClass4 = OpenEnum<typeof StorageClass4>;
+
+/**
+ * Server-side encryption for uploaded objects
+ */
+export const ServerSideEncryption4 = {
+  /**
+   * Amazon S3 Managed Key
+   */
+  Aes256: "AES256",
+} as const;
+/**
+ * Server-side encryption for uploaded objects
+ */
+export type ServerSideEncryption4 = OpenEnum<typeof ServerSideEncryption4>;
+
+export type OutputMinioMinio4 = {
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputMinioType4;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * MinIO service url (e.g. http://minioHost:9000)
+   */
+  endpoint: string;
+  /**
+   * Name of the destination MinIO bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket: string;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the MinIO service/cluster is located
+   */
+  region?: string | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Root directory to prepend to path before uploading. Enter a constant, or a JavaScript expression enclosed in quotes or backticks.
+   */
+  destPath?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: ObjectAclOptions | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClass4 | undefined;
+  /**
+   * Server-side encryption for uploaded objects
+   */
+  serverSideEncryption?: ServerSideEncryption4 | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  description?: string | undefined;
+  /**
+   * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export const OutputMinioType3 = {
+  Minio: "minio",
+} as const;
+export type OutputMinioType3 = ClosedEnum<typeof OutputMinioType3>;
+
+/**
+ * Storage class to select for uploaded objects
+ */
+export const StorageClass3 = {
+  /**
+   * Standard
+   */
+  Standard: "STANDARD",
+  /**
+   * Reduced Redundancy Storage
+   */
+  ReducedRedundancy: "REDUCED_REDUNDANCY",
+} as const;
+/**
+ * Storage class to select for uploaded objects
+ */
+export type StorageClass3 = OpenEnum<typeof StorageClass3>;
+
+/**
+ * Server-side encryption for uploaded objects
+ */
+export const ServerSideEncryption3 = {
+  /**
+   * Amazon S3 Managed Key
+   */
+  Aes256: "AES256",
+} as const;
+/**
+ * Server-side encryption for uploaded objects
+ */
+export type ServerSideEncryption3 = OpenEnum<typeof ServerSideEncryption3>;
+
+export type OutputMinioMinio3 = {
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputMinioType3;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * MinIO service url (e.g. http://minioHost:9000)
+   */
+  endpoint: string;
+  /**
+   * Name of the destination MinIO bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket: string;
+  /**
+   * Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the MinIO service/cluster is located
+   */
+  region?: string | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Root directory to prepend to path before uploading. Enter a constant, or a JavaScript expression enclosed in quotes or backticks.
+   */
+  destPath?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: ObjectAclOptions | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClass3 | undefined;
+  /**
+   * Server-side encryption for uploaded objects
+   */
+  serverSideEncryption?: ServerSideEncryption3 | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  description?: string | undefined;
+  /**
+   * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret: string;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export const OutputMinioType2 = {
+  Minio: "minio",
+} as const;
+export type OutputMinioType2 = ClosedEnum<typeof OutputMinioType2>;
+
+/**
+ * Storage class to select for uploaded objects
+ */
+export const StorageClass2 = {
+  /**
+   * Standard
+   */
+  Standard: "STANDARD",
+  /**
+   * Reduced Redundancy Storage
+   */
+  ReducedRedundancy: "REDUCED_REDUNDANCY",
+} as const;
+/**
+ * Storage class to select for uploaded objects
+ */
+export type StorageClass2 = OpenEnum<typeof StorageClass2>;
+
+/**
+ * Server-side encryption for uploaded objects
+ */
+export const ServerSideEncryption2 = {
+  /**
+   * Amazon S3 Managed Key
+   */
+  Aes256: "AES256",
+} as const;
+/**
+ * Server-side encryption for uploaded objects
+ */
+export type ServerSideEncryption2 = OpenEnum<typeof ServerSideEncryption2>;
+
+export type OutputMinioMinio2 = {
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputMinioType2;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * MinIO service url (e.g. http://minioHost:9000)
+   */
+  endpoint: string;
+  /**
+   * Name of the destination MinIO bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket: string;
+  /**
+   * Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the MinIO service/cluster is located
+   */
+  region?: string | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Root directory to prepend to path before uploading. Enter a constant, or a JavaScript expression enclosed in quotes or backticks.
+   */
+  destPath?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: ObjectAclOptions | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClass2 | undefined;
+  /**
+   * Server-side encryption for uploaded objects
+   */
+  serverSideEncryption?: ServerSideEncryption2 | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  description?: string | undefined;
+  /**
+   * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+   */
+  awsApiKey: string;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export const OutputMinioType1 = {
+  Minio: "minio",
+} as const;
+export type OutputMinioType1 = ClosedEnum<typeof OutputMinioType1>;
+
+/**
+ * Storage class to select for uploaded objects
+ */
+export const StorageClass1 = {
+  /**
+   * Standard
+   */
+  Standard: "STANDARD",
+  /**
+   * Reduced Redundancy Storage
+   */
+  ReducedRedundancy: "REDUCED_REDUNDANCY",
+} as const;
+/**
+ * Storage class to select for uploaded objects
+ */
+export type StorageClass1 = OpenEnum<typeof StorageClass1>;
+
+/**
+ * Server-side encryption for uploaded objects
+ */
+export const ServerSideEncryption1 = {
+  /**
+   * Amazon S3 Managed Key
+   */
+  Aes256: "AES256",
+} as const;
+/**
+ * Server-side encryption for uploaded objects
+ */
+export type ServerSideEncryption1 = OpenEnum<typeof ServerSideEncryption1>;
+
+export type OutputMinioMinio1 = {
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputMinioType1;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * MinIO service url (e.g. http://minioHost:9000)
+   */
+  endpoint: string;
+  /**
+   * Name of the destination MinIO bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   */
+  bucket: string;
+  /**
+   * Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the MinIO service/cluster is located
+   */
+  region?: string | undefined;
+  /**
+   * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.
+   */
+  stagePath?: string | undefined;
+  /**
+   * Add the Output ID value to staging location
+   */
+  addIdToStagePath?: boolean | undefined;
+  /**
+   * Root directory to prepend to path before uploading. Enter a constant, or a JavaScript expression enclosed in quotes or backticks.
+   */
+  destPath?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Object ACL to assign to uploaded objects
+   */
+  objectACL?: ObjectAclOptions | undefined;
+  /**
+   * Storage class to select for uploaded objects
+   */
+  storageClass?: StorageClass1 | undefined;
+  /**
+   * Server-side encryption for uploaded objects
+   */
+  serverSideEncryption?: ServerSideEncryption1 | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Remove empty staging directories after moving files
+   */
+  removeEmptyDirs?: boolean | undefined;
+  /**
+   * JavaScript expression defining how files are partitioned and organized. Default is date-based. If blank, Stream will fall back to the event's __partition field value – if present – otherwise to each location's root directory.
+   */
+  partitionExpr?: string | undefined;
+  /**
+   * Format of the output data
+   */
+  format?: Format1Options | undefined;
+  /**
+   * JavaScript expression to define the output filename prefix (can be constant)
+   */
+  baseFileName?: string | undefined;
+  /**
+   * JavaScript expression to define the output filename suffix (can be constant).  The `__format` variable refers to the value of the `Data format` field (`json` or `raw`).  The `__compression` field refers to the kind of compression being used (`none` or `gzip`).
+   */
+  fileNameSuffix?: string | undefined;
+  /**
+   * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
+   */
+  maxFileSizeMB?: number | undefined;
+  /**
+   * Maximum number of files to keep open concurrently. When exceeded, @{product} will close the oldest open files and move them to the final output location.
+   */
+  maxOpenFiles?: number | undefined;
+  /**
+   * If set, this line will be written to the beginning of each output file
+   */
+  headerLine?: string | undefined;
+  /**
+   * Buffer size used to write to a file
+   */
+  writeHighWaterMark?: number | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
+   */
+  deadletterEnabled?: boolean | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  onDiskFullBackpressure?: PqOnBackpressureOptions | undefined;
+  /**
+   * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileOpenTimeSec?: number | undefined;
+  /**
+   * Maximum amount of time to keep inactive files open. Files open for longer than this will be closed and moved to final output location.
+   */
+  maxFileIdleTimeSec?: number | undefined;
+  /**
+   * Maximum number of parts to upload in parallel per file. Minimum part size is 5MB.
+   */
+  maxConcurrentFileParts?: number | undefined;
+  description?: string | undefined;
+  /**
+   * This value can be a constant or a JavaScript expression (`${C.env.SOME_ACCESS_KEY}`)
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: PqCompressOptions | undefined;
+  /**
+   * Compression level to apply before moving files to final destination
+   */
+  compressionLevel?: CompressionLevelOptions | undefined;
+  /**
+   * Automatically calculate the schema based on the events of each Parquet file generated
+   */
+  automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
+   * Determines which data types are supported and how they are represented
+   */
+  parquetVersion?: ParquetVersionOptions | undefined;
+  /**
+   * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
+   */
+  parquetDataPageVersion?: ParquetDataPageVersionOptions | undefined;
+  /**
+   * The number of rows that every group will contain. The final group can contain a smaller number of rows.
+   */
+  parquetRowGroupLength?: number | undefined;
+  /**
+   * Target memory size for page segments, such as 1MB or 128MB. Generally, lower values improve reading speed, while higher values improve compression.
+   */
+  parquetPageSize?: string | undefined;
+  /**
+   * Log up to 3 rows that @{product} skips due to data mismatch
+   */
+  shouldLogInvalidRows?: boolean | undefined;
+  /**
+   * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
+   */
+  keyValueMetadata?: Array<TagsType> | undefined;
+  /**
+   * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
+   */
+  enableStatistics?: boolean | undefined;
+  /**
+   * One page index contains statistics for one data page. Parquet readers use statistics to enable page skipping.
+   */
+  enableWritePageIndex?: boolean | undefined;
+  /**
+   * Parquet tools can use the checksum of a Parquet page to verify data integrity
+   */
+  enablePageChecksum?: boolean | undefined;
+  /**
+   * How frequently, in seconds, to clean up empty directories
+   */
+  emptyDirCleanupSec?: number | undefined;
+  /**
+   * Storage location for files that fail to reach their final destination after maximum retries are exceeded
+   */
+  deadletterPath?: string | undefined;
+  /**
+   * The maximum number of times a file will attempt to move to its final destination before being dead-lettered
+   */
+  maxRetryNum?: number | undefined;
+};
+
+export type OutputMinio =
+  | OutputMinioMinio5
+  | OutputMinioMinio2
+  | OutputMinioMinio3
+  | OutputMinioMinio1
+  | OutputMinioMinio4
+  | OutputMinioMinio6
+  | OutputMinioMinio7
+  | OutputMinioMinio8
+  | OutputMinioMinio9;
 
 /** @internal */
-export const OutputMinio$inboundSchema: z.ZodType<
-  OutputMinio,
+export const OutputMinioType9$inboundSchema: z.ZodNativeEnum<
+  typeof OutputMinioType9
+> = z.nativeEnum(OutputMinioType9);
+/** @internal */
+export const OutputMinioType9$outboundSchema: z.ZodNativeEnum<
+  typeof OutputMinioType9
+> = OutputMinioType9$inboundSchema;
+
+/** @internal */
+export const StorageClass9$inboundSchema: z.ZodType<
+  StorageClass9,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(StorageClass9),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const StorageClass9$outboundSchema: z.ZodType<
+  StorageClass9,
+  z.ZodTypeDef,
+  StorageClass9
+> = z.union([
+  z.nativeEnum(StorageClass9),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ServerSideEncryption9$inboundSchema: z.ZodType<
+  ServerSideEncryption9,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ServerSideEncryption9),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ServerSideEncryption9$outboundSchema: z.ZodType<
+  ServerSideEncryption9,
+  z.ZodTypeDef,
+  ServerSideEncryption9
+> = z.union([
+  z.nativeEnum(ServerSideEncryption9),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputMinioMinio9$inboundSchema: z.ZodType<
+  OutputMinioMinio9,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  deadletterEnabled: z.boolean().default(false),
   id: z.string().optional(),
-  type: OutputMinioType$inboundSchema,
+  type: OutputMinioType9$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   endpoint: z.string(),
   bucket: z.string(),
-  awsAuthenticationMethod: OutputMinioAuthenticationMethod$inboundSchema
-    .default("auto"),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
   addIdToStagePath: z.boolean().default(true),
   destPath: z.string().optional(),
-  signatureVersion: OutputMinioSignatureVersion$inboundSchema.default("v4"),
-  objectACL: OutputMinioObjectACL$inboundSchema.default("private"),
-  storageClass: OutputMinioStorageClass$inboundSchema.optional(),
-  serverSideEncryption: ServerSideEncryption$inboundSchema.optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  objectACL: ObjectAclOptions$inboundSchema.default("private"),
+  storageClass: StorageClass9$inboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryption9$inboundSchema.optional(),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   verifyPermissions: z.boolean().default(true),
@@ -898,7 +2444,7 @@ export const OutputMinio$inboundSchema: z.ZodType<
   partitionExpr: z.string().default(
     "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
   ),
-  format: OutputMinioDataFormat$inboundSchema.default("json"),
+  format: Format1Options$inboundSchema.default("json"),
   baseFileName: z.string().default("`CriblOut`"),
   fileNameSuffix: z.string().default(
     "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
@@ -907,11 +2453,8 @@ export const OutputMinio$inboundSchema: z.ZodType<
   maxOpenFiles: z.number().default(100),
   headerLine: z.string().default(""),
   writeHighWaterMark: z.number().default(64),
-  onBackpressure: OutputMinioBackpressureBehavior$inboundSchema.default(
-    "block",
-  ),
-  deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: OutputMinioDiskSpaceProtection$inboundSchema.default(
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
     "block",
   ),
   maxFileOpenTimeSec: z.number().default(300),
@@ -920,23 +2463,18 @@ export const OutputMinio$inboundSchema: z.ZodType<
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  compress: OutputMinioCompression$inboundSchema.default("gzip"),
-  compressionLevel: OutputMinioCompressionLevel$inboundSchema.default(
-    "best_speed",
-  ),
+  compress: PqCompressOptions$inboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
   automaticSchema: z.boolean().default(false),
-  parquetVersion: OutputMinioParquetVersion$inboundSchema.default(
-    "PARQUET_2_6",
-  ),
-  parquetDataPageVersion: OutputMinioDataPageVersion$inboundSchema.default(
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
     "DATA_PAGE_V2",
   ),
   parquetRowGroupLength: z.number().default(10000),
   parquetPageSize: z.string().default("1MB"),
   shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(
-    z.lazy(() => OutputMinioKeyValueMetadatum$inboundSchema),
-  ).optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
   enableStatistics: z.boolean().default(true),
   enableWritePageIndex: z.boolean().default(true),
   enablePageChecksum: z.boolean().default(false),
@@ -944,9 +2482,9 @@ export const OutputMinio$inboundSchema: z.ZodType<
   deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
   maxRetryNum: z.number().default(20),
 });
-
 /** @internal */
-export type OutputMinio$Outbound = {
+export type OutputMinioMinio9$Outbound = {
+  deadletterEnabled: boolean;
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -956,6 +2494,2173 @@ export type OutputMinio$Outbound = {
   endpoint: string;
   bucket: string;
   awsAuthenticationMethod: string;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  stagePath: string;
+  addIdToStagePath: boolean;
+  destPath?: string | undefined;
+  signatureVersion: string;
+  objectACL: string;
+  storageClass?: string | undefined;
+  serverSideEncryption?: string | undefined;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  verifyPermissions: boolean;
+  removeEmptyDirs: boolean;
+  partitionExpr: string;
+  format: string;
+  baseFileName: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  onDiskFullBackpressure: string;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxConcurrentFileParts: number;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+};
+
+/** @internal */
+export const OutputMinioMinio9$outboundSchema: z.ZodType<
+  OutputMinioMinio9$Outbound,
+  z.ZodTypeDef,
+  OutputMinioMinio9
+> = z.object({
+  deadletterEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: OutputMinioType9$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  endpoint: z.string(),
+  bucket: z.string(),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  destPath: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  objectACL: ObjectAclOptions$outboundSchema.default("private"),
+  storageClass: StorageClass9$outboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryption9$outboundSchema.optional(),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  verifyPermissions: z.boolean().default(true),
+  removeEmptyDirs: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  format: Format1Options$outboundSchema.default("json"),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  compress: PqCompressOptions$outboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$outboundSchema.default(
+    "best_speed",
+  ),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+
+export function outputMinioMinio9ToJSON(
+  outputMinioMinio9: OutputMinioMinio9,
+): string {
+  return JSON.stringify(
+    OutputMinioMinio9$outboundSchema.parse(outputMinioMinio9),
+  );
+}
+export function outputMinioMinio9FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputMinioMinio9, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputMinioMinio9$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputMinioMinio9' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputMinioType8$inboundSchema: z.ZodNativeEnum<
+  typeof OutputMinioType8
+> = z.nativeEnum(OutputMinioType8);
+/** @internal */
+export const OutputMinioType8$outboundSchema: z.ZodNativeEnum<
+  typeof OutputMinioType8
+> = OutputMinioType8$inboundSchema;
+
+/** @internal */
+export const StorageClass8$inboundSchema: z.ZodType<
+  StorageClass8,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(StorageClass8),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const StorageClass8$outboundSchema: z.ZodType<
+  StorageClass8,
+  z.ZodTypeDef,
+  StorageClass8
+> = z.union([
+  z.nativeEnum(StorageClass8),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ServerSideEncryption8$inboundSchema: z.ZodType<
+  ServerSideEncryption8,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ServerSideEncryption8),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ServerSideEncryption8$outboundSchema: z.ZodType<
+  ServerSideEncryption8,
+  z.ZodTypeDef,
+  ServerSideEncryption8
+> = z.union([
+  z.nativeEnum(ServerSideEncryption8),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputMinioMinio8$inboundSchema: z.ZodType<
+  OutputMinioMinio8,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  deadletterEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: OutputMinioType8$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  endpoint: z.string(),
+  bucket: z.string(),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  destPath: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  objectACL: ObjectAclOptions$inboundSchema.default("private"),
+  storageClass: StorageClass8$inboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryption8$inboundSchema.optional(),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  verifyPermissions: z.boolean().default(true),
+  removeEmptyDirs: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  format: Format1Options$inboundSchema.default("json"),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  compress: PqCompressOptions$inboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+/** @internal */
+export type OutputMinioMinio8$Outbound = {
+  deadletterEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  endpoint: string;
+  bucket: string;
+  awsAuthenticationMethod: string;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  stagePath: string;
+  addIdToStagePath: boolean;
+  destPath?: string | undefined;
+  signatureVersion: string;
+  objectACL: string;
+  storageClass?: string | undefined;
+  serverSideEncryption?: string | undefined;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  verifyPermissions: boolean;
+  removeEmptyDirs: boolean;
+  partitionExpr: string;
+  format: string;
+  baseFileName: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  onDiskFullBackpressure: string;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxConcurrentFileParts: number;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+};
+
+/** @internal */
+export const OutputMinioMinio8$outboundSchema: z.ZodType<
+  OutputMinioMinio8$Outbound,
+  z.ZodTypeDef,
+  OutputMinioMinio8
+> = z.object({
+  deadletterEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: OutputMinioType8$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  endpoint: z.string(),
+  bucket: z.string(),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  destPath: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  objectACL: ObjectAclOptions$outboundSchema.default("private"),
+  storageClass: StorageClass8$outboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryption8$outboundSchema.optional(),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  verifyPermissions: z.boolean().default(true),
+  removeEmptyDirs: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  format: Format1Options$outboundSchema.default("json"),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  compress: PqCompressOptions$outboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$outboundSchema.default(
+    "best_speed",
+  ),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+
+export function outputMinioMinio8ToJSON(
+  outputMinioMinio8: OutputMinioMinio8,
+): string {
+  return JSON.stringify(
+    OutputMinioMinio8$outboundSchema.parse(outputMinioMinio8),
+  );
+}
+export function outputMinioMinio8FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputMinioMinio8, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputMinioMinio8$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputMinioMinio8' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputMinioType7$inboundSchema: z.ZodNativeEnum<
+  typeof OutputMinioType7
+> = z.nativeEnum(OutputMinioType7);
+/** @internal */
+export const OutputMinioType7$outboundSchema: z.ZodNativeEnum<
+  typeof OutputMinioType7
+> = OutputMinioType7$inboundSchema;
+
+/** @internal */
+export const StorageClass7$inboundSchema: z.ZodType<
+  StorageClass7,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(StorageClass7),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const StorageClass7$outboundSchema: z.ZodType<
+  StorageClass7,
+  z.ZodTypeDef,
+  StorageClass7
+> = z.union([
+  z.nativeEnum(StorageClass7),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ServerSideEncryption7$inboundSchema: z.ZodType<
+  ServerSideEncryption7,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ServerSideEncryption7),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ServerSideEncryption7$outboundSchema: z.ZodType<
+  ServerSideEncryption7,
+  z.ZodTypeDef,
+  ServerSideEncryption7
+> = z.union([
+  z.nativeEnum(ServerSideEncryption7),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputMinioMinio7$inboundSchema: z.ZodType<
+  OutputMinioMinio7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  removeEmptyDirs: z.boolean().default(true),
+  id: z.string().optional(),
+  type: OutputMinioType7$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  endpoint: z.string(),
+  bucket: z.string(),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  destPath: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  objectACL: ObjectAclOptions$inboundSchema.default("private"),
+  storageClass: StorageClass7$inboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryption7$inboundSchema.optional(),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  verifyPermissions: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  format: Format1Options$inboundSchema.default("json"),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  compress: PqCompressOptions$inboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+/** @internal */
+export type OutputMinioMinio7$Outbound = {
+  removeEmptyDirs: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  endpoint: string;
+  bucket: string;
+  awsAuthenticationMethod: string;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  stagePath: string;
+  addIdToStagePath: boolean;
+  destPath?: string | undefined;
+  signatureVersion: string;
+  objectACL: string;
+  storageClass?: string | undefined;
+  serverSideEncryption?: string | undefined;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  verifyPermissions: boolean;
+  partitionExpr: string;
+  format: string;
+  baseFileName: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxConcurrentFileParts: number;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+};
+
+/** @internal */
+export const OutputMinioMinio7$outboundSchema: z.ZodType<
+  OutputMinioMinio7$Outbound,
+  z.ZodTypeDef,
+  OutputMinioMinio7
+> = z.object({
+  removeEmptyDirs: z.boolean().default(true),
+  id: z.string().optional(),
+  type: OutputMinioType7$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  endpoint: z.string(),
+  bucket: z.string(),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  destPath: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  objectACL: ObjectAclOptions$outboundSchema.default("private"),
+  storageClass: StorageClass7$outboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryption7$outboundSchema.optional(),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  verifyPermissions: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  format: Format1Options$outboundSchema.default("json"),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  compress: PqCompressOptions$outboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$outboundSchema.default(
+    "best_speed",
+  ),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+
+export function outputMinioMinio7ToJSON(
+  outputMinioMinio7: OutputMinioMinio7,
+): string {
+  return JSON.stringify(
+    OutputMinioMinio7$outboundSchema.parse(outputMinioMinio7),
+  );
+}
+export function outputMinioMinio7FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputMinioMinio7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputMinioMinio7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputMinioMinio7' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputMinioType6$inboundSchema: z.ZodNativeEnum<
+  typeof OutputMinioType6
+> = z.nativeEnum(OutputMinioType6);
+/** @internal */
+export const OutputMinioType6$outboundSchema: z.ZodNativeEnum<
+  typeof OutputMinioType6
+> = OutputMinioType6$inboundSchema;
+
+/** @internal */
+export const StorageClass6$inboundSchema: z.ZodType<
+  StorageClass6,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(StorageClass6),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const StorageClass6$outboundSchema: z.ZodType<
+  StorageClass6,
+  z.ZodTypeDef,
+  StorageClass6
+> = z.union([
+  z.nativeEnum(StorageClass6),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ServerSideEncryption6$inboundSchema: z.ZodType<
+  ServerSideEncryption6,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ServerSideEncryption6),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ServerSideEncryption6$outboundSchema: z.ZodType<
+  ServerSideEncryption6,
+  z.ZodTypeDef,
+  ServerSideEncryption6
+> = z.union([
+  z.nativeEnum(ServerSideEncryption6),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputMinioMinio6$inboundSchema: z.ZodType<
+  OutputMinioMinio6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  removeEmptyDirs: z.boolean().default(true),
+  id: z.string().optional(),
+  type: OutputMinioType6$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  endpoint: z.string(),
+  bucket: z.string(),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  destPath: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  objectACL: ObjectAclOptions$inboundSchema.default("private"),
+  storageClass: StorageClass6$inboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryption6$inboundSchema.optional(),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  verifyPermissions: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  format: Format1Options$inboundSchema.default("json"),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  compress: PqCompressOptions$inboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+/** @internal */
+export type OutputMinioMinio6$Outbound = {
+  removeEmptyDirs: boolean;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  endpoint: string;
+  bucket: string;
+  awsAuthenticationMethod: string;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  stagePath: string;
+  addIdToStagePath: boolean;
+  destPath?: string | undefined;
+  signatureVersion: string;
+  objectACL: string;
+  storageClass?: string | undefined;
+  serverSideEncryption?: string | undefined;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  verifyPermissions: boolean;
+  partitionExpr: string;
+  format: string;
+  baseFileName: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxConcurrentFileParts: number;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+};
+
+/** @internal */
+export const OutputMinioMinio6$outboundSchema: z.ZodType<
+  OutputMinioMinio6$Outbound,
+  z.ZodTypeDef,
+  OutputMinioMinio6
+> = z.object({
+  removeEmptyDirs: z.boolean().default(true),
+  id: z.string().optional(),
+  type: OutputMinioType6$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  endpoint: z.string(),
+  bucket: z.string(),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  destPath: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  objectACL: ObjectAclOptions$outboundSchema.default("private"),
+  storageClass: StorageClass6$outboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryption6$outboundSchema.optional(),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  verifyPermissions: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  format: Format1Options$outboundSchema.default("json"),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  compress: PqCompressOptions$outboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$outboundSchema.default(
+    "best_speed",
+  ),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+
+export function outputMinioMinio6ToJSON(
+  outputMinioMinio6: OutputMinioMinio6,
+): string {
+  return JSON.stringify(
+    OutputMinioMinio6$outboundSchema.parse(outputMinioMinio6),
+  );
+}
+export function outputMinioMinio6FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputMinioMinio6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputMinioMinio6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputMinioMinio6' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputMinioType5$inboundSchema: z.ZodNativeEnum<
+  typeof OutputMinioType5
+> = z.nativeEnum(OutputMinioType5);
+/** @internal */
+export const OutputMinioType5$outboundSchema: z.ZodNativeEnum<
+  typeof OutputMinioType5
+> = OutputMinioType5$inboundSchema;
+
+/** @internal */
+export const StorageClass5$inboundSchema: z.ZodType<
+  StorageClass5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(StorageClass5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const StorageClass5$outboundSchema: z.ZodType<
+  StorageClass5,
+  z.ZodTypeDef,
+  StorageClass5
+> = z.union([
+  z.nativeEnum(StorageClass5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ServerSideEncryption5$inboundSchema: z.ZodType<
+  ServerSideEncryption5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ServerSideEncryption5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ServerSideEncryption5$outboundSchema: z.ZodType<
+  ServerSideEncryption5,
+  z.ZodTypeDef,
+  ServerSideEncryption5
+> = z.union([
+  z.nativeEnum(ServerSideEncryption5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputMinioMinio5$inboundSchema: z.ZodType<
+  OutputMinioMinio5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  format: Format1Options$inboundSchema.default("json"),
+  id: z.string().optional(),
+  type: OutputMinioType5$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  endpoint: z.string(),
+  bucket: z.string(),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  destPath: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  objectACL: ObjectAclOptions$inboundSchema.default("private"),
+  storageClass: StorageClass5$inboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryption5$inboundSchema.optional(),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  verifyPermissions: z.boolean().default(true),
+  removeEmptyDirs: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  compress: PqCompressOptions$inboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean(),
+  keyValueMetadata: z.array(TagsType$inboundSchema),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+/** @internal */
+export type OutputMinioMinio5$Outbound = {
+  format: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  endpoint: string;
+  bucket: string;
+  awsAuthenticationMethod: string;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  stagePath: string;
+  addIdToStagePath: boolean;
+  destPath?: string | undefined;
+  signatureVersion: string;
+  objectACL: string;
+  storageClass?: string | undefined;
+  serverSideEncryption?: string | undefined;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  verifyPermissions: boolean;
+  removeEmptyDirs: boolean;
+  partitionExpr: string;
+  baseFileName: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxConcurrentFileParts: number;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows: boolean;
+  keyValueMetadata: Array<TagsType$Outbound>;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+};
+
+/** @internal */
+export const OutputMinioMinio5$outboundSchema: z.ZodType<
+  OutputMinioMinio5$Outbound,
+  z.ZodTypeDef,
+  OutputMinioMinio5
+> = z.object({
+  format: Format1Options$outboundSchema.default("json"),
+  id: z.string().optional(),
+  type: OutputMinioType5$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  endpoint: z.string(),
+  bucket: z.string(),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  destPath: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  objectACL: ObjectAclOptions$outboundSchema.default("private"),
+  storageClass: StorageClass5$outboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryption5$outboundSchema.optional(),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  verifyPermissions: z.boolean().default(true),
+  removeEmptyDirs: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  compress: PqCompressOptions$outboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$outboundSchema.default(
+    "best_speed",
+  ),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean(),
+  keyValueMetadata: z.array(TagsType$outboundSchema),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+
+export function outputMinioMinio5ToJSON(
+  outputMinioMinio5: OutputMinioMinio5,
+): string {
+  return JSON.stringify(
+    OutputMinioMinio5$outboundSchema.parse(outputMinioMinio5),
+  );
+}
+export function outputMinioMinio5FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputMinioMinio5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputMinioMinio5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputMinioMinio5' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputMinioType4$inboundSchema: z.ZodNativeEnum<
+  typeof OutputMinioType4
+> = z.nativeEnum(OutputMinioType4);
+/** @internal */
+export const OutputMinioType4$outboundSchema: z.ZodNativeEnum<
+  typeof OutputMinioType4
+> = OutputMinioType4$inboundSchema;
+
+/** @internal */
+export const StorageClass4$inboundSchema: z.ZodType<
+  StorageClass4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(StorageClass4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const StorageClass4$outboundSchema: z.ZodType<
+  StorageClass4,
+  z.ZodTypeDef,
+  StorageClass4
+> = z.union([
+  z.nativeEnum(StorageClass4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ServerSideEncryption4$inboundSchema: z.ZodType<
+  ServerSideEncryption4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ServerSideEncryption4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ServerSideEncryption4$outboundSchema: z.ZodType<
+  ServerSideEncryption4,
+  z.ZodTypeDef,
+  ServerSideEncryption4
+> = z.union([
+  z.nativeEnum(ServerSideEncryption4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputMinioMinio4$inboundSchema: z.ZodType<
+  OutputMinioMinio4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  format: Format1Options$inboundSchema.default("json"),
+  id: z.string().optional(),
+  type: OutputMinioType4$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  endpoint: z.string(),
+  bucket: z.string(),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  destPath: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  objectACL: ObjectAclOptions$inboundSchema.default("private"),
+  storageClass: StorageClass4$inboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryption4$inboundSchema.optional(),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  verifyPermissions: z.boolean().default(true),
+  removeEmptyDirs: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  compress: PqCompressOptions$inboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+/** @internal */
+export type OutputMinioMinio4$Outbound = {
+  format: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  endpoint: string;
+  bucket: string;
+  awsAuthenticationMethod: string;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  stagePath: string;
+  addIdToStagePath: boolean;
+  destPath?: string | undefined;
+  signatureVersion: string;
+  objectACL: string;
+  storageClass?: string | undefined;
+  serverSideEncryption?: string | undefined;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  verifyPermissions: boolean;
+  removeEmptyDirs: boolean;
+  partitionExpr: string;
+  baseFileName: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxConcurrentFileParts: number;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+};
+
+/** @internal */
+export const OutputMinioMinio4$outboundSchema: z.ZodType<
+  OutputMinioMinio4$Outbound,
+  z.ZodTypeDef,
+  OutputMinioMinio4
+> = z.object({
+  format: Format1Options$outboundSchema.default("json"),
+  id: z.string().optional(),
+  type: OutputMinioType4$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  endpoint: z.string(),
+  bucket: z.string(),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  destPath: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  objectACL: ObjectAclOptions$outboundSchema.default("private"),
+  storageClass: StorageClass4$outboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryption4$outboundSchema.optional(),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  verifyPermissions: z.boolean().default(true),
+  removeEmptyDirs: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  compress: PqCompressOptions$outboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$outboundSchema.default(
+    "best_speed",
+  ),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+
+export function outputMinioMinio4ToJSON(
+  outputMinioMinio4: OutputMinioMinio4,
+): string {
+  return JSON.stringify(
+    OutputMinioMinio4$outboundSchema.parse(outputMinioMinio4),
+  );
+}
+export function outputMinioMinio4FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputMinioMinio4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputMinioMinio4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputMinioMinio4' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputMinioType3$inboundSchema: z.ZodNativeEnum<
+  typeof OutputMinioType3
+> = z.nativeEnum(OutputMinioType3);
+/** @internal */
+export const OutputMinioType3$outboundSchema: z.ZodNativeEnum<
+  typeof OutputMinioType3
+> = OutputMinioType3$inboundSchema;
+
+/** @internal */
+export const StorageClass3$inboundSchema: z.ZodType<
+  StorageClass3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(StorageClass3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const StorageClass3$outboundSchema: z.ZodType<
+  StorageClass3,
+  z.ZodTypeDef,
+  StorageClass3
+> = z.union([
+  z.nativeEnum(StorageClass3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ServerSideEncryption3$inboundSchema: z.ZodType<
+  ServerSideEncryption3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ServerSideEncryption3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ServerSideEncryption3$outboundSchema: z.ZodType<
+  ServerSideEncryption3,
+  z.ZodTypeDef,
+  ServerSideEncryption3
+> = z.union([
+  z.nativeEnum(ServerSideEncryption3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputMinioMinio3$inboundSchema: z.ZodType<
+  OutputMinioMinio3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  id: z.string().optional(),
+  type: OutputMinioType3$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  endpoint: z.string(),
+  bucket: z.string(),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  destPath: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  objectACL: ObjectAclOptions$inboundSchema.default("private"),
+  storageClass: StorageClass3$inboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryption3$inboundSchema.optional(),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  verifyPermissions: z.boolean().default(true),
+  removeEmptyDirs: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  format: Format1Options$inboundSchema.default("json"),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string(),
+  compress: PqCompressOptions$inboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+/** @internal */
+export type OutputMinioMinio3$Outbound = {
+  awsAuthenticationMethod: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  endpoint: string;
+  bucket: string;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  stagePath: string;
+  addIdToStagePath: boolean;
+  destPath?: string | undefined;
+  signatureVersion: string;
+  objectACL: string;
+  storageClass?: string | undefined;
+  serverSideEncryption?: string | undefined;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  verifyPermissions: boolean;
+  removeEmptyDirs: boolean;
+  partitionExpr: string;
+  format: string;
+  baseFileName: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxConcurrentFileParts: number;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret: string;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+};
+
+/** @internal */
+export const OutputMinioMinio3$outboundSchema: z.ZodType<
+  OutputMinioMinio3$Outbound,
+  z.ZodTypeDef,
+  OutputMinioMinio3
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  id: z.string().optional(),
+  type: OutputMinioType3$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  endpoint: z.string(),
+  bucket: z.string(),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  destPath: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  objectACL: ObjectAclOptions$outboundSchema.default("private"),
+  storageClass: StorageClass3$outboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryption3$outboundSchema.optional(),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  verifyPermissions: z.boolean().default(true),
+  removeEmptyDirs: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  format: Format1Options$outboundSchema.default("json"),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string(),
+  compress: PqCompressOptions$outboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$outboundSchema.default(
+    "best_speed",
+  ),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+
+export function outputMinioMinio3ToJSON(
+  outputMinioMinio3: OutputMinioMinio3,
+): string {
+  return JSON.stringify(
+    OutputMinioMinio3$outboundSchema.parse(outputMinioMinio3),
+  );
+}
+export function outputMinioMinio3FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputMinioMinio3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputMinioMinio3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputMinioMinio3' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputMinioType2$inboundSchema: z.ZodNativeEnum<
+  typeof OutputMinioType2
+> = z.nativeEnum(OutputMinioType2);
+/** @internal */
+export const OutputMinioType2$outboundSchema: z.ZodNativeEnum<
+  typeof OutputMinioType2
+> = OutputMinioType2$inboundSchema;
+
+/** @internal */
+export const StorageClass2$inboundSchema: z.ZodType<
+  StorageClass2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(StorageClass2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const StorageClass2$outboundSchema: z.ZodType<
+  StorageClass2,
+  z.ZodTypeDef,
+  StorageClass2
+> = z.union([
+  z.nativeEnum(StorageClass2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ServerSideEncryption2$inboundSchema: z.ZodType<
+  ServerSideEncryption2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ServerSideEncryption2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ServerSideEncryption2$outboundSchema: z.ZodType<
+  ServerSideEncryption2,
+  z.ZodTypeDef,
+  ServerSideEncryption2
+> = z.union([
+  z.nativeEnum(ServerSideEncryption2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputMinioMinio2$inboundSchema: z.ZodType<
+  OutputMinioMinio2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  id: z.string().optional(),
+  type: OutputMinioType2$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  endpoint: z.string(),
+  bucket: z.string(),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  destPath: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  objectACL: ObjectAclOptions$inboundSchema.default("private"),
+  storageClass: StorageClass2$inboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryption2$inboundSchema.optional(),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  verifyPermissions: z.boolean().default(true),
+  removeEmptyDirs: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  format: Format1Options$inboundSchema.default("json"),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  description: z.string().optional(),
+  awsApiKey: z.string(),
+  awsSecret: z.string().optional(),
+  compress: PqCompressOptions$inboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+/** @internal */
+export type OutputMinioMinio2$Outbound = {
+  awsAuthenticationMethod: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  endpoint: string;
+  bucket: string;
+  awsSecretKey?: string | undefined;
+  region?: string | undefined;
+  stagePath: string;
+  addIdToStagePath: boolean;
+  destPath?: string | undefined;
+  signatureVersion: string;
+  objectACL: string;
+  storageClass?: string | undefined;
+  serverSideEncryption?: string | undefined;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  verifyPermissions: boolean;
+  removeEmptyDirs: boolean;
+  partitionExpr: string;
+  format: string;
+  baseFileName: string;
+  fileNameSuffix: string;
+  maxFileSizeMB: number;
+  maxOpenFiles: number;
+  headerLine: string;
+  writeHighWaterMark: number;
+  onBackpressure: string;
+  deadletterEnabled: boolean;
+  onDiskFullBackpressure: string;
+  maxFileOpenTimeSec: number;
+  maxFileIdleTimeSec: number;
+  maxConcurrentFileParts: number;
+  description?: string | undefined;
+  awsApiKey: string;
+  awsSecret?: string | undefined;
+  compress: string;
+  compressionLevel: string;
+  automaticSchema: boolean;
+  parquetSchema?: string | undefined;
+  parquetVersion: string;
+  parquetDataPageVersion: string;
+  parquetRowGroupLength: number;
+  parquetPageSize: string;
+  shouldLogInvalidRows?: boolean | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
+  enableStatistics: boolean;
+  enableWritePageIndex: boolean;
+  enablePageChecksum: boolean;
+  emptyDirCleanupSec: number;
+  deadletterPath: string;
+  maxRetryNum: number;
+};
+
+/** @internal */
+export const OutputMinioMinio2$outboundSchema: z.ZodType<
+  OutputMinioMinio2$Outbound,
+  z.ZodTypeDef,
+  OutputMinioMinio2
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  id: z.string().optional(),
+  type: OutputMinioType2$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  endpoint: z.string(),
+  bucket: z.string(),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  destPath: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  objectACL: ObjectAclOptions$outboundSchema.default("private"),
+  storageClass: StorageClass2$outboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryption2$outboundSchema.optional(),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  verifyPermissions: z.boolean().default(true),
+  removeEmptyDirs: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  format: Format1Options$outboundSchema.default("json"),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  description: z.string().optional(),
+  awsApiKey: z.string(),
+  awsSecret: z.string().optional(),
+  compress: PqCompressOptions$outboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$outboundSchema.default(
+    "best_speed",
+  ),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+
+export function outputMinioMinio2ToJSON(
+  outputMinioMinio2: OutputMinioMinio2,
+): string {
+  return JSON.stringify(
+    OutputMinioMinio2$outboundSchema.parse(outputMinioMinio2),
+  );
+}
+export function outputMinioMinio2FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputMinioMinio2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputMinioMinio2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputMinioMinio2' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputMinioType1$inboundSchema: z.ZodNativeEnum<
+  typeof OutputMinioType1
+> = z.nativeEnum(OutputMinioType1);
+/** @internal */
+export const OutputMinioType1$outboundSchema: z.ZodNativeEnum<
+  typeof OutputMinioType1
+> = OutputMinioType1$inboundSchema;
+
+/** @internal */
+export const StorageClass1$inboundSchema: z.ZodType<
+  StorageClass1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(StorageClass1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const StorageClass1$outboundSchema: z.ZodType<
+  StorageClass1,
+  z.ZodTypeDef,
+  StorageClass1
+> = z.union([
+  z.nativeEnum(StorageClass1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const ServerSideEncryption1$inboundSchema: z.ZodType<
+  ServerSideEncryption1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(ServerSideEncryption1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const ServerSideEncryption1$outboundSchema: z.ZodType<
+  ServerSideEncryption1,
+  z.ZodTypeDef,
+  ServerSideEncryption1
+> = z.union([
+  z.nativeEnum(ServerSideEncryption1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputMinioMinio1$inboundSchema: z.ZodType<
+  OutputMinioMinio1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  id: z.string().optional(),
+  type: OutputMinioType1$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  endpoint: z.string(),
+  bucket: z.string(),
+  awsSecretKey: z.string().optional(),
+  region: z.string().optional(),
+  stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
+  addIdToStagePath: z.boolean().default(true),
+  destPath: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  objectACL: ObjectAclOptions$inboundSchema.default("private"),
+  storageClass: StorageClass1$inboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryption1$inboundSchema.optional(),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  verifyPermissions: z.boolean().default(true),
+  removeEmptyDirs: z.boolean().default(true),
+  partitionExpr: z.string().default(
+    "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
+  ),
+  format: Format1Options$inboundSchema.default("json"),
+  baseFileName: z.string().default("`CriblOut`"),
+  fileNameSuffix: z.string().default(
+    "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
+  ),
+  maxFileSizeMB: z.number().default(32),
+  maxOpenFiles: z.number().default(100),
+  headerLine: z.string().default(""),
+  writeHighWaterMark: z.number().default(64),
+  onBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: PqOnBackpressureOptions$inboundSchema.default(
+    "block",
+  ),
+  maxFileOpenTimeSec: z.number().default(300),
+  maxFileIdleTimeSec: z.number().default(30),
+  maxConcurrentFileParts: z.number().default(4),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  compress: PqCompressOptions$inboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
+  automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
+  ),
+  parquetRowGroupLength: z.number().default(10000),
+  parquetPageSize: z.string().default("1MB"),
+  shouldLogInvalidRows: z.boolean().optional(),
+  keyValueMetadata: z.array(TagsType$inboundSchema).optional(),
+  enableStatistics: z.boolean().default(true),
+  enableWritePageIndex: z.boolean().default(true),
+  enablePageChecksum: z.boolean().default(false),
+  emptyDirCleanupSec: z.number().default(300),
+  deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
+  maxRetryNum: z.number().default(20),
+});
+/** @internal */
+export type OutputMinioMinio1$Outbound = {
+  awsAuthenticationMethod: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  endpoint: string;
+  bucket: string;
   awsSecretKey?: string | undefined;
   region?: string | undefined;
   stagePath: string;
@@ -989,12 +4694,13 @@ export type OutputMinio$Outbound = {
   compress: string;
   compressionLevel: string;
   automaticSchema: boolean;
+  parquetSchema?: string | undefined;
   parquetVersion: string;
   parquetDataPageVersion: string;
   parquetRowGroupLength: number;
   parquetPageSize: string;
   shouldLogInvalidRows?: boolean | undefined;
-  keyValueMetadata?: Array<OutputMinioKeyValueMetadatum$Outbound> | undefined;
+  keyValueMetadata?: Array<TagsType$Outbound> | undefined;
   enableStatistics: boolean;
   enableWritePageIndex: boolean;
   enablePageChecksum: boolean;
@@ -1004,30 +4710,30 @@ export type OutputMinio$Outbound = {
 };
 
 /** @internal */
-export const OutputMinio$outboundSchema: z.ZodType<
-  OutputMinio$Outbound,
+export const OutputMinioMinio1$outboundSchema: z.ZodType<
+  OutputMinioMinio1$Outbound,
   z.ZodTypeDef,
-  OutputMinio
+  OutputMinioMinio1
 > = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
   id: z.string().optional(),
-  type: OutputMinioType$outboundSchema,
+  type: OutputMinioType1$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   endpoint: z.string(),
   bucket: z.string(),
-  awsAuthenticationMethod: OutputMinioAuthenticationMethod$outboundSchema
-    .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
   addIdToStagePath: z.boolean().default(true),
   destPath: z.string().optional(),
-  signatureVersion: OutputMinioSignatureVersion$outboundSchema.default("v4"),
-  objectACL: OutputMinioObjectACL$outboundSchema.default("private"),
-  storageClass: OutputMinioStorageClass$outboundSchema.optional(),
-  serverSideEncryption: ServerSideEncryption$outboundSchema.optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  objectACL: ObjectAclOptions$outboundSchema.default("private"),
+  storageClass: StorageClass1$outboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryption1$outboundSchema.optional(),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   verifyPermissions: z.boolean().default(true),
@@ -1035,7 +4741,7 @@ export const OutputMinio$outboundSchema: z.ZodType<
   partitionExpr: z.string().default(
     "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
   ),
-  format: OutputMinioDataFormat$outboundSchema.default("json"),
+  format: Format1Options$outboundSchema.default("json"),
   baseFileName: z.string().default("`CriblOut`"),
   fileNameSuffix: z.string().default(
     "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
@@ -1044,11 +4750,9 @@ export const OutputMinio$outboundSchema: z.ZodType<
   maxOpenFiles: z.number().default(100),
   headerLine: z.string().default(""),
   writeHighWaterMark: z.number().default(64),
-  onBackpressure: OutputMinioBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
+  onBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
   deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: OutputMinioDiskSpaceProtection$outboundSchema.default(
+  onDiskFullBackpressure: PqOnBackpressureOptions$outboundSchema.default(
     "block",
   ),
   maxFileOpenTimeSec: z.number().default(300),
@@ -1057,23 +4761,20 @@ export const OutputMinio$outboundSchema: z.ZodType<
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  compress: OutputMinioCompression$outboundSchema.default("gzip"),
-  compressionLevel: OutputMinioCompressionLevel$outboundSchema.default(
+  compress: PqCompressOptions$outboundSchema.default("none"),
+  compressionLevel: CompressionLevelOptions$outboundSchema.default(
     "best_speed",
   ),
   automaticSchema: z.boolean().default(false),
-  parquetVersion: OutputMinioParquetVersion$outboundSchema.default(
-    "PARQUET_2_6",
-  ),
-  parquetDataPageVersion: OutputMinioDataPageVersion$outboundSchema.default(
+  parquetSchema: z.string().optional(),
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: ParquetDataPageVersionOptions$outboundSchema.default(
     "DATA_PAGE_V2",
   ),
   parquetRowGroupLength: z.number().default(10000),
   parquetPageSize: z.string().default("1MB"),
   shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(
-    z.lazy(() => OutputMinioKeyValueMetadatum$outboundSchema),
-  ).optional(),
+  keyValueMetadata: z.array(TagsType$outboundSchema).optional(),
   enableStatistics: z.boolean().default(true),
   enableWritePageIndex: z.boolean().default(true),
   enablePageChecksum: z.boolean().default(false),
@@ -1082,23 +4783,71 @@ export const OutputMinio$outboundSchema: z.ZodType<
   maxRetryNum: z.number().default(20),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMinio$ {
-  /** @deprecated use `OutputMinio$inboundSchema` instead. */
-  export const inboundSchema = OutputMinio$inboundSchema;
-  /** @deprecated use `OutputMinio$outboundSchema` instead. */
-  export const outboundSchema = OutputMinio$outboundSchema;
-  /** @deprecated use `OutputMinio$Outbound` instead. */
-  export type Outbound = OutputMinio$Outbound;
+export function outputMinioMinio1ToJSON(
+  outputMinioMinio1: OutputMinioMinio1,
+): string {
+  return JSON.stringify(
+    OutputMinioMinio1$outboundSchema.parse(outputMinioMinio1),
+  );
 }
+export function outputMinioMinio1FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputMinioMinio1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputMinioMinio1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputMinioMinio1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputMinio$inboundSchema: z.ZodType<
+  OutputMinio,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => OutputMinioMinio5$inboundSchema),
+  z.lazy(() => OutputMinioMinio2$inboundSchema),
+  z.lazy(() => OutputMinioMinio3$inboundSchema),
+  z.lazy(() => OutputMinioMinio1$inboundSchema),
+  z.lazy(() => OutputMinioMinio4$inboundSchema),
+  z.lazy(() => OutputMinioMinio6$inboundSchema),
+  z.lazy(() => OutputMinioMinio7$inboundSchema),
+  z.lazy(() => OutputMinioMinio8$inboundSchema),
+  z.lazy(() => OutputMinioMinio9$inboundSchema),
+]);
+/** @internal */
+export type OutputMinio$Outbound =
+  | OutputMinioMinio5$Outbound
+  | OutputMinioMinio2$Outbound
+  | OutputMinioMinio3$Outbound
+  | OutputMinioMinio1$Outbound
+  | OutputMinioMinio4$Outbound
+  | OutputMinioMinio6$Outbound
+  | OutputMinioMinio7$Outbound
+  | OutputMinioMinio8$Outbound
+  | OutputMinioMinio9$Outbound;
+
+/** @internal */
+export const OutputMinio$outboundSchema: z.ZodType<
+  OutputMinio$Outbound,
+  z.ZodTypeDef,
+  OutputMinio
+> = z.union([
+  z.lazy(() => OutputMinioMinio5$outboundSchema),
+  z.lazy(() => OutputMinioMinio2$outboundSchema),
+  z.lazy(() => OutputMinioMinio3$outboundSchema),
+  z.lazy(() => OutputMinioMinio1$outboundSchema),
+  z.lazy(() => OutputMinioMinio4$outboundSchema),
+  z.lazy(() => OutputMinioMinio6$outboundSchema),
+  z.lazy(() => OutputMinioMinio7$outboundSchema),
+  z.lazy(() => OutputMinioMinio8$outboundSchema),
+  z.lazy(() => OutputMinioMinio9$outboundSchema),
+]);
 
 export function outputMinioToJSON(outputMinio: OutputMinio): string {
   return JSON.stringify(OutputMinio$outboundSchema.parse(outputMinio));
 }
-
 export function outputMinioFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputMinio, SDKValidationError> {

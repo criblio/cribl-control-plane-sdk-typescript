@@ -17,14 +17,7 @@ const value: models.RunnableJobCollection = {
   environment: "<value>",
   schedule: {
     enabled: false,
-    resumeMissed: "<value>",
-    run: {
-      type: "collection",
-      earliest: 4246.89,
-      latest: 1357.74,
-      timestampTimezone: "<value>",
-      timeWarning: {},
-    },
+    run: {},
   },
   streamtags: [
     "<value 1>",
@@ -45,7 +38,6 @@ const value: models.RunnableJobCollection = {
       command: "<value>",
       args: [
         "<value 1>",
-        "<value 2>",
       ],
     },
     metadata: [
@@ -58,8 +50,8 @@ const value: models.RunnableJobCollection = {
     output: "<value>",
   },
   run: {
-    earliest: 9029.54,
-    latest: 8097.94,
+    earliest: 7080.44,
+    latest: 3511.81,
     timeWarning: {},
     capture: {},
   },
@@ -78,15 +70,8 @@ const value: models.RunnableJobExecutor = {
   ],
   environment: "<value>",
   schedule: {
-    enabled: true,
-    resumeMissed: "<value>",
-    run: {
-      type: "collection",
-      earliest: 5516.53,
-      latest: 4479.75,
-      timestampTimezone: "<value>",
-      timeWarning: {},
-    },
+    enabled: false,
+    run: {},
   },
   streamtags: [
     "<value 1>",
@@ -113,19 +98,11 @@ const value: models.RunnableJobScheduledSearch = {
   environment: "<value>",
   schedule: {
     enabled: false,
-    resumeMissed: "<value>",
-    run: {
-      type: "collection",
-      earliest: 2827.78,
-      latest: 2072.76,
-      timestampTimezone: "<value>",
-      timeWarning: {},
-    },
+    run: {},
   },
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   savedQueryId: "<id>",
 };

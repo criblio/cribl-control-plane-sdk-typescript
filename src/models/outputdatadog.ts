@@ -11,193 +11,162 @@ import {
   Unrecognized,
 } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthType2Options,
+  AuthType2Options$inboundSchema,
+  AuthType2Options$outboundSchema,
+} from "./authtype2options.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  ExtraHttpHeadersType,
+  ExtraHttpHeadersType$inboundSchema,
+  ExtraHttpHeadersType$Outbound,
+  ExtraHttpHeadersType$outboundSchema,
+} from "./extrahttpheaderstype.js";
+import {
+  FailedRequestLoggingModeOptions,
+  FailedRequestLoggingModeOptions$inboundSchema,
+  FailedRequestLoggingModeOptions$outboundSchema,
+} from "./failedrequestloggingmodeoptions.js";
+import {
+  MetadataType,
+  MetadataType$inboundSchema,
+  MetadataType$Outbound,
+  MetadataType$outboundSchema,
+} from "./metadatatype.js";
+import {
+  OnBackpressureOptions,
+  OnBackpressureOptions$inboundSchema,
+  OnBackpressureOptions$outboundSchema,
+} from "./onbackpressureoptions.js";
+import {
+  PayloadFormatOptions,
+  PayloadFormatOptions$inboundSchema,
+  PayloadFormatOptions$outboundSchema,
+} from "./payloadformatoptions.js";
+import {
+  PqCompressOptions,
+  PqCompressOptions$inboundSchema,
+  PqCompressOptions$outboundSchema,
+} from "./pqcompressoptions.js";
+import {
+  PqModeOptions,
+  PqModeOptions$inboundSchema,
+  PqModeOptions$outboundSchema,
+} from "./pqmodeoptions.js";
+import {
+  PqOnBackpressureOptions,
+  PqOnBackpressureOptions$inboundSchema,
+  PqOnBackpressureOptions$outboundSchema,
+} from "./pqonbackpressureoptions.js";
+import {
+  ResponseRetrySettingsType,
+  ResponseRetrySettingsType$inboundSchema,
+  ResponseRetrySettingsType$Outbound,
+  ResponseRetrySettingsType$outboundSchema,
+} from "./responseretrysettingstype.js";
+import {
+  TimeoutRetrySettingsType,
+  TimeoutRetrySettingsType$inboundSchema,
+  TimeoutRetrySettingsType$Outbound,
+  TimeoutRetrySettingsType$outboundSchema,
+} from "./timeoutretrysettingstype.js";
 
-export const OutputDatadogType = {
+export const OutputDatadogType6 = {
   Datadog: "datadog",
 } as const;
-export type OutputDatadogType = ClosedEnum<typeof OutputDatadogType>;
-
-/**
- * The content type to use when sending logs
- */
-export const SendLogsAs = {
-  Text: "text",
-  Json: "json",
-} as const;
-/**
- * The content type to use when sending logs
- */
-export type SendLogsAs = OpenEnum<typeof SendLogsAs>;
+export type OutputDatadogType6 = ClosedEnum<typeof OutputDatadogType6>;
 
 /**
  * Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
  */
-export const OutputDatadogSeverity = {
+export const OutputDatadogSeverity6 = {
+  /**
+   * emergency
+   */
   Emergency: "emergency",
+  /**
+   * alert
+   */
   Alert: "alert",
+  /**
+   * critical
+   */
   Critical: "critical",
+  /**
+   * error
+   */
   Error: "error",
+  /**
+   * warning
+   */
   Warning: "warning",
+  /**
+   * notice
+   */
   Notice: "notice",
+  /**
+   * info
+   */
   Info: "info",
+  /**
+   * debug
+   */
   Debug: "debug",
 } as const;
 /**
  * Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
  */
-export type OutputDatadogSeverity = OpenEnum<typeof OutputDatadogSeverity>;
+export type OutputDatadogSeverity6 = OpenEnum<typeof OutputDatadogSeverity6>;
 
 /**
  * Datadog site to which events should be sent
  */
-export const DatadogSite = {
+export const DatadogSite6 = {
+  /**
+   * US
+   */
   Us: "us",
+  /**
+   * US3
+   */
   Us3: "us3",
+  /**
+   * US5
+   */
   Us5: "us5",
+  /**
+   * Europe
+   */
   Eu: "eu",
+  /**
+   * US1-FED
+   */
   Fed1: "fed1",
+  /**
+   * AP1
+   */
   Ap1: "ap1",
+  /**
+   * Custom
+   */
   Custom: "custom",
 } as const;
 /**
  * Datadog site to which events should be sent
  */
-export type DatadogSite = OpenEnum<typeof DatadogSite>;
+export type DatadogSite6 = OpenEnum<typeof DatadogSite6>;
 
-export type OutputDatadogExtraHttpHeader = {
-  name?: string | undefined;
-  value: string;
-};
-
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export const OutputDatadogFailedRequestLoggingMode = {
-  Payload: "payload",
-  PayloadAndHeaders: "payloadAndHeaders",
-  None: "none",
-} as const;
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export type OutputDatadogFailedRequestLoggingMode = OpenEnum<
-  typeof OutputDatadogFailedRequestLoggingMode
->;
-
-export type OutputDatadogResponseRetrySetting = {
+export type OutputDatadogDatadog6 = {
   /**
-   * The HTTP response status code that will trigger retries
+   * Enter credentials directly, or select a stored secret
    */
-  httpStatus: number;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-export type OutputDatadogTimeoutRetrySettings = {
-  timeoutRetry?: boolean | undefined;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputDatadogBackpressureBehavior = {
-  Block: "block",
-  Drop: "drop",
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputDatadogBackpressureBehavior = OpenEnum<
-  typeof OutputDatadogBackpressureBehavior
->;
-
-/**
- * Enter API key directly, or select a stored secret
- */
-export const OutputDatadogAuthenticationMethod = {
-  Manual: "manual",
-  Secret: "secret",
-} as const;
-/**
- * Enter API key directly, or select a stored secret
- */
-export type OutputDatadogAuthenticationMethod = OpenEnum<
-  typeof OutputDatadogAuthenticationMethod
->;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputDatadogCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputDatadogCompression = OpenEnum<
-  typeof OutputDatadogCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputDatadogQueueFullBehavior = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputDatadogQueueFullBehavior = OpenEnum<
-  typeof OutputDatadogQueueFullBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputDatadogMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputDatadogMode = OpenEnum<typeof OutputDatadogMode>;
-
-export type OutputDatadogPqControls = {};
-
-export type OutputDatadog = {
+  authType?: AuthType2Options | undefined;
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputDatadogType;
+  type: OutputDatadogType6;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -215,9 +184,9 @@ export type OutputDatadog = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * The content type to use when sending logs
+   * Format to use when sending payload. Defaults to Text.
    */
-  contentType?: SendLogsAs | undefined;
+  contentType?: PayloadFormatOptions | undefined;
   /**
    * Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
    */
@@ -249,11 +218,11 @@ export type OutputDatadog = {
   /**
    * Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
    */
-  severity?: OutputDatadogSeverity | undefined;
+  severity?: OutputDatadogSeverity6 | undefined;
   /**
    * Datadog site to which events should be sent
    */
-  site?: DatadogSite | undefined;
+  site?: DatadogSite6 | undefined;
   /**
    * If not enabled, Datadog will transform 'counter' metrics to 'gauge'. [Learn more about Datadog metrics types.](https://docs.datadoghq.com/metrics/types/?tab=count)
    */
@@ -293,7 +262,7 @@ export type OutputDatadog = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<OutputDatadogExtraHttpHeader> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -301,7 +270,7 @@ export type OutputDatadog = {
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
-  failedRequestLoggingMode?: OutputDatadogFailedRequestLoggingMode | undefined;
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -309,8 +278,8 @@ export type OutputDatadog = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<OutputDatadogResponseRetrySetting> | undefined;
-  timeoutRetrySettings?: OutputDatadogTimeoutRetrySettings | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
@@ -318,17 +287,33 @@ export type OutputDatadog = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputDatadogBackpressureBehavior | undefined;
-  /**
-   * Enter API key directly, or select a stored secret
-   */
-  authType?: OutputDatadogAuthenticationMethod | undefined;
+  onBackpressure?: OnBackpressureOptions | undefined;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
   customUrl?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
   /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
@@ -344,16 +329,558 @@ export type OutputDatadog = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputDatadogCompression | undefined;
+  pqCompress?: PqCompressOptions | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputDatadogQueueFullBehavior | undefined;
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * Organization's API key in Datadog
+   */
+  apiKey?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret: string;
+};
+
+export const OutputDatadogType5 = {
+  Datadog: "datadog",
+} as const;
+export type OutputDatadogType5 = ClosedEnum<typeof OutputDatadogType5>;
+
+/**
+ * Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
+ */
+export const OutputDatadogSeverity5 = {
+  /**
+   * emergency
+   */
+  Emergency: "emergency",
+  /**
+   * alert
+   */
+  Alert: "alert",
+  /**
+   * critical
+   */
+  Critical: "critical",
+  /**
+   * error
+   */
+  Error: "error",
+  /**
+   * warning
+   */
+  Warning: "warning",
+  /**
+   * notice
+   */
+  Notice: "notice",
+  /**
+   * info
+   */
+  Info: "info",
+  /**
+   * debug
+   */
+  Debug: "debug",
+} as const;
+/**
+ * Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
+ */
+export type OutputDatadogSeverity5 = OpenEnum<typeof OutputDatadogSeverity5>;
+
+/**
+ * Datadog site to which events should be sent
+ */
+export const DatadogSite5 = {
+  /**
+   * US
+   */
+  Us: "us",
+  /**
+   * US3
+   */
+  Us3: "us3",
+  /**
+   * US5
+   */
+  Us5: "us5",
+  /**
+   * Europe
+   */
+  Eu: "eu",
+  /**
+   * US1-FED
+   */
+  Fed1: "fed1",
+  /**
+   * AP1
+   */
+  Ap1: "ap1",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+} as const;
+/**
+ * Datadog site to which events should be sent
+ */
+export type DatadogSite5 = OpenEnum<typeof DatadogSite5>;
+
+export type OutputDatadogDatadog5 = {
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputDatadogType5;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Format to use when sending payload. Defaults to Text.
+   */
+  contentType?: PayloadFormatOptions | undefined;
+  /**
+   * Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
+   */
+  message?: string | undefined;
+  /**
+   * Name of the source to send with logs. When you send logs as JSON objects, the event's 'source' field (if set) will override this value.
+   */
+  source?: string | undefined;
+  /**
+   * Name of the host to send with logs. When you send logs as JSON objects, the event's 'host' field (if set) will override this value.
+   */
+  host?: string | undefined;
+  /**
+   * Name of the service to send with logs. When you send logs as JSON objects, the event's '__service' field (if set) will override this value.
+   */
+  service?: string | undefined;
+  /**
+   * List of tags to send with logs, such as 'env:prod' and 'env_staging:east'
+   */
+  tags?: Array<string> | undefined;
+  /**
+   * Batch events by API key and the ddtags field on the event. When disabled, batches events only by API key. If incoming events have high cardinality in the ddtags field, disabling this setting may improve Destination performance.
+   */
+  batchByTags?: boolean | undefined;
+  /**
+   * Allow API key to be set from the event's '__agent_api_key' field
+   */
+  allowApiKeyFromEvents?: boolean | undefined;
+  /**
+   * Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
+   */
+  severity?: OutputDatadogSeverity5 | undefined;
+  /**
+   * Datadog site to which events should be sent
+   */
+  site?: DatadogSite5 | undefined;
+  /**
+   * If not enabled, Datadog will transform 'counter' metrics to 'gauge'. [Learn more about Datadog metrics types.](https://docs.datadoghq.com/metrics/types/?tab=count)
+   */
+  sendCountersAsCount?: boolean | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputDatadogMode | undefined;
-  pqControls?: OutputDatadogPqControls | undefined;
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * Organization's API key in Datadog
+   */
+  apiKey: string;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export const OutputDatadogType4 = {
+  Datadog: "datadog",
+} as const;
+export type OutputDatadogType4 = ClosedEnum<typeof OutputDatadogType4>;
+
+/**
+ * Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
+ */
+export const OutputDatadogSeverity4 = {
+  /**
+   * emergency
+   */
+  Emergency: "emergency",
+  /**
+   * alert
+   */
+  Alert: "alert",
+  /**
+   * critical
+   */
+  Critical: "critical",
+  /**
+   * error
+   */
+  Error: "error",
+  /**
+   * warning
+   */
+  Warning: "warning",
+  /**
+   * notice
+   */
+  Notice: "notice",
+  /**
+   * info
+   */
+  Info: "info",
+  /**
+   * debug
+   */
+  Debug: "debug",
+} as const;
+/**
+ * Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
+ */
+export type OutputDatadogSeverity4 = OpenEnum<typeof OutputDatadogSeverity4>;
+
+/**
+ * Datadog site to which events should be sent
+ */
+export const DatadogSite4 = {
+  /**
+   * US
+   */
+  Us: "us",
+  /**
+   * US3
+   */
+  Us3: "us3",
+  /**
+   * US5
+   */
+  Us5: "us5",
+  /**
+   * Europe
+   */
+  Eu: "eu",
+  /**
+   * US1-FED
+   */
+  Fed1: "fed1",
+  /**
+   * AP1
+   */
+  Ap1: "ap1",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+} as const;
+/**
+ * Datadog site to which events should be sent
+ */
+export type DatadogSite4 = OpenEnum<typeof DatadogSite4>;
+
+export type OutputDatadogDatadog4 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputDatadogType4;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Format to use when sending payload. Defaults to Text.
+   */
+  contentType?: PayloadFormatOptions | undefined;
+  /**
+   * Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
+   */
+  message?: string | undefined;
+  /**
+   * Name of the source to send with logs. When you send logs as JSON objects, the event's 'source' field (if set) will override this value.
+   */
+  source?: string | undefined;
+  /**
+   * Name of the host to send with logs. When you send logs as JSON objects, the event's 'host' field (if set) will override this value.
+   */
+  host?: string | undefined;
+  /**
+   * Name of the service to send with logs. When you send logs as JSON objects, the event's '__service' field (if set) will override this value.
+   */
+  service?: string | undefined;
+  /**
+   * List of tags to send with logs, such as 'env:prod' and 'env_staging:east'
+   */
+  tags?: Array<string> | undefined;
+  /**
+   * Batch events by API key and the ddtags field on the event. When disabled, batches events only by API key. If incoming events have high cardinality in the ddtags field, disabling this setting may improve Destination performance.
+   */
+  batchByTags?: boolean | undefined;
+  /**
+   * Allow API key to be set from the event's '__agent_api_key' field
+   */
+  allowApiKeyFromEvents?: boolean | undefined;
+  /**
+   * Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
+   */
+  severity?: OutputDatadogSeverity4 | undefined;
+  /**
+   * Datadog site to which events should be sent
+   */
+  site?: DatadogSite4 | undefined;
+  /**
+   * If not enabled, Datadog will transform 'counter' metrics to 'gauge'. [Learn more about Datadog metrics types.](https://docs.datadoghq.com/metrics/types/?tab=count)
+   */
+  sendCountersAsCount?: boolean | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls: MetadataType;
   /**
    * Organization's API key in Datadog
    */
@@ -364,571 +891,896 @@ export type OutputDatadog = {
   textSecret?: string | undefined;
 };
 
-/** @internal */
-export const OutputDatadogType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputDatadogType
-> = z.nativeEnum(OutputDatadogType);
-
-/** @internal */
-export const OutputDatadogType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputDatadogType
-> = OutputDatadogType$inboundSchema;
+export const OutputDatadogType3 = {
+  Datadog: "datadog",
+} as const;
+export type OutputDatadogType3 = ClosedEnum<typeof OutputDatadogType3>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
  */
-export namespace OutputDatadogType$ {
-  /** @deprecated use `OutputDatadogType$inboundSchema` instead. */
-  export const inboundSchema = OutputDatadogType$inboundSchema;
-  /** @deprecated use `OutputDatadogType$outboundSchema` instead. */
-  export const outboundSchema = OutputDatadogType$outboundSchema;
-}
-
-/** @internal */
-export const SendLogsAs$inboundSchema: z.ZodType<
-  SendLogsAs,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(SendLogsAs),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const SendLogsAs$outboundSchema: z.ZodType<
-  SendLogsAs,
-  z.ZodTypeDef,
-  SendLogsAs
-> = z.union([
-  z.nativeEnum(SendLogsAs),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const OutputDatadogSeverity3 = {
+  /**
+   * emergency
+   */
+  Emergency: "emergency",
+  /**
+   * alert
+   */
+  Alert: "alert",
+  /**
+   * critical
+   */
+  Critical: "critical",
+  /**
+   * error
+   */
+  Error: "error",
+  /**
+   * warning
+   */
+  Warning: "warning",
+  /**
+   * notice
+   */
+  Notice: "notice",
+  /**
+   * info
+   */
+  Info: "info",
+  /**
+   * debug
+   */
+  Debug: "debug",
+} as const;
+/**
+ * Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
+ */
+export type OutputDatadogSeverity3 = OpenEnum<typeof OutputDatadogSeverity3>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Datadog site to which events should be sent
  */
-export namespace SendLogsAs$ {
-  /** @deprecated use `SendLogsAs$inboundSchema` instead. */
-  export const inboundSchema = SendLogsAs$inboundSchema;
-  /** @deprecated use `SendLogsAs$outboundSchema` instead. */
-  export const outboundSchema = SendLogsAs$outboundSchema;
-}
-
-/** @internal */
-export const OutputDatadogSeverity$inboundSchema: z.ZodType<
-  OutputDatadogSeverity,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatadogSeverity),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputDatadogSeverity$outboundSchema: z.ZodType<
-  OutputDatadogSeverity,
-  z.ZodTypeDef,
-  OutputDatadogSeverity
-> = z.union([
-  z.nativeEnum(OutputDatadogSeverity),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
+export const DatadogSite3 = {
+  /**
+   * US
+   */
+  Us: "us",
+  /**
+   * US3
+   */
+  Us3: "us3",
+  /**
+   * US5
+   */
+  Us5: "us5",
+  /**
+   * Europe
+   */
+  Eu: "eu",
+  /**
+   * US1-FED
+   */
+  Fed1: "fed1",
+  /**
+   * AP1
+   */
+  Ap1: "ap1",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+} as const;
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Datadog site to which events should be sent
  */
-export namespace OutputDatadogSeverity$ {
-  /** @deprecated use `OutputDatadogSeverity$inboundSchema` instead. */
-  export const inboundSchema = OutputDatadogSeverity$inboundSchema;
-  /** @deprecated use `OutputDatadogSeverity$outboundSchema` instead. */
-  export const outboundSchema = OutputDatadogSeverity$outboundSchema;
-}
+export type DatadogSite3 = OpenEnum<typeof DatadogSite3>;
 
-/** @internal */
-export const DatadogSite$inboundSchema: z.ZodType<
-  DatadogSite,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(DatadogSite),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const DatadogSite$outboundSchema: z.ZodType<
-  DatadogSite,
-  z.ZodTypeDef,
-  DatadogSite
-> = z.union([
-  z.nativeEnum(DatadogSite),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DatadogSite$ {
-  /** @deprecated use `DatadogSite$inboundSchema` instead. */
-  export const inboundSchema = DatadogSite$inboundSchema;
-  /** @deprecated use `DatadogSite$outboundSchema` instead. */
-  export const outboundSchema = DatadogSite$outboundSchema;
-}
-
-/** @internal */
-export const OutputDatadogExtraHttpHeader$inboundSchema: z.ZodType<
-  OutputDatadogExtraHttpHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-/** @internal */
-export type OutputDatadogExtraHttpHeader$Outbound = {
-  name?: string | undefined;
-  value: string;
+export type OutputDatadogDatadog3 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputDatadogType3;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Format to use when sending payload. Defaults to Text.
+   */
+  contentType?: PayloadFormatOptions | undefined;
+  /**
+   * Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
+   */
+  message?: string | undefined;
+  /**
+   * Name of the source to send with logs. When you send logs as JSON objects, the event's 'source' field (if set) will override this value.
+   */
+  source?: string | undefined;
+  /**
+   * Name of the host to send with logs. When you send logs as JSON objects, the event's 'host' field (if set) will override this value.
+   */
+  host?: string | undefined;
+  /**
+   * Name of the service to send with logs. When you send logs as JSON objects, the event's '__service' field (if set) will override this value.
+   */
+  service?: string | undefined;
+  /**
+   * List of tags to send with logs, such as 'env:prod' and 'env_staging:east'
+   */
+  tags?: Array<string> | undefined;
+  /**
+   * Batch events by API key and the ddtags field on the event. When disabled, batches events only by API key. If incoming events have high cardinality in the ddtags field, disabling this setting may improve Destination performance.
+   */
+  batchByTags?: boolean | undefined;
+  /**
+   * Allow API key to be set from the event's '__agent_api_key' field
+   */
+  allowApiKeyFromEvents?: boolean | undefined;
+  /**
+   * Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
+   */
+  severity?: OutputDatadogSeverity3 | undefined;
+  /**
+   * Datadog site to which events should be sent
+   */
+  site?: DatadogSite3 | undefined;
+  /**
+   * If not enabled, Datadog will transform 'counter' metrics to 'gauge'. [Learn more about Datadog metrics types.](https://docs.datadoghq.com/metrics/types/?tab=count)
+   */
+  sendCountersAsCount?: boolean | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * Organization's API key in Datadog
+   */
+  apiKey?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
 };
 
-/** @internal */
-export const OutputDatadogExtraHttpHeader$outboundSchema: z.ZodType<
-  OutputDatadogExtraHttpHeader$Outbound,
-  z.ZodTypeDef,
-  OutputDatadogExtraHttpHeader
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
+/**
+ * Datadog site to which events should be sent
+ */
+export const DatadogSite2 = {
+  /**
+   * US
+   */
+  Us: "us",
+  /**
+   * US3
+   */
+  Us3: "us3",
+  /**
+   * US5
+   */
+  Us5: "us5",
+  /**
+   * Europe
+   */
+  Eu: "eu",
+  /**
+   * US1-FED
+   */
+  Fed1: "fed1",
+  /**
+   * AP1
+   */
+  Ap1: "ap1",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+} as const;
+/**
+ * Datadog site to which events should be sent
+ */
+export type DatadogSite2 = OpenEnum<typeof DatadogSite2>;
+
+export const OutputDatadogType2 = {
+  Datadog: "datadog",
+} as const;
+export type OutputDatadogType2 = ClosedEnum<typeof OutputDatadogType2>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
  */
-export namespace OutputDatadogExtraHttpHeader$ {
-  /** @deprecated use `OutputDatadogExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputDatadogExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputDatadogExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputDatadogExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputDatadogExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputDatadogExtraHttpHeader$Outbound;
-}
-
-export function outputDatadogExtraHttpHeaderToJSON(
-  outputDatadogExtraHttpHeader: OutputDatadogExtraHttpHeader,
-): string {
-  return JSON.stringify(
-    OutputDatadogExtraHttpHeader$outboundSchema.parse(
-      outputDatadogExtraHttpHeader,
-    ),
-  );
-}
-
-export function outputDatadogExtraHttpHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputDatadogExtraHttpHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputDatadogExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputDatadogExtraHttpHeader' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputDatadogFailedRequestLoggingMode$inboundSchema: z.ZodType<
-  OutputDatadogFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatadogFailedRequestLoggingMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputDatadogFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  OutputDatadogFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  OutputDatadogFailedRequestLoggingMode
-> = z.union([
-  z.nativeEnum(OutputDatadogFailedRequestLoggingMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
+export const OutputDatadogSeverity2 = {
+  /**
+   * emergency
+   */
+  Emergency: "emergency",
+  /**
+   * alert
+   */
+  Alert: "alert",
+  /**
+   * critical
+   */
+  Critical: "critical",
+  /**
+   * error
+   */
+  Error: "error",
+  /**
+   * warning
+   */
+  Warning: "warning",
+  /**
+   * notice
+   */
+  Notice: "notice",
+  /**
+   * info
+   */
+  Info: "info",
+  /**
+   * debug
+   */
+  Debug: "debug",
+} as const;
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
  */
-export namespace OutputDatadogFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputDatadogFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputDatadogFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputDatadogFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDatadogFailedRequestLoggingMode$outboundSchema;
-}
+export type OutputDatadogSeverity2 = OpenEnum<typeof OutputDatadogSeverity2>;
 
-/** @internal */
-export const OutputDatadogResponseRetrySetting$inboundSchema: z.ZodType<
-  OutputDatadogResponseRetrySetting,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/** @internal */
-export type OutputDatadogResponseRetrySetting$Outbound = {
-  httpStatus: number;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
+export type OutputDatadogDatadog2 = {
+  /**
+   * Datadog site to which events should be sent
+   */
+  site?: DatadogSite2 | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputDatadogType2;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Format to use when sending payload. Defaults to Text.
+   */
+  contentType?: PayloadFormatOptions | undefined;
+  /**
+   * Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
+   */
+  message?: string | undefined;
+  /**
+   * Name of the source to send with logs. When you send logs as JSON objects, the event's 'source' field (if set) will override this value.
+   */
+  source?: string | undefined;
+  /**
+   * Name of the host to send with logs. When you send logs as JSON objects, the event's 'host' field (if set) will override this value.
+   */
+  host?: string | undefined;
+  /**
+   * Name of the service to send with logs. When you send logs as JSON objects, the event's '__service' field (if set) will override this value.
+   */
+  service?: string | undefined;
+  /**
+   * List of tags to send with logs, such as 'env:prod' and 'env_staging:east'
+   */
+  tags?: Array<string> | undefined;
+  /**
+   * Batch events by API key and the ddtags field on the event. When disabled, batches events only by API key. If incoming events have high cardinality in the ddtags field, disabling this setting may improve Destination performance.
+   */
+  batchByTags?: boolean | undefined;
+  /**
+   * Allow API key to be set from the event's '__agent_api_key' field
+   */
+  allowApiKeyFromEvents?: boolean | undefined;
+  /**
+   * Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
+   */
+  severity?: OutputDatadogSeverity2 | undefined;
+  /**
+   * If not enabled, Datadog will transform 'counter' metrics to 'gauge'. [Learn more about Datadog metrics types.](https://docs.datadoghq.com/metrics/types/?tab=count)
+   */
+  sendCountersAsCount?: boolean | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * Organization's API key in Datadog
+   */
+  apiKey?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
 };
 
-/** @internal */
-export const OutputDatadogResponseRetrySetting$outboundSchema: z.ZodType<
-  OutputDatadogResponseRetrySetting$Outbound,
-  z.ZodTypeDef,
-  OutputDatadogResponseRetrySetting
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
+/**
+ * Datadog site to which events should be sent
+ */
+export const DatadogSite1 = {
+  /**
+   * US
+   */
+  Us: "us",
+  /**
+   * US3
+   */
+  Us3: "us3",
+  /**
+   * US5
+   */
+  Us5: "us5",
+  /**
+   * Europe
+   */
+  Eu: "eu",
+  /**
+   * US1-FED
+   */
+  Fed1: "fed1",
+  /**
+   * AP1
+   */
+  Ap1: "ap1",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+} as const;
+/**
+ * Datadog site to which events should be sent
+ */
+export type DatadogSite1 = OpenEnum<typeof DatadogSite1>;
+
+export const OutputDatadogType1 = {
+  Datadog: "datadog",
+} as const;
+export type OutputDatadogType1 = ClosedEnum<typeof OutputDatadogType1>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
  */
-export namespace OutputDatadogResponseRetrySetting$ {
-  /** @deprecated use `OutputDatadogResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema = OutputDatadogResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputDatadogResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDatadogResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputDatadogResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputDatadogResponseRetrySetting$Outbound;
-}
+export const OutputDatadogSeverity1 = {
+  /**
+   * emergency
+   */
+  Emergency: "emergency",
+  /**
+   * alert
+   */
+  Alert: "alert",
+  /**
+   * critical
+   */
+  Critical: "critical",
+  /**
+   * error
+   */
+  Error: "error",
+  /**
+   * warning
+   */
+  Warning: "warning",
+  /**
+   * notice
+   */
+  Notice: "notice",
+  /**
+   * info
+   */
+  Info: "info",
+  /**
+   * debug
+   */
+  Debug: "debug",
+} as const;
+/**
+ * Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
+ */
+export type OutputDatadogSeverity1 = OpenEnum<typeof OutputDatadogSeverity1>;
 
-export function outputDatadogResponseRetrySettingToJSON(
-  outputDatadogResponseRetrySetting: OutputDatadogResponseRetrySetting,
-): string {
-  return JSON.stringify(
-    OutputDatadogResponseRetrySetting$outboundSchema.parse(
-      outputDatadogResponseRetrySetting,
-    ),
-  );
-}
-
-export function outputDatadogResponseRetrySettingFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputDatadogResponseRetrySetting, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputDatadogResponseRetrySetting$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputDatadogResponseRetrySetting' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputDatadogTimeoutRetrySettings$inboundSchema: z.ZodType<
-  OutputDatadogTimeoutRetrySettings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/** @internal */
-export type OutputDatadogTimeoutRetrySettings$Outbound = {
-  timeoutRetry: boolean;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
+export type OutputDatadogDatadog1 = {
+  /**
+   * Datadog site to which events should be sent
+   */
+  site?: DatadogSite1 | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputDatadogType1;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Format to use when sending payload. Defaults to Text.
+   */
+  contentType?: PayloadFormatOptions | undefined;
+  /**
+   * Name of the event field that contains the message to send. If not specified, Stream sends a JSON representation of the whole event.
+   */
+  message?: string | undefined;
+  /**
+   * Name of the source to send with logs. When you send logs as JSON objects, the event's 'source' field (if set) will override this value.
+   */
+  source?: string | undefined;
+  /**
+   * Name of the host to send with logs. When you send logs as JSON objects, the event's 'host' field (if set) will override this value.
+   */
+  host?: string | undefined;
+  /**
+   * Name of the service to send with logs. When you send logs as JSON objects, the event's '__service' field (if set) will override this value.
+   */
+  service?: string | undefined;
+  /**
+   * List of tags to send with logs, such as 'env:prod' and 'env_staging:east'
+   */
+  tags?: Array<string> | undefined;
+  /**
+   * Batch events by API key and the ddtags field on the event. When disabled, batches events only by API key. If incoming events have high cardinality in the ddtags field, disabling this setting may improve Destination performance.
+   */
+  batchByTags?: boolean | undefined;
+  /**
+   * Allow API key to be set from the event's '__agent_api_key' field
+   */
+  allowApiKeyFromEvents?: boolean | undefined;
+  /**
+   * Default value for message severity. When you send logs as JSON objects, the event's '__severity' field (if set) will override this value.
+   */
+  severity?: OutputDatadogSeverity1 | undefined;
+  /**
+   * If not enabled, Datadog will transform 'counter' metrics to 'gauge'. [Learn more about Datadog metrics types.](https://docs.datadoghq.com/metrics/types/?tab=count)
+   */
+  sendCountersAsCount?: boolean | undefined;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
+   */
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl: string;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * Organization's API key in Datadog
+   */
+  apiKey?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
 };
 
-/** @internal */
-export const OutputDatadogTimeoutRetrySettings$outboundSchema: z.ZodType<
-  OutputDatadogTimeoutRetrySettings$Outbound,
-  z.ZodTypeDef,
-  OutputDatadogTimeoutRetrySettings
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatadogTimeoutRetrySettings$ {
-  /** @deprecated use `OutputDatadogTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema = OutputDatadogTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputDatadogTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDatadogTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputDatadogTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputDatadogTimeoutRetrySettings$Outbound;
-}
-
-export function outputDatadogTimeoutRetrySettingsToJSON(
-  outputDatadogTimeoutRetrySettings: OutputDatadogTimeoutRetrySettings,
-): string {
-  return JSON.stringify(
-    OutputDatadogTimeoutRetrySettings$outboundSchema.parse(
-      outputDatadogTimeoutRetrySettings,
-    ),
-  );
-}
-
-export function outputDatadogTimeoutRetrySettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputDatadogTimeoutRetrySettings, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputDatadogTimeoutRetrySettings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputDatadogTimeoutRetrySettings' from JSON`,
-  );
-}
+export type OutputDatadog =
+  | OutputDatadogDatadog1
+  | OutputDatadogDatadog4
+  | OutputDatadogDatadog5
+  | OutputDatadogDatadog6
+  | OutputDatadogDatadog2
+  | OutputDatadogDatadog3;
 
 /** @internal */
-export const OutputDatadogBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputDatadogBackpressureBehavior,
+export const OutputDatadogType6$inboundSchema: z.ZodNativeEnum<
+  typeof OutputDatadogType6
+> = z.nativeEnum(OutputDatadogType6);
+/** @internal */
+export const OutputDatadogType6$outboundSchema: z.ZodNativeEnum<
+  typeof OutputDatadogType6
+> = OutputDatadogType6$inboundSchema;
+
+/** @internal */
+export const OutputDatadogSeverity6$inboundSchema: z.ZodType<
+  OutputDatadogSeverity6,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(OutputDatadogBackpressureBehavior),
+    z.nativeEnum(OutputDatadogSeverity6),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
-export const OutputDatadogBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputDatadogBackpressureBehavior,
+export const OutputDatadogSeverity6$outboundSchema: z.ZodType<
+  OutputDatadogSeverity6,
   z.ZodTypeDef,
-  OutputDatadogBackpressureBehavior
+  OutputDatadogSeverity6
 > = z.union([
-  z.nativeEnum(OutputDatadogBackpressureBehavior),
+  z.nativeEnum(OutputDatadogSeverity6),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatadogBackpressureBehavior$ {
-  /** @deprecated use `OutputDatadogBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputDatadogBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputDatadogBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDatadogBackpressureBehavior$outboundSchema;
-}
-
 /** @internal */
-export const OutputDatadogAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputDatadogAuthenticationMethod,
+export const DatadogSite6$inboundSchema: z.ZodType<
+  DatadogSite6,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(OutputDatadogAuthenticationMethod),
+    z.nativeEnum(DatadogSite6),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
-export const OutputDatadogAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputDatadogAuthenticationMethod,
+export const DatadogSite6$outboundSchema: z.ZodType<
+  DatadogSite6,
   z.ZodTypeDef,
-  OutputDatadogAuthenticationMethod
+  DatadogSite6
 > = z.union([
-  z.nativeEnum(OutputDatadogAuthenticationMethod),
+  z.nativeEnum(DatadogSite6),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatadogAuthenticationMethod$ {
-  /** @deprecated use `OutputDatadogAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = OutputDatadogAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputDatadogAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDatadogAuthenticationMethod$outboundSchema;
-}
-
 /** @internal */
-export const OutputDatadogCompression$inboundSchema: z.ZodType<
-  OutputDatadogCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatadogCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputDatadogCompression$outboundSchema: z.ZodType<
-  OutputDatadogCompression,
-  z.ZodTypeDef,
-  OutputDatadogCompression
-> = z.union([
-  z.nativeEnum(OutputDatadogCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatadogCompression$ {
-  /** @deprecated use `OutputDatadogCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputDatadogCompression$inboundSchema;
-  /** @deprecated use `OutputDatadogCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputDatadogCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputDatadogQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputDatadogQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatadogQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputDatadogQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputDatadogQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputDatadogQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputDatadogQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatadogQueueFullBehavior$ {
-  /** @deprecated use `OutputDatadogQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputDatadogQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputDatadogQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputDatadogQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputDatadogMode$inboundSchema: z.ZodType<
-  OutputDatadogMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatadogMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputDatadogMode$outboundSchema: z.ZodType<
-  OutputDatadogMode,
-  z.ZodTypeDef,
-  OutputDatadogMode
-> = z.union([
-  z.nativeEnum(OutputDatadogMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatadogMode$ {
-  /** @deprecated use `OutputDatadogMode$inboundSchema` instead. */
-  export const inboundSchema = OutputDatadogMode$inboundSchema;
-  /** @deprecated use `OutputDatadogMode$outboundSchema` instead. */
-  export const outboundSchema = OutputDatadogMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputDatadogPqControls$inboundSchema: z.ZodType<
-  OutputDatadogPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type OutputDatadogPqControls$Outbound = {};
-
-/** @internal */
-export const OutputDatadogPqControls$outboundSchema: z.ZodType<
-  OutputDatadogPqControls$Outbound,
-  z.ZodTypeDef,
-  OutputDatadogPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatadogPqControls$ {
-  /** @deprecated use `OutputDatadogPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputDatadogPqControls$inboundSchema;
-  /** @deprecated use `OutputDatadogPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputDatadogPqControls$outboundSchema;
-  /** @deprecated use `OutputDatadogPqControls$Outbound` instead. */
-  export type Outbound = OutputDatadogPqControls$Outbound;
-}
-
-export function outputDatadogPqControlsToJSON(
-  outputDatadogPqControls: OutputDatadogPqControls,
-): string {
-  return JSON.stringify(
-    OutputDatadogPqControls$outboundSchema.parse(outputDatadogPqControls),
-  );
-}
-
-export function outputDatadogPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputDatadogPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputDatadogPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputDatadogPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputDatadog$inboundSchema: z.ZodType<
-  OutputDatadog,
+export const OutputDatadogDatadog6$inboundSchema: z.ZodType<
+  OutputDatadogDatadog6,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  authType: AuthType2Options$inboundSchema.default("manual"),
   id: z.string().optional(),
-  type: OutputDatadogType$inboundSchema,
+  type: OutputDatadogType6$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  contentType: SendLogsAs$inboundSchema.default("json"),
+  contentType: PayloadFormatOptions$inboundSchema.default("text"),
   message: z.string().optional(),
   source: z.string().optional(),
   host: z.string().optional(),
@@ -936,8 +1788,8 @@ export const OutputDatadog$inboundSchema: z.ZodType<
   tags: z.array(z.string()).optional(),
   batchByTags: z.boolean().default(true),
   allowApiKeyFromEvents: z.boolean().default(false),
-  severity: OutputDatadogSeverity$inboundSchema.optional(),
-  site: DatadogSite$inboundSchema.default("us"),
+  severity: OutputDatadogSeverity6$inboundSchema.optional(),
+  site: DatadogSite6$inboundSchema.default("us"),
   sendCountersAsCount: z.boolean().default(false),
   concurrency: z.number().default(5),
   maxPayloadSizeKB: z.number().default(4096),
@@ -946,42 +1798,36 @@ export const OutputDatadog$inboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputDatadogExtraHttpHeader$inboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
   useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode: OutputDatadogFailedRequestLoggingMode$inboundSchema
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
     .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputDatadogResponseRetrySetting$inboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputDatadogTimeoutRetrySettings$inboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(false),
-  onBackpressure: OutputDatadogBackpressureBehavior$inboundSchema.default(
-    "block",
-  ),
-  authType: OutputDatadogAuthenticationMethod$inboundSchema.default("manual"),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputDatadogCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputDatadogQueueFullBehavior$inboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputDatadogMode$inboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputDatadogPqControls$inboundSchema).optional(),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
   apiKey: z.string().optional(),
-  textSecret: z.string().optional(),
+  textSecret: z.string(),
 });
-
 /** @internal */
-export type OutputDatadog$Outbound = {
+export type OutputDatadogDatadog6$Outbound = {
+  authType: string;
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -1006,44 +1852,46 @@ export type OutputDatadog$Outbound = {
   rejectUnauthorized: boolean;
   timeoutSec: number;
   flushPeriodSec: number;
-  extraHttpHeaders?: Array<OutputDatadogExtraHttpHeader$Outbound> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
   useRoundRobinDns: boolean;
   failedRequestLoggingMode: string;
   safeHeaders?: Array<string> | undefined;
-  responseRetrySettings?:
-    | Array<OutputDatadogResponseRetrySetting$Outbound>
-    | undefined;
-  timeoutRetrySettings?: OutputDatadogTimeoutRetrySettings$Outbound | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader: boolean;
   onBackpressure: string;
-  authType: string;
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
   customUrl?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
-  pqControls?: OutputDatadogPqControls$Outbound | undefined;
+  pqControls?: MetadataType$Outbound | undefined;
   apiKey?: string | undefined;
-  textSecret?: string | undefined;
+  textSecret: string;
 };
 
 /** @internal */
-export const OutputDatadog$outboundSchema: z.ZodType<
-  OutputDatadog$Outbound,
+export const OutputDatadogDatadog6$outboundSchema: z.ZodType<
+  OutputDatadogDatadog6$Outbound,
   z.ZodTypeDef,
-  OutputDatadog
+  OutputDatadogDatadog6
 > = z.object({
+  authType: AuthType2Options$outboundSchema.default("manual"),
   id: z.string().optional(),
-  type: OutputDatadogType$outboundSchema,
+  type: OutputDatadogType6$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  contentType: SendLogsAs$outboundSchema.default("json"),
+  contentType: PayloadFormatOptions$outboundSchema.default("text"),
   message: z.string().optional(),
   source: z.string().optional(),
   host: z.string().optional(),
@@ -1051,8 +1899,8 @@ export const OutputDatadog$outboundSchema: z.ZodType<
   tags: z.array(z.string()).optional(),
   batchByTags: z.boolean().default(true),
   allowApiKeyFromEvents: z.boolean().default(false),
-  severity: OutputDatadogSeverity$outboundSchema.optional(),
-  site: DatadogSite$outboundSchema.default("us"),
+  severity: OutputDatadogSeverity6$outboundSchema.optional(),
+  site: DatadogSite6$outboundSchema.default("us"),
   sendCountersAsCount: z.boolean().default(false),
   concurrency: z.number().default(5),
   maxPayloadSizeKB: z.number().default(4096),
@@ -1061,57 +1909,1270 @@ export const OutputDatadog$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputDatadogExtraHttpHeader$outboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
   useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode: OutputDatadogFailedRequestLoggingMode$outboundSchema
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
     .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputDatadogResponseRetrySetting$outboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputDatadogTimeoutRetrySettings$outboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(false),
-  onBackpressure: OutputDatadogBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
-  authType: OutputDatadogAuthenticationMethod$outboundSchema.default("manual"),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputDatadogCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputDatadogQueueFullBehavior$outboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputDatadogMode$outboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputDatadogPqControls$outboundSchema).optional(),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  apiKey: z.string().optional(),
+  textSecret: z.string(),
+});
+
+export function outputDatadogDatadog6ToJSON(
+  outputDatadogDatadog6: OutputDatadogDatadog6,
+): string {
+  return JSON.stringify(
+    OutputDatadogDatadog6$outboundSchema.parse(outputDatadogDatadog6),
+  );
+}
+export function outputDatadogDatadog6FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputDatadogDatadog6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputDatadogDatadog6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputDatadogDatadog6' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputDatadogType5$inboundSchema: z.ZodNativeEnum<
+  typeof OutputDatadogType5
+> = z.nativeEnum(OutputDatadogType5);
+/** @internal */
+export const OutputDatadogType5$outboundSchema: z.ZodNativeEnum<
+  typeof OutputDatadogType5
+> = OutputDatadogType5$inboundSchema;
+
+/** @internal */
+export const OutputDatadogSeverity5$inboundSchema: z.ZodType<
+  OutputDatadogSeverity5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputDatadogSeverity5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputDatadogSeverity5$outboundSchema: z.ZodType<
+  OutputDatadogSeverity5,
+  z.ZodTypeDef,
+  OutputDatadogSeverity5
+> = z.union([
+  z.nativeEnum(OutputDatadogSeverity5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const DatadogSite5$inboundSchema: z.ZodType<
+  DatadogSite5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(DatadogSite5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const DatadogSite5$outboundSchema: z.ZodType<
+  DatadogSite5,
+  z.ZodTypeDef,
+  DatadogSite5
+> = z.union([
+  z.nativeEnum(DatadogSite5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputDatadogDatadog5$inboundSchema: z.ZodType<
+  OutputDatadogDatadog5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: OutputDatadogType5$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  contentType: PayloadFormatOptions$inboundSchema.default("text"),
+  message: z.string().optional(),
+  source: z.string().optional(),
+  host: z.string().optional(),
+  service: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  batchByTags: z.boolean().default(true),
+  allowApiKeyFromEvents: z.boolean().default(false),
+  severity: OutputDatadogSeverity5$inboundSchema.optional(),
+  site: DatadogSite5$inboundSchema.default("us"),
+  sendCountersAsCount: z.boolean().default(false),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  apiKey: z.string(),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputDatadogDatadog5$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  contentType: string;
+  message?: string | undefined;
+  source?: string | undefined;
+  host?: string | undefined;
+  service?: string | undefined;
+  tags?: Array<string> | undefined;
+  batchByTags: boolean;
+  allowApiKeyFromEvents: boolean;
+  severity?: string | undefined;
+  site: string;
+  sendCountersAsCount: boolean;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  onBackpressure: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  apiKey: string;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputDatadogDatadog5$outboundSchema: z.ZodType<
+  OutputDatadogDatadog5$Outbound,
+  z.ZodTypeDef,
+  OutputDatadogDatadog5
+> = z.object({
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: OutputDatadogType5$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  contentType: PayloadFormatOptions$outboundSchema.default("text"),
+  message: z.string().optional(),
+  source: z.string().optional(),
+  host: z.string().optional(),
+  service: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  batchByTags: z.boolean().default(true),
+  allowApiKeyFromEvents: z.boolean().default(false),
+  severity: OutputDatadogSeverity5$outboundSchema.optional(),
+  site: DatadogSite5$outboundSchema.default("us"),
+  sendCountersAsCount: z.boolean().default(false),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  apiKey: z.string(),
+  textSecret: z.string().optional(),
+});
+
+export function outputDatadogDatadog5ToJSON(
+  outputDatadogDatadog5: OutputDatadogDatadog5,
+): string {
+  return JSON.stringify(
+    OutputDatadogDatadog5$outboundSchema.parse(outputDatadogDatadog5),
+  );
+}
+export function outputDatadogDatadog5FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputDatadogDatadog5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputDatadogDatadog5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputDatadogDatadog5' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputDatadogType4$inboundSchema: z.ZodNativeEnum<
+  typeof OutputDatadogType4
+> = z.nativeEnum(OutputDatadogType4);
+/** @internal */
+export const OutputDatadogType4$outboundSchema: z.ZodNativeEnum<
+  typeof OutputDatadogType4
+> = OutputDatadogType4$inboundSchema;
+
+/** @internal */
+export const OutputDatadogSeverity4$inboundSchema: z.ZodType<
+  OutputDatadogSeverity4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputDatadogSeverity4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputDatadogSeverity4$outboundSchema: z.ZodType<
+  OutputDatadogSeverity4,
+  z.ZodTypeDef,
+  OutputDatadogSeverity4
+> = z.union([
+  z.nativeEnum(OutputDatadogSeverity4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const DatadogSite4$inboundSchema: z.ZodType<
+  DatadogSite4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(DatadogSite4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const DatadogSite4$outboundSchema: z.ZodType<
+  DatadogSite4,
+  z.ZodTypeDef,
+  DatadogSite4
+> = z.union([
+  z.nativeEnum(DatadogSite4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputDatadogDatadog4$inboundSchema: z.ZodType<
+  OutputDatadogDatadog4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputDatadogType4$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  contentType: PayloadFormatOptions$inboundSchema.default("text"),
+  message: z.string().optional(),
+  source: z.string().optional(),
+  host: z.string().optional(),
+  service: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  batchByTags: z.boolean().default(true),
+  allowApiKeyFromEvents: z.boolean().default(false),
+  severity: OutputDatadogSeverity4$inboundSchema.optional(),
+  site: DatadogSite4$inboundSchema.default("us"),
+  sendCountersAsCount: z.boolean().default(false),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema,
+  apiKey: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputDatadogDatadog4$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  contentType: string;
+  message?: string | undefined;
+  source?: string | undefined;
+  host?: string | undefined;
+  service?: string | undefined;
+  tags?: Array<string> | undefined;
+  batchByTags: boolean;
+  allowApiKeyFromEvents: boolean;
+  severity?: string | undefined;
+  site: string;
+  sendCountersAsCount: boolean;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  authType: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls: MetadataType$Outbound;
+  apiKey?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputDatadogDatadog4$outboundSchema: z.ZodType<
+  OutputDatadogDatadog4$Outbound,
+  z.ZodTypeDef,
+  OutputDatadogDatadog4
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputDatadogType4$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  contentType: PayloadFormatOptions$outboundSchema.default("text"),
+  message: z.string().optional(),
+  source: z.string().optional(),
+  host: z.string().optional(),
+  service: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  batchByTags: z.boolean().default(true),
+  allowApiKeyFromEvents: z.boolean().default(false),
+  severity: OutputDatadogSeverity4$outboundSchema.optional(),
+  site: DatadogSite4$outboundSchema.default("us"),
+  sendCountersAsCount: z.boolean().default(false),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema,
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatadog$ {
-  /** @deprecated use `OutputDatadog$inboundSchema` instead. */
-  export const inboundSchema = OutputDatadog$inboundSchema;
-  /** @deprecated use `OutputDatadog$outboundSchema` instead. */
-  export const outboundSchema = OutputDatadog$outboundSchema;
-  /** @deprecated use `OutputDatadog$Outbound` instead. */
-  export type Outbound = OutputDatadog$Outbound;
+export function outputDatadogDatadog4ToJSON(
+  outputDatadogDatadog4: OutputDatadogDatadog4,
+): string {
+  return JSON.stringify(
+    OutputDatadogDatadog4$outboundSchema.parse(outputDatadogDatadog4),
+  );
 }
+export function outputDatadogDatadog4FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputDatadogDatadog4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputDatadogDatadog4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputDatadogDatadog4' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputDatadogType3$inboundSchema: z.ZodNativeEnum<
+  typeof OutputDatadogType3
+> = z.nativeEnum(OutputDatadogType3);
+/** @internal */
+export const OutputDatadogType3$outboundSchema: z.ZodNativeEnum<
+  typeof OutputDatadogType3
+> = OutputDatadogType3$inboundSchema;
+
+/** @internal */
+export const OutputDatadogSeverity3$inboundSchema: z.ZodType<
+  OutputDatadogSeverity3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputDatadogSeverity3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputDatadogSeverity3$outboundSchema: z.ZodType<
+  OutputDatadogSeverity3,
+  z.ZodTypeDef,
+  OutputDatadogSeverity3
+> = z.union([
+  z.nativeEnum(OutputDatadogSeverity3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const DatadogSite3$inboundSchema: z.ZodType<
+  DatadogSite3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(DatadogSite3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const DatadogSite3$outboundSchema: z.ZodType<
+  DatadogSite3,
+  z.ZodTypeDef,
+  DatadogSite3
+> = z.union([
+  z.nativeEnum(DatadogSite3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputDatadogDatadog3$inboundSchema: z.ZodType<
+  OutputDatadogDatadog3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputDatadogType3$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  contentType: PayloadFormatOptions$inboundSchema.default("text"),
+  message: z.string().optional(),
+  source: z.string().optional(),
+  host: z.string().optional(),
+  service: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  batchByTags: z.boolean().default(true),
+  allowApiKeyFromEvents: z.boolean().default(false),
+  severity: OutputDatadogSeverity3$inboundSchema.optional(),
+  site: DatadogSite3$inboundSchema.default("us"),
+  sendCountersAsCount: z.boolean().default(false),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  apiKey: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputDatadogDatadog3$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  contentType: string;
+  message?: string | undefined;
+  source?: string | undefined;
+  host?: string | undefined;
+  service?: string | undefined;
+  tags?: Array<string> | undefined;
+  batchByTags: boolean;
+  allowApiKeyFromEvents: boolean;
+  severity?: string | undefined;
+  site: string;
+  sendCountersAsCount: boolean;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  authType: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  apiKey?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputDatadogDatadog3$outboundSchema: z.ZodType<
+  OutputDatadogDatadog3$Outbound,
+  z.ZodTypeDef,
+  OutputDatadogDatadog3
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputDatadogType3$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  contentType: PayloadFormatOptions$outboundSchema.default("text"),
+  message: z.string().optional(),
+  source: z.string().optional(),
+  host: z.string().optional(),
+  service: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  batchByTags: z.boolean().default(true),
+  allowApiKeyFromEvents: z.boolean().default(false),
+  severity: OutputDatadogSeverity3$outboundSchema.optional(),
+  site: DatadogSite3$outboundSchema.default("us"),
+  sendCountersAsCount: z.boolean().default(false),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  apiKey: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+
+export function outputDatadogDatadog3ToJSON(
+  outputDatadogDatadog3: OutputDatadogDatadog3,
+): string {
+  return JSON.stringify(
+    OutputDatadogDatadog3$outboundSchema.parse(outputDatadogDatadog3),
+  );
+}
+export function outputDatadogDatadog3FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputDatadogDatadog3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputDatadogDatadog3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputDatadogDatadog3' from JSON`,
+  );
+}
+
+/** @internal */
+export const DatadogSite2$inboundSchema: z.ZodType<
+  DatadogSite2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(DatadogSite2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const DatadogSite2$outboundSchema: z.ZodType<
+  DatadogSite2,
+  z.ZodTypeDef,
+  DatadogSite2
+> = z.union([
+  z.nativeEnum(DatadogSite2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputDatadogType2$inboundSchema: z.ZodNativeEnum<
+  typeof OutputDatadogType2
+> = z.nativeEnum(OutputDatadogType2);
+/** @internal */
+export const OutputDatadogType2$outboundSchema: z.ZodNativeEnum<
+  typeof OutputDatadogType2
+> = OutputDatadogType2$inboundSchema;
+
+/** @internal */
+export const OutputDatadogSeverity2$inboundSchema: z.ZodType<
+  OutputDatadogSeverity2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputDatadogSeverity2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputDatadogSeverity2$outboundSchema: z.ZodType<
+  OutputDatadogSeverity2,
+  z.ZodTypeDef,
+  OutputDatadogSeverity2
+> = z.union([
+  z.nativeEnum(OutputDatadogSeverity2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputDatadogDatadog2$inboundSchema: z.ZodType<
+  OutputDatadogDatadog2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  site: DatadogSite2$inboundSchema.default("us"),
+  id: z.string().optional(),
+  type: OutputDatadogType2$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  contentType: PayloadFormatOptions$inboundSchema.default("text"),
+  message: z.string().optional(),
+  source: z.string().optional(),
+  host: z.string().optional(),
+  service: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  batchByTags: z.boolean().default(true),
+  allowApiKeyFromEvents: z.boolean().default(false),
+  severity: OutputDatadogSeverity2$inboundSchema.optional(),
+  sendCountersAsCount: z.boolean().default(false),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  apiKey: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputDatadogDatadog2$Outbound = {
+  site: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  contentType: string;
+  message?: string | undefined;
+  source?: string | undefined;
+  host?: string | undefined;
+  service?: string | undefined;
+  tags?: Array<string> | undefined;
+  batchByTags: boolean;
+  allowApiKeyFromEvents: boolean;
+  severity?: string | undefined;
+  sendCountersAsCount: boolean;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  onBackpressure: string;
+  authType: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  apiKey?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputDatadogDatadog2$outboundSchema: z.ZodType<
+  OutputDatadogDatadog2$Outbound,
+  z.ZodTypeDef,
+  OutputDatadogDatadog2
+> = z.object({
+  site: DatadogSite2$outboundSchema.default("us"),
+  id: z.string().optional(),
+  type: OutputDatadogType2$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  contentType: PayloadFormatOptions$outboundSchema.default("text"),
+  message: z.string().optional(),
+  source: z.string().optional(),
+  host: z.string().optional(),
+  service: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  batchByTags: z.boolean().default(true),
+  allowApiKeyFromEvents: z.boolean().default(false),
+  severity: OutputDatadogSeverity2$outboundSchema.optional(),
+  sendCountersAsCount: z.boolean().default(false),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  apiKey: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+
+export function outputDatadogDatadog2ToJSON(
+  outputDatadogDatadog2: OutputDatadogDatadog2,
+): string {
+  return JSON.stringify(
+    OutputDatadogDatadog2$outboundSchema.parse(outputDatadogDatadog2),
+  );
+}
+export function outputDatadogDatadog2FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputDatadogDatadog2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputDatadogDatadog2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputDatadogDatadog2' from JSON`,
+  );
+}
+
+/** @internal */
+export const DatadogSite1$inboundSchema: z.ZodType<
+  DatadogSite1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(DatadogSite1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const DatadogSite1$outboundSchema: z.ZodType<
+  DatadogSite1,
+  z.ZodTypeDef,
+  DatadogSite1
+> = z.union([
+  z.nativeEnum(DatadogSite1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputDatadogType1$inboundSchema: z.ZodNativeEnum<
+  typeof OutputDatadogType1
+> = z.nativeEnum(OutputDatadogType1);
+/** @internal */
+export const OutputDatadogType1$outboundSchema: z.ZodNativeEnum<
+  typeof OutputDatadogType1
+> = OutputDatadogType1$inboundSchema;
+
+/** @internal */
+export const OutputDatadogSeverity1$inboundSchema: z.ZodType<
+  OutputDatadogSeverity1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputDatadogSeverity1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputDatadogSeverity1$outboundSchema: z.ZodType<
+  OutputDatadogSeverity1,
+  z.ZodTypeDef,
+  OutputDatadogSeverity1
+> = z.union([
+  z.nativeEnum(OutputDatadogSeverity1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputDatadogDatadog1$inboundSchema: z.ZodType<
+  OutputDatadogDatadog1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  site: DatadogSite1$inboundSchema.default("us"),
+  id: z.string().optional(),
+  type: OutputDatadogType1$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  contentType: PayloadFormatOptions$inboundSchema.default("text"),
+  message: z.string().optional(),
+  source: z.string().optional(),
+  host: z.string().optional(),
+  service: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  batchByTags: z.boolean().default(true),
+  allowApiKeyFromEvents: z.boolean().default(false),
+  severity: OutputDatadogSeverity1$inboundSchema.optional(),
+  sendCountersAsCount: z.boolean().default(false),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customUrl: z.string(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  apiKey: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputDatadogDatadog1$Outbound = {
+  site: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  contentType: string;
+  message?: string | undefined;
+  source?: string | undefined;
+  host?: string | undefined;
+  service?: string | undefined;
+  tags?: Array<string> | undefined;
+  batchByTags: boolean;
+  allowApiKeyFromEvents: boolean;
+  severity?: string | undefined;
+  sendCountersAsCount: boolean;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  onBackpressure: string;
+  authType: string;
+  totalMemoryLimitKB?: number | undefined;
+  description?: string | undefined;
+  customUrl: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  apiKey?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputDatadogDatadog1$outboundSchema: z.ZodType<
+  OutputDatadogDatadog1$Outbound,
+  z.ZodTypeDef,
+  OutputDatadogDatadog1
+> = z.object({
+  site: DatadogSite1$outboundSchema.default("us"),
+  id: z.string().optional(),
+  type: OutputDatadogType1$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  contentType: PayloadFormatOptions$outboundSchema.default("text"),
+  message: z.string().optional(),
+  source: z.string().optional(),
+  host: z.string().optional(),
+  service: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  batchByTags: z.boolean().default(true),
+  allowApiKeyFromEvents: z.boolean().default(false),
+  severity: OutputDatadogSeverity1$outboundSchema.optional(),
+  sendCountersAsCount: z.boolean().default(false),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(false),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  totalMemoryLimitKB: z.number().optional(),
+  description: z.string().optional(),
+  customUrl: z.string(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  apiKey: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+
+export function outputDatadogDatadog1ToJSON(
+  outputDatadogDatadog1: OutputDatadogDatadog1,
+): string {
+  return JSON.stringify(
+    OutputDatadogDatadog1$outboundSchema.parse(outputDatadogDatadog1),
+  );
+}
+export function outputDatadogDatadog1FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputDatadogDatadog1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputDatadogDatadog1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputDatadogDatadog1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputDatadog$inboundSchema: z.ZodType<
+  OutputDatadog,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => OutputDatadogDatadog1$inboundSchema),
+  z.lazy(() => OutputDatadogDatadog4$inboundSchema),
+  z.lazy(() => OutputDatadogDatadog5$inboundSchema),
+  z.lazy(() => OutputDatadogDatadog6$inboundSchema),
+  z.lazy(() => OutputDatadogDatadog2$inboundSchema),
+  z.lazy(() => OutputDatadogDatadog3$inboundSchema),
+]);
+/** @internal */
+export type OutputDatadog$Outbound =
+  | OutputDatadogDatadog1$Outbound
+  | OutputDatadogDatadog4$Outbound
+  | OutputDatadogDatadog5$Outbound
+  | OutputDatadogDatadog6$Outbound
+  | OutputDatadogDatadog2$Outbound
+  | OutputDatadogDatadog3$Outbound;
+
+/** @internal */
+export const OutputDatadog$outboundSchema: z.ZodType<
+  OutputDatadog$Outbound,
+  z.ZodTypeDef,
+  OutputDatadog
+> = z.union([
+  z.lazy(() => OutputDatadogDatadog1$outboundSchema),
+  z.lazy(() => OutputDatadogDatadog4$outboundSchema),
+  z.lazy(() => OutputDatadogDatadog5$outboundSchema),
+  z.lazy(() => OutputDatadogDatadog6$outboundSchema),
+  z.lazy(() => OutputDatadogDatadog2$outboundSchema),
+  z.lazy(() => OutputDatadogDatadog3$outboundSchema),
+]);
 
 export function outputDatadogToJSON(outputDatadog: OutputDatadog): string {
   return JSON.stringify(OutputDatadog$outboundSchema.parse(outputDatadog));
 }
-
 export function outputDatadogFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputDatadog, SDKValidationError> {

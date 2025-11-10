@@ -4,331 +4,87 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AckOptions,
+  AckOptions$inboundSchema,
+  AckOptions$outboundSchema,
+} from "./ackoptions.js";
+import {
+  AwsAuthenticationMethodOptions,
+  AwsAuthenticationMethodOptions$inboundSchema,
+  AwsAuthenticationMethodOptions$outboundSchema,
+} from "./awsauthenticationmethodoptions.js";
+import {
+  CompressionOptions,
+  CompressionOptions$inboundSchema,
+  CompressionOptions$outboundSchema,
+} from "./compressionoptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  Format3Options,
+  Format3Options$inboundSchema,
+  Format3Options$outboundSchema,
+} from "./format3options.js";
+import {
+  KafkaSchemaRegistry1Type,
+  KafkaSchemaRegistry1Type$inboundSchema,
+  KafkaSchemaRegistry1Type$Outbound,
+  KafkaSchemaRegistry1Type$outboundSchema,
+} from "./kafkaschemaregistry1type.js";
+import {
+  MetadataType,
+  MetadataType$inboundSchema,
+  MetadataType$Outbound,
+  MetadataType$outboundSchema,
+} from "./metadatatype.js";
+import {
+  OnBackpressureOptions,
+  OnBackpressureOptions$inboundSchema,
+  OnBackpressureOptions$outboundSchema,
+} from "./onbackpressureoptions.js";
+import {
+  PqCompressOptions,
+  PqCompressOptions$inboundSchema,
+  PqCompressOptions$outboundSchema,
+} from "./pqcompressoptions.js";
+import {
+  PqModeOptions,
+  PqModeOptions$inboundSchema,
+  PqModeOptions$outboundSchema,
+} from "./pqmodeoptions.js";
+import {
+  PqOnBackpressureOptions,
+  PqOnBackpressureOptions$inboundSchema,
+  PqOnBackpressureOptions$outboundSchema,
+} from "./pqonbackpressureoptions.js";
+import {
+  SignatureVersionOptions,
+  SignatureVersionOptions$inboundSchema,
+  SignatureVersionOptions$outboundSchema,
+} from "./signatureversionoptions.js";
+import {
+  Tls1Type,
+  Tls1Type$inboundSchema,
+  Tls1Type$Outbound,
+  Tls1Type$outboundSchema,
+} from "./tls1type.js";
+import {
+  TypeMskOption,
+  TypeMskOption$inboundSchema,
+  TypeMskOption$outboundSchema,
+} from "./typemskoption.js";
 
-export const OutputMskType = {
-  Msk: "msk",
-} as const;
-export type OutputMskType = ClosedEnum<typeof OutputMskType>;
-
-/**
- * Control the number of required acknowledgments.
- */
-export const OutputMskAcknowledgments = {
-  One: 1,
-  Zero: 0,
-  Minus1: -1,
-} as const;
-/**
- * Control the number of required acknowledgments.
- */
-export type OutputMskAcknowledgments = OpenEnum<
-  typeof OutputMskAcknowledgments
->;
-
-/**
- * Format to use to serialize events before writing to Kafka.
- */
-export const OutputMskRecordDataFormat = {
-  Json: "json",
-  Raw: "raw",
-  Protobuf: "protobuf",
-} as const;
-/**
- * Format to use to serialize events before writing to Kafka.
- */
-export type OutputMskRecordDataFormat = OpenEnum<
-  typeof OutputMskRecordDataFormat
->;
-
-/**
- * Codec to use to compress the data before sending to Kafka
- */
-export const OutputMskCompression = {
-  None: "none",
-  Gzip: "gzip",
-  Snappy: "snappy",
-  Lz4: "lz4",
-} as const;
-/**
- * Codec to use to compress the data before sending to Kafka
- */
-export type OutputMskCompression = OpenEnum<typeof OutputMskCompression>;
-
-/**
- * The schema format used to encode and decode event data
- */
-export const OutputMskSchemaType = {
-  Avro: "avro",
-  Json: "json",
-} as const;
-/**
- * The schema format used to encode and decode event data
- */
-export type OutputMskSchemaType = OpenEnum<typeof OutputMskSchemaType>;
-
-/**
- * Credentials to use when authenticating with the schema registry using basic HTTP authentication
- */
-export type OutputMskAuth = {
-  disabled?: boolean | undefined;
+export type OutputMskMsk7 = {
   /**
-   * Select or create a secret that references your credentials
+   * How to handle events when all receivers are exerting backpressure
    */
-  credentialsSecret?: string | undefined;
-};
-
-export const OutputMskKafkaSchemaRegistryMinimumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type OutputMskKafkaSchemaRegistryMinimumTLSVersion = OpenEnum<
-  typeof OutputMskKafkaSchemaRegistryMinimumTLSVersion
->;
-
-export const OutputMskKafkaSchemaRegistryMaximumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type OutputMskKafkaSchemaRegistryMaximumTLSVersion = OpenEnum<
-  typeof OutputMskKafkaSchemaRegistryMaximumTLSVersion
->;
-
-export type OutputMskKafkaSchemaRegistryTLSSettingsClientSide = {
-  disabled?: boolean | undefined;
-  /**
-   * Reject certificates that are not authorized by a CA in the CA certificate path, or by another
-   *
-   * @remarks
-   *                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
-   */
-  servername?: string | undefined;
-  /**
-   * The name of the predefined certificate
-   */
-  certificateName?: string | undefined;
-  /**
-   * Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
-   */
-  caPath?: string | undefined;
-  /**
-   * Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
-   */
-  privKeyPath?: string | undefined;
-  /**
-   * Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  certPath?: string | undefined;
-  /**
-   * Passphrase to use to decrypt private key
-   */
-  passphrase?: string | undefined;
-  minVersion?: OutputMskKafkaSchemaRegistryMinimumTLSVersion | undefined;
-  maxVersion?: OutputMskKafkaSchemaRegistryMaximumTLSVersion | undefined;
-};
-
-export type OutputMskKafkaSchemaRegistryAuthentication = {
-  disabled?: boolean | undefined;
-  /**
-   * URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http.
-   */
-  schemaRegistryURL?: string | undefined;
-  /**
-   * The schema format used to encode and decode event data
-   */
-  schemaType?: OutputMskSchemaType | undefined;
-  /**
-   * Maximum time to wait for a Schema Registry connection to complete successfully
-   */
-  connectionTimeout?: number | undefined;
-  /**
-   * Maximum time to wait for the Schema Registry to respond to a request
-   */
-  requestTimeout?: number | undefined;
-  /**
-   * Maximum number of times to try fetching schemas from the Schema Registry
-   */
-  maxRetries?: number | undefined;
-  /**
-   * Credentials to use when authenticating with the schema registry using basic HTTP authentication
-   */
-  auth?: OutputMskAuth | undefined;
-  tls?: OutputMskKafkaSchemaRegistryTLSSettingsClientSide | undefined;
-  /**
-   * Used when __keySchemaIdOut is not present, to transform key values, leave blank if key transformation is not required by default.
-   */
-  defaultKeySchemaId?: number | undefined;
-  /**
-   * Used when __valueSchemaIdOut is not present, to transform _raw, leave blank if value transformation is not required by default.
-   */
-  defaultValueSchemaId?: number | undefined;
-};
-
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export const OutputMskAuthenticationMethod = {
-  Auto: "auto",
-  Manual: "manual",
-  Secret: "secret",
-} as const;
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export type OutputMskAuthenticationMethod = OpenEnum<
-  typeof OutputMskAuthenticationMethod
->;
-
-/**
- * Signature version to use for signing MSK cluster requests
- */
-export const OutputMskSignatureVersion = {
-  V2: "v2",
-  V4: "v4",
-} as const;
-/**
- * Signature version to use for signing MSK cluster requests
- */
-export type OutputMskSignatureVersion = OpenEnum<
-  typeof OutputMskSignatureVersion
->;
-
-export const OutputMskMinimumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type OutputMskMinimumTLSVersion = OpenEnum<
-  typeof OutputMskMinimumTLSVersion
->;
-
-export const OutputMskMaximumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type OutputMskMaximumTLSVersion = OpenEnum<
-  typeof OutputMskMaximumTLSVersion
->;
-
-export type OutputMskTLSSettingsClientSide = {
-  disabled?: boolean | undefined;
-  /**
-   * Reject certificates that are not authorized by a CA in the CA certificate path, or by another
-   *
-   * @remarks
-   *                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
-   */
-  rejectUnauthorized?: boolean | undefined;
-  /**
-   * Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
-   */
-  servername?: string | undefined;
-  /**
-   * The name of the predefined certificate
-   */
-  certificateName?: string | undefined;
-  /**
-   * Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
-   */
-  caPath?: string | undefined;
-  /**
-   * Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
-   */
-  privKeyPath?: string | undefined;
-  /**
-   * Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  certPath?: string | undefined;
-  /**
-   * Passphrase to use to decrypt private key
-   */
-  passphrase?: string | undefined;
-  minVersion?: OutputMskMinimumTLSVersion | undefined;
-  maxVersion?: OutputMskMaximumTLSVersion | undefined;
-};
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputMskBackpressureBehavior = {
-  Block: "block",
-  Drop: "drop",
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputMskBackpressureBehavior = OpenEnum<
-  typeof OutputMskBackpressureBehavior
->;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputMskPqCompressCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputMskPqCompressCompression = OpenEnum<
-  typeof OutputMskPqCompressCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputMskQueueFullBehavior = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputMskQueueFullBehavior = OpenEnum<
-  typeof OutputMskQueueFullBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputMskMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputMskMode = OpenEnum<typeof OutputMskMode>;
-
-export type OutputMskPqControls = {};
-
-export type OutputMsk = {
+  onBackpressure?: OnBackpressureOptions | undefined;
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputMskType;
+  type: TypeMskOption;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -354,17 +110,17 @@ export type OutputMsk = {
    */
   topic: string;
   /**
-   * Control the number of required acknowledgments.
+   * Control the number of required acknowledgments
    */
-  ack?: OutputMskAcknowledgments | undefined;
+  ack?: AckOptions | undefined;
   /**
    * Format to use to serialize events before writing to Kafka.
    */
-  format?: OutputMskRecordDataFormat | undefined;
+  format?: Format3Options | undefined;
   /**
    * Codec to use to compress the data before sending to Kafka
    */
-  compression?: OutputMskCompression | undefined;
+  compression?: CompressionOptions | undefined;
   /**
    * Maximum size of each record batch before compression. The value must not exceed the Kafka brokers' message.max.bytes setting.
    */
@@ -377,7 +133,7 @@ export type OutputMsk = {
    * The maximum amount of time you want the Destination to wait before forcing a flush. Shorter intervals tend to result in smaller batches being sent.
    */
   flushPeriodSec?: number | undefined;
-  kafkaSchemaRegistry?: OutputMskKafkaSchemaRegistryAuthentication | undefined;
+  kafkaSchemaRegistry?: KafkaSchemaRegistry1Type | undefined;
   /**
    * Maximum time to wait for a connection to complete successfully
    */
@@ -413,7 +169,7 @@ export type OutputMsk = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: OutputMskAuthenticationMethod | undefined;
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the MSK cluster is located
@@ -426,7 +182,7 @@ export type OutputMsk = {
   /**
    * Signature version to use for signing MSK cluster requests
    */
-  signatureVersion?: OutputMskSignatureVersion | undefined;
+  signatureVersion?: SignatureVersionOptions | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -451,11 +207,7 @@ export type OutputMsk = {
    * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
    */
   durationSeconds?: number | undefined;
-  tls?: OutputMskTLSSettingsClientSide | undefined;
-  /**
-   * How to handle events when all receivers are exerting backpressure
-   */
-  onBackpressure?: OutputMskBackpressureBehavior | undefined;
+  tls?: Tls1Type | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   /**
@@ -466,6 +218,30 @@ export type OutputMsk = {
    * Select a set of Protobuf definitions for the events you want to send
    */
   protobufLibraryId?: string | undefined;
+  /**
+   * Select the type of object you want the Protobuf definitions to use for event encoding
+   */
+  protobufEncodingId?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
   /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
@@ -481,896 +257,1185 @@ export type OutputMsk = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputMskPqCompressCompression | undefined;
+  pqCompress?: PqCompressOptions | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputMskQueueFullBehavior | undefined;
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls: MetadataType;
+};
+
+export type OutputMskMsk6 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeMskOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Enter each Kafka bootstrap server you want to use. Specify hostname and port, e.g., mykafkabroker:9092, or just hostname, in which case @{product} will assign port 9092.
+   */
+  brokers: Array<string>;
+  /**
+   * The topic to publish events to. Can be overridden using the __topicOut field.
+   */
+  topic: string;
+  /**
+   * Control the number of required acknowledgments
+   */
+  ack?: AckOptions | undefined;
+  /**
+   * Format to use to serialize events before writing to Kafka.
+   */
+  format?: Format3Options | undefined;
+  /**
+   * Codec to use to compress the data before sending to Kafka
+   */
+  compression?: CompressionOptions | undefined;
+  /**
+   * Maximum size of each record batch before compression. The value must not exceed the Kafka brokers' message.max.bytes setting.
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * The maximum number of events you want the Destination to allow in a batch before forcing a flush
+   */
+  flushEventCount?: number | undefined;
+  /**
+   * The maximum amount of time you want the Destination to wait before forcing a flush. Shorter intervals tend to result in smaller batches being sent.
+   */
+  flushPeriodSec?: number | undefined;
+  kafkaSchemaRegistry?: KafkaSchemaRegistry1Type | undefined;
+  /**
+   * Maximum time to wait for a connection to complete successfully
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to a request
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+   */
+  maxRetries?: number | undefined;
+  /**
+   * The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+   */
+  maxBackOff?: number | undefined;
+  /**
+   * Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+   */
+  backoffRate?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to an authentication request
+   */
+  authenticationTimeout?: number | undefined;
+  /**
+   * Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+   */
+  reauthenticationThreshold?: number | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the MSK cluster is located
+   */
+  region: string;
+  /**
+   * MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access MSK
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  tls?: Tls1Type | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Select a set of Protobuf definitions for the events you want to send
+   */
+  protobufLibraryId?: string | undefined;
+  /**
+   * Select the type of object you want the Protobuf definitions to use for event encoding
+   */
+  protobufEncodingId?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputMskMode | undefined;
-  pqControls?: OutputMskPqControls | undefined;
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
 };
 
-/** @internal */
-export const OutputMskType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputMskType
-> = z.nativeEnum(OutputMskType);
+export type OutputMskMsk5 = {
+  /**
+   * Format to use to serialize events before writing to Kafka.
+   */
+  format?: Format3Options | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeMskOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Enter each Kafka bootstrap server you want to use. Specify hostname and port, e.g., mykafkabroker:9092, or just hostname, in which case @{product} will assign port 9092.
+   */
+  brokers: Array<string>;
+  /**
+   * The topic to publish events to. Can be overridden using the __topicOut field.
+   */
+  topic: string;
+  /**
+   * Control the number of required acknowledgments
+   */
+  ack?: AckOptions | undefined;
+  /**
+   * Codec to use to compress the data before sending to Kafka
+   */
+  compression?: CompressionOptions | undefined;
+  /**
+   * Maximum size of each record batch before compression. The value must not exceed the Kafka brokers' message.max.bytes setting.
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * The maximum number of events you want the Destination to allow in a batch before forcing a flush
+   */
+  flushEventCount?: number | undefined;
+  /**
+   * The maximum amount of time you want the Destination to wait before forcing a flush. Shorter intervals tend to result in smaller batches being sent.
+   */
+  flushPeriodSec?: number | undefined;
+  kafkaSchemaRegistry?: KafkaSchemaRegistry1Type | undefined;
+  /**
+   * Maximum time to wait for a connection to complete successfully
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to a request
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+   */
+  maxRetries?: number | undefined;
+  /**
+   * The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+   */
+  maxBackOff?: number | undefined;
+  /**
+   * Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+   */
+  backoffRate?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to an authentication request
+   */
+  authenticationTimeout?: number | undefined;
+  /**
+   * Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+   */
+  reauthenticationThreshold?: number | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the MSK cluster is located
+   */
+  region: string;
+  /**
+   * MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access MSK
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  tls?: Tls1Type | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Select a set of Protobuf definitions for the events you want to send
+   */
+  protobufLibraryId: string;
+  /**
+   * Select the type of object you want the Protobuf definitions to use for event encoding
+   */
+  protobufEncodingId?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export type OutputMskMsk4 = {
+  /**
+   * Format to use to serialize events before writing to Kafka.
+   */
+  format?: Format3Options | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeMskOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Enter each Kafka bootstrap server you want to use. Specify hostname and port, e.g., mykafkabroker:9092, or just hostname, in which case @{product} will assign port 9092.
+   */
+  brokers: Array<string>;
+  /**
+   * The topic to publish events to. Can be overridden using the __topicOut field.
+   */
+  topic: string;
+  /**
+   * Control the number of required acknowledgments
+   */
+  ack?: AckOptions | undefined;
+  /**
+   * Codec to use to compress the data before sending to Kafka
+   */
+  compression?: CompressionOptions | undefined;
+  /**
+   * Maximum size of each record batch before compression. The value must not exceed the Kafka brokers' message.max.bytes setting.
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * The maximum number of events you want the Destination to allow in a batch before forcing a flush
+   */
+  flushEventCount?: number | undefined;
+  /**
+   * The maximum amount of time you want the Destination to wait before forcing a flush. Shorter intervals tend to result in smaller batches being sent.
+   */
+  flushPeriodSec?: number | undefined;
+  kafkaSchemaRegistry?: KafkaSchemaRegistry1Type | undefined;
+  /**
+   * Maximum time to wait for a connection to complete successfully
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to a request
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+   */
+  maxRetries?: number | undefined;
+  /**
+   * The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+   */
+  maxBackOff?: number | undefined;
+  /**
+   * Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+   */
+  backoffRate?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to an authentication request
+   */
+  authenticationTimeout?: number | undefined;
+  /**
+   * Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+   */
+  reauthenticationThreshold?: number | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the MSK cluster is located
+   */
+  region: string;
+  /**
+   * MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access MSK
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  tls?: Tls1Type | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Select a set of Protobuf definitions for the events you want to send
+   */
+  protobufLibraryId?: string | undefined;
+  /**
+   * Select the type of object you want the Protobuf definitions to use for event encoding
+   */
+  protobufEncodingId?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export type OutputMskMsk3 = {
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeMskOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Enter each Kafka bootstrap server you want to use. Specify hostname and port, e.g., mykafkabroker:9092, or just hostname, in which case @{product} will assign port 9092.
+   */
+  brokers: Array<string>;
+  /**
+   * The topic to publish events to. Can be overridden using the __topicOut field.
+   */
+  topic: string;
+  /**
+   * Control the number of required acknowledgments
+   */
+  ack?: AckOptions | undefined;
+  /**
+   * Format to use to serialize events before writing to Kafka.
+   */
+  format?: Format3Options | undefined;
+  /**
+   * Codec to use to compress the data before sending to Kafka
+   */
+  compression?: CompressionOptions | undefined;
+  /**
+   * Maximum size of each record batch before compression. The value must not exceed the Kafka brokers' message.max.bytes setting.
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * The maximum number of events you want the Destination to allow in a batch before forcing a flush
+   */
+  flushEventCount?: number | undefined;
+  /**
+   * The maximum amount of time you want the Destination to wait before forcing a flush. Shorter intervals tend to result in smaller batches being sent.
+   */
+  flushPeriodSec?: number | undefined;
+  kafkaSchemaRegistry?: KafkaSchemaRegistry1Type | undefined;
+  /**
+   * Maximum time to wait for a connection to complete successfully
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to a request
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+   */
+  maxRetries?: number | undefined;
+  /**
+   * The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+   */
+  maxBackOff?: number | undefined;
+  /**
+   * Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+   */
+  backoffRate?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to an authentication request
+   */
+  authenticationTimeout?: number | undefined;
+  /**
+   * Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+   */
+  reauthenticationThreshold?: number | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the MSK cluster is located
+   */
+  region: string;
+  /**
+   * MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access MSK
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  tls?: Tls1Type | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret: string;
+  /**
+   * Select a set of Protobuf definitions for the events you want to send
+   */
+  protobufLibraryId?: string | undefined;
+  /**
+   * Select the type of object you want the Protobuf definitions to use for event encoding
+   */
+  protobufEncodingId?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export type OutputMskMsk2 = {
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeMskOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Enter each Kafka bootstrap server you want to use. Specify hostname and port, e.g., mykafkabroker:9092, or just hostname, in which case @{product} will assign port 9092.
+   */
+  brokers: Array<string>;
+  /**
+   * The topic to publish events to. Can be overridden using the __topicOut field.
+   */
+  topic: string;
+  /**
+   * Control the number of required acknowledgments
+   */
+  ack?: AckOptions | undefined;
+  /**
+   * Format to use to serialize events before writing to Kafka.
+   */
+  format?: Format3Options | undefined;
+  /**
+   * Codec to use to compress the data before sending to Kafka
+   */
+  compression?: CompressionOptions | undefined;
+  /**
+   * Maximum size of each record batch before compression. The value must not exceed the Kafka brokers' message.max.bytes setting.
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * The maximum number of events you want the Destination to allow in a batch before forcing a flush
+   */
+  flushEventCount?: number | undefined;
+  /**
+   * The maximum amount of time you want the Destination to wait before forcing a flush. Shorter intervals tend to result in smaller batches being sent.
+   */
+  flushPeriodSec?: number | undefined;
+  kafkaSchemaRegistry?: KafkaSchemaRegistry1Type | undefined;
+  /**
+   * Maximum time to wait for a connection to complete successfully
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to a request
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+   */
+  maxRetries?: number | undefined;
+  /**
+   * The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+   */
+  maxBackOff?: number | undefined;
+  /**
+   * Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+   */
+  backoffRate?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to an authentication request
+   */
+  authenticationTimeout?: number | undefined;
+  /**
+   * Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+   */
+  reauthenticationThreshold?: number | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the MSK cluster is located
+   */
+  region: string;
+  /**
+   * MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access MSK
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  tls?: Tls1Type | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  awsApiKey: string;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Select a set of Protobuf definitions for the events you want to send
+   */
+  protobufLibraryId?: string | undefined;
+  /**
+   * Select the type of object you want the Protobuf definitions to use for event encoding
+   */
+  protobufEncodingId?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export type OutputMskMsk1 = {
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeMskOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Enter each Kafka bootstrap server you want to use. Specify hostname and port, e.g., mykafkabroker:9092, or just hostname, in which case @{product} will assign port 9092.
+   */
+  brokers: Array<string>;
+  /**
+   * The topic to publish events to. Can be overridden using the __topicOut field.
+   */
+  topic: string;
+  /**
+   * Control the number of required acknowledgments
+   */
+  ack?: AckOptions | undefined;
+  /**
+   * Format to use to serialize events before writing to Kafka.
+   */
+  format?: Format3Options | undefined;
+  /**
+   * Codec to use to compress the data before sending to Kafka
+   */
+  compression?: CompressionOptions | undefined;
+  /**
+   * Maximum size of each record batch before compression. The value must not exceed the Kafka brokers' message.max.bytes setting.
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * The maximum number of events you want the Destination to allow in a batch before forcing a flush
+   */
+  flushEventCount?: number | undefined;
+  /**
+   * The maximum amount of time you want the Destination to wait before forcing a flush. Shorter intervals tend to result in smaller batches being sent.
+   */
+  flushPeriodSec?: number | undefined;
+  kafkaSchemaRegistry?: KafkaSchemaRegistry1Type | undefined;
+  /**
+   * Maximum time to wait for a connection to complete successfully
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to a request
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+   */
+  maxRetries?: number | undefined;
+  /**
+   * The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+   */
+  maxBackOff?: number | undefined;
+  /**
+   * Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+   */
+  backoffRate?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to an authentication request
+   */
+  authenticationTimeout?: number | undefined;
+  /**
+   * Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+   */
+  reauthenticationThreshold?: number | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the MSK cluster is located
+   */
+  region: string;
+  /**
+   * MSK cluster service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to MSK cluster-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access MSK
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  tls?: Tls1Type | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Select a set of Protobuf definitions for the events you want to send
+   */
+  protobufLibraryId?: string | undefined;
+  /**
+   * Select the type of object you want the Protobuf definitions to use for event encoding
+   */
+  protobufEncodingId?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export type OutputMsk =
+  | OutputMskMsk2
+  | OutputMskMsk3
+  | OutputMskMsk5
+  | OutputMskMsk7
+  | OutputMskMsk1
+  | OutputMskMsk4
+  | OutputMskMsk6;
 
 /** @internal */
-export const OutputMskType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputMskType
-> = OutputMskType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMskType$ {
-  /** @deprecated use `OutputMskType$inboundSchema` instead. */
-  export const inboundSchema = OutputMskType$inboundSchema;
-  /** @deprecated use `OutputMskType$outboundSchema` instead. */
-  export const outboundSchema = OutputMskType$outboundSchema;
-}
-
-/** @internal */
-export const OutputMskAcknowledgments$inboundSchema: z.ZodType<
-  OutputMskAcknowledgments,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMskAcknowledgments),
-    z.number().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputMskAcknowledgments$outboundSchema: z.ZodType<
-  OutputMskAcknowledgments,
-  z.ZodTypeDef,
-  OutputMskAcknowledgments
-> = z.union([
-  z.nativeEnum(OutputMskAcknowledgments),
-  z.number().and(z.custom<Unrecognized<number>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMskAcknowledgments$ {
-  /** @deprecated use `OutputMskAcknowledgments$inboundSchema` instead. */
-  export const inboundSchema = OutputMskAcknowledgments$inboundSchema;
-  /** @deprecated use `OutputMskAcknowledgments$outboundSchema` instead. */
-  export const outboundSchema = OutputMskAcknowledgments$outboundSchema;
-}
-
-/** @internal */
-export const OutputMskRecordDataFormat$inboundSchema: z.ZodType<
-  OutputMskRecordDataFormat,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMskRecordDataFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputMskRecordDataFormat$outboundSchema: z.ZodType<
-  OutputMskRecordDataFormat,
-  z.ZodTypeDef,
-  OutputMskRecordDataFormat
-> = z.union([
-  z.nativeEnum(OutputMskRecordDataFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMskRecordDataFormat$ {
-  /** @deprecated use `OutputMskRecordDataFormat$inboundSchema` instead. */
-  export const inboundSchema = OutputMskRecordDataFormat$inboundSchema;
-  /** @deprecated use `OutputMskRecordDataFormat$outboundSchema` instead. */
-  export const outboundSchema = OutputMskRecordDataFormat$outboundSchema;
-}
-
-/** @internal */
-export const OutputMskCompression$inboundSchema: z.ZodType<
-  OutputMskCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMskCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputMskCompression$outboundSchema: z.ZodType<
-  OutputMskCompression,
-  z.ZodTypeDef,
-  OutputMskCompression
-> = z.union([
-  z.nativeEnum(OutputMskCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMskCompression$ {
-  /** @deprecated use `OutputMskCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputMskCompression$inboundSchema;
-  /** @deprecated use `OutputMskCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputMskCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputMskSchemaType$inboundSchema: z.ZodType<
-  OutputMskSchemaType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMskSchemaType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputMskSchemaType$outboundSchema: z.ZodType<
-  OutputMskSchemaType,
-  z.ZodTypeDef,
-  OutputMskSchemaType
-> = z.union([
-  z.nativeEnum(OutputMskSchemaType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMskSchemaType$ {
-  /** @deprecated use `OutputMskSchemaType$inboundSchema` instead. */
-  export const inboundSchema = OutputMskSchemaType$inboundSchema;
-  /** @deprecated use `OutputMskSchemaType$outboundSchema` instead. */
-  export const outboundSchema = OutputMskSchemaType$outboundSchema;
-}
-
-/** @internal */
-export const OutputMskAuth$inboundSchema: z.ZodType<
-  OutputMskAuth,
+export const OutputMskMsk7$inboundSchema: z.ZodType<
+  OutputMskMsk7,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  disabled: z.boolean().default(true),
-  credentialsSecret: z.string().optional(),
-});
-
-/** @internal */
-export type OutputMskAuth$Outbound = {
-  disabled: boolean;
-  credentialsSecret?: string | undefined;
-};
-
-/** @internal */
-export const OutputMskAuth$outboundSchema: z.ZodType<
-  OutputMskAuth$Outbound,
-  z.ZodTypeDef,
-  OutputMskAuth
-> = z.object({
-  disabled: z.boolean().default(true),
-  credentialsSecret: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMskAuth$ {
-  /** @deprecated use `OutputMskAuth$inboundSchema` instead. */
-  export const inboundSchema = OutputMskAuth$inboundSchema;
-  /** @deprecated use `OutputMskAuth$outboundSchema` instead. */
-  export const outboundSchema = OutputMskAuth$outboundSchema;
-  /** @deprecated use `OutputMskAuth$Outbound` instead. */
-  export type Outbound = OutputMskAuth$Outbound;
-}
-
-export function outputMskAuthToJSON(outputMskAuth: OutputMskAuth): string {
-  return JSON.stringify(OutputMskAuth$outboundSchema.parse(outputMskAuth));
-}
-
-export function outputMskAuthFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputMskAuth, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputMskAuth$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputMskAuth' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputMskKafkaSchemaRegistryMinimumTLSVersion$inboundSchema:
-  z.ZodType<
-    OutputMskKafkaSchemaRegistryMinimumTLSVersion,
-    z.ZodTypeDef,
-    unknown
-  > = z
-    .union([
-      z.nativeEnum(OutputMskKafkaSchemaRegistryMinimumTLSVersion),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
-
-/** @internal */
-export const OutputMskKafkaSchemaRegistryMinimumTLSVersion$outboundSchema:
-  z.ZodType<
-    OutputMskKafkaSchemaRegistryMinimumTLSVersion,
-    z.ZodTypeDef,
-    OutputMskKafkaSchemaRegistryMinimumTLSVersion
-  > = z.union([
-    z.nativeEnum(OutputMskKafkaSchemaRegistryMinimumTLSVersion),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMskKafkaSchemaRegistryMinimumTLSVersion$ {
-  /** @deprecated use `OutputMskKafkaSchemaRegistryMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputMskKafkaSchemaRegistryMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputMskKafkaSchemaRegistryMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputMskKafkaSchemaRegistryMinimumTLSVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputMskKafkaSchemaRegistryMaximumTLSVersion$inboundSchema:
-  z.ZodType<
-    OutputMskKafkaSchemaRegistryMaximumTLSVersion,
-    z.ZodTypeDef,
-    unknown
-  > = z
-    .union([
-      z.nativeEnum(OutputMskKafkaSchemaRegistryMaximumTLSVersion),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
-
-/** @internal */
-export const OutputMskKafkaSchemaRegistryMaximumTLSVersion$outboundSchema:
-  z.ZodType<
-    OutputMskKafkaSchemaRegistryMaximumTLSVersion,
-    z.ZodTypeDef,
-    OutputMskKafkaSchemaRegistryMaximumTLSVersion
-  > = z.union([
-    z.nativeEnum(OutputMskKafkaSchemaRegistryMaximumTLSVersion),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMskKafkaSchemaRegistryMaximumTLSVersion$ {
-  /** @deprecated use `OutputMskKafkaSchemaRegistryMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputMskKafkaSchemaRegistryMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputMskKafkaSchemaRegistryMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputMskKafkaSchemaRegistryMaximumTLSVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputMskKafkaSchemaRegistryTLSSettingsClientSide$inboundSchema:
-  z.ZodType<
-    OutputMskKafkaSchemaRegistryTLSSettingsClientSide,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    disabled: z.boolean().default(true),
-    rejectUnauthorized: z.boolean().default(true),
-    servername: z.string().optional(),
-    certificateName: z.string().optional(),
-    caPath: z.string().optional(),
-    privKeyPath: z.string().optional(),
-    certPath: z.string().optional(),
-    passphrase: z.string().optional(),
-    minVersion: OutputMskKafkaSchemaRegistryMinimumTLSVersion$inboundSchema
-      .optional(),
-    maxVersion: OutputMskKafkaSchemaRegistryMaximumTLSVersion$inboundSchema
-      .optional(),
-  });
-
-/** @internal */
-export type OutputMskKafkaSchemaRegistryTLSSettingsClientSide$Outbound = {
-  disabled: boolean;
-  rejectUnauthorized: boolean;
-  servername?: string | undefined;
-  certificateName?: string | undefined;
-  caPath?: string | undefined;
-  privKeyPath?: string | undefined;
-  certPath?: string | undefined;
-  passphrase?: string | undefined;
-  minVersion?: string | undefined;
-  maxVersion?: string | undefined;
-};
-
-/** @internal */
-export const OutputMskKafkaSchemaRegistryTLSSettingsClientSide$outboundSchema:
-  z.ZodType<
-    OutputMskKafkaSchemaRegistryTLSSettingsClientSide$Outbound,
-    z.ZodTypeDef,
-    OutputMskKafkaSchemaRegistryTLSSettingsClientSide
-  > = z.object({
-    disabled: z.boolean().default(true),
-    rejectUnauthorized: z.boolean().default(true),
-    servername: z.string().optional(),
-    certificateName: z.string().optional(),
-    caPath: z.string().optional(),
-    privKeyPath: z.string().optional(),
-    certPath: z.string().optional(),
-    passphrase: z.string().optional(),
-    minVersion: OutputMskKafkaSchemaRegistryMinimumTLSVersion$outboundSchema
-      .optional(),
-    maxVersion: OutputMskKafkaSchemaRegistryMaximumTLSVersion$outboundSchema
-      .optional(),
-  });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMskKafkaSchemaRegistryTLSSettingsClientSide$ {
-  /** @deprecated use `OutputMskKafkaSchemaRegistryTLSSettingsClientSide$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputMskKafkaSchemaRegistryTLSSettingsClientSide$inboundSchema;
-  /** @deprecated use `OutputMskKafkaSchemaRegistryTLSSettingsClientSide$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputMskKafkaSchemaRegistryTLSSettingsClientSide$outboundSchema;
-  /** @deprecated use `OutputMskKafkaSchemaRegistryTLSSettingsClientSide$Outbound` instead. */
-  export type Outbound =
-    OutputMskKafkaSchemaRegistryTLSSettingsClientSide$Outbound;
-}
-
-export function outputMskKafkaSchemaRegistryTLSSettingsClientSideToJSON(
-  outputMskKafkaSchemaRegistryTLSSettingsClientSide:
-    OutputMskKafkaSchemaRegistryTLSSettingsClientSide,
-): string {
-  return JSON.stringify(
-    OutputMskKafkaSchemaRegistryTLSSettingsClientSide$outboundSchema.parse(
-      outputMskKafkaSchemaRegistryTLSSettingsClientSide,
-    ),
-  );
-}
-
-export function outputMskKafkaSchemaRegistryTLSSettingsClientSideFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  OutputMskKafkaSchemaRegistryTLSSettingsClientSide,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputMskKafkaSchemaRegistryTLSSettingsClientSide$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'OutputMskKafkaSchemaRegistryTLSSettingsClientSide' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputMskKafkaSchemaRegistryAuthentication$inboundSchema:
-  z.ZodType<OutputMskKafkaSchemaRegistryAuthentication, z.ZodTypeDef, unknown> =
-    z.object({
-      disabled: z.boolean().default(true),
-      schemaRegistryURL: z.string().default("http://localhost:8081"),
-      schemaType: OutputMskSchemaType$inboundSchema.default("avro"),
-      connectionTimeout: z.number().default(30000),
-      requestTimeout: z.number().default(30000),
-      maxRetries: z.number().default(1),
-      auth: z.lazy(() => OutputMskAuth$inboundSchema).optional(),
-      tls: z.lazy(() =>
-        OutputMskKafkaSchemaRegistryTLSSettingsClientSide$inboundSchema
-      ).optional(),
-      defaultKeySchemaId: z.number().optional(),
-      defaultValueSchemaId: z.number().optional(),
-    });
-
-/** @internal */
-export type OutputMskKafkaSchemaRegistryAuthentication$Outbound = {
-  disabled: boolean;
-  schemaRegistryURL: string;
-  schemaType: string;
-  connectionTimeout: number;
-  requestTimeout: number;
-  maxRetries: number;
-  auth?: OutputMskAuth$Outbound | undefined;
-  tls?: OutputMskKafkaSchemaRegistryTLSSettingsClientSide$Outbound | undefined;
-  defaultKeySchemaId?: number | undefined;
-  defaultValueSchemaId?: number | undefined;
-};
-
-/** @internal */
-export const OutputMskKafkaSchemaRegistryAuthentication$outboundSchema:
-  z.ZodType<
-    OutputMskKafkaSchemaRegistryAuthentication$Outbound,
-    z.ZodTypeDef,
-    OutputMskKafkaSchemaRegistryAuthentication
-  > = z.object({
-    disabled: z.boolean().default(true),
-    schemaRegistryURL: z.string().default("http://localhost:8081"),
-    schemaType: OutputMskSchemaType$outboundSchema.default("avro"),
-    connectionTimeout: z.number().default(30000),
-    requestTimeout: z.number().default(30000),
-    maxRetries: z.number().default(1),
-    auth: z.lazy(() => OutputMskAuth$outboundSchema).optional(),
-    tls: z.lazy(() =>
-      OutputMskKafkaSchemaRegistryTLSSettingsClientSide$outboundSchema
-    ).optional(),
-    defaultKeySchemaId: z.number().optional(),
-    defaultValueSchemaId: z.number().optional(),
-  });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMskKafkaSchemaRegistryAuthentication$ {
-  /** @deprecated use `OutputMskKafkaSchemaRegistryAuthentication$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputMskKafkaSchemaRegistryAuthentication$inboundSchema;
-  /** @deprecated use `OutputMskKafkaSchemaRegistryAuthentication$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputMskKafkaSchemaRegistryAuthentication$outboundSchema;
-  /** @deprecated use `OutputMskKafkaSchemaRegistryAuthentication$Outbound` instead. */
-  export type Outbound = OutputMskKafkaSchemaRegistryAuthentication$Outbound;
-}
-
-export function outputMskKafkaSchemaRegistryAuthenticationToJSON(
-  outputMskKafkaSchemaRegistryAuthentication:
-    OutputMskKafkaSchemaRegistryAuthentication,
-): string {
-  return JSON.stringify(
-    OutputMskKafkaSchemaRegistryAuthentication$outboundSchema.parse(
-      outputMskKafkaSchemaRegistryAuthentication,
-    ),
-  );
-}
-
-export function outputMskKafkaSchemaRegistryAuthenticationFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  OutputMskKafkaSchemaRegistryAuthentication,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputMskKafkaSchemaRegistryAuthentication$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'OutputMskKafkaSchemaRegistryAuthentication' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputMskAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputMskAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMskAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputMskAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputMskAuthenticationMethod,
-  z.ZodTypeDef,
-  OutputMskAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputMskAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMskAuthenticationMethod$ {
-  /** @deprecated use `OutputMskAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = OutputMskAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputMskAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema = OutputMskAuthenticationMethod$outboundSchema;
-}
-
-/** @internal */
-export const OutputMskSignatureVersion$inboundSchema: z.ZodType<
-  OutputMskSignatureVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMskSignatureVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputMskSignatureVersion$outboundSchema: z.ZodType<
-  OutputMskSignatureVersion,
-  z.ZodTypeDef,
-  OutputMskSignatureVersion
-> = z.union([
-  z.nativeEnum(OutputMskSignatureVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMskSignatureVersion$ {
-  /** @deprecated use `OutputMskSignatureVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputMskSignatureVersion$inboundSchema;
-  /** @deprecated use `OutputMskSignatureVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputMskSignatureVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputMskMinimumTLSVersion$inboundSchema: z.ZodType<
-  OutputMskMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMskMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputMskMinimumTLSVersion$outboundSchema: z.ZodType<
-  OutputMskMinimumTLSVersion,
-  z.ZodTypeDef,
-  OutputMskMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(OutputMskMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMskMinimumTLSVersion$ {
-  /** @deprecated use `OutputMskMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputMskMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputMskMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputMskMinimumTLSVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputMskMaximumTLSVersion$inboundSchema: z.ZodType<
-  OutputMskMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMskMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputMskMaximumTLSVersion$outboundSchema: z.ZodType<
-  OutputMskMaximumTLSVersion,
-  z.ZodTypeDef,
-  OutputMskMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(OutputMskMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMskMaximumTLSVersion$ {
-  /** @deprecated use `OutputMskMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputMskMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputMskMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputMskMaximumTLSVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputMskTLSSettingsClientSide$inboundSchema: z.ZodType<
-  OutputMskTLSSettingsClientSide,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-  servername: z.string().optional(),
-  certificateName: z.string().optional(),
-  caPath: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  certPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  minVersion: OutputMskMinimumTLSVersion$inboundSchema.optional(),
-  maxVersion: OutputMskMaximumTLSVersion$inboundSchema.optional(),
-});
-
-/** @internal */
-export type OutputMskTLSSettingsClientSide$Outbound = {
-  disabled: boolean;
-  rejectUnauthorized: boolean;
-  servername?: string | undefined;
-  certificateName?: string | undefined;
-  caPath?: string | undefined;
-  privKeyPath?: string | undefined;
-  certPath?: string | undefined;
-  passphrase?: string | undefined;
-  minVersion?: string | undefined;
-  maxVersion?: string | undefined;
-};
-
-/** @internal */
-export const OutputMskTLSSettingsClientSide$outboundSchema: z.ZodType<
-  OutputMskTLSSettingsClientSide$Outbound,
-  z.ZodTypeDef,
-  OutputMskTLSSettingsClientSide
-> = z.object({
-  disabled: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-  servername: z.string().optional(),
-  certificateName: z.string().optional(),
-  caPath: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  certPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  minVersion: OutputMskMinimumTLSVersion$outboundSchema.optional(),
-  maxVersion: OutputMskMaximumTLSVersion$outboundSchema.optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMskTLSSettingsClientSide$ {
-  /** @deprecated use `OutputMskTLSSettingsClientSide$inboundSchema` instead. */
-  export const inboundSchema = OutputMskTLSSettingsClientSide$inboundSchema;
-  /** @deprecated use `OutputMskTLSSettingsClientSide$outboundSchema` instead. */
-  export const outboundSchema = OutputMskTLSSettingsClientSide$outboundSchema;
-  /** @deprecated use `OutputMskTLSSettingsClientSide$Outbound` instead. */
-  export type Outbound = OutputMskTLSSettingsClientSide$Outbound;
-}
-
-export function outputMskTLSSettingsClientSideToJSON(
-  outputMskTLSSettingsClientSide: OutputMskTLSSettingsClientSide,
-): string {
-  return JSON.stringify(
-    OutputMskTLSSettingsClientSide$outboundSchema.parse(
-      outputMskTLSSettingsClientSide,
-    ),
-  );
-}
-
-export function outputMskTLSSettingsClientSideFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputMskTLSSettingsClientSide, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputMskTLSSettingsClientSide$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputMskTLSSettingsClientSide' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputMskBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputMskBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMskBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputMskBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputMskBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputMskBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputMskBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMskBackpressureBehavior$ {
-  /** @deprecated use `OutputMskBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputMskBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputMskBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputMskBackpressureBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputMskPqCompressCompression$inboundSchema: z.ZodType<
-  OutputMskPqCompressCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMskPqCompressCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputMskPqCompressCompression$outboundSchema: z.ZodType<
-  OutputMskPqCompressCompression,
-  z.ZodTypeDef,
-  OutputMskPqCompressCompression
-> = z.union([
-  z.nativeEnum(OutputMskPqCompressCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMskPqCompressCompression$ {
-  /** @deprecated use `OutputMskPqCompressCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputMskPqCompressCompression$inboundSchema;
-  /** @deprecated use `OutputMskPqCompressCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputMskPqCompressCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputMskQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputMskQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMskQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputMskQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputMskQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputMskQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputMskQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMskQueueFullBehavior$ {
-  /** @deprecated use `OutputMskQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputMskQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputMskQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputMskQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputMskMode$inboundSchema: z.ZodType<
-  OutputMskMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMskMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputMskMode$outboundSchema: z.ZodType<
-  OutputMskMode,
-  z.ZodTypeDef,
-  OutputMskMode
-> = z.union([
-  z.nativeEnum(OutputMskMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMskMode$ {
-  /** @deprecated use `OutputMskMode$inboundSchema` instead. */
-  export const inboundSchema = OutputMskMode$inboundSchema;
-  /** @deprecated use `OutputMskMode$outboundSchema` instead. */
-  export const outboundSchema = OutputMskMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputMskPqControls$inboundSchema: z.ZodType<
-  OutputMskPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type OutputMskPqControls$Outbound = {};
-
-/** @internal */
-export const OutputMskPqControls$outboundSchema: z.ZodType<
-  OutputMskPqControls$Outbound,
-  z.ZodTypeDef,
-  OutputMskPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMskPqControls$ {
-  /** @deprecated use `OutputMskPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputMskPqControls$inboundSchema;
-  /** @deprecated use `OutputMskPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputMskPqControls$outboundSchema;
-  /** @deprecated use `OutputMskPqControls$Outbound` instead. */
-  export type Outbound = OutputMskPqControls$Outbound;
-}
-
-export function outputMskPqControlsToJSON(
-  outputMskPqControls: OutputMskPqControls,
-): string {
-  return JSON.stringify(
-    OutputMskPqControls$outboundSchema.parse(outputMskPqControls),
-  );
-}
-
-export function outputMskPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputMskPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputMskPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputMskPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputMsk$inboundSchema: z.ZodType<
-  OutputMsk,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
   id: z.string().optional(),
-  type: OutputMskType$inboundSchema,
+  type: TypeMskOption$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   brokers: z.array(z.string()),
   topic: z.string(),
-  ack: OutputMskAcknowledgments$inboundSchema.default(1),
-  format: OutputMskRecordDataFormat$inboundSchema.default("json"),
-  compression: OutputMskCompression$inboundSchema.default("gzip"),
+  ack: AckOptions$inboundSchema.default(1),
+  format: Format3Options$inboundSchema.default("json"),
+  compression: CompressionOptions$inboundSchema.default("gzip"),
   maxRecordSizeKB: z.number().default(768),
   flushEventCount: z.number().default(1000),
   flushPeriodSec: z.number().default(1),
-  kafkaSchemaRegistry: z.lazy(() =>
-    OutputMskKafkaSchemaRegistryAuthentication$inboundSchema
-  ).optional(),
+  kafkaSchemaRegistry: KafkaSchemaRegistry1Type$inboundSchema.optional(),
   connectionTimeout: z.number().default(10000),
   requestTimeout: z.number().default(60000),
   maxRetries: z.number().default(5),
@@ -1379,36 +1444,40 @@ export const OutputMsk$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   authenticationTimeout: z.number().default(10000),
   reauthenticationThreshold: z.number().default(10000),
-  awsAuthenticationMethod: OutputMskAuthenticationMethod$inboundSchema.default(
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
     "auto",
   ),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
-  signatureVersion: OutputMskSignatureVersion$inboundSchema.default("v4"),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   enableAssumeRole: z.boolean().default(false),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().default(3600),
-  tls: z.lazy(() => OutputMskTLSSettingsClientSide$inboundSchema).optional(),
-  onBackpressure: OutputMskBackpressureBehavior$inboundSchema.default("block"),
+  tls: Tls1Type$inboundSchema.optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
   protobufLibraryId: z.string().optional(),
+  protobufEncodingId: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputMskPqCompressCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputMskQueueFullBehavior$inboundSchema.default("block"),
-  pqMode: OutputMskMode$inboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputMskPqControls$inboundSchema).optional(),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema,
 });
-
 /** @internal */
-export type OutputMsk$Outbound = {
+export type OutputMskMsk7$Outbound = {
+  onBackpressure: string;
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -1423,9 +1492,7 @@ export type OutputMsk$Outbound = {
   maxRecordSizeKB: number;
   flushEventCount: number;
   flushPeriodSec: number;
-  kafkaSchemaRegistry?:
-    | OutputMskKafkaSchemaRegistryAuthentication$Outbound
-    | undefined;
+  kafkaSchemaRegistry?: KafkaSchemaRegistry1Type$Outbound | undefined;
   connectionTimeout: number;
   requestTimeout: number;
   maxRetries: number;
@@ -1445,44 +1512,47 @@ export type OutputMsk$Outbound = {
   assumeRoleArn?: string | undefined;
   assumeRoleExternalId?: string | undefined;
   durationSeconds: number;
-  tls?: OutputMskTLSSettingsClientSide$Outbound | undefined;
-  onBackpressure: string;
+  tls?: Tls1Type$Outbound | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
   protobufLibraryId?: string | undefined;
+  protobufEncodingId?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
-  pqControls?: OutputMskPqControls$Outbound | undefined;
+  pqControls: MetadataType$Outbound;
 };
 
 /** @internal */
-export const OutputMsk$outboundSchema: z.ZodType<
-  OutputMsk$Outbound,
+export const OutputMskMsk7$outboundSchema: z.ZodType<
+  OutputMskMsk7$Outbound,
   z.ZodTypeDef,
-  OutputMsk
+  OutputMskMsk7
 > = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
   id: z.string().optional(),
-  type: OutputMskType$outboundSchema,
+  type: TypeMskOption$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   brokers: z.array(z.string()),
   topic: z.string(),
-  ack: OutputMskAcknowledgments$outboundSchema.default(1),
-  format: OutputMskRecordDataFormat$outboundSchema.default("json"),
-  compression: OutputMskCompression$outboundSchema.default("gzip"),
+  ack: AckOptions$outboundSchema.default(1),
+  format: Format3Options$outboundSchema.default("json"),
+  compression: CompressionOptions$outboundSchema.default("gzip"),
   maxRecordSizeKB: z.number().default(768),
   flushEventCount: z.number().default(1000),
   flushPeriodSec: z.number().default(1),
-  kafkaSchemaRegistry: z.lazy(() =>
-    OutputMskKafkaSchemaRegistryAuthentication$outboundSchema
-  ).optional(),
+  kafkaSchemaRegistry: KafkaSchemaRegistry1Type$outboundSchema.optional(),
   connectionTimeout: z.number().default(10000),
   requestTimeout: z.number().default(60000),
   maxRetries: z.number().default(5),
@@ -1491,51 +1561,1238 @@ export const OutputMsk$outboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   authenticationTimeout: z.number().default(10000),
   reauthenticationThreshold: z.number().default(10000),
-  awsAuthenticationMethod: OutputMskAuthenticationMethod$outboundSchema.default(
-    "auto",
-  ),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
-  signatureVersion: OutputMskSignatureVersion$outboundSchema.default("v4"),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   enableAssumeRole: z.boolean().default(false),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().default(3600),
-  tls: z.lazy(() => OutputMskTLSSettingsClientSide$outboundSchema).optional(),
-  onBackpressure: OutputMskBackpressureBehavior$outboundSchema.default("block"),
+  tls: Tls1Type$outboundSchema.optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
   protobufLibraryId: z.string().optional(),
+  protobufEncodingId: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputMskPqCompressCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputMskQueueFullBehavior$outboundSchema.default("block"),
-  pqMode: OutputMskMode$outboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputMskPqControls$outboundSchema).optional(),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMsk$ {
-  /** @deprecated use `OutputMsk$inboundSchema` instead. */
-  export const inboundSchema = OutputMsk$inboundSchema;
-  /** @deprecated use `OutputMsk$outboundSchema` instead. */
-  export const outboundSchema = OutputMsk$outboundSchema;
-  /** @deprecated use `OutputMsk$Outbound` instead. */
-  export type Outbound = OutputMsk$Outbound;
+export function outputMskMsk7ToJSON(outputMskMsk7: OutputMskMsk7): string {
+  return JSON.stringify(OutputMskMsk7$outboundSchema.parse(outputMskMsk7));
 }
+export function outputMskMsk7FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputMskMsk7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputMskMsk7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputMskMsk7' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputMskMsk6$inboundSchema: z.ZodType<
+  OutputMskMsk6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: TypeMskOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  brokers: z.array(z.string()),
+  topic: z.string(),
+  ack: AckOptions$inboundSchema.default(1),
+  format: Format3Options$inboundSchema.default("json"),
+  compression: CompressionOptions$inboundSchema.default("gzip"),
+  maxRecordSizeKB: z.number().default(768),
+  flushEventCount: z.number().default(1000),
+  flushPeriodSec: z.number().default(1),
+  kafkaSchemaRegistry: KafkaSchemaRegistry1Type$inboundSchema.optional(),
+  connectionTimeout: z.number().default(10000),
+  requestTimeout: z.number().default(60000),
+  maxRetries: z.number().default(5),
+  maxBackOff: z.number().default(30000),
+  initialBackoff: z.number().default(300),
+  backoffRate: z.number().default(2),
+  authenticationTimeout: z.number().default(10000),
+  reauthenticationThreshold: z.number().default(10000),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  tls: Tls1Type$inboundSchema.optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  protobufLibraryId: z.string().optional(),
+  protobufEncodingId: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputMskMsk6$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  brokers: Array<string>;
+  topic: string;
+  ack: number;
+  format: string;
+  compression: string;
+  maxRecordSizeKB: number;
+  flushEventCount: number;
+  flushPeriodSec: number;
+  kafkaSchemaRegistry?: KafkaSchemaRegistry1Type$Outbound | undefined;
+  connectionTimeout: number;
+  requestTimeout: number;
+  maxRetries: number;
+  maxBackOff: number;
+  initialBackoff: number;
+  backoffRate: number;
+  authenticationTimeout: number;
+  reauthenticationThreshold: number;
+  awsAuthenticationMethod: string;
+  awsSecretKey?: string | undefined;
+  region: string;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  tls?: Tls1Type$Outbound | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  protobufLibraryId?: string | undefined;
+  protobufEncodingId?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputMskMsk6$outboundSchema: z.ZodType<
+  OutputMskMsk6$Outbound,
+  z.ZodTypeDef,
+  OutputMskMsk6
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: TypeMskOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  brokers: z.array(z.string()),
+  topic: z.string(),
+  ack: AckOptions$outboundSchema.default(1),
+  format: Format3Options$outboundSchema.default("json"),
+  compression: CompressionOptions$outboundSchema.default("gzip"),
+  maxRecordSizeKB: z.number().default(768),
+  flushEventCount: z.number().default(1000),
+  flushPeriodSec: z.number().default(1),
+  kafkaSchemaRegistry: KafkaSchemaRegistry1Type$outboundSchema.optional(),
+  connectionTimeout: z.number().default(10000),
+  requestTimeout: z.number().default(60000),
+  maxRetries: z.number().default(5),
+  maxBackOff: z.number().default(30000),
+  initialBackoff: z.number().default(300),
+  backoffRate: z.number().default(2),
+  authenticationTimeout: z.number().default(10000),
+  reauthenticationThreshold: z.number().default(10000),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  tls: Tls1Type$outboundSchema.optional(),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  protobufLibraryId: z.string().optional(),
+  protobufEncodingId: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputMskMsk6ToJSON(outputMskMsk6: OutputMskMsk6): string {
+  return JSON.stringify(OutputMskMsk6$outboundSchema.parse(outputMskMsk6));
+}
+export function outputMskMsk6FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputMskMsk6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputMskMsk6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputMskMsk6' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputMskMsk5$inboundSchema: z.ZodType<
+  OutputMskMsk5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  format: Format3Options$inboundSchema.default("json"),
+  id: z.string().optional(),
+  type: TypeMskOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  brokers: z.array(z.string()),
+  topic: z.string(),
+  ack: AckOptions$inboundSchema.default(1),
+  compression: CompressionOptions$inboundSchema.default("gzip"),
+  maxRecordSizeKB: z.number().default(768),
+  flushEventCount: z.number().default(1000),
+  flushPeriodSec: z.number().default(1),
+  kafkaSchemaRegistry: KafkaSchemaRegistry1Type$inboundSchema.optional(),
+  connectionTimeout: z.number().default(10000),
+  requestTimeout: z.number().default(60000),
+  maxRetries: z.number().default(5),
+  maxBackOff: z.number().default(30000),
+  initialBackoff: z.number().default(300),
+  backoffRate: z.number().default(2),
+  authenticationTimeout: z.number().default(10000),
+  reauthenticationThreshold: z.number().default(10000),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  tls: Tls1Type$inboundSchema.optional(),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  protobufLibraryId: z.string(),
+  protobufEncodingId: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputMskMsk5$Outbound = {
+  format: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  brokers: Array<string>;
+  topic: string;
+  ack: number;
+  compression: string;
+  maxRecordSizeKB: number;
+  flushEventCount: number;
+  flushPeriodSec: number;
+  kafkaSchemaRegistry?: KafkaSchemaRegistry1Type$Outbound | undefined;
+  connectionTimeout: number;
+  requestTimeout: number;
+  maxRetries: number;
+  maxBackOff: number;
+  initialBackoff: number;
+  backoffRate: number;
+  authenticationTimeout: number;
+  reauthenticationThreshold: number;
+  awsAuthenticationMethod: string;
+  awsSecretKey?: string | undefined;
+  region: string;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  tls?: Tls1Type$Outbound | undefined;
+  onBackpressure: string;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  protobufLibraryId: string;
+  protobufEncodingId?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputMskMsk5$outboundSchema: z.ZodType<
+  OutputMskMsk5$Outbound,
+  z.ZodTypeDef,
+  OutputMskMsk5
+> = z.object({
+  format: Format3Options$outboundSchema.default("json"),
+  id: z.string().optional(),
+  type: TypeMskOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  brokers: z.array(z.string()),
+  topic: z.string(),
+  ack: AckOptions$outboundSchema.default(1),
+  compression: CompressionOptions$outboundSchema.default("gzip"),
+  maxRecordSizeKB: z.number().default(768),
+  flushEventCount: z.number().default(1000),
+  flushPeriodSec: z.number().default(1),
+  kafkaSchemaRegistry: KafkaSchemaRegistry1Type$outboundSchema.optional(),
+  connectionTimeout: z.number().default(10000),
+  requestTimeout: z.number().default(60000),
+  maxRetries: z.number().default(5),
+  maxBackOff: z.number().default(30000),
+  initialBackoff: z.number().default(300),
+  backoffRate: z.number().default(2),
+  authenticationTimeout: z.number().default(10000),
+  reauthenticationThreshold: z.number().default(10000),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  tls: Tls1Type$outboundSchema.optional(),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  protobufLibraryId: z.string(),
+  protobufEncodingId: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputMskMsk5ToJSON(outputMskMsk5: OutputMskMsk5): string {
+  return JSON.stringify(OutputMskMsk5$outboundSchema.parse(outputMskMsk5));
+}
+export function outputMskMsk5FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputMskMsk5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputMskMsk5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputMskMsk5' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputMskMsk4$inboundSchema: z.ZodType<
+  OutputMskMsk4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  format: Format3Options$inboundSchema.default("json"),
+  id: z.string().optional(),
+  type: TypeMskOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  brokers: z.array(z.string()),
+  topic: z.string(),
+  ack: AckOptions$inboundSchema.default(1),
+  compression: CompressionOptions$inboundSchema.default("gzip"),
+  maxRecordSizeKB: z.number().default(768),
+  flushEventCount: z.number().default(1000),
+  flushPeriodSec: z.number().default(1),
+  kafkaSchemaRegistry: KafkaSchemaRegistry1Type$inboundSchema.optional(),
+  connectionTimeout: z.number().default(10000),
+  requestTimeout: z.number().default(60000),
+  maxRetries: z.number().default(5),
+  maxBackOff: z.number().default(30000),
+  initialBackoff: z.number().default(300),
+  backoffRate: z.number().default(2),
+  authenticationTimeout: z.number().default(10000),
+  reauthenticationThreshold: z.number().default(10000),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  tls: Tls1Type$inboundSchema.optional(),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  protobufLibraryId: z.string().optional(),
+  protobufEncodingId: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputMskMsk4$Outbound = {
+  format: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  brokers: Array<string>;
+  topic: string;
+  ack: number;
+  compression: string;
+  maxRecordSizeKB: number;
+  flushEventCount: number;
+  flushPeriodSec: number;
+  kafkaSchemaRegistry?: KafkaSchemaRegistry1Type$Outbound | undefined;
+  connectionTimeout: number;
+  requestTimeout: number;
+  maxRetries: number;
+  maxBackOff: number;
+  initialBackoff: number;
+  backoffRate: number;
+  authenticationTimeout: number;
+  reauthenticationThreshold: number;
+  awsAuthenticationMethod: string;
+  awsSecretKey?: string | undefined;
+  region: string;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  tls?: Tls1Type$Outbound | undefined;
+  onBackpressure: string;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  protobufLibraryId?: string | undefined;
+  protobufEncodingId?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputMskMsk4$outboundSchema: z.ZodType<
+  OutputMskMsk4$Outbound,
+  z.ZodTypeDef,
+  OutputMskMsk4
+> = z.object({
+  format: Format3Options$outboundSchema.default("json"),
+  id: z.string().optional(),
+  type: TypeMskOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  brokers: z.array(z.string()),
+  topic: z.string(),
+  ack: AckOptions$outboundSchema.default(1),
+  compression: CompressionOptions$outboundSchema.default("gzip"),
+  maxRecordSizeKB: z.number().default(768),
+  flushEventCount: z.number().default(1000),
+  flushPeriodSec: z.number().default(1),
+  kafkaSchemaRegistry: KafkaSchemaRegistry1Type$outboundSchema.optional(),
+  connectionTimeout: z.number().default(10000),
+  requestTimeout: z.number().default(60000),
+  maxRetries: z.number().default(5),
+  maxBackOff: z.number().default(30000),
+  initialBackoff: z.number().default(300),
+  backoffRate: z.number().default(2),
+  authenticationTimeout: z.number().default(10000),
+  reauthenticationThreshold: z.number().default(10000),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  tls: Tls1Type$outboundSchema.optional(),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  protobufLibraryId: z.string().optional(),
+  protobufEncodingId: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputMskMsk4ToJSON(outputMskMsk4: OutputMskMsk4): string {
+  return JSON.stringify(OutputMskMsk4$outboundSchema.parse(outputMskMsk4));
+}
+export function outputMskMsk4FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputMskMsk4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputMskMsk4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputMskMsk4' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputMskMsk3$inboundSchema: z.ZodType<
+  OutputMskMsk3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  id: z.string().optional(),
+  type: TypeMskOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  brokers: z.array(z.string()),
+  topic: z.string(),
+  ack: AckOptions$inboundSchema.default(1),
+  format: Format3Options$inboundSchema.default("json"),
+  compression: CompressionOptions$inboundSchema.default("gzip"),
+  maxRecordSizeKB: z.number().default(768),
+  flushEventCount: z.number().default(1000),
+  flushPeriodSec: z.number().default(1),
+  kafkaSchemaRegistry: KafkaSchemaRegistry1Type$inboundSchema.optional(),
+  connectionTimeout: z.number().default(10000),
+  requestTimeout: z.number().default(60000),
+  maxRetries: z.number().default(5),
+  maxBackOff: z.number().default(30000),
+  initialBackoff: z.number().default(300),
+  backoffRate: z.number().default(2),
+  authenticationTimeout: z.number().default(10000),
+  reauthenticationThreshold: z.number().default(10000),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  tls: Tls1Type$inboundSchema.optional(),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string(),
+  protobufLibraryId: z.string().optional(),
+  protobufEncodingId: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputMskMsk3$Outbound = {
+  awsAuthenticationMethod: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  brokers: Array<string>;
+  topic: string;
+  ack: number;
+  format: string;
+  compression: string;
+  maxRecordSizeKB: number;
+  flushEventCount: number;
+  flushPeriodSec: number;
+  kafkaSchemaRegistry?: KafkaSchemaRegistry1Type$Outbound | undefined;
+  connectionTimeout: number;
+  requestTimeout: number;
+  maxRetries: number;
+  maxBackOff: number;
+  initialBackoff: number;
+  backoffRate: number;
+  authenticationTimeout: number;
+  reauthenticationThreshold: number;
+  awsSecretKey?: string | undefined;
+  region: string;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  tls?: Tls1Type$Outbound | undefined;
+  onBackpressure: string;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret: string;
+  protobufLibraryId?: string | undefined;
+  protobufEncodingId?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputMskMsk3$outboundSchema: z.ZodType<
+  OutputMskMsk3$Outbound,
+  z.ZodTypeDef,
+  OutputMskMsk3
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  id: z.string().optional(),
+  type: TypeMskOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  brokers: z.array(z.string()),
+  topic: z.string(),
+  ack: AckOptions$outboundSchema.default(1),
+  format: Format3Options$outboundSchema.default("json"),
+  compression: CompressionOptions$outboundSchema.default("gzip"),
+  maxRecordSizeKB: z.number().default(768),
+  flushEventCount: z.number().default(1000),
+  flushPeriodSec: z.number().default(1),
+  kafkaSchemaRegistry: KafkaSchemaRegistry1Type$outboundSchema.optional(),
+  connectionTimeout: z.number().default(10000),
+  requestTimeout: z.number().default(60000),
+  maxRetries: z.number().default(5),
+  maxBackOff: z.number().default(30000),
+  initialBackoff: z.number().default(300),
+  backoffRate: z.number().default(2),
+  authenticationTimeout: z.number().default(10000),
+  reauthenticationThreshold: z.number().default(10000),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  tls: Tls1Type$outboundSchema.optional(),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string(),
+  protobufLibraryId: z.string().optional(),
+  protobufEncodingId: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputMskMsk3ToJSON(outputMskMsk3: OutputMskMsk3): string {
+  return JSON.stringify(OutputMskMsk3$outboundSchema.parse(outputMskMsk3));
+}
+export function outputMskMsk3FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputMskMsk3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputMskMsk3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputMskMsk3' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputMskMsk2$inboundSchema: z.ZodType<
+  OutputMskMsk2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  id: z.string().optional(),
+  type: TypeMskOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  brokers: z.array(z.string()),
+  topic: z.string(),
+  ack: AckOptions$inboundSchema.default(1),
+  format: Format3Options$inboundSchema.default("json"),
+  compression: CompressionOptions$inboundSchema.default("gzip"),
+  maxRecordSizeKB: z.number().default(768),
+  flushEventCount: z.number().default(1000),
+  flushPeriodSec: z.number().default(1),
+  kafkaSchemaRegistry: KafkaSchemaRegistry1Type$inboundSchema.optional(),
+  connectionTimeout: z.number().default(10000),
+  requestTimeout: z.number().default(60000),
+  maxRetries: z.number().default(5),
+  maxBackOff: z.number().default(30000),
+  initialBackoff: z.number().default(300),
+  backoffRate: z.number().default(2),
+  authenticationTimeout: z.number().default(10000),
+  reauthenticationThreshold: z.number().default(10000),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  tls: Tls1Type$inboundSchema.optional(),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  awsApiKey: z.string(),
+  awsSecret: z.string().optional(),
+  protobufLibraryId: z.string().optional(),
+  protobufEncodingId: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputMskMsk2$Outbound = {
+  awsAuthenticationMethod: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  brokers: Array<string>;
+  topic: string;
+  ack: number;
+  format: string;
+  compression: string;
+  maxRecordSizeKB: number;
+  flushEventCount: number;
+  flushPeriodSec: number;
+  kafkaSchemaRegistry?: KafkaSchemaRegistry1Type$Outbound | undefined;
+  connectionTimeout: number;
+  requestTimeout: number;
+  maxRetries: number;
+  maxBackOff: number;
+  initialBackoff: number;
+  backoffRate: number;
+  authenticationTimeout: number;
+  reauthenticationThreshold: number;
+  awsSecretKey?: string | undefined;
+  region: string;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  tls?: Tls1Type$Outbound | undefined;
+  onBackpressure: string;
+  description?: string | undefined;
+  awsApiKey: string;
+  awsSecret?: string | undefined;
+  protobufLibraryId?: string | undefined;
+  protobufEncodingId?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputMskMsk2$outboundSchema: z.ZodType<
+  OutputMskMsk2$Outbound,
+  z.ZodTypeDef,
+  OutputMskMsk2
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  id: z.string().optional(),
+  type: TypeMskOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  brokers: z.array(z.string()),
+  topic: z.string(),
+  ack: AckOptions$outboundSchema.default(1),
+  format: Format3Options$outboundSchema.default("json"),
+  compression: CompressionOptions$outboundSchema.default("gzip"),
+  maxRecordSizeKB: z.number().default(768),
+  flushEventCount: z.number().default(1000),
+  flushPeriodSec: z.number().default(1),
+  kafkaSchemaRegistry: KafkaSchemaRegistry1Type$outboundSchema.optional(),
+  connectionTimeout: z.number().default(10000),
+  requestTimeout: z.number().default(60000),
+  maxRetries: z.number().default(5),
+  maxBackOff: z.number().default(30000),
+  initialBackoff: z.number().default(300),
+  backoffRate: z.number().default(2),
+  authenticationTimeout: z.number().default(10000),
+  reauthenticationThreshold: z.number().default(10000),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  tls: Tls1Type$outboundSchema.optional(),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  awsApiKey: z.string(),
+  awsSecret: z.string().optional(),
+  protobufLibraryId: z.string().optional(),
+  protobufEncodingId: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputMskMsk2ToJSON(outputMskMsk2: OutputMskMsk2): string {
+  return JSON.stringify(OutputMskMsk2$outboundSchema.parse(outputMskMsk2));
+}
+export function outputMskMsk2FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputMskMsk2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputMskMsk2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputMskMsk2' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputMskMsk1$inboundSchema: z.ZodType<
+  OutputMskMsk1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  id: z.string().optional(),
+  type: TypeMskOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  brokers: z.array(z.string()),
+  topic: z.string(),
+  ack: AckOptions$inboundSchema.default(1),
+  format: Format3Options$inboundSchema.default("json"),
+  compression: CompressionOptions$inboundSchema.default("gzip"),
+  maxRecordSizeKB: z.number().default(768),
+  flushEventCount: z.number().default(1000),
+  flushPeriodSec: z.number().default(1),
+  kafkaSchemaRegistry: KafkaSchemaRegistry1Type$inboundSchema.optional(),
+  connectionTimeout: z.number().default(10000),
+  requestTimeout: z.number().default(60000),
+  maxRetries: z.number().default(5),
+  maxBackOff: z.number().default(30000),
+  initialBackoff: z.number().default(300),
+  backoffRate: z.number().default(2),
+  authenticationTimeout: z.number().default(10000),
+  reauthenticationThreshold: z.number().default(10000),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  tls: Tls1Type$inboundSchema.optional(),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  protobufLibraryId: z.string().optional(),
+  protobufEncodingId: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputMskMsk1$Outbound = {
+  awsAuthenticationMethod: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  brokers: Array<string>;
+  topic: string;
+  ack: number;
+  format: string;
+  compression: string;
+  maxRecordSizeKB: number;
+  flushEventCount: number;
+  flushPeriodSec: number;
+  kafkaSchemaRegistry?: KafkaSchemaRegistry1Type$Outbound | undefined;
+  connectionTimeout: number;
+  requestTimeout: number;
+  maxRetries: number;
+  maxBackOff: number;
+  initialBackoff: number;
+  backoffRate: number;
+  authenticationTimeout: number;
+  reauthenticationThreshold: number;
+  awsSecretKey?: string | undefined;
+  region: string;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  tls?: Tls1Type$Outbound | undefined;
+  onBackpressure: string;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  protobufLibraryId?: string | undefined;
+  protobufEncodingId?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputMskMsk1$outboundSchema: z.ZodType<
+  OutputMskMsk1$Outbound,
+  z.ZodTypeDef,
+  OutputMskMsk1
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  id: z.string().optional(),
+  type: TypeMskOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  brokers: z.array(z.string()),
+  topic: z.string(),
+  ack: AckOptions$outboundSchema.default(1),
+  format: Format3Options$outboundSchema.default("json"),
+  compression: CompressionOptions$outboundSchema.default("gzip"),
+  maxRecordSizeKB: z.number().default(768),
+  flushEventCount: z.number().default(1000),
+  flushPeriodSec: z.number().default(1),
+  kafkaSchemaRegistry: KafkaSchemaRegistry1Type$outboundSchema.optional(),
+  connectionTimeout: z.number().default(10000),
+  requestTimeout: z.number().default(60000),
+  maxRetries: z.number().default(5),
+  maxBackOff: z.number().default(30000),
+  initialBackoff: z.number().default(300),
+  backoffRate: z.number().default(2),
+  authenticationTimeout: z.number().default(10000),
+  reauthenticationThreshold: z.number().default(10000),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  tls: Tls1Type$outboundSchema.optional(),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  protobufLibraryId: z.string().optional(),
+  protobufEncodingId: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputMskMsk1ToJSON(outputMskMsk1: OutputMskMsk1): string {
+  return JSON.stringify(OutputMskMsk1$outboundSchema.parse(outputMskMsk1));
+}
+export function outputMskMsk1FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputMskMsk1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputMskMsk1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputMskMsk1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputMsk$inboundSchema: z.ZodType<
+  OutputMsk,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => OutputMskMsk2$inboundSchema),
+  z.lazy(() => OutputMskMsk3$inboundSchema),
+  z.lazy(() => OutputMskMsk5$inboundSchema),
+  z.lazy(() => OutputMskMsk7$inboundSchema),
+  z.lazy(() => OutputMskMsk1$inboundSchema),
+  z.lazy(() => OutputMskMsk4$inboundSchema),
+  z.lazy(() => OutputMskMsk6$inboundSchema),
+]);
+/** @internal */
+export type OutputMsk$Outbound =
+  | OutputMskMsk2$Outbound
+  | OutputMskMsk3$Outbound
+  | OutputMskMsk5$Outbound
+  | OutputMskMsk7$Outbound
+  | OutputMskMsk1$Outbound
+  | OutputMskMsk4$Outbound
+  | OutputMskMsk6$Outbound;
+
+/** @internal */
+export const OutputMsk$outboundSchema: z.ZodType<
+  OutputMsk$Outbound,
+  z.ZodTypeDef,
+  OutputMsk
+> = z.union([
+  z.lazy(() => OutputMskMsk2$outboundSchema),
+  z.lazy(() => OutputMskMsk3$outboundSchema),
+  z.lazy(() => OutputMskMsk5$outboundSchema),
+  z.lazy(() => OutputMskMsk7$outboundSchema),
+  z.lazy(() => OutputMskMsk1$outboundSchema),
+  z.lazy(() => OutputMskMsk4$outboundSchema),
+  z.lazy(() => OutputMskMsk6$outboundSchema),
+]);
 
 export function outputMskToJSON(outputMsk: OutputMsk): string {
   return JSON.stringify(OutputMsk$outboundSchema.parse(outputMsk));
 }
-
 export function outputMskFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputMsk, SDKValidationError> {

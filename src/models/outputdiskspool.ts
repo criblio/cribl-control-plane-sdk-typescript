@@ -4,33 +4,19 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  PqCompressOptions,
+  PqCompressOptions$inboundSchema,
+  PqCompressOptions$outboundSchema,
+} from "./pqcompressoptions.js";
 
 export const OutputDiskSpoolType = {
   DiskSpool: "disk_spool",
 } as const;
 export type OutputDiskSpoolType = ClosedEnum<typeof OutputDiskSpoolType>;
-
-/**
- * Data compression format. Default is gzip.
- */
-export const OutputDiskSpoolCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Data compression format. Default is gzip.
- */
-export type OutputDiskSpoolCompression = OpenEnum<
-  typeof OutputDiskSpoolCompression
->;
 
 export type OutputDiskSpool = {
   /**
@@ -67,9 +53,9 @@ export type OutputDiskSpool = {
    */
   maxDataTime?: string | undefined;
   /**
-   * Data compression format. Default is gzip.
+   * Codec to use to compress the persisted data
    */
-  compress?: OutputDiskSpoolCompression | undefined;
+  compress?: PqCompressOptions | undefined;
   /**
    * JavaScript expression defining how files are partitioned and organized within the time-buckets. If blank, the event's __partition property is used and otherwise, events go directly into the time-bucket directory.
    */
@@ -81,54 +67,10 @@ export type OutputDiskSpool = {
 export const OutputDiskSpoolType$inboundSchema: z.ZodNativeEnum<
   typeof OutputDiskSpoolType
 > = z.nativeEnum(OutputDiskSpoolType);
-
 /** @internal */
 export const OutputDiskSpoolType$outboundSchema: z.ZodNativeEnum<
   typeof OutputDiskSpoolType
 > = OutputDiskSpoolType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDiskSpoolType$ {
-  /** @deprecated use `OutputDiskSpoolType$inboundSchema` instead. */
-  export const inboundSchema = OutputDiskSpoolType$inboundSchema;
-  /** @deprecated use `OutputDiskSpoolType$outboundSchema` instead. */
-  export const outboundSchema = OutputDiskSpoolType$outboundSchema;
-}
-
-/** @internal */
-export const OutputDiskSpoolCompression$inboundSchema: z.ZodType<
-  OutputDiskSpoolCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDiskSpoolCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputDiskSpoolCompression$outboundSchema: z.ZodType<
-  OutputDiskSpoolCompression,
-  z.ZodTypeDef,
-  OutputDiskSpoolCompression
-> = z.union([
-  z.nativeEnum(OutputDiskSpoolCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDiskSpoolCompression$ {
-  /** @deprecated use `OutputDiskSpoolCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputDiskSpoolCompression$inboundSchema;
-  /** @deprecated use `OutputDiskSpoolCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputDiskSpoolCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputDiskSpool$inboundSchema: z.ZodType<
@@ -145,11 +87,10 @@ export const OutputDiskSpool$inboundSchema: z.ZodType<
   timeWindow: z.string().default("10m"),
   maxDataSize: z.string().default("1GB"),
   maxDataTime: z.string().default("24h"),
-  compress: OutputDiskSpoolCompression$inboundSchema.default("gzip"),
+  compress: PqCompressOptions$inboundSchema.default("none"),
   partitionExpr: z.string().optional(),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type OutputDiskSpool$Outbound = {
   id?: string | undefined;
@@ -181,30 +122,16 @@ export const OutputDiskSpool$outboundSchema: z.ZodType<
   timeWindow: z.string().default("10m"),
   maxDataSize: z.string().default("1GB"),
   maxDataTime: z.string().default("24h"),
-  compress: OutputDiskSpoolCompression$outboundSchema.default("gzip"),
+  compress: PqCompressOptions$outboundSchema.default("none"),
   partitionExpr: z.string().optional(),
   description: z.string().optional(),
 });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDiskSpool$ {
-  /** @deprecated use `OutputDiskSpool$inboundSchema` instead. */
-  export const inboundSchema = OutputDiskSpool$inboundSchema;
-  /** @deprecated use `OutputDiskSpool$outboundSchema` instead. */
-  export const outboundSchema = OutputDiskSpool$outboundSchema;
-  /** @deprecated use `OutputDiskSpool$Outbound` instead. */
-  export type Outbound = OutputDiskSpool$Outbound;
-}
 
 export function outputDiskSpoolToJSON(
   outputDiskSpool: OutputDiskSpool,
 ): string {
   return JSON.stringify(OutputDiskSpool$outboundSchema.parse(outputDiskSpool));
 }
-
 export function outputDiskSpoolFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputDiskSpool, SDKValidationError> {

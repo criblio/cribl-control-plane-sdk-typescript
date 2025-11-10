@@ -6,173 +6,97 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import {
   catchUnrecognizedEnum,
-  ClosedEnum,
   OpenEnum,
   Unrecognized,
 } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  ConnectionsType,
+  ConnectionsType$inboundSchema,
+  ConnectionsType$Outbound,
+  ConnectionsType$outboundSchema,
+} from "./connectionstype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputElasticType = {
-  Elastic: "elastic",
-} as const;
-export type InputElasticType = ClosedEnum<typeof InputElasticType>;
-
-export type InputElasticConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputElasticMode = {
-  Smart: "smart",
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputElasticMode = OpenEnum<typeof InputElasticMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputElasticCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputElasticCompression = OpenEnum<typeof InputElasticCompression>;
-
-export type InputElasticPqControls = {};
-
-export type InputElasticPq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputElasticMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputElasticCompression | undefined;
-  pqControls?: InputElasticPqControls | undefined;
-};
-
-export const InputElasticMinimumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputElasticMinimumTLSVersion = OpenEnum<
-  typeof InputElasticMinimumTLSVersion
->;
-
-export const InputElasticMaximumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputElasticMaximumTLSVersion = OpenEnum<
-  typeof InputElasticMaximumTLSVersion
->;
-
-export type InputElasticTLSSettingsServerSide = {
-  disabled?: boolean | undefined;
-  /**
-   * The name of the predefined certificate
-   */
-  certificateName?: string | undefined;
-  /**
-   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
-   */
-  privKeyPath?: string | undefined;
-  /**
-   * Passphrase to use to decrypt private key
-   */
-  passphrase?: string | undefined;
-  /**
-   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  certPath?: string | undefined;
-  /**
-   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  caPath?: string | undefined;
-  /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
-  minVersion?: InputElasticMinimumTLSVersion | undefined;
-  maxVersion?: InputElasticMaximumTLSVersion | undefined;
-};
-
-export const InputElasticAuthenticationType = {
-  None: "none",
-  Basic: "basic",
-  CredentialsSecret: "credentialsSecret",
-  AuthTokens: "authTokens",
-} as const;
-export type InputElasticAuthenticationType = OpenEnum<
-  typeof InputElasticAuthenticationType
->;
+import {
+  ExtraHttpHeadersType,
+  ExtraHttpHeadersType$inboundSchema,
+  ExtraHttpHeadersType$Outbound,
+  ExtraHttpHeadersType$outboundSchema,
+} from "./extrahttpheaderstype.js";
+import {
+  Metadata1Type,
+  Metadata1Type$inboundSchema,
+  Metadata1Type$Outbound,
+  Metadata1Type$outboundSchema,
+} from "./metadata1type.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  Tls2Type,
+  Tls2Type$inboundSchema,
+  Tls2Type$Outbound,
+  Tls2Type$outboundSchema,
+} from "./tls2type.js";
+import {
+  TypeElasticOption,
+  TypeElasticOption$inboundSchema,
+  TypeElasticOption$outboundSchema,
+} from "./typeelasticoption.js";
 
 /**
  * The API version to use for communicating with the server
  */
-export const InputElasticAPIVersion = {
+export const InputElasticAPIVersion11 = {
+  /**
+   * 6.8.4
+   */
   SixDot8Dot4: "6.8.4",
+  /**
+   * 8.3.2
+   */
   EightDot3Dot2: "8.3.2",
+  /**
+   * Custom
+   */
   Custom: "custom",
 } as const;
 /**
  * The API version to use for communicating with the server
  */
-export type InputElasticAPIVersion = OpenEnum<typeof InputElasticAPIVersion>;
+export type InputElasticAPIVersion11 = OpenEnum<
+  typeof InputElasticAPIVersion11
+>;
 
-export type InputElasticExtraHttpHeader = {
-  name?: string | undefined;
-  value: string;
-};
-
-export type InputElasticMetadatum = {
-  name: string;
+export const InputElasticAuthenticationType11 = {
   /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   * None
    */
-  value: string;
-};
+  None: "none",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  CredentialsSecret: "credentialsSecret",
+  /**
+   * Auth Tokens
+   */
+  AuthTokens: "authTokens",
+} as const;
+export type InputElasticAuthenticationType11 = OpenEnum<
+  typeof InputElasticAuthenticationType11
+>;
 
 /**
  * Enter credentials directly, or select a stored secret
  */
-export const InputElasticAuthenticationMethod = {
+export const InputElasticAuthenticationMethod11 = {
   None: "none",
   Manual: "manual",
   Secret: "secret",
@@ -180,15 +104,25 @@ export const InputElasticAuthenticationMethod = {
 /**
  * Enter credentials directly, or select a stored secret
  */
-export type InputElasticAuthenticationMethod = OpenEnum<
-  typeof InputElasticAuthenticationMethod
+export type InputElasticAuthenticationMethod11 = OpenEnum<
+  typeof InputElasticAuthenticationMethod11
 >;
 
-export type InputElasticProxyMode = {
+export type InputElasticProxyMode11 = {
   /**
    * Enable proxying of non-bulk API requests to an external Elastic server. Enable this only if you understand the implications. See [Cribl Docs](https://docs.cribl.io/stream/sources-elastic/#proxy-mode) for more details.
    */
   enabled?: boolean | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: InputElasticAuthenticationMethod11 | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
   /**
    * URL of the Elastic server to proxy non-bulk requests to, such as http://elastic:9200
    */
@@ -205,18 +139,18 @@ export type InputElasticProxyMode = {
    * Amount of time, in seconds, to wait for a proxy request to complete before canceling it
    */
   timeoutSec?: number | undefined;
-  /**
-   * Enter credentials directly, or select a stored secret
-   */
-  authType?: InputElasticAuthenticationMethod | undefined;
 };
 
-export type InputElastic = {
+export type InputElasticElastic11 = {
+  /**
+   * The API version to use for communicating with the server
+   */
+  apiVersion?: InputElasticAPIVersion11 | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputElasticType;
+  type: TypeElasticOption;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -241,8 +175,8 @@ export type InputElastic = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputElasticConnection> | undefined;
-  pq?: InputElasticPq | undefined;
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -251,7 +185,7 @@ export type InputElastic = {
    * Port to listen on
    */
   port: number;
-  tls?: InputElasticTLSSettingsServerSide | undefined;
+  tls?: Tls2Type | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -300,20 +234,16 @@ export type InputElastic = {
    * Absolute path on which to listen for Elasticsearch API requests. Defaults to /. _bulk will be appended automatically. For example, /myPath becomes /myPath/_bulk. Requests can then be made to either /myPath/_bulk or /myPath/<myIndexName>/_bulk. Other entries are faked as success.
    */
   elasticAPI?: string | undefined;
-  authType?: InputElasticAuthenticationType | undefined;
-  /**
-   * The API version to use for communicating with the server
-   */
-  apiVersion?: InputElasticAPIVersion | undefined;
+  authType?: InputElasticAuthenticationType11 | undefined;
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<InputElasticExtraHttpHeader> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputElasticMetadatum> | undefined;
-  proxyMode?: InputElasticProxyMode | undefined;
+  metadata?: Array<Metadata1Type> | undefined;
+  proxyMode?: InputElasticProxyMode11 | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -331,719 +261,2284 @@ export type InputElastic = {
   customAPIVersion?: string | undefined;
 };
 
-/** @internal */
-export const InputElasticType$inboundSchema: z.ZodNativeEnum<
-  typeof InputElasticType
-> = z.nativeEnum(InputElasticType);
+/**
+ * The API version to use for communicating with the server
+ */
+export const InputElasticAPIVersion10 = {
+  /**
+   * 6.8.4
+   */
+  SixDot8Dot4: "6.8.4",
+  /**
+   * 8.3.2
+   */
+  EightDot3Dot2: "8.3.2",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+} as const;
+/**
+ * The API version to use for communicating with the server
+ */
+export type InputElasticAPIVersion10 = OpenEnum<
+  typeof InputElasticAPIVersion10
+>;
 
-/** @internal */
-export const InputElasticType$outboundSchema: z.ZodNativeEnum<
-  typeof InputElasticType
-> = InputElasticType$inboundSchema;
+export const InputElasticAuthenticationType10 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  CredentialsSecret: "credentialsSecret",
+  /**
+   * Auth Tokens
+   */
+  AuthTokens: "authTokens",
+} as const;
+export type InputElasticAuthenticationType10 = OpenEnum<
+  typeof InputElasticAuthenticationType10
+>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Enter credentials directly, or select a stored secret
  */
-export namespace InputElasticType$ {
-  /** @deprecated use `InputElasticType$inboundSchema` instead. */
-  export const inboundSchema = InputElasticType$inboundSchema;
-  /** @deprecated use `InputElasticType$outboundSchema` instead. */
-  export const outboundSchema = InputElasticType$outboundSchema;
-}
+export const InputElasticAuthenticationMethod10 = {
+  None: "none",
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Enter credentials directly, or select a stored secret
+ */
+export type InputElasticAuthenticationMethod10 = OpenEnum<
+  typeof InputElasticAuthenticationMethod10
+>;
 
-/** @internal */
-export const InputElasticConnection$inboundSchema: z.ZodType<
-  InputElasticConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
+export type InputElasticProxyMode10 = {
+  /**
+   * Enable proxying of non-bulk API requests to an external Elastic server. Enable this only if you understand the implications. See [Cribl Docs](https://docs.cribl.io/stream/sources-elastic/#proxy-mode) for more details.
+   */
+  enabled?: boolean | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: InputElasticAuthenticationMethod10 | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * URL of the Elastic server to proxy non-bulk requests to, such as http://elastic:9200
+   */
+  url?: string | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * List of headers to remove from the request to proxy
+   */
+  removeHeaders?: Array<string> | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a proxy request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+};
 
-/** @internal */
-export type InputElasticConnection$Outbound = {
+export type InputElasticElastic10 = {
+  /**
+   * The API version to use for communicating with the server
+   */
+  apiVersion?: InputElasticAPIVersion10 | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeElasticOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
   pipeline?: string | undefined;
-  output: string;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for Elasticsearch API requests. Defaults to /. _bulk will be appended automatically. For example, /myPath becomes /myPath/_bulk. Requests can then be made to either /myPath/_bulk or /myPath/<myIndexName>/_bulk. Other entries are faked as success.
+   */
+  elasticAPI?: string | undefined;
+  authType?: InputElasticAuthenticationType10 | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  proxyMode?: InputElasticProxyMode10 | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Bearer tokens to include in the authorization header
+   */
+  authTokens?: Array<string> | undefined;
+  /**
+   * Custom version information to respond to requests
+   */
+  customAPIVersion?: string | undefined;
 };
 
-/** @internal */
-export const InputElasticConnection$outboundSchema: z.ZodType<
-  InputElasticConnection$Outbound,
-  z.ZodTypeDef,
-  InputElasticConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
+/**
+ * The API version to use for communicating with the server
+ */
+export const InputElasticAPIVersion9 = {
+  /**
+   * 6.8.4
+   */
+  SixDot8Dot4: "6.8.4",
+  /**
+   * 8.3.2
+   */
+  EightDot3Dot2: "8.3.2",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+} as const;
+/**
+ * The API version to use for communicating with the server
+ */
+export type InputElasticAPIVersion9 = OpenEnum<typeof InputElasticAPIVersion9>;
+
+export const InputElasticAuthenticationType9 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  CredentialsSecret: "credentialsSecret",
+  /**
+   * Auth Tokens
+   */
+  AuthTokens: "authTokens",
+} as const;
+export type InputElasticAuthenticationType9 = OpenEnum<
+  typeof InputElasticAuthenticationType9
+>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Enter credentials directly, or select a stored secret
  */
-export namespace InputElasticConnection$ {
-  /** @deprecated use `InputElasticConnection$inboundSchema` instead. */
-  export const inboundSchema = InputElasticConnection$inboundSchema;
-  /** @deprecated use `InputElasticConnection$outboundSchema` instead. */
-  export const outboundSchema = InputElasticConnection$outboundSchema;
-  /** @deprecated use `InputElasticConnection$Outbound` instead. */
-  export type Outbound = InputElasticConnection$Outbound;
-}
-
-export function inputElasticConnectionToJSON(
-  inputElasticConnection: InputElasticConnection,
-): string {
-  return JSON.stringify(
-    InputElasticConnection$outboundSchema.parse(inputElasticConnection),
-  );
-}
-
-export function inputElasticConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputElasticConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputElasticConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputElasticConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputElasticMode$inboundSchema: z.ZodType<
-  InputElasticMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputElasticMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputElasticMode$outboundSchema: z.ZodType<
-  InputElasticMode,
-  z.ZodTypeDef,
-  InputElasticMode
-> = z.union([
-  z.nativeEnum(InputElasticMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
+export const InputElasticAuthenticationMethod9 = {
+  None: "none",
+  Manual: "manual",
+  Secret: "secret",
+} as const;
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Enter credentials directly, or select a stored secret
  */
-export namespace InputElasticMode$ {
-  /** @deprecated use `InputElasticMode$inboundSchema` instead. */
-  export const inboundSchema = InputElasticMode$inboundSchema;
-  /** @deprecated use `InputElasticMode$outboundSchema` instead. */
-  export const outboundSchema = InputElasticMode$outboundSchema;
-}
+export type InputElasticAuthenticationMethod9 = OpenEnum<
+  typeof InputElasticAuthenticationMethod9
+>;
 
-/** @internal */
-export const InputElasticCompression$inboundSchema: z.ZodType<
-  InputElasticCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputElasticCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputElasticCompression$outboundSchema: z.ZodType<
-  InputElasticCompression,
-  z.ZodTypeDef,
-  InputElasticCompression
-> = z.union([
-  z.nativeEnum(InputElasticCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputElasticCompression$ {
-  /** @deprecated use `InputElasticCompression$inboundSchema` instead. */
-  export const inboundSchema = InputElasticCompression$inboundSchema;
-  /** @deprecated use `InputElasticCompression$outboundSchema` instead. */
-  export const outboundSchema = InputElasticCompression$outboundSchema;
-}
-
-/** @internal */
-export const InputElasticPqControls$inboundSchema: z.ZodType<
-  InputElasticPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type InputElasticPqControls$Outbound = {};
-
-/** @internal */
-export const InputElasticPqControls$outboundSchema: z.ZodType<
-  InputElasticPqControls$Outbound,
-  z.ZodTypeDef,
-  InputElasticPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputElasticPqControls$ {
-  /** @deprecated use `InputElasticPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputElasticPqControls$inboundSchema;
-  /** @deprecated use `InputElasticPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputElasticPqControls$outboundSchema;
-  /** @deprecated use `InputElasticPqControls$Outbound` instead. */
-  export type Outbound = InputElasticPqControls$Outbound;
-}
-
-export function inputElasticPqControlsToJSON(
-  inputElasticPqControls: InputElasticPqControls,
-): string {
-  return JSON.stringify(
-    InputElasticPqControls$outboundSchema.parse(inputElasticPqControls),
-  );
-}
-
-export function inputElasticPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputElasticPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputElasticPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputElasticPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputElasticPq$inboundSchema: z.ZodType<
-  InputElasticPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputElasticMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputElasticCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputElasticPqControls$inboundSchema).optional(),
-});
-
-/** @internal */
-export type InputElasticPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputElasticPqControls$Outbound | undefined;
+export type InputElasticProxyMode9 = {
+  /**
+   * Enable proxying of non-bulk API requests to an external Elastic server. Enable this only if you understand the implications. See [Cribl Docs](https://docs.cribl.io/stream/sources-elastic/#proxy-mode) for more details.
+   */
+  enabled?: boolean | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: InputElasticAuthenticationMethod9 | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * URL of the Elastic server to proxy non-bulk requests to, such as http://elastic:9200
+   */
+  url?: string | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * List of headers to remove from the request to proxy
+   */
+  removeHeaders?: Array<string> | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a proxy request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
 };
 
-/** @internal */
-export const InputElasticPq$outboundSchema: z.ZodType<
-  InputElasticPq$Outbound,
-  z.ZodTypeDef,
-  InputElasticPq
-> = z.object({
-  mode: InputElasticMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputElasticCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputElasticPqControls$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputElasticPq$ {
-  /** @deprecated use `InputElasticPq$inboundSchema` instead. */
-  export const inboundSchema = InputElasticPq$inboundSchema;
-  /** @deprecated use `InputElasticPq$outboundSchema` instead. */
-  export const outboundSchema = InputElasticPq$outboundSchema;
-  /** @deprecated use `InputElasticPq$Outbound` instead. */
-  export type Outbound = InputElasticPq$Outbound;
-}
-
-export function inputElasticPqToJSON(inputElasticPq: InputElasticPq): string {
-  return JSON.stringify(InputElasticPq$outboundSchema.parse(inputElasticPq));
-}
-
-export function inputElasticPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputElasticPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputElasticPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputElasticPq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputElasticMinimumTLSVersion$inboundSchema: z.ZodType<
-  InputElasticMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputElasticMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputElasticMinimumTLSVersion$outboundSchema: z.ZodType<
-  InputElasticMinimumTLSVersion,
-  z.ZodTypeDef,
-  InputElasticMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(InputElasticMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputElasticMinimumTLSVersion$ {
-  /** @deprecated use `InputElasticMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputElasticMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `InputElasticMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputElasticMinimumTLSVersion$outboundSchema;
-}
-
-/** @internal */
-export const InputElasticMaximumTLSVersion$inboundSchema: z.ZodType<
-  InputElasticMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputElasticMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputElasticMaximumTLSVersion$outboundSchema: z.ZodType<
-  InputElasticMaximumTLSVersion,
-  z.ZodTypeDef,
-  InputElasticMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(InputElasticMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputElasticMaximumTLSVersion$ {
-  /** @deprecated use `InputElasticMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputElasticMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `InputElasticMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputElasticMaximumTLSVersion$outboundSchema;
-}
-
-/** @internal */
-export const InputElasticTLSSettingsServerSide$inboundSchema: z.ZodType<
-  InputElasticTLSSettingsServerSide,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(true),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
-  minVersion: InputElasticMinimumTLSVersion$inboundSchema.optional(),
-  maxVersion: InputElasticMaximumTLSVersion$inboundSchema.optional(),
-});
-
-/** @internal */
-export type InputElasticTLSSettingsServerSide$Outbound = {
-  disabled: boolean;
-  certificateName?: string | undefined;
-  privKeyPath?: string | undefined;
-  passphrase?: string | undefined;
-  certPath?: string | undefined;
-  caPath?: string | undefined;
-  requestCert: boolean;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
-  minVersion?: string | undefined;
-  maxVersion?: string | undefined;
+export type InputElasticElastic9 = {
+  /**
+   * The API version to use for communicating with the server
+   */
+  apiVersion?: InputElasticAPIVersion9 | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeElasticOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for Elasticsearch API requests. Defaults to /. _bulk will be appended automatically. For example, /myPath becomes /myPath/_bulk. Requests can then be made to either /myPath/_bulk or /myPath/<myIndexName>/_bulk. Other entries are faked as success.
+   */
+  elasticAPI?: string | undefined;
+  authType?: InputElasticAuthenticationType9 | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  proxyMode?: InputElasticProxyMode9 | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Bearer tokens to include in the authorization header
+   */
+  authTokens?: Array<string> | undefined;
+  /**
+   * Custom version information to respond to requests
+   */
+  customAPIVersion?: string | undefined;
 };
 
-/** @internal */
-export const InputElasticTLSSettingsServerSide$outboundSchema: z.ZodType<
-  InputElasticTLSSettingsServerSide$Outbound,
-  z.ZodTypeDef,
-  InputElasticTLSSettingsServerSide
-> = z.object({
-  disabled: z.boolean().default(true),
-  certificateName: z.string().optional(),
-  privKeyPath: z.string().optional(),
-  passphrase: z.string().optional(),
-  certPath: z.string().optional(),
-  caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
-  minVersion: InputElasticMinimumTLSVersion$outboundSchema.optional(),
-  maxVersion: InputElasticMaximumTLSVersion$outboundSchema.optional(),
-});
+export const InputElasticAuthenticationType8 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  CredentialsSecret: "credentialsSecret",
+  /**
+   * Auth Tokens
+   */
+  AuthTokens: "authTokens",
+} as const;
+export type InputElasticAuthenticationType8 = OpenEnum<
+  typeof InputElasticAuthenticationType8
+>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * The API version to use for communicating with the server
  */
-export namespace InputElasticTLSSettingsServerSide$ {
-  /** @deprecated use `InputElasticTLSSettingsServerSide$inboundSchema` instead. */
-  export const inboundSchema = InputElasticTLSSettingsServerSide$inboundSchema;
-  /** @deprecated use `InputElasticTLSSettingsServerSide$outboundSchema` instead. */
-  export const outboundSchema =
-    InputElasticTLSSettingsServerSide$outboundSchema;
-  /** @deprecated use `InputElasticTLSSettingsServerSide$Outbound` instead. */
-  export type Outbound = InputElasticTLSSettingsServerSide$Outbound;
-}
-
-export function inputElasticTLSSettingsServerSideToJSON(
-  inputElasticTLSSettingsServerSide: InputElasticTLSSettingsServerSide,
-): string {
-  return JSON.stringify(
-    InputElasticTLSSettingsServerSide$outboundSchema.parse(
-      inputElasticTLSSettingsServerSide,
-    ),
-  );
-}
-
-export function inputElasticTLSSettingsServerSideFromJSON(
-  jsonString: string,
-): SafeParseResult<InputElasticTLSSettingsServerSide, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputElasticTLSSettingsServerSide$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputElasticTLSSettingsServerSide' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputElasticAuthenticationType$inboundSchema: z.ZodType<
-  InputElasticAuthenticationType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputElasticAuthenticationType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputElasticAuthenticationType$outboundSchema: z.ZodType<
-  InputElasticAuthenticationType,
-  z.ZodTypeDef,
-  InputElasticAuthenticationType
-> = z.union([
-  z.nativeEnum(InputElasticAuthenticationType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+export const InputElasticAPIVersion8 = {
+  /**
+   * 6.8.4
+   */
+  SixDot8Dot4: "6.8.4",
+  /**
+   * 8.3.2
+   */
+  EightDot3Dot2: "8.3.2",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+} as const;
+/**
+ * The API version to use for communicating with the server
+ */
+export type InputElasticAPIVersion8 = OpenEnum<typeof InputElasticAPIVersion8>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Enter credentials directly, or select a stored secret
  */
-export namespace InputElasticAuthenticationType$ {
-  /** @deprecated use `InputElasticAuthenticationType$inboundSchema` instead. */
-  export const inboundSchema = InputElasticAuthenticationType$inboundSchema;
-  /** @deprecated use `InputElasticAuthenticationType$outboundSchema` instead. */
-  export const outboundSchema = InputElasticAuthenticationType$outboundSchema;
-}
-
-/** @internal */
-export const InputElasticAPIVersion$inboundSchema: z.ZodType<
-  InputElasticAPIVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputElasticAPIVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputElasticAPIVersion$outboundSchema: z.ZodType<
-  InputElasticAPIVersion,
-  z.ZodTypeDef,
-  InputElasticAPIVersion
-> = z.union([
-  z.nativeEnum(InputElasticAPIVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
+export const InputElasticAuthenticationMethod8 = {
+  None: "none",
+  Manual: "manual",
+  Secret: "secret",
+} as const;
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Enter credentials directly, or select a stored secret
  */
-export namespace InputElasticAPIVersion$ {
-  /** @deprecated use `InputElasticAPIVersion$inboundSchema` instead. */
-  export const inboundSchema = InputElasticAPIVersion$inboundSchema;
-  /** @deprecated use `InputElasticAPIVersion$outboundSchema` instead. */
-  export const outboundSchema = InputElasticAPIVersion$outboundSchema;
-}
+export type InputElasticAuthenticationMethod8 = OpenEnum<
+  typeof InputElasticAuthenticationMethod8
+>;
 
-/** @internal */
-export const InputElasticExtraHttpHeader$inboundSchema: z.ZodType<
-  InputElasticExtraHttpHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-/** @internal */
-export type InputElasticExtraHttpHeader$Outbound = {
-  name?: string | undefined;
-  value: string;
+export type InputElasticProxyMode8 = {
+  /**
+   * Enable proxying of non-bulk API requests to an external Elastic server. Enable this only if you understand the implications. See [Cribl Docs](https://docs.cribl.io/stream/sources-elastic/#proxy-mode) for more details.
+   */
+  enabled?: boolean | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: InputElasticAuthenticationMethod8 | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * URL of the Elastic server to proxy non-bulk requests to, such as http://elastic:9200
+   */
+  url?: string | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * List of headers to remove from the request to proxy
+   */
+  removeHeaders?: Array<string> | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a proxy request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
 };
 
-/** @internal */
-export const InputElasticExtraHttpHeader$outboundSchema: z.ZodType<
-  InputElasticExtraHttpHeader$Outbound,
-  z.ZodTypeDef,
-  InputElasticExtraHttpHeader
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputElasticExtraHttpHeader$ {
-  /** @deprecated use `InputElasticExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = InputElasticExtraHttpHeader$inboundSchema;
-  /** @deprecated use `InputElasticExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = InputElasticExtraHttpHeader$outboundSchema;
-  /** @deprecated use `InputElasticExtraHttpHeader$Outbound` instead. */
-  export type Outbound = InputElasticExtraHttpHeader$Outbound;
-}
-
-export function inputElasticExtraHttpHeaderToJSON(
-  inputElasticExtraHttpHeader: InputElasticExtraHttpHeader,
-): string {
-  return JSON.stringify(
-    InputElasticExtraHttpHeader$outboundSchema.parse(
-      inputElasticExtraHttpHeader,
-    ),
-  );
-}
-
-export function inputElasticExtraHttpHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<InputElasticExtraHttpHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputElasticExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputElasticExtraHttpHeader' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputElasticMetadatum$inboundSchema: z.ZodType<
-  InputElasticMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type InputElasticMetadatum$Outbound = {
-  name: string;
-  value: string;
+export type InputElasticElastic8 = {
+  authType?: InputElasticAuthenticationType8 | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeElasticOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for Elasticsearch API requests. Defaults to /. _bulk will be appended automatically. For example, /myPath becomes /myPath/_bulk. Requests can then be made to either /myPath/_bulk or /myPath/<myIndexName>/_bulk. Other entries are faked as success.
+   */
+  elasticAPI?: string | undefined;
+  /**
+   * The API version to use for communicating with the server
+   */
+  apiVersion?: InputElasticAPIVersion8 | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  proxyMode?: InputElasticProxyMode8 | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Bearer tokens to include in the authorization header
+   */
+  authTokens: Array<string>;
+  /**
+   * Custom version information to respond to requests
+   */
+  customAPIVersion?: string | undefined;
 };
 
-/** @internal */
-export const InputElasticMetadatum$outboundSchema: z.ZodType<
-  InputElasticMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputElasticMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
+export const InputElasticAuthenticationType7 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  CredentialsSecret: "credentialsSecret",
+  /**
+   * Auth Tokens
+   */
+  AuthTokens: "authTokens",
+} as const;
+export type InputElasticAuthenticationType7 = OpenEnum<
+  typeof InputElasticAuthenticationType7
+>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * The API version to use for communicating with the server
  */
-export namespace InputElasticMetadatum$ {
-  /** @deprecated use `InputElasticMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputElasticMetadatum$inboundSchema;
-  /** @deprecated use `InputElasticMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputElasticMetadatum$outboundSchema;
-  /** @deprecated use `InputElasticMetadatum$Outbound` instead. */
-  export type Outbound = InputElasticMetadatum$Outbound;
-}
+export const InputElasticAPIVersion7 = {
+  /**
+   * 6.8.4
+   */
+  SixDot8Dot4: "6.8.4",
+  /**
+   * 8.3.2
+   */
+  EightDot3Dot2: "8.3.2",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+} as const;
+/**
+ * The API version to use for communicating with the server
+ */
+export type InputElasticAPIVersion7 = OpenEnum<typeof InputElasticAPIVersion7>;
 
-export function inputElasticMetadatumToJSON(
-  inputElasticMetadatum: InputElasticMetadatum,
-): string {
-  return JSON.stringify(
-    InputElasticMetadatum$outboundSchema.parse(inputElasticMetadatum),
-  );
-}
+/**
+ * Enter credentials directly, or select a stored secret
+ */
+export const InputElasticAuthenticationMethod7 = {
+  None: "none",
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Enter credentials directly, or select a stored secret
+ */
+export type InputElasticAuthenticationMethod7 = OpenEnum<
+  typeof InputElasticAuthenticationMethod7
+>;
 
-export function inputElasticMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputElasticMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputElasticMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputElasticMetadatum' from JSON`,
-  );
-}
+export type InputElasticProxyMode7 = {
+  /**
+   * Enable proxying of non-bulk API requests to an external Elastic server. Enable this only if you understand the implications. See [Cribl Docs](https://docs.cribl.io/stream/sources-elastic/#proxy-mode) for more details.
+   */
+  enabled?: boolean | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: InputElasticAuthenticationMethod7 | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * URL of the Elastic server to proxy non-bulk requests to, such as http://elastic:9200
+   */
+  url?: string | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * List of headers to remove from the request to proxy
+   */
+  removeHeaders?: Array<string> | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a proxy request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+};
+
+export type InputElasticElastic7 = {
+  authType?: InputElasticAuthenticationType7 | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeElasticOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for Elasticsearch API requests. Defaults to /. _bulk will be appended automatically. For example, /myPath becomes /myPath/_bulk. Requests can then be made to either /myPath/_bulk or /myPath/<myIndexName>/_bulk. Other entries are faked as success.
+   */
+  elasticAPI?: string | undefined;
+  /**
+   * The API version to use for communicating with the server
+   */
+  apiVersion?: InputElasticAPIVersion7 | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  proxyMode?: InputElasticProxyMode7 | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret: string;
+  /**
+   * Bearer tokens to include in the authorization header
+   */
+  authTokens?: Array<string> | undefined;
+  /**
+   * Custom version information to respond to requests
+   */
+  customAPIVersion?: string | undefined;
+};
+
+export const InputElasticAuthenticationType6 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  CredentialsSecret: "credentialsSecret",
+  /**
+   * Auth Tokens
+   */
+  AuthTokens: "authTokens",
+} as const;
+export type InputElasticAuthenticationType6 = OpenEnum<
+  typeof InputElasticAuthenticationType6
+>;
+
+/**
+ * The API version to use for communicating with the server
+ */
+export const InputElasticAPIVersion6 = {
+  /**
+   * 6.8.4
+   */
+  SixDot8Dot4: "6.8.4",
+  /**
+   * 8.3.2
+   */
+  EightDot3Dot2: "8.3.2",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+} as const;
+/**
+ * The API version to use for communicating with the server
+ */
+export type InputElasticAPIVersion6 = OpenEnum<typeof InputElasticAPIVersion6>;
+
+/**
+ * Enter credentials directly, or select a stored secret
+ */
+export const InputElasticAuthenticationMethod6 = {
+  None: "none",
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Enter credentials directly, or select a stored secret
+ */
+export type InputElasticAuthenticationMethod6 = OpenEnum<
+  typeof InputElasticAuthenticationMethod6
+>;
+
+export type InputElasticProxyMode6 = {
+  /**
+   * Enable proxying of non-bulk API requests to an external Elastic server. Enable this only if you understand the implications. See [Cribl Docs](https://docs.cribl.io/stream/sources-elastic/#proxy-mode) for more details.
+   */
+  enabled?: boolean | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: InputElasticAuthenticationMethod6 | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * URL of the Elastic server to proxy non-bulk requests to, such as http://elastic:9200
+   */
+  url?: string | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * List of headers to remove from the request to proxy
+   */
+  removeHeaders?: Array<string> | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a proxy request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+};
+
+export type InputElasticElastic6 = {
+  authType?: InputElasticAuthenticationType6 | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeElasticOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for Elasticsearch API requests. Defaults to /. _bulk will be appended automatically. For example, /myPath becomes /myPath/_bulk. Requests can then be made to either /myPath/_bulk or /myPath/<myIndexName>/_bulk. Other entries are faked as success.
+   */
+  elasticAPI?: string | undefined;
+  /**
+   * The API version to use for communicating with the server
+   */
+  apiVersion?: InputElasticAPIVersion6 | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  proxyMode?: InputElasticProxyMode6 | undefined;
+  description?: string | undefined;
+  username: string;
+  password: string;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Bearer tokens to include in the authorization header
+   */
+  authTokens?: Array<string> | undefined;
+  /**
+   * Custom version information to respond to requests
+   */
+  customAPIVersion?: string | undefined;
+};
+
+export const InputElasticAuthenticationType5 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  CredentialsSecret: "credentialsSecret",
+  /**
+   * Auth Tokens
+   */
+  AuthTokens: "authTokens",
+} as const;
+export type InputElasticAuthenticationType5 = OpenEnum<
+  typeof InputElasticAuthenticationType5
+>;
+
+/**
+ * The API version to use for communicating with the server
+ */
+export const InputElasticAPIVersion5 = {
+  /**
+   * 6.8.4
+   */
+  SixDot8Dot4: "6.8.4",
+  /**
+   * 8.3.2
+   */
+  EightDot3Dot2: "8.3.2",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+} as const;
+/**
+ * The API version to use for communicating with the server
+ */
+export type InputElasticAPIVersion5 = OpenEnum<typeof InputElasticAPIVersion5>;
+
+/**
+ * Enter credentials directly, or select a stored secret
+ */
+export const InputElasticAuthenticationMethod5 = {
+  None: "none",
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Enter credentials directly, or select a stored secret
+ */
+export type InputElasticAuthenticationMethod5 = OpenEnum<
+  typeof InputElasticAuthenticationMethod5
+>;
+
+export type InputElasticProxyMode5 = {
+  /**
+   * Enable proxying of non-bulk API requests to an external Elastic server. Enable this only if you understand the implications. See [Cribl Docs](https://docs.cribl.io/stream/sources-elastic/#proxy-mode) for more details.
+   */
+  enabled?: boolean | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: InputElasticAuthenticationMethod5 | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * URL of the Elastic server to proxy non-bulk requests to, such as http://elastic:9200
+   */
+  url?: string | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * List of headers to remove from the request to proxy
+   */
+  removeHeaders?: Array<string> | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a proxy request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+};
+
+export type InputElasticElastic5 = {
+  authType?: InputElasticAuthenticationType5 | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeElasticOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for Elasticsearch API requests. Defaults to /. _bulk will be appended automatically. For example, /myPath becomes /myPath/_bulk. Requests can then be made to either /myPath/_bulk or /myPath/<myIndexName>/_bulk. Other entries are faked as success.
+   */
+  elasticAPI?: string | undefined;
+  /**
+   * The API version to use for communicating with the server
+   */
+  apiVersion?: InputElasticAPIVersion5 | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  proxyMode?: InputElasticProxyMode5 | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Bearer tokens to include in the authorization header
+   */
+  authTokens?: Array<string> | undefined;
+  /**
+   * Custom version information to respond to requests
+   */
+  customAPIVersion?: string | undefined;
+};
+
+export const InputElasticAuthenticationType4 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  CredentialsSecret: "credentialsSecret",
+  /**
+   * Auth Tokens
+   */
+  AuthTokens: "authTokens",
+} as const;
+export type InputElasticAuthenticationType4 = OpenEnum<
+  typeof InputElasticAuthenticationType4
+>;
+
+/**
+ * The API version to use for communicating with the server
+ */
+export const InputElasticAPIVersion4 = {
+  /**
+   * 6.8.4
+   */
+  SixDot8Dot4: "6.8.4",
+  /**
+   * 8.3.2
+   */
+  EightDot3Dot2: "8.3.2",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+} as const;
+/**
+ * The API version to use for communicating with the server
+ */
+export type InputElasticAPIVersion4 = OpenEnum<typeof InputElasticAPIVersion4>;
+
+/**
+ * Enter credentials directly, or select a stored secret
+ */
+export const InputElasticAuthenticationMethod4 = {
+  None: "none",
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Enter credentials directly, or select a stored secret
+ */
+export type InputElasticAuthenticationMethod4 = OpenEnum<
+  typeof InputElasticAuthenticationMethod4
+>;
+
+export type InputElasticProxyMode4 = {
+  /**
+   * Enable proxying of non-bulk API requests to an external Elastic server. Enable this only if you understand the implications. See [Cribl Docs](https://docs.cribl.io/stream/sources-elastic/#proxy-mode) for more details.
+   */
+  enabled?: boolean | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: InputElasticAuthenticationMethod4 | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * URL of the Elastic server to proxy non-bulk requests to, such as http://elastic:9200
+   */
+  url?: string | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * List of headers to remove from the request to proxy
+   */
+  removeHeaders?: Array<string> | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a proxy request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+};
+
+export type InputElasticElastic4 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeElasticOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq: PqType;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for Elasticsearch API requests. Defaults to /. _bulk will be appended automatically. For example, /myPath becomes /myPath/_bulk. Requests can then be made to either /myPath/_bulk or /myPath/<myIndexName>/_bulk. Other entries are faked as success.
+   */
+  elasticAPI?: string | undefined;
+  authType?: InputElasticAuthenticationType4 | undefined;
+  /**
+   * The API version to use for communicating with the server
+   */
+  apiVersion?: InputElasticAPIVersion4 | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  proxyMode?: InputElasticProxyMode4 | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Bearer tokens to include in the authorization header
+   */
+  authTokens?: Array<string> | undefined;
+  /**
+   * Custom version information to respond to requests
+   */
+  customAPIVersion?: string | undefined;
+};
+
+export const InputElasticAuthenticationType3 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  CredentialsSecret: "credentialsSecret",
+  /**
+   * Auth Tokens
+   */
+  AuthTokens: "authTokens",
+} as const;
+export type InputElasticAuthenticationType3 = OpenEnum<
+  typeof InputElasticAuthenticationType3
+>;
+
+/**
+ * The API version to use for communicating with the server
+ */
+export const InputElasticAPIVersion3 = {
+  /**
+   * 6.8.4
+   */
+  SixDot8Dot4: "6.8.4",
+  /**
+   * 8.3.2
+   */
+  EightDot3Dot2: "8.3.2",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+} as const;
+/**
+ * The API version to use for communicating with the server
+ */
+export type InputElasticAPIVersion3 = OpenEnum<typeof InputElasticAPIVersion3>;
+
+/**
+ * Enter credentials directly, or select a stored secret
+ */
+export const InputElasticAuthenticationMethod3 = {
+  None: "none",
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Enter credentials directly, or select a stored secret
+ */
+export type InputElasticAuthenticationMethod3 = OpenEnum<
+  typeof InputElasticAuthenticationMethod3
+>;
+
+export type InputElasticProxyMode3 = {
+  /**
+   * Enable proxying of non-bulk API requests to an external Elastic server. Enable this only if you understand the implications. See [Cribl Docs](https://docs.cribl.io/stream/sources-elastic/#proxy-mode) for more details.
+   */
+  enabled?: boolean | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: InputElasticAuthenticationMethod3 | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * URL of the Elastic server to proxy non-bulk requests to, such as http://elastic:9200
+   */
+  url?: string | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * List of headers to remove from the request to proxy
+   */
+  removeHeaders?: Array<string> | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a proxy request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+};
+
+export type InputElasticElastic3 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeElasticOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for Elasticsearch API requests. Defaults to /. _bulk will be appended automatically. For example, /myPath becomes /myPath/_bulk. Requests can then be made to either /myPath/_bulk or /myPath/<myIndexName>/_bulk. Other entries are faked as success.
+   */
+  elasticAPI?: string | undefined;
+  authType?: InputElasticAuthenticationType3 | undefined;
+  /**
+   * The API version to use for communicating with the server
+   */
+  apiVersion?: InputElasticAPIVersion3 | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  proxyMode?: InputElasticProxyMode3 | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Bearer tokens to include in the authorization header
+   */
+  authTokens?: Array<string> | undefined;
+  /**
+   * Custom version information to respond to requests
+   */
+  customAPIVersion?: string | undefined;
+};
+
+export const InputElasticAuthenticationType2 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  CredentialsSecret: "credentialsSecret",
+  /**
+   * Auth Tokens
+   */
+  AuthTokens: "authTokens",
+} as const;
+export type InputElasticAuthenticationType2 = OpenEnum<
+  typeof InputElasticAuthenticationType2
+>;
+
+/**
+ * The API version to use for communicating with the server
+ */
+export const InputElasticAPIVersion2 = {
+  /**
+   * 6.8.4
+   */
+  SixDot8Dot4: "6.8.4",
+  /**
+   * 8.3.2
+   */
+  EightDot3Dot2: "8.3.2",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+} as const;
+/**
+ * The API version to use for communicating with the server
+ */
+export type InputElasticAPIVersion2 = OpenEnum<typeof InputElasticAPIVersion2>;
+
+/**
+ * Enter credentials directly, or select a stored secret
+ */
+export const InputElasticAuthenticationMethod2 = {
+  None: "none",
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Enter credentials directly, or select a stored secret
+ */
+export type InputElasticAuthenticationMethod2 = OpenEnum<
+  typeof InputElasticAuthenticationMethod2
+>;
+
+export type InputElasticProxyMode2 = {
+  /**
+   * Enable proxying of non-bulk API requests to an external Elastic server. Enable this only if you understand the implications. See [Cribl Docs](https://docs.cribl.io/stream/sources-elastic/#proxy-mode) for more details.
+   */
+  enabled?: boolean | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: InputElasticAuthenticationMethod2 | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * URL of the Elastic server to proxy non-bulk requests to, such as http://elastic:9200
+   */
+  url?: string | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * List of headers to remove from the request to proxy
+   */
+  removeHeaders?: Array<string> | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a proxy request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+};
+
+export type InputElasticElastic2 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeElasticOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections: Array<ConnectionsType>;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for Elasticsearch API requests. Defaults to /. _bulk will be appended automatically. For example, /myPath becomes /myPath/_bulk. Requests can then be made to either /myPath/_bulk or /myPath/<myIndexName>/_bulk. Other entries are faked as success.
+   */
+  elasticAPI?: string | undefined;
+  authType?: InputElasticAuthenticationType2 | undefined;
+  /**
+   * The API version to use for communicating with the server
+   */
+  apiVersion?: InputElasticAPIVersion2 | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  proxyMode?: InputElasticProxyMode2 | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Bearer tokens to include in the authorization header
+   */
+  authTokens?: Array<string> | undefined;
+  /**
+   * Custom version information to respond to requests
+   */
+  customAPIVersion?: string | undefined;
+};
+
+export const InputElasticAuthenticationType1 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  CredentialsSecret: "credentialsSecret",
+  /**
+   * Auth Tokens
+   */
+  AuthTokens: "authTokens",
+} as const;
+export type InputElasticAuthenticationType1 = OpenEnum<
+  typeof InputElasticAuthenticationType1
+>;
+
+/**
+ * The API version to use for communicating with the server
+ */
+export const InputElasticAPIVersion1 = {
+  /**
+   * 6.8.4
+   */
+  SixDot8Dot4: "6.8.4",
+  /**
+   * 8.3.2
+   */
+  EightDot3Dot2: "8.3.2",
+  /**
+   * Custom
+   */
+  Custom: "custom",
+} as const;
+/**
+ * The API version to use for communicating with the server
+ */
+export type InputElasticAPIVersion1 = OpenEnum<typeof InputElasticAPIVersion1>;
+
+/**
+ * Enter credentials directly, or select a stored secret
+ */
+export const InputElasticAuthenticationMethod1 = {
+  None: "none",
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Enter credentials directly, or select a stored secret
+ */
+export type InputElasticAuthenticationMethod1 = OpenEnum<
+  typeof InputElasticAuthenticationMethod1
+>;
+
+export type InputElasticProxyMode1 = {
+  /**
+   * Enable proxying of non-bulk API requests to an external Elastic server. Enable this only if you understand the implications. See [Cribl Docs](https://docs.cribl.io/stream/sources-elastic/#proxy-mode) for more details.
+   */
+  enabled?: boolean | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: InputElasticAuthenticationMethod1 | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * URL of the Elastic server to proxy non-bulk requests to, such as http://elastic:9200
+   */
+  url?: string | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * List of headers to remove from the request to proxy
+   */
+  removeHeaders?: Array<string> | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a proxy request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+};
+
+export type InputElasticElastic1 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: TypeElasticOption;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port: number;
+  tls?: Tls2Type | undefined;
+  /**
+   * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
+   */
+  maxActiveReq?: number | undefined;
+  /**
+   * Maximum number of requests per socket before @{product} instructs the client to close the connection. Default is 0 (unlimited).
+   */
+  maxRequestsPerSocket?: number | undefined;
+  /**
+   * Extract the client IP and port from PROXY protocol v1/v2. When enabled, the X-Forwarded-For header is ignored. Disable to use the X-Forwarded-For header for client IP extraction.
+   */
+  enableProxyHeader?: boolean | undefined;
+  /**
+   * Add request headers to events, in the __headers field
+   */
+  captureHeaders?: boolean | undefined;
+  /**
+   * How often request activity is logged at the `info` level. A value of 1 would log every request, 10 every 10th request, etc.
+   */
+  activityLogSampleRate?: number | undefined;
+  /**
+   * How long to wait for an incoming request to complete before aborting it. Use 0 to disable.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * How long @{product} should wait before assuming that an inactive socket has timed out. To wait forever, set to 0.
+   */
+  socketTimeout?: number | undefined;
+  /**
+   * After the last response is sent, @{product} will wait this long for additional data before closing the socket connection. Minimum 1 second, maximum 600 seconds (10 minutes).
+   */
+  keepAliveTimeout?: number | undefined;
+  /**
+   * Expose the /cribl_health endpoint, which returns 200 OK when this Source is healthy
+   */
+  enableHealthCheck?: boolean | undefined;
+  /**
+   * Messages from matched IP addresses will be processed, unless also matched by the denylist
+   */
+  ipAllowlistRegex?: string | undefined;
+  /**
+   * Messages from matched IP addresses will be ignored. This takes precedence over the allowlist.
+   */
+  ipDenylistRegex?: string | undefined;
+  /**
+   * Absolute path on which to listen for Elasticsearch API requests. Defaults to /. _bulk will be appended automatically. For example, /myPath becomes /myPath/_bulk. Requests can then be made to either /myPath/_bulk or /myPath/<myIndexName>/_bulk. Other entries are faked as success.
+   */
+  elasticAPI?: string | undefined;
+  authType?: InputElasticAuthenticationType1 | undefined;
+  /**
+   * The API version to use for communicating with the server
+   */
+  apiVersion?: InputElasticAPIVersion1 | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  proxyMode?: InputElasticProxyMode1 | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Bearer tokens to include in the authorization header
+   */
+  authTokens?: Array<string> | undefined;
+  /**
+   * Custom version information to respond to requests
+   */
+  customAPIVersion?: string | undefined;
+};
+
+export type InputElastic =
+  | InputElasticElastic6
+  | InputElasticElastic2
+  | InputElasticElastic4
+  | InputElasticElastic7
+  | InputElasticElastic8
+  | InputElasticElastic1
+  | InputElasticElastic3
+  | InputElasticElastic5
+  | InputElasticElastic9
+  | InputElasticElastic10
+  | InputElasticElastic11;
 
 /** @internal */
-export const InputElasticAuthenticationMethod$inboundSchema: z.ZodType<
-  InputElasticAuthenticationMethod,
+export const InputElasticAPIVersion11$inboundSchema: z.ZodType<
+  InputElasticAPIVersion11,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(InputElasticAuthenticationMethod),
+    z.nativeEnum(InputElasticAPIVersion11),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
-export const InputElasticAuthenticationMethod$outboundSchema: z.ZodType<
-  InputElasticAuthenticationMethod,
+export const InputElasticAPIVersion11$outboundSchema: z.ZodType<
+  InputElasticAPIVersion11,
   z.ZodTypeDef,
-  InputElasticAuthenticationMethod
+  InputElasticAPIVersion11
 > = z.union([
-  z.nativeEnum(InputElasticAuthenticationMethod),
+  z.nativeEnum(InputElasticAPIVersion11),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputElasticAuthenticationMethod$ {
-  /** @deprecated use `InputElasticAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = InputElasticAuthenticationMethod$inboundSchema;
-  /** @deprecated use `InputElasticAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema = InputElasticAuthenticationMethod$outboundSchema;
-}
+/** @internal */
+export const InputElasticAuthenticationType11$inboundSchema: z.ZodType<
+  InputElasticAuthenticationType11,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputElasticAuthenticationType11),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputElasticAuthenticationType11$outboundSchema: z.ZodType<
+  InputElasticAuthenticationType11,
+  z.ZodTypeDef,
+  InputElasticAuthenticationType11
+> = z.union([
+  z.nativeEnum(InputElasticAuthenticationType11),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /** @internal */
-export const InputElasticProxyMode$inboundSchema: z.ZodType<
-  InputElasticProxyMode,
+export const InputElasticAuthenticationMethod11$inboundSchema: z.ZodType<
+  InputElasticAuthenticationMethod11,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputElasticAuthenticationMethod11),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputElasticAuthenticationMethod11$outboundSchema: z.ZodType<
+  InputElasticAuthenticationMethod11,
+  z.ZodTypeDef,
+  InputElasticAuthenticationMethod11
+> = z.union([
+  z.nativeEnum(InputElasticAuthenticationMethod11),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputElasticProxyMode11$inboundSchema: z.ZodType<
+  InputElasticProxyMode11,
   z.ZodTypeDef,
   unknown
 > = z.object({
   enabled: z.boolean().default(false),
+  authType: InputElasticAuthenticationMethod11$inboundSchema.default("none"),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
   url: z.string().optional(),
   rejectUnauthorized: z.boolean().default(false),
   removeHeaders: z.array(z.string()).optional(),
   timeoutSec: z.number().default(60),
-  authType: InputElasticAuthenticationMethod$inboundSchema.default("none"),
 });
-
 /** @internal */
-export type InputElasticProxyMode$Outbound = {
+export type InputElasticProxyMode11$Outbound = {
   enabled: boolean;
+  authType: string;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
   url?: string | undefined;
   rejectUnauthorized: boolean;
   removeHeaders?: Array<string> | undefined;
   timeoutSec: number;
-  authType: string;
 };
 
 /** @internal */
-export const InputElasticProxyMode$outboundSchema: z.ZodType<
-  InputElasticProxyMode$Outbound,
+export const InputElasticProxyMode11$outboundSchema: z.ZodType<
+  InputElasticProxyMode11$Outbound,
   z.ZodTypeDef,
-  InputElasticProxyMode
+  InputElasticProxyMode11
 > = z.object({
   enabled: z.boolean().default(false),
+  authType: InputElasticAuthenticationMethod11$outboundSchema.default("none"),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
   url: z.string().optional(),
   rejectUnauthorized: z.boolean().default(false),
   removeHeaders: z.array(z.string()).optional(),
   timeoutSec: z.number().default(60),
-  authType: InputElasticAuthenticationMethod$outboundSchema.default("none"),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputElasticProxyMode$ {
-  /** @deprecated use `InputElasticProxyMode$inboundSchema` instead. */
-  export const inboundSchema = InputElasticProxyMode$inboundSchema;
-  /** @deprecated use `InputElasticProxyMode$outboundSchema` instead. */
-  export const outboundSchema = InputElasticProxyMode$outboundSchema;
-  /** @deprecated use `InputElasticProxyMode$Outbound` instead. */
-  export type Outbound = InputElasticProxyMode$Outbound;
-}
-
-export function inputElasticProxyModeToJSON(
-  inputElasticProxyMode: InputElasticProxyMode,
+export function inputElasticProxyMode11ToJSON(
+  inputElasticProxyMode11: InputElasticProxyMode11,
 ): string {
   return JSON.stringify(
-    InputElasticProxyMode$outboundSchema.parse(inputElasticProxyMode),
+    InputElasticProxyMode11$outboundSchema.parse(inputElasticProxyMode11),
   );
 }
-
-export function inputElasticProxyModeFromJSON(
+export function inputElasticProxyMode11FromJSON(
   jsonString: string,
-): SafeParseResult<InputElasticProxyMode, SDKValidationError> {
+): SafeParseResult<InputElasticProxyMode11, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => InputElasticProxyMode$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputElasticProxyMode' from JSON`,
+    (x) => InputElasticProxyMode11$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputElasticProxyMode11' from JSON`,
   );
 }
 
 /** @internal */
-export const InputElastic$inboundSchema: z.ZodType<
-  InputElastic,
+export const InputElasticElastic11$inboundSchema: z.ZodType<
+  InputElasticElastic11,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  apiVersion: InputElasticAPIVersion11$inboundSchema.default("8.3.2"),
   id: z.string().optional(),
-  type: InputElasticType$inboundSchema,
+  type: TypeElasticOption$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputElasticConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputElasticPq$inboundSchema).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
-  tls: z.lazy(() => InputElasticTLSSettingsServerSide$inboundSchema).optional(),
+  tls: Tls2Type$inboundSchema.optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -1056,14 +2551,95 @@ export const InputElastic$inboundSchema: z.ZodType<
   ipAllowlistRegex: z.string().default("/.*/"),
   ipDenylistRegex: z.string().default("/^$/"),
   elasticAPI: z.string().default("/"),
-  authType: InputElasticAuthenticationType$inboundSchema.default("none"),
-  apiVersion: InputElasticAPIVersion$inboundSchema.default("8.3.2"),
-  extraHttpHeaders: z.array(
-    z.lazy(() => InputElasticExtraHttpHeader$inboundSchema),
-  ).optional(),
-  metadata: z.array(z.lazy(() => InputElasticMetadatum$inboundSchema))
-    .optional(),
-  proxyMode: z.lazy(() => InputElasticProxyMode$inboundSchema).optional(),
+  authType: InputElasticAuthenticationType11$inboundSchema.default("none"),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  proxyMode: z.lazy(() => InputElasticProxyMode11$inboundSchema).optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  authTokens: z.array(z.string()).optional(),
+  customAPIVersion: z.string().default(
+    "{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}",
+  ),
+});
+/** @internal */
+export type InputElasticElastic11$Outbound = {
+  apiVersion: string;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  elasticAPI: string;
+  authType: string;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  proxyMode?: InputElasticProxyMode11$Outbound | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  authTokens?: Array<string> | undefined;
+  customAPIVersion: string;
+};
+
+/** @internal */
+export const InputElasticElastic11$outboundSchema: z.ZodType<
+  InputElasticElastic11$Outbound,
+  z.ZodTypeDef,
+  InputElasticElastic11
+> = z.object({
+  apiVersion: InputElasticAPIVersion11$outboundSchema.default("8.3.2"),
+  id: z.string().optional(),
+  type: TypeElasticOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  elasticAPI: z.string().default("/"),
+  authType: InputElasticAuthenticationType11$outboundSchema.default("none"),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  proxyMode: z.lazy(() => InputElasticProxyMode11$outboundSchema).optional(),
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -1074,8 +2650,194 @@ export const InputElastic$inboundSchema: z.ZodType<
   ),
 });
 
+export function inputElasticElastic11ToJSON(
+  inputElasticElastic11: InputElasticElastic11,
+): string {
+  return JSON.stringify(
+    InputElasticElastic11$outboundSchema.parse(inputElasticElastic11),
+  );
+}
+export function inputElasticElastic11FromJSON(
+  jsonString: string,
+): SafeParseResult<InputElasticElastic11, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputElasticElastic11$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputElasticElastic11' from JSON`,
+  );
+}
+
 /** @internal */
-export type InputElastic$Outbound = {
+export const InputElasticAPIVersion10$inboundSchema: z.ZodType<
+  InputElasticAPIVersion10,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputElasticAPIVersion10),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputElasticAPIVersion10$outboundSchema: z.ZodType<
+  InputElasticAPIVersion10,
+  z.ZodTypeDef,
+  InputElasticAPIVersion10
+> = z.union([
+  z.nativeEnum(InputElasticAPIVersion10),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputElasticAuthenticationType10$inboundSchema: z.ZodType<
+  InputElasticAuthenticationType10,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputElasticAuthenticationType10),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputElasticAuthenticationType10$outboundSchema: z.ZodType<
+  InputElasticAuthenticationType10,
+  z.ZodTypeDef,
+  InputElasticAuthenticationType10
+> = z.union([
+  z.nativeEnum(InputElasticAuthenticationType10),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputElasticAuthenticationMethod10$inboundSchema: z.ZodType<
+  InputElasticAuthenticationMethod10,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputElasticAuthenticationMethod10),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputElasticAuthenticationMethod10$outboundSchema: z.ZodType<
+  InputElasticAuthenticationMethod10,
+  z.ZodTypeDef,
+  InputElasticAuthenticationMethod10
+> = z.union([
+  z.nativeEnum(InputElasticAuthenticationMethod10),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputElasticProxyMode10$inboundSchema: z.ZodType<
+  InputElasticProxyMode10,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().default(false),
+  authType: InputElasticAuthenticationMethod10$inboundSchema.default("none"),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  url: z.string().optional(),
+  rejectUnauthorized: z.boolean().default(false),
+  removeHeaders: z.array(z.string()).optional(),
+  timeoutSec: z.number().default(60),
+});
+/** @internal */
+export type InputElasticProxyMode10$Outbound = {
+  enabled: boolean;
+  authType: string;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  url?: string | undefined;
+  rejectUnauthorized: boolean;
+  removeHeaders?: Array<string> | undefined;
+  timeoutSec: number;
+};
+
+/** @internal */
+export const InputElasticProxyMode10$outboundSchema: z.ZodType<
+  InputElasticProxyMode10$Outbound,
+  z.ZodTypeDef,
+  InputElasticProxyMode10
+> = z.object({
+  enabled: z.boolean().default(false),
+  authType: InputElasticAuthenticationMethod10$outboundSchema.default("none"),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  url: z.string().optional(),
+  rejectUnauthorized: z.boolean().default(false),
+  removeHeaders: z.array(z.string()).optional(),
+  timeoutSec: z.number().default(60),
+});
+
+export function inputElasticProxyMode10ToJSON(
+  inputElasticProxyMode10: InputElasticProxyMode10,
+): string {
+  return JSON.stringify(
+    InputElasticProxyMode10$outboundSchema.parse(inputElasticProxyMode10),
+  );
+}
+export function inputElasticProxyMode10FromJSON(
+  jsonString: string,
+): SafeParseResult<InputElasticProxyMode10, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputElasticProxyMode10$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputElasticProxyMode10' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputElasticElastic10$inboundSchema: z.ZodType<
+  InputElasticElastic10,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  apiVersion: InputElasticAPIVersion10$inboundSchema.default("8.3.2"),
+  id: z.string().optional(),
+  type: TypeElasticOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  elasticAPI: z.string().default("/"),
+  authType: InputElasticAuthenticationType10$inboundSchema.default("none"),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  proxyMode: z.lazy(() => InputElasticProxyMode10$inboundSchema).optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  authTokens: z.array(z.string()).optional(),
+  customAPIVersion: z.string().default(
+    "{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}",
+  ),
+});
+/** @internal */
+export type InputElasticElastic10$Outbound = {
+  apiVersion: string;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -1084,11 +2846,1636 @@ export type InputElastic$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputElasticConnection$Outbound> | undefined;
-  pq?: InputElasticPq$Outbound | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
-  tls?: InputElasticTLSSettingsServerSide$Outbound | undefined;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  elasticAPI: string;
+  authType: string;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  proxyMode?: InputElasticProxyMode10$Outbound | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  authTokens?: Array<string> | undefined;
+  customAPIVersion: string;
+};
+
+/** @internal */
+export const InputElasticElastic10$outboundSchema: z.ZodType<
+  InputElasticElastic10$Outbound,
+  z.ZodTypeDef,
+  InputElasticElastic10
+> = z.object({
+  apiVersion: InputElasticAPIVersion10$outboundSchema.default("8.3.2"),
+  id: z.string().optional(),
+  type: TypeElasticOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  elasticAPI: z.string().default("/"),
+  authType: InputElasticAuthenticationType10$outboundSchema.default("none"),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  proxyMode: z.lazy(() => InputElasticProxyMode10$outboundSchema).optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  authTokens: z.array(z.string()).optional(),
+  customAPIVersion: z.string().default(
+    "{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}",
+  ),
+});
+
+export function inputElasticElastic10ToJSON(
+  inputElasticElastic10: InputElasticElastic10,
+): string {
+  return JSON.stringify(
+    InputElasticElastic10$outboundSchema.parse(inputElasticElastic10),
+  );
+}
+export function inputElasticElastic10FromJSON(
+  jsonString: string,
+): SafeParseResult<InputElasticElastic10, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputElasticElastic10$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputElasticElastic10' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputElasticAPIVersion9$inboundSchema: z.ZodType<
+  InputElasticAPIVersion9,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputElasticAPIVersion9),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputElasticAPIVersion9$outboundSchema: z.ZodType<
+  InputElasticAPIVersion9,
+  z.ZodTypeDef,
+  InputElasticAPIVersion9
+> = z.union([
+  z.nativeEnum(InputElasticAPIVersion9),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputElasticAuthenticationType9$inboundSchema: z.ZodType<
+  InputElasticAuthenticationType9,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputElasticAuthenticationType9),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputElasticAuthenticationType9$outboundSchema: z.ZodType<
+  InputElasticAuthenticationType9,
+  z.ZodTypeDef,
+  InputElasticAuthenticationType9
+> = z.union([
+  z.nativeEnum(InputElasticAuthenticationType9),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputElasticAuthenticationMethod9$inboundSchema: z.ZodType<
+  InputElasticAuthenticationMethod9,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputElasticAuthenticationMethod9),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputElasticAuthenticationMethod9$outboundSchema: z.ZodType<
+  InputElasticAuthenticationMethod9,
+  z.ZodTypeDef,
+  InputElasticAuthenticationMethod9
+> = z.union([
+  z.nativeEnum(InputElasticAuthenticationMethod9),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputElasticProxyMode9$inboundSchema: z.ZodType<
+  InputElasticProxyMode9,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().default(false),
+  authType: InputElasticAuthenticationMethod9$inboundSchema.default("none"),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  url: z.string().optional(),
+  rejectUnauthorized: z.boolean().default(false),
+  removeHeaders: z.array(z.string()).optional(),
+  timeoutSec: z.number().default(60),
+});
+/** @internal */
+export type InputElasticProxyMode9$Outbound = {
+  enabled: boolean;
+  authType: string;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  url?: string | undefined;
+  rejectUnauthorized: boolean;
+  removeHeaders?: Array<string> | undefined;
+  timeoutSec: number;
+};
+
+/** @internal */
+export const InputElasticProxyMode9$outboundSchema: z.ZodType<
+  InputElasticProxyMode9$Outbound,
+  z.ZodTypeDef,
+  InputElasticProxyMode9
+> = z.object({
+  enabled: z.boolean().default(false),
+  authType: InputElasticAuthenticationMethod9$outboundSchema.default("none"),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  url: z.string().optional(),
+  rejectUnauthorized: z.boolean().default(false),
+  removeHeaders: z.array(z.string()).optional(),
+  timeoutSec: z.number().default(60),
+});
+
+export function inputElasticProxyMode9ToJSON(
+  inputElasticProxyMode9: InputElasticProxyMode9,
+): string {
+  return JSON.stringify(
+    InputElasticProxyMode9$outboundSchema.parse(inputElasticProxyMode9),
+  );
+}
+export function inputElasticProxyMode9FromJSON(
+  jsonString: string,
+): SafeParseResult<InputElasticProxyMode9, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputElasticProxyMode9$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputElasticProxyMode9' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputElasticElastic9$inboundSchema: z.ZodType<
+  InputElasticElastic9,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  apiVersion: InputElasticAPIVersion9$inboundSchema.default("8.3.2"),
+  id: z.string().optional(),
+  type: TypeElasticOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  elasticAPI: z.string().default("/"),
+  authType: InputElasticAuthenticationType9$inboundSchema.default("none"),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  proxyMode: z.lazy(() => InputElasticProxyMode9$inboundSchema).optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  authTokens: z.array(z.string()).optional(),
+  customAPIVersion: z.string().default(
+    "{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}",
+  ),
+});
+/** @internal */
+export type InputElasticElastic9$Outbound = {
+  apiVersion: string;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  elasticAPI: string;
+  authType: string;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  proxyMode?: InputElasticProxyMode9$Outbound | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  authTokens?: Array<string> | undefined;
+  customAPIVersion: string;
+};
+
+/** @internal */
+export const InputElasticElastic9$outboundSchema: z.ZodType<
+  InputElasticElastic9$Outbound,
+  z.ZodTypeDef,
+  InputElasticElastic9
+> = z.object({
+  apiVersion: InputElasticAPIVersion9$outboundSchema.default("8.3.2"),
+  id: z.string().optional(),
+  type: TypeElasticOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  elasticAPI: z.string().default("/"),
+  authType: InputElasticAuthenticationType9$outboundSchema.default("none"),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  proxyMode: z.lazy(() => InputElasticProxyMode9$outboundSchema).optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  authTokens: z.array(z.string()).optional(),
+  customAPIVersion: z.string().default(
+    "{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}",
+  ),
+});
+
+export function inputElasticElastic9ToJSON(
+  inputElasticElastic9: InputElasticElastic9,
+): string {
+  return JSON.stringify(
+    InputElasticElastic9$outboundSchema.parse(inputElasticElastic9),
+  );
+}
+export function inputElasticElastic9FromJSON(
+  jsonString: string,
+): SafeParseResult<InputElasticElastic9, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputElasticElastic9$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputElasticElastic9' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputElasticAuthenticationType8$inboundSchema: z.ZodType<
+  InputElasticAuthenticationType8,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputElasticAuthenticationType8),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputElasticAuthenticationType8$outboundSchema: z.ZodType<
+  InputElasticAuthenticationType8,
+  z.ZodTypeDef,
+  InputElasticAuthenticationType8
+> = z.union([
+  z.nativeEnum(InputElasticAuthenticationType8),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputElasticAPIVersion8$inboundSchema: z.ZodType<
+  InputElasticAPIVersion8,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputElasticAPIVersion8),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputElasticAPIVersion8$outboundSchema: z.ZodType<
+  InputElasticAPIVersion8,
+  z.ZodTypeDef,
+  InputElasticAPIVersion8
+> = z.union([
+  z.nativeEnum(InputElasticAPIVersion8),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputElasticAuthenticationMethod8$inboundSchema: z.ZodType<
+  InputElasticAuthenticationMethod8,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputElasticAuthenticationMethod8),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputElasticAuthenticationMethod8$outboundSchema: z.ZodType<
+  InputElasticAuthenticationMethod8,
+  z.ZodTypeDef,
+  InputElasticAuthenticationMethod8
+> = z.union([
+  z.nativeEnum(InputElasticAuthenticationMethod8),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputElasticProxyMode8$inboundSchema: z.ZodType<
+  InputElasticProxyMode8,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().default(false),
+  authType: InputElasticAuthenticationMethod8$inboundSchema.default("none"),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  url: z.string().optional(),
+  rejectUnauthorized: z.boolean().default(false),
+  removeHeaders: z.array(z.string()).optional(),
+  timeoutSec: z.number().default(60),
+});
+/** @internal */
+export type InputElasticProxyMode8$Outbound = {
+  enabled: boolean;
+  authType: string;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  url?: string | undefined;
+  rejectUnauthorized: boolean;
+  removeHeaders?: Array<string> | undefined;
+  timeoutSec: number;
+};
+
+/** @internal */
+export const InputElasticProxyMode8$outboundSchema: z.ZodType<
+  InputElasticProxyMode8$Outbound,
+  z.ZodTypeDef,
+  InputElasticProxyMode8
+> = z.object({
+  enabled: z.boolean().default(false),
+  authType: InputElasticAuthenticationMethod8$outboundSchema.default("none"),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  url: z.string().optional(),
+  rejectUnauthorized: z.boolean().default(false),
+  removeHeaders: z.array(z.string()).optional(),
+  timeoutSec: z.number().default(60),
+});
+
+export function inputElasticProxyMode8ToJSON(
+  inputElasticProxyMode8: InputElasticProxyMode8,
+): string {
+  return JSON.stringify(
+    InputElasticProxyMode8$outboundSchema.parse(inputElasticProxyMode8),
+  );
+}
+export function inputElasticProxyMode8FromJSON(
+  jsonString: string,
+): SafeParseResult<InputElasticProxyMode8, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputElasticProxyMode8$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputElasticProxyMode8' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputElasticElastic8$inboundSchema: z.ZodType<
+  InputElasticElastic8,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: InputElasticAuthenticationType8$inboundSchema.default("none"),
+  id: z.string().optional(),
+  type: TypeElasticOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  elasticAPI: z.string().default("/"),
+  apiVersion: InputElasticAPIVersion8$inboundSchema.default("8.3.2"),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  proxyMode: z.lazy(() => InputElasticProxyMode8$inboundSchema).optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  authTokens: z.array(z.string()),
+  customAPIVersion: z.string().default(
+    "{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}",
+  ),
+});
+/** @internal */
+export type InputElasticElastic8$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  elasticAPI: string;
+  apiVersion: string;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  proxyMode?: InputElasticProxyMode8$Outbound | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  authTokens: Array<string>;
+  customAPIVersion: string;
+};
+
+/** @internal */
+export const InputElasticElastic8$outboundSchema: z.ZodType<
+  InputElasticElastic8$Outbound,
+  z.ZodTypeDef,
+  InputElasticElastic8
+> = z.object({
+  authType: InputElasticAuthenticationType8$outboundSchema.default("none"),
+  id: z.string().optional(),
+  type: TypeElasticOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  elasticAPI: z.string().default("/"),
+  apiVersion: InputElasticAPIVersion8$outboundSchema.default("8.3.2"),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  proxyMode: z.lazy(() => InputElasticProxyMode8$outboundSchema).optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  authTokens: z.array(z.string()),
+  customAPIVersion: z.string().default(
+    "{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}",
+  ),
+});
+
+export function inputElasticElastic8ToJSON(
+  inputElasticElastic8: InputElasticElastic8,
+): string {
+  return JSON.stringify(
+    InputElasticElastic8$outboundSchema.parse(inputElasticElastic8),
+  );
+}
+export function inputElasticElastic8FromJSON(
+  jsonString: string,
+): SafeParseResult<InputElasticElastic8, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputElasticElastic8$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputElasticElastic8' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputElasticAuthenticationType7$inboundSchema: z.ZodType<
+  InputElasticAuthenticationType7,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputElasticAuthenticationType7),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputElasticAuthenticationType7$outboundSchema: z.ZodType<
+  InputElasticAuthenticationType7,
+  z.ZodTypeDef,
+  InputElasticAuthenticationType7
+> = z.union([
+  z.nativeEnum(InputElasticAuthenticationType7),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputElasticAPIVersion7$inboundSchema: z.ZodType<
+  InputElasticAPIVersion7,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputElasticAPIVersion7),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputElasticAPIVersion7$outboundSchema: z.ZodType<
+  InputElasticAPIVersion7,
+  z.ZodTypeDef,
+  InputElasticAPIVersion7
+> = z.union([
+  z.nativeEnum(InputElasticAPIVersion7),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputElasticAuthenticationMethod7$inboundSchema: z.ZodType<
+  InputElasticAuthenticationMethod7,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputElasticAuthenticationMethod7),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputElasticAuthenticationMethod7$outboundSchema: z.ZodType<
+  InputElasticAuthenticationMethod7,
+  z.ZodTypeDef,
+  InputElasticAuthenticationMethod7
+> = z.union([
+  z.nativeEnum(InputElasticAuthenticationMethod7),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputElasticProxyMode7$inboundSchema: z.ZodType<
+  InputElasticProxyMode7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().default(false),
+  authType: InputElasticAuthenticationMethod7$inboundSchema.default("none"),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  url: z.string().optional(),
+  rejectUnauthorized: z.boolean().default(false),
+  removeHeaders: z.array(z.string()).optional(),
+  timeoutSec: z.number().default(60),
+});
+/** @internal */
+export type InputElasticProxyMode7$Outbound = {
+  enabled: boolean;
+  authType: string;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  url?: string | undefined;
+  rejectUnauthorized: boolean;
+  removeHeaders?: Array<string> | undefined;
+  timeoutSec: number;
+};
+
+/** @internal */
+export const InputElasticProxyMode7$outboundSchema: z.ZodType<
+  InputElasticProxyMode7$Outbound,
+  z.ZodTypeDef,
+  InputElasticProxyMode7
+> = z.object({
+  enabled: z.boolean().default(false),
+  authType: InputElasticAuthenticationMethod7$outboundSchema.default("none"),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  url: z.string().optional(),
+  rejectUnauthorized: z.boolean().default(false),
+  removeHeaders: z.array(z.string()).optional(),
+  timeoutSec: z.number().default(60),
+});
+
+export function inputElasticProxyMode7ToJSON(
+  inputElasticProxyMode7: InputElasticProxyMode7,
+): string {
+  return JSON.stringify(
+    InputElasticProxyMode7$outboundSchema.parse(inputElasticProxyMode7),
+  );
+}
+export function inputElasticProxyMode7FromJSON(
+  jsonString: string,
+): SafeParseResult<InputElasticProxyMode7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputElasticProxyMode7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputElasticProxyMode7' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputElasticElastic7$inboundSchema: z.ZodType<
+  InputElasticElastic7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: InputElasticAuthenticationType7$inboundSchema.default("none"),
+  id: z.string().optional(),
+  type: TypeElasticOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  elasticAPI: z.string().default("/"),
+  apiVersion: InputElasticAPIVersion7$inboundSchema.default("8.3.2"),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  proxyMode: z.lazy(() => InputElasticProxyMode7$inboundSchema).optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string(),
+  authTokens: z.array(z.string()).optional(),
+  customAPIVersion: z.string().default(
+    "{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}",
+  ),
+});
+/** @internal */
+export type InputElasticElastic7$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  elasticAPI: string;
+  apiVersion: string;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  proxyMode?: InputElasticProxyMode7$Outbound | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret: string;
+  authTokens?: Array<string> | undefined;
+  customAPIVersion: string;
+};
+
+/** @internal */
+export const InputElasticElastic7$outboundSchema: z.ZodType<
+  InputElasticElastic7$Outbound,
+  z.ZodTypeDef,
+  InputElasticElastic7
+> = z.object({
+  authType: InputElasticAuthenticationType7$outboundSchema.default("none"),
+  id: z.string().optional(),
+  type: TypeElasticOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  elasticAPI: z.string().default("/"),
+  apiVersion: InputElasticAPIVersion7$outboundSchema.default("8.3.2"),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  proxyMode: z.lazy(() => InputElasticProxyMode7$outboundSchema).optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string(),
+  authTokens: z.array(z.string()).optional(),
+  customAPIVersion: z.string().default(
+    "{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}",
+  ),
+});
+
+export function inputElasticElastic7ToJSON(
+  inputElasticElastic7: InputElasticElastic7,
+): string {
+  return JSON.stringify(
+    InputElasticElastic7$outboundSchema.parse(inputElasticElastic7),
+  );
+}
+export function inputElasticElastic7FromJSON(
+  jsonString: string,
+): SafeParseResult<InputElasticElastic7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputElasticElastic7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputElasticElastic7' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputElasticAuthenticationType6$inboundSchema: z.ZodType<
+  InputElasticAuthenticationType6,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputElasticAuthenticationType6),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputElasticAuthenticationType6$outboundSchema: z.ZodType<
+  InputElasticAuthenticationType6,
+  z.ZodTypeDef,
+  InputElasticAuthenticationType6
+> = z.union([
+  z.nativeEnum(InputElasticAuthenticationType6),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputElasticAPIVersion6$inboundSchema: z.ZodType<
+  InputElasticAPIVersion6,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputElasticAPIVersion6),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputElasticAPIVersion6$outboundSchema: z.ZodType<
+  InputElasticAPIVersion6,
+  z.ZodTypeDef,
+  InputElasticAPIVersion6
+> = z.union([
+  z.nativeEnum(InputElasticAPIVersion6),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputElasticAuthenticationMethod6$inboundSchema: z.ZodType<
+  InputElasticAuthenticationMethod6,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputElasticAuthenticationMethod6),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputElasticAuthenticationMethod6$outboundSchema: z.ZodType<
+  InputElasticAuthenticationMethod6,
+  z.ZodTypeDef,
+  InputElasticAuthenticationMethod6
+> = z.union([
+  z.nativeEnum(InputElasticAuthenticationMethod6),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputElasticProxyMode6$inboundSchema: z.ZodType<
+  InputElasticProxyMode6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().default(false),
+  authType: InputElasticAuthenticationMethod6$inboundSchema.default("none"),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  url: z.string().optional(),
+  rejectUnauthorized: z.boolean().default(false),
+  removeHeaders: z.array(z.string()).optional(),
+  timeoutSec: z.number().default(60),
+});
+/** @internal */
+export type InputElasticProxyMode6$Outbound = {
+  enabled: boolean;
+  authType: string;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  url?: string | undefined;
+  rejectUnauthorized: boolean;
+  removeHeaders?: Array<string> | undefined;
+  timeoutSec: number;
+};
+
+/** @internal */
+export const InputElasticProxyMode6$outboundSchema: z.ZodType<
+  InputElasticProxyMode6$Outbound,
+  z.ZodTypeDef,
+  InputElasticProxyMode6
+> = z.object({
+  enabled: z.boolean().default(false),
+  authType: InputElasticAuthenticationMethod6$outboundSchema.default("none"),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  url: z.string().optional(),
+  rejectUnauthorized: z.boolean().default(false),
+  removeHeaders: z.array(z.string()).optional(),
+  timeoutSec: z.number().default(60),
+});
+
+export function inputElasticProxyMode6ToJSON(
+  inputElasticProxyMode6: InputElasticProxyMode6,
+): string {
+  return JSON.stringify(
+    InputElasticProxyMode6$outboundSchema.parse(inputElasticProxyMode6),
+  );
+}
+export function inputElasticProxyMode6FromJSON(
+  jsonString: string,
+): SafeParseResult<InputElasticProxyMode6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputElasticProxyMode6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputElasticProxyMode6' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputElasticElastic6$inboundSchema: z.ZodType<
+  InputElasticElastic6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: InputElasticAuthenticationType6$inboundSchema.default("none"),
+  id: z.string().optional(),
+  type: TypeElasticOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  elasticAPI: z.string().default("/"),
+  apiVersion: InputElasticAPIVersion6$inboundSchema.default("8.3.2"),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  proxyMode: z.lazy(() => InputElasticProxyMode6$inboundSchema).optional(),
+  description: z.string().optional(),
+  username: z.string(),
+  password: z.string(),
+  credentialsSecret: z.string().optional(),
+  authTokens: z.array(z.string()).optional(),
+  customAPIVersion: z.string().default(
+    "{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}",
+  ),
+});
+/** @internal */
+export type InputElasticElastic6$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  elasticAPI: string;
+  apiVersion: string;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  proxyMode?: InputElasticProxyMode6$Outbound | undefined;
+  description?: string | undefined;
+  username: string;
+  password: string;
+  credentialsSecret?: string | undefined;
+  authTokens?: Array<string> | undefined;
+  customAPIVersion: string;
+};
+
+/** @internal */
+export const InputElasticElastic6$outboundSchema: z.ZodType<
+  InputElasticElastic6$Outbound,
+  z.ZodTypeDef,
+  InputElasticElastic6
+> = z.object({
+  authType: InputElasticAuthenticationType6$outboundSchema.default("none"),
+  id: z.string().optional(),
+  type: TypeElasticOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  elasticAPI: z.string().default("/"),
+  apiVersion: InputElasticAPIVersion6$outboundSchema.default("8.3.2"),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  proxyMode: z.lazy(() => InputElasticProxyMode6$outboundSchema).optional(),
+  description: z.string().optional(),
+  username: z.string(),
+  password: z.string(),
+  credentialsSecret: z.string().optional(),
+  authTokens: z.array(z.string()).optional(),
+  customAPIVersion: z.string().default(
+    "{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}",
+  ),
+});
+
+export function inputElasticElastic6ToJSON(
+  inputElasticElastic6: InputElasticElastic6,
+): string {
+  return JSON.stringify(
+    InputElasticElastic6$outboundSchema.parse(inputElasticElastic6),
+  );
+}
+export function inputElasticElastic6FromJSON(
+  jsonString: string,
+): SafeParseResult<InputElasticElastic6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputElasticElastic6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputElasticElastic6' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputElasticAuthenticationType5$inboundSchema: z.ZodType<
+  InputElasticAuthenticationType5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputElasticAuthenticationType5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputElasticAuthenticationType5$outboundSchema: z.ZodType<
+  InputElasticAuthenticationType5,
+  z.ZodTypeDef,
+  InputElasticAuthenticationType5
+> = z.union([
+  z.nativeEnum(InputElasticAuthenticationType5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputElasticAPIVersion5$inboundSchema: z.ZodType<
+  InputElasticAPIVersion5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputElasticAPIVersion5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputElasticAPIVersion5$outboundSchema: z.ZodType<
+  InputElasticAPIVersion5,
+  z.ZodTypeDef,
+  InputElasticAPIVersion5
+> = z.union([
+  z.nativeEnum(InputElasticAPIVersion5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputElasticAuthenticationMethod5$inboundSchema: z.ZodType<
+  InputElasticAuthenticationMethod5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputElasticAuthenticationMethod5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputElasticAuthenticationMethod5$outboundSchema: z.ZodType<
+  InputElasticAuthenticationMethod5,
+  z.ZodTypeDef,
+  InputElasticAuthenticationMethod5
+> = z.union([
+  z.nativeEnum(InputElasticAuthenticationMethod5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputElasticProxyMode5$inboundSchema: z.ZodType<
+  InputElasticProxyMode5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().default(false),
+  authType: InputElasticAuthenticationMethod5$inboundSchema.default("none"),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  url: z.string().optional(),
+  rejectUnauthorized: z.boolean().default(false),
+  removeHeaders: z.array(z.string()).optional(),
+  timeoutSec: z.number().default(60),
+});
+/** @internal */
+export type InputElasticProxyMode5$Outbound = {
+  enabled: boolean;
+  authType: string;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  url?: string | undefined;
+  rejectUnauthorized: boolean;
+  removeHeaders?: Array<string> | undefined;
+  timeoutSec: number;
+};
+
+/** @internal */
+export const InputElasticProxyMode5$outboundSchema: z.ZodType<
+  InputElasticProxyMode5$Outbound,
+  z.ZodTypeDef,
+  InputElasticProxyMode5
+> = z.object({
+  enabled: z.boolean().default(false),
+  authType: InputElasticAuthenticationMethod5$outboundSchema.default("none"),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  url: z.string().optional(),
+  rejectUnauthorized: z.boolean().default(false),
+  removeHeaders: z.array(z.string()).optional(),
+  timeoutSec: z.number().default(60),
+});
+
+export function inputElasticProxyMode5ToJSON(
+  inputElasticProxyMode5: InputElasticProxyMode5,
+): string {
+  return JSON.stringify(
+    InputElasticProxyMode5$outboundSchema.parse(inputElasticProxyMode5),
+  );
+}
+export function inputElasticProxyMode5FromJSON(
+  jsonString: string,
+): SafeParseResult<InputElasticProxyMode5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputElasticProxyMode5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputElasticProxyMode5' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputElasticElastic5$inboundSchema: z.ZodType<
+  InputElasticElastic5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: InputElasticAuthenticationType5$inboundSchema.default("none"),
+  id: z.string().optional(),
+  type: TypeElasticOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  elasticAPI: z.string().default("/"),
+  apiVersion: InputElasticAPIVersion5$inboundSchema.default("8.3.2"),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  proxyMode: z.lazy(() => InputElasticProxyMode5$inboundSchema).optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  authTokens: z.array(z.string()).optional(),
+  customAPIVersion: z.string().default(
+    "{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}",
+  ),
+});
+/** @internal */
+export type InputElasticElastic5$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  elasticAPI: string;
+  apiVersion: string;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  proxyMode?: InputElasticProxyMode5$Outbound | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  authTokens?: Array<string> | undefined;
+  customAPIVersion: string;
+};
+
+/** @internal */
+export const InputElasticElastic5$outboundSchema: z.ZodType<
+  InputElasticElastic5$Outbound,
+  z.ZodTypeDef,
+  InputElasticElastic5
+> = z.object({
+  authType: InputElasticAuthenticationType5$outboundSchema.default("none"),
+  id: z.string().optional(),
+  type: TypeElasticOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  elasticAPI: z.string().default("/"),
+  apiVersion: InputElasticAPIVersion5$outboundSchema.default("8.3.2"),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  proxyMode: z.lazy(() => InputElasticProxyMode5$outboundSchema).optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  authTokens: z.array(z.string()).optional(),
+  customAPIVersion: z.string().default(
+    "{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}",
+  ),
+});
+
+export function inputElasticElastic5ToJSON(
+  inputElasticElastic5: InputElasticElastic5,
+): string {
+  return JSON.stringify(
+    InputElasticElastic5$outboundSchema.parse(inputElasticElastic5),
+  );
+}
+export function inputElasticElastic5FromJSON(
+  jsonString: string,
+): SafeParseResult<InputElasticElastic5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputElasticElastic5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputElasticElastic5' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputElasticAuthenticationType4$inboundSchema: z.ZodType<
+  InputElasticAuthenticationType4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputElasticAuthenticationType4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputElasticAuthenticationType4$outboundSchema: z.ZodType<
+  InputElasticAuthenticationType4,
+  z.ZodTypeDef,
+  InputElasticAuthenticationType4
+> = z.union([
+  z.nativeEnum(InputElasticAuthenticationType4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputElasticAPIVersion4$inboundSchema: z.ZodType<
+  InputElasticAPIVersion4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputElasticAPIVersion4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputElasticAPIVersion4$outboundSchema: z.ZodType<
+  InputElasticAPIVersion4,
+  z.ZodTypeDef,
+  InputElasticAPIVersion4
+> = z.union([
+  z.nativeEnum(InputElasticAPIVersion4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputElasticAuthenticationMethod4$inboundSchema: z.ZodType<
+  InputElasticAuthenticationMethod4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputElasticAuthenticationMethod4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputElasticAuthenticationMethod4$outboundSchema: z.ZodType<
+  InputElasticAuthenticationMethod4,
+  z.ZodTypeDef,
+  InputElasticAuthenticationMethod4
+> = z.union([
+  z.nativeEnum(InputElasticAuthenticationMethod4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputElasticProxyMode4$inboundSchema: z.ZodType<
+  InputElasticProxyMode4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().default(false),
+  authType: InputElasticAuthenticationMethod4$inboundSchema.default("none"),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  url: z.string().optional(),
+  rejectUnauthorized: z.boolean().default(false),
+  removeHeaders: z.array(z.string()).optional(),
+  timeoutSec: z.number().default(60),
+});
+/** @internal */
+export type InputElasticProxyMode4$Outbound = {
+  enabled: boolean;
+  authType: string;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  url?: string | undefined;
+  rejectUnauthorized: boolean;
+  removeHeaders?: Array<string> | undefined;
+  timeoutSec: number;
+};
+
+/** @internal */
+export const InputElasticProxyMode4$outboundSchema: z.ZodType<
+  InputElasticProxyMode4$Outbound,
+  z.ZodTypeDef,
+  InputElasticProxyMode4
+> = z.object({
+  enabled: z.boolean().default(false),
+  authType: InputElasticAuthenticationMethod4$outboundSchema.default("none"),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  url: z.string().optional(),
+  rejectUnauthorized: z.boolean().default(false),
+  removeHeaders: z.array(z.string()).optional(),
+  timeoutSec: z.number().default(60),
+});
+
+export function inputElasticProxyMode4ToJSON(
+  inputElasticProxyMode4: InputElasticProxyMode4,
+): string {
+  return JSON.stringify(
+    InputElasticProxyMode4$outboundSchema.parse(inputElasticProxyMode4),
+  );
+}
+export function inputElasticProxyMode4FromJSON(
+  jsonString: string,
+): SafeParseResult<InputElasticProxyMode4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputElasticProxyMode4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputElasticProxyMode4' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputElasticElastic4$inboundSchema: z.ZodType<
+  InputElasticElastic4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: TypeElasticOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema,
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  elasticAPI: z.string().default("/"),
+  authType: InputElasticAuthenticationType4$inboundSchema.default("none"),
+  apiVersion: InputElasticAPIVersion4$inboundSchema.default("8.3.2"),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  proxyMode: z.lazy(() => InputElasticProxyMode4$inboundSchema).optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  authTokens: z.array(z.string()).optional(),
+  customAPIVersion: z.string().default(
+    "{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}",
+  ),
+});
+/** @internal */
+export type InputElasticElastic4$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq: PqType$Outbound;
+  host: string;
+  port: number;
+  tls?: Tls2Type$Outbound | undefined;
   maxActiveReq: number;
   maxRequestsPerSocket: number;
   enableProxyHeader: boolean;
@@ -1103,9 +4490,9 @@ export type InputElastic$Outbound = {
   elasticAPI: string;
   authType: string;
   apiVersion: string;
-  extraHttpHeaders?: Array<InputElasticExtraHttpHeader$Outbound> | undefined;
-  metadata?: Array<InputElasticMetadatum$Outbound> | undefined;
-  proxyMode?: InputElasticProxyMode$Outbound | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  proxyMode?: InputElasticProxyMode4$Outbound | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -1115,26 +4502,24 @@ export type InputElastic$Outbound = {
 };
 
 /** @internal */
-export const InputElastic$outboundSchema: z.ZodType<
-  InputElastic$Outbound,
+export const InputElasticElastic4$outboundSchema: z.ZodType<
+  InputElasticElastic4$Outbound,
   z.ZodTypeDef,
-  InputElastic
+  InputElasticElastic4
 > = z.object({
+  pqEnabled: z.boolean().default(false),
   id: z.string().optional(),
-  type: InputElasticType$outboundSchema,
+  type: TypeElasticOption$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputElasticConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputElasticPq$outboundSchema).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema,
   host: z.string().default("0.0.0.0"),
   port: z.number(),
-  tls: z.lazy(() => InputElasticTLSSettingsServerSide$outboundSchema)
-    .optional(),
+  tls: Tls2Type$outboundSchema.optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -1147,14 +4532,11 @@ export const InputElastic$outboundSchema: z.ZodType<
   ipAllowlistRegex: z.string().default("/.*/"),
   ipDenylistRegex: z.string().default("/^$/"),
   elasticAPI: z.string().default("/"),
-  authType: InputElasticAuthenticationType$outboundSchema.default("none"),
-  apiVersion: InputElasticAPIVersion$outboundSchema.default("8.3.2"),
-  extraHttpHeaders: z.array(
-    z.lazy(() => InputElasticExtraHttpHeader$outboundSchema),
-  ).optional(),
-  metadata: z.array(z.lazy(() => InputElasticMetadatum$outboundSchema))
-    .optional(),
-  proxyMode: z.lazy(() => InputElasticProxyMode$outboundSchema).optional(),
+  authType: InputElasticAuthenticationType4$outboundSchema.default("none"),
+  apiVersion: InputElasticAPIVersion4$outboundSchema.default("8.3.2"),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  proxyMode: z.lazy(() => InputElasticProxyMode4$outboundSchema).optional(),
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -1165,23 +4547,890 @@ export const InputElastic$outboundSchema: z.ZodType<
   ),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputElastic$ {
-  /** @deprecated use `InputElastic$inboundSchema` instead. */
-  export const inboundSchema = InputElastic$inboundSchema;
-  /** @deprecated use `InputElastic$outboundSchema` instead. */
-  export const outboundSchema = InputElastic$outboundSchema;
-  /** @deprecated use `InputElastic$Outbound` instead. */
-  export type Outbound = InputElastic$Outbound;
+export function inputElasticElastic4ToJSON(
+  inputElasticElastic4: InputElasticElastic4,
+): string {
+  return JSON.stringify(
+    InputElasticElastic4$outboundSchema.parse(inputElasticElastic4),
+  );
 }
+export function inputElasticElastic4FromJSON(
+  jsonString: string,
+): SafeParseResult<InputElasticElastic4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputElasticElastic4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputElasticElastic4' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputElasticAuthenticationType3$inboundSchema: z.ZodType<
+  InputElasticAuthenticationType3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputElasticAuthenticationType3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputElasticAuthenticationType3$outboundSchema: z.ZodType<
+  InputElasticAuthenticationType3,
+  z.ZodTypeDef,
+  InputElasticAuthenticationType3
+> = z.union([
+  z.nativeEnum(InputElasticAuthenticationType3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputElasticAPIVersion3$inboundSchema: z.ZodType<
+  InputElasticAPIVersion3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputElasticAPIVersion3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputElasticAPIVersion3$outboundSchema: z.ZodType<
+  InputElasticAPIVersion3,
+  z.ZodTypeDef,
+  InputElasticAPIVersion3
+> = z.union([
+  z.nativeEnum(InputElasticAPIVersion3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputElasticAuthenticationMethod3$inboundSchema: z.ZodType<
+  InputElasticAuthenticationMethod3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputElasticAuthenticationMethod3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputElasticAuthenticationMethod3$outboundSchema: z.ZodType<
+  InputElasticAuthenticationMethod3,
+  z.ZodTypeDef,
+  InputElasticAuthenticationMethod3
+> = z.union([
+  z.nativeEnum(InputElasticAuthenticationMethod3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputElasticProxyMode3$inboundSchema: z.ZodType<
+  InputElasticProxyMode3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().default(false),
+  authType: InputElasticAuthenticationMethod3$inboundSchema.default("none"),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  url: z.string().optional(),
+  rejectUnauthorized: z.boolean().default(false),
+  removeHeaders: z.array(z.string()).optional(),
+  timeoutSec: z.number().default(60),
+});
+/** @internal */
+export type InputElasticProxyMode3$Outbound = {
+  enabled: boolean;
+  authType: string;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  url?: string | undefined;
+  rejectUnauthorized: boolean;
+  removeHeaders?: Array<string> | undefined;
+  timeoutSec: number;
+};
+
+/** @internal */
+export const InputElasticProxyMode3$outboundSchema: z.ZodType<
+  InputElasticProxyMode3$Outbound,
+  z.ZodTypeDef,
+  InputElasticProxyMode3
+> = z.object({
+  enabled: z.boolean().default(false),
+  authType: InputElasticAuthenticationMethod3$outboundSchema.default("none"),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  url: z.string().optional(),
+  rejectUnauthorized: z.boolean().default(false),
+  removeHeaders: z.array(z.string()).optional(),
+  timeoutSec: z.number().default(60),
+});
+
+export function inputElasticProxyMode3ToJSON(
+  inputElasticProxyMode3: InputElasticProxyMode3,
+): string {
+  return JSON.stringify(
+    InputElasticProxyMode3$outboundSchema.parse(inputElasticProxyMode3),
+  );
+}
+export function inputElasticProxyMode3FromJSON(
+  jsonString: string,
+): SafeParseResult<InputElasticProxyMode3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputElasticProxyMode3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputElasticProxyMode3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputElasticElastic3$inboundSchema: z.ZodType<
+  InputElasticElastic3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: TypeElasticOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  elasticAPI: z.string().default("/"),
+  authType: InputElasticAuthenticationType3$inboundSchema.default("none"),
+  apiVersion: InputElasticAPIVersion3$inboundSchema.default("8.3.2"),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  proxyMode: z.lazy(() => InputElasticProxyMode3$inboundSchema).optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  authTokens: z.array(z.string()).optional(),
+  customAPIVersion: z.string().default(
+    "{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}",
+  ),
+});
+/** @internal */
+export type InputElasticElastic3$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  elasticAPI: string;
+  authType: string;
+  apiVersion: string;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  proxyMode?: InputElasticProxyMode3$Outbound | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  authTokens?: Array<string> | undefined;
+  customAPIVersion: string;
+};
+
+/** @internal */
+export const InputElasticElastic3$outboundSchema: z.ZodType<
+  InputElasticElastic3$Outbound,
+  z.ZodTypeDef,
+  InputElasticElastic3
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: TypeElasticOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  elasticAPI: z.string().default("/"),
+  authType: InputElasticAuthenticationType3$outboundSchema.default("none"),
+  apiVersion: InputElasticAPIVersion3$outboundSchema.default("8.3.2"),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  proxyMode: z.lazy(() => InputElasticProxyMode3$outboundSchema).optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  authTokens: z.array(z.string()).optional(),
+  customAPIVersion: z.string().default(
+    "{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}",
+  ),
+});
+
+export function inputElasticElastic3ToJSON(
+  inputElasticElastic3: InputElasticElastic3,
+): string {
+  return JSON.stringify(
+    InputElasticElastic3$outboundSchema.parse(inputElasticElastic3),
+  );
+}
+export function inputElasticElastic3FromJSON(
+  jsonString: string,
+): SafeParseResult<InputElasticElastic3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputElasticElastic3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputElasticElastic3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputElasticAuthenticationType2$inboundSchema: z.ZodType<
+  InputElasticAuthenticationType2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputElasticAuthenticationType2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputElasticAuthenticationType2$outboundSchema: z.ZodType<
+  InputElasticAuthenticationType2,
+  z.ZodTypeDef,
+  InputElasticAuthenticationType2
+> = z.union([
+  z.nativeEnum(InputElasticAuthenticationType2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputElasticAPIVersion2$inboundSchema: z.ZodType<
+  InputElasticAPIVersion2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputElasticAPIVersion2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputElasticAPIVersion2$outboundSchema: z.ZodType<
+  InputElasticAPIVersion2,
+  z.ZodTypeDef,
+  InputElasticAPIVersion2
+> = z.union([
+  z.nativeEnum(InputElasticAPIVersion2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputElasticAuthenticationMethod2$inboundSchema: z.ZodType<
+  InputElasticAuthenticationMethod2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputElasticAuthenticationMethod2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputElasticAuthenticationMethod2$outboundSchema: z.ZodType<
+  InputElasticAuthenticationMethod2,
+  z.ZodTypeDef,
+  InputElasticAuthenticationMethod2
+> = z.union([
+  z.nativeEnum(InputElasticAuthenticationMethod2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputElasticProxyMode2$inboundSchema: z.ZodType<
+  InputElasticProxyMode2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().default(false),
+  authType: InputElasticAuthenticationMethod2$inboundSchema.default("none"),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  url: z.string().optional(),
+  rejectUnauthorized: z.boolean().default(false),
+  removeHeaders: z.array(z.string()).optional(),
+  timeoutSec: z.number().default(60),
+});
+/** @internal */
+export type InputElasticProxyMode2$Outbound = {
+  enabled: boolean;
+  authType: string;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  url?: string | undefined;
+  rejectUnauthorized: boolean;
+  removeHeaders?: Array<string> | undefined;
+  timeoutSec: number;
+};
+
+/** @internal */
+export const InputElasticProxyMode2$outboundSchema: z.ZodType<
+  InputElasticProxyMode2$Outbound,
+  z.ZodTypeDef,
+  InputElasticProxyMode2
+> = z.object({
+  enabled: z.boolean().default(false),
+  authType: InputElasticAuthenticationMethod2$outboundSchema.default("none"),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  url: z.string().optional(),
+  rejectUnauthorized: z.boolean().default(false),
+  removeHeaders: z.array(z.string()).optional(),
+  timeoutSec: z.number().default(60),
+});
+
+export function inputElasticProxyMode2ToJSON(
+  inputElasticProxyMode2: InputElasticProxyMode2,
+): string {
+  return JSON.stringify(
+    InputElasticProxyMode2$outboundSchema.parse(inputElasticProxyMode2),
+  );
+}
+export function inputElasticProxyMode2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputElasticProxyMode2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputElasticProxyMode2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputElasticProxyMode2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputElasticElastic2$inboundSchema: z.ZodType<
+  InputElasticElastic2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeElasticOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  elasticAPI: z.string().default("/"),
+  authType: InputElasticAuthenticationType2$inboundSchema.default("none"),
+  apiVersion: InputElasticAPIVersion2$inboundSchema.default("8.3.2"),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  proxyMode: z.lazy(() => InputElasticProxyMode2$inboundSchema).optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  authTokens: z.array(z.string()).optional(),
+  customAPIVersion: z.string().default(
+    "{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}",
+  ),
+});
+/** @internal */
+export type InputElasticElastic2$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections: Array<ConnectionsType$Outbound>;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  elasticAPI: string;
+  authType: string;
+  apiVersion: string;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  proxyMode?: InputElasticProxyMode2$Outbound | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  authTokens?: Array<string> | undefined;
+  customAPIVersion: string;
+};
+
+/** @internal */
+export const InputElasticElastic2$outboundSchema: z.ZodType<
+  InputElasticElastic2$Outbound,
+  z.ZodTypeDef,
+  InputElasticElastic2
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeElasticOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  elasticAPI: z.string().default("/"),
+  authType: InputElasticAuthenticationType2$outboundSchema.default("none"),
+  apiVersion: InputElasticAPIVersion2$outboundSchema.default("8.3.2"),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  proxyMode: z.lazy(() => InputElasticProxyMode2$outboundSchema).optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  authTokens: z.array(z.string()).optional(),
+  customAPIVersion: z.string().default(
+    "{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}",
+  ),
+});
+
+export function inputElasticElastic2ToJSON(
+  inputElasticElastic2: InputElasticElastic2,
+): string {
+  return JSON.stringify(
+    InputElasticElastic2$outboundSchema.parse(inputElasticElastic2),
+  );
+}
+export function inputElasticElastic2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputElasticElastic2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputElasticElastic2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputElasticElastic2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputElasticAuthenticationType1$inboundSchema: z.ZodType<
+  InputElasticAuthenticationType1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputElasticAuthenticationType1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputElasticAuthenticationType1$outboundSchema: z.ZodType<
+  InputElasticAuthenticationType1,
+  z.ZodTypeDef,
+  InputElasticAuthenticationType1
+> = z.union([
+  z.nativeEnum(InputElasticAuthenticationType1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputElasticAPIVersion1$inboundSchema: z.ZodType<
+  InputElasticAPIVersion1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputElasticAPIVersion1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputElasticAPIVersion1$outboundSchema: z.ZodType<
+  InputElasticAPIVersion1,
+  z.ZodTypeDef,
+  InputElasticAPIVersion1
+> = z.union([
+  z.nativeEnum(InputElasticAPIVersion1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputElasticAuthenticationMethod1$inboundSchema: z.ZodType<
+  InputElasticAuthenticationMethod1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputElasticAuthenticationMethod1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputElasticAuthenticationMethod1$outboundSchema: z.ZodType<
+  InputElasticAuthenticationMethod1,
+  z.ZodTypeDef,
+  InputElasticAuthenticationMethod1
+> = z.union([
+  z.nativeEnum(InputElasticAuthenticationMethod1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputElasticProxyMode1$inboundSchema: z.ZodType<
+  InputElasticProxyMode1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().default(false),
+  authType: InputElasticAuthenticationMethod1$inboundSchema.default("none"),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  url: z.string().optional(),
+  rejectUnauthorized: z.boolean().default(false),
+  removeHeaders: z.array(z.string()).optional(),
+  timeoutSec: z.number().default(60),
+});
+/** @internal */
+export type InputElasticProxyMode1$Outbound = {
+  enabled: boolean;
+  authType: string;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  url?: string | undefined;
+  rejectUnauthorized: boolean;
+  removeHeaders?: Array<string> | undefined;
+  timeoutSec: number;
+};
+
+/** @internal */
+export const InputElasticProxyMode1$outboundSchema: z.ZodType<
+  InputElasticProxyMode1$Outbound,
+  z.ZodTypeDef,
+  InputElasticProxyMode1
+> = z.object({
+  enabled: z.boolean().default(false),
+  authType: InputElasticAuthenticationMethod1$outboundSchema.default("none"),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  url: z.string().optional(),
+  rejectUnauthorized: z.boolean().default(false),
+  removeHeaders: z.array(z.string()).optional(),
+  timeoutSec: z.number().default(60),
+});
+
+export function inputElasticProxyMode1ToJSON(
+  inputElasticProxyMode1: InputElasticProxyMode1,
+): string {
+  return JSON.stringify(
+    InputElasticProxyMode1$outboundSchema.parse(inputElasticProxyMode1),
+  );
+}
+export function inputElasticProxyMode1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputElasticProxyMode1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputElasticProxyMode1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputElasticProxyMode1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputElasticElastic1$inboundSchema: z.ZodType<
+  InputElasticElastic1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeElasticOption$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: Tls2Type$inboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  elasticAPI: z.string().default("/"),
+  authType: InputElasticAuthenticationType1$inboundSchema.default("none"),
+  apiVersion: InputElasticAPIVersion1$inboundSchema.default("8.3.2"),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  proxyMode: z.lazy(() => InputElasticProxyMode1$inboundSchema).optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  authTokens: z.array(z.string()).optional(),
+  customAPIVersion: z.string().default(
+    "{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}",
+  ),
+});
+/** @internal */
+export type InputElasticElastic1$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: Tls2Type$Outbound | undefined;
+  maxActiveReq: number;
+  maxRequestsPerSocket: number;
+  enableProxyHeader: boolean;
+  captureHeaders: boolean;
+  activityLogSampleRate: number;
+  requestTimeout: number;
+  socketTimeout: number;
+  keepAliveTimeout: number;
+  enableHealthCheck: boolean;
+  ipAllowlistRegex: string;
+  ipDenylistRegex: string;
+  elasticAPI: string;
+  authType: string;
+  apiVersion: string;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  proxyMode?: InputElasticProxyMode1$Outbound | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  authTokens?: Array<string> | undefined;
+  customAPIVersion: string;
+};
+
+/** @internal */
+export const InputElasticElastic1$outboundSchema: z.ZodType<
+  InputElasticElastic1$Outbound,
+  z.ZodTypeDef,
+  InputElasticElastic1
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: TypeElasticOption$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  host: z.string().default("0.0.0.0"),
+  port: z.number(),
+  tls: Tls2Type$outboundSchema.optional(),
+  maxActiveReq: z.number().default(256),
+  maxRequestsPerSocket: z.number().int().default(0),
+  enableProxyHeader: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  activityLogSampleRate: z.number().default(100),
+  requestTimeout: z.number().default(0),
+  socketTimeout: z.number().default(0),
+  keepAliveTimeout: z.number().default(5),
+  enableHealthCheck: z.boolean().default(false),
+  ipAllowlistRegex: z.string().default("/.*/"),
+  ipDenylistRegex: z.string().default("/^$/"),
+  elasticAPI: z.string().default("/"),
+  authType: InputElasticAuthenticationType1$outboundSchema.default("none"),
+  apiVersion: InputElasticAPIVersion1$outboundSchema.default("8.3.2"),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  proxyMode: z.lazy(() => InputElasticProxyMode1$outboundSchema).optional(),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  authTokens: z.array(z.string()).optional(),
+  customAPIVersion: z.string().default(
+    "{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}",
+  ),
+});
+
+export function inputElasticElastic1ToJSON(
+  inputElasticElastic1: InputElasticElastic1,
+): string {
+  return JSON.stringify(
+    InputElasticElastic1$outboundSchema.parse(inputElasticElastic1),
+  );
+}
+export function inputElasticElastic1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputElasticElastic1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputElasticElastic1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputElasticElastic1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputElastic$inboundSchema: z.ZodType<
+  InputElastic,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputElasticElastic6$inboundSchema),
+  z.lazy(() => InputElasticElastic2$inboundSchema),
+  z.lazy(() => InputElasticElastic4$inboundSchema),
+  z.lazy(() => InputElasticElastic7$inboundSchema),
+  z.lazy(() => InputElasticElastic8$inboundSchema),
+  z.lazy(() => InputElasticElastic1$inboundSchema),
+  z.lazy(() => InputElasticElastic3$inboundSchema),
+  z.lazy(() => InputElasticElastic5$inboundSchema),
+  z.lazy(() => InputElasticElastic9$inboundSchema),
+  z.lazy(() => InputElasticElastic10$inboundSchema),
+  z.lazy(() => InputElasticElastic11$inboundSchema),
+]);
+/** @internal */
+export type InputElastic$Outbound =
+  | InputElasticElastic6$Outbound
+  | InputElasticElastic2$Outbound
+  | InputElasticElastic4$Outbound
+  | InputElasticElastic7$Outbound
+  | InputElasticElastic8$Outbound
+  | InputElasticElastic1$Outbound
+  | InputElasticElastic3$Outbound
+  | InputElasticElastic5$Outbound
+  | InputElasticElastic9$Outbound
+  | InputElasticElastic10$Outbound
+  | InputElasticElastic11$Outbound;
+
+/** @internal */
+export const InputElastic$outboundSchema: z.ZodType<
+  InputElastic$Outbound,
+  z.ZodTypeDef,
+  InputElastic
+> = z.union([
+  z.lazy(() => InputElasticElastic6$outboundSchema),
+  z.lazy(() => InputElasticElastic2$outboundSchema),
+  z.lazy(() => InputElasticElastic4$outboundSchema),
+  z.lazy(() => InputElasticElastic7$outboundSchema),
+  z.lazy(() => InputElasticElastic8$outboundSchema),
+  z.lazy(() => InputElasticElastic1$outboundSchema),
+  z.lazy(() => InputElasticElastic3$outboundSchema),
+  z.lazy(() => InputElasticElastic5$outboundSchema),
+  z.lazy(() => InputElasticElastic9$outboundSchema),
+  z.lazy(() => InputElasticElastic10$outboundSchema),
+  z.lazy(() => InputElasticElastic11$outboundSchema),
+]);
 
 export function inputElasticToJSON(inputElastic: InputElastic): string {
   return JSON.stringify(InputElastic$outboundSchema.parse(inputElastic));
 }
-
 export function inputElasticFromJSON(
   jsonString: string,
 ): SafeParseResult<InputElastic, SDKValidationError> {

@@ -5,13 +5,39 @@
 ```typescript
 import { InputType } from "cribl-control-plane/models";
 
-let value: InputType = "collection";
+let value: InputType = {
+  breakerRulesets: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  preprocess: {
+    command: "<value>",
+    args: [
+      "<value 1>",
+    ],
+  },
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  pipeline: "<value>",
+  output: "<value>",
+};
 ```
 
-## Values
+## Fields
 
-This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
-
-```typescript
-"collection" | Unrecognized<string>
-```
+| Field                                                                                                                                                                                            | Type                                                                                                                                                                                             | Required                                                                                                                                                                                         | Description                                                                                                                                                                                      |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `type`                                                                                                                                                                                           | [models.InputTypeType](../models/inputtypetype.md)                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                               | N/A                                                                                                                                                                                              |
+| `breakerRulesets`                                                                                                                                                                                | *string*[]                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                               | A list of event-breaking rulesets that will be applied, in order, to the input data stream                                                                                                       |
+| `staleChannelFlushMs`                                                                                                                                                                            | *number*                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                               | How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines                                |
+| `sendToRoutes`                                                                                                                                                                                   | *boolean*                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                               | Send events to normal routing and event processing. Disable to select a specific Pipeline/Destination combination.                                                                               |
+| `preprocess`                                                                                                                                                                                     | [models.Preprocess](../models/preprocess.md)                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                               | N/A                                                                                                                                                                                              |
+| `throttleRatePerSec`                                                                                                                                                                             | *string*                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                               | Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling. |
+| `metadata`                                                                                                                                                                                       | [models.InputTypeMetadatum](../models/inputtypemetadatum.md)[]                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                               | Fields to add to events from this input                                                                                                                                                          |
+| `pipeline`                                                                                                                                                                                       | *string*                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                               | Pipeline to process results                                                                                                                                                                      |
+| `output`                                                                                                                                                                                         | *string*                                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                               | Destination to send results to                                                                                                                                                                   |

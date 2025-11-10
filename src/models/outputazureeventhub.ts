@@ -4,139 +4,75 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AckOptions,
+  AckOptions$inboundSchema,
+  AckOptions$outboundSchema,
+} from "./ackoptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  Format2Options,
+  Format2Options$inboundSchema,
+  Format2Options$outboundSchema,
+} from "./format2options.js";
+import {
+  MetadataType,
+  MetadataType$inboundSchema,
+  MetadataType$Outbound,
+  MetadataType$outboundSchema,
+} from "./metadatatype.js";
+import {
+  OnBackpressureOptions,
+  OnBackpressureOptions$inboundSchema,
+  OnBackpressureOptions$outboundSchema,
+} from "./onbackpressureoptions.js";
+import {
+  PqCompressOptions,
+  PqCompressOptions$inboundSchema,
+  PqCompressOptions$outboundSchema,
+} from "./pqcompressoptions.js";
+import {
+  PqModeOptions,
+  PqModeOptions$inboundSchema,
+  PqModeOptions$outboundSchema,
+} from "./pqmodeoptions.js";
+import {
+  PqOnBackpressureOptions,
+  PqOnBackpressureOptions$inboundSchema,
+  PqOnBackpressureOptions$outboundSchema,
+} from "./pqonbackpressureoptions.js";
+import {
+  Sasl1Type,
+  Sasl1Type$inboundSchema,
+  Sasl1Type$Outbound,
+  Sasl1Type$outboundSchema,
+} from "./sasl1type.js";
+import {
+  Tls3Type,
+  Tls3Type$inboundSchema,
+  Tls3Type$Outbound,
+  Tls3Type$outboundSchema,
+} from "./tls3type.js";
 
-export const OutputAzureEventhubType = {
+export const OutputAzureEventhubType2 = {
   AzureEventhub: "azure_eventhub",
 } as const;
-export type OutputAzureEventhubType = ClosedEnum<
-  typeof OutputAzureEventhubType
+export type OutputAzureEventhubType2 = ClosedEnum<
+  typeof OutputAzureEventhubType2
 >;
 
-/**
- * Control the number of required acknowledgments
- */
-export const OutputAzureEventhubAcknowledgments = {
-  One: 1,
-  Zero: 0,
-  Minus1: -1,
-} as const;
-/**
- * Control the number of required acknowledgments
- */
-export type OutputAzureEventhubAcknowledgments = OpenEnum<
-  typeof OutputAzureEventhubAcknowledgments
->;
-
-/**
- * Format to use to serialize events before writing to the Event Hubs Kafka brokers
- */
-export const OutputAzureEventhubRecordDataFormat = {
-  Json: "json",
-  Raw: "raw",
-} as const;
-/**
- * Format to use to serialize events before writing to the Event Hubs Kafka brokers
- */
-export type OutputAzureEventhubRecordDataFormat = OpenEnum<
-  typeof OutputAzureEventhubRecordDataFormat
->;
-
-export const OutputAzureEventhubSASLMechanism = {
-  Plain: "plain",
-  Oauthbearer: "oauthbearer",
-} as const;
-export type OutputAzureEventhubSASLMechanism = OpenEnum<
-  typeof OutputAzureEventhubSASLMechanism
->;
-
-/**
- * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
- */
-export type OutputAzureEventhubAuthentication = {
-  disabled?: boolean | undefined;
-  mechanism?: OutputAzureEventhubSASLMechanism | undefined;
-};
-
-export type OutputAzureEventhubTLSSettingsClientSide = {
-  disabled?: boolean | undefined;
+export type OutputAzureEventhubAzureEventhub2 = {
   /**
-   * Reject certificates that are not authorized by a CA in the CA certificate path, or by another trusted CA (such as the system's)
+   * How to handle events when all receivers are exerting backpressure
    */
-  rejectUnauthorized?: boolean | undefined;
-};
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputAzureEventhubBackpressureBehavior = {
-  Block: "block",
-  Drop: "drop",
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputAzureEventhubBackpressureBehavior = OpenEnum<
-  typeof OutputAzureEventhubBackpressureBehavior
->;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputAzureEventhubCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputAzureEventhubCompression = OpenEnum<
-  typeof OutputAzureEventhubCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputAzureEventhubQueueFullBehavior = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputAzureEventhubQueueFullBehavior = OpenEnum<
-  typeof OutputAzureEventhubQueueFullBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputAzureEventhubMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputAzureEventhubMode = OpenEnum<typeof OutputAzureEventhubMode>;
-
-export type OutputAzureEventhubPqControls = {};
-
-export type OutputAzureEventhub = {
+  onBackpressure?: OnBackpressureOptions | undefined;
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputAzureEventhubType;
+  type: OutputAzureEventhubType2;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -164,11 +100,11 @@ export type OutputAzureEventhub = {
   /**
    * Control the number of required acknowledgments
    */
-  ack?: OutputAzureEventhubAcknowledgments | undefined;
+  ack?: AckOptions | undefined;
   /**
    * Format to use to serialize events before writing to the Event Hubs Kafka brokers
    */
-  format?: OutputAzureEventhubRecordDataFormat | undefined;
+  format?: Format2Options | undefined;
   /**
    * Maximum size of each record batch before compression. Setting should be < message.max.bytes settings in Event Hubs brokers.
    */
@@ -216,13 +152,29 @@ export type OutputAzureEventhub = {
   /**
    * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
    */
-  sasl?: OutputAzureEventhubAuthentication | undefined;
-  tls?: OutputAzureEventhubTLSSettingsClientSide | undefined;
-  /**
-   * How to handle events when all receivers are exerting backpressure
-   */
-  onBackpressure?: OutputAzureEventhubBackpressureBehavior | undefined;
+  sasl?: Sasl1Type | undefined;
+  tls?: Tls3Type | undefined;
   description?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
   /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
@@ -238,464 +190,186 @@ export type OutputAzureEventhub = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputAzureEventhubCompression | undefined;
+  pqCompress?: PqCompressOptions | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputAzureEventhubQueueFullBehavior | undefined;
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls: MetadataType;
+};
+
+export const OutputAzureEventhubType1 = {
+  AzureEventhub: "azure_eventhub",
+} as const;
+export type OutputAzureEventhubType1 = ClosedEnum<
+  typeof OutputAzureEventhubType1
+>;
+
+export type OutputAzureEventhubAzureEventhub1 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputAzureEventhubType1;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * List of Event Hubs Kafka brokers to connect to, eg. yourdomain.servicebus.windows.net:9093. The hostname can be found in the host portion of the primary or secondary connection string in Shared Access Policies.
+   */
+  brokers: Array<string>;
+  /**
+   * The name of the Event Hub (Kafka Topic) to publish events. Can be overwritten using field __topicOut.
+   */
+  topic: string;
+  /**
+   * Control the number of required acknowledgments
+   */
+  ack?: AckOptions | undefined;
+  /**
+   * Format to use to serialize events before writing to the Event Hubs Kafka brokers
+   */
+  format?: Format2Options | undefined;
+  /**
+   * Maximum size of each record batch before compression. Setting should be < message.max.bytes settings in Event Hubs brokers.
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * Maximum number of events in a batch before forcing a flush
+   */
+  flushEventCount?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Maximum time to wait for a connection to complete successfully
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to a request
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * If messages are failing, you can set the maximum number of retries as high as 100 to prevent loss of data
+   */
+  maxRetries?: number | undefined;
+  /**
+   * The maximum wait time for a retry, in milliseconds. Default (and minimum) is 30,000 ms (30 seconds); maximum is 180,000 ms (180 seconds).
+   */
+  maxBackOff?: number | undefined;
+  /**
+   * Initial value used to calculate the retry, in milliseconds. Maximum is 600,000 ms (10 minutes).
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Set the backoff multiplier (2-20) to control the retry frequency for failed messages. For faster retries, use a lower multiplier. For slower retries with more delay between attempts, use a higher multiplier. The multiplier is used in an exponential backoff formula; see the Kafka [documentation](https://kafka.js.org/docs/retry-detailed) for details.
+   */
+  backoffRate?: number | undefined;
+  /**
+   * Maximum time to wait for Kafka to respond to an authentication request
+   */
+  authenticationTimeout?: number | undefined;
+  /**
+   * Specifies a time window during which @{product} can reauthenticate if needed. Creates the window measuring backward from the moment when credentials are set to expire.
+   */
+  reauthenticationThreshold?: number | undefined;
+  /**
+   * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
+   */
+  sasl?: Sasl1Type | undefined;
+  tls?: Tls3Type | undefined;
+  description?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputAzureEventhubMode | undefined;
-  pqControls?: OutputAzureEventhubPqControls | undefined;
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
 };
 
-/** @internal */
-export const OutputAzureEventhubType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureEventhubType
-> = z.nativeEnum(OutputAzureEventhubType);
+export type OutputAzureEventhub =
+  | OutputAzureEventhubAzureEventhub2
+  | OutputAzureEventhubAzureEventhub1;
 
 /** @internal */
-export const OutputAzureEventhubType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureEventhubType
-> = OutputAzureEventhubType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureEventhubType$ {
-  /** @deprecated use `OutputAzureEventhubType$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureEventhubType$inboundSchema;
-  /** @deprecated use `OutputAzureEventhubType$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureEventhubType$outboundSchema;
-}
+export const OutputAzureEventhubType2$inboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureEventhubType2
+> = z.nativeEnum(OutputAzureEventhubType2);
+/** @internal */
+export const OutputAzureEventhubType2$outboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureEventhubType2
+> = OutputAzureEventhubType2$inboundSchema;
 
 /** @internal */
-export const OutputAzureEventhubAcknowledgments$inboundSchema: z.ZodType<
-  OutputAzureEventhubAcknowledgments,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureEventhubAcknowledgments),
-    z.number().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputAzureEventhubAcknowledgments$outboundSchema: z.ZodType<
-  OutputAzureEventhubAcknowledgments,
-  z.ZodTypeDef,
-  OutputAzureEventhubAcknowledgments
-> = z.union([
-  z.nativeEnum(OutputAzureEventhubAcknowledgments),
-  z.number().and(z.custom<Unrecognized<number>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureEventhubAcknowledgments$ {
-  /** @deprecated use `OutputAzureEventhubAcknowledgments$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureEventhubAcknowledgments$inboundSchema;
-  /** @deprecated use `OutputAzureEventhubAcknowledgments$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureEventhubAcknowledgments$outboundSchema;
-}
-
-/** @internal */
-export const OutputAzureEventhubRecordDataFormat$inboundSchema: z.ZodType<
-  OutputAzureEventhubRecordDataFormat,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureEventhubRecordDataFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputAzureEventhubRecordDataFormat$outboundSchema: z.ZodType<
-  OutputAzureEventhubRecordDataFormat,
-  z.ZodTypeDef,
-  OutputAzureEventhubRecordDataFormat
-> = z.union([
-  z.nativeEnum(OutputAzureEventhubRecordDataFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureEventhubRecordDataFormat$ {
-  /** @deprecated use `OutputAzureEventhubRecordDataFormat$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureEventhubRecordDataFormat$inboundSchema;
-  /** @deprecated use `OutputAzureEventhubRecordDataFormat$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureEventhubRecordDataFormat$outboundSchema;
-}
-
-/** @internal */
-export const OutputAzureEventhubSASLMechanism$inboundSchema: z.ZodType<
-  OutputAzureEventhubSASLMechanism,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureEventhubSASLMechanism),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputAzureEventhubSASLMechanism$outboundSchema: z.ZodType<
-  OutputAzureEventhubSASLMechanism,
-  z.ZodTypeDef,
-  OutputAzureEventhubSASLMechanism
-> = z.union([
-  z.nativeEnum(OutputAzureEventhubSASLMechanism),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureEventhubSASLMechanism$ {
-  /** @deprecated use `OutputAzureEventhubSASLMechanism$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureEventhubSASLMechanism$inboundSchema;
-  /** @deprecated use `OutputAzureEventhubSASLMechanism$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureEventhubSASLMechanism$outboundSchema;
-}
-
-/** @internal */
-export const OutputAzureEventhubAuthentication$inboundSchema: z.ZodType<
-  OutputAzureEventhubAuthentication,
+export const OutputAzureEventhubAzureEventhub2$inboundSchema: z.ZodType<
+  OutputAzureEventhubAzureEventhub2,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  disabled: z.boolean().default(false),
-  mechanism: OutputAzureEventhubSASLMechanism$inboundSchema.default("plain"),
-});
-
-/** @internal */
-export type OutputAzureEventhubAuthentication$Outbound = {
-  disabled: boolean;
-  mechanism: string;
-};
-
-/** @internal */
-export const OutputAzureEventhubAuthentication$outboundSchema: z.ZodType<
-  OutputAzureEventhubAuthentication$Outbound,
-  z.ZodTypeDef,
-  OutputAzureEventhubAuthentication
-> = z.object({
-  disabled: z.boolean().default(false),
-  mechanism: OutputAzureEventhubSASLMechanism$outboundSchema.default("plain"),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureEventhubAuthentication$ {
-  /** @deprecated use `OutputAzureEventhubAuthentication$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureEventhubAuthentication$inboundSchema;
-  /** @deprecated use `OutputAzureEventhubAuthentication$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureEventhubAuthentication$outboundSchema;
-  /** @deprecated use `OutputAzureEventhubAuthentication$Outbound` instead. */
-  export type Outbound = OutputAzureEventhubAuthentication$Outbound;
-}
-
-export function outputAzureEventhubAuthenticationToJSON(
-  outputAzureEventhubAuthentication: OutputAzureEventhubAuthentication,
-): string {
-  return JSON.stringify(
-    OutputAzureEventhubAuthentication$outboundSchema.parse(
-      outputAzureEventhubAuthentication,
-    ),
-  );
-}
-
-export function outputAzureEventhubAuthenticationFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputAzureEventhubAuthentication, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputAzureEventhubAuthentication$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputAzureEventhubAuthentication' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputAzureEventhubTLSSettingsClientSide$inboundSchema: z.ZodType<
-  OutputAzureEventhubTLSSettingsClientSide,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-});
-
-/** @internal */
-export type OutputAzureEventhubTLSSettingsClientSide$Outbound = {
-  disabled: boolean;
-  rejectUnauthorized: boolean;
-};
-
-/** @internal */
-export const OutputAzureEventhubTLSSettingsClientSide$outboundSchema: z.ZodType<
-  OutputAzureEventhubTLSSettingsClientSide$Outbound,
-  z.ZodTypeDef,
-  OutputAzureEventhubTLSSettingsClientSide
-> = z.object({
-  disabled: z.boolean().default(false),
-  rejectUnauthorized: z.boolean().default(true),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureEventhubTLSSettingsClientSide$ {
-  /** @deprecated use `OutputAzureEventhubTLSSettingsClientSide$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureEventhubTLSSettingsClientSide$inboundSchema;
-  /** @deprecated use `OutputAzureEventhubTLSSettingsClientSide$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureEventhubTLSSettingsClientSide$outboundSchema;
-  /** @deprecated use `OutputAzureEventhubTLSSettingsClientSide$Outbound` instead. */
-  export type Outbound = OutputAzureEventhubTLSSettingsClientSide$Outbound;
-}
-
-export function outputAzureEventhubTLSSettingsClientSideToJSON(
-  outputAzureEventhubTLSSettingsClientSide:
-    OutputAzureEventhubTLSSettingsClientSide,
-): string {
-  return JSON.stringify(
-    OutputAzureEventhubTLSSettingsClientSide$outboundSchema.parse(
-      outputAzureEventhubTLSSettingsClientSide,
-    ),
-  );
-}
-
-export function outputAzureEventhubTLSSettingsClientSideFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  OutputAzureEventhubTLSSettingsClientSide,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputAzureEventhubTLSSettingsClientSide$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'OutputAzureEventhubTLSSettingsClientSide' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputAzureEventhubBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputAzureEventhubBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureEventhubBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputAzureEventhubBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputAzureEventhubBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputAzureEventhubBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputAzureEventhubBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureEventhubBackpressureBehavior$ {
-  /** @deprecated use `OutputAzureEventhubBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureEventhubBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputAzureEventhubBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureEventhubBackpressureBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputAzureEventhubCompression$inboundSchema: z.ZodType<
-  OutputAzureEventhubCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureEventhubCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputAzureEventhubCompression$outboundSchema: z.ZodType<
-  OutputAzureEventhubCompression,
-  z.ZodTypeDef,
-  OutputAzureEventhubCompression
-> = z.union([
-  z.nativeEnum(OutputAzureEventhubCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureEventhubCompression$ {
-  /** @deprecated use `OutputAzureEventhubCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureEventhubCompression$inboundSchema;
-  /** @deprecated use `OutputAzureEventhubCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureEventhubCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputAzureEventhubQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputAzureEventhubQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureEventhubQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputAzureEventhubQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputAzureEventhubQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputAzureEventhubQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputAzureEventhubQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureEventhubQueueFullBehavior$ {
-  /** @deprecated use `OutputAzureEventhubQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureEventhubQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputAzureEventhubQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureEventhubQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputAzureEventhubMode$inboundSchema: z.ZodType<
-  OutputAzureEventhubMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureEventhubMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputAzureEventhubMode$outboundSchema: z.ZodType<
-  OutputAzureEventhubMode,
-  z.ZodTypeDef,
-  OutputAzureEventhubMode
-> = z.union([
-  z.nativeEnum(OutputAzureEventhubMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureEventhubMode$ {
-  /** @deprecated use `OutputAzureEventhubMode$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureEventhubMode$inboundSchema;
-  /** @deprecated use `OutputAzureEventhubMode$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureEventhubMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputAzureEventhubPqControls$inboundSchema: z.ZodType<
-  OutputAzureEventhubPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type OutputAzureEventhubPqControls$Outbound = {};
-
-/** @internal */
-export const OutputAzureEventhubPqControls$outboundSchema: z.ZodType<
-  OutputAzureEventhubPqControls$Outbound,
-  z.ZodTypeDef,
-  OutputAzureEventhubPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureEventhubPqControls$ {
-  /** @deprecated use `OutputAzureEventhubPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureEventhubPqControls$inboundSchema;
-  /** @deprecated use `OutputAzureEventhubPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureEventhubPqControls$outboundSchema;
-  /** @deprecated use `OutputAzureEventhubPqControls$Outbound` instead. */
-  export type Outbound = OutputAzureEventhubPqControls$Outbound;
-}
-
-export function outputAzureEventhubPqControlsToJSON(
-  outputAzureEventhubPqControls: OutputAzureEventhubPqControls,
-): string {
-  return JSON.stringify(
-    OutputAzureEventhubPqControls$outboundSchema.parse(
-      outputAzureEventhubPqControls,
-    ),
-  );
-}
-
-export function outputAzureEventhubPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputAzureEventhubPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputAzureEventhubPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputAzureEventhubPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputAzureEventhub$inboundSchema: z.ZodType<
-  OutputAzureEventhub,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
   id: z.string().optional(),
-  type: OutputAzureEventhubType$inboundSchema,
+  type: OutputAzureEventhubType2$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   brokers: z.array(z.string()),
   topic: z.string(),
-  ack: OutputAzureEventhubAcknowledgments$inboundSchema.default(1),
-  format: OutputAzureEventhubRecordDataFormat$inboundSchema.default("json"),
+  ack: AckOptions$inboundSchema.default(1),
+  format: Format2Options$inboundSchema.default("json"),
   maxRecordSizeKB: z.number().default(768),
   flushEventCount: z.number().default(1000),
   flushPeriodSec: z.number().default(1),
@@ -707,28 +381,24 @@ export const OutputAzureEventhub$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   authenticationTimeout: z.number().default(10000),
   reauthenticationThreshold: z.number().default(10000),
-  sasl: z.lazy(() => OutputAzureEventhubAuthentication$inboundSchema)
-    .optional(),
-  tls: z.lazy(() => OutputAzureEventhubTLSSettingsClientSide$inboundSchema)
-    .optional(),
-  onBackpressure: OutputAzureEventhubBackpressureBehavior$inboundSchema.default(
-    "block",
-  ),
+  sasl: Sasl1Type$inboundSchema.optional(),
+  tls: Tls3Type$inboundSchema.optional(),
   description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputAzureEventhubCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputAzureEventhubQueueFullBehavior$inboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputAzureEventhubMode$inboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputAzureEventhubPqControls$inboundSchema)
-    .optional(),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema,
 });
-
 /** @internal */
-export type OutputAzureEventhub$Outbound = {
+export type OutputAzureEventhubAzureEventhub2$Outbound = {
+  onBackpressure: string;
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -750,35 +420,39 @@ export type OutputAzureEventhub$Outbound = {
   backoffRate: number;
   authenticationTimeout: number;
   reauthenticationThreshold: number;
-  sasl?: OutputAzureEventhubAuthentication$Outbound | undefined;
-  tls?: OutputAzureEventhubTLSSettingsClientSide$Outbound | undefined;
-  onBackpressure: string;
+  sasl?: Sasl1Type$Outbound | undefined;
+  tls?: Tls3Type$Outbound | undefined;
   description?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
-  pqControls?: OutputAzureEventhubPqControls$Outbound | undefined;
+  pqControls: MetadataType$Outbound;
 };
 
 /** @internal */
-export const OutputAzureEventhub$outboundSchema: z.ZodType<
-  OutputAzureEventhub$Outbound,
+export const OutputAzureEventhubAzureEventhub2$outboundSchema: z.ZodType<
+  OutputAzureEventhubAzureEventhub2$Outbound,
   z.ZodTypeDef,
-  OutputAzureEventhub
+  OutputAzureEventhubAzureEventhub2
 > = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
   id: z.string().optional(),
-  type: OutputAzureEventhubType$outboundSchema,
+  type: OutputAzureEventhubType2$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   brokers: z.array(z.string()),
   topic: z.string(),
-  ack: OutputAzureEventhubAcknowledgments$outboundSchema.default(1),
-  format: OutputAzureEventhubRecordDataFormat$outboundSchema.default("json"),
+  ack: AckOptions$outboundSchema.default(1),
+  format: Format2Options$outboundSchema.default("json"),
   maxRecordSizeKB: z.number().default(768),
   flushEventCount: z.number().default(1000),
   flushPeriodSec: z.number().default(1),
@@ -790,37 +464,219 @@ export const OutputAzureEventhub$outboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   authenticationTimeout: z.number().default(10000),
   reauthenticationThreshold: z.number().default(10000),
-  sasl: z.lazy(() => OutputAzureEventhubAuthentication$outboundSchema)
-    .optional(),
-  tls: z.lazy(() => OutputAzureEventhubTLSSettingsClientSide$outboundSchema)
-    .optional(),
-  onBackpressure: OutputAzureEventhubBackpressureBehavior$outboundSchema
-    .default("block"),
+  sasl: Sasl1Type$outboundSchema.optional(),
+  tls: Tls3Type$outboundSchema.optional(),
   description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputAzureEventhubCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputAzureEventhubQueueFullBehavior$outboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputAzureEventhubMode$outboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputAzureEventhubPqControls$outboundSchema)
-    .optional(),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureEventhub$ {
-  /** @deprecated use `OutputAzureEventhub$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureEventhub$inboundSchema;
-  /** @deprecated use `OutputAzureEventhub$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureEventhub$outboundSchema;
-  /** @deprecated use `OutputAzureEventhub$Outbound` instead. */
-  export type Outbound = OutputAzureEventhub$Outbound;
+export function outputAzureEventhubAzureEventhub2ToJSON(
+  outputAzureEventhubAzureEventhub2: OutputAzureEventhubAzureEventhub2,
+): string {
+  return JSON.stringify(
+    OutputAzureEventhubAzureEventhub2$outboundSchema.parse(
+      outputAzureEventhubAzureEventhub2,
+    ),
+  );
 }
+export function outputAzureEventhubAzureEventhub2FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputAzureEventhubAzureEventhub2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputAzureEventhubAzureEventhub2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputAzureEventhubAzureEventhub2' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputAzureEventhubType1$inboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureEventhubType1
+> = z.nativeEnum(OutputAzureEventhubType1);
+/** @internal */
+export const OutputAzureEventhubType1$outboundSchema: z.ZodNativeEnum<
+  typeof OutputAzureEventhubType1
+> = OutputAzureEventhubType1$inboundSchema;
+
+/** @internal */
+export const OutputAzureEventhubAzureEventhub1$inboundSchema: z.ZodType<
+  OutputAzureEventhubAzureEventhub1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputAzureEventhubType1$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  brokers: z.array(z.string()),
+  topic: z.string(),
+  ack: AckOptions$inboundSchema.default(1),
+  format: Format2Options$inboundSchema.default("json"),
+  maxRecordSizeKB: z.number().default(768),
+  flushEventCount: z.number().default(1000),
+  flushPeriodSec: z.number().default(1),
+  connectionTimeout: z.number().default(10000),
+  requestTimeout: z.number().default(60000),
+  maxRetries: z.number().default(5),
+  maxBackOff: z.number().default(30000),
+  initialBackoff: z.number().default(300),
+  backoffRate: z.number().default(2),
+  authenticationTimeout: z.number().default(10000),
+  reauthenticationThreshold: z.number().default(10000),
+  sasl: Sasl1Type$inboundSchema.optional(),
+  tls: Tls3Type$inboundSchema.optional(),
+  description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputAzureEventhubAzureEventhub1$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  brokers: Array<string>;
+  topic: string;
+  ack: number;
+  format: string;
+  maxRecordSizeKB: number;
+  flushEventCount: number;
+  flushPeriodSec: number;
+  connectionTimeout: number;
+  requestTimeout: number;
+  maxRetries: number;
+  maxBackOff: number;
+  initialBackoff: number;
+  backoffRate: number;
+  authenticationTimeout: number;
+  reauthenticationThreshold: number;
+  sasl?: Sasl1Type$Outbound | undefined;
+  tls?: Tls3Type$Outbound | undefined;
+  description?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputAzureEventhubAzureEventhub1$outboundSchema: z.ZodType<
+  OutputAzureEventhubAzureEventhub1$Outbound,
+  z.ZodTypeDef,
+  OutputAzureEventhubAzureEventhub1
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputAzureEventhubType1$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  brokers: z.array(z.string()),
+  topic: z.string(),
+  ack: AckOptions$outboundSchema.default(1),
+  format: Format2Options$outboundSchema.default("json"),
+  maxRecordSizeKB: z.number().default(768),
+  flushEventCount: z.number().default(1000),
+  flushPeriodSec: z.number().default(1),
+  connectionTimeout: z.number().default(10000),
+  requestTimeout: z.number().default(60000),
+  maxRetries: z.number().default(5),
+  maxBackOff: z.number().default(30000),
+  initialBackoff: z.number().default(300),
+  backoffRate: z.number().default(2),
+  authenticationTimeout: z.number().default(10000),
+  reauthenticationThreshold: z.number().default(10000),
+  sasl: Sasl1Type$outboundSchema.optional(),
+  tls: Tls3Type$outboundSchema.optional(),
+  description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputAzureEventhubAzureEventhub1ToJSON(
+  outputAzureEventhubAzureEventhub1: OutputAzureEventhubAzureEventhub1,
+): string {
+  return JSON.stringify(
+    OutputAzureEventhubAzureEventhub1$outboundSchema.parse(
+      outputAzureEventhubAzureEventhub1,
+    ),
+  );
+}
+export function outputAzureEventhubAzureEventhub1FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputAzureEventhubAzureEventhub1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputAzureEventhubAzureEventhub1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputAzureEventhubAzureEventhub1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputAzureEventhub$inboundSchema: z.ZodType<
+  OutputAzureEventhub,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => OutputAzureEventhubAzureEventhub2$inboundSchema),
+  z.lazy(() => OutputAzureEventhubAzureEventhub1$inboundSchema),
+]);
+/** @internal */
+export type OutputAzureEventhub$Outbound =
+  | OutputAzureEventhubAzureEventhub2$Outbound
+  | OutputAzureEventhubAzureEventhub1$Outbound;
+
+/** @internal */
+export const OutputAzureEventhub$outboundSchema: z.ZodType<
+  OutputAzureEventhub$Outbound,
+  z.ZodTypeDef,
+  OutputAzureEventhub
+> = z.union([
+  z.lazy(() => OutputAzureEventhubAzureEventhub2$outboundSchema),
+  z.lazy(() => OutputAzureEventhubAzureEventhub1$outboundSchema),
+]);
 
 export function outputAzureEventhubToJSON(
   outputAzureEventhub: OutputAzureEventhub,
@@ -829,7 +685,6 @@ export function outputAzureEventhubToJSON(
     OutputAzureEventhub$outboundSchema.parse(outputAzureEventhub),
   );
 }
-
 export function outputAzureEventhubFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputAzureEventhub, SDKValidationError> {

@@ -21,41 +21,6 @@ export const GitFile$inboundSchema: z.ZodType<GitFile, z.ZodTypeDef, unknown> =
     state: z.string().optional(),
   });
 
-/** @internal */
-export type GitFile$Outbound = {
-  children?: Array<GitFile$Outbound> | undefined;
-  name: string;
-  state?: string | undefined;
-};
-
-/** @internal */
-export const GitFile$outboundSchema: z.ZodType<
-  GitFile$Outbound,
-  z.ZodTypeDef,
-  GitFile
-> = z.object({
-  children: z.array(z.lazy(() => GitFile$outboundSchema)).optional(),
-  name: z.string(),
-  state: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GitFile$ {
-  /** @deprecated use `GitFile$inboundSchema` instead. */
-  export const inboundSchema = GitFile$inboundSchema;
-  /** @deprecated use `GitFile$outboundSchema` instead. */
-  export const outboundSchema = GitFile$outboundSchema;
-  /** @deprecated use `GitFile$Outbound` instead. */
-  export type Outbound = GitFile$Outbound;
-}
-
-export function gitFileToJSON(gitFile: GitFile): string {
-  return JSON.stringify(GitFile$outboundSchema.parse(gitFile));
-}
-
 export function gitFileFromJSON(
   jsonString: string,
 ): SafeParseResult<GitFile, SDKValidationError> {

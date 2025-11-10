@@ -79,7 +79,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.ListInputResponse](../../models/operations/listinputresponse.md)\>**
+**Promise\<[models.CountedInput](../../models/countedinput.md)\>**
 
 ### Errors
 
@@ -107,11 +107,11 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.sources.create({
+    sendToRoutes: true,
     id: "<id>",
     type: "tcp",
     disabled: false,
     pipeline: "<value>",
-    sendToRoutes: true,
     environment: "<value>",
     pqEnabled: false,
     streamtags: [
@@ -139,14 +139,14 @@ async function run() {
     port: 301.76,
     tls: {
       disabled: true,
+      requestCert: false,
+      rejectUnauthorized: true,
+      commonNameRegex: "/.*/",
       certificateName: "<value>",
       privKeyPath: "<value>",
       passphrase: "<value>",
       certPath: "<value>",
       caPath: "<value>",
-      requestCert: false,
-      rejectUnauthorized: "<value>",
-      commonNameRegex: "<value>",
       minVersion: "TLSv1",
       maxVersion: "TLSv1.1",
     },
@@ -177,7 +177,9 @@ async function run() {
       ],
     },
     description: "classic pish supposing misguided carefully fen",
+    authToken: "",
     authType: "manual",
+    textSecret: "<value>",
   });
 
   console.log(result);
@@ -205,11 +207,11 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await sourcesCreate(criblControlPlane, {
+    sendToRoutes: true,
     id: "<id>",
     type: "tcp",
     disabled: false,
     pipeline: "<value>",
-    sendToRoutes: true,
     environment: "<value>",
     pqEnabled: false,
     streamtags: [
@@ -237,14 +239,14 @@ async function run() {
     port: 301.76,
     tls: {
       disabled: true,
+      requestCert: false,
+      rejectUnauthorized: true,
+      commonNameRegex: "/.*/",
       certificateName: "<value>",
       privKeyPath: "<value>",
       passphrase: "<value>",
       certPath: "<value>",
       caPath: "<value>",
-      requestCert: false,
-      rejectUnauthorized: "<value>",
-      commonNameRegex: "<value>",
       minVersion: "TLSv1",
       maxVersion: "TLSv1.1",
     },
@@ -275,7 +277,9 @@ async function run() {
       ],
     },
     description: "classic pish supposing misguided carefully fen",
+    authToken: "",
     authType: "manual",
+    textSecret: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -299,7 +303,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateInputResponse](../../models/operations/createinputresponse.md)\>**
+**Promise\<[models.CountedInput](../../models/countedinput.md)\>**
 
 ### Errors
 
@@ -379,7 +383,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetInputByIdResponse](../../models/operations/getinputbyidresponse.md)\>**
+**Promise\<[models.CountedInput](../../models/countedinput.md)\>**
 
 ### Errors
 
@@ -409,11 +413,11 @@ async function run() {
   const result = await criblControlPlane.sources.update({
     id: "<id>",
     input: {
+      sendToRoutes: true,
       id: "<id>",
       type: "kube_events",
       disabled: false,
       pipeline: "<value>",
-      sendToRoutes: true,
       environment: "<value>",
       pqEnabled: false,
       streamtags: [
@@ -479,11 +483,11 @@ async function run() {
   const res = await sourcesUpdate(criblControlPlane, {
     id: "<id>",
     input: {
+      sendToRoutes: true,
       id: "<id>",
       type: "kube_events",
       disabled: false,
       pipeline: "<value>",
-      sendToRoutes: true,
       environment: "<value>",
       pqEnabled: false,
       streamtags: [
@@ -543,7 +547,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.UpdateInputByIdResponse](../../models/operations/updateinputbyidresponse.md)\>**
+**Promise\<[models.CountedInput](../../models/countedinput.md)\>**
 
 ### Errors
 
@@ -623,7 +627,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.DeleteInputByIdResponse](../../models/operations/deleteinputbyidresponse.md)\>**
+**Promise\<[models.CountedInput](../../models/countedinput.md)\>**
 
 ### Errors
 

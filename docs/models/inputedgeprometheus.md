@@ -1,11 +1,150 @@
 # InputEdgePrometheus
 
-## Example Usage
+
+## Supported Types
+
+### `models.InputEdgePrometheusEdgePrometheus1`
 
 ```typescript
-import { InputEdgePrometheus } from "cribl-control-plane/models";
+const value: models.InputEdgePrometheusEdgePrometheus1 = {
+  id: "<id>",
+  type: "edge_prometheus",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  dimensionList: [
+    "<value 1>",
+  ],
+  persistence: {},
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "descent kettledrum statue wisely or yowza complication pretend",
+  targets: [
+    {
+      host: "haunting-packaging.name",
+    },
+  ],
+  nameList: [
+    "<value 1>",
+  ],
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  searchFilter: [
+    {
+      name: "<value>",
+      values: [
+        "<value 1>",
+      ],
+    },
+  ],
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  podFilter: [
+    {
+      filter: "<value>",
+      description: "boo oof wherever circa between",
+    },
+  ],
+  username: "Jarvis42",
+  password: "3WCRH48FgENBDkC",
+  credentialsSecret: "<value>",
+};
+```
 
-let value: InputEdgePrometheus = {
+### `models.InputEdgePrometheusEdgePrometheus2`
+
+```typescript
+const value: models.InputEdgePrometheusEdgePrometheus2 = {
+  id: "<id>",
+  type: "edge_prometheus",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  dimensionList: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  persistence: {},
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description:
+    "notwithstanding mousse and excellent pish minus ultimately within",
+  targets: [
+    {
+      host: "noted-barge.name",
+    },
+  ],
+  nameList: [
+    "<value 1>",
+  ],
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  searchFilter: [
+    {
+      name: "<value>",
+      values: [
+        "<value 1>",
+      ],
+    },
+  ],
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  podFilter: [
+    {
+      filter: "<value>",
+      description: "boo oof wherever circa between",
+    },
+  ],
+  username: "Mara76",
+  password: "8iWxzfHSG8APa7X",
+  credentialsSecret: "<value>",
+};
+```
+
+### `models.InputEdgePrometheusEdgePrometheus3`
+
+```typescript
+const value: models.InputEdgePrometheusEdgePrometheus3 = {
   id: "<id>",
   type: "edge_prometheus",
   pipeline: "<value>",
@@ -33,20 +172,23 @@ let value: InputEdgePrometheus = {
       value: "<value>",
     },
   ],
-  description: "suffocate indolent sticker especially",
+  description: "descendant brook hence",
   targets: [
     {
-      host: "immense-forager.name",
+      host: "handsome-insolence.name",
     },
   ],
   nameList: [
     "<value 1>",
-    "<value 2>",
   ],
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
   searchFilter: [
     {
       name: "<value>",
-      values: [],
+      values: [
+        "<value 1>",
+      ],
     },
   ],
   awsSecretKey: "<value>",
@@ -57,60 +199,627 @@ let value: InputEdgePrometheus = {
   podFilter: [
     {
       filter: "<value>",
-      description: "oof wherever circa",
+      description: "boo oof wherever circa between",
     },
   ],
-  username: "Adriel_Murray86",
-  password: "GsqPbiOp5J7DY2j",
+  username: "Dayana_Willms63",
+  password: "nX5evGGyq7ssQD5",
   credentialsSecret: "<value>",
 };
 ```
 
-## Fields
+### `models.InputEdgePrometheusEdgePrometheus4`
 
-| Field                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                                  |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `id`                                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Unique ID for this input                                                                                                                                                                                                                     |
-| `type`                                                                                                                                                                                                                                       | [models.InputEdgePrometheusType](../models/inputedgeprometheustype.md)                                                                                                                                                                       | :heavy_check_mark:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `disabled`                                                                                                                                                                                                                                   | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `pipeline`                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Pipeline to process data from this Source before sending it through the Routes                                                                                                                                                               |
-| `sendToRoutes`                                                                                                                                                                                                                               | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Select whether to send data to Routes, or directly to Destinations.                                                                                                                                                                          |
-| `environment`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.                                                                                                                                         |
-| `pqEnabled`                                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers). |
-| `streamtags`                                                                                                                                                                                                                                 | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | Tags for filtering and grouping in @{product}                                                                                                                                                                                                |
-| `connections`                                                                                                                                                                                                                                | [models.InputEdgePrometheusConnection](../models/inputedgeprometheusconnection.md)[]                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | Direct connections to Destinations, and optionally via a Pipeline or a Pack                                                                                                                                                                  |
-| `pq`                                                                                                                                                                                                                                         | [models.InputEdgePrometheusPq](../models/inputedgeprometheuspq.md)                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `dimensionList`                                                                                                                                                                                                                              | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | Other dimensions to include in events                                                                                                                                                                                                        |
-| `discoveryType`                                                                                                                                                                                                                              | [models.InputEdgePrometheusDiscoveryType](../models/inputedgeprometheusdiscoverytype.md)                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Target discovery mechanism. Use static to manually enter a list of targets.                                                                                                                                                                  |
-| `interval`                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | How often in seconds to scrape targets for metrics.                                                                                                                                                                                          |
-| `timeout`                                                                                                                                                                                                                                    | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Timeout, in milliseconds, before aborting HTTP connection attempts; 1-60000 or 0 to disable                                                                                                                                                  |
-| `persistence`                                                                                                                                                                                                                                | [models.InputEdgePrometheusDiskSpooling](../models/inputedgeprometheusdiskspooling.md)                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `metadata`                                                                                                                                                                                                                                   | [models.InputEdgePrometheusMetadatum](../models/inputedgeprometheusmetadatum.md)[]                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
-| `authType`                                                                                                                                                                                                                                   | [models.InputEdgePrometheusAuthTypeAuthenticationMethod](../models/inputedgeprometheusauthtypeauthenticationmethod.md)                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                           | Enter credentials directly, or select a stored secret                                                                                                                                                                                        |
-| `description`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `targets`                                                                                                                                                                                                                                    | [models.Target](../models/target.md)[]                                                                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `nameList`                                                                                                                                                                                                                                   | *string*[]                                                                                                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                                                                                                           | List of DNS names to resolve                                                                                                                                                                                                                 |
-| `recordType`                                                                                                                                                                                                                                 | [models.InputEdgePrometheusRecordType](../models/inputedgeprometheusrecordtype.md)                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                                                                           | DNS Record type to resolve                                                                                                                                                                                                                   |
-| `scrapeProtocol`                                                                                                                                                                                                                             | [models.ScrapeProtocolProtocol](../models/scrapeprotocolprotocol.md)                                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | Protocol to use when collecting metrics                                                                                                                                                                                                      |
-| `scrapePath`                                                                                                                                                                                                                                 | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Path to use when collecting metrics from discovered targets                                                                                                                                                                                  |
-| `usePublicIp`                                                                                                                                                                                                                                | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use public IP address for discovered targets. Set to false if the private IP address should be used.                                                                                                                                         |
-| `scrapePort`                                                                                                                                                                                                                                 | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | The port number in the metrics URL for discovered targets.                                                                                                                                                                                   |
-| `searchFilter`                                                                                                                                                                                                                               | [models.InputEdgePrometheusSearchFilter](../models/inputedgeprometheussearchfilter.md)[]                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | EC2 Instance Search Filter                                                                                                                                                                                                                   |
-| `awsAuthenticationMethod`                                                                                                                                                                                                                    | [models.InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod](../models/inputedgeprometheusawsauthenticationmethodauthenticationmethod.md)                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                                           | AWS authentication method. Choose Auto to use IAM roles.                                                                                                                                                                                     |
-| `awsSecretKey`                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
-| `region`                                                                                                                                                                                                                                     | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Region where the EC2 is located                                                                                                                                                                                                              |
-| `endpoint`                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | EC2 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to EC2-compatible endpoint.                                                                                                           |
-| `signatureVersion`                                                                                                                                                                                                                           | [models.InputEdgePrometheusSignatureVersion](../models/inputedgeprometheussignatureversion.md)                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                           | Signature version to use for signing EC2 requests                                                                                                                                                                                            |
-| `reuseConnections`                                                                                                                                                                                                                           | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Reuse connections between requests, which can improve performance                                                                                                                                                                            |
-| `rejectUnauthorized`                                                                                                                                                                                                                         | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Reject certificates that cannot be verified against a valid CA, such as self-signed certificates                                                                                                                                             |
-| `enableAssumeRole`                                                                                                                                                                                                                           | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Use Assume Role credentials to access EC2                                                                                                                                                                                                    |
-| `assumeRoleArn`                                                                                                                                                                                                                              | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Amazon Resource Name (ARN) of the role to assume                                                                                                                                                                                             |
-| `assumeRoleExternalId`                                                                                                                                                                                                                       | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | External ID to use when assuming role                                                                                                                                                                                                        |
-| `durationSeconds`                                                                                                                                                                                                                            | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).                                                                                                  |
-| `scrapeProtocolExpr`                                                                                                                                                                                                                         | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Protocol to use when collecting metrics                                                                                                                                                                                                      |
-| `scrapePortExpr`                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | The port number in the metrics URL for discovered targets.                                                                                                                                                                                   |
-| `scrapePathExpr`                                                                                                                                                                                                                             | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Path to use when collecting metrics from discovered targets                                                                                                                                                                                  |
-| `podFilter`                                                                                                                                                                                                                                  | [models.PodFilter](../models/podfilter.md)[]                                                                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                                                                                                           |   Add rules to decide which pods to discover for metrics.<br/>  Pods are searched if no rules are given or of all the rules'<br/>  expressions evaluate to true.<br/>                                                                        |
-| `username`                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Username for Prometheus Basic authentication                                                                                                                                                                                                 |
-| `password`                                                                                                                                                                                                                                   | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Password for Prometheus Basic authentication                                                                                                                                                                                                 |
-| `credentialsSecret`                                                                                                                                                                                                                          | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Select or create a secret that references your credentials                                                                                                                                                                                   |
+```typescript
+const value: models.InputEdgePrometheusEdgePrometheus4 = {
+  id: "<id>",
+  type: "edge_prometheus",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  dimensionList: [
+    "<value 1>",
+  ],
+  persistence: {},
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description:
+    "generously disrespect yearningly whose violin reel abscond limply fooey",
+  targets: [
+    {
+      host: "delirious-settler.biz",
+    },
+  ],
+  nameList: [
+    "<value 1>",
+  ],
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  searchFilter: [
+    {
+      name: "<value>",
+      values: [
+        "<value 1>",
+      ],
+    },
+  ],
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  podFilter: [
+    {
+      filter: "<value>",
+      description: "boo oof wherever circa between",
+    },
+  ],
+  username: "Gianni_Christiansen46",
+  password: "SN5wUAV9gZSD8EG",
+  credentialsSecret: "<value>",
+};
+```
+
+### `models.InputEdgePrometheusEdgePrometheus5`
+
+```typescript
+const value: models.InputEdgePrometheusEdgePrometheus5 = {
+  id: "<id>",
+  type: "edge_prometheus",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  dimensionList: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  persistence: {},
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description:
+    "down likewise unaccountably upbeat during marketplace phooey likewise boo",
+  targets: [
+    {
+      host: "serene-stump.info",
+    },
+  ],
+  nameList: [
+    "<value 1>",
+  ],
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  searchFilter: [
+    {
+      name: "<value>",
+      values: [
+        "<value 1>",
+      ],
+    },
+  ],
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  podFilter: [
+    {
+      filter: "<value>",
+      description: "boo oof wherever circa between",
+    },
+  ],
+  username: "Michele9",
+  password: "88c_e9ZIRBWmqex",
+  credentialsSecret: "<value>",
+};
+```
+
+### `models.InputEdgePrometheusEdgePrometheus6`
+
+```typescript
+const value: models.InputEdgePrometheusEdgePrometheus6 = {
+  id: "<id>",
+  type: "edge_prometheus",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  dimensionList: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  persistence: {},
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description:
+    "decision of guacamole zowie elegantly mummify sushi government brace noted",
+  targets: [
+    {
+      host: "wealthy-ceramics.com",
+    },
+  ],
+  nameList: [],
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  searchFilter: [
+    {
+      name: "<value>",
+      values: [
+        "<value 1>",
+      ],
+    },
+  ],
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  podFilter: [
+    {
+      filter: "<value>",
+      description: "boo oof wherever circa between",
+    },
+  ],
+  username: "Catherine.Jacobson-Olson5",
+  password: "4IJyrXTcFNQgsPV",
+  credentialsSecret: "<value>",
+};
+```
+
+### `models.InputEdgePrometheusEdgePrometheus7`
+
+```typescript
+const value: models.InputEdgePrometheusEdgePrometheus7 = {
+  id: "<id>",
+  type: "edge_prometheus",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  dimensionList: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  persistence: {},
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "um drat unless upright fearless",
+  targets: [
+    {
+      host: "bony-word.org",
+    },
+  ],
+  nameList: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  searchFilter: [],
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  podFilter: [
+    {
+      filter: "<value>",
+      description: "boo oof wherever circa between",
+    },
+  ],
+  username: "Albert_Lowe",
+  password: "ggExOHsUeFznq2G",
+  credentialsSecret: "<value>",
+};
+```
+
+### `models.InputEdgePrometheusEdgePrometheus8`
+
+```typescript
+const value: models.InputEdgePrometheusEdgePrometheus8 = {
+  id: "<id>",
+  type: "edge_prometheus",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  dimensionList: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  persistence: {},
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "ditch fully mmm smoke ugh pants into",
+  targets: [
+    {
+      host: "leading-angle.org",
+    },
+  ],
+  nameList: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  searchFilter: [
+    {
+      name: "<value>",
+      values: [
+        "<value 1>",
+      ],
+    },
+  ],
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  podFilter: [
+    {
+      filter: "<value>",
+      description: "boo oof wherever circa between",
+    },
+  ],
+  username: "Josue.Stroman",
+  password: "0XNQvhOC0INEncV",
+  credentialsSecret: "<value>",
+};
+```
+
+### `models.InputEdgePrometheusEdgePrometheus9`
+
+```typescript
+const value: models.InputEdgePrometheusEdgePrometheus9 = {
+  id: "<id>",
+  type: "edge_prometheus",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  dimensionList: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  persistence: {},
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "eulogise ha caption yummy ack outside aside",
+  targets: [
+    {
+      host: "downright-eternity.com",
+    },
+  ],
+  nameList: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  searchFilter: [
+    {
+      name: "<value>",
+      values: [
+        "<value 1>",
+      ],
+    },
+  ],
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  podFilter: [
+    {
+      filter: "<value>",
+      description: "boo oof wherever circa between",
+    },
+  ],
+  username: "Rickie31",
+  password: "vFCD3YcwDQO7CNR",
+  credentialsSecret: "<value>",
+};
+```
+
+### `models.InputEdgePrometheusEdgePrometheus10`
+
+```typescript
+const value: models.InputEdgePrometheusEdgePrometheus10 = {
+  id: "<id>",
+  type: "edge_prometheus",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  dimensionList: [
+    "<value 1>",
+  ],
+  persistence: {},
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "zowie second forsaken naturally zealous carpool",
+  targets: [
+    {
+      host: "unkempt-safe.org",
+    },
+  ],
+  nameList: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  searchFilter: [
+    {
+      name: "<value>",
+      values: [
+        "<value 1>",
+      ],
+    },
+  ],
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  podFilter: [
+    {
+      filter: "<value>",
+      description: "boo oof wherever circa between",
+    },
+  ],
+  username: "Felipa.Schumm24",
+  password: "jICbKEZ_l30DEJQ",
+  credentialsSecret: "<value>",
+};
+```
+
+### `models.InputEdgePrometheusEdgePrometheus11`
+
+```typescript
+const value: models.InputEdgePrometheusEdgePrometheus11 = {
+  id: "<id>",
+  type: "edge_prometheus",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  dimensionList: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  persistence: {},
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description: "opposite uh-huh formula optimistically upon after",
+  targets: [
+    {
+      host: "svelte-eyeliner.org",
+    },
+  ],
+  nameList: [
+    "<value 1>",
+  ],
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  searchFilter: [
+    {
+      name: "<value>",
+      values: [
+        "<value 1>",
+      ],
+    },
+  ],
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  podFilter: [
+    {
+      filter: "<value>",
+      description: "boo oof wherever circa between",
+    },
+  ],
+  username: "Garrett.Bartell0",
+  password: "A3VyeMaEu8T4GLk",
+  credentialsSecret: "<value>",
+};
+```
+
+### `models.InputEdgePrometheusEdgePrometheus12`
+
+```typescript
+const value: models.InputEdgePrometheusEdgePrometheus12 = {
+  id: "<id>",
+  type: "edge_prometheus",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  dimensionList: [
+    "<value 1>",
+  ],
+  persistence: {},
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  description:
+    "boggle yieldingly down westernize duh gosh nor delightfully even",
+  targets: [
+    {
+      host: "tinted-tuba.name",
+    },
+  ],
+  nameList: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  searchFilter: [
+    {
+      name: "<value>",
+      values: [
+        "<value 1>",
+      ],
+    },
+  ],
+  awsSecretKey: "<value>",
+  region: "<value>",
+  endpoint: "<value>",
+  assumeRoleArn: "<value>",
+  assumeRoleExternalId: "<id>",
+  podFilter: [
+    {
+      filter: "<value>",
+      description: "boo oof wherever circa between",
+    },
+  ],
+  username: "Alexane33",
+  password: "UNeTAp6qESqAEsc",
+  credentialsSecret: "<value>",
+};
+```
+

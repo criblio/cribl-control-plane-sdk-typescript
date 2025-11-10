@@ -6,22 +6,14 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
-  AppMode,
-  AppMode$inboundSchema,
-  AppMode$outboundSchema,
-} from "./appmode.js";
+  DistModeOptions,
+  DistModeOptions$inboundSchema,
+} from "./distmodeoptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  HBLeaderInfo,
-  HBLeaderInfo$inboundSchema,
-  HBLeaderInfo$Outbound,
-  HBLeaderInfo$outboundSchema,
-} from "./hbleaderinfo.js";
+import { HBLeaderInfo, HBLeaderInfo$inboundSchema } from "./hbleaderinfo.js";
 import {
   LookupVersions,
   LookupVersions$inboundSchema,
-  LookupVersions$Outbound,
-  LookupVersions$outboundSchema,
 } from "./lookupversions.js";
 
 export type Config = {
@@ -36,7 +28,7 @@ export type HBCriblInfo = {
   config: Config;
   deploymentId?: string | undefined;
   disableSNIRouting?: boolean | undefined;
-  distMode: AppMode;
+  distMode: DistModeOptions;
   edgeNodes?: number | undefined;
   group: string;
   guid: string;
@@ -60,45 +52,6 @@ export const Config$inboundSchema: z.ZodType<Config, z.ZodTypeDef, unknown> = z
     version: z.string().optional(),
   });
 
-/** @internal */
-export type Config$Outbound = {
-  featuresRev?: string | undefined;
-  hbPeriodSeconds?: number | undefined;
-  logStreamEnv?: string | undefined;
-  policyRev?: string | undefined;
-  version?: string | undefined;
-};
-
-/** @internal */
-export const Config$outboundSchema: z.ZodType<
-  Config$Outbound,
-  z.ZodTypeDef,
-  Config
-> = z.object({
-  featuresRev: z.string().optional(),
-  hbPeriodSeconds: z.number().optional(),
-  logStreamEnv: z.string().optional(),
-  policyRev: z.string().optional(),
-  version: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Config$ {
-  /** @deprecated use `Config$inboundSchema` instead. */
-  export const inboundSchema = Config$inboundSchema;
-  /** @deprecated use `Config$outboundSchema` instead. */
-  export const outboundSchema = Config$outboundSchema;
-  /** @deprecated use `Config$Outbound` instead. */
-  export type Outbound = Config$Outbound;
-}
-
-export function configToJSON(config: Config): string {
-  return JSON.stringify(Config$outboundSchema.parse(config));
-}
-
 export function configFromJSON(
   jsonString: string,
 ): SafeParseResult<Config, SDKValidationError> {
@@ -118,7 +71,7 @@ export const HBCriblInfo$inboundSchema: z.ZodType<
   config: z.lazy(() => Config$inboundSchema),
   deploymentId: z.string().optional(),
   disableSNIRouting: z.boolean().optional(),
-  distMode: AppMode$inboundSchema,
+  distMode: DistModeOptions$inboundSchema,
   edgeNodes: z.number().optional(),
   group: z.string(),
   guid: z.string(),
@@ -131,65 +84,6 @@ export const HBCriblInfo$inboundSchema: z.ZodType<
   tags: z.array(z.string()),
   version: z.string().optional(),
 });
-
-/** @internal */
-export type HBCriblInfo$Outbound = {
-  config: Config$Outbound;
-  deploymentId?: string | undefined;
-  disableSNIRouting?: boolean | undefined;
-  distMode: string;
-  edgeNodes?: number | undefined;
-  group: string;
-  guid: string;
-  installType?: string | undefined;
-  lookupVersions?: LookupVersions$Outbound | undefined;
-  master?: HBLeaderInfo$Outbound | undefined;
-  pid?: number | undefined;
-  socksEnabled?: boolean | undefined;
-  startTime: number;
-  tags: Array<string>;
-  version?: string | undefined;
-};
-
-/** @internal */
-export const HBCriblInfo$outboundSchema: z.ZodType<
-  HBCriblInfo$Outbound,
-  z.ZodTypeDef,
-  HBCriblInfo
-> = z.object({
-  config: z.lazy(() => Config$outboundSchema),
-  deploymentId: z.string().optional(),
-  disableSNIRouting: z.boolean().optional(),
-  distMode: AppMode$outboundSchema,
-  edgeNodes: z.number().optional(),
-  group: z.string(),
-  guid: z.string(),
-  installType: z.string().optional(),
-  lookupVersions: LookupVersions$outboundSchema.optional(),
-  master: HBLeaderInfo$outboundSchema.optional(),
-  pid: z.number().optional(),
-  socksEnabled: z.boolean().optional(),
-  startTime: z.number(),
-  tags: z.array(z.string()),
-  version: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace HBCriblInfo$ {
-  /** @deprecated use `HBCriblInfo$inboundSchema` instead. */
-  export const inboundSchema = HBCriblInfo$inboundSchema;
-  /** @deprecated use `HBCriblInfo$outboundSchema` instead. */
-  export const outboundSchema = HBCriblInfo$outboundSchema;
-  /** @deprecated use `HBCriblInfo$Outbound` instead. */
-  export type Outbound = HBCriblInfo$Outbound;
-}
-
-export function hbCriblInfoToJSON(hbCriblInfo: HBCriblInfo): string {
-  return JSON.stringify(HBCriblInfo$outboundSchema.parse(hbCriblInfo));
-}
 
 export function hbCriblInfoFromJSON(
   jsonString: string,

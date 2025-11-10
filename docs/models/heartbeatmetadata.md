@@ -8,6 +8,7 @@ import { HeartbeatMetadata } from "cribl-control-plane/models";
 let value: HeartbeatMetadata = {
   aws: {
     enabled: false,
+    instanceId: "<id>",
     region: "<value>",
     tags: {},
     type: "<value>",
@@ -16,10 +17,8 @@ let value: HeartbeatMetadata = {
   hostOs: {
     addresses: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
-    enabled: false,
+    enabled: true,
     id: "<id>",
     version: "<value>",
   },
@@ -38,9 +37,8 @@ let value: HeartbeatMetadata = {
     addresses: [
       "<value 1>",
       "<value 2>",
-      "<value 3>",
     ],
-    enabled: true,
+    enabled: false,
     id: "<id>",
     version: "<value>",
   },
@@ -49,9 +47,9 @@ let value: HeartbeatMetadata = {
 
 ## Fields
 
-| Field                                                                  | Type                                                                   | Required                                                               | Description                                                            |
-| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| `aws`                                                                  | [models.HeartbeatMetadataAws](../models/heartbeatmetadataaws.md)       | :heavy_minus_sign:                                                     | N/A                                                                    |
-| `hostOs`                                                               | [models.HeartbeatMetadataHostOs](../models/heartbeatmetadatahostos.md) | :heavy_minus_sign:                                                     | N/A                                                                    |
-| `kube`                                                                 | [models.HeartbeatMetadataKube](../models/heartbeatmetadatakube.md)     | :heavy_minus_sign:                                                     | N/A                                                                    |
-| `os`                                                                   | [models.HeartbeatMetadataOs](../models/heartbeatmetadataos.md)         | :heavy_minus_sign:                                                     | N/A                                                                    |
+| Field                                        | Type                                         | Required                                     | Description                                  |
+| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
+| `aws`                                        | [models.AwsType](../models/awstype.md)       | :heavy_minus_sign:                           | N/A                                          |
+| `hostOs`                                     | [models.HostOsType](../models/hostostype.md) | :heavy_minus_sign:                           | N/A                                          |
+| `kube`                                       | [models.KubeType](../models/kubetype.md)     | :heavy_minus_sign:                           | N/A                                          |
+| `os`                                         | [models.HostOsType](../models/hostostype.md) | :heavy_minus_sign:                           | N/A                                          |

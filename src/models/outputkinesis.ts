@@ -4,127 +4,60 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AwsAuthenticationMethodOptions,
+  AwsAuthenticationMethodOptions$inboundSchema,
+  AwsAuthenticationMethodOptions$outboundSchema,
+} from "./awsauthenticationmethodoptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  MetadataType,
+  MetadataType$inboundSchema,
+  MetadataType$Outbound,
+  MetadataType$outboundSchema,
+} from "./metadatatype.js";
+import {
+  OnBackpressureOptions,
+  OnBackpressureOptions$inboundSchema,
+  OnBackpressureOptions$outboundSchema,
+} from "./onbackpressureoptions.js";
+import {
+  PqCompressOptions,
+  PqCompressOptions$inboundSchema,
+  PqCompressOptions$outboundSchema,
+} from "./pqcompressoptions.js";
+import {
+  PqModeOptions,
+  PqModeOptions$inboundSchema,
+  PqModeOptions$outboundSchema,
+} from "./pqmodeoptions.js";
+import {
+  PqOnBackpressureOptions,
+  PqOnBackpressureOptions$inboundSchema,
+  PqOnBackpressureOptions$outboundSchema,
+} from "./pqonbackpressureoptions.js";
+import {
+  SignatureVersionOptions,
+  SignatureVersionOptions$inboundSchema,
+  SignatureVersionOptions$outboundSchema,
+} from "./signatureversionoptions.js";
+import {
+  TypeKinesisOption,
+  TypeKinesisOption$inboundSchema,
+  TypeKinesisOption$outboundSchema,
+} from "./typekinesisoption.js";
 
-export const OutputKinesisType = {
-  Kinesis: "kinesis",
-} as const;
-export type OutputKinesisType = ClosedEnum<typeof OutputKinesisType>;
-
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export const OutputKinesisAuthenticationMethod = {
-  Auto: "auto",
-  Manual: "manual",
-  Secret: "secret",
-} as const;
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export type OutputKinesisAuthenticationMethod = OpenEnum<
-  typeof OutputKinesisAuthenticationMethod
->;
-
-/**
- * Signature version to use for signing Kinesis stream requests
- */
-export const OutputKinesisSignatureVersion = {
-  V2: "v2",
-  V4: "v4",
-} as const;
-/**
- * Signature version to use for signing Kinesis stream requests
- */
-export type OutputKinesisSignatureVersion = OpenEnum<
-  typeof OutputKinesisSignatureVersion
->;
-
-/**
- * Compression type to use for records
- */
-export const OutputKinesisCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Compression type to use for records
- */
-export type OutputKinesisCompression = OpenEnum<
-  typeof OutputKinesisCompression
->;
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputKinesisBackpressureBehavior = {
-  Block: "block",
-  Drop: "drop",
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputKinesisBackpressureBehavior = OpenEnum<
-  typeof OutputKinesisBackpressureBehavior
->;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputKinesisPqCompressCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputKinesisPqCompressCompression = OpenEnum<
-  typeof OutputKinesisPqCompressCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputKinesisQueueFullBehavior = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputKinesisQueueFullBehavior = OpenEnum<
-  typeof OutputKinesisQueueFullBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputKinesisMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputKinesisMode = OpenEnum<typeof OutputKinesisMode>;
-
-export type OutputKinesisPqControls = {};
-
-export type OutputKinesis = {
+export type OutputKinesisKinesis7 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputKinesisType;
+  type: TypeKinesisOption;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -148,7 +81,7 @@ export type OutputKinesis = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: OutputKinesisAuthenticationMethod | undefined;
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the Kinesis stream is located
@@ -159,9 +92,9 @@ export type OutputKinesis = {
    */
   endpoint?: string | undefined;
   /**
-   * Signature version to use for signing Kinesis stream requests
+   * Signature version to use for signing MSK cluster requests
    */
-  signatureVersion?: OutputKinesisSignatureVersion | undefined;
+  signatureVersion?: SignatureVersionOptions | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -199,9 +132,9 @@ export type OutputKinesis = {
    */
   flushPeriodSec?: number | undefined;
   /**
-   * Compression type to use for records
+   * Codec to use to compress the persisted data
    */
-  compression?: OutputKinesisCompression | undefined;
+  compression?: PqCompressOptions | undefined;
   /**
    * Provides higher stream rate limits, improving delivery speed and reliability by minimizing throttling. See the [ListShards API](https://docs.aws.amazon.com/kinesis/latest/APIReference/API_ListShards.html) documentation for details.
    */
@@ -210,16 +143,36 @@ export type OutputKinesis = {
    * Batch events into a single record as NDJSON
    */
   asNdjson?: boolean | undefined;
-  /**
-   * How to handle events when all receivers are exerting backpressure
-   */
-  onBackpressure?: OutputKinesisBackpressureBehavior | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   /**
    * Select or create a stored secret that references your access key and secret key
    */
   awsSecret?: string | undefined;
+  /**
+   * Maximum number of records to send in a single request
+   */
+  maxEventsPerFlush?: number | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
   /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
@@ -235,333 +188,932 @@ export type OutputKinesis = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputKinesisPqCompressCompression | undefined;
+  pqCompress?: PqCompressOptions | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputKinesisQueueFullBehavior | undefined;
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls: MetadataType;
+};
+
+export type OutputKinesisKinesis6 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeKinesisOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Kinesis stream name to send events to.
+   */
+  streamName: string;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the Kinesis stream is located
+   */
+  region: string;
+  /**
+   * Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access Kinesis stream
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Maximum number of ongoing put requests before blocking.
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size (KB) of each individual record before compression. For uncompressed or non-compressible data 1MB is the max recommended size
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compression?: PqCompressOptions | undefined;
+  /**
+   * Provides higher stream rate limits, improving delivery speed and reliability by minimizing throttling. See the [ListShards API](https://docs.aws.amazon.com/kinesis/latest/APIReference/API_ListShards.html) documentation for details.
+   */
+  useListShards?: boolean | undefined;
+  /**
+   * Batch events into a single record as NDJSON
+   */
+  asNdjson?: boolean | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Maximum number of records to send in a single request
+   */
+  maxEventsPerFlush?: number | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputKinesisMode | undefined;
-  pqControls?: OutputKinesisPqControls | undefined;
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
 };
 
-/** @internal */
-export const OutputKinesisType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputKinesisType
-> = z.nativeEnum(OutputKinesisType);
+export type OutputKinesisKinesis5 = {
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compression?: PqCompressOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeKinesisOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Kinesis stream name to send events to.
+   */
+  streamName: string;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the Kinesis stream is located
+   */
+  region: string;
+  /**
+   * Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access Kinesis stream
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Maximum number of ongoing put requests before blocking.
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size (KB) of each individual record before compression. For uncompressed or non-compressible data 1MB is the max recommended size
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Provides higher stream rate limits, improving delivery speed and reliability by minimizing throttling. See the [ListShards API](https://docs.aws.amazon.com/kinesis/latest/APIReference/API_ListShards.html) documentation for details.
+   */
+  useListShards?: boolean | undefined;
+  /**
+   * Batch events into a single record as NDJSON
+   */
+  asNdjson?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Maximum number of records to send in a single request
+   */
+  maxEventsPerFlush?: number | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export type OutputKinesisKinesis4 = {
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compression?: PqCompressOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeKinesisOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Kinesis stream name to send events to.
+   */
+  streamName: string;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the Kinesis stream is located
+   */
+  region: string;
+  /**
+   * Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access Kinesis stream
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Maximum number of ongoing put requests before blocking.
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size (KB) of each individual record before compression. For uncompressed or non-compressible data 1MB is the max recommended size
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Provides higher stream rate limits, improving delivery speed and reliability by minimizing throttling. See the [ListShards API](https://docs.aws.amazon.com/kinesis/latest/APIReference/API_ListShards.html) documentation for details.
+   */
+  useListShards?: boolean | undefined;
+  /**
+   * Batch events into a single record as NDJSON
+   */
+  asNdjson?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Maximum number of records to send in a single request
+   */
+  maxEventsPerFlush?: number | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export type OutputKinesisKinesis3 = {
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeKinesisOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Kinesis stream name to send events to.
+   */
+  streamName: string;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the Kinesis stream is located
+   */
+  region: string;
+  /**
+   * Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access Kinesis stream
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Maximum number of ongoing put requests before blocking.
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size (KB) of each individual record before compression. For uncompressed or non-compressible data 1MB is the max recommended size
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compression?: PqCompressOptions | undefined;
+  /**
+   * Provides higher stream rate limits, improving delivery speed and reliability by minimizing throttling. See the [ListShards API](https://docs.aws.amazon.com/kinesis/latest/APIReference/API_ListShards.html) documentation for details.
+   */
+  useListShards?: boolean | undefined;
+  /**
+   * Batch events into a single record as NDJSON
+   */
+  asNdjson?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret: string;
+  /**
+   * Maximum number of records to send in a single request
+   */
+  maxEventsPerFlush?: number | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export type OutputKinesisKinesis2 = {
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeKinesisOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Kinesis stream name to send events to.
+   */
+  streamName: string;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the Kinesis stream is located
+   */
+  region: string;
+  /**
+   * Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access Kinesis stream
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Maximum number of ongoing put requests before blocking.
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size (KB) of each individual record before compression. For uncompressed or non-compressible data 1MB is the max recommended size
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compression?: PqCompressOptions | undefined;
+  /**
+   * Provides higher stream rate limits, improving delivery speed and reliability by minimizing throttling. See the [ListShards API](https://docs.aws.amazon.com/kinesis/latest/APIReference/API_ListShards.html) documentation for details.
+   */
+  useListShards?: boolean | undefined;
+  /**
+   * Batch events into a single record as NDJSON
+   */
+  asNdjson?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  awsApiKey: string;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Maximum number of records to send in a single request
+   */
+  maxEventsPerFlush?: number | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export type OutputKinesisKinesis1 = {
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeKinesisOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Kinesis stream name to send events to.
+   */
+  streamName: string;
+  awsSecretKey?: string | undefined;
+  /**
+   * Region where the Kinesis stream is located
+   */
+  region: string;
+  /**
+   * Kinesis stream service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Kinesis stream-compatible endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing MSK cluster requests
+   */
+  signatureVersion?: SignatureVersionOptions | undefined;
+  /**
+   * Reuse connections between requests, which can improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Use Assume Role credentials to access Kinesis stream
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the assumed role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Maximum number of ongoing put requests before blocking.
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size (KB) of each individual record before compression. For uncompressed or non-compressible data 1MB is the max recommended size
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Max record size.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compression?: PqCompressOptions | undefined;
+  /**
+   * Provides higher stream rate limits, improving delivery speed and reliability by minimizing throttling. See the [ListShards API](https://docs.aws.amazon.com/kinesis/latest/APIReference/API_ListShards.html) documentation for details.
+   */
+  useListShards?: boolean | undefined;
+  /**
+   * Batch events into a single record as NDJSON
+   */
+  asNdjson?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Maximum number of records to send in a single request
+   */
+  maxEventsPerFlush?: number | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export type OutputKinesis =
+  | OutputKinesisKinesis2
+  | OutputKinesisKinesis3
+  | OutputKinesisKinesis7
+  | OutputKinesisKinesis1
+  | OutputKinesisKinesis4
+  | OutputKinesisKinesis5
+  | OutputKinesisKinesis6;
 
 /** @internal */
-export const OutputKinesisType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputKinesisType
-> = OutputKinesisType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputKinesisType$ {
-  /** @deprecated use `OutputKinesisType$inboundSchema` instead. */
-  export const inboundSchema = OutputKinesisType$inboundSchema;
-  /** @deprecated use `OutputKinesisType$outboundSchema` instead. */
-  export const outboundSchema = OutputKinesisType$outboundSchema;
-}
-
-/** @internal */
-export const OutputKinesisAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputKinesisAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputKinesisAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputKinesisAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputKinesisAuthenticationMethod,
-  z.ZodTypeDef,
-  OutputKinesisAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputKinesisAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputKinesisAuthenticationMethod$ {
-  /** @deprecated use `OutputKinesisAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = OutputKinesisAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputKinesisAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputKinesisAuthenticationMethod$outboundSchema;
-}
-
-/** @internal */
-export const OutputKinesisSignatureVersion$inboundSchema: z.ZodType<
-  OutputKinesisSignatureVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputKinesisSignatureVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputKinesisSignatureVersion$outboundSchema: z.ZodType<
-  OutputKinesisSignatureVersion,
-  z.ZodTypeDef,
-  OutputKinesisSignatureVersion
-> = z.union([
-  z.nativeEnum(OutputKinesisSignatureVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputKinesisSignatureVersion$ {
-  /** @deprecated use `OutputKinesisSignatureVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputKinesisSignatureVersion$inboundSchema;
-  /** @deprecated use `OutputKinesisSignatureVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputKinesisSignatureVersion$outboundSchema;
-}
-
-/** @internal */
-export const OutputKinesisCompression$inboundSchema: z.ZodType<
-  OutputKinesisCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputKinesisCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputKinesisCompression$outboundSchema: z.ZodType<
-  OutputKinesisCompression,
-  z.ZodTypeDef,
-  OutputKinesisCompression
-> = z.union([
-  z.nativeEnum(OutputKinesisCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputKinesisCompression$ {
-  /** @deprecated use `OutputKinesisCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputKinesisCompression$inboundSchema;
-  /** @deprecated use `OutputKinesisCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputKinesisCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputKinesisBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputKinesisBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputKinesisBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputKinesisBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputKinesisBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputKinesisBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputKinesisBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputKinesisBackpressureBehavior$ {
-  /** @deprecated use `OutputKinesisBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputKinesisBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputKinesisBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputKinesisBackpressureBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputKinesisPqCompressCompression$inboundSchema: z.ZodType<
-  OutputKinesisPqCompressCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputKinesisPqCompressCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputKinesisPqCompressCompression$outboundSchema: z.ZodType<
-  OutputKinesisPqCompressCompression,
-  z.ZodTypeDef,
-  OutputKinesisPqCompressCompression
-> = z.union([
-  z.nativeEnum(OutputKinesisPqCompressCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputKinesisPqCompressCompression$ {
-  /** @deprecated use `OutputKinesisPqCompressCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputKinesisPqCompressCompression$inboundSchema;
-  /** @deprecated use `OutputKinesisPqCompressCompression$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputKinesisPqCompressCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputKinesisQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputKinesisQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputKinesisQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputKinesisQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputKinesisQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputKinesisQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputKinesisQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputKinesisQueueFullBehavior$ {
-  /** @deprecated use `OutputKinesisQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputKinesisQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputKinesisQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputKinesisQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputKinesisMode$inboundSchema: z.ZodType<
-  OutputKinesisMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputKinesisMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputKinesisMode$outboundSchema: z.ZodType<
-  OutputKinesisMode,
-  z.ZodTypeDef,
-  OutputKinesisMode
-> = z.union([
-  z.nativeEnum(OutputKinesisMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputKinesisMode$ {
-  /** @deprecated use `OutputKinesisMode$inboundSchema` instead. */
-  export const inboundSchema = OutputKinesisMode$inboundSchema;
-  /** @deprecated use `OutputKinesisMode$outboundSchema` instead. */
-  export const outboundSchema = OutputKinesisMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputKinesisPqControls$inboundSchema: z.ZodType<
-  OutputKinesisPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type OutputKinesisPqControls$Outbound = {};
-
-/** @internal */
-export const OutputKinesisPqControls$outboundSchema: z.ZodType<
-  OutputKinesisPqControls$Outbound,
-  z.ZodTypeDef,
-  OutputKinesisPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputKinesisPqControls$ {
-  /** @deprecated use `OutputKinesisPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputKinesisPqControls$inboundSchema;
-  /** @deprecated use `OutputKinesisPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputKinesisPqControls$outboundSchema;
-  /** @deprecated use `OutputKinesisPqControls$Outbound` instead. */
-  export type Outbound = OutputKinesisPqControls$Outbound;
-}
-
-export function outputKinesisPqControlsToJSON(
-  outputKinesisPqControls: OutputKinesisPqControls,
-): string {
-  return JSON.stringify(
-    OutputKinesisPqControls$outboundSchema.parse(outputKinesisPqControls),
-  );
-}
-
-export function outputKinesisPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputKinesisPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputKinesisPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputKinesisPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputKinesis$inboundSchema: z.ZodType<
-  OutputKinesis,
+export const OutputKinesisKinesis7$inboundSchema: z.ZodType<
+  OutputKinesisKinesis7,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
   id: z.string().optional(),
-  type: OutputKinesisType$inboundSchema,
+  type: TypeKinesisOption$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   streamName: z.string(),
-  awsAuthenticationMethod: OutputKinesisAuthenticationMethod$inboundSchema
-    .default("auto"),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
-  signatureVersion: OutputKinesisSignatureVersion$inboundSchema.default("v4"),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   enableAssumeRole: z.boolean().default(false),
@@ -571,28 +1123,28 @@ export const OutputKinesis$inboundSchema: z.ZodType<
   concurrency: z.number().default(5),
   maxRecordSizeKB: z.number().default(1024),
   flushPeriodSec: z.number().default(1),
-  compression: OutputKinesisCompression$inboundSchema.default("gzip"),
+  compression: PqCompressOptions$inboundSchema.default("none"),
   useListShards: z.boolean().default(false),
   asNdjson: z.boolean().default(true),
-  onBackpressure: OutputKinesisBackpressureBehavior$inboundSchema.default(
-    "block",
-  ),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
+  maxEventsPerFlush: z.number().default(500),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputKinesisPqCompressCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputKinesisQueueFullBehavior$inboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputKinesisMode$inboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputKinesisPqControls$inboundSchema).optional(),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema,
 });
-
 /** @internal */
-export type OutputKinesis$Outbound = {
+export type OutputKinesisKinesis7$Outbound = {
+  onBackpressure: string;
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -617,38 +1169,43 @@ export type OutputKinesis$Outbound = {
   compression: string;
   useListShards: boolean;
   asNdjson: boolean;
-  onBackpressure: string;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
+  maxEventsPerFlush: number;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
-  pqControls?: OutputKinesisPqControls$Outbound | undefined;
+  pqControls: MetadataType$Outbound;
 };
 
 /** @internal */
-export const OutputKinesis$outboundSchema: z.ZodType<
-  OutputKinesis$Outbound,
+export const OutputKinesisKinesis7$outboundSchema: z.ZodType<
+  OutputKinesisKinesis7$Outbound,
   z.ZodTypeDef,
-  OutputKinesis
+  OutputKinesisKinesis7
 > = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
   id: z.string().optional(),
-  type: OutputKinesisType$outboundSchema,
+  type: TypeKinesisOption$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   streamName: z.string(),
-  awsAuthenticationMethod: OutputKinesisAuthenticationMethod$outboundSchema
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
     .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
-  signatureVersion: OutputKinesisSignatureVersion$outboundSchema.default("v4"),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   enableAssumeRole: z.boolean().default(false),
@@ -658,43 +1215,1039 @@ export const OutputKinesis$outboundSchema: z.ZodType<
   concurrency: z.number().default(5),
   maxRecordSizeKB: z.number().default(1024),
   flushPeriodSec: z.number().default(1),
-  compression: OutputKinesisCompression$outboundSchema.default("gzip"),
+  compression: PqCompressOptions$outboundSchema.default("none"),
   useListShards: z.boolean().default(false),
   asNdjson: z.boolean().default(true),
-  onBackpressure: OutputKinesisBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
+  maxEventsPerFlush: z.number().default(500),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputKinesisPqCompressCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputKinesisQueueFullBehavior$outboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputKinesisMode$outboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputKinesisPqControls$outboundSchema).optional(),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputKinesis$ {
-  /** @deprecated use `OutputKinesis$inboundSchema` instead. */
-  export const inboundSchema = OutputKinesis$inboundSchema;
-  /** @deprecated use `OutputKinesis$outboundSchema` instead. */
-  export const outboundSchema = OutputKinesis$outboundSchema;
-  /** @deprecated use `OutputKinesis$Outbound` instead. */
-  export type Outbound = OutputKinesis$Outbound;
+export function outputKinesisKinesis7ToJSON(
+  outputKinesisKinesis7: OutputKinesisKinesis7,
+): string {
+  return JSON.stringify(
+    OutputKinesisKinesis7$outboundSchema.parse(outputKinesisKinesis7),
+  );
 }
+export function outputKinesisKinesis7FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputKinesisKinesis7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputKinesisKinesis7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputKinesisKinesis7' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputKinesisKinesis6$inboundSchema: z.ZodType<
+  OutputKinesisKinesis6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: TypeKinesisOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  streamName: z.string(),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  concurrency: z.number().default(5),
+  maxRecordSizeKB: z.number().default(1024),
+  flushPeriodSec: z.number().default(1),
+  compression: PqCompressOptions$inboundSchema.default("none"),
+  useListShards: z.boolean().default(false),
+  asNdjson: z.boolean().default(true),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  maxEventsPerFlush: z.number().default(500),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputKinesisKinesis6$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  streamName: string;
+  awsAuthenticationMethod: string;
+  awsSecretKey?: string | undefined;
+  region: string;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  concurrency: number;
+  maxRecordSizeKB: number;
+  flushPeriodSec: number;
+  compression: string;
+  useListShards: boolean;
+  asNdjson: boolean;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  maxEventsPerFlush: number;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputKinesisKinesis6$outboundSchema: z.ZodType<
+  OutputKinesisKinesis6$Outbound,
+  z.ZodTypeDef,
+  OutputKinesisKinesis6
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: TypeKinesisOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  streamName: z.string(),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  concurrency: z.number().default(5),
+  maxRecordSizeKB: z.number().default(1024),
+  flushPeriodSec: z.number().default(1),
+  compression: PqCompressOptions$outboundSchema.default("none"),
+  useListShards: z.boolean().default(false),
+  asNdjson: z.boolean().default(true),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  maxEventsPerFlush: z.number().default(500),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputKinesisKinesis6ToJSON(
+  outputKinesisKinesis6: OutputKinesisKinesis6,
+): string {
+  return JSON.stringify(
+    OutputKinesisKinesis6$outboundSchema.parse(outputKinesisKinesis6),
+  );
+}
+export function outputKinesisKinesis6FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputKinesisKinesis6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputKinesisKinesis6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputKinesisKinesis6' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputKinesisKinesis5$inboundSchema: z.ZodType<
+  OutputKinesisKinesis5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  compression: PqCompressOptions$inboundSchema.default("none"),
+  id: z.string().optional(),
+  type: TypeKinesisOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  streamName: z.string(),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  concurrency: z.number().default(5),
+  maxRecordSizeKB: z.number().default(1024),
+  flushPeriodSec: z.number().default(1),
+  useListShards: z.boolean().default(false),
+  asNdjson: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  maxEventsPerFlush: z.number().default(500),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputKinesisKinesis5$Outbound = {
+  compression: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  streamName: string;
+  awsAuthenticationMethod: string;
+  awsSecretKey?: string | undefined;
+  region: string;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  concurrency: number;
+  maxRecordSizeKB: number;
+  flushPeriodSec: number;
+  useListShards: boolean;
+  asNdjson: boolean;
+  onBackpressure: string;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  maxEventsPerFlush: number;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputKinesisKinesis5$outboundSchema: z.ZodType<
+  OutputKinesisKinesis5$Outbound,
+  z.ZodTypeDef,
+  OutputKinesisKinesis5
+> = z.object({
+  compression: PqCompressOptions$outboundSchema.default("none"),
+  id: z.string().optional(),
+  type: TypeKinesisOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  streamName: z.string(),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  concurrency: z.number().default(5),
+  maxRecordSizeKB: z.number().default(1024),
+  flushPeriodSec: z.number().default(1),
+  useListShards: z.boolean().default(false),
+  asNdjson: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  maxEventsPerFlush: z.number().default(500),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputKinesisKinesis5ToJSON(
+  outputKinesisKinesis5: OutputKinesisKinesis5,
+): string {
+  return JSON.stringify(
+    OutputKinesisKinesis5$outboundSchema.parse(outputKinesisKinesis5),
+  );
+}
+export function outputKinesisKinesis5FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputKinesisKinesis5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputKinesisKinesis5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputKinesisKinesis5' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputKinesisKinesis4$inboundSchema: z.ZodType<
+  OutputKinesisKinesis4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  compression: PqCompressOptions$inboundSchema.default("none"),
+  id: z.string().optional(),
+  type: TypeKinesisOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  streamName: z.string(),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  concurrency: z.number().default(5),
+  maxRecordSizeKB: z.number().default(1024),
+  flushPeriodSec: z.number().default(1),
+  useListShards: z.boolean().default(false),
+  asNdjson: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  maxEventsPerFlush: z.number().default(500),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputKinesisKinesis4$Outbound = {
+  compression: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  streamName: string;
+  awsAuthenticationMethod: string;
+  awsSecretKey?: string | undefined;
+  region: string;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  concurrency: number;
+  maxRecordSizeKB: number;
+  flushPeriodSec: number;
+  useListShards: boolean;
+  asNdjson: boolean;
+  onBackpressure: string;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  maxEventsPerFlush: number;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputKinesisKinesis4$outboundSchema: z.ZodType<
+  OutputKinesisKinesis4$Outbound,
+  z.ZodTypeDef,
+  OutputKinesisKinesis4
+> = z.object({
+  compression: PqCompressOptions$outboundSchema.default("none"),
+  id: z.string().optional(),
+  type: TypeKinesisOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  streamName: z.string(),
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  concurrency: z.number().default(5),
+  maxRecordSizeKB: z.number().default(1024),
+  flushPeriodSec: z.number().default(1),
+  useListShards: z.boolean().default(false),
+  asNdjson: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  maxEventsPerFlush: z.number().default(500),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputKinesisKinesis4ToJSON(
+  outputKinesisKinesis4: OutputKinesisKinesis4,
+): string {
+  return JSON.stringify(
+    OutputKinesisKinesis4$outboundSchema.parse(outputKinesisKinesis4),
+  );
+}
+export function outputKinesisKinesis4FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputKinesisKinesis4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputKinesisKinesis4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputKinesisKinesis4' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputKinesisKinesis3$inboundSchema: z.ZodType<
+  OutputKinesisKinesis3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  id: z.string().optional(),
+  type: TypeKinesisOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  streamName: z.string(),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  concurrency: z.number().default(5),
+  maxRecordSizeKB: z.number().default(1024),
+  flushPeriodSec: z.number().default(1),
+  compression: PqCompressOptions$inboundSchema.default("none"),
+  useListShards: z.boolean().default(false),
+  asNdjson: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string(),
+  maxEventsPerFlush: z.number().default(500),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputKinesisKinesis3$Outbound = {
+  awsAuthenticationMethod: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  streamName: string;
+  awsSecretKey?: string | undefined;
+  region: string;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  concurrency: number;
+  maxRecordSizeKB: number;
+  flushPeriodSec: number;
+  compression: string;
+  useListShards: boolean;
+  asNdjson: boolean;
+  onBackpressure: string;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret: string;
+  maxEventsPerFlush: number;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputKinesisKinesis3$outboundSchema: z.ZodType<
+  OutputKinesisKinesis3$Outbound,
+  z.ZodTypeDef,
+  OutputKinesisKinesis3
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  id: z.string().optional(),
+  type: TypeKinesisOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  streamName: z.string(),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  concurrency: z.number().default(5),
+  maxRecordSizeKB: z.number().default(1024),
+  flushPeriodSec: z.number().default(1),
+  compression: PqCompressOptions$outboundSchema.default("none"),
+  useListShards: z.boolean().default(false),
+  asNdjson: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string(),
+  maxEventsPerFlush: z.number().default(500),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputKinesisKinesis3ToJSON(
+  outputKinesisKinesis3: OutputKinesisKinesis3,
+): string {
+  return JSON.stringify(
+    OutputKinesisKinesis3$outboundSchema.parse(outputKinesisKinesis3),
+  );
+}
+export function outputKinesisKinesis3FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputKinesisKinesis3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputKinesisKinesis3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputKinesisKinesis3' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputKinesisKinesis2$inboundSchema: z.ZodType<
+  OutputKinesisKinesis2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  id: z.string().optional(),
+  type: TypeKinesisOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  streamName: z.string(),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  concurrency: z.number().default(5),
+  maxRecordSizeKB: z.number().default(1024),
+  flushPeriodSec: z.number().default(1),
+  compression: PqCompressOptions$inboundSchema.default("none"),
+  useListShards: z.boolean().default(false),
+  asNdjson: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  awsApiKey: z.string(),
+  awsSecret: z.string().optional(),
+  maxEventsPerFlush: z.number().default(500),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputKinesisKinesis2$Outbound = {
+  awsAuthenticationMethod: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  streamName: string;
+  awsSecretKey?: string | undefined;
+  region: string;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  concurrency: number;
+  maxRecordSizeKB: number;
+  flushPeriodSec: number;
+  compression: string;
+  useListShards: boolean;
+  asNdjson: boolean;
+  onBackpressure: string;
+  description?: string | undefined;
+  awsApiKey: string;
+  awsSecret?: string | undefined;
+  maxEventsPerFlush: number;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputKinesisKinesis2$outboundSchema: z.ZodType<
+  OutputKinesisKinesis2$Outbound,
+  z.ZodTypeDef,
+  OutputKinesisKinesis2
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  id: z.string().optional(),
+  type: TypeKinesisOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  streamName: z.string(),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  concurrency: z.number().default(5),
+  maxRecordSizeKB: z.number().default(1024),
+  flushPeriodSec: z.number().default(1),
+  compression: PqCompressOptions$outboundSchema.default("none"),
+  useListShards: z.boolean().default(false),
+  asNdjson: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  awsApiKey: z.string(),
+  awsSecret: z.string().optional(),
+  maxEventsPerFlush: z.number().default(500),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputKinesisKinesis2ToJSON(
+  outputKinesisKinesis2: OutputKinesisKinesis2,
+): string {
+  return JSON.stringify(
+    OutputKinesisKinesis2$outboundSchema.parse(outputKinesisKinesis2),
+  );
+}
+export function outputKinesisKinesis2FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputKinesisKinesis2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputKinesisKinesis2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputKinesisKinesis2' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputKinesisKinesis1$inboundSchema: z.ZodType<
+  OutputKinesisKinesis1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  id: z.string().optional(),
+  type: TypeKinesisOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  streamName: z.string(),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  concurrency: z.number().default(5),
+  maxRecordSizeKB: z.number().default(1024),
+  flushPeriodSec: z.number().default(1),
+  compression: PqCompressOptions$inboundSchema.default("none"),
+  useListShards: z.boolean().default(false),
+  asNdjson: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  maxEventsPerFlush: z.number().default(500),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputKinesisKinesis1$Outbound = {
+  awsAuthenticationMethod: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  streamName: string;
+  awsSecretKey?: string | undefined;
+  region: string;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  concurrency: number;
+  maxRecordSizeKB: number;
+  flushPeriodSec: number;
+  compression: string;
+  useListShards: boolean;
+  asNdjson: boolean;
+  onBackpressure: string;
+  description?: string | undefined;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  maxEventsPerFlush: number;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputKinesisKinesis1$outboundSchema: z.ZodType<
+  OutputKinesisKinesis1$Outbound,
+  z.ZodTypeDef,
+  OutputKinesisKinesis1
+> = z.object({
+  awsAuthenticationMethod: AwsAuthenticationMethodOptions$outboundSchema
+    .default("auto"),
+  id: z.string().optional(),
+  type: TypeKinesisOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  streamName: z.string(),
+  awsSecretKey: z.string().optional(),
+  region: z.string(),
+  endpoint: z.string().optional(),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  concurrency: z.number().default(5),
+  maxRecordSizeKB: z.number().default(1024),
+  flushPeriodSec: z.number().default(1),
+  compression: PqCompressOptions$outboundSchema.default("none"),
+  useListShards: z.boolean().default(false),
+  asNdjson: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  maxEventsPerFlush: z.number().default(500),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputKinesisKinesis1ToJSON(
+  outputKinesisKinesis1: OutputKinesisKinesis1,
+): string {
+  return JSON.stringify(
+    OutputKinesisKinesis1$outboundSchema.parse(outputKinesisKinesis1),
+  );
+}
+export function outputKinesisKinesis1FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputKinesisKinesis1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputKinesisKinesis1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputKinesisKinesis1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputKinesis$inboundSchema: z.ZodType<
+  OutputKinesis,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => OutputKinesisKinesis2$inboundSchema),
+  z.lazy(() => OutputKinesisKinesis3$inboundSchema),
+  z.lazy(() => OutputKinesisKinesis7$inboundSchema),
+  z.lazy(() => OutputKinesisKinesis1$inboundSchema),
+  z.lazy(() => OutputKinesisKinesis4$inboundSchema),
+  z.lazy(() => OutputKinesisKinesis5$inboundSchema),
+  z.lazy(() => OutputKinesisKinesis6$inboundSchema),
+]);
+/** @internal */
+export type OutputKinesis$Outbound =
+  | OutputKinesisKinesis2$Outbound
+  | OutputKinesisKinesis3$Outbound
+  | OutputKinesisKinesis7$Outbound
+  | OutputKinesisKinesis1$Outbound
+  | OutputKinesisKinesis4$Outbound
+  | OutputKinesisKinesis5$Outbound
+  | OutputKinesisKinesis6$Outbound;
+
+/** @internal */
+export const OutputKinesis$outboundSchema: z.ZodType<
+  OutputKinesis$Outbound,
+  z.ZodTypeDef,
+  OutputKinesis
+> = z.union([
+  z.lazy(() => OutputKinesisKinesis2$outboundSchema),
+  z.lazy(() => OutputKinesisKinesis3$outboundSchema),
+  z.lazy(() => OutputKinesisKinesis7$outboundSchema),
+  z.lazy(() => OutputKinesisKinesis1$outboundSchema),
+  z.lazy(() => OutputKinesisKinesis4$outboundSchema),
+  z.lazy(() => OutputKinesisKinesis5$outboundSchema),
+  z.lazy(() => OutputKinesisKinesis6$outboundSchema),
+]);
 
 export function outputKinesisToJSON(outputKinesis: OutputKinesis): string {
   return JSON.stringify(OutputKinesis$outboundSchema.parse(outputKinesis));
 }
-
 export function outputKinesisFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputKinesis, SDKValidationError> {

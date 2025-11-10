@@ -13,7 +13,7 @@ export const OutputRouterType = {
 } as const;
 export type OutputRouterType = ClosedEnum<typeof OutputRouterType>;
 
-export type OutputRouterRule = {
+export type Rule = {
   /**
    * JavaScript expression to select events to send to output
    */
@@ -57,7 +57,7 @@ export type OutputRouter = {
   /**
    * Event routing rules
    */
-  rules: Array<OutputRouterRule>;
+  rules: Array<Rule>;
   description?: string | undefined;
 };
 
@@ -65,37 +65,21 @@ export type OutputRouter = {
 export const OutputRouterType$inboundSchema: z.ZodNativeEnum<
   typeof OutputRouterType
 > = z.nativeEnum(OutputRouterType);
-
 /** @internal */
 export const OutputRouterType$outboundSchema: z.ZodNativeEnum<
   typeof OutputRouterType
 > = OutputRouterType$inboundSchema;
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputRouterType$ {
-  /** @deprecated use `OutputRouterType$inboundSchema` instead. */
-  export const inboundSchema = OutputRouterType$inboundSchema;
-  /** @deprecated use `OutputRouterType$outboundSchema` instead. */
-  export const outboundSchema = OutputRouterType$outboundSchema;
-}
-
 /** @internal */
-export const OutputRouterRule$inboundSchema: z.ZodType<
-  OutputRouterRule,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  filter: z.string(),
-  output: z.string(),
-  description: z.string().optional(),
-  final: z.boolean().default(true),
-});
-
+export const Rule$inboundSchema: z.ZodType<Rule, z.ZodTypeDef, unknown> = z
+  .object({
+    filter: z.string(),
+    output: z.string(),
+    description: z.string().optional(),
+    final: z.boolean().default(true),
+  });
 /** @internal */
-export type OutputRouterRule$Outbound = {
+export type Rule$Outbound = {
   filter: string;
   output: string;
   description?: string | undefined;
@@ -103,45 +87,24 @@ export type OutputRouterRule$Outbound = {
 };
 
 /** @internal */
-export const OutputRouterRule$outboundSchema: z.ZodType<
-  OutputRouterRule$Outbound,
-  z.ZodTypeDef,
-  OutputRouterRule
-> = z.object({
-  filter: z.string(),
-  output: z.string(),
-  description: z.string().optional(),
-  final: z.boolean().default(true),
-});
+export const Rule$outboundSchema: z.ZodType<Rule$Outbound, z.ZodTypeDef, Rule> =
+  z.object({
+    filter: z.string(),
+    output: z.string(),
+    description: z.string().optional(),
+    final: z.boolean().default(true),
+  });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputRouterRule$ {
-  /** @deprecated use `OutputRouterRule$inboundSchema` instead. */
-  export const inboundSchema = OutputRouterRule$inboundSchema;
-  /** @deprecated use `OutputRouterRule$outboundSchema` instead. */
-  export const outboundSchema = OutputRouterRule$outboundSchema;
-  /** @deprecated use `OutputRouterRule$Outbound` instead. */
-  export type Outbound = OutputRouterRule$Outbound;
+export function ruleToJSON(rule: Rule): string {
+  return JSON.stringify(Rule$outboundSchema.parse(rule));
 }
-
-export function outputRouterRuleToJSON(
-  outputRouterRule: OutputRouterRule,
-): string {
-  return JSON.stringify(
-    OutputRouterRule$outboundSchema.parse(outputRouterRule),
-  );
-}
-
-export function outputRouterRuleFromJSON(
+export function ruleFromJSON(
   jsonString: string,
-): SafeParseResult<OutputRouterRule, SDKValidationError> {
+): SafeParseResult<Rule, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => OutputRouterRule$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputRouterRule' from JSON`,
+    (x) => Rule$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Rule' from JSON`,
   );
 }
 
@@ -157,10 +120,9 @@ export const OutputRouter$inboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  rules: z.array(z.lazy(() => OutputRouterRule$inboundSchema)),
+  rules: z.array(z.lazy(() => Rule$inboundSchema)),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type OutputRouter$Outbound = {
   id?: string | undefined;
@@ -169,7 +131,7 @@ export type OutputRouter$Outbound = {
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
   streamtags?: Array<string> | undefined;
-  rules: Array<OutputRouterRule$Outbound>;
+  rules: Array<Rule$Outbound>;
   description?: string | undefined;
 };
 
@@ -185,27 +147,13 @@ export const OutputRouter$outboundSchema: z.ZodType<
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
-  rules: z.array(z.lazy(() => OutputRouterRule$outboundSchema)),
+  rules: z.array(z.lazy(() => Rule$outboundSchema)),
   description: z.string().optional(),
 });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputRouter$ {
-  /** @deprecated use `OutputRouter$inboundSchema` instead. */
-  export const inboundSchema = OutputRouter$inboundSchema;
-  /** @deprecated use `OutputRouter$outboundSchema` instead. */
-  export const outboundSchema = OutputRouter$outboundSchema;
-  /** @deprecated use `OutputRouter$Outbound` instead. */
-  export type Outbound = OutputRouter$Outbound;
-}
 
 export function outputRouterToJSON(outputRouter: OutputRouter): string {
   return JSON.stringify(OutputRouter$outboundSchema.parse(outputRouter));
 }
-
 export function outputRouterFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputRouter, SDKValidationError> {

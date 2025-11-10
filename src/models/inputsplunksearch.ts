@@ -11,226 +11,71 @@ import {
   Unrecognized,
 } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthTypeOptions,
+  AuthTypeOptions$inboundSchema,
+  AuthTypeOptions$outboundSchema,
+} from "./authtypeoptions.js";
+import {
+  ConnectionsType,
+  ConnectionsType$inboundSchema,
+  ConnectionsType$Outbound,
+  ConnectionsType$outboundSchema,
+} from "./connectionstype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  LogLevelOptions,
+  LogLevelOptions$inboundSchema,
+  LogLevelOptions$outboundSchema,
+} from "./logleveloptions.js";
+import {
+  Metadata1Type,
+  Metadata1Type$inboundSchema,
+  Metadata1Type$Outbound,
+  Metadata1Type$outboundSchema,
+} from "./metadata1type.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  RetryRulesType,
+  RetryRulesType$inboundSchema,
+  RetryRulesType$Outbound,
+  RetryRulesType$outboundSchema,
+} from "./retryrulestype.js";
 
-export const InputSplunkSearchType = {
+export const InputSplunkSearchType10 = {
   SplunkSearch: "splunk_search",
 } as const;
-export type InputSplunkSearchType = ClosedEnum<typeof InputSplunkSearchType>;
-
-export type InputSplunkSearchConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputSplunkSearchMode = {
-  Smart: "smart",
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputSplunkSearchMode = OpenEnum<typeof InputSplunkSearchMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputSplunkSearchCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputSplunkSearchCompression = OpenEnum<
-  typeof InputSplunkSearchCompression
+export type InputSplunkSearchType10 = ClosedEnum<
+  typeof InputSplunkSearchType10
 >;
-
-export type InputSplunkSearchPqControls = {};
-
-export type InputSplunkSearchPq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputSplunkSearchMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputSplunkSearchCompression | undefined;
-  pqControls?: InputSplunkSearchPqControls | undefined;
-};
 
 /**
  * Format of the returned output
  */
-export const OutputMode = {
+export const OutputMode10 = {
   Csv: "csv",
   Json: "json",
 } as const;
 /**
  * Format of the returned output
  */
-export type OutputMode = OpenEnum<typeof OutputMode>;
+export type OutputMode10 = OpenEnum<typeof OutputMode10>;
 
-export type EndpointParam = {
-  name: string;
+export type InputSplunkSearchSplunkSearch10 = {
   /**
-   * JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
+   * Splunk Search authentication type
    */
-  value: string;
-};
-
-export type EndpointHeader = {
-  name: string;
-  /**
-   * JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-   */
-  value: string;
-};
-
-/**
- * Collector runtime log level (verbosity)
- */
-export const InputSplunkSearchLogLevel = {
-  Error: "error",
-  Warn: "warn",
-  Info: "info",
-  Debug: "debug",
-} as const;
-/**
- * Collector runtime log level (verbosity)
- */
-export type InputSplunkSearchLogLevel = OpenEnum<
-  typeof InputSplunkSearchLogLevel
->;
-
-export type InputSplunkSearchMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
-
-/**
- * The algorithm to use when performing HTTP retries
- */
-export const InputSplunkSearchRetryType = {
-  None: "none",
-  Backoff: "backoff",
-  Static: "static",
-} as const;
-/**
- * The algorithm to use when performing HTTP retries
- */
-export type InputSplunkSearchRetryType = OpenEnum<
-  typeof InputSplunkSearchRetryType
->;
-
-export type InputSplunkSearchRetryRules = {
-  /**
-   * The algorithm to use when performing HTTP retries
-   */
-  type?: InputSplunkSearchRetryType | undefined;
-  /**
-   * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
-   */
-  interval?: number | undefined;
-  /**
-   * The maximum number of times to retry a failed HTTP request
-   */
-  limit?: number | undefined;
-  /**
-   * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
-   */
-  multiplier?: number | undefined;
-  /**
-   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
-   */
-  codes?: Array<number> | undefined;
-  /**
-   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
-   */
-  enableHeader?: boolean | undefined;
-  /**
-   * Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
-   */
-  retryConnectTimeout?: boolean | undefined;
-  /**
-   * Retry request when a connection reset (ECONNRESET) error occurs
-   */
-  retryConnectReset?: boolean | undefined;
-};
-
-/**
- * Splunk Search authentication type
- */
-export const InputSplunkSearchAuthenticationType = {
-  None: "none",
-  Basic: "basic",
-  CredentialsSecret: "credentialsSecret",
-  Token: "token",
-  TextSecret: "textSecret",
-  Oauth: "oauth",
-} as const;
-/**
- * Splunk Search authentication type
- */
-export type InputSplunkSearchAuthenticationType = OpenEnum<
-  typeof InputSplunkSearchAuthenticationType
->;
-
-export type InputSplunkSearchOauthParam = {
-  /**
-   * OAuth parameter name
-   */
-  name: string;
-  /**
-   * OAuth parameter value
-   */
-  value: string;
-};
-
-export type InputSplunkSearchOauthHeader = {
-  /**
-   * OAuth header name
-   */
-  name: string;
-  /**
-   * OAuth header value
-   */
-  value: string;
-};
-
-export type InputSplunkSearch = {
+  authType?: AuthTypeOptions | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputSplunkSearchType;
+  type: InputSplunkSearchType10;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -255,8 +100,8 @@ export type InputSplunkSearch = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputSplunkSearchConnection> | undefined;
-  pq?: InputSplunkSearchPq | undefined;
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
   /**
    * Search head base URL. Can be an expression. Default is https://localhost:8089.
    */
@@ -284,19 +129,19 @@ export type InputSplunkSearch = {
   /**
    * Format of the returned output
    */
-  outputMode?: OutputMode | undefined;
+  outputMode?: OutputMode10 | undefined;
   /**
    * Optional request parameters to send to the endpoint
    */
-  endpointParams?: Array<EndpointParam> | undefined;
+  endpointParams?: Array<Metadata1Type> | undefined;
   /**
    * Optional request headers to send to the endpoint
    */
-  endpointHeaders?: Array<EndpointHeader> | undefined;
+  endpointHeaders?: Array<Metadata1Type> | undefined;
   /**
    * Collector runtime log level (verbosity)
    */
-  logLevel?: InputSplunkSearchLogLevel | undefined;
+  logLevel?: LogLevelOptions | undefined;
   /**
    * HTTP request inactivity timeout. Use 0 for no timeout.
    */
@@ -336,8 +181,8 @@ export type InputSplunkSearch = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputSplunkSearchMetadatum> | undefined;
-  retryRules?: InputSplunkSearchRetryRules | undefined;
+  metadata?: Array<Metadata1Type> | undefined;
+  retryRules?: RetryRulesType | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -346,10 +191,961 @@ export type InputSplunkSearch = {
    * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
    */
   staleChannelFlushMs?: number | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl: string;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName: string;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret: string;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName: string;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams: Array<Metadata1Type>;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders: Array<Metadata1Type>;
+};
+
+export const InputSplunkSearchType9 = {
+  SplunkSearch: "splunk_search",
+} as const;
+export type InputSplunkSearchType9 = ClosedEnum<typeof InputSplunkSearchType9>;
+
+/**
+ * Format of the returned output
+ */
+export const OutputMode9 = {
+  Csv: "csv",
+  Json: "json",
+} as const;
+/**
+ * Format of the returned output
+ */
+export type OutputMode9 = OpenEnum<typeof OutputMode9>;
+
+export type InputSplunkSearchSplunkSearch9 = {
   /**
    * Splunk Search authentication type
    */
-  authType?: InputSplunkSearchAuthenticationType | undefined;
+  authType?: AuthTypeOptions | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputSplunkSearchType9;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Search head base URL. Can be an expression. Default is https://localhost:8089.
+   */
+  searchHead?: string | undefined;
+  /**
+   * Enter Splunk search here. Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
+   */
+  search: string;
+  /**
+   * The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
+   */
+  earliest?: string | undefined;
+  /**
+   * The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
+   */
+  latest?: string | undefined;
+  /**
+   * A cron schedule on which to run this job
+   */
+  cronSchedule?: string | undefined;
+  /**
+   * REST API used to create a search
+   */
+  endpoint?: string | undefined;
+  /**
+   * Format of the returned output
+   */
+  outputMode?: OutputMode9 | undefined;
+  /**
+   * Optional request parameters to send to the endpoint
+   */
+  endpointParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Optional request headers to send to the endpoint
+   */
+  endpointHeaders?: Array<Metadata1Type> | undefined;
+  /**
+   * Collector runtime log level (verbosity)
+   */
+  logLevel?: LogLevelOptions | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 for no timeout.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
+   */
+  encoding?: string | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  retryRules?: RetryRulesType | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret: string;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<Metadata1Type> | undefined;
+};
+
+export const InputSplunkSearchType8 = {
+  SplunkSearch: "splunk_search",
+} as const;
+export type InputSplunkSearchType8 = ClosedEnum<typeof InputSplunkSearchType8>;
+
+/**
+ * Format of the returned output
+ */
+export const OutputMode8 = {
+  Csv: "csv",
+  Json: "json",
+} as const;
+/**
+ * Format of the returned output
+ */
+export type OutputMode8 = OpenEnum<typeof OutputMode8>;
+
+export type InputSplunkSearchSplunkSearch8 = {
+  /**
+   * Splunk Search authentication type
+   */
+  authType?: AuthTypeOptions | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputSplunkSearchType8;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Search head base URL. Can be an expression. Default is https://localhost:8089.
+   */
+  searchHead?: string | undefined;
+  /**
+   * Enter Splunk search here. Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
+   */
+  search: string;
+  /**
+   * The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
+   */
+  earliest?: string | undefined;
+  /**
+   * The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
+   */
+  latest?: string | undefined;
+  /**
+   * A cron schedule on which to run this job
+   */
+  cronSchedule?: string | undefined;
+  /**
+   * REST API used to create a search
+   */
+  endpoint?: string | undefined;
+  /**
+   * Format of the returned output
+   */
+  outputMode?: OutputMode8 | undefined;
+  /**
+   * Optional request parameters to send to the endpoint
+   */
+  endpointParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Optional request headers to send to the endpoint
+   */
+  endpointHeaders?: Array<Metadata1Type> | undefined;
+  /**
+   * Collector runtime log level (verbosity)
+   */
+  logLevel?: LogLevelOptions | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 for no timeout.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
+   */
+  encoding?: string | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  retryRules?: RetryRulesType | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret: string;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<Metadata1Type> | undefined;
+};
+
+export const InputSplunkSearchType7 = {
+  SplunkSearch: "splunk_search",
+} as const;
+export type InputSplunkSearchType7 = ClosedEnum<typeof InputSplunkSearchType7>;
+
+/**
+ * Format of the returned output
+ */
+export const OutputMode7 = {
+  Csv: "csv",
+  Json: "json",
+} as const;
+/**
+ * Format of the returned output
+ */
+export type OutputMode7 = OpenEnum<typeof OutputMode7>;
+
+export type InputSplunkSearchSplunkSearch7 = {
+  /**
+   * Splunk Search authentication type
+   */
+  authType?: AuthTypeOptions | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputSplunkSearchType7;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Search head base URL. Can be an expression. Default is https://localhost:8089.
+   */
+  searchHead?: string | undefined;
+  /**
+   * Enter Splunk search here. Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
+   */
+  search: string;
+  /**
+   * The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
+   */
+  earliest?: string | undefined;
+  /**
+   * The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
+   */
+  latest?: string | undefined;
+  /**
+   * A cron schedule on which to run this job
+   */
+  cronSchedule?: string | undefined;
+  /**
+   * REST API used to create a search
+   */
+  endpoint?: string | undefined;
+  /**
+   * Format of the returned output
+   */
+  outputMode?: OutputMode7 | undefined;
+  /**
+   * Optional request parameters to send to the endpoint
+   */
+  endpointParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Optional request headers to send to the endpoint
+   */
+  endpointHeaders?: Array<Metadata1Type> | undefined;
+  /**
+   * Collector runtime log level (verbosity)
+   */
+  logLevel?: LogLevelOptions | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 for no timeout.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
+   */
+  encoding?: string | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  retryRules?: RetryRulesType | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token: string;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<Metadata1Type> | undefined;
+};
+
+export const InputSplunkSearchType6 = {
+  SplunkSearch: "splunk_search",
+} as const;
+export type InputSplunkSearchType6 = ClosedEnum<typeof InputSplunkSearchType6>;
+
+/**
+ * Format of the returned output
+ */
+export const OutputMode6 = {
+  Csv: "csv",
+  Json: "json",
+} as const;
+/**
+ * Format of the returned output
+ */
+export type OutputMode6 = OpenEnum<typeof OutputMode6>;
+
+export type InputSplunkSearchSplunkSearch6 = {
+  /**
+   * Splunk Search authentication type
+   */
+  authType?: AuthTypeOptions | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputSplunkSearchType6;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Search head base URL. Can be an expression. Default is https://localhost:8089.
+   */
+  searchHead?: string | undefined;
+  /**
+   * Enter Splunk search here. Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
+   */
+  search: string;
+  /**
+   * The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
+   */
+  earliest?: string | undefined;
+  /**
+   * The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
+   */
+  latest?: string | undefined;
+  /**
+   * A cron schedule on which to run this job
+   */
+  cronSchedule?: string | undefined;
+  /**
+   * REST API used to create a search
+   */
+  endpoint?: string | undefined;
+  /**
+   * Format of the returned output
+   */
+  outputMode?: OutputMode6 | undefined;
+  /**
+   * Optional request parameters to send to the endpoint
+   */
+  endpointParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Optional request headers to send to the endpoint
+   */
+  endpointHeaders?: Array<Metadata1Type> | undefined;
+  /**
+   * Collector runtime log level (verbosity)
+   */
+  logLevel?: LogLevelOptions | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 for no timeout.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
+   */
+  encoding?: string | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  retryRules?: RetryRulesType | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  description?: string | undefined;
+  username: string;
+  password: string;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<Metadata1Type> | undefined;
+};
+
+export const InputSplunkSearchType5 = {
+  SplunkSearch: "splunk_search",
+} as const;
+export type InputSplunkSearchType5 = ClosedEnum<typeof InputSplunkSearchType5>;
+
+/**
+ * Format of the returned output
+ */
+export const OutputMode5 = {
+  Csv: "csv",
+  Json: "json",
+} as const;
+/**
+ * Format of the returned output
+ */
+export type OutputMode5 = OpenEnum<typeof OutputMode5>;
+
+export type InputSplunkSearchSplunkSearch5 = {
+  /**
+   * Splunk Search authentication type
+   */
+  authType?: AuthTypeOptions | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputSplunkSearchType5;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Search head base URL. Can be an expression. Default is https://localhost:8089.
+   */
+  searchHead?: string | undefined;
+  /**
+   * Enter Splunk search here. Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
+   */
+  search: string;
+  /**
+   * The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
+   */
+  earliest?: string | undefined;
+  /**
+   * The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
+   */
+  latest?: string | undefined;
+  /**
+   * A cron schedule on which to run this job
+   */
+  cronSchedule?: string | undefined;
+  /**
+   * REST API used to create a search
+   */
+  endpoint?: string | undefined;
+  /**
+   * Format of the returned output
+   */
+  outputMode?: OutputMode5 | undefined;
+  /**
+   * Optional request parameters to send to the endpoint
+   */
+  endpointParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Optional request headers to send to the endpoint
+   */
+  endpointHeaders?: Array<Metadata1Type> | undefined;
+  /**
+   * Collector runtime log level (verbosity)
+   */
+  logLevel?: LogLevelOptions | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 for no timeout.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
+   */
+  encoding?: string | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  retryRules?: RetryRulesType | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
   description?: string | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -392,800 +1188,845 @@ export type InputSplunkSearch = {
   /**
    * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthParams?: Array<InputSplunkSearchOauthParam> | undefined;
+  oauthParams?: Array<Metadata1Type> | undefined;
   /**
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthHeaders?: Array<InputSplunkSearchOauthHeader> | undefined;
+  oauthHeaders?: Array<Metadata1Type> | undefined;
 };
 
-/** @internal */
-export const InputSplunkSearchType$inboundSchema: z.ZodNativeEnum<
-  typeof InputSplunkSearchType
-> = z.nativeEnum(InputSplunkSearchType);
-
-/** @internal */
-export const InputSplunkSearchType$outboundSchema: z.ZodNativeEnum<
-  typeof InputSplunkSearchType
-> = InputSplunkSearchType$inboundSchema;
+export const InputSplunkSearchType4 = {
+  SplunkSearch: "splunk_search",
+} as const;
+export type InputSplunkSearchType4 = ClosedEnum<typeof InputSplunkSearchType4>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Format of the returned output
  */
-export namespace InputSplunkSearchType$ {
-  /** @deprecated use `InputSplunkSearchType$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkSearchType$inboundSchema;
-  /** @deprecated use `InputSplunkSearchType$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkSearchType$outboundSchema;
-}
+export const OutputMode4 = {
+  Csv: "csv",
+  Json: "json",
+} as const;
+/**
+ * Format of the returned output
+ */
+export type OutputMode4 = OpenEnum<typeof OutputMode4>;
 
-/** @internal */
-export const InputSplunkSearchConnection$inboundSchema: z.ZodType<
-  InputSplunkSearchConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-/** @internal */
-export type InputSplunkSearchConnection$Outbound = {
+export type InputSplunkSearchSplunkSearch4 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputSplunkSearchType4;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
   pipeline?: string | undefined;
-  output: string;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq: PqType;
+  /**
+   * Search head base URL. Can be an expression. Default is https://localhost:8089.
+   */
+  searchHead?: string | undefined;
+  /**
+   * Enter Splunk search here. Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
+   */
+  search: string;
+  /**
+   * The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
+   */
+  earliest?: string | undefined;
+  /**
+   * The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
+   */
+  latest?: string | undefined;
+  /**
+   * A cron schedule on which to run this job
+   */
+  cronSchedule?: string | undefined;
+  /**
+   * REST API used to create a search
+   */
+  endpoint?: string | undefined;
+  /**
+   * Format of the returned output
+   */
+  outputMode?: OutputMode4 | undefined;
+  /**
+   * Optional request parameters to send to the endpoint
+   */
+  endpointParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Optional request headers to send to the endpoint
+   */
+  endpointHeaders?: Array<Metadata1Type> | undefined;
+  /**
+   * Collector runtime log level (verbosity)
+   */
+  logLevel?: LogLevelOptions | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 for no timeout.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
+   */
+  encoding?: string | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  retryRules?: RetryRulesType | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Splunk Search authentication type
+   */
+  authType?: AuthTypeOptions | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<Metadata1Type> | undefined;
 };
 
-/** @internal */
-export const InputSplunkSearchConnection$outboundSchema: z.ZodType<
-  InputSplunkSearchConnection$Outbound,
-  z.ZodTypeDef,
-  InputSplunkSearchConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
+export const InputSplunkSearchType3 = {
+  SplunkSearch: "splunk_search",
+} as const;
+export type InputSplunkSearchType3 = ClosedEnum<typeof InputSplunkSearchType3>;
 
 /**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
+ * Format of the returned output
  */
-export namespace InputSplunkSearchConnection$ {
-  /** @deprecated use `InputSplunkSearchConnection$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkSearchConnection$inboundSchema;
-  /** @deprecated use `InputSplunkSearchConnection$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkSearchConnection$outboundSchema;
-  /** @deprecated use `InputSplunkSearchConnection$Outbound` instead. */
-  export type Outbound = InputSplunkSearchConnection$Outbound;
-}
+export const OutputMode3 = {
+  Csv: "csv",
+  Json: "json",
+} as const;
+/**
+ * Format of the returned output
+ */
+export type OutputMode3 = OpenEnum<typeof OutputMode3>;
 
-export function inputSplunkSearchConnectionToJSON(
-  inputSplunkSearchConnection: InputSplunkSearchConnection,
-): string {
-  return JSON.stringify(
-    InputSplunkSearchConnection$outboundSchema.parse(
-      inputSplunkSearchConnection,
-    ),
-  );
-}
+export type InputSplunkSearchSplunkSearch3 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputSplunkSearchType3;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Search head base URL. Can be an expression. Default is https://localhost:8089.
+   */
+  searchHead?: string | undefined;
+  /**
+   * Enter Splunk search here. Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
+   */
+  search: string;
+  /**
+   * The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
+   */
+  earliest?: string | undefined;
+  /**
+   * The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
+   */
+  latest?: string | undefined;
+  /**
+   * A cron schedule on which to run this job
+   */
+  cronSchedule?: string | undefined;
+  /**
+   * REST API used to create a search
+   */
+  endpoint?: string | undefined;
+  /**
+   * Format of the returned output
+   */
+  outputMode?: OutputMode3 | undefined;
+  /**
+   * Optional request parameters to send to the endpoint
+   */
+  endpointParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Optional request headers to send to the endpoint
+   */
+  endpointHeaders?: Array<Metadata1Type> | undefined;
+  /**
+   * Collector runtime log level (verbosity)
+   */
+  logLevel?: LogLevelOptions | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 for no timeout.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
+   */
+  encoding?: string | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  retryRules?: RetryRulesType | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Splunk Search authentication type
+   */
+  authType?: AuthTypeOptions | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<Metadata1Type> | undefined;
+};
 
-export function inputSplunkSearchConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSplunkSearchConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSplunkSearchConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSplunkSearchConnection' from JSON`,
-  );
-}
+export const InputSplunkSearchType2 = {
+  SplunkSearch: "splunk_search",
+} as const;
+export type InputSplunkSearchType2 = ClosedEnum<typeof InputSplunkSearchType2>;
+
+/**
+ * Format of the returned output
+ */
+export const OutputMode2 = {
+  Csv: "csv",
+  Json: "json",
+} as const;
+/**
+ * Format of the returned output
+ */
+export type OutputMode2 = OpenEnum<typeof OutputMode2>;
+
+export type InputSplunkSearchSplunkSearch2 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputSplunkSearchType2;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections: Array<ConnectionsType>;
+  pq?: PqType | undefined;
+  /**
+   * Search head base URL. Can be an expression. Default is https://localhost:8089.
+   */
+  searchHead?: string | undefined;
+  /**
+   * Enter Splunk search here. Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
+   */
+  search: string;
+  /**
+   * The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
+   */
+  earliest?: string | undefined;
+  /**
+   * The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
+   */
+  latest?: string | undefined;
+  /**
+   * A cron schedule on which to run this job
+   */
+  cronSchedule?: string | undefined;
+  /**
+   * REST API used to create a search
+   */
+  endpoint?: string | undefined;
+  /**
+   * Format of the returned output
+   */
+  outputMode?: OutputMode2 | undefined;
+  /**
+   * Optional request parameters to send to the endpoint
+   */
+  endpointParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Optional request headers to send to the endpoint
+   */
+  endpointHeaders?: Array<Metadata1Type> | undefined;
+  /**
+   * Collector runtime log level (verbosity)
+   */
+  logLevel?: LogLevelOptions | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 for no timeout.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
+   */
+  encoding?: string | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  retryRules?: RetryRulesType | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Splunk Search authentication type
+   */
+  authType?: AuthTypeOptions | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<Metadata1Type> | undefined;
+};
+
+export const InputSplunkSearchType1 = {
+  SplunkSearch: "splunk_search",
+} as const;
+export type InputSplunkSearchType1 = ClosedEnum<typeof InputSplunkSearchType1>;
+
+/**
+ * Format of the returned output
+ */
+export const OutputMode1 = {
+  Csv: "csv",
+  Json: "json",
+} as const;
+/**
+ * Format of the returned output
+ */
+export type OutputMode1 = OpenEnum<typeof OutputMode1>;
+
+export type InputSplunkSearchSplunkSearch1 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputSplunkSearchType1;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Search head base URL. Can be an expression. Default is https://localhost:8089.
+   */
+  searchHead?: string | undefined;
+  /**
+   * Enter Splunk search here. Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
+   */
+  search: string;
+  /**
+   * The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
+   */
+  earliest?: string | undefined;
+  /**
+   * The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
+   */
+  latest?: string | undefined;
+  /**
+   * A cron schedule on which to run this job
+   */
+  cronSchedule?: string | undefined;
+  /**
+   * REST API used to create a search
+   */
+  endpoint?: string | undefined;
+  /**
+   * Format of the returned output
+   */
+  outputMode?: OutputMode1 | undefined;
+  /**
+   * Optional request parameters to send to the endpoint
+   */
+  endpointParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Optional request headers to send to the endpoint
+   */
+  endpointHeaders?: Array<Metadata1Type> | undefined;
+  /**
+   * Collector runtime log level (verbosity)
+   */
+  logLevel?: LogLevelOptions | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 for no timeout.
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters.
+   */
+  encoding?: string | undefined;
+  /**
+   * How often workers should check in with the scheduler to keep job subscription alive
+   */
+  keepAliveTime?: number | undefined;
+  /**
+   * Maximum time the job is allowed to run (e.g., 30, 45s or 15m). Units are seconds, if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * The number of Keep Alive Time periods before an inactive worker will have its job subscription revoked.
+   */
+  maxMissedKeepAlives?: number | undefined;
+  /**
+   * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
+   */
+  ttl?: string | undefined;
+  /**
+   * When enabled, this job's artifacts are not counted toward the Worker Group's finished job artifacts limit. Artifacts will be removed only after the Collector's configured time to live.
+   */
+  ignoreGroupJobsLimit?: boolean | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  retryRules?: RetryRulesType | undefined;
+  /**
+   * A list of event-breaking rulesets that will be applied, in order, to the input data stream
+   */
+  breakerRulesets?: Array<string> | undefined;
+  /**
+   * How long (in milliseconds) the Event Breaker will wait for new data to be sent to a specific channel before flushing the data stream out, as is, to the Pipelines
+   */
+  staleChannelFlushMs?: number | undefined;
+  /**
+   * Splunk Search authentication type
+   */
+  authType?: AuthTypeOptions | undefined;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Bearer token to include in the authorization header
+   */
+  token?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+  /**
+   * URL for OAuth
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Secret parameter name to pass in request body
+   */
+  secretParamName?: string | undefined;
+  /**
+   * Secret parameter value to pass in request body
+   */
+  secret?: string | undefined;
+  /**
+   * Name of the auth token attribute in the OAuth response. Can be top-level (e.g., 'token'); or nested, using a period (e.g., 'data.token').
+   */
+  tokenAttributeName?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header value to pass in requests. The value `${token}` is used to reference the token obtained from authentication, e.g.: `Bearer ${token}`.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * How often the OAuth token should be refreshed.
+   */
+  tokenTimeoutSecs?: number | undefined;
+  /**
+   * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthParams?: Array<Metadata1Type> | undefined;
+  /**
+   * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
+   */
+  oauthHeaders?: Array<Metadata1Type> | undefined;
+};
+
+export type InputSplunkSearch =
+  | InputSplunkSearchSplunkSearch10
+  | InputSplunkSearchSplunkSearch6
+  | InputSplunkSearchSplunkSearch2
+  | InputSplunkSearchSplunkSearch4
+  | InputSplunkSearchSplunkSearch7
+  | InputSplunkSearchSplunkSearch8
+  | InputSplunkSearchSplunkSearch9
+  | InputSplunkSearchSplunkSearch1
+  | InputSplunkSearchSplunkSearch3
+  | InputSplunkSearchSplunkSearch5;
 
 /** @internal */
-export const InputSplunkSearchMode$inboundSchema: z.ZodType<
-  InputSplunkSearchMode,
+export const InputSplunkSearchType10$inboundSchema: z.ZodNativeEnum<
+  typeof InputSplunkSearchType10
+> = z.nativeEnum(InputSplunkSearchType10);
+/** @internal */
+export const InputSplunkSearchType10$outboundSchema: z.ZodNativeEnum<
+  typeof InputSplunkSearchType10
+> = InputSplunkSearchType10$inboundSchema;
+
+/** @internal */
+export const OutputMode10$inboundSchema: z.ZodType<
+  OutputMode10,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(InputSplunkSearchMode),
+    z.nativeEnum(OutputMode10),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
-export const InputSplunkSearchMode$outboundSchema: z.ZodType<
-  InputSplunkSearchMode,
+export const OutputMode10$outboundSchema: z.ZodType<
+  OutputMode10,
   z.ZodTypeDef,
-  InputSplunkSearchMode
+  OutputMode10
 > = z.union([
-  z.nativeEnum(InputSplunkSearchMode),
+  z.nativeEnum(OutputMode10),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkSearchMode$ {
-  /** @deprecated use `InputSplunkSearchMode$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkSearchMode$inboundSchema;
-  /** @deprecated use `InputSplunkSearchMode$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkSearchMode$outboundSchema;
-}
-
 /** @internal */
-export const InputSplunkSearchCompression$inboundSchema: z.ZodType<
-  InputSplunkSearchCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputSplunkSearchCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputSplunkSearchCompression$outboundSchema: z.ZodType<
-  InputSplunkSearchCompression,
-  z.ZodTypeDef,
-  InputSplunkSearchCompression
-> = z.union([
-  z.nativeEnum(InputSplunkSearchCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkSearchCompression$ {
-  /** @deprecated use `InputSplunkSearchCompression$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkSearchCompression$inboundSchema;
-  /** @deprecated use `InputSplunkSearchCompression$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkSearchCompression$outboundSchema;
-}
-
-/** @internal */
-export const InputSplunkSearchPqControls$inboundSchema: z.ZodType<
-  InputSplunkSearchPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type InputSplunkSearchPqControls$Outbound = {};
-
-/** @internal */
-export const InputSplunkSearchPqControls$outboundSchema: z.ZodType<
-  InputSplunkSearchPqControls$Outbound,
-  z.ZodTypeDef,
-  InputSplunkSearchPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkSearchPqControls$ {
-  /** @deprecated use `InputSplunkSearchPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkSearchPqControls$inboundSchema;
-  /** @deprecated use `InputSplunkSearchPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkSearchPqControls$outboundSchema;
-  /** @deprecated use `InputSplunkSearchPqControls$Outbound` instead. */
-  export type Outbound = InputSplunkSearchPqControls$Outbound;
-}
-
-export function inputSplunkSearchPqControlsToJSON(
-  inputSplunkSearchPqControls: InputSplunkSearchPqControls,
-): string {
-  return JSON.stringify(
-    InputSplunkSearchPqControls$outboundSchema.parse(
-      inputSplunkSearchPqControls,
-    ),
-  );
-}
-
-export function inputSplunkSearchPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSplunkSearchPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSplunkSearchPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSplunkSearchPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSplunkSearchPq$inboundSchema: z.ZodType<
-  InputSplunkSearchPq,
+export const InputSplunkSearchSplunkSearch10$inboundSchema: z.ZodType<
+  InputSplunkSearchSplunkSearch10,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  mode: InputSplunkSearchMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputSplunkSearchCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputSplunkSearchPqControls$inboundSchema)
-    .optional(),
-});
-
-/** @internal */
-export type InputSplunkSearchPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputSplunkSearchPqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputSplunkSearchPq$outboundSchema: z.ZodType<
-  InputSplunkSearchPq$Outbound,
-  z.ZodTypeDef,
-  InputSplunkSearchPq
-> = z.object({
-  mode: InputSplunkSearchMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputSplunkSearchCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputSplunkSearchPqControls$outboundSchema)
-    .optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkSearchPq$ {
-  /** @deprecated use `InputSplunkSearchPq$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkSearchPq$inboundSchema;
-  /** @deprecated use `InputSplunkSearchPq$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkSearchPq$outboundSchema;
-  /** @deprecated use `InputSplunkSearchPq$Outbound` instead. */
-  export type Outbound = InputSplunkSearchPq$Outbound;
-}
-
-export function inputSplunkSearchPqToJSON(
-  inputSplunkSearchPq: InputSplunkSearchPq,
-): string {
-  return JSON.stringify(
-    InputSplunkSearchPq$outboundSchema.parse(inputSplunkSearchPq),
-  );
-}
-
-export function inputSplunkSearchPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSplunkSearchPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSplunkSearchPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSplunkSearchPq' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputMode$inboundSchema: z.ZodType<
-  OutputMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputMode$outboundSchema: z.ZodType<
-  OutputMode,
-  z.ZodTypeDef,
-  OutputMode
-> = z.union([
-  z.nativeEnum(OutputMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMode$ {
-  /** @deprecated use `OutputMode$inboundSchema` instead. */
-  export const inboundSchema = OutputMode$inboundSchema;
-  /** @deprecated use `OutputMode$outboundSchema` instead. */
-  export const outboundSchema = OutputMode$outboundSchema;
-}
-
-/** @internal */
-export const EndpointParam$inboundSchema: z.ZodType<
-  EndpointParam,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type EndpointParam$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const EndpointParam$outboundSchema: z.ZodType<
-  EndpointParam$Outbound,
-  z.ZodTypeDef,
-  EndpointParam
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EndpointParam$ {
-  /** @deprecated use `EndpointParam$inboundSchema` instead. */
-  export const inboundSchema = EndpointParam$inboundSchema;
-  /** @deprecated use `EndpointParam$outboundSchema` instead. */
-  export const outboundSchema = EndpointParam$outboundSchema;
-  /** @deprecated use `EndpointParam$Outbound` instead. */
-  export type Outbound = EndpointParam$Outbound;
-}
-
-export function endpointParamToJSON(endpointParam: EndpointParam): string {
-  return JSON.stringify(EndpointParam$outboundSchema.parse(endpointParam));
-}
-
-export function endpointParamFromJSON(
-  jsonString: string,
-): SafeParseResult<EndpointParam, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => EndpointParam$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EndpointParam' from JSON`,
-  );
-}
-
-/** @internal */
-export const EndpointHeader$inboundSchema: z.ZodType<
-  EndpointHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type EndpointHeader$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const EndpointHeader$outboundSchema: z.ZodType<
-  EndpointHeader$Outbound,
-  z.ZodTypeDef,
-  EndpointHeader
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace EndpointHeader$ {
-  /** @deprecated use `EndpointHeader$inboundSchema` instead. */
-  export const inboundSchema = EndpointHeader$inboundSchema;
-  /** @deprecated use `EndpointHeader$outboundSchema` instead. */
-  export const outboundSchema = EndpointHeader$outboundSchema;
-  /** @deprecated use `EndpointHeader$Outbound` instead. */
-  export type Outbound = EndpointHeader$Outbound;
-}
-
-export function endpointHeaderToJSON(endpointHeader: EndpointHeader): string {
-  return JSON.stringify(EndpointHeader$outboundSchema.parse(endpointHeader));
-}
-
-export function endpointHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<EndpointHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => EndpointHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'EndpointHeader' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSplunkSearchLogLevel$inboundSchema: z.ZodType<
-  InputSplunkSearchLogLevel,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputSplunkSearchLogLevel),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputSplunkSearchLogLevel$outboundSchema: z.ZodType<
-  InputSplunkSearchLogLevel,
-  z.ZodTypeDef,
-  InputSplunkSearchLogLevel
-> = z.union([
-  z.nativeEnum(InputSplunkSearchLogLevel),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkSearchLogLevel$ {
-  /** @deprecated use `InputSplunkSearchLogLevel$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkSearchLogLevel$inboundSchema;
-  /** @deprecated use `InputSplunkSearchLogLevel$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkSearchLogLevel$outboundSchema;
-}
-
-/** @internal */
-export const InputSplunkSearchMetadatum$inboundSchema: z.ZodType<
-  InputSplunkSearchMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type InputSplunkSearchMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputSplunkSearchMetadatum$outboundSchema: z.ZodType<
-  InputSplunkSearchMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputSplunkSearchMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkSearchMetadatum$ {
-  /** @deprecated use `InputSplunkSearchMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkSearchMetadatum$inboundSchema;
-  /** @deprecated use `InputSplunkSearchMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkSearchMetadatum$outboundSchema;
-  /** @deprecated use `InputSplunkSearchMetadatum$Outbound` instead. */
-  export type Outbound = InputSplunkSearchMetadatum$Outbound;
-}
-
-export function inputSplunkSearchMetadatumToJSON(
-  inputSplunkSearchMetadatum: InputSplunkSearchMetadatum,
-): string {
-  return JSON.stringify(
-    InputSplunkSearchMetadatum$outboundSchema.parse(inputSplunkSearchMetadatum),
-  );
-}
-
-export function inputSplunkSearchMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSplunkSearchMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSplunkSearchMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSplunkSearchMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSplunkSearchRetryType$inboundSchema: z.ZodType<
-  InputSplunkSearchRetryType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputSplunkSearchRetryType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputSplunkSearchRetryType$outboundSchema: z.ZodType<
-  InputSplunkSearchRetryType,
-  z.ZodTypeDef,
-  InputSplunkSearchRetryType
-> = z.union([
-  z.nativeEnum(InputSplunkSearchRetryType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkSearchRetryType$ {
-  /** @deprecated use `InputSplunkSearchRetryType$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkSearchRetryType$inboundSchema;
-  /** @deprecated use `InputSplunkSearchRetryType$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkSearchRetryType$outboundSchema;
-}
-
-/** @internal */
-export const InputSplunkSearchRetryRules$inboundSchema: z.ZodType<
-  InputSplunkSearchRetryRules,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: InputSplunkSearchRetryType$inboundSchema.default("backoff"),
-  interval: z.number().default(1000),
-  limit: z.number().default(5),
-  multiplier: z.number().default(2),
-  codes: z.array(z.number()).optional(),
-  enableHeader: z.boolean().default(true),
-  retryConnectTimeout: z.boolean().default(false),
-  retryConnectReset: z.boolean().default(false),
-});
-
-/** @internal */
-export type InputSplunkSearchRetryRules$Outbound = {
-  type: string;
-  interval: number;
-  limit: number;
-  multiplier: number;
-  codes?: Array<number> | undefined;
-  enableHeader: boolean;
-  retryConnectTimeout: boolean;
-  retryConnectReset: boolean;
-};
-
-/** @internal */
-export const InputSplunkSearchRetryRules$outboundSchema: z.ZodType<
-  InputSplunkSearchRetryRules$Outbound,
-  z.ZodTypeDef,
-  InputSplunkSearchRetryRules
-> = z.object({
-  type: InputSplunkSearchRetryType$outboundSchema.default("backoff"),
-  interval: z.number().default(1000),
-  limit: z.number().default(5),
-  multiplier: z.number().default(2),
-  codes: z.array(z.number()).optional(),
-  enableHeader: z.boolean().default(true),
-  retryConnectTimeout: z.boolean().default(false),
-  retryConnectReset: z.boolean().default(false),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkSearchRetryRules$ {
-  /** @deprecated use `InputSplunkSearchRetryRules$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkSearchRetryRules$inboundSchema;
-  /** @deprecated use `InputSplunkSearchRetryRules$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkSearchRetryRules$outboundSchema;
-  /** @deprecated use `InputSplunkSearchRetryRules$Outbound` instead. */
-  export type Outbound = InputSplunkSearchRetryRules$Outbound;
-}
-
-export function inputSplunkSearchRetryRulesToJSON(
-  inputSplunkSearchRetryRules: InputSplunkSearchRetryRules,
-): string {
-  return JSON.stringify(
-    InputSplunkSearchRetryRules$outboundSchema.parse(
-      inputSplunkSearchRetryRules,
-    ),
-  );
-}
-
-export function inputSplunkSearchRetryRulesFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSplunkSearchRetryRules, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSplunkSearchRetryRules$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSplunkSearchRetryRules' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSplunkSearchAuthenticationType$inboundSchema: z.ZodType<
-  InputSplunkSearchAuthenticationType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputSplunkSearchAuthenticationType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputSplunkSearchAuthenticationType$outboundSchema: z.ZodType<
-  InputSplunkSearchAuthenticationType,
-  z.ZodTypeDef,
-  InputSplunkSearchAuthenticationType
-> = z.union([
-  z.nativeEnum(InputSplunkSearchAuthenticationType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkSearchAuthenticationType$ {
-  /** @deprecated use `InputSplunkSearchAuthenticationType$inboundSchema` instead. */
-  export const inboundSchema =
-    InputSplunkSearchAuthenticationType$inboundSchema;
-  /** @deprecated use `InputSplunkSearchAuthenticationType$outboundSchema` instead. */
-  export const outboundSchema =
-    InputSplunkSearchAuthenticationType$outboundSchema;
-}
-
-/** @internal */
-export const InputSplunkSearchOauthParam$inboundSchema: z.ZodType<
-  InputSplunkSearchOauthParam,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type InputSplunkSearchOauthParam$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputSplunkSearchOauthParam$outboundSchema: z.ZodType<
-  InputSplunkSearchOauthParam$Outbound,
-  z.ZodTypeDef,
-  InputSplunkSearchOauthParam
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkSearchOauthParam$ {
-  /** @deprecated use `InputSplunkSearchOauthParam$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkSearchOauthParam$inboundSchema;
-  /** @deprecated use `InputSplunkSearchOauthParam$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkSearchOauthParam$outboundSchema;
-  /** @deprecated use `InputSplunkSearchOauthParam$Outbound` instead. */
-  export type Outbound = InputSplunkSearchOauthParam$Outbound;
-}
-
-export function inputSplunkSearchOauthParamToJSON(
-  inputSplunkSearchOauthParam: InputSplunkSearchOauthParam,
-): string {
-  return JSON.stringify(
-    InputSplunkSearchOauthParam$outboundSchema.parse(
-      inputSplunkSearchOauthParam,
-    ),
-  );
-}
-
-export function inputSplunkSearchOauthParamFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSplunkSearchOauthParam, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSplunkSearchOauthParam$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSplunkSearchOauthParam' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSplunkSearchOauthHeader$inboundSchema: z.ZodType<
-  InputSplunkSearchOauthHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/** @internal */
-export type InputSplunkSearchOauthHeader$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputSplunkSearchOauthHeader$outboundSchema: z.ZodType<
-  InputSplunkSearchOauthHeader$Outbound,
-  z.ZodTypeDef,
-  InputSplunkSearchOauthHeader
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkSearchOauthHeader$ {
-  /** @deprecated use `InputSplunkSearchOauthHeader$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkSearchOauthHeader$inboundSchema;
-  /** @deprecated use `InputSplunkSearchOauthHeader$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkSearchOauthHeader$outboundSchema;
-  /** @deprecated use `InputSplunkSearchOauthHeader$Outbound` instead. */
-  export type Outbound = InputSplunkSearchOauthHeader$Outbound;
-}
-
-export function inputSplunkSearchOauthHeaderToJSON(
-  inputSplunkSearchOauthHeader: InputSplunkSearchOauthHeader,
-): string {
-  return JSON.stringify(
-    InputSplunkSearchOauthHeader$outboundSchema.parse(
-      inputSplunkSearchOauthHeader,
-    ),
-  );
-}
-
-export function inputSplunkSearchOauthHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<InputSplunkSearchOauthHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputSplunkSearchOauthHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputSplunkSearchOauthHeader' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputSplunkSearch$inboundSchema: z.ZodType<
-  InputSplunkSearch,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+  authType: AuthTypeOptions$inboundSchema.default("basic"),
   id: z.string().optional(),
-  type: InputSplunkSearchType$inboundSchema,
+  type: InputSplunkSearchType10$inboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputSplunkSearchConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputSplunkSearchPq$inboundSchema).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
   searchHead: z.string().default("https://localhost:8089"),
   search: z.string(),
   earliest: z.string().default("-16m@m"),
   latest: z.string().default("-1m@m"),
   cronSchedule: z.string().default("*/15 * * * *"),
   endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: OutputMode$inboundSchema.default("json"),
-  endpointParams: z.array(z.lazy(() => EndpointParam$inboundSchema)).optional(),
-  endpointHeaders: z.array(z.lazy(() => EndpointHeader$inboundSchema))
-    .optional(),
-  logLevel: InputSplunkSearchLogLevel$inboundSchema.optional(),
+  outputMode: OutputMode10$inboundSchema.default("json"),
+  endpointParams: z.array(Metadata1Type$inboundSchema).optional(),
+  endpointHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+  logLevel: LogLevelOptions$inboundSchema.optional(),
   requestTimeout: z.number().default(0),
   useRoundRobinDns: z.boolean().default(false),
   rejectUnauthorized: z.boolean().default(false),
@@ -1195,13 +2036,1065 @@ export const InputSplunkSearch$inboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().default(3),
   ttl: z.string().default("4h"),
   ignoreGroupJobsLimit: z.boolean().default(false),
-  metadata: z.array(z.lazy(() => InputSplunkSearchMetadatum$inboundSchema))
-    .optional(),
-  retryRules: z.lazy(() => InputSplunkSearchRetryRules$inboundSchema)
-    .optional(),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  retryRules: RetryRulesType$inboundSchema.optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().default(10000),
-  authType: InputSplunkSearchAuthenticationType$inboundSchema.default("basic"),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string(),
+  secretParamName: z.string(),
+  secret: z.string(),
+  tokenAttributeName: z.string(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$inboundSchema),
+  oauthHeaders: z.array(Metadata1Type$inboundSchema),
+});
+/** @internal */
+export type InputSplunkSearchSplunkSearch10$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  searchHead: string;
+  search: string;
+  earliest: string;
+  latest: string;
+  cronSchedule: string;
+  endpoint: string;
+  outputMode: string;
+  endpointParams?: Array<Metadata1Type$Outbound> | undefined;
+  endpointHeaders?: Array<Metadata1Type$Outbound> | undefined;
+  logLevel?: string | undefined;
+  requestTimeout: number;
+  useRoundRobinDns: boolean;
+  rejectUnauthorized: boolean;
+  encoding?: string | undefined;
+  keepAliveTime: number;
+  jobTimeout: string;
+  maxMissedKeepAlives: number;
+  ttl: string;
+  ignoreGroupJobsLimit: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  retryRules?: RetryRulesType$Outbound | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs: number;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl: string;
+  secretParamName: string;
+  secret: string;
+  tokenAttributeName: string;
+  authHeaderExpr: string;
+  tokenTimeoutSecs: number;
+  oauthParams: Array<Metadata1Type$Outbound>;
+  oauthHeaders: Array<Metadata1Type$Outbound>;
+};
+
+/** @internal */
+export const InputSplunkSearchSplunkSearch10$outboundSchema: z.ZodType<
+  InputSplunkSearchSplunkSearch10$Outbound,
+  z.ZodTypeDef,
+  InputSplunkSearchSplunkSearch10
+> = z.object({
+  authType: AuthTypeOptions$outboundSchema.default("basic"),
+  id: z.string().optional(),
+  type: InputSplunkSearchType10$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  searchHead: z.string().default("https://localhost:8089"),
+  search: z.string(),
+  earliest: z.string().default("-16m@m"),
+  latest: z.string().default("-1m@m"),
+  cronSchedule: z.string().default("*/15 * * * *"),
+  endpoint: z.string().default("/services/search/v2/jobs/export"),
+  outputMode: OutputMode10$outboundSchema.default("json"),
+  endpointParams: z.array(Metadata1Type$outboundSchema).optional(),
+  endpointHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+  logLevel: LogLevelOptions$outboundSchema.optional(),
+  requestTimeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(false),
+  encoding: z.string().optional(),
+  keepAliveTime: z.number().default(30),
+  jobTimeout: z.string().default("0"),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  retryRules: RetryRulesType$outboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string(),
+  secretParamName: z.string(),
+  secret: z.string(),
+  tokenAttributeName: z.string(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$outboundSchema),
+  oauthHeaders: z.array(Metadata1Type$outboundSchema),
+});
+
+export function inputSplunkSearchSplunkSearch10ToJSON(
+  inputSplunkSearchSplunkSearch10: InputSplunkSearchSplunkSearch10,
+): string {
+  return JSON.stringify(
+    InputSplunkSearchSplunkSearch10$outboundSchema.parse(
+      inputSplunkSearchSplunkSearch10,
+    ),
+  );
+}
+export function inputSplunkSearchSplunkSearch10FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSplunkSearchSplunkSearch10, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSplunkSearchSplunkSearch10$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSplunkSearchSplunkSearch10' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSplunkSearchType9$inboundSchema: z.ZodNativeEnum<
+  typeof InputSplunkSearchType9
+> = z.nativeEnum(InputSplunkSearchType9);
+/** @internal */
+export const InputSplunkSearchType9$outboundSchema: z.ZodNativeEnum<
+  typeof InputSplunkSearchType9
+> = InputSplunkSearchType9$inboundSchema;
+
+/** @internal */
+export const OutputMode9$inboundSchema: z.ZodType<
+  OutputMode9,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputMode9),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputMode9$outboundSchema: z.ZodType<
+  OutputMode9,
+  z.ZodTypeDef,
+  OutputMode9
+> = z.union([
+  z.nativeEnum(OutputMode9),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputSplunkSearchSplunkSearch9$inboundSchema: z.ZodType<
+  InputSplunkSearchSplunkSearch9,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthTypeOptions$inboundSchema.default("basic"),
+  id: z.string().optional(),
+  type: InputSplunkSearchType9$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  searchHead: z.string().default("https://localhost:8089"),
+  search: z.string(),
+  earliest: z.string().default("-16m@m"),
+  latest: z.string().default("-1m@m"),
+  cronSchedule: z.string().default("*/15 * * * *"),
+  endpoint: z.string().default("/services/search/v2/jobs/export"),
+  outputMode: OutputMode9$inboundSchema.default("json"),
+  endpointParams: z.array(Metadata1Type$inboundSchema).optional(),
+  endpointHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+  logLevel: LogLevelOptions$inboundSchema.optional(),
+  requestTimeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(false),
+  encoding: z.string().optional(),
+  keepAliveTime: z.number().default(30),
+  jobTimeout: z.string().default("0"),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  retryRules: RetryRulesType$inboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$inboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+});
+/** @internal */
+export type InputSplunkSearchSplunkSearch9$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  searchHead: string;
+  search: string;
+  earliest: string;
+  latest: string;
+  cronSchedule: string;
+  endpoint: string;
+  outputMode: string;
+  endpointParams?: Array<Metadata1Type$Outbound> | undefined;
+  endpointHeaders?: Array<Metadata1Type$Outbound> | undefined;
+  logLevel?: string | undefined;
+  requestTimeout: number;
+  useRoundRobinDns: boolean;
+  rejectUnauthorized: boolean;
+  encoding?: string | undefined;
+  keepAliveTime: number;
+  jobTimeout: string;
+  maxMissedKeepAlives: number;
+  ttl: string;
+  ignoreGroupJobsLimit: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  retryRules?: RetryRulesType$Outbound | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs: number;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret: string;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr: string;
+  tokenTimeoutSecs: number;
+  oauthParams?: Array<Metadata1Type$Outbound> | undefined;
+  oauthHeaders?: Array<Metadata1Type$Outbound> | undefined;
+};
+
+/** @internal */
+export const InputSplunkSearchSplunkSearch9$outboundSchema: z.ZodType<
+  InputSplunkSearchSplunkSearch9$Outbound,
+  z.ZodTypeDef,
+  InputSplunkSearchSplunkSearch9
+> = z.object({
+  authType: AuthTypeOptions$outboundSchema.default("basic"),
+  id: z.string().optional(),
+  type: InputSplunkSearchType9$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  searchHead: z.string().default("https://localhost:8089"),
+  search: z.string(),
+  earliest: z.string().default("-16m@m"),
+  latest: z.string().default("-1m@m"),
+  cronSchedule: z.string().default("*/15 * * * *"),
+  endpoint: z.string().default("/services/search/v2/jobs/export"),
+  outputMode: OutputMode9$outboundSchema.default("json"),
+  endpointParams: z.array(Metadata1Type$outboundSchema).optional(),
+  endpointHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+  logLevel: LogLevelOptions$outboundSchema.optional(),
+  requestTimeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(false),
+  encoding: z.string().optional(),
+  keepAliveTime: z.number().default(30),
+  jobTimeout: z.string().default("0"),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  retryRules: RetryRulesType$outboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$outboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+});
+
+export function inputSplunkSearchSplunkSearch9ToJSON(
+  inputSplunkSearchSplunkSearch9: InputSplunkSearchSplunkSearch9,
+): string {
+  return JSON.stringify(
+    InputSplunkSearchSplunkSearch9$outboundSchema.parse(
+      inputSplunkSearchSplunkSearch9,
+    ),
+  );
+}
+export function inputSplunkSearchSplunkSearch9FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSplunkSearchSplunkSearch9, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSplunkSearchSplunkSearch9$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSplunkSearchSplunkSearch9' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSplunkSearchType8$inboundSchema: z.ZodNativeEnum<
+  typeof InputSplunkSearchType8
+> = z.nativeEnum(InputSplunkSearchType8);
+/** @internal */
+export const InputSplunkSearchType8$outboundSchema: z.ZodNativeEnum<
+  typeof InputSplunkSearchType8
+> = InputSplunkSearchType8$inboundSchema;
+
+/** @internal */
+export const OutputMode8$inboundSchema: z.ZodType<
+  OutputMode8,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputMode8),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputMode8$outboundSchema: z.ZodType<
+  OutputMode8,
+  z.ZodTypeDef,
+  OutputMode8
+> = z.union([
+  z.nativeEnum(OutputMode8),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputSplunkSearchSplunkSearch8$inboundSchema: z.ZodType<
+  InputSplunkSearchSplunkSearch8,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthTypeOptions$inboundSchema.default("basic"),
+  id: z.string().optional(),
+  type: InputSplunkSearchType8$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  searchHead: z.string().default("https://localhost:8089"),
+  search: z.string(),
+  earliest: z.string().default("-16m@m"),
+  latest: z.string().default("-1m@m"),
+  cronSchedule: z.string().default("*/15 * * * *"),
+  endpoint: z.string().default("/services/search/v2/jobs/export"),
+  outputMode: OutputMode8$inboundSchema.default("json"),
+  endpointParams: z.array(Metadata1Type$inboundSchema).optional(),
+  endpointHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+  logLevel: LogLevelOptions$inboundSchema.optional(),
+  requestTimeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(false),
+  encoding: z.string().optional(),
+  keepAliveTime: z.number().default(30),
+  jobTimeout: z.string().default("0"),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  retryRules: RetryRulesType$inboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$inboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+});
+/** @internal */
+export type InputSplunkSearchSplunkSearch8$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  searchHead: string;
+  search: string;
+  earliest: string;
+  latest: string;
+  cronSchedule: string;
+  endpoint: string;
+  outputMode: string;
+  endpointParams?: Array<Metadata1Type$Outbound> | undefined;
+  endpointHeaders?: Array<Metadata1Type$Outbound> | undefined;
+  logLevel?: string | undefined;
+  requestTimeout: number;
+  useRoundRobinDns: boolean;
+  rejectUnauthorized: boolean;
+  encoding?: string | undefined;
+  keepAliveTime: number;
+  jobTimeout: string;
+  maxMissedKeepAlives: number;
+  ttl: string;
+  ignoreGroupJobsLimit: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  retryRules?: RetryRulesType$Outbound | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs: number;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret: string;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr: string;
+  tokenTimeoutSecs: number;
+  oauthParams?: Array<Metadata1Type$Outbound> | undefined;
+  oauthHeaders?: Array<Metadata1Type$Outbound> | undefined;
+};
+
+/** @internal */
+export const InputSplunkSearchSplunkSearch8$outboundSchema: z.ZodType<
+  InputSplunkSearchSplunkSearch8$Outbound,
+  z.ZodTypeDef,
+  InputSplunkSearchSplunkSearch8
+> = z.object({
+  authType: AuthTypeOptions$outboundSchema.default("basic"),
+  id: z.string().optional(),
+  type: InputSplunkSearchType8$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  searchHead: z.string().default("https://localhost:8089"),
+  search: z.string(),
+  earliest: z.string().default("-16m@m"),
+  latest: z.string().default("-1m@m"),
+  cronSchedule: z.string().default("*/15 * * * *"),
+  endpoint: z.string().default("/services/search/v2/jobs/export"),
+  outputMode: OutputMode8$outboundSchema.default("json"),
+  endpointParams: z.array(Metadata1Type$outboundSchema).optional(),
+  endpointHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+  logLevel: LogLevelOptions$outboundSchema.optional(),
+  requestTimeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(false),
+  encoding: z.string().optional(),
+  keepAliveTime: z.number().default(30),
+  jobTimeout: z.string().default("0"),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  retryRules: RetryRulesType$outboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$outboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+});
+
+export function inputSplunkSearchSplunkSearch8ToJSON(
+  inputSplunkSearchSplunkSearch8: InputSplunkSearchSplunkSearch8,
+): string {
+  return JSON.stringify(
+    InputSplunkSearchSplunkSearch8$outboundSchema.parse(
+      inputSplunkSearchSplunkSearch8,
+    ),
+  );
+}
+export function inputSplunkSearchSplunkSearch8FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSplunkSearchSplunkSearch8, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSplunkSearchSplunkSearch8$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSplunkSearchSplunkSearch8' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSplunkSearchType7$inboundSchema: z.ZodNativeEnum<
+  typeof InputSplunkSearchType7
+> = z.nativeEnum(InputSplunkSearchType7);
+/** @internal */
+export const InputSplunkSearchType7$outboundSchema: z.ZodNativeEnum<
+  typeof InputSplunkSearchType7
+> = InputSplunkSearchType7$inboundSchema;
+
+/** @internal */
+export const OutputMode7$inboundSchema: z.ZodType<
+  OutputMode7,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputMode7),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputMode7$outboundSchema: z.ZodType<
+  OutputMode7,
+  z.ZodTypeDef,
+  OutputMode7
+> = z.union([
+  z.nativeEnum(OutputMode7),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputSplunkSearchSplunkSearch7$inboundSchema: z.ZodType<
+  InputSplunkSearchSplunkSearch7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthTypeOptions$inboundSchema.default("basic"),
+  id: z.string().optional(),
+  type: InputSplunkSearchType7$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  searchHead: z.string().default("https://localhost:8089"),
+  search: z.string(),
+  earliest: z.string().default("-16m@m"),
+  latest: z.string().default("-1m@m"),
+  cronSchedule: z.string().default("*/15 * * * *"),
+  endpoint: z.string().default("/services/search/v2/jobs/export"),
+  outputMode: OutputMode7$inboundSchema.default("json"),
+  endpointParams: z.array(Metadata1Type$inboundSchema).optional(),
+  endpointHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+  logLevel: LogLevelOptions$inboundSchema.optional(),
+  requestTimeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(false),
+  encoding: z.string().optional(),
+  keepAliveTime: z.number().default(30),
+  jobTimeout: z.string().default("0"),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  retryRules: RetryRulesType$inboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$inboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+});
+/** @internal */
+export type InputSplunkSearchSplunkSearch7$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  searchHead: string;
+  search: string;
+  earliest: string;
+  latest: string;
+  cronSchedule: string;
+  endpoint: string;
+  outputMode: string;
+  endpointParams?: Array<Metadata1Type$Outbound> | undefined;
+  endpointHeaders?: Array<Metadata1Type$Outbound> | undefined;
+  logLevel?: string | undefined;
+  requestTimeout: number;
+  useRoundRobinDns: boolean;
+  rejectUnauthorized: boolean;
+  encoding?: string | undefined;
+  keepAliveTime: number;
+  jobTimeout: string;
+  maxMissedKeepAlives: number;
+  ttl: string;
+  ignoreGroupJobsLimit: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  retryRules?: RetryRulesType$Outbound | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs: number;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token: string;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr: string;
+  tokenTimeoutSecs: number;
+  oauthParams?: Array<Metadata1Type$Outbound> | undefined;
+  oauthHeaders?: Array<Metadata1Type$Outbound> | undefined;
+};
+
+/** @internal */
+export const InputSplunkSearchSplunkSearch7$outboundSchema: z.ZodType<
+  InputSplunkSearchSplunkSearch7$Outbound,
+  z.ZodTypeDef,
+  InputSplunkSearchSplunkSearch7
+> = z.object({
+  authType: AuthTypeOptions$outboundSchema.default("basic"),
+  id: z.string().optional(),
+  type: InputSplunkSearchType7$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  searchHead: z.string().default("https://localhost:8089"),
+  search: z.string(),
+  earliest: z.string().default("-16m@m"),
+  latest: z.string().default("-1m@m"),
+  cronSchedule: z.string().default("*/15 * * * *"),
+  endpoint: z.string().default("/services/search/v2/jobs/export"),
+  outputMode: OutputMode7$outboundSchema.default("json"),
+  endpointParams: z.array(Metadata1Type$outboundSchema).optional(),
+  endpointHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+  logLevel: LogLevelOptions$outboundSchema.optional(),
+  requestTimeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(false),
+  encoding: z.string().optional(),
+  keepAliveTime: z.number().default(30),
+  jobTimeout: z.string().default("0"),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  retryRules: RetryRulesType$outboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$outboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+});
+
+export function inputSplunkSearchSplunkSearch7ToJSON(
+  inputSplunkSearchSplunkSearch7: InputSplunkSearchSplunkSearch7,
+): string {
+  return JSON.stringify(
+    InputSplunkSearchSplunkSearch7$outboundSchema.parse(
+      inputSplunkSearchSplunkSearch7,
+    ),
+  );
+}
+export function inputSplunkSearchSplunkSearch7FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSplunkSearchSplunkSearch7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSplunkSearchSplunkSearch7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSplunkSearchSplunkSearch7' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSplunkSearchType6$inboundSchema: z.ZodNativeEnum<
+  typeof InputSplunkSearchType6
+> = z.nativeEnum(InputSplunkSearchType6);
+/** @internal */
+export const InputSplunkSearchType6$outboundSchema: z.ZodNativeEnum<
+  typeof InputSplunkSearchType6
+> = InputSplunkSearchType6$inboundSchema;
+
+/** @internal */
+export const OutputMode6$inboundSchema: z.ZodType<
+  OutputMode6,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputMode6),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputMode6$outboundSchema: z.ZodType<
+  OutputMode6,
+  z.ZodTypeDef,
+  OutputMode6
+> = z.union([
+  z.nativeEnum(OutputMode6),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputSplunkSearchSplunkSearch6$inboundSchema: z.ZodType<
+  InputSplunkSearchSplunkSearch6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthTypeOptions$inboundSchema.default("basic"),
+  id: z.string().optional(),
+  type: InputSplunkSearchType6$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  searchHead: z.string().default("https://localhost:8089"),
+  search: z.string(),
+  earliest: z.string().default("-16m@m"),
+  latest: z.string().default("-1m@m"),
+  cronSchedule: z.string().default("*/15 * * * *"),
+  endpoint: z.string().default("/services/search/v2/jobs/export"),
+  outputMode: OutputMode6$inboundSchema.default("json"),
+  endpointParams: z.array(Metadata1Type$inboundSchema).optional(),
+  endpointHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+  logLevel: LogLevelOptions$inboundSchema.optional(),
+  requestTimeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(false),
+  encoding: z.string().optional(),
+  keepAliveTime: z.number().default(30),
+  jobTimeout: z.string().default("0"),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  retryRules: RetryRulesType$inboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  description: z.string().optional(),
+  username: z.string(),
+  password: z.string(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$inboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+});
+/** @internal */
+export type InputSplunkSearchSplunkSearch6$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  searchHead: string;
+  search: string;
+  earliest: string;
+  latest: string;
+  cronSchedule: string;
+  endpoint: string;
+  outputMode: string;
+  endpointParams?: Array<Metadata1Type$Outbound> | undefined;
+  endpointHeaders?: Array<Metadata1Type$Outbound> | undefined;
+  logLevel?: string | undefined;
+  requestTimeout: number;
+  useRoundRobinDns: boolean;
+  rejectUnauthorized: boolean;
+  encoding?: string | undefined;
+  keepAliveTime: number;
+  jobTimeout: string;
+  maxMissedKeepAlives: number;
+  ttl: string;
+  ignoreGroupJobsLimit: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  retryRules?: RetryRulesType$Outbound | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs: number;
+  description?: string | undefined;
+  username: string;
+  password: string;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr: string;
+  tokenTimeoutSecs: number;
+  oauthParams?: Array<Metadata1Type$Outbound> | undefined;
+  oauthHeaders?: Array<Metadata1Type$Outbound> | undefined;
+};
+
+/** @internal */
+export const InputSplunkSearchSplunkSearch6$outboundSchema: z.ZodType<
+  InputSplunkSearchSplunkSearch6$Outbound,
+  z.ZodTypeDef,
+  InputSplunkSearchSplunkSearch6
+> = z.object({
+  authType: AuthTypeOptions$outboundSchema.default("basic"),
+  id: z.string().optional(),
+  type: InputSplunkSearchType6$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  searchHead: z.string().default("https://localhost:8089"),
+  search: z.string(),
+  earliest: z.string().default("-16m@m"),
+  latest: z.string().default("-1m@m"),
+  cronSchedule: z.string().default("*/15 * * * *"),
+  endpoint: z.string().default("/services/search/v2/jobs/export"),
+  outputMode: OutputMode6$outboundSchema.default("json"),
+  endpointParams: z.array(Metadata1Type$outboundSchema).optional(),
+  endpointHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+  logLevel: LogLevelOptions$outboundSchema.optional(),
+  requestTimeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(false),
+  encoding: z.string().optional(),
+  keepAliveTime: z.number().default(30),
+  jobTimeout: z.string().default("0"),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  retryRules: RetryRulesType$outboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  description: z.string().optional(),
+  username: z.string(),
+  password: z.string(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$outboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+});
+
+export function inputSplunkSearchSplunkSearch6ToJSON(
+  inputSplunkSearchSplunkSearch6: InputSplunkSearchSplunkSearch6,
+): string {
+  return JSON.stringify(
+    InputSplunkSearchSplunkSearch6$outboundSchema.parse(
+      inputSplunkSearchSplunkSearch6,
+    ),
+  );
+}
+export function inputSplunkSearchSplunkSearch6FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSplunkSearchSplunkSearch6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSplunkSearchSplunkSearch6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSplunkSearchSplunkSearch6' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSplunkSearchType5$inboundSchema: z.ZodNativeEnum<
+  typeof InputSplunkSearchType5
+> = z.nativeEnum(InputSplunkSearchType5);
+/** @internal */
+export const InputSplunkSearchType5$outboundSchema: z.ZodNativeEnum<
+  typeof InputSplunkSearchType5
+> = InputSplunkSearchType5$inboundSchema;
+
+/** @internal */
+export const OutputMode5$inboundSchema: z.ZodType<
+  OutputMode5,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputMode5),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputMode5$outboundSchema: z.ZodType<
+  OutputMode5,
+  z.ZodTypeDef,
+  OutputMode5
+> = z.union([
+  z.nativeEnum(OutputMode5),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputSplunkSearchSplunkSearch5$inboundSchema: z.ZodType<
+  InputSplunkSearchSplunkSearch5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthTypeOptions$inboundSchema.default("basic"),
+  id: z.string().optional(),
+  type: InputSplunkSearchType5$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  searchHead: z.string().default("https://localhost:8089"),
+  search: z.string(),
+  earliest: z.string().default("-16m@m"),
+  latest: z.string().default("-1m@m"),
+  cronSchedule: z.string().default("*/15 * * * *"),
+  endpoint: z.string().default("/services/search/v2/jobs/export"),
+  outputMode: OutputMode5$inboundSchema.default("json"),
+  endpointParams: z.array(Metadata1Type$inboundSchema).optional(),
+  endpointHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+  logLevel: LogLevelOptions$inboundSchema.optional(),
+  requestTimeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(false),
+  encoding: z.string().optional(),
+  keepAliveTime: z.number().default(30),
+  jobTimeout: z.string().default("0"),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  retryRules: RetryRulesType$inboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -1214,15 +3107,12 @@ export const InputSplunkSearch$inboundSchema: z.ZodType<
   tokenAttributeName: z.string().optional(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
   tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(z.lazy(() => InputSplunkSearchOauthParam$inboundSchema))
-    .optional(),
-  oauthHeaders: z.array(
-    z.lazy(() => InputSplunkSearchOauthHeader$inboundSchema),
-  ).optional(),
+  oauthParams: z.array(Metadata1Type$inboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$inboundSchema).optional(),
 });
-
 /** @internal */
-export type InputSplunkSearch$Outbound = {
+export type InputSplunkSearchSplunkSearch5$Outbound = {
+  authType: string;
   id?: string | undefined;
   type: string;
   disabled: boolean;
@@ -1231,8 +3121,8 @@ export type InputSplunkSearch$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputSplunkSearchConnection$Outbound> | undefined;
-  pq?: InputSplunkSearchPq$Outbound | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   searchHead: string;
   search: string;
   earliest: string;
@@ -1240,8 +3130,8 @@ export type InputSplunkSearch$Outbound = {
   cronSchedule: string;
   endpoint: string;
   outputMode: string;
-  endpointParams?: Array<EndpointParam$Outbound> | undefined;
-  endpointHeaders?: Array<EndpointHeader$Outbound> | undefined;
+  endpointParams?: Array<Metadata1Type$Outbound> | undefined;
+  endpointHeaders?: Array<Metadata1Type$Outbound> | undefined;
   logLevel?: string | undefined;
   requestTimeout: number;
   useRoundRobinDns: boolean;
@@ -1252,8 +3142,218 @@ export type InputSplunkSearch$Outbound = {
   maxMissedKeepAlives: number;
   ttl: string;
   ignoreGroupJobsLimit: boolean;
-  metadata?: Array<InputSplunkSearchMetadatum$Outbound> | undefined;
-  retryRules?: InputSplunkSearchRetryRules$Outbound | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  retryRules?: RetryRulesType$Outbound | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs: number;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr: string;
+  tokenTimeoutSecs: number;
+  oauthParams?: Array<Metadata1Type$Outbound> | undefined;
+  oauthHeaders?: Array<Metadata1Type$Outbound> | undefined;
+};
+
+/** @internal */
+export const InputSplunkSearchSplunkSearch5$outboundSchema: z.ZodType<
+  InputSplunkSearchSplunkSearch5$Outbound,
+  z.ZodTypeDef,
+  InputSplunkSearchSplunkSearch5
+> = z.object({
+  authType: AuthTypeOptions$outboundSchema.default("basic"),
+  id: z.string().optional(),
+  type: InputSplunkSearchType5$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  searchHead: z.string().default("https://localhost:8089"),
+  search: z.string(),
+  earliest: z.string().default("-16m@m"),
+  latest: z.string().default("-1m@m"),
+  cronSchedule: z.string().default("*/15 * * * *"),
+  endpoint: z.string().default("/services/search/v2/jobs/export"),
+  outputMode: OutputMode5$outboundSchema.default("json"),
+  endpointParams: z.array(Metadata1Type$outboundSchema).optional(),
+  endpointHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+  logLevel: LogLevelOptions$outboundSchema.optional(),
+  requestTimeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(false),
+  encoding: z.string().optional(),
+  keepAliveTime: z.number().default(30),
+  jobTimeout: z.string().default("0"),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  retryRules: RetryRulesType$outboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$outboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+});
+
+export function inputSplunkSearchSplunkSearch5ToJSON(
+  inputSplunkSearchSplunkSearch5: InputSplunkSearchSplunkSearch5,
+): string {
+  return JSON.stringify(
+    InputSplunkSearchSplunkSearch5$outboundSchema.parse(
+      inputSplunkSearchSplunkSearch5,
+    ),
+  );
+}
+export function inputSplunkSearchSplunkSearch5FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSplunkSearchSplunkSearch5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSplunkSearchSplunkSearch5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSplunkSearchSplunkSearch5' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSplunkSearchType4$inboundSchema: z.ZodNativeEnum<
+  typeof InputSplunkSearchType4
+> = z.nativeEnum(InputSplunkSearchType4);
+/** @internal */
+export const InputSplunkSearchType4$outboundSchema: z.ZodNativeEnum<
+  typeof InputSplunkSearchType4
+> = InputSplunkSearchType4$inboundSchema;
+
+/** @internal */
+export const OutputMode4$inboundSchema: z.ZodType<
+  OutputMode4,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputMode4),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputMode4$outboundSchema: z.ZodType<
+  OutputMode4,
+  z.ZodTypeDef,
+  OutputMode4
+> = z.union([
+  z.nativeEnum(OutputMode4),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputSplunkSearchSplunkSearch4$inboundSchema: z.ZodType<
+  InputSplunkSearchSplunkSearch4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputSplunkSearchType4$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema,
+  searchHead: z.string().default("https://localhost:8089"),
+  search: z.string(),
+  earliest: z.string().default("-16m@m"),
+  latest: z.string().default("-1m@m"),
+  cronSchedule: z.string().default("*/15 * * * *"),
+  endpoint: z.string().default("/services/search/v2/jobs/export"),
+  outputMode: OutputMode4$inboundSchema.default("json"),
+  endpointParams: z.array(Metadata1Type$inboundSchema).optional(),
+  endpointHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+  logLevel: LogLevelOptions$inboundSchema.optional(),
+  requestTimeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(false),
+  encoding: z.string().optional(),
+  keepAliveTime: z.number().default(30),
+  jobTimeout: z.string().default("0"),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  retryRules: RetryRulesType$inboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  authType: AuthTypeOptions$inboundSchema.default("basic"),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$inboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+});
+/** @internal */
+export type InputSplunkSearchSplunkSearch4$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq: PqType$Outbound;
+  searchHead: string;
+  search: string;
+  earliest: string;
+  latest: string;
+  cronSchedule: string;
+  endpoint: string;
+  outputMode: string;
+  endpointParams?: Array<Metadata1Type$Outbound> | undefined;
+  endpointHeaders?: Array<Metadata1Type$Outbound> | undefined;
+  logLevel?: string | undefined;
+  requestTimeout: number;
+  useRoundRobinDns: boolean;
+  rejectUnauthorized: boolean;
+  encoding?: string | undefined;
+  keepAliveTime: number;
+  jobTimeout: string;
+  maxMissedKeepAlives: number;
+  ttl: string;
+  ignoreGroupJobsLimit: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  retryRules?: RetryRulesType$Outbound | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs: number;
   authType: string;
@@ -1269,39 +3369,36 @@ export type InputSplunkSearch$Outbound = {
   tokenAttributeName?: string | undefined;
   authHeaderExpr: string;
   tokenTimeoutSecs: number;
-  oauthParams?: Array<InputSplunkSearchOauthParam$Outbound> | undefined;
-  oauthHeaders?: Array<InputSplunkSearchOauthHeader$Outbound> | undefined;
+  oauthParams?: Array<Metadata1Type$Outbound> | undefined;
+  oauthHeaders?: Array<Metadata1Type$Outbound> | undefined;
 };
 
 /** @internal */
-export const InputSplunkSearch$outboundSchema: z.ZodType<
-  InputSplunkSearch$Outbound,
+export const InputSplunkSearchSplunkSearch4$outboundSchema: z.ZodType<
+  InputSplunkSearchSplunkSearch4$Outbound,
   z.ZodTypeDef,
-  InputSplunkSearch
+  InputSplunkSearchSplunkSearch4
 > = z.object({
+  pqEnabled: z.boolean().default(false),
   id: z.string().optional(),
-  type: InputSplunkSearchType$outboundSchema,
+  type: InputSplunkSearchType4$outboundSchema,
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
   environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputSplunkSearchConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputSplunkSearchPq$outboundSchema).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema,
   searchHead: z.string().default("https://localhost:8089"),
   search: z.string(),
   earliest: z.string().default("-16m@m"),
   latest: z.string().default("-1m@m"),
   cronSchedule: z.string().default("*/15 * * * *"),
   endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: OutputMode$outboundSchema.default("json"),
-  endpointParams: z.array(z.lazy(() => EndpointParam$outboundSchema))
-    .optional(),
-  endpointHeaders: z.array(z.lazy(() => EndpointHeader$outboundSchema))
-    .optional(),
-  logLevel: InputSplunkSearchLogLevel$outboundSchema.optional(),
+  outputMode: OutputMode4$outboundSchema.default("json"),
+  endpointParams: z.array(Metadata1Type$outboundSchema).optional(),
+  endpointHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+  logLevel: LogLevelOptions$outboundSchema.optional(),
   requestTimeout: z.number().default(0),
   useRoundRobinDns: z.boolean().default(false),
   rejectUnauthorized: z.boolean().default(false),
@@ -1311,13 +3408,11 @@ export const InputSplunkSearch$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().default(3),
   ttl: z.string().default("4h"),
   ignoreGroupJobsLimit: z.boolean().default(false),
-  metadata: z.array(z.lazy(() => InputSplunkSearchMetadatum$outboundSchema))
-    .optional(),
-  retryRules: z.lazy(() => InputSplunkSearchRetryRules$outboundSchema)
-    .optional(),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  retryRules: RetryRulesType$outboundSchema.optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().default(10000),
-  authType: InputSplunkSearchAuthenticationType$outboundSchema.default("basic"),
+  authType: AuthTypeOptions$outboundSchema.default("basic"),
   description: z.string().optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -1330,25 +3425,709 @@ export const InputSplunkSearch$outboundSchema: z.ZodType<
   tokenAttributeName: z.string().optional(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
   tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(z.lazy(() => InputSplunkSearchOauthParam$outboundSchema))
-    .optional(),
-  oauthHeaders: z.array(
-    z.lazy(() => InputSplunkSearchOauthHeader$outboundSchema),
-  ).optional(),
+  oauthParams: z.array(Metadata1Type$outboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSplunkSearch$ {
-  /** @deprecated use `InputSplunkSearch$inboundSchema` instead. */
-  export const inboundSchema = InputSplunkSearch$inboundSchema;
-  /** @deprecated use `InputSplunkSearch$outboundSchema` instead. */
-  export const outboundSchema = InputSplunkSearch$outboundSchema;
-  /** @deprecated use `InputSplunkSearch$Outbound` instead. */
-  export type Outbound = InputSplunkSearch$Outbound;
+export function inputSplunkSearchSplunkSearch4ToJSON(
+  inputSplunkSearchSplunkSearch4: InputSplunkSearchSplunkSearch4,
+): string {
+  return JSON.stringify(
+    InputSplunkSearchSplunkSearch4$outboundSchema.parse(
+      inputSplunkSearchSplunkSearch4,
+    ),
+  );
 }
+export function inputSplunkSearchSplunkSearch4FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSplunkSearchSplunkSearch4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSplunkSearchSplunkSearch4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSplunkSearchSplunkSearch4' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSplunkSearchType3$inboundSchema: z.ZodNativeEnum<
+  typeof InputSplunkSearchType3
+> = z.nativeEnum(InputSplunkSearchType3);
+/** @internal */
+export const InputSplunkSearchType3$outboundSchema: z.ZodNativeEnum<
+  typeof InputSplunkSearchType3
+> = InputSplunkSearchType3$inboundSchema;
+
+/** @internal */
+export const OutputMode3$inboundSchema: z.ZodType<
+  OutputMode3,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputMode3),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputMode3$outboundSchema: z.ZodType<
+  OutputMode3,
+  z.ZodTypeDef,
+  OutputMode3
+> = z.union([
+  z.nativeEnum(OutputMode3),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputSplunkSearchSplunkSearch3$inboundSchema: z.ZodType<
+  InputSplunkSearchSplunkSearch3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputSplunkSearchType3$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  searchHead: z.string().default("https://localhost:8089"),
+  search: z.string(),
+  earliest: z.string().default("-16m@m"),
+  latest: z.string().default("-1m@m"),
+  cronSchedule: z.string().default("*/15 * * * *"),
+  endpoint: z.string().default("/services/search/v2/jobs/export"),
+  outputMode: OutputMode3$inboundSchema.default("json"),
+  endpointParams: z.array(Metadata1Type$inboundSchema).optional(),
+  endpointHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+  logLevel: LogLevelOptions$inboundSchema.optional(),
+  requestTimeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(false),
+  encoding: z.string().optional(),
+  keepAliveTime: z.number().default(30),
+  jobTimeout: z.string().default("0"),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  retryRules: RetryRulesType$inboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  authType: AuthTypeOptions$inboundSchema.default("basic"),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$inboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+});
+/** @internal */
+export type InputSplunkSearchSplunkSearch3$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  searchHead: string;
+  search: string;
+  earliest: string;
+  latest: string;
+  cronSchedule: string;
+  endpoint: string;
+  outputMode: string;
+  endpointParams?: Array<Metadata1Type$Outbound> | undefined;
+  endpointHeaders?: Array<Metadata1Type$Outbound> | undefined;
+  logLevel?: string | undefined;
+  requestTimeout: number;
+  useRoundRobinDns: boolean;
+  rejectUnauthorized: boolean;
+  encoding?: string | undefined;
+  keepAliveTime: number;
+  jobTimeout: string;
+  maxMissedKeepAlives: number;
+  ttl: string;
+  ignoreGroupJobsLimit: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  retryRules?: RetryRulesType$Outbound | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs: number;
+  authType: string;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr: string;
+  tokenTimeoutSecs: number;
+  oauthParams?: Array<Metadata1Type$Outbound> | undefined;
+  oauthHeaders?: Array<Metadata1Type$Outbound> | undefined;
+};
+
+/** @internal */
+export const InputSplunkSearchSplunkSearch3$outboundSchema: z.ZodType<
+  InputSplunkSearchSplunkSearch3$Outbound,
+  z.ZodTypeDef,
+  InputSplunkSearchSplunkSearch3
+> = z.object({
+  pqEnabled: z.boolean().default(false),
+  id: z.string().optional(),
+  type: InputSplunkSearchType3$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  sendToRoutes: z.boolean().default(true),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  searchHead: z.string().default("https://localhost:8089"),
+  search: z.string(),
+  earliest: z.string().default("-16m@m"),
+  latest: z.string().default("-1m@m"),
+  cronSchedule: z.string().default("*/15 * * * *"),
+  endpoint: z.string().default("/services/search/v2/jobs/export"),
+  outputMode: OutputMode3$outboundSchema.default("json"),
+  endpointParams: z.array(Metadata1Type$outboundSchema).optional(),
+  endpointHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+  logLevel: LogLevelOptions$outboundSchema.optional(),
+  requestTimeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(false),
+  encoding: z.string().optional(),
+  keepAliveTime: z.number().default(30),
+  jobTimeout: z.string().default("0"),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  retryRules: RetryRulesType$outboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  authType: AuthTypeOptions$outboundSchema.default("basic"),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$outboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+});
+
+export function inputSplunkSearchSplunkSearch3ToJSON(
+  inputSplunkSearchSplunkSearch3: InputSplunkSearchSplunkSearch3,
+): string {
+  return JSON.stringify(
+    InputSplunkSearchSplunkSearch3$outboundSchema.parse(
+      inputSplunkSearchSplunkSearch3,
+    ),
+  );
+}
+export function inputSplunkSearchSplunkSearch3FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSplunkSearchSplunkSearch3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSplunkSearchSplunkSearch3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSplunkSearchSplunkSearch3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSplunkSearchType2$inboundSchema: z.ZodNativeEnum<
+  typeof InputSplunkSearchType2
+> = z.nativeEnum(InputSplunkSearchType2);
+/** @internal */
+export const InputSplunkSearchType2$outboundSchema: z.ZodNativeEnum<
+  typeof InputSplunkSearchType2
+> = InputSplunkSearchType2$inboundSchema;
+
+/** @internal */
+export const OutputMode2$inboundSchema: z.ZodType<
+  OutputMode2,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputMode2),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputMode2$outboundSchema: z.ZodType<
+  OutputMode2,
+  z.ZodTypeDef,
+  OutputMode2
+> = z.union([
+  z.nativeEnum(OutputMode2),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputSplunkSearchSplunkSearch2$inboundSchema: z.ZodType<
+  InputSplunkSearchSplunkSearch2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputSplunkSearchType2$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema),
+  pq: PqType$inboundSchema.optional(),
+  searchHead: z.string().default("https://localhost:8089"),
+  search: z.string(),
+  earliest: z.string().default("-16m@m"),
+  latest: z.string().default("-1m@m"),
+  cronSchedule: z.string().default("*/15 * * * *"),
+  endpoint: z.string().default("/services/search/v2/jobs/export"),
+  outputMode: OutputMode2$inboundSchema.default("json"),
+  endpointParams: z.array(Metadata1Type$inboundSchema).optional(),
+  endpointHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+  logLevel: LogLevelOptions$inboundSchema.optional(),
+  requestTimeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(false),
+  encoding: z.string().optional(),
+  keepAliveTime: z.number().default(30),
+  jobTimeout: z.string().default("0"),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  retryRules: RetryRulesType$inboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  authType: AuthTypeOptions$inboundSchema.default("basic"),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$inboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+});
+/** @internal */
+export type InputSplunkSearchSplunkSearch2$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections: Array<ConnectionsType$Outbound>;
+  pq?: PqType$Outbound | undefined;
+  searchHead: string;
+  search: string;
+  earliest: string;
+  latest: string;
+  cronSchedule: string;
+  endpoint: string;
+  outputMode: string;
+  endpointParams?: Array<Metadata1Type$Outbound> | undefined;
+  endpointHeaders?: Array<Metadata1Type$Outbound> | undefined;
+  logLevel?: string | undefined;
+  requestTimeout: number;
+  useRoundRobinDns: boolean;
+  rejectUnauthorized: boolean;
+  encoding?: string | undefined;
+  keepAliveTime: number;
+  jobTimeout: string;
+  maxMissedKeepAlives: number;
+  ttl: string;
+  ignoreGroupJobsLimit: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  retryRules?: RetryRulesType$Outbound | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs: number;
+  authType: string;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr: string;
+  tokenTimeoutSecs: number;
+  oauthParams?: Array<Metadata1Type$Outbound> | undefined;
+  oauthHeaders?: Array<Metadata1Type$Outbound> | undefined;
+};
+
+/** @internal */
+export const InputSplunkSearchSplunkSearch2$outboundSchema: z.ZodType<
+  InputSplunkSearchSplunkSearch2$Outbound,
+  z.ZodTypeDef,
+  InputSplunkSearchSplunkSearch2
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputSplunkSearchType2$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema),
+  pq: PqType$outboundSchema.optional(),
+  searchHead: z.string().default("https://localhost:8089"),
+  search: z.string(),
+  earliest: z.string().default("-16m@m"),
+  latest: z.string().default("-1m@m"),
+  cronSchedule: z.string().default("*/15 * * * *"),
+  endpoint: z.string().default("/services/search/v2/jobs/export"),
+  outputMode: OutputMode2$outboundSchema.default("json"),
+  endpointParams: z.array(Metadata1Type$outboundSchema).optional(),
+  endpointHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+  logLevel: LogLevelOptions$outboundSchema.optional(),
+  requestTimeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(false),
+  encoding: z.string().optional(),
+  keepAliveTime: z.number().default(30),
+  jobTimeout: z.string().default("0"),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  retryRules: RetryRulesType$outboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  authType: AuthTypeOptions$outboundSchema.default("basic"),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$outboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+});
+
+export function inputSplunkSearchSplunkSearch2ToJSON(
+  inputSplunkSearchSplunkSearch2: InputSplunkSearchSplunkSearch2,
+): string {
+  return JSON.stringify(
+    InputSplunkSearchSplunkSearch2$outboundSchema.parse(
+      inputSplunkSearchSplunkSearch2,
+    ),
+  );
+}
+export function inputSplunkSearchSplunkSearch2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSplunkSearchSplunkSearch2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSplunkSearchSplunkSearch2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSplunkSearchSplunkSearch2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSplunkSearchType1$inboundSchema: z.ZodNativeEnum<
+  typeof InputSplunkSearchType1
+> = z.nativeEnum(InputSplunkSearchType1);
+/** @internal */
+export const InputSplunkSearchType1$outboundSchema: z.ZodNativeEnum<
+  typeof InputSplunkSearchType1
+> = InputSplunkSearchType1$inboundSchema;
+
+/** @internal */
+export const OutputMode1$inboundSchema: z.ZodType<
+  OutputMode1,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputMode1),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputMode1$outboundSchema: z.ZodType<
+  OutputMode1,
+  z.ZodTypeDef,
+  OutputMode1
+> = z.union([
+  z.nativeEnum(OutputMode1),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const InputSplunkSearchSplunkSearch1$inboundSchema: z.ZodType<
+  InputSplunkSearchSplunkSearch1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputSplunkSearchType1$inboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
+  searchHead: z.string().default("https://localhost:8089"),
+  search: z.string(),
+  earliest: z.string().default("-16m@m"),
+  latest: z.string().default("-1m@m"),
+  cronSchedule: z.string().default("*/15 * * * *"),
+  endpoint: z.string().default("/services/search/v2/jobs/export"),
+  outputMode: OutputMode1$inboundSchema.default("json"),
+  endpointParams: z.array(Metadata1Type$inboundSchema).optional(),
+  endpointHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+  logLevel: LogLevelOptions$inboundSchema.optional(),
+  requestTimeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(false),
+  encoding: z.string().optional(),
+  keepAliveTime: z.number().default(30),
+  jobTimeout: z.string().default("0"),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$inboundSchema).optional(),
+  retryRules: RetryRulesType$inboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  authType: AuthTypeOptions$inboundSchema.default("basic"),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$inboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$inboundSchema).optional(),
+});
+/** @internal */
+export type InputSplunkSearchSplunkSearch1$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  searchHead: string;
+  search: string;
+  earliest: string;
+  latest: string;
+  cronSchedule: string;
+  endpoint: string;
+  outputMode: string;
+  endpointParams?: Array<Metadata1Type$Outbound> | undefined;
+  endpointHeaders?: Array<Metadata1Type$Outbound> | undefined;
+  logLevel?: string | undefined;
+  requestTimeout: number;
+  useRoundRobinDns: boolean;
+  rejectUnauthorized: boolean;
+  encoding?: string | undefined;
+  keepAliveTime: number;
+  jobTimeout: string;
+  maxMissedKeepAlives: number;
+  ttl: string;
+  ignoreGroupJobsLimit: boolean;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  retryRules?: RetryRulesType$Outbound | undefined;
+  breakerRulesets?: Array<string> | undefined;
+  staleChannelFlushMs: number;
+  authType: string;
+  description?: string | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr: string;
+  tokenTimeoutSecs: number;
+  oauthParams?: Array<Metadata1Type$Outbound> | undefined;
+  oauthHeaders?: Array<Metadata1Type$Outbound> | undefined;
+};
+
+/** @internal */
+export const InputSplunkSearchSplunkSearch1$outboundSchema: z.ZodType<
+  InputSplunkSearchSplunkSearch1$Outbound,
+  z.ZodTypeDef,
+  InputSplunkSearchSplunkSearch1
+> = z.object({
+  sendToRoutes: z.boolean().default(true),
+  id: z.string().optional(),
+  type: InputSplunkSearchType1$outboundSchema,
+  disabled: z.boolean().default(false),
+  pipeline: z.string().optional(),
+  environment: z.string().optional(),
+  pqEnabled: z.boolean().default(false),
+  streamtags: z.array(z.string()).optional(),
+  connections: z.array(ConnectionsType$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
+  searchHead: z.string().default("https://localhost:8089"),
+  search: z.string(),
+  earliest: z.string().default("-16m@m"),
+  latest: z.string().default("-1m@m"),
+  cronSchedule: z.string().default("*/15 * * * *"),
+  endpoint: z.string().default("/services/search/v2/jobs/export"),
+  outputMode: OutputMode1$outboundSchema.default("json"),
+  endpointParams: z.array(Metadata1Type$outboundSchema).optional(),
+  endpointHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+  logLevel: LogLevelOptions$outboundSchema.optional(),
+  requestTimeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(false),
+  encoding: z.string().optional(),
+  keepAliveTime: z.number().default(30),
+  jobTimeout: z.string().default("0"),
+  maxMissedKeepAlives: z.number().default(3),
+  ttl: z.string().default("4h"),
+  ignoreGroupJobsLimit: z.boolean().default(false),
+  metadata: z.array(Metadata1Type$outboundSchema).optional(),
+  retryRules: RetryRulesType$outboundSchema.optional(),
+  breakerRulesets: z.array(z.string()).optional(),
+  staleChannelFlushMs: z.number().default(10000),
+  authType: AuthTypeOptions$outboundSchema.default("basic"),
+  description: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(Metadata1Type$outboundSchema).optional(),
+  oauthHeaders: z.array(Metadata1Type$outboundSchema).optional(),
+});
+
+export function inputSplunkSearchSplunkSearch1ToJSON(
+  inputSplunkSearchSplunkSearch1: InputSplunkSearchSplunkSearch1,
+): string {
+  return JSON.stringify(
+    InputSplunkSearchSplunkSearch1$outboundSchema.parse(
+      inputSplunkSearchSplunkSearch1,
+    ),
+  );
+}
+export function inputSplunkSearchSplunkSearch1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSplunkSearchSplunkSearch1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSplunkSearchSplunkSearch1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSplunkSearchSplunkSearch1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSplunkSearch$inboundSchema: z.ZodType<
+  InputSplunkSearch,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => InputSplunkSearchSplunkSearch10$inboundSchema),
+  z.lazy(() => InputSplunkSearchSplunkSearch6$inboundSchema),
+  z.lazy(() => InputSplunkSearchSplunkSearch2$inboundSchema),
+  z.lazy(() => InputSplunkSearchSplunkSearch4$inboundSchema),
+  z.lazy(() => InputSplunkSearchSplunkSearch7$inboundSchema),
+  z.lazy(() => InputSplunkSearchSplunkSearch8$inboundSchema),
+  z.lazy(() => InputSplunkSearchSplunkSearch9$inboundSchema),
+  z.lazy(() => InputSplunkSearchSplunkSearch1$inboundSchema),
+  z.lazy(() => InputSplunkSearchSplunkSearch3$inboundSchema),
+  z.lazy(() => InputSplunkSearchSplunkSearch5$inboundSchema),
+]);
+/** @internal */
+export type InputSplunkSearch$Outbound =
+  | InputSplunkSearchSplunkSearch10$Outbound
+  | InputSplunkSearchSplunkSearch6$Outbound
+  | InputSplunkSearchSplunkSearch2$Outbound
+  | InputSplunkSearchSplunkSearch4$Outbound
+  | InputSplunkSearchSplunkSearch7$Outbound
+  | InputSplunkSearchSplunkSearch8$Outbound
+  | InputSplunkSearchSplunkSearch9$Outbound
+  | InputSplunkSearchSplunkSearch1$Outbound
+  | InputSplunkSearchSplunkSearch3$Outbound
+  | InputSplunkSearchSplunkSearch5$Outbound;
+
+/** @internal */
+export const InputSplunkSearch$outboundSchema: z.ZodType<
+  InputSplunkSearch$Outbound,
+  z.ZodTypeDef,
+  InputSplunkSearch
+> = z.union([
+  z.lazy(() => InputSplunkSearchSplunkSearch10$outboundSchema),
+  z.lazy(() => InputSplunkSearchSplunkSearch6$outboundSchema),
+  z.lazy(() => InputSplunkSearchSplunkSearch2$outboundSchema),
+  z.lazy(() => InputSplunkSearchSplunkSearch4$outboundSchema),
+  z.lazy(() => InputSplunkSearchSplunkSearch7$outboundSchema),
+  z.lazy(() => InputSplunkSearchSplunkSearch8$outboundSchema),
+  z.lazy(() => InputSplunkSearchSplunkSearch9$outboundSchema),
+  z.lazy(() => InputSplunkSearchSplunkSearch1$outboundSchema),
+  z.lazy(() => InputSplunkSearchSplunkSearch3$outboundSchema),
+  z.lazy(() => InputSplunkSearchSplunkSearch5$outboundSchema),
+]);
 
 export function inputSplunkSearchToJSON(
   inputSplunkSearch: InputSplunkSearch,
@@ -1357,7 +4136,6 @@ export function inputSplunkSearchToJSON(
     InputSplunkSearch$outboundSchema.parse(inputSplunkSearch),
   );
 }
-
 export function inputSplunkSearchFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSplunkSearch, SDKValidationError> {

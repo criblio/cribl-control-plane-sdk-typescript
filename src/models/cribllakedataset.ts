@@ -4,11 +4,6 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   CacheConnection,
@@ -18,18 +13,22 @@ import {
 } from "./cacheconnection.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
+  FormatOptions,
+  FormatOptions$inboundSchema,
+  FormatOptions$outboundSchema,
+} from "./formatoptions.js";
+import {
+  LakeDatasetMetrics,
+  LakeDatasetMetrics$inboundSchema,
+  LakeDatasetMetrics$Outbound,
+  LakeDatasetMetrics$outboundSchema,
+} from "./lakedatasetmetrics.js";
+import {
   LakeDatasetSearchConfig,
   LakeDatasetSearchConfig$inboundSchema,
   LakeDatasetSearchConfig$Outbound,
   LakeDatasetSearchConfig$outboundSchema,
 } from "./lakedatasetsearchconfig.js";
-
-export const CriblLakeDatasetFormat = {
-  Json: "json",
-  Ddss: "ddss",
-  Parquet: "parquet",
-} as const;
-export type CriblLakeDatasetFormat = OpenEnum<typeof CriblLakeDatasetFormat>;
 
 export type CriblLakeDataset = {
   acceleratedFields?: Array<string> | undefined;
@@ -37,46 +36,15 @@ export type CriblLakeDataset = {
   cacheConnection?: CacheConnection | undefined;
   deletionStartedAt?: number | undefined;
   description?: string | undefined;
-  format?: CriblLakeDatasetFormat | undefined;
+  format?: FormatOptions | undefined;
   httpDAUsed?: boolean | undefined;
   id: string;
+  metrics?: LakeDatasetMetrics | undefined;
   retentionPeriodInDays?: number | undefined;
   searchConfig?: LakeDatasetSearchConfig | undefined;
   storageLocationId?: string | undefined;
   viewName?: string | undefined;
 };
-
-/** @internal */
-export const CriblLakeDatasetFormat$inboundSchema: z.ZodType<
-  CriblLakeDatasetFormat,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(CriblLakeDatasetFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const CriblLakeDatasetFormat$outboundSchema: z.ZodType<
-  CriblLakeDatasetFormat,
-  z.ZodTypeDef,
-  CriblLakeDatasetFormat
-> = z.union([
-  z.nativeEnum(CriblLakeDatasetFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CriblLakeDatasetFormat$ {
-  /** @deprecated use `CriblLakeDatasetFormat$inboundSchema` instead. */
-  export const inboundSchema = CriblLakeDatasetFormat$inboundSchema;
-  /** @deprecated use `CriblLakeDatasetFormat$outboundSchema` instead. */
-  export const outboundSchema = CriblLakeDatasetFormat$outboundSchema;
-}
 
 /** @internal */
 export const CriblLakeDataset$inboundSchema: z.ZodType<
@@ -89,15 +57,15 @@ export const CriblLakeDataset$inboundSchema: z.ZodType<
   cacheConnection: CacheConnection$inboundSchema.optional(),
   deletionStartedAt: z.number().optional(),
   description: z.string().optional(),
-  format: CriblLakeDatasetFormat$inboundSchema.optional(),
+  format: FormatOptions$inboundSchema.optional(),
   httpDAUsed: z.boolean().optional(),
   id: z.string(),
+  metrics: LakeDatasetMetrics$inboundSchema.optional(),
   retentionPeriodInDays: z.number().optional(),
   searchConfig: LakeDatasetSearchConfig$inboundSchema.optional(),
   storageLocationId: z.string().optional(),
   viewName: z.string().optional(),
 });
-
 /** @internal */
 export type CriblLakeDataset$Outbound = {
   acceleratedFields?: Array<string> | undefined;
@@ -108,6 +76,7 @@ export type CriblLakeDataset$Outbound = {
   format?: string | undefined;
   httpDAUsed?: boolean | undefined;
   id: string;
+  metrics?: LakeDatasetMetrics$Outbound | undefined;
   retentionPeriodInDays?: number | undefined;
   searchConfig?: LakeDatasetSearchConfig$Outbound | undefined;
   storageLocationId?: string | undefined;
@@ -125,27 +94,15 @@ export const CriblLakeDataset$outboundSchema: z.ZodType<
   cacheConnection: CacheConnection$outboundSchema.optional(),
   deletionStartedAt: z.number().optional(),
   description: z.string().optional(),
-  format: CriblLakeDatasetFormat$outboundSchema.optional(),
+  format: FormatOptions$outboundSchema.optional(),
   httpDAUsed: z.boolean().optional(),
   id: z.string(),
+  metrics: LakeDatasetMetrics$outboundSchema.optional(),
   retentionPeriodInDays: z.number().optional(),
   searchConfig: LakeDatasetSearchConfig$outboundSchema.optional(),
   storageLocationId: z.string().optional(),
   viewName: z.string().optional(),
 });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CriblLakeDataset$ {
-  /** @deprecated use `CriblLakeDataset$inboundSchema` instead. */
-  export const inboundSchema = CriblLakeDataset$inboundSchema;
-  /** @deprecated use `CriblLakeDataset$outboundSchema` instead. */
-  export const outboundSchema = CriblLakeDataset$outboundSchema;
-  /** @deprecated use `CriblLakeDataset$Outbound` instead. */
-  export type Outbound = CriblLakeDataset$Outbound;
-}
 
 export function criblLakeDatasetToJSON(
   criblLakeDataset: CriblLakeDataset,
@@ -154,7 +111,6 @@ export function criblLakeDatasetToJSON(
     CriblLakeDataset$outboundSchema.parse(criblLakeDataset),
   );
 }
-
 export function criblLakeDatasetFromJSON(
   jsonString: string,
 ): SafeParseResult<CriblLakeDataset, SDKValidationError> {

@@ -4,153 +4,79 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthType2Options,
+  AuthType2Options$inboundSchema,
+  AuthType2Options$outboundSchema,
+} from "./authtype2options.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  ExtraHttpHeadersType,
+  ExtraHttpHeadersType$inboundSchema,
+  ExtraHttpHeadersType$Outbound,
+  ExtraHttpHeadersType$outboundSchema,
+} from "./extrahttpheaderstype.js";
+import {
+  FailedRequestLoggingModeOptions,
+  FailedRequestLoggingModeOptions$inboundSchema,
+  FailedRequestLoggingModeOptions$outboundSchema,
+} from "./failedrequestloggingmodeoptions.js";
+import {
+  MetadataType,
+  MetadataType$inboundSchema,
+  MetadataType$Outbound,
+  MetadataType$outboundSchema,
+} from "./metadatatype.js";
+import {
+  OnBackpressureOptions,
+  OnBackpressureOptions$inboundSchema,
+  OnBackpressureOptions$outboundSchema,
+} from "./onbackpressureoptions.js";
+import {
+  PqCompressOptions,
+  PqCompressOptions$inboundSchema,
+  PqCompressOptions$outboundSchema,
+} from "./pqcompressoptions.js";
+import {
+  PqModeOptions,
+  PqModeOptions$inboundSchema,
+  PqModeOptions$outboundSchema,
+} from "./pqmodeoptions.js";
+import {
+  PqOnBackpressureOptions,
+  PqOnBackpressureOptions$inboundSchema,
+  PqOnBackpressureOptions$outboundSchema,
+} from "./pqonbackpressureoptions.js";
+import {
+  ResponseRetrySettingsType,
+  ResponseRetrySettingsType$inboundSchema,
+  ResponseRetrySettingsType$Outbound,
+  ResponseRetrySettingsType$outboundSchema,
+} from "./responseretrysettingstype.js";
+import {
+  TimeoutRetrySettingsType,
+  TimeoutRetrySettingsType$inboundSchema,
+  TimeoutRetrySettingsType$Outbound,
+  TimeoutRetrySettingsType$outboundSchema,
+} from "./timeoutretrysettingstype.js";
 
-export const OutputHoneycombType = {
+export const OutputHoneycombType4 = {
   Honeycomb: "honeycomb",
 } as const;
-export type OutputHoneycombType = ClosedEnum<typeof OutputHoneycombType>;
+export type OutputHoneycombType4 = ClosedEnum<typeof OutputHoneycombType4>;
 
-export type OutputHoneycombExtraHttpHeader = {
-  name?: string | undefined;
-  value: string;
-};
-
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export const OutputHoneycombFailedRequestLoggingMode = {
-  Payload: "payload",
-  PayloadAndHeaders: "payloadAndHeaders",
-  None: "none",
-} as const;
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export type OutputHoneycombFailedRequestLoggingMode = OpenEnum<
-  typeof OutputHoneycombFailedRequestLoggingMode
->;
-
-export type OutputHoneycombResponseRetrySetting = {
+export type OutputHoneycombHoneycomb4 = {
   /**
-   * The HTTP response status code that will trigger retries
+   * Enter credentials directly, or select a stored secret
    */
-  httpStatus: number;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-export type OutputHoneycombTimeoutRetrySettings = {
-  timeoutRetry?: boolean | undefined;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputHoneycombBackpressureBehavior = {
-  Block: "block",
-  Drop: "drop",
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputHoneycombBackpressureBehavior = OpenEnum<
-  typeof OutputHoneycombBackpressureBehavior
->;
-
-/**
- * Enter API key directly, or select a stored secret
- */
-export const OutputHoneycombAuthenticationMethod = {
-  Manual: "manual",
-  Secret: "secret",
-} as const;
-/**
- * Enter API key directly, or select a stored secret
- */
-export type OutputHoneycombAuthenticationMethod = OpenEnum<
-  typeof OutputHoneycombAuthenticationMethod
->;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputHoneycombCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputHoneycombCompression = OpenEnum<
-  typeof OutputHoneycombCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputHoneycombQueueFullBehavior = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputHoneycombQueueFullBehavior = OpenEnum<
-  typeof OutputHoneycombQueueFullBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputHoneycombMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputHoneycombMode = OpenEnum<typeof OutputHoneycombMode>;
-
-export type OutputHoneycombPqControls = {};
-
-export type OutputHoneycomb = {
+  authType?: AuthType2Options | undefined;
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputHoneycombType;
+  type: OutputHoneycombType4;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -206,7 +132,7 @@ export type OutputHoneycomb = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<OutputHoneycombExtraHttpHeader> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -214,9 +140,7 @@ export type OutputHoneycomb = {
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
-  failedRequestLoggingMode?:
-    | OutputHoneycombFailedRequestLoggingMode
-    | undefined;
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -224,10 +148,8 @@ export type OutputHoneycomb = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?:
-    | Array<OutputHoneycombResponseRetrySetting>
-    | undefined;
-  timeoutRetrySettings?: OutputHoneycombTimeoutRetrySettings | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
@@ -235,12 +157,28 @@ export type OutputHoneycomb = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputHoneycombBackpressureBehavior | undefined;
-  /**
-   * Enter API key directly, or select a stored secret
-   */
-  authType?: OutputHoneycombAuthenticationMethod | undefined;
+  onBackpressure?: OnBackpressureOptions | undefined;
   description?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
   /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
@@ -256,16 +194,308 @@ export type OutputHoneycomb = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputHoneycombCompression | undefined;
+  pqCompress?: PqCompressOptions | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputHoneycombQueueFullBehavior | undefined;
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * Team API key where the dataset belongs
+   */
+  team?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret: string;
+};
+
+export const OutputHoneycombType3 = {
+  Honeycomb: "honeycomb",
+} as const;
+export type OutputHoneycombType3 = ClosedEnum<typeof OutputHoneycombType3>;
+
+export type OutputHoneycombHoneycomb3 = {
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputHoneycombType3;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the dataset to send events to – e.g., observability
+   */
+  dataset: string;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputHoneycombMode | undefined;
-  pqControls?: OutputHoneycombPqControls | undefined;
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * Team API key where the dataset belongs
+   */
+  team: string;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
+};
+
+export const OutputHoneycombType2 = {
+  Honeycomb: "honeycomb",
+} as const;
+export type OutputHoneycombType2 = ClosedEnum<typeof OutputHoneycombType2>;
+
+export type OutputHoneycombHoneycomb2 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputHoneycombType2;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the dataset to send events to – e.g., observability
+   */
+  dataset: string;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  description?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls: MetadataType;
   /**
    * Team API key where the dataset belongs
    */
@@ -276,476 +506,178 @@ export type OutputHoneycomb = {
   textSecret?: string | undefined;
 };
 
-/** @internal */
-export const OutputHoneycombType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputHoneycombType
-> = z.nativeEnum(OutputHoneycombType);
+export const OutputHoneycombType1 = {
+  Honeycomb: "honeycomb",
+} as const;
+export type OutputHoneycombType1 = ClosedEnum<typeof OutputHoneycombType1>;
 
-/** @internal */
-export const OutputHoneycombType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputHoneycombType
-> = OutputHoneycombType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputHoneycombType$ {
-  /** @deprecated use `OutputHoneycombType$inboundSchema` instead. */
-  export const inboundSchema = OutputHoneycombType$inboundSchema;
-  /** @deprecated use `OutputHoneycombType$outboundSchema` instead. */
-  export const outboundSchema = OutputHoneycombType$outboundSchema;
-}
-
-/** @internal */
-export const OutputHoneycombExtraHttpHeader$inboundSchema: z.ZodType<
-  OutputHoneycombExtraHttpHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-/** @internal */
-export type OutputHoneycombExtraHttpHeader$Outbound = {
-  name?: string | undefined;
-  value: string;
+export type OutputHoneycombHoneycomb1 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: OutputHoneycombType1;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Name of the dataset to send events to – e.g., observability
+   */
+  dataset: string;
+  /**
+   * Maximum number of ongoing requests before blocking
+   */
+  concurrency?: number | undefined;
+  /**
+   * Maximum size, in KB, of the request body
+   */
+  maxPayloadSizeKB?: number | undefined;
+  /**
+   * Maximum number of events to include in the request body. Default is 0 (unlimited).
+   */
+  maxPayloadEvents?: number | undefined;
+  /**
+   * Compress the payload body before sending
+   */
+  compress?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's).
+   *
+   * @remarks
+   *         Enabled by default. When this setting is also present in TLS Settings (Client Side),
+   *         that value will take precedence.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
+  /**
+   * Maximum time between requests. Small values could cause the payload size to be smaller than the configured Body size limit.
+   */
+  flushPeriodSec?: number | undefined;
+  /**
+   * Headers to add to all events
+   */
+  extraHttpHeaders?: Array<ExtraHttpHeadersType> | undefined;
+  /**
+   * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+   */
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text
+   */
+  safeHeaders?: Array<string> | undefined;
+  /**
+   * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
+   */
+  responseRetrySettings?: Array<ResponseRetrySettingsType> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
+   */
+  responseHonorRetryAfterHeader?: boolean | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: AuthType2Options | undefined;
+  description?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+  /**
+   * Team API key where the dataset belongs
+   */
+  team?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
 };
 
-/** @internal */
-export const OutputHoneycombExtraHttpHeader$outboundSchema: z.ZodType<
-  OutputHoneycombExtraHttpHeader$Outbound,
-  z.ZodTypeDef,
-  OutputHoneycombExtraHttpHeader
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputHoneycombExtraHttpHeader$ {
-  /** @deprecated use `OutputHoneycombExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputHoneycombExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputHoneycombExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputHoneycombExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputHoneycombExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputHoneycombExtraHttpHeader$Outbound;
-}
-
-export function outputHoneycombExtraHttpHeaderToJSON(
-  outputHoneycombExtraHttpHeader: OutputHoneycombExtraHttpHeader,
-): string {
-  return JSON.stringify(
-    OutputHoneycombExtraHttpHeader$outboundSchema.parse(
-      outputHoneycombExtraHttpHeader,
-    ),
-  );
-}
-
-export function outputHoneycombExtraHttpHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputHoneycombExtraHttpHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputHoneycombExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputHoneycombExtraHttpHeader' from JSON`,
-  );
-}
+export type OutputHoneycomb =
+  | OutputHoneycombHoneycomb2
+  | OutputHoneycombHoneycomb3
+  | OutputHoneycombHoneycomb4
+  | OutputHoneycombHoneycomb1;
 
 /** @internal */
-export const OutputHoneycombFailedRequestLoggingMode$inboundSchema: z.ZodType<
-  OutputHoneycombFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputHoneycombFailedRequestLoggingMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const OutputHoneycombType4$inboundSchema: z.ZodNativeEnum<
+  typeof OutputHoneycombType4
+> = z.nativeEnum(OutputHoneycombType4);
+/** @internal */
+export const OutputHoneycombType4$outboundSchema: z.ZodNativeEnum<
+  typeof OutputHoneycombType4
+> = OutputHoneycombType4$inboundSchema;
 
 /** @internal */
-export const OutputHoneycombFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  OutputHoneycombFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  OutputHoneycombFailedRequestLoggingMode
-> = z.union([
-  z.nativeEnum(OutputHoneycombFailedRequestLoggingMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputHoneycombFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputHoneycombFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputHoneycombFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputHoneycombFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputHoneycombFailedRequestLoggingMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputHoneycombResponseRetrySetting$inboundSchema: z.ZodType<
-  OutputHoneycombResponseRetrySetting,
+export const OutputHoneycombHoneycomb4$inboundSchema: z.ZodType<
+  OutputHoneycombHoneycomb4,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/** @internal */
-export type OutputHoneycombResponseRetrySetting$Outbound = {
-  httpStatus: number;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputHoneycombResponseRetrySetting$outboundSchema: z.ZodType<
-  OutputHoneycombResponseRetrySetting$Outbound,
-  z.ZodTypeDef,
-  OutputHoneycombResponseRetrySetting
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputHoneycombResponseRetrySetting$ {
-  /** @deprecated use `OutputHoneycombResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputHoneycombResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputHoneycombResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputHoneycombResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputHoneycombResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputHoneycombResponseRetrySetting$Outbound;
-}
-
-export function outputHoneycombResponseRetrySettingToJSON(
-  outputHoneycombResponseRetrySetting: OutputHoneycombResponseRetrySetting,
-): string {
-  return JSON.stringify(
-    OutputHoneycombResponseRetrySetting$outboundSchema.parse(
-      outputHoneycombResponseRetrySetting,
-    ),
-  );
-}
-
-export function outputHoneycombResponseRetrySettingFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputHoneycombResponseRetrySetting, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputHoneycombResponseRetrySetting$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputHoneycombResponseRetrySetting' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputHoneycombTimeoutRetrySettings$inboundSchema: z.ZodType<
-  OutputHoneycombTimeoutRetrySettings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/** @internal */
-export type OutputHoneycombTimeoutRetrySettings$Outbound = {
-  timeoutRetry: boolean;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputHoneycombTimeoutRetrySettings$outboundSchema: z.ZodType<
-  OutputHoneycombTimeoutRetrySettings$Outbound,
-  z.ZodTypeDef,
-  OutputHoneycombTimeoutRetrySettings
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputHoneycombTimeoutRetrySettings$ {
-  /** @deprecated use `OutputHoneycombTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputHoneycombTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputHoneycombTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputHoneycombTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputHoneycombTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputHoneycombTimeoutRetrySettings$Outbound;
-}
-
-export function outputHoneycombTimeoutRetrySettingsToJSON(
-  outputHoneycombTimeoutRetrySettings: OutputHoneycombTimeoutRetrySettings,
-): string {
-  return JSON.stringify(
-    OutputHoneycombTimeoutRetrySettings$outboundSchema.parse(
-      outputHoneycombTimeoutRetrySettings,
-    ),
-  );
-}
-
-export function outputHoneycombTimeoutRetrySettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputHoneycombTimeoutRetrySettings, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputHoneycombTimeoutRetrySettings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputHoneycombTimeoutRetrySettings' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputHoneycombBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputHoneycombBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputHoneycombBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputHoneycombBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputHoneycombBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputHoneycombBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputHoneycombBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputHoneycombBackpressureBehavior$ {
-  /** @deprecated use `OutputHoneycombBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputHoneycombBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputHoneycombBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputHoneycombBackpressureBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputHoneycombAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputHoneycombAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputHoneycombAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputHoneycombAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputHoneycombAuthenticationMethod,
-  z.ZodTypeDef,
-  OutputHoneycombAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputHoneycombAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputHoneycombAuthenticationMethod$ {
-  /** @deprecated use `OutputHoneycombAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputHoneycombAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputHoneycombAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputHoneycombAuthenticationMethod$outboundSchema;
-}
-
-/** @internal */
-export const OutputHoneycombCompression$inboundSchema: z.ZodType<
-  OutputHoneycombCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputHoneycombCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputHoneycombCompression$outboundSchema: z.ZodType<
-  OutputHoneycombCompression,
-  z.ZodTypeDef,
-  OutputHoneycombCompression
-> = z.union([
-  z.nativeEnum(OutputHoneycombCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputHoneycombCompression$ {
-  /** @deprecated use `OutputHoneycombCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputHoneycombCompression$inboundSchema;
-  /** @deprecated use `OutputHoneycombCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputHoneycombCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputHoneycombQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputHoneycombQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputHoneycombQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputHoneycombQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputHoneycombQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputHoneycombQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputHoneycombQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputHoneycombQueueFullBehavior$ {
-  /** @deprecated use `OutputHoneycombQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputHoneycombQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputHoneycombQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputHoneycombQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputHoneycombMode$inboundSchema: z.ZodType<
-  OutputHoneycombMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputHoneycombMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputHoneycombMode$outboundSchema: z.ZodType<
-  OutputHoneycombMode,
-  z.ZodTypeDef,
-  OutputHoneycombMode
-> = z.union([
-  z.nativeEnum(OutputHoneycombMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputHoneycombMode$ {
-  /** @deprecated use `OutputHoneycombMode$inboundSchema` instead. */
-  export const inboundSchema = OutputHoneycombMode$inboundSchema;
-  /** @deprecated use `OutputHoneycombMode$outboundSchema` instead. */
-  export const outboundSchema = OutputHoneycombMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputHoneycombPqControls$inboundSchema: z.ZodType<
-  OutputHoneycombPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type OutputHoneycombPqControls$Outbound = {};
-
-/** @internal */
-export const OutputHoneycombPqControls$outboundSchema: z.ZodType<
-  OutputHoneycombPqControls$Outbound,
-  z.ZodTypeDef,
-  OutputHoneycombPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputHoneycombPqControls$ {
-  /** @deprecated use `OutputHoneycombPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputHoneycombPqControls$inboundSchema;
-  /** @deprecated use `OutputHoneycombPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputHoneycombPqControls$outboundSchema;
-  /** @deprecated use `OutputHoneycombPqControls$Outbound` instead. */
-  export type Outbound = OutputHoneycombPqControls$Outbound;
-}
-
-export function outputHoneycombPqControlsToJSON(
-  outputHoneycombPqControls: OutputHoneycombPqControls,
-): string {
-  return JSON.stringify(
-    OutputHoneycombPqControls$outboundSchema.parse(outputHoneycombPqControls),
-  );
-}
-
-export function outputHoneycombPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputHoneycombPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputHoneycombPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputHoneycombPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputHoneycomb$inboundSchema: z.ZodType<
-  OutputHoneycomb,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+  authType: AuthType2Options$inboundSchema.default("manual"),
   id: z.string().optional(),
-  type: OutputHoneycombType$inboundSchema,
+  type: OutputHoneycombType4$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -758,40 +690,34 @@ export const OutputHoneycomb$inboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputHoneycombExtraHttpHeader$inboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
   useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode:
-    OutputHoneycombFailedRequestLoggingMode$inboundSchema.default("none"),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputHoneycombResponseRetrySetting$inboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputHoneycombTimeoutRetrySettings$inboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: OutputHoneycombBackpressureBehavior$inboundSchema.default(
-    "block",
-  ),
-  authType: OutputHoneycombAuthenticationMethod$inboundSchema.default("manual"),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
   description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputHoneycombCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputHoneycombQueueFullBehavior$inboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputHoneycombMode$inboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputHoneycombPqControls$inboundSchema).optional(),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
   team: z.string().optional(),
-  textSecret: z.string().optional(),
+  textSecret: z.string(),
 });
-
 /** @internal */
-export type OutputHoneycomb$Outbound = {
+export type OutputHoneycombHoneycomb4$Outbound = {
+  authType: string;
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -806,39 +732,39 @@ export type OutputHoneycomb$Outbound = {
   rejectUnauthorized: boolean;
   timeoutSec: number;
   flushPeriodSec: number;
-  extraHttpHeaders?: Array<OutputHoneycombExtraHttpHeader$Outbound> | undefined;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
   useRoundRobinDns: boolean;
   failedRequestLoggingMode: string;
   safeHeaders?: Array<string> | undefined;
-  responseRetrySettings?:
-    | Array<OutputHoneycombResponseRetrySetting$Outbound>
-    | undefined;
-  timeoutRetrySettings?:
-    | OutputHoneycombTimeoutRetrySettings$Outbound
-    | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader: boolean;
   onBackpressure: string;
-  authType: string;
   description?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
-  pqControls?: OutputHoneycombPqControls$Outbound | undefined;
+  pqControls?: MetadataType$Outbound | undefined;
   team?: string | undefined;
-  textSecret?: string | undefined;
+  textSecret: string;
 };
 
 /** @internal */
-export const OutputHoneycomb$outboundSchema: z.ZodType<
-  OutputHoneycomb$Outbound,
+export const OutputHoneycombHoneycomb4$outboundSchema: z.ZodType<
+  OutputHoneycombHoneycomb4$Outbound,
   z.ZodTypeDef,
-  OutputHoneycomb
+  OutputHoneycombHoneycomb4
 > = z.object({
+  authType: AuthType2Options$outboundSchema.default("manual"),
   id: z.string().optional(),
-  type: OutputHoneycombType$outboundSchema,
+  type: OutputHoneycombType4$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -851,59 +777,564 @@ export const OutputHoneycomb$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputHoneycombExtraHttpHeader$outboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
   useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode:
-    OutputHoneycombFailedRequestLoggingMode$outboundSchema.default("none"),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputHoneycombResponseRetrySetting$outboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputHoneycombTimeoutRetrySettings$outboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: OutputHoneycombBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
-  authType: OutputHoneycombAuthenticationMethod$outboundSchema.default(
-    "manual",
-  ),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
   description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputHoneycombCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputHoneycombQueueFullBehavior$outboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputHoneycombMode$outboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputHoneycombPqControls$outboundSchema).optional(),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  team: z.string().optional(),
+  textSecret: z.string(),
+});
+
+export function outputHoneycombHoneycomb4ToJSON(
+  outputHoneycombHoneycomb4: OutputHoneycombHoneycomb4,
+): string {
+  return JSON.stringify(
+    OutputHoneycombHoneycomb4$outboundSchema.parse(outputHoneycombHoneycomb4),
+  );
+}
+export function outputHoneycombHoneycomb4FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputHoneycombHoneycomb4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputHoneycombHoneycomb4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputHoneycombHoneycomb4' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputHoneycombType3$inboundSchema: z.ZodNativeEnum<
+  typeof OutputHoneycombType3
+> = z.nativeEnum(OutputHoneycombType3);
+/** @internal */
+export const OutputHoneycombType3$outboundSchema: z.ZodNativeEnum<
+  typeof OutputHoneycombType3
+> = OutputHoneycombType3$inboundSchema;
+
+/** @internal */
+export const OutputHoneycombHoneycomb3$inboundSchema: z.ZodType<
+  OutputHoneycombHoneycomb3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: OutputHoneycombType3$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  dataset: z.string(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  team: z.string(),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputHoneycombHoneycomb3$Outbound = {
+  authType: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  dataset: string;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  onBackpressure: string;
+  description?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  team: string;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputHoneycombHoneycomb3$outboundSchema: z.ZodType<
+  OutputHoneycombHoneycomb3$Outbound,
+  z.ZodTypeDef,
+  OutputHoneycombHoneycomb3
+> = z.object({
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  id: z.string().optional(),
+  type: OutputHoneycombType3$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  dataset: z.string(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  team: z.string(),
+  textSecret: z.string().optional(),
+});
+
+export function outputHoneycombHoneycomb3ToJSON(
+  outputHoneycombHoneycomb3: OutputHoneycombHoneycomb3,
+): string {
+  return JSON.stringify(
+    OutputHoneycombHoneycomb3$outboundSchema.parse(outputHoneycombHoneycomb3),
+  );
+}
+export function outputHoneycombHoneycomb3FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputHoneycombHoneycomb3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputHoneycombHoneycomb3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputHoneycombHoneycomb3' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputHoneycombType2$inboundSchema: z.ZodNativeEnum<
+  typeof OutputHoneycombType2
+> = z.nativeEnum(OutputHoneycombType2);
+/** @internal */
+export const OutputHoneycombType2$outboundSchema: z.ZodNativeEnum<
+  typeof OutputHoneycombType2
+> = OutputHoneycombType2$inboundSchema;
+
+/** @internal */
+export const OutputHoneycombHoneycomb2$inboundSchema: z.ZodType<
+  OutputHoneycombHoneycomb2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputHoneycombType2$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  dataset: z.string(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema,
+  team: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputHoneycombHoneycomb2$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  dataset: string;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  authType: string;
+  description?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls: MetadataType$Outbound;
+  team?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputHoneycombHoneycomb2$outboundSchema: z.ZodType<
+  OutputHoneycombHoneycomb2$Outbound,
+  z.ZodTypeDef,
+  OutputHoneycombHoneycomb2
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputHoneycombType2$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  dataset: z.string(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema,
   team: z.string().optional(),
   textSecret: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputHoneycomb$ {
-  /** @deprecated use `OutputHoneycomb$inboundSchema` instead. */
-  export const inboundSchema = OutputHoneycomb$inboundSchema;
-  /** @deprecated use `OutputHoneycomb$outboundSchema` instead. */
-  export const outboundSchema = OutputHoneycomb$outboundSchema;
-  /** @deprecated use `OutputHoneycomb$Outbound` instead. */
-  export type Outbound = OutputHoneycomb$Outbound;
+export function outputHoneycombHoneycomb2ToJSON(
+  outputHoneycombHoneycomb2: OutputHoneycombHoneycomb2,
+): string {
+  return JSON.stringify(
+    OutputHoneycombHoneycomb2$outboundSchema.parse(outputHoneycombHoneycomb2),
+  );
 }
+export function outputHoneycombHoneycomb2FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputHoneycombHoneycomb2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputHoneycombHoneycomb2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputHoneycombHoneycomb2' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputHoneycombType1$inboundSchema: z.ZodNativeEnum<
+  typeof OutputHoneycombType1
+> = z.nativeEnum(OutputHoneycombType1);
+/** @internal */
+export const OutputHoneycombType1$outboundSchema: z.ZodNativeEnum<
+  typeof OutputHoneycombType1
+> = OutputHoneycombType1$inboundSchema;
+
+/** @internal */
+export const OutputHoneycombHoneycomb1$inboundSchema: z.ZodType<
+  OutputHoneycombHoneycomb1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputHoneycombType1$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  dataset: z.string(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$inboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  authType: AuthType2Options$inboundSchema.default("manual"),
+  description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+  team: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+/** @internal */
+export type OutputHoneycombHoneycomb1$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  dataset: string;
+  concurrency: number;
+  maxPayloadSizeKB: number;
+  maxPayloadEvents: number;
+  compress: boolean;
+  rejectUnauthorized: boolean;
+  timeoutSec: number;
+  flushPeriodSec: number;
+  extraHttpHeaders?: Array<ExtraHttpHeadersType$Outbound> | undefined;
+  useRoundRobinDns: boolean;
+  failedRequestLoggingMode: string;
+  safeHeaders?: Array<string> | undefined;
+  responseRetrySettings?: Array<ResponseRetrySettingsType$Outbound> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  responseHonorRetryAfterHeader: boolean;
+  authType: string;
+  description?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+  team?: string | undefined;
+  textSecret?: string | undefined;
+};
+
+/** @internal */
+export const OutputHoneycombHoneycomb1$outboundSchema: z.ZodType<
+  OutputHoneycombHoneycomb1$Outbound,
+  z.ZodTypeDef,
+  OutputHoneycombHoneycomb1
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: OutputHoneycombType1$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  dataset: z.string(),
+  concurrency: z.number().default(5),
+  maxPayloadSizeKB: z.number().default(4096),
+  maxPayloadEvents: z.number().default(0),
+  compress: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  timeoutSec: z.number().default(30),
+  flushPeriodSec: z.number().default(1),
+  extraHttpHeaders: z.array(ExtraHttpHeadersType$outboundSchema).optional(),
+  useRoundRobinDns: z.boolean().default(false),
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
+    .default("none"),
+  safeHeaders: z.array(z.string()).optional(),
+  responseRetrySettings: z.array(ResponseRetrySettingsType$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  responseHonorRetryAfterHeader: z.boolean().default(true),
+  authType: AuthType2Options$outboundSchema.default("manual"),
+  description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+  team: z.string().optional(),
+  textSecret: z.string().optional(),
+});
+
+export function outputHoneycombHoneycomb1ToJSON(
+  outputHoneycombHoneycomb1: OutputHoneycombHoneycomb1,
+): string {
+  return JSON.stringify(
+    OutputHoneycombHoneycomb1$outboundSchema.parse(outputHoneycombHoneycomb1),
+  );
+}
+export function outputHoneycombHoneycomb1FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputHoneycombHoneycomb1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputHoneycombHoneycomb1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputHoneycombHoneycomb1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputHoneycomb$inboundSchema: z.ZodType<
+  OutputHoneycomb,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => OutputHoneycombHoneycomb2$inboundSchema),
+  z.lazy(() => OutputHoneycombHoneycomb3$inboundSchema),
+  z.lazy(() => OutputHoneycombHoneycomb4$inboundSchema),
+  z.lazy(() => OutputHoneycombHoneycomb1$inboundSchema),
+]);
+/** @internal */
+export type OutputHoneycomb$Outbound =
+  | OutputHoneycombHoneycomb2$Outbound
+  | OutputHoneycombHoneycomb3$Outbound
+  | OutputHoneycombHoneycomb4$Outbound
+  | OutputHoneycombHoneycomb1$Outbound;
+
+/** @internal */
+export const OutputHoneycomb$outboundSchema: z.ZodType<
+  OutputHoneycomb$Outbound,
+  z.ZodTypeDef,
+  OutputHoneycomb
+> = z.union([
+  z.lazy(() => OutputHoneycombHoneycomb2$outboundSchema),
+  z.lazy(() => OutputHoneycombHoneycomb3$outboundSchema),
+  z.lazy(() => OutputHoneycombHoneycomb4$outboundSchema),
+  z.lazy(() => OutputHoneycombHoneycomb1$outboundSchema),
+]);
 
 export function outputHoneycombToJSON(
   outputHoneycomb: OutputHoneycomb,
 ): string {
   return JSON.stringify(OutputHoneycomb$outboundSchema.parse(outputHoneycomb));
 }
-
 export function outputHoneycombFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputHoneycomb, SDKValidationError> {

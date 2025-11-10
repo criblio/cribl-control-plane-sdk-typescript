@@ -4,99 +4,55 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AwsAuthenticationMethodOptions,
+  AwsAuthenticationMethodOptions$inboundSchema,
+  AwsAuthenticationMethodOptions$outboundSchema,
+} from "./awsauthenticationmethodoptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  MetadataType,
+  MetadataType$inboundSchema,
+  MetadataType$Outbound,
+  MetadataType$outboundSchema,
+} from "./metadatatype.js";
+import {
+  OnBackpressureOptions,
+  OnBackpressureOptions$inboundSchema,
+  OnBackpressureOptions$outboundSchema,
+} from "./onbackpressureoptions.js";
+import {
+  PqCompressOptions,
+  PqCompressOptions$inboundSchema,
+  PqCompressOptions$outboundSchema,
+} from "./pqcompressoptions.js";
+import {
+  PqModeOptions,
+  PqModeOptions$inboundSchema,
+  PqModeOptions$outboundSchema,
+} from "./pqmodeoptions.js";
+import {
+  PqOnBackpressureOptions,
+  PqOnBackpressureOptions$inboundSchema,
+  PqOnBackpressureOptions$outboundSchema,
+} from "./pqonbackpressureoptions.js";
+import {
+  TypeGooglePubsubOption,
+  TypeGooglePubsubOption$inboundSchema,
+  TypeGooglePubsubOption$outboundSchema,
+} from "./typegooglepubsuboption.js";
 
-export const OutputGooglePubsubType = {
-  GooglePubsub: "google_pubsub",
-} as const;
-export type OutputGooglePubsubType = ClosedEnum<typeof OutputGooglePubsubType>;
-
-/**
- * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
- */
-export const OutputGooglePubsubGoogleAuthenticationMethod = {
-  Auto: "auto",
-  Manual: "manual",
-  Secret: "secret",
-} as const;
-/**
- * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
- */
-export type OutputGooglePubsubGoogleAuthenticationMethod = OpenEnum<
-  typeof OutputGooglePubsubGoogleAuthenticationMethod
->;
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputGooglePubsubBackpressureBehavior = {
-  Block: "block",
-  Drop: "drop",
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputGooglePubsubBackpressureBehavior = OpenEnum<
-  typeof OutputGooglePubsubBackpressureBehavior
->;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputGooglePubsubCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputGooglePubsubCompression = OpenEnum<
-  typeof OutputGooglePubsubCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputGooglePubsubQueueFullBehavior = {
-  Block: "block",
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputGooglePubsubQueueFullBehavior = OpenEnum<
-  typeof OutputGooglePubsubQueueFullBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputGooglePubsubMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputGooglePubsubMode = OpenEnum<typeof OutputGooglePubsubMode>;
-
-export type OutputGooglePubsubPqControls = {};
-
-export type OutputGooglePubsub = {
+export type OutputGooglePubsubGooglePubsub5 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputGooglePubsubType;
+  type: TypeGooglePubsubOption;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -130,9 +86,493 @@ export type OutputGooglePubsub = {
    */
   region?: string | undefined;
   /**
-   * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
+   * AWS authentication method. Choose Auto to use IAM roles.
    */
-  googleAuthMethod?: OutputGooglePubsubGoogleAuthenticationMethod | undefined;
+  googleAuthMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  secret?: string | undefined;
+  /**
+   * The maximum number of items the Google API should batch before it sends them to the topic.
+   */
+  batchSize?: number | undefined;
+  /**
+   * The maximum amount of time, in milliseconds, that the Google API should wait to send a batch (if the Batch size is not reached).
+   */
+  batchTimeout?: number | undefined;
+  /**
+   * Maximum number of queued batches before blocking.
+   */
+  maxQueueSize?: number | undefined;
+  /**
+   * Maximum size (KB) of batches to send.
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * Maximum time to wait before sending a batch (when batch size limit is not reached)
+   */
+  flushPeriod?: number | undefined;
+  /**
+   * The maximum number of in-progress API requests before backpressure is applied.
+   */
+  maxInProgress?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls: MetadataType;
+};
+
+export type OutputGooglePubsubGooglePubsub4 = {
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeGooglePubsubOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * ID of the topic to send events to.
+   */
+  topicName: string;
+  /**
+   * If enabled, create topic if it does not exist.
+   */
+  createTopic?: boolean | undefined;
+  /**
+   * If enabled, send events in the order they were added to the queue. For this to work correctly, the process receiving events must have ordering enabled.
+   */
+  orderedDelivery?: boolean | undefined;
+  /**
+   * Region to publish messages to. Select 'default' to allow Google to auto-select the nearest region. When using ordered delivery, the selected region must be allowed by message storage policy.
+   */
+  region?: string | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  googleAuthMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  secret?: string | undefined;
+  /**
+   * The maximum number of items the Google API should batch before it sends them to the topic.
+   */
+  batchSize?: number | undefined;
+  /**
+   * The maximum amount of time, in milliseconds, that the Google API should wait to send a batch (if the Batch size is not reached).
+   */
+  batchTimeout?: number | undefined;
+  /**
+   * Maximum number of queued batches before blocking.
+   */
+  maxQueueSize?: number | undefined;
+  /**
+   * Maximum size (KB) of batches to send.
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * Maximum time to wait before sending a batch (when batch size limit is not reached)
+   */
+  flushPeriod?: number | undefined;
+  /**
+   * The maximum number of in-progress API requests before backpressure is applied.
+   */
+  maxInProgress?: number | undefined;
+  description?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export type OutputGooglePubsubGooglePubsub3 = {
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  googleAuthMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeGooglePubsubOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * ID of the topic to send events to.
+   */
+  topicName: string;
+  /**
+   * If enabled, create topic if it does not exist.
+   */
+  createTopic?: boolean | undefined;
+  /**
+   * If enabled, send events in the order they were added to the queue. For this to work correctly, the process receiving events must have ordering enabled.
+   */
+  orderedDelivery?: boolean | undefined;
+  /**
+   * Region to publish messages to. Select 'default' to allow Google to auto-select the nearest region. When using ordered delivery, the selected region must be allowed by message storage policy.
+   */
+  region?: string | undefined;
+  /**
+   * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+   */
+  serviceAccountCredentials?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  secret: string;
+  /**
+   * The maximum number of items the Google API should batch before it sends them to the topic.
+   */
+  batchSize?: number | undefined;
+  /**
+   * The maximum amount of time, in milliseconds, that the Google API should wait to send a batch (if the Batch size is not reached).
+   */
+  batchTimeout?: number | undefined;
+  /**
+   * Maximum number of queued batches before blocking.
+   */
+  maxQueueSize?: number | undefined;
+  /**
+   * Maximum size (KB) of batches to send.
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * Maximum time to wait before sending a batch (when batch size limit is not reached)
+   */
+  flushPeriod?: number | undefined;
+  /**
+   * The maximum number of in-progress API requests before backpressure is applied.
+   */
+  maxInProgress?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export type OutputGooglePubsubGooglePubsub2 = {
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  googleAuthMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeGooglePubsubOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * ID of the topic to send events to.
+   */
+  topicName: string;
+  /**
+   * If enabled, create topic if it does not exist.
+   */
+  createTopic?: boolean | undefined;
+  /**
+   * If enabled, send events in the order they were added to the queue. For this to work correctly, the process receiving events must have ordering enabled.
+   */
+  orderedDelivery?: boolean | undefined;
+  /**
+   * Region to publish messages to. Select 'default' to allow Google to auto-select the nearest region. When using ordered delivery, the selected region must be allowed by message storage policy.
+   */
+  region?: string | undefined;
+  /**
+   * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
+   */
+  serviceAccountCredentials: string;
+  /**
+   * Select or create a stored text secret
+   */
+  secret?: string | undefined;
+  /**
+   * The maximum number of items the Google API should batch before it sends them to the topic.
+   */
+  batchSize?: number | undefined;
+  /**
+   * The maximum amount of time, in milliseconds, that the Google API should wait to send a batch (if the Batch size is not reached).
+   */
+  batchTimeout?: number | undefined;
+  /**
+   * Maximum number of queued batches before blocking.
+   */
+  maxQueueSize?: number | undefined;
+  /**
+   * Maximum size (KB) of batches to send.
+   */
+  maxRecordSizeKB?: number | undefined;
+  /**
+   * Maximum time to wait before sending a batch (when batch size limit is not reached)
+   */
+  flushPeriod?: number | undefined;
+  /**
+   * The maximum number of in-progress API requests before backpressure is applied.
+   */
+  maxInProgress?: number | undefined;
+  /**
+   * How to handle events when all receivers are exerting backpressure
+   */
+  onBackpressure?: OnBackpressureOptions | undefined;
+  description?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
+   */
+  pqMaxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  pqMaxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/<output-id>.
+   */
+  pqPath?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  pqCompress?: PqCompressOptions | undefined;
+  /**
+   * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+   */
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
+};
+
+export type OutputGooglePubsubGooglePubsub1 = {
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  googleAuthMethod?: AwsAuthenticationMethodOptions | undefined;
+  /**
+   * Unique ID for this output
+   */
+  id?: string | undefined;
+  type: TypeGooglePubsubOption;
+  /**
+   * Pipeline to process data before sending out to this output
+   */
+  pipeline?: string | undefined;
+  /**
+   * Fields to automatically add to events, such as cribl_pipe. Supports wildcards.
+   */
+  systemFields?: Array<string> | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * ID of the topic to send events to.
+   */
+  topicName: string;
+  /**
+   * If enabled, create topic if it does not exist.
+   */
+  createTopic?: boolean | undefined;
+  /**
+   * If enabled, send events in the order they were added to the queue. For this to work correctly, the process receiving events must have ordering enabled.
+   */
+  orderedDelivery?: boolean | undefined;
+  /**
+   * Region to publish messages to. Select 'default' to allow Google to auto-select the nearest region. When using ordered delivery, the selected region must be allowed by message storage policy.
+   */
+  region?: string | undefined;
   /**
    * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
    */
@@ -168,8 +608,28 @@ export type OutputGooglePubsub = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputGooglePubsubBackpressureBehavior | undefined;
+  onBackpressure?: OnBackpressureOptions | undefined;
   description?: string | undefined;
+  /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: PqModeOptions | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
   /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
@@ -185,265 +645,30 @@ export type OutputGooglePubsub = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputGooglePubsubCompression | undefined;
+  pqCompress?: PqCompressOptions | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputGooglePubsubQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputGooglePubsubMode | undefined;
-  pqControls?: OutputGooglePubsubPqControls | undefined;
+  pqOnBackpressure?: PqOnBackpressureOptions | undefined;
+  pqControls?: MetadataType | undefined;
 };
 
-/** @internal */
-export const OutputGooglePubsubType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputGooglePubsubType
-> = z.nativeEnum(OutputGooglePubsubType);
+export type OutputGooglePubsub =
+  | OutputGooglePubsubGooglePubsub2
+  | OutputGooglePubsubGooglePubsub3
+  | OutputGooglePubsubGooglePubsub5
+  | OutputGooglePubsubGooglePubsub1
+  | OutputGooglePubsubGooglePubsub4;
 
 /** @internal */
-export const OutputGooglePubsubType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputGooglePubsubType
-> = OutputGooglePubsubType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGooglePubsubType$ {
-  /** @deprecated use `OutputGooglePubsubType$inboundSchema` instead. */
-  export const inboundSchema = OutputGooglePubsubType$inboundSchema;
-  /** @deprecated use `OutputGooglePubsubType$outboundSchema` instead. */
-  export const outboundSchema = OutputGooglePubsubType$outboundSchema;
-}
-
-/** @internal */
-export const OutputGooglePubsubGoogleAuthenticationMethod$inboundSchema:
-  z.ZodType<
-    OutputGooglePubsubGoogleAuthenticationMethod,
-    z.ZodTypeDef,
-    unknown
-  > = z
-    .union([
-      z.nativeEnum(OutputGooglePubsubGoogleAuthenticationMethod),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
-
-/** @internal */
-export const OutputGooglePubsubGoogleAuthenticationMethod$outboundSchema:
-  z.ZodType<
-    OutputGooglePubsubGoogleAuthenticationMethod,
-    z.ZodTypeDef,
-    OutputGooglePubsubGoogleAuthenticationMethod
-  > = z.union([
-    z.nativeEnum(OutputGooglePubsubGoogleAuthenticationMethod),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGooglePubsubGoogleAuthenticationMethod$ {
-  /** @deprecated use `OutputGooglePubsubGoogleAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGooglePubsubGoogleAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputGooglePubsubGoogleAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGooglePubsubGoogleAuthenticationMethod$outboundSchema;
-}
-
-/** @internal */
-export const OutputGooglePubsubBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputGooglePubsubBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGooglePubsubBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputGooglePubsubBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputGooglePubsubBackpressureBehavior,
-  z.ZodTypeDef,
-  OutputGooglePubsubBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputGooglePubsubBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGooglePubsubBackpressureBehavior$ {
-  /** @deprecated use `OutputGooglePubsubBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGooglePubsubBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputGooglePubsubBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGooglePubsubBackpressureBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputGooglePubsubCompression$inboundSchema: z.ZodType<
-  OutputGooglePubsubCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGooglePubsubCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputGooglePubsubCompression$outboundSchema: z.ZodType<
-  OutputGooglePubsubCompression,
-  z.ZodTypeDef,
-  OutputGooglePubsubCompression
-> = z.union([
-  z.nativeEnum(OutputGooglePubsubCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGooglePubsubCompression$ {
-  /** @deprecated use `OutputGooglePubsubCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputGooglePubsubCompression$inboundSchema;
-  /** @deprecated use `OutputGooglePubsubCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputGooglePubsubCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputGooglePubsubQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputGooglePubsubQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGooglePubsubQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputGooglePubsubQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputGooglePubsubQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputGooglePubsubQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputGooglePubsubQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGooglePubsubQueueFullBehavior$ {
-  /** @deprecated use `OutputGooglePubsubQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGooglePubsubQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputGooglePubsubQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGooglePubsubQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputGooglePubsubMode$inboundSchema: z.ZodType<
-  OutputGooglePubsubMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGooglePubsubMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputGooglePubsubMode$outboundSchema: z.ZodType<
-  OutputGooglePubsubMode,
-  z.ZodTypeDef,
-  OutputGooglePubsubMode
-> = z.union([
-  z.nativeEnum(OutputGooglePubsubMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGooglePubsubMode$ {
-  /** @deprecated use `OutputGooglePubsubMode$inboundSchema` instead. */
-  export const inboundSchema = OutputGooglePubsubMode$inboundSchema;
-  /** @deprecated use `OutputGooglePubsubMode$outboundSchema` instead. */
-  export const outboundSchema = OutputGooglePubsubMode$outboundSchema;
-}
-
-/** @internal */
-export const OutputGooglePubsubPqControls$inboundSchema: z.ZodType<
-  OutputGooglePubsubPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type OutputGooglePubsubPqControls$Outbound = {};
-
-/** @internal */
-export const OutputGooglePubsubPqControls$outboundSchema: z.ZodType<
-  OutputGooglePubsubPqControls$Outbound,
-  z.ZodTypeDef,
-  OutputGooglePubsubPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGooglePubsubPqControls$ {
-  /** @deprecated use `OutputGooglePubsubPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputGooglePubsubPqControls$inboundSchema;
-  /** @deprecated use `OutputGooglePubsubPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputGooglePubsubPqControls$outboundSchema;
-  /** @deprecated use `OutputGooglePubsubPqControls$Outbound` instead. */
-  export type Outbound = OutputGooglePubsubPqControls$Outbound;
-}
-
-export function outputGooglePubsubPqControlsToJSON(
-  outputGooglePubsubPqControls: OutputGooglePubsubPqControls,
-): string {
-  return JSON.stringify(
-    OutputGooglePubsubPqControls$outboundSchema.parse(
-      outputGooglePubsubPqControls,
-    ),
-  );
-}
-
-export function outputGooglePubsubPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputGooglePubsubPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputGooglePubsubPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputGooglePubsubPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputGooglePubsub$inboundSchema: z.ZodType<
-  OutputGooglePubsub,
+export const OutputGooglePubsubGooglePubsub5$inboundSchema: z.ZodType<
+  OutputGooglePubsubGooglePubsub5,
   z.ZodTypeDef,
   unknown
 > = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
   id: z.string().optional(),
-  type: OutputGooglePubsubType$inboundSchema,
+  type: TypeGooglePubsubOption$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -452,8 +677,9 @@ export const OutputGooglePubsub$inboundSchema: z.ZodType<
   createTopic: z.boolean().default(false),
   orderedDelivery: z.boolean().default(false),
   region: z.string().optional(),
-  googleAuthMethod: OutputGooglePubsubGoogleAuthenticationMethod$inboundSchema
-    .default("manual"),
+  googleAuthMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
   serviceAccountCredentials: z.string().optional(),
   secret: z.string().optional(),
   batchSize: z.number().default(1000),
@@ -462,24 +688,22 @@ export const OutputGooglePubsub$inboundSchema: z.ZodType<
   maxRecordSizeKB: z.number().default(256),
   flushPeriod: z.number().default(1),
   maxInProgress: z.number().default(10),
-  onBackpressure: OutputGooglePubsubBackpressureBehavior$inboundSchema.default(
-    "block",
-  ),
   description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputGooglePubsubCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputGooglePubsubQueueFullBehavior$inboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputGooglePubsubMode$inboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputGooglePubsubPqControls$inboundSchema)
-    .optional(),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema,
 });
-
 /** @internal */
-export type OutputGooglePubsub$Outbound = {
+export type OutputGooglePubsubGooglePubsub5$Outbound = {
+  onBackpressure: string;
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -499,25 +723,29 @@ export type OutputGooglePubsub$Outbound = {
   maxRecordSizeKB: number;
   flushPeriod: number;
   maxInProgress: number;
-  onBackpressure: string;
   description?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
-  pqControls?: OutputGooglePubsubPqControls$Outbound | undefined;
+  pqControls: MetadataType$Outbound;
 };
 
 /** @internal */
-export const OutputGooglePubsub$outboundSchema: z.ZodType<
-  OutputGooglePubsub$Outbound,
+export const OutputGooglePubsubGooglePubsub5$outboundSchema: z.ZodType<
+  OutputGooglePubsubGooglePubsub5$Outbound,
   z.ZodTypeDef,
-  OutputGooglePubsub
+  OutputGooglePubsubGooglePubsub5
 > = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
   id: z.string().optional(),
-  type: OutputGooglePubsubType$outboundSchema,
+  type: TypeGooglePubsubOption$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -526,8 +754,9 @@ export const OutputGooglePubsub$outboundSchema: z.ZodType<
   createTopic: z.boolean().default(false),
   orderedDelivery: z.boolean().default(false),
   region: z.string().optional(),
-  googleAuthMethod: OutputGooglePubsubGoogleAuthenticationMethod$outboundSchema
-    .default("manual"),
+  googleAuthMethod: AwsAuthenticationMethodOptions$outboundSchema.default(
+    "auto",
+  ),
   serviceAccountCredentials: z.string().optional(),
   secret: z.string().optional(),
   batchSize: z.number().default(1000),
@@ -536,34 +765,623 @@ export const OutputGooglePubsub$outboundSchema: z.ZodType<
   maxRecordSizeKB: z.number().default(256),
   flushPeriod: z.number().default(1),
   maxInProgress: z.number().default(10),
-  onBackpressure: OutputGooglePubsubBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
   description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputGooglePubsubCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputGooglePubsubQueueFullBehavior$outboundSchema.default(
-    "block",
-  ),
-  pqMode: OutputGooglePubsubMode$outboundSchema.default("error"),
-  pqControls: z.lazy(() => OutputGooglePubsubPqControls$outboundSchema)
-    .optional(),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGooglePubsub$ {
-  /** @deprecated use `OutputGooglePubsub$inboundSchema` instead. */
-  export const inboundSchema = OutputGooglePubsub$inboundSchema;
-  /** @deprecated use `OutputGooglePubsub$outboundSchema` instead. */
-  export const outboundSchema = OutputGooglePubsub$outboundSchema;
-  /** @deprecated use `OutputGooglePubsub$Outbound` instead. */
-  export type Outbound = OutputGooglePubsub$Outbound;
+export function outputGooglePubsubGooglePubsub5ToJSON(
+  outputGooglePubsubGooglePubsub5: OutputGooglePubsubGooglePubsub5,
+): string {
+  return JSON.stringify(
+    OutputGooglePubsubGooglePubsub5$outboundSchema.parse(
+      outputGooglePubsubGooglePubsub5,
+    ),
+  );
 }
+export function outputGooglePubsubGooglePubsub5FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputGooglePubsubGooglePubsub5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputGooglePubsubGooglePubsub5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputGooglePubsubGooglePubsub5' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputGooglePubsubGooglePubsub4$inboundSchema: z.ZodType<
+  OutputGooglePubsubGooglePubsub4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  id: z.string().optional(),
+  type: TypeGooglePubsubOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  topicName: z.string(),
+  createTopic: z.boolean().default(false),
+  orderedDelivery: z.boolean().default(false),
+  region: z.string().optional(),
+  googleAuthMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  serviceAccountCredentials: z.string().optional(),
+  secret: z.string().optional(),
+  batchSize: z.number().default(1000),
+  batchTimeout: z.number().default(100),
+  maxQueueSize: z.number().default(100),
+  maxRecordSizeKB: z.number().default(256),
+  flushPeriod: z.number().default(1),
+  maxInProgress: z.number().default(10),
+  description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputGooglePubsubGooglePubsub4$Outbound = {
+  onBackpressure: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  topicName: string;
+  createTopic: boolean;
+  orderedDelivery: boolean;
+  region?: string | undefined;
+  googleAuthMethod: string;
+  serviceAccountCredentials?: string | undefined;
+  secret?: string | undefined;
+  batchSize: number;
+  batchTimeout: number;
+  maxQueueSize: number;
+  maxRecordSizeKB: number;
+  flushPeriod: number;
+  maxInProgress: number;
+  description?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputGooglePubsubGooglePubsub4$outboundSchema: z.ZodType<
+  OutputGooglePubsubGooglePubsub4$Outbound,
+  z.ZodTypeDef,
+  OutputGooglePubsubGooglePubsub4
+> = z.object({
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  id: z.string().optional(),
+  type: TypeGooglePubsubOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  topicName: z.string(),
+  createTopic: z.boolean().default(false),
+  orderedDelivery: z.boolean().default(false),
+  region: z.string().optional(),
+  googleAuthMethod: AwsAuthenticationMethodOptions$outboundSchema.default(
+    "auto",
+  ),
+  serviceAccountCredentials: z.string().optional(),
+  secret: z.string().optional(),
+  batchSize: z.number().default(1000),
+  batchTimeout: z.number().default(100),
+  maxQueueSize: z.number().default(100),
+  maxRecordSizeKB: z.number().default(256),
+  flushPeriod: z.number().default(1),
+  maxInProgress: z.number().default(10),
+  description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputGooglePubsubGooglePubsub4ToJSON(
+  outputGooglePubsubGooglePubsub4: OutputGooglePubsubGooglePubsub4,
+): string {
+  return JSON.stringify(
+    OutputGooglePubsubGooglePubsub4$outboundSchema.parse(
+      outputGooglePubsubGooglePubsub4,
+    ),
+  );
+}
+export function outputGooglePubsubGooglePubsub4FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputGooglePubsubGooglePubsub4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputGooglePubsubGooglePubsub4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputGooglePubsubGooglePubsub4' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputGooglePubsubGooglePubsub3$inboundSchema: z.ZodType<
+  OutputGooglePubsubGooglePubsub3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  googleAuthMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  id: z.string().optional(),
+  type: TypeGooglePubsubOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  topicName: z.string(),
+  createTopic: z.boolean().default(false),
+  orderedDelivery: z.boolean().default(false),
+  region: z.string().optional(),
+  serviceAccountCredentials: z.string().optional(),
+  secret: z.string(),
+  batchSize: z.number().default(1000),
+  batchTimeout: z.number().default(100),
+  maxQueueSize: z.number().default(100),
+  maxRecordSizeKB: z.number().default(256),
+  flushPeriod: z.number().default(1),
+  maxInProgress: z.number().default(10),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputGooglePubsubGooglePubsub3$Outbound = {
+  googleAuthMethod: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  topicName: string;
+  createTopic: boolean;
+  orderedDelivery: boolean;
+  region?: string | undefined;
+  serviceAccountCredentials?: string | undefined;
+  secret: string;
+  batchSize: number;
+  batchTimeout: number;
+  maxQueueSize: number;
+  maxRecordSizeKB: number;
+  flushPeriod: number;
+  maxInProgress: number;
+  onBackpressure: string;
+  description?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputGooglePubsubGooglePubsub3$outboundSchema: z.ZodType<
+  OutputGooglePubsubGooglePubsub3$Outbound,
+  z.ZodTypeDef,
+  OutputGooglePubsubGooglePubsub3
+> = z.object({
+  googleAuthMethod: AwsAuthenticationMethodOptions$outboundSchema.default(
+    "auto",
+  ),
+  id: z.string().optional(),
+  type: TypeGooglePubsubOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  topicName: z.string(),
+  createTopic: z.boolean().default(false),
+  orderedDelivery: z.boolean().default(false),
+  region: z.string().optional(),
+  serviceAccountCredentials: z.string().optional(),
+  secret: z.string(),
+  batchSize: z.number().default(1000),
+  batchTimeout: z.number().default(100),
+  maxQueueSize: z.number().default(100),
+  maxRecordSizeKB: z.number().default(256),
+  flushPeriod: z.number().default(1),
+  maxInProgress: z.number().default(10),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputGooglePubsubGooglePubsub3ToJSON(
+  outputGooglePubsubGooglePubsub3: OutputGooglePubsubGooglePubsub3,
+): string {
+  return JSON.stringify(
+    OutputGooglePubsubGooglePubsub3$outboundSchema.parse(
+      outputGooglePubsubGooglePubsub3,
+    ),
+  );
+}
+export function outputGooglePubsubGooglePubsub3FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputGooglePubsubGooglePubsub3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputGooglePubsubGooglePubsub3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputGooglePubsubGooglePubsub3' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputGooglePubsubGooglePubsub2$inboundSchema: z.ZodType<
+  OutputGooglePubsubGooglePubsub2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  googleAuthMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  id: z.string().optional(),
+  type: TypeGooglePubsubOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  topicName: z.string(),
+  createTopic: z.boolean().default(false),
+  orderedDelivery: z.boolean().default(false),
+  region: z.string().optional(),
+  serviceAccountCredentials: z.string(),
+  secret: z.string().optional(),
+  batchSize: z.number().default(1000),
+  batchTimeout: z.number().default(100),
+  maxQueueSize: z.number().default(100),
+  maxRecordSizeKB: z.number().default(256),
+  flushPeriod: z.number().default(1),
+  maxInProgress: z.number().default(10),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputGooglePubsubGooglePubsub2$Outbound = {
+  googleAuthMethod: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  topicName: string;
+  createTopic: boolean;
+  orderedDelivery: boolean;
+  region?: string | undefined;
+  serviceAccountCredentials: string;
+  secret?: string | undefined;
+  batchSize: number;
+  batchTimeout: number;
+  maxQueueSize: number;
+  maxRecordSizeKB: number;
+  flushPeriod: number;
+  maxInProgress: number;
+  onBackpressure: string;
+  description?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputGooglePubsubGooglePubsub2$outboundSchema: z.ZodType<
+  OutputGooglePubsubGooglePubsub2$Outbound,
+  z.ZodTypeDef,
+  OutputGooglePubsubGooglePubsub2
+> = z.object({
+  googleAuthMethod: AwsAuthenticationMethodOptions$outboundSchema.default(
+    "auto",
+  ),
+  id: z.string().optional(),
+  type: TypeGooglePubsubOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  topicName: z.string(),
+  createTopic: z.boolean().default(false),
+  orderedDelivery: z.boolean().default(false),
+  region: z.string().optional(),
+  serviceAccountCredentials: z.string(),
+  secret: z.string().optional(),
+  batchSize: z.number().default(1000),
+  batchTimeout: z.number().default(100),
+  maxQueueSize: z.number().default(100),
+  maxRecordSizeKB: z.number().default(256),
+  flushPeriod: z.number().default(1),
+  maxInProgress: z.number().default(10),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputGooglePubsubGooglePubsub2ToJSON(
+  outputGooglePubsubGooglePubsub2: OutputGooglePubsubGooglePubsub2,
+): string {
+  return JSON.stringify(
+    OutputGooglePubsubGooglePubsub2$outboundSchema.parse(
+      outputGooglePubsubGooglePubsub2,
+    ),
+  );
+}
+export function outputGooglePubsubGooglePubsub2FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputGooglePubsubGooglePubsub2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputGooglePubsubGooglePubsub2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputGooglePubsubGooglePubsub2' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputGooglePubsubGooglePubsub1$inboundSchema: z.ZodType<
+  OutputGooglePubsubGooglePubsub1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  googleAuthMethod: AwsAuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
+  id: z.string().optional(),
+  type: TypeGooglePubsubOption$inboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  topicName: z.string(),
+  createTopic: z.boolean().default(false),
+  orderedDelivery: z.boolean().default(false),
+  region: z.string().optional(),
+  serviceAccountCredentials: z.string().optional(),
+  secret: z.string().optional(),
+  batchSize: z.number().default(1000),
+  batchTimeout: z.number().default(100),
+  maxQueueSize: z.number().default(100),
+  maxRecordSizeKB: z.number().default(256),
+  flushPeriod: z.number().default(1),
+  maxInProgress: z.number().default(10),
+  onBackpressure: OnBackpressureOptions$inboundSchema.default("block"),
+  description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$inboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$inboundSchema.default("block"),
+  pqControls: MetadataType$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputGooglePubsubGooglePubsub1$Outbound = {
+  googleAuthMethod: string;
+  id?: string | undefined;
+  type: string;
+  pipeline?: string | undefined;
+  systemFields?: Array<string> | undefined;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  topicName: string;
+  createTopic: boolean;
+  orderedDelivery: boolean;
+  region?: string | undefined;
+  serviceAccountCredentials?: string | undefined;
+  secret?: string | undefined;
+  batchSize: number;
+  batchTimeout: number;
+  maxQueueSize: number;
+  maxRecordSizeKB: number;
+  flushPeriod: number;
+  maxInProgress: number;
+  onBackpressure: string;
+  description?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
+  pqMaxFileSize: string;
+  pqMaxSize: string;
+  pqPath: string;
+  pqCompress: string;
+  pqOnBackpressure: string;
+  pqControls?: MetadataType$Outbound | undefined;
+};
+
+/** @internal */
+export const OutputGooglePubsubGooglePubsub1$outboundSchema: z.ZodType<
+  OutputGooglePubsubGooglePubsub1$Outbound,
+  z.ZodTypeDef,
+  OutputGooglePubsubGooglePubsub1
+> = z.object({
+  googleAuthMethod: AwsAuthenticationMethodOptions$outboundSchema.default(
+    "auto",
+  ),
+  id: z.string().optional(),
+  type: TypeGooglePubsubOption$outboundSchema,
+  pipeline: z.string().optional(),
+  systemFields: z.array(z.string()).optional(),
+  environment: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  topicName: z.string(),
+  createTopic: z.boolean().default(false),
+  orderedDelivery: z.boolean().default(false),
+  region: z.string().optional(),
+  serviceAccountCredentials: z.string().optional(),
+  secret: z.string().optional(),
+  batchSize: z.number().default(1000),
+  batchTimeout: z.number().default(100),
+  maxQueueSize: z.number().default(100),
+  maxRecordSizeKB: z.number().default(256),
+  flushPeriod: z.number().default(1),
+  maxInProgress: z.number().default(10),
+  onBackpressure: OnBackpressureOptions$outboundSchema.default("block"),
+  description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: PqModeOptions$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
+  pqMaxFileSize: z.string().default("1 MB"),
+  pqMaxSize: z.string().default("5GB"),
+  pqPath: z.string().default("$CRIBL_HOME/state/queues"),
+  pqCompress: PqCompressOptions$outboundSchema.default("none"),
+  pqOnBackpressure: PqOnBackpressureOptions$outboundSchema.default("block"),
+  pqControls: MetadataType$outboundSchema.optional(),
+});
+
+export function outputGooglePubsubGooglePubsub1ToJSON(
+  outputGooglePubsubGooglePubsub1: OutputGooglePubsubGooglePubsub1,
+): string {
+  return JSON.stringify(
+    OutputGooglePubsubGooglePubsub1$outboundSchema.parse(
+      outputGooglePubsubGooglePubsub1,
+    ),
+  );
+}
+export function outputGooglePubsubGooglePubsub1FromJSON(
+  jsonString: string,
+): SafeParseResult<OutputGooglePubsubGooglePubsub1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputGooglePubsubGooglePubsub1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputGooglePubsubGooglePubsub1' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputGooglePubsub$inboundSchema: z.ZodType<
+  OutputGooglePubsub,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => OutputGooglePubsubGooglePubsub2$inboundSchema),
+  z.lazy(() => OutputGooglePubsubGooglePubsub3$inboundSchema),
+  z.lazy(() => OutputGooglePubsubGooglePubsub5$inboundSchema),
+  z.lazy(() => OutputGooglePubsubGooglePubsub1$inboundSchema),
+  z.lazy(() => OutputGooglePubsubGooglePubsub4$inboundSchema),
+]);
+/** @internal */
+export type OutputGooglePubsub$Outbound =
+  | OutputGooglePubsubGooglePubsub2$Outbound
+  | OutputGooglePubsubGooglePubsub3$Outbound
+  | OutputGooglePubsubGooglePubsub5$Outbound
+  | OutputGooglePubsubGooglePubsub1$Outbound
+  | OutputGooglePubsubGooglePubsub4$Outbound;
+
+/** @internal */
+export const OutputGooglePubsub$outboundSchema: z.ZodType<
+  OutputGooglePubsub$Outbound,
+  z.ZodTypeDef,
+  OutputGooglePubsub
+> = z.union([
+  z.lazy(() => OutputGooglePubsubGooglePubsub2$outboundSchema),
+  z.lazy(() => OutputGooglePubsubGooglePubsub3$outboundSchema),
+  z.lazy(() => OutputGooglePubsubGooglePubsub5$outboundSchema),
+  z.lazy(() => OutputGooglePubsubGooglePubsub1$outboundSchema),
+  z.lazy(() => OutputGooglePubsubGooglePubsub4$outboundSchema),
+]);
 
 export function outputGooglePubsubToJSON(
   outputGooglePubsub: OutputGooglePubsub,
@@ -572,7 +1390,6 @@ export function outputGooglePubsubToJSON(
     OutputGooglePubsub$outboundSchema.parse(outputGooglePubsub),
   );
 }
-
 export function outputGooglePubsubFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputGooglePubsub, SDKValidationError> {

@@ -4,155 +4,51 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  ConnectionsType,
+  ConnectionsType$inboundSchema,
+  ConnectionsType$Outbound,
+  ConnectionsType$outboundSchema,
+} from "./connectionstype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  Metadata1Type,
+  Metadata1Type$inboundSchema,
+  Metadata1Type$Outbound,
+  Metadata1Type$outboundSchema,
+} from "./metadata1type.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  Tls2Type,
+  Tls2Type$inboundSchema,
+  Tls2Type$Outbound,
+  Tls2Type$outboundSchema,
+} from "./tls2type.js";
 
-export const InputModelDrivenTelemetryType = {
+export const InputModelDrivenTelemetryType4 = {
   ModelDrivenTelemetry: "model_driven_telemetry",
 } as const;
-export type InputModelDrivenTelemetryType = ClosedEnum<
-  typeof InputModelDrivenTelemetryType
+export type InputModelDrivenTelemetryType4 = ClosedEnum<
+  typeof InputModelDrivenTelemetryType4
 >;
 
-export type InputModelDrivenTelemetryConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputModelDrivenTelemetryMode = {
-  Smart: "smart",
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputModelDrivenTelemetryMode = OpenEnum<
-  typeof InputModelDrivenTelemetryMode
->;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputModelDrivenTelemetryCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputModelDrivenTelemetryCompression = OpenEnum<
-  typeof InputModelDrivenTelemetryCompression
->;
-
-export type InputModelDrivenTelemetryPqControls = {};
-
-export type InputModelDrivenTelemetryPq = {
+export type InputModelDrivenTelemetryModelDrivenTelemetry4 = {
   /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
    */
-  mode?: InputModelDrivenTelemetryMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputModelDrivenTelemetryCompression | undefined;
-  pqControls?: InputModelDrivenTelemetryPqControls | undefined;
-};
-
-export const InputModelDrivenTelemetryMinimumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputModelDrivenTelemetryMinimumTLSVersion = OpenEnum<
-  typeof InputModelDrivenTelemetryMinimumTLSVersion
->;
-
-export const InputModelDrivenTelemetryMaximumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputModelDrivenTelemetryMaximumTLSVersion = OpenEnum<
-  typeof InputModelDrivenTelemetryMaximumTLSVersion
->;
-
-export type InputModelDrivenTelemetryTLSSettingsServerSide = {
-  disabled?: boolean | undefined;
-  /**
-   * The name of the predefined certificate
-   */
-  certificateName?: string | undefined;
-  /**
-   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
-   */
-  privKeyPath?: string | undefined;
-  /**
-   * Passphrase to use to decrypt private key
-   */
-  passphrase?: string | undefined;
-  /**
-   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  certPath?: string | undefined;
-  /**
-   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
-   */
-  caPath?: string | undefined;
-  /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
-  minVersion?: InputModelDrivenTelemetryMinimumTLSVersion | undefined;
-  maxVersion?: InputModelDrivenTelemetryMaximumTLSVersion | undefined;
-};
-
-export type InputModelDrivenTelemetryMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
-
-export type InputModelDrivenTelemetry = {
+  pqEnabled?: boolean | undefined;
   /**
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputModelDrivenTelemetryType;
+  type: InputModelDrivenTelemetryType4;
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -162,6 +58,128 @@ export type InputModelDrivenTelemetry = {
    * Select whether to send data to Routes, or directly to Destinations.
    */
   sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq: PqType;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  /**
+   * Time in milliseconds to allow the server to shutdown gracefully before forcing shutdown. Defaults to 5000.
+   */
+  shutdownTimeoutMs?: number | undefined;
+  description?: string | undefined;
+};
+
+export const InputModelDrivenTelemetryType3 = {
+  ModelDrivenTelemetry: "model_driven_telemetry",
+} as const;
+export type InputModelDrivenTelemetryType3 = ClosedEnum<
+  typeof InputModelDrivenTelemetryType3
+>;
+
+export type InputModelDrivenTelemetryModelDrivenTelemetry3 = {
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputModelDrivenTelemetryType3;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  /**
+   * Time in milliseconds to allow the server to shutdown gracefully before forcing shutdown. Defaults to 5000.
+   */
+  shutdownTimeoutMs?: number | undefined;
+  description?: string | undefined;
+};
+
+export const InputModelDrivenTelemetryType2 = {
+  ModelDrivenTelemetry: "model_driven_telemetry",
+} as const;
+export type InputModelDrivenTelemetryType2 = ClosedEnum<
+  typeof InputModelDrivenTelemetryType2
+>;
+
+export type InputModelDrivenTelemetryModelDrivenTelemetry2 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputModelDrivenTelemetryType2;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
+  pipeline?: string | undefined;
   /**
    * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
    */
@@ -177,8 +195,8 @@ export type InputModelDrivenTelemetry = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputModelDrivenTelemetryConnection> | undefined;
-  pq?: InputModelDrivenTelemetryPq | undefined;
+  connections: Array<ConnectionsType>;
+  pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -187,11 +205,11 @@ export type InputModelDrivenTelemetry = {
    * Port to listen on
    */
   port?: number | undefined;
-  tls?: InputModelDrivenTelemetryTLSSettingsServerSide | undefined;
+  tls?: Tls2Type | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputModelDrivenTelemetryMetadatum> | undefined;
+  metadata?: Array<Metadata1Type> | undefined;
   /**
    * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
    */
@@ -203,513 +221,500 @@ export type InputModelDrivenTelemetry = {
   description?: string | undefined;
 };
 
-/** @internal */
-export const InputModelDrivenTelemetryType$inboundSchema: z.ZodNativeEnum<
-  typeof InputModelDrivenTelemetryType
-> = z.nativeEnum(InputModelDrivenTelemetryType);
+export const InputModelDrivenTelemetryType1 = {
+  ModelDrivenTelemetry: "model_driven_telemetry",
+} as const;
+export type InputModelDrivenTelemetryType1 = ClosedEnum<
+  typeof InputModelDrivenTelemetryType1
+>;
 
-/** @internal */
-export const InputModelDrivenTelemetryType$outboundSchema: z.ZodNativeEnum<
-  typeof InputModelDrivenTelemetryType
-> = InputModelDrivenTelemetryType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputModelDrivenTelemetryType$ {
-  /** @deprecated use `InputModelDrivenTelemetryType$inboundSchema` instead. */
-  export const inboundSchema = InputModelDrivenTelemetryType$inboundSchema;
-  /** @deprecated use `InputModelDrivenTelemetryType$outboundSchema` instead. */
-  export const outboundSchema = InputModelDrivenTelemetryType$outboundSchema;
-}
-
-/** @internal */
-export const InputModelDrivenTelemetryConnection$inboundSchema: z.ZodType<
-  InputModelDrivenTelemetryConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-/** @internal */
-export type InputModelDrivenTelemetryConnection$Outbound = {
+export type InputModelDrivenTelemetryModelDrivenTelemetry1 = {
+  /**
+   * Select whether to send data to Routes, or directly to Destinations.
+   */
+  sendToRoutes?: boolean | undefined;
+  /**
+   * Unique ID for this input
+   */
+  id?: string | undefined;
+  type: InputModelDrivenTelemetryType1;
+  disabled?: boolean | undefined;
+  /**
+   * Pipeline to process data from this Source before sending it through the Routes
+   */
   pipeline?: string | undefined;
-  output: string;
+  /**
+   * Optionally, enable this config only on a specified Git branch. If empty, will be enabled everywhere.
+   */
+  environment?: string | undefined;
+  /**
+   * Use a disk queue to minimize data loss when connected services block. See [Cribl Docs](https://docs.cribl.io/stream/persistent-queues) for PQ defaults (Cribl-managed Cloud Workers) and configuration options (on-prem and hybrid Workers).
+   */
+  pqEnabled?: boolean | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * Direct connections to Destinations, and optionally via a Pipeline or a Pack
+   */
+  connections?: Array<ConnectionsType> | undefined;
+  pq?: PqType | undefined;
+  /**
+   * Address to bind on. Defaults to 0.0.0.0 (all addresses).
+   */
+  host?: string | undefined;
+  /**
+   * Port to listen on
+   */
+  port?: number | undefined;
+  tls?: Tls2Type | undefined;
+  /**
+   * Fields to add to events from this input
+   */
+  metadata?: Array<Metadata1Type> | undefined;
+  /**
+   * Maximum number of active connections allowed per Worker Process. Use 0 for unlimited.
+   */
+  maxActiveCxn?: number | undefined;
+  /**
+   * Time in milliseconds to allow the server to shutdown gracefully before forcing shutdown. Defaults to 5000.
+   */
+  shutdownTimeoutMs?: number | undefined;
+  description?: string | undefined;
 };
 
-/** @internal */
-export const InputModelDrivenTelemetryConnection$outboundSchema: z.ZodType<
-  InputModelDrivenTelemetryConnection$Outbound,
-  z.ZodTypeDef,
-  InputModelDrivenTelemetryConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputModelDrivenTelemetryConnection$ {
-  /** @deprecated use `InputModelDrivenTelemetryConnection$inboundSchema` instead. */
-  export const inboundSchema =
-    InputModelDrivenTelemetryConnection$inboundSchema;
-  /** @deprecated use `InputModelDrivenTelemetryConnection$outboundSchema` instead. */
-  export const outboundSchema =
-    InputModelDrivenTelemetryConnection$outboundSchema;
-  /** @deprecated use `InputModelDrivenTelemetryConnection$Outbound` instead. */
-  export type Outbound = InputModelDrivenTelemetryConnection$Outbound;
-}
-
-export function inputModelDrivenTelemetryConnectionToJSON(
-  inputModelDrivenTelemetryConnection: InputModelDrivenTelemetryConnection,
-): string {
-  return JSON.stringify(
-    InputModelDrivenTelemetryConnection$outboundSchema.parse(
-      inputModelDrivenTelemetryConnection,
-    ),
-  );
-}
-
-export function inputModelDrivenTelemetryConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputModelDrivenTelemetryConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputModelDrivenTelemetryConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputModelDrivenTelemetryConnection' from JSON`,
-  );
-}
+export type InputModelDrivenTelemetry =
+  | InputModelDrivenTelemetryModelDrivenTelemetry2
+  | InputModelDrivenTelemetryModelDrivenTelemetry4
+  | InputModelDrivenTelemetryModelDrivenTelemetry1
+  | InputModelDrivenTelemetryModelDrivenTelemetry3;
 
 /** @internal */
-export const InputModelDrivenTelemetryMode$inboundSchema: z.ZodType<
-  InputModelDrivenTelemetryMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputModelDrivenTelemetryMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+export const InputModelDrivenTelemetryType4$inboundSchema: z.ZodNativeEnum<
+  typeof InputModelDrivenTelemetryType4
+> = z.nativeEnum(InputModelDrivenTelemetryType4);
+/** @internal */
+export const InputModelDrivenTelemetryType4$outboundSchema: z.ZodNativeEnum<
+  typeof InputModelDrivenTelemetryType4
+> = InputModelDrivenTelemetryType4$inboundSchema;
 
 /** @internal */
-export const InputModelDrivenTelemetryMode$outboundSchema: z.ZodType<
-  InputModelDrivenTelemetryMode,
-  z.ZodTypeDef,
-  InputModelDrivenTelemetryMode
-> = z.union([
-  z.nativeEnum(InputModelDrivenTelemetryMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputModelDrivenTelemetryMode$ {
-  /** @deprecated use `InputModelDrivenTelemetryMode$inboundSchema` instead. */
-  export const inboundSchema = InputModelDrivenTelemetryMode$inboundSchema;
-  /** @deprecated use `InputModelDrivenTelemetryMode$outboundSchema` instead. */
-  export const outboundSchema = InputModelDrivenTelemetryMode$outboundSchema;
-}
-
-/** @internal */
-export const InputModelDrivenTelemetryCompression$inboundSchema: z.ZodType<
-  InputModelDrivenTelemetryCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputModelDrivenTelemetryCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputModelDrivenTelemetryCompression$outboundSchema: z.ZodType<
-  InputModelDrivenTelemetryCompression,
-  z.ZodTypeDef,
-  InputModelDrivenTelemetryCompression
-> = z.union([
-  z.nativeEnum(InputModelDrivenTelemetryCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputModelDrivenTelemetryCompression$ {
-  /** @deprecated use `InputModelDrivenTelemetryCompression$inboundSchema` instead. */
-  export const inboundSchema =
-    InputModelDrivenTelemetryCompression$inboundSchema;
-  /** @deprecated use `InputModelDrivenTelemetryCompression$outboundSchema` instead. */
-  export const outboundSchema =
-    InputModelDrivenTelemetryCompression$outboundSchema;
-}
-
-/** @internal */
-export const InputModelDrivenTelemetryPqControls$inboundSchema: z.ZodType<
-  InputModelDrivenTelemetryPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-/** @internal */
-export type InputModelDrivenTelemetryPqControls$Outbound = {};
-
-/** @internal */
-export const InputModelDrivenTelemetryPqControls$outboundSchema: z.ZodType<
-  InputModelDrivenTelemetryPqControls$Outbound,
-  z.ZodTypeDef,
-  InputModelDrivenTelemetryPqControls
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputModelDrivenTelemetryPqControls$ {
-  /** @deprecated use `InputModelDrivenTelemetryPqControls$inboundSchema` instead. */
-  export const inboundSchema =
-    InputModelDrivenTelemetryPqControls$inboundSchema;
-  /** @deprecated use `InputModelDrivenTelemetryPqControls$outboundSchema` instead. */
-  export const outboundSchema =
-    InputModelDrivenTelemetryPqControls$outboundSchema;
-  /** @deprecated use `InputModelDrivenTelemetryPqControls$Outbound` instead. */
-  export type Outbound = InputModelDrivenTelemetryPqControls$Outbound;
-}
-
-export function inputModelDrivenTelemetryPqControlsToJSON(
-  inputModelDrivenTelemetryPqControls: InputModelDrivenTelemetryPqControls,
-): string {
-  return JSON.stringify(
-    InputModelDrivenTelemetryPqControls$outboundSchema.parse(
-      inputModelDrivenTelemetryPqControls,
-    ),
-  );
-}
-
-export function inputModelDrivenTelemetryPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputModelDrivenTelemetryPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      InputModelDrivenTelemetryPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputModelDrivenTelemetryPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputModelDrivenTelemetryPq$inboundSchema: z.ZodType<
-  InputModelDrivenTelemetryPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputModelDrivenTelemetryMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputModelDrivenTelemetryCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputModelDrivenTelemetryPqControls$inboundSchema)
-    .optional(),
-});
-
-/** @internal */
-export type InputModelDrivenTelemetryPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputModelDrivenTelemetryPqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputModelDrivenTelemetryPq$outboundSchema: z.ZodType<
-  InputModelDrivenTelemetryPq$Outbound,
-  z.ZodTypeDef,
-  InputModelDrivenTelemetryPq
-> = z.object({
-  mode: InputModelDrivenTelemetryMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputModelDrivenTelemetryCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputModelDrivenTelemetryPqControls$outboundSchema)
-    .optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputModelDrivenTelemetryPq$ {
-  /** @deprecated use `InputModelDrivenTelemetryPq$inboundSchema` instead. */
-  export const inboundSchema = InputModelDrivenTelemetryPq$inboundSchema;
-  /** @deprecated use `InputModelDrivenTelemetryPq$outboundSchema` instead. */
-  export const outboundSchema = InputModelDrivenTelemetryPq$outboundSchema;
-  /** @deprecated use `InputModelDrivenTelemetryPq$Outbound` instead. */
-  export type Outbound = InputModelDrivenTelemetryPq$Outbound;
-}
-
-export function inputModelDrivenTelemetryPqToJSON(
-  inputModelDrivenTelemetryPq: InputModelDrivenTelemetryPq,
-): string {
-  return JSON.stringify(
-    InputModelDrivenTelemetryPq$outboundSchema.parse(
-      inputModelDrivenTelemetryPq,
-    ),
-  );
-}
-
-export function inputModelDrivenTelemetryPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputModelDrivenTelemetryPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputModelDrivenTelemetryPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputModelDrivenTelemetryPq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputModelDrivenTelemetryMinimumTLSVersion$inboundSchema:
-  z.ZodType<InputModelDrivenTelemetryMinimumTLSVersion, z.ZodTypeDef, unknown> =
-    z
-      .union([
-        z.nativeEnum(InputModelDrivenTelemetryMinimumTLSVersion),
-        z.string().transform(catchUnrecognizedEnum),
-      ]);
-
-/** @internal */
-export const InputModelDrivenTelemetryMinimumTLSVersion$outboundSchema:
+export const InputModelDrivenTelemetryModelDrivenTelemetry4$inboundSchema:
   z.ZodType<
-    InputModelDrivenTelemetryMinimumTLSVersion,
-    z.ZodTypeDef,
-    InputModelDrivenTelemetryMinimumTLSVersion
-  > = z.union([
-    z.nativeEnum(InputModelDrivenTelemetryMinimumTLSVersion),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputModelDrivenTelemetryMinimumTLSVersion$ {
-  /** @deprecated use `InputModelDrivenTelemetryMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema =
-    InputModelDrivenTelemetryMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `InputModelDrivenTelemetryMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    InputModelDrivenTelemetryMinimumTLSVersion$outboundSchema;
-}
-
-/** @internal */
-export const InputModelDrivenTelemetryMaximumTLSVersion$inboundSchema:
-  z.ZodType<InputModelDrivenTelemetryMaximumTLSVersion, z.ZodTypeDef, unknown> =
-    z
-      .union([
-        z.nativeEnum(InputModelDrivenTelemetryMaximumTLSVersion),
-        z.string().transform(catchUnrecognizedEnum),
-      ]);
-
-/** @internal */
-export const InputModelDrivenTelemetryMaximumTLSVersion$outboundSchema:
-  z.ZodType<
-    InputModelDrivenTelemetryMaximumTLSVersion,
-    z.ZodTypeDef,
-    InputModelDrivenTelemetryMaximumTLSVersion
-  > = z.union([
-    z.nativeEnum(InputModelDrivenTelemetryMaximumTLSVersion),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputModelDrivenTelemetryMaximumTLSVersion$ {
-  /** @deprecated use `InputModelDrivenTelemetryMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema =
-    InputModelDrivenTelemetryMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `InputModelDrivenTelemetryMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    InputModelDrivenTelemetryMaximumTLSVersion$outboundSchema;
-}
-
-/** @internal */
-export const InputModelDrivenTelemetryTLSSettingsServerSide$inboundSchema:
-  z.ZodType<
-    InputModelDrivenTelemetryTLSSettingsServerSide,
+    InputModelDrivenTelemetryModelDrivenTelemetry4,
     z.ZodTypeDef,
     unknown
   > = z.object({
-    disabled: z.boolean().default(true),
-    certificateName: z.string().optional(),
-    privKeyPath: z.string().optional(),
-    passphrase: z.string().optional(),
-    certPath: z.string().optional(),
-    caPath: z.string().optional(),
-    requestCert: z.boolean().default(false),
-    rejectUnauthorized: z.any().optional(),
-    commonNameRegex: z.any().optional(),
-    minVersion: InputModelDrivenTelemetryMinimumTLSVersion$inboundSchema
-      .optional(),
-    maxVersion: InputModelDrivenTelemetryMaximumTLSVersion$inboundSchema
-      .optional(),
+    pqEnabled: z.boolean().default(false),
+    id: z.string().optional(),
+    type: InputModelDrivenTelemetryType4$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ConnectionsType$inboundSchema).optional(),
+    pq: PqType$inboundSchema,
+    host: z.string().default("0.0.0.0"),
+    port: z.number().default(57000),
+    tls: Tls2Type$inboundSchema.optional(),
+    metadata: z.array(Metadata1Type$inboundSchema).optional(),
+    maxActiveCxn: z.number().default(1000),
+    shutdownTimeoutMs: z.number().default(5000),
+    description: z.string().optional(),
   });
-
 /** @internal */
-export type InputModelDrivenTelemetryTLSSettingsServerSide$Outbound = {
+export type InputModelDrivenTelemetryModelDrivenTelemetry4$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
   disabled: boolean;
-  certificateName?: string | undefined;
-  privKeyPath?: string | undefined;
-  passphrase?: string | undefined;
-  certPath?: string | undefined;
-  caPath?: string | undefined;
-  requestCert: boolean;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
-  minVersion?: string | undefined;
-  maxVersion?: string | undefined;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq: PqType$Outbound;
+  host: string;
+  port: number;
+  tls?: Tls2Type$Outbound | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  maxActiveCxn: number;
+  shutdownTimeoutMs: number;
+  description?: string | undefined;
 };
 
 /** @internal */
-export const InputModelDrivenTelemetryTLSSettingsServerSide$outboundSchema:
+export const InputModelDrivenTelemetryModelDrivenTelemetry4$outboundSchema:
   z.ZodType<
-    InputModelDrivenTelemetryTLSSettingsServerSide$Outbound,
+    InputModelDrivenTelemetryModelDrivenTelemetry4$Outbound,
     z.ZodTypeDef,
-    InputModelDrivenTelemetryTLSSettingsServerSide
+    InputModelDrivenTelemetryModelDrivenTelemetry4
   > = z.object({
-    disabled: z.boolean().default(true),
-    certificateName: z.string().optional(),
-    privKeyPath: z.string().optional(),
-    passphrase: z.string().optional(),
-    certPath: z.string().optional(),
-    caPath: z.string().optional(),
-    requestCert: z.boolean().default(false),
-    rejectUnauthorized: z.any().optional(),
-    commonNameRegex: z.any().optional(),
-    minVersion: InputModelDrivenTelemetryMinimumTLSVersion$outboundSchema
-      .optional(),
-    maxVersion: InputModelDrivenTelemetryMaximumTLSVersion$outboundSchema
-      .optional(),
+    pqEnabled: z.boolean().default(false),
+    id: z.string().optional(),
+    type: InputModelDrivenTelemetryType4$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ConnectionsType$outboundSchema).optional(),
+    pq: PqType$outboundSchema,
+    host: z.string().default("0.0.0.0"),
+    port: z.number().default(57000),
+    tls: Tls2Type$outboundSchema.optional(),
+    metadata: z.array(Metadata1Type$outboundSchema).optional(),
+    maxActiveCxn: z.number().default(1000),
+    shutdownTimeoutMs: z.number().default(5000),
+    description: z.string().optional(),
   });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputModelDrivenTelemetryTLSSettingsServerSide$ {
-  /** @deprecated use `InputModelDrivenTelemetryTLSSettingsServerSide$inboundSchema` instead. */
-  export const inboundSchema =
-    InputModelDrivenTelemetryTLSSettingsServerSide$inboundSchema;
-  /** @deprecated use `InputModelDrivenTelemetryTLSSettingsServerSide$outboundSchema` instead. */
-  export const outboundSchema =
-    InputModelDrivenTelemetryTLSSettingsServerSide$outboundSchema;
-  /** @deprecated use `InputModelDrivenTelemetryTLSSettingsServerSide$Outbound` instead. */
-  export type Outbound =
-    InputModelDrivenTelemetryTLSSettingsServerSide$Outbound;
-}
-
-export function inputModelDrivenTelemetryTLSSettingsServerSideToJSON(
-  inputModelDrivenTelemetryTLSSettingsServerSide:
-    InputModelDrivenTelemetryTLSSettingsServerSide,
+export function inputModelDrivenTelemetryModelDrivenTelemetry4ToJSON(
+  inputModelDrivenTelemetryModelDrivenTelemetry4:
+    InputModelDrivenTelemetryModelDrivenTelemetry4,
 ): string {
   return JSON.stringify(
-    InputModelDrivenTelemetryTLSSettingsServerSide$outboundSchema.parse(
-      inputModelDrivenTelemetryTLSSettingsServerSide,
+    InputModelDrivenTelemetryModelDrivenTelemetry4$outboundSchema.parse(
+      inputModelDrivenTelemetryModelDrivenTelemetry4,
     ),
   );
 }
-
-export function inputModelDrivenTelemetryTLSSettingsServerSideFromJSON(
+export function inputModelDrivenTelemetryModelDrivenTelemetry4FromJSON(
   jsonString: string,
 ): SafeParseResult<
-  InputModelDrivenTelemetryTLSSettingsServerSide,
+  InputModelDrivenTelemetryModelDrivenTelemetry4,
   SDKValidationError
 > {
   return safeParse(
     jsonString,
     (x) =>
-      InputModelDrivenTelemetryTLSSettingsServerSide$inboundSchema.parse(
+      InputModelDrivenTelemetryModelDrivenTelemetry4$inboundSchema.parse(
         JSON.parse(x),
       ),
-    `Failed to parse 'InputModelDrivenTelemetryTLSSettingsServerSide' from JSON`,
+    `Failed to parse 'InputModelDrivenTelemetryModelDrivenTelemetry4' from JSON`,
   );
 }
 
 /** @internal */
-export const InputModelDrivenTelemetryMetadatum$inboundSchema: z.ZodType<
-  InputModelDrivenTelemetryMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
+export const InputModelDrivenTelemetryType3$inboundSchema: z.ZodNativeEnum<
+  typeof InputModelDrivenTelemetryType3
+> = z.nativeEnum(InputModelDrivenTelemetryType3);
+/** @internal */
+export const InputModelDrivenTelemetryType3$outboundSchema: z.ZodNativeEnum<
+  typeof InputModelDrivenTelemetryType3
+> = InputModelDrivenTelemetryType3$inboundSchema;
 
 /** @internal */
-export type InputModelDrivenTelemetryMetadatum$Outbound = {
-  name: string;
-  value: string;
+export const InputModelDrivenTelemetryModelDrivenTelemetry3$inboundSchema:
+  z.ZodType<
+    InputModelDrivenTelemetryModelDrivenTelemetry3,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    id: z.string().optional(),
+    type: InputModelDrivenTelemetryType3$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ConnectionsType$inboundSchema).optional(),
+    pq: PqType$inboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number().default(57000),
+    tls: Tls2Type$inboundSchema.optional(),
+    metadata: z.array(Metadata1Type$inboundSchema).optional(),
+    maxActiveCxn: z.number().default(1000),
+    shutdownTimeoutMs: z.number().default(5000),
+    description: z.string().optional(),
+  });
+/** @internal */
+export type InputModelDrivenTelemetryModelDrivenTelemetry3$Outbound = {
+  pqEnabled: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  sendToRoutes: boolean;
+  environment?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: Tls2Type$Outbound | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  maxActiveCxn: number;
+  shutdownTimeoutMs: number;
+  description?: string | undefined;
 };
 
 /** @internal */
-export const InputModelDrivenTelemetryMetadatum$outboundSchema: z.ZodType<
-  InputModelDrivenTelemetryMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputModelDrivenTelemetryMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
+export const InputModelDrivenTelemetryModelDrivenTelemetry3$outboundSchema:
+  z.ZodType<
+    InputModelDrivenTelemetryModelDrivenTelemetry3$Outbound,
+    z.ZodTypeDef,
+    InputModelDrivenTelemetryModelDrivenTelemetry3
+  > = z.object({
+    pqEnabled: z.boolean().default(false),
+    id: z.string().optional(),
+    type: InputModelDrivenTelemetryType3$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    sendToRoutes: z.boolean().default(true),
+    environment: z.string().optional(),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ConnectionsType$outboundSchema).optional(),
+    pq: PqType$outboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number().default(57000),
+    tls: Tls2Type$outboundSchema.optional(),
+    metadata: z.array(Metadata1Type$outboundSchema).optional(),
+    maxActiveCxn: z.number().default(1000),
+    shutdownTimeoutMs: z.number().default(5000),
+    description: z.string().optional(),
+  });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputModelDrivenTelemetryMetadatum$ {
-  /** @deprecated use `InputModelDrivenTelemetryMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputModelDrivenTelemetryMetadatum$inboundSchema;
-  /** @deprecated use `InputModelDrivenTelemetryMetadatum$outboundSchema` instead. */
-  export const outboundSchema =
-    InputModelDrivenTelemetryMetadatum$outboundSchema;
-  /** @deprecated use `InputModelDrivenTelemetryMetadatum$Outbound` instead. */
-  export type Outbound = InputModelDrivenTelemetryMetadatum$Outbound;
-}
-
-export function inputModelDrivenTelemetryMetadatumToJSON(
-  inputModelDrivenTelemetryMetadatum: InputModelDrivenTelemetryMetadatum,
+export function inputModelDrivenTelemetryModelDrivenTelemetry3ToJSON(
+  inputModelDrivenTelemetryModelDrivenTelemetry3:
+    InputModelDrivenTelemetryModelDrivenTelemetry3,
 ): string {
   return JSON.stringify(
-    InputModelDrivenTelemetryMetadatum$outboundSchema.parse(
-      inputModelDrivenTelemetryMetadatum,
+    InputModelDrivenTelemetryModelDrivenTelemetry3$outboundSchema.parse(
+      inputModelDrivenTelemetryModelDrivenTelemetry3,
     ),
   );
 }
-
-export function inputModelDrivenTelemetryMetadatumFromJSON(
+export function inputModelDrivenTelemetryModelDrivenTelemetry3FromJSON(
   jsonString: string,
-): SafeParseResult<InputModelDrivenTelemetryMetadatum, SDKValidationError> {
+): SafeParseResult<
+  InputModelDrivenTelemetryModelDrivenTelemetry3,
+  SDKValidationError
+> {
   return safeParse(
     jsonString,
     (x) =>
-      InputModelDrivenTelemetryMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputModelDrivenTelemetryMetadatum' from JSON`,
+      InputModelDrivenTelemetryModelDrivenTelemetry3$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputModelDrivenTelemetryModelDrivenTelemetry3' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputModelDrivenTelemetryType2$inboundSchema: z.ZodNativeEnum<
+  typeof InputModelDrivenTelemetryType2
+> = z.nativeEnum(InputModelDrivenTelemetryType2);
+/** @internal */
+export const InputModelDrivenTelemetryType2$outboundSchema: z.ZodNativeEnum<
+  typeof InputModelDrivenTelemetryType2
+> = InputModelDrivenTelemetryType2$inboundSchema;
+
+/** @internal */
+export const InputModelDrivenTelemetryModelDrivenTelemetry2$inboundSchema:
+  z.ZodType<
+    InputModelDrivenTelemetryModelDrivenTelemetry2,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    id: z.string().optional(),
+    type: InputModelDrivenTelemetryType2$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ConnectionsType$inboundSchema),
+    pq: PqType$inboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number().default(57000),
+    tls: Tls2Type$inboundSchema.optional(),
+    metadata: z.array(Metadata1Type$inboundSchema).optional(),
+    maxActiveCxn: z.number().default(1000),
+    shutdownTimeoutMs: z.number().default(5000),
+    description: z.string().optional(),
+  });
+/** @internal */
+export type InputModelDrivenTelemetryModelDrivenTelemetry2$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections: Array<ConnectionsType$Outbound>;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: Tls2Type$Outbound | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  maxActiveCxn: number;
+  shutdownTimeoutMs: number;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputModelDrivenTelemetryModelDrivenTelemetry2$outboundSchema:
+  z.ZodType<
+    InputModelDrivenTelemetryModelDrivenTelemetry2$Outbound,
+    z.ZodTypeDef,
+    InputModelDrivenTelemetryModelDrivenTelemetry2
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    id: z.string().optional(),
+    type: InputModelDrivenTelemetryType2$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ConnectionsType$outboundSchema),
+    pq: PqType$outboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number().default(57000),
+    tls: Tls2Type$outboundSchema.optional(),
+    metadata: z.array(Metadata1Type$outboundSchema).optional(),
+    maxActiveCxn: z.number().default(1000),
+    shutdownTimeoutMs: z.number().default(5000),
+    description: z.string().optional(),
+  });
+
+export function inputModelDrivenTelemetryModelDrivenTelemetry2ToJSON(
+  inputModelDrivenTelemetryModelDrivenTelemetry2:
+    InputModelDrivenTelemetryModelDrivenTelemetry2,
+): string {
+  return JSON.stringify(
+    InputModelDrivenTelemetryModelDrivenTelemetry2$outboundSchema.parse(
+      inputModelDrivenTelemetryModelDrivenTelemetry2,
+    ),
+  );
+}
+export function inputModelDrivenTelemetryModelDrivenTelemetry2FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputModelDrivenTelemetryModelDrivenTelemetry2,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputModelDrivenTelemetryModelDrivenTelemetry2$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputModelDrivenTelemetryModelDrivenTelemetry2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputModelDrivenTelemetryType1$inboundSchema: z.ZodNativeEnum<
+  typeof InputModelDrivenTelemetryType1
+> = z.nativeEnum(InputModelDrivenTelemetryType1);
+/** @internal */
+export const InputModelDrivenTelemetryType1$outboundSchema: z.ZodNativeEnum<
+  typeof InputModelDrivenTelemetryType1
+> = InputModelDrivenTelemetryType1$inboundSchema;
+
+/** @internal */
+export const InputModelDrivenTelemetryModelDrivenTelemetry1$inboundSchema:
+  z.ZodType<
+    InputModelDrivenTelemetryModelDrivenTelemetry1,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    id: z.string().optional(),
+    type: InputModelDrivenTelemetryType1$inboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ConnectionsType$inboundSchema).optional(),
+    pq: PqType$inboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number().default(57000),
+    tls: Tls2Type$inboundSchema.optional(),
+    metadata: z.array(Metadata1Type$inboundSchema).optional(),
+    maxActiveCxn: z.number().default(1000),
+    shutdownTimeoutMs: z.number().default(5000),
+    description: z.string().optional(),
+  });
+/** @internal */
+export type InputModelDrivenTelemetryModelDrivenTelemetry1$Outbound = {
+  sendToRoutes: boolean;
+  id?: string | undefined;
+  type: string;
+  disabled: boolean;
+  pipeline?: string | undefined;
+  environment?: string | undefined;
+  pqEnabled: boolean;
+  streamtags?: Array<string> | undefined;
+  connections?: Array<ConnectionsType$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
+  host: string;
+  port: number;
+  tls?: Tls2Type$Outbound | undefined;
+  metadata?: Array<Metadata1Type$Outbound> | undefined;
+  maxActiveCxn: number;
+  shutdownTimeoutMs: number;
+  description?: string | undefined;
+};
+
+/** @internal */
+export const InputModelDrivenTelemetryModelDrivenTelemetry1$outboundSchema:
+  z.ZodType<
+    InputModelDrivenTelemetryModelDrivenTelemetry1$Outbound,
+    z.ZodTypeDef,
+    InputModelDrivenTelemetryModelDrivenTelemetry1
+  > = z.object({
+    sendToRoutes: z.boolean().default(true),
+    id: z.string().optional(),
+    type: InputModelDrivenTelemetryType1$outboundSchema,
+    disabled: z.boolean().default(false),
+    pipeline: z.string().optional(),
+    environment: z.string().optional(),
+    pqEnabled: z.boolean().default(false),
+    streamtags: z.array(z.string()).optional(),
+    connections: z.array(ConnectionsType$outboundSchema).optional(),
+    pq: PqType$outboundSchema.optional(),
+    host: z.string().default("0.0.0.0"),
+    port: z.number().default(57000),
+    tls: Tls2Type$outboundSchema.optional(),
+    metadata: z.array(Metadata1Type$outboundSchema).optional(),
+    maxActiveCxn: z.number().default(1000),
+    shutdownTimeoutMs: z.number().default(5000),
+    description: z.string().optional(),
+  });
+
+export function inputModelDrivenTelemetryModelDrivenTelemetry1ToJSON(
+  inputModelDrivenTelemetryModelDrivenTelemetry1:
+    InputModelDrivenTelemetryModelDrivenTelemetry1,
+): string {
+  return JSON.stringify(
+    InputModelDrivenTelemetryModelDrivenTelemetry1$outboundSchema.parse(
+      inputModelDrivenTelemetryModelDrivenTelemetry1,
+    ),
+  );
+}
+export function inputModelDrivenTelemetryModelDrivenTelemetry1FromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputModelDrivenTelemetryModelDrivenTelemetry1,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputModelDrivenTelemetryModelDrivenTelemetry1$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputModelDrivenTelemetryModelDrivenTelemetry1' from JSON`,
   );
 }
 
@@ -718,96 +723,30 @@ export const InputModelDrivenTelemetry$inboundSchema: z.ZodType<
   InputModelDrivenTelemetry,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  id: z.string().optional(),
-  type: InputModelDrivenTelemetryType$inboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(
-    z.lazy(() => InputModelDrivenTelemetryConnection$inboundSchema),
-  ).optional(),
-  pq: z.lazy(() => InputModelDrivenTelemetryPq$inboundSchema).optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number().default(57000),
-  tls: z.lazy(() =>
-    InputModelDrivenTelemetryTLSSettingsServerSide$inboundSchema
-  ).optional(),
-  metadata: z.array(
-    z.lazy(() => InputModelDrivenTelemetryMetadatum$inboundSchema),
-  ).optional(),
-  maxActiveCxn: z.number().default(1000),
-  shutdownTimeoutMs: z.number().default(5000),
-  description: z.string().optional(),
-});
-
+> = z.union([
+  z.lazy(() => InputModelDrivenTelemetryModelDrivenTelemetry2$inboundSchema),
+  z.lazy(() => InputModelDrivenTelemetryModelDrivenTelemetry4$inboundSchema),
+  z.lazy(() => InputModelDrivenTelemetryModelDrivenTelemetry1$inboundSchema),
+  z.lazy(() => InputModelDrivenTelemetryModelDrivenTelemetry3$inboundSchema),
+]);
 /** @internal */
-export type InputModelDrivenTelemetry$Outbound = {
-  id?: string | undefined;
-  type: string;
-  disabled: boolean;
-  pipeline?: string | undefined;
-  sendToRoutes: boolean;
-  environment?: string | undefined;
-  pqEnabled: boolean;
-  streamtags?: Array<string> | undefined;
-  connections?: Array<InputModelDrivenTelemetryConnection$Outbound> | undefined;
-  pq?: InputModelDrivenTelemetryPq$Outbound | undefined;
-  host: string;
-  port: number;
-  tls?: InputModelDrivenTelemetryTLSSettingsServerSide$Outbound | undefined;
-  metadata?: Array<InputModelDrivenTelemetryMetadatum$Outbound> | undefined;
-  maxActiveCxn: number;
-  shutdownTimeoutMs: number;
-  description?: string | undefined;
-};
+export type InputModelDrivenTelemetry$Outbound =
+  | InputModelDrivenTelemetryModelDrivenTelemetry2$Outbound
+  | InputModelDrivenTelemetryModelDrivenTelemetry4$Outbound
+  | InputModelDrivenTelemetryModelDrivenTelemetry1$Outbound
+  | InputModelDrivenTelemetryModelDrivenTelemetry3$Outbound;
 
 /** @internal */
 export const InputModelDrivenTelemetry$outboundSchema: z.ZodType<
   InputModelDrivenTelemetry$Outbound,
   z.ZodTypeDef,
   InputModelDrivenTelemetry
-> = z.object({
-  id: z.string().optional(),
-  type: InputModelDrivenTelemetryType$outboundSchema,
-  disabled: z.boolean().default(false),
-  pipeline: z.string().optional(),
-  sendToRoutes: z.boolean().default(true),
-  environment: z.string().optional(),
-  pqEnabled: z.boolean().default(false),
-  streamtags: z.array(z.string()).optional(),
-  connections: z.array(
-    z.lazy(() => InputModelDrivenTelemetryConnection$outboundSchema),
-  ).optional(),
-  pq: z.lazy(() => InputModelDrivenTelemetryPq$outboundSchema).optional(),
-  host: z.string().default("0.0.0.0"),
-  port: z.number().default(57000),
-  tls: z.lazy(() =>
-    InputModelDrivenTelemetryTLSSettingsServerSide$outboundSchema
-  ).optional(),
-  metadata: z.array(
-    z.lazy(() => InputModelDrivenTelemetryMetadatum$outboundSchema),
-  ).optional(),
-  maxActiveCxn: z.number().default(1000),
-  shutdownTimeoutMs: z.number().default(5000),
-  description: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputModelDrivenTelemetry$ {
-  /** @deprecated use `InputModelDrivenTelemetry$inboundSchema` instead. */
-  export const inboundSchema = InputModelDrivenTelemetry$inboundSchema;
-  /** @deprecated use `InputModelDrivenTelemetry$outboundSchema` instead. */
-  export const outboundSchema = InputModelDrivenTelemetry$outboundSchema;
-  /** @deprecated use `InputModelDrivenTelemetry$Outbound` instead. */
-  export type Outbound = InputModelDrivenTelemetry$Outbound;
-}
+> = z.union([
+  z.lazy(() => InputModelDrivenTelemetryModelDrivenTelemetry2$outboundSchema),
+  z.lazy(() => InputModelDrivenTelemetryModelDrivenTelemetry4$outboundSchema),
+  z.lazy(() => InputModelDrivenTelemetryModelDrivenTelemetry1$outboundSchema),
+  z.lazy(() => InputModelDrivenTelemetryModelDrivenTelemetry3$outboundSchema),
+]);
 
 export function inputModelDrivenTelemetryToJSON(
   inputModelDrivenTelemetry: InputModelDrivenTelemetry,
@@ -816,7 +755,6 @@ export function inputModelDrivenTelemetryToJSON(
     InputModelDrivenTelemetry$outboundSchema.parse(inputModelDrivenTelemetry),
   );
 }
-
 export function inputModelDrivenTelemetryFromJSON(
   jsonString: string,
 ): SafeParseResult<InputModelDrivenTelemetry, SDKValidationError> {
