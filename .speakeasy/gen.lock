@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 4e67f720051f249ed370cd5ac969d88e
-  docVersion: 4.15.0-alpha.1762556927854-f0fbba4e
+  docChecksum: 2f5b0a1265542f011b402843a2915f05
+  docVersion: 4.15.0-alpha.1762815739257-9cd5f1d2
   speakeasyVersion: 1.650.0
   generationVersion: 2.743.2
-  releaseVersion: 0.3.0-alpha.3
-  configChecksum: 5b08b72233a8e5a94ea786bb5732d9fa
+  releaseVersion: 0.3.0-alpha.4
+  configChecksum: 8de9a3baef22552c3ef615ec6e111a7f
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -3533,4 +3533,4 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes Detected:\n* `criblcontrolplane.destinations.list()`:  `response.items.[].[syslog].enableIpSpoofing` **Added**\n* `criblcontrolplane.destinations.create()`: \n  *  `request.[syslog].enableIpSpoofing` **Added**\n  *  `response.items.[].[syslog].enableIpSpoofing` **Added**\n* `criblcontrolplane.destinations.get()`:  `response.items.[].[syslog].enableIpSpoofing` **Added**\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output.[syslog].enableIpSpoofing` **Added**\n  *  `response.items.[].[syslog].enableIpSpoofing` **Added**\n* `criblcontrolplane.destinations.delete()`:  `response.items.[].[syslog].enableIpSpoofing` **Added**\n"
+releaseNotes: "## Typescript SDK Changes Detected:\n* `criblcontrolplane.destinations.list()`:  `response.items.[].[chronicle].customLabels.[].rbacEnabled` **Added**\n* `criblcontrolplane.destinations.create()`: \n  *  `request.[chronicle].customLabels.[].rbacEnabled` **Added**\n  *  `response.items.[].[chronicle].customLabels.[].rbacEnabled` **Added**\n* `criblcontrolplane.destinations.get()`:  `response.items.[].[chronicle].customLabels.[].rbacEnabled` **Added**\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output.[chronicle].customLabels.[].rbacEnabled` **Added**\n  *  `response.items.[].[chronicle].customLabels.[].rbacEnabled` **Added**\n* `criblcontrolplane.destinations.delete()`:  `response.items.[].[chronicle].customLabels.[].rbacEnabled` **Added**\n"
