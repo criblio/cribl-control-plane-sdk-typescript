@@ -9,8 +9,6 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   ResourcePolicy,
   ResourcePolicy$inboundSchema,
-  ResourcePolicy$Outbound,
-  ResourcePolicy$outboundSchema,
 } from "./resourcepolicy.js";
 
 export type TeamAccessControlList = {
@@ -27,43 +25,6 @@ export const TeamAccessControlList$inboundSchema: z.ZodType<
   perms: z.array(ResourcePolicy$inboundSchema),
   team: z.string(),
 });
-
-/** @internal */
-export type TeamAccessControlList$Outbound = {
-  perms: Array<ResourcePolicy$Outbound>;
-  team: string;
-};
-
-/** @internal */
-export const TeamAccessControlList$outboundSchema: z.ZodType<
-  TeamAccessControlList$Outbound,
-  z.ZodTypeDef,
-  TeamAccessControlList
-> = z.object({
-  perms: z.array(ResourcePolicy$outboundSchema),
-  team: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace TeamAccessControlList$ {
-  /** @deprecated use `TeamAccessControlList$inboundSchema` instead. */
-  export const inboundSchema = TeamAccessControlList$inboundSchema;
-  /** @deprecated use `TeamAccessControlList$outboundSchema` instead. */
-  export const outboundSchema = TeamAccessControlList$outboundSchema;
-  /** @deprecated use `TeamAccessControlList$Outbound` instead. */
-  export type Outbound = TeamAccessControlList$Outbound;
-}
-
-export function teamAccessControlListToJSON(
-  teamAccessControlList: TeamAccessControlList,
-): string {
-  return JSON.stringify(
-    TeamAccessControlList$outboundSchema.parse(teamAccessControlList),
-  );
-}
 
 export function teamAccessControlListFromJSON(
   jsonString: string,

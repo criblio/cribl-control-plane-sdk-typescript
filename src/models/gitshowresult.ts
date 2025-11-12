@@ -5,12 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  DiffFiles,
-  DiffFiles$inboundSchema,
-  DiffFiles$Outbound,
-  DiffFiles$outboundSchema,
-} from "./difffiles.js";
+import { DiffFiles, DiffFiles$inboundSchema } from "./difffiles.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type GitShowResult = {
@@ -27,39 +22,6 @@ export const GitShowResult$inboundSchema: z.ZodType<
   commitMessage: z.string(),
   diffJson: z.array(DiffFiles$inboundSchema),
 });
-
-/** @internal */
-export type GitShowResult$Outbound = {
-  commitMessage: string;
-  diffJson: Array<DiffFiles$Outbound>;
-};
-
-/** @internal */
-export const GitShowResult$outboundSchema: z.ZodType<
-  GitShowResult$Outbound,
-  z.ZodTypeDef,
-  GitShowResult
-> = z.object({
-  commitMessage: z.string(),
-  diffJson: z.array(DiffFiles$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GitShowResult$ {
-  /** @deprecated use `GitShowResult$inboundSchema` instead. */
-  export const inboundSchema = GitShowResult$inboundSchema;
-  /** @deprecated use `GitShowResult$outboundSchema` instead. */
-  export const outboundSchema = GitShowResult$outboundSchema;
-  /** @deprecated use `GitShowResult$Outbound` instead. */
-  export type Outbound = GitShowResult$Outbound;
-}
-
-export function gitShowResultToJSON(gitShowResult: GitShowResult): string {
-  return JSON.stringify(GitShowResult$outboundSchema.parse(gitShowResult));
-}
 
 export function gitShowResultFromJSON(
   jsonString: string,

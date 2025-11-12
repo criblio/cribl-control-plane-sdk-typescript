@@ -27,7 +27,13 @@ export type InputDatadogAgentConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputDatadogAgentMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -39,7 +45,13 @@ export type InputDatadogAgentMode = OpenEnum<typeof InputDatadogAgentMode>;
  * Codec to use to compress the persisted data
  */
 export const InputDatadogAgentCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -106,6 +118,18 @@ export type InputDatadogAgentMaximumTLSVersion = OpenEnum<
 export type InputDatadogAgentTLSSettingsServerSide = {
   disabled?: boolean | undefined;
   /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
    * The name of the predefined certificate
    */
   certificateName?: string | undefined;
@@ -125,12 +149,6 @@ export type InputDatadogAgentTLSSettingsServerSide = {
    * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
    */
   caPath?: string | undefined;
-  /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
   minVersion?: InputDatadogAgentMinimumTLSVersion | undefined;
   maxVersion?: InputDatadogAgentMaximumTLSVersion | undefined;
 };
@@ -255,22 +273,10 @@ export type InputDatadogAgent = {
 export const InputDatadogAgentType$inboundSchema: z.ZodNativeEnum<
   typeof InputDatadogAgentType
 > = z.nativeEnum(InputDatadogAgentType);
-
 /** @internal */
 export const InputDatadogAgentType$outboundSchema: z.ZodNativeEnum<
   typeof InputDatadogAgentType
 > = InputDatadogAgentType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatadogAgentType$ {
-  /** @deprecated use `InputDatadogAgentType$inboundSchema` instead. */
-  export const inboundSchema = InputDatadogAgentType$inboundSchema;
-  /** @deprecated use `InputDatadogAgentType$outboundSchema` instead. */
-  export const outboundSchema = InputDatadogAgentType$outboundSchema;
-}
 
 /** @internal */
 export const InputDatadogAgentConnection$inboundSchema: z.ZodType<
@@ -281,7 +287,6 @@ export const InputDatadogAgentConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputDatadogAgentConnection$Outbound = {
   pipeline?: string | undefined;
@@ -298,19 +303,6 @@ export const InputDatadogAgentConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatadogAgentConnection$ {
-  /** @deprecated use `InputDatadogAgentConnection$inboundSchema` instead. */
-  export const inboundSchema = InputDatadogAgentConnection$inboundSchema;
-  /** @deprecated use `InputDatadogAgentConnection$outboundSchema` instead. */
-  export const outboundSchema = InputDatadogAgentConnection$outboundSchema;
-  /** @deprecated use `InputDatadogAgentConnection$Outbound` instead. */
-  export type Outbound = InputDatadogAgentConnection$Outbound;
-}
-
 export function inputDatadogAgentConnectionToJSON(
   inputDatadogAgentConnection: InputDatadogAgentConnection,
 ): string {
@@ -320,7 +312,6 @@ export function inputDatadogAgentConnectionToJSON(
     ),
   );
 }
-
 export function inputDatadogAgentConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputDatadogAgentConnection, SDKValidationError> {
@@ -341,7 +332,6 @@ export const InputDatadogAgentMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputDatadogAgentMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputDatadogAgentMode$outboundSchema: z.ZodType<
   InputDatadogAgentMode,
@@ -351,17 +341,6 @@ export const InputDatadogAgentMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputDatadogAgentMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatadogAgentMode$ {
-  /** @deprecated use `InputDatadogAgentMode$inboundSchema` instead. */
-  export const inboundSchema = InputDatadogAgentMode$inboundSchema;
-  /** @deprecated use `InputDatadogAgentMode$outboundSchema` instead. */
-  export const outboundSchema = InputDatadogAgentMode$outboundSchema;
-}
 
 /** @internal */
 export const InputDatadogAgentCompression$inboundSchema: z.ZodType<
@@ -373,7 +352,6 @@ export const InputDatadogAgentCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputDatadogAgentCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputDatadogAgentCompression$outboundSchema: z.ZodType<
   InputDatadogAgentCompression,
@@ -384,24 +362,12 @@ export const InputDatadogAgentCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatadogAgentCompression$ {
-  /** @deprecated use `InputDatadogAgentCompression$inboundSchema` instead. */
-  export const inboundSchema = InputDatadogAgentCompression$inboundSchema;
-  /** @deprecated use `InputDatadogAgentCompression$outboundSchema` instead. */
-  export const outboundSchema = InputDatadogAgentCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputDatadogAgentPqControls$inboundSchema: z.ZodType<
   InputDatadogAgentPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputDatadogAgentPqControls$Outbound = {};
 
@@ -412,19 +378,6 @@ export const InputDatadogAgentPqControls$outboundSchema: z.ZodType<
   InputDatadogAgentPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatadogAgentPqControls$ {
-  /** @deprecated use `InputDatadogAgentPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputDatadogAgentPqControls$inboundSchema;
-  /** @deprecated use `InputDatadogAgentPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputDatadogAgentPqControls$outboundSchema;
-  /** @deprecated use `InputDatadogAgentPqControls$Outbound` instead. */
-  export type Outbound = InputDatadogAgentPqControls$Outbound;
-}
-
 export function inputDatadogAgentPqControlsToJSON(
   inputDatadogAgentPqControls: InputDatadogAgentPqControls,
 ): string {
@@ -434,7 +387,6 @@ export function inputDatadogAgentPqControlsToJSON(
     ),
   );
 }
-
 export function inputDatadogAgentPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputDatadogAgentPqControls, SDKValidationError> {
@@ -461,7 +413,6 @@ export const InputDatadogAgentPq$inboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputDatadogAgentPqControls$inboundSchema)
     .optional(),
 });
-
 /** @internal */
 export type InputDatadogAgentPq$Outbound = {
   mode: string;
@@ -491,19 +442,6 @@ export const InputDatadogAgentPq$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatadogAgentPq$ {
-  /** @deprecated use `InputDatadogAgentPq$inboundSchema` instead. */
-  export const inboundSchema = InputDatadogAgentPq$inboundSchema;
-  /** @deprecated use `InputDatadogAgentPq$outboundSchema` instead. */
-  export const outboundSchema = InputDatadogAgentPq$outboundSchema;
-  /** @deprecated use `InputDatadogAgentPq$Outbound` instead. */
-  export type Outbound = InputDatadogAgentPq$Outbound;
-}
-
 export function inputDatadogAgentPqToJSON(
   inputDatadogAgentPq: InputDatadogAgentPq,
 ): string {
@@ -511,7 +449,6 @@ export function inputDatadogAgentPqToJSON(
     InputDatadogAgentPq$outboundSchema.parse(inputDatadogAgentPq),
   );
 }
-
 export function inputDatadogAgentPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputDatadogAgentPq, SDKValidationError> {
@@ -532,7 +469,6 @@ export const InputDatadogAgentMinimumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputDatadogAgentMinimumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputDatadogAgentMinimumTLSVersion$outboundSchema: z.ZodType<
   InputDatadogAgentMinimumTLSVersion,
@@ -542,18 +478,6 @@ export const InputDatadogAgentMinimumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputDatadogAgentMinimumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatadogAgentMinimumTLSVersion$ {
-  /** @deprecated use `InputDatadogAgentMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputDatadogAgentMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `InputDatadogAgentMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    InputDatadogAgentMinimumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputDatadogAgentMaximumTLSVersion$inboundSchema: z.ZodType<
@@ -565,7 +489,6 @@ export const InputDatadogAgentMaximumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputDatadogAgentMaximumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputDatadogAgentMaximumTLSVersion$outboundSchema: z.ZodType<
   InputDatadogAgentMaximumTLSVersion,
@@ -576,18 +499,6 @@ export const InputDatadogAgentMaximumTLSVersion$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatadogAgentMaximumTLSVersion$ {
-  /** @deprecated use `InputDatadogAgentMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputDatadogAgentMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `InputDatadogAgentMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    InputDatadogAgentMaximumTLSVersion$outboundSchema;
-}
-
 /** @internal */
 export const InputDatadogAgentTLSSettingsServerSide$inboundSchema: z.ZodType<
   InputDatadogAgentTLSSettingsServerSide,
@@ -595,29 +506,28 @@ export const InputDatadogAgentTLSSettingsServerSide$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
   certificateName: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   certPath: z.string().optional(),
   caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
   minVersion: InputDatadogAgentMinimumTLSVersion$inboundSchema.optional(),
   maxVersion: InputDatadogAgentMaximumTLSVersion$inboundSchema.optional(),
 });
-
 /** @internal */
 export type InputDatadogAgentTLSSettingsServerSide$Outbound = {
   disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
   certificateName?: string | undefined;
   privKeyPath?: string | undefined;
   passphrase?: string | undefined;
   certPath?: string | undefined;
   caPath?: string | undefined;
-  requestCert: boolean;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
   minVersion?: string | undefined;
   maxVersion?: string | undefined;
 };
@@ -629,32 +539,17 @@ export const InputDatadogAgentTLSSettingsServerSide$outboundSchema: z.ZodType<
   InputDatadogAgentTLSSettingsServerSide
 > = z.object({
   disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
   certificateName: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   certPath: z.string().optional(),
   caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
   minVersion: InputDatadogAgentMinimumTLSVersion$outboundSchema.optional(),
   maxVersion: InputDatadogAgentMaximumTLSVersion$outboundSchema.optional(),
 });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatadogAgentTLSSettingsServerSide$ {
-  /** @deprecated use `InputDatadogAgentTLSSettingsServerSide$inboundSchema` instead. */
-  export const inboundSchema =
-    InputDatadogAgentTLSSettingsServerSide$inboundSchema;
-  /** @deprecated use `InputDatadogAgentTLSSettingsServerSide$outboundSchema` instead. */
-  export const outboundSchema =
-    InputDatadogAgentTLSSettingsServerSide$outboundSchema;
-  /** @deprecated use `InputDatadogAgentTLSSettingsServerSide$Outbound` instead. */
-  export type Outbound = InputDatadogAgentTLSSettingsServerSide$Outbound;
-}
 
 export function inputDatadogAgentTLSSettingsServerSideToJSON(
   inputDatadogAgentTLSSettingsServerSide:
@@ -666,7 +561,6 @@ export function inputDatadogAgentTLSSettingsServerSideToJSON(
     ),
   );
 }
-
 export function inputDatadogAgentTLSSettingsServerSideFromJSON(
   jsonString: string,
 ): SafeParseResult<InputDatadogAgentTLSSettingsServerSide, SDKValidationError> {
@@ -687,7 +581,6 @@ export const InputDatadogAgentMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputDatadogAgentMetadatum$Outbound = {
   name: string;
@@ -704,19 +597,6 @@ export const InputDatadogAgentMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatadogAgentMetadatum$ {
-  /** @deprecated use `InputDatadogAgentMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputDatadogAgentMetadatum$inboundSchema;
-  /** @deprecated use `InputDatadogAgentMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputDatadogAgentMetadatum$outboundSchema;
-  /** @deprecated use `InputDatadogAgentMetadatum$Outbound` instead. */
-  export type Outbound = InputDatadogAgentMetadatum$Outbound;
-}
-
 export function inputDatadogAgentMetadatumToJSON(
   inputDatadogAgentMetadatum: InputDatadogAgentMetadatum,
 ): string {
@@ -724,7 +604,6 @@ export function inputDatadogAgentMetadatumToJSON(
     InputDatadogAgentMetadatum$outboundSchema.parse(inputDatadogAgentMetadatum),
   );
 }
-
 export function inputDatadogAgentMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputDatadogAgentMetadatum, SDKValidationError> {
@@ -744,7 +623,6 @@ export const InputDatadogAgentProxyMode$inboundSchema: z.ZodType<
   enabled: z.boolean().default(false),
   rejectUnauthorized: z.boolean().default(true),
 });
-
 /** @internal */
 export type InputDatadogAgentProxyMode$Outbound = {
   enabled: boolean;
@@ -761,19 +639,6 @@ export const InputDatadogAgentProxyMode$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatadogAgentProxyMode$ {
-  /** @deprecated use `InputDatadogAgentProxyMode$inboundSchema` instead. */
-  export const inboundSchema = InputDatadogAgentProxyMode$inboundSchema;
-  /** @deprecated use `InputDatadogAgentProxyMode$outboundSchema` instead. */
-  export const outboundSchema = InputDatadogAgentProxyMode$outboundSchema;
-  /** @deprecated use `InputDatadogAgentProxyMode$Outbound` instead. */
-  export type Outbound = InputDatadogAgentProxyMode$Outbound;
-}
-
 export function inputDatadogAgentProxyModeToJSON(
   inputDatadogAgentProxyMode: InputDatadogAgentProxyMode,
 ): string {
@@ -781,7 +646,6 @@ export function inputDatadogAgentProxyModeToJSON(
     InputDatadogAgentProxyMode$outboundSchema.parse(inputDatadogAgentProxyMode),
   );
 }
-
 export function inputDatadogAgentProxyModeFromJSON(
   jsonString: string,
 ): SafeParseResult<InputDatadogAgentProxyMode, SDKValidationError> {
@@ -830,7 +694,6 @@ export const InputDatadogAgent$inboundSchema: z.ZodType<
   proxyMode: z.lazy(() => InputDatadogAgentProxyMode$inboundSchema).optional(),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type InputDatadogAgent$Outbound = {
   id?: string | undefined;
@@ -902,19 +765,6 @@ export const InputDatadogAgent$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputDatadogAgent$ {
-  /** @deprecated use `InputDatadogAgent$inboundSchema` instead. */
-  export const inboundSchema = InputDatadogAgent$inboundSchema;
-  /** @deprecated use `InputDatadogAgent$outboundSchema` instead. */
-  export const outboundSchema = InputDatadogAgent$outboundSchema;
-  /** @deprecated use `InputDatadogAgent$Outbound` instead. */
-  export type Outbound = InputDatadogAgent$Outbound;
-}
-
 export function inputDatadogAgentToJSON(
   inputDatadogAgent: InputDatadogAgent,
 ): string {
@@ -922,7 +772,6 @@ export function inputDatadogAgentToJSON(
     InputDatadogAgent$outboundSchema.parse(inputDatadogAgent),
   );
 }
-
 export function inputDatadogAgentFromJSON(
   jsonString: string,
 ): SafeParseResult<InputDatadogAgent, SDKValidationError> {

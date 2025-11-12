@@ -6,17 +6,19 @@
 import { PackInstallInfoTags } from "cribl-control-plane/models";
 
 let value: PackInstallInfoTags = {
-  dataType: [],
+  dataType: [
+    "enum",
+  ],
   domain: [
-    "untried-appliance.com",
-    "wiggly-hydrant.name",
+    "artistic-airmail.org",
+    "juicy-other.biz",
+    "monstrous-elevation.name",
   ],
   streamtags: [
     "<value 1>",
   ],
   technology: [
     "<value 1>",
-    "<value 2>",
   ],
 };
 ```
@@ -25,7 +27,7 @@ let value: PackInstallInfoTags = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `dataType`         | *string*[]         | :heavy_check_mark: | N/A                |
+| `dataType`         | *string*[]         | :heavy_minus_sign: | N/A                |
 | `domain`           | *string*[]         | :heavy_minus_sign: | N/A                |
 | `streamtags`       | *string*[]         | :heavy_minus_sign: | N/A                |
-| `technology`       | *string*[]         | :heavy_check_mark: | N/A                |
+| `technology`       | *string*[]         | :heavy_minus_sign: | N/A                |

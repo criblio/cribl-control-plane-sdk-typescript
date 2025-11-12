@@ -4,9 +4,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type CreateInputHecTokenByIdRequest = {
@@ -19,31 +16,6 @@ export type CreateInputHecTokenByIdRequest = {
    */
   addHecTokenRequest: models.AddHecTokenRequest;
 };
-
-/**
- * a list of InputSplunkHec objects
- */
-export type CreateInputHecTokenByIdResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.InputSplunkHec> | undefined;
-};
-
-/** @internal */
-export const CreateInputHecTokenByIdRequest$inboundSchema: z.ZodType<
-  CreateInputHecTokenByIdRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.string(),
-  AddHecTokenRequest: models.AddHecTokenRequest$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "AddHecTokenRequest": "addHecTokenRequest",
-  });
-});
 
 /** @internal */
 export type CreateInputHecTokenByIdRequest$Outbound = {
@@ -65,19 +37,6 @@ export const CreateInputHecTokenByIdRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateInputHecTokenByIdRequest$ {
-  /** @deprecated use `CreateInputHecTokenByIdRequest$inboundSchema` instead. */
-  export const inboundSchema = CreateInputHecTokenByIdRequest$inboundSchema;
-  /** @deprecated use `CreateInputHecTokenByIdRequest$outboundSchema` instead. */
-  export const outboundSchema = CreateInputHecTokenByIdRequest$outboundSchema;
-  /** @deprecated use `CreateInputHecTokenByIdRequest$Outbound` instead. */
-  export type Outbound = CreateInputHecTokenByIdRequest$Outbound;
-}
-
 export function createInputHecTokenByIdRequestToJSON(
   createInputHecTokenByIdRequest: CreateInputHecTokenByIdRequest,
 ): string {
@@ -85,74 +44,5 @@ export function createInputHecTokenByIdRequestToJSON(
     CreateInputHecTokenByIdRequest$outboundSchema.parse(
       createInputHecTokenByIdRequest,
     ),
-  );
-}
-
-export function createInputHecTokenByIdRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateInputHecTokenByIdRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateInputHecTokenByIdRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateInputHecTokenByIdRequest' from JSON`,
-  );
-}
-
-/** @internal */
-export const CreateInputHecTokenByIdResponse$inboundSchema: z.ZodType<
-  CreateInputHecTokenByIdResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.InputSplunkHec$inboundSchema).optional(),
-});
-
-/** @internal */
-export type CreateInputHecTokenByIdResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.InputSplunkHec$Outbound> | undefined;
-};
-
-/** @internal */
-export const CreateInputHecTokenByIdResponse$outboundSchema: z.ZodType<
-  CreateInputHecTokenByIdResponse$Outbound,
-  z.ZodTypeDef,
-  CreateInputHecTokenByIdResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.InputSplunkHec$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateInputHecTokenByIdResponse$ {
-  /** @deprecated use `CreateInputHecTokenByIdResponse$inboundSchema` instead. */
-  export const inboundSchema = CreateInputHecTokenByIdResponse$inboundSchema;
-  /** @deprecated use `CreateInputHecTokenByIdResponse$outboundSchema` instead. */
-  export const outboundSchema = CreateInputHecTokenByIdResponse$outboundSchema;
-  /** @deprecated use `CreateInputHecTokenByIdResponse$Outbound` instead. */
-  export type Outbound = CreateInputHecTokenByIdResponse$Outbound;
-}
-
-export function createInputHecTokenByIdResponseToJSON(
-  createInputHecTokenByIdResponse: CreateInputHecTokenByIdResponse,
-): string {
-  return JSON.stringify(
-    CreateInputHecTokenByIdResponse$outboundSchema.parse(
-      createInputHecTokenByIdResponse,
-    ),
-  );
-}
-
-export function createInputHecTokenByIdResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateInputHecTokenByIdResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateInputHecTokenByIdResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateInputHecTokenByIdResponse' from JSON`,
   );
 }

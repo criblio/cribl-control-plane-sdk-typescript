@@ -70,8 +70,17 @@ export type OutputChronicleExtraHttpHeader = {
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
 export const OutputChronicleFailedRequestLoggingMode = {
+  /**
+   * Payload
+   */
   Payload: "payload",
+  /**
+   * Payload + Headers
+   */
   PayloadAndHeaders: "payloadAndHeaders",
+  /**
+   * None
+   */
   None: "none",
 } as const;
 /**
@@ -85,8 +94,17 @@ export type OutputChronicleFailedRequestLoggingMode = OpenEnum<
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputChronicleBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -102,10 +120,38 @@ export type OutputChronicleCustomLabel = {
 };
 
 /**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputChronicleMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputChronicleMode = OpenEnum<typeof OutputChronicleMode>;
+
+/**
  * Codec to use to compress the persisted data
  */
 export const OutputChronicleCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -119,7 +165,13 @@ export type OutputChronicleCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputChronicleQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -128,19 +180,6 @@ export const OutputChronicleQueueFullBehavior = {
 export type OutputChronicleQueueFullBehavior = OpenEnum<
   typeof OutputChronicleQueueFullBehavior
 >;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputChronicleMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputChronicleMode = OpenEnum<typeof OutputChronicleMode>;
 
 export type OutputChroniclePqControls = {};
 
@@ -276,6 +315,26 @@ export type OutputChronicle = {
    */
   serviceAccountCredentialsSecret?: string | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputChronicleMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -295,10 +354,6 @@ export type OutputChronicle = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputChronicleQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputChronicleMode | undefined;
   pqControls?: OutputChroniclePqControls | undefined;
 };
 
@@ -306,22 +361,10 @@ export type OutputChronicle = {
 export const OutputChronicleType$inboundSchema: z.ZodNativeEnum<
   typeof OutputChronicleType
 > = z.nativeEnum(OutputChronicleType);
-
 /** @internal */
 export const OutputChronicleType$outboundSchema: z.ZodNativeEnum<
   typeof OutputChronicleType
 > = OutputChronicleType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputChronicleType$ {
-  /** @deprecated use `OutputChronicleType$inboundSchema` instead. */
-  export const inboundSchema = OutputChronicleType$inboundSchema;
-  /** @deprecated use `OutputChronicleType$outboundSchema` instead. */
-  export const outboundSchema = OutputChronicleType$outboundSchema;
-}
 
 /** @internal */
 export const OutputChronicleAuthenticationMethod$inboundSchema: z.ZodType<
@@ -333,7 +376,6 @@ export const OutputChronicleAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(OutputChronicleAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputChronicleAuthenticationMethod$outboundSchema: z.ZodType<
   OutputChronicleAuthenticationMethod,
@@ -343,19 +385,6 @@ export const OutputChronicleAuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(OutputChronicleAuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputChronicleAuthenticationMethod$ {
-  /** @deprecated use `OutputChronicleAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputChronicleAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputChronicleAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputChronicleAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const OutputChronicleResponseRetrySetting$inboundSchema: z.ZodType<
@@ -368,7 +397,6 @@ export const OutputChronicleResponseRetrySetting$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputChronicleResponseRetrySetting$Outbound = {
   httpStatus: number;
@@ -389,21 +417,6 @@ export const OutputChronicleResponseRetrySetting$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputChronicleResponseRetrySetting$ {
-  /** @deprecated use `OutputChronicleResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputChronicleResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputChronicleResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputChronicleResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputChronicleResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputChronicleResponseRetrySetting$Outbound;
-}
-
 export function outputChronicleResponseRetrySettingToJSON(
   outputChronicleResponseRetrySetting: OutputChronicleResponseRetrySetting,
 ): string {
@@ -413,7 +426,6 @@ export function outputChronicleResponseRetrySettingToJSON(
     ),
   );
 }
-
 export function outputChronicleResponseRetrySettingFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputChronicleResponseRetrySetting, SDKValidationError> {
@@ -436,7 +448,6 @@ export const OutputChronicleTimeoutRetrySettings$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputChronicleTimeoutRetrySettings$Outbound = {
   timeoutRetry: boolean;
@@ -457,21 +468,6 @@ export const OutputChronicleTimeoutRetrySettings$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputChronicleTimeoutRetrySettings$ {
-  /** @deprecated use `OutputChronicleTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputChronicleTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputChronicleTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputChronicleTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputChronicleTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputChronicleTimeoutRetrySettings$Outbound;
-}
-
 export function outputChronicleTimeoutRetrySettingsToJSON(
   outputChronicleTimeoutRetrySettings: OutputChronicleTimeoutRetrySettings,
 ): string {
@@ -481,7 +477,6 @@ export function outputChronicleTimeoutRetrySettingsToJSON(
     ),
   );
 }
-
 export function outputChronicleTimeoutRetrySettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputChronicleTimeoutRetrySettings, SDKValidationError> {
@@ -502,7 +497,6 @@ export const OutputChronicleExtraHttpHeader$inboundSchema: z.ZodType<
   name: z.string().optional(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputChronicleExtraHttpHeader$Outbound = {
   name?: string | undefined;
@@ -519,19 +513,6 @@ export const OutputChronicleExtraHttpHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputChronicleExtraHttpHeader$ {
-  /** @deprecated use `OutputChronicleExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputChronicleExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputChronicleExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputChronicleExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputChronicleExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputChronicleExtraHttpHeader$Outbound;
-}
-
 export function outputChronicleExtraHttpHeaderToJSON(
   outputChronicleExtraHttpHeader: OutputChronicleExtraHttpHeader,
 ): string {
@@ -541,7 +522,6 @@ export function outputChronicleExtraHttpHeaderToJSON(
     ),
   );
 }
-
 export function outputChronicleExtraHttpHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputChronicleExtraHttpHeader, SDKValidationError> {
@@ -562,7 +542,6 @@ export const OutputChronicleFailedRequestLoggingMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputChronicleFailedRequestLoggingMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputChronicleFailedRequestLoggingMode$outboundSchema: z.ZodType<
   OutputChronicleFailedRequestLoggingMode,
@@ -572,19 +551,6 @@ export const OutputChronicleFailedRequestLoggingMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputChronicleFailedRequestLoggingMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputChronicleFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputChronicleFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputChronicleFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputChronicleFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputChronicleFailedRequestLoggingMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputChronicleBackpressureBehavior$inboundSchema: z.ZodType<
@@ -596,7 +562,6 @@ export const OutputChronicleBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputChronicleBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputChronicleBackpressureBehavior$outboundSchema: z.ZodType<
   OutputChronicleBackpressureBehavior,
@@ -607,19 +572,6 @@ export const OutputChronicleBackpressureBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputChronicleBackpressureBehavior$ {
-  /** @deprecated use `OutputChronicleBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputChronicleBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputChronicleBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputChronicleBackpressureBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputChronicleCustomLabel$inboundSchema: z.ZodType<
   OutputChronicleCustomLabel,
@@ -629,7 +581,6 @@ export const OutputChronicleCustomLabel$inboundSchema: z.ZodType<
   key: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputChronicleCustomLabel$Outbound = {
   key: string;
@@ -646,19 +597,6 @@ export const OutputChronicleCustomLabel$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputChronicleCustomLabel$ {
-  /** @deprecated use `OutputChronicleCustomLabel$inboundSchema` instead. */
-  export const inboundSchema = OutputChronicleCustomLabel$inboundSchema;
-  /** @deprecated use `OutputChronicleCustomLabel$outboundSchema` instead. */
-  export const outboundSchema = OutputChronicleCustomLabel$outboundSchema;
-  /** @deprecated use `OutputChronicleCustomLabel$Outbound` instead. */
-  export type Outbound = OutputChronicleCustomLabel$Outbound;
-}
-
 export function outputChronicleCustomLabelToJSON(
   outputChronicleCustomLabel: OutputChronicleCustomLabel,
 ): string {
@@ -666,7 +604,6 @@ export function outputChronicleCustomLabelToJSON(
     OutputChronicleCustomLabel$outboundSchema.parse(outputChronicleCustomLabel),
   );
 }
-
 export function outputChronicleCustomLabelFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputChronicleCustomLabel, SDKValidationError> {
@@ -675,70 +612,6 @@ export function outputChronicleCustomLabelFromJSON(
     (x) => OutputChronicleCustomLabel$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'OutputChronicleCustomLabel' from JSON`,
   );
-}
-
-/** @internal */
-export const OutputChronicleCompression$inboundSchema: z.ZodType<
-  OutputChronicleCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputChronicleCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputChronicleCompression$outboundSchema: z.ZodType<
-  OutputChronicleCompression,
-  z.ZodTypeDef,
-  OutputChronicleCompression
-> = z.union([
-  z.nativeEnum(OutputChronicleCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputChronicleCompression$ {
-  /** @deprecated use `OutputChronicleCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputChronicleCompression$inboundSchema;
-  /** @deprecated use `OutputChronicleCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputChronicleCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputChronicleQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputChronicleQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputChronicleQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputChronicleQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputChronicleQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputChronicleQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputChronicleQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputChronicleQueueFullBehavior$ {
-  /** @deprecated use `OutputChronicleQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputChronicleQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputChronicleQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputChronicleQueueFullBehavior$outboundSchema;
 }
 
 /** @internal */
@@ -751,7 +624,6 @@ export const OutputChronicleMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputChronicleMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputChronicleMode$outboundSchema: z.ZodType<
   OutputChronicleMode,
@@ -762,16 +634,45 @@ export const OutputChronicleMode$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputChronicleMode$ {
-  /** @deprecated use `OutputChronicleMode$inboundSchema` instead. */
-  export const inboundSchema = OutputChronicleMode$inboundSchema;
-  /** @deprecated use `OutputChronicleMode$outboundSchema` instead. */
-  export const outboundSchema = OutputChronicleMode$outboundSchema;
-}
+/** @internal */
+export const OutputChronicleCompression$inboundSchema: z.ZodType<
+  OutputChronicleCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputChronicleCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputChronicleCompression$outboundSchema: z.ZodType<
+  OutputChronicleCompression,
+  z.ZodTypeDef,
+  OutputChronicleCompression
+> = z.union([
+  z.nativeEnum(OutputChronicleCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputChronicleQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputChronicleQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputChronicleQueueFullBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputChronicleQueueFullBehavior$outboundSchema: z.ZodType<
+  OutputChronicleQueueFullBehavior,
+  z.ZodTypeDef,
+  OutputChronicleQueueFullBehavior
+> = z.union([
+  z.nativeEnum(OutputChronicleQueueFullBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /** @internal */
 export const OutputChroniclePqControls$inboundSchema: z.ZodType<
@@ -779,7 +680,6 @@ export const OutputChroniclePqControls$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputChroniclePqControls$Outbound = {};
 
@@ -790,19 +690,6 @@ export const OutputChroniclePqControls$outboundSchema: z.ZodType<
   OutputChroniclePqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputChroniclePqControls$ {
-  /** @deprecated use `OutputChroniclePqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputChroniclePqControls$inboundSchema;
-  /** @deprecated use `OutputChroniclePqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputChroniclePqControls$outboundSchema;
-  /** @deprecated use `OutputChroniclePqControls$Outbound` instead. */
-  export type Outbound = OutputChroniclePqControls$Outbound;
-}
-
 export function outputChroniclePqControlsToJSON(
   outputChroniclePqControls: OutputChroniclePqControls,
 ): string {
@@ -810,7 +697,6 @@ export function outputChroniclePqControlsToJSON(
     OutputChroniclePqControls$outboundSchema.parse(outputChroniclePqControls),
   );
 }
-
 export function outputChroniclePqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputChroniclePqControls, SDKValidationError> {
@@ -873,6 +759,11 @@ export const OutputChronicle$inboundSchema: z.ZodType<
   description: z.string().optional(),
   serviceAccountCredentials: z.string().optional(),
   serviceAccountCredentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputChronicleMode$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -880,10 +771,8 @@ export const OutputChronicle$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputChronicleQueueFullBehavior$inboundSchema.default(
     "block",
   ),
-  pqMode: OutputChronicleMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputChroniclePqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type OutputChronicle$Outbound = {
   id?: string | undefined;
@@ -925,12 +814,16 @@ export type OutputChronicle$Outbound = {
   description?: string | undefined;
   serviceAccountCredentials?: string | undefined;
   serviceAccountCredentialsSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
   pqControls?: OutputChroniclePqControls$Outbound | undefined;
 };
 
@@ -986,6 +879,11 @@ export const OutputChronicle$outboundSchema: z.ZodType<
   description: z.string().optional(),
   serviceAccountCredentials: z.string().optional(),
   serviceAccountCredentialsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputChronicleMode$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -993,29 +891,14 @@ export const OutputChronicle$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputChronicleQueueFullBehavior$outboundSchema.default(
     "block",
   ),
-  pqMode: OutputChronicleMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputChroniclePqControls$outboundSchema).optional(),
 });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputChronicle$ {
-  /** @deprecated use `OutputChronicle$inboundSchema` instead. */
-  export const inboundSchema = OutputChronicle$inboundSchema;
-  /** @deprecated use `OutputChronicle$outboundSchema` instead. */
-  export const outboundSchema = OutputChronicle$outboundSchema;
-  /** @deprecated use `OutputChronicle$Outbound` instead. */
-  export type Outbound = OutputChronicle$Outbound;
-}
 
 export function outputChronicleToJSON(
   outputChronicle: OutputChronicle,
 ): string {
   return JSON.stringify(OutputChronicle$outboundSchema.parse(outputChronicle));
 }
-
 export function outputChronicleFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputChronicle, SDKValidationError> {

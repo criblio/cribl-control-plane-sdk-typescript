@@ -21,6 +21,7 @@ import {
 import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -37,7 +38,7 @@ export function lakeDatasetsCreate(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.CreateCriblLakeDatasetByLakeIdResponse,
+    models.CountedCriblLakeDataset,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -63,7 +64,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      operations.CreateCriblLakeDatasetByLakeIdResponse,
+      models.CountedCriblLakeDataset,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -154,7 +155,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.CreateCriblLakeDatasetByLakeIdResponse,
+    models.CountedCriblLakeDataset,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -165,10 +166,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(
-      200,
-      operations.CreateCriblLakeDatasetByLakeIdResponse$inboundSchema,
-    ),
+    M.json(200, models.CountedCriblLakeDataset$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

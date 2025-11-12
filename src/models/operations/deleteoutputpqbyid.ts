@@ -3,9 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type DeleteOutputPqByIdRequest = {
   /**
@@ -13,26 +10,6 @@ export type DeleteOutputPqByIdRequest = {
    */
   id: string;
 };
-
-/**
- * a list of string objects
- */
-export type DeleteOutputPqByIdResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<string> | undefined;
-};
-
-/** @internal */
-export const DeleteOutputPqByIdRequest$inboundSchema: z.ZodType<
-  DeleteOutputPqByIdRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.string(),
-});
 
 /** @internal */
 export type DeleteOutputPqByIdRequest$Outbound = {
@@ -48,90 +25,10 @@ export const DeleteOutputPqByIdRequest$outboundSchema: z.ZodType<
   id: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DeleteOutputPqByIdRequest$ {
-  /** @deprecated use `DeleteOutputPqByIdRequest$inboundSchema` instead. */
-  export const inboundSchema = DeleteOutputPqByIdRequest$inboundSchema;
-  /** @deprecated use `DeleteOutputPqByIdRequest$outboundSchema` instead. */
-  export const outboundSchema = DeleteOutputPqByIdRequest$outboundSchema;
-  /** @deprecated use `DeleteOutputPqByIdRequest$Outbound` instead. */
-  export type Outbound = DeleteOutputPqByIdRequest$Outbound;
-}
-
 export function deleteOutputPqByIdRequestToJSON(
   deleteOutputPqByIdRequest: DeleteOutputPqByIdRequest,
 ): string {
   return JSON.stringify(
     DeleteOutputPqByIdRequest$outboundSchema.parse(deleteOutputPqByIdRequest),
-  );
-}
-
-export function deleteOutputPqByIdRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<DeleteOutputPqByIdRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DeleteOutputPqByIdRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DeleteOutputPqByIdRequest' from JSON`,
-  );
-}
-
-/** @internal */
-export const DeleteOutputPqByIdResponse$inboundSchema: z.ZodType<
-  DeleteOutputPqByIdResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(z.string()).optional(),
-});
-
-/** @internal */
-export type DeleteOutputPqByIdResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<string> | undefined;
-};
-
-/** @internal */
-export const DeleteOutputPqByIdResponse$outboundSchema: z.ZodType<
-  DeleteOutputPqByIdResponse$Outbound,
-  z.ZodTypeDef,
-  DeleteOutputPqByIdResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(z.string()).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DeleteOutputPqByIdResponse$ {
-  /** @deprecated use `DeleteOutputPqByIdResponse$inboundSchema` instead. */
-  export const inboundSchema = DeleteOutputPqByIdResponse$inboundSchema;
-  /** @deprecated use `DeleteOutputPqByIdResponse$outboundSchema` instead. */
-  export const outboundSchema = DeleteOutputPqByIdResponse$outboundSchema;
-  /** @deprecated use `DeleteOutputPqByIdResponse$Outbound` instead. */
-  export type Outbound = DeleteOutputPqByIdResponse$Outbound;
-}
-
-export function deleteOutputPqByIdResponseToJSON(
-  deleteOutputPqByIdResponse: DeleteOutputPqByIdResponse,
-): string {
-  return JSON.stringify(
-    DeleteOutputPqByIdResponse$outboundSchema.parse(deleteOutputPqByIdResponse),
-  );
-}
-
-export function deleteOutputPqByIdResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<DeleteOutputPqByIdResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DeleteOutputPqByIdResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DeleteOutputPqByIdResponse' from JSON`,
   );
 }

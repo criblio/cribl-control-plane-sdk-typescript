@@ -15,5 +15,5 @@ let value: OutputSignalfxMode = "error";
 This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
-"error" | "backpressure" | "always" | Unrecognized<string>
+"error" | "always" | "backpressure" | Unrecognized<string>
 ```

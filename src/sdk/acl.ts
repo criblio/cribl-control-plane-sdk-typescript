@@ -4,6 +4,7 @@
 
 import { groupsAclGet } from "../funcs/groupsAclGet.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 import { Teams } from "./teams.js";
@@ -23,7 +24,7 @@ export class Acl extends ClientSDK {
   async get(
     request: operations.GetConfigGroupAclByProductAndIdRequest,
     options?: RequestOptions,
-  ): Promise<operations.GetConfigGroupAclByProductAndIdResponse> {
+  ): Promise<models.CountedUserAccessControlList> {
     return unwrapAsync(groupsAclGet(
       this,
       request,

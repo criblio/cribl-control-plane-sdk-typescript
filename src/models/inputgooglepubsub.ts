@@ -27,7 +27,13 @@ export type InputGooglePubsubConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputGooglePubsubMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -39,7 +45,13 @@ export type InputGooglePubsubMode = OpenEnum<typeof InputGooglePubsubMode>;
  * Codec to use to compress the persisted data
  */
 export const InputGooglePubsubCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -87,8 +99,17 @@ export type InputGooglePubsubPq = {
  * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
  */
 export const InputGooglePubsubGoogleAuthenticationMethod = {
+  /**
+   * Auto
+   */
   Auto: "auto",
+  /**
+   * Manual
+   */
   Manual: "manual",
+  /**
+   * Secret
+   */
   Secret: "secret",
 } as const;
 /**
@@ -201,22 +222,10 @@ export type InputGooglePubsub = {
 export const InputGooglePubsubType$inboundSchema: z.ZodNativeEnum<
   typeof InputGooglePubsubType
 > = z.nativeEnum(InputGooglePubsubType);
-
 /** @internal */
 export const InputGooglePubsubType$outboundSchema: z.ZodNativeEnum<
   typeof InputGooglePubsubType
 > = InputGooglePubsubType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGooglePubsubType$ {
-  /** @deprecated use `InputGooglePubsubType$inboundSchema` instead. */
-  export const inboundSchema = InputGooglePubsubType$inboundSchema;
-  /** @deprecated use `InputGooglePubsubType$outboundSchema` instead. */
-  export const outboundSchema = InputGooglePubsubType$outboundSchema;
-}
 
 /** @internal */
 export const InputGooglePubsubConnection$inboundSchema: z.ZodType<
@@ -227,7 +236,6 @@ export const InputGooglePubsubConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputGooglePubsubConnection$Outbound = {
   pipeline?: string | undefined;
@@ -244,19 +252,6 @@ export const InputGooglePubsubConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGooglePubsubConnection$ {
-  /** @deprecated use `InputGooglePubsubConnection$inboundSchema` instead. */
-  export const inboundSchema = InputGooglePubsubConnection$inboundSchema;
-  /** @deprecated use `InputGooglePubsubConnection$outboundSchema` instead. */
-  export const outboundSchema = InputGooglePubsubConnection$outboundSchema;
-  /** @deprecated use `InputGooglePubsubConnection$Outbound` instead. */
-  export type Outbound = InputGooglePubsubConnection$Outbound;
-}
-
 export function inputGooglePubsubConnectionToJSON(
   inputGooglePubsubConnection: InputGooglePubsubConnection,
 ): string {
@@ -266,7 +261,6 @@ export function inputGooglePubsubConnectionToJSON(
     ),
   );
 }
-
 export function inputGooglePubsubConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputGooglePubsubConnection, SDKValidationError> {
@@ -287,7 +281,6 @@ export const InputGooglePubsubMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputGooglePubsubMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputGooglePubsubMode$outboundSchema: z.ZodType<
   InputGooglePubsubMode,
@@ -297,17 +290,6 @@ export const InputGooglePubsubMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputGooglePubsubMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGooglePubsubMode$ {
-  /** @deprecated use `InputGooglePubsubMode$inboundSchema` instead. */
-  export const inboundSchema = InputGooglePubsubMode$inboundSchema;
-  /** @deprecated use `InputGooglePubsubMode$outboundSchema` instead. */
-  export const outboundSchema = InputGooglePubsubMode$outboundSchema;
-}
 
 /** @internal */
 export const InputGooglePubsubCompression$inboundSchema: z.ZodType<
@@ -319,7 +301,6 @@ export const InputGooglePubsubCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputGooglePubsubCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputGooglePubsubCompression$outboundSchema: z.ZodType<
   InputGooglePubsubCompression,
@@ -330,24 +311,12 @@ export const InputGooglePubsubCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGooglePubsubCompression$ {
-  /** @deprecated use `InputGooglePubsubCompression$inboundSchema` instead. */
-  export const inboundSchema = InputGooglePubsubCompression$inboundSchema;
-  /** @deprecated use `InputGooglePubsubCompression$outboundSchema` instead. */
-  export const outboundSchema = InputGooglePubsubCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputGooglePubsubPqControls$inboundSchema: z.ZodType<
   InputGooglePubsubPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputGooglePubsubPqControls$Outbound = {};
 
@@ -358,19 +327,6 @@ export const InputGooglePubsubPqControls$outboundSchema: z.ZodType<
   InputGooglePubsubPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGooglePubsubPqControls$ {
-  /** @deprecated use `InputGooglePubsubPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputGooglePubsubPqControls$inboundSchema;
-  /** @deprecated use `InputGooglePubsubPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputGooglePubsubPqControls$outboundSchema;
-  /** @deprecated use `InputGooglePubsubPqControls$Outbound` instead. */
-  export type Outbound = InputGooglePubsubPqControls$Outbound;
-}
-
 export function inputGooglePubsubPqControlsToJSON(
   inputGooglePubsubPqControls: InputGooglePubsubPqControls,
 ): string {
@@ -380,7 +336,6 @@ export function inputGooglePubsubPqControlsToJSON(
     ),
   );
 }
-
 export function inputGooglePubsubPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputGooglePubsubPqControls, SDKValidationError> {
@@ -407,7 +362,6 @@ export const InputGooglePubsubPq$inboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputGooglePubsubPqControls$inboundSchema)
     .optional(),
 });
-
 /** @internal */
 export type InputGooglePubsubPq$Outbound = {
   mode: string;
@@ -437,19 +391,6 @@ export const InputGooglePubsubPq$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGooglePubsubPq$ {
-  /** @deprecated use `InputGooglePubsubPq$inboundSchema` instead. */
-  export const inboundSchema = InputGooglePubsubPq$inboundSchema;
-  /** @deprecated use `InputGooglePubsubPq$outboundSchema` instead. */
-  export const outboundSchema = InputGooglePubsubPq$outboundSchema;
-  /** @deprecated use `InputGooglePubsubPq$Outbound` instead. */
-  export type Outbound = InputGooglePubsubPq$Outbound;
-}
-
 export function inputGooglePubsubPqToJSON(
   inputGooglePubsubPq: InputGooglePubsubPq,
 ): string {
@@ -457,7 +398,6 @@ export function inputGooglePubsubPqToJSON(
     InputGooglePubsubPq$outboundSchema.parse(inputGooglePubsubPq),
   );
 }
-
 export function inputGooglePubsubPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputGooglePubsubPq, SDKValidationError> {
@@ -479,7 +419,6 @@ export const InputGooglePubsubGoogleAuthenticationMethod$inboundSchema:
       z.nativeEnum(InputGooglePubsubGoogleAuthenticationMethod),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const InputGooglePubsubGoogleAuthenticationMethod$outboundSchema:
   z.ZodType<
@@ -491,19 +430,6 @@ export const InputGooglePubsubGoogleAuthenticationMethod$outboundSchema:
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGooglePubsubGoogleAuthenticationMethod$ {
-  /** @deprecated use `InputGooglePubsubGoogleAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    InputGooglePubsubGoogleAuthenticationMethod$inboundSchema;
-  /** @deprecated use `InputGooglePubsubGoogleAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    InputGooglePubsubGoogleAuthenticationMethod$outboundSchema;
-}
-
 /** @internal */
 export const InputGooglePubsubMetadatum$inboundSchema: z.ZodType<
   InputGooglePubsubMetadatum,
@@ -513,7 +439,6 @@ export const InputGooglePubsubMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputGooglePubsubMetadatum$Outbound = {
   name: string;
@@ -530,19 +455,6 @@ export const InputGooglePubsubMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGooglePubsubMetadatum$ {
-  /** @deprecated use `InputGooglePubsubMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputGooglePubsubMetadatum$inboundSchema;
-  /** @deprecated use `InputGooglePubsubMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputGooglePubsubMetadatum$outboundSchema;
-  /** @deprecated use `InputGooglePubsubMetadatum$Outbound` instead. */
-  export type Outbound = InputGooglePubsubMetadatum$Outbound;
-}
-
 export function inputGooglePubsubMetadatumToJSON(
   inputGooglePubsubMetadatum: InputGooglePubsubMetadatum,
 ): string {
@@ -550,7 +462,6 @@ export function inputGooglePubsubMetadatumToJSON(
     InputGooglePubsubMetadatum$outboundSchema.parse(inputGooglePubsubMetadatum),
   );
 }
-
 export function inputGooglePubsubMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputGooglePubsubMetadatum, SDKValidationError> {
@@ -596,7 +507,6 @@ export const InputGooglePubsub$inboundSchema: z.ZodType<
   description: z.string().optional(),
   orderedDelivery: z.boolean().default(false),
 });
-
 /** @internal */
 export type InputGooglePubsub$Outbound = {
   id?: string | undefined;
@@ -662,19 +572,6 @@ export const InputGooglePubsub$outboundSchema: z.ZodType<
   orderedDelivery: z.boolean().default(false),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputGooglePubsub$ {
-  /** @deprecated use `InputGooglePubsub$inboundSchema` instead. */
-  export const inboundSchema = InputGooglePubsub$inboundSchema;
-  /** @deprecated use `InputGooglePubsub$outboundSchema` instead. */
-  export const outboundSchema = InputGooglePubsub$outboundSchema;
-  /** @deprecated use `InputGooglePubsub$Outbound` instead. */
-  export type Outbound = InputGooglePubsub$Outbound;
-}
-
 export function inputGooglePubsubToJSON(
   inputGooglePubsub: InputGooglePubsub,
 ): string {
@@ -682,7 +579,6 @@ export function inputGooglePubsubToJSON(
     InputGooglePubsub$outboundSchema.parse(inputGooglePubsub),
   );
 }
-
 export function inputGooglePubsubFromJSON(
   jsonString: string,
 ): SafeParseResult<InputGooglePubsub, SDKValidationError> {

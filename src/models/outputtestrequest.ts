@@ -3,28 +3,15 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
 import {
   CriblEvent,
-  CriblEvent$inboundSchema,
   CriblEvent$Outbound,
   CriblEvent$outboundSchema,
 } from "./criblevent.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type OutputTestRequest = {
   events: Array<CriblEvent>;
 };
-
-/** @internal */
-export const OutputTestRequest$inboundSchema: z.ZodType<
-  OutputTestRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  events: z.array(CriblEvent$inboundSchema),
-});
 
 /** @internal */
 export type OutputTestRequest$Outbound = {
@@ -40,33 +27,10 @@ export const OutputTestRequest$outboundSchema: z.ZodType<
   events: z.array(CriblEvent$outboundSchema),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputTestRequest$ {
-  /** @deprecated use `OutputTestRequest$inboundSchema` instead. */
-  export const inboundSchema = OutputTestRequest$inboundSchema;
-  /** @deprecated use `OutputTestRequest$outboundSchema` instead. */
-  export const outboundSchema = OutputTestRequest$outboundSchema;
-  /** @deprecated use `OutputTestRequest$Outbound` instead. */
-  export type Outbound = OutputTestRequest$Outbound;
-}
-
 export function outputTestRequestToJSON(
   outputTestRequest: OutputTestRequest,
 ): string {
   return JSON.stringify(
     OutputTestRequest$outboundSchema.parse(outputTestRequest),
-  );
-}
-
-export function outputTestRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputTestRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputTestRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputTestRequest' from JSON`,
   );
 }

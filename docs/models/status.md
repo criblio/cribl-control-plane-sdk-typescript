@@ -5,7 +5,7 @@
 ```typescript
 import { Status } from "cribl-control-plane/models";
 
-let value: Status = "shutting down";
+let value: Status = "healthy";
 ```
 
 ## Values
@@ -13,5 +13,5 @@ let value: Status = "shutting down";
 This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
-"healthy" | "shutting down" | "standby" | Unrecognized<string>
+"shutting down" | "healthy" | "standby" | Unrecognized<string>
 ```

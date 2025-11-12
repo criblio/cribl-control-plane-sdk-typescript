@@ -13,10 +13,10 @@ let value: DatasetMetadata = {
     "<value 2>",
   ],
   latestRunInfo: {
-    earliestScannedTime: 9246.59,
-    finishedAt: 4514.45,
-    latestScannedTime: 4750.45,
-    objectCount: 8488.95,
+    earliestScannedTime: 2718.64,
+    finishedAt: 7126.23,
+    latestScannedTime: 160.67,
+    objectCount: 7729.98,
   },
   scanMode: "detailed",
 };

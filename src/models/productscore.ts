@@ -3,28 +3,13 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { OpenEnum, Unrecognized } from "../types/enums.js";
 
 export const ProductsCore = {
   Stream: "stream",
   Edge: "edge",
 } as const;
 export type ProductsCore = OpenEnum<typeof ProductsCore>;
-
-/** @internal */
-export const ProductsCore$inboundSchema: z.ZodType<
-  ProductsCore,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(ProductsCore),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
 
 /** @internal */
 export const ProductsCore$outboundSchema: z.ZodType<
@@ -35,14 +20,3 @@ export const ProductsCore$outboundSchema: z.ZodType<
   z.nativeEnum(ProductsCore),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ProductsCore$ {
-  /** @deprecated use `ProductsCore$inboundSchema` instead. */
-  export const inboundSchema = ProductsCore$inboundSchema;
-  /** @deprecated use `ProductsCore$outboundSchema` instead. */
-  export const outboundSchema = ProductsCore$outboundSchema;
-}

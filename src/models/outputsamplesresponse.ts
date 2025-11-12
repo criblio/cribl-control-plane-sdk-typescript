@@ -20,41 +20,6 @@ export const OutputSamplesResponse$inboundSchema: z.ZodType<
   events: z.array(z.record(z.any())),
 });
 
-/** @internal */
-export type OutputSamplesResponse$Outbound = {
-  events: Array<{ [k: string]: any }>;
-};
-
-/** @internal */
-export const OutputSamplesResponse$outboundSchema: z.ZodType<
-  OutputSamplesResponse$Outbound,
-  z.ZodTypeDef,
-  OutputSamplesResponse
-> = z.object({
-  events: z.array(z.record(z.any())),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSamplesResponse$ {
-  /** @deprecated use `OutputSamplesResponse$inboundSchema` instead. */
-  export const inboundSchema = OutputSamplesResponse$inboundSchema;
-  /** @deprecated use `OutputSamplesResponse$outboundSchema` instead. */
-  export const outboundSchema = OutputSamplesResponse$outboundSchema;
-  /** @deprecated use `OutputSamplesResponse$Outbound` instead. */
-  export type Outbound = OutputSamplesResponse$Outbound;
-}
-
-export function outputSamplesResponseToJSON(
-  outputSamplesResponse: OutputSamplesResponse,
-): string {
-  return JSON.stringify(
-    OutputSamplesResponse$outboundSchema.parse(outputSamplesResponse),
-  );
-}
-
 export function outputSamplesResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSamplesResponse, SDKValidationError> {

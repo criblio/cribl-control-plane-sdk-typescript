@@ -35,8 +35,6 @@ let value: InputHttp = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
     minVersion: "TLSv1.1",
     maxVersion: "TLSv1",
   },

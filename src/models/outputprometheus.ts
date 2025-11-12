@@ -27,8 +27,17 @@ export type OutputPrometheusExtraHttpHeader = {
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
 export const OutputPrometheusFailedRequestLoggingMode = {
+  /**
+   * Payload
+   */
   Payload: "payload",
+  /**
+   * Payload + Headers
+   */
   PayloadAndHeaders: "payloadAndHeaders",
+  /**
+   * None
+   */
   None: "none",
 } as const;
 /**
@@ -77,8 +86,17 @@ export type OutputPrometheusTimeoutRetrySettings = {
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputPrometheusBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -107,10 +125,38 @@ export type OutputPrometheusAuthenticationType = OpenEnum<
 >;
 
 /**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputPrometheusMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputPrometheusMode = OpenEnum<typeof OutputPrometheusMode>;
+
+/**
  * Codec to use to compress the persisted data
  */
 export const OutputPrometheusCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -124,7 +170,13 @@ export type OutputPrometheusCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputPrometheusQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -133,19 +185,6 @@ export const OutputPrometheusQueueFullBehavior = {
 export type OutputPrometheusQueueFullBehavior = OpenEnum<
   typeof OutputPrometheusQueueFullBehavior
 >;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputPrometheusMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputPrometheusMode = OpenEnum<typeof OutputPrometheusMode>;
 
 export type OutputPrometheusPqControls = {};
 
@@ -276,6 +315,26 @@ export type OutputPrometheus = {
    */
   metricsFlushPeriodSec?: number | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputPrometheusMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -295,10 +354,6 @@ export type OutputPrometheus = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputPrometheusQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputPrometheusMode | undefined;
   pqControls?: OutputPrometheusPqControls | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -352,22 +407,10 @@ export type OutputPrometheus = {
 export const OutputPrometheusType$inboundSchema: z.ZodNativeEnum<
   typeof OutputPrometheusType
 > = z.nativeEnum(OutputPrometheusType);
-
 /** @internal */
 export const OutputPrometheusType$outboundSchema: z.ZodNativeEnum<
   typeof OutputPrometheusType
 > = OutputPrometheusType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputPrometheusType$ {
-  /** @deprecated use `OutputPrometheusType$inboundSchema` instead. */
-  export const inboundSchema = OutputPrometheusType$inboundSchema;
-  /** @deprecated use `OutputPrometheusType$outboundSchema` instead. */
-  export const outboundSchema = OutputPrometheusType$outboundSchema;
-}
 
 /** @internal */
 export const OutputPrometheusExtraHttpHeader$inboundSchema: z.ZodType<
@@ -378,7 +421,6 @@ export const OutputPrometheusExtraHttpHeader$inboundSchema: z.ZodType<
   name: z.string().optional(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputPrometheusExtraHttpHeader$Outbound = {
   name?: string | undefined;
@@ -395,19 +437,6 @@ export const OutputPrometheusExtraHttpHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputPrometheusExtraHttpHeader$ {
-  /** @deprecated use `OutputPrometheusExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputPrometheusExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputPrometheusExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputPrometheusExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputPrometheusExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputPrometheusExtraHttpHeader$Outbound;
-}
-
 export function outputPrometheusExtraHttpHeaderToJSON(
   outputPrometheusExtraHttpHeader: OutputPrometheusExtraHttpHeader,
 ): string {
@@ -417,7 +446,6 @@ export function outputPrometheusExtraHttpHeaderToJSON(
     ),
   );
 }
-
 export function outputPrometheusExtraHttpHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputPrometheusExtraHttpHeader, SDKValidationError> {
@@ -438,7 +466,6 @@ export const OutputPrometheusFailedRequestLoggingMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputPrometheusFailedRequestLoggingMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputPrometheusFailedRequestLoggingMode$outboundSchema: z.ZodType<
   OutputPrometheusFailedRequestLoggingMode,
@@ -448,19 +475,6 @@ export const OutputPrometheusFailedRequestLoggingMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputPrometheusFailedRequestLoggingMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputPrometheusFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputPrometheusFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputPrometheusFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputPrometheusFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputPrometheusFailedRequestLoggingMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputPrometheusResponseRetrySetting$inboundSchema: z.ZodType<
@@ -473,7 +487,6 @@ export const OutputPrometheusResponseRetrySetting$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputPrometheusResponseRetrySetting$Outbound = {
   httpStatus: number;
@@ -494,21 +507,6 @@ export const OutputPrometheusResponseRetrySetting$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputPrometheusResponseRetrySetting$ {
-  /** @deprecated use `OutputPrometheusResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputPrometheusResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputPrometheusResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputPrometheusResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputPrometheusResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputPrometheusResponseRetrySetting$Outbound;
-}
-
 export function outputPrometheusResponseRetrySettingToJSON(
   outputPrometheusResponseRetrySetting: OutputPrometheusResponseRetrySetting,
 ): string {
@@ -518,7 +516,6 @@ export function outputPrometheusResponseRetrySettingToJSON(
     ),
   );
 }
-
 export function outputPrometheusResponseRetrySettingFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputPrometheusResponseRetrySetting, SDKValidationError> {
@@ -541,7 +538,6 @@ export const OutputPrometheusTimeoutRetrySettings$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputPrometheusTimeoutRetrySettings$Outbound = {
   timeoutRetry: boolean;
@@ -562,21 +558,6 @@ export const OutputPrometheusTimeoutRetrySettings$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputPrometheusTimeoutRetrySettings$ {
-  /** @deprecated use `OutputPrometheusTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputPrometheusTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputPrometheusTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputPrometheusTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputPrometheusTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputPrometheusTimeoutRetrySettings$Outbound;
-}
-
 export function outputPrometheusTimeoutRetrySettingsToJSON(
   outputPrometheusTimeoutRetrySettings: OutputPrometheusTimeoutRetrySettings,
 ): string {
@@ -586,7 +567,6 @@ export function outputPrometheusTimeoutRetrySettingsToJSON(
     ),
   );
 }
-
 export function outputPrometheusTimeoutRetrySettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputPrometheusTimeoutRetrySettings, SDKValidationError> {
@@ -608,7 +588,6 @@ export const OutputPrometheusBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputPrometheusBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputPrometheusBackpressureBehavior$outboundSchema: z.ZodType<
   OutputPrometheusBackpressureBehavior,
@@ -618,19 +597,6 @@ export const OutputPrometheusBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputPrometheusBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputPrometheusBackpressureBehavior$ {
-  /** @deprecated use `OutputPrometheusBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputPrometheusBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputPrometheusBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputPrometheusBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputPrometheusAuthenticationType$inboundSchema: z.ZodType<
@@ -642,7 +608,6 @@ export const OutputPrometheusAuthenticationType$inboundSchema: z.ZodType<
     z.nativeEnum(OutputPrometheusAuthenticationType),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputPrometheusAuthenticationType$outboundSchema: z.ZodType<
   OutputPrometheusAuthenticationType,
@@ -652,83 +617,6 @@ export const OutputPrometheusAuthenticationType$outboundSchema: z.ZodType<
   z.nativeEnum(OutputPrometheusAuthenticationType),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputPrometheusAuthenticationType$ {
-  /** @deprecated use `OutputPrometheusAuthenticationType$inboundSchema` instead. */
-  export const inboundSchema = OutputPrometheusAuthenticationType$inboundSchema;
-  /** @deprecated use `OutputPrometheusAuthenticationType$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputPrometheusAuthenticationType$outboundSchema;
-}
-
-/** @internal */
-export const OutputPrometheusCompression$inboundSchema: z.ZodType<
-  OutputPrometheusCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputPrometheusCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputPrometheusCompression$outboundSchema: z.ZodType<
-  OutputPrometheusCompression,
-  z.ZodTypeDef,
-  OutputPrometheusCompression
-> = z.union([
-  z.nativeEnum(OutputPrometheusCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputPrometheusCompression$ {
-  /** @deprecated use `OutputPrometheusCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputPrometheusCompression$inboundSchema;
-  /** @deprecated use `OutputPrometheusCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputPrometheusCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputPrometheusQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputPrometheusQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputPrometheusQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputPrometheusQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputPrometheusQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputPrometheusQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputPrometheusQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputPrometheusQueueFullBehavior$ {
-  /** @deprecated use `OutputPrometheusQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputPrometheusQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputPrometheusQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputPrometheusQueueFullBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputPrometheusMode$inboundSchema: z.ZodType<
@@ -740,7 +628,6 @@ export const OutputPrometheusMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputPrometheusMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputPrometheusMode$outboundSchema: z.ZodType<
   OutputPrometheusMode,
@@ -751,16 +638,45 @@ export const OutputPrometheusMode$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputPrometheusMode$ {
-  /** @deprecated use `OutputPrometheusMode$inboundSchema` instead. */
-  export const inboundSchema = OutputPrometheusMode$inboundSchema;
-  /** @deprecated use `OutputPrometheusMode$outboundSchema` instead. */
-  export const outboundSchema = OutputPrometheusMode$outboundSchema;
-}
+/** @internal */
+export const OutputPrometheusCompression$inboundSchema: z.ZodType<
+  OutputPrometheusCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputPrometheusCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputPrometheusCompression$outboundSchema: z.ZodType<
+  OutputPrometheusCompression,
+  z.ZodTypeDef,
+  OutputPrometheusCompression
+> = z.union([
+  z.nativeEnum(OutputPrometheusCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputPrometheusQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputPrometheusQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputPrometheusQueueFullBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputPrometheusQueueFullBehavior$outboundSchema: z.ZodType<
+  OutputPrometheusQueueFullBehavior,
+  z.ZodTypeDef,
+  OutputPrometheusQueueFullBehavior
+> = z.union([
+  z.nativeEnum(OutputPrometheusQueueFullBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /** @internal */
 export const OutputPrometheusPqControls$inboundSchema: z.ZodType<
@@ -768,7 +684,6 @@ export const OutputPrometheusPqControls$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputPrometheusPqControls$Outbound = {};
 
@@ -779,19 +694,6 @@ export const OutputPrometheusPqControls$outboundSchema: z.ZodType<
   OutputPrometheusPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputPrometheusPqControls$ {
-  /** @deprecated use `OutputPrometheusPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputPrometheusPqControls$inboundSchema;
-  /** @deprecated use `OutputPrometheusPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputPrometheusPqControls$outboundSchema;
-  /** @deprecated use `OutputPrometheusPqControls$Outbound` instead. */
-  export type Outbound = OutputPrometheusPqControls$Outbound;
-}
-
 export function outputPrometheusPqControlsToJSON(
   outputPrometheusPqControls: OutputPrometheusPqControls,
 ): string {
@@ -799,7 +701,6 @@ export function outputPrometheusPqControlsToJSON(
     OutputPrometheusPqControls$outboundSchema.parse(outputPrometheusPqControls),
   );
 }
-
 export function outputPrometheusPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputPrometheusPqControls, SDKValidationError> {
@@ -819,7 +720,6 @@ export const OutputPrometheusOauthParam$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputPrometheusOauthParam$Outbound = {
   name: string;
@@ -836,19 +736,6 @@ export const OutputPrometheusOauthParam$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputPrometheusOauthParam$ {
-  /** @deprecated use `OutputPrometheusOauthParam$inboundSchema` instead. */
-  export const inboundSchema = OutputPrometheusOauthParam$inboundSchema;
-  /** @deprecated use `OutputPrometheusOauthParam$outboundSchema` instead. */
-  export const outboundSchema = OutputPrometheusOauthParam$outboundSchema;
-  /** @deprecated use `OutputPrometheusOauthParam$Outbound` instead. */
-  export type Outbound = OutputPrometheusOauthParam$Outbound;
-}
-
 export function outputPrometheusOauthParamToJSON(
   outputPrometheusOauthParam: OutputPrometheusOauthParam,
 ): string {
@@ -856,7 +743,6 @@ export function outputPrometheusOauthParamToJSON(
     OutputPrometheusOauthParam$outboundSchema.parse(outputPrometheusOauthParam),
   );
 }
-
 export function outputPrometheusOauthParamFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputPrometheusOauthParam, SDKValidationError> {
@@ -876,7 +762,6 @@ export const OutputPrometheusOauthHeader$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputPrometheusOauthHeader$Outbound = {
   name: string;
@@ -893,19 +778,6 @@ export const OutputPrometheusOauthHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputPrometheusOauthHeader$ {
-  /** @deprecated use `OutputPrometheusOauthHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputPrometheusOauthHeader$inboundSchema;
-  /** @deprecated use `OutputPrometheusOauthHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputPrometheusOauthHeader$outboundSchema;
-  /** @deprecated use `OutputPrometheusOauthHeader$Outbound` instead. */
-  export type Outbound = OutputPrometheusOauthHeader$Outbound;
-}
-
 export function outputPrometheusOauthHeaderToJSON(
   outputPrometheusOauthHeader: OutputPrometheusOauthHeader,
 ): string {
@@ -915,7 +787,6 @@ export function outputPrometheusOauthHeaderToJSON(
     ),
   );
 }
-
 export function outputPrometheusOauthHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputPrometheusOauthHeader, SDKValidationError> {
@@ -967,6 +838,11 @@ export const OutputPrometheus$inboundSchema: z.ZodType<
   authType: OutputPrometheusAuthenticationType$inboundSchema.default("none"),
   description: z.string().optional(),
   metricsFlushPeriodSec: z.number().default(60),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputPrometheusMode$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -974,7 +850,6 @@ export const OutputPrometheus$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputPrometheusQueueFullBehavior$inboundSchema.default(
     "block",
   ),
-  pqMode: OutputPrometheusMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputPrometheusPqControls$inboundSchema).optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -992,7 +867,6 @@ export const OutputPrometheus$inboundSchema: z.ZodType<
   oauthHeaders: z.array(z.lazy(() => OutputPrometheusOauthHeader$inboundSchema))
     .optional(),
 });
-
 /** @internal */
 export type OutputPrometheus$Outbound = {
   id?: string | undefined;
@@ -1027,12 +901,16 @@ export type OutputPrometheus$Outbound = {
   authType: string;
   description?: string | undefined;
   metricsFlushPeriodSec: number;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
   pqControls?: OutputPrometheusPqControls$Outbound | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -1090,6 +968,11 @@ export const OutputPrometheus$outboundSchema: z.ZodType<
   authType: OutputPrometheusAuthenticationType$outboundSchema.default("none"),
   description: z.string().optional(),
   metricsFlushPeriodSec: z.number().default(60),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputPrometheusMode$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1097,7 +980,6 @@ export const OutputPrometheus$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputPrometheusQueueFullBehavior$outboundSchema.default(
     "block",
   ),
-  pqMode: OutputPrometheusMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputPrometheusPqControls$outboundSchema)
     .optional(),
   username: z.string().optional(),
@@ -1118,19 +1000,6 @@ export const OutputPrometheus$outboundSchema: z.ZodType<
   ).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputPrometheus$ {
-  /** @deprecated use `OutputPrometheus$inboundSchema` instead. */
-  export const inboundSchema = OutputPrometheus$inboundSchema;
-  /** @deprecated use `OutputPrometheus$outboundSchema` instead. */
-  export const outboundSchema = OutputPrometheus$outboundSchema;
-  /** @deprecated use `OutputPrometheus$Outbound` instead. */
-  export type Outbound = OutputPrometheus$Outbound;
-}
-
 export function outputPrometheusToJSON(
   outputPrometheus: OutputPrometheus,
 ): string {
@@ -1138,7 +1007,6 @@ export function outputPrometheusToJSON(
     OutputPrometheus$outboundSchema.parse(outputPrometheus),
   );
 }
-
 export function outputPrometheusFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputPrometheus, SDKValidationError> {

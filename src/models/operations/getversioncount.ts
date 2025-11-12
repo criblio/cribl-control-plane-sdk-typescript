@@ -4,10 +4,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
 
 export type GetVersionCountRequest = {
   /**
@@ -19,31 +15,6 @@ export type GetVersionCountRequest = {
    */
   id?: string | undefined;
 };
-
-/**
- * a list of GitCountResult objects
- */
-export type GetVersionCountResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.GitCountResult> | undefined;
-};
-
-/** @internal */
-export const GetVersionCountRequest$inboundSchema: z.ZodType<
-  GetVersionCountRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  groupId: z.string().optional(),
-  ID: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "ID": "id",
-  });
-});
 
 /** @internal */
 export type GetVersionCountRequest$Outbound = {
@@ -65,90 +36,10 @@ export const GetVersionCountRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetVersionCountRequest$ {
-  /** @deprecated use `GetVersionCountRequest$inboundSchema` instead. */
-  export const inboundSchema = GetVersionCountRequest$inboundSchema;
-  /** @deprecated use `GetVersionCountRequest$outboundSchema` instead. */
-  export const outboundSchema = GetVersionCountRequest$outboundSchema;
-  /** @deprecated use `GetVersionCountRequest$Outbound` instead. */
-  export type Outbound = GetVersionCountRequest$Outbound;
-}
-
 export function getVersionCountRequestToJSON(
   getVersionCountRequest: GetVersionCountRequest,
 ): string {
   return JSON.stringify(
     GetVersionCountRequest$outboundSchema.parse(getVersionCountRequest),
-  );
-}
-
-export function getVersionCountRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetVersionCountRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetVersionCountRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetVersionCountRequest' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetVersionCountResponse$inboundSchema: z.ZodType<
-  GetVersionCountResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.GitCountResult$inboundSchema).optional(),
-});
-
-/** @internal */
-export type GetVersionCountResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.GitCountResult$Outbound> | undefined;
-};
-
-/** @internal */
-export const GetVersionCountResponse$outboundSchema: z.ZodType<
-  GetVersionCountResponse$Outbound,
-  z.ZodTypeDef,
-  GetVersionCountResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.GitCountResult$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetVersionCountResponse$ {
-  /** @deprecated use `GetVersionCountResponse$inboundSchema` instead. */
-  export const inboundSchema = GetVersionCountResponse$inboundSchema;
-  /** @deprecated use `GetVersionCountResponse$outboundSchema` instead. */
-  export const outboundSchema = GetVersionCountResponse$outboundSchema;
-  /** @deprecated use `GetVersionCountResponse$Outbound` instead. */
-  export type Outbound = GetVersionCountResponse$Outbound;
-}
-
-export function getVersionCountResponseToJSON(
-  getVersionCountResponse: GetVersionCountResponse,
-): string {
-  return JSON.stringify(
-    GetVersionCountResponse$outboundSchema.parse(getVersionCountResponse),
-  );
-}
-
-export function getVersionCountResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<GetVersionCountResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetVersionCountResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetVersionCountResponse' from JSON`,
   );
 }

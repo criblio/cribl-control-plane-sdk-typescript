@@ -26,43 +26,6 @@ export const HBLeaderInfo$inboundSchema: z.ZodType<
   tls: z.boolean().optional(),
 });
 
-/** @internal */
-export type HBLeaderInfo$Outbound = {
-  host: string;
-  port: number;
-  servername?: string | undefined;
-  tls?: boolean | undefined;
-};
-
-/** @internal */
-export const HBLeaderInfo$outboundSchema: z.ZodType<
-  HBLeaderInfo$Outbound,
-  z.ZodTypeDef,
-  HBLeaderInfo
-> = z.object({
-  host: z.string(),
-  port: z.number(),
-  servername: z.string().optional(),
-  tls: z.boolean().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace HBLeaderInfo$ {
-  /** @deprecated use `HBLeaderInfo$inboundSchema` instead. */
-  export const inboundSchema = HBLeaderInfo$inboundSchema;
-  /** @deprecated use `HBLeaderInfo$outboundSchema` instead. */
-  export const outboundSchema = HBLeaderInfo$outboundSchema;
-  /** @deprecated use `HBLeaderInfo$Outbound` instead. */
-  export type Outbound = HBLeaderInfo$Outbound;
-}
-
-export function hbLeaderInfoToJSON(hbLeaderInfo: HBLeaderInfo): string {
-  return JSON.stringify(HBLeaderInfo$outboundSchema.parse(hbLeaderInfo));
-}
-
 export function hbLeaderInfoFromJSON(
   jsonString: string,
 ): SafeParseResult<HBLeaderInfo, SDKValidationError> {

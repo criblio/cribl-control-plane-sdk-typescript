@@ -61,7 +61,6 @@ export const RoutesRoute$inboundSchema: z.ZodType<
   "additionalProperties",
   true,
 );
-
 /** @internal */
 export type RoutesRoute$Outbound = {
   id?: string | undefined;
@@ -103,23 +102,9 @@ export const RoutesRoute$outboundSchema: z.ZodType<
   };
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RoutesRoute$ {
-  /** @deprecated use `RoutesRoute$inboundSchema` instead. */
-  export const inboundSchema = RoutesRoute$inboundSchema;
-  /** @deprecated use `RoutesRoute$outboundSchema` instead. */
-  export const outboundSchema = RoutesRoute$outboundSchema;
-  /** @deprecated use `RoutesRoute$Outbound` instead. */
-  export type Outbound = RoutesRoute$Outbound;
-}
-
 export function routesRouteToJSON(routesRoute: RoutesRoute): string {
   return JSON.stringify(RoutesRoute$outboundSchema.parse(routesRoute));
 }
-
 export function routesRouteFromJSON(
   jsonString: string,
 ): SafeParseResult<RoutesRoute, SDKValidationError> {

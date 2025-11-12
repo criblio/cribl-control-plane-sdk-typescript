@@ -27,7 +27,13 @@ export type InputEventhubConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputEventhubMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -39,7 +45,13 @@ export type InputEventhubMode = OpenEnum<typeof InputEventhubMode>;
  * Codec to use to compress the persisted data
  */
 export const InputEventhubCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -83,12 +95,57 @@ export type InputEventhubPq = {
   pqControls?: InputEventhubPqControls | undefined;
 };
 
+/**
+ * Enter password directly, or select a stored secret
+ */
+export const InputEventhubAuthTypeAuthenticationMethod = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Enter password directly, or select a stored secret
+ */
+export type InputEventhubAuthTypeAuthenticationMethod = OpenEnum<
+  typeof InputEventhubAuthTypeAuthenticationMethod
+>;
+
 export const InputEventhubSASLMechanism = {
+  /**
+   * PLAIN
+   */
   Plain: "plain",
+  /**
+   * OAUTHBEARER
+   */
   Oauthbearer: "oauthbearer",
 } as const;
 export type InputEventhubSASLMechanism = OpenEnum<
   typeof InputEventhubSASLMechanism
+>;
+
+export const InputEventhubClientSecretAuthTypeAuthenticationMethod = {
+  Manual: "manual",
+  Secret: "secret",
+  Certificate: "certificate",
+} as const;
+export type InputEventhubClientSecretAuthTypeAuthenticationMethod = OpenEnum<
+  typeof InputEventhubClientSecretAuthTypeAuthenticationMethod
+>;
+
+/**
+ * Endpoint used to acquire authentication tokens from Azure
+ */
+export const InputEventhubMicrosoftEntraIDAuthenticationEndpoint = {
+  HttpsLoginMicrosoftonlineCom: "https://login.microsoftonline.com",
+  HttpsLoginMicrosoftonlineUs: "https://login.microsoftonline.us",
+  HttpsLoginPartnerMicrosoftonlineCn:
+    "https://login.partner.microsoftonline.cn",
+} as const;
+/**
+ * Endpoint used to acquire authentication tokens from Azure
+ */
+export type InputEventhubMicrosoftEntraIDAuthenticationEndpoint = OpenEnum<
+  typeof InputEventhubMicrosoftEntraIDAuthenticationEndpoint
 >;
 
 /**
@@ -96,7 +153,59 @@ export type InputEventhubSASLMechanism = OpenEnum<
  */
 export type InputEventhubAuthentication = {
   disabled?: boolean | undefined;
+  /**
+   * Enter password directly, or select a stored secret
+   */
+  authType?: InputEventhubAuthTypeAuthenticationMethod | undefined;
+  /**
+   * Connection-string primary key, or connection-string secondary key, from the Event Hubs workspace
+   */
+  password?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
   mechanism?: InputEventhubSASLMechanism | undefined;
+  /**
+   * The username for authentication. For Event Hubs, this should always be $ConnectionString.
+   */
+  username?: string | undefined;
+  clientSecretAuthType?:
+    | InputEventhubClientSecretAuthTypeAuthenticationMethod
+    | undefined;
+  /**
+   * client_secret to pass in the OAuth request parameter
+   */
+  clientSecret?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  clientTextSecret?: string | undefined;
+  /**
+   * Select or create a stored certificate
+   */
+  certificateName?: string | undefined;
+  certPath?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  /**
+   * Endpoint used to acquire authentication tokens from Azure
+   */
+  oauthEndpoint?:
+    | InputEventhubMicrosoftEntraIDAuthenticationEndpoint
+    | undefined;
+  /**
+   * client_id to pass in the OAuth request parameter
+   */
+  clientId?: string | undefined;
+  /**
+   * Directory ID (tenant identifier) in Azure Active Directory
+   */
+  tenantId?: string | undefined;
+  /**
+   * Scope to pass in the OAuth request parameter
+   */
+  scope?: string | undefined;
 };
 
 export type InputEventhubTLSSettingsClientSide = {
@@ -260,22 +369,10 @@ export type InputEventhub = {
 export const InputEventhubType$inboundSchema: z.ZodNativeEnum<
   typeof InputEventhubType
 > = z.nativeEnum(InputEventhubType);
-
 /** @internal */
 export const InputEventhubType$outboundSchema: z.ZodNativeEnum<
   typeof InputEventhubType
 > = InputEventhubType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEventhubType$ {
-  /** @deprecated use `InputEventhubType$inboundSchema` instead. */
-  export const inboundSchema = InputEventhubType$inboundSchema;
-  /** @deprecated use `InputEventhubType$outboundSchema` instead. */
-  export const outboundSchema = InputEventhubType$outboundSchema;
-}
 
 /** @internal */
 export const InputEventhubConnection$inboundSchema: z.ZodType<
@@ -286,7 +383,6 @@ export const InputEventhubConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputEventhubConnection$Outbound = {
   pipeline?: string | undefined;
@@ -303,19 +399,6 @@ export const InputEventhubConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEventhubConnection$ {
-  /** @deprecated use `InputEventhubConnection$inboundSchema` instead. */
-  export const inboundSchema = InputEventhubConnection$inboundSchema;
-  /** @deprecated use `InputEventhubConnection$outboundSchema` instead. */
-  export const outboundSchema = InputEventhubConnection$outboundSchema;
-  /** @deprecated use `InputEventhubConnection$Outbound` instead. */
-  export type Outbound = InputEventhubConnection$Outbound;
-}
-
 export function inputEventhubConnectionToJSON(
   inputEventhubConnection: InputEventhubConnection,
 ): string {
@@ -323,7 +406,6 @@ export function inputEventhubConnectionToJSON(
     InputEventhubConnection$outboundSchema.parse(inputEventhubConnection),
   );
 }
-
 export function inputEventhubConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputEventhubConnection, SDKValidationError> {
@@ -344,7 +426,6 @@ export const InputEventhubMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputEventhubMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputEventhubMode$outboundSchema: z.ZodType<
   InputEventhubMode,
@@ -354,17 +435,6 @@ export const InputEventhubMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputEventhubMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEventhubMode$ {
-  /** @deprecated use `InputEventhubMode$inboundSchema` instead. */
-  export const inboundSchema = InputEventhubMode$inboundSchema;
-  /** @deprecated use `InputEventhubMode$outboundSchema` instead. */
-  export const outboundSchema = InputEventhubMode$outboundSchema;
-}
 
 /** @internal */
 export const InputEventhubCompression$inboundSchema: z.ZodType<
@@ -376,7 +446,6 @@ export const InputEventhubCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputEventhubCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputEventhubCompression$outboundSchema: z.ZodType<
   InputEventhubCompression,
@@ -387,24 +456,12 @@ export const InputEventhubCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEventhubCompression$ {
-  /** @deprecated use `InputEventhubCompression$inboundSchema` instead. */
-  export const inboundSchema = InputEventhubCompression$inboundSchema;
-  /** @deprecated use `InputEventhubCompression$outboundSchema` instead. */
-  export const outboundSchema = InputEventhubCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputEventhubPqControls$inboundSchema: z.ZodType<
   InputEventhubPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputEventhubPqControls$Outbound = {};
 
@@ -415,19 +472,6 @@ export const InputEventhubPqControls$outboundSchema: z.ZodType<
   InputEventhubPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEventhubPqControls$ {
-  /** @deprecated use `InputEventhubPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputEventhubPqControls$inboundSchema;
-  /** @deprecated use `InputEventhubPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputEventhubPqControls$outboundSchema;
-  /** @deprecated use `InputEventhubPqControls$Outbound` instead. */
-  export type Outbound = InputEventhubPqControls$Outbound;
-}
-
 export function inputEventhubPqControlsToJSON(
   inputEventhubPqControls: InputEventhubPqControls,
 ): string {
@@ -435,7 +479,6 @@ export function inputEventhubPqControlsToJSON(
     InputEventhubPqControls$outboundSchema.parse(inputEventhubPqControls),
   );
 }
-
 export function inputEventhubPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputEventhubPqControls, SDKValidationError> {
@@ -461,7 +504,6 @@ export const InputEventhubPq$inboundSchema: z.ZodType<
   compress: InputEventhubCompression$inboundSchema.default("none"),
   pqControls: z.lazy(() => InputEventhubPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputEventhubPq$Outbound = {
   mode: string;
@@ -490,25 +532,11 @@ export const InputEventhubPq$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputEventhubPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEventhubPq$ {
-  /** @deprecated use `InputEventhubPq$inboundSchema` instead. */
-  export const inboundSchema = InputEventhubPq$inboundSchema;
-  /** @deprecated use `InputEventhubPq$outboundSchema` instead. */
-  export const outboundSchema = InputEventhubPq$outboundSchema;
-  /** @deprecated use `InputEventhubPq$Outbound` instead. */
-  export type Outbound = InputEventhubPq$Outbound;
-}
-
 export function inputEventhubPqToJSON(
   inputEventhubPq: InputEventhubPq,
 ): string {
   return JSON.stringify(InputEventhubPq$outboundSchema.parse(inputEventhubPq));
 }
-
 export function inputEventhubPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputEventhubPq, SDKValidationError> {
@@ -520,6 +548,27 @@ export function inputEventhubPqFromJSON(
 }
 
 /** @internal */
+export const InputEventhubAuthTypeAuthenticationMethod$inboundSchema: z.ZodType<
+  InputEventhubAuthTypeAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(InputEventhubAuthTypeAuthenticationMethod),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const InputEventhubAuthTypeAuthenticationMethod$outboundSchema:
+  z.ZodType<
+    InputEventhubAuthTypeAuthenticationMethod,
+    z.ZodTypeDef,
+    InputEventhubAuthTypeAuthenticationMethod
+  > = z.union([
+    z.nativeEnum(InputEventhubAuthTypeAuthenticationMethod),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
 export const InputEventhubSASLMechanism$inboundSchema: z.ZodType<
   InputEventhubSASLMechanism,
   z.ZodTypeDef,
@@ -529,7 +578,6 @@ export const InputEventhubSASLMechanism$inboundSchema: z.ZodType<
     z.nativeEnum(InputEventhubSASLMechanism),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputEventhubSASLMechanism$outboundSchema: z.ZodType<
   InputEventhubSASLMechanism,
@@ -540,16 +588,49 @@ export const InputEventhubSASLMechanism$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEventhubSASLMechanism$ {
-  /** @deprecated use `InputEventhubSASLMechanism$inboundSchema` instead. */
-  export const inboundSchema = InputEventhubSASLMechanism$inboundSchema;
-  /** @deprecated use `InputEventhubSASLMechanism$outboundSchema` instead. */
-  export const outboundSchema = InputEventhubSASLMechanism$outboundSchema;
-}
+/** @internal */
+export const InputEventhubClientSecretAuthTypeAuthenticationMethod$inboundSchema:
+  z.ZodType<
+    InputEventhubClientSecretAuthTypeAuthenticationMethod,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(InputEventhubClientSecretAuthTypeAuthenticationMethod),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const InputEventhubClientSecretAuthTypeAuthenticationMethod$outboundSchema:
+  z.ZodType<
+    InputEventhubClientSecretAuthTypeAuthenticationMethod,
+    z.ZodTypeDef,
+    InputEventhubClientSecretAuthTypeAuthenticationMethod
+  > = z.union([
+    z.nativeEnum(InputEventhubClientSecretAuthTypeAuthenticationMethod),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
+
+/** @internal */
+export const InputEventhubMicrosoftEntraIDAuthenticationEndpoint$inboundSchema:
+  z.ZodType<
+    InputEventhubMicrosoftEntraIDAuthenticationEndpoint,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(InputEventhubMicrosoftEntraIDAuthenticationEndpoint),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const InputEventhubMicrosoftEntraIDAuthenticationEndpoint$outboundSchema:
+  z.ZodType<
+    InputEventhubMicrosoftEntraIDAuthenticationEndpoint,
+    z.ZodTypeDef,
+    InputEventhubMicrosoftEntraIDAuthenticationEndpoint
+  > = z.union([
+    z.nativeEnum(InputEventhubMicrosoftEntraIDAuthenticationEndpoint),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
 
 /** @internal */
 export const InputEventhubAuthentication$inboundSchema: z.ZodType<
@@ -558,13 +639,50 @@ export const InputEventhubAuthentication$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   disabled: z.boolean().default(false),
+  authType: InputEventhubAuthTypeAuthenticationMethod$inboundSchema.default(
+    "manual",
+  ),
+  password: z.string().optional(),
+  textSecret: z.string().optional(),
   mechanism: InputEventhubSASLMechanism$inboundSchema.default("plain"),
+  username: z.string().default("$ConnectionString"),
+  clientSecretAuthType:
+    InputEventhubClientSecretAuthTypeAuthenticationMethod$inboundSchema.default(
+      "manual",
+    ),
+  clientSecret: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+  certificateName: z.string().optional(),
+  certPath: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  oauthEndpoint:
+    InputEventhubMicrosoftEntraIDAuthenticationEndpoint$inboundSchema.default(
+      "https://login.microsoftonline.com",
+    ),
+  clientId: z.string().optional(),
+  tenantId: z.string().optional(),
+  scope: z.string().optional(),
 });
-
 /** @internal */
 export type InputEventhubAuthentication$Outbound = {
   disabled: boolean;
+  authType: string;
+  password?: string | undefined;
+  textSecret?: string | undefined;
   mechanism: string;
+  username: string;
+  clientSecretAuthType: string;
+  clientSecret?: string | undefined;
+  clientTextSecret?: string | undefined;
+  certificateName?: string | undefined;
+  certPath?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  oauthEndpoint: string;
+  clientId?: string | undefined;
+  tenantId?: string | undefined;
+  scope?: string | undefined;
 };
 
 /** @internal */
@@ -574,21 +692,30 @@ export const InputEventhubAuthentication$outboundSchema: z.ZodType<
   InputEventhubAuthentication
 > = z.object({
   disabled: z.boolean().default(false),
+  authType: InputEventhubAuthTypeAuthenticationMethod$outboundSchema.default(
+    "manual",
+  ),
+  password: z.string().optional(),
+  textSecret: z.string().optional(),
   mechanism: InputEventhubSASLMechanism$outboundSchema.default("plain"),
+  username: z.string().default("$ConnectionString"),
+  clientSecretAuthType:
+    InputEventhubClientSecretAuthTypeAuthenticationMethod$outboundSchema
+      .default("manual"),
+  clientSecret: z.string().optional(),
+  clientTextSecret: z.string().optional(),
+  certificateName: z.string().optional(),
+  certPath: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  oauthEndpoint:
+    InputEventhubMicrosoftEntraIDAuthenticationEndpoint$outboundSchema.default(
+      "https://login.microsoftonline.com",
+    ),
+  clientId: z.string().optional(),
+  tenantId: z.string().optional(),
+  scope: z.string().optional(),
 });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEventhubAuthentication$ {
-  /** @deprecated use `InputEventhubAuthentication$inboundSchema` instead. */
-  export const inboundSchema = InputEventhubAuthentication$inboundSchema;
-  /** @deprecated use `InputEventhubAuthentication$outboundSchema` instead. */
-  export const outboundSchema = InputEventhubAuthentication$outboundSchema;
-  /** @deprecated use `InputEventhubAuthentication$Outbound` instead. */
-  export type Outbound = InputEventhubAuthentication$Outbound;
-}
 
 export function inputEventhubAuthenticationToJSON(
   inputEventhubAuthentication: InputEventhubAuthentication,
@@ -599,7 +726,6 @@ export function inputEventhubAuthenticationToJSON(
     ),
   );
 }
-
 export function inputEventhubAuthenticationFromJSON(
   jsonString: string,
 ): SafeParseResult<InputEventhubAuthentication, SDKValidationError> {
@@ -619,7 +745,6 @@ export const InputEventhubTLSSettingsClientSide$inboundSchema: z.ZodType<
   disabled: z.boolean().default(false),
   rejectUnauthorized: z.boolean().default(true),
 });
-
 /** @internal */
 export type InputEventhubTLSSettingsClientSide$Outbound = {
   disabled: boolean;
@@ -636,20 +761,6 @@ export const InputEventhubTLSSettingsClientSide$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEventhubTLSSettingsClientSide$ {
-  /** @deprecated use `InputEventhubTLSSettingsClientSide$inboundSchema` instead. */
-  export const inboundSchema = InputEventhubTLSSettingsClientSide$inboundSchema;
-  /** @deprecated use `InputEventhubTLSSettingsClientSide$outboundSchema` instead. */
-  export const outboundSchema =
-    InputEventhubTLSSettingsClientSide$outboundSchema;
-  /** @deprecated use `InputEventhubTLSSettingsClientSide$Outbound` instead. */
-  export type Outbound = InputEventhubTLSSettingsClientSide$Outbound;
-}
-
 export function inputEventhubTLSSettingsClientSideToJSON(
   inputEventhubTLSSettingsClientSide: InputEventhubTLSSettingsClientSide,
 ): string {
@@ -659,7 +770,6 @@ export function inputEventhubTLSSettingsClientSideToJSON(
     ),
   );
 }
-
 export function inputEventhubTLSSettingsClientSideFromJSON(
   jsonString: string,
 ): SafeParseResult<InputEventhubTLSSettingsClientSide, SDKValidationError> {
@@ -680,7 +790,6 @@ export const InputEventhubMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputEventhubMetadatum$Outbound = {
   name: string;
@@ -697,19 +806,6 @@ export const InputEventhubMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEventhubMetadatum$ {
-  /** @deprecated use `InputEventhubMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputEventhubMetadatum$inboundSchema;
-  /** @deprecated use `InputEventhubMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputEventhubMetadatum$outboundSchema;
-  /** @deprecated use `InputEventhubMetadatum$Outbound` instead. */
-  export type Outbound = InputEventhubMetadatum$Outbound;
-}
-
 export function inputEventhubMetadatumToJSON(
   inputEventhubMetadatum: InputEventhubMetadatum,
 ): string {
@@ -717,7 +813,6 @@ export function inputEventhubMetadatumToJSON(
     InputEventhubMetadatum$outboundSchema.parse(inputEventhubMetadatum),
   );
 }
-
 export function inputEventhubMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputEventhubMetadatum, SDKValidationError> {
@@ -773,7 +868,6 @@ export const InputEventhub$inboundSchema: z.ZodType<
     .optional(),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type InputEventhub$Outbound = {
   id?: string | undefined;
@@ -859,23 +953,9 @@ export const InputEventhub$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEventhub$ {
-  /** @deprecated use `InputEventhub$inboundSchema` instead. */
-  export const inboundSchema = InputEventhub$inboundSchema;
-  /** @deprecated use `InputEventhub$outboundSchema` instead. */
-  export const outboundSchema = InputEventhub$outboundSchema;
-  /** @deprecated use `InputEventhub$Outbound` instead. */
-  export type Outbound = InputEventhub$Outbound;
-}
-
 export function inputEventhubToJSON(inputEventhub: InputEventhub): string {
   return JSON.stringify(InputEventhub$outboundSchema.parse(inputEventhub));
 }
-
 export function inputEventhubFromJSON(
   jsonString: string,
 ): SafeParseResult<InputEventhub, SDKValidationError> {

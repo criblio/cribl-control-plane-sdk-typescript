@@ -30,7 +30,6 @@ export const RbacResource$inboundSchema: z.ZodType<
     z.nativeEnum(RbacResource),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const RbacResource$outboundSchema: z.ZodType<
   RbacResource,
@@ -40,14 +39,3 @@ export const RbacResource$outboundSchema: z.ZodType<
   z.nativeEnum(RbacResource),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RbacResource$ {
-  /** @deprecated use `RbacResource$inboundSchema` instead. */
-  export const inboundSchema = RbacResource$inboundSchema;
-  /** @deprecated use `RbacResource$outboundSchema` instead. */
-  export const outboundSchema = RbacResource$outboundSchema;
-}

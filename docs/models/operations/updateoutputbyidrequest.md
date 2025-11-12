@@ -41,7 +41,7 @@ let value: UpdateOutputByIdRequest = {
     ],
     responseRetrySettings: [
       {
-        httpStatus: 9599.18,
+        httpStatus: 9115.44,
         initialBackoff: 1000,
         backoffRate: 2,
         maxBackoff: 10000,
@@ -55,15 +55,20 @@ let value: UpdateOutputByIdRequest = {
     },
     responseHonorRetryAfterHeader: true,
     onBackpressure: "block",
-    description: "gee orderly marten realistic hungrily apprehensive phooey",
+    description:
+      "modulo stormy descriptive until feline through whether ha rag er",
     token: "<value>",
     textSecret: "<value>",
+    pqStrictOrdering: true,
+    pqRatePerSec: 0,
+    pqMode: "error",
+    pqMaxBufferSize: 42,
+    pqMaxBackpressureSec: 30,
     pqMaxFileSize: "1 MB",
     pqMaxSize: "5GB",
     pqPath: "$CRIBL_HOME/state/queues",
     pqCompress: "none",
     pqOnBackpressure: "block",
-    pqMode: "error",
     pqControls: {},
   },
 };

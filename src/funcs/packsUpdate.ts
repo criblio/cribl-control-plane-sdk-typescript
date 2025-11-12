@@ -21,6 +21,7 @@ import {
 import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
@@ -29,7 +30,7 @@ import { Result } from "../types/fp.js";
  * Upgrade a Pack
  *
  * @remarks
- * Upgrade the specified Pack.</br></br>If the Pack includes any user–modified versions of default Cribl Knowledge resources such as lookups, copy the modified files locally for safekeeping before upgrading the Pack. Copy the modified files back to the upgraded Pack after you install it with <code>POST /packs</code> to overwrite the default versions in the Pack.</br></br>After you upgrade the Pack, update any Routes, Pipelines, Sources, and Destinations that use the previous Pack version so that they reference the upgraded Pack.
+ * Upgrade the specified Pack.</br></br>If the Pack includes any user–modified versions of default Cribl Knowledge resources such as lookups, copy the modified files locally for safekeeping before upgrading the Pack.Copy the modified files back to the upgraded Pack after you install it with <code>POST /packs</code> to overwrite the default versions in the Pack.</br></br>After you upgrade the Pack, update any Routes, Pipelines, Sources, and Destinations that use the previous Pack version so that they reference the upgraded Pack.
  */
 export function packsUpdate(
   client: CriblControlPlaneCore,
@@ -37,7 +38,7 @@ export function packsUpdate(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.UpdatePacksByIdResponse,
+    models.CountedPackInfo,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -63,7 +64,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      operations.UpdatePacksByIdResponse,
+      models.CountedPackInfo,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -153,7 +154,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.UpdatePacksByIdResponse,
+    models.CountedPackInfo,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -164,7 +165,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.UpdatePacksByIdResponse$inboundSchema),
+    M.json(200, models.CountedPackInfo$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

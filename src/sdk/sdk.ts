@@ -46,11 +46,6 @@ export class CriblControlPlane extends ClientSDK {
     return (this._auth ??= new Auth(this._options));
   }
 
-  private _nodes?: Nodes;
-  get nodes(): Nodes {
-    return (this._nodes ??= new Nodes(this._options));
-  }
-
   private _health?: Health;
   get health(): Health {
     return (this._health ??= new Health(this._options));
@@ -64,6 +59,11 @@ export class CriblControlPlane extends ClientSDK {
   private _versions?: Versions;
   get versions(): Versions {
     return (this._versions ??= new Versions(this._options));
+  }
+
+  private _nodes?: Nodes;
+  get nodes(): Nodes {
+    return (this._nodes ??= new Nodes(this._options));
   }
 
   private _groups?: Groups;

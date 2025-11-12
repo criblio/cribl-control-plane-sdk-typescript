@@ -8,24 +8,24 @@ import { HBCriblInfo } from "cribl-control-plane/models";
 let value: HBCriblInfo = {
   config: {
     featuresRev: "<value>",
-    hbPeriodSeconds: 3261.24,
+    hbPeriodSeconds: 8719.43,
     logStreamEnv: "<value>",
     policyRev: "<value>",
     version: "<value>",
   },
   deploymentId: "<id>",
   disableSNIRouting: false,
-  distMode: "managed-edge",
+  distMode: "outpost",
   edgeNodes: 4521.05,
   group: "<value>",
   guid: "<id>",
   installType: "<value>",
   lookupVersions: {},
   master: {
-    host: "frequent-bell.info",
-    port: 9100.63,
+    host: "bitter-poetry.net",
+    port: 4320.82,
     servername: "<value>",
-    tls: true,
+    tls: false,
   },
   pid: 8614.45,
   socksEnabled: true,
@@ -42,7 +42,7 @@ let value: HBCriblInfo = {
 | `config`                                             | [models.Config](../models/config.md)                 | :heavy_check_mark:                                   | N/A                                                  |
 | `deploymentId`                                       | *string*                                             | :heavy_minus_sign:                                   | N/A                                                  |
 | `disableSNIRouting`                                  | *boolean*                                            | :heavy_minus_sign:                                   | N/A                                                  |
-| `distMode`                                           | [models.AppMode](../models/appmode.md)               | :heavy_check_mark:                                   | N/A                                                  |
+| `distMode`                                           | [models.DistMode](../models/distmode.md)             | :heavy_check_mark:                                   | N/A                                                  |
 | `edgeNodes`                                          | *number*                                             | :heavy_minus_sign:                                   | N/A                                                  |
 | `group`                                              | *string*                                             | :heavy_check_mark:                                   | N/A                                                  |
 | `guid`                                               | *string*                                             | :heavy_check_mark:                                   | N/A                                                  |

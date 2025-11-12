@@ -10,17 +10,17 @@ let value: GitRevertResult = {
     files: {
       created: [
         "<value 1>",
+        "<value 2>",
       ],
       deleted: [
         "<value 1>",
-        "<value 2>",
       ],
       modified: [
         "<value 1>",
+        "<value 2>",
       ],
       renamed: [
         "<value 1>",
-        "<value 2>",
       ],
     },
     group: "<value>",

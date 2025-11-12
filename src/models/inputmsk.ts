@@ -27,7 +27,13 @@ export type InputMskConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputMskMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -39,7 +45,13 @@ export type InputMskMode = OpenEnum<typeof InputMskMode>;
  * Codec to use to compress the persisted data
  */
 export const InputMskCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -88,18 +100,6 @@ export type InputMskMetadatum = {
    */
   value: string;
 };
-
-/**
- * The schema format used to encode and decode event data
- */
-export const InputMskSchemaType = {
-  Avro: "avro",
-  Json: "json",
-} as const;
-/**
- * The schema format used to encode and decode event data
- */
-export type InputMskSchemaType = OpenEnum<typeof InputMskSchemaType>;
 
 /**
  * Credentials to use when authenticating with the schema registry using basic HTTP authentication
@@ -176,10 +176,6 @@ export type InputMskKafkaSchemaRegistryAuthentication = {
    */
   schemaRegistryURL?: string | undefined;
   /**
-   * The schema format used to encode and decode event data
-   */
-  schemaType?: InputMskSchemaType | undefined;
-  /**
    * Maximum time to wait for a Schema Registry connection to complete successfully
    */
   connectionTimeout?: number | undefined;
@@ -202,8 +198,17 @@ export type InputMskKafkaSchemaRegistryAuthentication = {
  * AWS authentication method. Choose Auto to use IAM roles.
  */
 export const InputMskAuthenticationMethod = {
+  /**
+   * Auto
+   */
   Auto: "auto",
+  /**
+   * Manual
+   */
   Manual: "manual",
+  /**
+   * Secret Key pair
+   */
   Secret: "secret",
 } as const;
 /**
@@ -468,21 +473,9 @@ export type InputMsk = {
 /** @internal */
 export const InputMskType$inboundSchema: z.ZodNativeEnum<typeof InputMskType> =
   z.nativeEnum(InputMskType);
-
 /** @internal */
 export const InputMskType$outboundSchema: z.ZodNativeEnum<typeof InputMskType> =
   InputMskType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMskType$ {
-  /** @deprecated use `InputMskType$inboundSchema` instead. */
-  export const inboundSchema = InputMskType$inboundSchema;
-  /** @deprecated use `InputMskType$outboundSchema` instead. */
-  export const outboundSchema = InputMskType$outboundSchema;
-}
 
 /** @internal */
 export const InputMskConnection$inboundSchema: z.ZodType<
@@ -493,7 +486,6 @@ export const InputMskConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputMskConnection$Outbound = {
   pipeline?: string | undefined;
@@ -510,19 +502,6 @@ export const InputMskConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMskConnection$ {
-  /** @deprecated use `InputMskConnection$inboundSchema` instead. */
-  export const inboundSchema = InputMskConnection$inboundSchema;
-  /** @deprecated use `InputMskConnection$outboundSchema` instead. */
-  export const outboundSchema = InputMskConnection$outboundSchema;
-  /** @deprecated use `InputMskConnection$Outbound` instead. */
-  export type Outbound = InputMskConnection$Outbound;
-}
-
 export function inputMskConnectionToJSON(
   inputMskConnection: InputMskConnection,
 ): string {
@@ -530,7 +509,6 @@ export function inputMskConnectionToJSON(
     InputMskConnection$outboundSchema.parse(inputMskConnection),
   );
 }
-
 export function inputMskConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputMskConnection, SDKValidationError> {
@@ -551,7 +529,6 @@ export const InputMskMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputMskMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputMskMode$outboundSchema: z.ZodType<
   InputMskMode,
@@ -561,17 +538,6 @@ export const InputMskMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputMskMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMskMode$ {
-  /** @deprecated use `InputMskMode$inboundSchema` instead. */
-  export const inboundSchema = InputMskMode$inboundSchema;
-  /** @deprecated use `InputMskMode$outboundSchema` instead. */
-  export const outboundSchema = InputMskMode$outboundSchema;
-}
 
 /** @internal */
 export const InputMskCompression$inboundSchema: z.ZodType<
@@ -583,7 +549,6 @@ export const InputMskCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputMskCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputMskCompression$outboundSchema: z.ZodType<
   InputMskCompression,
@@ -594,24 +559,12 @@ export const InputMskCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMskCompression$ {
-  /** @deprecated use `InputMskCompression$inboundSchema` instead. */
-  export const inboundSchema = InputMskCompression$inboundSchema;
-  /** @deprecated use `InputMskCompression$outboundSchema` instead. */
-  export const outboundSchema = InputMskCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputMskPqControls$inboundSchema: z.ZodType<
   InputMskPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputMskPqControls$Outbound = {};
 
@@ -622,19 +575,6 @@ export const InputMskPqControls$outboundSchema: z.ZodType<
   InputMskPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMskPqControls$ {
-  /** @deprecated use `InputMskPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputMskPqControls$inboundSchema;
-  /** @deprecated use `InputMskPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputMskPqControls$outboundSchema;
-  /** @deprecated use `InputMskPqControls$Outbound` instead. */
-  export type Outbound = InputMskPqControls$Outbound;
-}
-
 export function inputMskPqControlsToJSON(
   inputMskPqControls: InputMskPqControls,
 ): string {
@@ -642,7 +582,6 @@ export function inputMskPqControlsToJSON(
     InputMskPqControls$outboundSchema.parse(inputMskPqControls),
   );
 }
-
 export function inputMskPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputMskPqControls, SDKValidationError> {
@@ -668,7 +607,6 @@ export const InputMskPq$inboundSchema: z.ZodType<
   compress: InputMskCompression$inboundSchema.default("none"),
   pqControls: z.lazy(() => InputMskPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputMskPq$Outbound = {
   mode: string;
@@ -697,23 +635,9 @@ export const InputMskPq$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputMskPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMskPq$ {
-  /** @deprecated use `InputMskPq$inboundSchema` instead. */
-  export const inboundSchema = InputMskPq$inboundSchema;
-  /** @deprecated use `InputMskPq$outboundSchema` instead. */
-  export const outboundSchema = InputMskPq$outboundSchema;
-  /** @deprecated use `InputMskPq$Outbound` instead. */
-  export type Outbound = InputMskPq$Outbound;
-}
-
 export function inputMskPqToJSON(inputMskPq: InputMskPq): string {
   return JSON.stringify(InputMskPq$outboundSchema.parse(inputMskPq));
 }
-
 export function inputMskPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputMskPq, SDKValidationError> {
@@ -733,7 +657,6 @@ export const InputMskMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputMskMetadatum$Outbound = {
   name: string;
@@ -750,19 +673,6 @@ export const InputMskMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMskMetadatum$ {
-  /** @deprecated use `InputMskMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputMskMetadatum$inboundSchema;
-  /** @deprecated use `InputMskMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputMskMetadatum$outboundSchema;
-  /** @deprecated use `InputMskMetadatum$Outbound` instead. */
-  export type Outbound = InputMskMetadatum$Outbound;
-}
-
 export function inputMskMetadatumToJSON(
   inputMskMetadatum: InputMskMetadatum,
 ): string {
@@ -770,7 +680,6 @@ export function inputMskMetadatumToJSON(
     InputMskMetadatum$outboundSchema.parse(inputMskMetadatum),
   );
 }
-
 export function inputMskMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputMskMetadatum, SDKValidationError> {
@@ -782,38 +691,6 @@ export function inputMskMetadatumFromJSON(
 }
 
 /** @internal */
-export const InputMskSchemaType$inboundSchema: z.ZodType<
-  InputMskSchemaType,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(InputMskSchemaType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const InputMskSchemaType$outboundSchema: z.ZodType<
-  InputMskSchemaType,
-  z.ZodTypeDef,
-  InputMskSchemaType
-> = z.union([
-  z.nativeEnum(InputMskSchemaType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMskSchemaType$ {
-  /** @deprecated use `InputMskSchemaType$inboundSchema` instead. */
-  export const inboundSchema = InputMskSchemaType$inboundSchema;
-  /** @deprecated use `InputMskSchemaType$outboundSchema` instead. */
-  export const outboundSchema = InputMskSchemaType$outboundSchema;
-}
-
-/** @internal */
 export const InputMskAuth$inboundSchema: z.ZodType<
   InputMskAuth,
   z.ZodTypeDef,
@@ -822,7 +699,6 @@ export const InputMskAuth$inboundSchema: z.ZodType<
   disabled: z.boolean().default(true),
   credentialsSecret: z.string().optional(),
 });
-
 /** @internal */
 export type InputMskAuth$Outbound = {
   disabled: boolean;
@@ -839,23 +715,9 @@ export const InputMskAuth$outboundSchema: z.ZodType<
   credentialsSecret: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMskAuth$ {
-  /** @deprecated use `InputMskAuth$inboundSchema` instead. */
-  export const inboundSchema = InputMskAuth$inboundSchema;
-  /** @deprecated use `InputMskAuth$outboundSchema` instead. */
-  export const outboundSchema = InputMskAuth$outboundSchema;
-  /** @deprecated use `InputMskAuth$Outbound` instead. */
-  export type Outbound = InputMskAuth$Outbound;
-}
-
 export function inputMskAuthToJSON(inputMskAuth: InputMskAuth): string {
   return JSON.stringify(InputMskAuth$outboundSchema.parse(inputMskAuth));
 }
-
 export function inputMskAuthFromJSON(
   jsonString: string,
 ): SafeParseResult<InputMskAuth, SDKValidationError> {
@@ -877,7 +739,6 @@ export const InputMskKafkaSchemaRegistryMinimumTLSVersion$inboundSchema:
       z.nativeEnum(InputMskKafkaSchemaRegistryMinimumTLSVersion),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const InputMskKafkaSchemaRegistryMinimumTLSVersion$outboundSchema:
   z.ZodType<
@@ -888,19 +749,6 @@ export const InputMskKafkaSchemaRegistryMinimumTLSVersion$outboundSchema:
     z.nativeEnum(InputMskKafkaSchemaRegistryMinimumTLSVersion),
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMskKafkaSchemaRegistryMinimumTLSVersion$ {
-  /** @deprecated use `InputMskKafkaSchemaRegistryMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema =
-    InputMskKafkaSchemaRegistryMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `InputMskKafkaSchemaRegistryMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    InputMskKafkaSchemaRegistryMinimumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputMskKafkaSchemaRegistryMaximumTLSVersion$inboundSchema:
@@ -913,7 +761,6 @@ export const InputMskKafkaSchemaRegistryMaximumTLSVersion$inboundSchema:
       z.nativeEnum(InputMskKafkaSchemaRegistryMaximumTLSVersion),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const InputMskKafkaSchemaRegistryMaximumTLSVersion$outboundSchema:
   z.ZodType<
@@ -924,19 +771,6 @@ export const InputMskKafkaSchemaRegistryMaximumTLSVersion$outboundSchema:
     z.nativeEnum(InputMskKafkaSchemaRegistryMaximumTLSVersion),
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMskKafkaSchemaRegistryMaximumTLSVersion$ {
-  /** @deprecated use `InputMskKafkaSchemaRegistryMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema =
-    InputMskKafkaSchemaRegistryMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `InputMskKafkaSchemaRegistryMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    InputMskKafkaSchemaRegistryMaximumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputMskKafkaSchemaRegistryTLSSettingsClientSide$inboundSchema:
@@ -958,7 +792,6 @@ export const InputMskKafkaSchemaRegistryTLSSettingsClientSide$inboundSchema:
     maxVersion: InputMskKafkaSchemaRegistryMaximumTLSVersion$inboundSchema
       .optional(),
   });
-
 /** @internal */
 export type InputMskKafkaSchemaRegistryTLSSettingsClientSide$Outbound = {
   disabled: boolean;
@@ -994,22 +827,6 @@ export const InputMskKafkaSchemaRegistryTLSSettingsClientSide$outboundSchema:
       .optional(),
   });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMskKafkaSchemaRegistryTLSSettingsClientSide$ {
-  /** @deprecated use `InputMskKafkaSchemaRegistryTLSSettingsClientSide$inboundSchema` instead. */
-  export const inboundSchema =
-    InputMskKafkaSchemaRegistryTLSSettingsClientSide$inboundSchema;
-  /** @deprecated use `InputMskKafkaSchemaRegistryTLSSettingsClientSide$outboundSchema` instead. */
-  export const outboundSchema =
-    InputMskKafkaSchemaRegistryTLSSettingsClientSide$outboundSchema;
-  /** @deprecated use `InputMskKafkaSchemaRegistryTLSSettingsClientSide$Outbound` instead. */
-  export type Outbound =
-    InputMskKafkaSchemaRegistryTLSSettingsClientSide$Outbound;
-}
-
 export function inputMskKafkaSchemaRegistryTLSSettingsClientSideToJSON(
   inputMskKafkaSchemaRegistryTLSSettingsClientSide:
     InputMskKafkaSchemaRegistryTLSSettingsClientSide,
@@ -1020,7 +837,6 @@ export function inputMskKafkaSchemaRegistryTLSSettingsClientSideToJSON(
     ),
   );
 }
-
 export function inputMskKafkaSchemaRegistryTLSSettingsClientSideFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -1045,7 +861,6 @@ export const InputMskKafkaSchemaRegistryAuthentication$inboundSchema: z.ZodType<
 > = z.object({
   disabled: z.boolean().default(true),
   schemaRegistryURL: z.string().default("http://localhost:8081"),
-  schemaType: InputMskSchemaType$inboundSchema.default("avro"),
   connectionTimeout: z.number().default(30000),
   requestTimeout: z.number().default(30000),
   maxRetries: z.number().default(1),
@@ -1054,12 +869,10 @@ export const InputMskKafkaSchemaRegistryAuthentication$inboundSchema: z.ZodType<
     InputMskKafkaSchemaRegistryTLSSettingsClientSide$inboundSchema
   ).optional(),
 });
-
 /** @internal */
 export type InputMskKafkaSchemaRegistryAuthentication$Outbound = {
   disabled: boolean;
   schemaRegistryURL: string;
-  schemaType: string;
   connectionTimeout: number;
   requestTimeout: number;
   maxRetries: number;
@@ -1076,7 +889,6 @@ export const InputMskKafkaSchemaRegistryAuthentication$outboundSchema:
   > = z.object({
     disabled: z.boolean().default(true),
     schemaRegistryURL: z.string().default("http://localhost:8081"),
-    schemaType: InputMskSchemaType$outboundSchema.default("avro"),
     connectionTimeout: z.number().default(30000),
     requestTimeout: z.number().default(30000),
     maxRetries: z.number().default(1),
@@ -1085,21 +897,6 @@ export const InputMskKafkaSchemaRegistryAuthentication$outboundSchema:
       InputMskKafkaSchemaRegistryTLSSettingsClientSide$outboundSchema
     ).optional(),
   });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMskKafkaSchemaRegistryAuthentication$ {
-  /** @deprecated use `InputMskKafkaSchemaRegistryAuthentication$inboundSchema` instead. */
-  export const inboundSchema =
-    InputMskKafkaSchemaRegistryAuthentication$inboundSchema;
-  /** @deprecated use `InputMskKafkaSchemaRegistryAuthentication$outboundSchema` instead. */
-  export const outboundSchema =
-    InputMskKafkaSchemaRegistryAuthentication$outboundSchema;
-  /** @deprecated use `InputMskKafkaSchemaRegistryAuthentication$Outbound` instead. */
-  export type Outbound = InputMskKafkaSchemaRegistryAuthentication$Outbound;
-}
 
 export function inputMskKafkaSchemaRegistryAuthenticationToJSON(
   inputMskKafkaSchemaRegistryAuthentication:
@@ -1111,7 +908,6 @@ export function inputMskKafkaSchemaRegistryAuthenticationToJSON(
     ),
   );
 }
-
 export function inputMskKafkaSchemaRegistryAuthenticationFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -1138,7 +934,6 @@ export const InputMskAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(InputMskAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputMskAuthenticationMethod$outboundSchema: z.ZodType<
   InputMskAuthenticationMethod,
@@ -1148,17 +943,6 @@ export const InputMskAuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(InputMskAuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMskAuthenticationMethod$ {
-  /** @deprecated use `InputMskAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = InputMskAuthenticationMethod$inboundSchema;
-  /** @deprecated use `InputMskAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema = InputMskAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const InputMskSignatureVersion$inboundSchema: z.ZodType<
@@ -1170,7 +954,6 @@ export const InputMskSignatureVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputMskSignatureVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputMskSignatureVersion$outboundSchema: z.ZodType<
   InputMskSignatureVersion,
@@ -1180,17 +963,6 @@ export const InputMskSignatureVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputMskSignatureVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMskSignatureVersion$ {
-  /** @deprecated use `InputMskSignatureVersion$inboundSchema` instead. */
-  export const inboundSchema = InputMskSignatureVersion$inboundSchema;
-  /** @deprecated use `InputMskSignatureVersion$outboundSchema` instead. */
-  export const outboundSchema = InputMskSignatureVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputMskMinimumTLSVersion$inboundSchema: z.ZodType<
@@ -1202,7 +974,6 @@ export const InputMskMinimumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputMskMinimumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputMskMinimumTLSVersion$outboundSchema: z.ZodType<
   InputMskMinimumTLSVersion,
@@ -1212,17 +983,6 @@ export const InputMskMinimumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputMskMinimumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMskMinimumTLSVersion$ {
-  /** @deprecated use `InputMskMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputMskMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `InputMskMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputMskMinimumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputMskMaximumTLSVersion$inboundSchema: z.ZodType<
@@ -1234,7 +994,6 @@ export const InputMskMaximumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputMskMaximumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputMskMaximumTLSVersion$outboundSchema: z.ZodType<
   InputMskMaximumTLSVersion,
@@ -1244,17 +1003,6 @@ export const InputMskMaximumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputMskMaximumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMskMaximumTLSVersion$ {
-  /** @deprecated use `InputMskMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputMskMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `InputMskMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputMskMaximumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputMskTLSSettingsClientSide$inboundSchema: z.ZodType<
@@ -1273,7 +1021,6 @@ export const InputMskTLSSettingsClientSide$inboundSchema: z.ZodType<
   minVersion: InputMskMinimumTLSVersion$inboundSchema.optional(),
   maxVersion: InputMskMaximumTLSVersion$inboundSchema.optional(),
 });
-
 /** @internal */
 export type InputMskTLSSettingsClientSide$Outbound = {
   disabled: boolean;
@@ -1306,19 +1053,6 @@ export const InputMskTLSSettingsClientSide$outboundSchema: z.ZodType<
   maxVersion: InputMskMaximumTLSVersion$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMskTLSSettingsClientSide$ {
-  /** @deprecated use `InputMskTLSSettingsClientSide$inboundSchema` instead. */
-  export const inboundSchema = InputMskTLSSettingsClientSide$inboundSchema;
-  /** @deprecated use `InputMskTLSSettingsClientSide$outboundSchema` instead. */
-  export const outboundSchema = InputMskTLSSettingsClientSide$outboundSchema;
-  /** @deprecated use `InputMskTLSSettingsClientSide$Outbound` instead. */
-  export type Outbound = InputMskTLSSettingsClientSide$Outbound;
-}
-
 export function inputMskTLSSettingsClientSideToJSON(
   inputMskTLSSettingsClientSide: InputMskTLSSettingsClientSide,
 ): string {
@@ -1328,7 +1062,6 @@ export function inputMskTLSSettingsClientSideToJSON(
     ),
   );
 }
-
 export function inputMskTLSSettingsClientSideFromJSON(
   jsonString: string,
 ): SafeParseResult<InputMskTLSSettingsClientSide, SDKValidationError> {
@@ -1398,7 +1131,6 @@ export const InputMsk$inboundSchema: z.ZodType<
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
 });
-
 /** @internal */
 export type InputMsk$Outbound = {
   id?: string | undefined;
@@ -1512,23 +1244,9 @@ export const InputMsk$outboundSchema: z.ZodType<
   awsSecret: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputMsk$ {
-  /** @deprecated use `InputMsk$inboundSchema` instead. */
-  export const inboundSchema = InputMsk$inboundSchema;
-  /** @deprecated use `InputMsk$outboundSchema` instead. */
-  export const outboundSchema = InputMsk$outboundSchema;
-  /** @deprecated use `InputMsk$Outbound` instead. */
-  export type Outbound = InputMsk$Outbound;
-}
-
 export function inputMskToJSON(inputMsk: InputMsk): string {
   return JSON.stringify(InputMsk$outboundSchema.parse(inputMsk));
 }
-
 export function inputMskFromJSON(
   jsonString: string,
 ): SafeParseResult<InputMsk, SDKValidationError> {

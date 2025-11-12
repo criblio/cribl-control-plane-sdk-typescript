@@ -36,12 +36,33 @@ export type OutputCriblLakeSignatureVersion = OpenEnum<
  * Object ACL to assign to uploaded objects
  */
 export const OutputCriblLakeObjectACL = {
+  /**
+   * Private
+   */
   Private: "private",
+  /**
+   * Public Read Only
+   */
   PublicRead: "public-read",
+  /**
+   * Public Read/Write
+   */
   PublicReadWrite: "public-read-write",
+  /**
+   * Authenticated Read Only
+   */
   AuthenticatedRead: "authenticated-read",
+  /**
+   * AWS EC2 AMI Read Only
+   */
   AwsExecRead: "aws-exec-read",
+  /**
+   * Bucket Owner Read Only
+   */
   BucketOwnerRead: "bucket-owner-read",
+  /**
+   * Bucket Owner Full Control
+   */
   BucketOwnerFullControl: "bucket-owner-full-control",
 } as const;
 /**
@@ -55,13 +76,37 @@ export type OutputCriblLakeObjectACL = OpenEnum<
  * Storage class to select for uploaded objects
  */
 export const OutputCriblLakeStorageClass = {
+  /**
+   * Standard
+   */
   Standard: "STANDARD",
+  /**
+   * Reduced Redundancy Storage
+   */
   ReducedRedundancy: "REDUCED_REDUNDANCY",
+  /**
+   * Standard, Infrequent Access
+   */
   StandardIa: "STANDARD_IA",
+  /**
+   * One Zone, Infrequent Access
+   */
   OnezoneIa: "ONEZONE_IA",
+  /**
+   * Intelligent Tiering
+   */
   IntelligentTiering: "INTELLIGENT_TIERING",
+  /**
+   * Glacier Flexible Retrieval
+   */
   Glacier: "GLACIER",
+  /**
+   * Glacier Instant Retrieval
+   */
   GlacierIr: "GLACIER_IR",
+  /**
+   * Glacier Deep Archive
+   */
   DeepArchive: "DEEP_ARCHIVE",
 } as const;
 /**
@@ -72,7 +117,13 @@ export type OutputCriblLakeStorageClass = OpenEnum<
 >;
 
 export const OutputCriblLakeServerSideEncryptionForUploadedObjects = {
+  /**
+   * Amazon S3 Managed Key
+   */
   Aes256: "AES256",
+  /**
+   * AWS KMS Managed Key
+   */
   AwsKms: "aws:kms",
 } as const;
 export type OutputCriblLakeServerSideEncryptionForUploadedObjects = OpenEnum<
@@ -83,7 +134,13 @@ export type OutputCriblLakeServerSideEncryptionForUploadedObjects = OpenEnum<
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputCriblLakeBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
 } as const;
 /**
@@ -97,7 +154,13 @@ export type OutputCriblLakeBackpressureBehavior = OpenEnum<
  * How to handle events when disk space is below the global 'Min free disk space' limit
  */
 export const OutputCriblLakeDiskSpaceProtection = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
 } as const;
 /**
@@ -295,22 +358,10 @@ export type OutputCriblLake = {
 export const OutputCriblLakeType$inboundSchema: z.ZodNativeEnum<
   typeof OutputCriblLakeType
 > = z.nativeEnum(OutputCriblLakeType);
-
 /** @internal */
 export const OutputCriblLakeType$outboundSchema: z.ZodNativeEnum<
   typeof OutputCriblLakeType
 > = OutputCriblLakeType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblLakeType$ {
-  /** @deprecated use `OutputCriblLakeType$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblLakeType$inboundSchema;
-  /** @deprecated use `OutputCriblLakeType$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblLakeType$outboundSchema;
-}
 
 /** @internal */
 export const OutputCriblLakeSignatureVersion$inboundSchema: z.ZodType<
@@ -322,7 +373,6 @@ export const OutputCriblLakeSignatureVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputCriblLakeSignatureVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputCriblLakeSignatureVersion$outboundSchema: z.ZodType<
   OutputCriblLakeSignatureVersion,
@@ -332,17 +382,6 @@ export const OutputCriblLakeSignatureVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputCriblLakeSignatureVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblLakeSignatureVersion$ {
-  /** @deprecated use `OutputCriblLakeSignatureVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblLakeSignatureVersion$inboundSchema;
-  /** @deprecated use `OutputCriblLakeSignatureVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblLakeSignatureVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputCriblLakeObjectACL$inboundSchema: z.ZodType<
@@ -354,7 +393,6 @@ export const OutputCriblLakeObjectACL$inboundSchema: z.ZodType<
     z.nativeEnum(OutputCriblLakeObjectACL),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputCriblLakeObjectACL$outboundSchema: z.ZodType<
   OutputCriblLakeObjectACL,
@@ -364,17 +402,6 @@ export const OutputCriblLakeObjectACL$outboundSchema: z.ZodType<
   z.nativeEnum(OutputCriblLakeObjectACL),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblLakeObjectACL$ {
-  /** @deprecated use `OutputCriblLakeObjectACL$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblLakeObjectACL$inboundSchema;
-  /** @deprecated use `OutputCriblLakeObjectACL$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblLakeObjectACL$outboundSchema;
-}
 
 /** @internal */
 export const OutputCriblLakeStorageClass$inboundSchema: z.ZodType<
@@ -386,7 +413,6 @@ export const OutputCriblLakeStorageClass$inboundSchema: z.ZodType<
     z.nativeEnum(OutputCriblLakeStorageClass),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputCriblLakeStorageClass$outboundSchema: z.ZodType<
   OutputCriblLakeStorageClass,
@@ -396,17 +422,6 @@ export const OutputCriblLakeStorageClass$outboundSchema: z.ZodType<
   z.nativeEnum(OutputCriblLakeStorageClass),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblLakeStorageClass$ {
-  /** @deprecated use `OutputCriblLakeStorageClass$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblLakeStorageClass$inboundSchema;
-  /** @deprecated use `OutputCriblLakeStorageClass$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblLakeStorageClass$outboundSchema;
-}
 
 /** @internal */
 export const OutputCriblLakeServerSideEncryptionForUploadedObjects$inboundSchema:
@@ -419,7 +434,6 @@ export const OutputCriblLakeServerSideEncryptionForUploadedObjects$inboundSchema
       z.nativeEnum(OutputCriblLakeServerSideEncryptionForUploadedObjects),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const OutputCriblLakeServerSideEncryptionForUploadedObjects$outboundSchema:
   z.ZodType<
@@ -431,19 +445,6 @@ export const OutputCriblLakeServerSideEncryptionForUploadedObjects$outboundSchem
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblLakeServerSideEncryptionForUploadedObjects$ {
-  /** @deprecated use `OutputCriblLakeServerSideEncryptionForUploadedObjects$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputCriblLakeServerSideEncryptionForUploadedObjects$inboundSchema;
-  /** @deprecated use `OutputCriblLakeServerSideEncryptionForUploadedObjects$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCriblLakeServerSideEncryptionForUploadedObjects$outboundSchema;
-}
-
 /** @internal */
 export const OutputCriblLakeBackpressureBehavior$inboundSchema: z.ZodType<
   OutputCriblLakeBackpressureBehavior,
@@ -454,7 +455,6 @@ export const OutputCriblLakeBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputCriblLakeBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputCriblLakeBackpressureBehavior$outboundSchema: z.ZodType<
   OutputCriblLakeBackpressureBehavior,
@@ -464,19 +464,6 @@ export const OutputCriblLakeBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputCriblLakeBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblLakeBackpressureBehavior$ {
-  /** @deprecated use `OutputCriblLakeBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputCriblLakeBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputCriblLakeBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCriblLakeBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputCriblLakeDiskSpaceProtection$inboundSchema: z.ZodType<
@@ -488,7 +475,6 @@ export const OutputCriblLakeDiskSpaceProtection$inboundSchema: z.ZodType<
     z.nativeEnum(OutputCriblLakeDiskSpaceProtection),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputCriblLakeDiskSpaceProtection$outboundSchema: z.ZodType<
   OutputCriblLakeDiskSpaceProtection,
@@ -498,18 +484,6 @@ export const OutputCriblLakeDiskSpaceProtection$outboundSchema: z.ZodType<
   z.nativeEnum(OutputCriblLakeDiskSpaceProtection),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblLakeDiskSpaceProtection$ {
-  /** @deprecated use `OutputCriblLakeDiskSpaceProtection$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblLakeDiskSpaceProtection$inboundSchema;
-  /** @deprecated use `OutputCriblLakeDiskSpaceProtection$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCriblLakeDiskSpaceProtection$outboundSchema;
-}
 
 /** @internal */
 export const AwsAuthenticationMethod$inboundSchema: z.ZodType<
@@ -521,7 +495,6 @@ export const AwsAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(AwsAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const AwsAuthenticationMethod$outboundSchema: z.ZodType<
   AwsAuthenticationMethod,
@@ -531,17 +504,6 @@ export const AwsAuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(AwsAuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AwsAuthenticationMethod$ {
-  /** @deprecated use `AwsAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = AwsAuthenticationMethod$inboundSchema;
-  /** @deprecated use `AwsAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema = AwsAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const OutputCriblLakeFormat$inboundSchema: z.ZodType<
@@ -553,7 +515,6 @@ export const OutputCriblLakeFormat$inboundSchema: z.ZodType<
     z.nativeEnum(OutputCriblLakeFormat),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputCriblLakeFormat$outboundSchema: z.ZodType<
   OutputCriblLakeFormat,
@@ -563,17 +524,6 @@ export const OutputCriblLakeFormat$outboundSchema: z.ZodType<
   z.nativeEnum(OutputCriblLakeFormat),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblLakeFormat$ {
-  /** @deprecated use `OutputCriblLakeFormat$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblLakeFormat$inboundSchema;
-  /** @deprecated use `OutputCriblLakeFormat$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblLakeFormat$outboundSchema;
-}
 
 /** @internal */
 export const OutputCriblLake$inboundSchema: z.ZodType<
@@ -636,7 +586,6 @@ export const OutputCriblLake$inboundSchema: z.ZodType<
   deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
   maxRetryNum: z.number().default(20),
 });
-
 /** @internal */
 export type OutputCriblLake$Outbound = {
   id?: string | undefined;
@@ -750,25 +699,11 @@ export const OutputCriblLake$outboundSchema: z.ZodType<
   maxRetryNum: z.number().default(20),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCriblLake$ {
-  /** @deprecated use `OutputCriblLake$inboundSchema` instead. */
-  export const inboundSchema = OutputCriblLake$inboundSchema;
-  /** @deprecated use `OutputCriblLake$outboundSchema` instead. */
-  export const outboundSchema = OutputCriblLake$outboundSchema;
-  /** @deprecated use `OutputCriblLake$Outbound` instead. */
-  export type Outbound = OutputCriblLake$Outbound;
-}
-
 export function outputCriblLakeToJSON(
   outputCriblLake: OutputCriblLake,
 ): string {
   return JSON.stringify(OutputCriblLake$outboundSchema.parse(outputCriblLake));
 }
-
 export function outputCriblLakeFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputCriblLake, SDKValidationError> {

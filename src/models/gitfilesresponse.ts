@@ -6,12 +6,7 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  GitFile,
-  GitFile$inboundSchema,
-  GitFile$Outbound,
-  GitFile$outboundSchema,
-} from "./gitfile.js";
+import { GitFile, GitFile$inboundSchema } from "./gitfile.js";
 
 export type GitFilesResponse = {
   commitMessage?: { [k: string]: any } | undefined;
@@ -29,45 +24,6 @@ export const GitFilesResponse$inboundSchema: z.ZodType<
   count: z.number(),
   items: z.array(GitFile$inboundSchema),
 });
-
-/** @internal */
-export type GitFilesResponse$Outbound = {
-  commitMessage?: { [k: string]: any } | undefined;
-  count: number;
-  items: Array<GitFile$Outbound>;
-};
-
-/** @internal */
-export const GitFilesResponse$outboundSchema: z.ZodType<
-  GitFilesResponse$Outbound,
-  z.ZodTypeDef,
-  GitFilesResponse
-> = z.object({
-  commitMessage: z.record(z.any()).optional(),
-  count: z.number(),
-  items: z.array(GitFile$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GitFilesResponse$ {
-  /** @deprecated use `GitFilesResponse$inboundSchema` instead. */
-  export const inboundSchema = GitFilesResponse$inboundSchema;
-  /** @deprecated use `GitFilesResponse$outboundSchema` instead. */
-  export const outboundSchema = GitFilesResponse$outboundSchema;
-  /** @deprecated use `GitFilesResponse$Outbound` instead. */
-  export type Outbound = GitFilesResponse$Outbound;
-}
-
-export function gitFilesResponseToJSON(
-  gitFilesResponse: GitFilesResponse,
-): string {
-  return JSON.stringify(
-    GitFilesResponse$outboundSchema.parse(gitFilesResponse),
-  );
-}
 
 export function gitFilesResponseFromJSON(
   jsonString: string,

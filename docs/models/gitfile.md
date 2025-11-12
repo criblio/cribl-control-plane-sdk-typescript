@@ -9,11 +9,11 @@ let value: GitFile = {
   children: [
     {
       name: "<value>",
-      state: "Minnesota",
+      state: "Oregon",
     },
   ],
   name: "<value>",
-  state: "Oregon",
+  state: "Nevada",
 };
 ```
 

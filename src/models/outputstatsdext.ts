@@ -22,7 +22,13 @@ export type OutputStatsdExtType = ClosedEnum<typeof OutputStatsdExtType>;
  * Protocol to use when communicating with the destination.
  */
 export const OutputStatsdExtDestinationProtocol = {
+  /**
+   * UDP
+   */
   Udp: "udp",
+  /**
+   * TCP
+   */
   Tcp: "tcp",
 } as const;
 /**
@@ -36,8 +42,17 @@ export type OutputStatsdExtDestinationProtocol = OpenEnum<
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputStatsdExtBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -48,10 +63,38 @@ export type OutputStatsdExtBackpressureBehavior = OpenEnum<
 >;
 
 /**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputStatsdExtMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputStatsdExtMode = OpenEnum<typeof OutputStatsdExtMode>;
+
+/**
  * Codec to use to compress the persisted data
  */
 export const OutputStatsdExtCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -65,7 +108,13 @@ export type OutputStatsdExtCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputStatsdExtQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -74,19 +123,6 @@ export const OutputStatsdExtQueueFullBehavior = {
 export type OutputStatsdExtQueueFullBehavior = OpenEnum<
   typeof OutputStatsdExtQueueFullBehavior
 >;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputStatsdExtMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputStatsdExtMode = OpenEnum<typeof OutputStatsdExtMode>;
 
 export type OutputStatsdExtPqControls = {};
 
@@ -154,6 +190,26 @@ export type OutputStatsdExt = {
    */
   onBackpressure?: OutputStatsdExtBackpressureBehavior | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputStatsdExtMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -173,10 +229,6 @@ export type OutputStatsdExt = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputStatsdExtQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputStatsdExtMode | undefined;
   pqControls?: OutputStatsdExtPqControls | undefined;
 };
 
@@ -184,22 +236,10 @@ export type OutputStatsdExt = {
 export const OutputStatsdExtType$inboundSchema: z.ZodNativeEnum<
   typeof OutputStatsdExtType
 > = z.nativeEnum(OutputStatsdExtType);
-
 /** @internal */
 export const OutputStatsdExtType$outboundSchema: z.ZodNativeEnum<
   typeof OutputStatsdExtType
 > = OutputStatsdExtType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputStatsdExtType$ {
-  /** @deprecated use `OutputStatsdExtType$inboundSchema` instead. */
-  export const inboundSchema = OutputStatsdExtType$inboundSchema;
-  /** @deprecated use `OutputStatsdExtType$outboundSchema` instead. */
-  export const outboundSchema = OutputStatsdExtType$outboundSchema;
-}
 
 /** @internal */
 export const OutputStatsdExtDestinationProtocol$inboundSchema: z.ZodType<
@@ -211,7 +251,6 @@ export const OutputStatsdExtDestinationProtocol$inboundSchema: z.ZodType<
     z.nativeEnum(OutputStatsdExtDestinationProtocol),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputStatsdExtDestinationProtocol$outboundSchema: z.ZodType<
   OutputStatsdExtDestinationProtocol,
@@ -221,18 +260,6 @@ export const OutputStatsdExtDestinationProtocol$outboundSchema: z.ZodType<
   z.nativeEnum(OutputStatsdExtDestinationProtocol),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputStatsdExtDestinationProtocol$ {
-  /** @deprecated use `OutputStatsdExtDestinationProtocol$inboundSchema` instead. */
-  export const inboundSchema = OutputStatsdExtDestinationProtocol$inboundSchema;
-  /** @deprecated use `OutputStatsdExtDestinationProtocol$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputStatsdExtDestinationProtocol$outboundSchema;
-}
 
 /** @internal */
 export const OutputStatsdExtBackpressureBehavior$inboundSchema: z.ZodType<
@@ -244,7 +271,6 @@ export const OutputStatsdExtBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputStatsdExtBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputStatsdExtBackpressureBehavior$outboundSchema: z.ZodType<
   OutputStatsdExtBackpressureBehavior,
@@ -254,83 +280,6 @@ export const OutputStatsdExtBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputStatsdExtBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputStatsdExtBackpressureBehavior$ {
-  /** @deprecated use `OutputStatsdExtBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputStatsdExtBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputStatsdExtBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputStatsdExtBackpressureBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputStatsdExtCompression$inboundSchema: z.ZodType<
-  OutputStatsdExtCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputStatsdExtCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputStatsdExtCompression$outboundSchema: z.ZodType<
-  OutputStatsdExtCompression,
-  z.ZodTypeDef,
-  OutputStatsdExtCompression
-> = z.union([
-  z.nativeEnum(OutputStatsdExtCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputStatsdExtCompression$ {
-  /** @deprecated use `OutputStatsdExtCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputStatsdExtCompression$inboundSchema;
-  /** @deprecated use `OutputStatsdExtCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputStatsdExtCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputStatsdExtQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputStatsdExtQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputStatsdExtQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputStatsdExtQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputStatsdExtQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputStatsdExtQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputStatsdExtQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputStatsdExtQueueFullBehavior$ {
-  /** @deprecated use `OutputStatsdExtQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputStatsdExtQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputStatsdExtQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputStatsdExtQueueFullBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputStatsdExtMode$inboundSchema: z.ZodType<
@@ -342,7 +291,6 @@ export const OutputStatsdExtMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputStatsdExtMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputStatsdExtMode$outboundSchema: z.ZodType<
   OutputStatsdExtMode,
@@ -353,16 +301,45 @@ export const OutputStatsdExtMode$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputStatsdExtMode$ {
-  /** @deprecated use `OutputStatsdExtMode$inboundSchema` instead. */
-  export const inboundSchema = OutputStatsdExtMode$inboundSchema;
-  /** @deprecated use `OutputStatsdExtMode$outboundSchema` instead. */
-  export const outboundSchema = OutputStatsdExtMode$outboundSchema;
-}
+/** @internal */
+export const OutputStatsdExtCompression$inboundSchema: z.ZodType<
+  OutputStatsdExtCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputStatsdExtCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputStatsdExtCompression$outboundSchema: z.ZodType<
+  OutputStatsdExtCompression,
+  z.ZodTypeDef,
+  OutputStatsdExtCompression
+> = z.union([
+  z.nativeEnum(OutputStatsdExtCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputStatsdExtQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputStatsdExtQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputStatsdExtQueueFullBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputStatsdExtQueueFullBehavior$outboundSchema: z.ZodType<
+  OutputStatsdExtQueueFullBehavior,
+  z.ZodTypeDef,
+  OutputStatsdExtQueueFullBehavior
+> = z.union([
+  z.nativeEnum(OutputStatsdExtQueueFullBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /** @internal */
 export const OutputStatsdExtPqControls$inboundSchema: z.ZodType<
@@ -370,7 +347,6 @@ export const OutputStatsdExtPqControls$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputStatsdExtPqControls$Outbound = {};
 
@@ -381,19 +357,6 @@ export const OutputStatsdExtPqControls$outboundSchema: z.ZodType<
   OutputStatsdExtPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputStatsdExtPqControls$ {
-  /** @deprecated use `OutputStatsdExtPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputStatsdExtPqControls$inboundSchema;
-  /** @deprecated use `OutputStatsdExtPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputStatsdExtPqControls$outboundSchema;
-  /** @deprecated use `OutputStatsdExtPqControls$Outbound` instead. */
-  export type Outbound = OutputStatsdExtPqControls$Outbound;
-}
-
 export function outputStatsdExtPqControlsToJSON(
   outputStatsdExtPqControls: OutputStatsdExtPqControls,
 ): string {
@@ -401,7 +364,6 @@ export function outputStatsdExtPqControlsToJSON(
     OutputStatsdExtPqControls$outboundSchema.parse(outputStatsdExtPqControls),
   );
 }
-
 export function outputStatsdExtPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputStatsdExtPqControls, SDKValidationError> {
@@ -437,6 +399,11 @@ export const OutputStatsdExt$inboundSchema: z.ZodType<
   onBackpressure: OutputStatsdExtBackpressureBehavior$inboundSchema.default(
     "block",
   ),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputStatsdExtMode$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -444,10 +411,8 @@ export const OutputStatsdExt$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputStatsdExtQueueFullBehavior$inboundSchema.default(
     "block",
   ),
-  pqMode: OutputStatsdExtMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputStatsdExtPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type OutputStatsdExt$Outbound = {
   id?: string | undefined;
@@ -467,12 +432,16 @@ export type OutputStatsdExt$Outbound = {
   connectionTimeout: number;
   writeTimeout: number;
   onBackpressure: string;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
   pqControls?: OutputStatsdExtPqControls$Outbound | undefined;
 };
 
@@ -501,6 +470,11 @@ export const OutputStatsdExt$outboundSchema: z.ZodType<
   onBackpressure: OutputStatsdExtBackpressureBehavior$outboundSchema.default(
     "block",
   ),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputStatsdExtMode$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -508,29 +482,14 @@ export const OutputStatsdExt$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputStatsdExtQueueFullBehavior$outboundSchema.default(
     "block",
   ),
-  pqMode: OutputStatsdExtMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputStatsdExtPqControls$outboundSchema).optional(),
 });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputStatsdExt$ {
-  /** @deprecated use `OutputStatsdExt$inboundSchema` instead. */
-  export const inboundSchema = OutputStatsdExt$inboundSchema;
-  /** @deprecated use `OutputStatsdExt$outboundSchema` instead. */
-  export const outboundSchema = OutputStatsdExt$outboundSchema;
-  /** @deprecated use `OutputStatsdExt$Outbound` instead. */
-  export type Outbound = OutputStatsdExt$Outbound;
-}
 
 export function outputStatsdExtToJSON(
   outputStatsdExt: OutputStatsdExt,
 ): string {
   return JSON.stringify(OutputStatsdExt$outboundSchema.parse(outputStatsdExt));
 }
-
 export function outputStatsdExtFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputStatsdExt, SDKValidationError> {

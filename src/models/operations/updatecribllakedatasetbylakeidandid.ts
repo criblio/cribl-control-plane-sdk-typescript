@@ -4,9 +4,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type UpdateCriblLakeDatasetByLakeIdAndIdRequest = {
@@ -23,30 +20,6 @@ export type UpdateCriblLakeDatasetByLakeIdAndIdRequest = {
    */
   criblLakeDatasetUpdate: models.CriblLakeDatasetUpdate;
 };
-
-/**
- * a list of CriblLakeDataset objects
- */
-export type UpdateCriblLakeDatasetByLakeIdAndIdResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.CriblLakeDataset> | undefined;
-};
-
-/** @internal */
-export const UpdateCriblLakeDatasetByLakeIdAndIdRequest$inboundSchema:
-  z.ZodType<UpdateCriblLakeDatasetByLakeIdAndIdRequest, z.ZodTypeDef, unknown> =
-    z.object({
-      lakeId: z.string(),
-      id: z.string(),
-      CriblLakeDatasetUpdate: models.CriblLakeDatasetUpdate$inboundSchema,
-    }).transform((v) => {
-      return remap$(v, {
-        "CriblLakeDatasetUpdate": "criblLakeDatasetUpdate",
-      });
-    });
 
 /** @internal */
 export type UpdateCriblLakeDatasetByLakeIdAndIdRequest$Outbound = {
@@ -71,21 +44,6 @@ export const UpdateCriblLakeDatasetByLakeIdAndIdRequest$outboundSchema:
     });
   });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateCriblLakeDatasetByLakeIdAndIdRequest$ {
-  /** @deprecated use `UpdateCriblLakeDatasetByLakeIdAndIdRequest$inboundSchema` instead. */
-  export const inboundSchema =
-    UpdateCriblLakeDatasetByLakeIdAndIdRequest$inboundSchema;
-  /** @deprecated use `UpdateCriblLakeDatasetByLakeIdAndIdRequest$outboundSchema` instead. */
-  export const outboundSchema =
-    UpdateCriblLakeDatasetByLakeIdAndIdRequest$outboundSchema;
-  /** @deprecated use `UpdateCriblLakeDatasetByLakeIdAndIdRequest$Outbound` instead. */
-  export type Outbound = UpdateCriblLakeDatasetByLakeIdAndIdRequest$Outbound;
-}
-
 export function updateCriblLakeDatasetByLakeIdAndIdRequestToJSON(
   updateCriblLakeDatasetByLakeIdAndIdRequest:
     UpdateCriblLakeDatasetByLakeIdAndIdRequest,
@@ -94,91 +52,5 @@ export function updateCriblLakeDatasetByLakeIdAndIdRequestToJSON(
     UpdateCriblLakeDatasetByLakeIdAndIdRequest$outboundSchema.parse(
       updateCriblLakeDatasetByLakeIdAndIdRequest,
     ),
-  );
-}
-
-export function updateCriblLakeDatasetByLakeIdAndIdRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  UpdateCriblLakeDatasetByLakeIdAndIdRequest,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      UpdateCriblLakeDatasetByLakeIdAndIdRequest$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'UpdateCriblLakeDatasetByLakeIdAndIdRequest' from JSON`,
-  );
-}
-
-/** @internal */
-export const UpdateCriblLakeDatasetByLakeIdAndIdResponse$inboundSchema:
-  z.ZodType<
-    UpdateCriblLakeDatasetByLakeIdAndIdResponse,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    count: z.number().int().optional(),
-    items: z.array(models.CriblLakeDataset$inboundSchema).optional(),
-  });
-
-/** @internal */
-export type UpdateCriblLakeDatasetByLakeIdAndIdResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.CriblLakeDataset$Outbound> | undefined;
-};
-
-/** @internal */
-export const UpdateCriblLakeDatasetByLakeIdAndIdResponse$outboundSchema:
-  z.ZodType<
-    UpdateCriblLakeDatasetByLakeIdAndIdResponse$Outbound,
-    z.ZodTypeDef,
-    UpdateCriblLakeDatasetByLakeIdAndIdResponse
-  > = z.object({
-    count: z.number().int().optional(),
-    items: z.array(models.CriblLakeDataset$outboundSchema).optional(),
-  });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateCriblLakeDatasetByLakeIdAndIdResponse$ {
-  /** @deprecated use `UpdateCriblLakeDatasetByLakeIdAndIdResponse$inboundSchema` instead. */
-  export const inboundSchema =
-    UpdateCriblLakeDatasetByLakeIdAndIdResponse$inboundSchema;
-  /** @deprecated use `UpdateCriblLakeDatasetByLakeIdAndIdResponse$outboundSchema` instead. */
-  export const outboundSchema =
-    UpdateCriblLakeDatasetByLakeIdAndIdResponse$outboundSchema;
-  /** @deprecated use `UpdateCriblLakeDatasetByLakeIdAndIdResponse$Outbound` instead. */
-  export type Outbound = UpdateCriblLakeDatasetByLakeIdAndIdResponse$Outbound;
-}
-
-export function updateCriblLakeDatasetByLakeIdAndIdResponseToJSON(
-  updateCriblLakeDatasetByLakeIdAndIdResponse:
-    UpdateCriblLakeDatasetByLakeIdAndIdResponse,
-): string {
-  return JSON.stringify(
-    UpdateCriblLakeDatasetByLakeIdAndIdResponse$outboundSchema.parse(
-      updateCriblLakeDatasetByLakeIdAndIdResponse,
-    ),
-  );
-}
-
-export function updateCriblLakeDatasetByLakeIdAndIdResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  UpdateCriblLakeDatasetByLakeIdAndIdResponse,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      UpdateCriblLakeDatasetByLakeIdAndIdResponse$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'UpdateCriblLakeDatasetByLakeIdAndIdResponse' from JSON`,
   );
 }

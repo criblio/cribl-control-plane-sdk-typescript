@@ -37,47 +37,6 @@ export const GitRevertResultFiles$inboundSchema: z.ZodType<
   renamed: z.array(z.string()).optional(),
 });
 
-/** @internal */
-export type GitRevertResultFiles$Outbound = {
-  created?: Array<string> | undefined;
-  deleted?: Array<string> | undefined;
-  modified?: Array<string> | undefined;
-  renamed?: Array<string> | undefined;
-};
-
-/** @internal */
-export const GitRevertResultFiles$outboundSchema: z.ZodType<
-  GitRevertResultFiles$Outbound,
-  z.ZodTypeDef,
-  GitRevertResultFiles
-> = z.object({
-  created: z.array(z.string()).optional(),
-  deleted: z.array(z.string()).optional(),
-  modified: z.array(z.string()).optional(),
-  renamed: z.array(z.string()).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GitRevertResultFiles$ {
-  /** @deprecated use `GitRevertResultFiles$inboundSchema` instead. */
-  export const inboundSchema = GitRevertResultFiles$inboundSchema;
-  /** @deprecated use `GitRevertResultFiles$outboundSchema` instead. */
-  export const outboundSchema = GitRevertResultFiles$outboundSchema;
-  /** @deprecated use `GitRevertResultFiles$Outbound` instead. */
-  export type Outbound = GitRevertResultFiles$Outbound;
-}
-
-export function gitRevertResultFilesToJSON(
-  gitRevertResultFiles: GitRevertResultFiles,
-): string {
-  return JSON.stringify(
-    GitRevertResultFiles$outboundSchema.parse(gitRevertResultFiles),
-  );
-}
-
 export function gitRevertResultFilesFromJSON(
   jsonString: string,
 ): SafeParseResult<GitRevertResultFiles, SDKValidationError> {
@@ -95,41 +54,6 @@ export const Audit$inboundSchema: z.ZodType<Audit, z.ZodTypeDef, unknown> = z
     group: z.string().optional(),
     id: z.string(),
   });
-
-/** @internal */
-export type Audit$Outbound = {
-  files?: GitRevertResultFiles$Outbound | undefined;
-  group?: string | undefined;
-  id: string;
-};
-
-/** @internal */
-export const Audit$outboundSchema: z.ZodType<
-  Audit$Outbound,
-  z.ZodTypeDef,
-  Audit
-> = z.object({
-  files: z.lazy(() => GitRevertResultFiles$outboundSchema).optional(),
-  group: z.string().optional(),
-  id: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Audit$ {
-  /** @deprecated use `Audit$inboundSchema` instead. */
-  export const inboundSchema = Audit$inboundSchema;
-  /** @deprecated use `Audit$outboundSchema` instead. */
-  export const outboundSchema = Audit$outboundSchema;
-  /** @deprecated use `Audit$Outbound` instead. */
-  export type Outbound = Audit$Outbound;
-}
-
-export function auditToJSON(audit: Audit): string {
-  return JSON.stringify(Audit$outboundSchema.parse(audit));
-}
 
 export function auditFromJSON(
   jsonString: string,
@@ -150,41 +74,6 @@ export const GitRevertResult$inboundSchema: z.ZodType<
   audit: z.lazy(() => Audit$inboundSchema),
   reverted: z.boolean(),
 });
-
-/** @internal */
-export type GitRevertResult$Outbound = {
-  audit: Audit$Outbound;
-  reverted: boolean;
-};
-
-/** @internal */
-export const GitRevertResult$outboundSchema: z.ZodType<
-  GitRevertResult$Outbound,
-  z.ZodTypeDef,
-  GitRevertResult
-> = z.object({
-  audit: z.lazy(() => Audit$outboundSchema),
-  reverted: z.boolean(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GitRevertResult$ {
-  /** @deprecated use `GitRevertResult$inboundSchema` instead. */
-  export const inboundSchema = GitRevertResult$inboundSchema;
-  /** @deprecated use `GitRevertResult$outboundSchema` instead. */
-  export const outboundSchema = GitRevertResult$outboundSchema;
-  /** @deprecated use `GitRevertResult$Outbound` instead. */
-  export type Outbound = GitRevertResult$Outbound;
-}
-
-export function gitRevertResultToJSON(
-  gitRevertResult: GitRevertResult,
-): string {
-  return JSON.stringify(GitRevertResult$outboundSchema.parse(gitRevertResult));
-}
 
 export function gitRevertResultFromJSON(
   jsonString: string,

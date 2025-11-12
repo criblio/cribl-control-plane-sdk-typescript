@@ -61,7 +61,6 @@ export const PipelineGroups$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
 });
-
 /** @internal */
 export type PipelineGroups$Outbound = {
   name: string;
@@ -80,23 +79,9 @@ export const PipelineGroups$outboundSchema: z.ZodType<
   disabled: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PipelineGroups$ {
-  /** @deprecated use `PipelineGroups$inboundSchema` instead. */
-  export const inboundSchema = PipelineGroups$inboundSchema;
-  /** @deprecated use `PipelineGroups$outboundSchema` instead. */
-  export const outboundSchema = PipelineGroups$outboundSchema;
-  /** @deprecated use `PipelineGroups$Outbound` instead. */
-  export type Outbound = PipelineGroups$Outbound;
-}
-
 export function pipelineGroupsToJSON(pipelineGroups: PipelineGroups): string {
   return JSON.stringify(PipelineGroups$outboundSchema.parse(pipelineGroups));
 }
-
 export function pipelineGroupsFromJSON(
   jsonString: string,
 ): SafeParseResult<PipelineGroups, SDKValidationError> {
@@ -117,7 +102,6 @@ export const Conf$inboundSchema: z.ZodType<Conf, z.ZodTypeDef, unknown> = z
     functions: z.array(PipelineFunctionConf$inboundSchema).optional(),
     groups: z.record(z.lazy(() => PipelineGroups$inboundSchema)).optional(),
   });
-
 /** @internal */
 export type Conf$Outbound = {
   asyncFuncTimeout?: number | undefined;
@@ -139,23 +123,9 @@ export const Conf$outboundSchema: z.ZodType<Conf$Outbound, z.ZodTypeDef, Conf> =
     groups: z.record(z.lazy(() => PipelineGroups$outboundSchema)).optional(),
   });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Conf$ {
-  /** @deprecated use `Conf$inboundSchema` instead. */
-  export const inboundSchema = Conf$inboundSchema;
-  /** @deprecated use `Conf$outboundSchema` instead. */
-  export const outboundSchema = Conf$outboundSchema;
-  /** @deprecated use `Conf$Outbound` instead. */
-  export type Outbound = Conf$Outbound;
-}
-
 export function confToJSON(conf: Conf): string {
   return JSON.stringify(Conf$outboundSchema.parse(conf));
 }
-
 export function confFromJSON(
   jsonString: string,
 ): SafeParseResult<Conf, SDKValidationError> {
@@ -175,7 +145,6 @@ export const Pipeline$inboundSchema: z.ZodType<
   id: z.string(),
   conf: z.lazy(() => Conf$inboundSchema),
 });
-
 /** @internal */
 export type Pipeline$Outbound = {
   id: string;
@@ -192,23 +161,9 @@ export const Pipeline$outboundSchema: z.ZodType<
   conf: z.lazy(() => Conf$outboundSchema),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Pipeline$ {
-  /** @deprecated use `Pipeline$inboundSchema` instead. */
-  export const inboundSchema = Pipeline$inboundSchema;
-  /** @deprecated use `Pipeline$outboundSchema` instead. */
-  export const outboundSchema = Pipeline$outboundSchema;
-  /** @deprecated use `Pipeline$Outbound` instead. */
-  export type Outbound = Pipeline$Outbound;
-}
-
 export function pipelineToJSON(pipeline: Pipeline): string {
   return JSON.stringify(Pipeline$outboundSchema.parse(pipeline));
 }
-
 export function pipelineFromJSON(
   jsonString: string,
 ): SafeParseResult<Pipeline, SDKValidationError> {

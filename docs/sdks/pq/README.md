@@ -79,7 +79,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.DeleteOutputPqByIdResponse](../../models/operations/deleteoutputpqbyidresponse.md)\>**
+**Promise\<[models.CountedString](../../models/countedstring.md)\>**
 
 ### Errors
 
@@ -159,7 +159,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetOutputPqByIdResponse](../../models/operations/getoutputpqbyidresponse.md)\>**
+**Promise\<[models.CountedJobInfo](../../models/countedjobinfo.md)\>**
 
 ### Errors
 

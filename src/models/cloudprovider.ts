@@ -25,7 +25,6 @@ export const CloudProvider$inboundSchema: z.ZodType<
     z.nativeEnum(CloudProvider),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const CloudProvider$outboundSchema: z.ZodType<
   CloudProvider,
@@ -35,14 +34,3 @@ export const CloudProvider$outboundSchema: z.ZodType<
   z.nativeEnum(CloudProvider),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CloudProvider$ {
-  /** @deprecated use `CloudProvider$inboundSchema` instead. */
-  export const inboundSchema = CloudProvider$inboundSchema;
-  /** @deprecated use `CloudProvider$outboundSchema` instead. */
-  export const outboundSchema = CloudProvider$outboundSchema;
-}

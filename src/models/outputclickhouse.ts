@@ -35,7 +35,13 @@ export type OutputClickHouseAuthenticationType = OpenEnum<
  * Data format to use when sending data to ClickHouse. Defaults to JSON Compact.
  */
 export const OutputClickHouseFormat = {
+  /**
+   * JSONCompactEachRowWithNames
+   */
   JsonCompactEachRowWithNames: "json-compact-each-row-with-names",
+  /**
+   * JSONEachRow
+   */
   JsonEachRow: "json-each-row",
 } as const;
 /**
@@ -47,7 +53,13 @@ export type OutputClickHouseFormat = OpenEnum<typeof OutputClickHouseFormat>;
  * How event fields are mapped to ClickHouse columns.
  */
 export const MappingType = {
+  /**
+   * Automatic
+   */
   Automatic: "automatic",
+  /**
+   * Custom
+   */
   Custom: "custom",
 } as const;
 /**
@@ -114,8 +126,17 @@ export type OutputClickHouseExtraHttpHeader = {
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
 export const OutputClickHouseFailedRequestLoggingMode = {
+  /**
+   * Payload
+   */
   Payload: "payload",
+  /**
+   * Payload + Headers
+   */
   PayloadAndHeaders: "payloadAndHeaders",
+  /**
+   * None
+   */
   None: "none",
 } as const;
 /**
@@ -164,8 +185,17 @@ export type OutputClickHouseTimeoutRetrySettings = {
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputClickHouseBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -213,10 +243,38 @@ export type ColumnMapping = {
 };
 
 /**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputClickHouseMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputClickHouseMode = OpenEnum<typeof OutputClickHouseMode>;
+
+/**
  * Codec to use to compress the persisted data
  */
 export const OutputClickHouseCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -230,7 +288,13 @@ export type OutputClickHouseCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputClickHouseQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -239,19 +303,6 @@ export const OutputClickHouseQueueFullBehavior = {
 export type OutputClickHouseQueueFullBehavior = OpenEnum<
   typeof OutputClickHouseQueueFullBehavior
 >;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputClickHouseMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputClickHouseMode = OpenEnum<typeof OutputClickHouseMode>;
 
 export type OutputClickHousePqControls = {};
 
@@ -434,6 +485,26 @@ export type OutputClickHouse = {
   describeTable?: string | undefined;
   columnMappings?: Array<ColumnMapping> | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputClickHouseMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -453,10 +524,6 @@ export type OutputClickHouse = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputClickHouseQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputClickHouseMode | undefined;
   pqControls?: OutputClickHousePqControls | undefined;
 };
 
@@ -464,22 +531,10 @@ export type OutputClickHouse = {
 export const OutputClickHouseType$inboundSchema: z.ZodNativeEnum<
   typeof OutputClickHouseType
 > = z.nativeEnum(OutputClickHouseType);
-
 /** @internal */
 export const OutputClickHouseType$outboundSchema: z.ZodNativeEnum<
   typeof OutputClickHouseType
 > = OutputClickHouseType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputClickHouseType$ {
-  /** @deprecated use `OutputClickHouseType$inboundSchema` instead. */
-  export const inboundSchema = OutputClickHouseType$inboundSchema;
-  /** @deprecated use `OutputClickHouseType$outboundSchema` instead. */
-  export const outboundSchema = OutputClickHouseType$outboundSchema;
-}
 
 /** @internal */
 export const OutputClickHouseAuthenticationType$inboundSchema: z.ZodType<
@@ -491,7 +546,6 @@ export const OutputClickHouseAuthenticationType$inboundSchema: z.ZodType<
     z.nativeEnum(OutputClickHouseAuthenticationType),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputClickHouseAuthenticationType$outboundSchema: z.ZodType<
   OutputClickHouseAuthenticationType,
@@ -501,18 +555,6 @@ export const OutputClickHouseAuthenticationType$outboundSchema: z.ZodType<
   z.nativeEnum(OutputClickHouseAuthenticationType),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputClickHouseAuthenticationType$ {
-  /** @deprecated use `OutputClickHouseAuthenticationType$inboundSchema` instead. */
-  export const inboundSchema = OutputClickHouseAuthenticationType$inboundSchema;
-  /** @deprecated use `OutputClickHouseAuthenticationType$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputClickHouseAuthenticationType$outboundSchema;
-}
 
 /** @internal */
 export const OutputClickHouseFormat$inboundSchema: z.ZodType<
@@ -524,7 +566,6 @@ export const OutputClickHouseFormat$inboundSchema: z.ZodType<
     z.nativeEnum(OutputClickHouseFormat),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputClickHouseFormat$outboundSchema: z.ZodType<
   OutputClickHouseFormat,
@@ -534,17 +575,6 @@ export const OutputClickHouseFormat$outboundSchema: z.ZodType<
   z.nativeEnum(OutputClickHouseFormat),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputClickHouseFormat$ {
-  /** @deprecated use `OutputClickHouseFormat$inboundSchema` instead. */
-  export const inboundSchema = OutputClickHouseFormat$inboundSchema;
-  /** @deprecated use `OutputClickHouseFormat$outboundSchema` instead. */
-  export const outboundSchema = OutputClickHouseFormat$outboundSchema;
-}
 
 /** @internal */
 export const MappingType$inboundSchema: z.ZodType<
@@ -556,7 +586,6 @@ export const MappingType$inboundSchema: z.ZodType<
     z.nativeEnum(MappingType),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const MappingType$outboundSchema: z.ZodType<
   MappingType,
@@ -566,17 +595,6 @@ export const MappingType$outboundSchema: z.ZodType<
   z.nativeEnum(MappingType),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MappingType$ {
-  /** @deprecated use `MappingType$inboundSchema` instead. */
-  export const inboundSchema = MappingType$inboundSchema;
-  /** @deprecated use `MappingType$outboundSchema` instead. */
-  export const outboundSchema = MappingType$outboundSchema;
-}
 
 /** @internal */
 export const OutputClickHouseMinimumTLSVersion$inboundSchema: z.ZodType<
@@ -588,7 +606,6 @@ export const OutputClickHouseMinimumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputClickHouseMinimumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputClickHouseMinimumTLSVersion$outboundSchema: z.ZodType<
   OutputClickHouseMinimumTLSVersion,
@@ -598,18 +615,6 @@ export const OutputClickHouseMinimumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputClickHouseMinimumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputClickHouseMinimumTLSVersion$ {
-  /** @deprecated use `OutputClickHouseMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputClickHouseMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputClickHouseMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputClickHouseMinimumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputClickHouseMaximumTLSVersion$inboundSchema: z.ZodType<
@@ -621,7 +626,6 @@ export const OutputClickHouseMaximumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputClickHouseMaximumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputClickHouseMaximumTLSVersion$outboundSchema: z.ZodType<
   OutputClickHouseMaximumTLSVersion,
@@ -631,18 +635,6 @@ export const OutputClickHouseMaximumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputClickHouseMaximumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputClickHouseMaximumTLSVersion$ {
-  /** @deprecated use `OutputClickHouseMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputClickHouseMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputClickHouseMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputClickHouseMaximumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputClickHouseTLSSettingsClientSide$inboundSchema: z.ZodType<
@@ -660,7 +652,6 @@ export const OutputClickHouseTLSSettingsClientSide$inboundSchema: z.ZodType<
   minVersion: OutputClickHouseMinimumTLSVersion$inboundSchema.optional(),
   maxVersion: OutputClickHouseMaximumTLSVersion$inboundSchema.optional(),
 });
-
 /** @internal */
 export type OutputClickHouseTLSSettingsClientSide$Outbound = {
   disabled: boolean;
@@ -691,21 +682,6 @@ export const OutputClickHouseTLSSettingsClientSide$outboundSchema: z.ZodType<
   maxVersion: OutputClickHouseMaximumTLSVersion$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputClickHouseTLSSettingsClientSide$ {
-  /** @deprecated use `OutputClickHouseTLSSettingsClientSide$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputClickHouseTLSSettingsClientSide$inboundSchema;
-  /** @deprecated use `OutputClickHouseTLSSettingsClientSide$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputClickHouseTLSSettingsClientSide$outboundSchema;
-  /** @deprecated use `OutputClickHouseTLSSettingsClientSide$Outbound` instead. */
-  export type Outbound = OutputClickHouseTLSSettingsClientSide$Outbound;
-}
-
 export function outputClickHouseTLSSettingsClientSideToJSON(
   outputClickHouseTLSSettingsClientSide: OutputClickHouseTLSSettingsClientSide,
 ): string {
@@ -715,7 +691,6 @@ export function outputClickHouseTLSSettingsClientSideToJSON(
     ),
   );
 }
-
 export function outputClickHouseTLSSettingsClientSideFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputClickHouseTLSSettingsClientSide, SDKValidationError> {
@@ -736,7 +711,6 @@ export const OutputClickHouseExtraHttpHeader$inboundSchema: z.ZodType<
   name: z.string().optional(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputClickHouseExtraHttpHeader$Outbound = {
   name?: string | undefined;
@@ -753,19 +727,6 @@ export const OutputClickHouseExtraHttpHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputClickHouseExtraHttpHeader$ {
-  /** @deprecated use `OutputClickHouseExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputClickHouseExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputClickHouseExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputClickHouseExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputClickHouseExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputClickHouseExtraHttpHeader$Outbound;
-}
-
 export function outputClickHouseExtraHttpHeaderToJSON(
   outputClickHouseExtraHttpHeader: OutputClickHouseExtraHttpHeader,
 ): string {
@@ -775,7 +736,6 @@ export function outputClickHouseExtraHttpHeaderToJSON(
     ),
   );
 }
-
 export function outputClickHouseExtraHttpHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputClickHouseExtraHttpHeader, SDKValidationError> {
@@ -796,7 +756,6 @@ export const OutputClickHouseFailedRequestLoggingMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputClickHouseFailedRequestLoggingMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputClickHouseFailedRequestLoggingMode$outboundSchema: z.ZodType<
   OutputClickHouseFailedRequestLoggingMode,
@@ -806,19 +765,6 @@ export const OutputClickHouseFailedRequestLoggingMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputClickHouseFailedRequestLoggingMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputClickHouseFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputClickHouseFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputClickHouseFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputClickHouseFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputClickHouseFailedRequestLoggingMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputClickHouseResponseRetrySetting$inboundSchema: z.ZodType<
@@ -831,7 +777,6 @@ export const OutputClickHouseResponseRetrySetting$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputClickHouseResponseRetrySetting$Outbound = {
   httpStatus: number;
@@ -852,21 +797,6 @@ export const OutputClickHouseResponseRetrySetting$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputClickHouseResponseRetrySetting$ {
-  /** @deprecated use `OutputClickHouseResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputClickHouseResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputClickHouseResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputClickHouseResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputClickHouseResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputClickHouseResponseRetrySetting$Outbound;
-}
-
 export function outputClickHouseResponseRetrySettingToJSON(
   outputClickHouseResponseRetrySetting: OutputClickHouseResponseRetrySetting,
 ): string {
@@ -876,7 +806,6 @@ export function outputClickHouseResponseRetrySettingToJSON(
     ),
   );
 }
-
 export function outputClickHouseResponseRetrySettingFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputClickHouseResponseRetrySetting, SDKValidationError> {
@@ -899,7 +828,6 @@ export const OutputClickHouseTimeoutRetrySettings$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputClickHouseTimeoutRetrySettings$Outbound = {
   timeoutRetry: boolean;
@@ -920,21 +848,6 @@ export const OutputClickHouseTimeoutRetrySettings$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputClickHouseTimeoutRetrySettings$ {
-  /** @deprecated use `OutputClickHouseTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputClickHouseTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputClickHouseTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputClickHouseTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputClickHouseTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputClickHouseTimeoutRetrySettings$Outbound;
-}
-
 export function outputClickHouseTimeoutRetrySettingsToJSON(
   outputClickHouseTimeoutRetrySettings: OutputClickHouseTimeoutRetrySettings,
 ): string {
@@ -944,7 +857,6 @@ export function outputClickHouseTimeoutRetrySettingsToJSON(
     ),
   );
 }
-
 export function outputClickHouseTimeoutRetrySettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputClickHouseTimeoutRetrySettings, SDKValidationError> {
@@ -966,7 +878,6 @@ export const OutputClickHouseBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputClickHouseBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputClickHouseBackpressureBehavior$outboundSchema: z.ZodType<
   OutputClickHouseBackpressureBehavior,
@@ -977,19 +888,6 @@ export const OutputClickHouseBackpressureBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputClickHouseBackpressureBehavior$ {
-  /** @deprecated use `OutputClickHouseBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputClickHouseBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputClickHouseBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputClickHouseBackpressureBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputClickHouseOauthParam$inboundSchema: z.ZodType<
   OutputClickHouseOauthParam,
@@ -999,7 +897,6 @@ export const OutputClickHouseOauthParam$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputClickHouseOauthParam$Outbound = {
   name: string;
@@ -1016,19 +913,6 @@ export const OutputClickHouseOauthParam$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputClickHouseOauthParam$ {
-  /** @deprecated use `OutputClickHouseOauthParam$inboundSchema` instead. */
-  export const inboundSchema = OutputClickHouseOauthParam$inboundSchema;
-  /** @deprecated use `OutputClickHouseOauthParam$outboundSchema` instead. */
-  export const outboundSchema = OutputClickHouseOauthParam$outboundSchema;
-  /** @deprecated use `OutputClickHouseOauthParam$Outbound` instead. */
-  export type Outbound = OutputClickHouseOauthParam$Outbound;
-}
-
 export function outputClickHouseOauthParamToJSON(
   outputClickHouseOauthParam: OutputClickHouseOauthParam,
 ): string {
@@ -1036,7 +920,6 @@ export function outputClickHouseOauthParamToJSON(
     OutputClickHouseOauthParam$outboundSchema.parse(outputClickHouseOauthParam),
   );
 }
-
 export function outputClickHouseOauthParamFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputClickHouseOauthParam, SDKValidationError> {
@@ -1056,7 +939,6 @@ export const OutputClickHouseOauthHeader$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputClickHouseOauthHeader$Outbound = {
   name: string;
@@ -1073,19 +955,6 @@ export const OutputClickHouseOauthHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputClickHouseOauthHeader$ {
-  /** @deprecated use `OutputClickHouseOauthHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputClickHouseOauthHeader$inboundSchema;
-  /** @deprecated use `OutputClickHouseOauthHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputClickHouseOauthHeader$outboundSchema;
-  /** @deprecated use `OutputClickHouseOauthHeader$Outbound` instead. */
-  export type Outbound = OutputClickHouseOauthHeader$Outbound;
-}
-
 export function outputClickHouseOauthHeaderToJSON(
   outputClickHouseOauthHeader: OutputClickHouseOauthHeader,
 ): string {
@@ -1095,7 +964,6 @@ export function outputClickHouseOauthHeaderToJSON(
     ),
   );
 }
-
 export function outputClickHouseOauthHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputClickHouseOauthHeader, SDKValidationError> {
@@ -1116,7 +984,6 @@ export const ColumnMapping$inboundSchema: z.ZodType<
   columnType: z.string().optional(),
   columnValueExpression: z.string(),
 });
-
 /** @internal */
 export type ColumnMapping$Outbound = {
   columnName: string;
@@ -1135,23 +1002,9 @@ export const ColumnMapping$outboundSchema: z.ZodType<
   columnValueExpression: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ColumnMapping$ {
-  /** @deprecated use `ColumnMapping$inboundSchema` instead. */
-  export const inboundSchema = ColumnMapping$inboundSchema;
-  /** @deprecated use `ColumnMapping$outboundSchema` instead. */
-  export const outboundSchema = ColumnMapping$outboundSchema;
-  /** @deprecated use `ColumnMapping$Outbound` instead. */
-  export type Outbound = ColumnMapping$Outbound;
-}
-
 export function columnMappingToJSON(columnMapping: ColumnMapping): string {
   return JSON.stringify(ColumnMapping$outboundSchema.parse(columnMapping));
 }
-
 export function columnMappingFromJSON(
   jsonString: string,
 ): SafeParseResult<ColumnMapping, SDKValidationError> {
@@ -1160,71 +1013,6 @@ export function columnMappingFromJSON(
     (x) => ColumnMapping$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'ColumnMapping' from JSON`,
   );
-}
-
-/** @internal */
-export const OutputClickHouseCompression$inboundSchema: z.ZodType<
-  OutputClickHouseCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputClickHouseCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputClickHouseCompression$outboundSchema: z.ZodType<
-  OutputClickHouseCompression,
-  z.ZodTypeDef,
-  OutputClickHouseCompression
-> = z.union([
-  z.nativeEnum(OutputClickHouseCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputClickHouseCompression$ {
-  /** @deprecated use `OutputClickHouseCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputClickHouseCompression$inboundSchema;
-  /** @deprecated use `OutputClickHouseCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputClickHouseCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputClickHouseQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputClickHouseQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputClickHouseQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputClickHouseQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputClickHouseQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputClickHouseQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputClickHouseQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputClickHouseQueueFullBehavior$ {
-  /** @deprecated use `OutputClickHouseQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputClickHouseQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputClickHouseQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputClickHouseQueueFullBehavior$outboundSchema;
 }
 
 /** @internal */
@@ -1237,7 +1025,6 @@ export const OutputClickHouseMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputClickHouseMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputClickHouseMode$outboundSchema: z.ZodType<
   OutputClickHouseMode,
@@ -1248,16 +1035,45 @@ export const OutputClickHouseMode$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputClickHouseMode$ {
-  /** @deprecated use `OutputClickHouseMode$inboundSchema` instead. */
-  export const inboundSchema = OutputClickHouseMode$inboundSchema;
-  /** @deprecated use `OutputClickHouseMode$outboundSchema` instead. */
-  export const outboundSchema = OutputClickHouseMode$outboundSchema;
-}
+/** @internal */
+export const OutputClickHouseCompression$inboundSchema: z.ZodType<
+  OutputClickHouseCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputClickHouseCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputClickHouseCompression$outboundSchema: z.ZodType<
+  OutputClickHouseCompression,
+  z.ZodTypeDef,
+  OutputClickHouseCompression
+> = z.union([
+  z.nativeEnum(OutputClickHouseCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputClickHouseQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputClickHouseQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputClickHouseQueueFullBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputClickHouseQueueFullBehavior$outboundSchema: z.ZodType<
+  OutputClickHouseQueueFullBehavior,
+  z.ZodTypeDef,
+  OutputClickHouseQueueFullBehavior
+> = z.union([
+  z.nativeEnum(OutputClickHouseQueueFullBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /** @internal */
 export const OutputClickHousePqControls$inboundSchema: z.ZodType<
@@ -1265,7 +1081,6 @@ export const OutputClickHousePqControls$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputClickHousePqControls$Outbound = {};
 
@@ -1276,19 +1091,6 @@ export const OutputClickHousePqControls$outboundSchema: z.ZodType<
   OutputClickHousePqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputClickHousePqControls$ {
-  /** @deprecated use `OutputClickHousePqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputClickHousePqControls$inboundSchema;
-  /** @deprecated use `OutputClickHousePqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputClickHousePqControls$outboundSchema;
-  /** @deprecated use `OutputClickHousePqControls$Outbound` instead. */
-  export type Outbound = OutputClickHousePqControls$Outbound;
-}
-
 export function outputClickHousePqControlsToJSON(
   outputClickHousePqControls: OutputClickHousePqControls,
 ): string {
@@ -1296,7 +1098,6 @@ export function outputClickHousePqControlsToJSON(
     OutputClickHousePqControls$outboundSchema.parse(outputClickHousePqControls),
   );
 }
-
 export function outputClickHousePqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputClickHousePqControls, SDKValidationError> {
@@ -1376,6 +1177,11 @@ export const OutputClickHouse$inboundSchema: z.ZodType<
   excludeMappingFields: z.array(z.string()).optional(),
   describeTable: z.string().optional(),
   columnMappings: z.array(z.lazy(() => ColumnMapping$inboundSchema)).optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputClickHouseMode$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1383,10 +1189,8 @@ export const OutputClickHouse$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputClickHouseQueueFullBehavior$inboundSchema.default(
     "block",
   ),
-  pqMode: OutputClickHouseMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputClickHousePqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type OutputClickHouse$Outbound = {
   id?: string | undefined;
@@ -1444,12 +1248,16 @@ export type OutputClickHouse$Outbound = {
   excludeMappingFields?: Array<string> | undefined;
   describeTable?: string | undefined;
   columnMappings?: Array<ColumnMapping$Outbound> | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
   pqControls?: OutputClickHousePqControls$Outbound | undefined;
 };
 
@@ -1524,6 +1332,11 @@ export const OutputClickHouse$outboundSchema: z.ZodType<
   describeTable: z.string().optional(),
   columnMappings: z.array(z.lazy(() => ColumnMapping$outboundSchema))
     .optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputClickHouseMode$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1531,23 +1344,9 @@ export const OutputClickHouse$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputClickHouseQueueFullBehavior$outboundSchema.default(
     "block",
   ),
-  pqMode: OutputClickHouseMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputClickHousePqControls$outboundSchema)
     .optional(),
 });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputClickHouse$ {
-  /** @deprecated use `OutputClickHouse$inboundSchema` instead. */
-  export const inboundSchema = OutputClickHouse$inboundSchema;
-  /** @deprecated use `OutputClickHouse$outboundSchema` instead. */
-  export const outboundSchema = OutputClickHouse$outboundSchema;
-  /** @deprecated use `OutputClickHouse$Outbound` instead. */
-  export type Outbound = OutputClickHouse$Outbound;
-}
 
 export function outputClickHouseToJSON(
   outputClickHouse: OutputClickHouse,
@@ -1556,7 +1355,6 @@ export function outputClickHouseToJSON(
     OutputClickHouse$outboundSchema.parse(outputClickHouse),
   );
 }
-
 export function outputClickHouseFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputClickHouse, SDKValidationError> {

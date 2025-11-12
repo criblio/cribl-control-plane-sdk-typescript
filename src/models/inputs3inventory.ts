@@ -27,7 +27,13 @@ export type InputS3InventoryConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputS3InventoryMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -39,7 +45,13 @@ export type InputS3InventoryMode = OpenEnum<typeof InputS3InventoryMode>;
  * Codec to use to compress the persisted data
  */
 export const InputS3InventoryCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -87,8 +99,17 @@ export type InputS3InventoryPq = {
  * AWS authentication method. Choose Auto to use IAM roles.
  */
 export const InputS3InventoryAuthenticationMethod = {
+  /**
+   * Auto
+   */
   Auto: "auto",
+  /**
+   * Manual
+   */
   Manual: "manual",
+  /**
+   * Secret Key pair
+   */
   Secret: "secret",
 } as const;
 /**
@@ -323,22 +344,10 @@ export type InputS3Inventory = {
 export const InputS3InventoryType$inboundSchema: z.ZodNativeEnum<
   typeof InputS3InventoryType
 > = z.nativeEnum(InputS3InventoryType);
-
 /** @internal */
 export const InputS3InventoryType$outboundSchema: z.ZodNativeEnum<
   typeof InputS3InventoryType
 > = InputS3InventoryType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputS3InventoryType$ {
-  /** @deprecated use `InputS3InventoryType$inboundSchema` instead. */
-  export const inboundSchema = InputS3InventoryType$inboundSchema;
-  /** @deprecated use `InputS3InventoryType$outboundSchema` instead. */
-  export const outboundSchema = InputS3InventoryType$outboundSchema;
-}
 
 /** @internal */
 export const InputS3InventoryConnection$inboundSchema: z.ZodType<
@@ -349,7 +358,6 @@ export const InputS3InventoryConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputS3InventoryConnection$Outbound = {
   pipeline?: string | undefined;
@@ -366,19 +374,6 @@ export const InputS3InventoryConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputS3InventoryConnection$ {
-  /** @deprecated use `InputS3InventoryConnection$inboundSchema` instead. */
-  export const inboundSchema = InputS3InventoryConnection$inboundSchema;
-  /** @deprecated use `InputS3InventoryConnection$outboundSchema` instead. */
-  export const outboundSchema = InputS3InventoryConnection$outboundSchema;
-  /** @deprecated use `InputS3InventoryConnection$Outbound` instead. */
-  export type Outbound = InputS3InventoryConnection$Outbound;
-}
-
 export function inputS3InventoryConnectionToJSON(
   inputS3InventoryConnection: InputS3InventoryConnection,
 ): string {
@@ -386,7 +381,6 @@ export function inputS3InventoryConnectionToJSON(
     InputS3InventoryConnection$outboundSchema.parse(inputS3InventoryConnection),
   );
 }
-
 export function inputS3InventoryConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputS3InventoryConnection, SDKValidationError> {
@@ -407,7 +401,6 @@ export const InputS3InventoryMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputS3InventoryMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputS3InventoryMode$outboundSchema: z.ZodType<
   InputS3InventoryMode,
@@ -417,17 +410,6 @@ export const InputS3InventoryMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputS3InventoryMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputS3InventoryMode$ {
-  /** @deprecated use `InputS3InventoryMode$inboundSchema` instead. */
-  export const inboundSchema = InputS3InventoryMode$inboundSchema;
-  /** @deprecated use `InputS3InventoryMode$outboundSchema` instead. */
-  export const outboundSchema = InputS3InventoryMode$outboundSchema;
-}
 
 /** @internal */
 export const InputS3InventoryCompression$inboundSchema: z.ZodType<
@@ -439,7 +421,6 @@ export const InputS3InventoryCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputS3InventoryCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputS3InventoryCompression$outboundSchema: z.ZodType<
   InputS3InventoryCompression,
@@ -450,24 +431,12 @@ export const InputS3InventoryCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputS3InventoryCompression$ {
-  /** @deprecated use `InputS3InventoryCompression$inboundSchema` instead. */
-  export const inboundSchema = InputS3InventoryCompression$inboundSchema;
-  /** @deprecated use `InputS3InventoryCompression$outboundSchema` instead. */
-  export const outboundSchema = InputS3InventoryCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputS3InventoryPqControls$inboundSchema: z.ZodType<
   InputS3InventoryPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputS3InventoryPqControls$Outbound = {};
 
@@ -478,19 +447,6 @@ export const InputS3InventoryPqControls$outboundSchema: z.ZodType<
   InputS3InventoryPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputS3InventoryPqControls$ {
-  /** @deprecated use `InputS3InventoryPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputS3InventoryPqControls$inboundSchema;
-  /** @deprecated use `InputS3InventoryPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputS3InventoryPqControls$outboundSchema;
-  /** @deprecated use `InputS3InventoryPqControls$Outbound` instead. */
-  export type Outbound = InputS3InventoryPqControls$Outbound;
-}
-
 export function inputS3InventoryPqControlsToJSON(
   inputS3InventoryPqControls: InputS3InventoryPqControls,
 ): string {
@@ -498,7 +454,6 @@ export function inputS3InventoryPqControlsToJSON(
     InputS3InventoryPqControls$outboundSchema.parse(inputS3InventoryPqControls),
   );
 }
-
 export function inputS3InventoryPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputS3InventoryPqControls, SDKValidationError> {
@@ -524,7 +479,6 @@ export const InputS3InventoryPq$inboundSchema: z.ZodType<
   compress: InputS3InventoryCompression$inboundSchema.default("none"),
   pqControls: z.lazy(() => InputS3InventoryPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputS3InventoryPq$Outbound = {
   mode: string;
@@ -554,19 +508,6 @@ export const InputS3InventoryPq$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputS3InventoryPq$ {
-  /** @deprecated use `InputS3InventoryPq$inboundSchema` instead. */
-  export const inboundSchema = InputS3InventoryPq$inboundSchema;
-  /** @deprecated use `InputS3InventoryPq$outboundSchema` instead. */
-  export const outboundSchema = InputS3InventoryPq$outboundSchema;
-  /** @deprecated use `InputS3InventoryPq$Outbound` instead. */
-  export type Outbound = InputS3InventoryPq$Outbound;
-}
-
 export function inputS3InventoryPqToJSON(
   inputS3InventoryPq: InputS3InventoryPq,
 ): string {
@@ -574,7 +515,6 @@ export function inputS3InventoryPqToJSON(
     InputS3InventoryPq$outboundSchema.parse(inputS3InventoryPq),
   );
 }
-
 export function inputS3InventoryPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputS3InventoryPq, SDKValidationError> {
@@ -595,7 +535,6 @@ export const InputS3InventoryAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(InputS3InventoryAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputS3InventoryAuthenticationMethod$outboundSchema: z.ZodType<
   InputS3InventoryAuthenticationMethod,
@@ -605,19 +544,6 @@ export const InputS3InventoryAuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(InputS3InventoryAuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputS3InventoryAuthenticationMethod$ {
-  /** @deprecated use `InputS3InventoryAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    InputS3InventoryAuthenticationMethod$inboundSchema;
-  /** @deprecated use `InputS3InventoryAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    InputS3InventoryAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const InputS3InventorySignatureVersion$inboundSchema: z.ZodType<
@@ -629,7 +555,6 @@ export const InputS3InventorySignatureVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputS3InventorySignatureVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputS3InventorySignatureVersion$outboundSchema: z.ZodType<
   InputS3InventorySignatureVersion,
@@ -639,17 +564,6 @@ export const InputS3InventorySignatureVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputS3InventorySignatureVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputS3InventorySignatureVersion$ {
-  /** @deprecated use `InputS3InventorySignatureVersion$inboundSchema` instead. */
-  export const inboundSchema = InputS3InventorySignatureVersion$inboundSchema;
-  /** @deprecated use `InputS3InventorySignatureVersion$outboundSchema` instead. */
-  export const outboundSchema = InputS3InventorySignatureVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputS3InventoryPreprocess$inboundSchema: z.ZodType<
@@ -661,7 +575,6 @@ export const InputS3InventoryPreprocess$inboundSchema: z.ZodType<
   command: z.string().optional(),
   args: z.array(z.string()).optional(),
 });
-
 /** @internal */
 export type InputS3InventoryPreprocess$Outbound = {
   disabled: boolean;
@@ -680,19 +593,6 @@ export const InputS3InventoryPreprocess$outboundSchema: z.ZodType<
   args: z.array(z.string()).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputS3InventoryPreprocess$ {
-  /** @deprecated use `InputS3InventoryPreprocess$inboundSchema` instead. */
-  export const inboundSchema = InputS3InventoryPreprocess$inboundSchema;
-  /** @deprecated use `InputS3InventoryPreprocess$outboundSchema` instead. */
-  export const outboundSchema = InputS3InventoryPreprocess$outboundSchema;
-  /** @deprecated use `InputS3InventoryPreprocess$Outbound` instead. */
-  export type Outbound = InputS3InventoryPreprocess$Outbound;
-}
-
 export function inputS3InventoryPreprocessToJSON(
   inputS3InventoryPreprocess: InputS3InventoryPreprocess,
 ): string {
@@ -700,7 +600,6 @@ export function inputS3InventoryPreprocessToJSON(
     InputS3InventoryPreprocess$outboundSchema.parse(inputS3InventoryPreprocess),
   );
 }
-
 export function inputS3InventoryPreprocessFromJSON(
   jsonString: string,
 ): SafeParseResult<InputS3InventoryPreprocess, SDKValidationError> {
@@ -720,7 +619,6 @@ export const InputS3InventoryMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputS3InventoryMetadatum$Outbound = {
   name: string;
@@ -737,19 +635,6 @@ export const InputS3InventoryMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputS3InventoryMetadatum$ {
-  /** @deprecated use `InputS3InventoryMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputS3InventoryMetadatum$inboundSchema;
-  /** @deprecated use `InputS3InventoryMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputS3InventoryMetadatum$outboundSchema;
-  /** @deprecated use `InputS3InventoryMetadatum$Outbound` instead. */
-  export type Outbound = InputS3InventoryMetadatum$Outbound;
-}
-
 export function inputS3InventoryMetadatumToJSON(
   inputS3InventoryMetadatum: InputS3InventoryMetadatum,
 ): string {
@@ -757,7 +642,6 @@ export function inputS3InventoryMetadatumToJSON(
     InputS3InventoryMetadatum$outboundSchema.parse(inputS3InventoryMetadatum),
   );
 }
-
 export function inputS3InventoryMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputS3InventoryMetadatum, SDKValidationError> {
@@ -777,7 +661,6 @@ export const InputS3InventoryCheckpointing$inboundSchema: z.ZodType<
   enabled: z.boolean().default(false),
   retries: z.number().default(5),
 });
-
 /** @internal */
 export type InputS3InventoryCheckpointing$Outbound = {
   enabled: boolean;
@@ -794,19 +677,6 @@ export const InputS3InventoryCheckpointing$outboundSchema: z.ZodType<
   retries: z.number().default(5),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputS3InventoryCheckpointing$ {
-  /** @deprecated use `InputS3InventoryCheckpointing$inboundSchema` instead. */
-  export const inboundSchema = InputS3InventoryCheckpointing$inboundSchema;
-  /** @deprecated use `InputS3InventoryCheckpointing$outboundSchema` instead. */
-  export const outboundSchema = InputS3InventoryCheckpointing$outboundSchema;
-  /** @deprecated use `InputS3InventoryCheckpointing$Outbound` instead. */
-  export type Outbound = InputS3InventoryCheckpointing$Outbound;
-}
-
 export function inputS3InventoryCheckpointingToJSON(
   inputS3InventoryCheckpointing: InputS3InventoryCheckpointing,
 ): string {
@@ -816,7 +686,6 @@ export function inputS3InventoryCheckpointingToJSON(
     ),
   );
 }
-
 export function inputS3InventoryCheckpointingFromJSON(
   jsonString: string,
 ): SafeParseResult<InputS3InventoryCheckpointing, SDKValidationError> {
@@ -837,7 +706,6 @@ export const InputS3InventoryTagAfterProcessing$inboundSchema: z.ZodType<
     z.nativeEnum(InputS3InventoryTagAfterProcessing),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputS3InventoryTagAfterProcessing$outboundSchema: z.ZodType<
   InputS3InventoryTagAfterProcessing,
@@ -847,18 +715,6 @@ export const InputS3InventoryTagAfterProcessing$outboundSchema: z.ZodType<
   z.nativeEnum(InputS3InventoryTagAfterProcessing),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputS3InventoryTagAfterProcessing$ {
-  /** @deprecated use `InputS3InventoryTagAfterProcessing$inboundSchema` instead. */
-  export const inboundSchema = InputS3InventoryTagAfterProcessing$inboundSchema;
-  /** @deprecated use `InputS3InventoryTagAfterProcessing$outboundSchema` instead. */
-  export const outboundSchema =
-    InputS3InventoryTagAfterProcessing$outboundSchema;
-}
 
 /** @internal */
 export const InputS3Inventory$inboundSchema: z.ZodType<
@@ -922,7 +778,6 @@ export const InputS3Inventory$inboundSchema: z.ZodType<
   processedTagKey: z.string().optional(),
   processedTagValue: z.string().optional(),
 });
-
 /** @internal */
 export type InputS3Inventory$Outbound = {
   id?: string | undefined;
@@ -1039,19 +894,6 @@ export const InputS3Inventory$outboundSchema: z.ZodType<
   processedTagValue: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputS3Inventory$ {
-  /** @deprecated use `InputS3Inventory$inboundSchema` instead. */
-  export const inboundSchema = InputS3Inventory$inboundSchema;
-  /** @deprecated use `InputS3Inventory$outboundSchema` instead. */
-  export const outboundSchema = InputS3Inventory$outboundSchema;
-  /** @deprecated use `InputS3Inventory$Outbound` instead. */
-  export type Outbound = InputS3Inventory$Outbound;
-}
-
 export function inputS3InventoryToJSON(
   inputS3Inventory: InputS3Inventory,
 ): string {
@@ -1059,7 +901,6 @@ export function inputS3InventoryToJSON(
     InputS3Inventory$outboundSchema.parse(inputS3Inventory),
   );
 }
-
 export function inputS3InventoryFromJSON(
   jsonString: string,
 ): SafeParseResult<InputS3Inventory, SDKValidationError> {

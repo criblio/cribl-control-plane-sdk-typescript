@@ -3,10 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
 
 export type ListMasterWorkerEntryRequest = {
   /**
@@ -35,31 +31,6 @@ export type ListMasterWorkerEntryRequest = {
   offset?: number | undefined;
 };
 
-/**
- * a list of MasterWorkerEntry objects
- */
-export type ListMasterWorkerEntryResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.MasterWorkerEntry> | undefined;
-};
-
-/** @internal */
-export const ListMasterWorkerEntryRequest$inboundSchema: z.ZodType<
-  ListMasterWorkerEntryRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  filterExp: z.string().optional(),
-  sortExp: z.string().optional(),
-  filter: z.string().optional(),
-  sort: z.string().optional(),
-  limit: z.number().int().optional(),
-  offset: z.number().int().optional(),
-});
-
 /** @internal */
 export type ListMasterWorkerEntryRequest$Outbound = {
   filterExp?: string | undefined;
@@ -84,19 +55,6 @@ export const ListMasterWorkerEntryRequest$outboundSchema: z.ZodType<
   offset: z.number().int().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListMasterWorkerEntryRequest$ {
-  /** @deprecated use `ListMasterWorkerEntryRequest$inboundSchema` instead. */
-  export const inboundSchema = ListMasterWorkerEntryRequest$inboundSchema;
-  /** @deprecated use `ListMasterWorkerEntryRequest$outboundSchema` instead. */
-  export const outboundSchema = ListMasterWorkerEntryRequest$outboundSchema;
-  /** @deprecated use `ListMasterWorkerEntryRequest$Outbound` instead. */
-  export type Outbound = ListMasterWorkerEntryRequest$Outbound;
-}
-
 export function listMasterWorkerEntryRequestToJSON(
   listMasterWorkerEntryRequest: ListMasterWorkerEntryRequest,
 ): string {
@@ -104,74 +62,5 @@ export function listMasterWorkerEntryRequestToJSON(
     ListMasterWorkerEntryRequest$outboundSchema.parse(
       listMasterWorkerEntryRequest,
     ),
-  );
-}
-
-export function listMasterWorkerEntryRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<ListMasterWorkerEntryRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListMasterWorkerEntryRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListMasterWorkerEntryRequest' from JSON`,
-  );
-}
-
-/** @internal */
-export const ListMasterWorkerEntryResponse$inboundSchema: z.ZodType<
-  ListMasterWorkerEntryResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.MasterWorkerEntry$inboundSchema).optional(),
-});
-
-/** @internal */
-export type ListMasterWorkerEntryResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.MasterWorkerEntry$Outbound> | undefined;
-};
-
-/** @internal */
-export const ListMasterWorkerEntryResponse$outboundSchema: z.ZodType<
-  ListMasterWorkerEntryResponse$Outbound,
-  z.ZodTypeDef,
-  ListMasterWorkerEntryResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.MasterWorkerEntry$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListMasterWorkerEntryResponse$ {
-  /** @deprecated use `ListMasterWorkerEntryResponse$inboundSchema` instead. */
-  export const inboundSchema = ListMasterWorkerEntryResponse$inboundSchema;
-  /** @deprecated use `ListMasterWorkerEntryResponse$outboundSchema` instead. */
-  export const outboundSchema = ListMasterWorkerEntryResponse$outboundSchema;
-  /** @deprecated use `ListMasterWorkerEntryResponse$Outbound` instead. */
-  export type Outbound = ListMasterWorkerEntryResponse$Outbound;
-}
-
-export function listMasterWorkerEntryResponseToJSON(
-  listMasterWorkerEntryResponse: ListMasterWorkerEntryResponse,
-): string {
-  return JSON.stringify(
-    ListMasterWorkerEntryResponse$outboundSchema.parse(
-      listMasterWorkerEntryResponse,
-    ),
-  );
-}
-
-export function listMasterWorkerEntryResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<ListMasterWorkerEntryResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListMasterWorkerEntryResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListMasterWorkerEntryResponse' from JSON`,
   );
 }

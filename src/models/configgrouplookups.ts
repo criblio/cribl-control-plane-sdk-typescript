@@ -28,7 +28,6 @@ export const ConfigGroupLookupsLookup$inboundSchema: z.ZodType<
   file: z.string(),
   version: z.string().optional(),
 });
-
 /** @internal */
 export type ConfigGroupLookupsLookup$Outbound = {
   deployedVersion?: string | undefined;
@@ -47,19 +46,6 @@ export const ConfigGroupLookupsLookup$outboundSchema: z.ZodType<
   version: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ConfigGroupLookupsLookup$ {
-  /** @deprecated use `ConfigGroupLookupsLookup$inboundSchema` instead. */
-  export const inboundSchema = ConfigGroupLookupsLookup$inboundSchema;
-  /** @deprecated use `ConfigGroupLookupsLookup$outboundSchema` instead. */
-  export const outboundSchema = ConfigGroupLookupsLookup$outboundSchema;
-  /** @deprecated use `ConfigGroupLookupsLookup$Outbound` instead. */
-  export type Outbound = ConfigGroupLookupsLookup$Outbound;
-}
-
 export function configGroupLookupsLookupToJSON(
   configGroupLookupsLookup: ConfigGroupLookupsLookup,
 ): string {
@@ -67,7 +53,6 @@ export function configGroupLookupsLookupToJSON(
     ConfigGroupLookupsLookup$outboundSchema.parse(configGroupLookupsLookup),
   );
 }
-
 export function configGroupLookupsLookupFromJSON(
   jsonString: string,
 ): SafeParseResult<ConfigGroupLookupsLookup, SDKValidationError> {
@@ -87,7 +72,6 @@ export const ConfigGroupLookups$inboundSchema: z.ZodType<
   context: z.string(),
   lookups: z.array(z.lazy(() => ConfigGroupLookupsLookup$inboundSchema)),
 });
-
 /** @internal */
 export type ConfigGroupLookups$Outbound = {
   context: string;
@@ -104,19 +88,6 @@ export const ConfigGroupLookups$outboundSchema: z.ZodType<
   lookups: z.array(z.lazy(() => ConfigGroupLookupsLookup$outboundSchema)),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ConfigGroupLookups$ {
-  /** @deprecated use `ConfigGroupLookups$inboundSchema` instead. */
-  export const inboundSchema = ConfigGroupLookups$inboundSchema;
-  /** @deprecated use `ConfigGroupLookups$outboundSchema` instead. */
-  export const outboundSchema = ConfigGroupLookups$outboundSchema;
-  /** @deprecated use `ConfigGroupLookups$Outbound` instead. */
-  export type Outbound = ConfigGroupLookups$Outbound;
-}
-
 export function configGroupLookupsToJSON(
   configGroupLookups: ConfigGroupLookups,
 ): string {
@@ -124,7 +95,6 @@ export function configGroupLookupsToJSON(
     ConfigGroupLookups$outboundSchema.parse(configGroupLookups),
   );
 }
-
 export function configGroupLookupsFromJSON(
   jsonString: string,
 ): SafeParseResult<ConfigGroupLookups, SDKValidationError> {

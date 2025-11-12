@@ -44,8 +44,17 @@ export type OutputDynatraceHttpExtraHttpHeader = {
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
 export const OutputDynatraceHttpFailedRequestLoggingMode = {
+  /**
+   * Payload
+   */
   Payload: "payload",
+  /**
+   * Payload + Headers
+   */
   PayloadAndHeaders: "payloadAndHeaders",
+  /**
+   * None
+   */
   None: "none",
 } as const;
 /**
@@ -94,8 +103,17 @@ export type OutputDynatraceHttpTimeoutRetrySettings = {
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputDynatraceHttpBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -106,7 +124,13 @@ export type OutputDynatraceHttpBackpressureBehavior = OpenEnum<
 >;
 
 export const OutputDynatraceHttpAuthenticationType = {
+  /**
+   * Auth token
+   */
   Token: "token",
+  /**
+   * Token (text secret)
+   */
   TextSecret: "textSecret",
 } as const;
 export type OutputDynatraceHttpAuthenticationType = OpenEnum<
@@ -117,7 +141,13 @@ export type OutputDynatraceHttpAuthenticationType = OpenEnum<
  * How to format events before sending. Defaults to JSON. Plaintext is not currently supported.
  */
 export const OutputDynatraceHttpFormat = {
+  /**
+   * JSON
+   */
   JsonArray: "json_array",
+  /**
+   * Plaintext
+   */
   Plaintext: "plaintext",
 } as const;
 /**
@@ -128,23 +158,66 @@ export type OutputDynatraceHttpFormat = OpenEnum<
 >;
 
 export const Endpoint = {
+  /**
+   * Cloud
+   */
   Cloud: "cloud",
+  /**
+   * ActiveGate
+   */
   ActiveGate: "activeGate",
+  /**
+   * Manual
+   */
   Manual: "manual",
 } as const;
 export type Endpoint = OpenEnum<typeof Endpoint>;
 
 export const TelemetryType = {
+  /**
+   * Logs
+   */
   Logs: "logs",
+  /**
+   * Metrics
+   */
   Metrics: "metrics",
 } as const;
 export type TelemetryType = OpenEnum<typeof TelemetryType>;
 
 /**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputDynatraceHttpMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputDynatraceHttpMode = OpenEnum<typeof OutputDynatraceHttpMode>;
+
+/**
  * Codec to use to compress the persisted data
  */
 export const OutputDynatraceHttpCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -158,7 +231,13 @@ export type OutputDynatraceHttpCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputDynatraceHttpQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -167,19 +246,6 @@ export const OutputDynatraceHttpQueueFullBehavior = {
 export type OutputDynatraceHttpQueueFullBehavior = OpenEnum<
   typeof OutputDynatraceHttpQueueFullBehavior
 >;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputDynatraceHttpMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputDynatraceHttpMode = OpenEnum<typeof OutputDynatraceHttpMode>;
 
 export type OutputDynatraceHttpPqControls = {};
 
@@ -291,6 +357,26 @@ export type OutputDynatraceHttp = {
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputDynatraceHttpMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -310,10 +396,6 @@ export type OutputDynatraceHttp = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputDynatraceHttpQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputDynatraceHttpMode | undefined;
   pqControls?: OutputDynatraceHttpPqControls | undefined;
   /**
    * Bearer token to include in the authorization header
@@ -341,22 +423,10 @@ export type OutputDynatraceHttp = {
 export const OutputDynatraceHttpType$inboundSchema: z.ZodNativeEnum<
   typeof OutputDynatraceHttpType
 > = z.nativeEnum(OutputDynatraceHttpType);
-
 /** @internal */
 export const OutputDynatraceHttpType$outboundSchema: z.ZodNativeEnum<
   typeof OutputDynatraceHttpType
 > = OutputDynatraceHttpType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDynatraceHttpType$ {
-  /** @deprecated use `OutputDynatraceHttpType$inboundSchema` instead. */
-  export const inboundSchema = OutputDynatraceHttpType$inboundSchema;
-  /** @deprecated use `OutputDynatraceHttpType$outboundSchema` instead. */
-  export const outboundSchema = OutputDynatraceHttpType$outboundSchema;
-}
 
 /** @internal */
 export const OutputDynatraceHttpMethod$inboundSchema: z.ZodType<
@@ -368,7 +438,6 @@ export const OutputDynatraceHttpMethod$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDynatraceHttpMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDynatraceHttpMethod$outboundSchema: z.ZodType<
   OutputDynatraceHttpMethod,
@@ -379,17 +448,6 @@ export const OutputDynatraceHttpMethod$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDynatraceHttpMethod$ {
-  /** @deprecated use `OutputDynatraceHttpMethod$inboundSchema` instead. */
-  export const inboundSchema = OutputDynatraceHttpMethod$inboundSchema;
-  /** @deprecated use `OutputDynatraceHttpMethod$outboundSchema` instead. */
-  export const outboundSchema = OutputDynatraceHttpMethod$outboundSchema;
-}
-
 /** @internal */
 export const OutputDynatraceHttpExtraHttpHeader$inboundSchema: z.ZodType<
   OutputDynatraceHttpExtraHttpHeader,
@@ -399,7 +457,6 @@ export const OutputDynatraceHttpExtraHttpHeader$inboundSchema: z.ZodType<
   name: z.string().optional(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputDynatraceHttpExtraHttpHeader$Outbound = {
   name?: string | undefined;
@@ -416,20 +473,6 @@ export const OutputDynatraceHttpExtraHttpHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDynatraceHttpExtraHttpHeader$ {
-  /** @deprecated use `OutputDynatraceHttpExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputDynatraceHttpExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputDynatraceHttpExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDynatraceHttpExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputDynatraceHttpExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputDynatraceHttpExtraHttpHeader$Outbound;
-}
-
 export function outputDynatraceHttpExtraHttpHeaderToJSON(
   outputDynatraceHttpExtraHttpHeader: OutputDynatraceHttpExtraHttpHeader,
 ): string {
@@ -439,7 +482,6 @@ export function outputDynatraceHttpExtraHttpHeaderToJSON(
     ),
   );
 }
-
 export function outputDynatraceHttpExtraHttpHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputDynatraceHttpExtraHttpHeader, SDKValidationError> {
@@ -462,7 +504,6 @@ export const OutputDynatraceHttpFailedRequestLoggingMode$inboundSchema:
       z.nativeEnum(OutputDynatraceHttpFailedRequestLoggingMode),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const OutputDynatraceHttpFailedRequestLoggingMode$outboundSchema:
   z.ZodType<
@@ -473,19 +514,6 @@ export const OutputDynatraceHttpFailedRequestLoggingMode$outboundSchema:
     z.nativeEnum(OutputDynatraceHttpFailedRequestLoggingMode),
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDynatraceHttpFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputDynatraceHttpFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputDynatraceHttpFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputDynatraceHttpFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDynatraceHttpFailedRequestLoggingMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputDynatraceHttpResponseRetrySetting$inboundSchema: z.ZodType<
@@ -498,7 +526,6 @@ export const OutputDynatraceHttpResponseRetrySetting$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputDynatraceHttpResponseRetrySetting$Outbound = {
   httpStatus: number;
@@ -519,21 +546,6 @@ export const OutputDynatraceHttpResponseRetrySetting$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDynatraceHttpResponseRetrySetting$ {
-  /** @deprecated use `OutputDynatraceHttpResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputDynatraceHttpResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputDynatraceHttpResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDynatraceHttpResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputDynatraceHttpResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputDynatraceHttpResponseRetrySetting$Outbound;
-}
-
 export function outputDynatraceHttpResponseRetrySettingToJSON(
   outputDynatraceHttpResponseRetrySetting:
     OutputDynatraceHttpResponseRetrySetting,
@@ -544,7 +556,6 @@ export function outputDynatraceHttpResponseRetrySettingToJSON(
     ),
   );
 }
-
 export function outputDynatraceHttpResponseRetrySettingFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -572,7 +583,6 @@ export const OutputDynatraceHttpTimeoutRetrySettings$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputDynatraceHttpTimeoutRetrySettings$Outbound = {
   timeoutRetry: boolean;
@@ -593,21 +603,6 @@ export const OutputDynatraceHttpTimeoutRetrySettings$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDynatraceHttpTimeoutRetrySettings$ {
-  /** @deprecated use `OutputDynatraceHttpTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputDynatraceHttpTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputDynatraceHttpTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDynatraceHttpTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputDynatraceHttpTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputDynatraceHttpTimeoutRetrySettings$Outbound;
-}
-
 export function outputDynatraceHttpTimeoutRetrySettingsToJSON(
   outputDynatraceHttpTimeoutRetrySettings:
     OutputDynatraceHttpTimeoutRetrySettings,
@@ -618,7 +613,6 @@ export function outputDynatraceHttpTimeoutRetrySettingsToJSON(
     ),
   );
 }
-
 export function outputDynatraceHttpTimeoutRetrySettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -645,7 +639,6 @@ export const OutputDynatraceHttpBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDynatraceHttpBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDynatraceHttpBackpressureBehavior$outboundSchema: z.ZodType<
   OutputDynatraceHttpBackpressureBehavior,
@@ -655,19 +648,6 @@ export const OutputDynatraceHttpBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputDynatraceHttpBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDynatraceHttpBackpressureBehavior$ {
-  /** @deprecated use `OutputDynatraceHttpBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputDynatraceHttpBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputDynatraceHttpBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDynatraceHttpBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputDynatraceHttpAuthenticationType$inboundSchema: z.ZodType<
@@ -679,7 +659,6 @@ export const OutputDynatraceHttpAuthenticationType$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDynatraceHttpAuthenticationType),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDynatraceHttpAuthenticationType$outboundSchema: z.ZodType<
   OutputDynatraceHttpAuthenticationType,
@@ -689,19 +668,6 @@ export const OutputDynatraceHttpAuthenticationType$outboundSchema: z.ZodType<
   z.nativeEnum(OutputDynatraceHttpAuthenticationType),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDynatraceHttpAuthenticationType$ {
-  /** @deprecated use `OutputDynatraceHttpAuthenticationType$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputDynatraceHttpAuthenticationType$inboundSchema;
-  /** @deprecated use `OutputDynatraceHttpAuthenticationType$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDynatraceHttpAuthenticationType$outboundSchema;
-}
 
 /** @internal */
 export const OutputDynatraceHttpFormat$inboundSchema: z.ZodType<
@@ -713,7 +679,6 @@ export const OutputDynatraceHttpFormat$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDynatraceHttpFormat),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDynatraceHttpFormat$outboundSchema: z.ZodType<
   OutputDynatraceHttpFormat,
@@ -723,17 +688,6 @@ export const OutputDynatraceHttpFormat$outboundSchema: z.ZodType<
   z.nativeEnum(OutputDynatraceHttpFormat),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDynatraceHttpFormat$ {
-  /** @deprecated use `OutputDynatraceHttpFormat$inboundSchema` instead. */
-  export const inboundSchema = OutputDynatraceHttpFormat$inboundSchema;
-  /** @deprecated use `OutputDynatraceHttpFormat$outboundSchema` instead. */
-  export const outboundSchema = OutputDynatraceHttpFormat$outboundSchema;
-}
 
 /** @internal */
 export const Endpoint$inboundSchema: z.ZodType<
@@ -745,7 +699,6 @@ export const Endpoint$inboundSchema: z.ZodType<
     z.nativeEnum(Endpoint),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const Endpoint$outboundSchema: z.ZodType<
   Endpoint,
@@ -755,17 +708,6 @@ export const Endpoint$outboundSchema: z.ZodType<
   z.nativeEnum(Endpoint),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Endpoint$ {
-  /** @deprecated use `Endpoint$inboundSchema` instead. */
-  export const inboundSchema = Endpoint$inboundSchema;
-  /** @deprecated use `Endpoint$outboundSchema` instead. */
-  export const outboundSchema = Endpoint$outboundSchema;
-}
 
 /** @internal */
 export const TelemetryType$inboundSchema: z.ZodType<
@@ -777,7 +719,6 @@ export const TelemetryType$inboundSchema: z.ZodType<
     z.nativeEnum(TelemetryType),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const TelemetryType$outboundSchema: z.ZodType<
   TelemetryType,
@@ -787,83 +728,6 @@ export const TelemetryType$outboundSchema: z.ZodType<
   z.nativeEnum(TelemetryType),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace TelemetryType$ {
-  /** @deprecated use `TelemetryType$inboundSchema` instead. */
-  export const inboundSchema = TelemetryType$inboundSchema;
-  /** @deprecated use `TelemetryType$outboundSchema` instead. */
-  export const outboundSchema = TelemetryType$outboundSchema;
-}
-
-/** @internal */
-export const OutputDynatraceHttpCompression$inboundSchema: z.ZodType<
-  OutputDynatraceHttpCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDynatraceHttpCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputDynatraceHttpCompression$outboundSchema: z.ZodType<
-  OutputDynatraceHttpCompression,
-  z.ZodTypeDef,
-  OutputDynatraceHttpCompression
-> = z.union([
-  z.nativeEnum(OutputDynatraceHttpCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDynatraceHttpCompression$ {
-  /** @deprecated use `OutputDynatraceHttpCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputDynatraceHttpCompression$inboundSchema;
-  /** @deprecated use `OutputDynatraceHttpCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputDynatraceHttpCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputDynatraceHttpQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputDynatraceHttpQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDynatraceHttpQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputDynatraceHttpQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputDynatraceHttpQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputDynatraceHttpQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputDynatraceHttpQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDynatraceHttpQueueFullBehavior$ {
-  /** @deprecated use `OutputDynatraceHttpQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputDynatraceHttpQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputDynatraceHttpQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDynatraceHttpQueueFullBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputDynatraceHttpMode$inboundSchema: z.ZodType<
@@ -875,7 +739,6 @@ export const OutputDynatraceHttpMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDynatraceHttpMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDynatraceHttpMode$outboundSchema: z.ZodType<
   OutputDynatraceHttpMode,
@@ -886,16 +749,45 @@ export const OutputDynatraceHttpMode$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDynatraceHttpMode$ {
-  /** @deprecated use `OutputDynatraceHttpMode$inboundSchema` instead. */
-  export const inboundSchema = OutputDynatraceHttpMode$inboundSchema;
-  /** @deprecated use `OutputDynatraceHttpMode$outboundSchema` instead. */
-  export const outboundSchema = OutputDynatraceHttpMode$outboundSchema;
-}
+/** @internal */
+export const OutputDynatraceHttpCompression$inboundSchema: z.ZodType<
+  OutputDynatraceHttpCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputDynatraceHttpCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputDynatraceHttpCompression$outboundSchema: z.ZodType<
+  OutputDynatraceHttpCompression,
+  z.ZodTypeDef,
+  OutputDynatraceHttpCompression
+> = z.union([
+  z.nativeEnum(OutputDynatraceHttpCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputDynatraceHttpQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputDynatraceHttpQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputDynatraceHttpQueueFullBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputDynatraceHttpQueueFullBehavior$outboundSchema: z.ZodType<
+  OutputDynatraceHttpQueueFullBehavior,
+  z.ZodTypeDef,
+  OutputDynatraceHttpQueueFullBehavior
+> = z.union([
+  z.nativeEnum(OutputDynatraceHttpQueueFullBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /** @internal */
 export const OutputDynatraceHttpPqControls$inboundSchema: z.ZodType<
@@ -903,7 +795,6 @@ export const OutputDynatraceHttpPqControls$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputDynatraceHttpPqControls$Outbound = {};
 
@@ -914,19 +805,6 @@ export const OutputDynatraceHttpPqControls$outboundSchema: z.ZodType<
   OutputDynatraceHttpPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDynatraceHttpPqControls$ {
-  /** @deprecated use `OutputDynatraceHttpPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputDynatraceHttpPqControls$inboundSchema;
-  /** @deprecated use `OutputDynatraceHttpPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputDynatraceHttpPqControls$outboundSchema;
-  /** @deprecated use `OutputDynatraceHttpPqControls$Outbound` instead. */
-  export type Outbound = OutputDynatraceHttpPqControls$Outbound;
-}
-
 export function outputDynatraceHttpPqControlsToJSON(
   outputDynatraceHttpPqControls: OutputDynatraceHttpPqControls,
 ): string {
@@ -936,7 +814,6 @@ export function outputDynatraceHttpPqControlsToJSON(
     ),
   );
 }
-
 export function outputDynatraceHttpPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputDynatraceHttpPqControls, SDKValidationError> {
@@ -993,6 +870,11 @@ export const OutputDynatraceHttp$inboundSchema: z.ZodType<
   telemetryType: TelemetryType$inboundSchema.default("logs"),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputDynatraceHttpMode$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1000,7 +882,6 @@ export const OutputDynatraceHttp$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputDynatraceHttpQueueFullBehavior$inboundSchema.default(
     "block",
   ),
-  pqMode: OutputDynatraceHttpMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputDynatraceHttpPqControls$inboundSchema)
     .optional(),
   token: z.string().optional(),
@@ -1009,7 +890,6 @@ export const OutputDynatraceHttp$inboundSchema: z.ZodType<
   activeGateDomain: z.string().optional(),
   url: z.string().optional(),
 });
-
 /** @internal */
 export type OutputDynatraceHttp$Outbound = {
   id?: string | undefined;
@@ -1047,12 +927,16 @@ export type OutputDynatraceHttp$Outbound = {
   telemetryType: string;
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
   pqControls?: OutputDynatraceHttpPqControls$Outbound | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
@@ -1106,6 +990,11 @@ export const OutputDynatraceHttp$outboundSchema: z.ZodType<
   telemetryType: TelemetryType$outboundSchema.default("logs"),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputDynatraceHttpMode$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1113,7 +1002,6 @@ export const OutputDynatraceHttp$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputDynatraceHttpQueueFullBehavior$outboundSchema.default(
     "block",
   ),
-  pqMode: OutputDynatraceHttpMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputDynatraceHttpPqControls$outboundSchema)
     .optional(),
   token: z.string().optional(),
@@ -1123,19 +1011,6 @@ export const OutputDynatraceHttp$outboundSchema: z.ZodType<
   url: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDynatraceHttp$ {
-  /** @deprecated use `OutputDynatraceHttp$inboundSchema` instead. */
-  export const inboundSchema = OutputDynatraceHttp$inboundSchema;
-  /** @deprecated use `OutputDynatraceHttp$outboundSchema` instead. */
-  export const outboundSchema = OutputDynatraceHttp$outboundSchema;
-  /** @deprecated use `OutputDynatraceHttp$Outbound` instead. */
-  export type Outbound = OutputDynatraceHttp$Outbound;
-}
-
 export function outputDynatraceHttpToJSON(
   outputDynatraceHttp: OutputDynatraceHttp,
 ): string {
@@ -1143,7 +1018,6 @@ export function outputDynatraceHttpToJSON(
     OutputDynatraceHttp$outboundSchema.parse(outputDynatraceHttp),
   );
 }
-
 export function outputDynatraceHttpFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputDynatraceHttp, SDKValidationError> {

@@ -22,7 +22,13 @@ export type OutputTcpjsonType = ClosedEnum<typeof OutputTcpjsonType>;
  * Codec to use to compress the data before sending
  */
 export const OutputTcpjsonCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -93,8 +99,17 @@ export type OutputTcpjsonTLSSettingsClientSide = {
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputTcpjsonBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -154,10 +169,38 @@ export type OutputTcpjsonHost = {
 };
 
 /**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputTcpjsonMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputTcpjsonMode = OpenEnum<typeof OutputTcpjsonMode>;
+
+/**
  * Codec to use to compress the persisted data
  */
 export const OutputTcpjsonPqCompressCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -171,7 +214,13 @@ export type OutputTcpjsonPqCompressCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputTcpjsonQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -180,19 +229,6 @@ export const OutputTcpjsonQueueFullBehavior = {
 export type OutputTcpjsonQueueFullBehavior = OpenEnum<
   typeof OutputTcpjsonQueueFullBehavior
 >;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputTcpjsonMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputTcpjsonMode = OpenEnum<typeof OutputTcpjsonMode>;
 
 export type OutputTcpjsonPqControls = {};
 
@@ -289,6 +325,26 @@ export type OutputTcpjson = {
    */
   maxConcurrentSenders?: number | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputTcpjsonMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -308,10 +364,6 @@ export type OutputTcpjson = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputTcpjsonQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputTcpjsonMode | undefined;
   pqControls?: OutputTcpjsonPqControls | undefined;
   /**
    * Optional authentication token to include as part of the connection header
@@ -327,22 +379,10 @@ export type OutputTcpjson = {
 export const OutputTcpjsonType$inboundSchema: z.ZodNativeEnum<
   typeof OutputTcpjsonType
 > = z.nativeEnum(OutputTcpjsonType);
-
 /** @internal */
 export const OutputTcpjsonType$outboundSchema: z.ZodNativeEnum<
   typeof OutputTcpjsonType
 > = OutputTcpjsonType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputTcpjsonType$ {
-  /** @deprecated use `OutputTcpjsonType$inboundSchema` instead. */
-  export const inboundSchema = OutputTcpjsonType$inboundSchema;
-  /** @deprecated use `OutputTcpjsonType$outboundSchema` instead. */
-  export const outboundSchema = OutputTcpjsonType$outboundSchema;
-}
 
 /** @internal */
 export const OutputTcpjsonCompression$inboundSchema: z.ZodType<
@@ -354,7 +394,6 @@ export const OutputTcpjsonCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputTcpjsonCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputTcpjsonCompression$outboundSchema: z.ZodType<
   OutputTcpjsonCompression,
@@ -364,17 +403,6 @@ export const OutputTcpjsonCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputTcpjsonCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputTcpjsonCompression$ {
-  /** @deprecated use `OutputTcpjsonCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputTcpjsonCompression$inboundSchema;
-  /** @deprecated use `OutputTcpjsonCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputTcpjsonCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputTcpjsonMinimumTLSVersion$inboundSchema: z.ZodType<
@@ -386,7 +414,6 @@ export const OutputTcpjsonMinimumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputTcpjsonMinimumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputTcpjsonMinimumTLSVersion$outboundSchema: z.ZodType<
   OutputTcpjsonMinimumTLSVersion,
@@ -396,17 +423,6 @@ export const OutputTcpjsonMinimumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputTcpjsonMinimumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputTcpjsonMinimumTLSVersion$ {
-  /** @deprecated use `OutputTcpjsonMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputTcpjsonMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputTcpjsonMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputTcpjsonMinimumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputTcpjsonMaximumTLSVersion$inboundSchema: z.ZodType<
@@ -418,7 +434,6 @@ export const OutputTcpjsonMaximumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputTcpjsonMaximumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputTcpjsonMaximumTLSVersion$outboundSchema: z.ZodType<
   OutputTcpjsonMaximumTLSVersion,
@@ -428,17 +443,6 @@ export const OutputTcpjsonMaximumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputTcpjsonMaximumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputTcpjsonMaximumTLSVersion$ {
-  /** @deprecated use `OutputTcpjsonMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputTcpjsonMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputTcpjsonMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputTcpjsonMaximumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputTcpjsonTLSSettingsClientSide$inboundSchema: z.ZodType<
@@ -457,7 +461,6 @@ export const OutputTcpjsonTLSSettingsClientSide$inboundSchema: z.ZodType<
   minVersion: OutputTcpjsonMinimumTLSVersion$inboundSchema.optional(),
   maxVersion: OutputTcpjsonMaximumTLSVersion$inboundSchema.optional(),
 });
-
 /** @internal */
 export type OutputTcpjsonTLSSettingsClientSide$Outbound = {
   disabled: boolean;
@@ -490,20 +493,6 @@ export const OutputTcpjsonTLSSettingsClientSide$outboundSchema: z.ZodType<
   maxVersion: OutputTcpjsonMaximumTLSVersion$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputTcpjsonTLSSettingsClientSide$ {
-  /** @deprecated use `OutputTcpjsonTLSSettingsClientSide$inboundSchema` instead. */
-  export const inboundSchema = OutputTcpjsonTLSSettingsClientSide$inboundSchema;
-  /** @deprecated use `OutputTcpjsonTLSSettingsClientSide$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputTcpjsonTLSSettingsClientSide$outboundSchema;
-  /** @deprecated use `OutputTcpjsonTLSSettingsClientSide$Outbound` instead. */
-  export type Outbound = OutputTcpjsonTLSSettingsClientSide$Outbound;
-}
-
 export function outputTcpjsonTLSSettingsClientSideToJSON(
   outputTcpjsonTLSSettingsClientSide: OutputTcpjsonTLSSettingsClientSide,
 ): string {
@@ -513,7 +502,6 @@ export function outputTcpjsonTLSSettingsClientSideToJSON(
     ),
   );
 }
-
 export function outputTcpjsonTLSSettingsClientSideFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputTcpjsonTLSSettingsClientSide, SDKValidationError> {
@@ -535,7 +523,6 @@ export const OutputTcpjsonBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputTcpjsonBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputTcpjsonBackpressureBehavior$outboundSchema: z.ZodType<
   OutputTcpjsonBackpressureBehavior,
@@ -545,18 +532,6 @@ export const OutputTcpjsonBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputTcpjsonBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputTcpjsonBackpressureBehavior$ {
-  /** @deprecated use `OutputTcpjsonBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputTcpjsonBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputTcpjsonBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputTcpjsonBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputTcpjsonAuthenticationMethod$inboundSchema: z.ZodType<
@@ -568,7 +543,6 @@ export const OutputTcpjsonAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(OutputTcpjsonAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputTcpjsonAuthenticationMethod$outboundSchema: z.ZodType<
   OutputTcpjsonAuthenticationMethod,
@@ -578,18 +552,6 @@ export const OutputTcpjsonAuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(OutputTcpjsonAuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputTcpjsonAuthenticationMethod$ {
-  /** @deprecated use `OutputTcpjsonAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = OutputTcpjsonAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputTcpjsonAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputTcpjsonAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const OutputTcpjsonTLS$inboundSchema: z.ZodType<
@@ -601,7 +563,6 @@ export const OutputTcpjsonTLS$inboundSchema: z.ZodType<
     z.nativeEnum(OutputTcpjsonTLS),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputTcpjsonTLS$outboundSchema: z.ZodType<
   OutputTcpjsonTLS,
@@ -611,17 +572,6 @@ export const OutputTcpjsonTLS$outboundSchema: z.ZodType<
   z.nativeEnum(OutputTcpjsonTLS),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputTcpjsonTLS$ {
-  /** @deprecated use `OutputTcpjsonTLS$inboundSchema` instead. */
-  export const inboundSchema = OutputTcpjsonTLS$inboundSchema;
-  /** @deprecated use `OutputTcpjsonTLS$outboundSchema` instead. */
-  export const outboundSchema = OutputTcpjsonTLS$outboundSchema;
-}
 
 /** @internal */
 export const OutputTcpjsonHost$inboundSchema: z.ZodType<
@@ -635,7 +585,6 @@ export const OutputTcpjsonHost$inboundSchema: z.ZodType<
   servername: z.string().optional(),
   weight: z.number().default(1),
 });
-
 /** @internal */
 export type OutputTcpjsonHost$Outbound = {
   host: string;
@@ -658,19 +607,6 @@ export const OutputTcpjsonHost$outboundSchema: z.ZodType<
   weight: z.number().default(1),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputTcpjsonHost$ {
-  /** @deprecated use `OutputTcpjsonHost$inboundSchema` instead. */
-  export const inboundSchema = OutputTcpjsonHost$inboundSchema;
-  /** @deprecated use `OutputTcpjsonHost$outboundSchema` instead. */
-  export const outboundSchema = OutputTcpjsonHost$outboundSchema;
-  /** @deprecated use `OutputTcpjsonHost$Outbound` instead. */
-  export type Outbound = OutputTcpjsonHost$Outbound;
-}
-
 export function outputTcpjsonHostToJSON(
   outputTcpjsonHost: OutputTcpjsonHost,
 ): string {
@@ -678,7 +614,6 @@ export function outputTcpjsonHostToJSON(
     OutputTcpjsonHost$outboundSchema.parse(outputTcpjsonHost),
   );
 }
-
 export function outputTcpjsonHostFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputTcpjsonHost, SDKValidationError> {
@@ -687,71 +622,6 @@ export function outputTcpjsonHostFromJSON(
     (x) => OutputTcpjsonHost$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'OutputTcpjsonHost' from JSON`,
   );
-}
-
-/** @internal */
-export const OutputTcpjsonPqCompressCompression$inboundSchema: z.ZodType<
-  OutputTcpjsonPqCompressCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputTcpjsonPqCompressCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputTcpjsonPqCompressCompression$outboundSchema: z.ZodType<
-  OutputTcpjsonPqCompressCompression,
-  z.ZodTypeDef,
-  OutputTcpjsonPqCompressCompression
-> = z.union([
-  z.nativeEnum(OutputTcpjsonPqCompressCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputTcpjsonPqCompressCompression$ {
-  /** @deprecated use `OutputTcpjsonPqCompressCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputTcpjsonPqCompressCompression$inboundSchema;
-  /** @deprecated use `OutputTcpjsonPqCompressCompression$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputTcpjsonPqCompressCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputTcpjsonQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputTcpjsonQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputTcpjsonQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputTcpjsonQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputTcpjsonQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputTcpjsonQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputTcpjsonQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputTcpjsonQueueFullBehavior$ {
-  /** @deprecated use `OutputTcpjsonQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputTcpjsonQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputTcpjsonQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputTcpjsonQueueFullBehavior$outboundSchema;
 }
 
 /** @internal */
@@ -764,7 +634,6 @@ export const OutputTcpjsonMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputTcpjsonMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputTcpjsonMode$outboundSchema: z.ZodType<
   OutputTcpjsonMode,
@@ -775,16 +644,45 @@ export const OutputTcpjsonMode$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputTcpjsonMode$ {
-  /** @deprecated use `OutputTcpjsonMode$inboundSchema` instead. */
-  export const inboundSchema = OutputTcpjsonMode$inboundSchema;
-  /** @deprecated use `OutputTcpjsonMode$outboundSchema` instead. */
-  export const outboundSchema = OutputTcpjsonMode$outboundSchema;
-}
+/** @internal */
+export const OutputTcpjsonPqCompressCompression$inboundSchema: z.ZodType<
+  OutputTcpjsonPqCompressCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputTcpjsonPqCompressCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputTcpjsonPqCompressCompression$outboundSchema: z.ZodType<
+  OutputTcpjsonPqCompressCompression,
+  z.ZodTypeDef,
+  OutputTcpjsonPqCompressCompression
+> = z.union([
+  z.nativeEnum(OutputTcpjsonPqCompressCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputTcpjsonQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputTcpjsonQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputTcpjsonQueueFullBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputTcpjsonQueueFullBehavior$outboundSchema: z.ZodType<
+  OutputTcpjsonQueueFullBehavior,
+  z.ZodTypeDef,
+  OutputTcpjsonQueueFullBehavior
+> = z.union([
+  z.nativeEnum(OutputTcpjsonQueueFullBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /** @internal */
 export const OutputTcpjsonPqControls$inboundSchema: z.ZodType<
@@ -792,7 +690,6 @@ export const OutputTcpjsonPqControls$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputTcpjsonPqControls$Outbound = {};
 
@@ -803,19 +700,6 @@ export const OutputTcpjsonPqControls$outboundSchema: z.ZodType<
   OutputTcpjsonPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputTcpjsonPqControls$ {
-  /** @deprecated use `OutputTcpjsonPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputTcpjsonPqControls$inboundSchema;
-  /** @deprecated use `OutputTcpjsonPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputTcpjsonPqControls$outboundSchema;
-  /** @deprecated use `OutputTcpjsonPqControls$Outbound` instead. */
-  export type Outbound = OutputTcpjsonPqControls$Outbound;
-}
-
 export function outputTcpjsonPqControlsToJSON(
   outputTcpjsonPqControls: OutputTcpjsonPqControls,
 ): string {
@@ -823,7 +707,6 @@ export function outputTcpjsonPqControlsToJSON(
     OutputTcpjsonPqControls$outboundSchema.parse(outputTcpjsonPqControls),
   );
 }
-
 export function outputTcpjsonPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputTcpjsonPqControls, SDKValidationError> {
@@ -868,6 +751,11 @@ export const OutputTcpjson$inboundSchema: z.ZodType<
   dnsResolvePeriodSec: z.number().default(600),
   loadBalanceStatsPeriodSec: z.number().default(300),
   maxConcurrentSenders: z.number().default(0),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputTcpjsonMode$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -875,12 +763,10 @@ export const OutputTcpjson$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputTcpjsonQueueFullBehavior$inboundSchema.default(
     "block",
   ),
-  pqMode: OutputTcpjsonMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputTcpjsonPqControls$inboundSchema).optional(),
   authToken: z.string().default(""),
   textSecret: z.string().optional(),
 });
-
 /** @internal */
 export type OutputTcpjson$Outbound = {
   id?: string | undefined;
@@ -908,12 +794,16 @@ export type OutputTcpjson$Outbound = {
   dnsResolvePeriodSec: number;
   loadBalanceStatsPeriodSec: number;
   maxConcurrentSenders: number;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
   pqControls?: OutputTcpjsonPqControls$Outbound | undefined;
   authToken: string;
   textSecret?: string | undefined;
@@ -953,6 +843,11 @@ export const OutputTcpjson$outboundSchema: z.ZodType<
   dnsResolvePeriodSec: z.number().default(600),
   loadBalanceStatsPeriodSec: z.number().default(300),
   maxConcurrentSenders: z.number().default(0),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputTcpjsonMode$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -960,29 +855,14 @@ export const OutputTcpjson$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputTcpjsonQueueFullBehavior$outboundSchema.default(
     "block",
   ),
-  pqMode: OutputTcpjsonMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputTcpjsonPqControls$outboundSchema).optional(),
   authToken: z.string().default(""),
   textSecret: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputTcpjson$ {
-  /** @deprecated use `OutputTcpjson$inboundSchema` instead. */
-  export const inboundSchema = OutputTcpjson$inboundSchema;
-  /** @deprecated use `OutputTcpjson$outboundSchema` instead. */
-  export const outboundSchema = OutputTcpjson$outboundSchema;
-  /** @deprecated use `OutputTcpjson$Outbound` instead. */
-  export type Outbound = OutputTcpjson$Outbound;
-}
-
 export function outputTcpjsonToJSON(outputTcpjson: OutputTcpjson): string {
   return JSON.stringify(OutputTcpjson$outboundSchema.parse(outputTcpjson));
 }
-
 export function outputTcpjsonFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputTcpjson, SDKValidationError> {

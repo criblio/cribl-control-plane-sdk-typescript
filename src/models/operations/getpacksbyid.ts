@@ -3,10 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
 
 export type GetPacksByIdRequest = {
   /**
@@ -14,26 +10,6 @@ export type GetPacksByIdRequest = {
    */
   id: string;
 };
-
-/**
- * a list of PackInfo objects
- */
-export type GetPacksByIdResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.PackInfo> | undefined;
-};
-
-/** @internal */
-export const GetPacksByIdRequest$inboundSchema: z.ZodType<
-  GetPacksByIdRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.string(),
-});
 
 /** @internal */
 export type GetPacksByIdRequest$Outbound = {
@@ -49,90 +25,10 @@ export const GetPacksByIdRequest$outboundSchema: z.ZodType<
   id: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetPacksByIdRequest$ {
-  /** @deprecated use `GetPacksByIdRequest$inboundSchema` instead. */
-  export const inboundSchema = GetPacksByIdRequest$inboundSchema;
-  /** @deprecated use `GetPacksByIdRequest$outboundSchema` instead. */
-  export const outboundSchema = GetPacksByIdRequest$outboundSchema;
-  /** @deprecated use `GetPacksByIdRequest$Outbound` instead. */
-  export type Outbound = GetPacksByIdRequest$Outbound;
-}
-
 export function getPacksByIdRequestToJSON(
   getPacksByIdRequest: GetPacksByIdRequest,
 ): string {
   return JSON.stringify(
     GetPacksByIdRequest$outboundSchema.parse(getPacksByIdRequest),
-  );
-}
-
-export function getPacksByIdRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetPacksByIdRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetPacksByIdRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetPacksByIdRequest' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetPacksByIdResponse$inboundSchema: z.ZodType<
-  GetPacksByIdResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.PackInfo$inboundSchema).optional(),
-});
-
-/** @internal */
-export type GetPacksByIdResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.PackInfo$Outbound> | undefined;
-};
-
-/** @internal */
-export const GetPacksByIdResponse$outboundSchema: z.ZodType<
-  GetPacksByIdResponse$Outbound,
-  z.ZodTypeDef,
-  GetPacksByIdResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.PackInfo$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetPacksByIdResponse$ {
-  /** @deprecated use `GetPacksByIdResponse$inboundSchema` instead. */
-  export const inboundSchema = GetPacksByIdResponse$inboundSchema;
-  /** @deprecated use `GetPacksByIdResponse$outboundSchema` instead. */
-  export const outboundSchema = GetPacksByIdResponse$outboundSchema;
-  /** @deprecated use `GetPacksByIdResponse$Outbound` instead. */
-  export type Outbound = GetPacksByIdResponse$Outbound;
-}
-
-export function getPacksByIdResponseToJSON(
-  getPacksByIdResponse: GetPacksByIdResponse,
-): string {
-  return JSON.stringify(
-    GetPacksByIdResponse$outboundSchema.parse(getPacksByIdResponse),
-  );
-}
-
-export function getPacksByIdResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<GetPacksByIdResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetPacksByIdResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetPacksByIdResponse' from JSON`,
   );
 }

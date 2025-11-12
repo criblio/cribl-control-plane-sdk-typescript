@@ -45,7 +45,29 @@ let value: InputKafka = {
       maxVersion: "TLSv1.2",
     },
   },
-  sasl: {},
+  sasl: {
+    username: "Seamus67",
+    password: "6PIwQ9BxwvdkIdN",
+    credentialsSecret: "<value>",
+    keytabLocation: "<value>",
+    principal: "<value>",
+    brokerServiceClass: "<value>",
+    tokenUrl: "https://quiet-airmail.org",
+    clientId: "<id>",
+    clientTextSecret: "<value>",
+    oauthParams: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    saslExtensions: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+  },
   tls: {
     servername: "<value>",
     certificateName: "<value>",
@@ -53,18 +75,18 @@ let value: InputKafka = {
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1.3",
-    maxVersion: "TLSv1.2",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1",
   },
-  autoCommitInterval: 3310.55,
-  autoCommitThreshold: 1236.53,
+  autoCommitInterval: 3766.44,
+  autoCommitThreshold: 1897.81,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "mediocre per ponder ceramic by vice ceramic upset",
+  description: "inasmuch wring trench hmph",
 };
 ```
 

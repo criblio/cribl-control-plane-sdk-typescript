@@ -24,8 +24,17 @@ export type OutputNewrelicEventsType = ClosedEnum<
  * Which New Relic region endpoint to use.
  */
 export const OutputNewrelicEventsRegion = {
+  /**
+   * US
+   */
   Us: "US",
+  /**
+   * Europe
+   */
   Eu: "EU",
+  /**
+   * Custom
+   */
   Custom: "Custom",
 } as const;
 /**
@@ -44,8 +53,17 @@ export type OutputNewrelicEventsExtraHttpHeader = {
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
 export const OutputNewrelicEventsFailedRequestLoggingMode = {
+  /**
+   * Payload
+   */
   Payload: "payload",
+  /**
+   * Payload + Headers
+   */
   PayloadAndHeaders: "payloadAndHeaders",
+  /**
+   * None
+   */
   None: "none",
 } as const;
 /**
@@ -94,8 +112,17 @@ export type OutputNewrelicEventsTimeoutRetrySettings = {
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputNewrelicEventsBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -120,10 +147,40 @@ export type OutputNewrelicEventsAuthenticationMethod = OpenEnum<
 >;
 
 /**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputNewrelicEventsMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputNewrelicEventsMode = OpenEnum<
+  typeof OutputNewrelicEventsMode
+>;
+
+/**
  * Codec to use to compress the persisted data
  */
 export const OutputNewrelicEventsCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -137,7 +194,13 @@ export type OutputNewrelicEventsCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputNewrelicEventsQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -145,21 +208,6 @@ export const OutputNewrelicEventsQueueFullBehavior = {
  */
 export type OutputNewrelicEventsQueueFullBehavior = OpenEnum<
   typeof OutputNewrelicEventsQueueFullBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputNewrelicEventsMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputNewrelicEventsMode = OpenEnum<
-  typeof OutputNewrelicEventsMode
 >;
 
 export type OutputNewrelicEventsPqControls = {};
@@ -270,6 +318,26 @@ export type OutputNewrelicEvents = {
   description?: string | undefined;
   customUrl?: string | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputNewrelicEventsMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -289,10 +357,6 @@ export type OutputNewrelicEvents = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputNewrelicEventsQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputNewrelicEventsMode | undefined;
   pqControls?: OutputNewrelicEventsPqControls | undefined;
   /**
    * New Relic API key. Can be overridden using __newRelic_apiKey field.
@@ -308,22 +372,10 @@ export type OutputNewrelicEvents = {
 export const OutputNewrelicEventsType$inboundSchema: z.ZodNativeEnum<
   typeof OutputNewrelicEventsType
 > = z.nativeEnum(OutputNewrelicEventsType);
-
 /** @internal */
 export const OutputNewrelicEventsType$outboundSchema: z.ZodNativeEnum<
   typeof OutputNewrelicEventsType
 > = OutputNewrelicEventsType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicEventsType$ {
-  /** @deprecated use `OutputNewrelicEventsType$inboundSchema` instead. */
-  export const inboundSchema = OutputNewrelicEventsType$inboundSchema;
-  /** @deprecated use `OutputNewrelicEventsType$outboundSchema` instead. */
-  export const outboundSchema = OutputNewrelicEventsType$outboundSchema;
-}
 
 /** @internal */
 export const OutputNewrelicEventsRegion$inboundSchema: z.ZodType<
@@ -335,7 +387,6 @@ export const OutputNewrelicEventsRegion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputNewrelicEventsRegion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputNewrelicEventsRegion$outboundSchema: z.ZodType<
   OutputNewrelicEventsRegion,
@@ -346,17 +397,6 @@ export const OutputNewrelicEventsRegion$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicEventsRegion$ {
-  /** @deprecated use `OutputNewrelicEventsRegion$inboundSchema` instead. */
-  export const inboundSchema = OutputNewrelicEventsRegion$inboundSchema;
-  /** @deprecated use `OutputNewrelicEventsRegion$outboundSchema` instead. */
-  export const outboundSchema = OutputNewrelicEventsRegion$outboundSchema;
-}
-
 /** @internal */
 export const OutputNewrelicEventsExtraHttpHeader$inboundSchema: z.ZodType<
   OutputNewrelicEventsExtraHttpHeader,
@@ -366,7 +406,6 @@ export const OutputNewrelicEventsExtraHttpHeader$inboundSchema: z.ZodType<
   name: z.string().optional(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputNewrelicEventsExtraHttpHeader$Outbound = {
   name?: string | undefined;
@@ -383,21 +422,6 @@ export const OutputNewrelicEventsExtraHttpHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicEventsExtraHttpHeader$ {
-  /** @deprecated use `OutputNewrelicEventsExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputNewrelicEventsExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputNewrelicEventsExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputNewrelicEventsExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputNewrelicEventsExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputNewrelicEventsExtraHttpHeader$Outbound;
-}
-
 export function outputNewrelicEventsExtraHttpHeaderToJSON(
   outputNewrelicEventsExtraHttpHeader: OutputNewrelicEventsExtraHttpHeader,
 ): string {
@@ -407,7 +431,6 @@ export function outputNewrelicEventsExtraHttpHeaderToJSON(
     ),
   );
 }
-
 export function outputNewrelicEventsExtraHttpHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputNewrelicEventsExtraHttpHeader, SDKValidationError> {
@@ -430,7 +453,6 @@ export const OutputNewrelicEventsFailedRequestLoggingMode$inboundSchema:
       z.nativeEnum(OutputNewrelicEventsFailedRequestLoggingMode),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const OutputNewrelicEventsFailedRequestLoggingMode$outboundSchema:
   z.ZodType<
@@ -441,19 +463,6 @@ export const OutputNewrelicEventsFailedRequestLoggingMode$outboundSchema:
     z.nativeEnum(OutputNewrelicEventsFailedRequestLoggingMode),
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicEventsFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputNewrelicEventsFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputNewrelicEventsFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputNewrelicEventsFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputNewrelicEventsFailedRequestLoggingMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputNewrelicEventsResponseRetrySetting$inboundSchema: z.ZodType<
@@ -466,7 +475,6 @@ export const OutputNewrelicEventsResponseRetrySetting$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputNewrelicEventsResponseRetrySetting$Outbound = {
   httpStatus: number;
@@ -487,21 +495,6 @@ export const OutputNewrelicEventsResponseRetrySetting$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicEventsResponseRetrySetting$ {
-  /** @deprecated use `OutputNewrelicEventsResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputNewrelicEventsResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputNewrelicEventsResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputNewrelicEventsResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputNewrelicEventsResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputNewrelicEventsResponseRetrySetting$Outbound;
-}
-
 export function outputNewrelicEventsResponseRetrySettingToJSON(
   outputNewrelicEventsResponseRetrySetting:
     OutputNewrelicEventsResponseRetrySetting,
@@ -512,7 +505,6 @@ export function outputNewrelicEventsResponseRetrySettingToJSON(
     ),
   );
 }
-
 export function outputNewrelicEventsResponseRetrySettingFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -540,7 +532,6 @@ export const OutputNewrelicEventsTimeoutRetrySettings$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputNewrelicEventsTimeoutRetrySettings$Outbound = {
   timeoutRetry: boolean;
@@ -561,21 +552,6 @@ export const OutputNewrelicEventsTimeoutRetrySettings$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicEventsTimeoutRetrySettings$ {
-  /** @deprecated use `OutputNewrelicEventsTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputNewrelicEventsTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputNewrelicEventsTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputNewrelicEventsTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputNewrelicEventsTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputNewrelicEventsTimeoutRetrySettings$Outbound;
-}
-
 export function outputNewrelicEventsTimeoutRetrySettingsToJSON(
   outputNewrelicEventsTimeoutRetrySettings:
     OutputNewrelicEventsTimeoutRetrySettings,
@@ -586,7 +562,6 @@ export function outputNewrelicEventsTimeoutRetrySettingsToJSON(
     ),
   );
 }
-
 export function outputNewrelicEventsTimeoutRetrySettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -613,7 +588,6 @@ export const OutputNewrelicEventsBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputNewrelicEventsBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputNewrelicEventsBackpressureBehavior$outboundSchema: z.ZodType<
   OutputNewrelicEventsBackpressureBehavior,
@@ -623,19 +597,6 @@ export const OutputNewrelicEventsBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputNewrelicEventsBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicEventsBackpressureBehavior$ {
-  /** @deprecated use `OutputNewrelicEventsBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputNewrelicEventsBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputNewrelicEventsBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputNewrelicEventsBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputNewrelicEventsAuthenticationMethod$inboundSchema: z.ZodType<
@@ -647,7 +608,6 @@ export const OutputNewrelicEventsAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(OutputNewrelicEventsAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputNewrelicEventsAuthenticationMethod$outboundSchema: z.ZodType<
   OutputNewrelicEventsAuthenticationMethod,
@@ -657,85 +617,6 @@ export const OutputNewrelicEventsAuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(OutputNewrelicEventsAuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicEventsAuthenticationMethod$ {
-  /** @deprecated use `OutputNewrelicEventsAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputNewrelicEventsAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputNewrelicEventsAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputNewrelicEventsAuthenticationMethod$outboundSchema;
-}
-
-/** @internal */
-export const OutputNewrelicEventsCompression$inboundSchema: z.ZodType<
-  OutputNewrelicEventsCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputNewrelicEventsCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputNewrelicEventsCompression$outboundSchema: z.ZodType<
-  OutputNewrelicEventsCompression,
-  z.ZodTypeDef,
-  OutputNewrelicEventsCompression
-> = z.union([
-  z.nativeEnum(OutputNewrelicEventsCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicEventsCompression$ {
-  /** @deprecated use `OutputNewrelicEventsCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputNewrelicEventsCompression$inboundSchema;
-  /** @deprecated use `OutputNewrelicEventsCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputNewrelicEventsCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputNewrelicEventsQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputNewrelicEventsQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputNewrelicEventsQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputNewrelicEventsQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputNewrelicEventsQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputNewrelicEventsQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputNewrelicEventsQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicEventsQueueFullBehavior$ {
-  /** @deprecated use `OutputNewrelicEventsQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputNewrelicEventsQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputNewrelicEventsQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputNewrelicEventsQueueFullBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputNewrelicEventsMode$inboundSchema: z.ZodType<
@@ -747,7 +628,6 @@ export const OutputNewrelicEventsMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputNewrelicEventsMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputNewrelicEventsMode$outboundSchema: z.ZodType<
   OutputNewrelicEventsMode,
@@ -758,16 +638,45 @@ export const OutputNewrelicEventsMode$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicEventsMode$ {
-  /** @deprecated use `OutputNewrelicEventsMode$inboundSchema` instead. */
-  export const inboundSchema = OutputNewrelicEventsMode$inboundSchema;
-  /** @deprecated use `OutputNewrelicEventsMode$outboundSchema` instead. */
-  export const outboundSchema = OutputNewrelicEventsMode$outboundSchema;
-}
+/** @internal */
+export const OutputNewrelicEventsCompression$inboundSchema: z.ZodType<
+  OutputNewrelicEventsCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputNewrelicEventsCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputNewrelicEventsCompression$outboundSchema: z.ZodType<
+  OutputNewrelicEventsCompression,
+  z.ZodTypeDef,
+  OutputNewrelicEventsCompression
+> = z.union([
+  z.nativeEnum(OutputNewrelicEventsCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputNewrelicEventsQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputNewrelicEventsQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputNewrelicEventsQueueFullBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputNewrelicEventsQueueFullBehavior$outboundSchema: z.ZodType<
+  OutputNewrelicEventsQueueFullBehavior,
+  z.ZodTypeDef,
+  OutputNewrelicEventsQueueFullBehavior
+> = z.union([
+  z.nativeEnum(OutputNewrelicEventsQueueFullBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /** @internal */
 export const OutputNewrelicEventsPqControls$inboundSchema: z.ZodType<
@@ -775,7 +684,6 @@ export const OutputNewrelicEventsPqControls$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputNewrelicEventsPqControls$Outbound = {};
 
@@ -786,19 +694,6 @@ export const OutputNewrelicEventsPqControls$outboundSchema: z.ZodType<
   OutputNewrelicEventsPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicEventsPqControls$ {
-  /** @deprecated use `OutputNewrelicEventsPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputNewrelicEventsPqControls$inboundSchema;
-  /** @deprecated use `OutputNewrelicEventsPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputNewrelicEventsPqControls$outboundSchema;
-  /** @deprecated use `OutputNewrelicEventsPqControls$Outbound` instead. */
-  export type Outbound = OutputNewrelicEventsPqControls$Outbound;
-}
-
 export function outputNewrelicEventsPqControlsToJSON(
   outputNewrelicEventsPqControls: OutputNewrelicEventsPqControls,
 ): string {
@@ -808,7 +703,6 @@ export function outputNewrelicEventsPqControlsToJSON(
     ),
   );
 }
-
 export function outputNewrelicEventsPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputNewrelicEventsPqControls, SDKValidationError> {
@@ -862,6 +756,11 @@ export const OutputNewrelicEvents$inboundSchema: z.ZodType<
   ),
   description: z.string().optional(),
   customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputNewrelicEventsMode$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -869,13 +768,11 @@ export const OutputNewrelicEvents$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputNewrelicEventsQueueFullBehavior$inboundSchema.default(
     "block",
   ),
-  pqMode: OutputNewrelicEventsMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputNewrelicEventsPqControls$inboundSchema)
     .optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
 });
-
 /** @internal */
 export type OutputNewrelicEvents$Outbound = {
   id?: string | undefined;
@@ -911,12 +808,16 @@ export type OutputNewrelicEvents$Outbound = {
   authType: string;
   description?: string | undefined;
   customUrl?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
   pqControls?: OutputNewrelicEventsPqControls$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret?: string | undefined;
@@ -965,31 +866,22 @@ export const OutputNewrelicEvents$outboundSchema: z.ZodType<
   ),
   description: z.string().optional(),
   customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputNewrelicEventsMode$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
   pqCompress: OutputNewrelicEventsCompression$outboundSchema.default("none"),
   pqOnBackpressure: OutputNewrelicEventsQueueFullBehavior$outboundSchema
     .default("block"),
-  pqMode: OutputNewrelicEventsMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputNewrelicEventsPqControls$outboundSchema)
     .optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
 });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputNewrelicEvents$ {
-  /** @deprecated use `OutputNewrelicEvents$inboundSchema` instead. */
-  export const inboundSchema = OutputNewrelicEvents$inboundSchema;
-  /** @deprecated use `OutputNewrelicEvents$outboundSchema` instead. */
-  export const outboundSchema = OutputNewrelicEvents$outboundSchema;
-  /** @deprecated use `OutputNewrelicEvents$Outbound` instead. */
-  export type Outbound = OutputNewrelicEvents$Outbound;
-}
 
 export function outputNewrelicEventsToJSON(
   outputNewrelicEvents: OutputNewrelicEvents,
@@ -998,7 +890,6 @@ export function outputNewrelicEventsToJSON(
     OutputNewrelicEvents$outboundSchema.parse(outputNewrelicEvents),
   );
 }
-
 export function outputNewrelicEventsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputNewrelicEvents, SDKValidationError> {

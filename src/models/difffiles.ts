@@ -71,41 +71,6 @@ export const Line3$inboundSchema: z.ZodType<Line3, z.ZodTypeDef, unknown> = z
     oldNumber: z.number(),
   });
 
-/** @internal */
-export type Line3$Outbound = {
-  content: string;
-  newNumber: number;
-  oldNumber: number;
-};
-
-/** @internal */
-export const Line3$outboundSchema: z.ZodType<
-  Line3$Outbound,
-  z.ZodTypeDef,
-  Line3
-> = z.object({
-  content: z.string(),
-  newNumber: z.number(),
-  oldNumber: z.number(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Line3$ {
-  /** @deprecated use `Line3$inboundSchema` instead. */
-  export const inboundSchema = Line3$inboundSchema;
-  /** @deprecated use `Line3$outboundSchema` instead. */
-  export const outboundSchema = Line3$outboundSchema;
-  /** @deprecated use `Line3$Outbound` instead. */
-  export type Outbound = Line3$Outbound;
-}
-
-export function line3ToJSON(line3: Line3): string {
-  return JSON.stringify(Line3$outboundSchema.parse(line3));
-}
-
 export function line3FromJSON(
   jsonString: string,
 ): SafeParseResult<Line3, SDKValidationError> {
@@ -123,39 +88,6 @@ export const Line2$inboundSchema: z.ZodType<Line2, z.ZodTypeDef, unknown> = z
     newNumber: z.number(),
   });
 
-/** @internal */
-export type Line2$Outbound = {
-  content: string;
-  newNumber: number;
-};
-
-/** @internal */
-export const Line2$outboundSchema: z.ZodType<
-  Line2$Outbound,
-  z.ZodTypeDef,
-  Line2
-> = z.object({
-  content: z.string(),
-  newNumber: z.number(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Line2$ {
-  /** @deprecated use `Line2$inboundSchema` instead. */
-  export const inboundSchema = Line2$inboundSchema;
-  /** @deprecated use `Line2$outboundSchema` instead. */
-  export const outboundSchema = Line2$outboundSchema;
-  /** @deprecated use `Line2$Outbound` instead. */
-  export type Outbound = Line2$Outbound;
-}
-
-export function line2ToJSON(line2: Line2): string {
-  return JSON.stringify(Line2$outboundSchema.parse(line2));
-}
-
 export function line2FromJSON(
   jsonString: string,
 ): SafeParseResult<Line2, SDKValidationError> {
@@ -172,39 +104,6 @@ export const Line1$inboundSchema: z.ZodType<Line1, z.ZodTypeDef, unknown> = z
     content: z.string(),
     oldNumber: z.number(),
   });
-
-/** @internal */
-export type Line1$Outbound = {
-  content: string;
-  oldNumber: number;
-};
-
-/** @internal */
-export const Line1$outboundSchema: z.ZodType<
-  Line1$Outbound,
-  z.ZodTypeDef,
-  Line1
-> = z.object({
-  content: z.string(),
-  oldNumber: z.number(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Line1$ {
-  /** @deprecated use `Line1$inboundSchema` instead. */
-  export const inboundSchema = Line1$inboundSchema;
-  /** @deprecated use `Line1$outboundSchema` instead. */
-  export const outboundSchema = Line1$outboundSchema;
-  /** @deprecated use `Line1$Outbound` instead. */
-  export type Outbound = Line1$Outbound;
-}
-
-export function line1ToJSON(line1: Line1): string {
-  return JSON.stringify(Line1$outboundSchema.parse(line1));
-}
 
 export function line1FromJSON(
   jsonString: string,
@@ -226,40 +125,6 @@ export const LineUnion$inboundSchema: z.ZodType<
   z.lazy(() => Line1$inboundSchema),
   z.lazy(() => Line2$inboundSchema),
 ]);
-
-/** @internal */
-export type LineUnion$Outbound =
-  | Line3$Outbound
-  | Line1$Outbound
-  | Line2$Outbound;
-
-/** @internal */
-export const LineUnion$outboundSchema: z.ZodType<
-  LineUnion$Outbound,
-  z.ZodTypeDef,
-  LineUnion
-> = z.union([
-  z.lazy(() => Line3$outboundSchema),
-  z.lazy(() => Line1$outboundSchema),
-  z.lazy(() => Line2$outboundSchema),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace LineUnion$ {
-  /** @deprecated use `LineUnion$inboundSchema` instead. */
-  export const inboundSchema = LineUnion$inboundSchema;
-  /** @deprecated use `LineUnion$outboundSchema` instead. */
-  export const outboundSchema = LineUnion$outboundSchema;
-  /** @deprecated use `LineUnion$Outbound` instead. */
-  export type Outbound = LineUnion$Outbound;
-}
-
-export function lineUnionToJSON(lineUnion: LineUnion): string {
-  return JSON.stringify(LineUnion$outboundSchema.parse(lineUnion));
-}
 
 export function lineUnionFromJSON(
   jsonString: string,
@@ -287,51 +152,6 @@ export const Block$inboundSchema: z.ZodType<Block, z.ZodTypeDef, unknown> = z
     oldStartLine2: z.number().optional(),
   });
 
-/** @internal */
-export type Block$Outbound = {
-  header: string;
-  lines: Array<Line3$Outbound | Line1$Outbound | Line2$Outbound>;
-  newStartLine: number;
-  oldStartLine: number;
-  oldStartLine2?: number | undefined;
-};
-
-/** @internal */
-export const Block$outboundSchema: z.ZodType<
-  Block$Outbound,
-  z.ZodTypeDef,
-  Block
-> = z.object({
-  header: z.string(),
-  lines: z.array(
-    z.union([
-      z.lazy(() => Line3$outboundSchema),
-      z.lazy(() => Line1$outboundSchema),
-      z.lazy(() => Line2$outboundSchema),
-    ]),
-  ),
-  newStartLine: z.number(),
-  oldStartLine: z.number(),
-  oldStartLine2: z.number().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Block$ {
-  /** @deprecated use `Block$inboundSchema` instead. */
-  export const inboundSchema = Block$inboundSchema;
-  /** @deprecated use `Block$outboundSchema` instead. */
-  export const outboundSchema = Block$outboundSchema;
-  /** @deprecated use `Block$Outbound` instead. */
-  export type Outbound = Block$Outbound;
-}
-
-export function blockToJSON(block: Block): string {
-  return JSON.stringify(Block$outboundSchema.parse(block));
-}
-
 export function blockFromJSON(
   jsonString: string,
 ): SafeParseResult<Block, SDKValidationError> {
@@ -349,33 +169,6 @@ export const ChecksumBefore$inboundSchema: z.ZodType<
   unknown
 > = z.union([z.string(), z.array(z.string())]);
 
-/** @internal */
-export type ChecksumBefore$Outbound = string | Array<string>;
-
-/** @internal */
-export const ChecksumBefore$outboundSchema: z.ZodType<
-  ChecksumBefore$Outbound,
-  z.ZodTypeDef,
-  ChecksumBefore
-> = z.union([z.string(), z.array(z.string())]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ChecksumBefore$ {
-  /** @deprecated use `ChecksumBefore$inboundSchema` instead. */
-  export const inboundSchema = ChecksumBefore$inboundSchema;
-  /** @deprecated use `ChecksumBefore$outboundSchema` instead. */
-  export const outboundSchema = ChecksumBefore$outboundSchema;
-  /** @deprecated use `ChecksumBefore$Outbound` instead. */
-  export type Outbound = ChecksumBefore$Outbound;
-}
-
-export function checksumBeforeToJSON(checksumBefore: ChecksumBefore): string {
-  return JSON.stringify(ChecksumBefore$outboundSchema.parse(checksumBefore));
-}
-
 export function checksumBeforeFromJSON(
   jsonString: string,
 ): SafeParseResult<ChecksumBefore, SDKValidationError> {
@@ -389,33 +182,6 @@ export function checksumBeforeFromJSON(
 /** @internal */
 export const OldMode$inboundSchema: z.ZodType<OldMode, z.ZodTypeDef, unknown> =
   z.union([z.string(), z.array(z.string())]);
-
-/** @internal */
-export type OldMode$Outbound = string | Array<string>;
-
-/** @internal */
-export const OldMode$outboundSchema: z.ZodType<
-  OldMode$Outbound,
-  z.ZodTypeDef,
-  OldMode
-> = z.union([z.string(), z.array(z.string())]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OldMode$ {
-  /** @deprecated use `OldMode$inboundSchema` instead. */
-  export const inboundSchema = OldMode$inboundSchema;
-  /** @deprecated use `OldMode$outboundSchema` instead. */
-  export const outboundSchema = OldMode$outboundSchema;
-  /** @deprecated use `OldMode$Outbound` instead. */
-  export type Outbound = OldMode$Outbound;
-}
-
-export function oldModeToJSON(oldMode: OldMode): string {
-  return JSON.stringify(OldMode$outboundSchema.parse(oldMode));
-}
 
 export function oldModeFromJSON(
   jsonString: string,
@@ -457,81 +223,6 @@ export const DiffFiles$inboundSchema: z.ZodType<
   oldName: z.string(),
   unchangedPercentage: z.number().optional(),
 });
-
-/** @internal */
-export type DiffFiles$Outbound = {
-  addedLines: number;
-  blocks: Array<Block$Outbound>;
-  changedPercentage?: number | undefined;
-  checksumAfter?: string | undefined;
-  checksumBefore?: string | Array<string> | undefined;
-  deletedFileMode?: string | undefined;
-  deletedLines: number;
-  isBinary?: boolean | undefined;
-  isCombined: boolean;
-  isCopy?: boolean | undefined;
-  isDeleted?: boolean | undefined;
-  isGitDiff: boolean;
-  isNew?: boolean | undefined;
-  isRename?: boolean | undefined;
-  isTooBig?: boolean | undefined;
-  language: string;
-  mode?: string | undefined;
-  newFileMode?: string | undefined;
-  newMode?: string | undefined;
-  newName: string;
-  oldMode?: string | Array<string> | undefined;
-  oldName: string;
-  unchangedPercentage?: number | undefined;
-};
-
-/** @internal */
-export const DiffFiles$outboundSchema: z.ZodType<
-  DiffFiles$Outbound,
-  z.ZodTypeDef,
-  DiffFiles
-> = z.object({
-  addedLines: z.number(),
-  blocks: z.array(z.lazy(() => Block$outboundSchema)),
-  changedPercentage: z.number().optional(),
-  checksumAfter: z.string().optional(),
-  checksumBefore: z.union([z.string(), z.array(z.string())]).optional(),
-  deletedFileMode: z.string().optional(),
-  deletedLines: z.number(),
-  isBinary: z.boolean().optional(),
-  isCombined: z.boolean(),
-  isCopy: z.boolean().optional(),
-  isDeleted: z.boolean().optional(),
-  isGitDiff: z.boolean(),
-  isNew: z.boolean().optional(),
-  isRename: z.boolean().optional(),
-  isTooBig: z.boolean().optional(),
-  language: z.string(),
-  mode: z.string().optional(),
-  newFileMode: z.string().optional(),
-  newMode: z.string().optional(),
-  newName: z.string(),
-  oldMode: z.union([z.string(), z.array(z.string())]).optional(),
-  oldName: z.string(),
-  unchangedPercentage: z.number().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DiffFiles$ {
-  /** @deprecated use `DiffFiles$inboundSchema` instead. */
-  export const inboundSchema = DiffFiles$inboundSchema;
-  /** @deprecated use `DiffFiles$outboundSchema` instead. */
-  export const outboundSchema = DiffFiles$outboundSchema;
-  /** @deprecated use `DiffFiles$Outbound` instead. */
-  export type Outbound = DiffFiles$Outbound;
-}
-
-export function diffFilesToJSON(diffFiles: DiffFiles): string {
-  return JSON.stringify(DiffFiles$outboundSchema.parse(diffFiles));
-}
 
 export function diffFilesFromJSON(
   jsonString: string,

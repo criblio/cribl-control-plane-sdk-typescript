@@ -7,20 +7,22 @@ import { DistributedSummary } from "cribl-control-plane/models";
 
 let value: DistributedSummary = {
   groups: {
-    count: 1533.36,
-    destinations: 96.11,
-    pipelines: 273.25,
-    routes: 4362.13,
-    sources: 5084.29,
+    count: 1204.41,
+    destinations: 8683.12,
+    packs: 7143.15,
+    pipelines: 7102.09,
+    quickConnects: 6617.98,
+    routes: 6137.57,
+    sources: 7913.56,
   },
   workers: {
-    alive: 8370.31,
-    confVersions: 8558.62,
-    count: 5991.49,
-    disconnectedCount: 5501.85,
-    groups: 9976.94,
-    softwareVersions: 7533.67,
-    unhealthy: 9363.42,
+    alive: 2840.51,
+    confVersions: 2105.62,
+    count: 2109.21,
+    disconnectedCount: 2638.62,
+    groups: 4163.97,
+    softwareVersions: 5635.1,
+    unhealthy: 4966.29,
   },
 };
 ```

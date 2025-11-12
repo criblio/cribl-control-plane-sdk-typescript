@@ -25,7 +25,6 @@ export const DatasetMetadataRunInfo$inboundSchema: z.ZodType<
   latestScannedTime: z.number().optional(),
   objectCount: z.number().optional(),
 });
-
 /** @internal */
 export type DatasetMetadataRunInfo$Outbound = {
   earliestScannedTime?: number | undefined;
@@ -46,19 +45,6 @@ export const DatasetMetadataRunInfo$outboundSchema: z.ZodType<
   objectCount: z.number().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DatasetMetadataRunInfo$ {
-  /** @deprecated use `DatasetMetadataRunInfo$inboundSchema` instead. */
-  export const inboundSchema = DatasetMetadataRunInfo$inboundSchema;
-  /** @deprecated use `DatasetMetadataRunInfo$outboundSchema` instead. */
-  export const outboundSchema = DatasetMetadataRunInfo$outboundSchema;
-  /** @deprecated use `DatasetMetadataRunInfo$Outbound` instead. */
-  export type Outbound = DatasetMetadataRunInfo$Outbound;
-}
-
 export function datasetMetadataRunInfoToJSON(
   datasetMetadataRunInfo: DatasetMetadataRunInfo,
 ): string {
@@ -66,7 +52,6 @@ export function datasetMetadataRunInfoToJSON(
     DatasetMetadataRunInfo$outboundSchema.parse(datasetMetadataRunInfo),
   );
 }
-
 export function datasetMetadataRunInfoFromJSON(
   jsonString: string,
 ): SafeParseResult<DatasetMetadataRunInfo, SDKValidationError> {

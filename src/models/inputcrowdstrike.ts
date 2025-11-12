@@ -27,7 +27,13 @@ export type InputCrowdstrikeConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputCrowdstrikeMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -39,7 +45,13 @@ export type InputCrowdstrikeMode = OpenEnum<typeof InputCrowdstrikeMode>;
  * Codec to use to compress the persisted data
  */
 export const InputCrowdstrikeCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -87,8 +99,17 @@ export type InputCrowdstrikePq = {
  * AWS authentication method. Choose Auto to use IAM roles.
  */
 export const InputCrowdstrikeAuthenticationMethod = {
+  /**
+   * Auto
+   */
   Auto: "auto",
+  /**
+   * Manual
+   */
   Manual: "manual",
+  /**
+   * Secret Key pair
+   */
   Secret: "secret",
 } as const;
 /**
@@ -307,22 +328,10 @@ export type InputCrowdstrike = {
 export const InputCrowdstrikeType$inboundSchema: z.ZodNativeEnum<
   typeof InputCrowdstrikeType
 > = z.nativeEnum(InputCrowdstrikeType);
-
 /** @internal */
 export const InputCrowdstrikeType$outboundSchema: z.ZodNativeEnum<
   typeof InputCrowdstrikeType
 > = InputCrowdstrikeType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCrowdstrikeType$ {
-  /** @deprecated use `InputCrowdstrikeType$inboundSchema` instead. */
-  export const inboundSchema = InputCrowdstrikeType$inboundSchema;
-  /** @deprecated use `InputCrowdstrikeType$outboundSchema` instead. */
-  export const outboundSchema = InputCrowdstrikeType$outboundSchema;
-}
 
 /** @internal */
 export const InputCrowdstrikeConnection$inboundSchema: z.ZodType<
@@ -333,7 +342,6 @@ export const InputCrowdstrikeConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputCrowdstrikeConnection$Outbound = {
   pipeline?: string | undefined;
@@ -350,19 +358,6 @@ export const InputCrowdstrikeConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCrowdstrikeConnection$ {
-  /** @deprecated use `InputCrowdstrikeConnection$inboundSchema` instead. */
-  export const inboundSchema = InputCrowdstrikeConnection$inboundSchema;
-  /** @deprecated use `InputCrowdstrikeConnection$outboundSchema` instead. */
-  export const outboundSchema = InputCrowdstrikeConnection$outboundSchema;
-  /** @deprecated use `InputCrowdstrikeConnection$Outbound` instead. */
-  export type Outbound = InputCrowdstrikeConnection$Outbound;
-}
-
 export function inputCrowdstrikeConnectionToJSON(
   inputCrowdstrikeConnection: InputCrowdstrikeConnection,
 ): string {
@@ -370,7 +365,6 @@ export function inputCrowdstrikeConnectionToJSON(
     InputCrowdstrikeConnection$outboundSchema.parse(inputCrowdstrikeConnection),
   );
 }
-
 export function inputCrowdstrikeConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputCrowdstrikeConnection, SDKValidationError> {
@@ -391,7 +385,6 @@ export const InputCrowdstrikeMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputCrowdstrikeMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputCrowdstrikeMode$outboundSchema: z.ZodType<
   InputCrowdstrikeMode,
@@ -401,17 +394,6 @@ export const InputCrowdstrikeMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputCrowdstrikeMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCrowdstrikeMode$ {
-  /** @deprecated use `InputCrowdstrikeMode$inboundSchema` instead. */
-  export const inboundSchema = InputCrowdstrikeMode$inboundSchema;
-  /** @deprecated use `InputCrowdstrikeMode$outboundSchema` instead. */
-  export const outboundSchema = InputCrowdstrikeMode$outboundSchema;
-}
 
 /** @internal */
 export const InputCrowdstrikeCompression$inboundSchema: z.ZodType<
@@ -423,7 +405,6 @@ export const InputCrowdstrikeCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputCrowdstrikeCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputCrowdstrikeCompression$outboundSchema: z.ZodType<
   InputCrowdstrikeCompression,
@@ -434,24 +415,12 @@ export const InputCrowdstrikeCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCrowdstrikeCompression$ {
-  /** @deprecated use `InputCrowdstrikeCompression$inboundSchema` instead. */
-  export const inboundSchema = InputCrowdstrikeCompression$inboundSchema;
-  /** @deprecated use `InputCrowdstrikeCompression$outboundSchema` instead. */
-  export const outboundSchema = InputCrowdstrikeCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputCrowdstrikePqControls$inboundSchema: z.ZodType<
   InputCrowdstrikePqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputCrowdstrikePqControls$Outbound = {};
 
@@ -462,19 +431,6 @@ export const InputCrowdstrikePqControls$outboundSchema: z.ZodType<
   InputCrowdstrikePqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCrowdstrikePqControls$ {
-  /** @deprecated use `InputCrowdstrikePqControls$inboundSchema` instead. */
-  export const inboundSchema = InputCrowdstrikePqControls$inboundSchema;
-  /** @deprecated use `InputCrowdstrikePqControls$outboundSchema` instead. */
-  export const outboundSchema = InputCrowdstrikePqControls$outboundSchema;
-  /** @deprecated use `InputCrowdstrikePqControls$Outbound` instead. */
-  export type Outbound = InputCrowdstrikePqControls$Outbound;
-}
-
 export function inputCrowdstrikePqControlsToJSON(
   inputCrowdstrikePqControls: InputCrowdstrikePqControls,
 ): string {
@@ -482,7 +438,6 @@ export function inputCrowdstrikePqControlsToJSON(
     InputCrowdstrikePqControls$outboundSchema.parse(inputCrowdstrikePqControls),
   );
 }
-
 export function inputCrowdstrikePqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputCrowdstrikePqControls, SDKValidationError> {
@@ -508,7 +463,6 @@ export const InputCrowdstrikePq$inboundSchema: z.ZodType<
   compress: InputCrowdstrikeCompression$inboundSchema.default("none"),
   pqControls: z.lazy(() => InputCrowdstrikePqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputCrowdstrikePq$Outbound = {
   mode: string;
@@ -538,19 +492,6 @@ export const InputCrowdstrikePq$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCrowdstrikePq$ {
-  /** @deprecated use `InputCrowdstrikePq$inboundSchema` instead. */
-  export const inboundSchema = InputCrowdstrikePq$inboundSchema;
-  /** @deprecated use `InputCrowdstrikePq$outboundSchema` instead. */
-  export const outboundSchema = InputCrowdstrikePq$outboundSchema;
-  /** @deprecated use `InputCrowdstrikePq$Outbound` instead. */
-  export type Outbound = InputCrowdstrikePq$Outbound;
-}
-
 export function inputCrowdstrikePqToJSON(
   inputCrowdstrikePq: InputCrowdstrikePq,
 ): string {
@@ -558,7 +499,6 @@ export function inputCrowdstrikePqToJSON(
     InputCrowdstrikePq$outboundSchema.parse(inputCrowdstrikePq),
   );
 }
-
 export function inputCrowdstrikePqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputCrowdstrikePq, SDKValidationError> {
@@ -579,7 +519,6 @@ export const InputCrowdstrikeAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(InputCrowdstrikeAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputCrowdstrikeAuthenticationMethod$outboundSchema: z.ZodType<
   InputCrowdstrikeAuthenticationMethod,
@@ -589,19 +528,6 @@ export const InputCrowdstrikeAuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(InputCrowdstrikeAuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCrowdstrikeAuthenticationMethod$ {
-  /** @deprecated use `InputCrowdstrikeAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    InputCrowdstrikeAuthenticationMethod$inboundSchema;
-  /** @deprecated use `InputCrowdstrikeAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    InputCrowdstrikeAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const InputCrowdstrikeSignatureVersion$inboundSchema: z.ZodType<
@@ -613,7 +539,6 @@ export const InputCrowdstrikeSignatureVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputCrowdstrikeSignatureVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputCrowdstrikeSignatureVersion$outboundSchema: z.ZodType<
   InputCrowdstrikeSignatureVersion,
@@ -623,17 +548,6 @@ export const InputCrowdstrikeSignatureVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputCrowdstrikeSignatureVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCrowdstrikeSignatureVersion$ {
-  /** @deprecated use `InputCrowdstrikeSignatureVersion$inboundSchema` instead. */
-  export const inboundSchema = InputCrowdstrikeSignatureVersion$inboundSchema;
-  /** @deprecated use `InputCrowdstrikeSignatureVersion$outboundSchema` instead. */
-  export const outboundSchema = InputCrowdstrikeSignatureVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputCrowdstrikePreprocess$inboundSchema: z.ZodType<
@@ -645,7 +559,6 @@ export const InputCrowdstrikePreprocess$inboundSchema: z.ZodType<
   command: z.string().optional(),
   args: z.array(z.string()).optional(),
 });
-
 /** @internal */
 export type InputCrowdstrikePreprocess$Outbound = {
   disabled: boolean;
@@ -664,19 +577,6 @@ export const InputCrowdstrikePreprocess$outboundSchema: z.ZodType<
   args: z.array(z.string()).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCrowdstrikePreprocess$ {
-  /** @deprecated use `InputCrowdstrikePreprocess$inboundSchema` instead. */
-  export const inboundSchema = InputCrowdstrikePreprocess$inboundSchema;
-  /** @deprecated use `InputCrowdstrikePreprocess$outboundSchema` instead. */
-  export const outboundSchema = InputCrowdstrikePreprocess$outboundSchema;
-  /** @deprecated use `InputCrowdstrikePreprocess$Outbound` instead. */
-  export type Outbound = InputCrowdstrikePreprocess$Outbound;
-}
-
 export function inputCrowdstrikePreprocessToJSON(
   inputCrowdstrikePreprocess: InputCrowdstrikePreprocess,
 ): string {
@@ -684,7 +584,6 @@ export function inputCrowdstrikePreprocessToJSON(
     InputCrowdstrikePreprocess$outboundSchema.parse(inputCrowdstrikePreprocess),
   );
 }
-
 export function inputCrowdstrikePreprocessFromJSON(
   jsonString: string,
 ): SafeParseResult<InputCrowdstrikePreprocess, SDKValidationError> {
@@ -704,7 +603,6 @@ export const InputCrowdstrikeMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputCrowdstrikeMetadatum$Outbound = {
   name: string;
@@ -721,19 +619,6 @@ export const InputCrowdstrikeMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCrowdstrikeMetadatum$ {
-  /** @deprecated use `InputCrowdstrikeMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputCrowdstrikeMetadatum$inboundSchema;
-  /** @deprecated use `InputCrowdstrikeMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputCrowdstrikeMetadatum$outboundSchema;
-  /** @deprecated use `InputCrowdstrikeMetadatum$Outbound` instead. */
-  export type Outbound = InputCrowdstrikeMetadatum$Outbound;
-}
-
 export function inputCrowdstrikeMetadatumToJSON(
   inputCrowdstrikeMetadatum: InputCrowdstrikeMetadatum,
 ): string {
@@ -741,7 +626,6 @@ export function inputCrowdstrikeMetadatumToJSON(
     InputCrowdstrikeMetadatum$outboundSchema.parse(inputCrowdstrikeMetadatum),
   );
 }
-
 export function inputCrowdstrikeMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputCrowdstrikeMetadatum, SDKValidationError> {
@@ -761,7 +645,6 @@ export const InputCrowdstrikeCheckpointing$inboundSchema: z.ZodType<
   enabled: z.boolean().default(false),
   retries: z.number().default(5),
 });
-
 /** @internal */
 export type InputCrowdstrikeCheckpointing$Outbound = {
   enabled: boolean;
@@ -778,19 +661,6 @@ export const InputCrowdstrikeCheckpointing$outboundSchema: z.ZodType<
   retries: z.number().default(5),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCrowdstrikeCheckpointing$ {
-  /** @deprecated use `InputCrowdstrikeCheckpointing$inboundSchema` instead. */
-  export const inboundSchema = InputCrowdstrikeCheckpointing$inboundSchema;
-  /** @deprecated use `InputCrowdstrikeCheckpointing$outboundSchema` instead. */
-  export const outboundSchema = InputCrowdstrikeCheckpointing$outboundSchema;
-  /** @deprecated use `InputCrowdstrikeCheckpointing$Outbound` instead. */
-  export type Outbound = InputCrowdstrikeCheckpointing$Outbound;
-}
-
 export function inputCrowdstrikeCheckpointingToJSON(
   inputCrowdstrikeCheckpointing: InputCrowdstrikeCheckpointing,
 ): string {
@@ -800,7 +670,6 @@ export function inputCrowdstrikeCheckpointingToJSON(
     ),
   );
 }
-
 export function inputCrowdstrikeCheckpointingFromJSON(
   jsonString: string,
 ): SafeParseResult<InputCrowdstrikeCheckpointing, SDKValidationError> {
@@ -821,7 +690,6 @@ export const InputCrowdstrikeTagAfterProcessing$inboundSchema: z.ZodType<
     z.nativeEnum(InputCrowdstrikeTagAfterProcessing),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputCrowdstrikeTagAfterProcessing$outboundSchema: z.ZodType<
   InputCrowdstrikeTagAfterProcessing,
@@ -831,18 +699,6 @@ export const InputCrowdstrikeTagAfterProcessing$outboundSchema: z.ZodType<
   z.nativeEnum(InputCrowdstrikeTagAfterProcessing),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCrowdstrikeTagAfterProcessing$ {
-  /** @deprecated use `InputCrowdstrikeTagAfterProcessing$inboundSchema` instead. */
-  export const inboundSchema = InputCrowdstrikeTagAfterProcessing$inboundSchema;
-  /** @deprecated use `InputCrowdstrikeTagAfterProcessing$outboundSchema` instead. */
-  export const outboundSchema =
-    InputCrowdstrikeTagAfterProcessing$outboundSchema;
-}
 
 /** @internal */
 export const InputCrowdstrike$inboundSchema: z.ZodType<
@@ -902,7 +758,6 @@ export const InputCrowdstrike$inboundSchema: z.ZodType<
   processedTagKey: z.string().optional(),
   processedTagValue: z.string().optional(),
 });
-
 /** @internal */
 export type InputCrowdstrike$Outbound = {
   id?: string | undefined;
@@ -1011,19 +866,6 @@ export const InputCrowdstrike$outboundSchema: z.ZodType<
   processedTagValue: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCrowdstrike$ {
-  /** @deprecated use `InputCrowdstrike$inboundSchema` instead. */
-  export const inboundSchema = InputCrowdstrike$inboundSchema;
-  /** @deprecated use `InputCrowdstrike$outboundSchema` instead. */
-  export const outboundSchema = InputCrowdstrike$outboundSchema;
-  /** @deprecated use `InputCrowdstrike$Outbound` instead. */
-  export type Outbound = InputCrowdstrike$Outbound;
-}
-
 export function inputCrowdstrikeToJSON(
   inputCrowdstrike: InputCrowdstrike,
 ): string {
@@ -1031,7 +873,6 @@ export function inputCrowdstrikeToJSON(
     InputCrowdstrike$outboundSchema.parse(inputCrowdstrike),
   );
 }
-
 export function inputCrowdstrikeFromJSON(
   jsonString: string,
 ): SafeParseResult<InputCrowdstrike, SDKValidationError> {

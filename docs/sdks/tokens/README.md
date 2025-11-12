@@ -9,11 +9,11 @@
 
 ## get
 
-This endpoint is unavailable on Cribl.Cloud. Instead, follow the instructions at https://docs.cribl.io/stream/api-tutorials/#criblcloud to get an Auth token for Cribl.Cloud.
+This endpoint is unavailable on Cribl.Cloud.Instead, follow the instructions at https://docs.cribl.io/stream/api-tutorials/#criblcloud to get an Auth token for Cribl.Cloud.
 
 ### Example Usage
 
-<!-- UsageSnippet language="typescript" operationID="login" method="post" path="/auth/login" -->
+<!-- UsageSnippet language="typescript" operationID="createAuthLogin" method="post" path="/auth/login" -->
 ```typescript
 import { CriblControlPlane } from "cribl-control-plane";
 
@@ -23,8 +23,8 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.auth.tokens.get({
-    username: "Nikko.Connelly",
-    password: "Ljp4BunfMR9hNyM",
+    password: "6j50J9421x29IhO",
+    username: "Lilly_Weissnat",
   });
 
   console.log(result);
@@ -49,8 +49,8 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await authTokensGet(criblControlPlane, {
-    username: "Nikko.Connelly",
-    password: "Ljp4BunfMR9hNyM",
+    password: "6j50J9421x29IhO",
+    username: "Lilly_Weissnat",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -74,10 +74,11 @@ run();
 
 ### Response
 
-**Promise\<[models.AuthToken](../../models/authtoken.md)\>**
+**Promise\<[operations.CreateAuthLoginResponse](../../models/operations/createauthloginresponse.md)\>**
 
 ### Errors
 
 | Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.ErrorT                        | 500                                  | application/json                     |
 | errors.CriblControlPlaneDefaultError | 4XX, 5XX                             | \*/\*                                |

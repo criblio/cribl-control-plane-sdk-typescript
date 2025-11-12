@@ -27,7 +27,13 @@ export type InputLokiConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputLokiMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -39,7 +45,13 @@ export type InputLokiMode = OpenEnum<typeof InputLokiMode>;
  * Codec to use to compress the persisted data
  */
 export const InputLokiCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -104,6 +116,18 @@ export type InputLokiMaximumTLSVersion = OpenEnum<
 export type InputLokiTLSSettingsServerSide = {
   disabled?: boolean | undefined;
   /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
    * The name of the predefined certificate
    */
   certificateName?: string | undefined;
@@ -123,12 +147,6 @@ export type InputLokiTLSSettingsServerSide = {
    * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
    */
   caPath?: string | undefined;
-  /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
   minVersion?: InputLokiMinimumTLSVersion | undefined;
   maxVersion?: InputLokiMaximumTLSVersion | undefined;
 };
@@ -331,22 +349,10 @@ export type InputLoki = {
 export const InputLokiType$inboundSchema: z.ZodNativeEnum<
   typeof InputLokiType
 > = z.nativeEnum(InputLokiType);
-
 /** @internal */
 export const InputLokiType$outboundSchema: z.ZodNativeEnum<
   typeof InputLokiType
 > = InputLokiType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputLokiType$ {
-  /** @deprecated use `InputLokiType$inboundSchema` instead. */
-  export const inboundSchema = InputLokiType$inboundSchema;
-  /** @deprecated use `InputLokiType$outboundSchema` instead. */
-  export const outboundSchema = InputLokiType$outboundSchema;
-}
 
 /** @internal */
 export const InputLokiConnection$inboundSchema: z.ZodType<
@@ -357,7 +363,6 @@ export const InputLokiConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputLokiConnection$Outbound = {
   pipeline?: string | undefined;
@@ -374,19 +379,6 @@ export const InputLokiConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputLokiConnection$ {
-  /** @deprecated use `InputLokiConnection$inboundSchema` instead. */
-  export const inboundSchema = InputLokiConnection$inboundSchema;
-  /** @deprecated use `InputLokiConnection$outboundSchema` instead. */
-  export const outboundSchema = InputLokiConnection$outboundSchema;
-  /** @deprecated use `InputLokiConnection$Outbound` instead. */
-  export type Outbound = InputLokiConnection$Outbound;
-}
-
 export function inputLokiConnectionToJSON(
   inputLokiConnection: InputLokiConnection,
 ): string {
@@ -394,7 +386,6 @@ export function inputLokiConnectionToJSON(
     InputLokiConnection$outboundSchema.parse(inputLokiConnection),
   );
 }
-
 export function inputLokiConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputLokiConnection, SDKValidationError> {
@@ -415,7 +406,6 @@ export const InputLokiMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputLokiMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputLokiMode$outboundSchema: z.ZodType<
   InputLokiMode,
@@ -425,17 +415,6 @@ export const InputLokiMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputLokiMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputLokiMode$ {
-  /** @deprecated use `InputLokiMode$inboundSchema` instead. */
-  export const inboundSchema = InputLokiMode$inboundSchema;
-  /** @deprecated use `InputLokiMode$outboundSchema` instead. */
-  export const outboundSchema = InputLokiMode$outboundSchema;
-}
 
 /** @internal */
 export const InputLokiCompression$inboundSchema: z.ZodType<
@@ -447,7 +426,6 @@ export const InputLokiCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputLokiCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputLokiCompression$outboundSchema: z.ZodType<
   InputLokiCompression,
@@ -458,24 +436,12 @@ export const InputLokiCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputLokiCompression$ {
-  /** @deprecated use `InputLokiCompression$inboundSchema` instead. */
-  export const inboundSchema = InputLokiCompression$inboundSchema;
-  /** @deprecated use `InputLokiCompression$outboundSchema` instead. */
-  export const outboundSchema = InputLokiCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputLokiPqControls$inboundSchema: z.ZodType<
   InputLokiPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputLokiPqControls$Outbound = {};
 
@@ -486,19 +452,6 @@ export const InputLokiPqControls$outboundSchema: z.ZodType<
   InputLokiPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputLokiPqControls$ {
-  /** @deprecated use `InputLokiPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputLokiPqControls$inboundSchema;
-  /** @deprecated use `InputLokiPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputLokiPqControls$outboundSchema;
-  /** @deprecated use `InputLokiPqControls$Outbound` instead. */
-  export type Outbound = InputLokiPqControls$Outbound;
-}
-
 export function inputLokiPqControlsToJSON(
   inputLokiPqControls: InputLokiPqControls,
 ): string {
@@ -506,7 +459,6 @@ export function inputLokiPqControlsToJSON(
     InputLokiPqControls$outboundSchema.parse(inputLokiPqControls),
   );
 }
-
 export function inputLokiPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputLokiPqControls, SDKValidationError> {
@@ -532,7 +484,6 @@ export const InputLokiPq$inboundSchema: z.ZodType<
   compress: InputLokiCompression$inboundSchema.default("none"),
   pqControls: z.lazy(() => InputLokiPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputLokiPq$Outbound = {
   mode: string;
@@ -561,23 +512,9 @@ export const InputLokiPq$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputLokiPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputLokiPq$ {
-  /** @deprecated use `InputLokiPq$inboundSchema` instead. */
-  export const inboundSchema = InputLokiPq$inboundSchema;
-  /** @deprecated use `InputLokiPq$outboundSchema` instead. */
-  export const outboundSchema = InputLokiPq$outboundSchema;
-  /** @deprecated use `InputLokiPq$Outbound` instead. */
-  export type Outbound = InputLokiPq$Outbound;
-}
-
 export function inputLokiPqToJSON(inputLokiPq: InputLokiPq): string {
   return JSON.stringify(InputLokiPq$outboundSchema.parse(inputLokiPq));
 }
-
 export function inputLokiPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputLokiPq, SDKValidationError> {
@@ -598,7 +535,6 @@ export const InputLokiMinimumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputLokiMinimumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputLokiMinimumTLSVersion$outboundSchema: z.ZodType<
   InputLokiMinimumTLSVersion,
@@ -608,17 +544,6 @@ export const InputLokiMinimumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputLokiMinimumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputLokiMinimumTLSVersion$ {
-  /** @deprecated use `InputLokiMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputLokiMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `InputLokiMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputLokiMinimumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputLokiMaximumTLSVersion$inboundSchema: z.ZodType<
@@ -630,7 +555,6 @@ export const InputLokiMaximumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputLokiMaximumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputLokiMaximumTLSVersion$outboundSchema: z.ZodType<
   InputLokiMaximumTLSVersion,
@@ -641,17 +565,6 @@ export const InputLokiMaximumTLSVersion$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputLokiMaximumTLSVersion$ {
-  /** @deprecated use `InputLokiMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputLokiMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `InputLokiMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputLokiMaximumTLSVersion$outboundSchema;
-}
-
 /** @internal */
 export const InputLokiTLSSettingsServerSide$inboundSchema: z.ZodType<
   InputLokiTLSSettingsServerSide,
@@ -659,29 +572,28 @@ export const InputLokiTLSSettingsServerSide$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
   certificateName: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   certPath: z.string().optional(),
   caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
   minVersion: InputLokiMinimumTLSVersion$inboundSchema.optional(),
   maxVersion: InputLokiMaximumTLSVersion$inboundSchema.optional(),
 });
-
 /** @internal */
 export type InputLokiTLSSettingsServerSide$Outbound = {
   disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
   certificateName?: string | undefined;
   privKeyPath?: string | undefined;
   passphrase?: string | undefined;
   certPath?: string | undefined;
   caPath?: string | undefined;
-  requestCert: boolean;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
   minVersion?: string | undefined;
   maxVersion?: string | undefined;
 };
@@ -693,30 +605,17 @@ export const InputLokiTLSSettingsServerSide$outboundSchema: z.ZodType<
   InputLokiTLSSettingsServerSide
 > = z.object({
   disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
   certificateName: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   certPath: z.string().optional(),
   caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
   minVersion: InputLokiMinimumTLSVersion$outboundSchema.optional(),
   maxVersion: InputLokiMaximumTLSVersion$outboundSchema.optional(),
 });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputLokiTLSSettingsServerSide$ {
-  /** @deprecated use `InputLokiTLSSettingsServerSide$inboundSchema` instead. */
-  export const inboundSchema = InputLokiTLSSettingsServerSide$inboundSchema;
-  /** @deprecated use `InputLokiTLSSettingsServerSide$outboundSchema` instead. */
-  export const outboundSchema = InputLokiTLSSettingsServerSide$outboundSchema;
-  /** @deprecated use `InputLokiTLSSettingsServerSide$Outbound` instead. */
-  export type Outbound = InputLokiTLSSettingsServerSide$Outbound;
-}
 
 export function inputLokiTLSSettingsServerSideToJSON(
   inputLokiTLSSettingsServerSide: InputLokiTLSSettingsServerSide,
@@ -727,7 +626,6 @@ export function inputLokiTLSSettingsServerSideToJSON(
     ),
   );
 }
-
 export function inputLokiTLSSettingsServerSideFromJSON(
   jsonString: string,
 ): SafeParseResult<InputLokiTLSSettingsServerSide, SDKValidationError> {
@@ -748,7 +646,6 @@ export const InputLokiAuthenticationType$inboundSchema: z.ZodType<
     z.nativeEnum(InputLokiAuthenticationType),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputLokiAuthenticationType$outboundSchema: z.ZodType<
   InputLokiAuthenticationType,
@@ -759,17 +656,6 @@ export const InputLokiAuthenticationType$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputLokiAuthenticationType$ {
-  /** @deprecated use `InputLokiAuthenticationType$inboundSchema` instead. */
-  export const inboundSchema = InputLokiAuthenticationType$inboundSchema;
-  /** @deprecated use `InputLokiAuthenticationType$outboundSchema` instead. */
-  export const outboundSchema = InputLokiAuthenticationType$outboundSchema;
-}
-
 /** @internal */
 export const InputLokiMetadatum$inboundSchema: z.ZodType<
   InputLokiMetadatum,
@@ -779,7 +665,6 @@ export const InputLokiMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputLokiMetadatum$Outbound = {
   name: string;
@@ -796,19 +681,6 @@ export const InputLokiMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputLokiMetadatum$ {
-  /** @deprecated use `InputLokiMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputLokiMetadatum$inboundSchema;
-  /** @deprecated use `InputLokiMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputLokiMetadatum$outboundSchema;
-  /** @deprecated use `InputLokiMetadatum$Outbound` instead. */
-  export type Outbound = InputLokiMetadatum$Outbound;
-}
-
 export function inputLokiMetadatumToJSON(
   inputLokiMetadatum: InputLokiMetadatum,
 ): string {
@@ -816,7 +688,6 @@ export function inputLokiMetadatumToJSON(
     InputLokiMetadatum$outboundSchema.parse(inputLokiMetadatum),
   );
 }
-
 export function inputLokiMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputLokiMetadatum, SDKValidationError> {
@@ -836,7 +707,6 @@ export const InputLokiOauthParam$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputLokiOauthParam$Outbound = {
   name: string;
@@ -853,19 +723,6 @@ export const InputLokiOauthParam$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputLokiOauthParam$ {
-  /** @deprecated use `InputLokiOauthParam$inboundSchema` instead. */
-  export const inboundSchema = InputLokiOauthParam$inboundSchema;
-  /** @deprecated use `InputLokiOauthParam$outboundSchema` instead. */
-  export const outboundSchema = InputLokiOauthParam$outboundSchema;
-  /** @deprecated use `InputLokiOauthParam$Outbound` instead. */
-  export type Outbound = InputLokiOauthParam$Outbound;
-}
-
 export function inputLokiOauthParamToJSON(
   inputLokiOauthParam: InputLokiOauthParam,
 ): string {
@@ -873,7 +730,6 @@ export function inputLokiOauthParamToJSON(
     InputLokiOauthParam$outboundSchema.parse(inputLokiOauthParam),
   );
 }
-
 export function inputLokiOauthParamFromJSON(
   jsonString: string,
 ): SafeParseResult<InputLokiOauthParam, SDKValidationError> {
@@ -893,7 +749,6 @@ export const InputLokiOauthHeader$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputLokiOauthHeader$Outbound = {
   name: string;
@@ -910,19 +765,6 @@ export const InputLokiOauthHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputLokiOauthHeader$ {
-  /** @deprecated use `InputLokiOauthHeader$inboundSchema` instead. */
-  export const inboundSchema = InputLokiOauthHeader$inboundSchema;
-  /** @deprecated use `InputLokiOauthHeader$outboundSchema` instead. */
-  export const outboundSchema = InputLokiOauthHeader$outboundSchema;
-  /** @deprecated use `InputLokiOauthHeader$Outbound` instead. */
-  export type Outbound = InputLokiOauthHeader$Outbound;
-}
-
 export function inputLokiOauthHeaderToJSON(
   inputLokiOauthHeader: InputLokiOauthHeader,
 ): string {
@@ -930,7 +772,6 @@ export function inputLokiOauthHeaderToJSON(
     InputLokiOauthHeader$outboundSchema.parse(inputLokiOauthHeader),
   );
 }
-
 export function inputLokiOauthHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<InputLokiOauthHeader, SDKValidationError> {
@@ -992,7 +833,6 @@ export const InputLoki$inboundSchema: z.ZodType<
   oauthHeaders: z.array(z.lazy(() => InputLokiOauthHeader$inboundSchema))
     .optional(),
 });
-
 /** @internal */
 export type InputLoki$Outbound = {
   id?: string | undefined;
@@ -1090,23 +930,9 @@ export const InputLoki$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputLoki$ {
-  /** @deprecated use `InputLoki$inboundSchema` instead. */
-  export const inboundSchema = InputLoki$inboundSchema;
-  /** @deprecated use `InputLoki$outboundSchema` instead. */
-  export const outboundSchema = InputLoki$outboundSchema;
-  /** @deprecated use `InputLoki$Outbound` instead. */
-  export type Outbound = InputLoki$Outbound;
-}
-
 export function inputLokiToJSON(inputLoki: InputLoki): string {
   return JSON.stringify(InputLoki$outboundSchema.parse(inputLoki));
 }
-
 export function inputLokiFromJSON(
   jsonString: string,
 ): SafeParseResult<InputLoki, SDKValidationError> {

@@ -7,31 +7,45 @@ import { PackInfo } from "cribl-control-plane/models";
 
 let value: PackInfo = {
   author: "<value>",
-  description: "disconnection celebrate gosh once officially free yet",
-  displayName: "Deontae_Kulas",
+  dependencies: {
+    "key": "<value>",
+    "key1": "<value>",
+  },
+  description: "doubtfully inasmuch flustered pish unless against pfft circa",
+  displayName: "Roberto17",
   exports: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   id: "<id>",
-  inputs: 3590.16,
-  isDisabled: false,
+  inputs: 9550.09,
+  isDisabled: true,
   minLogStreamVersion: "<value>",
-  outputs: 381.62,
+  outputs: 2044.25,
   settings: {
     "key": "<value>",
+    "key1": "<value>",
   },
   source: "<value>",
   spec: "<value>",
   tags: {
-    dataType: [],
+    dataType: [
+      "real",
+      "point",
+    ],
     domain: [
-      "grown-icebreaker.net",
+      "cautious-coliseum.name",
+      "awful-space.net",
     ],
     streamtags: [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
     ],
-    technology: [],
+    technology: [
+      "<value 1>",
+    ],
   },
   version: "<value>",
 };
@@ -42,6 +56,7 @@ let value: PackInfo = {
 | Field                                            | Type                                             | Required                                         | Description                                      |
 | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ |
 | `author`                                         | *string*                                         | :heavy_minus_sign:                               | N/A                                              |
+| `dependencies`                                   | Record<string, *string*>                         | :heavy_minus_sign:                               | N/A                                              |
 | `description`                                    | *string*                                         | :heavy_minus_sign:                               | N/A                                              |
 | `displayName`                                    | *string*                                         | :heavy_minus_sign:                               | N/A                                              |
 | `exports`                                        | *string*[]                                       | :heavy_minus_sign:                               | N/A                                              |

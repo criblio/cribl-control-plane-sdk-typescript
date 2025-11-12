@@ -18,20 +18,24 @@ import {
 import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
-import * as operations from "../models/operations/index.js";
+import * as models from "../models/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
  * Retrieve health status of the server
+ *
+ * @remarks
+ * Get the current health status of the server.
  */
 export function healthGet(
   client: CriblControlPlaneCore,
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.GetHealthInfoResponse,
-    | errors.HealthStatusError
+    models.HealthServerStatus,
+    | errors.HealthServerStatusError
+    | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
     | ConnectionError
@@ -54,8 +58,9 @@ async function $do(
 ): Promise<
   [
     Result<
-      operations.GetHealthInfoResponse,
-      | errors.HealthStatusError
+      models.HealthServerStatus,
+      | errors.HealthServerStatusError
+      | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
       | ConnectionError
@@ -77,7 +82,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "getHealthInfo",
+    operationID: "getHealth",
     oAuth2Scopes: [],
 
     resolvedSecurity: null,
@@ -104,7 +109,7 @@ async function $do(
 
   const doResult = await client._do(req, {
     context,
-    errorCodes: ["420", "4XX", "5XX"],
+    errorCodes: ["420", "4XX", "500", "5XX"],
     retryConfig: context.retryConfig,
     retryCodes: context.retryCodes,
   });
@@ -118,8 +123,9 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.GetHealthInfoResponse,
-    | errors.HealthStatusError
+    models.HealthServerStatus,
+    | errors.HealthServerStatusError
+    | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
     | ConnectionError
@@ -129,11 +135,11 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.GetHealthInfoResponse$inboundSchema),
-    M.jsonErr(420, errors.HealthStatusError$inboundSchema),
+    M.json(200, models.HealthServerStatus$inboundSchema),
+    M.jsonErr(420, errors.HealthServerStatusError$inboundSchema),
+    M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail("4XX"),
     M.fail("5XX"),
-    M.json("default", operations.GetHealthInfoResponse$inboundSchema),
   )(response, req, { extraFields: responseFields });
   if (!result.ok) {
     return [result, { status: "complete", request: req, response }];

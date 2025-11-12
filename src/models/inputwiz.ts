@@ -27,7 +27,13 @@ export type InputWizConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputWizMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -39,7 +45,13 @@ export type InputWizMode = OpenEnum<typeof InputWizMode>;
  * Codec to use to compress the persisted data
  */
 export const InputWizCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -102,8 +114,17 @@ export type InputWizMetadatum = {
  * The algorithm to use when performing HTTP retries
  */
 export const InputWizRetryType = {
+  /**
+   * Disabled
+   */
   None: "none",
+  /**
+   * Backoff
+   */
   Backoff: "backoff",
+  /**
+   * Static
+   */
   Static: "static",
 } as const;
 /**
@@ -252,21 +273,9 @@ export type InputWiz = {
 /** @internal */
 export const InputWizType$inboundSchema: z.ZodNativeEnum<typeof InputWizType> =
   z.nativeEnum(InputWizType);
-
 /** @internal */
 export const InputWizType$outboundSchema: z.ZodNativeEnum<typeof InputWizType> =
   InputWizType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWizType$ {
-  /** @deprecated use `InputWizType$inboundSchema` instead. */
-  export const inboundSchema = InputWizType$inboundSchema;
-  /** @deprecated use `InputWizType$outboundSchema` instead. */
-  export const outboundSchema = InputWizType$outboundSchema;
-}
 
 /** @internal */
 export const InputWizConnection$inboundSchema: z.ZodType<
@@ -277,7 +286,6 @@ export const InputWizConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputWizConnection$Outbound = {
   pipeline?: string | undefined;
@@ -294,19 +302,6 @@ export const InputWizConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWizConnection$ {
-  /** @deprecated use `InputWizConnection$inboundSchema` instead. */
-  export const inboundSchema = InputWizConnection$inboundSchema;
-  /** @deprecated use `InputWizConnection$outboundSchema` instead. */
-  export const outboundSchema = InputWizConnection$outboundSchema;
-  /** @deprecated use `InputWizConnection$Outbound` instead. */
-  export type Outbound = InputWizConnection$Outbound;
-}
-
 export function inputWizConnectionToJSON(
   inputWizConnection: InputWizConnection,
 ): string {
@@ -314,7 +309,6 @@ export function inputWizConnectionToJSON(
     InputWizConnection$outboundSchema.parse(inputWizConnection),
   );
 }
-
 export function inputWizConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWizConnection, SDKValidationError> {
@@ -335,7 +329,6 @@ export const InputWizMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputWizMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputWizMode$outboundSchema: z.ZodType<
   InputWizMode,
@@ -345,17 +338,6 @@ export const InputWizMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputWizMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWizMode$ {
-  /** @deprecated use `InputWizMode$inboundSchema` instead. */
-  export const inboundSchema = InputWizMode$inboundSchema;
-  /** @deprecated use `InputWizMode$outboundSchema` instead. */
-  export const outboundSchema = InputWizMode$outboundSchema;
-}
 
 /** @internal */
 export const InputWizCompression$inboundSchema: z.ZodType<
@@ -367,7 +349,6 @@ export const InputWizCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputWizCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputWizCompression$outboundSchema: z.ZodType<
   InputWizCompression,
@@ -378,24 +359,12 @@ export const InputWizCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWizCompression$ {
-  /** @deprecated use `InputWizCompression$inboundSchema` instead. */
-  export const inboundSchema = InputWizCompression$inboundSchema;
-  /** @deprecated use `InputWizCompression$outboundSchema` instead. */
-  export const outboundSchema = InputWizCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputWizPqControls$inboundSchema: z.ZodType<
   InputWizPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputWizPqControls$Outbound = {};
 
@@ -406,19 +375,6 @@ export const InputWizPqControls$outboundSchema: z.ZodType<
   InputWizPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWizPqControls$ {
-  /** @deprecated use `InputWizPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputWizPqControls$inboundSchema;
-  /** @deprecated use `InputWizPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputWizPqControls$outboundSchema;
-  /** @deprecated use `InputWizPqControls$Outbound` instead. */
-  export type Outbound = InputWizPqControls$Outbound;
-}
-
 export function inputWizPqControlsToJSON(
   inputWizPqControls: InputWizPqControls,
 ): string {
@@ -426,7 +382,6 @@ export function inputWizPqControlsToJSON(
     InputWizPqControls$outboundSchema.parse(inputWizPqControls),
   );
 }
-
 export function inputWizPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWizPqControls, SDKValidationError> {
@@ -452,7 +407,6 @@ export const InputWizPq$inboundSchema: z.ZodType<
   compress: InputWizCompression$inboundSchema.default("none"),
   pqControls: z.lazy(() => InputWizPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputWizPq$Outbound = {
   mode: string;
@@ -481,23 +435,9 @@ export const InputWizPq$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputWizPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWizPq$ {
-  /** @deprecated use `InputWizPq$inboundSchema` instead. */
-  export const inboundSchema = InputWizPq$inboundSchema;
-  /** @deprecated use `InputWizPq$outboundSchema` instead. */
-  export const outboundSchema = InputWizPq$outboundSchema;
-  /** @deprecated use `InputWizPq$Outbound` instead. */
-  export type Outbound = InputWizPq$Outbound;
-}
-
 export function inputWizPqToJSON(inputWizPq: InputWizPq): string {
   return JSON.stringify(InputWizPq$outboundSchema.parse(inputWizPq));
 }
-
 export function inputWizPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWizPq, SDKValidationError> {
@@ -518,7 +458,6 @@ export const InputWizContentConfig$inboundSchema: z.ZodType<
   contentDescription: z.string().optional(),
   enabled: z.boolean().default(false),
 });
-
 /** @internal */
 export type InputWizContentConfig$Outbound = {
   contentType: string;
@@ -537,19 +476,6 @@ export const InputWizContentConfig$outboundSchema: z.ZodType<
   enabled: z.boolean().default(false),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWizContentConfig$ {
-  /** @deprecated use `InputWizContentConfig$inboundSchema` instead. */
-  export const inboundSchema = InputWizContentConfig$inboundSchema;
-  /** @deprecated use `InputWizContentConfig$outboundSchema` instead. */
-  export const outboundSchema = InputWizContentConfig$outboundSchema;
-  /** @deprecated use `InputWizContentConfig$Outbound` instead. */
-  export type Outbound = InputWizContentConfig$Outbound;
-}
-
 export function inputWizContentConfigToJSON(
   inputWizContentConfig: InputWizContentConfig,
 ): string {
@@ -557,7 +483,6 @@ export function inputWizContentConfigToJSON(
     InputWizContentConfig$outboundSchema.parse(inputWizContentConfig),
   );
 }
-
 export function inputWizContentConfigFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWizContentConfig, SDKValidationError> {
@@ -577,7 +502,6 @@ export const InputWizMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputWizMetadatum$Outbound = {
   name: string;
@@ -594,19 +518,6 @@ export const InputWizMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWizMetadatum$ {
-  /** @deprecated use `InputWizMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputWizMetadatum$inboundSchema;
-  /** @deprecated use `InputWizMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputWizMetadatum$outboundSchema;
-  /** @deprecated use `InputWizMetadatum$Outbound` instead. */
-  export type Outbound = InputWizMetadatum$Outbound;
-}
-
 export function inputWizMetadatumToJSON(
   inputWizMetadatum: InputWizMetadatum,
 ): string {
@@ -614,7 +525,6 @@ export function inputWizMetadatumToJSON(
     InputWizMetadatum$outboundSchema.parse(inputWizMetadatum),
   );
 }
-
 export function inputWizMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWizMetadatum, SDKValidationError> {
@@ -635,7 +545,6 @@ export const InputWizRetryType$inboundSchema: z.ZodType<
     z.nativeEnum(InputWizRetryType),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputWizRetryType$outboundSchema: z.ZodType<
   InputWizRetryType,
@@ -645,17 +554,6 @@ export const InputWizRetryType$outboundSchema: z.ZodType<
   z.nativeEnum(InputWizRetryType),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWizRetryType$ {
-  /** @deprecated use `InputWizRetryType$inboundSchema` instead. */
-  export const inboundSchema = InputWizRetryType$inboundSchema;
-  /** @deprecated use `InputWizRetryType$outboundSchema` instead. */
-  export const outboundSchema = InputWizRetryType$outboundSchema;
-}
 
 /** @internal */
 export const InputWizRetryRules$inboundSchema: z.ZodType<
@@ -672,7 +570,6 @@ export const InputWizRetryRules$inboundSchema: z.ZodType<
   retryConnectTimeout: z.boolean().default(false),
   retryConnectReset: z.boolean().default(false),
 });
-
 /** @internal */
 export type InputWizRetryRules$Outbound = {
   type: string;
@@ -701,19 +598,6 @@ export const InputWizRetryRules$outboundSchema: z.ZodType<
   retryConnectReset: z.boolean().default(false),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWizRetryRules$ {
-  /** @deprecated use `InputWizRetryRules$inboundSchema` instead. */
-  export const inboundSchema = InputWizRetryRules$inboundSchema;
-  /** @deprecated use `InputWizRetryRules$outboundSchema` instead. */
-  export const outboundSchema = InputWizRetryRules$outboundSchema;
-  /** @deprecated use `InputWizRetryRules$Outbound` instead. */
-  export type Outbound = InputWizRetryRules$Outbound;
-}
-
 export function inputWizRetryRulesToJSON(
   inputWizRetryRules: InputWizRetryRules,
 ): string {
@@ -721,7 +605,6 @@ export function inputWizRetryRulesToJSON(
     InputWizRetryRules$outboundSchema.parse(inputWizRetryRules),
   );
 }
-
 export function inputWizRetryRulesFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWizRetryRules, SDKValidationError> {
@@ -742,7 +625,6 @@ export const InputWizAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(InputWizAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputWizAuthenticationMethod$outboundSchema: z.ZodType<
   InputWizAuthenticationMethod,
@@ -752,17 +634,6 @@ export const InputWizAuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(InputWizAuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWizAuthenticationMethod$ {
-  /** @deprecated use `InputWizAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = InputWizAuthenticationMethod$inboundSchema;
-  /** @deprecated use `InputWizAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema = InputWizAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const InputWiz$inboundSchema: z.ZodType<
@@ -798,7 +669,6 @@ export const InputWiz$inboundSchema: z.ZodType<
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
 });
-
 /** @internal */
 export type InputWiz$Outbound = {
   id?: string | undefined;
@@ -864,23 +734,9 @@ export const InputWiz$outboundSchema: z.ZodType<
   textSecret: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWiz$ {
-  /** @deprecated use `InputWiz$inboundSchema` instead. */
-  export const inboundSchema = InputWiz$inboundSchema;
-  /** @deprecated use `InputWiz$outboundSchema` instead. */
-  export const outboundSchema = InputWiz$outboundSchema;
-  /** @deprecated use `InputWiz$Outbound` instead. */
-  export type Outbound = InputWiz$Outbound;
-}
-
 export function inputWizToJSON(inputWiz: InputWiz): string {
   return JSON.stringify(InputWiz$outboundSchema.parse(inputWiz));
 }
-
 export function inputWizFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWiz, SDKValidationError> {

@@ -81,22 +81,10 @@ export type OutputDiskSpool = {
 export const OutputDiskSpoolType$inboundSchema: z.ZodNativeEnum<
   typeof OutputDiskSpoolType
 > = z.nativeEnum(OutputDiskSpoolType);
-
 /** @internal */
 export const OutputDiskSpoolType$outboundSchema: z.ZodNativeEnum<
   typeof OutputDiskSpoolType
 > = OutputDiskSpoolType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDiskSpoolType$ {
-  /** @deprecated use `OutputDiskSpoolType$inboundSchema` instead. */
-  export const inboundSchema = OutputDiskSpoolType$inboundSchema;
-  /** @deprecated use `OutputDiskSpoolType$outboundSchema` instead. */
-  export const outboundSchema = OutputDiskSpoolType$outboundSchema;
-}
 
 /** @internal */
 export const OutputDiskSpoolCompression$inboundSchema: z.ZodType<
@@ -108,7 +96,6 @@ export const OutputDiskSpoolCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDiskSpoolCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDiskSpoolCompression$outboundSchema: z.ZodType<
   OutputDiskSpoolCompression,
@@ -118,17 +105,6 @@ export const OutputDiskSpoolCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputDiskSpoolCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDiskSpoolCompression$ {
-  /** @deprecated use `OutputDiskSpoolCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputDiskSpoolCompression$inboundSchema;
-  /** @deprecated use `OutputDiskSpoolCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputDiskSpoolCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputDiskSpool$inboundSchema: z.ZodType<
@@ -149,7 +125,6 @@ export const OutputDiskSpool$inboundSchema: z.ZodType<
   partitionExpr: z.string().optional(),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type OutputDiskSpool$Outbound = {
   id?: string | undefined;
@@ -186,25 +161,11 @@ export const OutputDiskSpool$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDiskSpool$ {
-  /** @deprecated use `OutputDiskSpool$inboundSchema` instead. */
-  export const inboundSchema = OutputDiskSpool$inboundSchema;
-  /** @deprecated use `OutputDiskSpool$outboundSchema` instead. */
-  export const outboundSchema = OutputDiskSpool$outboundSchema;
-  /** @deprecated use `OutputDiskSpool$Outbound` instead. */
-  export type Outbound = OutputDiskSpool$Outbound;
-}
-
 export function outputDiskSpoolToJSON(
   outputDiskSpool: OutputDiskSpool,
 ): string {
   return JSON.stringify(OutputDiskSpool$outboundSchema.parse(outputDiskSpool));
 }
-
 export function outputDiskSpoolFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputDiskSpool, SDKValidationError> {

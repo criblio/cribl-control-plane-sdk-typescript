@@ -27,7 +27,13 @@ export type InputSnmpConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputSnmpMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -39,7 +45,13 @@ export type InputSnmpMode = OpenEnum<typeof InputSnmpMode>;
  * Codec to use to compress the persisted data
  */
 export const InputSnmpCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -82,12 +94,33 @@ export type InputSnmpPq = {
 };
 
 export const AuthenticationProtocol = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * MD5
+   */
   Md5: "md5",
+  /**
+   * SHA1
+   */
   Sha: "sha",
+  /**
+   * SHA224
+   */
   Sha224: "sha224",
+  /**
+   * SHA256
+   */
   Sha256: "sha256",
+  /**
+   * SHA384
+   */
   Sha384: "sha384",
+  /**
+   * SHA512
+   */
   Sha512: "sha512",
 } as const;
 export type AuthenticationProtocol = OpenEnum<typeof AuthenticationProtocol>;
@@ -197,22 +230,10 @@ export type InputSnmp = {
 export const InputSnmpType$inboundSchema: z.ZodNativeEnum<
   typeof InputSnmpType
 > = z.nativeEnum(InputSnmpType);
-
 /** @internal */
 export const InputSnmpType$outboundSchema: z.ZodNativeEnum<
   typeof InputSnmpType
 > = InputSnmpType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSnmpType$ {
-  /** @deprecated use `InputSnmpType$inboundSchema` instead. */
-  export const inboundSchema = InputSnmpType$inboundSchema;
-  /** @deprecated use `InputSnmpType$outboundSchema` instead. */
-  export const outboundSchema = InputSnmpType$outboundSchema;
-}
 
 /** @internal */
 export const InputSnmpConnection$inboundSchema: z.ZodType<
@@ -223,7 +244,6 @@ export const InputSnmpConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputSnmpConnection$Outbound = {
   pipeline?: string | undefined;
@@ -240,19 +260,6 @@ export const InputSnmpConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSnmpConnection$ {
-  /** @deprecated use `InputSnmpConnection$inboundSchema` instead. */
-  export const inboundSchema = InputSnmpConnection$inboundSchema;
-  /** @deprecated use `InputSnmpConnection$outboundSchema` instead. */
-  export const outboundSchema = InputSnmpConnection$outboundSchema;
-  /** @deprecated use `InputSnmpConnection$Outbound` instead. */
-  export type Outbound = InputSnmpConnection$Outbound;
-}
-
 export function inputSnmpConnectionToJSON(
   inputSnmpConnection: InputSnmpConnection,
 ): string {
@@ -260,7 +267,6 @@ export function inputSnmpConnectionToJSON(
     InputSnmpConnection$outboundSchema.parse(inputSnmpConnection),
   );
 }
-
 export function inputSnmpConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSnmpConnection, SDKValidationError> {
@@ -281,7 +287,6 @@ export const InputSnmpMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputSnmpMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputSnmpMode$outboundSchema: z.ZodType<
   InputSnmpMode,
@@ -291,17 +296,6 @@ export const InputSnmpMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputSnmpMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSnmpMode$ {
-  /** @deprecated use `InputSnmpMode$inboundSchema` instead. */
-  export const inboundSchema = InputSnmpMode$inboundSchema;
-  /** @deprecated use `InputSnmpMode$outboundSchema` instead. */
-  export const outboundSchema = InputSnmpMode$outboundSchema;
-}
 
 /** @internal */
 export const InputSnmpCompression$inboundSchema: z.ZodType<
@@ -313,7 +307,6 @@ export const InputSnmpCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputSnmpCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputSnmpCompression$outboundSchema: z.ZodType<
   InputSnmpCompression,
@@ -324,24 +317,12 @@ export const InputSnmpCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSnmpCompression$ {
-  /** @deprecated use `InputSnmpCompression$inboundSchema` instead. */
-  export const inboundSchema = InputSnmpCompression$inboundSchema;
-  /** @deprecated use `InputSnmpCompression$outboundSchema` instead. */
-  export const outboundSchema = InputSnmpCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputSnmpPqControls$inboundSchema: z.ZodType<
   InputSnmpPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputSnmpPqControls$Outbound = {};
 
@@ -352,19 +333,6 @@ export const InputSnmpPqControls$outboundSchema: z.ZodType<
   InputSnmpPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSnmpPqControls$ {
-  /** @deprecated use `InputSnmpPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputSnmpPqControls$inboundSchema;
-  /** @deprecated use `InputSnmpPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputSnmpPqControls$outboundSchema;
-  /** @deprecated use `InputSnmpPqControls$Outbound` instead. */
-  export type Outbound = InputSnmpPqControls$Outbound;
-}
-
 export function inputSnmpPqControlsToJSON(
   inputSnmpPqControls: InputSnmpPqControls,
 ): string {
@@ -372,7 +340,6 @@ export function inputSnmpPqControlsToJSON(
     InputSnmpPqControls$outboundSchema.parse(inputSnmpPqControls),
   );
 }
-
 export function inputSnmpPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSnmpPqControls, SDKValidationError> {
@@ -398,7 +365,6 @@ export const InputSnmpPq$inboundSchema: z.ZodType<
   compress: InputSnmpCompression$inboundSchema.default("none"),
   pqControls: z.lazy(() => InputSnmpPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputSnmpPq$Outbound = {
   mode: string;
@@ -427,23 +393,9 @@ export const InputSnmpPq$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputSnmpPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSnmpPq$ {
-  /** @deprecated use `InputSnmpPq$inboundSchema` instead. */
-  export const inboundSchema = InputSnmpPq$inboundSchema;
-  /** @deprecated use `InputSnmpPq$outboundSchema` instead. */
-  export const outboundSchema = InputSnmpPq$outboundSchema;
-  /** @deprecated use `InputSnmpPq$Outbound` instead. */
-  export type Outbound = InputSnmpPq$Outbound;
-}
-
 export function inputSnmpPqToJSON(inputSnmpPq: InputSnmpPq): string {
   return JSON.stringify(InputSnmpPq$outboundSchema.parse(inputSnmpPq));
 }
-
 export function inputSnmpPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSnmpPq, SDKValidationError> {
@@ -464,7 +416,6 @@ export const AuthenticationProtocol$inboundSchema: z.ZodType<
     z.nativeEnum(AuthenticationProtocol),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const AuthenticationProtocol$outboundSchema: z.ZodType<
   AuthenticationProtocol,
@@ -475,17 +426,6 @@ export const AuthenticationProtocol$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AuthenticationProtocol$ {
-  /** @deprecated use `AuthenticationProtocol$inboundSchema` instead. */
-  export const inboundSchema = AuthenticationProtocol$inboundSchema;
-  /** @deprecated use `AuthenticationProtocol$outboundSchema` instead. */
-  export const outboundSchema = AuthenticationProtocol$outboundSchema;
-}
-
 /** @internal */
 export const V3User$inboundSchema: z.ZodType<V3User, z.ZodTypeDef, unknown> = z
   .object({
@@ -494,7 +434,6 @@ export const V3User$inboundSchema: z.ZodType<V3User, z.ZodTypeDef, unknown> = z
     authKey: z.any().optional(),
     privProtocol: z.string().default("none"),
   });
-
 /** @internal */
 export type V3User$Outbound = {
   name: string;
@@ -515,23 +454,9 @@ export const V3User$outboundSchema: z.ZodType<
   privProtocol: z.string().default("none"),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace V3User$ {
-  /** @deprecated use `V3User$inboundSchema` instead. */
-  export const inboundSchema = V3User$inboundSchema;
-  /** @deprecated use `V3User$outboundSchema` instead. */
-  export const outboundSchema = V3User$outboundSchema;
-  /** @deprecated use `V3User$Outbound` instead. */
-  export type Outbound = V3User$Outbound;
-}
-
 export function v3UserToJSON(v3User: V3User): string {
   return JSON.stringify(V3User$outboundSchema.parse(v3User));
 }
-
 export function v3UserFromJSON(
   jsonString: string,
 ): SafeParseResult<V3User, SDKValidationError> {
@@ -552,7 +477,6 @@ export const SNMPv3Authentication$inboundSchema: z.ZodType<
   allowUnmatchedTrap: z.boolean().default(false),
   v3Users: z.array(z.lazy(() => V3User$inboundSchema)).optional(),
 });
-
 /** @internal */
 export type SNMPv3Authentication$Outbound = {
   v3AuthEnabled: boolean;
@@ -571,19 +495,6 @@ export const SNMPv3Authentication$outboundSchema: z.ZodType<
   v3Users: z.array(z.lazy(() => V3User$outboundSchema)).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SNMPv3Authentication$ {
-  /** @deprecated use `SNMPv3Authentication$inboundSchema` instead. */
-  export const inboundSchema = SNMPv3Authentication$inboundSchema;
-  /** @deprecated use `SNMPv3Authentication$outboundSchema` instead. */
-  export const outboundSchema = SNMPv3Authentication$outboundSchema;
-  /** @deprecated use `SNMPv3Authentication$Outbound` instead. */
-  export type Outbound = SNMPv3Authentication$Outbound;
-}
-
 export function snmPv3AuthenticationToJSON(
   snmPv3Authentication: SNMPv3Authentication,
 ): string {
@@ -591,7 +502,6 @@ export function snmPv3AuthenticationToJSON(
     SNMPv3Authentication$outboundSchema.parse(snmPv3Authentication),
   );
 }
-
 export function snmPv3AuthenticationFromJSON(
   jsonString: string,
 ): SafeParseResult<SNMPv3Authentication, SDKValidationError> {
@@ -611,7 +521,6 @@ export const InputSnmpMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputSnmpMetadatum$Outbound = {
   name: string;
@@ -628,19 +537,6 @@ export const InputSnmpMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSnmpMetadatum$ {
-  /** @deprecated use `InputSnmpMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputSnmpMetadatum$inboundSchema;
-  /** @deprecated use `InputSnmpMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputSnmpMetadatum$outboundSchema;
-  /** @deprecated use `InputSnmpMetadatum$Outbound` instead. */
-  export type Outbound = InputSnmpMetadatum$Outbound;
-}
-
 export function inputSnmpMetadatumToJSON(
   inputSnmpMetadatum: InputSnmpMetadatum,
 ): string {
@@ -648,7 +544,6 @@ export function inputSnmpMetadatumToJSON(
     InputSnmpMetadatum$outboundSchema.parse(inputSnmpMetadatum),
   );
 }
-
 export function inputSnmpMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSnmpMetadatum, SDKValidationError> {
@@ -687,7 +582,6 @@ export const InputSnmp$inboundSchema: z.ZodType<
   bestEffortParsing: z.boolean().default(false),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type InputSnmp$Outbound = {
   id?: string | undefined;
@@ -741,23 +635,9 @@ export const InputSnmp$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputSnmp$ {
-  /** @deprecated use `InputSnmp$inboundSchema` instead. */
-  export const inboundSchema = InputSnmp$inboundSchema;
-  /** @deprecated use `InputSnmp$outboundSchema` instead. */
-  export const outboundSchema = InputSnmp$outboundSchema;
-  /** @deprecated use `InputSnmp$Outbound` instead. */
-  export type Outbound = InputSnmp$Outbound;
-}
-
 export function inputSnmpToJSON(inputSnmp: InputSnmp): string {
   return JSON.stringify(InputSnmp$outboundSchema.parse(inputSnmp));
 }
-
 export function inputSnmpFromJSON(
   jsonString: string,
 ): SafeParseResult<InputSnmp, SDKValidationError> {

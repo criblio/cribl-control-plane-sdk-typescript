@@ -18,7 +18,7 @@ let value: InputCriblLakeHttpAuthTokensExt = {
     enabled: true,
   },
   elasticsearchMetadata: {
-    enabled: true,
+    enabled: false,
   },
 };
 ```

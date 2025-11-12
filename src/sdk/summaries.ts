@@ -4,6 +4,7 @@
 
 import { nodesSummariesGet } from "../funcs/nodesSummariesGet.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -17,7 +18,7 @@ export class Summaries extends ClientSDK {
   async get(
     request?: operations.GetSummaryRequest | undefined,
     options?: RequestOptions,
-  ): Promise<operations.GetSummaryResponse> {
+  ): Promise<models.CountedDistributedSummary> {
     return unwrapAsync(nodesSummariesGet(
       this,
       request,

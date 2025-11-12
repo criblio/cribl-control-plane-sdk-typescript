@@ -9,20 +9,14 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   RunnableJobCollection,
   RunnableJobCollection$inboundSchema,
-  RunnableJobCollection$Outbound,
-  RunnableJobCollection$outboundSchema,
 } from "./runnablejobcollection.js";
 import {
   RunnableJobExecutor,
   RunnableJobExecutor$inboundSchema,
-  RunnableJobExecutor$Outbound,
-  RunnableJobExecutor$outboundSchema,
 } from "./runnablejobexecutor.js";
 import {
   RunnableJobScheduledSearch,
   RunnableJobScheduledSearch$inboundSchema,
-  RunnableJobScheduledSearch$Outbound,
-  RunnableJobScheduledSearch$outboundSchema,
 } from "./runnablejobscheduledsearch.js";
 
 export type RunnableJob =
@@ -40,40 +34,6 @@ export const RunnableJob$inboundSchema: z.ZodType<
   RunnableJobExecutor$inboundSchema,
   RunnableJobScheduledSearch$inboundSchema,
 ]);
-
-/** @internal */
-export type RunnableJob$Outbound =
-  | RunnableJobCollection$Outbound
-  | RunnableJobExecutor$Outbound
-  | RunnableJobScheduledSearch$Outbound;
-
-/** @internal */
-export const RunnableJob$outboundSchema: z.ZodType<
-  RunnableJob$Outbound,
-  z.ZodTypeDef,
-  RunnableJob
-> = z.union([
-  RunnableJobCollection$outboundSchema,
-  RunnableJobExecutor$outboundSchema,
-  RunnableJobScheduledSearch$outboundSchema,
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RunnableJob$ {
-  /** @deprecated use `RunnableJob$inboundSchema` instead. */
-  export const inboundSchema = RunnableJob$inboundSchema;
-  /** @deprecated use `RunnableJob$outboundSchema` instead. */
-  export const outboundSchema = RunnableJob$outboundSchema;
-  /** @deprecated use `RunnableJob$Outbound` instead. */
-  export type Outbound = RunnableJob$Outbound;
-}
-
-export function runnableJobToJSON(runnableJob: RunnableJob): string {
-  return JSON.stringify(RunnableJob$outboundSchema.parse(runnableJob));
-}
 
 export function runnableJobFromJSON(
   jsonString: string,

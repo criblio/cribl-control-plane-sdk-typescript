@@ -54,6 +54,10 @@ async function run() {
       format: "ddss",
       httpDAUsed: true,
       id: "<id>",
+      metrics: {
+        currentSizeBytes: 6170.04,
+        metricsDate: "<value>",
+      },
       retentionPeriodInDays: 456.37,
       searchConfig: {
         datatypes: [
@@ -129,6 +133,10 @@ async function run() {
       format: "ddss",
       httpDAUsed: true,
       id: "<id>",
+      metrics: {
+        currentSizeBytes: 6170.04,
+        metricsDate: "<value>",
+      },
       retentionPeriodInDays: 456.37,
       searchConfig: {
         datatypes: [
@@ -176,7 +184,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateCriblLakeDatasetByLakeIdResponse](../../models/operations/createcribllakedatasetbylakeidresponse.md)\>**
+**Promise\<[models.CountedCriblLakeDataset](../../models/countedcribllakedataset.md)\>**
 
 ### Errors
 
@@ -256,7 +264,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetCriblLakeDatasetByLakeIdResponse](../../models/operations/getcribllakedatasetbylakeidresponse.md)\>**
+**Promise\<[models.CountedCriblLakeDataset](../../models/countedcribllakedataset.md)\>**
 
 ### Errors
 
@@ -338,7 +346,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.DeleteCriblLakeDatasetByLakeIdAndIdResponse](../../models/operations/deletecribllakedatasetbylakeidandidresponse.md)\>**
+**Promise\<[models.CountedCriblLakeDataset](../../models/countedcribllakedataset.md)\>**
 
 ### Errors
 
@@ -420,7 +428,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetCriblLakeDatasetByLakeIdAndIdResponse](../../models/operations/getcribllakedatasetbylakeidandidresponse.md)\>**
+**Promise\<[models.CountedCriblLakeDataset](../../models/countedcribllakedataset.md)\>**
 
 ### Errors
 
@@ -474,6 +482,10 @@ async function run() {
       format: "json",
       httpDAUsed: true,
       id: "<id>",
+      metrics: {
+        currentSizeBytes: 6237.74,
+        metricsDate: "<value>",
+      },
       retentionPeriodInDays: 602.09,
       searchConfig: {
         datatypes: [
@@ -551,6 +563,10 @@ async function run() {
       format: "json",
       httpDAUsed: true,
       id: "<id>",
+      metrics: {
+        currentSizeBytes: 6237.74,
+        metricsDate: "<value>",
+      },
       retentionPeriodInDays: 602.09,
       searchConfig: {
         datatypes: [
@@ -598,7 +614,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.UpdateCriblLakeDatasetByLakeIdAndIdResponse](../../models/operations/updatecribllakedatasetbylakeidandidresponse.md)\>**
+**Promise\<[models.CountedCriblLakeDataset](../../models/countedcribllakedataset.md)\>**
 
 ### Errors
 

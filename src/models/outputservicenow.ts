@@ -22,6 +22,9 @@ export type OutputServiceNowType = ClosedEnum<typeof OutputServiceNowType>;
  * The version of OTLP Protobuf definitions to use when structuring data to send
  */
 export const OutputServiceNowOTLPVersion = {
+  /**
+   * 1.3.1
+   */
   OneDot3Dot1: "1.3.1",
 } as const;
 /**
@@ -35,7 +38,13 @@ export type OutputServiceNowOTLPVersion = OpenEnum<
  * Select a transport option for OpenTelemetry
  */
 export const OutputServiceNowProtocol = {
+  /**
+   * gRPC
+   */
   Grpc: "grpc",
+  /**
+   * HTTP
+   */
   Http: "http",
 } as const;
 /**
@@ -49,8 +58,17 @@ export type OutputServiceNowProtocol = OpenEnum<
  * Type of compression to apply to messages sent to the OpenTelemetry endpoint
  */
 export const OutputServiceNowCompressCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Deflate
+   */
   Deflate: "deflate",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -64,7 +82,13 @@ export type OutputServiceNowCompressCompression = OpenEnum<
  * Type of compression to apply to messages sent to the OpenTelemetry endpoint
  */
 export const OutputServiceNowHttpCompressCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -83,8 +107,17 @@ export type OutputServiceNowMetadatum = {
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
 export const OutputServiceNowFailedRequestLoggingMode = {
+  /**
+   * Payload
+   */
   Payload: "payload",
+  /**
+   * Payload + Headers
+   */
   PayloadAndHeaders: "payloadAndHeaders",
+  /**
+   * None
+   */
   None: "none",
 } as const;
 /**
@@ -98,8 +131,17 @@ export type OutputServiceNowFailedRequestLoggingMode = OpenEnum<
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputServiceNowBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -203,10 +245,38 @@ export type OutputServiceNowTLSSettingsClientSide = {
 };
 
 /**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputServiceNowMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputServiceNowMode = OpenEnum<typeof OutputServiceNowMode>;
+
+/**
  * Codec to use to compress the persisted data
  */
 export const OutputServiceNowPqCompressCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -220,7 +290,13 @@ export type OutputServiceNowPqCompressCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputServiceNowQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -229,19 +305,6 @@ export const OutputServiceNowQueueFullBehavior = {
 export type OutputServiceNowQueueFullBehavior = OpenEnum<
   typeof OutputServiceNowQueueFullBehavior
 >;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputServiceNowMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputServiceNowMode = OpenEnum<typeof OutputServiceNowMode>;
 
 export type OutputServiceNowPqControls = {};
 
@@ -380,6 +443,26 @@ export type OutputServiceNow = {
   responseHonorRetryAfterHeader?: boolean | undefined;
   tls?: OutputServiceNowTLSSettingsClientSide | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputServiceNowMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -399,10 +482,6 @@ export type OutputServiceNow = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputServiceNowQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputServiceNowMode | undefined;
   pqControls?: OutputServiceNowPqControls | undefined;
 };
 
@@ -410,22 +489,10 @@ export type OutputServiceNow = {
 export const OutputServiceNowType$inboundSchema: z.ZodNativeEnum<
   typeof OutputServiceNowType
 > = z.nativeEnum(OutputServiceNowType);
-
 /** @internal */
 export const OutputServiceNowType$outboundSchema: z.ZodNativeEnum<
   typeof OutputServiceNowType
 > = OutputServiceNowType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowType$ {
-  /** @deprecated use `OutputServiceNowType$inboundSchema` instead. */
-  export const inboundSchema = OutputServiceNowType$inboundSchema;
-  /** @deprecated use `OutputServiceNowType$outboundSchema` instead. */
-  export const outboundSchema = OutputServiceNowType$outboundSchema;
-}
 
 /** @internal */
 export const OutputServiceNowOTLPVersion$inboundSchema: z.ZodType<
@@ -437,7 +504,6 @@ export const OutputServiceNowOTLPVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputServiceNowOTLPVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputServiceNowOTLPVersion$outboundSchema: z.ZodType<
   OutputServiceNowOTLPVersion,
@@ -447,17 +513,6 @@ export const OutputServiceNowOTLPVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputServiceNowOTLPVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowOTLPVersion$ {
-  /** @deprecated use `OutputServiceNowOTLPVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputServiceNowOTLPVersion$inboundSchema;
-  /** @deprecated use `OutputServiceNowOTLPVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputServiceNowOTLPVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputServiceNowProtocol$inboundSchema: z.ZodType<
@@ -469,7 +524,6 @@ export const OutputServiceNowProtocol$inboundSchema: z.ZodType<
     z.nativeEnum(OutputServiceNowProtocol),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputServiceNowProtocol$outboundSchema: z.ZodType<
   OutputServiceNowProtocol,
@@ -479,17 +533,6 @@ export const OutputServiceNowProtocol$outboundSchema: z.ZodType<
   z.nativeEnum(OutputServiceNowProtocol),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowProtocol$ {
-  /** @deprecated use `OutputServiceNowProtocol$inboundSchema` instead. */
-  export const inboundSchema = OutputServiceNowProtocol$inboundSchema;
-  /** @deprecated use `OutputServiceNowProtocol$outboundSchema` instead. */
-  export const outboundSchema = OutputServiceNowProtocol$outboundSchema;
-}
 
 /** @internal */
 export const OutputServiceNowCompressCompression$inboundSchema: z.ZodType<
@@ -501,7 +544,6 @@ export const OutputServiceNowCompressCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputServiceNowCompressCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputServiceNowCompressCompression$outboundSchema: z.ZodType<
   OutputServiceNowCompressCompression,
@@ -511,19 +553,6 @@ export const OutputServiceNowCompressCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputServiceNowCompressCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowCompressCompression$ {
-  /** @deprecated use `OutputServiceNowCompressCompression$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputServiceNowCompressCompression$inboundSchema;
-  /** @deprecated use `OutputServiceNowCompressCompression$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputServiceNowCompressCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputServiceNowHttpCompressCompression$inboundSchema: z.ZodType<
@@ -535,7 +564,6 @@ export const OutputServiceNowHttpCompressCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputServiceNowHttpCompressCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputServiceNowHttpCompressCompression$outboundSchema: z.ZodType<
   OutputServiceNowHttpCompressCompression,
@@ -546,19 +574,6 @@ export const OutputServiceNowHttpCompressCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowHttpCompressCompression$ {
-  /** @deprecated use `OutputServiceNowHttpCompressCompression$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputServiceNowHttpCompressCompression$inboundSchema;
-  /** @deprecated use `OutputServiceNowHttpCompressCompression$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputServiceNowHttpCompressCompression$outboundSchema;
-}
-
 /** @internal */
 export const OutputServiceNowMetadatum$inboundSchema: z.ZodType<
   OutputServiceNowMetadatum,
@@ -568,7 +583,6 @@ export const OutputServiceNowMetadatum$inboundSchema: z.ZodType<
   key: z.string().default(""),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputServiceNowMetadatum$Outbound = {
   key: string;
@@ -585,19 +599,6 @@ export const OutputServiceNowMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowMetadatum$ {
-  /** @deprecated use `OutputServiceNowMetadatum$inboundSchema` instead. */
-  export const inboundSchema = OutputServiceNowMetadatum$inboundSchema;
-  /** @deprecated use `OutputServiceNowMetadatum$outboundSchema` instead. */
-  export const outboundSchema = OutputServiceNowMetadatum$outboundSchema;
-  /** @deprecated use `OutputServiceNowMetadatum$Outbound` instead. */
-  export type Outbound = OutputServiceNowMetadatum$Outbound;
-}
-
 export function outputServiceNowMetadatumToJSON(
   outputServiceNowMetadatum: OutputServiceNowMetadatum,
 ): string {
@@ -605,7 +606,6 @@ export function outputServiceNowMetadatumToJSON(
     OutputServiceNowMetadatum$outboundSchema.parse(outputServiceNowMetadatum),
   );
 }
-
 export function outputServiceNowMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputServiceNowMetadatum, SDKValidationError> {
@@ -626,7 +626,6 @@ export const OutputServiceNowFailedRequestLoggingMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputServiceNowFailedRequestLoggingMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputServiceNowFailedRequestLoggingMode$outboundSchema: z.ZodType<
   OutputServiceNowFailedRequestLoggingMode,
@@ -636,19 +635,6 @@ export const OutputServiceNowFailedRequestLoggingMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputServiceNowFailedRequestLoggingMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputServiceNowFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputServiceNowFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputServiceNowFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputServiceNowFailedRequestLoggingMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputServiceNowBackpressureBehavior$inboundSchema: z.ZodType<
@@ -660,7 +646,6 @@ export const OutputServiceNowBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputServiceNowBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputServiceNowBackpressureBehavior$outboundSchema: z.ZodType<
   OutputServiceNowBackpressureBehavior,
@@ -671,19 +656,6 @@ export const OutputServiceNowBackpressureBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowBackpressureBehavior$ {
-  /** @deprecated use `OutputServiceNowBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputServiceNowBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputServiceNowBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputServiceNowBackpressureBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputServiceNowExtraHttpHeader$inboundSchema: z.ZodType<
   OutputServiceNowExtraHttpHeader,
@@ -693,7 +665,6 @@ export const OutputServiceNowExtraHttpHeader$inboundSchema: z.ZodType<
   name: z.string().optional(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputServiceNowExtraHttpHeader$Outbound = {
   name?: string | undefined;
@@ -710,19 +681,6 @@ export const OutputServiceNowExtraHttpHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowExtraHttpHeader$ {
-  /** @deprecated use `OutputServiceNowExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputServiceNowExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputServiceNowExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputServiceNowExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputServiceNowExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputServiceNowExtraHttpHeader$Outbound;
-}
-
 export function outputServiceNowExtraHttpHeaderToJSON(
   outputServiceNowExtraHttpHeader: OutputServiceNowExtraHttpHeader,
 ): string {
@@ -732,7 +690,6 @@ export function outputServiceNowExtraHttpHeaderToJSON(
     ),
   );
 }
-
 export function outputServiceNowExtraHttpHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputServiceNowExtraHttpHeader, SDKValidationError> {
@@ -754,7 +711,6 @@ export const OutputServiceNowResponseRetrySetting$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputServiceNowResponseRetrySetting$Outbound = {
   httpStatus: number;
@@ -775,21 +731,6 @@ export const OutputServiceNowResponseRetrySetting$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowResponseRetrySetting$ {
-  /** @deprecated use `OutputServiceNowResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputServiceNowResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputServiceNowResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputServiceNowResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputServiceNowResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputServiceNowResponseRetrySetting$Outbound;
-}
-
 export function outputServiceNowResponseRetrySettingToJSON(
   outputServiceNowResponseRetrySetting: OutputServiceNowResponseRetrySetting,
 ): string {
@@ -799,7 +740,6 @@ export function outputServiceNowResponseRetrySettingToJSON(
     ),
   );
 }
-
 export function outputServiceNowResponseRetrySettingFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputServiceNowResponseRetrySetting, SDKValidationError> {
@@ -822,7 +762,6 @@ export const OutputServiceNowTimeoutRetrySettings$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputServiceNowTimeoutRetrySettings$Outbound = {
   timeoutRetry: boolean;
@@ -843,21 +782,6 @@ export const OutputServiceNowTimeoutRetrySettings$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowTimeoutRetrySettings$ {
-  /** @deprecated use `OutputServiceNowTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputServiceNowTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputServiceNowTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputServiceNowTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputServiceNowTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputServiceNowTimeoutRetrySettings$Outbound;
-}
-
 export function outputServiceNowTimeoutRetrySettingsToJSON(
   outputServiceNowTimeoutRetrySettings: OutputServiceNowTimeoutRetrySettings,
 ): string {
@@ -867,7 +791,6 @@ export function outputServiceNowTimeoutRetrySettingsToJSON(
     ),
   );
 }
-
 export function outputServiceNowTimeoutRetrySettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputServiceNowTimeoutRetrySettings, SDKValidationError> {
@@ -889,7 +812,6 @@ export const OutputServiceNowMinimumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputServiceNowMinimumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputServiceNowMinimumTLSVersion$outboundSchema: z.ZodType<
   OutputServiceNowMinimumTLSVersion,
@@ -899,18 +821,6 @@ export const OutputServiceNowMinimumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputServiceNowMinimumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowMinimumTLSVersion$ {
-  /** @deprecated use `OutputServiceNowMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputServiceNowMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputServiceNowMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputServiceNowMinimumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputServiceNowMaximumTLSVersion$inboundSchema: z.ZodType<
@@ -922,7 +832,6 @@ export const OutputServiceNowMaximumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputServiceNowMaximumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputServiceNowMaximumTLSVersion$outboundSchema: z.ZodType<
   OutputServiceNowMaximumTLSVersion,
@@ -932,18 +841,6 @@ export const OutputServiceNowMaximumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputServiceNowMaximumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowMaximumTLSVersion$ {
-  /** @deprecated use `OutputServiceNowMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputServiceNowMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputServiceNowMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputServiceNowMaximumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputServiceNowTLSSettingsClientSide$inboundSchema: z.ZodType<
@@ -961,7 +858,6 @@ export const OutputServiceNowTLSSettingsClientSide$inboundSchema: z.ZodType<
   minVersion: OutputServiceNowMinimumTLSVersion$inboundSchema.optional(),
   maxVersion: OutputServiceNowMaximumTLSVersion$inboundSchema.optional(),
 });
-
 /** @internal */
 export type OutputServiceNowTLSSettingsClientSide$Outbound = {
   disabled: boolean;
@@ -992,21 +888,6 @@ export const OutputServiceNowTLSSettingsClientSide$outboundSchema: z.ZodType<
   maxVersion: OutputServiceNowMaximumTLSVersion$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowTLSSettingsClientSide$ {
-  /** @deprecated use `OutputServiceNowTLSSettingsClientSide$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputServiceNowTLSSettingsClientSide$inboundSchema;
-  /** @deprecated use `OutputServiceNowTLSSettingsClientSide$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputServiceNowTLSSettingsClientSide$outboundSchema;
-  /** @deprecated use `OutputServiceNowTLSSettingsClientSide$Outbound` instead. */
-  export type Outbound = OutputServiceNowTLSSettingsClientSide$Outbound;
-}
-
 export function outputServiceNowTLSSettingsClientSideToJSON(
   outputServiceNowTLSSettingsClientSide: OutputServiceNowTLSSettingsClientSide,
 ): string {
@@ -1016,7 +897,6 @@ export function outputServiceNowTLSSettingsClientSideToJSON(
     ),
   );
 }
-
 export function outputServiceNowTLSSettingsClientSideFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputServiceNowTLSSettingsClientSide, SDKValidationError> {
@@ -1029,6 +909,26 @@ export function outputServiceNowTLSSettingsClientSideFromJSON(
 }
 
 /** @internal */
+export const OutputServiceNowMode$inboundSchema: z.ZodType<
+  OutputServiceNowMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputServiceNowMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputServiceNowMode$outboundSchema: z.ZodType<
+  OutputServiceNowMode,
+  z.ZodTypeDef,
+  OutputServiceNowMode
+> = z.union([
+  z.nativeEnum(OutputServiceNowMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
 export const OutputServiceNowPqCompressCompression$inboundSchema: z.ZodType<
   OutputServiceNowPqCompressCompression,
   z.ZodTypeDef,
@@ -1038,7 +938,6 @@ export const OutputServiceNowPqCompressCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputServiceNowPqCompressCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputServiceNowPqCompressCompression$outboundSchema: z.ZodType<
   OutputServiceNowPqCompressCompression,
@@ -1048,19 +947,6 @@ export const OutputServiceNowPqCompressCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputServiceNowPqCompressCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowPqCompressCompression$ {
-  /** @deprecated use `OutputServiceNowPqCompressCompression$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputServiceNowPqCompressCompression$inboundSchema;
-  /** @deprecated use `OutputServiceNowPqCompressCompression$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputServiceNowPqCompressCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputServiceNowQueueFullBehavior$inboundSchema: z.ZodType<
@@ -1072,7 +958,6 @@ export const OutputServiceNowQueueFullBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputServiceNowQueueFullBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputServiceNowQueueFullBehavior$outboundSchema: z.ZodType<
   OutputServiceNowQueueFullBehavior,
@@ -1083,57 +968,12 @@ export const OutputServiceNowQueueFullBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowQueueFullBehavior$ {
-  /** @deprecated use `OutputServiceNowQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputServiceNowQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputServiceNowQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputServiceNowQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputServiceNowMode$inboundSchema: z.ZodType<
-  OutputServiceNowMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputServiceNowMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputServiceNowMode$outboundSchema: z.ZodType<
-  OutputServiceNowMode,
-  z.ZodTypeDef,
-  OutputServiceNowMode
-> = z.union([
-  z.nativeEnum(OutputServiceNowMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowMode$ {
-  /** @deprecated use `OutputServiceNowMode$inboundSchema` instead. */
-  export const inboundSchema = OutputServiceNowMode$inboundSchema;
-  /** @deprecated use `OutputServiceNowMode$outboundSchema` instead. */
-  export const outboundSchema = OutputServiceNowMode$outboundSchema;
-}
-
 /** @internal */
 export const OutputServiceNowPqControls$inboundSchema: z.ZodType<
   OutputServiceNowPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputServiceNowPqControls$Outbound = {};
 
@@ -1144,19 +984,6 @@ export const OutputServiceNowPqControls$outboundSchema: z.ZodType<
   OutputServiceNowPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNowPqControls$ {
-  /** @deprecated use `OutputServiceNowPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputServiceNowPqControls$inboundSchema;
-  /** @deprecated use `OutputServiceNowPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputServiceNowPqControls$outboundSchema;
-  /** @deprecated use `OutputServiceNowPqControls$Outbound` instead. */
-  export type Outbound = OutputServiceNowPqControls$Outbound;
-}
-
 export function outputServiceNowPqControlsToJSON(
   outputServiceNowPqControls: OutputServiceNowPqControls,
 ): string {
@@ -1164,7 +991,6 @@ export function outputServiceNowPqControlsToJSON(
     OutputServiceNowPqControls$outboundSchema.parse(outputServiceNowPqControls),
   );
 }
-
 export function outputServiceNowPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputServiceNowPqControls, SDKValidationError> {
@@ -1229,6 +1055,11 @@ export const OutputServiceNow$inboundSchema: z.ZodType<
   responseHonorRetryAfterHeader: z.boolean().default(true),
   tls: z.lazy(() => OutputServiceNowTLSSettingsClientSide$inboundSchema)
     .optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputServiceNowMode$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1238,10 +1069,8 @@ export const OutputServiceNow$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputServiceNowQueueFullBehavior$inboundSchema.default(
     "block",
   ),
-  pqMode: OutputServiceNowMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputServiceNowPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type OutputServiceNow$Outbound = {
   id?: string | undefined;
@@ -1285,12 +1114,16 @@ export type OutputServiceNow$Outbound = {
     | undefined;
   responseHonorRetryAfterHeader: boolean;
   tls?: OutputServiceNowTLSSettingsClientSide$Outbound | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
   pqControls?: OutputServiceNowPqControls$Outbound | undefined;
 };
 
@@ -1348,6 +1181,11 @@ export const OutputServiceNow$outboundSchema: z.ZodType<
   responseHonorRetryAfterHeader: z.boolean().default(true),
   tls: z.lazy(() => OutputServiceNowTLSSettingsClientSide$outboundSchema)
     .optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputServiceNowMode$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1357,23 +1195,9 @@ export const OutputServiceNow$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputServiceNowQueueFullBehavior$outboundSchema.default(
     "block",
   ),
-  pqMode: OutputServiceNowMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputServiceNowPqControls$outboundSchema)
     .optional(),
 });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputServiceNow$ {
-  /** @deprecated use `OutputServiceNow$inboundSchema` instead. */
-  export const inboundSchema = OutputServiceNow$inboundSchema;
-  /** @deprecated use `OutputServiceNow$outboundSchema` instead. */
-  export const outboundSchema = OutputServiceNow$outboundSchema;
-  /** @deprecated use `OutputServiceNow$Outbound` instead. */
-  export type Outbound = OutputServiceNow$Outbound;
-}
 
 export function outputServiceNowToJSON(
   outputServiceNow: OutputServiceNow,
@@ -1382,7 +1206,6 @@ export function outputServiceNowToJSON(
     OutputServiceNow$outboundSchema.parse(outputServiceNow),
   );
 }
-
 export function outputServiceNowFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputServiceNow, SDKValidationError> {

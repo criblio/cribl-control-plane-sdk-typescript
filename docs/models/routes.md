@@ -11,14 +11,15 @@ let value: Routes = {
   groups: {
     "key": {
       name: "<value>",
-      description: "athwart joshingly whether inspection how highly",
-      disabled: false,
+      description:
+        "efface aw bonfire promptly carefully really versus wisely annually alienated",
+      disabled: true,
     },
   },
   comments: [
     {
       comment:
-        "Carbonite web goalkeeper gloves are ergonomically designed to give easy fit",
+        "New ABC 13 9370, 13.3, 5th Gen CoreA5-8250U, 8GB RAM, 256GB SSD, power UHD Graphics, OS 10 Home, OS Office A & J 2016",
     },
   ],
 };

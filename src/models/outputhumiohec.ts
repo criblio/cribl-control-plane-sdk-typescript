@@ -27,8 +27,17 @@ export type OutputHumioHecExtraHttpHeader = {
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
 export const OutputHumioHecFailedRequestLoggingMode = {
+  /**
+   * Payload
+   */
   Payload: "payload",
+  /**
+   * Payload + Headers
+   */
   PayloadAndHeaders: "payloadAndHeaders",
+  /**
+   * None
+   */
   None: "none",
 } as const;
 /**
@@ -42,7 +51,13 @@ export type OutputHumioHecFailedRequestLoggingMode = OpenEnum<
  * When set to JSON, the event is automatically formatted with required fields before sending. When set to Raw, only the event's `_raw` value is sent.
  */
 export const OutputHumioHecRequestFormat = {
+  /**
+   * JSON
+   */
   Json: "JSON",
+  /**
+   * Raw
+   */
   Raw: "raw",
 } as const;
 /**
@@ -105,8 +120,17 @@ export type OutputHumioHecTimeoutRetrySettings = {
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputHumioHecBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -117,10 +141,38 @@ export type OutputHumioHecBackpressureBehavior = OpenEnum<
 >;
 
 /**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputHumioHecMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputHumioHecMode = OpenEnum<typeof OutputHumioHecMode>;
+
+/**
  * Codec to use to compress the persisted data
  */
 export const OutputHumioHecCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -134,7 +186,13 @@ export type OutputHumioHecCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputHumioHecQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -143,19 +201,6 @@ export const OutputHumioHecQueueFullBehavior = {
 export type OutputHumioHecQueueFullBehavior = OpenEnum<
   typeof OutputHumioHecQueueFullBehavior
 >;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputHumioHecMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputHumioHecMode = OpenEnum<typeof OutputHumioHecMode>;
 
 export type OutputHumioHecPqControls = {};
 
@@ -264,6 +309,26 @@ export type OutputHumioHec = {
    */
   textSecret?: string | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputHumioHecMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -283,10 +348,6 @@ export type OutputHumioHec = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputHumioHecQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputHumioHecMode | undefined;
   pqControls?: OutputHumioHecPqControls | undefined;
 };
 
@@ -294,22 +355,10 @@ export type OutputHumioHec = {
 export const OutputHumioHecType$inboundSchema: z.ZodNativeEnum<
   typeof OutputHumioHecType
 > = z.nativeEnum(OutputHumioHecType);
-
 /** @internal */
 export const OutputHumioHecType$outboundSchema: z.ZodNativeEnum<
   typeof OutputHumioHecType
 > = OutputHumioHecType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputHumioHecType$ {
-  /** @deprecated use `OutputHumioHecType$inboundSchema` instead. */
-  export const inboundSchema = OutputHumioHecType$inboundSchema;
-  /** @deprecated use `OutputHumioHecType$outboundSchema` instead. */
-  export const outboundSchema = OutputHumioHecType$outboundSchema;
-}
 
 /** @internal */
 export const OutputHumioHecExtraHttpHeader$inboundSchema: z.ZodType<
@@ -320,7 +369,6 @@ export const OutputHumioHecExtraHttpHeader$inboundSchema: z.ZodType<
   name: z.string().optional(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputHumioHecExtraHttpHeader$Outbound = {
   name?: string | undefined;
@@ -337,19 +385,6 @@ export const OutputHumioHecExtraHttpHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputHumioHecExtraHttpHeader$ {
-  /** @deprecated use `OutputHumioHecExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputHumioHecExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputHumioHecExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputHumioHecExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputHumioHecExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputHumioHecExtraHttpHeader$Outbound;
-}
-
 export function outputHumioHecExtraHttpHeaderToJSON(
   outputHumioHecExtraHttpHeader: OutputHumioHecExtraHttpHeader,
 ): string {
@@ -359,7 +394,6 @@ export function outputHumioHecExtraHttpHeaderToJSON(
     ),
   );
 }
-
 export function outputHumioHecExtraHttpHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputHumioHecExtraHttpHeader, SDKValidationError> {
@@ -380,7 +414,6 @@ export const OutputHumioHecFailedRequestLoggingMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputHumioHecFailedRequestLoggingMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputHumioHecFailedRequestLoggingMode$outboundSchema: z.ZodType<
   OutputHumioHecFailedRequestLoggingMode,
@@ -390,19 +423,6 @@ export const OutputHumioHecFailedRequestLoggingMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputHumioHecFailedRequestLoggingMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputHumioHecFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputHumioHecFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputHumioHecFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputHumioHecFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputHumioHecFailedRequestLoggingMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputHumioHecRequestFormat$inboundSchema: z.ZodType<
@@ -414,7 +434,6 @@ export const OutputHumioHecRequestFormat$inboundSchema: z.ZodType<
     z.nativeEnum(OutputHumioHecRequestFormat),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputHumioHecRequestFormat$outboundSchema: z.ZodType<
   OutputHumioHecRequestFormat,
@@ -424,17 +443,6 @@ export const OutputHumioHecRequestFormat$outboundSchema: z.ZodType<
   z.nativeEnum(OutputHumioHecRequestFormat),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputHumioHecRequestFormat$ {
-  /** @deprecated use `OutputHumioHecRequestFormat$inboundSchema` instead. */
-  export const inboundSchema = OutputHumioHecRequestFormat$inboundSchema;
-  /** @deprecated use `OutputHumioHecRequestFormat$outboundSchema` instead. */
-  export const outboundSchema = OutputHumioHecRequestFormat$outboundSchema;
-}
 
 /** @internal */
 export const OutputHumioHecAuthenticationMethod$inboundSchema: z.ZodType<
@@ -446,7 +454,6 @@ export const OutputHumioHecAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(OutputHumioHecAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputHumioHecAuthenticationMethod$outboundSchema: z.ZodType<
   OutputHumioHecAuthenticationMethod,
@@ -456,18 +463,6 @@ export const OutputHumioHecAuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(OutputHumioHecAuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputHumioHecAuthenticationMethod$ {
-  /** @deprecated use `OutputHumioHecAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = OutputHumioHecAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputHumioHecAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputHumioHecAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const OutputHumioHecResponseRetrySetting$inboundSchema: z.ZodType<
@@ -480,7 +475,6 @@ export const OutputHumioHecResponseRetrySetting$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputHumioHecResponseRetrySetting$Outbound = {
   httpStatus: number;
@@ -501,20 +495,6 @@ export const OutputHumioHecResponseRetrySetting$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputHumioHecResponseRetrySetting$ {
-  /** @deprecated use `OutputHumioHecResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema = OutputHumioHecResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputHumioHecResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputHumioHecResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputHumioHecResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputHumioHecResponseRetrySetting$Outbound;
-}
-
 export function outputHumioHecResponseRetrySettingToJSON(
   outputHumioHecResponseRetrySetting: OutputHumioHecResponseRetrySetting,
 ): string {
@@ -524,7 +504,6 @@ export function outputHumioHecResponseRetrySettingToJSON(
     ),
   );
 }
-
 export function outputHumioHecResponseRetrySettingFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputHumioHecResponseRetrySetting, SDKValidationError> {
@@ -547,7 +526,6 @@ export const OutputHumioHecTimeoutRetrySettings$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputHumioHecTimeoutRetrySettings$Outbound = {
   timeoutRetry: boolean;
@@ -568,20 +546,6 @@ export const OutputHumioHecTimeoutRetrySettings$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputHumioHecTimeoutRetrySettings$ {
-  /** @deprecated use `OutputHumioHecTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema = OutputHumioHecTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputHumioHecTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputHumioHecTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputHumioHecTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputHumioHecTimeoutRetrySettings$Outbound;
-}
-
 export function outputHumioHecTimeoutRetrySettingsToJSON(
   outputHumioHecTimeoutRetrySettings: OutputHumioHecTimeoutRetrySettings,
 ): string {
@@ -591,7 +555,6 @@ export function outputHumioHecTimeoutRetrySettingsToJSON(
     ),
   );
 }
-
 export function outputHumioHecTimeoutRetrySettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputHumioHecTimeoutRetrySettings, SDKValidationError> {
@@ -613,7 +576,6 @@ export const OutputHumioHecBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputHumioHecBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputHumioHecBackpressureBehavior$outboundSchema: z.ZodType<
   OutputHumioHecBackpressureBehavior,
@@ -623,82 +585,6 @@ export const OutputHumioHecBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputHumioHecBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputHumioHecBackpressureBehavior$ {
-  /** @deprecated use `OutputHumioHecBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputHumioHecBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputHumioHecBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputHumioHecBackpressureBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputHumioHecCompression$inboundSchema: z.ZodType<
-  OutputHumioHecCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputHumioHecCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputHumioHecCompression$outboundSchema: z.ZodType<
-  OutputHumioHecCompression,
-  z.ZodTypeDef,
-  OutputHumioHecCompression
-> = z.union([
-  z.nativeEnum(OutputHumioHecCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputHumioHecCompression$ {
-  /** @deprecated use `OutputHumioHecCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputHumioHecCompression$inboundSchema;
-  /** @deprecated use `OutputHumioHecCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputHumioHecCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputHumioHecQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputHumioHecQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputHumioHecQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputHumioHecQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputHumioHecQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputHumioHecQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputHumioHecQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputHumioHecQueueFullBehavior$ {
-  /** @deprecated use `OutputHumioHecQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputHumioHecQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputHumioHecQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputHumioHecQueueFullBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputHumioHecMode$inboundSchema: z.ZodType<
@@ -710,7 +596,6 @@ export const OutputHumioHecMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputHumioHecMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputHumioHecMode$outboundSchema: z.ZodType<
   OutputHumioHecMode,
@@ -721,16 +606,45 @@ export const OutputHumioHecMode$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputHumioHecMode$ {
-  /** @deprecated use `OutputHumioHecMode$inboundSchema` instead. */
-  export const inboundSchema = OutputHumioHecMode$inboundSchema;
-  /** @deprecated use `OutputHumioHecMode$outboundSchema` instead. */
-  export const outboundSchema = OutputHumioHecMode$outboundSchema;
-}
+/** @internal */
+export const OutputHumioHecCompression$inboundSchema: z.ZodType<
+  OutputHumioHecCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputHumioHecCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputHumioHecCompression$outboundSchema: z.ZodType<
+  OutputHumioHecCompression,
+  z.ZodTypeDef,
+  OutputHumioHecCompression
+> = z.union([
+  z.nativeEnum(OutputHumioHecCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputHumioHecQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputHumioHecQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputHumioHecQueueFullBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputHumioHecQueueFullBehavior$outboundSchema: z.ZodType<
+  OutputHumioHecQueueFullBehavior,
+  z.ZodTypeDef,
+  OutputHumioHecQueueFullBehavior
+> = z.union([
+  z.nativeEnum(OutputHumioHecQueueFullBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /** @internal */
 export const OutputHumioHecPqControls$inboundSchema: z.ZodType<
@@ -738,7 +652,6 @@ export const OutputHumioHecPqControls$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputHumioHecPqControls$Outbound = {};
 
@@ -749,19 +662,6 @@ export const OutputHumioHecPqControls$outboundSchema: z.ZodType<
   OutputHumioHecPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputHumioHecPqControls$ {
-  /** @deprecated use `OutputHumioHecPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputHumioHecPqControls$inboundSchema;
-  /** @deprecated use `OutputHumioHecPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputHumioHecPqControls$outboundSchema;
-  /** @deprecated use `OutputHumioHecPqControls$Outbound` instead. */
-  export type Outbound = OutputHumioHecPqControls$Outbound;
-}
-
 export function outputHumioHecPqControlsToJSON(
   outputHumioHecPqControls: OutputHumioHecPqControls,
 ): string {
@@ -769,7 +669,6 @@ export function outputHumioHecPqControlsToJSON(
     OutputHumioHecPqControls$outboundSchema.parse(outputHumioHecPqControls),
   );
 }
-
 export function outputHumioHecPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputHumioHecPqControls, SDKValidationError> {
@@ -822,6 +721,11 @@ export const OutputHumioHec$inboundSchema: z.ZodType<
   description: z.string().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputHumioHecMode$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -829,10 +733,8 @@ export const OutputHumioHec$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputHumioHecQueueFullBehavior$inboundSchema.default(
     "block",
   ),
-  pqMode: OutputHumioHecMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputHumioHecPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type OutputHumioHec$Outbound = {
   id?: string | undefined;
@@ -866,12 +768,16 @@ export type OutputHumioHec$Outbound = {
   description?: string | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
   pqControls?: OutputHumioHecPqControls$Outbound | undefined;
 };
 
@@ -917,6 +823,11 @@ export const OutputHumioHec$outboundSchema: z.ZodType<
   description: z.string().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputHumioHecMode$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -924,27 +835,12 @@ export const OutputHumioHec$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputHumioHecQueueFullBehavior$outboundSchema.default(
     "block",
   ),
-  pqMode: OutputHumioHecMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputHumioHecPqControls$outboundSchema).optional(),
 });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputHumioHec$ {
-  /** @deprecated use `OutputHumioHec$inboundSchema` instead. */
-  export const inboundSchema = OutputHumioHec$inboundSchema;
-  /** @deprecated use `OutputHumioHec$outboundSchema` instead. */
-  export const outboundSchema = OutputHumioHec$outboundSchema;
-  /** @deprecated use `OutputHumioHec$Outbound` instead. */
-  export type Outbound = OutputHumioHec$Outbound;
-}
 
 export function outputHumioHecToJSON(outputHumioHec: OutputHumioHec): string {
   return JSON.stringify(OutputHumioHec$outboundSchema.parse(outputHumioHec));
 }
-
 export function outputHumioHecFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputHumioHec, SDKValidationError> {

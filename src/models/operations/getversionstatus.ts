@@ -3,10 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
 
 export type GetVersionStatusRequest = {
   /**
@@ -14,26 +10,6 @@ export type GetVersionStatusRequest = {
    */
   groupId?: string | undefined;
 };
-
-/**
- * a list of GitStatusResult objects
- */
-export type GetVersionStatusResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.GitStatusResult> | undefined;
-};
-
-/** @internal */
-export const GetVersionStatusRequest$inboundSchema: z.ZodType<
-  GetVersionStatusRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  groupId: z.string().optional(),
-});
 
 /** @internal */
 export type GetVersionStatusRequest$Outbound = {
@@ -49,90 +25,10 @@ export const GetVersionStatusRequest$outboundSchema: z.ZodType<
   groupId: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetVersionStatusRequest$ {
-  /** @deprecated use `GetVersionStatusRequest$inboundSchema` instead. */
-  export const inboundSchema = GetVersionStatusRequest$inboundSchema;
-  /** @deprecated use `GetVersionStatusRequest$outboundSchema` instead. */
-  export const outboundSchema = GetVersionStatusRequest$outboundSchema;
-  /** @deprecated use `GetVersionStatusRequest$Outbound` instead. */
-  export type Outbound = GetVersionStatusRequest$Outbound;
-}
-
 export function getVersionStatusRequestToJSON(
   getVersionStatusRequest: GetVersionStatusRequest,
 ): string {
   return JSON.stringify(
     GetVersionStatusRequest$outboundSchema.parse(getVersionStatusRequest),
-  );
-}
-
-export function getVersionStatusRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetVersionStatusRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetVersionStatusRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetVersionStatusRequest' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetVersionStatusResponse$inboundSchema: z.ZodType<
-  GetVersionStatusResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.GitStatusResult$inboundSchema).optional(),
-});
-
-/** @internal */
-export type GetVersionStatusResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.GitStatusResult$Outbound> | undefined;
-};
-
-/** @internal */
-export const GetVersionStatusResponse$outboundSchema: z.ZodType<
-  GetVersionStatusResponse$Outbound,
-  z.ZodTypeDef,
-  GetVersionStatusResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.GitStatusResult$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetVersionStatusResponse$ {
-  /** @deprecated use `GetVersionStatusResponse$inboundSchema` instead. */
-  export const inboundSchema = GetVersionStatusResponse$inboundSchema;
-  /** @deprecated use `GetVersionStatusResponse$outboundSchema` instead. */
-  export const outboundSchema = GetVersionStatusResponse$outboundSchema;
-  /** @deprecated use `GetVersionStatusResponse$Outbound` instead. */
-  export type Outbound = GetVersionStatusResponse$Outbound;
-}
-
-export function getVersionStatusResponseToJSON(
-  getVersionStatusResponse: GetVersionStatusResponse,
-): string {
-  return JSON.stringify(
-    GetVersionStatusResponse$outboundSchema.parse(getVersionStatusResponse),
-  );
-}
-
-export function getVersionStatusResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<GetVersionStatusResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetVersionStatusResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetVersionStatusResponse' from JSON`,
   );
 }

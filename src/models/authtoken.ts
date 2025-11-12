@@ -8,6 +8,7 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type AuthToken = {
+  forcePasswordChange: boolean;
   token: string;
 };
 
@@ -17,39 +18,9 @@ export const AuthToken$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  forcePasswordChange: z.boolean(),
   token: z.string(),
 });
-
-/** @internal */
-export type AuthToken$Outbound = {
-  token: string;
-};
-
-/** @internal */
-export const AuthToken$outboundSchema: z.ZodType<
-  AuthToken$Outbound,
-  z.ZodTypeDef,
-  AuthToken
-> = z.object({
-  token: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace AuthToken$ {
-  /** @deprecated use `AuthToken$inboundSchema` instead. */
-  export const inboundSchema = AuthToken$inboundSchema;
-  /** @deprecated use `AuthToken$outboundSchema` instead. */
-  export const outboundSchema = AuthToken$outboundSchema;
-  /** @deprecated use `AuthToken$Outbound` instead. */
-  export type Outbound = AuthToken$Outbound;
-}
-
-export function authTokenToJSON(authToken: AuthToken): string {
-  return JSON.stringify(AuthToken$outboundSchema.parse(authToken));
-}
 
 export function authTokenFromJSON(
   jsonString: string,

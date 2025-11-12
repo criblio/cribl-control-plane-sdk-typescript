@@ -27,7 +27,13 @@ export type InputHttpRawConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputHttpRawMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -39,7 +45,13 @@ export type InputHttpRawMode = OpenEnum<typeof InputHttpRawMode>;
  * Codec to use to compress the persisted data
  */
 export const InputHttpRawCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -104,6 +116,18 @@ export type InputHttpRawMaximumTLSVersion = OpenEnum<
 export type InputHttpRawTLSSettingsServerSide = {
   disabled?: boolean | undefined;
   /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
    * The name of the predefined certificate
    */
   certificateName?: string | undefined;
@@ -123,12 +147,6 @@ export type InputHttpRawTLSSettingsServerSide = {
    * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
    */
   caPath?: string | undefined;
-  /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
   minVersion?: InputHttpRawMinimumTLSVersion | undefined;
   maxVersion?: InputHttpRawMaximumTLSVersion | undefined;
 };
@@ -281,22 +299,10 @@ export type InputHttpRaw = {
 export const InputHttpRawType$inboundSchema: z.ZodNativeEnum<
   typeof InputHttpRawType
 > = z.nativeEnum(InputHttpRawType);
-
 /** @internal */
 export const InputHttpRawType$outboundSchema: z.ZodNativeEnum<
   typeof InputHttpRawType
 > = InputHttpRawType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpRawType$ {
-  /** @deprecated use `InputHttpRawType$inboundSchema` instead. */
-  export const inboundSchema = InputHttpRawType$inboundSchema;
-  /** @deprecated use `InputHttpRawType$outboundSchema` instead. */
-  export const outboundSchema = InputHttpRawType$outboundSchema;
-}
 
 /** @internal */
 export const InputHttpRawConnection$inboundSchema: z.ZodType<
@@ -307,7 +313,6 @@ export const InputHttpRawConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputHttpRawConnection$Outbound = {
   pipeline?: string | undefined;
@@ -324,19 +329,6 @@ export const InputHttpRawConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpRawConnection$ {
-  /** @deprecated use `InputHttpRawConnection$inboundSchema` instead. */
-  export const inboundSchema = InputHttpRawConnection$inboundSchema;
-  /** @deprecated use `InputHttpRawConnection$outboundSchema` instead. */
-  export const outboundSchema = InputHttpRawConnection$outboundSchema;
-  /** @deprecated use `InputHttpRawConnection$Outbound` instead. */
-  export type Outbound = InputHttpRawConnection$Outbound;
-}
-
 export function inputHttpRawConnectionToJSON(
   inputHttpRawConnection: InputHttpRawConnection,
 ): string {
@@ -344,7 +336,6 @@ export function inputHttpRawConnectionToJSON(
     InputHttpRawConnection$outboundSchema.parse(inputHttpRawConnection),
   );
 }
-
 export function inputHttpRawConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputHttpRawConnection, SDKValidationError> {
@@ -365,7 +356,6 @@ export const InputHttpRawMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputHttpRawMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputHttpRawMode$outboundSchema: z.ZodType<
   InputHttpRawMode,
@@ -375,17 +365,6 @@ export const InputHttpRawMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputHttpRawMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpRawMode$ {
-  /** @deprecated use `InputHttpRawMode$inboundSchema` instead. */
-  export const inboundSchema = InputHttpRawMode$inboundSchema;
-  /** @deprecated use `InputHttpRawMode$outboundSchema` instead. */
-  export const outboundSchema = InputHttpRawMode$outboundSchema;
-}
 
 /** @internal */
 export const InputHttpRawCompression$inboundSchema: z.ZodType<
@@ -397,7 +376,6 @@ export const InputHttpRawCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputHttpRawCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputHttpRawCompression$outboundSchema: z.ZodType<
   InputHttpRawCompression,
@@ -408,24 +386,12 @@ export const InputHttpRawCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpRawCompression$ {
-  /** @deprecated use `InputHttpRawCompression$inboundSchema` instead. */
-  export const inboundSchema = InputHttpRawCompression$inboundSchema;
-  /** @deprecated use `InputHttpRawCompression$outboundSchema` instead. */
-  export const outboundSchema = InputHttpRawCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputHttpRawPqControls$inboundSchema: z.ZodType<
   InputHttpRawPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputHttpRawPqControls$Outbound = {};
 
@@ -436,19 +402,6 @@ export const InputHttpRawPqControls$outboundSchema: z.ZodType<
   InputHttpRawPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpRawPqControls$ {
-  /** @deprecated use `InputHttpRawPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputHttpRawPqControls$inboundSchema;
-  /** @deprecated use `InputHttpRawPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputHttpRawPqControls$outboundSchema;
-  /** @deprecated use `InputHttpRawPqControls$Outbound` instead. */
-  export type Outbound = InputHttpRawPqControls$Outbound;
-}
-
 export function inputHttpRawPqControlsToJSON(
   inputHttpRawPqControls: InputHttpRawPqControls,
 ): string {
@@ -456,7 +409,6 @@ export function inputHttpRawPqControlsToJSON(
     InputHttpRawPqControls$outboundSchema.parse(inputHttpRawPqControls),
   );
 }
-
 export function inputHttpRawPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputHttpRawPqControls, SDKValidationError> {
@@ -482,7 +434,6 @@ export const InputHttpRawPq$inboundSchema: z.ZodType<
   compress: InputHttpRawCompression$inboundSchema.default("none"),
   pqControls: z.lazy(() => InputHttpRawPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputHttpRawPq$Outbound = {
   mode: string;
@@ -511,23 +462,9 @@ export const InputHttpRawPq$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputHttpRawPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpRawPq$ {
-  /** @deprecated use `InputHttpRawPq$inboundSchema` instead. */
-  export const inboundSchema = InputHttpRawPq$inboundSchema;
-  /** @deprecated use `InputHttpRawPq$outboundSchema` instead. */
-  export const outboundSchema = InputHttpRawPq$outboundSchema;
-  /** @deprecated use `InputHttpRawPq$Outbound` instead. */
-  export type Outbound = InputHttpRawPq$Outbound;
-}
-
 export function inputHttpRawPqToJSON(inputHttpRawPq: InputHttpRawPq): string {
   return JSON.stringify(InputHttpRawPq$outboundSchema.parse(inputHttpRawPq));
 }
-
 export function inputHttpRawPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputHttpRawPq, SDKValidationError> {
@@ -548,7 +485,6 @@ export const InputHttpRawMinimumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputHttpRawMinimumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputHttpRawMinimumTLSVersion$outboundSchema: z.ZodType<
   InputHttpRawMinimumTLSVersion,
@@ -558,17 +494,6 @@ export const InputHttpRawMinimumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputHttpRawMinimumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpRawMinimumTLSVersion$ {
-  /** @deprecated use `InputHttpRawMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputHttpRawMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `InputHttpRawMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputHttpRawMinimumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputHttpRawMaximumTLSVersion$inboundSchema: z.ZodType<
@@ -580,7 +505,6 @@ export const InputHttpRawMaximumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputHttpRawMaximumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputHttpRawMaximumTLSVersion$outboundSchema: z.ZodType<
   InputHttpRawMaximumTLSVersion,
@@ -591,17 +515,6 @@ export const InputHttpRawMaximumTLSVersion$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpRawMaximumTLSVersion$ {
-  /** @deprecated use `InputHttpRawMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputHttpRawMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `InputHttpRawMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputHttpRawMaximumTLSVersion$outboundSchema;
-}
-
 /** @internal */
 export const InputHttpRawTLSSettingsServerSide$inboundSchema: z.ZodType<
   InputHttpRawTLSSettingsServerSide,
@@ -609,29 +522,28 @@ export const InputHttpRawTLSSettingsServerSide$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
   certificateName: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   certPath: z.string().optional(),
   caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
   minVersion: InputHttpRawMinimumTLSVersion$inboundSchema.optional(),
   maxVersion: InputHttpRawMaximumTLSVersion$inboundSchema.optional(),
 });
-
 /** @internal */
 export type InputHttpRawTLSSettingsServerSide$Outbound = {
   disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
   certificateName?: string | undefined;
   privKeyPath?: string | undefined;
   passphrase?: string | undefined;
   certPath?: string | undefined;
   caPath?: string | undefined;
-  requestCert: boolean;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
   minVersion?: string | undefined;
   maxVersion?: string | undefined;
 };
@@ -643,31 +555,17 @@ export const InputHttpRawTLSSettingsServerSide$outboundSchema: z.ZodType<
   InputHttpRawTLSSettingsServerSide
 > = z.object({
   disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
   certificateName: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   certPath: z.string().optional(),
   caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
   minVersion: InputHttpRawMinimumTLSVersion$outboundSchema.optional(),
   maxVersion: InputHttpRawMaximumTLSVersion$outboundSchema.optional(),
 });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpRawTLSSettingsServerSide$ {
-  /** @deprecated use `InputHttpRawTLSSettingsServerSide$inboundSchema` instead. */
-  export const inboundSchema = InputHttpRawTLSSettingsServerSide$inboundSchema;
-  /** @deprecated use `InputHttpRawTLSSettingsServerSide$outboundSchema` instead. */
-  export const outboundSchema =
-    InputHttpRawTLSSettingsServerSide$outboundSchema;
-  /** @deprecated use `InputHttpRawTLSSettingsServerSide$Outbound` instead. */
-  export type Outbound = InputHttpRawTLSSettingsServerSide$Outbound;
-}
 
 export function inputHttpRawTLSSettingsServerSideToJSON(
   inputHttpRawTLSSettingsServerSide: InputHttpRawTLSSettingsServerSide,
@@ -678,7 +576,6 @@ export function inputHttpRawTLSSettingsServerSideToJSON(
     ),
   );
 }
-
 export function inputHttpRawTLSSettingsServerSideFromJSON(
   jsonString: string,
 ): SafeParseResult<InputHttpRawTLSSettingsServerSide, SDKValidationError> {
@@ -698,7 +595,6 @@ export const InputHttpRawMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputHttpRawMetadatum$Outbound = {
   name: string;
@@ -715,19 +611,6 @@ export const InputHttpRawMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpRawMetadatum$ {
-  /** @deprecated use `InputHttpRawMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputHttpRawMetadatum$inboundSchema;
-  /** @deprecated use `InputHttpRawMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputHttpRawMetadatum$outboundSchema;
-  /** @deprecated use `InputHttpRawMetadatum$Outbound` instead. */
-  export type Outbound = InputHttpRawMetadatum$Outbound;
-}
-
 export function inputHttpRawMetadatumToJSON(
   inputHttpRawMetadatum: InputHttpRawMetadatum,
 ): string {
@@ -735,7 +618,6 @@ export function inputHttpRawMetadatumToJSON(
     InputHttpRawMetadatum$outboundSchema.parse(inputHttpRawMetadatum),
   );
 }
-
 export function inputHttpRawMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputHttpRawMetadatum, SDKValidationError> {
@@ -755,7 +637,6 @@ export const InputHttpRawAuthTokensExtMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputHttpRawAuthTokensExtMetadatum$Outbound = {
   name: string;
@@ -772,20 +653,6 @@ export const InputHttpRawAuthTokensExtMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpRawAuthTokensExtMetadatum$ {
-  /** @deprecated use `InputHttpRawAuthTokensExtMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputHttpRawAuthTokensExtMetadatum$inboundSchema;
-  /** @deprecated use `InputHttpRawAuthTokensExtMetadatum$outboundSchema` instead. */
-  export const outboundSchema =
-    InputHttpRawAuthTokensExtMetadatum$outboundSchema;
-  /** @deprecated use `InputHttpRawAuthTokensExtMetadatum$Outbound` instead. */
-  export type Outbound = InputHttpRawAuthTokensExtMetadatum$Outbound;
-}
-
 export function inputHttpRawAuthTokensExtMetadatumToJSON(
   inputHttpRawAuthTokensExtMetadatum: InputHttpRawAuthTokensExtMetadatum,
 ): string {
@@ -795,7 +662,6 @@ export function inputHttpRawAuthTokensExtMetadatumToJSON(
     ),
   );
 }
-
 export function inputHttpRawAuthTokensExtMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputHttpRawAuthTokensExtMetadatum, SDKValidationError> {
@@ -819,7 +685,6 @@ export const InputHttpRawAuthTokensExt$inboundSchema: z.ZodType<
     z.lazy(() => InputHttpRawAuthTokensExtMetadatum$inboundSchema),
   ).optional(),
 });
-
 /** @internal */
 export type InputHttpRawAuthTokensExt$Outbound = {
   token: string;
@@ -840,19 +705,6 @@ export const InputHttpRawAuthTokensExt$outboundSchema: z.ZodType<
   ).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpRawAuthTokensExt$ {
-  /** @deprecated use `InputHttpRawAuthTokensExt$inboundSchema` instead. */
-  export const inboundSchema = InputHttpRawAuthTokensExt$inboundSchema;
-  /** @deprecated use `InputHttpRawAuthTokensExt$outboundSchema` instead. */
-  export const outboundSchema = InputHttpRawAuthTokensExt$outboundSchema;
-  /** @deprecated use `InputHttpRawAuthTokensExt$Outbound` instead. */
-  export type Outbound = InputHttpRawAuthTokensExt$Outbound;
-}
-
 export function inputHttpRawAuthTokensExtToJSON(
   inputHttpRawAuthTokensExt: InputHttpRawAuthTokensExt,
 ): string {
@@ -860,7 +712,6 @@ export function inputHttpRawAuthTokensExtToJSON(
     InputHttpRawAuthTokensExt$outboundSchema.parse(inputHttpRawAuthTokensExt),
   );
 }
-
 export function inputHttpRawAuthTokensExtFromJSON(
   jsonString: string,
 ): SafeParseResult<InputHttpRawAuthTokensExt, SDKValidationError> {
@@ -913,7 +764,6 @@ export const InputHttpRaw$inboundSchema: z.ZodType<
     .optional(),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type InputHttpRaw$Outbound = {
   id?: string | undefined;
@@ -994,23 +844,9 @@ export const InputHttpRaw$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputHttpRaw$ {
-  /** @deprecated use `InputHttpRaw$inboundSchema` instead. */
-  export const inboundSchema = InputHttpRaw$inboundSchema;
-  /** @deprecated use `InputHttpRaw$outboundSchema` instead. */
-  export const outboundSchema = InputHttpRaw$outboundSchema;
-  /** @deprecated use `InputHttpRaw$Outbound` instead. */
-  export type Outbound = InputHttpRaw$Outbound;
-}
-
 export function inputHttpRawToJSON(inputHttpRaw: InputHttpRaw): string {
   return JSON.stringify(InputHttpRaw$outboundSchema.parse(inputHttpRaw));
 }
-
 export function inputHttpRawFromJSON(
   jsonString: string,
 ): SafeParseResult<InputHttpRaw, SDKValidationError> {

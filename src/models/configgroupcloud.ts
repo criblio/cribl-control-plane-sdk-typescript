@@ -26,7 +26,6 @@ export const ConfigGroupCloud$inboundSchema: z.ZodType<
   provider: z.nullable(CloudProvider$inboundSchema),
   region: z.string(),
 });
-
 /** @internal */
 export type ConfigGroupCloud$Outbound = {
   provider: string | null;
@@ -43,19 +42,6 @@ export const ConfigGroupCloud$outboundSchema: z.ZodType<
   region: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ConfigGroupCloud$ {
-  /** @deprecated use `ConfigGroupCloud$inboundSchema` instead. */
-  export const inboundSchema = ConfigGroupCloud$inboundSchema;
-  /** @deprecated use `ConfigGroupCloud$outboundSchema` instead. */
-  export const outboundSchema = ConfigGroupCloud$outboundSchema;
-  /** @deprecated use `ConfigGroupCloud$Outbound` instead. */
-  export type Outbound = ConfigGroupCloud$Outbound;
-}
-
 export function configGroupCloudToJSON(
   configGroupCloud: ConfigGroupCloud,
 ): string {
@@ -63,7 +49,6 @@ export function configGroupCloudToJSON(
     ConfigGroupCloud$outboundSchema.parse(configGroupCloud),
   );
 }
-
 export function configGroupCloudFromJSON(
   jsonString: string,
 ): SafeParseResult<ConfigGroupCloud, SDKValidationError> {

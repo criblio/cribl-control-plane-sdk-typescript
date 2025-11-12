@@ -43,32 +43,3 @@ export const ErrorT$inboundSchema: z.ZodType<ErrorT, z.ZodTypeDef, unknown> = z
       body: v.body$,
     });
   });
-
-/** @internal */
-export type ErrorT$Outbound = {
-  message?: string | undefined;
-};
-
-/** @internal */
-export const ErrorT$outboundSchema: z.ZodType<
-  ErrorT$Outbound,
-  z.ZodTypeDef,
-  ErrorT
-> = z.instanceof(ErrorT)
-  .transform(v => v.data$)
-  .pipe(z.object({
-    message: z.string().optional(),
-  }));
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ErrorT$ {
-  /** @deprecated use `ErrorT$inboundSchema` instead. */
-  export const inboundSchema = ErrorT$inboundSchema;
-  /** @deprecated use `ErrorT$outboundSchema` instead. */
-  export const outboundSchema = ErrorT$outboundSchema;
-  /** @deprecated use `ErrorT$Outbound` instead. */
-  export type Outbound = ErrorT$Outbound;
-}

@@ -6,8 +6,8 @@
 import { LoginInfo } from "cribl-control-plane/models";
 
 let value: LoginInfo = {
-  username: "Sylvan.Feil",
-  password: "rZfKt8qq0yjN3eP",
+  password: "wB7WrZfKt8qq0yj",
+  username: "Jayme.Raynor23",
 };
 ```
 
@@ -15,5 +15,5 @@ let value: LoginInfo = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `username`         | *string*           | :heavy_check_mark: | N/A                |
 | `password`         | *string*           | :heavy_check_mark: | N/A                |
+| `username`         | *string*           | :heavy_check_mark: | N/A                |

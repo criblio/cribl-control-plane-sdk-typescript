@@ -20,37 +20,6 @@ export const GitCountResult$inboundSchema: z.ZodType<
   count: z.number(),
 });
 
-/** @internal */
-export type GitCountResult$Outbound = {
-  count: number;
-};
-
-/** @internal */
-export const GitCountResult$outboundSchema: z.ZodType<
-  GitCountResult$Outbound,
-  z.ZodTypeDef,
-  GitCountResult
-> = z.object({
-  count: z.number(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GitCountResult$ {
-  /** @deprecated use `GitCountResult$inboundSchema` instead. */
-  export const inboundSchema = GitCountResult$inboundSchema;
-  /** @deprecated use `GitCountResult$outboundSchema` instead. */
-  export const outboundSchema = GitCountResult$outboundSchema;
-  /** @deprecated use `GitCountResult$Outbound` instead. */
-  export type Outbound = GitCountResult$Outbound;
-}
-
-export function gitCountResultToJSON(gitCountResult: GitCountResult): string {
-  return JSON.stringify(GitCountResult$outboundSchema.parse(gitCountResult));
-}
-
 export function gitCountResultFromJSON(
   jsonString: string,
 ): SafeParseResult<GitCountResult, SDKValidationError> {

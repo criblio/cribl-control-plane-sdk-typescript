@@ -42,7 +42,6 @@ export const ScanMode$inboundSchema: z.ZodType<
     z.nativeEnum(ScanMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const ScanMode$outboundSchema: z.ZodType<
   ScanMode,
@@ -52,17 +51,6 @@ export const ScanMode$outboundSchema: z.ZodType<
   z.nativeEnum(ScanMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ScanMode$ {
-  /** @deprecated use `ScanMode$inboundSchema` instead. */
-  export const inboundSchema = ScanMode$inboundSchema;
-  /** @deprecated use `ScanMode$outboundSchema` instead. */
-  export const outboundSchema = ScanMode$outboundSchema;
-}
 
 /** @internal */
 export const DatasetMetadata$inboundSchema: z.ZodType<
@@ -76,7 +64,6 @@ export const DatasetMetadata$inboundSchema: z.ZodType<
   latestRunInfo: DatasetMetadataRunInfo$inboundSchema.optional(),
   scanMode: ScanMode$inboundSchema,
 });
-
 /** @internal */
 export type DatasetMetadata$Outbound = {
   earliest: string;
@@ -99,25 +86,11 @@ export const DatasetMetadata$outboundSchema: z.ZodType<
   scanMode: ScanMode$outboundSchema,
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DatasetMetadata$ {
-  /** @deprecated use `DatasetMetadata$inboundSchema` instead. */
-  export const inboundSchema = DatasetMetadata$inboundSchema;
-  /** @deprecated use `DatasetMetadata$outboundSchema` instead. */
-  export const outboundSchema = DatasetMetadata$outboundSchema;
-  /** @deprecated use `DatasetMetadata$Outbound` instead. */
-  export type Outbound = DatasetMetadata$Outbound;
-}
-
 export function datasetMetadataToJSON(
   datasetMetadata: DatasetMetadata,
 ): string {
   return JSON.stringify(DatasetMetadata$outboundSchema.parse(datasetMetadata));
 }
-
 export function datasetMetadataFromJSON(
   jsonString: string,
 ): SafeParseResult<DatasetMetadata, SDKValidationError> {

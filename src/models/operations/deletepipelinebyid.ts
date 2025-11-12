@@ -3,10 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
 
 export type DeletePipelineByIdRequest = {
   /**
@@ -14,26 +10,6 @@ export type DeletePipelineByIdRequest = {
    */
   id: string;
 };
-
-/**
- * a list of Pipeline objects
- */
-export type DeletePipelineByIdResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.Pipeline> | undefined;
-};
-
-/** @internal */
-export const DeletePipelineByIdRequest$inboundSchema: z.ZodType<
-  DeletePipelineByIdRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.string(),
-});
 
 /** @internal */
 export type DeletePipelineByIdRequest$Outbound = {
@@ -49,90 +25,10 @@ export const DeletePipelineByIdRequest$outboundSchema: z.ZodType<
   id: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DeletePipelineByIdRequest$ {
-  /** @deprecated use `DeletePipelineByIdRequest$inboundSchema` instead. */
-  export const inboundSchema = DeletePipelineByIdRequest$inboundSchema;
-  /** @deprecated use `DeletePipelineByIdRequest$outboundSchema` instead. */
-  export const outboundSchema = DeletePipelineByIdRequest$outboundSchema;
-  /** @deprecated use `DeletePipelineByIdRequest$Outbound` instead. */
-  export type Outbound = DeletePipelineByIdRequest$Outbound;
-}
-
 export function deletePipelineByIdRequestToJSON(
   deletePipelineByIdRequest: DeletePipelineByIdRequest,
 ): string {
   return JSON.stringify(
     DeletePipelineByIdRequest$outboundSchema.parse(deletePipelineByIdRequest),
-  );
-}
-
-export function deletePipelineByIdRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<DeletePipelineByIdRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DeletePipelineByIdRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DeletePipelineByIdRequest' from JSON`,
-  );
-}
-
-/** @internal */
-export const DeletePipelineByIdResponse$inboundSchema: z.ZodType<
-  DeletePipelineByIdResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.Pipeline$inboundSchema).optional(),
-});
-
-/** @internal */
-export type DeletePipelineByIdResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.Pipeline$Outbound> | undefined;
-};
-
-/** @internal */
-export const DeletePipelineByIdResponse$outboundSchema: z.ZodType<
-  DeletePipelineByIdResponse$Outbound,
-  z.ZodTypeDef,
-  DeletePipelineByIdResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.Pipeline$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DeletePipelineByIdResponse$ {
-  /** @deprecated use `DeletePipelineByIdResponse$inboundSchema` instead. */
-  export const inboundSchema = DeletePipelineByIdResponse$inboundSchema;
-  /** @deprecated use `DeletePipelineByIdResponse$outboundSchema` instead. */
-  export const outboundSchema = DeletePipelineByIdResponse$outboundSchema;
-  /** @deprecated use `DeletePipelineByIdResponse$Outbound` instead. */
-  export type Outbound = DeletePipelineByIdResponse$Outbound;
-}
-
-export function deletePipelineByIdResponseToJSON(
-  deletePipelineByIdResponse: DeletePipelineByIdResponse,
-): string {
-  return JSON.stringify(
-    DeletePipelineByIdResponse$outboundSchema.parse(deletePipelineByIdResponse),
-  );
-}
-
-export function deletePipelineByIdResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<DeletePipelineByIdResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DeletePipelineByIdResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DeletePipelineByIdResponse' from JSON`,
   );
 }
