@@ -27,7 +27,13 @@ export type InputWizWebhookConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputWizWebhookMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -39,7 +45,13 @@ export type InputWizWebhookMode = OpenEnum<typeof InputWizWebhookMode>;
  * Codec to use to compress the persisted data
  */
 export const InputWizWebhookCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -106,6 +118,18 @@ export type InputWizWebhookMaximumTLSVersion = OpenEnum<
 export type InputWizWebhookTLSSettingsServerSide = {
   disabled?: boolean | undefined;
   /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
    * The name of the predefined certificate
    */
   certificateName?: string | undefined;
@@ -125,12 +149,6 @@ export type InputWizWebhookTLSSettingsServerSide = {
    * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
    */
   caPath?: string | undefined;
-  /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
   minVersion?: InputWizWebhookMinimumTLSVersion | undefined;
   maxVersion?: InputWizWebhookMaximumTLSVersion | undefined;
 };
@@ -283,22 +301,10 @@ export type InputWizWebhook = {
 export const InputWizWebhookType$inboundSchema: z.ZodNativeEnum<
   typeof InputWizWebhookType
 > = z.nativeEnum(InputWizWebhookType);
-
 /** @internal */
 export const InputWizWebhookType$outboundSchema: z.ZodNativeEnum<
   typeof InputWizWebhookType
 > = InputWizWebhookType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWizWebhookType$ {
-  /** @deprecated use `InputWizWebhookType$inboundSchema` instead. */
-  export const inboundSchema = InputWizWebhookType$inboundSchema;
-  /** @deprecated use `InputWizWebhookType$outboundSchema` instead. */
-  export const outboundSchema = InputWizWebhookType$outboundSchema;
-}
 
 /** @internal */
 export const InputWizWebhookConnection$inboundSchema: z.ZodType<
@@ -309,7 +315,6 @@ export const InputWizWebhookConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputWizWebhookConnection$Outbound = {
   pipeline?: string | undefined;
@@ -326,19 +331,6 @@ export const InputWizWebhookConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWizWebhookConnection$ {
-  /** @deprecated use `InputWizWebhookConnection$inboundSchema` instead. */
-  export const inboundSchema = InputWizWebhookConnection$inboundSchema;
-  /** @deprecated use `InputWizWebhookConnection$outboundSchema` instead. */
-  export const outboundSchema = InputWizWebhookConnection$outboundSchema;
-  /** @deprecated use `InputWizWebhookConnection$Outbound` instead. */
-  export type Outbound = InputWizWebhookConnection$Outbound;
-}
-
 export function inputWizWebhookConnectionToJSON(
   inputWizWebhookConnection: InputWizWebhookConnection,
 ): string {
@@ -346,7 +338,6 @@ export function inputWizWebhookConnectionToJSON(
     InputWizWebhookConnection$outboundSchema.parse(inputWizWebhookConnection),
   );
 }
-
 export function inputWizWebhookConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWizWebhookConnection, SDKValidationError> {
@@ -367,7 +358,6 @@ export const InputWizWebhookMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputWizWebhookMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputWizWebhookMode$outboundSchema: z.ZodType<
   InputWizWebhookMode,
@@ -377,17 +367,6 @@ export const InputWizWebhookMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputWizWebhookMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWizWebhookMode$ {
-  /** @deprecated use `InputWizWebhookMode$inboundSchema` instead. */
-  export const inboundSchema = InputWizWebhookMode$inboundSchema;
-  /** @deprecated use `InputWizWebhookMode$outboundSchema` instead. */
-  export const outboundSchema = InputWizWebhookMode$outboundSchema;
-}
 
 /** @internal */
 export const InputWizWebhookCompression$inboundSchema: z.ZodType<
@@ -399,7 +378,6 @@ export const InputWizWebhookCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputWizWebhookCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputWizWebhookCompression$outboundSchema: z.ZodType<
   InputWizWebhookCompression,
@@ -410,24 +388,12 @@ export const InputWizWebhookCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWizWebhookCompression$ {
-  /** @deprecated use `InputWizWebhookCompression$inboundSchema` instead. */
-  export const inboundSchema = InputWizWebhookCompression$inboundSchema;
-  /** @deprecated use `InputWizWebhookCompression$outboundSchema` instead. */
-  export const outboundSchema = InputWizWebhookCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputWizWebhookPqControls$inboundSchema: z.ZodType<
   InputWizWebhookPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputWizWebhookPqControls$Outbound = {};
 
@@ -438,19 +404,6 @@ export const InputWizWebhookPqControls$outboundSchema: z.ZodType<
   InputWizWebhookPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWizWebhookPqControls$ {
-  /** @deprecated use `InputWizWebhookPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputWizWebhookPqControls$inboundSchema;
-  /** @deprecated use `InputWizWebhookPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputWizWebhookPqControls$outboundSchema;
-  /** @deprecated use `InputWizWebhookPqControls$Outbound` instead. */
-  export type Outbound = InputWizWebhookPqControls$Outbound;
-}
-
 export function inputWizWebhookPqControlsToJSON(
   inputWizWebhookPqControls: InputWizWebhookPqControls,
 ): string {
@@ -458,7 +411,6 @@ export function inputWizWebhookPqControlsToJSON(
     InputWizWebhookPqControls$outboundSchema.parse(inputWizWebhookPqControls),
   );
 }
-
 export function inputWizWebhookPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWizWebhookPqControls, SDKValidationError> {
@@ -484,7 +436,6 @@ export const InputWizWebhookPq$inboundSchema: z.ZodType<
   compress: InputWizWebhookCompression$inboundSchema.default("none"),
   pqControls: z.lazy(() => InputWizWebhookPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputWizWebhookPq$Outbound = {
   mode: string;
@@ -513,19 +464,6 @@ export const InputWizWebhookPq$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputWizWebhookPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWizWebhookPq$ {
-  /** @deprecated use `InputWizWebhookPq$inboundSchema` instead. */
-  export const inboundSchema = InputWizWebhookPq$inboundSchema;
-  /** @deprecated use `InputWizWebhookPq$outboundSchema` instead. */
-  export const outboundSchema = InputWizWebhookPq$outboundSchema;
-  /** @deprecated use `InputWizWebhookPq$Outbound` instead. */
-  export type Outbound = InputWizWebhookPq$Outbound;
-}
-
 export function inputWizWebhookPqToJSON(
   inputWizWebhookPq: InputWizWebhookPq,
 ): string {
@@ -533,7 +471,6 @@ export function inputWizWebhookPqToJSON(
     InputWizWebhookPq$outboundSchema.parse(inputWizWebhookPq),
   );
 }
-
 export function inputWizWebhookPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWizWebhookPq, SDKValidationError> {
@@ -554,7 +491,6 @@ export const InputWizWebhookMinimumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputWizWebhookMinimumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputWizWebhookMinimumTLSVersion$outboundSchema: z.ZodType<
   InputWizWebhookMinimumTLSVersion,
@@ -564,17 +500,6 @@ export const InputWizWebhookMinimumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputWizWebhookMinimumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWizWebhookMinimumTLSVersion$ {
-  /** @deprecated use `InputWizWebhookMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputWizWebhookMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `InputWizWebhookMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputWizWebhookMinimumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputWizWebhookMaximumTLSVersion$inboundSchema: z.ZodType<
@@ -586,7 +511,6 @@ export const InputWizWebhookMaximumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputWizWebhookMaximumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputWizWebhookMaximumTLSVersion$outboundSchema: z.ZodType<
   InputWizWebhookMaximumTLSVersion,
@@ -597,17 +521,6 @@ export const InputWizWebhookMaximumTLSVersion$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWizWebhookMaximumTLSVersion$ {
-  /** @deprecated use `InputWizWebhookMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputWizWebhookMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `InputWizWebhookMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputWizWebhookMaximumTLSVersion$outboundSchema;
-}
-
 /** @internal */
 export const InputWizWebhookTLSSettingsServerSide$inboundSchema: z.ZodType<
   InputWizWebhookTLSSettingsServerSide,
@@ -615,29 +528,28 @@ export const InputWizWebhookTLSSettingsServerSide$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
   certificateName: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   certPath: z.string().optional(),
   caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
   minVersion: InputWizWebhookMinimumTLSVersion$inboundSchema.optional(),
   maxVersion: InputWizWebhookMaximumTLSVersion$inboundSchema.optional(),
 });
-
 /** @internal */
 export type InputWizWebhookTLSSettingsServerSide$Outbound = {
   disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
   certificateName?: string | undefined;
   privKeyPath?: string | undefined;
   passphrase?: string | undefined;
   certPath?: string | undefined;
   caPath?: string | undefined;
-  requestCert: boolean;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
   minVersion?: string | undefined;
   maxVersion?: string | undefined;
 };
@@ -649,32 +561,17 @@ export const InputWizWebhookTLSSettingsServerSide$outboundSchema: z.ZodType<
   InputWizWebhookTLSSettingsServerSide
 > = z.object({
   disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
   certificateName: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   certPath: z.string().optional(),
   caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
   minVersion: InputWizWebhookMinimumTLSVersion$outboundSchema.optional(),
   maxVersion: InputWizWebhookMaximumTLSVersion$outboundSchema.optional(),
 });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWizWebhookTLSSettingsServerSide$ {
-  /** @deprecated use `InputWizWebhookTLSSettingsServerSide$inboundSchema` instead. */
-  export const inboundSchema =
-    InputWizWebhookTLSSettingsServerSide$inboundSchema;
-  /** @deprecated use `InputWizWebhookTLSSettingsServerSide$outboundSchema` instead. */
-  export const outboundSchema =
-    InputWizWebhookTLSSettingsServerSide$outboundSchema;
-  /** @deprecated use `InputWizWebhookTLSSettingsServerSide$Outbound` instead. */
-  export type Outbound = InputWizWebhookTLSSettingsServerSide$Outbound;
-}
 
 export function inputWizWebhookTLSSettingsServerSideToJSON(
   inputWizWebhookTLSSettingsServerSide: InputWizWebhookTLSSettingsServerSide,
@@ -685,7 +582,6 @@ export function inputWizWebhookTLSSettingsServerSideToJSON(
     ),
   );
 }
-
 export function inputWizWebhookTLSSettingsServerSideFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWizWebhookTLSSettingsServerSide, SDKValidationError> {
@@ -706,7 +602,6 @@ export const InputWizWebhookMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputWizWebhookMetadatum$Outbound = {
   name: string;
@@ -723,19 +618,6 @@ export const InputWizWebhookMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWizWebhookMetadatum$ {
-  /** @deprecated use `InputWizWebhookMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputWizWebhookMetadatum$inboundSchema;
-  /** @deprecated use `InputWizWebhookMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputWizWebhookMetadatum$outboundSchema;
-  /** @deprecated use `InputWizWebhookMetadatum$Outbound` instead. */
-  export type Outbound = InputWizWebhookMetadatum$Outbound;
-}
-
 export function inputWizWebhookMetadatumToJSON(
   inputWizWebhookMetadatum: InputWizWebhookMetadatum,
 ): string {
@@ -743,7 +625,6 @@ export function inputWizWebhookMetadatumToJSON(
     InputWizWebhookMetadatum$outboundSchema.parse(inputWizWebhookMetadatum),
   );
 }
-
 export function inputWizWebhookMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWizWebhookMetadatum, SDKValidationError> {
@@ -763,7 +644,6 @@ export const InputWizWebhookAuthTokensExtMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputWizWebhookAuthTokensExtMetadatum$Outbound = {
   name: string;
@@ -780,21 +660,6 @@ export const InputWizWebhookAuthTokensExtMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWizWebhookAuthTokensExtMetadatum$ {
-  /** @deprecated use `InputWizWebhookAuthTokensExtMetadatum$inboundSchema` instead. */
-  export const inboundSchema =
-    InputWizWebhookAuthTokensExtMetadatum$inboundSchema;
-  /** @deprecated use `InputWizWebhookAuthTokensExtMetadatum$outboundSchema` instead. */
-  export const outboundSchema =
-    InputWizWebhookAuthTokensExtMetadatum$outboundSchema;
-  /** @deprecated use `InputWizWebhookAuthTokensExtMetadatum$Outbound` instead. */
-  export type Outbound = InputWizWebhookAuthTokensExtMetadatum$Outbound;
-}
-
 export function inputWizWebhookAuthTokensExtMetadatumToJSON(
   inputWizWebhookAuthTokensExtMetadatum: InputWizWebhookAuthTokensExtMetadatum,
 ): string {
@@ -804,7 +669,6 @@ export function inputWizWebhookAuthTokensExtMetadatumToJSON(
     ),
   );
 }
-
 export function inputWizWebhookAuthTokensExtMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWizWebhookAuthTokensExtMetadatum, SDKValidationError> {
@@ -828,7 +692,6 @@ export const InputWizWebhookAuthTokensExt$inboundSchema: z.ZodType<
     z.lazy(() => InputWizWebhookAuthTokensExtMetadatum$inboundSchema),
   ).optional(),
 });
-
 /** @internal */
 export type InputWizWebhookAuthTokensExt$Outbound = {
   token: string;
@@ -849,19 +712,6 @@ export const InputWizWebhookAuthTokensExt$outboundSchema: z.ZodType<
   ).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWizWebhookAuthTokensExt$ {
-  /** @deprecated use `InputWizWebhookAuthTokensExt$inboundSchema` instead. */
-  export const inboundSchema = InputWizWebhookAuthTokensExt$inboundSchema;
-  /** @deprecated use `InputWizWebhookAuthTokensExt$outboundSchema` instead. */
-  export const outboundSchema = InputWizWebhookAuthTokensExt$outboundSchema;
-  /** @deprecated use `InputWizWebhookAuthTokensExt$Outbound` instead. */
-  export type Outbound = InputWizWebhookAuthTokensExt$Outbound;
-}
-
 export function inputWizWebhookAuthTokensExtToJSON(
   inputWizWebhookAuthTokensExt: InputWizWebhookAuthTokensExt,
 ): string {
@@ -871,7 +721,6 @@ export function inputWizWebhookAuthTokensExtToJSON(
     ),
   );
 }
-
 export function inputWizWebhookAuthTokensExtFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWizWebhookAuthTokensExt, SDKValidationError> {
@@ -926,7 +775,6 @@ export const InputWizWebhook$inboundSchema: z.ZodType<
   ).optional(),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type InputWizWebhook$Outbound = {
   id?: string | undefined;
@@ -1008,25 +856,11 @@ export const InputWizWebhook$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWizWebhook$ {
-  /** @deprecated use `InputWizWebhook$inboundSchema` instead. */
-  export const inboundSchema = InputWizWebhook$inboundSchema;
-  /** @deprecated use `InputWizWebhook$outboundSchema` instead. */
-  export const outboundSchema = InputWizWebhook$outboundSchema;
-  /** @deprecated use `InputWizWebhook$Outbound` instead. */
-  export type Outbound = InputWizWebhook$Outbound;
-}
-
 export function inputWizWebhookToJSON(
   inputWizWebhook: InputWizWebhook,
 ): string {
   return JSON.stringify(InputWizWebhook$outboundSchema.parse(inputWizWebhook));
 }
-
 export function inputWizWebhookFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWizWebhook, SDKValidationError> {

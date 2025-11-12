@@ -27,7 +27,13 @@ export type InputElasticConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputElasticMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -39,7 +45,13 @@ export type InputElasticMode = OpenEnum<typeof InputElasticMode>;
  * Codec to use to compress the persisted data
  */
 export const InputElasticCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -104,6 +116,18 @@ export type InputElasticMaximumTLSVersion = OpenEnum<
 export type InputElasticTLSSettingsServerSide = {
   disabled?: boolean | undefined;
   /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
    * The name of the predefined certificate
    */
   certificateName?: string | undefined;
@@ -123,20 +147,26 @@ export type InputElasticTLSSettingsServerSide = {
    * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
    */
   caPath?: string | undefined;
-  /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
   minVersion?: InputElasticMinimumTLSVersion | undefined;
   maxVersion?: InputElasticMaximumTLSVersion | undefined;
 };
 
 export const InputElasticAuthenticationType = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
   CredentialsSecret: "credentialsSecret",
+  /**
+   * Auth Tokens
+   */
   AuthTokens: "authTokens",
 } as const;
 export type InputElasticAuthenticationType = OpenEnum<
@@ -147,8 +177,17 @@ export type InputElasticAuthenticationType = OpenEnum<
  * The API version to use for communicating with the server
  */
 export const InputElasticAPIVersion = {
+  /**
+   * 6.8.4
+   */
   SixDot8Dot4: "6.8.4",
+  /**
+   * 8.3.2
+   */
   EightDot3Dot2: "8.3.2",
+  /**
+   * Custom
+   */
   Custom: "custom",
 } as const;
 /**
@@ -190,6 +229,16 @@ export type InputElasticProxyMode = {
    */
   enabled?: boolean | undefined;
   /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: InputElasticAuthenticationMethod | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
    * URL of the Elastic server to proxy non-bulk requests to, such as http://elastic:9200
    */
   url?: string | undefined;
@@ -205,10 +254,6 @@ export type InputElasticProxyMode = {
    * Amount of time, in seconds, to wait for a proxy request to complete before canceling it
    */
   timeoutSec?: number | undefined;
-  /**
-   * Enter credentials directly, or select a stored secret
-   */
-  authType?: InputElasticAuthenticationMethod | undefined;
 };
 
 export type InputElastic = {
@@ -335,22 +380,10 @@ export type InputElastic = {
 export const InputElasticType$inboundSchema: z.ZodNativeEnum<
   typeof InputElasticType
 > = z.nativeEnum(InputElasticType);
-
 /** @internal */
 export const InputElasticType$outboundSchema: z.ZodNativeEnum<
   typeof InputElasticType
 > = InputElasticType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputElasticType$ {
-  /** @deprecated use `InputElasticType$inboundSchema` instead. */
-  export const inboundSchema = InputElasticType$inboundSchema;
-  /** @deprecated use `InputElasticType$outboundSchema` instead. */
-  export const outboundSchema = InputElasticType$outboundSchema;
-}
 
 /** @internal */
 export const InputElasticConnection$inboundSchema: z.ZodType<
@@ -361,7 +394,6 @@ export const InputElasticConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputElasticConnection$Outbound = {
   pipeline?: string | undefined;
@@ -378,19 +410,6 @@ export const InputElasticConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputElasticConnection$ {
-  /** @deprecated use `InputElasticConnection$inboundSchema` instead. */
-  export const inboundSchema = InputElasticConnection$inboundSchema;
-  /** @deprecated use `InputElasticConnection$outboundSchema` instead. */
-  export const outboundSchema = InputElasticConnection$outboundSchema;
-  /** @deprecated use `InputElasticConnection$Outbound` instead. */
-  export type Outbound = InputElasticConnection$Outbound;
-}
-
 export function inputElasticConnectionToJSON(
   inputElasticConnection: InputElasticConnection,
 ): string {
@@ -398,7 +417,6 @@ export function inputElasticConnectionToJSON(
     InputElasticConnection$outboundSchema.parse(inputElasticConnection),
   );
 }
-
 export function inputElasticConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputElasticConnection, SDKValidationError> {
@@ -419,7 +437,6 @@ export const InputElasticMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputElasticMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputElasticMode$outboundSchema: z.ZodType<
   InputElasticMode,
@@ -429,17 +446,6 @@ export const InputElasticMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputElasticMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputElasticMode$ {
-  /** @deprecated use `InputElasticMode$inboundSchema` instead. */
-  export const inboundSchema = InputElasticMode$inboundSchema;
-  /** @deprecated use `InputElasticMode$outboundSchema` instead. */
-  export const outboundSchema = InputElasticMode$outboundSchema;
-}
 
 /** @internal */
 export const InputElasticCompression$inboundSchema: z.ZodType<
@@ -451,7 +457,6 @@ export const InputElasticCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputElasticCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputElasticCompression$outboundSchema: z.ZodType<
   InputElasticCompression,
@@ -462,24 +467,12 @@ export const InputElasticCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputElasticCompression$ {
-  /** @deprecated use `InputElasticCompression$inboundSchema` instead. */
-  export const inboundSchema = InputElasticCompression$inboundSchema;
-  /** @deprecated use `InputElasticCompression$outboundSchema` instead. */
-  export const outboundSchema = InputElasticCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputElasticPqControls$inboundSchema: z.ZodType<
   InputElasticPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputElasticPqControls$Outbound = {};
 
@@ -490,19 +483,6 @@ export const InputElasticPqControls$outboundSchema: z.ZodType<
   InputElasticPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputElasticPqControls$ {
-  /** @deprecated use `InputElasticPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputElasticPqControls$inboundSchema;
-  /** @deprecated use `InputElasticPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputElasticPqControls$outboundSchema;
-  /** @deprecated use `InputElasticPqControls$Outbound` instead. */
-  export type Outbound = InputElasticPqControls$Outbound;
-}
-
 export function inputElasticPqControlsToJSON(
   inputElasticPqControls: InputElasticPqControls,
 ): string {
@@ -510,7 +490,6 @@ export function inputElasticPqControlsToJSON(
     InputElasticPqControls$outboundSchema.parse(inputElasticPqControls),
   );
 }
-
 export function inputElasticPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputElasticPqControls, SDKValidationError> {
@@ -536,7 +515,6 @@ export const InputElasticPq$inboundSchema: z.ZodType<
   compress: InputElasticCompression$inboundSchema.default("none"),
   pqControls: z.lazy(() => InputElasticPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputElasticPq$Outbound = {
   mode: string;
@@ -565,23 +543,9 @@ export const InputElasticPq$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputElasticPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputElasticPq$ {
-  /** @deprecated use `InputElasticPq$inboundSchema` instead. */
-  export const inboundSchema = InputElasticPq$inboundSchema;
-  /** @deprecated use `InputElasticPq$outboundSchema` instead. */
-  export const outboundSchema = InputElasticPq$outboundSchema;
-  /** @deprecated use `InputElasticPq$Outbound` instead. */
-  export type Outbound = InputElasticPq$Outbound;
-}
-
 export function inputElasticPqToJSON(inputElasticPq: InputElasticPq): string {
   return JSON.stringify(InputElasticPq$outboundSchema.parse(inputElasticPq));
 }
-
 export function inputElasticPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputElasticPq, SDKValidationError> {
@@ -602,7 +566,6 @@ export const InputElasticMinimumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputElasticMinimumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputElasticMinimumTLSVersion$outboundSchema: z.ZodType<
   InputElasticMinimumTLSVersion,
@@ -612,17 +575,6 @@ export const InputElasticMinimumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputElasticMinimumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputElasticMinimumTLSVersion$ {
-  /** @deprecated use `InputElasticMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputElasticMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `InputElasticMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputElasticMinimumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputElasticMaximumTLSVersion$inboundSchema: z.ZodType<
@@ -634,7 +586,6 @@ export const InputElasticMaximumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputElasticMaximumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputElasticMaximumTLSVersion$outboundSchema: z.ZodType<
   InputElasticMaximumTLSVersion,
@@ -645,17 +596,6 @@ export const InputElasticMaximumTLSVersion$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputElasticMaximumTLSVersion$ {
-  /** @deprecated use `InputElasticMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputElasticMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `InputElasticMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputElasticMaximumTLSVersion$outboundSchema;
-}
-
 /** @internal */
 export const InputElasticTLSSettingsServerSide$inboundSchema: z.ZodType<
   InputElasticTLSSettingsServerSide,
@@ -663,29 +603,28 @@ export const InputElasticTLSSettingsServerSide$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
   certificateName: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   certPath: z.string().optional(),
   caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
   minVersion: InputElasticMinimumTLSVersion$inboundSchema.optional(),
   maxVersion: InputElasticMaximumTLSVersion$inboundSchema.optional(),
 });
-
 /** @internal */
 export type InputElasticTLSSettingsServerSide$Outbound = {
   disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
   certificateName?: string | undefined;
   privKeyPath?: string | undefined;
   passphrase?: string | undefined;
   certPath?: string | undefined;
   caPath?: string | undefined;
-  requestCert: boolean;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
   minVersion?: string | undefined;
   maxVersion?: string | undefined;
 };
@@ -697,31 +636,17 @@ export const InputElasticTLSSettingsServerSide$outboundSchema: z.ZodType<
   InputElasticTLSSettingsServerSide
 > = z.object({
   disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
   certificateName: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   certPath: z.string().optional(),
   caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
   minVersion: InputElasticMinimumTLSVersion$outboundSchema.optional(),
   maxVersion: InputElasticMaximumTLSVersion$outboundSchema.optional(),
 });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputElasticTLSSettingsServerSide$ {
-  /** @deprecated use `InputElasticTLSSettingsServerSide$inboundSchema` instead. */
-  export const inboundSchema = InputElasticTLSSettingsServerSide$inboundSchema;
-  /** @deprecated use `InputElasticTLSSettingsServerSide$outboundSchema` instead. */
-  export const outboundSchema =
-    InputElasticTLSSettingsServerSide$outboundSchema;
-  /** @deprecated use `InputElasticTLSSettingsServerSide$Outbound` instead. */
-  export type Outbound = InputElasticTLSSettingsServerSide$Outbound;
-}
 
 export function inputElasticTLSSettingsServerSideToJSON(
   inputElasticTLSSettingsServerSide: InputElasticTLSSettingsServerSide,
@@ -732,7 +657,6 @@ export function inputElasticTLSSettingsServerSideToJSON(
     ),
   );
 }
-
 export function inputElasticTLSSettingsServerSideFromJSON(
   jsonString: string,
 ): SafeParseResult<InputElasticTLSSettingsServerSide, SDKValidationError> {
@@ -753,7 +677,6 @@ export const InputElasticAuthenticationType$inboundSchema: z.ZodType<
     z.nativeEnum(InputElasticAuthenticationType),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputElasticAuthenticationType$outboundSchema: z.ZodType<
   InputElasticAuthenticationType,
@@ -763,17 +686,6 @@ export const InputElasticAuthenticationType$outboundSchema: z.ZodType<
   z.nativeEnum(InputElasticAuthenticationType),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputElasticAuthenticationType$ {
-  /** @deprecated use `InputElasticAuthenticationType$inboundSchema` instead. */
-  export const inboundSchema = InputElasticAuthenticationType$inboundSchema;
-  /** @deprecated use `InputElasticAuthenticationType$outboundSchema` instead. */
-  export const outboundSchema = InputElasticAuthenticationType$outboundSchema;
-}
 
 /** @internal */
 export const InputElasticAPIVersion$inboundSchema: z.ZodType<
@@ -785,7 +697,6 @@ export const InputElasticAPIVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputElasticAPIVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputElasticAPIVersion$outboundSchema: z.ZodType<
   InputElasticAPIVersion,
@@ -796,17 +707,6 @@ export const InputElasticAPIVersion$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputElasticAPIVersion$ {
-  /** @deprecated use `InputElasticAPIVersion$inboundSchema` instead. */
-  export const inboundSchema = InputElasticAPIVersion$inboundSchema;
-  /** @deprecated use `InputElasticAPIVersion$outboundSchema` instead. */
-  export const outboundSchema = InputElasticAPIVersion$outboundSchema;
-}
-
 /** @internal */
 export const InputElasticExtraHttpHeader$inboundSchema: z.ZodType<
   InputElasticExtraHttpHeader,
@@ -816,7 +716,6 @@ export const InputElasticExtraHttpHeader$inboundSchema: z.ZodType<
   name: z.string().optional(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputElasticExtraHttpHeader$Outbound = {
   name?: string | undefined;
@@ -833,19 +732,6 @@ export const InputElasticExtraHttpHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputElasticExtraHttpHeader$ {
-  /** @deprecated use `InputElasticExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = InputElasticExtraHttpHeader$inboundSchema;
-  /** @deprecated use `InputElasticExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = InputElasticExtraHttpHeader$outboundSchema;
-  /** @deprecated use `InputElasticExtraHttpHeader$Outbound` instead. */
-  export type Outbound = InputElasticExtraHttpHeader$Outbound;
-}
-
 export function inputElasticExtraHttpHeaderToJSON(
   inputElasticExtraHttpHeader: InputElasticExtraHttpHeader,
 ): string {
@@ -855,7 +741,6 @@ export function inputElasticExtraHttpHeaderToJSON(
     ),
   );
 }
-
 export function inputElasticExtraHttpHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<InputElasticExtraHttpHeader, SDKValidationError> {
@@ -875,7 +760,6 @@ export const InputElasticMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputElasticMetadatum$Outbound = {
   name: string;
@@ -892,19 +776,6 @@ export const InputElasticMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputElasticMetadatum$ {
-  /** @deprecated use `InputElasticMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputElasticMetadatum$inboundSchema;
-  /** @deprecated use `InputElasticMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputElasticMetadatum$outboundSchema;
-  /** @deprecated use `InputElasticMetadatum$Outbound` instead. */
-  export type Outbound = InputElasticMetadatum$Outbound;
-}
-
 export function inputElasticMetadatumToJSON(
   inputElasticMetadatum: InputElasticMetadatum,
 ): string {
@@ -912,7 +783,6 @@ export function inputElasticMetadatumToJSON(
     InputElasticMetadatum$outboundSchema.parse(inputElasticMetadatum),
   );
 }
-
 export function inputElasticMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputElasticMetadatum, SDKValidationError> {
@@ -933,7 +803,6 @@ export const InputElasticAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(InputElasticAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputElasticAuthenticationMethod$outboundSchema: z.ZodType<
   InputElasticAuthenticationMethod,
@@ -944,17 +813,6 @@ export const InputElasticAuthenticationMethod$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputElasticAuthenticationMethod$ {
-  /** @deprecated use `InputElasticAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = InputElasticAuthenticationMethod$inboundSchema;
-  /** @deprecated use `InputElasticAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema = InputElasticAuthenticationMethod$outboundSchema;
-}
-
 /** @internal */
 export const InputElasticProxyMode$inboundSchema: z.ZodType<
   InputElasticProxyMode,
@@ -962,21 +820,26 @@ export const InputElasticProxyMode$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   enabled: z.boolean().default(false),
+  authType: InputElasticAuthenticationMethod$inboundSchema.default("none"),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
   url: z.string().optional(),
   rejectUnauthorized: z.boolean().default(false),
   removeHeaders: z.array(z.string()).optional(),
   timeoutSec: z.number().default(60),
-  authType: InputElasticAuthenticationMethod$inboundSchema.default("none"),
 });
-
 /** @internal */
 export type InputElasticProxyMode$Outbound = {
   enabled: boolean;
+  authType: string;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
   url?: string | undefined;
   rejectUnauthorized: boolean;
   removeHeaders?: Array<string> | undefined;
   timeoutSec: number;
-  authType: string;
 };
 
 /** @internal */
@@ -986,25 +849,15 @@ export const InputElasticProxyMode$outboundSchema: z.ZodType<
   InputElasticProxyMode
 > = z.object({
   enabled: z.boolean().default(false),
+  authType: InputElasticAuthenticationMethod$outboundSchema.default("none"),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
   url: z.string().optional(),
   rejectUnauthorized: z.boolean().default(false),
   removeHeaders: z.array(z.string()).optional(),
   timeoutSec: z.number().default(60),
-  authType: InputElasticAuthenticationMethod$outboundSchema.default("none"),
 });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputElasticProxyMode$ {
-  /** @deprecated use `InputElasticProxyMode$inboundSchema` instead. */
-  export const inboundSchema = InputElasticProxyMode$inboundSchema;
-  /** @deprecated use `InputElasticProxyMode$outboundSchema` instead. */
-  export const outboundSchema = InputElasticProxyMode$outboundSchema;
-  /** @deprecated use `InputElasticProxyMode$Outbound` instead. */
-  export type Outbound = InputElasticProxyMode$Outbound;
-}
 
 export function inputElasticProxyModeToJSON(
   inputElasticProxyMode: InputElasticProxyMode,
@@ -1013,7 +866,6 @@ export function inputElasticProxyModeToJSON(
     InputElasticProxyMode$outboundSchema.parse(inputElasticProxyMode),
   );
 }
-
 export function inputElasticProxyModeFromJSON(
   jsonString: string,
 ): SafeParseResult<InputElasticProxyMode, SDKValidationError> {
@@ -1073,7 +925,6 @@ export const InputElastic$inboundSchema: z.ZodType<
     "{\n    \"name\": \"AzU84iL\",\n    \"cluster_name\": \"cribl\",\n    \"cluster_uuid\": \"Js6_Z2VKS3KbfRSxPmPbaw\",\n    \"version\": {\n        \"number\": \"8.3.2\",\n        \"build_type\": \"tar\",\n        \"build_hash\": \"bca0c8d\",\n        \"build_date\": \"2019-10-16T06:19:49.319352Z\",\n        \"build_snapshot\": false,\n        \"lucene_version\": \"9.7.2\",\n        \"minimum_wire_compatibility_version\": \"7.17.0\",\n        \"minimum_index_compatibility_version\": \"7.0.0\"\n    },\n    \"tagline\": \"You Know, for Search\"\n}",
   ),
 });
-
 /** @internal */
 export type InputElastic$Outbound = {
   id?: string | undefined;
@@ -1165,23 +1016,9 @@ export const InputElastic$outboundSchema: z.ZodType<
   ),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputElastic$ {
-  /** @deprecated use `InputElastic$inboundSchema` instead. */
-  export const inboundSchema = InputElastic$inboundSchema;
-  /** @deprecated use `InputElastic$outboundSchema` instead. */
-  export const outboundSchema = InputElastic$outboundSchema;
-  /** @deprecated use `InputElastic$Outbound` instead. */
-  export type Outbound = InputElastic$Outbound;
-}
-
 export function inputElasticToJSON(inputElastic: InputElastic): string {
   return JSON.stringify(InputElastic$outboundSchema.parse(inputElastic));
 }
-
 export function inputElasticFromJSON(
   jsonString: string,
 ): SafeParseResult<InputElastic, SDKValidationError> {

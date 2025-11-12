@@ -30,7 +30,13 @@ export type InputEdgePrometheusConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputEdgePrometheusMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -42,7 +48,13 @@ export type InputEdgePrometheusMode = OpenEnum<typeof InputEdgePrometheusMode>;
  * Codec to use to compress the persisted data
  */
 export const InputEdgePrometheusPqCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -90,10 +102,25 @@ export type InputEdgePrometheusPq = {
  * Target discovery mechanism. Use static to manually enter a list of targets.
  */
 export const InputEdgePrometheusDiscoveryType = {
+  /**
+   * Static
+   */
   Static: "static",
+  /**
+   * DNS
+   */
   Dns: "dns",
+  /**
+   * AWS EC2
+   */
   Ec2: "ec2",
+  /**
+   * Kubernetes Node
+   */
   K8sNode: "k8s-node",
+  /**
+   * Kubernetes Pods
+   */
   K8sPods: "k8s-pods",
 } as const;
 /**
@@ -221,6 +248,31 @@ export const ScrapeProtocolProtocol = {
  */
 export type ScrapeProtocolProtocol = OpenEnum<typeof ScrapeProtocolProtocol>;
 
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export const InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod = {
+  /**
+   * Auto
+   */
+  Auto: "auto",
+  /**
+   * Manual
+   */
+  Manual: "manual",
+  /**
+   * Secret Key pair
+   */
+  Secret: "secret",
+} as const;
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export type InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod =
+  OpenEnum<
+    typeof InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod
+  >;
+
 export type InputEdgePrometheusSearchFilter = {
   /**
    * Search filter attribute name, see: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html for more information. Attributes can be manually entered if not present in the drop down list
@@ -231,22 +283,6 @@ export type InputEdgePrometheusSearchFilter = {
    */
   values: Array<string>;
 };
-
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export const InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod = {
-  Auto: "auto",
-  Manual: "manual",
-  Secret: "secret",
-} as const;
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export type InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod =
-  OpenEnum<
-    typeof InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod
-  >;
 
 /**
  * Signature version to use for signing EC2 requests
@@ -333,13 +369,17 @@ export type InputEdgePrometheus = {
   description?: string | undefined;
   targets?: Array<Target> | undefined;
   /**
-   * List of DNS names to resolve
-   */
-  nameList?: Array<string> | undefined;
-  /**
    * DNS Record type to resolve
    */
   recordType?: InputEdgePrometheusRecordType | undefined;
+  /**
+   * The port number in the metrics URL for discovered targets.
+   */
+  scrapePort?: number | undefined;
+  /**
+   * List of DNS names to resolve
+   */
+  nameList?: Array<string> | undefined;
   /**
    * Protocol to use when collecting metrics
    */
@@ -349,23 +389,24 @@ export type InputEdgePrometheus = {
    */
   scrapePath?: string | undefined;
   /**
-   * Use public IP address for discovered targets. Set to false if the private IP address should be used.
-   */
-  usePublicIp?: boolean | undefined;
-  /**
-   * The port number in the metrics URL for discovered targets.
-   */
-  scrapePort?: number | undefined;
-  /**
-   * EC2 Instance Search Filter
-   */
-  searchFilter?: Array<InputEdgePrometheusSearchFilter> | undefined;
-  /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
   awsAuthenticationMethod?:
     | InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod
     | undefined;
+  awsApiKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references your access key and secret key
+   */
+  awsSecret?: string | undefined;
+  /**
+   * Use public IP address for discovered targets. Set to false if the private IP address should be used.
+   */
+  usePublicIp?: boolean | undefined;
+  /**
+   * EC2 Instance Search Filter
+   */
+  searchFilter?: Array<InputEdgePrometheusSearchFilter> | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the EC2 is located
@@ -441,22 +482,10 @@ export type InputEdgePrometheus = {
 export const InputEdgePrometheusType$inboundSchema: z.ZodNativeEnum<
   typeof InputEdgePrometheusType
 > = z.nativeEnum(InputEdgePrometheusType);
-
 /** @internal */
 export const InputEdgePrometheusType$outboundSchema: z.ZodNativeEnum<
   typeof InputEdgePrometheusType
 > = InputEdgePrometheusType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEdgePrometheusType$ {
-  /** @deprecated use `InputEdgePrometheusType$inboundSchema` instead. */
-  export const inboundSchema = InputEdgePrometheusType$inboundSchema;
-  /** @deprecated use `InputEdgePrometheusType$outboundSchema` instead. */
-  export const outboundSchema = InputEdgePrometheusType$outboundSchema;
-}
 
 /** @internal */
 export const InputEdgePrometheusConnection$inboundSchema: z.ZodType<
@@ -467,7 +496,6 @@ export const InputEdgePrometheusConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputEdgePrometheusConnection$Outbound = {
   pipeline?: string | undefined;
@@ -484,19 +512,6 @@ export const InputEdgePrometheusConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEdgePrometheusConnection$ {
-  /** @deprecated use `InputEdgePrometheusConnection$inboundSchema` instead. */
-  export const inboundSchema = InputEdgePrometheusConnection$inboundSchema;
-  /** @deprecated use `InputEdgePrometheusConnection$outboundSchema` instead. */
-  export const outboundSchema = InputEdgePrometheusConnection$outboundSchema;
-  /** @deprecated use `InputEdgePrometheusConnection$Outbound` instead. */
-  export type Outbound = InputEdgePrometheusConnection$Outbound;
-}
-
 export function inputEdgePrometheusConnectionToJSON(
   inputEdgePrometheusConnection: InputEdgePrometheusConnection,
 ): string {
@@ -506,7 +521,6 @@ export function inputEdgePrometheusConnectionToJSON(
     ),
   );
 }
-
 export function inputEdgePrometheusConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputEdgePrometheusConnection, SDKValidationError> {
@@ -527,7 +541,6 @@ export const InputEdgePrometheusMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputEdgePrometheusMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputEdgePrometheusMode$outboundSchema: z.ZodType<
   InputEdgePrometheusMode,
@@ -537,17 +550,6 @@ export const InputEdgePrometheusMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputEdgePrometheusMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEdgePrometheusMode$ {
-  /** @deprecated use `InputEdgePrometheusMode$inboundSchema` instead. */
-  export const inboundSchema = InputEdgePrometheusMode$inboundSchema;
-  /** @deprecated use `InputEdgePrometheusMode$outboundSchema` instead. */
-  export const outboundSchema = InputEdgePrometheusMode$outboundSchema;
-}
 
 /** @internal */
 export const InputEdgePrometheusPqCompression$inboundSchema: z.ZodType<
@@ -559,7 +561,6 @@ export const InputEdgePrometheusPqCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputEdgePrometheusPqCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputEdgePrometheusPqCompression$outboundSchema: z.ZodType<
   InputEdgePrometheusPqCompression,
@@ -570,24 +571,12 @@ export const InputEdgePrometheusPqCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEdgePrometheusPqCompression$ {
-  /** @deprecated use `InputEdgePrometheusPqCompression$inboundSchema` instead. */
-  export const inboundSchema = InputEdgePrometheusPqCompression$inboundSchema;
-  /** @deprecated use `InputEdgePrometheusPqCompression$outboundSchema` instead. */
-  export const outboundSchema = InputEdgePrometheusPqCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputEdgePrometheusPqControls$inboundSchema: z.ZodType<
   InputEdgePrometheusPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputEdgePrometheusPqControls$Outbound = {};
 
@@ -598,19 +587,6 @@ export const InputEdgePrometheusPqControls$outboundSchema: z.ZodType<
   InputEdgePrometheusPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEdgePrometheusPqControls$ {
-  /** @deprecated use `InputEdgePrometheusPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputEdgePrometheusPqControls$inboundSchema;
-  /** @deprecated use `InputEdgePrometheusPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputEdgePrometheusPqControls$outboundSchema;
-  /** @deprecated use `InputEdgePrometheusPqControls$Outbound` instead. */
-  export type Outbound = InputEdgePrometheusPqControls$Outbound;
-}
-
 export function inputEdgePrometheusPqControlsToJSON(
   inputEdgePrometheusPqControls: InputEdgePrometheusPqControls,
 ): string {
@@ -620,7 +596,6 @@ export function inputEdgePrometheusPqControlsToJSON(
     ),
   );
 }
-
 export function inputEdgePrometheusPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputEdgePrometheusPqControls, SDKValidationError> {
@@ -647,7 +622,6 @@ export const InputEdgePrometheusPq$inboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputEdgePrometheusPqControls$inboundSchema)
     .optional(),
 });
-
 /** @internal */
 export type InputEdgePrometheusPq$Outbound = {
   mode: string;
@@ -677,19 +651,6 @@ export const InputEdgePrometheusPq$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEdgePrometheusPq$ {
-  /** @deprecated use `InputEdgePrometheusPq$inboundSchema` instead. */
-  export const inboundSchema = InputEdgePrometheusPq$inboundSchema;
-  /** @deprecated use `InputEdgePrometheusPq$outboundSchema` instead. */
-  export const outboundSchema = InputEdgePrometheusPq$outboundSchema;
-  /** @deprecated use `InputEdgePrometheusPq$Outbound` instead. */
-  export type Outbound = InputEdgePrometheusPq$Outbound;
-}
-
 export function inputEdgePrometheusPqToJSON(
   inputEdgePrometheusPq: InputEdgePrometheusPq,
 ): string {
@@ -697,7 +658,6 @@ export function inputEdgePrometheusPqToJSON(
     InputEdgePrometheusPq$outboundSchema.parse(inputEdgePrometheusPq),
   );
 }
-
 export function inputEdgePrometheusPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputEdgePrometheusPq, SDKValidationError> {
@@ -718,7 +678,6 @@ export const InputEdgePrometheusDiscoveryType$inboundSchema: z.ZodType<
     z.nativeEnum(InputEdgePrometheusDiscoveryType),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputEdgePrometheusDiscoveryType$outboundSchema: z.ZodType<
   InputEdgePrometheusDiscoveryType,
@@ -728,17 +687,6 @@ export const InputEdgePrometheusDiscoveryType$outboundSchema: z.ZodType<
   z.nativeEnum(InputEdgePrometheusDiscoveryType),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEdgePrometheusDiscoveryType$ {
-  /** @deprecated use `InputEdgePrometheusDiscoveryType$inboundSchema` instead. */
-  export const inboundSchema = InputEdgePrometheusDiscoveryType$inboundSchema;
-  /** @deprecated use `InputEdgePrometheusDiscoveryType$outboundSchema` instead. */
-  export const outboundSchema = InputEdgePrometheusDiscoveryType$outboundSchema;
-}
 
 /** @internal */
 export const InputEdgePrometheusPersistenceCompression$inboundSchema: z.ZodType<
@@ -750,7 +698,6 @@ export const InputEdgePrometheusPersistenceCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputEdgePrometheusPersistenceCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputEdgePrometheusPersistenceCompression$outboundSchema:
   z.ZodType<
@@ -761,19 +708,6 @@ export const InputEdgePrometheusPersistenceCompression$outboundSchema:
     z.nativeEnum(InputEdgePrometheusPersistenceCompression),
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEdgePrometheusPersistenceCompression$ {
-  /** @deprecated use `InputEdgePrometheusPersistenceCompression$inboundSchema` instead. */
-  export const inboundSchema =
-    InputEdgePrometheusPersistenceCompression$inboundSchema;
-  /** @deprecated use `InputEdgePrometheusPersistenceCompression$outboundSchema` instead. */
-  export const outboundSchema =
-    InputEdgePrometheusPersistenceCompression$outboundSchema;
-}
 
 /** @internal */
 export const InputEdgePrometheusDiskSpooling$inboundSchema: z.ZodType<
@@ -789,7 +723,6 @@ export const InputEdgePrometheusDiskSpooling$inboundSchema: z.ZodType<
     "gzip",
   ),
 });
-
 /** @internal */
 export type InputEdgePrometheusDiskSpooling$Outbound = {
   enable: boolean;
@@ -814,19 +747,6 @@ export const InputEdgePrometheusDiskSpooling$outboundSchema: z.ZodType<
   ),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEdgePrometheusDiskSpooling$ {
-  /** @deprecated use `InputEdgePrometheusDiskSpooling$inboundSchema` instead. */
-  export const inboundSchema = InputEdgePrometheusDiskSpooling$inboundSchema;
-  /** @deprecated use `InputEdgePrometheusDiskSpooling$outboundSchema` instead. */
-  export const outboundSchema = InputEdgePrometheusDiskSpooling$outboundSchema;
-  /** @deprecated use `InputEdgePrometheusDiskSpooling$Outbound` instead. */
-  export type Outbound = InputEdgePrometheusDiskSpooling$Outbound;
-}
-
 export function inputEdgePrometheusDiskSpoolingToJSON(
   inputEdgePrometheusDiskSpooling: InputEdgePrometheusDiskSpooling,
 ): string {
@@ -836,7 +756,6 @@ export function inputEdgePrometheusDiskSpoolingToJSON(
     ),
   );
 }
-
 export function inputEdgePrometheusDiskSpoolingFromJSON(
   jsonString: string,
 ): SafeParseResult<InputEdgePrometheusDiskSpooling, SDKValidationError> {
@@ -856,7 +775,6 @@ export const InputEdgePrometheusMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputEdgePrometheusMetadatum$Outbound = {
   name: string;
@@ -873,19 +791,6 @@ export const InputEdgePrometheusMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEdgePrometheusMetadatum$ {
-  /** @deprecated use `InputEdgePrometheusMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputEdgePrometheusMetadatum$inboundSchema;
-  /** @deprecated use `InputEdgePrometheusMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputEdgePrometheusMetadatum$outboundSchema;
-  /** @deprecated use `InputEdgePrometheusMetadatum$Outbound` instead. */
-  export type Outbound = InputEdgePrometheusMetadatum$Outbound;
-}
-
 export function inputEdgePrometheusMetadatumToJSON(
   inputEdgePrometheusMetadatum: InputEdgePrometheusMetadatum,
 ): string {
@@ -895,7 +800,6 @@ export function inputEdgePrometheusMetadatumToJSON(
     ),
   );
 }
-
 export function inputEdgePrometheusMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputEdgePrometheusMetadatum, SDKValidationError> {
@@ -917,7 +821,6 @@ export const InputEdgePrometheusAuthTypeAuthenticationMethod$inboundSchema:
       z.nativeEnum(InputEdgePrometheusAuthTypeAuthenticationMethod),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const InputEdgePrometheusAuthTypeAuthenticationMethod$outboundSchema:
   z.ZodType<
@@ -929,19 +832,6 @@ export const InputEdgePrometheusAuthTypeAuthenticationMethod$outboundSchema:
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEdgePrometheusAuthTypeAuthenticationMethod$ {
-  /** @deprecated use `InputEdgePrometheusAuthTypeAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    InputEdgePrometheusAuthTypeAuthenticationMethod$inboundSchema;
-  /** @deprecated use `InputEdgePrometheusAuthTypeAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    InputEdgePrometheusAuthTypeAuthenticationMethod$outboundSchema;
-}
-
 /** @internal */
 export const TargetProtocol$inboundSchema: z.ZodType<
   TargetProtocol,
@@ -952,7 +842,6 @@ export const TargetProtocol$inboundSchema: z.ZodType<
     z.nativeEnum(TargetProtocol),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const TargetProtocol$outboundSchema: z.ZodType<
   TargetProtocol,
@@ -963,17 +852,6 @@ export const TargetProtocol$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace TargetProtocol$ {
-  /** @deprecated use `TargetProtocol$inboundSchema` instead. */
-  export const inboundSchema = TargetProtocol$inboundSchema;
-  /** @deprecated use `TargetProtocol$outboundSchema` instead. */
-  export const outboundSchema = TargetProtocol$outboundSchema;
-}
-
 /** @internal */
 export const Target$inboundSchema: z.ZodType<Target, z.ZodTypeDef, unknown> = z
   .object({
@@ -982,7 +860,6 @@ export const Target$inboundSchema: z.ZodType<Target, z.ZodTypeDef, unknown> = z
     port: z.number().default(9090),
     path: z.string().default("/metrics"),
   });
-
 /** @internal */
 export type Target$Outbound = {
   protocol: string;
@@ -1003,23 +880,9 @@ export const Target$outboundSchema: z.ZodType<
   path: z.string().default("/metrics"),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Target$ {
-  /** @deprecated use `Target$inboundSchema` instead. */
-  export const inboundSchema = Target$inboundSchema;
-  /** @deprecated use `Target$outboundSchema` instead. */
-  export const outboundSchema = Target$outboundSchema;
-  /** @deprecated use `Target$Outbound` instead. */
-  export type Outbound = Target$Outbound;
-}
-
 export function targetToJSON(target: Target): string {
   return JSON.stringify(Target$outboundSchema.parse(target));
 }
-
 export function targetFromJSON(
   jsonString: string,
 ): SafeParseResult<Target, SDKValidationError> {
@@ -1040,7 +903,6 @@ export const InputEdgePrometheusRecordType$inboundSchema: z.ZodType<
     z.nativeEnum(InputEdgePrometheusRecordType),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputEdgePrometheusRecordType$outboundSchema: z.ZodType<
   InputEdgePrometheusRecordType,
@@ -1050,17 +912,6 @@ export const InputEdgePrometheusRecordType$outboundSchema: z.ZodType<
   z.nativeEnum(InputEdgePrometheusRecordType),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEdgePrometheusRecordType$ {
-  /** @deprecated use `InputEdgePrometheusRecordType$inboundSchema` instead. */
-  export const inboundSchema = InputEdgePrometheusRecordType$inboundSchema;
-  /** @deprecated use `InputEdgePrometheusRecordType$outboundSchema` instead. */
-  export const outboundSchema = InputEdgePrometheusRecordType$outboundSchema;
-}
 
 /** @internal */
 export const ScrapeProtocolProtocol$inboundSchema: z.ZodType<
@@ -1072,7 +923,6 @@ export const ScrapeProtocolProtocol$inboundSchema: z.ZodType<
     z.nativeEnum(ScrapeProtocolProtocol),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const ScrapeProtocolProtocol$outboundSchema: z.ZodType<
   ScrapeProtocolProtocol,
@@ -1083,16 +933,31 @@ export const ScrapeProtocolProtocol$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ScrapeProtocolProtocol$ {
-  /** @deprecated use `ScrapeProtocolProtocol$inboundSchema` instead. */
-  export const inboundSchema = ScrapeProtocolProtocol$inboundSchema;
-  /** @deprecated use `ScrapeProtocolProtocol$outboundSchema` instead. */
-  export const outboundSchema = ScrapeProtocolProtocol$outboundSchema;
-}
+/** @internal */
+export const InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod$inboundSchema:
+  z.ZodType<
+    InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod,
+    z.ZodTypeDef,
+    unknown
+  > = z
+    .union([
+      z.nativeEnum(
+        InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod,
+      ),
+      z.string().transform(catchUnrecognizedEnum),
+    ]);
+/** @internal */
+export const InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod$outboundSchema:
+  z.ZodType<
+    InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod,
+    z.ZodTypeDef,
+    InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod
+  > = z.union([
+    z.nativeEnum(
+      InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod,
+    ),
+    z.string().and(z.custom<Unrecognized<string>>()),
+  ]);
 
 /** @internal */
 export const InputEdgePrometheusSearchFilter$inboundSchema: z.ZodType<
@@ -1108,7 +973,6 @@ export const InputEdgePrometheusSearchFilter$inboundSchema: z.ZodType<
     "Values": "values",
   });
 });
-
 /** @internal */
 export type InputEdgePrometheusSearchFilter$Outbound = {
   Name: string;
@@ -1130,19 +994,6 @@ export const InputEdgePrometheusSearchFilter$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEdgePrometheusSearchFilter$ {
-  /** @deprecated use `InputEdgePrometheusSearchFilter$inboundSchema` instead. */
-  export const inboundSchema = InputEdgePrometheusSearchFilter$inboundSchema;
-  /** @deprecated use `InputEdgePrometheusSearchFilter$outboundSchema` instead. */
-  export const outboundSchema = InputEdgePrometheusSearchFilter$outboundSchema;
-  /** @deprecated use `InputEdgePrometheusSearchFilter$Outbound` instead. */
-  export type Outbound = InputEdgePrometheusSearchFilter$Outbound;
-}
-
 export function inputEdgePrometheusSearchFilterToJSON(
   inputEdgePrometheusSearchFilter: InputEdgePrometheusSearchFilter,
 ): string {
@@ -1152,7 +1003,6 @@ export function inputEdgePrometheusSearchFilterToJSON(
     ),
   );
 }
-
 export function inputEdgePrometheusSearchFilterFromJSON(
   jsonString: string,
 ): SafeParseResult<InputEdgePrometheusSearchFilter, SDKValidationError> {
@@ -1161,46 +1011,6 @@ export function inputEdgePrometheusSearchFilterFromJSON(
     (x) => InputEdgePrometheusSearchFilter$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'InputEdgePrometheusSearchFilter' from JSON`,
   );
-}
-
-/** @internal */
-export const InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod$inboundSchema:
-  z.ZodType<
-    InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod,
-    z.ZodTypeDef,
-    unknown
-  > = z
-    .union([
-      z.nativeEnum(
-        InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod,
-      ),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
-
-/** @internal */
-export const InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod$outboundSchema:
-  z.ZodType<
-    InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod,
-    z.ZodTypeDef,
-    InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod
-  > = z.union([
-    z.nativeEnum(
-      InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod,
-    ),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod$ {
-  /** @deprecated use `InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod$inboundSchema;
-  /** @deprecated use `InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod$outboundSchema;
 }
 
 /** @internal */
@@ -1213,7 +1023,6 @@ export const InputEdgePrometheusSignatureVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputEdgePrometheusSignatureVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputEdgePrometheusSignatureVersion$outboundSchema: z.ZodType<
   InputEdgePrometheusSignatureVersion,
@@ -1224,19 +1033,6 @@ export const InputEdgePrometheusSignatureVersion$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEdgePrometheusSignatureVersion$ {
-  /** @deprecated use `InputEdgePrometheusSignatureVersion$inboundSchema` instead. */
-  export const inboundSchema =
-    InputEdgePrometheusSignatureVersion$inboundSchema;
-  /** @deprecated use `InputEdgePrometheusSignatureVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    InputEdgePrometheusSignatureVersion$outboundSchema;
-}
-
 /** @internal */
 export const PodFilter$inboundSchema: z.ZodType<
   PodFilter,
@@ -1246,7 +1042,6 @@ export const PodFilter$inboundSchema: z.ZodType<
   filter: z.string(),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type PodFilter$Outbound = {
   filter: string;
@@ -1263,23 +1058,9 @@ export const PodFilter$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PodFilter$ {
-  /** @deprecated use `PodFilter$inboundSchema` instead. */
-  export const inboundSchema = PodFilter$inboundSchema;
-  /** @deprecated use `PodFilter$outboundSchema` instead. */
-  export const outboundSchema = PodFilter$outboundSchema;
-  /** @deprecated use `PodFilter$Outbound` instead. */
-  export type Outbound = PodFilter$Outbound;
-}
-
 export function podFilterToJSON(podFilter: PodFilter): string {
   return JSON.stringify(PodFilter$outboundSchema.parse(podFilter));
 }
-
 export function podFilterFromJSON(
   jsonString: string,
 ): SafeParseResult<PodFilter, SDKValidationError> {
@@ -1322,18 +1103,20 @@ export const InputEdgePrometheus$inboundSchema: z.ZodType<
     .default("manual"),
   description: z.string().optional(),
   targets: z.array(z.lazy(() => Target$inboundSchema)).optional(),
-  nameList: z.array(z.string()).optional(),
   recordType: InputEdgePrometheusRecordType$inboundSchema.default("SRV"),
+  scrapePort: z.number().default(9090),
+  nameList: z.array(z.string()).optional(),
   scrapeProtocol: ScrapeProtocolProtocol$inboundSchema.default("http"),
   scrapePath: z.string().default("/metrics"),
-  usePublicIp: z.boolean().default(true),
-  scrapePort: z.number().default(9090),
-  searchFilter: z.array(
-    z.lazy(() => InputEdgePrometheusSearchFilter$inboundSchema),
-  ).optional(),
   awsAuthenticationMethod:
     InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod$inboundSchema
       .default("auto"),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  usePublicIp: z.boolean().default(true),
+  searchFilter: z.array(
+    z.lazy(() => InputEdgePrometheusSearchFilter$inboundSchema),
+  ).optional(),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
@@ -1360,7 +1143,6 @@ export const InputEdgePrometheus$inboundSchema: z.ZodType<
   password: z.string().optional(),
   credentialsSecret: z.string().optional(),
 });
-
 /** @internal */
 export type InputEdgePrometheus$Outbound = {
   id?: string | undefined;
@@ -1382,14 +1164,16 @@ export type InputEdgePrometheus$Outbound = {
   authType: string;
   description?: string | undefined;
   targets?: Array<Target$Outbound> | undefined;
-  nameList?: Array<string> | undefined;
   recordType: string;
+  scrapePort: number;
+  nameList?: Array<string> | undefined;
   scrapeProtocol: string;
   scrapePath: string;
-  usePublicIp: boolean;
-  scrapePort: number;
-  searchFilter?: Array<InputEdgePrometheusSearchFilter$Outbound> | undefined;
   awsAuthenticationMethod: string;
+  awsApiKey?: string | undefined;
+  awsSecret?: string | undefined;
+  usePublicIp: boolean;
+  searchFilter?: Array<InputEdgePrometheusSearchFilter$Outbound> | undefined;
   awsSecretKey?: string | undefined;
   region?: string | undefined;
   endpoint?: string | undefined;
@@ -1441,18 +1225,20 @@ export const InputEdgePrometheus$outboundSchema: z.ZodType<
     .default("manual"),
   description: z.string().optional(),
   targets: z.array(z.lazy(() => Target$outboundSchema)).optional(),
-  nameList: z.array(z.string()).optional(),
   recordType: InputEdgePrometheusRecordType$outboundSchema.default("SRV"),
+  scrapePort: z.number().default(9090),
+  nameList: z.array(z.string()).optional(),
   scrapeProtocol: ScrapeProtocolProtocol$outboundSchema.default("http"),
   scrapePath: z.string().default("/metrics"),
-  usePublicIp: z.boolean().default(true),
-  scrapePort: z.number().default(9090),
-  searchFilter: z.array(
-    z.lazy(() => InputEdgePrometheusSearchFilter$outboundSchema),
-  ).optional(),
   awsAuthenticationMethod:
     InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod$outboundSchema
       .default("auto"),
+  awsApiKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+  usePublicIp: z.boolean().default(true),
+  searchFilter: z.array(
+    z.lazy(() => InputEdgePrometheusSearchFilter$outboundSchema),
+  ).optional(),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
@@ -1480,19 +1266,6 @@ export const InputEdgePrometheus$outboundSchema: z.ZodType<
   credentialsSecret: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputEdgePrometheus$ {
-  /** @deprecated use `InputEdgePrometheus$inboundSchema` instead. */
-  export const inboundSchema = InputEdgePrometheus$inboundSchema;
-  /** @deprecated use `InputEdgePrometheus$outboundSchema` instead. */
-  export const outboundSchema = InputEdgePrometheus$outboundSchema;
-  /** @deprecated use `InputEdgePrometheus$Outbound` instead. */
-  export type Outbound = InputEdgePrometheus$Outbound;
-}
-
 export function inputEdgePrometheusToJSON(
   inputEdgePrometheus: InputEdgePrometheus,
 ): string {
@@ -1500,7 +1273,6 @@ export function inputEdgePrometheusToJSON(
     InputEdgePrometheus$outboundSchema.parse(inputEdgePrometheus),
   );
 }
-
 export function inputEdgePrometheusFromJSON(
   jsonString: string,
 ): SafeParseResult<InputEdgePrometheus, SDKValidationError> {

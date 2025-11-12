@@ -27,7 +27,13 @@ export type InputTcpConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputTcpMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -39,7 +45,13 @@ export type InputTcpMode = OpenEnum<typeof InputTcpMode>;
  * Codec to use to compress the persisted data
  */
 export const InputTcpCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -104,6 +116,18 @@ export type InputTcpMaximumTLSVersion = OpenEnum<
 export type InputTcpTLSSettingsServerSide = {
   disabled?: boolean | undefined;
   /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
    * The name of the predefined certificate
    */
   certificateName?: string | undefined;
@@ -123,12 +147,6 @@ export type InputTcpTLSSettingsServerSide = {
    * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
    */
   caPath?: string | undefined;
-  /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
   minVersion?: InputTcpMinimumTLSVersion | undefined;
   maxVersion?: InputTcpMaximumTLSVersion | undefined;
 };
@@ -251,29 +269,25 @@ export type InputTcp = {
   preprocess?: InputTcpPreprocess | undefined;
   description?: string | undefined;
   /**
+   * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+   */
+  authToken?: string | undefined;
+  /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
   authType?: InputTcpAuthenticationMethod | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
 };
 
 /** @internal */
 export const InputTcpType$inboundSchema: z.ZodNativeEnum<typeof InputTcpType> =
   z.nativeEnum(InputTcpType);
-
 /** @internal */
 export const InputTcpType$outboundSchema: z.ZodNativeEnum<typeof InputTcpType> =
   InputTcpType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputTcpType$ {
-  /** @deprecated use `InputTcpType$inboundSchema` instead. */
-  export const inboundSchema = InputTcpType$inboundSchema;
-  /** @deprecated use `InputTcpType$outboundSchema` instead. */
-  export const outboundSchema = InputTcpType$outboundSchema;
-}
 
 /** @internal */
 export const InputTcpConnection$inboundSchema: z.ZodType<
@@ -284,7 +298,6 @@ export const InputTcpConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputTcpConnection$Outbound = {
   pipeline?: string | undefined;
@@ -301,19 +314,6 @@ export const InputTcpConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputTcpConnection$ {
-  /** @deprecated use `InputTcpConnection$inboundSchema` instead. */
-  export const inboundSchema = InputTcpConnection$inboundSchema;
-  /** @deprecated use `InputTcpConnection$outboundSchema` instead. */
-  export const outboundSchema = InputTcpConnection$outboundSchema;
-  /** @deprecated use `InputTcpConnection$Outbound` instead. */
-  export type Outbound = InputTcpConnection$Outbound;
-}
-
 export function inputTcpConnectionToJSON(
   inputTcpConnection: InputTcpConnection,
 ): string {
@@ -321,7 +321,6 @@ export function inputTcpConnectionToJSON(
     InputTcpConnection$outboundSchema.parse(inputTcpConnection),
   );
 }
-
 export function inputTcpConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputTcpConnection, SDKValidationError> {
@@ -342,7 +341,6 @@ export const InputTcpMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputTcpMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputTcpMode$outboundSchema: z.ZodType<
   InputTcpMode,
@@ -352,17 +350,6 @@ export const InputTcpMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputTcpMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputTcpMode$ {
-  /** @deprecated use `InputTcpMode$inboundSchema` instead. */
-  export const inboundSchema = InputTcpMode$inboundSchema;
-  /** @deprecated use `InputTcpMode$outboundSchema` instead. */
-  export const outboundSchema = InputTcpMode$outboundSchema;
-}
 
 /** @internal */
 export const InputTcpCompression$inboundSchema: z.ZodType<
@@ -374,7 +361,6 @@ export const InputTcpCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputTcpCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputTcpCompression$outboundSchema: z.ZodType<
   InputTcpCompression,
@@ -385,24 +371,12 @@ export const InputTcpCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputTcpCompression$ {
-  /** @deprecated use `InputTcpCompression$inboundSchema` instead. */
-  export const inboundSchema = InputTcpCompression$inboundSchema;
-  /** @deprecated use `InputTcpCompression$outboundSchema` instead. */
-  export const outboundSchema = InputTcpCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputTcpPqControls$inboundSchema: z.ZodType<
   InputTcpPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputTcpPqControls$Outbound = {};
 
@@ -413,19 +387,6 @@ export const InputTcpPqControls$outboundSchema: z.ZodType<
   InputTcpPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputTcpPqControls$ {
-  /** @deprecated use `InputTcpPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputTcpPqControls$inboundSchema;
-  /** @deprecated use `InputTcpPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputTcpPqControls$outboundSchema;
-  /** @deprecated use `InputTcpPqControls$Outbound` instead. */
-  export type Outbound = InputTcpPqControls$Outbound;
-}
-
 export function inputTcpPqControlsToJSON(
   inputTcpPqControls: InputTcpPqControls,
 ): string {
@@ -433,7 +394,6 @@ export function inputTcpPqControlsToJSON(
     InputTcpPqControls$outboundSchema.parse(inputTcpPqControls),
   );
 }
-
 export function inputTcpPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputTcpPqControls, SDKValidationError> {
@@ -459,7 +419,6 @@ export const InputTcpPq$inboundSchema: z.ZodType<
   compress: InputTcpCompression$inboundSchema.default("none"),
   pqControls: z.lazy(() => InputTcpPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputTcpPq$Outbound = {
   mode: string;
@@ -488,23 +447,9 @@ export const InputTcpPq$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputTcpPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputTcpPq$ {
-  /** @deprecated use `InputTcpPq$inboundSchema` instead. */
-  export const inboundSchema = InputTcpPq$inboundSchema;
-  /** @deprecated use `InputTcpPq$outboundSchema` instead. */
-  export const outboundSchema = InputTcpPq$outboundSchema;
-  /** @deprecated use `InputTcpPq$Outbound` instead. */
-  export type Outbound = InputTcpPq$Outbound;
-}
-
 export function inputTcpPqToJSON(inputTcpPq: InputTcpPq): string {
   return JSON.stringify(InputTcpPq$outboundSchema.parse(inputTcpPq));
 }
-
 export function inputTcpPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputTcpPq, SDKValidationError> {
@@ -525,7 +470,6 @@ export const InputTcpMinimumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputTcpMinimumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputTcpMinimumTLSVersion$outboundSchema: z.ZodType<
   InputTcpMinimumTLSVersion,
@@ -535,17 +479,6 @@ export const InputTcpMinimumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputTcpMinimumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputTcpMinimumTLSVersion$ {
-  /** @deprecated use `InputTcpMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputTcpMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `InputTcpMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputTcpMinimumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputTcpMaximumTLSVersion$inboundSchema: z.ZodType<
@@ -557,7 +490,6 @@ export const InputTcpMaximumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputTcpMaximumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputTcpMaximumTLSVersion$outboundSchema: z.ZodType<
   InputTcpMaximumTLSVersion,
@@ -568,17 +500,6 @@ export const InputTcpMaximumTLSVersion$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputTcpMaximumTLSVersion$ {
-  /** @deprecated use `InputTcpMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputTcpMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `InputTcpMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputTcpMaximumTLSVersion$outboundSchema;
-}
-
 /** @internal */
 export const InputTcpTLSSettingsServerSide$inboundSchema: z.ZodType<
   InputTcpTLSSettingsServerSide,
@@ -586,29 +507,28 @@ export const InputTcpTLSSettingsServerSide$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
   certificateName: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   certPath: z.string().optional(),
   caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
   minVersion: InputTcpMinimumTLSVersion$inboundSchema.optional(),
   maxVersion: InputTcpMaximumTLSVersion$inboundSchema.optional(),
 });
-
 /** @internal */
 export type InputTcpTLSSettingsServerSide$Outbound = {
   disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
   certificateName?: string | undefined;
   privKeyPath?: string | undefined;
   passphrase?: string | undefined;
   certPath?: string | undefined;
   caPath?: string | undefined;
-  requestCert: boolean;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
   minVersion?: string | undefined;
   maxVersion?: string | undefined;
 };
@@ -620,30 +540,17 @@ export const InputTcpTLSSettingsServerSide$outboundSchema: z.ZodType<
   InputTcpTLSSettingsServerSide
 > = z.object({
   disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
   certificateName: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   certPath: z.string().optional(),
   caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
   minVersion: InputTcpMinimumTLSVersion$outboundSchema.optional(),
   maxVersion: InputTcpMaximumTLSVersion$outboundSchema.optional(),
 });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputTcpTLSSettingsServerSide$ {
-  /** @deprecated use `InputTcpTLSSettingsServerSide$inboundSchema` instead. */
-  export const inboundSchema = InputTcpTLSSettingsServerSide$inboundSchema;
-  /** @deprecated use `InputTcpTLSSettingsServerSide$outboundSchema` instead. */
-  export const outboundSchema = InputTcpTLSSettingsServerSide$outboundSchema;
-  /** @deprecated use `InputTcpTLSSettingsServerSide$Outbound` instead. */
-  export type Outbound = InputTcpTLSSettingsServerSide$Outbound;
-}
 
 export function inputTcpTLSSettingsServerSideToJSON(
   inputTcpTLSSettingsServerSide: InputTcpTLSSettingsServerSide,
@@ -654,7 +561,6 @@ export function inputTcpTLSSettingsServerSideToJSON(
     ),
   );
 }
-
 export function inputTcpTLSSettingsServerSideFromJSON(
   jsonString: string,
 ): SafeParseResult<InputTcpTLSSettingsServerSide, SDKValidationError> {
@@ -674,7 +580,6 @@ export const InputTcpMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputTcpMetadatum$Outbound = {
   name: string;
@@ -691,19 +596,6 @@ export const InputTcpMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputTcpMetadatum$ {
-  /** @deprecated use `InputTcpMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputTcpMetadatum$inboundSchema;
-  /** @deprecated use `InputTcpMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputTcpMetadatum$outboundSchema;
-  /** @deprecated use `InputTcpMetadatum$Outbound` instead. */
-  export type Outbound = InputTcpMetadatum$Outbound;
-}
-
 export function inputTcpMetadatumToJSON(
   inputTcpMetadatum: InputTcpMetadatum,
 ): string {
@@ -711,7 +603,6 @@ export function inputTcpMetadatumToJSON(
     InputTcpMetadatum$outboundSchema.parse(inputTcpMetadatum),
   );
 }
-
 export function inputTcpMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputTcpMetadatum, SDKValidationError> {
@@ -732,7 +623,6 @@ export const InputTcpPreprocess$inboundSchema: z.ZodType<
   command: z.string().optional(),
   args: z.array(z.string()).optional(),
 });
-
 /** @internal */
 export type InputTcpPreprocess$Outbound = {
   disabled: boolean;
@@ -751,19 +641,6 @@ export const InputTcpPreprocess$outboundSchema: z.ZodType<
   args: z.array(z.string()).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputTcpPreprocess$ {
-  /** @deprecated use `InputTcpPreprocess$inboundSchema` instead. */
-  export const inboundSchema = InputTcpPreprocess$inboundSchema;
-  /** @deprecated use `InputTcpPreprocess$outboundSchema` instead. */
-  export const outboundSchema = InputTcpPreprocess$outboundSchema;
-  /** @deprecated use `InputTcpPreprocess$Outbound` instead. */
-  export type Outbound = InputTcpPreprocess$Outbound;
-}
-
 export function inputTcpPreprocessToJSON(
   inputTcpPreprocess: InputTcpPreprocess,
 ): string {
@@ -771,7 +648,6 @@ export function inputTcpPreprocessToJSON(
     InputTcpPreprocess$outboundSchema.parse(inputTcpPreprocess),
   );
 }
-
 export function inputTcpPreprocessFromJSON(
   jsonString: string,
 ): SafeParseResult<InputTcpPreprocess, SDKValidationError> {
@@ -792,7 +668,6 @@ export const InputTcpAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(InputTcpAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputTcpAuthenticationMethod$outboundSchema: z.ZodType<
   InputTcpAuthenticationMethod,
@@ -802,17 +677,6 @@ export const InputTcpAuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(InputTcpAuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputTcpAuthenticationMethod$ {
-  /** @deprecated use `InputTcpAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = InputTcpAuthenticationMethod$inboundSchema;
-  /** @deprecated use `InputTcpAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema = InputTcpAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const InputTcp$inboundSchema: z.ZodType<
@@ -846,9 +710,10 @@ export const InputTcp$inboundSchema: z.ZodType<
   enableHeader: z.boolean().default(false),
   preprocess: z.lazy(() => InputTcpPreprocess$inboundSchema).optional(),
   description: z.string().optional(),
+  authToken: z.string().default(""),
   authType: InputTcpAuthenticationMethod$inboundSchema.default("manual"),
+  textSecret: z.string().optional(),
 });
-
 /** @internal */
 export type InputTcp$Outbound = {
   id?: string | undefined;
@@ -876,7 +741,9 @@ export type InputTcp$Outbound = {
   enableHeader: boolean;
   preprocess?: InputTcpPreprocess$Outbound | undefined;
   description?: string | undefined;
+  authToken: string;
   authType: string;
+  textSecret?: string | undefined;
 };
 
 /** @internal */
@@ -911,26 +778,14 @@ export const InputTcp$outboundSchema: z.ZodType<
   enableHeader: z.boolean().default(false),
   preprocess: z.lazy(() => InputTcpPreprocess$outboundSchema).optional(),
   description: z.string().optional(),
+  authToken: z.string().default(""),
   authType: InputTcpAuthenticationMethod$outboundSchema.default("manual"),
+  textSecret: z.string().optional(),
 });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputTcp$ {
-  /** @deprecated use `InputTcp$inboundSchema` instead. */
-  export const inboundSchema = InputTcp$inboundSchema;
-  /** @deprecated use `InputTcp$outboundSchema` instead. */
-  export const outboundSchema = InputTcp$outboundSchema;
-  /** @deprecated use `InputTcp$Outbound` instead. */
-  export type Outbound = InputTcp$Outbound;
-}
 
 export function inputTcpToJSON(inputTcp: InputTcp): string {
   return JSON.stringify(InputTcp$outboundSchema.parse(inputTcp));
 }
-
 export function inputTcpFromJSON(
   jsonString: string,
 ): SafeParseResult<InputTcp, SDKValidationError> {

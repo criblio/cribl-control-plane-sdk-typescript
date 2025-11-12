@@ -18,6 +18,56 @@ export const OutputSplunkHecType = {
 } as const;
 export type OutputSplunkHecType = ClosedEnum<typeof OutputSplunkHecType>;
 
+export const OutputSplunkHecMinimumTLSVersion = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type OutputSplunkHecMinimumTLSVersion = OpenEnum<
+  typeof OutputSplunkHecMinimumTLSVersion
+>;
+
+export const OutputSplunkHecMaximumTLSVersion = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type OutputSplunkHecMaximumTLSVersion = OpenEnum<
+  typeof OutputSplunkHecMaximumTLSVersion
+>;
+
+export type OutputSplunkHecTLSSettingsClientSide = {
+  disabled?: boolean | undefined;
+  /**
+   * Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
+   */
+  servername?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  /**
+   * Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  minVersion?: OutputSplunkHecMinimumTLSVersion | undefined;
+  maxVersion?: OutputSplunkHecMaximumTLSVersion | undefined;
+};
+
 export type OutputSplunkHecExtraHttpHeader = {
   name?: string | undefined;
   value: string;
@@ -27,8 +77,17 @@ export type OutputSplunkHecExtraHttpHeader = {
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
 export const OutputSplunkHecFailedRequestLoggingMode = {
+  /**
+   * Payload
+   */
   Payload: "payload",
+  /**
+   * Payload + Headers
+   */
   PayloadAndHeaders: "payloadAndHeaders",
+  /**
+   * None
+   */
   None: "none",
 } as const;
 /**
@@ -91,8 +150,17 @@ export type OutputSplunkHecTimeoutRetrySettings = {
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputSplunkHecBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -114,10 +182,38 @@ export type OutputSplunkHecUrl = {
 };
 
 /**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputSplunkHecMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputSplunkHecMode = OpenEnum<typeof OutputSplunkHecMode>;
+
+/**
  * Codec to use to compress the persisted data
  */
 export const OutputSplunkHecCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -131,7 +227,13 @@ export type OutputSplunkHecCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputSplunkHecQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -140,19 +242,6 @@ export const OutputSplunkHecQueueFullBehavior = {
 export type OutputSplunkHecQueueFullBehavior = OpenEnum<
   typeof OutputSplunkHecQueueFullBehavior
 >;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputSplunkHecMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputSplunkHecMode = OpenEnum<typeof OutputSplunkHecMode>;
 
 export type OutputSplunkHecPqControls = {};
 
@@ -190,6 +279,7 @@ export type OutputSplunkHec = {
    * In the Splunk app, set the value of _TCP_ROUTING for events that do not have _ctrl._TCP_ROUTING set.
    */
   tcpRouting?: string | undefined;
+  tls?: OutputSplunkHecTLSSettingsClientSide | undefined;
   /**
    * Maximum number of ongoing requests before blocking
    */
@@ -290,6 +380,26 @@ export type OutputSplunkHec = {
    */
   textSecret?: string | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputSplunkHecMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -309,10 +419,6 @@ export type OutputSplunkHec = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputSplunkHecQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputSplunkHecMode | undefined;
   pqControls?: OutputSplunkHecPqControls | undefined;
 };
 
@@ -320,21 +426,115 @@ export type OutputSplunkHec = {
 export const OutputSplunkHecType$inboundSchema: z.ZodNativeEnum<
   typeof OutputSplunkHecType
 > = z.nativeEnum(OutputSplunkHecType);
-
 /** @internal */
 export const OutputSplunkHecType$outboundSchema: z.ZodNativeEnum<
   typeof OutputSplunkHecType
 > = OutputSplunkHecType$inboundSchema;
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecType$ {
-  /** @deprecated use `OutputSplunkHecType$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkHecType$inboundSchema;
-  /** @deprecated use `OutputSplunkHecType$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkHecType$outboundSchema;
+/** @internal */
+export const OutputSplunkHecMinimumTLSVersion$inboundSchema: z.ZodType<
+  OutputSplunkHecMinimumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSplunkHecMinimumTLSVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputSplunkHecMinimumTLSVersion$outboundSchema: z.ZodType<
+  OutputSplunkHecMinimumTLSVersion,
+  z.ZodTypeDef,
+  OutputSplunkHecMinimumTLSVersion
+> = z.union([
+  z.nativeEnum(OutputSplunkHecMinimumTLSVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSplunkHecMaximumTLSVersion$inboundSchema: z.ZodType<
+  OutputSplunkHecMaximumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSplunkHecMaximumTLSVersion),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputSplunkHecMaximumTLSVersion$outboundSchema: z.ZodType<
+  OutputSplunkHecMaximumTLSVersion,
+  z.ZodTypeDef,
+  OutputSplunkHecMaximumTLSVersion
+> = z.union([
+  z.nativeEnum(OutputSplunkHecMaximumTLSVersion),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSplunkHecTLSSettingsClientSide$inboundSchema: z.ZodType<
+  OutputSplunkHecTLSSettingsClientSide,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  disabled: z.boolean().default(true),
+  servername: z.string().optional(),
+  certificateName: z.string().optional(),
+  caPath: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  certPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  minVersion: OutputSplunkHecMinimumTLSVersion$inboundSchema.optional(),
+  maxVersion: OutputSplunkHecMaximumTLSVersion$inboundSchema.optional(),
+});
+/** @internal */
+export type OutputSplunkHecTLSSettingsClientSide$Outbound = {
+  disabled: boolean;
+  servername?: string | undefined;
+  certificateName?: string | undefined;
+  caPath?: string | undefined;
+  privKeyPath?: string | undefined;
+  certPath?: string | undefined;
+  passphrase?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const OutputSplunkHecTLSSettingsClientSide$outboundSchema: z.ZodType<
+  OutputSplunkHecTLSSettingsClientSide$Outbound,
+  z.ZodTypeDef,
+  OutputSplunkHecTLSSettingsClientSide
+> = z.object({
+  disabled: z.boolean().default(true),
+  servername: z.string().optional(),
+  certificateName: z.string().optional(),
+  caPath: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  certPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  minVersion: OutputSplunkHecMinimumTLSVersion$outboundSchema.optional(),
+  maxVersion: OutputSplunkHecMaximumTLSVersion$outboundSchema.optional(),
+});
+
+export function outputSplunkHecTLSSettingsClientSideToJSON(
+  outputSplunkHecTLSSettingsClientSide: OutputSplunkHecTLSSettingsClientSide,
+): string {
+  return JSON.stringify(
+    OutputSplunkHecTLSSettingsClientSide$outboundSchema.parse(
+      outputSplunkHecTLSSettingsClientSide,
+    ),
+  );
+}
+export function outputSplunkHecTLSSettingsClientSideFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputSplunkHecTLSSettingsClientSide, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputSplunkHecTLSSettingsClientSide$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputSplunkHecTLSSettingsClientSide' from JSON`,
+  );
 }
 
 /** @internal */
@@ -346,7 +546,6 @@ export const OutputSplunkHecExtraHttpHeader$inboundSchema: z.ZodType<
   name: z.string().optional(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputSplunkHecExtraHttpHeader$Outbound = {
   name?: string | undefined;
@@ -363,19 +562,6 @@ export const OutputSplunkHecExtraHttpHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecExtraHttpHeader$ {
-  /** @deprecated use `OutputSplunkHecExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkHecExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputSplunkHecExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkHecExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputSplunkHecExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputSplunkHecExtraHttpHeader$Outbound;
-}
-
 export function outputSplunkHecExtraHttpHeaderToJSON(
   outputSplunkHecExtraHttpHeader: OutputSplunkHecExtraHttpHeader,
 ): string {
@@ -385,7 +571,6 @@ export function outputSplunkHecExtraHttpHeaderToJSON(
     ),
   );
 }
-
 export function outputSplunkHecExtraHttpHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSplunkHecExtraHttpHeader, SDKValidationError> {
@@ -406,7 +591,6 @@ export const OutputSplunkHecFailedRequestLoggingMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSplunkHecFailedRequestLoggingMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSplunkHecFailedRequestLoggingMode$outboundSchema: z.ZodType<
   OutputSplunkHecFailedRequestLoggingMode,
@@ -416,19 +600,6 @@ export const OutputSplunkHecFailedRequestLoggingMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSplunkHecFailedRequestLoggingMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputSplunkHecFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSplunkHecFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputSplunkHecFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSplunkHecFailedRequestLoggingMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputSplunkHecAuthenticationMethod$inboundSchema: z.ZodType<
@@ -440,7 +611,6 @@ export const OutputSplunkHecAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSplunkHecAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSplunkHecAuthenticationMethod$outboundSchema: z.ZodType<
   OutputSplunkHecAuthenticationMethod,
@@ -450,19 +620,6 @@ export const OutputSplunkHecAuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(OutputSplunkHecAuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecAuthenticationMethod$ {
-  /** @deprecated use `OutputSplunkHecAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSplunkHecAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputSplunkHecAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSplunkHecAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const OutputSplunkHecResponseRetrySetting$inboundSchema: z.ZodType<
@@ -475,7 +632,6 @@ export const OutputSplunkHecResponseRetrySetting$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputSplunkHecResponseRetrySetting$Outbound = {
   httpStatus: number;
@@ -496,21 +652,6 @@ export const OutputSplunkHecResponseRetrySetting$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecResponseRetrySetting$ {
-  /** @deprecated use `OutputSplunkHecResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSplunkHecResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputSplunkHecResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSplunkHecResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputSplunkHecResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputSplunkHecResponseRetrySetting$Outbound;
-}
-
 export function outputSplunkHecResponseRetrySettingToJSON(
   outputSplunkHecResponseRetrySetting: OutputSplunkHecResponseRetrySetting,
 ): string {
@@ -520,7 +661,6 @@ export function outputSplunkHecResponseRetrySettingToJSON(
     ),
   );
 }
-
 export function outputSplunkHecResponseRetrySettingFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSplunkHecResponseRetrySetting, SDKValidationError> {
@@ -543,7 +683,6 @@ export const OutputSplunkHecTimeoutRetrySettings$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputSplunkHecTimeoutRetrySettings$Outbound = {
   timeoutRetry: boolean;
@@ -564,21 +703,6 @@ export const OutputSplunkHecTimeoutRetrySettings$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecTimeoutRetrySettings$ {
-  /** @deprecated use `OutputSplunkHecTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSplunkHecTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputSplunkHecTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSplunkHecTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputSplunkHecTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputSplunkHecTimeoutRetrySettings$Outbound;
-}
-
 export function outputSplunkHecTimeoutRetrySettingsToJSON(
   outputSplunkHecTimeoutRetrySettings: OutputSplunkHecTimeoutRetrySettings,
 ): string {
@@ -588,7 +712,6 @@ export function outputSplunkHecTimeoutRetrySettingsToJSON(
     ),
   );
 }
-
 export function outputSplunkHecTimeoutRetrySettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSplunkHecTimeoutRetrySettings, SDKValidationError> {
@@ -610,7 +733,6 @@ export const OutputSplunkHecBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSplunkHecBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSplunkHecBackpressureBehavior$outboundSchema: z.ZodType<
   OutputSplunkHecBackpressureBehavior,
@@ -621,19 +743,6 @@ export const OutputSplunkHecBackpressureBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecBackpressureBehavior$ {
-  /** @deprecated use `OutputSplunkHecBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputSplunkHecBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputSplunkHecBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputSplunkHecBackpressureBehavior$outboundSchema;
-}
-
 /** @internal */
 export const OutputSplunkHecUrl$inboundSchema: z.ZodType<
   OutputSplunkHecUrl,
@@ -643,7 +752,6 @@ export const OutputSplunkHecUrl$inboundSchema: z.ZodType<
   url: z.string().default("http://localhost:8088/services/collector/event"),
   weight: z.number().default(1),
 });
-
 /** @internal */
 export type OutputSplunkHecUrl$Outbound = {
   url: string;
@@ -660,19 +768,6 @@ export const OutputSplunkHecUrl$outboundSchema: z.ZodType<
   weight: z.number().default(1),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecUrl$ {
-  /** @deprecated use `OutputSplunkHecUrl$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkHecUrl$inboundSchema;
-  /** @deprecated use `OutputSplunkHecUrl$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkHecUrl$outboundSchema;
-  /** @deprecated use `OutputSplunkHecUrl$Outbound` instead. */
-  export type Outbound = OutputSplunkHecUrl$Outbound;
-}
-
 export function outputSplunkHecUrlToJSON(
   outputSplunkHecUrl: OutputSplunkHecUrl,
 ): string {
@@ -680,7 +775,6 @@ export function outputSplunkHecUrlToJSON(
     OutputSplunkHecUrl$outboundSchema.parse(outputSplunkHecUrl),
   );
 }
-
 export function outputSplunkHecUrlFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSplunkHecUrl, SDKValidationError> {
@@ -689,70 +783,6 @@ export function outputSplunkHecUrlFromJSON(
     (x) => OutputSplunkHecUrl$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'OutputSplunkHecUrl' from JSON`,
   );
-}
-
-/** @internal */
-export const OutputSplunkHecCompression$inboundSchema: z.ZodType<
-  OutputSplunkHecCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkHecCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSplunkHecCompression$outboundSchema: z.ZodType<
-  OutputSplunkHecCompression,
-  z.ZodTypeDef,
-  OutputSplunkHecCompression
-> = z.union([
-  z.nativeEnum(OutputSplunkHecCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecCompression$ {
-  /** @deprecated use `OutputSplunkHecCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkHecCompression$inboundSchema;
-  /** @deprecated use `OutputSplunkHecCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkHecCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputSplunkHecQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputSplunkHecQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkHecQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputSplunkHecQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputSplunkHecQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputSplunkHecQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputSplunkHecQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecQueueFullBehavior$ {
-  /** @deprecated use `OutputSplunkHecQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkHecQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputSplunkHecQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkHecQueueFullBehavior$outboundSchema;
 }
 
 /** @internal */
@@ -765,7 +795,6 @@ export const OutputSplunkHecMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputSplunkHecMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputSplunkHecMode$outboundSchema: z.ZodType<
   OutputSplunkHecMode,
@@ -776,16 +805,45 @@ export const OutputSplunkHecMode$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecMode$ {
-  /** @deprecated use `OutputSplunkHecMode$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkHecMode$inboundSchema;
-  /** @deprecated use `OutputSplunkHecMode$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkHecMode$outboundSchema;
-}
+/** @internal */
+export const OutputSplunkHecCompression$inboundSchema: z.ZodType<
+  OutputSplunkHecCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSplunkHecCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputSplunkHecCompression$outboundSchema: z.ZodType<
+  OutputSplunkHecCompression,
+  z.ZodTypeDef,
+  OutputSplunkHecCompression
+> = z.union([
+  z.nativeEnum(OutputSplunkHecCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputSplunkHecQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputSplunkHecQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputSplunkHecQueueFullBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputSplunkHecQueueFullBehavior$outboundSchema: z.ZodType<
+  OutputSplunkHecQueueFullBehavior,
+  z.ZodTypeDef,
+  OutputSplunkHecQueueFullBehavior
+> = z.union([
+  z.nativeEnum(OutputSplunkHecQueueFullBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /** @internal */
 export const OutputSplunkHecPqControls$inboundSchema: z.ZodType<
@@ -793,7 +851,6 @@ export const OutputSplunkHecPqControls$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputSplunkHecPqControls$Outbound = {};
 
@@ -804,19 +861,6 @@ export const OutputSplunkHecPqControls$outboundSchema: z.ZodType<
   OutputSplunkHecPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHecPqControls$ {
-  /** @deprecated use `OutputSplunkHecPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkHecPqControls$inboundSchema;
-  /** @deprecated use `OutputSplunkHecPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkHecPqControls$outboundSchema;
-  /** @deprecated use `OutputSplunkHecPqControls$Outbound` instead. */
-  export type Outbound = OutputSplunkHecPqControls$Outbound;
-}
-
 export function outputSplunkHecPqControlsToJSON(
   outputSplunkHecPqControls: OutputSplunkHecPqControls,
 ): string {
@@ -824,7 +868,6 @@ export function outputSplunkHecPqControlsToJSON(
     OutputSplunkHecPqControls$outboundSchema.parse(outputSplunkHecPqControls),
   );
 }
-
 export function outputSplunkHecPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSplunkHecPqControls, SDKValidationError> {
@@ -850,6 +893,8 @@ export const OutputSplunkHec$inboundSchema: z.ZodType<
   loadBalanced: z.boolean().default(true),
   nextQueue: z.string().default("indexQueue"),
   tcpRouting: z.string().default("nowhere"),
+  tls: z.lazy(() => OutputSplunkHecTLSSettingsClientSide$inboundSchema)
+    .optional(),
   concurrency: z.number().default(5),
   maxPayloadSizeKB: z.number().default(4096),
   maxPayloadEvents: z.number().default(0),
@@ -884,6 +929,11 @@ export const OutputSplunkHec$inboundSchema: z.ZodType<
   loadBalanceStatsPeriodSec: z.number().default(300),
   token: z.string().optional(),
   textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputSplunkHecMode$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -891,10 +941,8 @@ export const OutputSplunkHec$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputSplunkHecQueueFullBehavior$inboundSchema.default(
     "block",
   ),
-  pqMode: OutputSplunkHecMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputSplunkHecPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type OutputSplunkHec$Outbound = {
   id?: string | undefined;
@@ -906,6 +954,7 @@ export type OutputSplunkHec$Outbound = {
   loadBalanced: boolean;
   nextQueue: string;
   tcpRouting: string;
+  tls?: OutputSplunkHecTLSSettingsClientSide$Outbound | undefined;
   concurrency: number;
   maxPayloadSizeKB: number;
   maxPayloadEvents: number;
@@ -935,12 +984,16 @@ export type OutputSplunkHec$Outbound = {
   loadBalanceStatsPeriodSec: number;
   token?: string | undefined;
   textSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
   pqControls?: OutputSplunkHecPqControls$Outbound | undefined;
 };
 
@@ -959,6 +1012,8 @@ export const OutputSplunkHec$outboundSchema: z.ZodType<
   loadBalanced: z.boolean().default(true),
   nextQueue: z.string().default("indexQueue"),
   tcpRouting: z.string().default("nowhere"),
+  tls: z.lazy(() => OutputSplunkHecTLSSettingsClientSide$outboundSchema)
+    .optional(),
   concurrency: z.number().default(5),
   maxPayloadSizeKB: z.number().default(4096),
   maxPayloadEvents: z.number().default(0),
@@ -995,6 +1050,11 @@ export const OutputSplunkHec$outboundSchema: z.ZodType<
   loadBalanceStatsPeriodSec: z.number().default(300),
   token: z.string().optional(),
   textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputSplunkHecMode$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1002,29 +1062,14 @@ export const OutputSplunkHec$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputSplunkHecQueueFullBehavior$outboundSchema.default(
     "block",
   ),
-  pqMode: OutputSplunkHecMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputSplunkHecPqControls$outboundSchema).optional(),
 });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputSplunkHec$ {
-  /** @deprecated use `OutputSplunkHec$inboundSchema` instead. */
-  export const inboundSchema = OutputSplunkHec$inboundSchema;
-  /** @deprecated use `OutputSplunkHec$outboundSchema` instead. */
-  export const outboundSchema = OutputSplunkHec$outboundSchema;
-  /** @deprecated use `OutputSplunkHec$Outbound` instead. */
-  export type Outbound = OutputSplunkHec$Outbound;
-}
 
 export function outputSplunkHecToJSON(
   outputSplunkHec: OutputSplunkHec,
 ): string {
   return JSON.stringify(OutputSplunkHec$outboundSchema.parse(outputSplunkHec));
 }
-
 export function outputSplunkHecFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputSplunkHec, SDKValidationError> {

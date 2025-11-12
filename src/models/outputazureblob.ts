@@ -22,8 +22,17 @@ export type OutputAzureBlobType = ClosedEnum<typeof OutputAzureBlobType>;
  * Format of the output data
  */
 export const OutputAzureBlobDataFormat = {
+  /**
+   * JSON
+   */
   Json: "json",
+  /**
+   * Raw
+   */
   Raw: "raw",
+  /**
+   * Parquet
+   */
   Parquet: "parquet",
 } as const;
 /**
@@ -37,7 +46,13 @@ export type OutputAzureBlobDataFormat = OpenEnum<
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputAzureBlobBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
 } as const;
 /**
@@ -51,7 +66,13 @@ export type OutputAzureBlobBackpressureBehavior = OpenEnum<
  * How to handle events when disk space is below the global 'Min free disk space' limit
  */
 export const OutputAzureBlobDiskSpaceProtection = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
 } as const;
 /**
@@ -72,10 +93,25 @@ export type OutputAzureBlobAuthenticationMethod = OpenEnum<
 >;
 
 export const BlobAccessTier = {
+  /**
+   * Default account access tier
+   */
   Inferred: "Inferred",
+  /**
+   * Hot tier
+   */
   Hot: "Hot",
+  /**
+   * Cool tier
+   */
   Cool: "Cool",
+  /**
+   * Cold tier
+   */
   Cold: "Cold",
+  /**
+   * Archive tier
+   */
   Archive: "Archive",
 } as const;
 export type BlobAccessTier = OpenEnum<typeof BlobAccessTier>;
@@ -98,8 +134,17 @@ export type OutputAzureBlobCompression = OpenEnum<
  * Compression level to apply before moving files to final destination
  */
 export const OutputAzureBlobCompressionLevel = {
+  /**
+   * Best Speed
+   */
   BestSpeed: "best_speed",
+  /**
+   * Normal
+   */
   Normal: "normal",
+  /**
+   * Best Compression
+   */
   BestCompression: "best_compression",
 } as const;
 /**
@@ -113,8 +158,17 @@ export type OutputAzureBlobCompressionLevel = OpenEnum<
  * Determines which data types are supported and how they are represented
  */
 export const OutputAzureBlobParquetVersion = {
+  /**
+   * 1.0
+   */
   Parquet10: "PARQUET_1_0",
+  /**
+   * 2.4
+   */
   Parquet24: "PARQUET_2_4",
+  /**
+   * 2.6
+   */
   Parquet26: "PARQUET_2_6",
 } as const;
 /**
@@ -128,7 +182,13 @@ export type OutputAzureBlobParquetVersion = OpenEnum<
  * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
  */
 export const OutputAzureBlobDataPageVersion = {
+  /**
+   * V1
+   */
   DataPageV1: "DATA_PAGE_V1",
+  /**
+   * V2
+   */
   DataPageV2: "DATA_PAGE_V2",
 } as const;
 /**
@@ -268,6 +328,10 @@ export type OutputAzureBlob = {
    */
   automaticSchema?: boolean | undefined;
   /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
+  /**
    * Determines which data types are supported and how they are represented
    */
   parquetVersion?: OutputAzureBlobParquetVersion | undefined;
@@ -354,22 +418,10 @@ export type OutputAzureBlob = {
 export const OutputAzureBlobType$inboundSchema: z.ZodNativeEnum<
   typeof OutputAzureBlobType
 > = z.nativeEnum(OutputAzureBlobType);
-
 /** @internal */
 export const OutputAzureBlobType$outboundSchema: z.ZodNativeEnum<
   typeof OutputAzureBlobType
 > = OutputAzureBlobType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureBlobType$ {
-  /** @deprecated use `OutputAzureBlobType$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureBlobType$inboundSchema;
-  /** @deprecated use `OutputAzureBlobType$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureBlobType$outboundSchema;
-}
 
 /** @internal */
 export const OutputAzureBlobDataFormat$inboundSchema: z.ZodType<
@@ -381,7 +433,6 @@ export const OutputAzureBlobDataFormat$inboundSchema: z.ZodType<
     z.nativeEnum(OutputAzureBlobDataFormat),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputAzureBlobDataFormat$outboundSchema: z.ZodType<
   OutputAzureBlobDataFormat,
@@ -391,17 +442,6 @@ export const OutputAzureBlobDataFormat$outboundSchema: z.ZodType<
   z.nativeEnum(OutputAzureBlobDataFormat),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureBlobDataFormat$ {
-  /** @deprecated use `OutputAzureBlobDataFormat$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureBlobDataFormat$inboundSchema;
-  /** @deprecated use `OutputAzureBlobDataFormat$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureBlobDataFormat$outboundSchema;
-}
 
 /** @internal */
 export const OutputAzureBlobBackpressureBehavior$inboundSchema: z.ZodType<
@@ -413,7 +453,6 @@ export const OutputAzureBlobBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputAzureBlobBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputAzureBlobBackpressureBehavior$outboundSchema: z.ZodType<
   OutputAzureBlobBackpressureBehavior,
@@ -423,19 +462,6 @@ export const OutputAzureBlobBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputAzureBlobBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureBlobBackpressureBehavior$ {
-  /** @deprecated use `OutputAzureBlobBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureBlobBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputAzureBlobBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureBlobBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputAzureBlobDiskSpaceProtection$inboundSchema: z.ZodType<
@@ -447,7 +473,6 @@ export const OutputAzureBlobDiskSpaceProtection$inboundSchema: z.ZodType<
     z.nativeEnum(OutputAzureBlobDiskSpaceProtection),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputAzureBlobDiskSpaceProtection$outboundSchema: z.ZodType<
   OutputAzureBlobDiskSpaceProtection,
@@ -457,18 +482,6 @@ export const OutputAzureBlobDiskSpaceProtection$outboundSchema: z.ZodType<
   z.nativeEnum(OutputAzureBlobDiskSpaceProtection),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureBlobDiskSpaceProtection$ {
-  /** @deprecated use `OutputAzureBlobDiskSpaceProtection$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureBlobDiskSpaceProtection$inboundSchema;
-  /** @deprecated use `OutputAzureBlobDiskSpaceProtection$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureBlobDiskSpaceProtection$outboundSchema;
-}
 
 /** @internal */
 export const OutputAzureBlobAuthenticationMethod$inboundSchema: z.ZodType<
@@ -480,7 +493,6 @@ export const OutputAzureBlobAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(OutputAzureBlobAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputAzureBlobAuthenticationMethod$outboundSchema: z.ZodType<
   OutputAzureBlobAuthenticationMethod,
@@ -490,19 +502,6 @@ export const OutputAzureBlobAuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(OutputAzureBlobAuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureBlobAuthenticationMethod$ {
-  /** @deprecated use `OutputAzureBlobAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputAzureBlobAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputAzureBlobAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputAzureBlobAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const BlobAccessTier$inboundSchema: z.ZodType<
@@ -514,7 +513,6 @@ export const BlobAccessTier$inboundSchema: z.ZodType<
     z.nativeEnum(BlobAccessTier),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const BlobAccessTier$outboundSchema: z.ZodType<
   BlobAccessTier,
@@ -524,17 +522,6 @@ export const BlobAccessTier$outboundSchema: z.ZodType<
   z.nativeEnum(BlobAccessTier),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace BlobAccessTier$ {
-  /** @deprecated use `BlobAccessTier$inboundSchema` instead. */
-  export const inboundSchema = BlobAccessTier$inboundSchema;
-  /** @deprecated use `BlobAccessTier$outboundSchema` instead. */
-  export const outboundSchema = BlobAccessTier$outboundSchema;
-}
 
 /** @internal */
 export const OutputAzureBlobCompression$inboundSchema: z.ZodType<
@@ -546,7 +533,6 @@ export const OutputAzureBlobCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputAzureBlobCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputAzureBlobCompression$outboundSchema: z.ZodType<
   OutputAzureBlobCompression,
@@ -556,17 +542,6 @@ export const OutputAzureBlobCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputAzureBlobCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureBlobCompression$ {
-  /** @deprecated use `OutputAzureBlobCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureBlobCompression$inboundSchema;
-  /** @deprecated use `OutputAzureBlobCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureBlobCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputAzureBlobCompressionLevel$inboundSchema: z.ZodType<
@@ -578,7 +553,6 @@ export const OutputAzureBlobCompressionLevel$inboundSchema: z.ZodType<
     z.nativeEnum(OutputAzureBlobCompressionLevel),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputAzureBlobCompressionLevel$outboundSchema: z.ZodType<
   OutputAzureBlobCompressionLevel,
@@ -588,17 +562,6 @@ export const OutputAzureBlobCompressionLevel$outboundSchema: z.ZodType<
   z.nativeEnum(OutputAzureBlobCompressionLevel),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureBlobCompressionLevel$ {
-  /** @deprecated use `OutputAzureBlobCompressionLevel$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureBlobCompressionLevel$inboundSchema;
-  /** @deprecated use `OutputAzureBlobCompressionLevel$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureBlobCompressionLevel$outboundSchema;
-}
 
 /** @internal */
 export const OutputAzureBlobParquetVersion$inboundSchema: z.ZodType<
@@ -610,7 +573,6 @@ export const OutputAzureBlobParquetVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputAzureBlobParquetVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputAzureBlobParquetVersion$outboundSchema: z.ZodType<
   OutputAzureBlobParquetVersion,
@@ -620,17 +582,6 @@ export const OutputAzureBlobParquetVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputAzureBlobParquetVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureBlobParquetVersion$ {
-  /** @deprecated use `OutputAzureBlobParquetVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureBlobParquetVersion$inboundSchema;
-  /** @deprecated use `OutputAzureBlobParquetVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureBlobParquetVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputAzureBlobDataPageVersion$inboundSchema: z.ZodType<
@@ -642,7 +593,6 @@ export const OutputAzureBlobDataPageVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputAzureBlobDataPageVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputAzureBlobDataPageVersion$outboundSchema: z.ZodType<
   OutputAzureBlobDataPageVersion,
@@ -653,17 +603,6 @@ export const OutputAzureBlobDataPageVersion$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureBlobDataPageVersion$ {
-  /** @deprecated use `OutputAzureBlobDataPageVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureBlobDataPageVersion$inboundSchema;
-  /** @deprecated use `OutputAzureBlobDataPageVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureBlobDataPageVersion$outboundSchema;
-}
-
 /** @internal */
 export const OutputAzureBlobKeyValueMetadatum$inboundSchema: z.ZodType<
   OutputAzureBlobKeyValueMetadatum,
@@ -673,7 +612,6 @@ export const OutputAzureBlobKeyValueMetadatum$inboundSchema: z.ZodType<
   key: z.string().default(""),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputAzureBlobKeyValueMetadatum$Outbound = {
   key: string;
@@ -690,19 +628,6 @@ export const OutputAzureBlobKeyValueMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureBlobKeyValueMetadatum$ {
-  /** @deprecated use `OutputAzureBlobKeyValueMetadatum$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureBlobKeyValueMetadatum$inboundSchema;
-  /** @deprecated use `OutputAzureBlobKeyValueMetadatum$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureBlobKeyValueMetadatum$outboundSchema;
-  /** @deprecated use `OutputAzureBlobKeyValueMetadatum$Outbound` instead. */
-  export type Outbound = OutputAzureBlobKeyValueMetadatum$Outbound;
-}
-
 export function outputAzureBlobKeyValueMetadatumToJSON(
   outputAzureBlobKeyValueMetadatum: OutputAzureBlobKeyValueMetadatum,
 ): string {
@@ -712,7 +637,6 @@ export function outputAzureBlobKeyValueMetadatumToJSON(
     ),
   );
 }
-
 export function outputAzureBlobKeyValueMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputAzureBlobKeyValueMetadatum, SDKValidationError> {
@@ -731,7 +655,6 @@ export const OutputAzureBlobCertificate$inboundSchema: z.ZodType<
 > = z.object({
   certificateName: z.string(),
 });
-
 /** @internal */
 export type OutputAzureBlobCertificate$Outbound = {
   certificateName: string;
@@ -746,19 +669,6 @@ export const OutputAzureBlobCertificate$outboundSchema: z.ZodType<
   certificateName: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureBlobCertificate$ {
-  /** @deprecated use `OutputAzureBlobCertificate$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureBlobCertificate$inboundSchema;
-  /** @deprecated use `OutputAzureBlobCertificate$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureBlobCertificate$outboundSchema;
-  /** @deprecated use `OutputAzureBlobCertificate$Outbound` instead. */
-  export type Outbound = OutputAzureBlobCertificate$Outbound;
-}
-
 export function outputAzureBlobCertificateToJSON(
   outputAzureBlobCertificate: OutputAzureBlobCertificate,
 ): string {
@@ -766,7 +676,6 @@ export function outputAzureBlobCertificateToJSON(
     OutputAzureBlobCertificate$outboundSchema.parse(outputAzureBlobCertificate),
   );
 }
-
 export function outputAzureBlobCertificateFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputAzureBlobCertificate, SDKValidationError> {
@@ -824,6 +733,7 @@ export const OutputAzureBlob$inboundSchema: z.ZodType<
     "best_speed",
   ),
   automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
   parquetVersion: OutputAzureBlobParquetVersion$inboundSchema.default(
     "PARQUET_2_6",
   ),
@@ -853,7 +763,6 @@ export const OutputAzureBlob$inboundSchema: z.ZodType<
   certificate: z.lazy(() => OutputAzureBlobCertificate$inboundSchema)
     .optional(),
 });
-
 /** @internal */
 export type OutputAzureBlob$Outbound = {
   id?: string | undefined;
@@ -888,6 +797,7 @@ export type OutputAzureBlob$Outbound = {
   compress: string;
   compressionLevel: string;
   automaticSchema: boolean;
+  parquetSchema?: string | undefined;
   parquetVersion: string;
   parquetDataPageVersion: string;
   parquetRowGroupLength: number;
@@ -962,6 +872,7 @@ export const OutputAzureBlob$outboundSchema: z.ZodType<
     "best_speed",
   ),
   automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
   parquetVersion: OutputAzureBlobParquetVersion$outboundSchema.default(
     "PARQUET_2_6",
   ),
@@ -992,25 +903,11 @@ export const OutputAzureBlob$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputAzureBlob$ {
-  /** @deprecated use `OutputAzureBlob$inboundSchema` instead. */
-  export const inboundSchema = OutputAzureBlob$inboundSchema;
-  /** @deprecated use `OutputAzureBlob$outboundSchema` instead. */
-  export const outboundSchema = OutputAzureBlob$outboundSchema;
-  /** @deprecated use `OutputAzureBlob$Outbound` instead. */
-  export type Outbound = OutputAzureBlob$Outbound;
-}
-
 export function outputAzureBlobToJSON(
   outputAzureBlob: OutputAzureBlob,
 ): string {
   return JSON.stringify(OutputAzureBlob$outboundSchema.parse(outputAzureBlob));
 }
-
 export function outputAzureBlobFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputAzureBlob, SDKValidationError> {
