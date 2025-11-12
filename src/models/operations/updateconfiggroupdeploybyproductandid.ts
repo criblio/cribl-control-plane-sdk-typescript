@@ -4,9 +4,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type UpdateConfigGroupDeployByProductAndIdRequest = {
@@ -23,33 +20,6 @@ export type UpdateConfigGroupDeployByProductAndIdRequest = {
    */
   deployRequest: models.DeployRequest;
 };
-
-/**
- * a list of ConfigGroup objects
- */
-export type UpdateConfigGroupDeployByProductAndIdResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.ConfigGroup> | undefined;
-};
-
-/** @internal */
-export const UpdateConfigGroupDeployByProductAndIdRequest$inboundSchema:
-  z.ZodType<
-    UpdateConfigGroupDeployByProductAndIdRequest,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    product: models.ProductsCore$inboundSchema,
-    id: z.string(),
-    DeployRequest: models.DeployRequest$inboundSchema,
-  }).transform((v) => {
-    return remap$(v, {
-      "DeployRequest": "deployRequest",
-    });
-  });
 
 /** @internal */
 export type UpdateConfigGroupDeployByProductAndIdRequest$Outbound = {
@@ -74,21 +44,6 @@ export const UpdateConfigGroupDeployByProductAndIdRequest$outboundSchema:
     });
   });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateConfigGroupDeployByProductAndIdRequest$ {
-  /** @deprecated use `UpdateConfigGroupDeployByProductAndIdRequest$inboundSchema` instead. */
-  export const inboundSchema =
-    UpdateConfigGroupDeployByProductAndIdRequest$inboundSchema;
-  /** @deprecated use `UpdateConfigGroupDeployByProductAndIdRequest$outboundSchema` instead. */
-  export const outboundSchema =
-    UpdateConfigGroupDeployByProductAndIdRequest$outboundSchema;
-  /** @deprecated use `UpdateConfigGroupDeployByProductAndIdRequest$Outbound` instead. */
-  export type Outbound = UpdateConfigGroupDeployByProductAndIdRequest$Outbound;
-}
-
 export function updateConfigGroupDeployByProductAndIdRequestToJSON(
   updateConfigGroupDeployByProductAndIdRequest:
     UpdateConfigGroupDeployByProductAndIdRequest,
@@ -97,91 +52,5 @@ export function updateConfigGroupDeployByProductAndIdRequestToJSON(
     UpdateConfigGroupDeployByProductAndIdRequest$outboundSchema.parse(
       updateConfigGroupDeployByProductAndIdRequest,
     ),
-  );
-}
-
-export function updateConfigGroupDeployByProductAndIdRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  UpdateConfigGroupDeployByProductAndIdRequest,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      UpdateConfigGroupDeployByProductAndIdRequest$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'UpdateConfigGroupDeployByProductAndIdRequest' from JSON`,
-  );
-}
-
-/** @internal */
-export const UpdateConfigGroupDeployByProductAndIdResponse$inboundSchema:
-  z.ZodType<
-    UpdateConfigGroupDeployByProductAndIdResponse,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    count: z.number().int().optional(),
-    items: z.array(models.ConfigGroup$inboundSchema).optional(),
-  });
-
-/** @internal */
-export type UpdateConfigGroupDeployByProductAndIdResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.ConfigGroup$Outbound> | undefined;
-};
-
-/** @internal */
-export const UpdateConfigGroupDeployByProductAndIdResponse$outboundSchema:
-  z.ZodType<
-    UpdateConfigGroupDeployByProductAndIdResponse$Outbound,
-    z.ZodTypeDef,
-    UpdateConfigGroupDeployByProductAndIdResponse
-  > = z.object({
-    count: z.number().int().optional(),
-    items: z.array(models.ConfigGroup$outboundSchema).optional(),
-  });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateConfigGroupDeployByProductAndIdResponse$ {
-  /** @deprecated use `UpdateConfigGroupDeployByProductAndIdResponse$inboundSchema` instead. */
-  export const inboundSchema =
-    UpdateConfigGroupDeployByProductAndIdResponse$inboundSchema;
-  /** @deprecated use `UpdateConfigGroupDeployByProductAndIdResponse$outboundSchema` instead. */
-  export const outboundSchema =
-    UpdateConfigGroupDeployByProductAndIdResponse$outboundSchema;
-  /** @deprecated use `UpdateConfigGroupDeployByProductAndIdResponse$Outbound` instead. */
-  export type Outbound = UpdateConfigGroupDeployByProductAndIdResponse$Outbound;
-}
-
-export function updateConfigGroupDeployByProductAndIdResponseToJSON(
-  updateConfigGroupDeployByProductAndIdResponse:
-    UpdateConfigGroupDeployByProductAndIdResponse,
-): string {
-  return JSON.stringify(
-    UpdateConfigGroupDeployByProductAndIdResponse$outboundSchema.parse(
-      updateConfigGroupDeployByProductAndIdResponse,
-    ),
-  );
-}
-
-export function updateConfigGroupDeployByProductAndIdResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  UpdateConfigGroupDeployByProductAndIdResponse,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      UpdateConfigGroupDeployByProductAndIdResponse$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'UpdateConfigGroupDeployByProductAndIdResponse' from JSON`,
   );
 }

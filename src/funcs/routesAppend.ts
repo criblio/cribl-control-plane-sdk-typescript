@@ -21,15 +21,16 @@ import {
 import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Append a Route to the end of the Routing table
+ * Add a Route to the end of the Routing table
  *
  * @remarks
- * Append a Route to the end of the specified Routing table.</br></br>Provide a complete representation of the Routing table, including the Route that you want to append, in the request body. Cribl removes any omitted Routes and fields in the Routing table when appending the Route.</br></br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the Routing table might not function as expected.
+ * Add a Route to the end of the specified Routing table.
  */
 export function routesAppend(
   client: CriblControlPlaneCore,
@@ -37,7 +38,7 @@ export function routesAppend(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.CreateRoutesAppendByIdResponse,
+    models.CountedRoutes,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -63,7 +64,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      operations.CreateRoutesAppendByIdResponse,
+      models.CountedRoutes,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -152,7 +153,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.CreateRoutesAppendByIdResponse,
+    models.CountedRoutes,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -163,7 +164,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.CreateRoutesAppendByIdResponse$inboundSchema),
+    M.json(200, models.CountedRoutes$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

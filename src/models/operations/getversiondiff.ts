@@ -3,10 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
 
 export type GetVersionDiffRequest = {
   /**
@@ -26,29 +22,6 @@ export type GetVersionDiffRequest = {
    */
   diffLineLimit?: number | undefined;
 };
-
-/**
- * a list of GitDiffResult objects
- */
-export type GetVersionDiffResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.GitDiffResult> | undefined;
-};
-
-/** @internal */
-export const GetVersionDiffRequest$inboundSchema: z.ZodType<
-  GetVersionDiffRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  commit: z.string().optional(),
-  groupId: z.string().optional(),
-  filename: z.string().optional(),
-  diffLineLimit: z.number().optional(),
-});
 
 /** @internal */
 export type GetVersionDiffRequest$Outbound = {
@@ -70,90 +43,10 @@ export const GetVersionDiffRequest$outboundSchema: z.ZodType<
   diffLineLimit: z.number().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetVersionDiffRequest$ {
-  /** @deprecated use `GetVersionDiffRequest$inboundSchema` instead. */
-  export const inboundSchema = GetVersionDiffRequest$inboundSchema;
-  /** @deprecated use `GetVersionDiffRequest$outboundSchema` instead. */
-  export const outboundSchema = GetVersionDiffRequest$outboundSchema;
-  /** @deprecated use `GetVersionDiffRequest$Outbound` instead. */
-  export type Outbound = GetVersionDiffRequest$Outbound;
-}
-
 export function getVersionDiffRequestToJSON(
   getVersionDiffRequest: GetVersionDiffRequest,
 ): string {
   return JSON.stringify(
     GetVersionDiffRequest$outboundSchema.parse(getVersionDiffRequest),
-  );
-}
-
-export function getVersionDiffRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetVersionDiffRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetVersionDiffRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetVersionDiffRequest' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetVersionDiffResponse$inboundSchema: z.ZodType<
-  GetVersionDiffResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.GitDiffResult$inboundSchema).optional(),
-});
-
-/** @internal */
-export type GetVersionDiffResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.GitDiffResult$Outbound> | undefined;
-};
-
-/** @internal */
-export const GetVersionDiffResponse$outboundSchema: z.ZodType<
-  GetVersionDiffResponse$Outbound,
-  z.ZodTypeDef,
-  GetVersionDiffResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.GitDiffResult$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetVersionDiffResponse$ {
-  /** @deprecated use `GetVersionDiffResponse$inboundSchema` instead. */
-  export const inboundSchema = GetVersionDiffResponse$inboundSchema;
-  /** @deprecated use `GetVersionDiffResponse$outboundSchema` instead. */
-  export const outboundSchema = GetVersionDiffResponse$outboundSchema;
-  /** @deprecated use `GetVersionDiffResponse$Outbound` instead. */
-  export type Outbound = GetVersionDiffResponse$Outbound;
-}
-
-export function getVersionDiffResponseToJSON(
-  getVersionDiffResponse: GetVersionDiffResponse,
-): string {
-  return JSON.stringify(
-    GetVersionDiffResponse$outboundSchema.parse(getVersionDiffResponse),
-  );
-}
-
-export function getVersionDiffResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<GetVersionDiffResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetVersionDiffResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetVersionDiffResponse' from JSON`,
   );
 }

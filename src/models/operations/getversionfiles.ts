@@ -4,10 +4,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
 
 export type GetVersionFilesRequest = {
   /**
@@ -19,31 +15,6 @@ export type GetVersionFilesRequest = {
    */
   id?: string | undefined;
 };
-
-/**
- * a list of GitFilesResponse objects
- */
-export type GetVersionFilesResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.GitFilesResponse> | undefined;
-};
-
-/** @internal */
-export const GetVersionFilesRequest$inboundSchema: z.ZodType<
-  GetVersionFilesRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  groupId: z.string().optional(),
-  ID: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "ID": "id",
-  });
-});
 
 /** @internal */
 export type GetVersionFilesRequest$Outbound = {
@@ -65,90 +36,10 @@ export const GetVersionFilesRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetVersionFilesRequest$ {
-  /** @deprecated use `GetVersionFilesRequest$inboundSchema` instead. */
-  export const inboundSchema = GetVersionFilesRequest$inboundSchema;
-  /** @deprecated use `GetVersionFilesRequest$outboundSchema` instead. */
-  export const outboundSchema = GetVersionFilesRequest$outboundSchema;
-  /** @deprecated use `GetVersionFilesRequest$Outbound` instead. */
-  export type Outbound = GetVersionFilesRequest$Outbound;
-}
-
 export function getVersionFilesRequestToJSON(
   getVersionFilesRequest: GetVersionFilesRequest,
 ): string {
   return JSON.stringify(
     GetVersionFilesRequest$outboundSchema.parse(getVersionFilesRequest),
-  );
-}
-
-export function getVersionFilesRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetVersionFilesRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetVersionFilesRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetVersionFilesRequest' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetVersionFilesResponse$inboundSchema: z.ZodType<
-  GetVersionFilesResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.GitFilesResponse$inboundSchema).optional(),
-});
-
-/** @internal */
-export type GetVersionFilesResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.GitFilesResponse$Outbound> | undefined;
-};
-
-/** @internal */
-export const GetVersionFilesResponse$outboundSchema: z.ZodType<
-  GetVersionFilesResponse$Outbound,
-  z.ZodTypeDef,
-  GetVersionFilesResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.GitFilesResponse$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetVersionFilesResponse$ {
-  /** @deprecated use `GetVersionFilesResponse$inboundSchema` instead. */
-  export const inboundSchema = GetVersionFilesResponse$inboundSchema;
-  /** @deprecated use `GetVersionFilesResponse$outboundSchema` instead. */
-  export const outboundSchema = GetVersionFilesResponse$outboundSchema;
-  /** @deprecated use `GetVersionFilesResponse$Outbound` instead. */
-  export type Outbound = GetVersionFilesResponse$Outbound;
-}
-
-export function getVersionFilesResponseToJSON(
-  getVersionFilesResponse: GetVersionFilesResponse,
-): string {
-  return JSON.stringify(
-    GetVersionFilesResponse$outboundSchema.parse(getVersionFilesResponse),
-  );
-}
-
-export function getVersionFilesResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<GetVersionFilesResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetVersionFilesResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetVersionFilesResponse' from JSON`,
   );
 }

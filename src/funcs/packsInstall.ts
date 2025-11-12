@@ -22,15 +22,14 @@ import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as models from "../models/index.js";
-import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Create or install a Pack
+ * Install a Pack
  *
  * @remarks
- * Create or install a Pack.
+ * Install a Pack.<br><br>To install an uploaded Pack, provide the <code>source</code> value from the <code>PUT /packs</code> response as the <code>source</code> parameter in the request body.<br><br>To install a Pack by importing from a URL, provide the direct URL location of the <code>.crbl</code> file for the Pack as the <code>source</code> parameter in the request body.<br><br>To install a Pack by importing from a Git repository, provide <code>git+<repo-url></code> as the <code>source</code> parameter in the request body.<br><br>If you do not include the <code>source</code> parameter in the request body, an empty Pack is created.
  */
 export function packsInstall(
   client: CriblControlPlaneCore,
@@ -38,7 +37,7 @@ export function packsInstall(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    operations.CreatePacksResponse,
+    models.CountedPackInstallInfo,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -64,7 +63,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      operations.CreatePacksResponse,
+      models.CountedPackInstallInfo,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -145,7 +144,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    operations.CreatePacksResponse,
+    models.CountedPackInstallInfo,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -156,7 +155,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, operations.CreatePacksResponse$inboundSchema),
+    M.json(200, models.CountedPackInstallInfo$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

@@ -29,7 +29,13 @@ export type InputOffice365MsgTraceConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputOffice365MsgTraceMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -43,7 +49,13 @@ export type InputOffice365MsgTraceMode = OpenEnum<
  * Codec to use to compress the persisted data
  */
 export const InputOffice365MsgTraceCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -133,8 +145,17 @@ export type InputOffice365MsgTraceMetadatum = {
  * The algorithm to use when performing HTTP retries
  */
 export const InputOffice365MsgTraceRetryType = {
+  /**
+   * Disabled
+   */
   None: "none",
+  /**
+   * Backoff
+   */
   Backoff: "backoff",
+  /**
+   * Static
+   */
   Static: "static",
 } as const;
 /**
@@ -183,9 +204,21 @@ export type InputOffice365MsgTraceRetryRules = {
  * Office 365 subscription plan for your organization, typically Office 365 Enterprise
  */
 export const InputOffice365MsgTraceSubscriptionPlan = {
+  /**
+   * Office 365 Enterprise
+   */
   EnterpriseGcc: "enterprise_gcc",
+  /**
+   * Office 365 GCC
+   */
   Gcc: "gcc",
+  /**
+   * Office 365 GCC High
+   */
   GccHigh: "gcc_high",
+  /**
+   * Office 365 DoD
+   */
   Dod: "dod",
 } as const;
 /**
@@ -355,22 +388,10 @@ export type InputOffice365MsgTrace = {
 export const InputOffice365MsgTraceType$inboundSchema: z.ZodNativeEnum<
   typeof InputOffice365MsgTraceType
 > = z.nativeEnum(InputOffice365MsgTraceType);
-
 /** @internal */
 export const InputOffice365MsgTraceType$outboundSchema: z.ZodNativeEnum<
   typeof InputOffice365MsgTraceType
 > = InputOffice365MsgTraceType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365MsgTraceType$ {
-  /** @deprecated use `InputOffice365MsgTraceType$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365MsgTraceType$inboundSchema;
-  /** @deprecated use `InputOffice365MsgTraceType$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365MsgTraceType$outboundSchema;
-}
 
 /** @internal */
 export const InputOffice365MsgTraceConnection$inboundSchema: z.ZodType<
@@ -381,7 +402,6 @@ export const InputOffice365MsgTraceConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputOffice365MsgTraceConnection$Outbound = {
   pipeline?: string | undefined;
@@ -398,19 +418,6 @@ export const InputOffice365MsgTraceConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365MsgTraceConnection$ {
-  /** @deprecated use `InputOffice365MsgTraceConnection$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365MsgTraceConnection$inboundSchema;
-  /** @deprecated use `InputOffice365MsgTraceConnection$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365MsgTraceConnection$outboundSchema;
-  /** @deprecated use `InputOffice365MsgTraceConnection$Outbound` instead. */
-  export type Outbound = InputOffice365MsgTraceConnection$Outbound;
-}
-
 export function inputOffice365MsgTraceConnectionToJSON(
   inputOffice365MsgTraceConnection: InputOffice365MsgTraceConnection,
 ): string {
@@ -420,7 +427,6 @@ export function inputOffice365MsgTraceConnectionToJSON(
     ),
   );
 }
-
 export function inputOffice365MsgTraceConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputOffice365MsgTraceConnection, SDKValidationError> {
@@ -441,7 +447,6 @@ export const InputOffice365MsgTraceMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputOffice365MsgTraceMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputOffice365MsgTraceMode$outboundSchema: z.ZodType<
   InputOffice365MsgTraceMode,
@@ -451,17 +456,6 @@ export const InputOffice365MsgTraceMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputOffice365MsgTraceMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365MsgTraceMode$ {
-  /** @deprecated use `InputOffice365MsgTraceMode$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365MsgTraceMode$inboundSchema;
-  /** @deprecated use `InputOffice365MsgTraceMode$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365MsgTraceMode$outboundSchema;
-}
 
 /** @internal */
 export const InputOffice365MsgTraceCompression$inboundSchema: z.ZodType<
@@ -473,7 +467,6 @@ export const InputOffice365MsgTraceCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputOffice365MsgTraceCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputOffice365MsgTraceCompression$outboundSchema: z.ZodType<
   InputOffice365MsgTraceCompression,
@@ -484,25 +477,12 @@ export const InputOffice365MsgTraceCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365MsgTraceCompression$ {
-  /** @deprecated use `InputOffice365MsgTraceCompression$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365MsgTraceCompression$inboundSchema;
-  /** @deprecated use `InputOffice365MsgTraceCompression$outboundSchema` instead. */
-  export const outboundSchema =
-    InputOffice365MsgTraceCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputOffice365MsgTracePqControls$inboundSchema: z.ZodType<
   InputOffice365MsgTracePqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputOffice365MsgTracePqControls$Outbound = {};
 
@@ -513,19 +493,6 @@ export const InputOffice365MsgTracePqControls$outboundSchema: z.ZodType<
   InputOffice365MsgTracePqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365MsgTracePqControls$ {
-  /** @deprecated use `InputOffice365MsgTracePqControls$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365MsgTracePqControls$inboundSchema;
-  /** @deprecated use `InputOffice365MsgTracePqControls$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365MsgTracePqControls$outboundSchema;
-  /** @deprecated use `InputOffice365MsgTracePqControls$Outbound` instead. */
-  export type Outbound = InputOffice365MsgTracePqControls$Outbound;
-}
-
 export function inputOffice365MsgTracePqControlsToJSON(
   inputOffice365MsgTracePqControls: InputOffice365MsgTracePqControls,
 ): string {
@@ -535,7 +502,6 @@ export function inputOffice365MsgTracePqControlsToJSON(
     ),
   );
 }
-
 export function inputOffice365MsgTracePqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputOffice365MsgTracePqControls, SDKValidationError> {
@@ -562,7 +528,6 @@ export const InputOffice365MsgTracePq$inboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputOffice365MsgTracePqControls$inboundSchema)
     .optional(),
 });
-
 /** @internal */
 export type InputOffice365MsgTracePq$Outbound = {
   mode: string;
@@ -592,19 +557,6 @@ export const InputOffice365MsgTracePq$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365MsgTracePq$ {
-  /** @deprecated use `InputOffice365MsgTracePq$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365MsgTracePq$inboundSchema;
-  /** @deprecated use `InputOffice365MsgTracePq$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365MsgTracePq$outboundSchema;
-  /** @deprecated use `InputOffice365MsgTracePq$Outbound` instead. */
-  export type Outbound = InputOffice365MsgTracePq$Outbound;
-}
-
 export function inputOffice365MsgTracePqToJSON(
   inputOffice365MsgTracePq: InputOffice365MsgTracePq,
 ): string {
@@ -612,7 +564,6 @@ export function inputOffice365MsgTracePqToJSON(
     InputOffice365MsgTracePq$outboundSchema.parse(inputOffice365MsgTracePq),
   );
 }
-
 export function inputOffice365MsgTracePqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputOffice365MsgTracePq, SDKValidationError> {
@@ -631,7 +582,6 @@ export const InputOffice365MsgTraceAuthenticationMethod$inboundSchema:
         z.nativeEnum(InputOffice365MsgTraceAuthenticationMethod),
         z.string().transform(catchUnrecognizedEnum),
       ]);
-
 /** @internal */
 export const InputOffice365MsgTraceAuthenticationMethod$outboundSchema:
   z.ZodType<
@@ -643,19 +593,6 @@ export const InputOffice365MsgTraceAuthenticationMethod$outboundSchema:
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365MsgTraceAuthenticationMethod$ {
-  /** @deprecated use `InputOffice365MsgTraceAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    InputOffice365MsgTraceAuthenticationMethod$inboundSchema;
-  /** @deprecated use `InputOffice365MsgTraceAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    InputOffice365MsgTraceAuthenticationMethod$outboundSchema;
-}
-
 /** @internal */
 export const InputOffice365MsgTraceLogLevel$inboundSchema: z.ZodType<
   InputOffice365MsgTraceLogLevel,
@@ -666,7 +603,6 @@ export const InputOffice365MsgTraceLogLevel$inboundSchema: z.ZodType<
     z.nativeEnum(InputOffice365MsgTraceLogLevel),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputOffice365MsgTraceLogLevel$outboundSchema: z.ZodType<
   InputOffice365MsgTraceLogLevel,
@@ -677,17 +613,6 @@ export const InputOffice365MsgTraceLogLevel$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365MsgTraceLogLevel$ {
-  /** @deprecated use `InputOffice365MsgTraceLogLevel$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365MsgTraceLogLevel$inboundSchema;
-  /** @deprecated use `InputOffice365MsgTraceLogLevel$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365MsgTraceLogLevel$outboundSchema;
-}
-
 /** @internal */
 export const InputOffice365MsgTraceMetadatum$inboundSchema: z.ZodType<
   InputOffice365MsgTraceMetadatum,
@@ -697,7 +622,6 @@ export const InputOffice365MsgTraceMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputOffice365MsgTraceMetadatum$Outbound = {
   name: string;
@@ -714,19 +638,6 @@ export const InputOffice365MsgTraceMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365MsgTraceMetadatum$ {
-  /** @deprecated use `InputOffice365MsgTraceMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365MsgTraceMetadatum$inboundSchema;
-  /** @deprecated use `InputOffice365MsgTraceMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365MsgTraceMetadatum$outboundSchema;
-  /** @deprecated use `InputOffice365MsgTraceMetadatum$Outbound` instead. */
-  export type Outbound = InputOffice365MsgTraceMetadatum$Outbound;
-}
-
 export function inputOffice365MsgTraceMetadatumToJSON(
   inputOffice365MsgTraceMetadatum: InputOffice365MsgTraceMetadatum,
 ): string {
@@ -736,7 +647,6 @@ export function inputOffice365MsgTraceMetadatumToJSON(
     ),
   );
 }
-
 export function inputOffice365MsgTraceMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputOffice365MsgTraceMetadatum, SDKValidationError> {
@@ -757,7 +667,6 @@ export const InputOffice365MsgTraceRetryType$inboundSchema: z.ZodType<
     z.nativeEnum(InputOffice365MsgTraceRetryType),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputOffice365MsgTraceRetryType$outboundSchema: z.ZodType<
   InputOffice365MsgTraceRetryType,
@@ -767,17 +676,6 @@ export const InputOffice365MsgTraceRetryType$outboundSchema: z.ZodType<
   z.nativeEnum(InputOffice365MsgTraceRetryType),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365MsgTraceRetryType$ {
-  /** @deprecated use `InputOffice365MsgTraceRetryType$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365MsgTraceRetryType$inboundSchema;
-  /** @deprecated use `InputOffice365MsgTraceRetryType$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365MsgTraceRetryType$outboundSchema;
-}
 
 /** @internal */
 export const InputOffice365MsgTraceRetryRules$inboundSchema: z.ZodType<
@@ -794,7 +692,6 @@ export const InputOffice365MsgTraceRetryRules$inboundSchema: z.ZodType<
   retryConnectTimeout: z.boolean().default(false),
   retryConnectReset: z.boolean().default(false),
 });
-
 /** @internal */
 export type InputOffice365MsgTraceRetryRules$Outbound = {
   type: string;
@@ -823,19 +720,6 @@ export const InputOffice365MsgTraceRetryRules$outboundSchema: z.ZodType<
   retryConnectReset: z.boolean().default(false),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365MsgTraceRetryRules$ {
-  /** @deprecated use `InputOffice365MsgTraceRetryRules$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365MsgTraceRetryRules$inboundSchema;
-  /** @deprecated use `InputOffice365MsgTraceRetryRules$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365MsgTraceRetryRules$outboundSchema;
-  /** @deprecated use `InputOffice365MsgTraceRetryRules$Outbound` instead. */
-  export type Outbound = InputOffice365MsgTraceRetryRules$Outbound;
-}
-
 export function inputOffice365MsgTraceRetryRulesToJSON(
   inputOffice365MsgTraceRetryRules: InputOffice365MsgTraceRetryRules,
 ): string {
@@ -845,7 +729,6 @@ export function inputOffice365MsgTraceRetryRulesToJSON(
     ),
   );
 }
-
 export function inputOffice365MsgTraceRetryRulesFromJSON(
   jsonString: string,
 ): SafeParseResult<InputOffice365MsgTraceRetryRules, SDKValidationError> {
@@ -866,7 +749,6 @@ export const InputOffice365MsgTraceSubscriptionPlan$inboundSchema: z.ZodType<
     z.nativeEnum(InputOffice365MsgTraceSubscriptionPlan),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputOffice365MsgTraceSubscriptionPlan$outboundSchema: z.ZodType<
   InputOffice365MsgTraceSubscriptionPlan,
@@ -876,19 +758,6 @@ export const InputOffice365MsgTraceSubscriptionPlan$outboundSchema: z.ZodType<
   z.nativeEnum(InputOffice365MsgTraceSubscriptionPlan),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365MsgTraceSubscriptionPlan$ {
-  /** @deprecated use `InputOffice365MsgTraceSubscriptionPlan$inboundSchema` instead. */
-  export const inboundSchema =
-    InputOffice365MsgTraceSubscriptionPlan$inboundSchema;
-  /** @deprecated use `InputOffice365MsgTraceSubscriptionPlan$outboundSchema` instead. */
-  export const outboundSchema =
-    InputOffice365MsgTraceSubscriptionPlan$outboundSchema;
-}
 
 /** @internal */
 export const CertOptions$inboundSchema: z.ZodType<
@@ -901,7 +770,6 @@ export const CertOptions$inboundSchema: z.ZodType<
   passphrase: z.string().optional(),
   certPath: z.string(),
 });
-
 /** @internal */
 export type CertOptions$Outbound = {
   certificateName?: string | undefined;
@@ -922,23 +790,9 @@ export const CertOptions$outboundSchema: z.ZodType<
   certPath: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CertOptions$ {
-  /** @deprecated use `CertOptions$inboundSchema` instead. */
-  export const inboundSchema = CertOptions$inboundSchema;
-  /** @deprecated use `CertOptions$outboundSchema` instead. */
-  export const outboundSchema = CertOptions$outboundSchema;
-  /** @deprecated use `CertOptions$Outbound` instead. */
-  export type Outbound = CertOptions$Outbound;
-}
-
 export function certOptionsToJSON(certOptions: CertOptions): string {
   return JSON.stringify(CertOptions$outboundSchema.parse(certOptions));
 }
-
 export function certOptionsFromJSON(
   jsonString: string,
 ): SafeParseResult<CertOptions, SDKValidationError> {
@@ -1004,7 +858,6 @@ export const InputOffice365MsgTrace$inboundSchema: z.ZodType<
   textSecret: z.string().optional(),
   certOptions: z.lazy(() => CertOptions$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputOffice365MsgTrace$Outbound = {
   id?: string | undefined;
@@ -1104,19 +957,6 @@ export const InputOffice365MsgTrace$outboundSchema: z.ZodType<
   certOptions: z.lazy(() => CertOptions$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputOffice365MsgTrace$ {
-  /** @deprecated use `InputOffice365MsgTrace$inboundSchema` instead. */
-  export const inboundSchema = InputOffice365MsgTrace$inboundSchema;
-  /** @deprecated use `InputOffice365MsgTrace$outboundSchema` instead. */
-  export const outboundSchema = InputOffice365MsgTrace$outboundSchema;
-  /** @deprecated use `InputOffice365MsgTrace$Outbound` instead. */
-  export type Outbound = InputOffice365MsgTrace$Outbound;
-}
-
 export function inputOffice365MsgTraceToJSON(
   inputOffice365MsgTrace: InputOffice365MsgTrace,
 ): string {
@@ -1124,7 +964,6 @@ export function inputOffice365MsgTraceToJSON(
     InputOffice365MsgTrace$outboundSchema.parse(inputOffice365MsgTrace),
   );
 }
-
 export function inputOffice365MsgTraceFromJSON(
   jsonString: string,
 ): SafeParseResult<InputOffice365MsgTrace, SDKValidationError> {

@@ -3,28 +3,13 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { OpenEnum, Unrecognized } from "../types/enums.js";
 
 export const WorkerTypes = {
   Worker: "worker",
   ManagedEdge: "managed-edge",
 } as const;
 export type WorkerTypes = OpenEnum<typeof WorkerTypes>;
-
-/** @internal */
-export const WorkerTypes$inboundSchema: z.ZodType<
-  WorkerTypes,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(WorkerTypes),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
 
 /** @internal */
 export const WorkerTypes$outboundSchema: z.ZodType<
@@ -35,14 +20,3 @@ export const WorkerTypes$outboundSchema: z.ZodType<
   z.nativeEnum(WorkerTypes),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace WorkerTypes$ {
-  /** @deprecated use `WorkerTypes$inboundSchema` instead. */
-  export const inboundSchema = WorkerTypes$inboundSchema;
-  /** @deprecated use `WorkerTypes$outboundSchema` instead. */
-  export const outboundSchema = WorkerTypes$outboundSchema;
-}

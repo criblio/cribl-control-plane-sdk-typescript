@@ -4,9 +4,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type UpdatePacksByIdRequest = {
@@ -19,31 +16,6 @@ export type UpdatePacksByIdRequest = {
    */
   packUpgradeRequest: models.PackUpgradeRequest;
 };
-
-/**
- * a list of PackInfo objects
- */
-export type UpdatePacksByIdResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.PackInfo> | undefined;
-};
-
-/** @internal */
-export const UpdatePacksByIdRequest$inboundSchema: z.ZodType<
-  UpdatePacksByIdRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.string(),
-  PackUpgradeRequest: models.PackUpgradeRequest$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "PackUpgradeRequest": "packUpgradeRequest",
-  });
-});
 
 /** @internal */
 export type UpdatePacksByIdRequest$Outbound = {
@@ -65,90 +37,10 @@ export const UpdatePacksByIdRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdatePacksByIdRequest$ {
-  /** @deprecated use `UpdatePacksByIdRequest$inboundSchema` instead. */
-  export const inboundSchema = UpdatePacksByIdRequest$inboundSchema;
-  /** @deprecated use `UpdatePacksByIdRequest$outboundSchema` instead. */
-  export const outboundSchema = UpdatePacksByIdRequest$outboundSchema;
-  /** @deprecated use `UpdatePacksByIdRequest$Outbound` instead. */
-  export type Outbound = UpdatePacksByIdRequest$Outbound;
-}
-
 export function updatePacksByIdRequestToJSON(
   updatePacksByIdRequest: UpdatePacksByIdRequest,
 ): string {
   return JSON.stringify(
     UpdatePacksByIdRequest$outboundSchema.parse(updatePacksByIdRequest),
-  );
-}
-
-export function updatePacksByIdRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdatePacksByIdRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UpdatePacksByIdRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdatePacksByIdRequest' from JSON`,
-  );
-}
-
-/** @internal */
-export const UpdatePacksByIdResponse$inboundSchema: z.ZodType<
-  UpdatePacksByIdResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.PackInfo$inboundSchema).optional(),
-});
-
-/** @internal */
-export type UpdatePacksByIdResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.PackInfo$Outbound> | undefined;
-};
-
-/** @internal */
-export const UpdatePacksByIdResponse$outboundSchema: z.ZodType<
-  UpdatePacksByIdResponse$Outbound,
-  z.ZodTypeDef,
-  UpdatePacksByIdResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.PackInfo$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdatePacksByIdResponse$ {
-  /** @deprecated use `UpdatePacksByIdResponse$inboundSchema` instead. */
-  export const inboundSchema = UpdatePacksByIdResponse$inboundSchema;
-  /** @deprecated use `UpdatePacksByIdResponse$outboundSchema` instead. */
-  export const outboundSchema = UpdatePacksByIdResponse$outboundSchema;
-  /** @deprecated use `UpdatePacksByIdResponse$Outbound` instead. */
-  export type Outbound = UpdatePacksByIdResponse$Outbound;
-}
-
-export function updatePacksByIdResponseToJSON(
-  updatePacksByIdResponse: UpdatePacksByIdResponse,
-): string {
-  return JSON.stringify(
-    UpdatePacksByIdResponse$outboundSchema.parse(updatePacksByIdResponse),
-  );
-}
-
-export function updatePacksByIdResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdatePacksByIdResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UpdatePacksByIdResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdatePacksByIdResponse' from JSON`,
   );
 }
