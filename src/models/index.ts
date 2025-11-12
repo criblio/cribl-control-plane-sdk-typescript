@@ -42,6 +42,7 @@ export * from "./heartbeatmetadata.js";
 export * from "./input.js";
 export * from "./inputappscope.js";
 export * from "./inputazureblob.js";
+export * from "./inputcloudflarehec.js";
 export * from "./inputcollection.js";
 export * from "./inputconfluentcloud.js";
 export * from "./inputcribl.js";

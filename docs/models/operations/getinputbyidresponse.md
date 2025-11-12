@@ -12,7 +12,7 @@ let value: GetInputByIdResponse = {
   items: [
     {
       id: "<id>",
-      type: "raw_udp",
+      type: "journal_files",
       disabled: false,
       pipeline: "<value>",
       sendToRoutes: true,
@@ -39,20 +39,27 @@ let value: GetInputByIdResponse = {
         compress: "none",
         pqControls: {},
       },
-      host: "0.0.0.0",
-      port: 7967.25,
-      maxBufferSize: 1000,
-      ipWhitelistRegex: "/.*/",
-      singleMsgUdpPackets: false,
-      ingestRawBytes: false,
-      udpSocketRxBufSize: 5580.42,
+      path: "/usr/local/bin",
+      interval: 10,
+      journals: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      rules: [
+        {
+          filter: "<value>",
+          description: "knowingly about scarily leading stealthily strict",
+        },
+      ],
+      currentBoot: false,
+      maxAgeDur: "<value>",
       metadata: [
         {
           name: "<value>",
           value: "<value>",
         },
       ],
-      description: "knowingly about scarily leading stealthily strict",
+      description: "unlike hmph to alongside",
     },
   ],
 };
