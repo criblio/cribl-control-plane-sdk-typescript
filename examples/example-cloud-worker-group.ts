@@ -68,13 +68,13 @@ async function main() {
   }
 
   // Create the Worker Group
-  await cribl.groups.create({ product: "stream", configGroup: group });
+  await cribl.groups.create({ product: "stream", groupCreateRequest: group });
   console.log(`✅ Worker Group created: ${group.id}`);
 
   // Scale and provision the Worker Group
   group.estimatedIngestRate = 4096; // Equivalent to 48 MB/s maximum estimated ingest rate with 21 Worker Processes
   group.provisioned = true;
-  await cribl.groups.update({ product: "stream", id: group.id, configGroup: group });
+  await cribl.groups.update({ product: "stream", id: group.id, groupCreateRequest: group });
   console.log(`✅ Worker Group scaled and provisioned: ${group.id}`);
 }
 

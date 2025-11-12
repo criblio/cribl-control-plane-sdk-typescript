@@ -29,10 +29,14 @@ const BASE_URL: string = `${ONPREM_SERVER_URL}/api/v1`;
 async function main() {
   // Retrieve Bearer token for authentication
   let client = new CriblControlPlane({ serverURL: BASE_URL });
-  const { token } = await client.auth.tokens.get({
+  const response = await client.auth.tokens.get({
     username: ONPREM_USERNAME,
     password: ONPREM_PASSWORD,
   });
+  const token = response.result?.token;
+  if (!token) {
+    throw new Error('No token received from authentication endpoint');
+  }
   console.log(`✅ Authenticated with on-prem server. Token: ${token}`);
 
   // Create authenticated SDK client
