@@ -1520,8 +1520,8 @@ const value: models.InputCriblLakeHttp = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1.3",
-    maxVersion: "TLSv1.3",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1",
   },
   metadata: [
     {
@@ -1532,8 +1532,7 @@ const value: models.InputCriblLakeHttp = {
   authTokensExt: [
     {
       token: "<value>",
-      description:
-        "even athwart after lively creator apud hold pish whenever woot",
+      description: "swear aw angrily yearningly ferociously vet trusting yum",
       metadata: [
         {
           name: "<value>",
@@ -1544,12 +1543,12 @@ const value: models.InputCriblLakeHttp = {
         enabled: true,
       },
       elasticsearchMetadata: {
-        enabled: true,
+        enabled: false,
       },
     },
   ],
   description:
-    "after whoever castanet gosh bludgeon fabricate gee incidentally",
+    "deceivingly unwilling boohoo guest obnoxiously forenenst blossom satirise before",
 };
 ```
 
@@ -1580,7 +1579,7 @@ const value: models.InputTcpjson = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1.3",
+    minVersion: "TLSv1",
     maxVersion: "TLSv1.3",
   },
   metadata: [
@@ -1589,7 +1588,8 @@ const value: models.InputTcpjson = {
       value: "<value>",
     },
   ],
-  description: "woot er likewise unlike ravioli whenever",
+  description:
+    "march eek flickering oh although debut needily reluctantly what",
   textSecret: "<value>",
 };
 ```
@@ -1629,16 +1629,13 @@ const value: models.InputSystemMetrics = {
         devices: [
           "<value 1>",
           "<value 2>",
-          "<value 3>",
         ],
         mountpoints: [
           "<value 1>",
-          "<value 2>",
         ],
         fstypes: [
           "<value 1>",
           "<value 2>",
-          "<value 3>",
         ],
       },
     },
@@ -1654,6 +1651,7 @@ const value: models.InputSystemMetrics = {
   container: {
     dockerSocket: [
       "<value 1>",
+      "<value 2>",
     ],
     filters: [
       {
@@ -1668,7 +1666,8 @@ const value: models.InputSystemMetrics = {
     },
   ],
   persistence: {},
-  description: "but greatly see thyme",
+  description:
+    "per airbus supposing joint while apropos powerfully that instantly",
 };
 ```
 
@@ -2663,8 +2662,8 @@ const value: models.InputTcp = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1.3",
-    maxVersion: "TLSv1.2",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1.1",
   },
   metadata: [
     {
@@ -2674,17 +2673,15 @@ const value: models.InputTcp = {
   ],
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
   ],
   preprocess: {
     command: "<value>",
     args: [
       "<value 1>",
       "<value 2>",
-      "<value 3>",
     ],
   },
-  description: "license abseil zowie er insignificant",
+  description: "cheerful daily knowledgeably likewise everlasting",
   textSecret: "<value>",
 };
 ```
@@ -2726,19 +2723,19 @@ const value: models.InputAppscope = {
         config: "<value>",
       },
     ],
-    transportURL: "https://lawful-impact.net",
+    transportURL: "https://muted-disadvantage.org",
   },
   persistence: {},
-  description: "inspection adventurously gnash if scheme ew wrongly",
-  host: "twin-reporter.name",
-  port: 3370.32,
+  description: "extroverted wombat what zowie sup wafer velocity",
+  host: "creative-shark.biz",
+  port: 9808.35,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1.2",
+    minVersion: "TLSv1.1",
     maxVersion: "TLSv1.3",
   },
   unixSocketPerms: "<value>",
@@ -2904,7 +2901,7 @@ const value: models.InputJournalFiles = {
   rules: [
     {
       filter: "<value>",
-      description: "yahoo uh-huh dirty behind manner",
+      description: "knowingly about scarily leading stealthily strict",
     },
   ],
   maxAgeDur: "<value>",
@@ -2914,7 +2911,7 @@ const value: models.InputJournalFiles = {
       value: "<value>",
     },
   ],
-  description: "honored given shoulder why cheerful",
+  description: "yahoo uh-huh dirty behind manner",
 };
 ```
 
@@ -2950,13 +2947,12 @@ const value: models.InputWiz = {
   ],
   retryRules: {
     codes: [
-      718.38,
-      8167.55,
-      3424.31,
+      5668.03,
+      2663.29,
+      2735.91,
     ],
   },
-  description:
-    "masquerade overcook thump pro towards rawhide aha forearm irritably",
+  description: "psst parsnip schlep cluttered off next",
   clientSecret: "<value>",
   textSecret: "<value>",
 };
@@ -3197,6 +3193,82 @@ const value: models.InputZscalerHec = {
     "<value 3>",
   ],
   description: "about what gallivant",
+};
+```
+
+### `models.InputCloudflareHec`
+
+```typescript
+const value: models.InputCloudflareHec = {
+  id: "<id>",
+  type: "cloudflare_hec",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  port: 7356,
+  authTokens: [
+    {
+      tokenSecret: "<value>",
+      token: "<value>",
+      description: "mobilise vamoose woot",
+      allowedIndexesAtToken: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+    },
+  ],
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1.3",
+    maxVersion: "TLSv1.2",
+  },
+  enableHealthCheck: "<value>",
+  hecAPI: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  allowedIndexes: [
+    "<value 1>",
+  ],
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  accessControlAllowOrigin: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  accessControlAllowHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  description: "cumbersome unwritten while unless right",
 };
 ```
 

@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 2f5b0a1265542f011b402843a2915f05
-  docVersion: 4.15.0-alpha.1762815739257-9cd5f1d2
+  docChecksum: 3e0c32da3b87b8e8cf1a62964deadd89
+  docVersion: 4.15.0-alpha.1762902161749-ab8de3f0
   speakeasyVersion: 1.650.0
   generationVersion: 2.743.2
-  releaseVersion: 0.3.0-alpha.4
-  configChecksum: 8de9a3baef22552c3ef615ec6e111a7f
+  releaseVersion: 0.3.0-alpha.5
+  configChecksum: 79d0d3b169f85922c63ccb2def3a1a3f
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -182,6 +182,20 @@ generatedFiles:
   - docs/models/inputazureblobpq.md
   - docs/models/inputazureblobpqcontrols.md
   - docs/models/inputazureblobtype.md
+  - docs/models/inputcloudflarehec.md
+  - docs/models/inputcloudflarehecauthenticationmethod.md
+  - docs/models/inputcloudflarehecauthtoken.md
+  - docs/models/inputcloudflarehecauthtokenmetadatum.md
+  - docs/models/inputcloudflareheccompression.md
+  - docs/models/inputcloudflarehecconnection.md
+  - docs/models/inputcloudflarehecmaximumtlsversion.md
+  - docs/models/inputcloudflarehecmetadatum.md
+  - docs/models/inputcloudflarehecminimumtlsversion.md
+  - docs/models/inputcloudflarehecmode.md
+  - docs/models/inputcloudflarehecpq.md
+  - docs/models/inputcloudflarehecpqcontrols.md
+  - docs/models/inputcloudflarehectlssettingsserverside.md
+  - docs/models/inputcloudflarehectype.md
   - docs/models/inputcollection.md
   - docs/models/inputcollectioncompression.md
   - docs/models/inputcollectionconnection.md
@@ -2211,6 +2225,7 @@ generatedFiles:
   - src/models/input.ts
   - src/models/inputappscope.ts
   - src/models/inputazureblob.ts
+  - src/models/inputcloudflarehec.ts
   - src/models/inputcollection.ts
   - src/models/inputconfluentcloud.ts
   - src/models/inputcribl.ts
@@ -3533,4 +3548,4 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes Detected:\n* `criblcontrolplane.destinations.list()`:  `response.items.[].[chronicle].customLabels.[].rbacEnabled` **Added**\n* `criblcontrolplane.destinations.create()`: \n  *  `request.[chronicle].customLabels.[].rbacEnabled` **Added**\n  *  `response.items.[].[chronicle].customLabels.[].rbacEnabled` **Added**\n* `criblcontrolplane.destinations.get()`:  `response.items.[].[chronicle].customLabels.[].rbacEnabled` **Added**\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output.[chronicle].customLabels.[].rbacEnabled` **Added**\n  *  `response.items.[].[chronicle].customLabels.[].rbacEnabled` **Added**\n* `criblcontrolplane.destinations.delete()`:  `response.items.[].[chronicle].customLabels.[].rbacEnabled` **Added**\n"
+releaseNotes: "## Typescript SDK Changes Detected:\n* `criblcontrolplane.sources.list()`:  `response.items.[].[cloudflareHec]` **Added**\n* `criblcontrolplane.sources.create()`: \n  *  `request.[cloudflareHec]` **Added**\n  *  `response.items.[].[cloudflareHec]` **Added**\n* `criblcontrolplane.sources.get()`:  `response.items.[].[cloudflareHec]` **Added**\n* `criblcontrolplane.sources.update()`: \n  *  `request.input.[cloudflareHec]` **Added**\n  *  `response.items.[].[cloudflareHec]` **Added**\n* `criblcontrolplane.sources.delete()`:  `response.items.[].[cloudflareHec]` **Added**\n"
