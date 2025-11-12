@@ -41,8 +41,17 @@ export type OutputWavefrontExtraHttpHeader = {
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
 export const OutputWavefrontFailedRequestLoggingMode = {
+  /**
+   * Payload
+   */
   Payload: "payload",
+  /**
+   * Payload + Headers
+   */
   PayloadAndHeaders: "payloadAndHeaders",
+  /**
+   * None
+   */
   None: "none",
 } as const;
 /**
@@ -91,8 +100,17 @@ export type OutputWavefrontTimeoutRetrySettings = {
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputWavefrontBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -103,10 +121,38 @@ export type OutputWavefrontBackpressureBehavior = OpenEnum<
 >;
 
 /**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputWavefrontMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputWavefrontMode = OpenEnum<typeof OutputWavefrontMode>;
+
+/**
  * Codec to use to compress the persisted data
  */
 export const OutputWavefrontCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -120,7 +166,13 @@ export type OutputWavefrontCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputWavefrontQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -129,19 +181,6 @@ export const OutputWavefrontQueueFullBehavior = {
 export type OutputWavefrontQueueFullBehavior = OpenEnum<
   typeof OutputWavefrontQueueFullBehavior
 >;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputWavefrontMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputWavefrontMode = OpenEnum<typeof OutputWavefrontMode>;
 
 export type OutputWavefrontPqControls = {};
 
@@ -250,6 +289,26 @@ export type OutputWavefront = {
    */
   textSecret?: string | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputWavefrontMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -269,10 +328,6 @@ export type OutputWavefront = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputWavefrontQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputWavefrontMode | undefined;
   pqControls?: OutputWavefrontPqControls | undefined;
 };
 
@@ -280,22 +335,10 @@ export type OutputWavefront = {
 export const OutputWavefrontType$inboundSchema: z.ZodNativeEnum<
   typeof OutputWavefrontType
 > = z.nativeEnum(OutputWavefrontType);
-
 /** @internal */
 export const OutputWavefrontType$outboundSchema: z.ZodNativeEnum<
   typeof OutputWavefrontType
 > = OutputWavefrontType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefrontType$ {
-  /** @deprecated use `OutputWavefrontType$inboundSchema` instead. */
-  export const inboundSchema = OutputWavefrontType$inboundSchema;
-  /** @deprecated use `OutputWavefrontType$outboundSchema` instead. */
-  export const outboundSchema = OutputWavefrontType$outboundSchema;
-}
 
 /** @internal */
 export const OutputWavefrontAuthenticationMethod$inboundSchema: z.ZodType<
@@ -307,7 +350,6 @@ export const OutputWavefrontAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(OutputWavefrontAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputWavefrontAuthenticationMethod$outboundSchema: z.ZodType<
   OutputWavefrontAuthenticationMethod,
@@ -318,19 +360,6 @@ export const OutputWavefrontAuthenticationMethod$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefrontAuthenticationMethod$ {
-  /** @deprecated use `OutputWavefrontAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputWavefrontAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputWavefrontAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputWavefrontAuthenticationMethod$outboundSchema;
-}
-
 /** @internal */
 export const OutputWavefrontExtraHttpHeader$inboundSchema: z.ZodType<
   OutputWavefrontExtraHttpHeader,
@@ -340,7 +369,6 @@ export const OutputWavefrontExtraHttpHeader$inboundSchema: z.ZodType<
   name: z.string().optional(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputWavefrontExtraHttpHeader$Outbound = {
   name?: string | undefined;
@@ -357,19 +385,6 @@ export const OutputWavefrontExtraHttpHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefrontExtraHttpHeader$ {
-  /** @deprecated use `OutputWavefrontExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputWavefrontExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputWavefrontExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputWavefrontExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputWavefrontExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputWavefrontExtraHttpHeader$Outbound;
-}
-
 export function outputWavefrontExtraHttpHeaderToJSON(
   outputWavefrontExtraHttpHeader: OutputWavefrontExtraHttpHeader,
 ): string {
@@ -379,7 +394,6 @@ export function outputWavefrontExtraHttpHeaderToJSON(
     ),
   );
 }
-
 export function outputWavefrontExtraHttpHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputWavefrontExtraHttpHeader, SDKValidationError> {
@@ -400,7 +414,6 @@ export const OutputWavefrontFailedRequestLoggingMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputWavefrontFailedRequestLoggingMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputWavefrontFailedRequestLoggingMode$outboundSchema: z.ZodType<
   OutputWavefrontFailedRequestLoggingMode,
@@ -410,19 +423,6 @@ export const OutputWavefrontFailedRequestLoggingMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputWavefrontFailedRequestLoggingMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefrontFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputWavefrontFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputWavefrontFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputWavefrontFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputWavefrontFailedRequestLoggingMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputWavefrontResponseRetrySetting$inboundSchema: z.ZodType<
@@ -435,7 +435,6 @@ export const OutputWavefrontResponseRetrySetting$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputWavefrontResponseRetrySetting$Outbound = {
   httpStatus: number;
@@ -456,21 +455,6 @@ export const OutputWavefrontResponseRetrySetting$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefrontResponseRetrySetting$ {
-  /** @deprecated use `OutputWavefrontResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputWavefrontResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputWavefrontResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputWavefrontResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputWavefrontResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputWavefrontResponseRetrySetting$Outbound;
-}
-
 export function outputWavefrontResponseRetrySettingToJSON(
   outputWavefrontResponseRetrySetting: OutputWavefrontResponseRetrySetting,
 ): string {
@@ -480,7 +464,6 @@ export function outputWavefrontResponseRetrySettingToJSON(
     ),
   );
 }
-
 export function outputWavefrontResponseRetrySettingFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputWavefrontResponseRetrySetting, SDKValidationError> {
@@ -503,7 +486,6 @@ export const OutputWavefrontTimeoutRetrySettings$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputWavefrontTimeoutRetrySettings$Outbound = {
   timeoutRetry: boolean;
@@ -524,21 +506,6 @@ export const OutputWavefrontTimeoutRetrySettings$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefrontTimeoutRetrySettings$ {
-  /** @deprecated use `OutputWavefrontTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputWavefrontTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputWavefrontTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputWavefrontTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputWavefrontTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputWavefrontTimeoutRetrySettings$Outbound;
-}
-
 export function outputWavefrontTimeoutRetrySettingsToJSON(
   outputWavefrontTimeoutRetrySettings: OutputWavefrontTimeoutRetrySettings,
 ): string {
@@ -548,7 +515,6 @@ export function outputWavefrontTimeoutRetrySettingsToJSON(
     ),
   );
 }
-
 export function outputWavefrontTimeoutRetrySettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputWavefrontTimeoutRetrySettings, SDKValidationError> {
@@ -570,7 +536,6 @@ export const OutputWavefrontBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputWavefrontBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputWavefrontBackpressureBehavior$outboundSchema: z.ZodType<
   OutputWavefrontBackpressureBehavior,
@@ -580,83 +545,6 @@ export const OutputWavefrontBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputWavefrontBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefrontBackpressureBehavior$ {
-  /** @deprecated use `OutputWavefrontBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputWavefrontBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputWavefrontBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputWavefrontBackpressureBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputWavefrontCompression$inboundSchema: z.ZodType<
-  OutputWavefrontCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputWavefrontCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputWavefrontCompression$outboundSchema: z.ZodType<
-  OutputWavefrontCompression,
-  z.ZodTypeDef,
-  OutputWavefrontCompression
-> = z.union([
-  z.nativeEnum(OutputWavefrontCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefrontCompression$ {
-  /** @deprecated use `OutputWavefrontCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputWavefrontCompression$inboundSchema;
-  /** @deprecated use `OutputWavefrontCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputWavefrontCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputWavefrontQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputWavefrontQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputWavefrontQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputWavefrontQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputWavefrontQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputWavefrontQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputWavefrontQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefrontQueueFullBehavior$ {
-  /** @deprecated use `OutputWavefrontQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputWavefrontQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputWavefrontQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputWavefrontQueueFullBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputWavefrontMode$inboundSchema: z.ZodType<
@@ -668,7 +556,6 @@ export const OutputWavefrontMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputWavefrontMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputWavefrontMode$outboundSchema: z.ZodType<
   OutputWavefrontMode,
@@ -679,16 +566,45 @@ export const OutputWavefrontMode$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefrontMode$ {
-  /** @deprecated use `OutputWavefrontMode$inboundSchema` instead. */
-  export const inboundSchema = OutputWavefrontMode$inboundSchema;
-  /** @deprecated use `OutputWavefrontMode$outboundSchema` instead. */
-  export const outboundSchema = OutputWavefrontMode$outboundSchema;
-}
+/** @internal */
+export const OutputWavefrontCompression$inboundSchema: z.ZodType<
+  OutputWavefrontCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputWavefrontCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputWavefrontCompression$outboundSchema: z.ZodType<
+  OutputWavefrontCompression,
+  z.ZodTypeDef,
+  OutputWavefrontCompression
+> = z.union([
+  z.nativeEnum(OutputWavefrontCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputWavefrontQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputWavefrontQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputWavefrontQueueFullBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputWavefrontQueueFullBehavior$outboundSchema: z.ZodType<
+  OutputWavefrontQueueFullBehavior,
+  z.ZodTypeDef,
+  OutputWavefrontQueueFullBehavior
+> = z.union([
+  z.nativeEnum(OutputWavefrontQueueFullBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /** @internal */
 export const OutputWavefrontPqControls$inboundSchema: z.ZodType<
@@ -696,7 +612,6 @@ export const OutputWavefrontPqControls$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputWavefrontPqControls$Outbound = {};
 
@@ -707,19 +622,6 @@ export const OutputWavefrontPqControls$outboundSchema: z.ZodType<
   OutputWavefrontPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefrontPqControls$ {
-  /** @deprecated use `OutputWavefrontPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputWavefrontPqControls$inboundSchema;
-  /** @deprecated use `OutputWavefrontPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputWavefrontPqControls$outboundSchema;
-  /** @deprecated use `OutputWavefrontPqControls$Outbound` instead. */
-  export type Outbound = OutputWavefrontPqControls$Outbound;
-}
-
 export function outputWavefrontPqControlsToJSON(
   outputWavefrontPqControls: OutputWavefrontPqControls,
 ): string {
@@ -727,7 +629,6 @@ export function outputWavefrontPqControlsToJSON(
     OutputWavefrontPqControls$outboundSchema.parse(outputWavefrontPqControls),
   );
 }
-
 export function outputWavefrontPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputWavefrontPqControls, SDKValidationError> {
@@ -779,6 +680,11 @@ export const OutputWavefront$inboundSchema: z.ZodType<
   description: z.string().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputWavefrontMode$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -786,10 +692,8 @@ export const OutputWavefront$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputWavefrontQueueFullBehavior$inboundSchema.default(
     "block",
   ),
-  pqMode: OutputWavefrontMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputWavefrontPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type OutputWavefront$Outbound = {
   id?: string | undefined;
@@ -822,12 +726,16 @@ export type OutputWavefront$Outbound = {
   description?: string | undefined;
   token?: string | undefined;
   textSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
   pqControls?: OutputWavefrontPqControls$Outbound | undefined;
 };
 
@@ -874,6 +782,11 @@ export const OutputWavefront$outboundSchema: z.ZodType<
   description: z.string().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputWavefrontMode$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -881,29 +794,14 @@ export const OutputWavefront$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputWavefrontQueueFullBehavior$outboundSchema.default(
     "block",
   ),
-  pqMode: OutputWavefrontMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputWavefrontPqControls$outboundSchema).optional(),
 });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWavefront$ {
-  /** @deprecated use `OutputWavefront$inboundSchema` instead. */
-  export const inboundSchema = OutputWavefront$inboundSchema;
-  /** @deprecated use `OutputWavefront$outboundSchema` instead. */
-  export const outboundSchema = OutputWavefront$outboundSchema;
-  /** @deprecated use `OutputWavefront$Outbound` instead. */
-  export type Outbound = OutputWavefront$Outbound;
-}
 
 export function outputWavefrontToJSON(
   outputWavefront: OutputWavefront,
 ): string {
   return JSON.stringify(OutputWavefront$outboundSchema.parse(outputWavefront));
 }
-
 export function outputWavefrontFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputWavefront, SDKValidationError> {

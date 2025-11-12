@@ -3,10 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
 
 export type GetOutputSamplesByIdRequest = {
   /**
@@ -14,26 +10,6 @@ export type GetOutputSamplesByIdRequest = {
    */
   id: string;
 };
-
-/**
- * a list of OutputSamplesResponse objects
- */
-export type GetOutputSamplesByIdResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.OutputSamplesResponse> | undefined;
-};
-
-/** @internal */
-export const GetOutputSamplesByIdRequest$inboundSchema: z.ZodType<
-  GetOutputSamplesByIdRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.string(),
-});
 
 /** @internal */
 export type GetOutputSamplesByIdRequest$Outbound = {
@@ -49,19 +25,6 @@ export const GetOutputSamplesByIdRequest$outboundSchema: z.ZodType<
   id: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetOutputSamplesByIdRequest$ {
-  /** @deprecated use `GetOutputSamplesByIdRequest$inboundSchema` instead. */
-  export const inboundSchema = GetOutputSamplesByIdRequest$inboundSchema;
-  /** @deprecated use `GetOutputSamplesByIdRequest$outboundSchema` instead. */
-  export const outboundSchema = GetOutputSamplesByIdRequest$outboundSchema;
-  /** @deprecated use `GetOutputSamplesByIdRequest$Outbound` instead. */
-  export type Outbound = GetOutputSamplesByIdRequest$Outbound;
-}
-
 export function getOutputSamplesByIdRequestToJSON(
   getOutputSamplesByIdRequest: GetOutputSamplesByIdRequest,
 ): string {
@@ -69,74 +32,5 @@ export function getOutputSamplesByIdRequestToJSON(
     GetOutputSamplesByIdRequest$outboundSchema.parse(
       getOutputSamplesByIdRequest,
     ),
-  );
-}
-
-export function getOutputSamplesByIdRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetOutputSamplesByIdRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetOutputSamplesByIdRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetOutputSamplesByIdRequest' from JSON`,
-  );
-}
-
-/** @internal */
-export const GetOutputSamplesByIdResponse$inboundSchema: z.ZodType<
-  GetOutputSamplesByIdResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.OutputSamplesResponse$inboundSchema).optional(),
-});
-
-/** @internal */
-export type GetOutputSamplesByIdResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.OutputSamplesResponse$Outbound> | undefined;
-};
-
-/** @internal */
-export const GetOutputSamplesByIdResponse$outboundSchema: z.ZodType<
-  GetOutputSamplesByIdResponse$Outbound,
-  z.ZodTypeDef,
-  GetOutputSamplesByIdResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.OutputSamplesResponse$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetOutputSamplesByIdResponse$ {
-  /** @deprecated use `GetOutputSamplesByIdResponse$inboundSchema` instead. */
-  export const inboundSchema = GetOutputSamplesByIdResponse$inboundSchema;
-  /** @deprecated use `GetOutputSamplesByIdResponse$outboundSchema` instead. */
-  export const outboundSchema = GetOutputSamplesByIdResponse$outboundSchema;
-  /** @deprecated use `GetOutputSamplesByIdResponse$Outbound` instead. */
-  export type Outbound = GetOutputSamplesByIdResponse$Outbound;
-}
-
-export function getOutputSamplesByIdResponseToJSON(
-  getOutputSamplesByIdResponse: GetOutputSamplesByIdResponse,
-): string {
-  return JSON.stringify(
-    GetOutputSamplesByIdResponse$outboundSchema.parse(
-      getOutputSamplesByIdResponse,
-    ),
-  );
-}
-
-export function getOutputSamplesByIdResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<GetOutputSamplesByIdResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetOutputSamplesByIdResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetOutputSamplesByIdResponse' from JSON`,
   );
 }

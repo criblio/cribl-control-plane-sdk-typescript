@@ -3,9 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type CreateVersionUndoRequest = {
   /**
@@ -13,26 +10,6 @@ export type CreateVersionUndoRequest = {
    */
   groupId?: string | undefined;
 };
-
-/**
- * a list of object objects
- */
-export type CreateVersionUndoResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<string> | undefined;
-};
-
-/** @internal */
-export const CreateVersionUndoRequest$inboundSchema: z.ZodType<
-  CreateVersionUndoRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  groupId: z.string().optional(),
-});
 
 /** @internal */
 export type CreateVersionUndoRequest$Outbound = {
@@ -48,90 +25,10 @@ export const CreateVersionUndoRequest$outboundSchema: z.ZodType<
   groupId: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateVersionUndoRequest$ {
-  /** @deprecated use `CreateVersionUndoRequest$inboundSchema` instead. */
-  export const inboundSchema = CreateVersionUndoRequest$inboundSchema;
-  /** @deprecated use `CreateVersionUndoRequest$outboundSchema` instead. */
-  export const outboundSchema = CreateVersionUndoRequest$outboundSchema;
-  /** @deprecated use `CreateVersionUndoRequest$Outbound` instead. */
-  export type Outbound = CreateVersionUndoRequest$Outbound;
-}
-
 export function createVersionUndoRequestToJSON(
   createVersionUndoRequest: CreateVersionUndoRequest,
 ): string {
   return JSON.stringify(
     CreateVersionUndoRequest$outboundSchema.parse(createVersionUndoRequest),
-  );
-}
-
-export function createVersionUndoRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateVersionUndoRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateVersionUndoRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateVersionUndoRequest' from JSON`,
-  );
-}
-
-/** @internal */
-export const CreateVersionUndoResponse$inboundSchema: z.ZodType<
-  CreateVersionUndoResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(z.string()).optional(),
-});
-
-/** @internal */
-export type CreateVersionUndoResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<string> | undefined;
-};
-
-/** @internal */
-export const CreateVersionUndoResponse$outboundSchema: z.ZodType<
-  CreateVersionUndoResponse$Outbound,
-  z.ZodTypeDef,
-  CreateVersionUndoResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(z.string()).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateVersionUndoResponse$ {
-  /** @deprecated use `CreateVersionUndoResponse$inboundSchema` instead. */
-  export const inboundSchema = CreateVersionUndoResponse$inboundSchema;
-  /** @deprecated use `CreateVersionUndoResponse$outboundSchema` instead. */
-  export const outboundSchema = CreateVersionUndoResponse$outboundSchema;
-  /** @deprecated use `CreateVersionUndoResponse$Outbound` instead. */
-  export type Outbound = CreateVersionUndoResponse$Outbound;
-}
-
-export function createVersionUndoResponseToJSON(
-  createVersionUndoResponse: CreateVersionUndoResponse,
-): string {
-  return JSON.stringify(
-    CreateVersionUndoResponse$outboundSchema.parse(createVersionUndoResponse),
-  );
-}
-
-export function createVersionUndoResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateVersionUndoResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateVersionUndoResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateVersionUndoResponse' from JSON`,
   );
 }

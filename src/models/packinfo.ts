@@ -8,14 +8,15 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type PackInfoTags = {
-  dataType: Array<string>;
+  dataType?: Array<string> | undefined;
   domain?: Array<string> | undefined;
   streamtags?: Array<string> | undefined;
-  technology: Array<string>;
+  technology?: Array<string> | undefined;
 };
 
 export type PackInfo = {
   author?: string | undefined;
+  dependencies?: { [k: string]: string } | undefined;
   description?: string | undefined;
   displayName?: string | undefined;
   exports?: Array<string> | undefined;
@@ -37,48 +38,11 @@ export const PackInfoTags$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  dataType: z.array(z.string()),
+  dataType: z.array(z.string()).optional(),
   domain: z.array(z.string()).optional(),
   streamtags: z.array(z.string()).optional(),
-  technology: z.array(z.string()),
+  technology: z.array(z.string()).optional(),
 });
-
-/** @internal */
-export type PackInfoTags$Outbound = {
-  dataType: Array<string>;
-  domain?: Array<string> | undefined;
-  streamtags?: Array<string> | undefined;
-  technology: Array<string>;
-};
-
-/** @internal */
-export const PackInfoTags$outboundSchema: z.ZodType<
-  PackInfoTags$Outbound,
-  z.ZodTypeDef,
-  PackInfoTags
-> = z.object({
-  dataType: z.array(z.string()),
-  domain: z.array(z.string()).optional(),
-  streamtags: z.array(z.string()).optional(),
-  technology: z.array(z.string()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PackInfoTags$ {
-  /** @deprecated use `PackInfoTags$inboundSchema` instead. */
-  export const inboundSchema = PackInfoTags$inboundSchema;
-  /** @deprecated use `PackInfoTags$outboundSchema` instead. */
-  export const outboundSchema = PackInfoTags$outboundSchema;
-  /** @deprecated use `PackInfoTags$Outbound` instead. */
-  export type Outbound = PackInfoTags$Outbound;
-}
-
-export function packInfoTagsToJSON(packInfoTags: PackInfoTags): string {
-  return JSON.stringify(PackInfoTags$outboundSchema.parse(packInfoTags));
-}
 
 export function packInfoTagsFromJSON(
   jsonString: string,
@@ -97,6 +61,7 @@ export const PackInfo$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   author: z.string().optional(),
+  dependencies: z.record(z.string()).optional(),
   description: z.string().optional(),
   displayName: z.string().optional(),
   exports: z.array(z.string()).optional(),
@@ -111,63 +76,6 @@ export const PackInfo$inboundSchema: z.ZodType<
   tags: z.lazy(() => PackInfoTags$inboundSchema).optional(),
   version: z.string().optional(),
 });
-
-/** @internal */
-export type PackInfo$Outbound = {
-  author?: string | undefined;
-  description?: string | undefined;
-  displayName?: string | undefined;
-  exports?: Array<string> | undefined;
-  id: string;
-  inputs?: number | undefined;
-  isDisabled?: boolean | undefined;
-  minLogStreamVersion?: string | undefined;
-  outputs?: number | undefined;
-  settings?: { [k: string]: any } | undefined;
-  source: string;
-  spec?: string | undefined;
-  tags?: PackInfoTags$Outbound | undefined;
-  version?: string | undefined;
-};
-
-/** @internal */
-export const PackInfo$outboundSchema: z.ZodType<
-  PackInfo$Outbound,
-  z.ZodTypeDef,
-  PackInfo
-> = z.object({
-  author: z.string().optional(),
-  description: z.string().optional(),
-  displayName: z.string().optional(),
-  exports: z.array(z.string()).optional(),
-  id: z.string(),
-  inputs: z.number().optional(),
-  isDisabled: z.boolean().optional(),
-  minLogStreamVersion: z.string().optional(),
-  outputs: z.number().optional(),
-  settings: z.record(z.any()).optional(),
-  source: z.string(),
-  spec: z.string().optional(),
-  tags: z.lazy(() => PackInfoTags$outboundSchema).optional(),
-  version: z.string().optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace PackInfo$ {
-  /** @deprecated use `PackInfo$inboundSchema` instead. */
-  export const inboundSchema = PackInfo$inboundSchema;
-  /** @deprecated use `PackInfo$outboundSchema` instead. */
-  export const outboundSchema = PackInfo$outboundSchema;
-  /** @deprecated use `PackInfo$Outbound` instead. */
-  export type Outbound = PackInfo$Outbound;
-}
-
-export function packInfoToJSON(packInfo: PackInfo): string {
-  return JSON.stringify(PackInfo$outboundSchema.parse(packInfo));
-}
 
 export function packInfoFromJSON(
   jsonString: string,

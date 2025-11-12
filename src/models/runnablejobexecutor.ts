@@ -4,12 +4,7 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { catchUnrecognizedEnum, ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -112,6 +107,14 @@ export type RunnableJobExecutorSchedule = {
    */
   enabled?: boolean | undefined;
   /**
+   * Skippable jobs can be delayed, up to their next run time, if the system is hitting concurrency limits
+   */
+  skippable?: boolean | undefined;
+  /**
+   * If Stream Leader (or single instance) restarts, run all missed jobs according to their original schedules
+   */
+  resumeMissed?: boolean | undefined;
+  /**
    * A cron schedule on which to run this job
    */
   cronSchedule?: string | undefined;
@@ -119,11 +122,6 @@ export type RunnableJobExecutorSchedule = {
    * The maximum number of instances of this scheduled job that may be running at any time
    */
   maxConcurrentRuns?: number | undefined;
-  /**
-   * Skippable jobs can be delayed, up to their next run time, if the system is hitting concurrency limits
-   */
-  skippable?: boolean | undefined;
-  resumeMissed?: any | undefined;
   run?: RunnableJobExecutorRunSettings | undefined;
 };
 
@@ -228,46 +226,9 @@ export const RunnableJobExecutorJobType$inboundSchema: z.ZodType<
   ]);
 
 /** @internal */
-export const RunnableJobExecutorJobType$outboundSchema: z.ZodType<
-  RunnableJobExecutorJobType,
-  z.ZodTypeDef,
-  RunnableJobExecutorJobType
-> = z.union([
-  z.nativeEnum(RunnableJobExecutorJobType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RunnableJobExecutorJobType$ {
-  /** @deprecated use `RunnableJobExecutorJobType$inboundSchema` instead. */
-  export const inboundSchema = RunnableJobExecutorJobType$inboundSchema;
-  /** @deprecated use `RunnableJobExecutorJobType$outboundSchema` instead. */
-  export const outboundSchema = RunnableJobExecutorJobType$outboundSchema;
-}
-
-/** @internal */
 export const RunnableJobExecutorType$inboundSchema: z.ZodNativeEnum<
   typeof RunnableJobExecutorType
 > = z.nativeEnum(RunnableJobExecutorType);
-
-/** @internal */
-export const RunnableJobExecutorType$outboundSchema: z.ZodNativeEnum<
-  typeof RunnableJobExecutorType
-> = RunnableJobExecutorType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RunnableJobExecutorType$ {
-  /** @deprecated use `RunnableJobExecutorType$inboundSchema` instead. */
-  export const inboundSchema = RunnableJobExecutorType$inboundSchema;
-  /** @deprecated use `RunnableJobExecutorType$outboundSchema` instead. */
-  export const outboundSchema = RunnableJobExecutorType$outboundSchema;
-}
 
 /** @internal */
 export const RunnableJobExecutorScheduleLogLevel$inboundSchema: z.ZodNativeEnum<
@@ -275,62 +236,11 @@ export const RunnableJobExecutorScheduleLogLevel$inboundSchema: z.ZodNativeEnum<
 > = z.nativeEnum(RunnableJobExecutorScheduleLogLevel);
 
 /** @internal */
-export const RunnableJobExecutorScheduleLogLevel$outboundSchema:
-  z.ZodNativeEnum<typeof RunnableJobExecutorScheduleLogLevel> =
-    RunnableJobExecutorScheduleLogLevel$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RunnableJobExecutorScheduleLogLevel$ {
-  /** @deprecated use `RunnableJobExecutorScheduleLogLevel$inboundSchema` instead. */
-  export const inboundSchema =
-    RunnableJobExecutorScheduleLogLevel$inboundSchema;
-  /** @deprecated use `RunnableJobExecutorScheduleLogLevel$outboundSchema` instead. */
-  export const outboundSchema =
-    RunnableJobExecutorScheduleLogLevel$outboundSchema;
-}
-
-/** @internal */
 export const RunnableJobExecutorTimeWarning$inboundSchema: z.ZodType<
   RunnableJobExecutorTimeWarning,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
-/** @internal */
-export type RunnableJobExecutorTimeWarning$Outbound = {};
-
-/** @internal */
-export const RunnableJobExecutorTimeWarning$outboundSchema: z.ZodType<
-  RunnableJobExecutorTimeWarning$Outbound,
-  z.ZodTypeDef,
-  RunnableJobExecutorTimeWarning
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RunnableJobExecutorTimeWarning$ {
-  /** @deprecated use `RunnableJobExecutorTimeWarning$inboundSchema` instead. */
-  export const inboundSchema = RunnableJobExecutorTimeWarning$inboundSchema;
-  /** @deprecated use `RunnableJobExecutorTimeWarning$outboundSchema` instead. */
-  export const outboundSchema = RunnableJobExecutorTimeWarning$outboundSchema;
-  /** @deprecated use `RunnableJobExecutorTimeWarning$Outbound` instead. */
-  export type Outbound = RunnableJobExecutorTimeWarning$Outbound;
-}
-
-export function runnableJobExecutorTimeWarningToJSON(
-  runnableJobExecutorTimeWarning: RunnableJobExecutorTimeWarning,
-): string {
-  return JSON.stringify(
-    RunnableJobExecutorTimeWarning$outboundSchema.parse(
-      runnableJobExecutorTimeWarning,
-    ),
-  );
-}
 
 export function runnableJobExecutorTimeWarningFromJSON(
   jsonString: string,
@@ -365,70 +275,6 @@ export const RunnableJobExecutorRunSettings$inboundSchema: z.ZodType<
   maxTaskSize: z.string().default("10MB"),
 });
 
-/** @internal */
-export type RunnableJobExecutorRunSettings$Outbound = {
-  type?: string | undefined;
-  rescheduleDroppedTasks: boolean;
-  maxTaskReschedule: number;
-  logLevel: string;
-  jobTimeout: string;
-  mode: string;
-  timeRangeType: string;
-  earliest?: number | undefined;
-  latest?: number | undefined;
-  timestampTimezone?: any | undefined;
-  timeWarning?: RunnableJobExecutorTimeWarning$Outbound | undefined;
-  expression: string;
-  minTaskSize: string;
-  maxTaskSize: string;
-};
-
-/** @internal */
-export const RunnableJobExecutorRunSettings$outboundSchema: z.ZodType<
-  RunnableJobExecutorRunSettings$Outbound,
-  z.ZodTypeDef,
-  RunnableJobExecutorRunSettings
-> = z.object({
-  type: RunnableJobExecutorType$outboundSchema.optional(),
-  rescheduleDroppedTasks: z.boolean().default(true),
-  maxTaskReschedule: z.number().default(1),
-  logLevel: RunnableJobExecutorScheduleLogLevel$outboundSchema.default("info"),
-  jobTimeout: z.string().default("0"),
-  mode: z.string().default("list"),
-  timeRangeType: z.string().default("relative"),
-  earliest: z.number().optional(),
-  latest: z.number().optional(),
-  timestampTimezone: z.any().optional(),
-  timeWarning: z.lazy(() => RunnableJobExecutorTimeWarning$outboundSchema)
-    .optional(),
-  expression: z.string().default("true"),
-  minTaskSize: z.string().default("1MB"),
-  maxTaskSize: z.string().default("10MB"),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RunnableJobExecutorRunSettings$ {
-  /** @deprecated use `RunnableJobExecutorRunSettings$inboundSchema` instead. */
-  export const inboundSchema = RunnableJobExecutorRunSettings$inboundSchema;
-  /** @deprecated use `RunnableJobExecutorRunSettings$outboundSchema` instead. */
-  export const outboundSchema = RunnableJobExecutorRunSettings$outboundSchema;
-  /** @deprecated use `RunnableJobExecutorRunSettings$Outbound` instead. */
-  export type Outbound = RunnableJobExecutorRunSettings$Outbound;
-}
-
-export function runnableJobExecutorRunSettingsToJSON(
-  runnableJobExecutorRunSettings: RunnableJobExecutorRunSettings,
-): string {
-  return JSON.stringify(
-    RunnableJobExecutorRunSettings$outboundSchema.parse(
-      runnableJobExecutorRunSettings,
-    ),
-  );
-}
-
 export function runnableJobExecutorRunSettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<RunnableJobExecutorRunSettings, SDKValidationError> {
@@ -446,59 +292,12 @@ export const RunnableJobExecutorSchedule$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   enabled: z.boolean().optional(),
+  skippable: z.boolean().default(true),
+  resumeMissed: z.boolean().default(false),
   cronSchedule: z.string().default("*/5 * * * *"),
   maxConcurrentRuns: z.number().default(1),
-  skippable: z.boolean().default(true),
-  resumeMissed: z.any().optional(),
   run: z.lazy(() => RunnableJobExecutorRunSettings$inboundSchema).optional(),
 });
-
-/** @internal */
-export type RunnableJobExecutorSchedule$Outbound = {
-  enabled?: boolean | undefined;
-  cronSchedule: string;
-  maxConcurrentRuns: number;
-  skippable: boolean;
-  resumeMissed?: any | undefined;
-  run?: RunnableJobExecutorRunSettings$Outbound | undefined;
-};
-
-/** @internal */
-export const RunnableJobExecutorSchedule$outboundSchema: z.ZodType<
-  RunnableJobExecutorSchedule$Outbound,
-  z.ZodTypeDef,
-  RunnableJobExecutorSchedule
-> = z.object({
-  enabled: z.boolean().optional(),
-  cronSchedule: z.string().default("*/5 * * * *"),
-  maxConcurrentRuns: z.number().default(1),
-  skippable: z.boolean().default(true),
-  resumeMissed: z.any().optional(),
-  run: z.lazy(() => RunnableJobExecutorRunSettings$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RunnableJobExecutorSchedule$ {
-  /** @deprecated use `RunnableJobExecutorSchedule$inboundSchema` instead. */
-  export const inboundSchema = RunnableJobExecutorSchedule$inboundSchema;
-  /** @deprecated use `RunnableJobExecutorSchedule$outboundSchema` instead. */
-  export const outboundSchema = RunnableJobExecutorSchedule$outboundSchema;
-  /** @deprecated use `RunnableJobExecutorSchedule$Outbound` instead. */
-  export type Outbound = RunnableJobExecutorSchedule$Outbound;
-}
-
-export function runnableJobExecutorScheduleToJSON(
-  runnableJobExecutorSchedule: RunnableJobExecutorSchedule,
-): string {
-  return JSON.stringify(
-    RunnableJobExecutorSchedule$outboundSchema.parse(
-      runnableJobExecutorSchedule,
-    ),
-  );
-}
 
 export function runnableJobExecutorScheduleFromJSON(
   jsonString: string,
@@ -516,37 +315,6 @@ export const ExecutorSpecificSettings$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
-/** @internal */
-export type ExecutorSpecificSettings$Outbound = {};
-
-/** @internal */
-export const ExecutorSpecificSettings$outboundSchema: z.ZodType<
-  ExecutorSpecificSettings$Outbound,
-  z.ZodTypeDef,
-  ExecutorSpecificSettings
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ExecutorSpecificSettings$ {
-  /** @deprecated use `ExecutorSpecificSettings$inboundSchema` instead. */
-  export const inboundSchema = ExecutorSpecificSettings$inboundSchema;
-  /** @deprecated use `ExecutorSpecificSettings$outboundSchema` instead. */
-  export const outboundSchema = ExecutorSpecificSettings$outboundSchema;
-  /** @deprecated use `ExecutorSpecificSettings$Outbound` instead. */
-  export type Outbound = ExecutorSpecificSettings$Outbound;
-}
-
-export function executorSpecificSettingsToJSON(
-  executorSpecificSettings: ExecutorSpecificSettings,
-): string {
-  return JSON.stringify(
-    ExecutorSpecificSettings$outboundSchema.parse(executorSpecificSettings),
-  );
-}
 
 export function executorSpecificSettingsFromJSON(
   jsonString: string,
@@ -568,41 +336,6 @@ export const Executor$inboundSchema: z.ZodType<
   storeTaskResults: z.boolean().default(true),
   conf: z.lazy(() => ExecutorSpecificSettings$inboundSchema).optional(),
 });
-
-/** @internal */
-export type Executor$Outbound = {
-  type: string;
-  storeTaskResults: boolean;
-  conf?: ExecutorSpecificSettings$Outbound | undefined;
-};
-
-/** @internal */
-export const Executor$outboundSchema: z.ZodType<
-  Executor$Outbound,
-  z.ZodTypeDef,
-  Executor
-> = z.object({
-  type: z.string(),
-  storeTaskResults: z.boolean().default(true),
-  conf: z.lazy(() => ExecutorSpecificSettings$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Executor$ {
-  /** @deprecated use `Executor$inboundSchema` instead. */
-  export const inboundSchema = Executor$inboundSchema;
-  /** @deprecated use `Executor$outboundSchema` instead. */
-  export const outboundSchema = Executor$outboundSchema;
-  /** @deprecated use `Executor$Outbound` instead. */
-  export type Outbound = Executor$Outbound;
-}
-
-export function executorToJSON(executor: Executor): string {
-  return JSON.stringify(Executor$outboundSchema.parse(executor));
-}
 
 export function executorFromJSON(
   jsonString: string,
@@ -626,27 +359,6 @@ export const RunnableJobExecutorLogLevel$inboundSchema: z.ZodType<
   ]);
 
 /** @internal */
-export const RunnableJobExecutorLogLevel$outboundSchema: z.ZodType<
-  RunnableJobExecutorLogLevel,
-  z.ZodTypeDef,
-  RunnableJobExecutorLogLevel
-> = z.union([
-  z.nativeEnum(RunnableJobExecutorLogLevel),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RunnableJobExecutorLogLevel$ {
-  /** @deprecated use `RunnableJobExecutorLogLevel$inboundSchema` instead. */
-  export const inboundSchema = RunnableJobExecutorLogLevel$inboundSchema;
-  /** @deprecated use `RunnableJobExecutorLogLevel$outboundSchema` instead. */
-  export const outboundSchema = RunnableJobExecutorLogLevel$outboundSchema;
-}
-
-/** @internal */
 export const RunnableJobExecutorRun$inboundSchema: z.ZodType<
   RunnableJobExecutorRun,
   z.ZodTypeDef,
@@ -657,47 +369,6 @@ export const RunnableJobExecutorRun$inboundSchema: z.ZodType<
   logLevel: RunnableJobExecutorLogLevel$inboundSchema.default("info"),
   jobTimeout: z.string().default("0"),
 });
-
-/** @internal */
-export type RunnableJobExecutorRun$Outbound = {
-  rescheduleDroppedTasks: boolean;
-  maxTaskReschedule: number;
-  logLevel: string;
-  jobTimeout: string;
-};
-
-/** @internal */
-export const RunnableJobExecutorRun$outboundSchema: z.ZodType<
-  RunnableJobExecutorRun$Outbound,
-  z.ZodTypeDef,
-  RunnableJobExecutorRun
-> = z.object({
-  rescheduleDroppedTasks: z.boolean().default(true),
-  maxTaskReschedule: z.number().default(1),
-  logLevel: RunnableJobExecutorLogLevel$outboundSchema.default("info"),
-  jobTimeout: z.string().default("0"),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RunnableJobExecutorRun$ {
-  /** @deprecated use `RunnableJobExecutorRun$inboundSchema` instead. */
-  export const inboundSchema = RunnableJobExecutorRun$inboundSchema;
-  /** @deprecated use `RunnableJobExecutorRun$outboundSchema` instead. */
-  export const outboundSchema = RunnableJobExecutorRun$outboundSchema;
-  /** @deprecated use `RunnableJobExecutorRun$Outbound` instead. */
-  export type Outbound = RunnableJobExecutorRun$Outbound;
-}
-
-export function runnableJobExecutorRunToJSON(
-  runnableJobExecutorRun: RunnableJobExecutorRun,
-): string {
-  return JSON.stringify(
-    RunnableJobExecutorRun$outboundSchema.parse(runnableJobExecutorRun),
-  );
-}
 
 export function runnableJobExecutorRunFromJSON(
   jsonString: string,
@@ -728,63 +399,6 @@ export const RunnableJobExecutor$inboundSchema: z.ZodType<
   executor: z.lazy(() => Executor$inboundSchema),
   run: z.lazy(() => RunnableJobExecutorRun$inboundSchema),
 });
-
-/** @internal */
-export type RunnableJobExecutor$Outbound = {
-  id?: string | undefined;
-  description?: string | undefined;
-  type?: string | undefined;
-  ttl: string;
-  ignoreGroupJobsLimit: boolean;
-  removeFields?: Array<string> | undefined;
-  resumeOnBoot: boolean;
-  environment?: string | undefined;
-  schedule?: RunnableJobExecutorSchedule$Outbound | undefined;
-  streamtags?: Array<string> | undefined;
-  executor: Executor$Outbound;
-  run: RunnableJobExecutorRun$Outbound;
-};
-
-/** @internal */
-export const RunnableJobExecutor$outboundSchema: z.ZodType<
-  RunnableJobExecutor$Outbound,
-  z.ZodTypeDef,
-  RunnableJobExecutor
-> = z.object({
-  id: z.string().optional(),
-  description: z.string().optional(),
-  type: RunnableJobExecutorJobType$outboundSchema.optional(),
-  ttl: z.string().default("4h"),
-  ignoreGroupJobsLimit: z.boolean().default(false),
-  removeFields: z.array(z.string()).optional(),
-  resumeOnBoot: z.boolean().default(false),
-  environment: z.string().optional(),
-  schedule: z.lazy(() => RunnableJobExecutorSchedule$outboundSchema).optional(),
-  streamtags: z.array(z.string()).optional(),
-  executor: z.lazy(() => Executor$outboundSchema),
-  run: z.lazy(() => RunnableJobExecutorRun$outboundSchema),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RunnableJobExecutor$ {
-  /** @deprecated use `RunnableJobExecutor$inboundSchema` instead. */
-  export const inboundSchema = RunnableJobExecutor$inboundSchema;
-  /** @deprecated use `RunnableJobExecutor$outboundSchema` instead. */
-  export const outboundSchema = RunnableJobExecutor$outboundSchema;
-  /** @deprecated use `RunnableJobExecutor$Outbound` instead. */
-  export type Outbound = RunnableJobExecutor$Outbound;
-}
-
-export function runnableJobExecutorToJSON(
-  runnableJobExecutor: RunnableJobExecutor,
-): string {
-  return JSON.stringify(
-    RunnableJobExecutor$outboundSchema.parse(runnableJobExecutor),
-  );
-}
 
 export function runnableJobExecutorFromJSON(
   jsonString: string,

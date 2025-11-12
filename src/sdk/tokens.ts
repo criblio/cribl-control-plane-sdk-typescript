@@ -5,6 +5,7 @@
 import { authTokensGet } from "../funcs/authTokensGet.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
+import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
 export class Tokens extends ClientSDK {
@@ -12,12 +13,12 @@ export class Tokens extends ClientSDK {
    * Log in and fetch an authentication token
    *
    * @remarks
-   * This endpoint is unavailable on Cribl.Cloud. Instead, follow the instructions at https://docs.cribl.io/stream/api-tutorials/#criblcloud to get an Auth token for Cribl.Cloud.
+   * This endpoint is unavailable on Cribl.Cloud.Instead, follow the instructions at https://docs.cribl.io/stream/api-tutorials/#criblcloud to get an Auth token for Cribl.Cloud.
    */
   async get(
     request: models.LoginInfo,
     options?: RequestOptions,
-  ): Promise<models.AuthToken> {
+  ): Promise<operations.CreateAuthLoginResponse> {
     return unwrapAsync(authTokensGet(
       this,
       request,

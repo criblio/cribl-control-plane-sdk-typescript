@@ -9,22 +9,18 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   NodeActiveUpgradeStatus,
   NodeActiveUpgradeStatus$inboundSchema,
-  NodeActiveUpgradeStatus$outboundSchema,
 } from "./nodeactiveupgradestatus.js";
 import {
   NodeFailedUpgradeStatus,
   NodeFailedUpgradeStatus$inboundSchema,
-  NodeFailedUpgradeStatus$outboundSchema,
 } from "./nodefailedupgradestatus.js";
 import {
   NodeSkippedUpgradeStatus,
   NodeSkippedUpgradeStatus$inboundSchema,
-  NodeSkippedUpgradeStatus$outboundSchema,
 } from "./nodeskippedupgradestatus.js";
 import {
   NodeUpgradeState,
   NodeUpgradeState$inboundSchema,
-  NodeUpgradeState$outboundSchema,
 } from "./nodeupgradestate.js";
 
 export type NodeUpgradeStatus = {
@@ -47,49 +43,6 @@ export const NodeUpgradeStatus$inboundSchema: z.ZodType<
   state: NodeUpgradeState$inboundSchema,
   timestamp: z.number(),
 });
-
-/** @internal */
-export type NodeUpgradeStatus$Outbound = {
-  active?: number | undefined;
-  failed?: number | undefined;
-  skipped?: number | undefined;
-  state: number;
-  timestamp: number;
-};
-
-/** @internal */
-export const NodeUpgradeStatus$outboundSchema: z.ZodType<
-  NodeUpgradeStatus$Outbound,
-  z.ZodTypeDef,
-  NodeUpgradeStatus
-> = z.object({
-  active: NodeActiveUpgradeStatus$outboundSchema.optional(),
-  failed: NodeFailedUpgradeStatus$outboundSchema.optional(),
-  skipped: NodeSkippedUpgradeStatus$outboundSchema.optional(),
-  state: NodeUpgradeState$outboundSchema,
-  timestamp: z.number(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace NodeUpgradeStatus$ {
-  /** @deprecated use `NodeUpgradeStatus$inboundSchema` instead. */
-  export const inboundSchema = NodeUpgradeStatus$inboundSchema;
-  /** @deprecated use `NodeUpgradeStatus$outboundSchema` instead. */
-  export const outboundSchema = NodeUpgradeStatus$outboundSchema;
-  /** @deprecated use `NodeUpgradeStatus$Outbound` instead. */
-  export type Outbound = NodeUpgradeStatus$Outbound;
-}
-
-export function nodeUpgradeStatusToJSON(
-  nodeUpgradeStatus: NodeUpgradeStatus,
-): string {
-  return JSON.stringify(
-    NodeUpgradeStatus$outboundSchema.parse(nodeUpgradeStatus),
-  );
-}
 
 export function nodeUpgradeStatusFromJSON(
   jsonString: string,
