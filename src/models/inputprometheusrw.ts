@@ -27,7 +27,13 @@ export type InputPrometheusRwConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputPrometheusRwMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -39,7 +45,13 @@ export type InputPrometheusRwMode = OpenEnum<typeof InputPrometheusRwMode>;
  * Codec to use to compress the persisted data
  */
 export const InputPrometheusRwCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -106,6 +118,18 @@ export type InputPrometheusRwMaximumTLSVersion = OpenEnum<
 export type InputPrometheusRwTLSSettingsServerSide = {
   disabled?: boolean | undefined;
   /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
    * The name of the predefined certificate
    */
   certificateName?: string | undefined;
@@ -125,12 +149,6 @@ export type InputPrometheusRwTLSSettingsServerSide = {
    * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
    */
   caPath?: string | undefined;
-  /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
   minVersion?: InputPrometheusRwMinimumTLSVersion | undefined;
   maxVersion?: InputPrometheusRwMaximumTLSVersion | undefined;
 };
@@ -333,22 +351,10 @@ export type InputPrometheusRw = {
 export const InputPrometheusRwType$inboundSchema: z.ZodNativeEnum<
   typeof InputPrometheusRwType
 > = z.nativeEnum(InputPrometheusRwType);
-
 /** @internal */
 export const InputPrometheusRwType$outboundSchema: z.ZodNativeEnum<
   typeof InputPrometheusRwType
 > = InputPrometheusRwType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputPrometheusRwType$ {
-  /** @deprecated use `InputPrometheusRwType$inboundSchema` instead. */
-  export const inboundSchema = InputPrometheusRwType$inboundSchema;
-  /** @deprecated use `InputPrometheusRwType$outboundSchema` instead. */
-  export const outboundSchema = InputPrometheusRwType$outboundSchema;
-}
 
 /** @internal */
 export const InputPrometheusRwConnection$inboundSchema: z.ZodType<
@@ -359,7 +365,6 @@ export const InputPrometheusRwConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputPrometheusRwConnection$Outbound = {
   pipeline?: string | undefined;
@@ -376,19 +381,6 @@ export const InputPrometheusRwConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputPrometheusRwConnection$ {
-  /** @deprecated use `InputPrometheusRwConnection$inboundSchema` instead. */
-  export const inboundSchema = InputPrometheusRwConnection$inboundSchema;
-  /** @deprecated use `InputPrometheusRwConnection$outboundSchema` instead. */
-  export const outboundSchema = InputPrometheusRwConnection$outboundSchema;
-  /** @deprecated use `InputPrometheusRwConnection$Outbound` instead. */
-  export type Outbound = InputPrometheusRwConnection$Outbound;
-}
-
 export function inputPrometheusRwConnectionToJSON(
   inputPrometheusRwConnection: InputPrometheusRwConnection,
 ): string {
@@ -398,7 +390,6 @@ export function inputPrometheusRwConnectionToJSON(
     ),
   );
 }
-
 export function inputPrometheusRwConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputPrometheusRwConnection, SDKValidationError> {
@@ -419,7 +410,6 @@ export const InputPrometheusRwMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputPrometheusRwMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputPrometheusRwMode$outboundSchema: z.ZodType<
   InputPrometheusRwMode,
@@ -429,17 +419,6 @@ export const InputPrometheusRwMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputPrometheusRwMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputPrometheusRwMode$ {
-  /** @deprecated use `InputPrometheusRwMode$inboundSchema` instead. */
-  export const inboundSchema = InputPrometheusRwMode$inboundSchema;
-  /** @deprecated use `InputPrometheusRwMode$outboundSchema` instead. */
-  export const outboundSchema = InputPrometheusRwMode$outboundSchema;
-}
 
 /** @internal */
 export const InputPrometheusRwCompression$inboundSchema: z.ZodType<
@@ -451,7 +430,6 @@ export const InputPrometheusRwCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputPrometheusRwCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputPrometheusRwCompression$outboundSchema: z.ZodType<
   InputPrometheusRwCompression,
@@ -462,24 +440,12 @@ export const InputPrometheusRwCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputPrometheusRwCompression$ {
-  /** @deprecated use `InputPrometheusRwCompression$inboundSchema` instead. */
-  export const inboundSchema = InputPrometheusRwCompression$inboundSchema;
-  /** @deprecated use `InputPrometheusRwCompression$outboundSchema` instead. */
-  export const outboundSchema = InputPrometheusRwCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputPrometheusRwPqControls$inboundSchema: z.ZodType<
   InputPrometheusRwPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputPrometheusRwPqControls$Outbound = {};
 
@@ -490,19 +456,6 @@ export const InputPrometheusRwPqControls$outboundSchema: z.ZodType<
   InputPrometheusRwPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputPrometheusRwPqControls$ {
-  /** @deprecated use `InputPrometheusRwPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputPrometheusRwPqControls$inboundSchema;
-  /** @deprecated use `InputPrometheusRwPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputPrometheusRwPqControls$outboundSchema;
-  /** @deprecated use `InputPrometheusRwPqControls$Outbound` instead. */
-  export type Outbound = InputPrometheusRwPqControls$Outbound;
-}
-
 export function inputPrometheusRwPqControlsToJSON(
   inputPrometheusRwPqControls: InputPrometheusRwPqControls,
 ): string {
@@ -512,7 +465,6 @@ export function inputPrometheusRwPqControlsToJSON(
     ),
   );
 }
-
 export function inputPrometheusRwPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputPrometheusRwPqControls, SDKValidationError> {
@@ -539,7 +491,6 @@ export const InputPrometheusRwPq$inboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputPrometheusRwPqControls$inboundSchema)
     .optional(),
 });
-
 /** @internal */
 export type InputPrometheusRwPq$Outbound = {
   mode: string;
@@ -569,19 +520,6 @@ export const InputPrometheusRwPq$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputPrometheusRwPq$ {
-  /** @deprecated use `InputPrometheusRwPq$inboundSchema` instead. */
-  export const inboundSchema = InputPrometheusRwPq$inboundSchema;
-  /** @deprecated use `InputPrometheusRwPq$outboundSchema` instead. */
-  export const outboundSchema = InputPrometheusRwPq$outboundSchema;
-  /** @deprecated use `InputPrometheusRwPq$Outbound` instead. */
-  export type Outbound = InputPrometheusRwPq$Outbound;
-}
-
 export function inputPrometheusRwPqToJSON(
   inputPrometheusRwPq: InputPrometheusRwPq,
 ): string {
@@ -589,7 +527,6 @@ export function inputPrometheusRwPqToJSON(
     InputPrometheusRwPq$outboundSchema.parse(inputPrometheusRwPq),
   );
 }
-
 export function inputPrometheusRwPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputPrometheusRwPq, SDKValidationError> {
@@ -610,7 +547,6 @@ export const InputPrometheusRwMinimumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputPrometheusRwMinimumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputPrometheusRwMinimumTLSVersion$outboundSchema: z.ZodType<
   InputPrometheusRwMinimumTLSVersion,
@@ -620,18 +556,6 @@ export const InputPrometheusRwMinimumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputPrometheusRwMinimumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputPrometheusRwMinimumTLSVersion$ {
-  /** @deprecated use `InputPrometheusRwMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputPrometheusRwMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `InputPrometheusRwMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    InputPrometheusRwMinimumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputPrometheusRwMaximumTLSVersion$inboundSchema: z.ZodType<
@@ -643,7 +567,6 @@ export const InputPrometheusRwMaximumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputPrometheusRwMaximumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputPrometheusRwMaximumTLSVersion$outboundSchema: z.ZodType<
   InputPrometheusRwMaximumTLSVersion,
@@ -654,18 +577,6 @@ export const InputPrometheusRwMaximumTLSVersion$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputPrometheusRwMaximumTLSVersion$ {
-  /** @deprecated use `InputPrometheusRwMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputPrometheusRwMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `InputPrometheusRwMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    InputPrometheusRwMaximumTLSVersion$outboundSchema;
-}
-
 /** @internal */
 export const InputPrometheusRwTLSSettingsServerSide$inboundSchema: z.ZodType<
   InputPrometheusRwTLSSettingsServerSide,
@@ -673,29 +584,28 @@ export const InputPrometheusRwTLSSettingsServerSide$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
   certificateName: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   certPath: z.string().optional(),
   caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
   minVersion: InputPrometheusRwMinimumTLSVersion$inboundSchema.optional(),
   maxVersion: InputPrometheusRwMaximumTLSVersion$inboundSchema.optional(),
 });
-
 /** @internal */
 export type InputPrometheusRwTLSSettingsServerSide$Outbound = {
   disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
   certificateName?: string | undefined;
   privKeyPath?: string | undefined;
   passphrase?: string | undefined;
   certPath?: string | undefined;
   caPath?: string | undefined;
-  requestCert: boolean;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
   minVersion?: string | undefined;
   maxVersion?: string | undefined;
 };
@@ -707,32 +617,17 @@ export const InputPrometheusRwTLSSettingsServerSide$outboundSchema: z.ZodType<
   InputPrometheusRwTLSSettingsServerSide
 > = z.object({
   disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
   certificateName: z.string().optional(),
   privKeyPath: z.string().optional(),
   passphrase: z.string().optional(),
   certPath: z.string().optional(),
   caPath: z.string().optional(),
-  requestCert: z.boolean().default(false),
-  rejectUnauthorized: z.any().optional(),
-  commonNameRegex: z.any().optional(),
   minVersion: InputPrometheusRwMinimumTLSVersion$outboundSchema.optional(),
   maxVersion: InputPrometheusRwMaximumTLSVersion$outboundSchema.optional(),
 });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputPrometheusRwTLSSettingsServerSide$ {
-  /** @deprecated use `InputPrometheusRwTLSSettingsServerSide$inboundSchema` instead. */
-  export const inboundSchema =
-    InputPrometheusRwTLSSettingsServerSide$inboundSchema;
-  /** @deprecated use `InputPrometheusRwTLSSettingsServerSide$outboundSchema` instead. */
-  export const outboundSchema =
-    InputPrometheusRwTLSSettingsServerSide$outboundSchema;
-  /** @deprecated use `InputPrometheusRwTLSSettingsServerSide$Outbound` instead. */
-  export type Outbound = InputPrometheusRwTLSSettingsServerSide$Outbound;
-}
 
 export function inputPrometheusRwTLSSettingsServerSideToJSON(
   inputPrometheusRwTLSSettingsServerSide:
@@ -744,7 +639,6 @@ export function inputPrometheusRwTLSSettingsServerSideToJSON(
     ),
   );
 }
-
 export function inputPrometheusRwTLSSettingsServerSideFromJSON(
   jsonString: string,
 ): SafeParseResult<InputPrometheusRwTLSSettingsServerSide, SDKValidationError> {
@@ -766,7 +660,6 @@ export const InputPrometheusRwAuthenticationType$inboundSchema: z.ZodType<
     z.nativeEnum(InputPrometheusRwAuthenticationType),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputPrometheusRwAuthenticationType$outboundSchema: z.ZodType<
   InputPrometheusRwAuthenticationType,
@@ -777,19 +670,6 @@ export const InputPrometheusRwAuthenticationType$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputPrometheusRwAuthenticationType$ {
-  /** @deprecated use `InputPrometheusRwAuthenticationType$inboundSchema` instead. */
-  export const inboundSchema =
-    InputPrometheusRwAuthenticationType$inboundSchema;
-  /** @deprecated use `InputPrometheusRwAuthenticationType$outboundSchema` instead. */
-  export const outboundSchema =
-    InputPrometheusRwAuthenticationType$outboundSchema;
-}
-
 /** @internal */
 export const InputPrometheusRwMetadatum$inboundSchema: z.ZodType<
   InputPrometheusRwMetadatum,
@@ -799,7 +679,6 @@ export const InputPrometheusRwMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputPrometheusRwMetadatum$Outbound = {
   name: string;
@@ -816,19 +695,6 @@ export const InputPrometheusRwMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputPrometheusRwMetadatum$ {
-  /** @deprecated use `InputPrometheusRwMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputPrometheusRwMetadatum$inboundSchema;
-  /** @deprecated use `InputPrometheusRwMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputPrometheusRwMetadatum$outboundSchema;
-  /** @deprecated use `InputPrometheusRwMetadatum$Outbound` instead. */
-  export type Outbound = InputPrometheusRwMetadatum$Outbound;
-}
-
 export function inputPrometheusRwMetadatumToJSON(
   inputPrometheusRwMetadatum: InputPrometheusRwMetadatum,
 ): string {
@@ -836,7 +702,6 @@ export function inputPrometheusRwMetadatumToJSON(
     InputPrometheusRwMetadatum$outboundSchema.parse(inputPrometheusRwMetadatum),
   );
 }
-
 export function inputPrometheusRwMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputPrometheusRwMetadatum, SDKValidationError> {
@@ -856,7 +721,6 @@ export const InputPrometheusRwOauthParam$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputPrometheusRwOauthParam$Outbound = {
   name: string;
@@ -873,19 +737,6 @@ export const InputPrometheusRwOauthParam$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputPrometheusRwOauthParam$ {
-  /** @deprecated use `InputPrometheusRwOauthParam$inboundSchema` instead. */
-  export const inboundSchema = InputPrometheusRwOauthParam$inboundSchema;
-  /** @deprecated use `InputPrometheusRwOauthParam$outboundSchema` instead. */
-  export const outboundSchema = InputPrometheusRwOauthParam$outboundSchema;
-  /** @deprecated use `InputPrometheusRwOauthParam$Outbound` instead. */
-  export type Outbound = InputPrometheusRwOauthParam$Outbound;
-}
-
 export function inputPrometheusRwOauthParamToJSON(
   inputPrometheusRwOauthParam: InputPrometheusRwOauthParam,
 ): string {
@@ -895,7 +746,6 @@ export function inputPrometheusRwOauthParamToJSON(
     ),
   );
 }
-
 export function inputPrometheusRwOauthParamFromJSON(
   jsonString: string,
 ): SafeParseResult<InputPrometheusRwOauthParam, SDKValidationError> {
@@ -915,7 +765,6 @@ export const InputPrometheusRwOauthHeader$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputPrometheusRwOauthHeader$Outbound = {
   name: string;
@@ -932,19 +781,6 @@ export const InputPrometheusRwOauthHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputPrometheusRwOauthHeader$ {
-  /** @deprecated use `InputPrometheusRwOauthHeader$inboundSchema` instead. */
-  export const inboundSchema = InputPrometheusRwOauthHeader$inboundSchema;
-  /** @deprecated use `InputPrometheusRwOauthHeader$outboundSchema` instead. */
-  export const outboundSchema = InputPrometheusRwOauthHeader$outboundSchema;
-  /** @deprecated use `InputPrometheusRwOauthHeader$Outbound` instead. */
-  export type Outbound = InputPrometheusRwOauthHeader$Outbound;
-}
-
 export function inputPrometheusRwOauthHeaderToJSON(
   inputPrometheusRwOauthHeader: InputPrometheusRwOauthHeader,
 ): string {
@@ -954,7 +790,6 @@ export function inputPrometheusRwOauthHeaderToJSON(
     ),
   );
 }
-
 export function inputPrometheusRwOauthHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<InputPrometheusRwOauthHeader, SDKValidationError> {
@@ -1019,7 +854,6 @@ export const InputPrometheusRw$inboundSchema: z.ZodType<
     z.lazy(() => InputPrometheusRwOauthHeader$inboundSchema),
   ).optional(),
 });
-
 /** @internal */
 export type InputPrometheusRw$Outbound = {
   id?: string | undefined;
@@ -1120,19 +954,6 @@ export const InputPrometheusRw$outboundSchema: z.ZodType<
   ).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputPrometheusRw$ {
-  /** @deprecated use `InputPrometheusRw$inboundSchema` instead. */
-  export const inboundSchema = InputPrometheusRw$inboundSchema;
-  /** @deprecated use `InputPrometheusRw$outboundSchema` instead. */
-  export const outboundSchema = InputPrometheusRw$outboundSchema;
-  /** @deprecated use `InputPrometheusRw$Outbound` instead. */
-  export type Outbound = InputPrometheusRw$Outbound;
-}
-
 export function inputPrometheusRwToJSON(
   inputPrometheusRw: InputPrometheusRw,
 ): string {
@@ -1140,7 +961,6 @@ export function inputPrometheusRwToJSON(
     InputPrometheusRw$outboundSchema.parse(inputPrometheusRw),
   );
 }
-
 export function inputPrometheusRwFromJSON(
   jsonString: string,
 ): SafeParseResult<InputPrometheusRw, SDKValidationError> {

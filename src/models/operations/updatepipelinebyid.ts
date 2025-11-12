@@ -4,9 +4,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type UpdatePipelineByIdRequest = {
@@ -19,31 +16,6 @@ export type UpdatePipelineByIdRequest = {
    */
   pipeline: models.Pipeline;
 };
-
-/**
- * a list of Pipeline objects
- */
-export type UpdatePipelineByIdResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.Pipeline> | undefined;
-};
-
-/** @internal */
-export const UpdatePipelineByIdRequest$inboundSchema: z.ZodType<
-  UpdatePipelineByIdRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.string(),
-  Pipeline: models.Pipeline$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "Pipeline": "pipeline",
-  });
-});
 
 /** @internal */
 export type UpdatePipelineByIdRequest$Outbound = {
@@ -65,90 +37,10 @@ export const UpdatePipelineByIdRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdatePipelineByIdRequest$ {
-  /** @deprecated use `UpdatePipelineByIdRequest$inboundSchema` instead. */
-  export const inboundSchema = UpdatePipelineByIdRequest$inboundSchema;
-  /** @deprecated use `UpdatePipelineByIdRequest$outboundSchema` instead. */
-  export const outboundSchema = UpdatePipelineByIdRequest$outboundSchema;
-  /** @deprecated use `UpdatePipelineByIdRequest$Outbound` instead. */
-  export type Outbound = UpdatePipelineByIdRequest$Outbound;
-}
-
 export function updatePipelineByIdRequestToJSON(
   updatePipelineByIdRequest: UpdatePipelineByIdRequest,
 ): string {
   return JSON.stringify(
     UpdatePipelineByIdRequest$outboundSchema.parse(updatePipelineByIdRequest),
-  );
-}
-
-export function updatePipelineByIdRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdatePipelineByIdRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UpdatePipelineByIdRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdatePipelineByIdRequest' from JSON`,
-  );
-}
-
-/** @internal */
-export const UpdatePipelineByIdResponse$inboundSchema: z.ZodType<
-  UpdatePipelineByIdResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.Pipeline$inboundSchema).optional(),
-});
-
-/** @internal */
-export type UpdatePipelineByIdResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.Pipeline$Outbound> | undefined;
-};
-
-/** @internal */
-export const UpdatePipelineByIdResponse$outboundSchema: z.ZodType<
-  UpdatePipelineByIdResponse$Outbound,
-  z.ZodTypeDef,
-  UpdatePipelineByIdResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.Pipeline$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdatePipelineByIdResponse$ {
-  /** @deprecated use `UpdatePipelineByIdResponse$inboundSchema` instead. */
-  export const inboundSchema = UpdatePipelineByIdResponse$inboundSchema;
-  /** @deprecated use `UpdatePipelineByIdResponse$outboundSchema` instead. */
-  export const outboundSchema = UpdatePipelineByIdResponse$outboundSchema;
-  /** @deprecated use `UpdatePipelineByIdResponse$Outbound` instead. */
-  export type Outbound = UpdatePipelineByIdResponse$Outbound;
-}
-
-export function updatePipelineByIdResponseToJSON(
-  updatePipelineByIdResponse: UpdatePipelineByIdResponse,
-): string {
-  return JSON.stringify(
-    UpdatePipelineByIdResponse$outboundSchema.parse(updatePipelineByIdResponse),
-  );
-}
-
-export function updatePipelineByIdResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdatePipelineByIdResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UpdatePipelineByIdResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdatePipelineByIdResponse' from JSON`,
   );
 }

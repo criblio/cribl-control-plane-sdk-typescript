@@ -63,7 +63,6 @@ export const RoutesGroups$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
 });
-
 /** @internal */
 export type RoutesGroups$Outbound = {
   name: string;
@@ -82,23 +81,9 @@ export const RoutesGroups$outboundSchema: z.ZodType<
   disabled: z.boolean().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace RoutesGroups$ {
-  /** @deprecated use `RoutesGroups$inboundSchema` instead. */
-  export const inboundSchema = RoutesGroups$inboundSchema;
-  /** @deprecated use `RoutesGroups$outboundSchema` instead. */
-  export const outboundSchema = RoutesGroups$outboundSchema;
-  /** @deprecated use `RoutesGroups$Outbound` instead. */
-  export type Outbound = RoutesGroups$Outbound;
-}
-
 export function routesGroupsToJSON(routesGroups: RoutesGroups): string {
   return JSON.stringify(RoutesGroups$outboundSchema.parse(routesGroups));
 }
-
 export function routesGroupsFromJSON(
   jsonString: string,
 ): SafeParseResult<RoutesGroups, SDKValidationError> {
@@ -118,7 +103,6 @@ export const Comment$inboundSchema: z.ZodType<Comment, z.ZodTypeDef, unknown> =
     "additionalProperties",
     true,
   );
-
 /** @internal */
 export type Comment$Outbound = {
   comment?: string | undefined;
@@ -142,23 +126,9 @@ export const Comment$outboundSchema: z.ZodType<
   };
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Comment$ {
-  /** @deprecated use `Comment$inboundSchema` instead. */
-  export const inboundSchema = Comment$inboundSchema;
-  /** @deprecated use `Comment$outboundSchema` instead. */
-  export const outboundSchema = Comment$outboundSchema;
-  /** @deprecated use `Comment$Outbound` instead. */
-  export type Outbound = Comment$Outbound;
-}
-
 export function commentToJSON(comment: Comment): string {
   return JSON.stringify(Comment$outboundSchema.parse(comment));
 }
-
 export function commentFromJSON(
   jsonString: string,
 ): SafeParseResult<Comment, SDKValidationError> {
@@ -177,7 +147,6 @@ export const Routes$inboundSchema: z.ZodType<Routes, z.ZodTypeDef, unknown> = z
     groups: z.record(z.lazy(() => RoutesGroups$inboundSchema)).optional(),
     comments: z.array(z.lazy(() => Comment$inboundSchema)).optional(),
   });
-
 /** @internal */
 export type Routes$Outbound = {
   id?: string | undefined;
@@ -198,23 +167,9 @@ export const Routes$outboundSchema: z.ZodType<
   comments: z.array(z.lazy(() => Comment$outboundSchema)).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Routes$ {
-  /** @deprecated use `Routes$inboundSchema` instead. */
-  export const inboundSchema = Routes$inboundSchema;
-  /** @deprecated use `Routes$outboundSchema` instead. */
-  export const outboundSchema = Routes$outboundSchema;
-  /** @deprecated use `Routes$Outbound` instead. */
-  export type Outbound = Routes$Outbound;
-}
-
 export function routesToJSON(routes: Routes): string {
   return JSON.stringify(Routes$outboundSchema.parse(routes));
 }
-
 export function routesFromJSON(
   jsonString: string,
 ): SafeParseResult<Routes, SDKValidationError> {

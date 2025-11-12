@@ -3,11 +3,7 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 
 export const NodeFailedUpgradeStatus = {
   Zero: 0,
@@ -25,24 +21,3 @@ export const NodeFailedUpgradeStatus$inboundSchema: z.ZodType<
     z.nativeEnum(NodeFailedUpgradeStatus),
     z.number().transform(catchUnrecognizedEnum),
   ]);
-
-/** @internal */
-export const NodeFailedUpgradeStatus$outboundSchema: z.ZodType<
-  NodeFailedUpgradeStatus,
-  z.ZodTypeDef,
-  NodeFailedUpgradeStatus
-> = z.union([
-  z.nativeEnum(NodeFailedUpgradeStatus),
-  z.number().and(z.custom<Unrecognized<number>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace NodeFailedUpgradeStatus$ {
-  /** @deprecated use `NodeFailedUpgradeStatus$inboundSchema` instead. */
-  export const inboundSchema = NodeFailedUpgradeStatus$inboundSchema;
-  /** @deprecated use `NodeFailedUpgradeStatus$outboundSchema` instead. */
-  export const outboundSchema = NodeFailedUpgradeStatus$outboundSchema;
-}

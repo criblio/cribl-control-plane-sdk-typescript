@@ -33,10 +33,8 @@ let value: InputCriblLakeHttp = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
-    minVersion: "TLSv1.3",
-    maxVersion: "TLSv1.3",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1",
   },
   metadata: [
     {
@@ -47,8 +45,7 @@ let value: InputCriblLakeHttp = {
   authTokensExt: [
     {
       token: "<value>",
-      description:
-        "even athwart after lively creator apud hold pish whenever woot",
+      description: "swear aw angrily yearningly ferociously vet trusting yum",
       metadata: [
         {
           name: "<value>",
@@ -59,12 +56,12 @@ let value: InputCriblLakeHttp = {
         enabled: true,
       },
       elasticsearchMetadata: {
-        enabled: true,
+        enabled: false,
       },
     },
   ],
   description:
-    "after whoever castanet gosh bludgeon fabricate gee incidentally",
+    "deceivingly unwilling boohoo guest obnoxiously forenenst blossom satirise before",
 };
 ```
 
