@@ -312,6 +312,10 @@ export type OutputAzureBlob = {
    * How to handle events when disk space is below the global 'Min free disk space' limit
    */
   onDiskFullBackpressure?: OutputAzureBlobDiskSpaceProtection | undefined;
+  /**
+   * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+   */
+  forceCloseOnShutdown?: boolean | undefined;
   authType?: OutputAzureBlobAuthenticationMethod | undefined;
   storageClass?: BlobAccessTier | undefined;
   description?: string | undefined;
@@ -725,6 +729,7 @@ export const OutputAzureBlob$inboundSchema: z.ZodType<
   deadletterEnabled: z.boolean().default(false),
   onDiskFullBackpressure: OutputAzureBlobDiskSpaceProtection$inboundSchema
     .default("block"),
+  forceCloseOnShutdown: z.boolean().default(false),
   authType: OutputAzureBlobAuthenticationMethod$inboundSchema.default("manual"),
   storageClass: BlobAccessTier$inboundSchema.default("Inferred"),
   description: z.string().optional(),
@@ -791,6 +796,7 @@ export type OutputAzureBlob$Outbound = {
   onBackpressure: string;
   deadletterEnabled: boolean;
   onDiskFullBackpressure: string;
+  forceCloseOnShutdown: boolean;
   authType: string;
   storageClass: string;
   description?: string | undefined;
@@ -862,6 +868,7 @@ export const OutputAzureBlob$outboundSchema: z.ZodType<
   deadletterEnabled: z.boolean().default(false),
   onDiskFullBackpressure: OutputAzureBlobDiskSpaceProtection$outboundSchema
     .default("block"),
+  forceCloseOnShutdown: z.boolean().default(false),
   authType: OutputAzureBlobAuthenticationMethod$outboundSchema.default(
     "manual",
   ),

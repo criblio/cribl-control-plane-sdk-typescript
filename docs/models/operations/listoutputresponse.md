@@ -45,6 +45,7 @@ let value: ListOutputResponse = {
       onBackpressure: "block",
       deadletterEnabled: false,
       onDiskFullBackpressure: "block",
+      forceCloseOnShutdown: false,
       authType: "manual",
       storageClass: "Inferred",
       description:

@@ -122,6 +122,7 @@ export * from "./outputazureeventhub.js";
 export * from "./outputazurelogs.js";
 export * from "./outputchronicle.js";
 export * from "./outputclickhouse.js";
+export * from "./outputcloudflarer2.js";
 export * from "./outputcloudwatch.js";
 export * from "./outputconfluentcloud.js";
 export * from "./outputcriblhttp.js";
