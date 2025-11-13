@@ -398,6 +398,10 @@ export type OutputGoogleCloudStorage = {
   onDiskFullBackpressure?:
     | OutputGoogleCloudStorageDiskSpaceProtection
     | undefined;
+  /**
+   * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+   */
+  forceCloseOnShutdown?: boolean | undefined;
   description?: string | undefined;
   /**
    * Data compression format to apply to HTTP content before it is delivered
@@ -815,6 +819,7 @@ export const OutputGoogleCloudStorage$inboundSchema: z.ZodType<
   deadletterEnabled: z.boolean().default(false),
   onDiskFullBackpressure:
     OutputGoogleCloudStorageDiskSpaceProtection$inboundSchema.default("block"),
+  forceCloseOnShutdown: z.boolean().default(false),
   description: z.string().optional(),
   compress: OutputGoogleCloudStorageCompression$inboundSchema.default("gzip"),
   compressionLevel: OutputGoogleCloudStorageCompressionLevel$inboundSchema
@@ -877,6 +882,7 @@ export type OutputGoogleCloudStorage$Outbound = {
   onBackpressure: string;
   deadletterEnabled: boolean;
   onDiskFullBackpressure: string;
+  forceCloseOnShutdown: boolean;
   description?: string | undefined;
   compress: string;
   compressionLevel: string;
@@ -952,6 +958,7 @@ export const OutputGoogleCloudStorage$outboundSchema: z.ZodType<
   deadletterEnabled: z.boolean().default(false),
   onDiskFullBackpressure:
     OutputGoogleCloudStorageDiskSpaceProtection$outboundSchema.default("block"),
+  forceCloseOnShutdown: z.boolean().default(false),
   description: z.string().optional(),
   compress: OutputGoogleCloudStorageCompression$outboundSchema.default("gzip"),
   compressionLevel: OutputGoogleCloudStorageCompressionLevel$outboundSchema

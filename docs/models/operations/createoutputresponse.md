@@ -12,7 +12,7 @@ let value: CreateOutputResponse = {
   items: [
     {
       id: "<id>",
-      type: "elastic_cloud",
+      type: "newrelic",
       pipeline: "<value>",
       systemFields: [
         "<value 1>",
@@ -22,10 +22,17 @@ let value: CreateOutputResponse = {
         "<value 1>",
         "<value 2>",
       ],
-      url: "https://ruddy-cutover.net/",
-      index: "<value>",
+      region: "US",
+      logType: "",
+      messageField: "",
+      metadata: [
+        {
+          name: "hostname",
+          value: "<value>",
+        },
+      ],
       concurrency: 5,
-      maxPayloadSizeKB: 4096,
+      maxPayloadSizeKB: 1024,
       maxPayloadEvents: 0,
       compress: true,
       rejectUnauthorized: true,
@@ -37,32 +44,16 @@ let value: CreateOutputResponse = {
           value: "<value>",
         },
       ],
+      useRoundRobinDns: false,
       failedRequestLoggingMode: "none",
       safeHeaders: [
         "<value 1>",
         "<value 2>",
         "<value 3>",
       ],
-      extraParams: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      auth: {
-        disabled: false,
-        username: "Kylie_Harber15",
-        password: "72uE6zafEeRm9Ny",
-        authType: "manual",
-        credentialsSecret: "<value>",
-        manualAPIKey: "<value>",
-        textSecret: "<value>",
-      },
-      elasticPipeline: "<value>",
-      includeDocId: true,
       responseRetrySettings: [
         {
-          httpStatus: 4676.21,
+          httpStatus: 2157.83,
           initialBackoff: 1000,
           backoffRate: 2,
           maxBackoff: 10000,
@@ -74,10 +65,13 @@ let value: CreateOutputResponse = {
         backoffRate: 2,
         maxBackoff: 10000,
       },
-      responseHonorRetryAfterHeader: true,
+      responseHonorRetryAfterHeader: false,
       onBackpressure: "block",
+      authType: "manual",
+      totalMemoryLimitKB: 8146.75,
       description:
-        "mockingly phooey kaleidoscopic tough for grouchy apropos wearily er but",
+        "at duh writhing knit embossing overproduce perfectly successfully willfully",
+      customUrl: "https://unwilling-pulse.net/",
       pqStrictOrdering: true,
       pqRatePerSec: 0,
       pqMode: "error",
@@ -89,6 +83,8 @@ let value: CreateOutputResponse = {
       pqCompress: "none",
       pqOnBackpressure: "block",
       pqControls: {},
+      apiKey: "<value>",
+      textSecret: "<value>",
     },
   ],
 };

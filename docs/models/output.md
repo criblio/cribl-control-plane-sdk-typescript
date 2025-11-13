@@ -1318,8 +1318,8 @@ const value: models.OutputElasticCloud = {
     },
   ],
   auth: {
-    username: "Kylie_Harber15",
-    password: "72uE6zafEeRm9Ny",
+    username: "Jayde69",
+    password: "IRi6u29iGkmGCiq",
     credentialsSecret: "<value>",
     manualAPIKey: "<value>",
     textSecret: "<value>",
@@ -1327,11 +1327,12 @@ const value: models.OutputElasticCloud = {
   elasticPipeline: "<value>",
   responseRetrySettings: [
     {
-      httpStatus: 4676.21,
+      httpStatus: 9904.08,
     },
   ],
   timeoutRetrySettings: {},
-  description: "cheerfully arrange lest circa yet quirkily",
+  description:
+    "blacken uncomfortable pro downshift frenetically atop while though",
   pqControls: {},
 };
 ```
@@ -1367,17 +1368,16 @@ const value: models.OutputNewrelic = {
   safeHeaders: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   responseRetrySettings: [
     {
-      httpStatus: 1243.99,
+      httpStatus: 2157.83,
     },
   ],
   timeoutRetrySettings: {},
-  totalMemoryLimitKB: 7293.26,
-  description: "rapidly fooey now mooch superior sleepily boohoo repeatedly",
-  customUrl: "https://dirty-tinderbox.info/",
+  totalMemoryLimitKB: 7414.49,
+  description: "dental to despite",
+  customUrl: "https://limping-following.org/",
   pqControls: {},
   apiKey: "<value>",
   textSecret: "<value>",
@@ -2925,6 +2925,42 @@ const value: models.OutputMicrosoftFabric = {
   bootstrapServer: "<value>",
   description: "astride ocelot nifty greedy bungalow kiddingly successfully",
   pqControls: {},
+};
+```
+
+### `models.OutputCloudflareR2`
+
+```typescript
+const value: models.OutputCloudflareR2 = {
+  id: "<id>",
+  type: "cloudflare_r2",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  endpoint: "<value>",
+  bucket: "<value>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  destPath: "<value>",
+  objectACL: "<value>",
+  storageClass: "STANDARD",
+  serverSideEncryption: "AES256",
+  description: "but because hidden",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  parquetSchema: "<value>",
+  shouldLogInvalidRows: true,
+  keyValueMetadata: [
+    {
+      value: "<value>",
+    },
+  ],
 };
 ```
 

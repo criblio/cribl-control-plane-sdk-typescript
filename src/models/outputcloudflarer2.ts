@@ -13,91 +13,44 @@ import {
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export const OutputMinioType = {
-  Minio: "minio",
+export const OutputCloudflareR2Type = {
+  CloudflareR2: "cloudflare_r2",
 } as const;
-export type OutputMinioType = ClosedEnum<typeof OutputMinioType>;
+export type OutputCloudflareR2Type = ClosedEnum<typeof OutputCloudflareR2Type>;
 
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
  */
-export const OutputMinioAuthenticationMethod = {
-  /**
-   * Auto
-   */
+export const OutputCloudflareR2AuthenticationMethod = {
   Auto: "auto",
-  /**
-   * Manual
-   */
-  Manual: "manual",
-  /**
-   * Secret Key pair
-   */
   Secret: "secret",
+  Manual: "manual",
 } as const;
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
  */
-export type OutputMinioAuthenticationMethod = OpenEnum<
-  typeof OutputMinioAuthenticationMethod
+export type OutputCloudflareR2AuthenticationMethod = OpenEnum<
+  typeof OutputCloudflareR2AuthenticationMethod
 >;
 
 /**
  * Signature version to use for signing MinIO requests
  */
-export const OutputMinioSignatureVersion = {
+export const OutputCloudflareR2SignatureVersion = {
   V2: "v2",
   V4: "v4",
 } as const;
 /**
  * Signature version to use for signing MinIO requests
  */
-export type OutputMinioSignatureVersion = OpenEnum<
-  typeof OutputMinioSignatureVersion
+export type OutputCloudflareR2SignatureVersion = OpenEnum<
+  typeof OutputCloudflareR2SignatureVersion
 >;
-
-/**
- * Object ACL to assign to uploaded objects
- */
-export const OutputMinioObjectACL = {
-  /**
-   * Private
-   */
-  Private: "private",
-  /**
-   * Public Read Only
-   */
-  PublicRead: "public-read",
-  /**
-   * Public Read/Write
-   */
-  PublicReadWrite: "public-read-write",
-  /**
-   * Authenticated Read Only
-   */
-  AuthenticatedRead: "authenticated-read",
-  /**
-   * AWS EC2 AMI Read Only
-   */
-  AwsExecRead: "aws-exec-read",
-  /**
-   * Bucket Owner Read Only
-   */
-  BucketOwnerRead: "bucket-owner-read",
-  /**
-   * Bucket Owner Full Control
-   */
-  BucketOwnerFullControl: "bucket-owner-full-control",
-} as const;
-/**
- * Object ACL to assign to uploaded objects
- */
-export type OutputMinioObjectACL = OpenEnum<typeof OutputMinioObjectACL>;
 
 /**
  * Storage class to select for uploaded objects
  */
-export const OutputMinioStorageClass = {
+export const OutputCloudflareR2StorageClass = {
   /**
    * Standard
    */
@@ -110,12 +63,14 @@ export const OutputMinioStorageClass = {
 /**
  * Storage class to select for uploaded objects
  */
-export type OutputMinioStorageClass = OpenEnum<typeof OutputMinioStorageClass>;
+export type OutputCloudflareR2StorageClass = OpenEnum<
+  typeof OutputCloudflareR2StorageClass
+>;
 
 /**
  * Server-side encryption for uploaded objects
  */
-export const OutputMinioServerSideEncryption = {
+export const OutputCloudflareR2ServerSideEncryption = {
   /**
    * Amazon S3 Managed Key
    */
@@ -124,14 +79,14 @@ export const OutputMinioServerSideEncryption = {
 /**
  * Server-side encryption for uploaded objects
  */
-export type OutputMinioServerSideEncryption = OpenEnum<
-  typeof OutputMinioServerSideEncryption
+export type OutputCloudflareR2ServerSideEncryption = OpenEnum<
+  typeof OutputCloudflareR2ServerSideEncryption
 >;
 
 /**
  * Format of the output data
  */
-export const OutputMinioDataFormat = {
+export const OutputCloudflareR2DataFormat = {
   /**
    * JSON
    */
@@ -148,12 +103,14 @@ export const OutputMinioDataFormat = {
 /**
  * Format of the output data
  */
-export type OutputMinioDataFormat = OpenEnum<typeof OutputMinioDataFormat>;
+export type OutputCloudflareR2DataFormat = OpenEnum<
+  typeof OutputCloudflareR2DataFormat
+>;
 
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export const OutputMinioBackpressureBehavior = {
+export const OutputCloudflareR2BackpressureBehavior = {
   /**
    * Block
    */
@@ -166,14 +123,14 @@ export const OutputMinioBackpressureBehavior = {
 /**
  * How to handle events when all receivers are exerting backpressure
  */
-export type OutputMinioBackpressureBehavior = OpenEnum<
-  typeof OutputMinioBackpressureBehavior
+export type OutputCloudflareR2BackpressureBehavior = OpenEnum<
+  typeof OutputCloudflareR2BackpressureBehavior
 >;
 
 /**
  * How to handle events when disk space is below the global 'Min free disk space' limit
  */
-export const OutputMinioDiskSpaceProtection = {
+export const OutputCloudflareR2DiskSpaceProtection = {
   /**
    * Block
    */
@@ -186,26 +143,28 @@ export const OutputMinioDiskSpaceProtection = {
 /**
  * How to handle events when disk space is below the global 'Min free disk space' limit
  */
-export type OutputMinioDiskSpaceProtection = OpenEnum<
-  typeof OutputMinioDiskSpaceProtection
+export type OutputCloudflareR2DiskSpaceProtection = OpenEnum<
+  typeof OutputCloudflareR2DiskSpaceProtection
 >;
 
 /**
  * Data compression format to apply to HTTP content before it is delivered
  */
-export const OutputMinioCompression = {
+export const OutputCloudflareR2Compression = {
   None: "none",
   Gzip: "gzip",
 } as const;
 /**
  * Data compression format to apply to HTTP content before it is delivered
  */
-export type OutputMinioCompression = OpenEnum<typeof OutputMinioCompression>;
+export type OutputCloudflareR2Compression = OpenEnum<
+  typeof OutputCloudflareR2Compression
+>;
 
 /**
  * Compression level to apply before moving files to final destination
  */
-export const OutputMinioCompressionLevel = {
+export const OutputCloudflareR2CompressionLevel = {
   /**
    * Best Speed
    */
@@ -222,14 +181,14 @@ export const OutputMinioCompressionLevel = {
 /**
  * Compression level to apply before moving files to final destination
  */
-export type OutputMinioCompressionLevel = OpenEnum<
-  typeof OutputMinioCompressionLevel
+export type OutputCloudflareR2CompressionLevel = OpenEnum<
+  typeof OutputCloudflareR2CompressionLevel
 >;
 
 /**
  * Determines which data types are supported and how they are represented
  */
-export const OutputMinioParquetVersion = {
+export const OutputCloudflareR2ParquetVersion = {
   /**
    * 1.0
    */
@@ -246,14 +205,14 @@ export const OutputMinioParquetVersion = {
 /**
  * Determines which data types are supported and how they are represented
  */
-export type OutputMinioParquetVersion = OpenEnum<
-  typeof OutputMinioParquetVersion
+export type OutputCloudflareR2ParquetVersion = OpenEnum<
+  typeof OutputCloudflareR2ParquetVersion
 >;
 
 /**
  * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
  */
-export const OutputMinioDataPageVersion = {
+export const OutputCloudflareR2DataPageVersion = {
   /**
    * V1
    */
@@ -266,21 +225,21 @@ export const OutputMinioDataPageVersion = {
 /**
  * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
  */
-export type OutputMinioDataPageVersion = OpenEnum<
-  typeof OutputMinioDataPageVersion
+export type OutputCloudflareR2DataPageVersion = OpenEnum<
+  typeof OutputCloudflareR2DataPageVersion
 >;
 
-export type OutputMinioKeyValueMetadatum = {
+export type OutputCloudflareR2KeyValueMetadatum = {
   key?: string | undefined;
   value: string;
 };
 
-export type OutputMinio = {
+export type OutputCloudflareR2 = {
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputMinioType;
+  type: OutputCloudflareR2Type;
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -298,25 +257,22 @@ export type OutputMinio = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * MinIO service url (e.g. http://minioHost:9000)
+   * Cloudflare R2 service URL (example: https://<ACCOUNT_ID>.r2.cloudflarestorage.com)
    */
   endpoint: string;
   /**
-   * Name of the destination MinIO bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
+   * Name of the destination R2 bucket. This value can be a constant or a JavaScript expression that can only be evaluated at init time. Example referencing a Global Variable: `myBucket-${C.vars.myVar}`
    */
   bucket: string;
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: OutputMinioAuthenticationMethod | undefined;
+  awsAuthenticationMethod?: OutputCloudflareR2AuthenticationMethod | undefined;
   /**
    * Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
    */
   awsSecretKey?: string | undefined;
-  /**
-   * Region where the MinIO service/cluster is located
-   */
-  region?: string | undefined;
+  region?: any | undefined;
   /**
    * Filesystem location in which to buffer files, before compressing and moving to final destination. Use performant stable storage.
    */
@@ -332,19 +288,16 @@ export type OutputMinio = {
   /**
    * Signature version to use for signing MinIO requests
    */
-  signatureVersion?: OutputMinioSignatureVersion | undefined;
-  /**
-   * Object ACL to assign to uploaded objects
-   */
-  objectACL?: OutputMinioObjectACL | undefined;
+  signatureVersion?: OutputCloudflareR2SignatureVersion | undefined;
+  objectACL?: any | undefined;
   /**
    * Storage class to select for uploaded objects
    */
-  storageClass?: OutputMinioStorageClass | undefined;
+  storageClass?: OutputCloudflareR2StorageClass | undefined;
   /**
    * Server-side encryption for uploaded objects
    */
-  serverSideEncryption?: OutputMinioServerSideEncryption | undefined;
+  serverSideEncryption?: OutputCloudflareR2ServerSideEncryption | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -368,7 +321,7 @@ export type OutputMinio = {
   /**
    * Format of the output data
    */
-  format?: OutputMinioDataFormat | undefined;
+  format?: OutputCloudflareR2DataFormat | undefined;
   /**
    * JavaScript expression to define the output filename prefix (can be constant)
    */
@@ -396,7 +349,7 @@ export type OutputMinio = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputMinioBackpressureBehavior | undefined;
+  onBackpressure?: OutputCloudflareR2BackpressureBehavior | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
@@ -404,7 +357,7 @@ export type OutputMinio = {
   /**
    * How to handle events when disk space is below the global 'Min free disk space' limit
    */
-  onDiskFullBackpressure?: OutputMinioDiskSpaceProtection | undefined;
+  onDiskFullBackpressure?: OutputCloudflareR2DiskSpaceProtection | undefined;
   /**
    * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
    */
@@ -433,11 +386,11 @@ export type OutputMinio = {
   /**
    * Data compression format to apply to HTTP content before it is delivered
    */
-  compress?: OutputMinioCompression | undefined;
+  compress?: OutputCloudflareR2Compression | undefined;
   /**
    * Compression level to apply before moving files to final destination
    */
-  compressionLevel?: OutputMinioCompressionLevel | undefined;
+  compressionLevel?: OutputCloudflareR2CompressionLevel | undefined;
   /**
    * Automatically calculate the schema based on the events of each Parquet file generated
    */
@@ -449,11 +402,11 @@ export type OutputMinio = {
   /**
    * Determines which data types are supported and how they are represented
    */
-  parquetVersion?: OutputMinioParquetVersion | undefined;
+  parquetVersion?: OutputCloudflareR2ParquetVersion | undefined;
   /**
    * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
    */
-  parquetDataPageVersion?: OutputMinioDataPageVersion | undefined;
+  parquetDataPageVersion?: OutputCloudflareR2DataPageVersion | undefined;
   /**
    * The number of rows that every group will contain. The final group can contain a smaller number of rows.
    */
@@ -469,7 +422,7 @@ export type OutputMinio = {
   /**
    * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
    */
-  keyValueMetadata?: Array<OutputMinioKeyValueMetadatum> | undefined;
+  keyValueMetadata?: Array<OutputCloudflareR2KeyValueMetadatum> | undefined;
   /**
    * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
    */
@@ -497,257 +450,237 @@ export type OutputMinio = {
 };
 
 /** @internal */
-export const OutputMinioType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputMinioType
-> = z.nativeEnum(OutputMinioType);
+export const OutputCloudflareR2Type$inboundSchema: z.ZodNativeEnum<
+  typeof OutputCloudflareR2Type
+> = z.nativeEnum(OutputCloudflareR2Type);
 /** @internal */
-export const OutputMinioType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputMinioType
-> = OutputMinioType$inboundSchema;
+export const OutputCloudflareR2Type$outboundSchema: z.ZodNativeEnum<
+  typeof OutputCloudflareR2Type
+> = OutputCloudflareR2Type$inboundSchema;
 
 /** @internal */
-export const OutputMinioAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputMinioAuthenticationMethod,
+export const OutputCloudflareR2AuthenticationMethod$inboundSchema: z.ZodType<
+  OutputCloudflareR2AuthenticationMethod,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(OutputMinioAuthenticationMethod),
+    z.nativeEnum(OutputCloudflareR2AuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
 /** @internal */
-export const OutputMinioAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputMinioAuthenticationMethod,
+export const OutputCloudflareR2AuthenticationMethod$outboundSchema: z.ZodType<
+  OutputCloudflareR2AuthenticationMethod,
   z.ZodTypeDef,
-  OutputMinioAuthenticationMethod
+  OutputCloudflareR2AuthenticationMethod
 > = z.union([
-  z.nativeEnum(OutputMinioAuthenticationMethod),
+  z.nativeEnum(OutputCloudflareR2AuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
 /** @internal */
-export const OutputMinioSignatureVersion$inboundSchema: z.ZodType<
-  OutputMinioSignatureVersion,
+export const OutputCloudflareR2SignatureVersion$inboundSchema: z.ZodType<
+  OutputCloudflareR2SignatureVersion,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(OutputMinioSignatureVersion),
+    z.nativeEnum(OutputCloudflareR2SignatureVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
 /** @internal */
-export const OutputMinioSignatureVersion$outboundSchema: z.ZodType<
-  OutputMinioSignatureVersion,
+export const OutputCloudflareR2SignatureVersion$outboundSchema: z.ZodType<
+  OutputCloudflareR2SignatureVersion,
   z.ZodTypeDef,
-  OutputMinioSignatureVersion
+  OutputCloudflareR2SignatureVersion
 > = z.union([
-  z.nativeEnum(OutputMinioSignatureVersion),
+  z.nativeEnum(OutputCloudflareR2SignatureVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
 /** @internal */
-export const OutputMinioObjectACL$inboundSchema: z.ZodType<
-  OutputMinioObjectACL,
+export const OutputCloudflareR2StorageClass$inboundSchema: z.ZodType<
+  OutputCloudflareR2StorageClass,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(OutputMinioObjectACL),
+    z.nativeEnum(OutputCloudflareR2StorageClass),
     z.string().transform(catchUnrecognizedEnum),
   ]);
 /** @internal */
-export const OutputMinioObjectACL$outboundSchema: z.ZodType<
-  OutputMinioObjectACL,
+export const OutputCloudflareR2StorageClass$outboundSchema: z.ZodType<
+  OutputCloudflareR2StorageClass,
   z.ZodTypeDef,
-  OutputMinioObjectACL
+  OutputCloudflareR2StorageClass
 > = z.union([
-  z.nativeEnum(OutputMinioObjectACL),
+  z.nativeEnum(OutputCloudflareR2StorageClass),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
 /** @internal */
-export const OutputMinioStorageClass$inboundSchema: z.ZodType<
-  OutputMinioStorageClass,
+export const OutputCloudflareR2ServerSideEncryption$inboundSchema: z.ZodType<
+  OutputCloudflareR2ServerSideEncryption,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(OutputMinioStorageClass),
+    z.nativeEnum(OutputCloudflareR2ServerSideEncryption),
     z.string().transform(catchUnrecognizedEnum),
   ]);
 /** @internal */
-export const OutputMinioStorageClass$outboundSchema: z.ZodType<
-  OutputMinioStorageClass,
+export const OutputCloudflareR2ServerSideEncryption$outboundSchema: z.ZodType<
+  OutputCloudflareR2ServerSideEncryption,
   z.ZodTypeDef,
-  OutputMinioStorageClass
+  OutputCloudflareR2ServerSideEncryption
 > = z.union([
-  z.nativeEnum(OutputMinioStorageClass),
+  z.nativeEnum(OutputCloudflareR2ServerSideEncryption),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
 /** @internal */
-export const OutputMinioServerSideEncryption$inboundSchema: z.ZodType<
-  OutputMinioServerSideEncryption,
+export const OutputCloudflareR2DataFormat$inboundSchema: z.ZodType<
+  OutputCloudflareR2DataFormat,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(OutputMinioServerSideEncryption),
+    z.nativeEnum(OutputCloudflareR2DataFormat),
     z.string().transform(catchUnrecognizedEnum),
   ]);
 /** @internal */
-export const OutputMinioServerSideEncryption$outboundSchema: z.ZodType<
-  OutputMinioServerSideEncryption,
+export const OutputCloudflareR2DataFormat$outboundSchema: z.ZodType<
+  OutputCloudflareR2DataFormat,
   z.ZodTypeDef,
-  OutputMinioServerSideEncryption
+  OutputCloudflareR2DataFormat
 > = z.union([
-  z.nativeEnum(OutputMinioServerSideEncryption),
+  z.nativeEnum(OutputCloudflareR2DataFormat),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
 /** @internal */
-export const OutputMinioDataFormat$inboundSchema: z.ZodType<
-  OutputMinioDataFormat,
+export const OutputCloudflareR2BackpressureBehavior$inboundSchema: z.ZodType<
+  OutputCloudflareR2BackpressureBehavior,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(OutputMinioDataFormat),
+    z.nativeEnum(OutputCloudflareR2BackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
 /** @internal */
-export const OutputMinioDataFormat$outboundSchema: z.ZodType<
-  OutputMinioDataFormat,
+export const OutputCloudflareR2BackpressureBehavior$outboundSchema: z.ZodType<
+  OutputCloudflareR2BackpressureBehavior,
   z.ZodTypeDef,
-  OutputMinioDataFormat
+  OutputCloudflareR2BackpressureBehavior
 > = z.union([
-  z.nativeEnum(OutputMinioDataFormat),
+  z.nativeEnum(OutputCloudflareR2BackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
 /** @internal */
-export const OutputMinioBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputMinioBackpressureBehavior,
+export const OutputCloudflareR2DiskSpaceProtection$inboundSchema: z.ZodType<
+  OutputCloudflareR2DiskSpaceProtection,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(OutputMinioBackpressureBehavior),
+    z.nativeEnum(OutputCloudflareR2DiskSpaceProtection),
     z.string().transform(catchUnrecognizedEnum),
   ]);
 /** @internal */
-export const OutputMinioBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputMinioBackpressureBehavior,
+export const OutputCloudflareR2DiskSpaceProtection$outboundSchema: z.ZodType<
+  OutputCloudflareR2DiskSpaceProtection,
   z.ZodTypeDef,
-  OutputMinioBackpressureBehavior
+  OutputCloudflareR2DiskSpaceProtection
 > = z.union([
-  z.nativeEnum(OutputMinioBackpressureBehavior),
+  z.nativeEnum(OutputCloudflareR2DiskSpaceProtection),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
 /** @internal */
-export const OutputMinioDiskSpaceProtection$inboundSchema: z.ZodType<
-  OutputMinioDiskSpaceProtection,
+export const OutputCloudflareR2Compression$inboundSchema: z.ZodType<
+  OutputCloudflareR2Compression,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(OutputMinioDiskSpaceProtection),
+    z.nativeEnum(OutputCloudflareR2Compression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
 /** @internal */
-export const OutputMinioDiskSpaceProtection$outboundSchema: z.ZodType<
-  OutputMinioDiskSpaceProtection,
+export const OutputCloudflareR2Compression$outboundSchema: z.ZodType<
+  OutputCloudflareR2Compression,
   z.ZodTypeDef,
-  OutputMinioDiskSpaceProtection
+  OutputCloudflareR2Compression
 > = z.union([
-  z.nativeEnum(OutputMinioDiskSpaceProtection),
+  z.nativeEnum(OutputCloudflareR2Compression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
 /** @internal */
-export const OutputMinioCompression$inboundSchema: z.ZodType<
-  OutputMinioCompression,
+export const OutputCloudflareR2CompressionLevel$inboundSchema: z.ZodType<
+  OutputCloudflareR2CompressionLevel,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(OutputMinioCompression),
+    z.nativeEnum(OutputCloudflareR2CompressionLevel),
     z.string().transform(catchUnrecognizedEnum),
   ]);
 /** @internal */
-export const OutputMinioCompression$outboundSchema: z.ZodType<
-  OutputMinioCompression,
+export const OutputCloudflareR2CompressionLevel$outboundSchema: z.ZodType<
+  OutputCloudflareR2CompressionLevel,
   z.ZodTypeDef,
-  OutputMinioCompression
+  OutputCloudflareR2CompressionLevel
 > = z.union([
-  z.nativeEnum(OutputMinioCompression),
+  z.nativeEnum(OutputCloudflareR2CompressionLevel),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
 /** @internal */
-export const OutputMinioCompressionLevel$inboundSchema: z.ZodType<
-  OutputMinioCompressionLevel,
+export const OutputCloudflareR2ParquetVersion$inboundSchema: z.ZodType<
+  OutputCloudflareR2ParquetVersion,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(OutputMinioCompressionLevel),
+    z.nativeEnum(OutputCloudflareR2ParquetVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
 /** @internal */
-export const OutputMinioCompressionLevel$outboundSchema: z.ZodType<
-  OutputMinioCompressionLevel,
+export const OutputCloudflareR2ParquetVersion$outboundSchema: z.ZodType<
+  OutputCloudflareR2ParquetVersion,
   z.ZodTypeDef,
-  OutputMinioCompressionLevel
+  OutputCloudflareR2ParquetVersion
 > = z.union([
-  z.nativeEnum(OutputMinioCompressionLevel),
+  z.nativeEnum(OutputCloudflareR2ParquetVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
 /** @internal */
-export const OutputMinioParquetVersion$inboundSchema: z.ZodType<
-  OutputMinioParquetVersion,
+export const OutputCloudflareR2DataPageVersion$inboundSchema: z.ZodType<
+  OutputCloudflareR2DataPageVersion,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(OutputMinioParquetVersion),
+    z.nativeEnum(OutputCloudflareR2DataPageVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
 /** @internal */
-export const OutputMinioParquetVersion$outboundSchema: z.ZodType<
-  OutputMinioParquetVersion,
+export const OutputCloudflareR2DataPageVersion$outboundSchema: z.ZodType<
+  OutputCloudflareR2DataPageVersion,
   z.ZodTypeDef,
-  OutputMinioParquetVersion
+  OutputCloudflareR2DataPageVersion
 > = z.union([
-  z.nativeEnum(OutputMinioParquetVersion),
+  z.nativeEnum(OutputCloudflareR2DataPageVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
 /** @internal */
-export const OutputMinioDataPageVersion$inboundSchema: z.ZodType<
-  OutputMinioDataPageVersion,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMinioDataPageVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-/** @internal */
-export const OutputMinioDataPageVersion$outboundSchema: z.ZodType<
-  OutputMinioDataPageVersion,
-  z.ZodTypeDef,
-  OutputMinioDataPageVersion
-> = z.union([
-  z.nativeEnum(OutputMinioDataPageVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/** @internal */
-export const OutputMinioKeyValueMetadatum$inboundSchema: z.ZodType<
-  OutputMinioKeyValueMetadatum,
+export const OutputCloudflareR2KeyValueMetadatum$inboundSchema: z.ZodType<
+  OutputCloudflareR2KeyValueMetadatum,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -755,65 +688,68 @@ export const OutputMinioKeyValueMetadatum$inboundSchema: z.ZodType<
   value: z.string(),
 });
 /** @internal */
-export type OutputMinioKeyValueMetadatum$Outbound = {
+export type OutputCloudflareR2KeyValueMetadatum$Outbound = {
   key: string;
   value: string;
 };
 
 /** @internal */
-export const OutputMinioKeyValueMetadatum$outboundSchema: z.ZodType<
-  OutputMinioKeyValueMetadatum$Outbound,
+export const OutputCloudflareR2KeyValueMetadatum$outboundSchema: z.ZodType<
+  OutputCloudflareR2KeyValueMetadatum$Outbound,
   z.ZodTypeDef,
-  OutputMinioKeyValueMetadatum
+  OutputCloudflareR2KeyValueMetadatum
 > = z.object({
   key: z.string().default(""),
   value: z.string(),
 });
 
-export function outputMinioKeyValueMetadatumToJSON(
-  outputMinioKeyValueMetadatum: OutputMinioKeyValueMetadatum,
+export function outputCloudflareR2KeyValueMetadatumToJSON(
+  outputCloudflareR2KeyValueMetadatum: OutputCloudflareR2KeyValueMetadatum,
 ): string {
   return JSON.stringify(
-    OutputMinioKeyValueMetadatum$outboundSchema.parse(
-      outputMinioKeyValueMetadatum,
+    OutputCloudflareR2KeyValueMetadatum$outboundSchema.parse(
+      outputCloudflareR2KeyValueMetadatum,
     ),
   );
 }
-export function outputMinioKeyValueMetadatumFromJSON(
+export function outputCloudflareR2KeyValueMetadatumFromJSON(
   jsonString: string,
-): SafeParseResult<OutputMinioKeyValueMetadatum, SDKValidationError> {
+): SafeParseResult<OutputCloudflareR2KeyValueMetadatum, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => OutputMinioKeyValueMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputMinioKeyValueMetadatum' from JSON`,
+    (x) =>
+      OutputCloudflareR2KeyValueMetadatum$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputCloudflareR2KeyValueMetadatum' from JSON`,
   );
 }
 
 /** @internal */
-export const OutputMinio$inboundSchema: z.ZodType<
-  OutputMinio,
+export const OutputCloudflareR2$inboundSchema: z.ZodType<
+  OutputCloudflareR2,
   z.ZodTypeDef,
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputMinioType$inboundSchema,
+  type: OutputCloudflareR2Type$inboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   endpoint: z.string(),
   bucket: z.string(),
-  awsAuthenticationMethod: OutputMinioAuthenticationMethod$inboundSchema
+  awsAuthenticationMethod: OutputCloudflareR2AuthenticationMethod$inboundSchema
     .default("auto"),
   awsSecretKey: z.string().optional(),
-  region: z.string().optional(),
+  region: z.any().optional(),
   stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
   addIdToStagePath: z.boolean().default(true),
   destPath: z.string().optional(),
-  signatureVersion: OutputMinioSignatureVersion$inboundSchema.default("v4"),
-  objectACL: OutputMinioObjectACL$inboundSchema.default("private"),
-  storageClass: OutputMinioStorageClass$inboundSchema.optional(),
-  serverSideEncryption: OutputMinioServerSideEncryption$inboundSchema
+  signatureVersion: OutputCloudflareR2SignatureVersion$inboundSchema.default(
+    "v4",
+  ),
+  objectACL: z.any().optional(),
+  storageClass: OutputCloudflareR2StorageClass$inboundSchema.optional(),
+  serverSideEncryption: OutputCloudflareR2ServerSideEncryption$inboundSchema
     .optional(),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
@@ -822,7 +758,7 @@ export const OutputMinio$inboundSchema: z.ZodType<
   partitionExpr: z.string().default(
     "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
   ),
-  format: OutputMinioDataFormat$inboundSchema.default("json"),
+  format: OutputCloudflareR2DataFormat$inboundSchema.default("json"),
   baseFileName: z.string().default("`CriblOut`"),
   fileNameSuffix: z.string().default(
     "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
@@ -831,13 +767,12 @@ export const OutputMinio$inboundSchema: z.ZodType<
   maxOpenFiles: z.number().default(100),
   headerLine: z.string().default(""),
   writeHighWaterMark: z.number().default(64),
-  onBackpressure: OutputMinioBackpressureBehavior$inboundSchema.default(
+  onBackpressure: OutputCloudflareR2BackpressureBehavior$inboundSchema.default(
     "block",
   ),
   deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: OutputMinioDiskSpaceProtection$inboundSchema.default(
-    "block",
-  ),
+  onDiskFullBackpressure: OutputCloudflareR2DiskSpaceProtection$inboundSchema
+    .default("block"),
   forceCloseOnShutdown: z.boolean().default(false),
   maxFileOpenTimeSec: z.number().default(300),
   maxFileIdleTimeSec: z.number().default(30),
@@ -845,23 +780,22 @@ export const OutputMinio$inboundSchema: z.ZodType<
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  compress: OutputMinioCompression$inboundSchema.default("gzip"),
-  compressionLevel: OutputMinioCompressionLevel$inboundSchema.default(
+  compress: OutputCloudflareR2Compression$inboundSchema.default("gzip"),
+  compressionLevel: OutputCloudflareR2CompressionLevel$inboundSchema.default(
     "best_speed",
   ),
   automaticSchema: z.boolean().default(false),
   parquetSchema: z.string().optional(),
-  parquetVersion: OutputMinioParquetVersion$inboundSchema.default(
+  parquetVersion: OutputCloudflareR2ParquetVersion$inboundSchema.default(
     "PARQUET_2_6",
   ),
-  parquetDataPageVersion: OutputMinioDataPageVersion$inboundSchema.default(
-    "DATA_PAGE_V2",
-  ),
+  parquetDataPageVersion: OutputCloudflareR2DataPageVersion$inboundSchema
+    .default("DATA_PAGE_V2"),
   parquetRowGroupLength: z.number().default(10000),
   parquetPageSize: z.string().default("1MB"),
   shouldLogInvalidRows: z.boolean().optional(),
   keyValueMetadata: z.array(
-    z.lazy(() => OutputMinioKeyValueMetadatum$inboundSchema),
+    z.lazy(() => OutputCloudflareR2KeyValueMetadatum$inboundSchema),
   ).optional(),
   enableStatistics: z.boolean().default(true),
   enableWritePageIndex: z.boolean().default(true),
@@ -871,7 +805,7 @@ export const OutputMinio$inboundSchema: z.ZodType<
   maxRetryNum: z.number().default(20),
 });
 /** @internal */
-export type OutputMinio$Outbound = {
+export type OutputCloudflareR2$Outbound = {
   id?: string | undefined;
   type: string;
   pipeline?: string | undefined;
@@ -882,12 +816,12 @@ export type OutputMinio$Outbound = {
   bucket: string;
   awsAuthenticationMethod: string;
   awsSecretKey?: string | undefined;
-  region?: string | undefined;
+  region?: any | undefined;
   stagePath: string;
   addIdToStagePath: boolean;
   destPath?: string | undefined;
   signatureVersion: string;
-  objectACL: string;
+  objectACL?: any | undefined;
   storageClass?: string | undefined;
   serverSideEncryption?: string | undefined;
   reuseConnections: boolean;
@@ -921,7 +855,9 @@ export type OutputMinio$Outbound = {
   parquetRowGroupLength: number;
   parquetPageSize: string;
   shouldLogInvalidRows?: boolean | undefined;
-  keyValueMetadata?: Array<OutputMinioKeyValueMetadatum$Outbound> | undefined;
+  keyValueMetadata?:
+    | Array<OutputCloudflareR2KeyValueMetadatum$Outbound>
+    | undefined;
   enableStatistics: boolean;
   enableWritePageIndex: boolean;
   enablePageChecksum: boolean;
@@ -931,30 +867,32 @@ export type OutputMinio$Outbound = {
 };
 
 /** @internal */
-export const OutputMinio$outboundSchema: z.ZodType<
-  OutputMinio$Outbound,
+export const OutputCloudflareR2$outboundSchema: z.ZodType<
+  OutputCloudflareR2$Outbound,
   z.ZodTypeDef,
-  OutputMinio
+  OutputCloudflareR2
 > = z.object({
   id: z.string().optional(),
-  type: OutputMinioType$outboundSchema,
+  type: OutputCloudflareR2Type$outboundSchema,
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   endpoint: z.string(),
   bucket: z.string(),
-  awsAuthenticationMethod: OutputMinioAuthenticationMethod$outboundSchema
+  awsAuthenticationMethod: OutputCloudflareR2AuthenticationMethod$outboundSchema
     .default("auto"),
   awsSecretKey: z.string().optional(),
-  region: z.string().optional(),
+  region: z.any().optional(),
   stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
   addIdToStagePath: z.boolean().default(true),
   destPath: z.string().optional(),
-  signatureVersion: OutputMinioSignatureVersion$outboundSchema.default("v4"),
-  objectACL: OutputMinioObjectACL$outboundSchema.default("private"),
-  storageClass: OutputMinioStorageClass$outboundSchema.optional(),
-  serverSideEncryption: OutputMinioServerSideEncryption$outboundSchema
+  signatureVersion: OutputCloudflareR2SignatureVersion$outboundSchema.default(
+    "v4",
+  ),
+  objectACL: z.any().optional(),
+  storageClass: OutputCloudflareR2StorageClass$outboundSchema.optional(),
+  serverSideEncryption: OutputCloudflareR2ServerSideEncryption$outboundSchema
     .optional(),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
@@ -963,7 +901,7 @@ export const OutputMinio$outboundSchema: z.ZodType<
   partitionExpr: z.string().default(
     "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
   ),
-  format: OutputMinioDataFormat$outboundSchema.default("json"),
+  format: OutputCloudflareR2DataFormat$outboundSchema.default("json"),
   baseFileName: z.string().default("`CriblOut`"),
   fileNameSuffix: z.string().default(
     "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
@@ -972,13 +910,12 @@ export const OutputMinio$outboundSchema: z.ZodType<
   maxOpenFiles: z.number().default(100),
   headerLine: z.string().default(""),
   writeHighWaterMark: z.number().default(64),
-  onBackpressure: OutputMinioBackpressureBehavior$outboundSchema.default(
+  onBackpressure: OutputCloudflareR2BackpressureBehavior$outboundSchema.default(
     "block",
   ),
   deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: OutputMinioDiskSpaceProtection$outboundSchema.default(
-    "block",
-  ),
+  onDiskFullBackpressure: OutputCloudflareR2DiskSpaceProtection$outboundSchema
+    .default("block"),
   forceCloseOnShutdown: z.boolean().default(false),
   maxFileOpenTimeSec: z.number().default(300),
   maxFileIdleTimeSec: z.number().default(30),
@@ -986,23 +923,22 @@ export const OutputMinio$outboundSchema: z.ZodType<
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  compress: OutputMinioCompression$outboundSchema.default("gzip"),
-  compressionLevel: OutputMinioCompressionLevel$outboundSchema.default(
+  compress: OutputCloudflareR2Compression$outboundSchema.default("gzip"),
+  compressionLevel: OutputCloudflareR2CompressionLevel$outboundSchema.default(
     "best_speed",
   ),
   automaticSchema: z.boolean().default(false),
   parquetSchema: z.string().optional(),
-  parquetVersion: OutputMinioParquetVersion$outboundSchema.default(
+  parquetVersion: OutputCloudflareR2ParquetVersion$outboundSchema.default(
     "PARQUET_2_6",
   ),
-  parquetDataPageVersion: OutputMinioDataPageVersion$outboundSchema.default(
-    "DATA_PAGE_V2",
-  ),
+  parquetDataPageVersion: OutputCloudflareR2DataPageVersion$outboundSchema
+    .default("DATA_PAGE_V2"),
   parquetRowGroupLength: z.number().default(10000),
   parquetPageSize: z.string().default("1MB"),
   shouldLogInvalidRows: z.boolean().optional(),
   keyValueMetadata: z.array(
-    z.lazy(() => OutputMinioKeyValueMetadatum$outboundSchema),
+    z.lazy(() => OutputCloudflareR2KeyValueMetadatum$outboundSchema),
   ).optional(),
   enableStatistics: z.boolean().default(true),
   enableWritePageIndex: z.boolean().default(true),
@@ -1012,15 +948,19 @@ export const OutputMinio$outboundSchema: z.ZodType<
   maxRetryNum: z.number().default(20),
 });
 
-export function outputMinioToJSON(outputMinio: OutputMinio): string {
-  return JSON.stringify(OutputMinio$outboundSchema.parse(outputMinio));
+export function outputCloudflareR2ToJSON(
+  outputCloudflareR2: OutputCloudflareR2,
+): string {
+  return JSON.stringify(
+    OutputCloudflareR2$outboundSchema.parse(outputCloudflareR2),
+  );
 }
-export function outputMinioFromJSON(
+export function outputCloudflareR2FromJSON(
   jsonString: string,
-): SafeParseResult<OutputMinio, SDKValidationError> {
+): SafeParseResult<OutputCloudflareR2, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => OutputMinio$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputMinio' from JSON`,
+    (x) => OutputCloudflareR2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputCloudflareR2' from JSON`,
   );
 }
