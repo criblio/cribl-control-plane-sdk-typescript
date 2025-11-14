@@ -69,6 +69,7 @@ let value: ListOutputResponse = {
       enableWritePageIndex: true,
       enablePageChecksum: false,
       emptyDirCleanupSec: 300,
+      directoryBatchSize: 1000,
       deadletterPath: "$CRIBL_HOME/state/outputs/dead-letter",
       maxRetryNum: 20,
       connectionString: "<value>",
