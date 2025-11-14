@@ -52,6 +52,7 @@ let value: GetOutputByIdResponse = {
       awsSecretKey: "<value>",
       description: "kosher about exalted",
       emptyDirCleanupSec: 300,
+      directoryBatchSize: 1000,
       deadletterPath: "$CRIBL_HOME/state/outputs/dead-letter",
       maxRetryNum: 20,
     },

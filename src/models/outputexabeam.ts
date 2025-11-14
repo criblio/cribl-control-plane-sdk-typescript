@@ -261,6 +261,10 @@ export type OutputExabeam = {
    */
   emptyDirCleanupSec?: number | undefined;
   /**
+   * Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+   */
+  directoryBatchSize?: number | undefined;
+  /**
    * Storage location for files that fail to reach their final destination after maximum retries are exceeded
    */
   deadletterPath?: string | undefined;
@@ -421,6 +425,7 @@ export const OutputExabeam$inboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   description: z.string().optional(),
   emptyDirCleanupSec: z.number().default(300),
+  directoryBatchSize: z.number().default(1000),
   deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
   maxRetryNum: z.number().default(20),
 });
@@ -459,6 +464,7 @@ export type OutputExabeam$Outbound = {
   awsSecretKey?: string | undefined;
   description?: string | undefined;
   emptyDirCleanupSec: number;
+  directoryBatchSize: number;
   deadletterPath: string;
   maxRetryNum: number;
 };
@@ -505,6 +511,7 @@ export const OutputExabeam$outboundSchema: z.ZodType<
   awsSecretKey: z.string().optional(),
   description: z.string().optional(),
   emptyDirCleanupSec: z.number().default(300),
+  directoryBatchSize: z.number().default(1000),
   deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
   maxRetryNum: z.number().default(20),
 });

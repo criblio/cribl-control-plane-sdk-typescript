@@ -455,6 +455,10 @@ export type OutputSecurityLake = {
    */
   emptyDirCleanupSec?: number | undefined;
   /**
+   * Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+   */
+  directoryBatchSize?: number | undefined;
+  /**
    * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
    */
   parquetSchema?: string | undefined;
@@ -778,6 +782,7 @@ export const OutputSecurityLake$inboundSchema: z.ZodType<
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
   emptyDirCleanupSec: z.number().default(300),
+  directoryBatchSize: z.number().default(1000),
   parquetSchema: z.string().optional(),
   deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
   maxRetryNum: z.number().default(20),
@@ -841,6 +846,7 @@ export type OutputSecurityLake$Outbound = {
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
   emptyDirCleanupSec: number;
+  directoryBatchSize: number;
   parquetSchema?: string | undefined;
   deadletterPath: string;
   maxRetryNum: number;
@@ -920,6 +926,7 @@ export const OutputSecurityLake$outboundSchema: z.ZodType<
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
   emptyDirCleanupSec: z.number().default(300),
+  directoryBatchSize: z.number().default(1000),
   parquetSchema: z.string().optional(),
   deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
   maxRetryNum: z.number().default(20),
