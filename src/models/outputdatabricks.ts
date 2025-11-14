@@ -260,6 +260,10 @@ export type OutputDatabricks = {
    */
   onDiskFullBackpressure?: OutputDatabricksDiskSpaceProtection | undefined;
   /**
+   * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+   */
+  forceCloseOnShutdown?: boolean | undefined;
+  /**
    * Databricks workspace ID
    */
   workspaceId: string;
@@ -287,6 +291,10 @@ export type OutputDatabricks = {
    * OAuth client secret for Unity Catalog authentication
    */
   clientTextSecret: string;
+  /**
+   * Amount of time, in seconds, to wait for a request to complete before canceling it
+   */
+  timeoutSec?: number | undefined;
   description?: string | undefined;
   /**
    * Data compression format to apply to HTTP content before it is delivered
@@ -583,6 +591,7 @@ export const OutputDatabricks$inboundSchema: z.ZodType<
   deadletterEnabled: z.boolean().default(false),
   onDiskFullBackpressure: OutputDatabricksDiskSpaceProtection$inboundSchema
     .default("block"),
+  forceCloseOnShutdown: z.boolean().default(false),
   workspaceId: z.string(),
   scope: z.string().default("all-apis"),
   clientId: z.string(),
@@ -590,6 +599,7 @@ export const OutputDatabricks$inboundSchema: z.ZodType<
   schema: z.string().default("external"),
   eventsVolumeName: z.string().default("events"),
   clientTextSecret: z.string(),
+  timeoutSec: z.number().default(60),
   description: z.string().optional(),
   compress: OutputDatabricksCompression$inboundSchema.default("gzip"),
   compressionLevel: OutputDatabricksCompressionLevel$inboundSchema.default(
@@ -641,6 +651,7 @@ export type OutputDatabricks$Outbound = {
   onBackpressure: string;
   deadletterEnabled: boolean;
   onDiskFullBackpressure: string;
+  forceCloseOnShutdown: boolean;
   workspaceId: string;
   scope: string;
   clientId: string;
@@ -648,6 +659,7 @@ export type OutputDatabricks$Outbound = {
   schema: string;
   eventsVolumeName: string;
   clientTextSecret: string;
+  timeoutSec: number;
   description?: string | undefined;
   compress: string;
   compressionLevel: string;
@@ -705,6 +717,7 @@ export const OutputDatabricks$outboundSchema: z.ZodType<
   deadletterEnabled: z.boolean().default(false),
   onDiskFullBackpressure: OutputDatabricksDiskSpaceProtection$outboundSchema
     .default("block"),
+  forceCloseOnShutdown: z.boolean().default(false),
   workspaceId: z.string(),
   scope: z.string().default("all-apis"),
   clientId: z.string(),
@@ -712,6 +725,7 @@ export const OutputDatabricks$outboundSchema: z.ZodType<
   schema: z.string().default("external"),
   eventsVolumeName: z.string().default("events"),
   clientTextSecret: z.string(),
+  timeoutSec: z.number().default(60),
   description: z.string().optional(),
   compress: OutputDatabricksCompression$outboundSchema.default("gzip"),
   compressionLevel: OutputDatabricksCompressionLevel$outboundSchema.default(

@@ -10,7 +10,7 @@ let value: CountedInput = {
   items: [
     {
       id: "<id>",
-      type: "journal_files",
+      type: "wiz",
       disabled: false,
       pipeline: "<value>",
       sendToRoutes: true,
@@ -37,29 +37,38 @@ let value: CountedInput = {
         compress: "none",
         pqControls: {},
       },
-      path: "/srv",
-      interval: 10,
-      journals: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
-      rules: [
-        {
-          filter: "<value>",
-          description:
-            "consequently uh-huh massage zowie atop finally abaft quaintly place more",
-        },
-      ],
-      currentBoot: false,
-      maxAgeDur: "<value>",
+      endpoint: "https://api.<region>.app.wiz.io/graphql",
+      authUrl: "https://unusual-traffic.org",
+      authAudienceOverride: "<value>",
+      clientId: "<id>",
+      contentConfig: [],
+      requestTimeout: 300,
+      keepAliveTime: 30,
+      maxMissedKeepAlives: 3,
+      ttl: "4h",
+      ignoreGroupJobsLimit: false,
       metadata: [
         {
           name: "<value>",
           value: "<value>",
         },
       ],
-      description: "defiantly pish stealthily prudent authorized",
+      retryRules: {
+        type: "backoff",
+        interval: 1000,
+        limit: 5,
+        multiplier: 2,
+        codes: [
+          1412.18,
+        ],
+        enableHeader: true,
+        retryConnectTimeout: false,
+        retryConnectReset: false,
+      },
+      authType: "manual",
+      description: "suddenly above perspire eek clonk er",
+      clientSecret: "<value>",
+      textSecret: "<value>",
     },
   ],
 };

@@ -43,6 +43,12 @@ import {
   OutputClickHouse$outboundSchema,
 } from "./outputclickhouse.js";
 import {
+  OutputCloudflareR2,
+  OutputCloudflareR2$inboundSchema,
+  OutputCloudflareR2$Outbound,
+  OutputCloudflareR2$outboundSchema,
+} from "./outputcloudflarer2.js";
+import {
   OutputCloudwatch,
   OutputCloudwatch$inboundSchema,
   OutputCloudwatch$Outbound,
@@ -431,6 +437,7 @@ export type Output =
   | (OutputSns & { type: "sns" })
   | (OutputSqs & { type: "sqs" })
   | (OutputMicrosoftFabric & { type: "microsoft_fabric" })
+  | (OutputCloudflareR2 & { type: "cloudflare_r2" })
   | (OutputDefault & { type: "default" })
   | (OutputSplunk & { type: "splunk" })
   | (OutputSplunkLb & { type: "splunk_lb" })
@@ -577,6 +584,11 @@ export const Output$inboundSchema: z.ZodType<Output, z.ZodTypeDef, unknown> = z
     ),
     OutputMicrosoftFabric$inboundSchema.and(
       z.object({ type: z.literal("microsoft_fabric") }).transform((v) => ({
+        type: v.type,
+      })),
+    ),
+    OutputCloudflareR2$inboundSchema.and(
+      z.object({ type: z.literal("cloudflare_r2") }).transform((v) => ({
         type: v.type,
       })),
     ),
@@ -832,6 +844,7 @@ export type Output$Outbound =
   | (OutputSns$Outbound & { type: "sns" })
   | (OutputSqs$Outbound & { type: "sqs" })
   | (OutputMicrosoftFabric$Outbound & { type: "microsoft_fabric" })
+  | (OutputCloudflareR2$Outbound & { type: "cloudflare_r2" })
   | (OutputDefault$Outbound & { type: "default" })
   | (OutputSplunk$Outbound & { type: "splunk" })
   | (OutputSplunkLb$Outbound & { type: "splunk_lb" })
@@ -979,6 +992,11 @@ export const Output$outboundSchema: z.ZodType<
   ),
   OutputMicrosoftFabric$outboundSchema.and(
     z.object({ type: z.literal("microsoft_fabric") }).transform((v) => ({
+      type: v.type,
+    })),
+  ),
+  OutputCloudflareR2$outboundSchema.and(
+    z.object({ type: z.literal("cloudflare_r2") }).transform((v) => ({
       type: v.type,
     })),
   ),

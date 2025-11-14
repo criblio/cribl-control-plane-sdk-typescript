@@ -2904,8 +2904,7 @@ const value: models.InputJournalFiles = {
   rules: [
     {
       filter: "<value>",
-      description:
-        "consequently uh-huh massage zowie atop finally abaft quaintly place more",
+      description: "yahoo uh-huh dirty behind manner",
     },
   ],
   maxAgeDur: "<value>",
@@ -2915,7 +2914,7 @@ const value: models.InputJournalFiles = {
       value: "<value>",
     },
   ],
-  description: "yahoo uh-huh dirty behind manner",
+  description: "honored given shoulder why cheerful",
 };
 ```
 
@@ -2951,12 +2950,11 @@ const value: models.InputWiz = {
   ],
   retryRules: {
     codes: [
-      5668.03,
-      2663.29,
-      2735.91,
+      1412.18,
     ],
   },
-  description: "psst parsnip schlep cluttered off next",
+  description:
+    "masquerade overcook thump pro towards rawhide aha forearm irritably",
   clientSecret: "<value>",
   textSecret: "<value>",
 };
@@ -3197,6 +3195,82 @@ const value: models.InputZscalerHec = {
     "<value 3>",
   ],
   description: "about what gallivant",
+};
+```
+
+### `models.InputCloudflareHec`
+
+```typescript
+const value: models.InputCloudflareHec = {
+  id: "<id>",
+  type: "cloudflare_hec",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  port: 7356,
+  authTokens: [
+    {
+      tokenSecret: "<value>",
+      token: "<value>",
+      description: "mobilise vamoose woot",
+      allowedIndexesAtToken: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+    },
+  ],
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1.3",
+    maxVersion: "TLSv1.2",
+  },
+  enableHealthCheck: "<value>",
+  hecAPI: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  allowedIndexes: [
+    "<value 1>",
+  ],
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  accessControlAllowOrigin: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  accessControlAllowHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  description: "cumbersome unwritten while unless right",
 };
 ```
 

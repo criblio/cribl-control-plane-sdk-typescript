@@ -115,7 +115,7 @@ export type OutputMinioStorageClass = OpenEnum<typeof OutputMinioStorageClass>;
 /**
  * Server-side encryption for uploaded objects
  */
-export const ServerSideEncryption = {
+export const OutputMinioServerSideEncryption = {
   /**
    * Amazon S3 Managed Key
    */
@@ -124,7 +124,9 @@ export const ServerSideEncryption = {
 /**
  * Server-side encryption for uploaded objects
  */
-export type ServerSideEncryption = OpenEnum<typeof ServerSideEncryption>;
+export type OutputMinioServerSideEncryption = OpenEnum<
+  typeof OutputMinioServerSideEncryption
+>;
 
 /**
  * Format of the output data
@@ -342,7 +344,7 @@ export type OutputMinio = {
   /**
    * Server-side encryption for uploaded objects
    */
-  serverSideEncryption?: ServerSideEncryption | undefined;
+  serverSideEncryption?: OutputMinioServerSideEncryption | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -403,6 +405,10 @@ export type OutputMinio = {
    * How to handle events when disk space is below the global 'Min free disk space' limit
    */
   onDiskFullBackpressure?: OutputMinioDiskSpaceProtection | undefined;
+  /**
+   * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+   */
+  forceCloseOnShutdown?: boolean | undefined;
   /**
    * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
    */
@@ -580,22 +586,22 @@ export const OutputMinioStorageClass$outboundSchema: z.ZodType<
 ]);
 
 /** @internal */
-export const ServerSideEncryption$inboundSchema: z.ZodType<
-  ServerSideEncryption,
+export const OutputMinioServerSideEncryption$inboundSchema: z.ZodType<
+  OutputMinioServerSideEncryption,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(ServerSideEncryption),
+    z.nativeEnum(OutputMinioServerSideEncryption),
     z.string().transform(catchUnrecognizedEnum),
   ]);
 /** @internal */
-export const ServerSideEncryption$outboundSchema: z.ZodType<
-  ServerSideEncryption,
+export const OutputMinioServerSideEncryption$outboundSchema: z.ZodType<
+  OutputMinioServerSideEncryption,
   z.ZodTypeDef,
-  ServerSideEncryption
+  OutputMinioServerSideEncryption
 > = z.union([
-  z.nativeEnum(ServerSideEncryption),
+  z.nativeEnum(OutputMinioServerSideEncryption),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
@@ -807,7 +813,8 @@ export const OutputMinio$inboundSchema: z.ZodType<
   signatureVersion: OutputMinioSignatureVersion$inboundSchema.default("v4"),
   objectACL: OutputMinioObjectACL$inboundSchema.default("private"),
   storageClass: OutputMinioStorageClass$inboundSchema.optional(),
-  serverSideEncryption: ServerSideEncryption$inboundSchema.optional(),
+  serverSideEncryption: OutputMinioServerSideEncryption$inboundSchema
+    .optional(),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   verifyPermissions: z.boolean().default(true),
@@ -831,6 +838,7 @@ export const OutputMinio$inboundSchema: z.ZodType<
   onDiskFullBackpressure: OutputMinioDiskSpaceProtection$inboundSchema.default(
     "block",
   ),
+  forceCloseOnShutdown: z.boolean().default(false),
   maxFileOpenTimeSec: z.number().default(300),
   maxFileIdleTimeSec: z.number().default(30),
   maxConcurrentFileParts: z.number().default(4),
@@ -897,6 +905,7 @@ export type OutputMinio$Outbound = {
   onBackpressure: string;
   deadletterEnabled: boolean;
   onDiskFullBackpressure: string;
+  forceCloseOnShutdown: boolean;
   maxFileOpenTimeSec: number;
   maxFileIdleTimeSec: number;
   maxConcurrentFileParts: number;
@@ -945,7 +954,8 @@ export const OutputMinio$outboundSchema: z.ZodType<
   signatureVersion: OutputMinioSignatureVersion$outboundSchema.default("v4"),
   objectACL: OutputMinioObjectACL$outboundSchema.default("private"),
   storageClass: OutputMinioStorageClass$outboundSchema.optional(),
-  serverSideEncryption: ServerSideEncryption$outboundSchema.optional(),
+  serverSideEncryption: OutputMinioServerSideEncryption$outboundSchema
+    .optional(),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   verifyPermissions: z.boolean().default(true),
@@ -969,6 +979,7 @@ export const OutputMinio$outboundSchema: z.ZodType<
   onDiskFullBackpressure: OutputMinioDiskSpaceProtection$outboundSchema.default(
     "block",
   ),
+  forceCloseOnShutdown: z.boolean().default(false),
   maxFileOpenTimeSec: z.number().default(300),
   maxFileIdleTimeSec: z.number().default(30),
   maxConcurrentFileParts: z.number().default(4),

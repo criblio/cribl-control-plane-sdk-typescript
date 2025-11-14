@@ -11,7 +11,9 @@ let value: NodeProvidedInfo = {
     enabled: false,
     instanceId: "<id>",
     region: "<value>",
-    tags: {},
+    tags: {
+      "key": "<value>",
+    },
     type: "<value>",
     zone: "<value>",
   },
@@ -20,32 +22,42 @@ let value: NodeProvidedInfo = {
   cribl: {
     config: {
       featuresRev: "<value>",
-      hbPeriodSeconds: 8719.43,
+      hbPeriodSeconds: 3679.01,
       logStreamEnv: "<value>",
       policyRev: "<value>",
       version: "<value>",
     },
     deploymentId: "<id>",
     disableSNIRouting: true,
-    distMode: "master",
-    edgeNodes: 8294.01,
+    distMode: "outpost",
+    edgeNodes: 674.85,
     group: "<value>",
     guid: "<id>",
     installType: "<value>",
-    lookupVersions: {},
-    master: {
-      host: "bitter-poetry.net",
-      port: 4320.82,
-      servername: "<value>",
-      tls: false,
+    lookupVersions: {
+      "key": {
+        "key": "<value>",
+        "key1": "<value>",
+      },
+      "key1": {
+        "key": "<value>",
+      },
+      "key2": {
+        "key": "<value>",
+        "key1": "<value>",
+        "key2": "<value>",
+      },
     },
-    pid: 809.07,
+    master: {
+      host: "boring-distinction.biz",
+      port: 7248.18,
+      servername: "<value>",
+      tls: true,
+    },
+    pid: 3273.66,
     socksEnabled: true,
-    startTime: 1948.63,
-    tags: [
-      "<value 1>",
-      "<value 2>",
-    ],
+    startTime: 3411.24,
+    tags: [],
     version: "<value>",
   },
   env: {
@@ -54,9 +66,7 @@ let value: NodeProvidedInfo = {
   },
   freeDiskSpace: 6937.14,
   hostOs: {
-    addresses: [
-      "<value 1>",
-    ],
+    addresses: [],
     enabled: true,
     id: "<id>",
     version: "<value>",
@@ -80,7 +90,10 @@ let value: NodeProvidedInfo = {
       enabled: false,
       instanceId: "<id>",
       region: "<value>",
-      tags: {},
+      tags: {
+        "key": "<value>",
+        "key1": "<value>",
+      },
       type: "<value>",
       zone: "<value>",
     },
@@ -88,14 +101,13 @@ let value: NodeProvidedInfo = {
       addresses: [
         "<value 1>",
         "<value 2>",
-        "<value 3>",
       ],
       enabled: true,
       id: "<id>",
       version: "<value>",
     },
     kube: {
-      enabled: true,
+      enabled: false,
       namespace: "<value>",
       node: "<value>",
       owner: {
@@ -106,7 +118,11 @@ let value: NodeProvidedInfo = {
       source: "<value>",
     },
     os: {
-      addresses: [],
+      addresses: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
       enabled: false,
       id: "<id>",
       version: "<value>",
@@ -120,7 +136,7 @@ let value: NodeProvidedInfo = {
   },
   outpost: {
     guid: "<id>",
-    host: "striking-skyscraper.org",
+    host: "worldly-gerbil.com",
   },
   platform: "<value>",
   release: "<value>",

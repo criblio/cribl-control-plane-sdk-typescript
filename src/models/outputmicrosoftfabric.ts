@@ -113,7 +113,7 @@ export type OutputMicrosoftFabricAuthentication = {
    */
   username?: string | undefined;
   /**
-   * Select or create a stored text secret
+   * Select or create a stored text secret corresponding to the SASL JASS Password Primary or Password Secondary
    */
   textSecret?: string | undefined;
   clientSecretAuthType?: OutputMicrosoftFabricAuthenticationMethod | undefined;

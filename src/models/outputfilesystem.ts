@@ -259,6 +259,10 @@ export type OutputFilesystem = {
    * How to handle events when disk space is below the global 'Min free disk space' limit
    */
   onDiskFullBackpressure?: OutputFilesystemDiskSpaceProtection | undefined;
+  /**
+   * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+   */
+  forceCloseOnShutdown?: boolean | undefined;
   description?: string | undefined;
   /**
    * Data compression format to apply to HTTP content before it is delivered
@@ -555,6 +559,7 @@ export const OutputFilesystem$inboundSchema: z.ZodType<
   deadletterEnabled: z.boolean().default(false),
   onDiskFullBackpressure: OutputFilesystemDiskSpaceProtection$inboundSchema
     .default("block"),
+  forceCloseOnShutdown: z.boolean().default(false),
   description: z.string().optional(),
   compress: OutputFilesystemCompression$inboundSchema.default("gzip"),
   compressionLevel: OutputFilesystemCompressionLevel$inboundSchema.default(
@@ -606,6 +611,7 @@ export type OutputFilesystem$Outbound = {
   onBackpressure: string;
   deadletterEnabled: boolean;
   onDiskFullBackpressure: string;
+  forceCloseOnShutdown: boolean;
   description?: string | undefined;
   compress: string;
   compressionLevel: string;
@@ -663,6 +669,7 @@ export const OutputFilesystem$outboundSchema: z.ZodType<
   deadletterEnabled: z.boolean().default(false),
   onDiskFullBackpressure: OutputFilesystemDiskSpaceProtection$outboundSchema
     .default("block"),
+  forceCloseOnShutdown: z.boolean().default(false),
   description: z.string().optional(),
   compress: OutputFilesystemCompression$outboundSchema.default("gzip"),
   compressionLevel: OutputFilesystemCompressionLevel$outboundSchema.default(

@@ -1,11 +1,11 @@
-# LastMetrics
+# InputCloudflareHecPqControls
 
 ## Example Usage
 
 ```typescript
-import { LastMetrics } from "cribl-control-plane/models";
+import { InputCloudflareHecPqControls } from "cribl-control-plane/models";
 
-let value: LastMetrics = {};
+let value: InputCloudflareHecPqControls = {};
 ```
 
 ## Fields

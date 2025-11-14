@@ -19,6 +19,12 @@ import {
   InputAzureBlob$outboundSchema,
 } from "./inputazureblob.js";
 import {
+  InputCloudflareHec,
+  InputCloudflareHec$inboundSchema,
+  InputCloudflareHec$Outbound,
+  InputCloudflareHec$outboundSchema,
+} from "./inputcloudflarehec.js";
+import {
   InputCollection,
   InputCollection$inboundSchema,
   InputCollection$Outbound,
@@ -372,6 +378,7 @@ export type Input =
   | (InputKinesis & { type: "kinesis" })
   | (InputSqs & { type: "sqs" })
   | (InputJournalFiles & { type: "journal_files" })
+  | (InputCloudflareHec & { type: "cloudflare_hec" })
   | (InputHttp & { type: "http" })
   | (InputSplunk & { type: "splunk" })
   | (InputSplunkSearch & { type: "splunk_search" })
@@ -466,6 +473,11 @@ export const Input$inboundSchema: z.ZodType<Input, z.ZodTypeDef, unknown> = z
     ),
     InputJournalFiles$inboundSchema.and(
       z.object({ type: z.literal("journal_files") }).transform((v) => ({
+        type: v.type,
+      })),
+    ),
+    InputCloudflareHec$inboundSchema.and(
+      z.object({ type: z.literal("cloudflare_hec") }).transform((v) => ({
         type: v.type,
       })),
     ),
@@ -721,6 +733,7 @@ export type Input$Outbound =
   | (InputKinesis$Outbound & { type: "kinesis" })
   | (InputSqs$Outbound & { type: "sqs" })
   | (InputJournalFiles$Outbound & { type: "journal_files" })
+  | (InputCloudflareHec$Outbound & { type: "cloudflare_hec" })
   | (InputHttp$Outbound & { type: "http" })
   | (InputSplunk$Outbound & { type: "splunk" })
   | (InputSplunkSearch$Outbound & { type: "splunk_search" })
@@ -816,6 +829,11 @@ export const Input$outboundSchema: z.ZodType<
   ),
   InputJournalFiles$outboundSchema.and(
     z.object({ type: z.literal("journal_files") }).transform((v) => ({
+      type: v.type,
+    })),
+  ),
+  InputCloudflareHec$outboundSchema.and(
+    z.object({ type: z.literal("cloudflare_hec") }).transform((v) => ({
       type: v.type,
     })),
   ),

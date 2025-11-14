@@ -2768,7 +2768,7 @@ const value: models.OutputDynatraceOtlp = {
   ],
   responseRetrySettings: [
     {
-      httpStatus: 818.78,
+      httpStatus: 3110.41,
     },
   ],
   timeoutRetrySettings: {},
@@ -2803,11 +2803,11 @@ const value: models.OutputSentinelOneAiSiem = {
   ],
   responseRetrySettings: [
     {
-      httpStatus: 3766.68,
+      httpStatus: 8829.54,
     },
   ],
   timeoutRetrySettings: {},
-  description: "which unselfish how raw congregate drat aw",
+  description: "blissfully mousse sleepily serpentine seriously fluff",
   token: "<value>",
   textSecret: "<value>",
   pqControls: {},
@@ -2925,6 +2925,42 @@ const value: models.OutputMicrosoftFabric = {
   bootstrapServer: "<value>",
   description: "astride ocelot nifty greedy bungalow kiddingly successfully",
   pqControls: {},
+};
+```
+
+### `models.OutputCloudflareR2`
+
+```typescript
+const value: models.OutputCloudflareR2 = {
+  id: "<id>",
+  type: "cloudflare_r2",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  endpoint: "<value>",
+  bucket: "<value>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  destPath: "<value>",
+  objectACL: "<value>",
+  storageClass: "STANDARD",
+  serverSideEncryption: "AES256",
+  description: "but because hidden",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  parquetSchema: "<value>",
+  shouldLogInvalidRows: true,
+  keyValueMetadata: [
+    {
+      value: "<value>",
+    },
+  ],
 };
 ```
 

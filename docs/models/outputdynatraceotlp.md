@@ -39,7 +39,7 @@ let value: OutputDynatraceOtlp = {
   ],
   responseRetrySettings: [
     {
-      httpStatus: 818.78,
+      httpStatus: 3110.41,
     },
   ],
   timeoutRetrySettings: {},
