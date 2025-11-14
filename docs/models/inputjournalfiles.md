@@ -30,8 +30,7 @@ let value: InputJournalFiles = {
   rules: [
     {
       filter: "<value>",
-      description:
-        "consequently uh-huh massage zowie atop finally abaft quaintly place more",
+      description: "yahoo uh-huh dirty behind manner",
     },
   ],
   maxAgeDur: "<value>",
@@ -41,7 +40,7 @@ let value: InputJournalFiles = {
       value: "<value>",
     },
   ],
-  description: "yahoo uh-huh dirty behind manner",
+  description: "honored given shoulder why cheerful",
 };
 ```
 

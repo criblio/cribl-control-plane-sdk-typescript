@@ -117,6 +117,10 @@ export type OutputChronicleBackpressureBehavior = OpenEnum<
 export type OutputChronicleCustomLabel = {
   key: string;
   value: string;
+  /**
+   * Designate this label for role-based access control and filtering
+   */
+  rbacEnabled?: boolean | undefined;
 };
 
 /**
@@ -580,11 +584,13 @@ export const OutputChronicleCustomLabel$inboundSchema: z.ZodType<
 > = z.object({
   key: z.string(),
   value: z.string(),
+  rbacEnabled: z.boolean().default(false),
 });
 /** @internal */
 export type OutputChronicleCustomLabel$Outbound = {
   key: string;
   value: string;
+  rbacEnabled: boolean;
 };
 
 /** @internal */
@@ -595,6 +601,7 @@ export const OutputChronicleCustomLabel$outboundSchema: z.ZodType<
 > = z.object({
   key: z.string(),
   value: z.string(),
+  rbacEnabled: z.boolean().default(false),
 });
 
 export function outputChronicleCustomLabelToJSON(

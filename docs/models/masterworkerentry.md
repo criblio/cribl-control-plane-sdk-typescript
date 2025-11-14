@@ -17,54 +17,68 @@ let value: MasterWorkerEntry = {
       enabled: false,
       instanceId: "<id>",
       region: "<value>",
-      tags: {},
+      tags: {
+        "key": "<value>",
+      },
       type: "<value>",
       zone: "<value>",
     },
     connIp: "<value>",
-    cpus: 2011.18,
+    cpus: 8719.43,
     cribl: {
       config: {
         featuresRev: "<value>",
-        hbPeriodSeconds: 8719.43,
+        hbPeriodSeconds: 3679.01,
         logStreamEnv: "<value>",
         policyRev: "<value>",
         version: "<value>",
       },
       deploymentId: "<id>",
       disableSNIRouting: true,
-      distMode: "master",
-      edgeNodes: 8294.01,
+      distMode: "outpost",
+      edgeNodes: 674.85,
       group: "<value>",
       guid: "<id>",
       installType: "<value>",
-      lookupVersions: {},
-      master: {
-        host: "bitter-poetry.net",
-        port: 4320.82,
-        servername: "<value>",
-        tls: false,
+      lookupVersions: {
+        "key": {
+          "key": "<value>",
+          "key1": "<value>",
+        },
+        "key1": {
+          "key": "<value>",
+        },
+        "key2": {
+          "key": "<value>",
+          "key1": "<value>",
+          "key2": "<value>",
+        },
       },
-      pid: 809.07,
+      master: {
+        host: "boring-distinction.biz",
+        port: 7248.18,
+        servername: "<value>",
+        tls: true,
+      },
+      pid: 3273.66,
       socksEnabled: true,
-      startTime: 1948.63,
-      tags: [
-        "<value 1>",
-        "<value 2>",
-      ],
+      startTime: 3411.24,
+      tags: [],
       version: "<value>",
     },
-    env: {},
-    freeDiskSpace: 3273.66,
+    env: {
+      "key": "<value>",
+      "key1": "<value>",
+      "key2": "<value>",
+    },
+    freeDiskSpace: 2048.24,
     hostOs: {
-      addresses: [
-        "<value 1>",
-      ],
+      addresses: [],
       enabled: true,
       id: "<id>",
       version: "<value>",
     },
-    hostname: "exhausted-trash.biz",
+    hostname: "french-ostrich.org",
     isSaasWorker: true,
     kube: {
       enabled: true,
@@ -77,13 +91,16 @@ let value: MasterWorkerEntry = {
       pod: "<value>",
       source: "<value>",
     },
-    localTime: 2959.09,
+    localTime: 1843.59,
     metadata: {
       aws: {
         enabled: false,
         instanceId: "<id>",
         region: "<value>",
-        tags: {},
+        tags: {
+          "key": "<value>",
+          "key1": "<value>",
+        },
         type: "<value>",
         zone: "<value>",
       },
@@ -91,14 +108,13 @@ let value: MasterWorkerEntry = {
         addresses: [
           "<value 1>",
           "<value 2>",
-          "<value 3>",
         ],
         enabled: true,
         id: "<id>",
         version: "<value>",
       },
       kube: {
-        enabled: true,
+        enabled: false,
         namespace: "<value>",
         node: "<value>",
         owner: {
@@ -109,7 +125,11 @@ let value: MasterWorkerEntry = {
         source: "<value>",
       },
       os: {
-        addresses: [],
+        addresses: [
+          "<value 1>",
+          "<value 2>",
+          "<value 3>",
+        ],
         enabled: false,
         id: "<id>",
         version: "<value>",
@@ -121,27 +141,43 @@ let value: MasterWorkerEntry = {
         "<value 1>",
         "<value 2>",
       ],
-      enabled: true,
+      enabled: false,
       id: "<id>",
       version: "<value>",
     },
     outpost: {
       guid: "<id>",
-      host: "striking-skyscraper.org",
+      host: "worldly-gerbil.com",
     },
     platform: "<value>",
     release: "<value>",
-    totalDiskSpace: 3720.9,
-    totalmem: 5566.44,
+    totalDiskSpace: 2221.07,
+    totalmem: 9967.14,
   },
-  lastMetrics: {},
-  lastMsgTime: 7161.68,
+  lastMetrics: {
+    "key": {
+      "key": "<value>",
+      "key1": "<value>",
+      "key2": "<value>",
+    },
+    "key1": {
+      "key": "<value>",
+    },
+    "key2": {
+      "key": "<value>",
+      "key1": "<value>",
+    },
+  },
+  lastMsgTime: 5282.77,
   metadata: {
     aws: {
       enabled: false,
       instanceId: "<id>",
       region: "<value>",
-      tags: {},
+      tags: {
+        "key": "<value>",
+        "key1": "<value>",
+      },
       type: "<value>",
       zone: "<value>",
     },
@@ -149,14 +185,13 @@ let value: MasterWorkerEntry = {
       addresses: [
         "<value 1>",
         "<value 2>",
-        "<value 3>",
       ],
       enabled: true,
       id: "<id>",
       version: "<value>",
     },
     kube: {
-      enabled: true,
+      enabled: false,
       namespace: "<value>",
       node: "<value>",
       owner: {
@@ -167,7 +202,11 @@ let value: MasterWorkerEntry = {
       source: "<value>",
     },
     os: {
-      addresses: [],
+      addresses: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
       enabled: false,
       id: "<id>",
       version: "<value>",
@@ -176,15 +215,15 @@ let value: MasterWorkerEntry = {
   nodeUpgradeStatus: {
     active: 2,
     failed: 0,
-    skipped: 0,
-    state: 0,
-    timestamp: 9967.14,
+    skipped: 3,
+    state: 3,
+    timestamp: 5672.54,
   },
   status: "<value>",
-  type: "resp",
-  workerProcesses: 3638.57,
+  type: "info",
+  workerProcesses: 6281.42,
   workers: {
-    count: 3649.27,
+    count: 3117.81,
   },
 };
 ```
@@ -199,7 +238,7 @@ let value: MasterWorkerEntry = {
 | `group`                                                                  | *string*                                                                 | :heavy_check_mark:                                                       | N/A                                                                      |
 | `id`                                                                     | *string*                                                                 | :heavy_check_mark:                                                       | N/A                                                                      |
 | `info`                                                                   | [models.NodeProvidedInfo](../models/nodeprovidedinfo.md)                 | :heavy_check_mark:                                                       | N/A                                                                      |
-| `lastMetrics`                                                            | [models.LastMetrics](../models/lastmetrics.md)                           | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `lastMetrics`                                                            | Record<string, Record<string, *any*>>                                    | :heavy_minus_sign:                                                       | N/A                                                                      |
 | `lastMsgTime`                                                            | *number*                                                                 | :heavy_check_mark:                                                       | N/A                                                                      |
 | `metadata`                                                               | [models.HeartbeatMetadata](../models/heartbeatmetadata.md)               | :heavy_minus_sign:                                                       | N/A                                                                      |
 | `nodeUpgradeStatus`                                                      | [models.NodeUpgradeStatus](../models/nodeupgradestatus.md)               | :heavy_minus_sign:                                                       | N/A                                                                      |

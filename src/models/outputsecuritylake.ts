@@ -370,6 +370,10 @@ export type OutputSecurityLake = {
    */
   onDiskFullBackpressure?: OutputSecurityLakeDiskSpaceProtection | undefined;
   /**
+   * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+   */
+  forceCloseOnShutdown?: boolean | undefined;
+  /**
    * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
    */
   maxFileOpenTimeSec?: number | undefined;
@@ -747,6 +751,7 @@ export const OutputSecurityLake$inboundSchema: z.ZodType<
   deadletterEnabled: z.boolean().default(false),
   onDiskFullBackpressure: OutputSecurityLakeDiskSpaceProtection$inboundSchema
     .default("block"),
+  forceCloseOnShutdown: z.boolean().default(false),
   maxFileOpenTimeSec: z.number().default(300),
   maxFileIdleTimeSec: z.number().default(30),
   maxConcurrentFileParts: z.number().default(4),
@@ -812,6 +817,7 @@ export type OutputSecurityLake$Outbound = {
   onBackpressure: string;
   deadletterEnabled: boolean;
   onDiskFullBackpressure: string;
+  forceCloseOnShutdown: boolean;
   maxFileOpenTimeSec: number;
   maxFileIdleTimeSec: number;
   maxConcurrentFileParts: number;
@@ -887,6 +893,7 @@ export const OutputSecurityLake$outboundSchema: z.ZodType<
   deadletterEnabled: z.boolean().default(false),
   onDiskFullBackpressure: OutputSecurityLakeDiskSpaceProtection$outboundSchema
     .default("block"),
+  forceCloseOnShutdown: z.boolean().default(false),
   maxFileOpenTimeSec: z.number().default(300),
   maxFileIdleTimeSec: z.number().default(30),
   maxConcurrentFileParts: z.number().default(4),
