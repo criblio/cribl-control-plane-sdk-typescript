@@ -35,9 +35,21 @@ export type OutputWebhookMethod = OpenEnum<typeof OutputWebhookMethod>;
  * How to format events before sending out
  */
 export const OutputWebhookFormat = {
+  /**
+   * NDJSON (Newline Delimited JSON)
+   */
   Ndjson: "ndjson",
+  /**
+   * JSON Array
+   */
   JsonArray: "json_array",
+  /**
+   * Custom
+   */
   Custom: "custom",
+  /**
+   * Advanced
+   */
   Advanced: "advanced",
 } as const;
 /**
@@ -54,8 +66,17 @@ export type OutputWebhookExtraHttpHeader = {
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
 export const OutputWebhookFailedRequestLoggingMode = {
+  /**
+   * Payload
+   */
   Payload: "payload",
+  /**
+   * Payload + Headers
+   */
   PayloadAndHeaders: "payloadAndHeaders",
+  /**
+   * None
+   */
   None: "none",
 } as const;
 /**
@@ -104,8 +125,17 @@ export type OutputWebhookTimeoutRetrySettings = {
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputWebhookBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -119,11 +149,29 @@ export type OutputWebhookBackpressureBehavior = OpenEnum<
  * Authentication method to use for the HTTP request
  */
 export const OutputWebhookAuthenticationType = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Basic
+   */
   Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
   CredentialsSecret: "credentialsSecret",
+  /**
+   * Token
+   */
   Token: "token",
+  /**
+   * Token (text secret)
+   */
   TextSecret: "textSecret",
+  /**
+   * OAuth
+   */
   Oauth: "oauth",
 } as const;
 /**
@@ -184,10 +232,38 @@ export type OutputWebhookTLSSettingsClientSide = {
 };
 
 /**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputWebhookMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputWebhookMode = OpenEnum<typeof OutputWebhookMode>;
+
+/**
  * Codec to use to compress the persisted data
  */
 export const OutputWebhookCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -201,7 +277,13 @@ export type OutputWebhookCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputWebhookQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -210,19 +292,6 @@ export const OutputWebhookQueueFullBehavior = {
 export type OutputWebhookQueueFullBehavior = OpenEnum<
   typeof OutputWebhookQueueFullBehavior
 >;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputWebhookMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputWebhookMode = OpenEnum<typeof OutputWebhookMode>;
 
 export type OutputWebhookPqControls = {};
 
@@ -401,6 +470,26 @@ export type OutputWebhook = {
    */
   formatPayloadCode?: string | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputWebhookMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -420,10 +509,6 @@ export type OutputWebhook = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputWebhookQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputWebhookMode | undefined;
   pqControls?: OutputWebhookPqControls | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -494,22 +579,10 @@ export type OutputWebhook = {
 export const OutputWebhookType$inboundSchema: z.ZodNativeEnum<
   typeof OutputWebhookType
 > = z.nativeEnum(OutputWebhookType);
-
 /** @internal */
 export const OutputWebhookType$outboundSchema: z.ZodNativeEnum<
   typeof OutputWebhookType
 > = OutputWebhookType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWebhookType$ {
-  /** @deprecated use `OutputWebhookType$inboundSchema` instead. */
-  export const inboundSchema = OutputWebhookType$inboundSchema;
-  /** @deprecated use `OutputWebhookType$outboundSchema` instead. */
-  export const outboundSchema = OutputWebhookType$outboundSchema;
-}
 
 /** @internal */
 export const OutputWebhookMethod$inboundSchema: z.ZodType<
@@ -521,7 +594,6 @@ export const OutputWebhookMethod$inboundSchema: z.ZodType<
     z.nativeEnum(OutputWebhookMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputWebhookMethod$outboundSchema: z.ZodType<
   OutputWebhookMethod,
@@ -531,17 +603,6 @@ export const OutputWebhookMethod$outboundSchema: z.ZodType<
   z.nativeEnum(OutputWebhookMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWebhookMethod$ {
-  /** @deprecated use `OutputWebhookMethod$inboundSchema` instead. */
-  export const inboundSchema = OutputWebhookMethod$inboundSchema;
-  /** @deprecated use `OutputWebhookMethod$outboundSchema` instead. */
-  export const outboundSchema = OutputWebhookMethod$outboundSchema;
-}
 
 /** @internal */
 export const OutputWebhookFormat$inboundSchema: z.ZodType<
@@ -553,7 +614,6 @@ export const OutputWebhookFormat$inboundSchema: z.ZodType<
     z.nativeEnum(OutputWebhookFormat),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputWebhookFormat$outboundSchema: z.ZodType<
   OutputWebhookFormat,
@@ -564,17 +624,6 @@ export const OutputWebhookFormat$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWebhookFormat$ {
-  /** @deprecated use `OutputWebhookFormat$inboundSchema` instead. */
-  export const inboundSchema = OutputWebhookFormat$inboundSchema;
-  /** @deprecated use `OutputWebhookFormat$outboundSchema` instead. */
-  export const outboundSchema = OutputWebhookFormat$outboundSchema;
-}
-
 /** @internal */
 export const OutputWebhookExtraHttpHeader$inboundSchema: z.ZodType<
   OutputWebhookExtraHttpHeader,
@@ -584,7 +633,6 @@ export const OutputWebhookExtraHttpHeader$inboundSchema: z.ZodType<
   name: z.string().optional(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputWebhookExtraHttpHeader$Outbound = {
   name?: string | undefined;
@@ -601,19 +649,6 @@ export const OutputWebhookExtraHttpHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWebhookExtraHttpHeader$ {
-  /** @deprecated use `OutputWebhookExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputWebhookExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputWebhookExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputWebhookExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputWebhookExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputWebhookExtraHttpHeader$Outbound;
-}
-
 export function outputWebhookExtraHttpHeaderToJSON(
   outputWebhookExtraHttpHeader: OutputWebhookExtraHttpHeader,
 ): string {
@@ -623,7 +658,6 @@ export function outputWebhookExtraHttpHeaderToJSON(
     ),
   );
 }
-
 export function outputWebhookExtraHttpHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputWebhookExtraHttpHeader, SDKValidationError> {
@@ -644,7 +678,6 @@ export const OutputWebhookFailedRequestLoggingMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputWebhookFailedRequestLoggingMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputWebhookFailedRequestLoggingMode$outboundSchema: z.ZodType<
   OutputWebhookFailedRequestLoggingMode,
@@ -654,19 +687,6 @@ export const OutputWebhookFailedRequestLoggingMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputWebhookFailedRequestLoggingMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWebhookFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputWebhookFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputWebhookFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputWebhookFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputWebhookFailedRequestLoggingMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputWebhookResponseRetrySetting$inboundSchema: z.ZodType<
@@ -679,7 +699,6 @@ export const OutputWebhookResponseRetrySetting$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputWebhookResponseRetrySetting$Outbound = {
   httpStatus: number;
@@ -700,20 +719,6 @@ export const OutputWebhookResponseRetrySetting$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWebhookResponseRetrySetting$ {
-  /** @deprecated use `OutputWebhookResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema = OutputWebhookResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputWebhookResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputWebhookResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputWebhookResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputWebhookResponseRetrySetting$Outbound;
-}
-
 export function outputWebhookResponseRetrySettingToJSON(
   outputWebhookResponseRetrySetting: OutputWebhookResponseRetrySetting,
 ): string {
@@ -723,7 +728,6 @@ export function outputWebhookResponseRetrySettingToJSON(
     ),
   );
 }
-
 export function outputWebhookResponseRetrySettingFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputWebhookResponseRetrySetting, SDKValidationError> {
@@ -745,7 +749,6 @@ export const OutputWebhookTimeoutRetrySettings$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputWebhookTimeoutRetrySettings$Outbound = {
   timeoutRetry: boolean;
@@ -766,20 +769,6 @@ export const OutputWebhookTimeoutRetrySettings$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWebhookTimeoutRetrySettings$ {
-  /** @deprecated use `OutputWebhookTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema = OutputWebhookTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputWebhookTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputWebhookTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputWebhookTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputWebhookTimeoutRetrySettings$Outbound;
-}
-
 export function outputWebhookTimeoutRetrySettingsToJSON(
   outputWebhookTimeoutRetrySettings: OutputWebhookTimeoutRetrySettings,
 ): string {
@@ -789,7 +778,6 @@ export function outputWebhookTimeoutRetrySettingsToJSON(
     ),
   );
 }
-
 export function outputWebhookTimeoutRetrySettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputWebhookTimeoutRetrySettings, SDKValidationError> {
@@ -810,7 +798,6 @@ export const OutputWebhookBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputWebhookBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputWebhookBackpressureBehavior$outboundSchema: z.ZodType<
   OutputWebhookBackpressureBehavior,
@@ -820,18 +807,6 @@ export const OutputWebhookBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputWebhookBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWebhookBackpressureBehavior$ {
-  /** @deprecated use `OutputWebhookBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputWebhookBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputWebhookBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputWebhookBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputWebhookAuthenticationType$inboundSchema: z.ZodType<
@@ -843,7 +818,6 @@ export const OutputWebhookAuthenticationType$inboundSchema: z.ZodType<
     z.nativeEnum(OutputWebhookAuthenticationType),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputWebhookAuthenticationType$outboundSchema: z.ZodType<
   OutputWebhookAuthenticationType,
@@ -853,17 +827,6 @@ export const OutputWebhookAuthenticationType$outboundSchema: z.ZodType<
   z.nativeEnum(OutputWebhookAuthenticationType),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWebhookAuthenticationType$ {
-  /** @deprecated use `OutputWebhookAuthenticationType$inboundSchema` instead. */
-  export const inboundSchema = OutputWebhookAuthenticationType$inboundSchema;
-  /** @deprecated use `OutputWebhookAuthenticationType$outboundSchema` instead. */
-  export const outboundSchema = OutputWebhookAuthenticationType$outboundSchema;
-}
 
 /** @internal */
 export const OutputWebhookMinimumTLSVersion$inboundSchema: z.ZodType<
@@ -875,7 +838,6 @@ export const OutputWebhookMinimumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputWebhookMinimumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputWebhookMinimumTLSVersion$outboundSchema: z.ZodType<
   OutputWebhookMinimumTLSVersion,
@@ -885,17 +847,6 @@ export const OutputWebhookMinimumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputWebhookMinimumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWebhookMinimumTLSVersion$ {
-  /** @deprecated use `OutputWebhookMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputWebhookMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputWebhookMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputWebhookMinimumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputWebhookMaximumTLSVersion$inboundSchema: z.ZodType<
@@ -907,7 +858,6 @@ export const OutputWebhookMaximumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputWebhookMaximumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputWebhookMaximumTLSVersion$outboundSchema: z.ZodType<
   OutputWebhookMaximumTLSVersion,
@@ -917,17 +867,6 @@ export const OutputWebhookMaximumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputWebhookMaximumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWebhookMaximumTLSVersion$ {
-  /** @deprecated use `OutputWebhookMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputWebhookMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `OutputWebhookMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputWebhookMaximumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputWebhookTLSSettingsClientSide$inboundSchema: z.ZodType<
@@ -945,7 +884,6 @@ export const OutputWebhookTLSSettingsClientSide$inboundSchema: z.ZodType<
   minVersion: OutputWebhookMinimumTLSVersion$inboundSchema.optional(),
   maxVersion: OutputWebhookMaximumTLSVersion$inboundSchema.optional(),
 });
-
 /** @internal */
 export type OutputWebhookTLSSettingsClientSide$Outbound = {
   disabled: boolean;
@@ -976,20 +914,6 @@ export const OutputWebhookTLSSettingsClientSide$outboundSchema: z.ZodType<
   maxVersion: OutputWebhookMaximumTLSVersion$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWebhookTLSSettingsClientSide$ {
-  /** @deprecated use `OutputWebhookTLSSettingsClientSide$inboundSchema` instead. */
-  export const inboundSchema = OutputWebhookTLSSettingsClientSide$inboundSchema;
-  /** @deprecated use `OutputWebhookTLSSettingsClientSide$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputWebhookTLSSettingsClientSide$outboundSchema;
-  /** @deprecated use `OutputWebhookTLSSettingsClientSide$Outbound` instead. */
-  export type Outbound = OutputWebhookTLSSettingsClientSide$Outbound;
-}
-
 export function outputWebhookTLSSettingsClientSideToJSON(
   outputWebhookTLSSettingsClientSide: OutputWebhookTLSSettingsClientSide,
 ): string {
@@ -999,7 +923,6 @@ export function outputWebhookTLSSettingsClientSideToJSON(
     ),
   );
 }
-
 export function outputWebhookTLSSettingsClientSideFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputWebhookTLSSettingsClientSide, SDKValidationError> {
@@ -1012,6 +935,26 @@ export function outputWebhookTLSSettingsClientSideFromJSON(
 }
 
 /** @internal */
+export const OutputWebhookMode$inboundSchema: z.ZodType<
+  OutputWebhookMode,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputWebhookMode),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputWebhookMode$outboundSchema: z.ZodType<
+  OutputWebhookMode,
+  z.ZodTypeDef,
+  OutputWebhookMode
+> = z.union([
+  z.nativeEnum(OutputWebhookMode),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
 export const OutputWebhookCompression$inboundSchema: z.ZodType<
   OutputWebhookCompression,
   z.ZodTypeDef,
@@ -1021,7 +964,6 @@ export const OutputWebhookCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputWebhookCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputWebhookCompression$outboundSchema: z.ZodType<
   OutputWebhookCompression,
@@ -1031,17 +973,6 @@ export const OutputWebhookCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputWebhookCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWebhookCompression$ {
-  /** @deprecated use `OutputWebhookCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputWebhookCompression$inboundSchema;
-  /** @deprecated use `OutputWebhookCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputWebhookCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputWebhookQueueFullBehavior$inboundSchema: z.ZodType<
@@ -1053,7 +984,6 @@ export const OutputWebhookQueueFullBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputWebhookQueueFullBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputWebhookQueueFullBehavior$outboundSchema: z.ZodType<
   OutputWebhookQueueFullBehavior,
@@ -1064,56 +994,12 @@ export const OutputWebhookQueueFullBehavior$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWebhookQueueFullBehavior$ {
-  /** @deprecated use `OutputWebhookQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputWebhookQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputWebhookQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputWebhookQueueFullBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputWebhookMode$inboundSchema: z.ZodType<
-  OutputWebhookMode,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputWebhookMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputWebhookMode$outboundSchema: z.ZodType<
-  OutputWebhookMode,
-  z.ZodTypeDef,
-  OutputWebhookMode
-> = z.union([
-  z.nativeEnum(OutputWebhookMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWebhookMode$ {
-  /** @deprecated use `OutputWebhookMode$inboundSchema` instead. */
-  export const inboundSchema = OutputWebhookMode$inboundSchema;
-  /** @deprecated use `OutputWebhookMode$outboundSchema` instead. */
-  export const outboundSchema = OutputWebhookMode$outboundSchema;
-}
-
 /** @internal */
 export const OutputWebhookPqControls$inboundSchema: z.ZodType<
   OutputWebhookPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputWebhookPqControls$Outbound = {};
 
@@ -1124,19 +1010,6 @@ export const OutputWebhookPqControls$outboundSchema: z.ZodType<
   OutputWebhookPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWebhookPqControls$ {
-  /** @deprecated use `OutputWebhookPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputWebhookPqControls$inboundSchema;
-  /** @deprecated use `OutputWebhookPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputWebhookPqControls$outboundSchema;
-  /** @deprecated use `OutputWebhookPqControls$Outbound` instead. */
-  export type Outbound = OutputWebhookPqControls$Outbound;
-}
-
 export function outputWebhookPqControlsToJSON(
   outputWebhookPqControls: OutputWebhookPqControls,
 ): string {
@@ -1144,7 +1017,6 @@ export function outputWebhookPqControlsToJSON(
     OutputWebhookPqControls$outboundSchema.parse(outputWebhookPqControls),
   );
 }
-
 export function outputWebhookPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputWebhookPqControls, SDKValidationError> {
@@ -1164,7 +1036,6 @@ export const OutputWebhookOauthParam$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputWebhookOauthParam$Outbound = {
   name: string;
@@ -1181,19 +1052,6 @@ export const OutputWebhookOauthParam$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWebhookOauthParam$ {
-  /** @deprecated use `OutputWebhookOauthParam$inboundSchema` instead. */
-  export const inboundSchema = OutputWebhookOauthParam$inboundSchema;
-  /** @deprecated use `OutputWebhookOauthParam$outboundSchema` instead. */
-  export const outboundSchema = OutputWebhookOauthParam$outboundSchema;
-  /** @deprecated use `OutputWebhookOauthParam$Outbound` instead. */
-  export type Outbound = OutputWebhookOauthParam$Outbound;
-}
-
 export function outputWebhookOauthParamToJSON(
   outputWebhookOauthParam: OutputWebhookOauthParam,
 ): string {
@@ -1201,7 +1059,6 @@ export function outputWebhookOauthParamToJSON(
     OutputWebhookOauthParam$outboundSchema.parse(outputWebhookOauthParam),
   );
 }
-
 export function outputWebhookOauthParamFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputWebhookOauthParam, SDKValidationError> {
@@ -1221,7 +1078,6 @@ export const OutputWebhookOauthHeader$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputWebhookOauthHeader$Outbound = {
   name: string;
@@ -1238,19 +1094,6 @@ export const OutputWebhookOauthHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWebhookOauthHeader$ {
-  /** @deprecated use `OutputWebhookOauthHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputWebhookOauthHeader$inboundSchema;
-  /** @deprecated use `OutputWebhookOauthHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputWebhookOauthHeader$outboundSchema;
-  /** @deprecated use `OutputWebhookOauthHeader$Outbound` instead. */
-  export type Outbound = OutputWebhookOauthHeader$Outbound;
-}
-
 export function outputWebhookOauthHeaderToJSON(
   outputWebhookOauthHeader: OutputWebhookOauthHeader,
 ): string {
@@ -1258,7 +1101,6 @@ export function outputWebhookOauthHeaderToJSON(
     OutputWebhookOauthHeader$outboundSchema.parse(outputWebhookOauthHeader),
   );
 }
-
 export function outputWebhookOauthHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputWebhookOauthHeader, SDKValidationError> {
@@ -1278,7 +1120,6 @@ export const OutputWebhookUrl$inboundSchema: z.ZodType<
   url: z.string(),
   weight: z.number().default(1),
 });
-
 /** @internal */
 export type OutputWebhookUrl$Outbound = {
   url: string;
@@ -1295,19 +1136,6 @@ export const OutputWebhookUrl$outboundSchema: z.ZodType<
   weight: z.number().default(1),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWebhookUrl$ {
-  /** @deprecated use `OutputWebhookUrl$inboundSchema` instead. */
-  export const inboundSchema = OutputWebhookUrl$inboundSchema;
-  /** @deprecated use `OutputWebhookUrl$outboundSchema` instead. */
-  export const outboundSchema = OutputWebhookUrl$outboundSchema;
-  /** @deprecated use `OutputWebhookUrl$Outbound` instead. */
-  export type Outbound = OutputWebhookUrl$Outbound;
-}
-
 export function outputWebhookUrlToJSON(
   outputWebhookUrl: OutputWebhookUrl,
 ): string {
@@ -1315,7 +1143,6 @@ export function outputWebhookUrlToJSON(
     OutputWebhookUrl$outboundSchema.parse(outputWebhookUrl),
   );
 }
-
 export function outputWebhookUrlFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputWebhookUrl, SDKValidationError> {
@@ -1379,6 +1206,11 @@ export const OutputWebhook$inboundSchema: z.ZodType<
   advancedContentType: z.string().default("application/json"),
   formatEventCode: z.string().optional(),
   formatPayloadCode: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputWebhookMode$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1386,7 +1218,6 @@ export const OutputWebhook$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputWebhookQueueFullBehavior$inboundSchema.default(
     "block",
   ),
-  pqMode: OutputWebhookMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputWebhookPqControls$inboundSchema).optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -1409,7 +1240,6 @@ export const OutputWebhook$inboundSchema: z.ZodType<
   dnsResolvePeriodSec: z.number().default(600),
   loadBalanceStatsPeriodSec: z.number().default(300),
 });
-
 /** @internal */
 export type OutputWebhook$Outbound = {
   id?: string | undefined;
@@ -1451,12 +1281,16 @@ export type OutputWebhook$Outbound = {
   advancedContentType: string;
   formatEventCode?: string | undefined;
   formatPayloadCode?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
   pqControls?: OutputWebhookPqControls$Outbound | undefined;
   username?: string | undefined;
   password?: string | undefined;
@@ -1531,6 +1365,11 @@ export const OutputWebhook$outboundSchema: z.ZodType<
   advancedContentType: z.string().default("application/json"),
   formatEventCode: z.string().optional(),
   formatPayloadCode: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputWebhookMode$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1538,7 +1377,6 @@ export const OutputWebhook$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputWebhookQueueFullBehavior$outboundSchema.default(
     "block",
   ),
-  pqMode: OutputWebhookMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputWebhookPqControls$outboundSchema).optional(),
   username: z.string().optional(),
   password: z.string().optional(),
@@ -1562,23 +1400,9 @@ export const OutputWebhook$outboundSchema: z.ZodType<
   loadBalanceStatsPeriodSec: z.number().default(300),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputWebhook$ {
-  /** @deprecated use `OutputWebhook$inboundSchema` instead. */
-  export const inboundSchema = OutputWebhook$inboundSchema;
-  /** @deprecated use `OutputWebhook$outboundSchema` instead. */
-  export const outboundSchema = OutputWebhook$outboundSchema;
-  /** @deprecated use `OutputWebhook$Outbound` instead. */
-  export type Outbound = OutputWebhook$Outbound;
-}
-
 export function outputWebhookToJSON(outputWebhook: OutputWebhook): string {
   return JSON.stringify(OutputWebhook$outboundSchema.parse(outputWebhook));
 }
-
 export function outputWebhookFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputWebhook, SDKValidationError> {

@@ -35,18 +35,6 @@ export type GetConfigGroupAclTeamsByProductAndIdResponse = {
 };
 
 /** @internal */
-export const GetConfigGroupAclTeamsByProductAndIdRequest$inboundSchema:
-  z.ZodType<
-    GetConfigGroupAclTeamsByProductAndIdRequest,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    product: models.ProductsCore$inboundSchema,
-    id: z.string(),
-    type: models.RbacResource$inboundSchema.optional(),
-  });
-
-/** @internal */
 export type GetConfigGroupAclTeamsByProductAndIdRequest$Outbound = {
   product: string;
   id: string;
@@ -65,21 +53,6 @@ export const GetConfigGroupAclTeamsByProductAndIdRequest$outboundSchema:
     type: models.RbacResource$outboundSchema.optional(),
   });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetConfigGroupAclTeamsByProductAndIdRequest$ {
-  /** @deprecated use `GetConfigGroupAclTeamsByProductAndIdRequest$inboundSchema` instead. */
-  export const inboundSchema =
-    GetConfigGroupAclTeamsByProductAndIdRequest$inboundSchema;
-  /** @deprecated use `GetConfigGroupAclTeamsByProductAndIdRequest$outboundSchema` instead. */
-  export const outboundSchema =
-    GetConfigGroupAclTeamsByProductAndIdRequest$outboundSchema;
-  /** @deprecated use `GetConfigGroupAclTeamsByProductAndIdRequest$Outbound` instead. */
-  export type Outbound = GetConfigGroupAclTeamsByProductAndIdRequest$Outbound;
-}
-
 export function getConfigGroupAclTeamsByProductAndIdRequestToJSON(
   getConfigGroupAclTeamsByProductAndIdRequest:
     GetConfigGroupAclTeamsByProductAndIdRequest,
@@ -88,22 +61,6 @@ export function getConfigGroupAclTeamsByProductAndIdRequestToJSON(
     GetConfigGroupAclTeamsByProductAndIdRequest$outboundSchema.parse(
       getConfigGroupAclTeamsByProductAndIdRequest,
     ),
-  );
-}
-
-export function getConfigGroupAclTeamsByProductAndIdRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  GetConfigGroupAclTeamsByProductAndIdRequest,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      GetConfigGroupAclTeamsByProductAndIdRequest$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'GetConfigGroupAclTeamsByProductAndIdRequest' from JSON`,
   );
 }
 
@@ -117,49 +74,6 @@ export const GetConfigGroupAclTeamsByProductAndIdResponse$inboundSchema:
     count: z.number().int().optional(),
     items: z.array(models.TeamAccessControlList$inboundSchema).optional(),
   });
-
-/** @internal */
-export type GetConfigGroupAclTeamsByProductAndIdResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.TeamAccessControlList$Outbound> | undefined;
-};
-
-/** @internal */
-export const GetConfigGroupAclTeamsByProductAndIdResponse$outboundSchema:
-  z.ZodType<
-    GetConfigGroupAclTeamsByProductAndIdResponse$Outbound,
-    z.ZodTypeDef,
-    GetConfigGroupAclTeamsByProductAndIdResponse
-  > = z.object({
-    count: z.number().int().optional(),
-    items: z.array(models.TeamAccessControlList$outboundSchema).optional(),
-  });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetConfigGroupAclTeamsByProductAndIdResponse$ {
-  /** @deprecated use `GetConfigGroupAclTeamsByProductAndIdResponse$inboundSchema` instead. */
-  export const inboundSchema =
-    GetConfigGroupAclTeamsByProductAndIdResponse$inboundSchema;
-  /** @deprecated use `GetConfigGroupAclTeamsByProductAndIdResponse$outboundSchema` instead. */
-  export const outboundSchema =
-    GetConfigGroupAclTeamsByProductAndIdResponse$outboundSchema;
-  /** @deprecated use `GetConfigGroupAclTeamsByProductAndIdResponse$Outbound` instead. */
-  export type Outbound = GetConfigGroupAclTeamsByProductAndIdResponse$Outbound;
-}
-
-export function getConfigGroupAclTeamsByProductAndIdResponseToJSON(
-  getConfigGroupAclTeamsByProductAndIdResponse:
-    GetConfigGroupAclTeamsByProductAndIdResponse,
-): string {
-  return JSON.stringify(
-    GetConfigGroupAclTeamsByProductAndIdResponse$outboundSchema.parse(
-      getConfigGroupAclTeamsByProductAndIdResponse,
-    ),
-  );
-}
 
 export function getConfigGroupAclTeamsByProductAndIdResponseFromJSON(
   jsonString: string,

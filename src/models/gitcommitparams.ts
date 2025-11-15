@@ -3,9 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../lib/schemas.js";
-import { Result as SafeParseResult } from "../types/fp.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export type GitCommitParams = {
   effective?: boolean | undefined;
@@ -13,18 +10,6 @@ export type GitCommitParams = {
   group?: string | undefined;
   message: string;
 };
-
-/** @internal */
-export const GitCommitParams$inboundSchema: z.ZodType<
-  GitCommitParams,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  effective: z.boolean().optional(),
-  files: z.array(z.string()).optional(),
-  group: z.string().optional(),
-  message: z.string(),
-});
 
 /** @internal */
 export type GitCommitParams$Outbound = {
@@ -46,31 +31,8 @@ export const GitCommitParams$outboundSchema: z.ZodType<
   message: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GitCommitParams$ {
-  /** @deprecated use `GitCommitParams$inboundSchema` instead. */
-  export const inboundSchema = GitCommitParams$inboundSchema;
-  /** @deprecated use `GitCommitParams$outboundSchema` instead. */
-  export const outboundSchema = GitCommitParams$outboundSchema;
-  /** @deprecated use `GitCommitParams$Outbound` instead. */
-  export type Outbound = GitCommitParams$Outbound;
-}
-
 export function gitCommitParamsToJSON(
   gitCommitParams: GitCommitParams,
 ): string {
   return JSON.stringify(GitCommitParams$outboundSchema.parse(gitCommitParams));
-}
-
-export function gitCommitParamsFromJSON(
-  jsonString: string,
-): SafeParseResult<GitCommitParams, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GitCommitParams$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GitCommitParams' from JSON`,
-  );
 }

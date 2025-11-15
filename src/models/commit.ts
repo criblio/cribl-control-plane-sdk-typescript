@@ -32,7 +32,6 @@ export const Commit$inboundSchema: z.ZodType<Commit, z.ZodTypeDef, unknown> = z
       "author_name": "authorName",
     });
   });
-
 /** @internal */
 export type Commit$Outbound = {
   author_email?: string | undefined;
@@ -62,23 +61,9 @@ export const Commit$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Commit$ {
-  /** @deprecated use `Commit$inboundSchema` instead. */
-  export const inboundSchema = Commit$inboundSchema;
-  /** @deprecated use `Commit$outboundSchema` instead. */
-  export const outboundSchema = Commit$outboundSchema;
-  /** @deprecated use `Commit$Outbound` instead. */
-  export type Outbound = Commit$Outbound;
-}
-
 export function commitToJSON(commit: Commit): string {
   return JSON.stringify(Commit$outboundSchema.parse(commit));
 }
-
 export function commitFromJSON(
   jsonString: string,
 ): SafeParseResult<Commit, SDKValidationError> {

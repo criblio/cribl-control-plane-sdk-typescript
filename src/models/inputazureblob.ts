@@ -27,7 +27,13 @@ export type InputAzureBlobConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputAzureBlobMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -39,7 +45,13 @@ export type InputAzureBlobMode = OpenEnum<typeof InputAzureBlobMode>;
  * Codec to use to compress the persisted data
  */
 export const InputAzureBlobCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -229,22 +241,10 @@ export type InputAzureBlob = {
 export const InputAzureBlobType$inboundSchema: z.ZodNativeEnum<
   typeof InputAzureBlobType
 > = z.nativeEnum(InputAzureBlobType);
-
 /** @internal */
 export const InputAzureBlobType$outboundSchema: z.ZodNativeEnum<
   typeof InputAzureBlobType
 > = InputAzureBlobType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAzureBlobType$ {
-  /** @deprecated use `InputAzureBlobType$inboundSchema` instead. */
-  export const inboundSchema = InputAzureBlobType$inboundSchema;
-  /** @deprecated use `InputAzureBlobType$outboundSchema` instead. */
-  export const outboundSchema = InputAzureBlobType$outboundSchema;
-}
 
 /** @internal */
 export const InputAzureBlobConnection$inboundSchema: z.ZodType<
@@ -255,7 +255,6 @@ export const InputAzureBlobConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputAzureBlobConnection$Outbound = {
   pipeline?: string | undefined;
@@ -272,19 +271,6 @@ export const InputAzureBlobConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAzureBlobConnection$ {
-  /** @deprecated use `InputAzureBlobConnection$inboundSchema` instead. */
-  export const inboundSchema = InputAzureBlobConnection$inboundSchema;
-  /** @deprecated use `InputAzureBlobConnection$outboundSchema` instead. */
-  export const outboundSchema = InputAzureBlobConnection$outboundSchema;
-  /** @deprecated use `InputAzureBlobConnection$Outbound` instead. */
-  export type Outbound = InputAzureBlobConnection$Outbound;
-}
-
 export function inputAzureBlobConnectionToJSON(
   inputAzureBlobConnection: InputAzureBlobConnection,
 ): string {
@@ -292,7 +278,6 @@ export function inputAzureBlobConnectionToJSON(
     InputAzureBlobConnection$outboundSchema.parse(inputAzureBlobConnection),
   );
 }
-
 export function inputAzureBlobConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputAzureBlobConnection, SDKValidationError> {
@@ -313,7 +298,6 @@ export const InputAzureBlobMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputAzureBlobMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputAzureBlobMode$outboundSchema: z.ZodType<
   InputAzureBlobMode,
@@ -323,17 +307,6 @@ export const InputAzureBlobMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputAzureBlobMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAzureBlobMode$ {
-  /** @deprecated use `InputAzureBlobMode$inboundSchema` instead. */
-  export const inboundSchema = InputAzureBlobMode$inboundSchema;
-  /** @deprecated use `InputAzureBlobMode$outboundSchema` instead. */
-  export const outboundSchema = InputAzureBlobMode$outboundSchema;
-}
 
 /** @internal */
 export const InputAzureBlobCompression$inboundSchema: z.ZodType<
@@ -345,7 +318,6 @@ export const InputAzureBlobCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputAzureBlobCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputAzureBlobCompression$outboundSchema: z.ZodType<
   InputAzureBlobCompression,
@@ -356,24 +328,12 @@ export const InputAzureBlobCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAzureBlobCompression$ {
-  /** @deprecated use `InputAzureBlobCompression$inboundSchema` instead. */
-  export const inboundSchema = InputAzureBlobCompression$inboundSchema;
-  /** @deprecated use `InputAzureBlobCompression$outboundSchema` instead. */
-  export const outboundSchema = InputAzureBlobCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputAzureBlobPqControls$inboundSchema: z.ZodType<
   InputAzureBlobPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputAzureBlobPqControls$Outbound = {};
 
@@ -384,19 +344,6 @@ export const InputAzureBlobPqControls$outboundSchema: z.ZodType<
   InputAzureBlobPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAzureBlobPqControls$ {
-  /** @deprecated use `InputAzureBlobPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputAzureBlobPqControls$inboundSchema;
-  /** @deprecated use `InputAzureBlobPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputAzureBlobPqControls$outboundSchema;
-  /** @deprecated use `InputAzureBlobPqControls$Outbound` instead. */
-  export type Outbound = InputAzureBlobPqControls$Outbound;
-}
-
 export function inputAzureBlobPqControlsToJSON(
   inputAzureBlobPqControls: InputAzureBlobPqControls,
 ): string {
@@ -404,7 +351,6 @@ export function inputAzureBlobPqControlsToJSON(
     InputAzureBlobPqControls$outboundSchema.parse(inputAzureBlobPqControls),
   );
 }
-
 export function inputAzureBlobPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputAzureBlobPqControls, SDKValidationError> {
@@ -430,7 +376,6 @@ export const InputAzureBlobPq$inboundSchema: z.ZodType<
   compress: InputAzureBlobCompression$inboundSchema.default("none"),
   pqControls: z.lazy(() => InputAzureBlobPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputAzureBlobPq$Outbound = {
   mode: string;
@@ -459,19 +404,6 @@ export const InputAzureBlobPq$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputAzureBlobPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAzureBlobPq$ {
-  /** @deprecated use `InputAzureBlobPq$inboundSchema` instead. */
-  export const inboundSchema = InputAzureBlobPq$inboundSchema;
-  /** @deprecated use `InputAzureBlobPq$outboundSchema` instead. */
-  export const outboundSchema = InputAzureBlobPq$outboundSchema;
-  /** @deprecated use `InputAzureBlobPq$Outbound` instead. */
-  export type Outbound = InputAzureBlobPq$Outbound;
-}
-
 export function inputAzureBlobPqToJSON(
   inputAzureBlobPq: InputAzureBlobPq,
 ): string {
@@ -479,7 +411,6 @@ export function inputAzureBlobPqToJSON(
     InputAzureBlobPq$outboundSchema.parse(inputAzureBlobPq),
   );
 }
-
 export function inputAzureBlobPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputAzureBlobPq, SDKValidationError> {
@@ -499,7 +430,6 @@ export const InputAzureBlobMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputAzureBlobMetadatum$Outbound = {
   name: string;
@@ -516,19 +446,6 @@ export const InputAzureBlobMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAzureBlobMetadatum$ {
-  /** @deprecated use `InputAzureBlobMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputAzureBlobMetadatum$inboundSchema;
-  /** @deprecated use `InputAzureBlobMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputAzureBlobMetadatum$outboundSchema;
-  /** @deprecated use `InputAzureBlobMetadatum$Outbound` instead. */
-  export type Outbound = InputAzureBlobMetadatum$Outbound;
-}
-
 export function inputAzureBlobMetadatumToJSON(
   inputAzureBlobMetadatum: InputAzureBlobMetadatum,
 ): string {
@@ -536,7 +453,6 @@ export function inputAzureBlobMetadatumToJSON(
     InputAzureBlobMetadatum$outboundSchema.parse(inputAzureBlobMetadatum),
   );
 }
-
 export function inputAzureBlobMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputAzureBlobMetadatum, SDKValidationError> {
@@ -557,7 +473,6 @@ export const InputAzureBlobAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(InputAzureBlobAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputAzureBlobAuthenticationMethod$outboundSchema: z.ZodType<
   InputAzureBlobAuthenticationMethod,
@@ -568,18 +483,6 @@ export const InputAzureBlobAuthenticationMethod$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAzureBlobAuthenticationMethod$ {
-  /** @deprecated use `InputAzureBlobAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = InputAzureBlobAuthenticationMethod$inboundSchema;
-  /** @deprecated use `InputAzureBlobAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    InputAzureBlobAuthenticationMethod$outboundSchema;
-}
-
 /** @internal */
 export const InputAzureBlobCertificate$inboundSchema: z.ZodType<
   InputAzureBlobCertificate,
@@ -588,7 +491,6 @@ export const InputAzureBlobCertificate$inboundSchema: z.ZodType<
 > = z.object({
   certificateName: z.string(),
 });
-
 /** @internal */
 export type InputAzureBlobCertificate$Outbound = {
   certificateName: string;
@@ -603,19 +505,6 @@ export const InputAzureBlobCertificate$outboundSchema: z.ZodType<
   certificateName: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAzureBlobCertificate$ {
-  /** @deprecated use `InputAzureBlobCertificate$inboundSchema` instead. */
-  export const inboundSchema = InputAzureBlobCertificate$inboundSchema;
-  /** @deprecated use `InputAzureBlobCertificate$outboundSchema` instead. */
-  export const outboundSchema = InputAzureBlobCertificate$outboundSchema;
-  /** @deprecated use `InputAzureBlobCertificate$Outbound` instead. */
-  export type Outbound = InputAzureBlobCertificate$Outbound;
-}
-
 export function inputAzureBlobCertificateToJSON(
   inputAzureBlobCertificate: InputAzureBlobCertificate,
 ): string {
@@ -623,7 +512,6 @@ export function inputAzureBlobCertificateToJSON(
     InputAzureBlobCertificate$outboundSchema.parse(inputAzureBlobCertificate),
   );
 }
-
 export function inputAzureBlobCertificateFromJSON(
   jsonString: string,
 ): SafeParseResult<InputAzureBlobCertificate, SDKValidationError> {
@@ -676,7 +564,6 @@ export const InputAzureBlob$inboundSchema: z.ZodType<
   clientTextSecret: z.string().optional(),
   certificate: z.lazy(() => InputAzureBlobCertificate$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputAzureBlob$Outbound = {
   id?: string | undefined;
@@ -758,23 +645,9 @@ export const InputAzureBlob$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputAzureBlob$ {
-  /** @deprecated use `InputAzureBlob$inboundSchema` instead. */
-  export const inboundSchema = InputAzureBlob$inboundSchema;
-  /** @deprecated use `InputAzureBlob$outboundSchema` instead. */
-  export const outboundSchema = InputAzureBlob$outboundSchema;
-  /** @deprecated use `InputAzureBlob$Outbound` instead. */
-  export type Outbound = InputAzureBlob$Outbound;
-}
-
 export function inputAzureBlobToJSON(inputAzureBlob: InputAzureBlob): string {
   return JSON.stringify(InputAzureBlob$outboundSchema.parse(inputAzureBlob));
 }
-
 export function inputAzureBlobFromJSON(
   jsonString: string,
 ): SafeParseResult<InputAzureBlob, SDKValidationError> {

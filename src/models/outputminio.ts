@@ -22,8 +22,17 @@ export type OutputMinioType = ClosedEnum<typeof OutputMinioType>;
  * AWS authentication method. Choose Auto to use IAM roles.
  */
 export const OutputMinioAuthenticationMethod = {
+  /**
+   * Auto
+   */
   Auto: "auto",
+  /**
+   * Manual
+   */
   Manual: "manual",
+  /**
+   * Secret Key pair
+   */
   Secret: "secret",
 } as const;
 /**
@@ -51,12 +60,33 @@ export type OutputMinioSignatureVersion = OpenEnum<
  * Object ACL to assign to uploaded objects
  */
 export const OutputMinioObjectACL = {
+  /**
+   * Private
+   */
   Private: "private",
+  /**
+   * Public Read Only
+   */
   PublicRead: "public-read",
+  /**
+   * Public Read/Write
+   */
   PublicReadWrite: "public-read-write",
+  /**
+   * Authenticated Read Only
+   */
   AuthenticatedRead: "authenticated-read",
+  /**
+   * AWS EC2 AMI Read Only
+   */
   AwsExecRead: "aws-exec-read",
+  /**
+   * Bucket Owner Read Only
+   */
   BucketOwnerRead: "bucket-owner-read",
+  /**
+   * Bucket Owner Full Control
+   */
   BucketOwnerFullControl: "bucket-owner-full-control",
 } as const;
 /**
@@ -68,7 +98,13 @@ export type OutputMinioObjectACL = OpenEnum<typeof OutputMinioObjectACL>;
  * Storage class to select for uploaded objects
  */
 export const OutputMinioStorageClass = {
+  /**
+   * Standard
+   */
   Standard: "STANDARD",
+  /**
+   * Reduced Redundancy Storage
+   */
   ReducedRedundancy: "REDUCED_REDUNDANCY",
 } as const;
 /**
@@ -79,20 +115,34 @@ export type OutputMinioStorageClass = OpenEnum<typeof OutputMinioStorageClass>;
 /**
  * Server-side encryption for uploaded objects
  */
-export const ServerSideEncryption = {
+export const OutputMinioServerSideEncryption = {
+  /**
+   * Amazon S3 Managed Key
+   */
   Aes256: "AES256",
 } as const;
 /**
  * Server-side encryption for uploaded objects
  */
-export type ServerSideEncryption = OpenEnum<typeof ServerSideEncryption>;
+export type OutputMinioServerSideEncryption = OpenEnum<
+  typeof OutputMinioServerSideEncryption
+>;
 
 /**
  * Format of the output data
  */
 export const OutputMinioDataFormat = {
+  /**
+   * JSON
+   */
   Json: "json",
+  /**
+   * Raw
+   */
   Raw: "raw",
+  /**
+   * Parquet
+   */
   Parquet: "parquet",
 } as const;
 /**
@@ -104,7 +154,13 @@ export type OutputMinioDataFormat = OpenEnum<typeof OutputMinioDataFormat>;
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputMinioBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
 } as const;
 /**
@@ -118,7 +174,13 @@ export type OutputMinioBackpressureBehavior = OpenEnum<
  * How to handle events when disk space is below the global 'Min free disk space' limit
  */
 export const OutputMinioDiskSpaceProtection = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
 } as const;
 /**
@@ -144,8 +206,17 @@ export type OutputMinioCompression = OpenEnum<typeof OutputMinioCompression>;
  * Compression level to apply before moving files to final destination
  */
 export const OutputMinioCompressionLevel = {
+  /**
+   * Best Speed
+   */
   BestSpeed: "best_speed",
+  /**
+   * Normal
+   */
   Normal: "normal",
+  /**
+   * Best Compression
+   */
   BestCompression: "best_compression",
 } as const;
 /**
@@ -159,8 +230,17 @@ export type OutputMinioCompressionLevel = OpenEnum<
  * Determines which data types are supported and how they are represented
  */
 export const OutputMinioParquetVersion = {
+  /**
+   * 1.0
+   */
   Parquet10: "PARQUET_1_0",
+  /**
+   * 2.4
+   */
   Parquet24: "PARQUET_2_4",
+  /**
+   * 2.6
+   */
   Parquet26: "PARQUET_2_6",
 } as const;
 /**
@@ -174,7 +254,13 @@ export type OutputMinioParquetVersion = OpenEnum<
  * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
  */
 export const OutputMinioDataPageVersion = {
+  /**
+   * V1
+   */
   DataPageV1: "DATA_PAGE_V1",
+  /**
+   * V2
+   */
   DataPageV2: "DATA_PAGE_V2",
 } as const;
 /**
@@ -258,7 +344,7 @@ export type OutputMinio = {
   /**
    * Server-side encryption for uploaded objects
    */
-  serverSideEncryption?: ServerSideEncryption | undefined;
+  serverSideEncryption?: OutputMinioServerSideEncryption | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -320,6 +406,10 @@ export type OutputMinio = {
    */
   onDiskFullBackpressure?: OutputMinioDiskSpaceProtection | undefined;
   /**
+   * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+   */
+  forceCloseOnShutdown?: boolean | undefined;
+  /**
    * Maximum amount of time to write to a file. Files open for longer than this will be closed and moved to final output location.
    */
   maxFileOpenTimeSec?: number | undefined;
@@ -352,6 +442,10 @@ export type OutputMinio = {
    * Automatically calculate the schema based on the events of each Parquet file generated
    */
   automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
   /**
    * Determines which data types are supported and how they are represented
    */
@@ -393,6 +487,10 @@ export type OutputMinio = {
    */
   emptyDirCleanupSec?: number | undefined;
   /**
+   * Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+   */
+  directoryBatchSize?: number | undefined;
+  /**
    * Storage location for files that fail to reach their final destination after maximum retries are exceeded
    */
   deadletterPath?: string | undefined;
@@ -406,22 +504,10 @@ export type OutputMinio = {
 export const OutputMinioType$inboundSchema: z.ZodNativeEnum<
   typeof OutputMinioType
 > = z.nativeEnum(OutputMinioType);
-
 /** @internal */
 export const OutputMinioType$outboundSchema: z.ZodNativeEnum<
   typeof OutputMinioType
 > = OutputMinioType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMinioType$ {
-  /** @deprecated use `OutputMinioType$inboundSchema` instead. */
-  export const inboundSchema = OutputMinioType$inboundSchema;
-  /** @deprecated use `OutputMinioType$outboundSchema` instead. */
-  export const outboundSchema = OutputMinioType$outboundSchema;
-}
 
 /** @internal */
 export const OutputMinioAuthenticationMethod$inboundSchema: z.ZodType<
@@ -433,7 +519,6 @@ export const OutputMinioAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(OutputMinioAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputMinioAuthenticationMethod$outboundSchema: z.ZodType<
   OutputMinioAuthenticationMethod,
@@ -443,17 +528,6 @@ export const OutputMinioAuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(OutputMinioAuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMinioAuthenticationMethod$ {
-  /** @deprecated use `OutputMinioAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = OutputMinioAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputMinioAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema = OutputMinioAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const OutputMinioSignatureVersion$inboundSchema: z.ZodType<
@@ -465,7 +539,6 @@ export const OutputMinioSignatureVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputMinioSignatureVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputMinioSignatureVersion$outboundSchema: z.ZodType<
   OutputMinioSignatureVersion,
@@ -475,17 +548,6 @@ export const OutputMinioSignatureVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputMinioSignatureVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMinioSignatureVersion$ {
-  /** @deprecated use `OutputMinioSignatureVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputMinioSignatureVersion$inboundSchema;
-  /** @deprecated use `OutputMinioSignatureVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputMinioSignatureVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputMinioObjectACL$inboundSchema: z.ZodType<
@@ -497,7 +559,6 @@ export const OutputMinioObjectACL$inboundSchema: z.ZodType<
     z.nativeEnum(OutputMinioObjectACL),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputMinioObjectACL$outboundSchema: z.ZodType<
   OutputMinioObjectACL,
@@ -507,17 +568,6 @@ export const OutputMinioObjectACL$outboundSchema: z.ZodType<
   z.nativeEnum(OutputMinioObjectACL),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMinioObjectACL$ {
-  /** @deprecated use `OutputMinioObjectACL$inboundSchema` instead. */
-  export const inboundSchema = OutputMinioObjectACL$inboundSchema;
-  /** @deprecated use `OutputMinioObjectACL$outboundSchema` instead. */
-  export const outboundSchema = OutputMinioObjectACL$outboundSchema;
-}
 
 /** @internal */
 export const OutputMinioStorageClass$inboundSchema: z.ZodType<
@@ -529,7 +579,6 @@ export const OutputMinioStorageClass$inboundSchema: z.ZodType<
     z.nativeEnum(OutputMinioStorageClass),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputMinioStorageClass$outboundSchema: z.ZodType<
   OutputMinioStorageClass,
@@ -540,48 +589,25 @@ export const OutputMinioStorageClass$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMinioStorageClass$ {
-  /** @deprecated use `OutputMinioStorageClass$inboundSchema` instead. */
-  export const inboundSchema = OutputMinioStorageClass$inboundSchema;
-  /** @deprecated use `OutputMinioStorageClass$outboundSchema` instead. */
-  export const outboundSchema = OutputMinioStorageClass$outboundSchema;
-}
-
 /** @internal */
-export const ServerSideEncryption$inboundSchema: z.ZodType<
-  ServerSideEncryption,
+export const OutputMinioServerSideEncryption$inboundSchema: z.ZodType<
+  OutputMinioServerSideEncryption,
   z.ZodTypeDef,
   unknown
 > = z
   .union([
-    z.nativeEnum(ServerSideEncryption),
+    z.nativeEnum(OutputMinioServerSideEncryption),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
-export const ServerSideEncryption$outboundSchema: z.ZodType<
-  ServerSideEncryption,
+export const OutputMinioServerSideEncryption$outboundSchema: z.ZodType<
+  OutputMinioServerSideEncryption,
   z.ZodTypeDef,
-  ServerSideEncryption
+  OutputMinioServerSideEncryption
 > = z.union([
-  z.nativeEnum(ServerSideEncryption),
+  z.nativeEnum(OutputMinioServerSideEncryption),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ServerSideEncryption$ {
-  /** @deprecated use `ServerSideEncryption$inboundSchema` instead. */
-  export const inboundSchema = ServerSideEncryption$inboundSchema;
-  /** @deprecated use `ServerSideEncryption$outboundSchema` instead. */
-  export const outboundSchema = ServerSideEncryption$outboundSchema;
-}
 
 /** @internal */
 export const OutputMinioDataFormat$inboundSchema: z.ZodType<
@@ -593,7 +619,6 @@ export const OutputMinioDataFormat$inboundSchema: z.ZodType<
     z.nativeEnum(OutputMinioDataFormat),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputMinioDataFormat$outboundSchema: z.ZodType<
   OutputMinioDataFormat,
@@ -603,17 +628,6 @@ export const OutputMinioDataFormat$outboundSchema: z.ZodType<
   z.nativeEnum(OutputMinioDataFormat),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMinioDataFormat$ {
-  /** @deprecated use `OutputMinioDataFormat$inboundSchema` instead. */
-  export const inboundSchema = OutputMinioDataFormat$inboundSchema;
-  /** @deprecated use `OutputMinioDataFormat$outboundSchema` instead. */
-  export const outboundSchema = OutputMinioDataFormat$outboundSchema;
-}
 
 /** @internal */
 export const OutputMinioBackpressureBehavior$inboundSchema: z.ZodType<
@@ -625,7 +639,6 @@ export const OutputMinioBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputMinioBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputMinioBackpressureBehavior$outboundSchema: z.ZodType<
   OutputMinioBackpressureBehavior,
@@ -635,17 +648,6 @@ export const OutputMinioBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputMinioBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMinioBackpressureBehavior$ {
-  /** @deprecated use `OutputMinioBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputMinioBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputMinioBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputMinioBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputMinioDiskSpaceProtection$inboundSchema: z.ZodType<
@@ -657,7 +659,6 @@ export const OutputMinioDiskSpaceProtection$inboundSchema: z.ZodType<
     z.nativeEnum(OutputMinioDiskSpaceProtection),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputMinioDiskSpaceProtection$outboundSchema: z.ZodType<
   OutputMinioDiskSpaceProtection,
@@ -667,17 +668,6 @@ export const OutputMinioDiskSpaceProtection$outboundSchema: z.ZodType<
   z.nativeEnum(OutputMinioDiskSpaceProtection),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMinioDiskSpaceProtection$ {
-  /** @deprecated use `OutputMinioDiskSpaceProtection$inboundSchema` instead. */
-  export const inboundSchema = OutputMinioDiskSpaceProtection$inboundSchema;
-  /** @deprecated use `OutputMinioDiskSpaceProtection$outboundSchema` instead. */
-  export const outboundSchema = OutputMinioDiskSpaceProtection$outboundSchema;
-}
 
 /** @internal */
 export const OutputMinioCompression$inboundSchema: z.ZodType<
@@ -689,7 +679,6 @@ export const OutputMinioCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputMinioCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputMinioCompression$outboundSchema: z.ZodType<
   OutputMinioCompression,
@@ -699,17 +688,6 @@ export const OutputMinioCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputMinioCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMinioCompression$ {
-  /** @deprecated use `OutputMinioCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputMinioCompression$inboundSchema;
-  /** @deprecated use `OutputMinioCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputMinioCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputMinioCompressionLevel$inboundSchema: z.ZodType<
@@ -721,7 +699,6 @@ export const OutputMinioCompressionLevel$inboundSchema: z.ZodType<
     z.nativeEnum(OutputMinioCompressionLevel),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputMinioCompressionLevel$outboundSchema: z.ZodType<
   OutputMinioCompressionLevel,
@@ -731,17 +708,6 @@ export const OutputMinioCompressionLevel$outboundSchema: z.ZodType<
   z.nativeEnum(OutputMinioCompressionLevel),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMinioCompressionLevel$ {
-  /** @deprecated use `OutputMinioCompressionLevel$inboundSchema` instead. */
-  export const inboundSchema = OutputMinioCompressionLevel$inboundSchema;
-  /** @deprecated use `OutputMinioCompressionLevel$outboundSchema` instead. */
-  export const outboundSchema = OutputMinioCompressionLevel$outboundSchema;
-}
 
 /** @internal */
 export const OutputMinioParquetVersion$inboundSchema: z.ZodType<
@@ -753,7 +719,6 @@ export const OutputMinioParquetVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputMinioParquetVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputMinioParquetVersion$outboundSchema: z.ZodType<
   OutputMinioParquetVersion,
@@ -763,17 +728,6 @@ export const OutputMinioParquetVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputMinioParquetVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMinioParquetVersion$ {
-  /** @deprecated use `OutputMinioParquetVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputMinioParquetVersion$inboundSchema;
-  /** @deprecated use `OutputMinioParquetVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputMinioParquetVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputMinioDataPageVersion$inboundSchema: z.ZodType<
@@ -785,7 +739,6 @@ export const OutputMinioDataPageVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputMinioDataPageVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputMinioDataPageVersion$outboundSchema: z.ZodType<
   OutputMinioDataPageVersion,
@@ -796,17 +749,6 @@ export const OutputMinioDataPageVersion$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMinioDataPageVersion$ {
-  /** @deprecated use `OutputMinioDataPageVersion$inboundSchema` instead. */
-  export const inboundSchema = OutputMinioDataPageVersion$inboundSchema;
-  /** @deprecated use `OutputMinioDataPageVersion$outboundSchema` instead. */
-  export const outboundSchema = OutputMinioDataPageVersion$outboundSchema;
-}
-
 /** @internal */
 export const OutputMinioKeyValueMetadatum$inboundSchema: z.ZodType<
   OutputMinioKeyValueMetadatum,
@@ -816,7 +758,6 @@ export const OutputMinioKeyValueMetadatum$inboundSchema: z.ZodType<
   key: z.string().default(""),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputMinioKeyValueMetadatum$Outbound = {
   key: string;
@@ -833,19 +774,6 @@ export const OutputMinioKeyValueMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMinioKeyValueMetadatum$ {
-  /** @deprecated use `OutputMinioKeyValueMetadatum$inboundSchema` instead. */
-  export const inboundSchema = OutputMinioKeyValueMetadatum$inboundSchema;
-  /** @deprecated use `OutputMinioKeyValueMetadatum$outboundSchema` instead. */
-  export const outboundSchema = OutputMinioKeyValueMetadatum$outboundSchema;
-  /** @deprecated use `OutputMinioKeyValueMetadatum$Outbound` instead. */
-  export type Outbound = OutputMinioKeyValueMetadatum$Outbound;
-}
-
 export function outputMinioKeyValueMetadatumToJSON(
   outputMinioKeyValueMetadatum: OutputMinioKeyValueMetadatum,
 ): string {
@@ -855,7 +783,6 @@ export function outputMinioKeyValueMetadatumToJSON(
     ),
   );
 }
-
 export function outputMinioKeyValueMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputMinioKeyValueMetadatum, SDKValidationError> {
@@ -890,7 +817,8 @@ export const OutputMinio$inboundSchema: z.ZodType<
   signatureVersion: OutputMinioSignatureVersion$inboundSchema.default("v4"),
   objectACL: OutputMinioObjectACL$inboundSchema.default("private"),
   storageClass: OutputMinioStorageClass$inboundSchema.optional(),
-  serverSideEncryption: ServerSideEncryption$inboundSchema.optional(),
+  serverSideEncryption: OutputMinioServerSideEncryption$inboundSchema
+    .optional(),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   verifyPermissions: z.boolean().default(true),
@@ -914,6 +842,7 @@ export const OutputMinio$inboundSchema: z.ZodType<
   onDiskFullBackpressure: OutputMinioDiskSpaceProtection$inboundSchema.default(
     "block",
   ),
+  forceCloseOnShutdown: z.boolean().default(false),
   maxFileOpenTimeSec: z.number().default(300),
   maxFileIdleTimeSec: z.number().default(30),
   maxConcurrentFileParts: z.number().default(4),
@@ -925,6 +854,7 @@ export const OutputMinio$inboundSchema: z.ZodType<
     "best_speed",
   ),
   automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
   parquetVersion: OutputMinioParquetVersion$inboundSchema.default(
     "PARQUET_2_6",
   ),
@@ -941,10 +871,10 @@ export const OutputMinio$inboundSchema: z.ZodType<
   enableWritePageIndex: z.boolean().default(true),
   enablePageChecksum: z.boolean().default(false),
   emptyDirCleanupSec: z.number().default(300),
+  directoryBatchSize: z.number().default(1000),
   deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
   maxRetryNum: z.number().default(20),
 });
-
 /** @internal */
 export type OutputMinio$Outbound = {
   id?: string | undefined;
@@ -980,6 +910,7 @@ export type OutputMinio$Outbound = {
   onBackpressure: string;
   deadletterEnabled: boolean;
   onDiskFullBackpressure: string;
+  forceCloseOnShutdown: boolean;
   maxFileOpenTimeSec: number;
   maxFileIdleTimeSec: number;
   maxConcurrentFileParts: number;
@@ -989,6 +920,7 @@ export type OutputMinio$Outbound = {
   compress: string;
   compressionLevel: string;
   automaticSchema: boolean;
+  parquetSchema?: string | undefined;
   parquetVersion: string;
   parquetDataPageVersion: string;
   parquetRowGroupLength: number;
@@ -999,6 +931,7 @@ export type OutputMinio$Outbound = {
   enableWritePageIndex: boolean;
   enablePageChecksum: boolean;
   emptyDirCleanupSec: number;
+  directoryBatchSize: number;
   deadletterPath: string;
   maxRetryNum: number;
 };
@@ -1027,7 +960,8 @@ export const OutputMinio$outboundSchema: z.ZodType<
   signatureVersion: OutputMinioSignatureVersion$outboundSchema.default("v4"),
   objectACL: OutputMinioObjectACL$outboundSchema.default("private"),
   storageClass: OutputMinioStorageClass$outboundSchema.optional(),
-  serverSideEncryption: ServerSideEncryption$outboundSchema.optional(),
+  serverSideEncryption: OutputMinioServerSideEncryption$outboundSchema
+    .optional(),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   verifyPermissions: z.boolean().default(true),
@@ -1051,6 +985,7 @@ export const OutputMinio$outboundSchema: z.ZodType<
   onDiskFullBackpressure: OutputMinioDiskSpaceProtection$outboundSchema.default(
     "block",
   ),
+  forceCloseOnShutdown: z.boolean().default(false),
   maxFileOpenTimeSec: z.number().default(300),
   maxFileIdleTimeSec: z.number().default(30),
   maxConcurrentFileParts: z.number().default(4),
@@ -1062,6 +997,7 @@ export const OutputMinio$outboundSchema: z.ZodType<
     "best_speed",
   ),
   automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
   parquetVersion: OutputMinioParquetVersion$outboundSchema.default(
     "PARQUET_2_6",
   ),
@@ -1078,27 +1014,14 @@ export const OutputMinio$outboundSchema: z.ZodType<
   enableWritePageIndex: z.boolean().default(true),
   enablePageChecksum: z.boolean().default(false),
   emptyDirCleanupSec: z.number().default(300),
+  directoryBatchSize: z.number().default(1000),
   deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
   maxRetryNum: z.number().default(20),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputMinio$ {
-  /** @deprecated use `OutputMinio$inboundSchema` instead. */
-  export const inboundSchema = OutputMinio$inboundSchema;
-  /** @deprecated use `OutputMinio$outboundSchema` instead. */
-  export const outboundSchema = OutputMinio$outboundSchema;
-  /** @deprecated use `OutputMinio$Outbound` instead. */
-  export type Outbound = OutputMinio$Outbound;
-}
-
 export function outputMinioToJSON(outputMinio: OutputMinio): string {
   return JSON.stringify(OutputMinio$outboundSchema.parse(outputMinio));
 }
-
 export function outputMinioFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputMinio, SDKValidationError> {

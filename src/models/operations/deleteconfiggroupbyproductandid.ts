@@ -31,16 +31,6 @@ export type DeleteConfigGroupByProductAndIdResponse = {
 };
 
 /** @internal */
-export const DeleteConfigGroupByProductAndIdRequest$inboundSchema: z.ZodType<
-  DeleteConfigGroupByProductAndIdRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  product: models.ProductsCore$inboundSchema,
-  id: z.string(),
-});
-
-/** @internal */
 export type DeleteConfigGroupByProductAndIdRequest$Outbound = {
   product: string;
   id: string;
@@ -56,21 +46,6 @@ export const DeleteConfigGroupByProductAndIdRequest$outboundSchema: z.ZodType<
   id: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DeleteConfigGroupByProductAndIdRequest$ {
-  /** @deprecated use `DeleteConfigGroupByProductAndIdRequest$inboundSchema` instead. */
-  export const inboundSchema =
-    DeleteConfigGroupByProductAndIdRequest$inboundSchema;
-  /** @deprecated use `DeleteConfigGroupByProductAndIdRequest$outboundSchema` instead. */
-  export const outboundSchema =
-    DeleteConfigGroupByProductAndIdRequest$outboundSchema;
-  /** @deprecated use `DeleteConfigGroupByProductAndIdRequest$Outbound` instead. */
-  export type Outbound = DeleteConfigGroupByProductAndIdRequest$Outbound;
-}
-
 export function deleteConfigGroupByProductAndIdRequestToJSON(
   deleteConfigGroupByProductAndIdRequest:
     DeleteConfigGroupByProductAndIdRequest,
@@ -79,17 +54,6 @@ export function deleteConfigGroupByProductAndIdRequestToJSON(
     DeleteConfigGroupByProductAndIdRequest$outboundSchema.parse(
       deleteConfigGroupByProductAndIdRequest,
     ),
-  );
-}
-
-export function deleteConfigGroupByProductAndIdRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<DeleteConfigGroupByProductAndIdRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      DeleteConfigGroupByProductAndIdRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DeleteConfigGroupByProductAndIdRequest' from JSON`,
   );
 }
 
@@ -102,48 +66,6 @@ export const DeleteConfigGroupByProductAndIdResponse$inboundSchema: z.ZodType<
   count: z.number().int().optional(),
   items: z.array(models.ConfigGroup$inboundSchema).optional(),
 });
-
-/** @internal */
-export type DeleteConfigGroupByProductAndIdResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.ConfigGroup$Outbound> | undefined;
-};
-
-/** @internal */
-export const DeleteConfigGroupByProductAndIdResponse$outboundSchema: z.ZodType<
-  DeleteConfigGroupByProductAndIdResponse$Outbound,
-  z.ZodTypeDef,
-  DeleteConfigGroupByProductAndIdResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.ConfigGroup$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DeleteConfigGroupByProductAndIdResponse$ {
-  /** @deprecated use `DeleteConfigGroupByProductAndIdResponse$inboundSchema` instead. */
-  export const inboundSchema =
-    DeleteConfigGroupByProductAndIdResponse$inboundSchema;
-  /** @deprecated use `DeleteConfigGroupByProductAndIdResponse$outboundSchema` instead. */
-  export const outboundSchema =
-    DeleteConfigGroupByProductAndIdResponse$outboundSchema;
-  /** @deprecated use `DeleteConfigGroupByProductAndIdResponse$Outbound` instead. */
-  export type Outbound = DeleteConfigGroupByProductAndIdResponse$Outbound;
-}
-
-export function deleteConfigGroupByProductAndIdResponseToJSON(
-  deleteConfigGroupByProductAndIdResponse:
-    DeleteConfigGroupByProductAndIdResponse,
-): string {
-  return JSON.stringify(
-    DeleteConfigGroupByProductAndIdResponse$outboundSchema.parse(
-      deleteConfigGroupByProductAndIdResponse,
-    ),
-  );
-}
 
 export function deleteConfigGroupByProductAndIdResponseFromJSON(
   jsonString: string,

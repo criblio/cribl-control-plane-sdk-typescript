@@ -42,7 +42,13 @@ export type OutputRingDataCompressionFormat = OpenEnum<
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputRingBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
 } as const;
 /**
@@ -106,22 +112,10 @@ export type OutputRing = {
 export const OutputRingType$inboundSchema: z.ZodNativeEnum<
   typeof OutputRingType
 > = z.nativeEnum(OutputRingType);
-
 /** @internal */
 export const OutputRingType$outboundSchema: z.ZodNativeEnum<
   typeof OutputRingType
 > = OutputRingType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputRingType$ {
-  /** @deprecated use `OutputRingType$inboundSchema` instead. */
-  export const inboundSchema = OutputRingType$inboundSchema;
-  /** @deprecated use `OutputRingType$outboundSchema` instead. */
-  export const outboundSchema = OutputRingType$outboundSchema;
-}
 
 /** @internal */
 export const OutputRingDataFormat$inboundSchema: z.ZodType<
@@ -133,7 +127,6 @@ export const OutputRingDataFormat$inboundSchema: z.ZodType<
     z.nativeEnum(OutputRingDataFormat),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputRingDataFormat$outboundSchema: z.ZodType<
   OutputRingDataFormat,
@@ -143,17 +136,6 @@ export const OutputRingDataFormat$outboundSchema: z.ZodType<
   z.nativeEnum(OutputRingDataFormat),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputRingDataFormat$ {
-  /** @deprecated use `OutputRingDataFormat$inboundSchema` instead. */
-  export const inboundSchema = OutputRingDataFormat$inboundSchema;
-  /** @deprecated use `OutputRingDataFormat$outboundSchema` instead. */
-  export const outboundSchema = OutputRingDataFormat$outboundSchema;
-}
 
 /** @internal */
 export const OutputRingDataCompressionFormat$inboundSchema: z.ZodType<
@@ -165,7 +147,6 @@ export const OutputRingDataCompressionFormat$inboundSchema: z.ZodType<
     z.nativeEnum(OutputRingDataCompressionFormat),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputRingDataCompressionFormat$outboundSchema: z.ZodType<
   OutputRingDataCompressionFormat,
@@ -175,17 +156,6 @@ export const OutputRingDataCompressionFormat$outboundSchema: z.ZodType<
   z.nativeEnum(OutputRingDataCompressionFormat),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputRingDataCompressionFormat$ {
-  /** @deprecated use `OutputRingDataCompressionFormat$inboundSchema` instead. */
-  export const inboundSchema = OutputRingDataCompressionFormat$inboundSchema;
-  /** @deprecated use `OutputRingDataCompressionFormat$outboundSchema` instead. */
-  export const outboundSchema = OutputRingDataCompressionFormat$outboundSchema;
-}
 
 /** @internal */
 export const OutputRingBackpressureBehavior$inboundSchema: z.ZodType<
@@ -197,7 +167,6 @@ export const OutputRingBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputRingBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputRingBackpressureBehavior$outboundSchema: z.ZodType<
   OutputRingBackpressureBehavior,
@@ -207,17 +176,6 @@ export const OutputRingBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputRingBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputRingBackpressureBehavior$ {
-  /** @deprecated use `OutputRingBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputRingBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputRingBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputRingBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputRing$inboundSchema: z.ZodType<
@@ -240,7 +198,6 @@ export const OutputRing$inboundSchema: z.ZodType<
   onBackpressure: OutputRingBackpressureBehavior$inboundSchema.default("block"),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type OutputRing$Outbound = {
   id?: string | undefined;
@@ -283,23 +240,9 @@ export const OutputRing$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputRing$ {
-  /** @deprecated use `OutputRing$inboundSchema` instead. */
-  export const inboundSchema = OutputRing$inboundSchema;
-  /** @deprecated use `OutputRing$outboundSchema` instead. */
-  export const outboundSchema = OutputRing$outboundSchema;
-  /** @deprecated use `OutputRing$Outbound` instead. */
-  export type Outbound = OutputRing$Outbound;
-}
-
 export function outputRingToJSON(outputRing: OutputRing): string {
   return JSON.stringify(OutputRing$outboundSchema.parse(outputRing));
 }
-
 export function outputRingFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputRing, SDKValidationError> {

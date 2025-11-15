@@ -15,7 +15,7 @@ let value: HBCriblInfo = {
   },
   deploymentId: "<id>",
   disableSNIRouting: false,
-  distMode: "managed-edge",
+  distMode: "outpost",
   edgeNodes: 4521.05,
   group: "<value>",
   guid: "<id>",
@@ -42,7 +42,7 @@ let value: HBCriblInfo = {
 | `config`                                             | [models.Config](../models/config.md)                 | :heavy_check_mark:                                   | N/A                                                  |
 | `deploymentId`                                       | *string*                                             | :heavy_minus_sign:                                   | N/A                                                  |
 | `disableSNIRouting`                                  | *boolean*                                            | :heavy_minus_sign:                                   | N/A                                                  |
-| `distMode`                                           | [models.AppMode](../models/appmode.md)               | :heavy_check_mark:                                   | N/A                                                  |
+| `distMode`                                           | [models.DistMode](../models/distmode.md)             | :heavy_check_mark:                                   | N/A                                                  |
 | `edgeNodes`                                          | *number*                                             | :heavy_minus_sign:                                   | N/A                                                  |
 | `group`                                              | *string*                                             | :heavy_check_mark:                                   | N/A                                                  |
 | `guid`                                               | *string*                                             | :heavy_check_mark:                                   | N/A                                                  |

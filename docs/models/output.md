@@ -186,6 +186,15 @@ const value: models.OutputSyslog = {
   ],
   octetCountFraming: true,
   description: "deliberately gadzooks reconsideration",
+  host: "quick-boulevard.name",
+  port: 5929.27,
+  hosts: [
+    {
+      host: "international-orchid.org",
+      port: 6476.63,
+      servername: "<value>",
+    },
+  ],
   tls: {
     servername: "<value>",
     certificateName: "<value>",
@@ -194,17 +203,9 @@ const value: models.OutputSyslog = {
     certPath: "<value>",
     passphrase: "<value>",
     minVersion: "TLSv1.2",
-    maxVersion: "TLSv1",
+    maxVersion: "TLSv1.2",
   },
-  host: "poor-mozzarella.info",
-  port: 6265.46,
   pqControls: {},
-  hosts: [
-    {
-      host: "timely-passport.net",
-      servername: "<value>",
-    },
-  ],
 };
 ```
 
@@ -304,6 +305,16 @@ const value: models.OutputSplunkHec = {
     "<value 2>",
     "<value 3>",
   ],
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1.3",
+    maxVersion: "TLSv1",
+  },
   extraHttpHeaders: [
     {
       name: "<value>",
@@ -312,16 +323,14 @@ const value: models.OutputSplunkHec = {
   ],
   safeHeaders: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   responseRetrySettings: [
     {
-      httpStatus: 33.58,
+      httpStatus: 1522.76,
     },
   ],
   timeoutRetrySettings: {},
-  description: "majority wasteful absent demob wilt",
+  description: "known gracefully pronoun wherever",
   urls: [
     {},
   ],
@@ -471,6 +480,7 @@ const value: models.OutputFilesystem = {
   destPath: "<value>",
   stagePath: "<value>",
   description: "politely provided generously scary squid blah astride",
+  parquetSchema: "<value>",
   shouldLogInvalidRows: false,
   keyValueMetadata: [
     {
@@ -510,6 +520,7 @@ const value: models.OutputS3 = {
   description: "excepting under fatally until below",
   awsApiKey: "<value>",
   awsSecret: "<value>",
+  parquetSchema: "<value>",
   shouldLogInvalidRows: false,
   keyValueMetadata: [
     {
@@ -539,6 +550,7 @@ const value: models.OutputAzureBlob = {
   containerName: "<value>",
   destPath: "<value>",
   description: "rigidly off athwart very despite above abaft",
+  parquetSchema: "<value>",
   shouldLogInvalidRows: true,
   keyValueMetadata: [
     {
@@ -585,10 +597,19 @@ const value: models.OutputAzureDataExplorer = {
   certificate: {
     certificateName: "<value>",
   },
-  ingestUrl: "https://alienated-contrail.info/",
+  parquetSchema: "<value>",
+  shouldLogInvalidRows: true,
+  keyValueMetadata: [
+    {
+      value: "<value>",
+    },
+  ],
+  mappingObj: "<value>",
+  mappingRef: "<value>",
+  ingestUrl: "https://dependable-jury.biz/",
   extentTags: [
     {
-      prefix: "dropBy",
+      prefix: "ingestBy",
       value: "<value>",
     },
   ],
@@ -605,11 +626,10 @@ const value: models.OutputAzureDataExplorer = {
   ],
   responseRetrySettings: [
     {
-      httpStatus: 8928.41,
+      httpStatus: 8438.16,
     },
   ],
   timeoutRetrySettings: {},
-  mappingRef: "<value>",
   pqControls: {},
 };
 ```
@@ -647,11 +667,11 @@ const value: models.OutputAzureLogs = {
   ],
   responseRetrySettings: [
     {
-      httpStatus: 6609.99,
+      httpStatus: 6704.51,
     },
   ],
   timeoutRetrySettings: {},
-  description: "whoa through broadly aside fooey triumphantly tarry ghost",
+  description: "elver growing aha gallery monthly jot",
   pqControls: {},
   workspaceId: "<id>",
   workspaceKey: "<value>",
@@ -746,9 +766,22 @@ const value: models.OutputAzureEventhub = {
   ],
   brokers: [],
   topic: "<value>",
-  sasl: {},
+  sasl: {
+    password: "7uYd0SdmGoBSlaS",
+    textSecret: "<value>",
+    clientSecret: "<value>",
+    clientTextSecret: "<value>",
+    certificateName: "<value>",
+    certPath: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    clientId: "<id>",
+    tenantId: "<id>",
+    scope: "<value>",
+  },
   tls: {},
-  description: "per inquisitively with but",
+  description:
+    "but atomize like gah smoothly modulo aircraft ouch majestically tousle",
   pqControls: {},
 };
 ```
@@ -831,6 +864,7 @@ const value: models.OutputGoogleCloudStorage = {
   region: "<value>",
   storageClass: "ARCHIVE",
   description: "piglet unnaturally near reassuringly since",
+  parquetSchema: "<value>",
   shouldLogInvalidRows: false,
   keyValueMetadata: [
     {
@@ -1010,7 +1044,29 @@ const value: models.OutputKafka = {
     defaultKeySchemaId: 8894.16,
     defaultValueSchemaId: 4585.31,
   },
-  sasl: {},
+  sasl: {
+    username: "Rachelle_Becker93",
+    password: "i89rLQqvdr2DQSX",
+    credentialsSecret: "<value>",
+    keytabLocation: "<value>",
+    principal: "<value>",
+    brokerServiceClass: "<value>",
+    tokenUrl: "https://wrathful-mixture.biz",
+    clientId: "<id>",
+    clientTextSecret: "<value>",
+    oauthParams: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    saslExtensions: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+  },
   tls: {
     servername: "<value>",
     certificateName: "<value>",
@@ -1021,8 +1077,9 @@ const value: models.OutputKafka = {
     minVersion: "TLSv1.3",
     maxVersion: "TLSv1.2",
   },
-  description: "disappointment provider bah",
+  description: "allegation owlishly hm",
   protobufLibraryId: "<id>",
+  protobufEncodingId: "<id>",
   pqControls: {},
 };
 ```
@@ -1074,9 +1131,33 @@ const value: models.OutputConfluentCloud = {
     defaultKeySchemaId: 4559.39,
     defaultValueSchemaId: 7875.65,
   },
-  sasl: {},
-  description: "exacerbate sun overconfidently",
+  sasl: {
+    username: "Aiden_Hammes",
+    password: "luAZDVuAsgJMmG7",
+    credentialsSecret: "<value>",
+    keytabLocation: "<value>",
+    principal: "<value>",
+    brokerServiceClass: "<value>",
+    tokenUrl: "https://sizzling-feather.info",
+    clientId: "<id>",
+    clientTextSecret: "<value>",
+    oauthParams: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    saslExtensions: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+  },
+  description:
+    "hole pleased mythology uh-huh remand middle even magnetize vice",
   protobufLibraryId: "<id>",
+  protobufEncodingId: "<id>",
   pqControls: {},
 };
 ```
@@ -1138,6 +1219,7 @@ const value: models.OutputMsk = {
   awsApiKey: "<value>",
   awsSecret: "<value>",
   protobufLibraryId: "<id>",
+  protobufEncodingId: "<id>",
   pqControls: {},
 };
 ```
@@ -1181,13 +1263,19 @@ const value: models.OutputElastic = {
       value: "<value>",
     },
   ],
-  auth: {},
+  auth: {
+    username: "Jamel39",
+    password: "YcLpzmUAKCdYqdY",
+    credentialsSecret: "<value>",
+    manualAPIKey: "<value>",
+    textSecret: "<value>",
+  },
   elasticPipeline: "<value>",
-  description: "challenge although ugh hydrolyse adolescent graceful",
-  url: "https://worldly-behest.net",
+  description: "blaring corral cruelty gosh",
+  url: "https://substantial-reasoning.biz/",
   urls: [
     {
-      url: "https://hospitable-zebra.net/",
+      url: "https://miserly-hygienic.com/",
     },
   ],
   pqControls: {},
@@ -1229,15 +1317,22 @@ const value: models.OutputElasticCloud = {
       value: "<value>",
     },
   ],
-  auth: {},
+  auth: {
+    username: "Jayde69",
+    password: "IRi6u29iGkmGCiq",
+    credentialsSecret: "<value>",
+    manualAPIKey: "<value>",
+    textSecret: "<value>",
+  },
   elasticPipeline: "<value>",
   responseRetrySettings: [
     {
-      httpStatus: 5869.12,
+      httpStatus: 9904.08,
     },
   ],
   timeoutRetrySettings: {},
-  description: "cheerfully arrange lest circa yet quirkily",
+  description:
+    "blacken uncomfortable pro downshift frenetically atop while though",
   pqControls: {},
 };
 ```
@@ -1273,17 +1368,16 @@ const value: models.OutputNewrelic = {
   safeHeaders: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   responseRetrySettings: [
     {
-      httpStatus: 1243.99,
+      httpStatus: 2157.83,
     },
   ],
   timeoutRetrySettings: {},
-  totalMemoryLimitKB: 7293.26,
-  description: "rapidly fooey now mooch superior sleepily boohoo repeatedly",
-  customUrl: "https://dirty-tinderbox.info/",
+  totalMemoryLimitKB: 7414.49,
+  description: "dental to despite",
+  customUrl: "https://limping-following.org/",
   pqControls: {},
   apiKey: "<value>",
   textSecret: "<value>",
@@ -1449,6 +1543,7 @@ const value: models.OutputMinio = {
   description: "yet fidget reassuringly mid worth mountain save haversack",
   awsApiKey: "<value>",
   awsSecret: "<value>",
+  parquetSchema: "<value>",
   shouldLogInvalidRows: false,
   keyValueMetadata: [
     {
@@ -1795,12 +1890,16 @@ const value: models.OutputGrafanaCloud = {
   onBackpressure: "block",
   description: "woefully wing whenever overcooked matter how irritably",
   compress: true,
+  pqStrictOrdering: true,
+  pqRatePerSec: 0,
+  pqMode: "error",
+  pqMaxBufferSize: 42,
+  pqMaxBackpressureSec: 30,
   pqMaxFileSize: "1 MB",
   pqMaxSize: "5GB",
   pqPath: "$CRIBL_HOME/state/queues",
   pqCompress: "none",
   pqOnBackpressure: "block",
-  pqMode: "error",
   pqControls: {},
 };
 ```
@@ -2136,15 +2235,22 @@ const value: models.OutputCriblTcp = {
     minVersion: "TLSv1",
     maxVersion: "TLSv1.3",
   },
+  authTokens: [
+    {
+      tokenSecret: "<value>",
+      description:
+        "while whoa marketplace tray scope boohoo loyally eventually",
+    },
+  ],
   excludeFields: [
     "<value 1>",
     "<value 2>",
   ],
-  description: "zany hydrocarbon government",
-  host: "imaginative-amendment.org",
+  description: "exterior whoa dividend numeracy whose aha",
+  host: "heavenly-backburn.biz",
   hosts: [
     {
-      host: "musty-meander.org",
+      host: "merry-handover.name",
       servername: "<value>",
     },
   ],
@@ -2198,11 +2304,17 @@ const value: models.OutputCriblHttp = {
     },
   ],
   timeoutRetrySettings: {},
-  description: "unfortunately scrutinise obtrude unethically skyline midst",
-  url: "https://biodegradable-elver.com/",
+  authTokens: [
+    {
+      tokenSecret: "<value>",
+      description: "unfortunately scrutinise obtrude unethically skyline midst",
+    },
+  ],
+  description: "noon digitize yowza because perspire",
+  url: "https://pertinent-outlaw.info",
   urls: [
     {
-      url: "https://yummy-saloon.name/",
+      url: "https://dull-reach.biz",
     },
   ],
   pqControls: {},
@@ -2322,6 +2434,7 @@ const value: models.OutputDlS3 = {
     "upside-down incidentally even microblog bleakly triumphantly modulo",
   awsApiKey: "<value>",
   awsSecret: "<value>",
+  parquetSchema: "<value>",
   shouldLogInvalidRows: false,
   keyValueMetadata: [
     {
@@ -2690,11 +2803,11 @@ const value: models.OutputSentinelOneAiSiem = {
   ],
   responseRetrySettings: [
     {
-      httpStatus: 3993.7,
+      httpStatus: 3766.68,
     },
   ],
   timeoutRetrySettings: {},
-  description: "blissfully mousse sleepily serpentine seriously fluff",
+  description: "which unselfish how raw congregate drat aw",
   token: "<value>",
   textSecret: "<value>",
   pqControls: {},
@@ -2749,6 +2862,105 @@ const value: models.OutputChronicle = {
   serviceAccountCredentials: "<value>",
   serviceAccountCredentialsSecret: "<value>",
   pqControls: {},
+};
+```
+
+### `models.OutputDatabricks`
+
+```typescript
+const value: models.OutputDatabricks = {
+  id: "<id>",
+  type: "databricks",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  workspaceId: "<id>",
+  clientId: "<id>",
+  clientTextSecret: "<value>",
+  description: "loosely unpleasant anenst",
+  parquetSchema: "<value>",
+  shouldLogInvalidRows: true,
+  keyValueMetadata: [
+    {
+      value: "<value>",
+    },
+  ],
+};
+```
+
+### `models.OutputMicrosoftFabric`
+
+```typescript
+const value: models.OutputMicrosoftFabric = {
+  id: "<id>",
+  type: "microsoft_fabric",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  topic: "<value>",
+  sasl: {
+    textSecret: "<value>",
+    clientTextSecret: "<value>",
+    certificateName: "<value>",
+    certPath: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    clientId: "<id>",
+    tenantId: "<id>",
+    scope: "<value>",
+  },
+  tls: {},
+  bootstrapServer: "<value>",
+  description: "astride ocelot nifty greedy bungalow kiddingly successfully",
+  pqControls: {},
+};
+```
+
+### `models.OutputCloudflareR2`
+
+```typescript
+const value: models.OutputCloudflareR2 = {
+  id: "<id>",
+  type: "cloudflare_r2",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  endpoint: "<value>",
+  bucket: "<value>",
+  awsSecretKey: "<value>",
+  region: "<value>",
+  destPath: "<value>",
+  objectACL: "<value>",
+  storageClass: "STANDARD",
+  serverSideEncryption: "AES256",
+  description: "but because hidden",
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
+  parquetSchema: "<value>",
+  shouldLogInvalidRows: true,
+  keyValueMetadata: [
+    {
+      value: "<value>",
+    },
+  ],
 };
 ```
 

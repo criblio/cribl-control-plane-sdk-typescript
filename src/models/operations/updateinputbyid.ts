@@ -32,20 +32,6 @@ export type UpdateInputByIdResponse = {
 };
 
 /** @internal */
-export const UpdateInputByIdRequest$inboundSchema: z.ZodType<
-  UpdateInputByIdRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.string(),
-  Input: models.Input$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "Input": "input",
-  });
-});
-
-/** @internal */
 export type UpdateInputByIdRequest$Outbound = {
   id: string;
   Input: models.Input$Outbound;
@@ -65,34 +51,11 @@ export const UpdateInputByIdRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateInputByIdRequest$ {
-  /** @deprecated use `UpdateInputByIdRequest$inboundSchema` instead. */
-  export const inboundSchema = UpdateInputByIdRequest$inboundSchema;
-  /** @deprecated use `UpdateInputByIdRequest$outboundSchema` instead. */
-  export const outboundSchema = UpdateInputByIdRequest$outboundSchema;
-  /** @deprecated use `UpdateInputByIdRequest$Outbound` instead. */
-  export type Outbound = UpdateInputByIdRequest$Outbound;
-}
-
 export function updateInputByIdRequestToJSON(
   updateInputByIdRequest: UpdateInputByIdRequest,
 ): string {
   return JSON.stringify(
     UpdateInputByIdRequest$outboundSchema.parse(updateInputByIdRequest),
-  );
-}
-
-export function updateInputByIdRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdateInputByIdRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UpdateInputByIdRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdateInputByIdRequest' from JSON`,
   );
 }
 
@@ -105,43 +68,6 @@ export const UpdateInputByIdResponse$inboundSchema: z.ZodType<
   count: z.number().int().optional(),
   items: z.array(models.Input$inboundSchema).optional(),
 });
-
-/** @internal */
-export type UpdateInputByIdResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.Input$Outbound> | undefined;
-};
-
-/** @internal */
-export const UpdateInputByIdResponse$outboundSchema: z.ZodType<
-  UpdateInputByIdResponse$Outbound,
-  z.ZodTypeDef,
-  UpdateInputByIdResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.Input$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace UpdateInputByIdResponse$ {
-  /** @deprecated use `UpdateInputByIdResponse$inboundSchema` instead. */
-  export const inboundSchema = UpdateInputByIdResponse$inboundSchema;
-  /** @deprecated use `UpdateInputByIdResponse$outboundSchema` instead. */
-  export const outboundSchema = UpdateInputByIdResponse$outboundSchema;
-  /** @deprecated use `UpdateInputByIdResponse$Outbound` instead. */
-  export type Outbound = UpdateInputByIdResponse$Outbound;
-}
-
-export function updateInputByIdResponseToJSON(
-  updateInputByIdResponse: UpdateInputByIdResponse,
-): string {
-  return JSON.stringify(
-    UpdateInputByIdResponse$outboundSchema.parse(updateInputByIdResponse),
-  );
-}
 
 export function updateInputByIdResponseFromJSON(
   jsonString: string,

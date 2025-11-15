@@ -9,15 +9,13 @@ let value: JobStatus = {
   reason: {
     "key": "<value>",
   },
-  state: {
-    "key": "South Carolina",
-  },
+  state: 3,
 };
 ```
 
 ## Fields
 
-| Field                 | Type                  | Required              | Description           |
-| --------------------- | --------------------- | --------------------- | --------------------- |
-| `reason`              | Record<string, *any*> | :heavy_minus_sign:    | N/A                   |
-| `state`               | Record<string, *any*> | :heavy_check_mark:    | N/A                   |
+| Field                              | Type                               | Required                           | Description                        |
+| ---------------------------------- | ---------------------------------- | ---------------------------------- | ---------------------------------- |
+| `reason`                           | Record<string, *any*>              | :heavy_minus_sign:                 | N/A                                |
+| `state`                            | [models.State](../models/state.md) | :heavy_check_mark:                 | State of the Job                   |

@@ -12,7 +12,7 @@ let value: DeleteInputByIdResponse = {
   items: [
     {
       id: "<id>",
-      type: "cribl_lake_http",
+      type: "tcpjson",
       disabled: false,
       pipeline: "<value>",
       sendToRoutes: true,
@@ -39,63 +39,37 @@ let value: DeleteInputByIdResponse = {
       },
       host: "0.0.0.0",
       port: 1132.54,
-      authTokens: [
-        "<value 1>",
-      ],
       tls: {
         disabled: true,
+        requestCert: false,
+        rejectUnauthorized: true,
+        commonNameRegex: "/.*/",
         certificateName: "<value>",
         privKeyPath: "<value>",
         passphrase: "<value>",
         certPath: "<value>",
         caPath: "<value>",
-        requestCert: false,
-        rejectUnauthorized: "<value>",
-        commonNameRegex: "<value>",
-        minVersion: "TLSv1.3",
+        minVersion: "TLSv1",
         maxVersion: "TLSv1.3",
       },
-      maxActiveReq: 256,
-      maxRequestsPerSocket: 0,
+      ipWhitelistRegex: "/.*/",
+      maxActiveCxn: 1000,
+      socketIdleTimeout: 0,
+      socketEndingMaxWait: 30,
+      socketMaxLifespan: 0,
       enableProxyHeader: false,
-      captureHeaders: false,
-      activityLogSampleRate: 100,
-      requestTimeout: 0,
-      socketTimeout: 0,
-      keepAliveTimeout: 5,
-      enableHealthCheck: false,
-      ipAllowlistRegex: "/.*/",
-      ipDenylistRegex: "/^$/",
-      criblAPI: "/cribl",
-      elasticAPI: "/elastic",
-      splunkHecAPI: "/services/collector",
-      splunkHecAcks: false,
       metadata: [
         {
           name: "<value>",
           value: "<value>",
         },
       ],
-      authTokensExt: [
-        {
-          token: "<value>",
-          description:
-            "even athwart after lively creator apud hold pish whenever woot",
-          metadata: [
-            {
-              name: "<value>",
-              value: "<value>",
-            },
-          ],
-          splunkHecMetadata: {
-            enabled: true,
-          },
-          elasticsearchMetadata: {
-            enabled: true,
-          },
-        },
-      ],
-      description: "favorable connect ack infamous vice athletic boohoo",
+      enableLoadBalancing: false,
+      authType: "manual",
+      description:
+        "yahoo before lest augment dwell along apostrophize scuttle likewise definitive",
+      authToken: "",
+      textSecret: "<value>",
     },
   ],
 };

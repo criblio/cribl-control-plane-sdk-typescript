@@ -35,8 +35,17 @@ export type OutputGoogleCloudStorageSignatureVersion = OpenEnum<
 >;
 
 export const OutputGoogleCloudStorageAuthenticationMethod = {
+  /**
+   * auto
+   */
   Auto: "auto",
+  /**
+   * manual
+   */
   Manual: "manual",
+  /**
+   * Secret Key pair
+   */
   Secret: "secret",
 } as const;
 export type OutputGoogleCloudStorageAuthenticationMethod = OpenEnum<
@@ -47,11 +56,29 @@ export type OutputGoogleCloudStorageAuthenticationMethod = OpenEnum<
  * Object ACL to assign to uploaded objects
  */
 export const OutputGoogleCloudStorageObjectACL = {
+  /**
+   * private
+   */
   Private: "private",
+  /**
+   * bucket-owner-read
+   */
   BucketOwnerRead: "bucket-owner-read",
+  /**
+   * bucket-owner-full-control
+   */
   BucketOwnerFullControl: "bucket-owner-full-control",
+  /**
+   * project-private
+   */
   ProjectPrivate: "project-private",
+  /**
+   * authenticated-read
+   */
   AuthenticatedRead: "authenticated-read",
+  /**
+   * public-read
+   */
   PublicRead: "public-read",
 } as const;
 /**
@@ -65,9 +92,21 @@ export type OutputGoogleCloudStorageObjectACL = OpenEnum<
  * Storage class to select for uploaded objects
  */
 export const OutputGoogleCloudStorageStorageClass = {
+  /**
+   * Standard Storage
+   */
   Standard: "STANDARD",
+  /**
+   * Nearline Storage
+   */
   Nearline: "NEARLINE",
+  /**
+   * Coldline Storage
+   */
   Coldline: "COLDLINE",
+  /**
+   * Archive Storage
+   */
   Archive: "ARCHIVE",
 } as const;
 /**
@@ -81,8 +120,17 @@ export type OutputGoogleCloudStorageStorageClass = OpenEnum<
  * Format of the output data
  */
 export const OutputGoogleCloudStorageDataFormat = {
+  /**
+   * JSON
+   */
   Json: "json",
+  /**
+   * Raw
+   */
   Raw: "raw",
+  /**
+   * Parquet
+   */
   Parquet: "parquet",
 } as const;
 /**
@@ -96,7 +144,13 @@ export type OutputGoogleCloudStorageDataFormat = OpenEnum<
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputGoogleCloudStorageBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
 } as const;
 /**
@@ -110,7 +164,13 @@ export type OutputGoogleCloudStorageBackpressureBehavior = OpenEnum<
  * How to handle events when disk space is below the global 'Min free disk space' limit
  */
 export const OutputGoogleCloudStorageDiskSpaceProtection = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
 } as const;
 /**
@@ -138,8 +198,17 @@ export type OutputGoogleCloudStorageCompression = OpenEnum<
  * Compression level to apply before moving files to final destination
  */
 export const OutputGoogleCloudStorageCompressionLevel = {
+  /**
+   * Best Speed
+   */
   BestSpeed: "best_speed",
+  /**
+   * Normal
+   */
   Normal: "normal",
+  /**
+   * Best Compression
+   */
   BestCompression: "best_compression",
 } as const;
 /**
@@ -153,8 +222,17 @@ export type OutputGoogleCloudStorageCompressionLevel = OpenEnum<
  * Determines which data types are supported and how they are represented
  */
 export const OutputGoogleCloudStorageParquetVersion = {
+  /**
+   * 1.0
+   */
   Parquet10: "PARQUET_1_0",
+  /**
+   * 2.4
+   */
   Parquet24: "PARQUET_2_4",
+  /**
+   * 2.6
+   */
   Parquet26: "PARQUET_2_6",
 } as const;
 /**
@@ -168,7 +246,13 @@ export type OutputGoogleCloudStorageParquetVersion = OpenEnum<
  * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
  */
 export const OutputGoogleCloudStorageDataPageVersion = {
+  /**
+   * V1
+   */
   DataPageV1: "DATA_PAGE_V1",
+  /**
+   * V2
+   */
   DataPageV2: "DATA_PAGE_V2",
 } as const;
 /**
@@ -314,6 +398,10 @@ export type OutputGoogleCloudStorage = {
   onDiskFullBackpressure?:
     | OutputGoogleCloudStorageDiskSpaceProtection
     | undefined;
+  /**
+   * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
+   */
+  forceCloseOnShutdown?: boolean | undefined;
   description?: string | undefined;
   /**
    * Data compression format to apply to HTTP content before it is delivered
@@ -327,6 +415,10 @@ export type OutputGoogleCloudStorage = {
    * Automatically calculate the schema based on the events of each Parquet file generated
    */
   automaticSchema?: boolean | undefined;
+  /**
+   * To add a new schema, navigate to Processing > Knowledge > Parquet Schemas
+   */
+  parquetSchema?: string | undefined;
   /**
    * Determines which data types are supported and how they are represented
    */
@@ -370,6 +462,10 @@ export type OutputGoogleCloudStorage = {
    */
   emptyDirCleanupSec?: number | undefined;
   /**
+   * Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+   */
+  directoryBatchSize?: number | undefined;
+  /**
    * Storage location for files that fail to reach their final destination after maximum retries are exceeded
    */
   deadletterPath?: string | undefined;
@@ -395,22 +491,10 @@ export type OutputGoogleCloudStorage = {
 export const OutputGoogleCloudStorageType$inboundSchema: z.ZodNativeEnum<
   typeof OutputGoogleCloudStorageType
 > = z.nativeEnum(OutputGoogleCloudStorageType);
-
 /** @internal */
 export const OutputGoogleCloudStorageType$outboundSchema: z.ZodNativeEnum<
   typeof OutputGoogleCloudStorageType
 > = OutputGoogleCloudStorageType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudStorageType$ {
-  /** @deprecated use `OutputGoogleCloudStorageType$inboundSchema` instead. */
-  export const inboundSchema = OutputGoogleCloudStorageType$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudStorageType$outboundSchema` instead. */
-  export const outboundSchema = OutputGoogleCloudStorageType$outboundSchema;
-}
 
 /** @internal */
 export const OutputGoogleCloudStorageSignatureVersion$inboundSchema: z.ZodType<
@@ -422,7 +506,6 @@ export const OutputGoogleCloudStorageSignatureVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGoogleCloudStorageSignatureVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGoogleCloudStorageSignatureVersion$outboundSchema: z.ZodType<
   OutputGoogleCloudStorageSignatureVersion,
@@ -432,19 +515,6 @@ export const OutputGoogleCloudStorageSignatureVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputGoogleCloudStorageSignatureVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudStorageSignatureVersion$ {
-  /** @deprecated use `OutputGoogleCloudStorageSignatureVersion$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleCloudStorageSignatureVersion$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudStorageSignatureVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleCloudStorageSignatureVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputGoogleCloudStorageAuthenticationMethod$inboundSchema:
@@ -457,7 +527,6 @@ export const OutputGoogleCloudStorageAuthenticationMethod$inboundSchema:
       z.nativeEnum(OutputGoogleCloudStorageAuthenticationMethod),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const OutputGoogleCloudStorageAuthenticationMethod$outboundSchema:
   z.ZodType<
@@ -469,19 +538,6 @@ export const OutputGoogleCloudStorageAuthenticationMethod$outboundSchema:
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudStorageAuthenticationMethod$ {
-  /** @deprecated use `OutputGoogleCloudStorageAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleCloudStorageAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudStorageAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleCloudStorageAuthenticationMethod$outboundSchema;
-}
-
 /** @internal */
 export const OutputGoogleCloudStorageObjectACL$inboundSchema: z.ZodType<
   OutputGoogleCloudStorageObjectACL,
@@ -492,7 +548,6 @@ export const OutputGoogleCloudStorageObjectACL$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGoogleCloudStorageObjectACL),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGoogleCloudStorageObjectACL$outboundSchema: z.ZodType<
   OutputGoogleCloudStorageObjectACL,
@@ -502,18 +557,6 @@ export const OutputGoogleCloudStorageObjectACL$outboundSchema: z.ZodType<
   z.nativeEnum(OutputGoogleCloudStorageObjectACL),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudStorageObjectACL$ {
-  /** @deprecated use `OutputGoogleCloudStorageObjectACL$inboundSchema` instead. */
-  export const inboundSchema = OutputGoogleCloudStorageObjectACL$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudStorageObjectACL$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleCloudStorageObjectACL$outboundSchema;
-}
 
 /** @internal */
 export const OutputGoogleCloudStorageStorageClass$inboundSchema: z.ZodType<
@@ -525,7 +568,6 @@ export const OutputGoogleCloudStorageStorageClass$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGoogleCloudStorageStorageClass),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGoogleCloudStorageStorageClass$outboundSchema: z.ZodType<
   OutputGoogleCloudStorageStorageClass,
@@ -535,19 +577,6 @@ export const OutputGoogleCloudStorageStorageClass$outboundSchema: z.ZodType<
   z.nativeEnum(OutputGoogleCloudStorageStorageClass),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudStorageStorageClass$ {
-  /** @deprecated use `OutputGoogleCloudStorageStorageClass$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleCloudStorageStorageClass$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudStorageStorageClass$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleCloudStorageStorageClass$outboundSchema;
-}
 
 /** @internal */
 export const OutputGoogleCloudStorageDataFormat$inboundSchema: z.ZodType<
@@ -559,7 +588,6 @@ export const OutputGoogleCloudStorageDataFormat$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGoogleCloudStorageDataFormat),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGoogleCloudStorageDataFormat$outboundSchema: z.ZodType<
   OutputGoogleCloudStorageDataFormat,
@@ -569,18 +597,6 @@ export const OutputGoogleCloudStorageDataFormat$outboundSchema: z.ZodType<
   z.nativeEnum(OutputGoogleCloudStorageDataFormat),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudStorageDataFormat$ {
-  /** @deprecated use `OutputGoogleCloudStorageDataFormat$inboundSchema` instead. */
-  export const inboundSchema = OutputGoogleCloudStorageDataFormat$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudStorageDataFormat$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleCloudStorageDataFormat$outboundSchema;
-}
 
 /** @internal */
 export const OutputGoogleCloudStorageBackpressureBehavior$inboundSchema:
@@ -593,7 +609,6 @@ export const OutputGoogleCloudStorageBackpressureBehavior$inboundSchema:
       z.nativeEnum(OutputGoogleCloudStorageBackpressureBehavior),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const OutputGoogleCloudStorageBackpressureBehavior$outboundSchema:
   z.ZodType<
@@ -604,19 +619,6 @@ export const OutputGoogleCloudStorageBackpressureBehavior$outboundSchema:
     z.nativeEnum(OutputGoogleCloudStorageBackpressureBehavior),
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudStorageBackpressureBehavior$ {
-  /** @deprecated use `OutputGoogleCloudStorageBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleCloudStorageBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudStorageBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleCloudStorageBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputGoogleCloudStorageDiskSpaceProtection$inboundSchema:
@@ -629,7 +631,6 @@ export const OutputGoogleCloudStorageDiskSpaceProtection$inboundSchema:
       z.nativeEnum(OutputGoogleCloudStorageDiskSpaceProtection),
       z.string().transform(catchUnrecognizedEnum),
     ]);
-
 /** @internal */
 export const OutputGoogleCloudStorageDiskSpaceProtection$outboundSchema:
   z.ZodType<
@@ -641,19 +642,6 @@ export const OutputGoogleCloudStorageDiskSpaceProtection$outboundSchema:
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudStorageDiskSpaceProtection$ {
-  /** @deprecated use `OutputGoogleCloudStorageDiskSpaceProtection$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleCloudStorageDiskSpaceProtection$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudStorageDiskSpaceProtection$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleCloudStorageDiskSpaceProtection$outboundSchema;
-}
-
 /** @internal */
 export const OutputGoogleCloudStorageCompression$inboundSchema: z.ZodType<
   OutputGoogleCloudStorageCompression,
@@ -664,7 +652,6 @@ export const OutputGoogleCloudStorageCompression$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGoogleCloudStorageCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGoogleCloudStorageCompression$outboundSchema: z.ZodType<
   OutputGoogleCloudStorageCompression,
@@ -674,19 +661,6 @@ export const OutputGoogleCloudStorageCompression$outboundSchema: z.ZodType<
   z.nativeEnum(OutputGoogleCloudStorageCompression),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudStorageCompression$ {
-  /** @deprecated use `OutputGoogleCloudStorageCompression$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleCloudStorageCompression$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudStorageCompression$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleCloudStorageCompression$outboundSchema;
-}
 
 /** @internal */
 export const OutputGoogleCloudStorageCompressionLevel$inboundSchema: z.ZodType<
@@ -698,7 +672,6 @@ export const OutputGoogleCloudStorageCompressionLevel$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGoogleCloudStorageCompressionLevel),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGoogleCloudStorageCompressionLevel$outboundSchema: z.ZodType<
   OutputGoogleCloudStorageCompressionLevel,
@@ -708,19 +681,6 @@ export const OutputGoogleCloudStorageCompressionLevel$outboundSchema: z.ZodType<
   z.nativeEnum(OutputGoogleCloudStorageCompressionLevel),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudStorageCompressionLevel$ {
-  /** @deprecated use `OutputGoogleCloudStorageCompressionLevel$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleCloudStorageCompressionLevel$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudStorageCompressionLevel$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleCloudStorageCompressionLevel$outboundSchema;
-}
 
 /** @internal */
 export const OutputGoogleCloudStorageParquetVersion$inboundSchema: z.ZodType<
@@ -732,7 +692,6 @@ export const OutputGoogleCloudStorageParquetVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGoogleCloudStorageParquetVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGoogleCloudStorageParquetVersion$outboundSchema: z.ZodType<
   OutputGoogleCloudStorageParquetVersion,
@@ -742,19 +701,6 @@ export const OutputGoogleCloudStorageParquetVersion$outboundSchema: z.ZodType<
   z.nativeEnum(OutputGoogleCloudStorageParquetVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudStorageParquetVersion$ {
-  /** @deprecated use `OutputGoogleCloudStorageParquetVersion$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleCloudStorageParquetVersion$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudStorageParquetVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleCloudStorageParquetVersion$outboundSchema;
-}
 
 /** @internal */
 export const OutputGoogleCloudStorageDataPageVersion$inboundSchema: z.ZodType<
@@ -766,7 +712,6 @@ export const OutputGoogleCloudStorageDataPageVersion$inboundSchema: z.ZodType<
     z.nativeEnum(OutputGoogleCloudStorageDataPageVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputGoogleCloudStorageDataPageVersion$outboundSchema: z.ZodType<
   OutputGoogleCloudStorageDataPageVersion,
@@ -777,19 +722,6 @@ export const OutputGoogleCloudStorageDataPageVersion$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudStorageDataPageVersion$ {
-  /** @deprecated use `OutputGoogleCloudStorageDataPageVersion$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleCloudStorageDataPageVersion$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudStorageDataPageVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleCloudStorageDataPageVersion$outboundSchema;
-}
-
 /** @internal */
 export const OutputGoogleCloudStorageKeyValueMetadatum$inboundSchema: z.ZodType<
   OutputGoogleCloudStorageKeyValueMetadatum,
@@ -799,7 +731,6 @@ export const OutputGoogleCloudStorageKeyValueMetadatum$inboundSchema: z.ZodType<
   key: z.string().default(""),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputGoogleCloudStorageKeyValueMetadatum$Outbound = {
   key: string;
@@ -817,21 +748,6 @@ export const OutputGoogleCloudStorageKeyValueMetadatum$outboundSchema:
     value: z.string(),
   });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudStorageKeyValueMetadatum$ {
-  /** @deprecated use `OutputGoogleCloudStorageKeyValueMetadatum$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputGoogleCloudStorageKeyValueMetadatum$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudStorageKeyValueMetadatum$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputGoogleCloudStorageKeyValueMetadatum$outboundSchema;
-  /** @deprecated use `OutputGoogleCloudStorageKeyValueMetadatum$Outbound` instead. */
-  export type Outbound = OutputGoogleCloudStorageKeyValueMetadatum$Outbound;
-}
-
 export function outputGoogleCloudStorageKeyValueMetadatumToJSON(
   outputGoogleCloudStorageKeyValueMetadatum:
     OutputGoogleCloudStorageKeyValueMetadatum,
@@ -842,7 +758,6 @@ export function outputGoogleCloudStorageKeyValueMetadatumToJSON(
     ),
   );
 }
-
 export function outputGoogleCloudStorageKeyValueMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -908,11 +823,13 @@ export const OutputGoogleCloudStorage$inboundSchema: z.ZodType<
   deadletterEnabled: z.boolean().default(false),
   onDiskFullBackpressure:
     OutputGoogleCloudStorageDiskSpaceProtection$inboundSchema.default("block"),
+  forceCloseOnShutdown: z.boolean().default(false),
   description: z.string().optional(),
   compress: OutputGoogleCloudStorageCompression$inboundSchema.default("gzip"),
   compressionLevel: OutputGoogleCloudStorageCompressionLevel$inboundSchema
     .default("best_speed"),
   automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
   parquetVersion: OutputGoogleCloudStorageParquetVersion$inboundSchema.default(
     "PARQUET_2_6",
   ),
@@ -928,13 +845,13 @@ export const OutputGoogleCloudStorage$inboundSchema: z.ZodType<
   enableWritePageIndex: z.boolean().default(true),
   enablePageChecksum: z.boolean().default(false),
   emptyDirCleanupSec: z.number().default(300),
+  directoryBatchSize: z.number().default(1000),
   deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
   maxRetryNum: z.number().default(20),
   awsApiKey: z.string().optional(),
   awsSecretKey: z.string().optional(),
   awsSecret: z.string().optional(),
 });
-
 /** @internal */
 export type OutputGoogleCloudStorage$Outbound = {
   id?: string | undefined;
@@ -970,10 +887,12 @@ export type OutputGoogleCloudStorage$Outbound = {
   onBackpressure: string;
   deadletterEnabled: boolean;
   onDiskFullBackpressure: string;
+  forceCloseOnShutdown: boolean;
   description?: string | undefined;
   compress: string;
   compressionLevel: string;
   automaticSchema: boolean;
+  parquetSchema?: string | undefined;
   parquetVersion: string;
   parquetDataPageVersion: string;
   parquetRowGroupLength: number;
@@ -986,6 +905,7 @@ export type OutputGoogleCloudStorage$Outbound = {
   enableWritePageIndex: boolean;
   enablePageChecksum: boolean;
   emptyDirCleanupSec: number;
+  directoryBatchSize: number;
   deadletterPath: string;
   maxRetryNum: number;
   awsApiKey?: string | undefined;
@@ -1044,11 +964,13 @@ export const OutputGoogleCloudStorage$outboundSchema: z.ZodType<
   deadletterEnabled: z.boolean().default(false),
   onDiskFullBackpressure:
     OutputGoogleCloudStorageDiskSpaceProtection$outboundSchema.default("block"),
+  forceCloseOnShutdown: z.boolean().default(false),
   description: z.string().optional(),
   compress: OutputGoogleCloudStorageCompression$outboundSchema.default("gzip"),
   compressionLevel: OutputGoogleCloudStorageCompressionLevel$outboundSchema
     .default("best_speed"),
   automaticSchema: z.boolean().default(false),
+  parquetSchema: z.string().optional(),
   parquetVersion: OutputGoogleCloudStorageParquetVersion$outboundSchema.default(
     "PARQUET_2_6",
   ),
@@ -1064,25 +986,13 @@ export const OutputGoogleCloudStorage$outboundSchema: z.ZodType<
   enableWritePageIndex: z.boolean().default(true),
   enablePageChecksum: z.boolean().default(false),
   emptyDirCleanupSec: z.number().default(300),
+  directoryBatchSize: z.number().default(1000),
   deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
   maxRetryNum: z.number().default(20),
   awsApiKey: z.string().optional(),
   awsSecretKey: z.string().optional(),
   awsSecret: z.string().optional(),
 });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputGoogleCloudStorage$ {
-  /** @deprecated use `OutputGoogleCloudStorage$inboundSchema` instead. */
-  export const inboundSchema = OutputGoogleCloudStorage$inboundSchema;
-  /** @deprecated use `OutputGoogleCloudStorage$outboundSchema` instead. */
-  export const outboundSchema = OutputGoogleCloudStorage$outboundSchema;
-  /** @deprecated use `OutputGoogleCloudStorage$Outbound` instead. */
-  export type Outbound = OutputGoogleCloudStorage$Outbound;
-}
 
 export function outputGoogleCloudStorageToJSON(
   outputGoogleCloudStorage: OutputGoogleCloudStorage,
@@ -1091,7 +1001,6 @@ export function outputGoogleCloudStorageToJSON(
     OutputGoogleCloudStorage$outboundSchema.parse(outputGoogleCloudStorage),
   );
 }
-
 export function outputGoogleCloudStorageFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputGoogleCloudStorage, SDKValidationError> {

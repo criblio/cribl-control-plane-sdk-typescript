@@ -32,20 +32,6 @@ export type GetVersionFilesResponse = {
 };
 
 /** @internal */
-export const GetVersionFilesRequest$inboundSchema: z.ZodType<
-  GetVersionFilesRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  groupId: z.string().optional(),
-  ID: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "ID": "id",
-  });
-});
-
-/** @internal */
 export type GetVersionFilesRequest$Outbound = {
   groupId?: string | undefined;
   ID?: string | undefined;
@@ -65,34 +51,11 @@ export const GetVersionFilesRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetVersionFilesRequest$ {
-  /** @deprecated use `GetVersionFilesRequest$inboundSchema` instead. */
-  export const inboundSchema = GetVersionFilesRequest$inboundSchema;
-  /** @deprecated use `GetVersionFilesRequest$outboundSchema` instead. */
-  export const outboundSchema = GetVersionFilesRequest$outboundSchema;
-  /** @deprecated use `GetVersionFilesRequest$Outbound` instead. */
-  export type Outbound = GetVersionFilesRequest$Outbound;
-}
-
 export function getVersionFilesRequestToJSON(
   getVersionFilesRequest: GetVersionFilesRequest,
 ): string {
   return JSON.stringify(
     GetVersionFilesRequest$outboundSchema.parse(getVersionFilesRequest),
-  );
-}
-
-export function getVersionFilesRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetVersionFilesRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetVersionFilesRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetVersionFilesRequest' from JSON`,
   );
 }
 
@@ -105,43 +68,6 @@ export const GetVersionFilesResponse$inboundSchema: z.ZodType<
   count: z.number().int().optional(),
   items: z.array(models.GitFilesResponse$inboundSchema).optional(),
 });
-
-/** @internal */
-export type GetVersionFilesResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.GitFilesResponse$Outbound> | undefined;
-};
-
-/** @internal */
-export const GetVersionFilesResponse$outboundSchema: z.ZodType<
-  GetVersionFilesResponse$Outbound,
-  z.ZodTypeDef,
-  GetVersionFilesResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.GitFilesResponse$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetVersionFilesResponse$ {
-  /** @deprecated use `GetVersionFilesResponse$inboundSchema` instead. */
-  export const inboundSchema = GetVersionFilesResponse$inboundSchema;
-  /** @deprecated use `GetVersionFilesResponse$outboundSchema` instead. */
-  export const outboundSchema = GetVersionFilesResponse$outboundSchema;
-  /** @deprecated use `GetVersionFilesResponse$Outbound` instead. */
-  export type Outbound = GetVersionFilesResponse$Outbound;
-}
-
-export function getVersionFilesResponseToJSON(
-  getVersionFilesResponse: GetVersionFilesResponse,
-): string {
-  return JSON.stringify(
-    GetVersionFilesResponse$outboundSchema.parse(getVersionFilesResponse),
-  );
-}
 
 export function getVersionFilesResponseFromJSON(
   jsonString: string,

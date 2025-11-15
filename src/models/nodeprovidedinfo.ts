@@ -7,23 +7,21 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  HBCriblInfo,
-  HBCriblInfo$inboundSchema,
-  HBCriblInfo$Outbound,
-  HBCriblInfo$outboundSchema,
-} from "./hbcriblinfo.js";
+import { HBCriblInfo, HBCriblInfo$inboundSchema } from "./hbcriblinfo.js";
 import {
   HeartbeatMetadata,
   HeartbeatMetadata$inboundSchema,
-  HeartbeatMetadata$Outbound,
-  HeartbeatMetadata$outboundSchema,
 } from "./heartbeatmetadata.js";
+import {
+  OutpostNodeInfo,
+  OutpostNodeInfo$inboundSchema,
+} from "./outpostnodeinfo.js";
 
 export type NodeProvidedInfoTags = {};
 
 export type NodeProvidedInfoAws = {
   enabled: boolean;
+  instanceId: string;
   region: string;
   tags?: NodeProvidedInfoTags | undefined;
   type: string;
@@ -70,6 +68,7 @@ export type NodeProvidedInfo = {
   connIp?: string | undefined;
   cpus: number;
   cribl: HBCriblInfo;
+  env: { [k: string]: string };
   freeDiskSpace: number;
   hostOs?: NodeProvidedInfoHostOs | undefined;
   hostname: string;
@@ -79,6 +78,7 @@ export type NodeProvidedInfo = {
   metadata?: HeartbeatMetadata | undefined;
   node: string;
   os?: NodeProvidedInfoOs1 | NodeProvidedInfoOs2 | undefined;
+  outpost?: OutpostNodeInfo | undefined;
   platform: string;
   release: string;
   totalDiskSpace: number;
@@ -91,37 +91,6 @@ export const NodeProvidedInfoTags$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
-/** @internal */
-export type NodeProvidedInfoTags$Outbound = {};
-
-/** @internal */
-export const NodeProvidedInfoTags$outboundSchema: z.ZodType<
-  NodeProvidedInfoTags$Outbound,
-  z.ZodTypeDef,
-  NodeProvidedInfoTags
-> = z.object({});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace NodeProvidedInfoTags$ {
-  /** @deprecated use `NodeProvidedInfoTags$inboundSchema` instead. */
-  export const inboundSchema = NodeProvidedInfoTags$inboundSchema;
-  /** @deprecated use `NodeProvidedInfoTags$outboundSchema` instead. */
-  export const outboundSchema = NodeProvidedInfoTags$outboundSchema;
-  /** @deprecated use `NodeProvidedInfoTags$Outbound` instead. */
-  export type Outbound = NodeProvidedInfoTags$Outbound;
-}
-
-export function nodeProvidedInfoTagsToJSON(
-  nodeProvidedInfoTags: NodeProvidedInfoTags,
-): string {
-  return JSON.stringify(
-    NodeProvidedInfoTags$outboundSchema.parse(nodeProvidedInfoTags),
-  );
-}
 
 export function nodeProvidedInfoTagsFromJSON(
   jsonString: string,
@@ -140,54 +109,12 @@ export const NodeProvidedInfoAws$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   enabled: z.boolean(),
+  instanceId: z.string(),
   region: z.string(),
   tags: z.lazy(() => NodeProvidedInfoTags$inboundSchema).optional(),
   type: z.string(),
   zone: z.string(),
 });
-
-/** @internal */
-export type NodeProvidedInfoAws$Outbound = {
-  enabled: boolean;
-  region: string;
-  tags?: NodeProvidedInfoTags$Outbound | undefined;
-  type: string;
-  zone: string;
-};
-
-/** @internal */
-export const NodeProvidedInfoAws$outboundSchema: z.ZodType<
-  NodeProvidedInfoAws$Outbound,
-  z.ZodTypeDef,
-  NodeProvidedInfoAws
-> = z.object({
-  enabled: z.boolean(),
-  region: z.string(),
-  tags: z.lazy(() => NodeProvidedInfoTags$outboundSchema).optional(),
-  type: z.string(),
-  zone: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace NodeProvidedInfoAws$ {
-  /** @deprecated use `NodeProvidedInfoAws$inboundSchema` instead. */
-  export const inboundSchema = NodeProvidedInfoAws$inboundSchema;
-  /** @deprecated use `NodeProvidedInfoAws$outboundSchema` instead. */
-  export const outboundSchema = NodeProvidedInfoAws$outboundSchema;
-  /** @deprecated use `NodeProvidedInfoAws$Outbound` instead. */
-  export type Outbound = NodeProvidedInfoAws$Outbound;
-}
-
-export function nodeProvidedInfoAwsToJSON(
-  nodeProvidedInfoAws: NodeProvidedInfoAws,
-): string {
-  return JSON.stringify(
-    NodeProvidedInfoAws$outboundSchema.parse(nodeProvidedInfoAws),
-  );
-}
 
 export function nodeProvidedInfoAwsFromJSON(
   jsonString: string,
@@ -211,47 +138,6 @@ export const NodeProvidedInfoHostOs$inboundSchema: z.ZodType<
   version: z.string(),
 });
 
-/** @internal */
-export type NodeProvidedInfoHostOs$Outbound = {
-  addresses: Array<string>;
-  enabled: boolean;
-  id: string;
-  version: string;
-};
-
-/** @internal */
-export const NodeProvidedInfoHostOs$outboundSchema: z.ZodType<
-  NodeProvidedInfoHostOs$Outbound,
-  z.ZodTypeDef,
-  NodeProvidedInfoHostOs
-> = z.object({
-  addresses: z.array(z.string()),
-  enabled: z.boolean(),
-  id: z.string(),
-  version: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace NodeProvidedInfoHostOs$ {
-  /** @deprecated use `NodeProvidedInfoHostOs$inboundSchema` instead. */
-  export const inboundSchema = NodeProvidedInfoHostOs$inboundSchema;
-  /** @deprecated use `NodeProvidedInfoHostOs$outboundSchema` instead. */
-  export const outboundSchema = NodeProvidedInfoHostOs$outboundSchema;
-  /** @deprecated use `NodeProvidedInfoHostOs$Outbound` instead. */
-  export type Outbound = NodeProvidedInfoHostOs$Outbound;
-}
-
-export function nodeProvidedInfoHostOsToJSON(
-  nodeProvidedInfoHostOs: NodeProvidedInfoHostOs,
-): string {
-  return JSON.stringify(
-    NodeProvidedInfoHostOs$outboundSchema.parse(nodeProvidedInfoHostOs),
-  );
-}
-
 export function nodeProvidedInfoHostOsFromJSON(
   jsonString: string,
 ): SafeParseResult<NodeProvidedInfoHostOs, SDKValidationError> {
@@ -271,43 +157,6 @@ export const NodeProvidedInfoOwner$inboundSchema: z.ZodType<
   kind: z.string(),
   name: z.string(),
 });
-
-/** @internal */
-export type NodeProvidedInfoOwner$Outbound = {
-  kind: string;
-  name: string;
-};
-
-/** @internal */
-export const NodeProvidedInfoOwner$outboundSchema: z.ZodType<
-  NodeProvidedInfoOwner$Outbound,
-  z.ZodTypeDef,
-  NodeProvidedInfoOwner
-> = z.object({
-  kind: z.string(),
-  name: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace NodeProvidedInfoOwner$ {
-  /** @deprecated use `NodeProvidedInfoOwner$inboundSchema` instead. */
-  export const inboundSchema = NodeProvidedInfoOwner$inboundSchema;
-  /** @deprecated use `NodeProvidedInfoOwner$outboundSchema` instead. */
-  export const outboundSchema = NodeProvidedInfoOwner$outboundSchema;
-  /** @deprecated use `NodeProvidedInfoOwner$Outbound` instead. */
-  export type Outbound = NodeProvidedInfoOwner$Outbound;
-}
-
-export function nodeProvidedInfoOwnerToJSON(
-  nodeProvidedInfoOwner: NodeProvidedInfoOwner,
-): string {
-  return JSON.stringify(
-    NodeProvidedInfoOwner$outboundSchema.parse(nodeProvidedInfoOwner),
-  );
-}
 
 export function nodeProvidedInfoOwnerFromJSON(
   jsonString: string,
@@ -333,51 +182,6 @@ export const NodeProvidedInfoKube$inboundSchema: z.ZodType<
   source: z.string(),
 });
 
-/** @internal */
-export type NodeProvidedInfoKube$Outbound = {
-  enabled: boolean;
-  namespace: string;
-  node: string;
-  owner?: NodeProvidedInfoOwner$Outbound | undefined;
-  pod: string;
-  source: string;
-};
-
-/** @internal */
-export const NodeProvidedInfoKube$outboundSchema: z.ZodType<
-  NodeProvidedInfoKube$Outbound,
-  z.ZodTypeDef,
-  NodeProvidedInfoKube
-> = z.object({
-  enabled: z.boolean(),
-  namespace: z.string(),
-  node: z.string(),
-  owner: z.lazy(() => NodeProvidedInfoOwner$outboundSchema).optional(),
-  pod: z.string(),
-  source: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace NodeProvidedInfoKube$ {
-  /** @deprecated use `NodeProvidedInfoKube$inboundSchema` instead. */
-  export const inboundSchema = NodeProvidedInfoKube$inboundSchema;
-  /** @deprecated use `NodeProvidedInfoKube$outboundSchema` instead. */
-  export const outboundSchema = NodeProvidedInfoKube$outboundSchema;
-  /** @deprecated use `NodeProvidedInfoKube$Outbound` instead. */
-  export type Outbound = NodeProvidedInfoKube$Outbound;
-}
-
-export function nodeProvidedInfoKubeToJSON(
-  nodeProvidedInfoKube: NodeProvidedInfoKube,
-): string {
-  return JSON.stringify(
-    NodeProvidedInfoKube$outboundSchema.parse(nodeProvidedInfoKube),
-  );
-}
-
 export function nodeProvidedInfoKubeFromJSON(
   jsonString: string,
 ): SafeParseResult<NodeProvidedInfoKube, SDKValidationError> {
@@ -396,41 +200,6 @@ export const NodeProvidedInfoOs2$inboundSchema: z.ZodType<
 > = z.object({
   addresses: z.array(z.string()),
 });
-
-/** @internal */
-export type NodeProvidedInfoOs2$Outbound = {
-  addresses: Array<string>;
-};
-
-/** @internal */
-export const NodeProvidedInfoOs2$outboundSchema: z.ZodType<
-  NodeProvidedInfoOs2$Outbound,
-  z.ZodTypeDef,
-  NodeProvidedInfoOs2
-> = z.object({
-  addresses: z.array(z.string()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace NodeProvidedInfoOs2$ {
-  /** @deprecated use `NodeProvidedInfoOs2$inboundSchema` instead. */
-  export const inboundSchema = NodeProvidedInfoOs2$inboundSchema;
-  /** @deprecated use `NodeProvidedInfoOs2$outboundSchema` instead. */
-  export const outboundSchema = NodeProvidedInfoOs2$outboundSchema;
-  /** @deprecated use `NodeProvidedInfoOs2$Outbound` instead. */
-  export type Outbound = NodeProvidedInfoOs2$Outbound;
-}
-
-export function nodeProvidedInfoOs2ToJSON(
-  nodeProvidedInfoOs2: NodeProvidedInfoOs2,
-): string {
-  return JSON.stringify(
-    NodeProvidedInfoOs2$outboundSchema.parse(nodeProvidedInfoOs2),
-  );
-}
 
 export function nodeProvidedInfoOs2FromJSON(
   jsonString: string,
@@ -454,47 +223,6 @@ export const NodeProvidedInfoOs1$inboundSchema: z.ZodType<
   version: z.string(),
 });
 
-/** @internal */
-export type NodeProvidedInfoOs1$Outbound = {
-  addresses: Array<string>;
-  enabled: boolean;
-  id: string;
-  version: string;
-};
-
-/** @internal */
-export const NodeProvidedInfoOs1$outboundSchema: z.ZodType<
-  NodeProvidedInfoOs1$Outbound,
-  z.ZodTypeDef,
-  NodeProvidedInfoOs1
-> = z.object({
-  addresses: z.array(z.string()),
-  enabled: z.boolean(),
-  id: z.string(),
-  version: z.string(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace NodeProvidedInfoOs1$ {
-  /** @deprecated use `NodeProvidedInfoOs1$inboundSchema` instead. */
-  export const inboundSchema = NodeProvidedInfoOs1$inboundSchema;
-  /** @deprecated use `NodeProvidedInfoOs1$outboundSchema` instead. */
-  export const outboundSchema = NodeProvidedInfoOs1$outboundSchema;
-  /** @deprecated use `NodeProvidedInfoOs1$Outbound` instead. */
-  export type Outbound = NodeProvidedInfoOs1$Outbound;
-}
-
-export function nodeProvidedInfoOs1ToJSON(
-  nodeProvidedInfoOs1: NodeProvidedInfoOs1,
-): string {
-  return JSON.stringify(
-    NodeProvidedInfoOs1$outboundSchema.parse(nodeProvidedInfoOs1),
-  );
-}
-
 export function nodeProvidedInfoOs1FromJSON(
   jsonString: string,
 ): SafeParseResult<NodeProvidedInfoOs1, SDKValidationError> {
@@ -510,35 +238,6 @@ export const Os$inboundSchema: z.ZodType<Os, z.ZodTypeDef, unknown> = z.union([
   z.lazy(() => NodeProvidedInfoOs1$inboundSchema),
   z.lazy(() => NodeProvidedInfoOs2$inboundSchema),
 ]);
-
-/** @internal */
-export type Os$Outbound =
-  | NodeProvidedInfoOs1$Outbound
-  | NodeProvidedInfoOs2$Outbound;
-
-/** @internal */
-export const Os$outboundSchema: z.ZodType<Os$Outbound, z.ZodTypeDef, Os> = z
-  .union([
-    z.lazy(() => NodeProvidedInfoOs1$outboundSchema),
-    z.lazy(() => NodeProvidedInfoOs2$outboundSchema),
-  ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Os$ {
-  /** @deprecated use `Os$inboundSchema` instead. */
-  export const inboundSchema = Os$inboundSchema;
-  /** @deprecated use `Os$outboundSchema` instead. */
-  export const outboundSchema = Os$outboundSchema;
-  /** @deprecated use `Os$Outbound` instead. */
-  export type Outbound = Os$Outbound;
-}
-
-export function osToJSON(os: Os): string {
-  return JSON.stringify(Os$outboundSchema.parse(os));
-}
 
 export function osFromJSON(
   jsonString: string,
@@ -561,6 +260,7 @@ export const NodeProvidedInfo$inboundSchema: z.ZodType<
   conn_ip: z.string().optional(),
   cpus: z.number(),
   cribl: HBCriblInfo$inboundSchema,
+  env: z.record(z.string()),
   freeDiskSpace: z.number(),
   hostOs: z.lazy(() => NodeProvidedInfoHostOs$inboundSchema).optional(),
   hostname: z.string(),
@@ -573,6 +273,7 @@ export const NodeProvidedInfo$inboundSchema: z.ZodType<
     z.lazy(() => NodeProvidedInfoOs1$inboundSchema),
     z.lazy(() => NodeProvidedInfoOs2$inboundSchema),
   ]).optional(),
+  outpost: OutpostNodeInfo$inboundSchema.optional(),
   platform: z.string(),
   release: z.string(),
   totalDiskSpace: z.number(),
@@ -582,82 +283,6 @@ export const NodeProvidedInfo$inboundSchema: z.ZodType<
     "conn_ip": "connIp",
   });
 });
-
-/** @internal */
-export type NodeProvidedInfo$Outbound = {
-  architecture: string;
-  aws?: NodeProvidedInfoAws$Outbound | undefined;
-  conn_ip?: string | undefined;
-  cpus: number;
-  cribl: HBCriblInfo$Outbound;
-  freeDiskSpace: number;
-  hostOs?: NodeProvidedInfoHostOs$Outbound | undefined;
-  hostname: string;
-  isSaasWorker?: boolean | undefined;
-  kube?: NodeProvidedInfoKube$Outbound | undefined;
-  localTime?: number | undefined;
-  metadata?: HeartbeatMetadata$Outbound | undefined;
-  node: string;
-  os?: NodeProvidedInfoOs1$Outbound | NodeProvidedInfoOs2$Outbound | undefined;
-  platform: string;
-  release: string;
-  totalDiskSpace: number;
-  totalmem: number;
-};
-
-/** @internal */
-export const NodeProvidedInfo$outboundSchema: z.ZodType<
-  NodeProvidedInfo$Outbound,
-  z.ZodTypeDef,
-  NodeProvidedInfo
-> = z.object({
-  architecture: z.string(),
-  aws: z.lazy(() => NodeProvidedInfoAws$outboundSchema).optional(),
-  connIp: z.string().optional(),
-  cpus: z.number(),
-  cribl: HBCriblInfo$outboundSchema,
-  freeDiskSpace: z.number(),
-  hostOs: z.lazy(() => NodeProvidedInfoHostOs$outboundSchema).optional(),
-  hostname: z.string(),
-  isSaasWorker: z.boolean().optional(),
-  kube: z.lazy(() => NodeProvidedInfoKube$outboundSchema).optional(),
-  localTime: z.number().optional(),
-  metadata: HeartbeatMetadata$outboundSchema.optional(),
-  node: z.string(),
-  os: z.union([
-    z.lazy(() => NodeProvidedInfoOs1$outboundSchema),
-    z.lazy(() => NodeProvidedInfoOs2$outboundSchema),
-  ]).optional(),
-  platform: z.string(),
-  release: z.string(),
-  totalDiskSpace: z.number(),
-  totalmem: z.number(),
-}).transform((v) => {
-  return remap$(v, {
-    connIp: "conn_ip",
-  });
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace NodeProvidedInfo$ {
-  /** @deprecated use `NodeProvidedInfo$inboundSchema` instead. */
-  export const inboundSchema = NodeProvidedInfo$inboundSchema;
-  /** @deprecated use `NodeProvidedInfo$outboundSchema` instead. */
-  export const outboundSchema = NodeProvidedInfo$outboundSchema;
-  /** @deprecated use `NodeProvidedInfo$Outbound` instead. */
-  export type Outbound = NodeProvidedInfo$Outbound;
-}
-
-export function nodeProvidedInfoToJSON(
-  nodeProvidedInfo: NodeProvidedInfo,
-): string {
-  return JSON.stringify(
-    NodeProvidedInfo$outboundSchema.parse(nodeProvidedInfo),
-  );
-}
 
 export function nodeProvidedInfoFromJSON(
   jsonString: string,

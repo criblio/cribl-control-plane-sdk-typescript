@@ -29,43 +29,6 @@ export const ListRoutesResponse$inboundSchema: z.ZodType<
   items: z.array(models.Routes$inboundSchema).optional(),
 });
 
-/** @internal */
-export type ListRoutesResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.Routes$Outbound> | undefined;
-};
-
-/** @internal */
-export const ListRoutesResponse$outboundSchema: z.ZodType<
-  ListRoutesResponse$Outbound,
-  z.ZodTypeDef,
-  ListRoutesResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.Routes$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListRoutesResponse$ {
-  /** @deprecated use `ListRoutesResponse$inboundSchema` instead. */
-  export const inboundSchema = ListRoutesResponse$inboundSchema;
-  /** @deprecated use `ListRoutesResponse$outboundSchema` instead. */
-  export const outboundSchema = ListRoutesResponse$outboundSchema;
-  /** @deprecated use `ListRoutesResponse$Outbound` instead. */
-  export type Outbound = ListRoutesResponse$Outbound;
-}
-
-export function listRoutesResponseToJSON(
-  listRoutesResponse: ListRoutesResponse,
-): string {
-  return JSON.stringify(
-    ListRoutesResponse$outboundSchema.parse(listRoutesResponse),
-  );
-}
-
 export function listRoutesResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListRoutesResponse, SDKValidationError> {

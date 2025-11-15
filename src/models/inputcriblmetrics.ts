@@ -27,7 +27,13 @@ export type InputCriblmetricsConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputCriblmetricsMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -39,7 +45,13 @@ export type InputCriblmetricsMode = OpenEnum<typeof InputCriblmetricsMode>;
  * Codec to use to compress the persisted data
  */
 export const InputCriblmetricsCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -142,22 +154,10 @@ export type InputCriblmetrics = {
 export const InputCriblmetricsType$inboundSchema: z.ZodNativeEnum<
   typeof InputCriblmetricsType
 > = z.nativeEnum(InputCriblmetricsType);
-
 /** @internal */
 export const InputCriblmetricsType$outboundSchema: z.ZodNativeEnum<
   typeof InputCriblmetricsType
 > = InputCriblmetricsType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblmetricsType$ {
-  /** @deprecated use `InputCriblmetricsType$inboundSchema` instead. */
-  export const inboundSchema = InputCriblmetricsType$inboundSchema;
-  /** @deprecated use `InputCriblmetricsType$outboundSchema` instead. */
-  export const outboundSchema = InputCriblmetricsType$outboundSchema;
-}
 
 /** @internal */
 export const InputCriblmetricsConnection$inboundSchema: z.ZodType<
@@ -168,7 +168,6 @@ export const InputCriblmetricsConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputCriblmetricsConnection$Outbound = {
   pipeline?: string | undefined;
@@ -185,19 +184,6 @@ export const InputCriblmetricsConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblmetricsConnection$ {
-  /** @deprecated use `InputCriblmetricsConnection$inboundSchema` instead. */
-  export const inboundSchema = InputCriblmetricsConnection$inboundSchema;
-  /** @deprecated use `InputCriblmetricsConnection$outboundSchema` instead. */
-  export const outboundSchema = InputCriblmetricsConnection$outboundSchema;
-  /** @deprecated use `InputCriblmetricsConnection$Outbound` instead. */
-  export type Outbound = InputCriblmetricsConnection$Outbound;
-}
-
 export function inputCriblmetricsConnectionToJSON(
   inputCriblmetricsConnection: InputCriblmetricsConnection,
 ): string {
@@ -207,7 +193,6 @@ export function inputCriblmetricsConnectionToJSON(
     ),
   );
 }
-
 export function inputCriblmetricsConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputCriblmetricsConnection, SDKValidationError> {
@@ -228,7 +213,6 @@ export const InputCriblmetricsMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputCriblmetricsMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputCriblmetricsMode$outboundSchema: z.ZodType<
   InputCriblmetricsMode,
@@ -238,17 +222,6 @@ export const InputCriblmetricsMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputCriblmetricsMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblmetricsMode$ {
-  /** @deprecated use `InputCriblmetricsMode$inboundSchema` instead. */
-  export const inboundSchema = InputCriblmetricsMode$inboundSchema;
-  /** @deprecated use `InputCriblmetricsMode$outboundSchema` instead. */
-  export const outboundSchema = InputCriblmetricsMode$outboundSchema;
-}
 
 /** @internal */
 export const InputCriblmetricsCompression$inboundSchema: z.ZodType<
@@ -260,7 +233,6 @@ export const InputCriblmetricsCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputCriblmetricsCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputCriblmetricsCompression$outboundSchema: z.ZodType<
   InputCriblmetricsCompression,
@@ -271,24 +243,12 @@ export const InputCriblmetricsCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblmetricsCompression$ {
-  /** @deprecated use `InputCriblmetricsCompression$inboundSchema` instead. */
-  export const inboundSchema = InputCriblmetricsCompression$inboundSchema;
-  /** @deprecated use `InputCriblmetricsCompression$outboundSchema` instead. */
-  export const outboundSchema = InputCriblmetricsCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputCriblmetricsPqControls$inboundSchema: z.ZodType<
   InputCriblmetricsPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputCriblmetricsPqControls$Outbound = {};
 
@@ -299,19 +259,6 @@ export const InputCriblmetricsPqControls$outboundSchema: z.ZodType<
   InputCriblmetricsPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblmetricsPqControls$ {
-  /** @deprecated use `InputCriblmetricsPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputCriblmetricsPqControls$inboundSchema;
-  /** @deprecated use `InputCriblmetricsPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputCriblmetricsPqControls$outboundSchema;
-  /** @deprecated use `InputCriblmetricsPqControls$Outbound` instead. */
-  export type Outbound = InputCriblmetricsPqControls$Outbound;
-}
-
 export function inputCriblmetricsPqControlsToJSON(
   inputCriblmetricsPqControls: InputCriblmetricsPqControls,
 ): string {
@@ -321,7 +268,6 @@ export function inputCriblmetricsPqControlsToJSON(
     ),
   );
 }
-
 export function inputCriblmetricsPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputCriblmetricsPqControls, SDKValidationError> {
@@ -348,7 +294,6 @@ export const InputCriblmetricsPq$inboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputCriblmetricsPqControls$inboundSchema)
     .optional(),
 });
-
 /** @internal */
 export type InputCriblmetricsPq$Outbound = {
   mode: string;
@@ -378,19 +323,6 @@ export const InputCriblmetricsPq$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblmetricsPq$ {
-  /** @deprecated use `InputCriblmetricsPq$inboundSchema` instead. */
-  export const inboundSchema = InputCriblmetricsPq$inboundSchema;
-  /** @deprecated use `InputCriblmetricsPq$outboundSchema` instead. */
-  export const outboundSchema = InputCriblmetricsPq$outboundSchema;
-  /** @deprecated use `InputCriblmetricsPq$Outbound` instead. */
-  export type Outbound = InputCriblmetricsPq$Outbound;
-}
-
 export function inputCriblmetricsPqToJSON(
   inputCriblmetricsPq: InputCriblmetricsPq,
 ): string {
@@ -398,7 +330,6 @@ export function inputCriblmetricsPqToJSON(
     InputCriblmetricsPq$outboundSchema.parse(inputCriblmetricsPq),
   );
 }
-
 export function inputCriblmetricsPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputCriblmetricsPq, SDKValidationError> {
@@ -418,7 +349,6 @@ export const InputCriblmetricsMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputCriblmetricsMetadatum$Outbound = {
   name: string;
@@ -435,19 +365,6 @@ export const InputCriblmetricsMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblmetricsMetadatum$ {
-  /** @deprecated use `InputCriblmetricsMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputCriblmetricsMetadatum$inboundSchema;
-  /** @deprecated use `InputCriblmetricsMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputCriblmetricsMetadatum$outboundSchema;
-  /** @deprecated use `InputCriblmetricsMetadatum$Outbound` instead. */
-  export type Outbound = InputCriblmetricsMetadatum$Outbound;
-}
-
 export function inputCriblmetricsMetadatumToJSON(
   inputCriblmetricsMetadatum: InputCriblmetricsMetadatum,
 ): string {
@@ -455,7 +372,6 @@ export function inputCriblmetricsMetadatumToJSON(
     InputCriblmetricsMetadatum$outboundSchema.parse(inputCriblmetricsMetadatum),
   );
 }
-
 export function inputCriblmetricsMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputCriblmetricsMetadatum, SDKValidationError> {
@@ -489,7 +405,6 @@ export const InputCriblmetrics$inboundSchema: z.ZodType<
     .optional(),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type InputCriblmetrics$Outbound = {
   id?: string | undefined;
@@ -532,19 +447,6 @@ export const InputCriblmetrics$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputCriblmetrics$ {
-  /** @deprecated use `InputCriblmetrics$inboundSchema` instead. */
-  export const inboundSchema = InputCriblmetrics$inboundSchema;
-  /** @deprecated use `InputCriblmetrics$outboundSchema` instead. */
-  export const outboundSchema = InputCriblmetrics$outboundSchema;
-  /** @deprecated use `InputCriblmetrics$Outbound` instead. */
-  export type Outbound = InputCriblmetrics$Outbound;
-}
-
 export function inputCriblmetricsToJSON(
   inputCriblmetrics: InputCriblmetrics,
 ): string {
@@ -552,7 +454,6 @@ export function inputCriblmetricsToJSON(
     InputCriblmetrics$outboundSchema.parse(inputCriblmetrics),
   );
 }
-
 export function inputCriblmetricsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputCriblmetrics, SDKValidationError> {

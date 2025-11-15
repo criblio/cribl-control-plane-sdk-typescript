@@ -31,14 +31,6 @@ export type DeleteCriblLakeDatasetByLakeIdAndIdResponse = {
 };
 
 /** @internal */
-export const DeleteCriblLakeDatasetByLakeIdAndIdRequest$inboundSchema:
-  z.ZodType<DeleteCriblLakeDatasetByLakeIdAndIdRequest, z.ZodTypeDef, unknown> =
-    z.object({
-      lakeId: z.string(),
-      id: z.string(),
-    });
-
-/** @internal */
 export type DeleteCriblLakeDatasetByLakeIdAndIdRequest$Outbound = {
   lakeId: string;
   id: string;
@@ -55,21 +47,6 @@ export const DeleteCriblLakeDatasetByLakeIdAndIdRequest$outboundSchema:
     id: z.string(),
   });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DeleteCriblLakeDatasetByLakeIdAndIdRequest$ {
-  /** @deprecated use `DeleteCriblLakeDatasetByLakeIdAndIdRequest$inboundSchema` instead. */
-  export const inboundSchema =
-    DeleteCriblLakeDatasetByLakeIdAndIdRequest$inboundSchema;
-  /** @deprecated use `DeleteCriblLakeDatasetByLakeIdAndIdRequest$outboundSchema` instead. */
-  export const outboundSchema =
-    DeleteCriblLakeDatasetByLakeIdAndIdRequest$outboundSchema;
-  /** @deprecated use `DeleteCriblLakeDatasetByLakeIdAndIdRequest$Outbound` instead. */
-  export type Outbound = DeleteCriblLakeDatasetByLakeIdAndIdRequest$Outbound;
-}
-
 export function deleteCriblLakeDatasetByLakeIdAndIdRequestToJSON(
   deleteCriblLakeDatasetByLakeIdAndIdRequest:
     DeleteCriblLakeDatasetByLakeIdAndIdRequest,
@@ -78,22 +55,6 @@ export function deleteCriblLakeDatasetByLakeIdAndIdRequestToJSON(
     DeleteCriblLakeDatasetByLakeIdAndIdRequest$outboundSchema.parse(
       deleteCriblLakeDatasetByLakeIdAndIdRequest,
     ),
-  );
-}
-
-export function deleteCriblLakeDatasetByLakeIdAndIdRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  DeleteCriblLakeDatasetByLakeIdAndIdRequest,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      DeleteCriblLakeDatasetByLakeIdAndIdRequest$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'DeleteCriblLakeDatasetByLakeIdAndIdRequest' from JSON`,
   );
 }
 
@@ -107,49 +68,6 @@ export const DeleteCriblLakeDatasetByLakeIdAndIdResponse$inboundSchema:
     count: z.number().int().optional(),
     items: z.array(models.CriblLakeDataset$inboundSchema).optional(),
   });
-
-/** @internal */
-export type DeleteCriblLakeDatasetByLakeIdAndIdResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.CriblLakeDataset$Outbound> | undefined;
-};
-
-/** @internal */
-export const DeleteCriblLakeDatasetByLakeIdAndIdResponse$outboundSchema:
-  z.ZodType<
-    DeleteCriblLakeDatasetByLakeIdAndIdResponse$Outbound,
-    z.ZodTypeDef,
-    DeleteCriblLakeDatasetByLakeIdAndIdResponse
-  > = z.object({
-    count: z.number().int().optional(),
-    items: z.array(models.CriblLakeDataset$outboundSchema).optional(),
-  });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DeleteCriblLakeDatasetByLakeIdAndIdResponse$ {
-  /** @deprecated use `DeleteCriblLakeDatasetByLakeIdAndIdResponse$inboundSchema` instead. */
-  export const inboundSchema =
-    DeleteCriblLakeDatasetByLakeIdAndIdResponse$inboundSchema;
-  /** @deprecated use `DeleteCriblLakeDatasetByLakeIdAndIdResponse$outboundSchema` instead. */
-  export const outboundSchema =
-    DeleteCriblLakeDatasetByLakeIdAndIdResponse$outboundSchema;
-  /** @deprecated use `DeleteCriblLakeDatasetByLakeIdAndIdResponse$Outbound` instead. */
-  export type Outbound = DeleteCriblLakeDatasetByLakeIdAndIdResponse$Outbound;
-}
-
-export function deleteCriblLakeDatasetByLakeIdAndIdResponseToJSON(
-  deleteCriblLakeDatasetByLakeIdAndIdResponse:
-    DeleteCriblLakeDatasetByLakeIdAndIdResponse,
-): string {
-  return JSON.stringify(
-    DeleteCriblLakeDatasetByLakeIdAndIdResponse$outboundSchema.parse(
-      deleteCriblLakeDatasetByLakeIdAndIdResponse,
-    ),
-  );
-}
 
 export function deleteCriblLakeDatasetByLakeIdAndIdResponseFromJSON(
   jsonString: string,
