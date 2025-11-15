@@ -29,43 +29,6 @@ export const CreatePacksResponse$inboundSchema: z.ZodType<
   items: z.array(models.PackInstallInfo$inboundSchema).optional(),
 });
 
-/** @internal */
-export type CreatePacksResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.PackInstallInfo$Outbound> | undefined;
-};
-
-/** @internal */
-export const CreatePacksResponse$outboundSchema: z.ZodType<
-  CreatePacksResponse$Outbound,
-  z.ZodTypeDef,
-  CreatePacksResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.PackInstallInfo$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreatePacksResponse$ {
-  /** @deprecated use `CreatePacksResponse$inboundSchema` instead. */
-  export const inboundSchema = CreatePacksResponse$inboundSchema;
-  /** @deprecated use `CreatePacksResponse$outboundSchema` instead. */
-  export const outboundSchema = CreatePacksResponse$outboundSchema;
-  /** @deprecated use `CreatePacksResponse$Outbound` instead. */
-  export type Outbound = CreatePacksResponse$Outbound;
-}
-
-export function createPacksResponseToJSON(
-  createPacksResponse: CreatePacksResponse,
-): string {
-  return JSON.stringify(
-    CreatePacksResponse$outboundSchema.parse(createPacksResponse),
-  );
-}
-
 export function createPacksResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<CreatePacksResponse, SDKValidationError> {

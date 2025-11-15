@@ -40,6 +40,7 @@ const AWS_REGION = "us-east-2"; // Replace with your S3 bucket region
 
 import {
   ConfigGroup,
+  GroupCreateRequest,
   InputSyslog,
   OutputS3,
   Pipeline,
@@ -121,7 +122,7 @@ async function main() {
   }
 
   // Create Fleet
-  await cribl.groups.create({ product: "edge", configGroup: myFleet });
+  await cribl.groups.create({ product: "edge", groupCreateRequest: myFleet as GroupCreateRequest });
   console.log(`✅ Fleet created: ${myFleet.id}`);
 
   // Create Syslog Source

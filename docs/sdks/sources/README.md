@@ -139,14 +139,14 @@ async function run() {
     port: 301.76,
     tls: {
       disabled: true,
+      requestCert: false,
+      rejectUnauthorized: true,
+      commonNameRegex: "<value>",
       certificateName: "<value>",
       privKeyPath: "<value>",
       passphrase: "<value>",
       certPath: "<value>",
       caPath: "<value>",
-      requestCert: false,
-      rejectUnauthorized: "<value>",
-      commonNameRegex: "<value>",
       minVersion: "TLSv1",
       maxVersion: "TLSv1.1",
     },
@@ -177,7 +177,9 @@ async function run() {
       ],
     },
     description: "classic pish supposing misguided carefully fen",
+    authToken: "",
     authType: "manual",
+    textSecret: "<value>",
   });
 
   console.log(result);
@@ -237,14 +239,14 @@ async function run() {
     port: 301.76,
     tls: {
       disabled: true,
+      requestCert: false,
+      rejectUnauthorized: true,
+      commonNameRegex: "<value>",
       certificateName: "<value>",
       privKeyPath: "<value>",
       passphrase: "<value>",
       certPath: "<value>",
       caPath: "<value>",
-      requestCert: false,
-      rejectUnauthorized: "<value>",
-      commonNameRegex: "<value>",
       minVersion: "TLSv1",
       maxVersion: "TLSv1.1",
     },
@@ -275,7 +277,9 @@ async function run() {
       ],
     },
     description: "classic pish supposing misguided carefully fen",
+    authToken: "",
     authType: "manual",
+    textSecret: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;

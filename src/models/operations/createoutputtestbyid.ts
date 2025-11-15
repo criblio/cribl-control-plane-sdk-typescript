@@ -32,20 +32,6 @@ export type CreateOutputTestByIdResponse = {
 };
 
 /** @internal */
-export const CreateOutputTestByIdRequest$inboundSchema: z.ZodType<
-  CreateOutputTestByIdRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.string(),
-  OutputTestRequest: models.OutputTestRequest$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "OutputTestRequest": "outputTestRequest",
-  });
-});
-
-/** @internal */
 export type CreateOutputTestByIdRequest$Outbound = {
   id: string;
   OutputTestRequest: models.OutputTestRequest$Outbound;
@@ -65,19 +51,6 @@ export const CreateOutputTestByIdRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateOutputTestByIdRequest$ {
-  /** @deprecated use `CreateOutputTestByIdRequest$inboundSchema` instead. */
-  export const inboundSchema = CreateOutputTestByIdRequest$inboundSchema;
-  /** @deprecated use `CreateOutputTestByIdRequest$outboundSchema` instead. */
-  export const outboundSchema = CreateOutputTestByIdRequest$outboundSchema;
-  /** @deprecated use `CreateOutputTestByIdRequest$Outbound` instead. */
-  export type Outbound = CreateOutputTestByIdRequest$Outbound;
-}
-
 export function createOutputTestByIdRequestToJSON(
   createOutputTestByIdRequest: CreateOutputTestByIdRequest,
 ): string {
@@ -85,16 +58,6 @@ export function createOutputTestByIdRequestToJSON(
     CreateOutputTestByIdRequest$outboundSchema.parse(
       createOutputTestByIdRequest,
     ),
-  );
-}
-
-export function createOutputTestByIdRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateOutputTestByIdRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateOutputTestByIdRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateOutputTestByIdRequest' from JSON`,
   );
 }
 
@@ -107,45 +70,6 @@ export const CreateOutputTestByIdResponse$inboundSchema: z.ZodType<
   count: z.number().int().optional(),
   items: z.array(models.OutputTestResponse$inboundSchema).optional(),
 });
-
-/** @internal */
-export type CreateOutputTestByIdResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.OutputTestResponse$Outbound> | undefined;
-};
-
-/** @internal */
-export const CreateOutputTestByIdResponse$outboundSchema: z.ZodType<
-  CreateOutputTestByIdResponse$Outbound,
-  z.ZodTypeDef,
-  CreateOutputTestByIdResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.OutputTestResponse$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateOutputTestByIdResponse$ {
-  /** @deprecated use `CreateOutputTestByIdResponse$inboundSchema` instead. */
-  export const inboundSchema = CreateOutputTestByIdResponse$inboundSchema;
-  /** @deprecated use `CreateOutputTestByIdResponse$outboundSchema` instead. */
-  export const outboundSchema = CreateOutputTestByIdResponse$outboundSchema;
-  /** @deprecated use `CreateOutputTestByIdResponse$Outbound` instead. */
-  export type Outbound = CreateOutputTestByIdResponse$Outbound;
-}
-
-export function createOutputTestByIdResponseToJSON(
-  createOutputTestByIdResponse: CreateOutputTestByIdResponse,
-): string {
-  return JSON.stringify(
-    CreateOutputTestByIdResponse$outboundSchema.parse(
-      createOutputTestByIdResponse,
-    ),
-  );
-}
 
 export function createOutputTestByIdResponseFromJSON(
   jsonString: string,

@@ -27,7 +27,6 @@ export const LakeDatasetSearchConfig$inboundSchema: z.ZodType<
   datatypes: z.array(z.string()).optional(),
   metadata: DatasetMetadata$inboundSchema.optional(),
 });
-
 /** @internal */
 export type LakeDatasetSearchConfig$Outbound = {
   datatypes?: Array<string> | undefined;
@@ -44,19 +43,6 @@ export const LakeDatasetSearchConfig$outboundSchema: z.ZodType<
   metadata: DatasetMetadata$outboundSchema.optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace LakeDatasetSearchConfig$ {
-  /** @deprecated use `LakeDatasetSearchConfig$inboundSchema` instead. */
-  export const inboundSchema = LakeDatasetSearchConfig$inboundSchema;
-  /** @deprecated use `LakeDatasetSearchConfig$outboundSchema` instead. */
-  export const outboundSchema = LakeDatasetSearchConfig$outboundSchema;
-  /** @deprecated use `LakeDatasetSearchConfig$Outbound` instead. */
-  export type Outbound = LakeDatasetSearchConfig$Outbound;
-}
-
 export function lakeDatasetSearchConfigToJSON(
   lakeDatasetSearchConfig: LakeDatasetSearchConfig,
 ): string {
@@ -64,7 +50,6 @@ export function lakeDatasetSearchConfigToJSON(
     LakeDatasetSearchConfig$outboundSchema.parse(lakeDatasetSearchConfig),
   );
 }
-
 export function lakeDatasetSearchConfigFromJSON(
   jsonString: string,
 ): SafeParseResult<LakeDatasetSearchConfig, SDKValidationError> {

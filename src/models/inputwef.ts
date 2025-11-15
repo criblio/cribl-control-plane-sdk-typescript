@@ -27,7 +27,13 @@ export type InputWefConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputWefMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -39,7 +45,13 @@ export type InputWefMode = OpenEnum<typeof InputWefMode>;
  * Codec to use to compress the persisted data
  */
 export const InputWefCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -85,7 +97,13 @@ export type InputWefPq = {
  * How to authenticate incoming client connections
  */
 export const InputWefAuthenticationMethod = {
+  /**
+   * Client certificate
+   */
   ClientCert: "clientCert",
+  /**
+   * Kerberos
+   */
   Kerberos: "kerberos",
 } as const;
 /**
@@ -360,21 +378,9 @@ export type InputWef = {
 /** @internal */
 export const InputWefType$inboundSchema: z.ZodNativeEnum<typeof InputWefType> =
   z.nativeEnum(InputWefType);
-
 /** @internal */
 export const InputWefType$outboundSchema: z.ZodNativeEnum<typeof InputWefType> =
   InputWefType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWefType$ {
-  /** @deprecated use `InputWefType$inboundSchema` instead. */
-  export const inboundSchema = InputWefType$inboundSchema;
-  /** @deprecated use `InputWefType$outboundSchema` instead. */
-  export const outboundSchema = InputWefType$outboundSchema;
-}
 
 /** @internal */
 export const InputWefConnection$inboundSchema: z.ZodType<
@@ -385,7 +391,6 @@ export const InputWefConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputWefConnection$Outbound = {
   pipeline?: string | undefined;
@@ -402,19 +407,6 @@ export const InputWefConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWefConnection$ {
-  /** @deprecated use `InputWefConnection$inboundSchema` instead. */
-  export const inboundSchema = InputWefConnection$inboundSchema;
-  /** @deprecated use `InputWefConnection$outboundSchema` instead. */
-  export const outboundSchema = InputWefConnection$outboundSchema;
-  /** @deprecated use `InputWefConnection$Outbound` instead. */
-  export type Outbound = InputWefConnection$Outbound;
-}
-
 export function inputWefConnectionToJSON(
   inputWefConnection: InputWefConnection,
 ): string {
@@ -422,7 +414,6 @@ export function inputWefConnectionToJSON(
     InputWefConnection$outboundSchema.parse(inputWefConnection),
   );
 }
-
 export function inputWefConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWefConnection, SDKValidationError> {
@@ -443,7 +434,6 @@ export const InputWefMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputWefMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputWefMode$outboundSchema: z.ZodType<
   InputWefMode,
@@ -453,17 +443,6 @@ export const InputWefMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputWefMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWefMode$ {
-  /** @deprecated use `InputWefMode$inboundSchema` instead. */
-  export const inboundSchema = InputWefMode$inboundSchema;
-  /** @deprecated use `InputWefMode$outboundSchema` instead. */
-  export const outboundSchema = InputWefMode$outboundSchema;
-}
 
 /** @internal */
 export const InputWefCompression$inboundSchema: z.ZodType<
@@ -475,7 +454,6 @@ export const InputWefCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputWefCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputWefCompression$outboundSchema: z.ZodType<
   InputWefCompression,
@@ -486,24 +464,12 @@ export const InputWefCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWefCompression$ {
-  /** @deprecated use `InputWefCompression$inboundSchema` instead. */
-  export const inboundSchema = InputWefCompression$inboundSchema;
-  /** @deprecated use `InputWefCompression$outboundSchema` instead. */
-  export const outboundSchema = InputWefCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputWefPqControls$inboundSchema: z.ZodType<
   InputWefPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputWefPqControls$Outbound = {};
 
@@ -514,19 +480,6 @@ export const InputWefPqControls$outboundSchema: z.ZodType<
   InputWefPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWefPqControls$ {
-  /** @deprecated use `InputWefPqControls$inboundSchema` instead. */
-  export const inboundSchema = InputWefPqControls$inboundSchema;
-  /** @deprecated use `InputWefPqControls$outboundSchema` instead. */
-  export const outboundSchema = InputWefPqControls$outboundSchema;
-  /** @deprecated use `InputWefPqControls$Outbound` instead. */
-  export type Outbound = InputWefPqControls$Outbound;
-}
-
 export function inputWefPqControlsToJSON(
   inputWefPqControls: InputWefPqControls,
 ): string {
@@ -534,7 +487,6 @@ export function inputWefPqControlsToJSON(
     InputWefPqControls$outboundSchema.parse(inputWefPqControls),
   );
 }
-
 export function inputWefPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWefPqControls, SDKValidationError> {
@@ -560,7 +512,6 @@ export const InputWefPq$inboundSchema: z.ZodType<
   compress: InputWefCompression$inboundSchema.default("none"),
   pqControls: z.lazy(() => InputWefPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type InputWefPq$Outbound = {
   mode: string;
@@ -589,23 +540,9 @@ export const InputWefPq$outboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputWefPqControls$outboundSchema).optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWefPq$ {
-  /** @deprecated use `InputWefPq$inboundSchema` instead. */
-  export const inboundSchema = InputWefPq$inboundSchema;
-  /** @deprecated use `InputWefPq$outboundSchema` instead. */
-  export const outboundSchema = InputWefPq$outboundSchema;
-  /** @deprecated use `InputWefPq$Outbound` instead. */
-  export type Outbound = InputWefPq$Outbound;
-}
-
 export function inputWefPqToJSON(inputWefPq: InputWefPq): string {
   return JSON.stringify(InputWefPq$outboundSchema.parse(inputWefPq));
 }
-
 export function inputWefPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWefPq, SDKValidationError> {
@@ -626,7 +563,6 @@ export const InputWefAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(InputWefAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputWefAuthenticationMethod$outboundSchema: z.ZodType<
   InputWefAuthenticationMethod,
@@ -636,17 +572,6 @@ export const InputWefAuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(InputWefAuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWefAuthenticationMethod$ {
-  /** @deprecated use `InputWefAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = InputWefAuthenticationMethod$inboundSchema;
-  /** @deprecated use `InputWefAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema = InputWefAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const InputWefMinimumTLSVersion$inboundSchema: z.ZodType<
@@ -658,7 +583,6 @@ export const InputWefMinimumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputWefMinimumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputWefMinimumTLSVersion$outboundSchema: z.ZodType<
   InputWefMinimumTLSVersion,
@@ -668,17 +592,6 @@ export const InputWefMinimumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputWefMinimumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWefMinimumTLSVersion$ {
-  /** @deprecated use `InputWefMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputWefMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `InputWefMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputWefMinimumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const InputWefMaximumTLSVersion$inboundSchema: z.ZodType<
@@ -690,7 +603,6 @@ export const InputWefMaximumTLSVersion$inboundSchema: z.ZodType<
     z.nativeEnum(InputWefMaximumTLSVersion),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputWefMaximumTLSVersion$outboundSchema: z.ZodType<
   InputWefMaximumTLSVersion,
@@ -700,17 +612,6 @@ export const InputWefMaximumTLSVersion$outboundSchema: z.ZodType<
   z.nativeEnum(InputWefMaximumTLSVersion),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWefMaximumTLSVersion$ {
-  /** @deprecated use `InputWefMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema = InputWefMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `InputWefMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema = InputWefMaximumTLSVersion$outboundSchema;
-}
 
 /** @internal */
 export const MTLSSettings$inboundSchema: z.ZodType<
@@ -734,7 +635,6 @@ export const MTLSSettings$inboundSchema: z.ZodType<
   principal: z.any().optional(),
   ocspCheckFailClose: z.boolean().default(false),
 });
-
 /** @internal */
 export type MTLSSettings$Outbound = {
   disabled: boolean;
@@ -777,23 +677,9 @@ export const MTLSSettings$outboundSchema: z.ZodType<
   ocspCheckFailClose: z.boolean().default(false),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace MTLSSettings$ {
-  /** @deprecated use `MTLSSettings$inboundSchema` instead. */
-  export const inboundSchema = MTLSSettings$inboundSchema;
-  /** @deprecated use `MTLSSettings$outboundSchema` instead. */
-  export const outboundSchema = MTLSSettings$outboundSchema;
-  /** @deprecated use `MTLSSettings$Outbound` instead. */
-  export type Outbound = MTLSSettings$Outbound;
-}
-
 export function mTLSSettingsToJSON(mtlsSettings: MTLSSettings): string {
   return JSON.stringify(MTLSSettings$outboundSchema.parse(mtlsSettings));
 }
-
 export function mTLSSettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<MTLSSettings, SDKValidationError> {
@@ -814,7 +700,6 @@ export const InputWefFormat$inboundSchema: z.ZodType<
     z.nativeEnum(InputWefFormat),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputWefFormat$outboundSchema: z.ZodType<
   InputWefFormat,
@@ -824,17 +709,6 @@ export const InputWefFormat$outboundSchema: z.ZodType<
   z.nativeEnum(InputWefFormat),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWefFormat$ {
-  /** @deprecated use `InputWefFormat$inboundSchema` instead. */
-  export const inboundSchema = InputWefFormat$inboundSchema;
-  /** @deprecated use `InputWefFormat$outboundSchema` instead. */
-  export const outboundSchema = InputWefFormat$outboundSchema;
-}
 
 /** @internal */
 export const QueryBuilderMode$inboundSchema: z.ZodType<
@@ -846,7 +720,6 @@ export const QueryBuilderMode$inboundSchema: z.ZodType<
     z.nativeEnum(QueryBuilderMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const QueryBuilderMode$outboundSchema: z.ZodType<
   QueryBuilderMode,
@@ -857,17 +730,6 @@ export const QueryBuilderMode$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace QueryBuilderMode$ {
-  /** @deprecated use `QueryBuilderMode$inboundSchema` instead. */
-  export const inboundSchema = QueryBuilderMode$inboundSchema;
-  /** @deprecated use `QueryBuilderMode$outboundSchema` instead. */
-  export const outboundSchema = QueryBuilderMode$outboundSchema;
-}
-
 /** @internal */
 export const SubscriptionMetadatum$inboundSchema: z.ZodType<
   SubscriptionMetadatum,
@@ -877,7 +739,6 @@ export const SubscriptionMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type SubscriptionMetadatum$Outbound = {
   name: string;
@@ -894,19 +755,6 @@ export const SubscriptionMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace SubscriptionMetadatum$ {
-  /** @deprecated use `SubscriptionMetadatum$inboundSchema` instead. */
-  export const inboundSchema = SubscriptionMetadatum$inboundSchema;
-  /** @deprecated use `SubscriptionMetadatum$outboundSchema` instead. */
-  export const outboundSchema = SubscriptionMetadatum$outboundSchema;
-  /** @deprecated use `SubscriptionMetadatum$Outbound` instead. */
-  export type Outbound = SubscriptionMetadatum$Outbound;
-}
-
 export function subscriptionMetadatumToJSON(
   subscriptionMetadatum: SubscriptionMetadatum,
 ): string {
@@ -914,7 +762,6 @@ export function subscriptionMetadatumToJSON(
     SubscriptionMetadatum$outboundSchema.parse(subscriptionMetadatum),
   );
 }
-
 export function subscriptionMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<SubscriptionMetadatum, SDKValidationError> {
@@ -945,7 +792,6 @@ export const Subscription$inboundSchema: z.ZodType<
   metadata: z.array(z.lazy(() => SubscriptionMetadatum$inboundSchema))
     .optional(),
 });
-
 /** @internal */
 export type Subscription$Outbound = {
   subscriptionName: string;
@@ -983,23 +829,9 @@ export const Subscription$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace Subscription$ {
-  /** @deprecated use `Subscription$inboundSchema` instead. */
-  export const inboundSchema = Subscription$inboundSchema;
-  /** @deprecated use `Subscription$outboundSchema` instead. */
-  export const outboundSchema = Subscription$outboundSchema;
-  /** @deprecated use `Subscription$Outbound` instead. */
-  export type Outbound = Subscription$Outbound;
-}
-
 export function subscriptionToJSON(subscription: Subscription): string {
   return JSON.stringify(Subscription$outboundSchema.parse(subscription));
 }
-
 export function subscriptionFromJSON(
   jsonString: string,
 ): SafeParseResult<Subscription, SDKValidationError> {
@@ -1019,7 +851,6 @@ export const InputWefMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputWefMetadatum$Outbound = {
   name: string;
@@ -1036,19 +867,6 @@ export const InputWefMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWefMetadatum$ {
-  /** @deprecated use `InputWefMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputWefMetadatum$inboundSchema;
-  /** @deprecated use `InputWefMetadatum$outboundSchema` instead. */
-  export const outboundSchema = InputWefMetadatum$outboundSchema;
-  /** @deprecated use `InputWefMetadatum$Outbound` instead. */
-  export type Outbound = InputWefMetadatum$Outbound;
-}
-
 export function inputWefMetadatumToJSON(
   inputWefMetadatum: InputWefMetadatum,
 ): string {
@@ -1056,7 +874,6 @@ export function inputWefMetadatumToJSON(
     InputWefMetadatum$outboundSchema.parse(inputWefMetadatum),
   );
 }
-
 export function inputWefMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWefMetadatum, SDKValidationError> {
@@ -1106,7 +923,6 @@ export const InputWef$inboundSchema: z.ZodType<
   description: z.string().optional(),
   logFingerprintMismatch: z.boolean().default(false),
 });
-
 /** @internal */
 export type InputWef$Outbound = {
   id?: string | undefined;
@@ -1182,23 +998,9 @@ export const InputWef$outboundSchema: z.ZodType<
   logFingerprintMismatch: z.boolean().default(false),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputWef$ {
-  /** @deprecated use `InputWef$inboundSchema` instead. */
-  export const inboundSchema = InputWef$inboundSchema;
-  /** @deprecated use `InputWef$outboundSchema` instead. */
-  export const outboundSchema = InputWef$outboundSchema;
-  /** @deprecated use `InputWef$Outbound` instead. */
-  export type Outbound = InputWef$Outbound;
-}
-
 export function inputWefToJSON(inputWef: InputWef): string {
   return JSON.stringify(InputWef$outboundSchema.parse(inputWef));
 }
-
 export function inputWefFromJSON(
   jsonString: string,
 ): SafeParseResult<InputWef, SDKValidationError> {
