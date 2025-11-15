@@ -544,6 +544,10 @@ export type OutputAzureDataExplorer = {
    */
   emptyDirCleanupSec?: number | undefined;
   /**
+   * Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+   */
+  directoryBatchSize?: number | undefined;
+  /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
   deadletterEnabled?: boolean | undefined;
@@ -1490,6 +1494,7 @@ export const OutputAzureDataExplorer$inboundSchema: z.ZodType<
   enablePageChecksum: z.boolean().default(false),
   removeEmptyDirs: z.boolean().default(true),
   emptyDirCleanupSec: z.number().default(300),
+  directoryBatchSize: z.number().default(1000),
   deadletterEnabled: z.boolean().default(false),
   deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
   maxRetryNum: z.number().default(20),
@@ -1590,6 +1595,7 @@ export type OutputAzureDataExplorer$Outbound = {
   enablePageChecksum: boolean;
   removeEmptyDirs: boolean;
   emptyDirCleanupSec: number;
+  directoryBatchSize: number;
   deadletterEnabled: boolean;
   deadletterPath: string;
   maxRetryNum: number;
@@ -1697,6 +1703,7 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   enablePageChecksum: z.boolean().default(false),
   removeEmptyDirs: z.boolean().default(true),
   emptyDirCleanupSec: z.number().default(300),
+  directoryBatchSize: z.number().default(1000),
   deadletterEnabled: z.boolean().default(false),
   deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
   maxRetryNum: z.number().default(20),

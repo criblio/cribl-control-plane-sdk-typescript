@@ -440,6 +440,10 @@ export type OutputCloudflareR2 = {
    */
   emptyDirCleanupSec?: number | undefined;
   /**
+   * Number of directories to process in each batch during cleanup of empty directories. Minimum is 10, maximum is 10000. Higher values may require more memory.
+   */
+  directoryBatchSize?: number | undefined;
+  /**
    * Storage location for files that fail to reach their final destination after maximum retries are exceeded
    */
   deadletterPath?: string | undefined;
@@ -801,6 +805,7 @@ export const OutputCloudflareR2$inboundSchema: z.ZodType<
   enableWritePageIndex: z.boolean().default(true),
   enablePageChecksum: z.boolean().default(false),
   emptyDirCleanupSec: z.number().default(300),
+  directoryBatchSize: z.number().default(1000),
   deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
   maxRetryNum: z.number().default(20),
 });
@@ -862,6 +867,7 @@ export type OutputCloudflareR2$Outbound = {
   enableWritePageIndex: boolean;
   enablePageChecksum: boolean;
   emptyDirCleanupSec: number;
+  directoryBatchSize: number;
   deadletterPath: string;
   maxRetryNum: number;
 };
@@ -944,6 +950,7 @@ export const OutputCloudflareR2$outboundSchema: z.ZodType<
   enableWritePageIndex: z.boolean().default(true),
   enablePageChecksum: z.boolean().default(false),
   emptyDirCleanupSec: z.number().default(300),
+  directoryBatchSize: z.number().default(1000),
   deadletterPath: z.string().default("$CRIBL_HOME/state/outputs/dead-letter"),
   maxRetryNum: z.number().default(20),
 });
