@@ -22,6 +22,7 @@
  * - API Bearer token with Permissions that include creating Worker Groups.
  */
 
+import { GroupCreateRequest } from "../dist/esm/models";
 import { createCriblClient, CriblControlPlane } from './auth';
 
 /**
@@ -95,12 +96,12 @@ async function replicateWorkerGroup(client: CriblControlPlane, sourceId: string)
     // Prepare the replica payload
     const replica = {
       product: 'stream' as const,
-      configGroup: {
+      groupCreateRequest: {
         ...replicableConfig,
         id: replicaId,
         name: replicaName,
         description: `Replica of '${sourceId}'`
-      }
+      } as GroupCreateRequest
     };
 
     // Create the replica Worker Group by copying the configuration of the source Worker Group
