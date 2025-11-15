@@ -4,13 +4,44 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
+/**
+ * State of the Job
+ */
+export const State = {
+  Initializing: 0,
+  Pending: 1,
+  Running: 2,
+  Paused: 3,
+  Cancelled: 4,
+  Finished: 5,
+  Failed: 6,
+  Orphaned: 7,
+  Unknown: 8,
+  Length: 9,
+} as const;
+/**
+ * State of the Job
+ */
+export type State = OpenEnum<typeof State>;
+
 export type JobStatus = {
   reason?: { [k: string]: any } | undefined;
-  state: { [k: string]: any };
+  /**
+   * State of the Job
+   */
+  state: State;
 };
+
+/** @internal */
+export const State$inboundSchema: z.ZodType<State, z.ZodTypeDef, unknown> = z
+  .union([
+    z.nativeEnum(State),
+    z.number().transform(catchUnrecognizedEnum),
+  ]);
 
 /** @internal */
 export const JobStatus$inboundSchema: z.ZodType<
@@ -19,41 +50,8 @@ export const JobStatus$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   reason: z.record(z.any()).optional(),
-  state: z.record(z.any()),
+  state: State$inboundSchema,
 });
-
-/** @internal */
-export type JobStatus$Outbound = {
-  reason?: { [k: string]: any } | undefined;
-  state: { [k: string]: any };
-};
-
-/** @internal */
-export const JobStatus$outboundSchema: z.ZodType<
-  JobStatus$Outbound,
-  z.ZodTypeDef,
-  JobStatus
-> = z.object({
-  reason: z.record(z.any()).optional(),
-  state: z.record(z.any()),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace JobStatus$ {
-  /** @deprecated use `JobStatus$inboundSchema` instead. */
-  export const inboundSchema = JobStatus$inboundSchema;
-  /** @deprecated use `JobStatus$outboundSchema` instead. */
-  export const outboundSchema = JobStatus$outboundSchema;
-  /** @deprecated use `JobStatus$Outbound` instead. */
-  export type Outbound = JobStatus$Outbound;
-}
-
-export function jobStatusToJSON(jobStatus: JobStatus): string {
-  return JSON.stringify(JobStatus$outboundSchema.parse(jobStatus));
-}
 
 export function jobStatusFromJSON(
   jsonString: string,

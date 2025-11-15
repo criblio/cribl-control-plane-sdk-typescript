@@ -26,15 +26,6 @@ export type GetMasterWorkerEntryResponse = {
 };
 
 /** @internal */
-export const GetMasterWorkerEntryRequest$inboundSchema: z.ZodType<
-  GetMasterWorkerEntryRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  filterExp: z.string().optional(),
-});
-
-/** @internal */
 export type GetMasterWorkerEntryRequest$Outbound = {
   filterExp?: string | undefined;
 };
@@ -48,19 +39,6 @@ export const GetMasterWorkerEntryRequest$outboundSchema: z.ZodType<
   filterExp: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetMasterWorkerEntryRequest$ {
-  /** @deprecated use `GetMasterWorkerEntryRequest$inboundSchema` instead. */
-  export const inboundSchema = GetMasterWorkerEntryRequest$inboundSchema;
-  /** @deprecated use `GetMasterWorkerEntryRequest$outboundSchema` instead. */
-  export const outboundSchema = GetMasterWorkerEntryRequest$outboundSchema;
-  /** @deprecated use `GetMasterWorkerEntryRequest$Outbound` instead. */
-  export type Outbound = GetMasterWorkerEntryRequest$Outbound;
-}
-
 export function getMasterWorkerEntryRequestToJSON(
   getMasterWorkerEntryRequest: GetMasterWorkerEntryRequest,
 ): string {
@@ -68,16 +46,6 @@ export function getMasterWorkerEntryRequestToJSON(
     GetMasterWorkerEntryRequest$outboundSchema.parse(
       getMasterWorkerEntryRequest,
     ),
-  );
-}
-
-export function getMasterWorkerEntryRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<GetMasterWorkerEntryRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetMasterWorkerEntryRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetMasterWorkerEntryRequest' from JSON`,
   );
 }
 
@@ -90,45 +58,6 @@ export const GetMasterWorkerEntryResponse$inboundSchema: z.ZodType<
   count: z.number().int().optional(),
   items: z.array(z.number()).optional(),
 });
-
-/** @internal */
-export type GetMasterWorkerEntryResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<number> | undefined;
-};
-
-/** @internal */
-export const GetMasterWorkerEntryResponse$outboundSchema: z.ZodType<
-  GetMasterWorkerEntryResponse$Outbound,
-  z.ZodTypeDef,
-  GetMasterWorkerEntryResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(z.number()).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetMasterWorkerEntryResponse$ {
-  /** @deprecated use `GetMasterWorkerEntryResponse$inboundSchema` instead. */
-  export const inboundSchema = GetMasterWorkerEntryResponse$inboundSchema;
-  /** @deprecated use `GetMasterWorkerEntryResponse$outboundSchema` instead. */
-  export const outboundSchema = GetMasterWorkerEntryResponse$outboundSchema;
-  /** @deprecated use `GetMasterWorkerEntryResponse$Outbound` instead. */
-  export type Outbound = GetMasterWorkerEntryResponse$Outbound;
-}
-
-export function getMasterWorkerEntryResponseToJSON(
-  getMasterWorkerEntryResponse: GetMasterWorkerEntryResponse,
-): string {
-  return JSON.stringify(
-    GetMasterWorkerEntryResponse$outboundSchema.parse(
-      getMasterWorkerEntryResponse,
-    ),
-  );
-}
 
 export function getMasterWorkerEntryResponseFromJSON(
   jsonString: string,

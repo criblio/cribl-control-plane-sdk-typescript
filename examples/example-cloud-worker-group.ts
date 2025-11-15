@@ -26,7 +26,7 @@
  * .env file configuration.
  */
 
-import { ConfigGroup } from "../dist/esm/models";
+import { ConfigGroup, GroupCreateRequest } from "../dist/esm/models";
 import { AuthCloud } from "./auth";
 
 const ORG_ID = 'your-org-id';
@@ -68,7 +68,7 @@ async function main() {
   }
 
   // Create the Worker Group
-  await cribl.groups.create({ product: "stream", configGroup: group });
+  await cribl.groups.create({ product: "stream", groupCreateRequest: group as GroupCreateRequest });
   console.log(`✅ Worker Group created: ${group.id}`);
 
   // Scale and provision the Worker Group

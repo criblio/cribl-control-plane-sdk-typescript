@@ -22,8 +22,17 @@ export type OutputCloudwatchType = ClosedEnum<typeof OutputCloudwatchType>;
  * AWS authentication method. Choose Auto to use IAM roles.
  */
 export const OutputCloudwatchAuthenticationMethod = {
+  /**
+   * Auto
+   */
   Auto: "auto",
+  /**
+   * Manual
+   */
   Manual: "manual",
+  /**
+   * Secret Key pair
+   */
   Secret: "secret",
 } as const;
 /**
@@ -37,8 +46,17 @@ export type OutputCloudwatchAuthenticationMethod = OpenEnum<
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputCloudwatchBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -49,10 +67,38 @@ export type OutputCloudwatchBackpressureBehavior = OpenEnum<
 >;
 
 /**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputCloudwatchMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputCloudwatchMode = OpenEnum<typeof OutputCloudwatchMode>;
+
+/**
  * Codec to use to compress the persisted data
  */
 export const OutputCloudwatchCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -66,7 +112,13 @@ export type OutputCloudwatchCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputCloudwatchQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -75,19 +127,6 @@ export const OutputCloudwatchQueueFullBehavior = {
 export type OutputCloudwatchQueueFullBehavior = OpenEnum<
   typeof OutputCloudwatchQueueFullBehavior
 >;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputCloudwatchMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputCloudwatchMode = OpenEnum<typeof OutputCloudwatchMode>;
 
 export type OutputCloudwatchPqControls = {};
 
@@ -181,6 +220,26 @@ export type OutputCloudwatch = {
    */
   awsSecret?: string | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputCloudwatchMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -200,10 +259,6 @@ export type OutputCloudwatch = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputCloudwatchQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputCloudwatchMode | undefined;
   pqControls?: OutputCloudwatchPqControls | undefined;
 };
 
@@ -211,22 +266,10 @@ export type OutputCloudwatch = {
 export const OutputCloudwatchType$inboundSchema: z.ZodNativeEnum<
   typeof OutputCloudwatchType
 > = z.nativeEnum(OutputCloudwatchType);
-
 /** @internal */
 export const OutputCloudwatchType$outboundSchema: z.ZodNativeEnum<
   typeof OutputCloudwatchType
 > = OutputCloudwatchType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCloudwatchType$ {
-  /** @deprecated use `OutputCloudwatchType$inboundSchema` instead. */
-  export const inboundSchema = OutputCloudwatchType$inboundSchema;
-  /** @deprecated use `OutputCloudwatchType$outboundSchema` instead. */
-  export const outboundSchema = OutputCloudwatchType$outboundSchema;
-}
 
 /** @internal */
 export const OutputCloudwatchAuthenticationMethod$inboundSchema: z.ZodType<
@@ -238,7 +281,6 @@ export const OutputCloudwatchAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(OutputCloudwatchAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputCloudwatchAuthenticationMethod$outboundSchema: z.ZodType<
   OutputCloudwatchAuthenticationMethod,
@@ -248,19 +290,6 @@ export const OutputCloudwatchAuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(OutputCloudwatchAuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCloudwatchAuthenticationMethod$ {
-  /** @deprecated use `OutputCloudwatchAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputCloudwatchAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputCloudwatchAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCloudwatchAuthenticationMethod$outboundSchema;
-}
 
 /** @internal */
 export const OutputCloudwatchBackpressureBehavior$inboundSchema: z.ZodType<
@@ -272,7 +301,6 @@ export const OutputCloudwatchBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputCloudwatchBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputCloudwatchBackpressureBehavior$outboundSchema: z.ZodType<
   OutputCloudwatchBackpressureBehavior,
@@ -282,84 +310,6 @@ export const OutputCloudwatchBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputCloudwatchBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCloudwatchBackpressureBehavior$ {
-  /** @deprecated use `OutputCloudwatchBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputCloudwatchBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputCloudwatchBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCloudwatchBackpressureBehavior$outboundSchema;
-}
-
-/** @internal */
-export const OutputCloudwatchCompression$inboundSchema: z.ZodType<
-  OutputCloudwatchCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCloudwatchCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputCloudwatchCompression$outboundSchema: z.ZodType<
-  OutputCloudwatchCompression,
-  z.ZodTypeDef,
-  OutputCloudwatchCompression
-> = z.union([
-  z.nativeEnum(OutputCloudwatchCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCloudwatchCompression$ {
-  /** @deprecated use `OutputCloudwatchCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputCloudwatchCompression$inboundSchema;
-  /** @deprecated use `OutputCloudwatchCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputCloudwatchCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputCloudwatchQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputCloudwatchQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCloudwatchQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputCloudwatchQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputCloudwatchQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputCloudwatchQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputCloudwatchQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCloudwatchQueueFullBehavior$ {
-  /** @deprecated use `OutputCloudwatchQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputCloudwatchQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputCloudwatchQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputCloudwatchQueueFullBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputCloudwatchMode$inboundSchema: z.ZodType<
@@ -371,7 +321,6 @@ export const OutputCloudwatchMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputCloudwatchMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputCloudwatchMode$outboundSchema: z.ZodType<
   OutputCloudwatchMode,
@@ -382,16 +331,45 @@ export const OutputCloudwatchMode$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCloudwatchMode$ {
-  /** @deprecated use `OutputCloudwatchMode$inboundSchema` instead. */
-  export const inboundSchema = OutputCloudwatchMode$inboundSchema;
-  /** @deprecated use `OutputCloudwatchMode$outboundSchema` instead. */
-  export const outboundSchema = OutputCloudwatchMode$outboundSchema;
-}
+/** @internal */
+export const OutputCloudwatchCompression$inboundSchema: z.ZodType<
+  OutputCloudwatchCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputCloudwatchCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputCloudwatchCompression$outboundSchema: z.ZodType<
+  OutputCloudwatchCompression,
+  z.ZodTypeDef,
+  OutputCloudwatchCompression
+> = z.union([
+  z.nativeEnum(OutputCloudwatchCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputCloudwatchQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputCloudwatchQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputCloudwatchQueueFullBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputCloudwatchQueueFullBehavior$outboundSchema: z.ZodType<
+  OutputCloudwatchQueueFullBehavior,
+  z.ZodTypeDef,
+  OutputCloudwatchQueueFullBehavior
+> = z.union([
+  z.nativeEnum(OutputCloudwatchQueueFullBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /** @internal */
 export const OutputCloudwatchPqControls$inboundSchema: z.ZodType<
@@ -399,7 +377,6 @@ export const OutputCloudwatchPqControls$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputCloudwatchPqControls$Outbound = {};
 
@@ -410,19 +387,6 @@ export const OutputCloudwatchPqControls$outboundSchema: z.ZodType<
   OutputCloudwatchPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCloudwatchPqControls$ {
-  /** @deprecated use `OutputCloudwatchPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputCloudwatchPqControls$inboundSchema;
-  /** @deprecated use `OutputCloudwatchPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputCloudwatchPqControls$outboundSchema;
-  /** @deprecated use `OutputCloudwatchPqControls$Outbound` instead. */
-  export type Outbound = OutputCloudwatchPqControls$Outbound;
-}
-
 export function outputCloudwatchPqControlsToJSON(
   outputCloudwatchPqControls: OutputCloudwatchPqControls,
 ): string {
@@ -430,7 +394,6 @@ export function outputCloudwatchPqControlsToJSON(
     OutputCloudwatchPqControls$outboundSchema.parse(outputCloudwatchPqControls),
   );
 }
-
 export function outputCloudwatchPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputCloudwatchPqControls, SDKValidationError> {
@@ -475,6 +438,11 @@ export const OutputCloudwatch$inboundSchema: z.ZodType<
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputCloudwatchMode$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -482,10 +450,8 @@ export const OutputCloudwatch$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputCloudwatchQueueFullBehavior$inboundSchema.default(
     "block",
   ),
-  pqMode: OutputCloudwatchMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputCloudwatchPqControls$inboundSchema).optional(),
 });
-
 /** @internal */
 export type OutputCloudwatch$Outbound = {
   id?: string | undefined;
@@ -513,12 +479,16 @@ export type OutputCloudwatch$Outbound = {
   description?: string | undefined;
   awsApiKey?: string | undefined;
   awsSecret?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
   pqControls?: OutputCloudwatchPqControls$Outbound | undefined;
 };
 
@@ -556,6 +526,11 @@ export const OutputCloudwatch$outboundSchema: z.ZodType<
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputCloudwatchMode$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -563,23 +538,9 @@ export const OutputCloudwatch$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputCloudwatchQueueFullBehavior$outboundSchema.default(
     "block",
   ),
-  pqMode: OutputCloudwatchMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputCloudwatchPqControls$outboundSchema)
     .optional(),
 });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputCloudwatch$ {
-  /** @deprecated use `OutputCloudwatch$inboundSchema` instead. */
-  export const inboundSchema = OutputCloudwatch$inboundSchema;
-  /** @deprecated use `OutputCloudwatch$outboundSchema` instead. */
-  export const outboundSchema = OutputCloudwatch$outboundSchema;
-  /** @deprecated use `OutputCloudwatch$Outbound` instead. */
-  export type Outbound = OutputCloudwatch$Outbound;
-}
 
 export function outputCloudwatchToJSON(
   outputCloudwatch: OutputCloudwatch,
@@ -588,7 +549,6 @@ export function outputCloudwatchToJSON(
     OutputCloudwatch$outboundSchema.parse(outputCloudwatch),
   );
 }
-
 export function outputCloudwatchFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputCloudwatch, SDKValidationError> {

@@ -29,43 +29,6 @@ export const GetVersionBranchResponse$inboundSchema: z.ZodType<
   items: z.array(models.BranchInfo$inboundSchema).optional(),
 });
 
-/** @internal */
-export type GetVersionBranchResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.BranchInfo$Outbound> | undefined;
-};
-
-/** @internal */
-export const GetVersionBranchResponse$outboundSchema: z.ZodType<
-  GetVersionBranchResponse$Outbound,
-  z.ZodTypeDef,
-  GetVersionBranchResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.BranchInfo$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace GetVersionBranchResponse$ {
-  /** @deprecated use `GetVersionBranchResponse$inboundSchema` instead. */
-  export const inboundSchema = GetVersionBranchResponse$inboundSchema;
-  /** @deprecated use `GetVersionBranchResponse$outboundSchema` instead. */
-  export const outboundSchema = GetVersionBranchResponse$outboundSchema;
-  /** @deprecated use `GetVersionBranchResponse$Outbound` instead. */
-  export type Outbound = GetVersionBranchResponse$Outbound;
-}
-
-export function getVersionBranchResponseToJSON(
-  getVersionBranchResponse: GetVersionBranchResponse,
-): string {
-  return JSON.stringify(
-    GetVersionBranchResponse$outboundSchema.parse(getVersionBranchResponse),
-  );
-}
-
 export function getVersionBranchResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<GetVersionBranchResponse, SDKValidationError> {

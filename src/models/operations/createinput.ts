@@ -29,43 +29,6 @@ export const CreateInputResponse$inboundSchema: z.ZodType<
   items: z.array(models.Input$inboundSchema).optional(),
 });
 
-/** @internal */
-export type CreateInputResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.Input$Outbound> | undefined;
-};
-
-/** @internal */
-export const CreateInputResponse$outboundSchema: z.ZodType<
-  CreateInputResponse$Outbound,
-  z.ZodTypeDef,
-  CreateInputResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.Input$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateInputResponse$ {
-  /** @deprecated use `CreateInputResponse$inboundSchema` instead. */
-  export const inboundSchema = CreateInputResponse$inboundSchema;
-  /** @deprecated use `CreateInputResponse$outboundSchema` instead. */
-  export const outboundSchema = CreateInputResponse$outboundSchema;
-  /** @deprecated use `CreateInputResponse$Outbound` instead. */
-  export type Outbound = CreateInputResponse$Outbound;
-}
-
-export function createInputResponseToJSON(
-  createInputResponse: CreateInputResponse,
-): string {
-  return JSON.stringify(
-    CreateInputResponse$outboundSchema.parse(createInputResponse),
-  );
-}
-
 export function createInputResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<CreateInputResponse, SDKValidationError> {

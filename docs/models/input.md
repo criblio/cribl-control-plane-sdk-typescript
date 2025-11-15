@@ -86,7 +86,29 @@ const value: models.InputKafka = {
       maxVersion: "TLSv1.2",
     },
   },
-  sasl: {},
+  sasl: {
+    username: "Seamus67",
+    password: "6PIwQ9BxwvdkIdN",
+    credentialsSecret: "<value>",
+    keytabLocation: "<value>",
+    principal: "<value>",
+    brokerServiceClass: "<value>",
+    tokenUrl: "https://quiet-airmail.org",
+    clientId: "<id>",
+    clientTextSecret: "<value>",
+    oauthParams: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    saslExtensions: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+  },
   tls: {
     servername: "<value>",
     certificateName: "<value>",
@@ -94,18 +116,18 @@ const value: models.InputKafka = {
     privKeyPath: "<value>",
     certPath: "<value>",
     passphrase: "<value>",
-    minVersion: "TLSv1.3",
-    maxVersion: "TLSv1.2",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1",
   },
-  autoCommitInterval: 3310.55,
-  autoCommitThreshold: 1236.53,
+  autoCommitInterval: 3766.44,
+  autoCommitThreshold: 1897.81,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description: "mediocre per ponder ceramic by vice ceramic upset",
+  description: "inasmuch wring trench hmph",
 };
 ```
 
@@ -215,8 +237,6 @@ const value: models.InputHttp = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
     minVersion: "TLSv1.1",
     maxVersion: "TLSv1",
   },
@@ -271,8 +291,6 @@ const value: models.InputSplunk = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
     minVersion: "TLSv1",
     maxVersion: "TLSv1.3",
   },
@@ -419,8 +437,6 @@ const value: models.InputSplunkHec = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
     minVersion: "TLSv1.2",
     maxVersion: "TLSv1.3",
   },
@@ -525,8 +541,6 @@ const value: models.InputElastic = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
     minVersion: "TLSv1.3",
     maxVersion: "TLSv1",
   },
@@ -543,14 +557,19 @@ const value: models.InputElastic = {
     },
   ],
   proxyMode: {
-    url: "https://stale-discourse.name/",
+    username: "Brooks28",
+    password: "5KMRlcpcktj90M0",
+    credentialsSecret: "<value>",
+    url: "https://scientific-pepper.net",
     removeHeaders: [
       "<value 1>",
+      "<value 2>",
+      "<value 3>",
     ],
   },
-  description: "tall well yearly qua coordinated mad wholly outlying ugh pfft",
-  username: "Ayden99",
-  password: "N6vFmVRDEkfXqSU",
+  description: "forenenst ah like definitive awareness carelessly",
+  username: "Davon_Hagenes",
+  password: "6vFmVRDEkfXqSUu",
   credentialsSecret: "<value>",
   authTokens: [
     "<value 1>",
@@ -612,17 +631,38 @@ const value: models.InputConfluentCloud = {
       maxVersion: "TLSv1.2",
     },
   },
-  sasl: {},
-  autoCommitInterval: 4548.16,
-  autoCommitThreshold: 9243.43,
+  sasl: {
+    username: "Jackeline.Romaguera12",
+    password: "smhYGwiSlBMbqj6",
+    credentialsSecret: "<value>",
+    keytabLocation: "<value>",
+    principal: "<value>",
+    brokerServiceClass: "<value>",
+    tokenUrl: "https://wise-vestment.info/",
+    clientId: "<id>",
+    clientTextSecret: "<value>",
+    oauthParams: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    saslExtensions: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+  },
+  autoCommitInterval: 3932.27,
+  autoCommitThreshold: 9711.34,
   metadata: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
-  description:
-    "although obediently soupy why accessorise tune sans aware smuggle",
+  description: "ouch against into boo creative anesthetize roughly",
 };
 ```
 
@@ -662,14 +702,14 @@ const value: models.InputGrafana = {
   port: 9330.93,
   tls: {
     disabled: true,
+    requestCert: false,
+    rejectUnauthorized: true,
+    commonNameRegex: "/.*/",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    requestCert: false,
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
     minVersion: "TLSv1",
     maxVersion: "TLSv1.2",
   },
@@ -776,8 +816,6 @@ const value: models.InputLoki = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
     minVersion: "TLSv1.3",
     maxVersion: "TLSv1",
   },
@@ -839,8 +877,6 @@ const value: models.InputPrometheusRw = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
     minVersion: "TLSv1",
     maxVersion: "TLSv1",
   },
@@ -918,6 +954,8 @@ const value: models.InputPrometheus = {
     "<value 2>",
     "<value 3>",
   ],
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
   searchFilter: [
     {
       name: "<value>",
@@ -976,6 +1014,8 @@ const value: models.InputEdgePrometheus = {
     "<value 1>",
     "<value 2>",
   ],
+  awsApiKey: "<value>",
+  awsSecret: "<value>",
   searchFilter: [
     {
       name: "<value>",
@@ -1178,7 +1218,19 @@ const value: models.InputEventhub = {
     "<value 1>",
   ],
   topics: [],
-  sasl: {},
+  sasl: {
+    password: "ZVoXsr5CskK1lW7",
+    textSecret: "<value>",
+    clientSecret: "<value>",
+    clientTextSecret: "<value>",
+    certificateName: "<value>",
+    certPath: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    clientId: "<id>",
+    tenantId: "<id>",
+    scope: "<value>",
+  },
   tls: {},
   autoCommitInterval: 6010.39,
   autoCommitThreshold: 3174.01,
@@ -1261,8 +1313,6 @@ const value: models.InputFirehose = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
     minVersion: "TLSv1.2",
     maxVersion: "TLSv1.3",
   },
@@ -1372,8 +1422,6 @@ const value: models.InputCriblTcp = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
     minVersion: "TLSv1",
     maxVersion: "TLSv1.1",
   },
@@ -1383,7 +1431,13 @@ const value: models.InputCriblTcp = {
       value: "<value>",
     },
   ],
-  description: "as jovially edge",
+  authTokens: [
+    {
+      tokenSecret: "<value>",
+      description: "as jovially edge",
+    },
+  ],
+  description: "airline enhance reapply needy indeed",
 };
 ```
 
@@ -1411,8 +1465,10 @@ const value: models.InputCriblHttp = {
   },
   port: 3140.1,
   authTokens: [
-    "<value 1>",
-    "<value 2>",
+    {
+      tokenSecret: "<value>",
+      description: "wearily weighty bliss language how",
+    },
   ],
   tls: {
     certificateName: "<value>",
@@ -1420,10 +1476,8 @@ const value: models.InputCriblHttp = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
-    minVersion: "TLSv1",
-    maxVersion: "TLSv1.3",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1",
   },
   metadata: [
     {
@@ -1431,7 +1485,7 @@ const value: models.InputCriblHttp = {
       value: "<value>",
     },
   ],
-  description: "outrank enormously what devoted although thyme roadway woot",
+  description: "thyme roadway woot",
 };
 ```
 
@@ -1466,10 +1520,8 @@ const value: models.InputCriblLakeHttp = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
-    minVersion: "TLSv1.3",
-    maxVersion: "TLSv1.3",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1",
   },
   metadata: [
     {
@@ -1480,8 +1532,7 @@ const value: models.InputCriblLakeHttp = {
   authTokensExt: [
     {
       token: "<value>",
-      description:
-        "even athwart after lively creator apud hold pish whenever woot",
+      description: "swear aw angrily yearningly ferociously vet trusting yum",
       metadata: [
         {
           name: "<value>",
@@ -1492,12 +1543,12 @@ const value: models.InputCriblLakeHttp = {
         enabled: true,
       },
       elasticsearchMetadata: {
-        enabled: true,
+        enabled: false,
       },
     },
   ],
   description:
-    "after whoever castanet gosh bludgeon fabricate gee incidentally",
+    "deceivingly unwilling boohoo guest obnoxiously forenenst blossom satirise before",
 };
 ```
 
@@ -1528,9 +1579,7 @@ const value: models.InputTcpjson = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
-    minVersion: "TLSv1.3",
+    minVersion: "TLSv1",
     maxVersion: "TLSv1.3",
   },
   metadata: [
@@ -1539,7 +1588,8 @@ const value: models.InputTcpjson = {
       value: "<value>",
     },
   ],
-  description: "woot er likewise unlike ravioli whenever",
+  description:
+    "march eek flickering oh although debut needily reluctantly what",
   textSecret: "<value>",
 };
 ```
@@ -1579,16 +1629,13 @@ const value: models.InputSystemMetrics = {
         devices: [
           "<value 1>",
           "<value 2>",
-          "<value 3>",
         ],
         mountpoints: [
           "<value 1>",
-          "<value 2>",
         ],
         fstypes: [
           "<value 1>",
           "<value 2>",
-          "<value 3>",
         ],
       },
     },
@@ -1604,6 +1651,7 @@ const value: models.InputSystemMetrics = {
   container: {
     dockerSocket: [
       "<value 1>",
+      "<value 2>",
     ],
     filters: [
       {
@@ -1618,7 +1666,8 @@ const value: models.InputSystemMetrics = {
     },
   ],
   persistence: {},
-  description: "but greatly see thyme",
+  description:
+    "per airbus supposing joint while apropos powerfully that instantly",
 };
 ```
 
@@ -1925,8 +1974,6 @@ const value: models.InputDatadogAgent = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
     minVersion: "TLSv1.3",
     maxVersion: "TLSv1.1",
   },
@@ -2009,8 +2056,6 @@ const value: models.InputHttpRaw = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
     minVersion: "TLSv1",
     maxVersion: "TLSv1.1",
   },
@@ -2152,8 +2197,6 @@ const value: models.InputMetrics = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
     minVersion: "TLSv1",
     maxVersion: "TLSv1.2",
   },
@@ -2350,8 +2393,6 @@ const value: models.InputOpenTelemetry = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
     minVersion: "TLSv1",
     maxVersion: "TLSv1",
   },
@@ -2416,8 +2457,6 @@ const value: models.InputModelDrivenTelemetry = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
     minVersion: "TLSv1",
     maxVersion: "TLSv1.3",
   },
@@ -2529,14 +2568,14 @@ const value: models.InputSyslog = {
   socketMaxLifespan: 0,
   tls: {
     disabled: true,
+    requestCert: false,
+    rejectUnauthorized: true,
+    commonNameRegex: "/.*/",
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    requestCert: false,
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
     minVersion: "TLSv1.1",
     maxVersion: "TLSv1.1",
   },
@@ -2576,6 +2615,7 @@ const value: models.InputFile = {
   filenames: [
     "<value 1>",
   ],
+  minAgeDur: "<value>",
   maxAgeDur: "<value>",
   metadata: [
     {
@@ -2622,10 +2662,8 @@ const value: models.InputTcp = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
-    minVersion: "TLSv1.3",
-    maxVersion: "TLSv1.2",
+    minVersion: "TLSv1.1",
+    maxVersion: "TLSv1.1",
   },
   metadata: [
     {
@@ -2635,17 +2673,16 @@ const value: models.InputTcp = {
   ],
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
   ],
   preprocess: {
     command: "<value>",
     args: [
       "<value 1>",
       "<value 2>",
-      "<value 3>",
     ],
   },
-  description: "license abseil zowie er insignificant",
+  description: "cheerful daily knowledgeably likewise everlasting",
+  textSecret: "<value>",
 };
 ```
 
@@ -2686,21 +2723,19 @@ const value: models.InputAppscope = {
         config: "<value>",
       },
     ],
-    transportURL: "https://lawful-impact.net",
+    transportURL: "https://muted-disadvantage.org",
   },
   persistence: {},
-  description: "inspection adventurously gnash if scheme ew wrongly",
-  host: "twin-reporter.name",
-  port: 3370.32,
+  description: "extroverted wombat what zowie sup wafer velocity",
+  host: "creative-shark.biz",
+  port: 9808.35,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
-    minVersion: "TLSv1.2",
+    minVersion: "TLSv1.1",
     maxVersion: "TLSv1.3",
   },
   unixSocketPerms: "<value>",
@@ -2866,7 +2901,7 @@ const value: models.InputJournalFiles = {
   rules: [
     {
       filter: "<value>",
-      description: "yahoo uh-huh dirty behind manner",
+      description: "knowingly about scarily leading stealthily strict",
     },
   ],
   maxAgeDur: "<value>",
@@ -2876,7 +2911,7 @@ const value: models.InputJournalFiles = {
       value: "<value>",
     },
   ],
-  description: "honored given shoulder why cheerful",
+  description: "yahoo uh-huh dirty behind manner",
 };
 ```
 
@@ -2912,13 +2947,12 @@ const value: models.InputWiz = {
   ],
   retryRules: {
     codes: [
-      718.38,
-      8167.55,
-      3424.31,
+      5668.03,
+      2663.29,
+      2735.91,
     ],
   },
-  description:
-    "masquerade overcook thump pro towards rawhide aha forearm irritably",
+  description: "psst parsnip schlep cluttered off next",
   clientSecret: "<value>",
   textSecret: "<value>",
 };
@@ -2957,8 +2991,6 @@ const value: models.InputWizWebhook = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
     minVersion: "TLSv1.2",
     maxVersion: "TLSv1.2",
   },
@@ -3136,8 +3168,6 @@ const value: models.InputZscalerHec = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
     minVersion: "TLSv1.2",
     maxVersion: "TLSv1",
   },
@@ -3163,6 +3193,82 @@ const value: models.InputZscalerHec = {
     "<value 3>",
   ],
   description: "about what gallivant",
+};
+```
+
+### `models.InputCloudflareHec`
+
+```typescript
+const value: models.InputCloudflareHec = {
+  id: "<id>",
+  type: "cloudflare_hec",
+  pipeline: "<value>",
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  connections: [
+    {
+      pipeline: "<value>",
+      output: "<value>",
+    },
+  ],
+  pq: {
+    pqControls: {},
+  },
+  port: 7356,
+  authTokens: [
+    {
+      tokenSecret: "<value>",
+      token: "<value>",
+      description: "mobilise vamoose woot",
+      allowedIndexesAtToken: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      metadata: [
+        {
+          name: "<value>",
+          value: "<value>",
+        },
+      ],
+    },
+  ],
+  tls: {
+    certificateName: "<value>",
+    privKeyPath: "<value>",
+    passphrase: "<value>",
+    certPath: "<value>",
+    caPath: "<value>",
+    minVersion: "TLSv1.3",
+    maxVersion: "TLSv1.2",
+  },
+  enableHealthCheck: "<value>",
+  hecAPI: "<value>",
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  allowedIndexes: [
+    "<value 1>",
+  ],
+  breakerRulesets: [
+    "<value 1>",
+  ],
+  accessControlAllowOrigin: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  accessControlAllowHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  description: "cumbersome unwritten while unless right",
 };
 ```
 

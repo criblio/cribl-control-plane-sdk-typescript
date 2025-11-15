@@ -22,12 +22,33 @@ export type OutputDatasetType = ClosedEnum<typeof OutputDatasetType>;
  * Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
  */
 export const OutputDatasetSeverity = {
+  /**
+   * 0 - finest
+   */
   Finest: "finest",
+  /**
+   * 1 - finer
+   */
   Finer: "finer",
+  /**
+   * 2 - fine
+   */
   Fine: "fine",
+  /**
+   * 3 - info
+   */
   Info: "info",
+  /**
+   * 4 - warning
+   */
   Warning: "warning",
+  /**
+   * 5 - error
+   */
   Error: "error",
+  /**
+   * 6 - fatal
+   */
   Fatal: "fatal",
 } as const;
 /**
@@ -74,8 +95,17 @@ export type OutputDatasetTimeoutRetrySettings = {
  * DataSet site to which events should be sent
  */
 export const DataSetSite = {
+  /**
+   * US
+   */
   Us: "us",
+  /**
+   * Europe
+   */
   Eu: "eu",
+  /**
+   * Custom
+   */
   Custom: "custom",
 } as const;
 /**
@@ -92,8 +122,17 @@ export type OutputDatasetExtraHttpHeader = {
  * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
  */
 export const OutputDatasetFailedRequestLoggingMode = {
+  /**
+   * Payload
+   */
   Payload: "payload",
+  /**
+   * Payload + Headers
+   */
   PayloadAndHeaders: "payloadAndHeaders",
+  /**
+   * None
+   */
   None: "none",
 } as const;
 /**
@@ -107,8 +146,17 @@ export type OutputDatasetFailedRequestLoggingMode = OpenEnum<
  * How to handle events when all receivers are exerting backpressure
  */
 export const OutputDatasetBackpressureBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop
+   */
   Drop: "drop",
+  /**
+   * Persistent Queue
+   */
   Queue: "queue",
 } as const;
 /**
@@ -133,10 +181,38 @@ export type OutputDatasetAuthenticationMethod = OpenEnum<
 >;
 
 /**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputDatasetMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputDatasetMode = OpenEnum<typeof OutputDatasetMode>;
+
+/**
  * Codec to use to compress the persisted data
  */
 export const OutputDatasetCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -150,7 +226,13 @@ export type OutputDatasetCompression = OpenEnum<
  * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
  */
 export const OutputDatasetQueueFullBehavior = {
+  /**
+   * Block
+   */
   Block: "block",
+  /**
+   * Drop new data
+   */
   Drop: "drop",
 } as const;
 /**
@@ -159,19 +241,6 @@ export const OutputDatasetQueueFullBehavior = {
 export type OutputDatasetQueueFullBehavior = OpenEnum<
   typeof OutputDatasetQueueFullBehavior
 >;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputDatasetMode = {
-  Error: "error",
-  Backpressure: "backpressure",
-  Always: "always",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputDatasetMode = OpenEnum<typeof OutputDatasetMode>;
 
 export type OutputDatasetPqControls = {};
 
@@ -293,6 +362,26 @@ export type OutputDataset = {
   description?: string | undefined;
   customUrl?: string | undefined;
   /**
+   * Use FIFO (first in, first out) processing. Disable to forward new events to receivers before queue is flushed.
+   */
+  pqStrictOrdering?: boolean | undefined;
+  /**
+   * Throttling rate (in events per second) to impose while writing to Destinations from PQ. Defaults to 0, which disables throttling.
+   */
+  pqRatePerSec?: number | undefined;
+  /**
+   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+   */
+  pqMode?: OutputDatasetMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  pqMaxBufferSize?: number | undefined;
+  /**
+   * How long (in seconds) to wait for backpressure to resolve before engaging the queue
+   */
+  pqMaxBackpressureSec?: number | undefined;
+  /**
    * The maximum size to store in each queue file before closing and optionally compressing (KB, MB, etc.)
    */
   pqMaxFileSize?: string | undefined;
@@ -312,10 +401,6 @@ export type OutputDataset = {
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
   pqOnBackpressure?: OutputDatasetQueueFullBehavior | undefined;
-  /**
-   * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
-   */
-  pqMode?: OutputDatasetMode | undefined;
   pqControls?: OutputDatasetPqControls | undefined;
   /**
    * A 'Log Write Access' API key for the DataSet account
@@ -331,22 +416,10 @@ export type OutputDataset = {
 export const OutputDatasetType$inboundSchema: z.ZodNativeEnum<
   typeof OutputDatasetType
 > = z.nativeEnum(OutputDatasetType);
-
 /** @internal */
 export const OutputDatasetType$outboundSchema: z.ZodNativeEnum<
   typeof OutputDatasetType
 > = OutputDatasetType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatasetType$ {
-  /** @deprecated use `OutputDatasetType$inboundSchema` instead. */
-  export const inboundSchema = OutputDatasetType$inboundSchema;
-  /** @deprecated use `OutputDatasetType$outboundSchema` instead. */
-  export const outboundSchema = OutputDatasetType$outboundSchema;
-}
 
 /** @internal */
 export const OutputDatasetSeverity$inboundSchema: z.ZodType<
@@ -358,7 +431,6 @@ export const OutputDatasetSeverity$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDatasetSeverity),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDatasetSeverity$outboundSchema: z.ZodType<
   OutputDatasetSeverity,
@@ -368,17 +440,6 @@ export const OutputDatasetSeverity$outboundSchema: z.ZodType<
   z.nativeEnum(OutputDatasetSeverity),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatasetSeverity$ {
-  /** @deprecated use `OutputDatasetSeverity$inboundSchema` instead. */
-  export const inboundSchema = OutputDatasetSeverity$inboundSchema;
-  /** @deprecated use `OutputDatasetSeverity$outboundSchema` instead. */
-  export const outboundSchema = OutputDatasetSeverity$outboundSchema;
-}
 
 /** @internal */
 export const OutputDatasetResponseRetrySetting$inboundSchema: z.ZodType<
@@ -391,7 +452,6 @@ export const OutputDatasetResponseRetrySetting$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputDatasetResponseRetrySetting$Outbound = {
   httpStatus: number;
@@ -412,20 +472,6 @@ export const OutputDatasetResponseRetrySetting$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatasetResponseRetrySetting$ {
-  /** @deprecated use `OutputDatasetResponseRetrySetting$inboundSchema` instead. */
-  export const inboundSchema = OutputDatasetResponseRetrySetting$inboundSchema;
-  /** @deprecated use `OutputDatasetResponseRetrySetting$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDatasetResponseRetrySetting$outboundSchema;
-  /** @deprecated use `OutputDatasetResponseRetrySetting$Outbound` instead. */
-  export type Outbound = OutputDatasetResponseRetrySetting$Outbound;
-}
-
 export function outputDatasetResponseRetrySettingToJSON(
   outputDatasetResponseRetrySetting: OutputDatasetResponseRetrySetting,
 ): string {
@@ -435,7 +481,6 @@ export function outputDatasetResponseRetrySettingToJSON(
     ),
   );
 }
-
 export function outputDatasetResponseRetrySettingFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputDatasetResponseRetrySetting, SDKValidationError> {
@@ -457,7 +502,6 @@ export const OutputDatasetTimeoutRetrySettings$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
 });
-
 /** @internal */
 export type OutputDatasetTimeoutRetrySettings$Outbound = {
   timeoutRetry: boolean;
@@ -478,20 +522,6 @@ export const OutputDatasetTimeoutRetrySettings$outboundSchema: z.ZodType<
   maxBackoff: z.number().default(10000),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatasetTimeoutRetrySettings$ {
-  /** @deprecated use `OutputDatasetTimeoutRetrySettings$inboundSchema` instead. */
-  export const inboundSchema = OutputDatasetTimeoutRetrySettings$inboundSchema;
-  /** @deprecated use `OutputDatasetTimeoutRetrySettings$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDatasetTimeoutRetrySettings$outboundSchema;
-  /** @deprecated use `OutputDatasetTimeoutRetrySettings$Outbound` instead. */
-  export type Outbound = OutputDatasetTimeoutRetrySettings$Outbound;
-}
-
 export function outputDatasetTimeoutRetrySettingsToJSON(
   outputDatasetTimeoutRetrySettings: OutputDatasetTimeoutRetrySettings,
 ): string {
@@ -501,7 +531,6 @@ export function outputDatasetTimeoutRetrySettingsToJSON(
     ),
   );
 }
-
 export function outputDatasetTimeoutRetrySettingsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputDatasetTimeoutRetrySettings, SDKValidationError> {
@@ -522,7 +551,6 @@ export const DataSetSite$inboundSchema: z.ZodType<
     z.nativeEnum(DataSetSite),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const DataSetSite$outboundSchema: z.ZodType<
   DataSetSite,
@@ -533,17 +561,6 @@ export const DataSetSite$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DataSetSite$ {
-  /** @deprecated use `DataSetSite$inboundSchema` instead. */
-  export const inboundSchema = DataSetSite$inboundSchema;
-  /** @deprecated use `DataSetSite$outboundSchema` instead. */
-  export const outboundSchema = DataSetSite$outboundSchema;
-}
-
 /** @internal */
 export const OutputDatasetExtraHttpHeader$inboundSchema: z.ZodType<
   OutputDatasetExtraHttpHeader,
@@ -553,7 +570,6 @@ export const OutputDatasetExtraHttpHeader$inboundSchema: z.ZodType<
   name: z.string().optional(),
   value: z.string(),
 });
-
 /** @internal */
 export type OutputDatasetExtraHttpHeader$Outbound = {
   name?: string | undefined;
@@ -570,19 +586,6 @@ export const OutputDatasetExtraHttpHeader$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatasetExtraHttpHeader$ {
-  /** @deprecated use `OutputDatasetExtraHttpHeader$inboundSchema` instead. */
-  export const inboundSchema = OutputDatasetExtraHttpHeader$inboundSchema;
-  /** @deprecated use `OutputDatasetExtraHttpHeader$outboundSchema` instead. */
-  export const outboundSchema = OutputDatasetExtraHttpHeader$outboundSchema;
-  /** @deprecated use `OutputDatasetExtraHttpHeader$Outbound` instead. */
-  export type Outbound = OutputDatasetExtraHttpHeader$Outbound;
-}
-
 export function outputDatasetExtraHttpHeaderToJSON(
   outputDatasetExtraHttpHeader: OutputDatasetExtraHttpHeader,
 ): string {
@@ -592,7 +595,6 @@ export function outputDatasetExtraHttpHeaderToJSON(
     ),
   );
 }
-
 export function outputDatasetExtraHttpHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputDatasetExtraHttpHeader, SDKValidationError> {
@@ -613,7 +615,6 @@ export const OutputDatasetFailedRequestLoggingMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDatasetFailedRequestLoggingMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDatasetFailedRequestLoggingMode$outboundSchema: z.ZodType<
   OutputDatasetFailedRequestLoggingMode,
@@ -623,19 +624,6 @@ export const OutputDatasetFailedRequestLoggingMode$outboundSchema: z.ZodType<
   z.nativeEnum(OutputDatasetFailedRequestLoggingMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatasetFailedRequestLoggingMode$ {
-  /** @deprecated use `OutputDatasetFailedRequestLoggingMode$inboundSchema` instead. */
-  export const inboundSchema =
-    OutputDatasetFailedRequestLoggingMode$inboundSchema;
-  /** @deprecated use `OutputDatasetFailedRequestLoggingMode$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDatasetFailedRequestLoggingMode$outboundSchema;
-}
 
 /** @internal */
 export const OutputDatasetBackpressureBehavior$inboundSchema: z.ZodType<
@@ -647,7 +635,6 @@ export const OutputDatasetBackpressureBehavior$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDatasetBackpressureBehavior),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDatasetBackpressureBehavior$outboundSchema: z.ZodType<
   OutputDatasetBackpressureBehavior,
@@ -657,18 +644,6 @@ export const OutputDatasetBackpressureBehavior$outboundSchema: z.ZodType<
   z.nativeEnum(OutputDatasetBackpressureBehavior),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatasetBackpressureBehavior$ {
-  /** @deprecated use `OutputDatasetBackpressureBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputDatasetBackpressureBehavior$inboundSchema;
-  /** @deprecated use `OutputDatasetBackpressureBehavior$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDatasetBackpressureBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputDatasetAuthenticationMethod$inboundSchema: z.ZodType<
@@ -680,7 +655,6 @@ export const OutputDatasetAuthenticationMethod$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDatasetAuthenticationMethod),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDatasetAuthenticationMethod$outboundSchema: z.ZodType<
   OutputDatasetAuthenticationMethod,
@@ -690,82 +664,6 @@ export const OutputDatasetAuthenticationMethod$outboundSchema: z.ZodType<
   z.nativeEnum(OutputDatasetAuthenticationMethod),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatasetAuthenticationMethod$ {
-  /** @deprecated use `OutputDatasetAuthenticationMethod$inboundSchema` instead. */
-  export const inboundSchema = OutputDatasetAuthenticationMethod$inboundSchema;
-  /** @deprecated use `OutputDatasetAuthenticationMethod$outboundSchema` instead. */
-  export const outboundSchema =
-    OutputDatasetAuthenticationMethod$outboundSchema;
-}
-
-/** @internal */
-export const OutputDatasetCompression$inboundSchema: z.ZodType<
-  OutputDatasetCompression,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatasetCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputDatasetCompression$outboundSchema: z.ZodType<
-  OutputDatasetCompression,
-  z.ZodTypeDef,
-  OutputDatasetCompression
-> = z.union([
-  z.nativeEnum(OutputDatasetCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatasetCompression$ {
-  /** @deprecated use `OutputDatasetCompression$inboundSchema` instead. */
-  export const inboundSchema = OutputDatasetCompression$inboundSchema;
-  /** @deprecated use `OutputDatasetCompression$outboundSchema` instead. */
-  export const outboundSchema = OutputDatasetCompression$outboundSchema;
-}
-
-/** @internal */
-export const OutputDatasetQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputDatasetQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatasetQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
-
-/** @internal */
-export const OutputDatasetQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputDatasetQueueFullBehavior,
-  z.ZodTypeDef,
-  OutputDatasetQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputDatasetQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatasetQueueFullBehavior$ {
-  /** @deprecated use `OutputDatasetQueueFullBehavior$inboundSchema` instead. */
-  export const inboundSchema = OutputDatasetQueueFullBehavior$inboundSchema;
-  /** @deprecated use `OutputDatasetQueueFullBehavior$outboundSchema` instead. */
-  export const outboundSchema = OutputDatasetQueueFullBehavior$outboundSchema;
-}
 
 /** @internal */
 export const OutputDatasetMode$inboundSchema: z.ZodType<
@@ -777,7 +675,6 @@ export const OutputDatasetMode$inboundSchema: z.ZodType<
     z.nativeEnum(OutputDatasetMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const OutputDatasetMode$outboundSchema: z.ZodType<
   OutputDatasetMode,
@@ -788,16 +685,45 @@ export const OutputDatasetMode$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatasetMode$ {
-  /** @deprecated use `OutputDatasetMode$inboundSchema` instead. */
-  export const inboundSchema = OutputDatasetMode$inboundSchema;
-  /** @deprecated use `OutputDatasetMode$outboundSchema` instead. */
-  export const outboundSchema = OutputDatasetMode$outboundSchema;
-}
+/** @internal */
+export const OutputDatasetCompression$inboundSchema: z.ZodType<
+  OutputDatasetCompression,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputDatasetCompression),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputDatasetCompression$outboundSchema: z.ZodType<
+  OutputDatasetCompression,
+  z.ZodTypeDef,
+  OutputDatasetCompression
+> = z.union([
+  z.nativeEnum(OutputDatasetCompression),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
+export const OutputDatasetQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputDatasetQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(OutputDatasetQueueFullBehavior),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const OutputDatasetQueueFullBehavior$outboundSchema: z.ZodType<
+  OutputDatasetQueueFullBehavior,
+  z.ZodTypeDef,
+  OutputDatasetQueueFullBehavior
+> = z.union([
+  z.nativeEnum(OutputDatasetQueueFullBehavior),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
 
 /** @internal */
 export const OutputDatasetPqControls$inboundSchema: z.ZodType<
@@ -805,7 +731,6 @@ export const OutputDatasetPqControls$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type OutputDatasetPqControls$Outbound = {};
 
@@ -816,19 +741,6 @@ export const OutputDatasetPqControls$outboundSchema: z.ZodType<
   OutputDatasetPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDatasetPqControls$ {
-  /** @deprecated use `OutputDatasetPqControls$inboundSchema` instead. */
-  export const inboundSchema = OutputDatasetPqControls$inboundSchema;
-  /** @deprecated use `OutputDatasetPqControls$outboundSchema` instead. */
-  export const outboundSchema = OutputDatasetPqControls$outboundSchema;
-  /** @deprecated use `OutputDatasetPqControls$Outbound` instead. */
-  export type Outbound = OutputDatasetPqControls$Outbound;
-}
-
 export function outputDatasetPqControlsToJSON(
   outputDatasetPqControls: OutputDatasetPqControls,
 ): string {
@@ -836,7 +748,6 @@ export function outputDatasetPqControlsToJSON(
     OutputDatasetPqControls$outboundSchema.parse(outputDatasetPqControls),
   );
 }
-
 export function outputDatasetPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputDatasetPqControls, SDKValidationError> {
@@ -893,6 +804,11 @@ export const OutputDataset$inboundSchema: z.ZodType<
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputDatasetMode$inboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -900,12 +816,10 @@ export const OutputDataset$inboundSchema: z.ZodType<
   pqOnBackpressure: OutputDatasetQueueFullBehavior$inboundSchema.default(
     "block",
   ),
-  pqMode: OutputDatasetMode$inboundSchema.default("error"),
   pqControls: z.lazy(() => OutputDatasetPqControls$inboundSchema).optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
 });
-
 /** @internal */
 export type OutputDataset$Outbound = {
   id?: string | undefined;
@@ -941,12 +855,16 @@ export type OutputDataset$Outbound = {
   totalMemoryLimitKB?: number | undefined;
   description?: string | undefined;
   customUrl?: string | undefined;
+  pqStrictOrdering: boolean;
+  pqRatePerSec: number;
+  pqMode: string;
+  pqMaxBufferSize: number;
+  pqMaxBackpressureSec: number;
   pqMaxFileSize: string;
   pqMaxSize: string;
   pqPath: string;
   pqCompress: string;
   pqOnBackpressure: string;
-  pqMode: string;
   pqControls?: OutputDatasetPqControls$Outbound | undefined;
   apiKey?: string | undefined;
   textSecret?: string | undefined;
@@ -998,6 +916,11 @@ export const OutputDataset$outboundSchema: z.ZodType<
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   customUrl: z.string().optional(),
+  pqStrictOrdering: z.boolean().default(true),
+  pqRatePerSec: z.number().default(0),
+  pqMode: OutputDatasetMode$outboundSchema.default("error"),
+  pqMaxBufferSize: z.number().default(42),
+  pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
@@ -1005,29 +928,14 @@ export const OutputDataset$outboundSchema: z.ZodType<
   pqOnBackpressure: OutputDatasetQueueFullBehavior$outboundSchema.default(
     "block",
   ),
-  pqMode: OutputDatasetMode$outboundSchema.default("error"),
   pqControls: z.lazy(() => OutputDatasetPqControls$outboundSchema).optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace OutputDataset$ {
-  /** @deprecated use `OutputDataset$inboundSchema` instead. */
-  export const inboundSchema = OutputDataset$inboundSchema;
-  /** @deprecated use `OutputDataset$outboundSchema` instead. */
-  export const outboundSchema = OutputDataset$outboundSchema;
-  /** @deprecated use `OutputDataset$Outbound` instead. */
-  export type Outbound = OutputDataset$Outbound;
-}
-
 export function outputDatasetToJSON(outputDataset: OutputDataset): string {
   return JSON.stringify(OutputDataset$outboundSchema.parse(outputDataset));
 }
-
 export function outputDatasetFromJSON(
   jsonString: string,
 ): SafeParseResult<OutputDataset, SDKValidationError> {

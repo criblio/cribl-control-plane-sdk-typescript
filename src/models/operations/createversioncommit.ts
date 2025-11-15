@@ -32,20 +32,6 @@ export type CreateVersionCommitResponse = {
 };
 
 /** @internal */
-export const CreateVersionCommitRequest$inboundSchema: z.ZodType<
-  CreateVersionCommitRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  groupId: z.string().optional(),
-  GitCommitParams: models.GitCommitParams$inboundSchema,
-}).transform((v) => {
-  return remap$(v, {
-    "GitCommitParams": "gitCommitParams",
-  });
-});
-
-/** @internal */
 export type CreateVersionCommitRequest$Outbound = {
   groupId?: string | undefined;
   GitCommitParams: models.GitCommitParams$Outbound;
@@ -65,34 +51,11 @@ export const CreateVersionCommitRequest$outboundSchema: z.ZodType<
   });
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateVersionCommitRequest$ {
-  /** @deprecated use `CreateVersionCommitRequest$inboundSchema` instead. */
-  export const inboundSchema = CreateVersionCommitRequest$inboundSchema;
-  /** @deprecated use `CreateVersionCommitRequest$outboundSchema` instead. */
-  export const outboundSchema = CreateVersionCommitRequest$outboundSchema;
-  /** @deprecated use `CreateVersionCommitRequest$Outbound` instead. */
-  export type Outbound = CreateVersionCommitRequest$Outbound;
-}
-
 export function createVersionCommitRequestToJSON(
   createVersionCommitRequest: CreateVersionCommitRequest,
 ): string {
   return JSON.stringify(
     CreateVersionCommitRequest$outboundSchema.parse(createVersionCommitRequest),
-  );
-}
-
-export function createVersionCommitRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateVersionCommitRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateVersionCommitRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateVersionCommitRequest' from JSON`,
   );
 }
 
@@ -105,45 +68,6 @@ export const CreateVersionCommitResponse$inboundSchema: z.ZodType<
   count: z.number().int().optional(),
   items: z.array(models.GitCommitSummary$inboundSchema).optional(),
 });
-
-/** @internal */
-export type CreateVersionCommitResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.GitCommitSummary$Outbound> | undefined;
-};
-
-/** @internal */
-export const CreateVersionCommitResponse$outboundSchema: z.ZodType<
-  CreateVersionCommitResponse$Outbound,
-  z.ZodTypeDef,
-  CreateVersionCommitResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.GitCommitSummary$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace CreateVersionCommitResponse$ {
-  /** @deprecated use `CreateVersionCommitResponse$inboundSchema` instead. */
-  export const inboundSchema = CreateVersionCommitResponse$inboundSchema;
-  /** @deprecated use `CreateVersionCommitResponse$outboundSchema` instead. */
-  export const outboundSchema = CreateVersionCommitResponse$outboundSchema;
-  /** @deprecated use `CreateVersionCommitResponse$Outbound` instead. */
-  export type Outbound = CreateVersionCommitResponse$Outbound;
-}
-
-export function createVersionCommitResponseToJSON(
-  createVersionCommitResponse: CreateVersionCommitResponse,
-): string {
-  return JSON.stringify(
-    CreateVersionCommitResponse$outboundSchema.parse(
-      createVersionCommitResponse,
-    ),
-  );
-}
 
 export function createVersionCommitResponseFromJSON(
   jsonString: string,

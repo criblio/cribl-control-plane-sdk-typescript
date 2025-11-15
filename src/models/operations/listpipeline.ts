@@ -29,43 +29,6 @@ export const ListPipelineResponse$inboundSchema: z.ZodType<
   items: z.array(models.Pipeline$inboundSchema).optional(),
 });
 
-/** @internal */
-export type ListPipelineResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.Pipeline$Outbound> | undefined;
-};
-
-/** @internal */
-export const ListPipelineResponse$outboundSchema: z.ZodType<
-  ListPipelineResponse$Outbound,
-  z.ZodTypeDef,
-  ListPipelineResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.Pipeline$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace ListPipelineResponse$ {
-  /** @deprecated use `ListPipelineResponse$inboundSchema` instead. */
-  export const inboundSchema = ListPipelineResponse$inboundSchema;
-  /** @deprecated use `ListPipelineResponse$outboundSchema` instead. */
-  export const outboundSchema = ListPipelineResponse$outboundSchema;
-  /** @deprecated use `ListPipelineResponse$Outbound` instead. */
-  export type Outbound = ListPipelineResponse$Outbound;
-}
-
-export function listPipelineResponseToJSON(
-  listPipelineResponse: ListPipelineResponse,
-): string {
-  return JSON.stringify(
-    ListPipelineResponse$outboundSchema.parse(listPipelineResponse),
-  );
-}
-
 export function listPipelineResponseFromJSON(
   jsonString: string,
 ): SafeParseResult<ListPipelineResponse, SDKValidationError> {

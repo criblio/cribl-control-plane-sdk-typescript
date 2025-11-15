@@ -29,7 +29,13 @@ export type InputModelDrivenTelemetryConnection = {
  * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
  */
 export const InputModelDrivenTelemetryMode = {
+  /**
+   * Smart
+   */
   Smart: "smart",
+  /**
+   * Always On
+   */
   Always: "always",
 } as const;
 /**
@@ -43,7 +49,13 @@ export type InputModelDrivenTelemetryMode = OpenEnum<
  * Codec to use to compress the persisted data
  */
 export const InputModelDrivenTelemetryCompression = {
+  /**
+   * None
+   */
   None: "none",
+  /**
+   * Gzip
+   */
   Gzip: "gzip",
 } as const;
 /**
@@ -110,6 +122,18 @@ export type InputModelDrivenTelemetryMaximumTLSVersion = OpenEnum<
 export type InputModelDrivenTelemetryTLSSettingsServerSide = {
   disabled?: boolean | undefined;
   /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
    * The name of the predefined certificate
    */
   certificateName?: string | undefined;
@@ -129,12 +153,6 @@ export type InputModelDrivenTelemetryTLSSettingsServerSide = {
    * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
    */
   caPath?: string | undefined;
-  /**
-   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
-   */
-  requestCert?: boolean | undefined;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
   minVersion?: InputModelDrivenTelemetryMinimumTLSVersion | undefined;
   maxVersion?: InputModelDrivenTelemetryMaximumTLSVersion | undefined;
 };
@@ -207,22 +225,10 @@ export type InputModelDrivenTelemetry = {
 export const InputModelDrivenTelemetryType$inboundSchema: z.ZodNativeEnum<
   typeof InputModelDrivenTelemetryType
 > = z.nativeEnum(InputModelDrivenTelemetryType);
-
 /** @internal */
 export const InputModelDrivenTelemetryType$outboundSchema: z.ZodNativeEnum<
   typeof InputModelDrivenTelemetryType
 > = InputModelDrivenTelemetryType$inboundSchema;
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputModelDrivenTelemetryType$ {
-  /** @deprecated use `InputModelDrivenTelemetryType$inboundSchema` instead. */
-  export const inboundSchema = InputModelDrivenTelemetryType$inboundSchema;
-  /** @deprecated use `InputModelDrivenTelemetryType$outboundSchema` instead. */
-  export const outboundSchema = InputModelDrivenTelemetryType$outboundSchema;
-}
 
 /** @internal */
 export const InputModelDrivenTelemetryConnection$inboundSchema: z.ZodType<
@@ -233,7 +239,6 @@ export const InputModelDrivenTelemetryConnection$inboundSchema: z.ZodType<
   pipeline: z.string().optional(),
   output: z.string(),
 });
-
 /** @internal */
 export type InputModelDrivenTelemetryConnection$Outbound = {
   pipeline?: string | undefined;
@@ -250,21 +255,6 @@ export const InputModelDrivenTelemetryConnection$outboundSchema: z.ZodType<
   output: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputModelDrivenTelemetryConnection$ {
-  /** @deprecated use `InputModelDrivenTelemetryConnection$inboundSchema` instead. */
-  export const inboundSchema =
-    InputModelDrivenTelemetryConnection$inboundSchema;
-  /** @deprecated use `InputModelDrivenTelemetryConnection$outboundSchema` instead. */
-  export const outboundSchema =
-    InputModelDrivenTelemetryConnection$outboundSchema;
-  /** @deprecated use `InputModelDrivenTelemetryConnection$Outbound` instead. */
-  export type Outbound = InputModelDrivenTelemetryConnection$Outbound;
-}
-
 export function inputModelDrivenTelemetryConnectionToJSON(
   inputModelDrivenTelemetryConnection: InputModelDrivenTelemetryConnection,
 ): string {
@@ -274,7 +264,6 @@ export function inputModelDrivenTelemetryConnectionToJSON(
     ),
   );
 }
-
 export function inputModelDrivenTelemetryConnectionFromJSON(
   jsonString: string,
 ): SafeParseResult<InputModelDrivenTelemetryConnection, SDKValidationError> {
@@ -296,7 +285,6 @@ export const InputModelDrivenTelemetryMode$inboundSchema: z.ZodType<
     z.nativeEnum(InputModelDrivenTelemetryMode),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputModelDrivenTelemetryMode$outboundSchema: z.ZodType<
   InputModelDrivenTelemetryMode,
@@ -306,17 +294,6 @@ export const InputModelDrivenTelemetryMode$outboundSchema: z.ZodType<
   z.nativeEnum(InputModelDrivenTelemetryMode),
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputModelDrivenTelemetryMode$ {
-  /** @deprecated use `InputModelDrivenTelemetryMode$inboundSchema` instead. */
-  export const inboundSchema = InputModelDrivenTelemetryMode$inboundSchema;
-  /** @deprecated use `InputModelDrivenTelemetryMode$outboundSchema` instead. */
-  export const outboundSchema = InputModelDrivenTelemetryMode$outboundSchema;
-}
 
 /** @internal */
 export const InputModelDrivenTelemetryCompression$inboundSchema: z.ZodType<
@@ -328,7 +305,6 @@ export const InputModelDrivenTelemetryCompression$inboundSchema: z.ZodType<
     z.nativeEnum(InputModelDrivenTelemetryCompression),
     z.string().transform(catchUnrecognizedEnum),
   ]);
-
 /** @internal */
 export const InputModelDrivenTelemetryCompression$outboundSchema: z.ZodType<
   InputModelDrivenTelemetryCompression,
@@ -339,26 +315,12 @@ export const InputModelDrivenTelemetryCompression$outboundSchema: z.ZodType<
   z.string().and(z.custom<Unrecognized<string>>()),
 ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputModelDrivenTelemetryCompression$ {
-  /** @deprecated use `InputModelDrivenTelemetryCompression$inboundSchema` instead. */
-  export const inboundSchema =
-    InputModelDrivenTelemetryCompression$inboundSchema;
-  /** @deprecated use `InputModelDrivenTelemetryCompression$outboundSchema` instead. */
-  export const outboundSchema =
-    InputModelDrivenTelemetryCompression$outboundSchema;
-}
-
 /** @internal */
 export const InputModelDrivenTelemetryPqControls$inboundSchema: z.ZodType<
   InputModelDrivenTelemetryPqControls,
   z.ZodTypeDef,
   unknown
 > = z.object({});
-
 /** @internal */
 export type InputModelDrivenTelemetryPqControls$Outbound = {};
 
@@ -369,21 +331,6 @@ export const InputModelDrivenTelemetryPqControls$outboundSchema: z.ZodType<
   InputModelDrivenTelemetryPqControls
 > = z.object({});
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputModelDrivenTelemetryPqControls$ {
-  /** @deprecated use `InputModelDrivenTelemetryPqControls$inboundSchema` instead. */
-  export const inboundSchema =
-    InputModelDrivenTelemetryPqControls$inboundSchema;
-  /** @deprecated use `InputModelDrivenTelemetryPqControls$outboundSchema` instead. */
-  export const outboundSchema =
-    InputModelDrivenTelemetryPqControls$outboundSchema;
-  /** @deprecated use `InputModelDrivenTelemetryPqControls$Outbound` instead. */
-  export type Outbound = InputModelDrivenTelemetryPqControls$Outbound;
-}
-
 export function inputModelDrivenTelemetryPqControlsToJSON(
   inputModelDrivenTelemetryPqControls: InputModelDrivenTelemetryPqControls,
 ): string {
@@ -393,7 +340,6 @@ export function inputModelDrivenTelemetryPqControlsToJSON(
     ),
   );
 }
-
 export function inputModelDrivenTelemetryPqControlsFromJSON(
   jsonString: string,
 ): SafeParseResult<InputModelDrivenTelemetryPqControls, SDKValidationError> {
@@ -421,7 +367,6 @@ export const InputModelDrivenTelemetryPq$inboundSchema: z.ZodType<
   pqControls: z.lazy(() => InputModelDrivenTelemetryPqControls$inboundSchema)
     .optional(),
 });
-
 /** @internal */
 export type InputModelDrivenTelemetryPq$Outbound = {
   mode: string;
@@ -451,19 +396,6 @@ export const InputModelDrivenTelemetryPq$outboundSchema: z.ZodType<
     .optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputModelDrivenTelemetryPq$ {
-  /** @deprecated use `InputModelDrivenTelemetryPq$inboundSchema` instead. */
-  export const inboundSchema = InputModelDrivenTelemetryPq$inboundSchema;
-  /** @deprecated use `InputModelDrivenTelemetryPq$outboundSchema` instead. */
-  export const outboundSchema = InputModelDrivenTelemetryPq$outboundSchema;
-  /** @deprecated use `InputModelDrivenTelemetryPq$Outbound` instead. */
-  export type Outbound = InputModelDrivenTelemetryPq$Outbound;
-}
-
 export function inputModelDrivenTelemetryPqToJSON(
   inputModelDrivenTelemetryPq: InputModelDrivenTelemetryPq,
 ): string {
@@ -473,7 +405,6 @@ export function inputModelDrivenTelemetryPqToJSON(
     ),
   );
 }
-
 export function inputModelDrivenTelemetryPqFromJSON(
   jsonString: string,
 ): SafeParseResult<InputModelDrivenTelemetryPq, SDKValidationError> {
@@ -492,7 +423,6 @@ export const InputModelDrivenTelemetryMinimumTLSVersion$inboundSchema:
         z.nativeEnum(InputModelDrivenTelemetryMinimumTLSVersion),
         z.string().transform(catchUnrecognizedEnum),
       ]);
-
 /** @internal */
 export const InputModelDrivenTelemetryMinimumTLSVersion$outboundSchema:
   z.ZodType<
@@ -504,19 +434,6 @@ export const InputModelDrivenTelemetryMinimumTLSVersion$outboundSchema:
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputModelDrivenTelemetryMinimumTLSVersion$ {
-  /** @deprecated use `InputModelDrivenTelemetryMinimumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema =
-    InputModelDrivenTelemetryMinimumTLSVersion$inboundSchema;
-  /** @deprecated use `InputModelDrivenTelemetryMinimumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    InputModelDrivenTelemetryMinimumTLSVersion$outboundSchema;
-}
-
 /** @internal */
 export const InputModelDrivenTelemetryMaximumTLSVersion$inboundSchema:
   z.ZodType<InputModelDrivenTelemetryMaximumTLSVersion, z.ZodTypeDef, unknown> =
@@ -525,7 +442,6 @@ export const InputModelDrivenTelemetryMaximumTLSVersion$inboundSchema:
         z.nativeEnum(InputModelDrivenTelemetryMaximumTLSVersion),
         z.string().transform(catchUnrecognizedEnum),
       ]);
-
 /** @internal */
 export const InputModelDrivenTelemetryMaximumTLSVersion$outboundSchema:
   z.ZodType<
@@ -537,19 +453,6 @@ export const InputModelDrivenTelemetryMaximumTLSVersion$outboundSchema:
     z.string().and(z.custom<Unrecognized<string>>()),
   ]);
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputModelDrivenTelemetryMaximumTLSVersion$ {
-  /** @deprecated use `InputModelDrivenTelemetryMaximumTLSVersion$inboundSchema` instead. */
-  export const inboundSchema =
-    InputModelDrivenTelemetryMaximumTLSVersion$inboundSchema;
-  /** @deprecated use `InputModelDrivenTelemetryMaximumTLSVersion$outboundSchema` instead. */
-  export const outboundSchema =
-    InputModelDrivenTelemetryMaximumTLSVersion$outboundSchema;
-}
-
 /** @internal */
 export const InputModelDrivenTelemetryTLSSettingsServerSide$inboundSchema:
   z.ZodType<
@@ -558,31 +461,30 @@ export const InputModelDrivenTelemetryTLSSettingsServerSide$inboundSchema:
     unknown
   > = z.object({
     disabled: z.boolean().default(true),
+    requestCert: z.boolean().default(false),
+    rejectUnauthorized: z.boolean().default(true),
+    commonNameRegex: z.string().default("/.*/"),
     certificateName: z.string().optional(),
     privKeyPath: z.string().optional(),
     passphrase: z.string().optional(),
     certPath: z.string().optional(),
     caPath: z.string().optional(),
-    requestCert: z.boolean().default(false),
-    rejectUnauthorized: z.any().optional(),
-    commonNameRegex: z.any().optional(),
     minVersion: InputModelDrivenTelemetryMinimumTLSVersion$inboundSchema
       .optional(),
     maxVersion: InputModelDrivenTelemetryMaximumTLSVersion$inboundSchema
       .optional(),
   });
-
 /** @internal */
 export type InputModelDrivenTelemetryTLSSettingsServerSide$Outbound = {
   disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
   certificateName?: string | undefined;
   privKeyPath?: string | undefined;
   passphrase?: string | undefined;
   certPath?: string | undefined;
   caPath?: string | undefined;
-  requestCert: boolean;
-  rejectUnauthorized?: any | undefined;
-  commonNameRegex?: any | undefined;
   minVersion?: string | undefined;
   maxVersion?: string | undefined;
 };
@@ -595,35 +497,19 @@ export const InputModelDrivenTelemetryTLSSettingsServerSide$outboundSchema:
     InputModelDrivenTelemetryTLSSettingsServerSide
   > = z.object({
     disabled: z.boolean().default(true),
+    requestCert: z.boolean().default(false),
+    rejectUnauthorized: z.boolean().default(true),
+    commonNameRegex: z.string().default("/.*/"),
     certificateName: z.string().optional(),
     privKeyPath: z.string().optional(),
     passphrase: z.string().optional(),
     certPath: z.string().optional(),
     caPath: z.string().optional(),
-    requestCert: z.boolean().default(false),
-    rejectUnauthorized: z.any().optional(),
-    commonNameRegex: z.any().optional(),
     minVersion: InputModelDrivenTelemetryMinimumTLSVersion$outboundSchema
       .optional(),
     maxVersion: InputModelDrivenTelemetryMaximumTLSVersion$outboundSchema
       .optional(),
   });
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputModelDrivenTelemetryTLSSettingsServerSide$ {
-  /** @deprecated use `InputModelDrivenTelemetryTLSSettingsServerSide$inboundSchema` instead. */
-  export const inboundSchema =
-    InputModelDrivenTelemetryTLSSettingsServerSide$inboundSchema;
-  /** @deprecated use `InputModelDrivenTelemetryTLSSettingsServerSide$outboundSchema` instead. */
-  export const outboundSchema =
-    InputModelDrivenTelemetryTLSSettingsServerSide$outboundSchema;
-  /** @deprecated use `InputModelDrivenTelemetryTLSSettingsServerSide$Outbound` instead. */
-  export type Outbound =
-    InputModelDrivenTelemetryTLSSettingsServerSide$Outbound;
-}
 
 export function inputModelDrivenTelemetryTLSSettingsServerSideToJSON(
   inputModelDrivenTelemetryTLSSettingsServerSide:
@@ -635,7 +521,6 @@ export function inputModelDrivenTelemetryTLSSettingsServerSideToJSON(
     ),
   );
 }
-
 export function inputModelDrivenTelemetryTLSSettingsServerSideFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -661,7 +546,6 @@ export const InputModelDrivenTelemetryMetadatum$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
-
 /** @internal */
 export type InputModelDrivenTelemetryMetadatum$Outbound = {
   name: string;
@@ -678,20 +562,6 @@ export const InputModelDrivenTelemetryMetadatum$outboundSchema: z.ZodType<
   value: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputModelDrivenTelemetryMetadatum$ {
-  /** @deprecated use `InputModelDrivenTelemetryMetadatum$inboundSchema` instead. */
-  export const inboundSchema = InputModelDrivenTelemetryMetadatum$inboundSchema;
-  /** @deprecated use `InputModelDrivenTelemetryMetadatum$outboundSchema` instead. */
-  export const outboundSchema =
-    InputModelDrivenTelemetryMetadatum$outboundSchema;
-  /** @deprecated use `InputModelDrivenTelemetryMetadatum$Outbound` instead. */
-  export type Outbound = InputModelDrivenTelemetryMetadatum$Outbound;
-}
-
 export function inputModelDrivenTelemetryMetadatumToJSON(
   inputModelDrivenTelemetryMetadatum: InputModelDrivenTelemetryMetadatum,
 ): string {
@@ -701,7 +571,6 @@ export function inputModelDrivenTelemetryMetadatumToJSON(
     ),
   );
 }
-
 export function inputModelDrivenTelemetryMetadatumFromJSON(
   jsonString: string,
 ): SafeParseResult<InputModelDrivenTelemetryMetadatum, SDKValidationError> {
@@ -743,7 +612,6 @@ export const InputModelDrivenTelemetry$inboundSchema: z.ZodType<
   shutdownTimeoutMs: z.number().default(5000),
   description: z.string().optional(),
 });
-
 /** @internal */
 export type InputModelDrivenTelemetry$Outbound = {
   id?: string | undefined;
@@ -796,19 +664,6 @@ export const InputModelDrivenTelemetry$outboundSchema: z.ZodType<
   description: z.string().optional(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace InputModelDrivenTelemetry$ {
-  /** @deprecated use `InputModelDrivenTelemetry$inboundSchema` instead. */
-  export const inboundSchema = InputModelDrivenTelemetry$inboundSchema;
-  /** @deprecated use `InputModelDrivenTelemetry$outboundSchema` instead. */
-  export const outboundSchema = InputModelDrivenTelemetry$outboundSchema;
-  /** @deprecated use `InputModelDrivenTelemetry$Outbound` instead. */
-  export type Outbound = InputModelDrivenTelemetry$Outbound;
-}
-
 export function inputModelDrivenTelemetryToJSON(
   inputModelDrivenTelemetry: InputModelDrivenTelemetry,
 ): string {
@@ -816,7 +671,6 @@ export function inputModelDrivenTelemetryToJSON(
     InputModelDrivenTelemetry$outboundSchema.parse(inputModelDrivenTelemetry),
   );
 }
-
 export function inputModelDrivenTelemetryFromJSON(
   jsonString: string,
 ): SafeParseResult<InputModelDrivenTelemetry, SDKValidationError> {

@@ -29,9 +29,7 @@ let value: InputTcpjson = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    rejectUnauthorized: "<value>",
-    commonNameRegex: "<value>",
-    minVersion: "TLSv1.3",
+    minVersion: "TLSv1",
     maxVersion: "TLSv1.3",
   },
   metadata: [
@@ -40,7 +38,8 @@ let value: InputTcpjson = {
       value: "<value>",
     },
   ],
-  description: "woot er likewise unlike ravioli whenever",
+  description:
+    "march eek flickering oh although debut needily reluctantly what",
   textSecret: "<value>",
 };
 ```

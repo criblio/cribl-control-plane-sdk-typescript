@@ -27,15 +27,6 @@ export type DeletePacksByIdResponse = {
 };
 
 /** @internal */
-export const DeletePacksByIdRequest$inboundSchema: z.ZodType<
-  DeletePacksByIdRequest,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.string(),
-});
-
-/** @internal */
 export type DeletePacksByIdRequest$Outbound = {
   id: string;
 };
@@ -49,34 +40,11 @@ export const DeletePacksByIdRequest$outboundSchema: z.ZodType<
   id: z.string(),
 });
 
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DeletePacksByIdRequest$ {
-  /** @deprecated use `DeletePacksByIdRequest$inboundSchema` instead. */
-  export const inboundSchema = DeletePacksByIdRequest$inboundSchema;
-  /** @deprecated use `DeletePacksByIdRequest$outboundSchema` instead. */
-  export const outboundSchema = DeletePacksByIdRequest$outboundSchema;
-  /** @deprecated use `DeletePacksByIdRequest$Outbound` instead. */
-  export type Outbound = DeletePacksByIdRequest$Outbound;
-}
-
 export function deletePacksByIdRequestToJSON(
   deletePacksByIdRequest: DeletePacksByIdRequest,
 ): string {
   return JSON.stringify(
     DeletePacksByIdRequest$outboundSchema.parse(deletePacksByIdRequest),
-  );
-}
-
-export function deletePacksByIdRequestFromJSON(
-  jsonString: string,
-): SafeParseResult<DeletePacksByIdRequest, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DeletePacksByIdRequest$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DeletePacksByIdRequest' from JSON`,
   );
 }
 
@@ -89,43 +57,6 @@ export const DeletePacksByIdResponse$inboundSchema: z.ZodType<
   count: z.number().int().optional(),
   items: z.array(models.PackInstallInfo$inboundSchema).optional(),
 });
-
-/** @internal */
-export type DeletePacksByIdResponse$Outbound = {
-  count?: number | undefined;
-  items?: Array<models.PackInstallInfo$Outbound> | undefined;
-};
-
-/** @internal */
-export const DeletePacksByIdResponse$outboundSchema: z.ZodType<
-  DeletePacksByIdResponse$Outbound,
-  z.ZodTypeDef,
-  DeletePacksByIdResponse
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.PackInstallInfo$outboundSchema).optional(),
-});
-
-/**
- * @internal
- * @deprecated This namespace will be removed in future versions. Use schemas and types that are exported directly from this module.
- */
-export namespace DeletePacksByIdResponse$ {
-  /** @deprecated use `DeletePacksByIdResponse$inboundSchema` instead. */
-  export const inboundSchema = DeletePacksByIdResponse$inboundSchema;
-  /** @deprecated use `DeletePacksByIdResponse$outboundSchema` instead. */
-  export const outboundSchema = DeletePacksByIdResponse$outboundSchema;
-  /** @deprecated use `DeletePacksByIdResponse$Outbound` instead. */
-  export type Outbound = DeletePacksByIdResponse$Outbound;
-}
-
-export function deletePacksByIdResponseToJSON(
-  deletePacksByIdResponse: DeletePacksByIdResponse,
-): string {
-  return JSON.stringify(
-    DeletePacksByIdResponse$outboundSchema.parse(deletePacksByIdResponse),
-  );
-}
 
 export function deletePacksByIdResponseFromJSON(
   jsonString: string,

@@ -116,44 +116,50 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.groups.create({
     product: "edge",
-    configGroup: {
+    groupCreateRequest: {
       cloud: {
         provider: "aws",
-        region: "<value>",
+        region: "us-west-2",
       },
-      configVersion: "<value>",
-      deployingWorkerCount: 393.49,
-      description: "ack before fondly scent because gee without where exactly",
-      estimatedIngestRate: 346.37,
+      deployingWorkerCount: 5631.58,
+      description: "ack resort boohoo",
+      estimatedIngestRate: 2048,
       git: {
         commit: "<value>",
-        localChanges: 5255.51,
+        localChanges: 2413.01,
         log: [
           {
             authorEmail: "<value>",
             authorName: "<value>",
-            date: "2024-06-13",
+            date: "2024-04-03",
             hash: "<value>",
             message: "<value>",
             short: "<value>",
           },
         ],
       },
-      id: "<id>",
-      incompatibleWorkerCount: 5613.31,
+      id: "goatCloudIanWg",
+      incompatibleWorkerCount: 7174.43,
       inherits: "<value>",
-      isFleet: true,
+      isFleet: false,
       isSearch: false,
       lookupDeployments: [
         {
           context: "<value>",
-          lookups: [],
+          lookups: [
+            {
+              deployedVersion: "<value>",
+              file: "<value>",
+              version: "<value>",
+            },
+          ],
         },
       ],
       maxWorkerAge: "<value>",
-      name: "<value>",
+      name: "goatCloudIanWg",
       onPrem: false,
       provisioned: true,
+      sourceGroupId: "<id>",
       streamtags: [
         "<value 1>",
         "<value 2>",
@@ -162,8 +168,8 @@ async function run() {
       tags: "<value>",
       type: "lake_access",
       upgradeVersion: "<value>",
-      workerCount: 3050.1,
-      workerRemoteAccess: false,
+      workerCount: 4980.41,
+      workerRemoteAccess: true,
     },
   });
 
@@ -193,44 +199,50 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await groupsCreate(criblControlPlane, {
     product: "edge",
-    configGroup: {
+    groupCreateRequest: {
       cloud: {
         provider: "aws",
-        region: "<value>",
+        region: "us-west-2",
       },
-      configVersion: "<value>",
-      deployingWorkerCount: 393.49,
-      description: "ack before fondly scent because gee without where exactly",
-      estimatedIngestRate: 346.37,
+      deployingWorkerCount: 5631.58,
+      description: "ack resort boohoo",
+      estimatedIngestRate: 2048,
       git: {
         commit: "<value>",
-        localChanges: 5255.51,
+        localChanges: 2413.01,
         log: [
           {
             authorEmail: "<value>",
             authorName: "<value>",
-            date: "2024-06-13",
+            date: "2024-04-03",
             hash: "<value>",
             message: "<value>",
             short: "<value>",
           },
         ],
       },
-      id: "<id>",
-      incompatibleWorkerCount: 5613.31,
+      id: "goatCloudIanWg",
+      incompatibleWorkerCount: 7174.43,
       inherits: "<value>",
-      isFleet: true,
+      isFleet: false,
       isSearch: false,
       lookupDeployments: [
         {
           context: "<value>",
-          lookups: [],
+          lookups: [
+            {
+              deployedVersion: "<value>",
+              file: "<value>",
+              version: "<value>",
+            },
+          ],
         },
       ],
       maxWorkerAge: "<value>",
-      name: "<value>",
+      name: "goatCloudIanWg",
       onPrem: false,
       provisioned: true,
+      sourceGroupId: "<id>",
       streamtags: [
         "<value 1>",
         "<value 2>",
@@ -239,8 +251,8 @@ async function run() {
       tags: "<value>",
       type: "lake_access",
       upgradeVersion: "<value>",
-      workerCount: 3050.1,
-      workerRemoteAccess: false,
+      workerCount: 4980.41,
+      workerRemoteAccess: true,
     },
   });
   if (res.ok) {
@@ -382,56 +394,51 @@ async function run() {
     configGroup: {
       cloud: {
         provider: "aws",
-        region: "<value>",
+        region: "us-west-2",
       },
       configVersion: "<value>",
-      deployingWorkerCount: 7451.49,
-      description: "verbally feminize harmful prance really",
-      estimatedIngestRate: 6748.35,
+      deployingWorkerCount: 7786.61,
+      description: "Scaled Worker Group with estimated ingest rate of 4096 (48 MB/s, 21 Worker Processes) for increased capacity",
+      estimatedIngestRate: 4096,
       git: {
         commit: "<value>",
-        localChanges: 4475.22,
+        localChanges: 776.15,
         log: [
           {
             authorEmail: "<value>",
             authorName: "<value>",
-            date: "2024-01-27",
+            date: "2024-09-29",
             hash: "<value>",
             message: "<value>",
             short: "<value>",
           },
         ],
       },
-      id: "<id>",
-      incompatibleWorkerCount: 2043.29,
+      id: "goatCloudIanWg",
+      incompatibleWorkerCount: 2874.65,
       inherits: "<value>",
       isFleet: false,
       isSearch: false,
       lookupDeployments: [
         {
           context: "<value>",
-          lookups: [
-            {
-              deployedVersion: "<value>",
-              file: "<value>",
-              version: "<value>",
-            },
-          ],
+          lookups: [],
         },
       ],
       maxWorkerAge: "<value>",
-      name: "<value>",
+      name: "goatCloudIanWg",
       onPrem: false,
       provisioned: true,
       streamtags: [
         "<value 1>",
         "<value 2>",
+        "<value 3>",
       ],
       tags: "<value>",
       type: "lake_access",
       upgradeVersion: "<value>",
-      workerCount: 1557.82,
-      workerRemoteAccess: false,
+      workerCount: 835.08,
+      workerRemoteAccess: true,
     },
   });
 
@@ -465,56 +472,51 @@ async function run() {
     configGroup: {
       cloud: {
         provider: "aws",
-        region: "<value>",
+        region: "us-west-2",
       },
       configVersion: "<value>",
-      deployingWorkerCount: 7451.49,
-      description: "verbally feminize harmful prance really",
-      estimatedIngestRate: 6748.35,
+      deployingWorkerCount: 7786.61,
+      description: "Scaled Worker Group with estimated ingest rate of 4096 (48 MB/s, 21 Worker Processes) for increased capacity",
+      estimatedIngestRate: 4096,
       git: {
         commit: "<value>",
-        localChanges: 4475.22,
+        localChanges: 776.15,
         log: [
           {
             authorEmail: "<value>",
             authorName: "<value>",
-            date: "2024-01-27",
+            date: "2024-09-29",
             hash: "<value>",
             message: "<value>",
             short: "<value>",
           },
         ],
       },
-      id: "<id>",
-      incompatibleWorkerCount: 2043.29,
+      id: "goatCloudIanWg",
+      incompatibleWorkerCount: 2874.65,
       inherits: "<value>",
       isFleet: false,
       isSearch: false,
       lookupDeployments: [
         {
           context: "<value>",
-          lookups: [
-            {
-              deployedVersion: "<value>",
-              file: "<value>",
-              version: "<value>",
-            },
-          ],
+          lookups: [],
         },
       ],
       maxWorkerAge: "<value>",
-      name: "<value>",
+      name: "goatCloudIanWg",
       onPrem: false,
       provisioned: true,
       streamtags: [
         "<value 1>",
         "<value 2>",
+        "<value 3>",
       ],
       tags: "<value>",
       type: "lake_access",
       upgradeVersion: "<value>",
-      workerCount: 1557.82,
-      workerRemoteAccess: false,
+      workerCount: 835.08,
+      workerRemoteAccess: true,
     },
   });
   if (res.ok) {
