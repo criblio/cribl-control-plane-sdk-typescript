@@ -14,11 +14,11 @@ let value: RunnableJobExecutor = {
   ],
   environment: "<value>",
   schedule: {
-    enabled: true,
+    enabled: false,
     run: {
       type: "collection",
-      earliest: 5516.53,
-      latest: 4479.75,
+      earliest: 3143.53,
+      latest: 995.72,
       timestampTimezone: "<value>",
       timeWarning: {},
     },
