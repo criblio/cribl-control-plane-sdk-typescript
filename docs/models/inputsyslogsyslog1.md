@@ -35,8 +35,8 @@ let value: InputSyslogSyslog1 = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1.1",
-    maxVersion: "TLSv1",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1.2",
   },
   metadata: [
     {
@@ -44,8 +44,8 @@ let value: InputSyslogSyslog1 = {
       value: "<value>",
     },
   ],
-  udpSocketRxBufSize: 5244.25,
-  description: "via as plus publicity aw corny narrow",
+  udpSocketRxBufSize: 7137.89,
+  description: "phew fedora ew round",
   enableEnhancedProxyHeaderParsing: true,
 };
 ```

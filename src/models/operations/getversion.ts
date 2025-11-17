@@ -3,10 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
 
 export type GetVersionRequest = {
   /**
@@ -17,17 +13,6 @@ export type GetVersionRequest = {
    * Maximum number of commits to return in the response for this request.
    */
   count?: number | undefined;
-};
-
-/**
- * a list of GitLogResult objects
- */
-export type GetVersionResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.GitLogResult> | undefined;
 };
 
 /** @internal */
@@ -51,25 +36,5 @@ export function getVersionRequestToJSON(
 ): string {
   return JSON.stringify(
     GetVersionRequest$outboundSchema.parse(getVersionRequest),
-  );
-}
-
-/** @internal */
-export const GetVersionResponse$inboundSchema: z.ZodType<
-  GetVersionResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.GitLogResult$inboundSchema).optional(),
-});
-
-export function getVersionResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<GetVersionResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetVersionResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetVersionResponse' from JSON`,
   );
 }

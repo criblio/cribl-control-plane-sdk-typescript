@@ -10,7 +10,10 @@ let value: HeartbeatMetadata = {
     enabled: false,
     instanceId: "<id>",
     region: "<value>",
-    tags: {},
+    tags: {
+      "key": "<value>",
+      "key1": "<value>",
+    },
     type: "<value>",
     zone: "<value>",
   },
@@ -18,7 +21,6 @@ let value: HeartbeatMetadata = {
     addresses: [
       "<value 1>",
       "<value 2>",
-      "<value 3>",
     ],
     enabled: true,
     id: "<id>",
@@ -36,8 +38,12 @@ let value: HeartbeatMetadata = {
     source: "<value>",
   },
   os: {
-    addresses: [],
-    enabled: true,
+    addresses: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
+    ],
+    enabled: false,
     id: "<id>",
     version: "<value>",
   },
