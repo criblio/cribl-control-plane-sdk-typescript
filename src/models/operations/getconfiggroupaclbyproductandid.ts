@@ -3,9 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type GetConfigGroupAclByProductAndIdRequest = {
@@ -21,17 +18,6 @@ export type GetConfigGroupAclByProductAndIdRequest = {
    * Filter for limiting the response to ACL entries for the specified RBAC resource type.
    */
   type?: models.RbacResource | undefined;
-};
-
-/**
- * a list of UserAccessControlList objects
- */
-export type GetConfigGroupAclByProductAndIdResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.UserAccessControlList> | undefined;
 };
 
 /** @internal */
@@ -60,31 +46,5 @@ export function getConfigGroupAclByProductAndIdRequestToJSON(
     GetConfigGroupAclByProductAndIdRequest$outboundSchema.parse(
       getConfigGroupAclByProductAndIdRequest,
     ),
-  );
-}
-
-/** @internal */
-export const GetConfigGroupAclByProductAndIdResponse$inboundSchema: z.ZodType<
-  GetConfigGroupAclByProductAndIdResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.UserAccessControlList$inboundSchema).optional(),
-});
-
-export function getConfigGroupAclByProductAndIdResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  GetConfigGroupAclByProductAndIdResponse,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      GetConfigGroupAclByProductAndIdResponse$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'GetConfigGroupAclByProductAndIdResponse' from JSON`,
   );
 }

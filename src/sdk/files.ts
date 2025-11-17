@@ -5,6 +5,7 @@
 import { versionsCommitsFilesCount } from "../funcs/versionsCommitsFilesCount.js";
 import { versionsCommitsFilesList } from "../funcs/versionsCommitsFilesList.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
+import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
 import { unwrapAsync } from "../types/fp.js";
 
@@ -18,7 +19,7 @@ export class Files extends ClientSDK {
   async count(
     request?: operations.GetVersionCountRequest | undefined,
     options?: RequestOptions,
-  ): Promise<operations.GetVersionCountResponse> {
+  ): Promise<models.CountedGitCountResult> {
     return unwrapAsync(versionsCommitsFilesCount(
       this,
       request,
@@ -35,7 +36,7 @@ export class Files extends ClientSDK {
   async list(
     request?: operations.GetVersionFilesRequest | undefined,
     options?: RequestOptions,
-  ): Promise<operations.GetVersionFilesResponse> {
+  ): Promise<models.CountedGitFilesResponse> {
     return unwrapAsync(versionsCommitsFilesList(
       this,
       request,

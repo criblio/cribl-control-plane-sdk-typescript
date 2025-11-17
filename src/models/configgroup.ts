@@ -86,6 +86,7 @@ export type ConfigGroupGit = {
 
 export const ConfigGroupType = {
   LakeAccess: "lake_access",
+  Riptide: "riptide",
 } as const;
 export type ConfigGroupType = OpenEnum<typeof ConfigGroupType>;
 

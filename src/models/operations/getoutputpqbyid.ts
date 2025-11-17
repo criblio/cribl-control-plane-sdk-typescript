@@ -3,27 +3,12 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
 
 export type GetOutputPqByIdRequest = {
   /**
    * The <code>id</code> of the Destination to get PQ job information for.
    */
   id: string;
-};
-
-/**
- * a list of JobInfo objects
- */
-export type GetOutputPqByIdResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.JobInfo> | undefined;
 };
 
 /** @internal */
@@ -45,25 +30,5 @@ export function getOutputPqByIdRequestToJSON(
 ): string {
   return JSON.stringify(
     GetOutputPqByIdRequest$outboundSchema.parse(getOutputPqByIdRequest),
-  );
-}
-
-/** @internal */
-export const GetOutputPqByIdResponse$inboundSchema: z.ZodType<
-  GetOutputPqByIdResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.JobInfo$inboundSchema).optional(),
-});
-
-export function getOutputPqByIdResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<GetOutputPqByIdResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetOutputPqByIdResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetOutputPqByIdResponse' from JSON`,
   );
 }

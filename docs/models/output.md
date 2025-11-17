@@ -449,12 +449,11 @@ const value: models.OutputSignalfx = {
   ],
   responseRetrySettings: [
     {
-      httpStatus: 9599.18,
+      httpStatus: 9115.44,
     },
   ],
   timeoutRetrySettings: {},
-  description:
-    "since furthermore zowie rust stable dream an greedily far which",
+  description: "about roughly which promise untidy a jovially",
   token: "<value>",
   textSecret: "<value>",
   pqControls: {},
@@ -1368,16 +1367,17 @@ const value: models.OutputNewrelic = {
   safeHeaders: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   responseRetrySettings: [
     {
-      httpStatus: 2157.83,
+      httpStatus: 1243.99,
     },
   ],
   timeoutRetrySettings: {},
-  totalMemoryLimitKB: 7414.49,
-  description: "dental to despite",
-  customUrl: "https://limping-following.org/",
+  totalMemoryLimitKB: 7293.26,
+  description: "rapidly fooey now mooch superior sleepily boohoo repeatedly",
+  customUrl: "https://dirty-tinderbox.info/",
   pqControls: {},
   apiKey: "<value>",
   textSecret: "<value>",
@@ -2803,11 +2803,11 @@ const value: models.OutputSentinelOneAiSiem = {
   ],
   responseRetrySettings: [
     {
-      httpStatus: 3766.68,
+      httpStatus: 8829.54,
     },
   ],
   timeoutRetrySettings: {},
-  description: "which unselfish how raw congregate drat aw",
+  description: "blissfully mousse sleepily serpentine seriously fluff",
   token: "<value>",
   textSecret: "<value>",
   pqControls: {},

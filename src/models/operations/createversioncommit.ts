@@ -4,9 +4,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type CreateVersionCommitRequest = {
@@ -18,17 +15,6 @@ export type CreateVersionCommitRequest = {
    * GitCommitParams object
    */
   gitCommitParams: models.GitCommitParams;
-};
-
-/**
- * a list of GitCommitSummary objects
- */
-export type CreateVersionCommitResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.GitCommitSummary> | undefined;
 };
 
 /** @internal */
@@ -56,25 +42,5 @@ export function createVersionCommitRequestToJSON(
 ): string {
   return JSON.stringify(
     CreateVersionCommitRequest$outboundSchema.parse(createVersionCommitRequest),
-  );
-}
-
-/** @internal */
-export const CreateVersionCommitResponse$inboundSchema: z.ZodType<
-  CreateVersionCommitResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.GitCommitSummary$inboundSchema).optional(),
-});
-
-export function createVersionCommitResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateVersionCommitResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateVersionCommitResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateVersionCommitResponse' from JSON`,
   );
 }

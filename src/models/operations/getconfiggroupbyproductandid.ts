@@ -3,9 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type GetConfigGroupByProductAndIdRequest = {
@@ -21,17 +18,6 @@ export type GetConfigGroupByProductAndIdRequest = {
    * Comma-separated list of additional properties to include in the response. Available values are <code>git.commit</code>, <code>git.localChanges</code>, and <code>git.log</code>.
    */
   fields?: string | undefined;
-};
-
-/**
- * a list of ConfigGroup objects
- */
-export type GetConfigGroupByProductAndIdResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.ConfigGroup> | undefined;
 };
 
 /** @internal */
@@ -59,26 +45,5 @@ export function getConfigGroupByProductAndIdRequestToJSON(
     GetConfigGroupByProductAndIdRequest$outboundSchema.parse(
       getConfigGroupByProductAndIdRequest,
     ),
-  );
-}
-
-/** @internal */
-export const GetConfigGroupByProductAndIdResponse$inboundSchema: z.ZodType<
-  GetConfigGroupByProductAndIdResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.ConfigGroup$inboundSchema).optional(),
-});
-
-export function getConfigGroupByProductAndIdResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<GetConfigGroupByProductAndIdResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      GetConfigGroupByProductAndIdResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetConfigGroupByProductAndIdResponse' from JSON`,
   );
 }
