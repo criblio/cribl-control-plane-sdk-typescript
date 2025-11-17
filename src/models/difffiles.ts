@@ -22,20 +22,14 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 /**
  * Diff Line
  */
-export type Lines =
-  | (DiffLineDelete & { type: "delete" })
-  | (DiffLineInsert & { type: "insert" })
-  | (DiffLineContext & { type: "context" });
+export type Lines = DiffLineDelete | DiffLineInsert | DiffLineContext;
 
 export type Block = {
   header: string;
   /**
    * Diff Line
    */
-  lines:
-    | (DiffLineDelete & { type: "delete" })
-    | (DiffLineInsert & { type: "insert" })
-    | (DiffLineContext & { type: "context" });
+  lines: DiffLineDelete | DiffLineInsert | DiffLineContext;
   newStartLine: number;
   oldStartLine: number;
   oldStartLine2?: number | undefined;
@@ -74,21 +68,9 @@ export type DiffFiles = {
 /** @internal */
 export const Lines$inboundSchema: z.ZodType<Lines, z.ZodTypeDef, unknown> = z
   .union([
-    DiffLineDelete$inboundSchema.and(
-      z.object({ type: z.literal("delete") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
-    DiffLineInsert$inboundSchema.and(
-      z.object({ type: z.literal("insert") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
-    DiffLineContext$inboundSchema.and(
-      z.object({ type: z.literal("context") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
+    DiffLineDelete$inboundSchema,
+    DiffLineInsert$inboundSchema,
+    DiffLineContext$inboundSchema,
   ]);
 
 export function linesFromJSON(
@@ -106,21 +88,9 @@ export const Block$inboundSchema: z.ZodType<Block, z.ZodTypeDef, unknown> = z
   .object({
     header: z.string(),
     lines: z.union([
-      DiffLineDelete$inboundSchema.and(
-        z.object({ type: z.literal("delete") }).transform((v) => ({
-          type: v.type,
-        })),
-      ),
-      DiffLineInsert$inboundSchema.and(
-        z.object({ type: z.literal("insert") }).transform((v) => ({
-          type: v.type,
-        })),
-      ),
-      DiffLineContext$inboundSchema.and(
-        z.object({ type: z.literal("context") }).transform((v) => ({
-          type: v.type,
-        })),
-      ),
+      DiffLineDelete$inboundSchema,
+      DiffLineInsert$inboundSchema,
+      DiffLineContext$inboundSchema,
     ]),
     newStartLine: z.number(),
     oldStartLine: z.number(),
