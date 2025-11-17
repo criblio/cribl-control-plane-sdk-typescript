@@ -19,17 +19,21 @@ import {
 } from "./difflineinsert.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-/**
- * Diff Line
- */
-export type Lines = DiffLineDelete | DiffLineInsert | DiffLineContext;
+export type Line =
+  | (DiffLineDelete & { type: "delete" })
+  | (DiffLineInsert & { type: "insert" })
+  | (DiffLineContext & { type: "context" });
 
 export type Block = {
   header: string;
   /**
    * Diff Line
    */
-  lines: DiffLineDelete | DiffLineInsert | DiffLineContext;
+  lines: Array<
+    | (DiffLineDelete & { type: "delete" })
+    | (DiffLineInsert & { type: "insert" })
+    | (DiffLineContext & { type: "context" })
+  >;
   newStartLine: number;
   oldStartLine: number;
   oldStartLine2?: number | undefined;
@@ -66,20 +70,32 @@ export type DiffFiles = {
 };
 
 /** @internal */
-export const Lines$inboundSchema: z.ZodType<Lines, z.ZodTypeDef, unknown> = z
+export const Line$inboundSchema: z.ZodType<Line, z.ZodTypeDef, unknown> = z
   .union([
-    DiffLineDelete$inboundSchema,
-    DiffLineInsert$inboundSchema,
-    DiffLineContext$inboundSchema,
+    DiffLineDelete$inboundSchema.and(
+      z.object({ type: z.literal("delete") }).transform((v) => ({
+        type: v.type,
+      })),
+    ),
+    DiffLineInsert$inboundSchema.and(
+      z.object({ type: z.literal("insert") }).transform((v) => ({
+        type: v.type,
+      })),
+    ),
+    DiffLineContext$inboundSchema.and(
+      z.object({ type: z.literal("context") }).transform((v) => ({
+        type: v.type,
+      })),
+    ),
   ]);
 
-export function linesFromJSON(
+export function lineFromJSON(
   jsonString: string,
-): SafeParseResult<Lines, SDKValidationError> {
+): SafeParseResult<Line, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Lines$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Lines' from JSON`,
+    (x) => Line$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Line' from JSON`,
   );
 }
 
@@ -87,11 +103,25 @@ export function linesFromJSON(
 export const Block$inboundSchema: z.ZodType<Block, z.ZodTypeDef, unknown> = z
   .object({
     header: z.string(),
-    lines: z.union([
-      DiffLineDelete$inboundSchema,
-      DiffLineInsert$inboundSchema,
-      DiffLineContext$inboundSchema,
-    ]),
+    lines: z.array(
+      z.union([
+        DiffLineDelete$inboundSchema.and(
+          z.object({ type: z.literal("delete") }).transform((v) => ({
+            type: v.type,
+          })),
+        ),
+        DiffLineInsert$inboundSchema.and(
+          z.object({ type: z.literal("insert") }).transform((v) => ({
+            type: v.type,
+          })),
+        ),
+        DiffLineContext$inboundSchema.and(
+          z.object({ type: z.literal("context") }).transform((v) => ({
+            type: v.type,
+          })),
+        ),
+      ]),
+    ),
     newStartLine: z.number(),
     oldStartLine: z.number(),
     oldStartLine2: z.number().optional(),

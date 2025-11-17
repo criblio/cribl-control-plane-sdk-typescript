@@ -7,15 +7,17 @@ import { Block } from "cribl-control-plane/models";
 
 let value: Block = {
   header: "<value>",
-  lines: {
-    type: "context",
-    newNumber: 5382.09,
-    oldNumber: 7018.18,
-    content: "<value>",
-  },
-  newStartLine: 1288.5,
-  oldStartLine: 3290.46,
-  oldStartLine2: 2532.35,
+  lines: [
+    {
+      type: "insert",
+      newNumber: 7018.18,
+      oldNumber: 3290.46,
+      content: "<value>",
+    },
+  ],
+  newStartLine: 2532.35,
+  oldStartLine: 6383.58,
+  oldStartLine2: 1288.91,
 };
 ```
 
@@ -24,7 +26,7 @@ let value: Block = {
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
 | `header`           | *string*           | :heavy_check_mark: | N/A                |
-| `lines`            | *models.Lines*     | :heavy_check_mark: | Diff Line          |
+| `lines`            | *models.Line*[]    | :heavy_check_mark: | Diff Line          |
 | `newStartLine`     | *number*           | :heavy_check_mark: | N/A                |
 | `oldStartLine`     | *number*           | :heavy_check_mark: | N/A                |
 | `oldStartLine2`    | *number*           | :heavy_minus_sign: | N/A                |
