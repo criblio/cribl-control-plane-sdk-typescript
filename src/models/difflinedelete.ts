@@ -15,7 +15,6 @@ export type DiffLineDeleteType = ClosedEnum<typeof DiffLineDeleteType>;
 
 export type DiffLineDelete = {
   type: DiffLineDeleteType;
-  newNumber: number | null;
   oldNumber: number;
   content: string;
 };
@@ -32,7 +31,6 @@ export const DiffLineDelete$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   type: DiffLineDeleteType$inboundSchema,
-  newNumber: z.nullable(z.number()),
   oldNumber: z.number(),
   content: z.string(),
 });

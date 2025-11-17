@@ -8,8 +8,7 @@
 ```typescript
 const value: models.DiffLineDelete = {
   type: "delete",
-  newNumber: 3856.3,
-  oldNumber: 683.6,
+  oldNumber: 2816.95,
   content: "<value>",
 };
 ```
@@ -20,7 +19,6 @@ const value: models.DiffLineDelete = {
 const value: models.DiffLineInsert = {
   type: "insert",
   newNumber: 8065.35,
-  oldNumber: 7152.88,
   content: "<value>",
 };
 ```

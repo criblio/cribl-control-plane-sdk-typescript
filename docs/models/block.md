@@ -11,13 +11,12 @@ let value: Block = {
     {
       type: "insert",
       newNumber: 7018.18,
-      oldNumber: 3290.46,
       content: "<value>",
     },
   ],
-  newStartLine: 2532.35,
-  oldStartLine: 6383.58,
-  oldStartLine2: 1288.91,
+  newStartLine: 1288.5,
+  oldStartLine: 3290.46,
+  oldStartLine2: 2532.35,
 };
 ```
 

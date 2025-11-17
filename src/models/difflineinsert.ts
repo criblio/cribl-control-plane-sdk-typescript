@@ -16,7 +16,6 @@ export type DiffLineInsertType = ClosedEnum<typeof DiffLineInsertType>;
 export type DiffLineInsert = {
   type: DiffLineInsertType;
   newNumber: number;
-  oldNumber: number | null;
   content: string;
 };
 
@@ -33,7 +32,6 @@ export const DiffLineInsert$inboundSchema: z.ZodType<
 > = z.object({
   type: DiffLineInsertType$inboundSchema,
   newNumber: z.number(),
-  oldNumber: z.nullable(z.number()),
   content: z.string(),
 });
 
