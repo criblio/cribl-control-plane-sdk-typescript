@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: b44e99c2eb3539b14010ab69dff909ec
-  docVersion: 4.16.0-alpha.1763378523045-8f007285
+  docChecksum: 55213576b60f9fb5289d353dfac1068f
+  docVersion: 4.16.0-alpha.1763382029899-b6373218
   speakeasyVersion: 1.650.0
   generationVersion: 2.743.2
-  releaseVersion: 0.3.0-rc.2
-  configChecksum: 65995cdf5c1acdb7da926d39546cc4a8
+  releaseVersion: 0.3.0-rc.3
+  configChecksum: fa659083e7afad213577553de6dfd303
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -3552,4 +3552,7 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes Detected:\n* `criblcontrolplane.versions.commits.diff()`:  `response.items.[].diffJson.[].blocks.[].lines` **Changed** **Breaking** :warning:\n* `criblcontrolplane.versions.commits.get()`:  `response.items.[].diffJson.[].blocks.[].lines` **Changed** **Breaking** :warning:\n* `criblcontrolplane.nodes.list()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.samples.create()`: \n  *  `request.outputTestRequest.events.[].additionalProperties` **Added**\n"
+releaseNotes: |
+  ## Typescript SDK Changes Detected:
+  * `criblcontrolplane.versions.commits.diff()`:  `response.items.[].diffJson.[].blocks.[].lines` **Changed**
+  * `criblcontrolplane.versions.commits.get()`:  `response.items.[].diffJson.[].blocks.[].lines` **Changed**
