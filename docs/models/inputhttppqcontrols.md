@@ -1,11 +1,11 @@
-# PqControlsHTTP
+# InputHttpPqControls
 
 ## Example Usage
 
 ```typescript
-import { PqControlsHTTP } from "cribl-control-plane/models";
+import { InputHttpPqControls } from "cribl-control-plane/models";
 
-let value: PqControlsHTTP = {};
+let value: InputHttpPqControls = {};
 ```
 
 ## Fields

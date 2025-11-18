@@ -1,11 +1,11 @@
-# ConnectionHTTP
+# InputHttpConnection
 
 ## Example Usage
 
 ```typescript
-import { ConnectionHTTP } from "cribl-control-plane/models";
+import { InputHttpConnection } from "cribl-control-plane/models";
 
-let value: ConnectionHTTP = {
+let value: InputHttpConnection = {
   pipeline: "<value>",
   output: "<value>",
 };

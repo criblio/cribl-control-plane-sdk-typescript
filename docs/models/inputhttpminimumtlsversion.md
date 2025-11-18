@@ -1,11 +1,11 @@
-# MinimumTLSVersionHTTP
+# InputHttpMinimumTLSVersion
 
 ## Example Usage
 
 ```typescript
-import { MinimumTLSVersionHTTP } from "cribl-control-plane/models";
+import { InputHttpMinimumTLSVersion } from "cribl-control-plane/models";
 
-let value: MinimumTLSVersionHTTP = "TLSv1.3";
+let value: InputHttpMinimumTLSVersion = "TLSv1.1";
 ```
 
 ## Values

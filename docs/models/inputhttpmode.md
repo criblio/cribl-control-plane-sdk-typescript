@@ -1,13 +1,13 @@
-# ModeHTTP
+# InputHttpMode
 
 With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
 
 ## Example Usage
 
 ```typescript
-import { ModeHTTP } from "cribl-control-plane/models";
+import { InputHttpMode } from "cribl-control-plane/models";
 
-let value: ModeHTTP = "always";
+let value: InputHttpMode = "always";
 ```
 
 ## Values

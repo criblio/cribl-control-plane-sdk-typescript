@@ -1,13 +1,13 @@
-# CompressionHTTP
+# InputHttpCompression
 
 Codec to use to compress the persisted data
 
 ## Example Usage
 
 ```typescript
-import { CompressionHTTP } from "cribl-control-plane/models";
+import { InputHttpCompression } from "cribl-control-plane/models";
 
-let value: CompressionHTTP = "gzip";
+let value: InputHttpCompression = "gzip";
 ```
 
 ## Values

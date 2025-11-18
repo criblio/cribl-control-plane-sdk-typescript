@@ -1,11 +1,11 @@
-# MetadatumHTTP
+# InputHttpAuthTokensExtMetadatum
 
 ## Example Usage
 
 ```typescript
-import { MetadatumHTTP } from "cribl-control-plane/models";
+import { InputHttpAuthTokensExtMetadatum } from "cribl-control-plane/models";
 
-let value: MetadatumHTTP = {
+let value: InputHttpAuthTokensExtMetadatum = {
   name: "<value>",
   value: "<value>",
 };
