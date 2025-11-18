@@ -1,0 +1,19 @@
+# ExtraHttpHeaderWavefront
+
+## Example Usage
+
+```typescript
+import { ExtraHttpHeaderWavefront } from "cribl-control-plane/models";
+
+let value: ExtraHttpHeaderWavefront = {
+  name: "<value>",
+  value: "<value>",
+};
+```
+
+## Fields
+
+| Field              | Type               | Required           | Description        |
+| ------------------ | ------------------ | ------------------ | ------------------ |
+| `name`             | *string*           | :heavy_minus_sign: | N/A                |
+| `value`            | *string*           | :heavy_check_mark: | N/A                |

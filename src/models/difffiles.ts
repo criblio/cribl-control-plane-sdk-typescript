@@ -5,35 +5,29 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  DiffLineContext,
-  DiffLineContext$inboundSchema,
-} from "./difflinecontext.js";
-import {
-  DiffLineDelete,
-  DiffLineDelete$inboundSchema,
-} from "./difflinedelete.js";
-import {
-  DiffLineInsert,
-  DiffLineInsert$inboundSchema,
-} from "./difflineinsert.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type Line =
-  | (DiffLineContext & { type: "context" })
-  | (DiffLineDelete & { type: "delete" })
-  | (DiffLineInsert & { type: "insert" });
+export type Line3 = {
+  content: string;
+  newNumber: number;
+  oldNumber: number;
+};
+
+export type Line2 = {
+  content: string;
+  newNumber: number;
+};
+
+export type Line1 = {
+  content: string;
+  oldNumber: number;
+};
+
+export type LineUnion = Line3 | Line1 | Line2;
 
 export type Block = {
   header: string;
-  /**
-   * Diff Line
-   */
-  lines: Array<
-    | (DiffLineContext & { type: "context" })
-    | (DiffLineDelete & { type: "delete" })
-    | (DiffLineInsert & { type: "insert" })
-  >;
+  lines: Array<Line3 | Line1 | Line2>;
   newStartLine: number;
   oldStartLine: number;
   oldStartLine2?: number | undefined;
@@ -70,32 +64,75 @@ export type DiffFiles = {
 };
 
 /** @internal */
-export const Line$inboundSchema: z.ZodType<Line, z.ZodTypeDef, unknown> = z
-  .union([
-    DiffLineContext$inboundSchema.and(
-      z.object({ type: z.literal("context") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
-    DiffLineDelete$inboundSchema.and(
-      z.object({ type: z.literal("delete") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
-    DiffLineInsert$inboundSchema.and(
-      z.object({ type: z.literal("insert") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
-  ]);
+export const Line3$inboundSchema: z.ZodType<Line3, z.ZodTypeDef, unknown> = z
+  .object({
+    content: z.string(),
+    newNumber: z.number(),
+    oldNumber: z.number(),
+  });
 
-export function lineFromJSON(
+export function line3FromJSON(
   jsonString: string,
-): SafeParseResult<Line, SDKValidationError> {
+): SafeParseResult<Line3, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Line$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Line' from JSON`,
+    (x) => Line3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Line3' from JSON`,
+  );
+}
+
+/** @internal */
+export const Line2$inboundSchema: z.ZodType<Line2, z.ZodTypeDef, unknown> = z
+  .object({
+    content: z.string(),
+    newNumber: z.number(),
+  });
+
+export function line2FromJSON(
+  jsonString: string,
+): SafeParseResult<Line2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Line2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Line2' from JSON`,
+  );
+}
+
+/** @internal */
+export const Line1$inboundSchema: z.ZodType<Line1, z.ZodTypeDef, unknown> = z
+  .object({
+    content: z.string(),
+    oldNumber: z.number(),
+  });
+
+export function line1FromJSON(
+  jsonString: string,
+): SafeParseResult<Line1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Line1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Line1' from JSON`,
+  );
+}
+
+/** @internal */
+export const LineUnion$inboundSchema: z.ZodType<
+  LineUnion,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => Line3$inboundSchema),
+  z.lazy(() => Line1$inboundSchema),
+  z.lazy(() => Line2$inboundSchema),
+]);
+
+export function lineUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<LineUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => LineUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'LineUnion' from JSON`,
   );
 }
 
@@ -105,21 +142,9 @@ export const Block$inboundSchema: z.ZodType<Block, z.ZodTypeDef, unknown> = z
     header: z.string(),
     lines: z.array(
       z.union([
-        DiffLineContext$inboundSchema.and(
-          z.object({ type: z.literal("context") }).transform((v) => ({
-            type: v.type,
-          })),
-        ),
-        DiffLineDelete$inboundSchema.and(
-          z.object({ type: z.literal("delete") }).transform((v) => ({
-            type: v.type,
-          })),
-        ),
-        DiffLineInsert$inboundSchema.and(
-          z.object({ type: z.literal("insert") }).transform((v) => ({
-            type: v.type,
-          })),
-        ),
+        z.lazy(() => Line3$inboundSchema),
+        z.lazy(() => Line1$inboundSchema),
+        z.lazy(() => Line2$inboundSchema),
       ]),
     ),
     newStartLine: z.number(),

@@ -12,7 +12,6 @@ let value: CriblEvent = {
 
 ## Fields
 
-| Field                                 | Type                                  | Required                              | Description                           |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| `raw`                                 | *string*                              | :heavy_check_mark:                    | N/A                                   |
-| `additionalProperties`                | Record<string, Record<string, *any*>> | :heavy_minus_sign:                    | N/A                                   |
+| Field              | Type               | Required           | Description        |
+| ------------------ | ------------------ | ------------------ | ------------------ |
+| `raw`              | *string*           | :heavy_check_mark: | N/A                |

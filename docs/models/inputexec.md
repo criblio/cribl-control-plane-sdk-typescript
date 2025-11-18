@@ -13,7 +13,6 @@ let value: InputExec = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -28,6 +27,7 @@ let value: InputExec = {
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   metadata: [
     {
@@ -35,7 +35,7 @@ let value: InputExec = {
       value: "<value>",
     },
   ],
-  description: "silk or nougat",
+  description: "as amidst stupendous since",
 };
 ```
 
@@ -62,3 +62,4 @@ let value: InputExec = {
 | `description`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `interval`                                                                                                                                                                                                                                   | *number*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Interval between command executions in seconds.                                                                                                                                                                                              |
 | `cronSchedule`                                                                                                                                                                                                                               | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | Cron schedule to execute the command on.                                                                                                                                                                                                     |
+| `additionalProperties`                                                                                                                                                                                                                       | Record<string, *any*>                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |

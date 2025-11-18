@@ -13,7 +13,6 @@ let value: InputSplunkHec = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   connections: [
     {
@@ -24,14 +23,16 @@ let value: InputSplunkHec = {
   pq: {
     pqControls: {},
   },
-  port: 817.1,
+  port: 6090.96,
   authTokens: [
     {
       tokenSecret: "<value>",
       token: "<value>",
-      description: "throbbing sting sore",
+      description: "until beard wise muddy yearn",
       allowedIndexesAtToken: [
         "<value 1>",
+        "<value 2>",
+        "<value 3>",
       ],
       metadata: [
         {
@@ -47,8 +48,8 @@ let value: InputSplunkHec = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1.3",
-    maxVersion: "TLSv1.1",
+    minVersion: "TLSv1.2",
+    maxVersion: "TLSv1",
   },
   enableHealthCheck: "<value>",
   metadata: [
@@ -65,7 +66,6 @@ let value: InputSplunkHec = {
   breakerRulesets: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   accessControlAllowOrigin: [
     "<value 1>",
@@ -76,7 +76,8 @@ let value: InputSplunkHec = {
     "<value 2>",
     "<value 3>",
   ],
-  description: "what mockingly excluding",
+  description:
+    "mature ack rubric airmail defensive before fatal pfft perfectly",
 };
 ```
 
