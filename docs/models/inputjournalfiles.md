@@ -12,6 +12,8 @@ let value: InputJournalFiles = {
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   connections: [
     {
@@ -22,7 +24,7 @@ let value: InputJournalFiles = {
   pq: {
     pqControls: {},
   },
-  path: "/private/var",
+  path: "/etc/namedb",
   journals: [
     "<value 1>",
     "<value 2>",
@@ -30,7 +32,8 @@ let value: InputJournalFiles = {
   rules: [
     {
       filter: "<value>",
-      description: "yahoo uh-huh dirty behind manner",
+      description:
+        "rigidly exactly outside questioningly around aw gleaming boo as oof",
     },
   ],
   maxAgeDur: "<value>",
@@ -40,7 +43,7 @@ let value: InputJournalFiles = {
       value: "<value>",
     },
   ],
-  description: "honored given shoulder why cheerful",
+  description: "eek syringe impeccable whenever extent",
 };
 ```
 
@@ -66,3 +69,4 @@ let value: InputJournalFiles = {
 | `maxAgeDur`                                                                                                                                                                                                                                  | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | The maximum log message age, in duration form (e.g,: 60s, 4h, 3d, 1w).  Default of no value will apply no max age filters.                                                                                                                   |
 | `metadata`                                                                                                                                                                                                                                   | [models.InputJournalFilesMetadatum](../models/inputjournalfilesmetadatum.md)[]                                                                                                                                                               | :heavy_minus_sign:                                                                                                                                                                                                                           | Fields to add to events from this input                                                                                                                                                                                                      |
 | `description`                                                                                                                                                                                                                                | *string*                                                                                                                                                                                                                                     | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
+| `additionalProperties`                                                                                                                                                                                                                       | Record<string, *any*>                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |

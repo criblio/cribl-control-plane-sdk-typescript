@@ -1,0 +1,33 @@
+# TLSSettingsServerSideHTTPRaw
+
+## Example Usage
+
+```typescript
+import { TLSSettingsServerSideHTTPRaw } from "cribl-control-plane/models";
+
+let value: TLSSettingsServerSideHTTPRaw = {
+  certificateName: "<value>",
+  privKeyPath: "<value>",
+  passphrase: "<value>",
+  certPath: "<value>",
+  caPath: "<value>",
+  minVersion: "TLSv1.3",
+  maxVersion: "TLSv1",
+};
+```
+
+## Fields
+
+| Field                                                                                                                 | Type                                                                                                                  | Required                                                                                                              | Description                                                                                                           |
+| --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `disabled`                                                                                                            | *boolean*                                                                                                             | :heavy_minus_sign:                                                                                                    | N/A                                                                                                                   |
+| `requestCert`                                                                                                         | *boolean*                                                                                                             | :heavy_minus_sign:                                                                                                    | Require clients to present their certificates. Used to perform client authentication using SSL certs.                 |
+| `rejectUnauthorized`                                                                                                  | *boolean*                                                                                                             | :heavy_minus_sign:                                                                                                    | Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's) |
+| `commonNameRegex`                                                                                                     | *string*                                                                                                              | :heavy_minus_sign:                                                                                                    | Regex matching allowable common names in peer certificates' subject attribute                                         |
+| `certificateName`                                                                                                     | *string*                                                                                                              | :heavy_minus_sign:                                                                                                    | The name of the predefined certificate                                                                                |
+| `privKeyPath`                                                                                                         | *string*                                                                                                              | :heavy_minus_sign:                                                                                                    | Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.                                |
+| `passphrase`                                                                                                          | *string*                                                                                                              | :heavy_minus_sign:                                                                                                    | Passphrase to use to decrypt private key                                                                              |
+| `certPath`                                                                                                            | *string*                                                                                                              | :heavy_minus_sign:                                                                                                    | Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.                                   |
+| `caPath`                                                                                                              | *string*                                                                                                              | :heavy_minus_sign:                                                                                                    | Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.                                |
+| `minVersion`                                                                                                          | [models.MinimumTLSVersionHTTPRaw](../models/minimumtlsversionhttpraw.md)                                              | :heavy_minus_sign:                                                                                                    | N/A                                                                                                                   |
+| `maxVersion`                                                                                                          | [models.MaximumTLSVersionHTTPRaw](../models/maximumtlsversionhttpraw.md)                                              | :heavy_minus_sign:                                                                                                    | N/A                                                                                                                   |

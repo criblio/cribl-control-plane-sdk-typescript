@@ -12,6 +12,7 @@ let value: InputFile = {
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
   connections: [
     {
@@ -35,11 +36,11 @@ let value: InputFile = {
   ],
   breakerRulesets: [
     "<value 1>",
-    "<value 2>",
   ],
-  description: "completion viability bleak behind shyly plus finally whoa odd",
-  path: "/System",
-  depth: 849.91,
+  description:
+    "stable barring degrease what rapidly incidentally since adaptation",
+  path: "/mnt",
+  depth: 5325.33,
 };
 ```
 
@@ -77,3 +78,4 @@ let value: InputFile = {
 | `suppressMissingPathErrors`                                                                                                                                                                                                                  | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |
 | `deleteFiles`                                                                                                                                                                                                                                | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Delete files after they have been collected                                                                                                                                                                                                  |
 | `includeUnidentifiableBinary`                                                                                                                                                                                                                | *boolean*                                                                                                                                                                                                                                    | :heavy_minus_sign:                                                                                                                                                                                                                           | Stream binary files as Base64-encoded chunks.                                                                                                                                                                                                |
+| `additionalProperties`                                                                                                                                                                                                                       | Record<string, *any*>                                                                                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                                          |

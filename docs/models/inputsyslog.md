@@ -86,8 +86,8 @@ const value: models.InputSyslogSyslog2 = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1.1",
-    maxVersion: "TLSv1.1",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1",
   },
   metadata: [
     {
@@ -95,8 +95,8 @@ const value: models.InputSyslogSyslog2 = {
       value: "<value>",
     },
   ],
-  udpSocketRxBufSize: 181.3,
-  description: "eek roger whoever humidity",
+  udpSocketRxBufSize: 8958.81,
+  description: "likely dish vengeful carnival gah",
   enableEnhancedProxyHeaderParsing: false,
 };
 ```

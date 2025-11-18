@@ -30,9 +30,11 @@ let value: CountedInputSplunkHec = {
         {
           tokenSecret: "<value>",
           token: "<value>",
-          description: "throbbing sting sore",
+          description: "until beard wise muddy yearn",
           allowedIndexesAtToken: [
             "<value 1>",
+            "<value 2>",
+            "<value 3>",
           ],
           metadata: [
             {
@@ -48,8 +50,8 @@ let value: CountedInputSplunkHec = {
         passphrase: "<value>",
         certPath: "<value>",
         caPath: "<value>",
-        minVersion: "TLSv1.3",
-        maxVersion: "TLSv1.1",
+        minVersion: "TLSv1.2",
+        maxVersion: "TLSv1",
       },
       enableHealthCheck: "<value>",
       metadata: [
@@ -61,18 +63,19 @@ let value: CountedInputSplunkHec = {
       allowedIndexes: [
         "<value 1>",
         "<value 2>",
+        "<value 3>",
       ],
       breakerRulesets: [
         "<value 1>",
       ],
       accessControlAllowOrigin: [
         "<value 1>",
-        "<value 2>",
       ],
       accessControlAllowHeaders: [
         "<value 1>",
+        "<value 2>",
       ],
-      description: "for ah forecast unwritten",
+      description: "catalog vice barge spectacles stigmatize gah till second",
     },
   ],
 };

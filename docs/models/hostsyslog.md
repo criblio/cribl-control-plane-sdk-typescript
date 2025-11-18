@@ -1,0 +1,23 @@
+# HostSyslog
+
+## Example Usage
+
+```typescript
+import { HostSyslog } from "cribl-control-plane/models";
+
+let value: HostSyslog = {
+  host: "svelte-pine.biz",
+  port: 8267.07,
+  servername: "<value>",
+};
+```
+
+## Fields
+
+| Field                                                                                                                                                      | Type                                                                                                                                                       | Required                                                                                                                                                   | Description                                                                                                                                                |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `host`                                                                                                                                                     | *string*                                                                                                                                                   | :heavy_check_mark:                                                                                                                                         | The hostname of the receiver                                                                                                                               |
+| `port`                                                                                                                                                     | *number*                                                                                                                                                   | :heavy_check_mark:                                                                                                                                         | The port to connect to on the provided host                                                                                                                |
+| `tls`                                                                                                                                                      | [models.TLSSyslog](../models/tlssyslog.md)                                                                                                                 | :heavy_minus_sign:                                                                                                                                         | Whether to inherit TLS configs from group setting or disable TLS                                                                                           |
+| `servername`                                                                                                                                               | *string*                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                         | Servername to use if establishing a TLS connection. If not specified, defaults to connection host (if not an IP); otherwise, uses the global TLS settings. |
+| `weight`                                                                                                                                                   | *number*                                                                                                                                                   | :heavy_minus_sign:                                                                                                                                         | Assign a weight (>0) to each endpoint to indicate its traffic-handling capability                                                                          |

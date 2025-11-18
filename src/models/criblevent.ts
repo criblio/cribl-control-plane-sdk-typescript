@@ -7,13 +7,11 @@ import { remap as remap$ } from "../lib/primitives.js";
 
 export type CriblEvent = {
   raw: string;
-  additionalProperties?: { [k: string]: { [k: string]: any } } | undefined;
 };
 
 /** @internal */
 export type CriblEvent$Outbound = {
   _raw: string;
-  [additionalProperties: string]: unknown;
 };
 
 /** @internal */
@@ -23,15 +21,10 @@ export const CriblEvent$outboundSchema: z.ZodType<
   CriblEvent
 > = z.object({
   raw: z.string(),
-  additionalProperties: z.record(z.record(z.any())).optional(),
 }).transform((v) => {
-  return {
-    ...v.additionalProperties,
-    ...remap$(v, {
-      raw: "_raw",
-      additionalProperties: null,
-    }),
-  };
+  return remap$(v, {
+    raw: "_raw",
+  });
 });
 
 export function criblEventToJSON(criblEvent: CriblEvent): string {
