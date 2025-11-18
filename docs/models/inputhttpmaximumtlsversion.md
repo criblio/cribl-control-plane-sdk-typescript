@@ -1,11 +1,11 @@
-# MaximumTLSVersionHTTP
+# InputHttpMaximumTLSVersion
 
 ## Example Usage
 
 ```typescript
-import { MaximumTLSVersionHTTP } from "cribl-control-plane/models";
+import { InputHttpMaximumTLSVersion } from "cribl-control-plane/models";
 
-let value: MaximumTLSVersionHTTP = "TLSv1.2";
+let value: InputHttpMaximumTLSVersion = "TLSv1.2";
 ```
 
 ## Values

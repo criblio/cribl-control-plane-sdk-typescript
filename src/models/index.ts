@@ -69,6 +69,7 @@ export * from "./hbleaderinfo.js";
 export * from "./healthserverstatus.js";
 export * from "./heartbeatmetadata.js";
 export * from "./input.js";
+export * from "./inputhttp.js";
 export * from "./inputsplunkhec.js";
 export * from "./jobinfo.js";
 export * from "./jobstatus.js";

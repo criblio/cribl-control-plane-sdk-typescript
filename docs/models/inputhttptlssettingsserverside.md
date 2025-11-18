@@ -1,18 +1,18 @@
-# TLSSettingsServerSideHTTP
+# InputHttpTLSSettingsServerSide
 
 ## Example Usage
 
 ```typescript
-import { TLSSettingsServerSideHTTP } from "cribl-control-plane/models";
+import { InputHttpTLSSettingsServerSide } from "cribl-control-plane/models";
 
-let value: TLSSettingsServerSideHTTP = {
+let value: InputHttpTLSSettingsServerSide = {
   certificateName: "<value>",
   privKeyPath: "<value>",
   passphrase: "<value>",
   certPath: "<value>",
   caPath: "<value>",
-  minVersion: "TLSv1.1",
-  maxVersion: "TLSv1.3",
+  minVersion: "TLSv1.3",
+  maxVersion: "TLSv1.2",
 };
 ```
 
@@ -29,5 +29,5 @@ let value: TLSSettingsServerSideHTTP = {
 | `passphrase`                                                                                                          | *string*                                                                                                              | :heavy_minus_sign:                                                                                                    | Passphrase to use to decrypt private key                                                                              |
 | `certPath`                                                                                                            | *string*                                                                                                              | :heavy_minus_sign:                                                                                                    | Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.                                   |
 | `caPath`                                                                                                              | *string*                                                                                                              | :heavy_minus_sign:                                                                                                    | Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.                                |
-| `minVersion`                                                                                                          | [models.MinimumTLSVersionHTTP](../models/minimumtlsversionhttp.md)                                                    | :heavy_minus_sign:                                                                                                    | N/A                                                                                                                   |
-| `maxVersion`                                                                                                          | [models.MaximumTLSVersionHTTP](../models/maximumtlsversionhttp.md)                                                    | :heavy_minus_sign:                                                                                                    | N/A                                                                                                                   |
+| `minVersion`                                                                                                          | [models.InputHttpMinimumTLSVersion](../models/inputhttpminimumtlsversion.md)                                          | :heavy_minus_sign:                                                                                                    | N/A                                                                                                                   |
+| `maxVersion`                                                                                                          | [models.InputHttpMaximumTLSVersion](../models/inputhttpmaximumtlsversion.md)                                          | :heavy_minus_sign:                                                                                                    | N/A                                                                                                                   |

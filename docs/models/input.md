@@ -211,6 +211,7 @@ const value: models.InputHttp = {
   environment: "<value>",
   streamtags: [
     "<value 1>",
+    "<value 2>",
   ],
   connections: [
     {
@@ -221,10 +222,11 @@ const value: models.InputHttp = {
   pq: {
     pqControls: {},
   },
-  port: 1963.07,
+  port: 1871.53,
   authTokens: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   tls: {
     certificateName: "<value>",
@@ -232,7 +234,7 @@ const value: models.InputHttp = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1",
+    minVersion: "TLSv1.1",
     maxVersion: "TLSv1",
   },
   metadata: [
@@ -244,7 +246,7 @@ const value: models.InputHttp = {
   authTokensExt: [
     {
       token: "<value>",
-      description: "round defrag preregister oddly atomize why more hygienic",
+      description: "confide bulky gadzooks ugh concerning rightfully justly",
       metadata: [
         {
           name: "<value>",
@@ -253,7 +255,7 @@ const value: models.InputHttp = {
       ],
     },
   ],
-  description: "federate gadzooks duh",
+  description: "scorn per tentacle but naturally trim",
 };
 ```
 
