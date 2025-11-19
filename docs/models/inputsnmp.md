@@ -29,6 +29,7 @@ let value: InputSnmp = {
       {
         name: "<value>",
         authKey: "<value>",
+        privKey: "<value>",
       },
     ],
   },

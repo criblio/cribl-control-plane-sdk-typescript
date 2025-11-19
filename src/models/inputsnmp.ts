@@ -125,11 +125,36 @@ export const AuthenticationProtocol = {
 } as const;
 export type AuthenticationProtocol = OpenEnum<typeof AuthenticationProtocol>;
 
+export const PrivacyProtocol = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * DES
+   */
+  Des: "des",
+  /**
+   * AES128
+   */
+  Aes: "aes",
+  /**
+   * AES256b (Blumenthal)
+   */
+  Aes256b: "aes256b",
+  /**
+   * AES256r (Reeder)
+   */
+  Aes256r: "aes256r",
+} as const;
+export type PrivacyProtocol = OpenEnum<typeof PrivacyProtocol>;
+
 export type V3User = {
   name: string;
   authProtocol?: AuthenticationProtocol | undefined;
-  authKey?: any | undefined;
-  privProtocol?: string | undefined;
+  authKey?: string | undefined;
+  privProtocol?: PrivacyProtocol | undefined;
+  privKey?: string | undefined;
 };
 
 /**
@@ -427,19 +452,41 @@ export const AuthenticationProtocol$outboundSchema: z.ZodType<
 ]);
 
 /** @internal */
+export const PrivacyProtocol$inboundSchema: z.ZodType<
+  PrivacyProtocol,
+  z.ZodTypeDef,
+  unknown
+> = z
+  .union([
+    z.nativeEnum(PrivacyProtocol),
+    z.string().transform(catchUnrecognizedEnum),
+  ]);
+/** @internal */
+export const PrivacyProtocol$outboundSchema: z.ZodType<
+  PrivacyProtocol,
+  z.ZodTypeDef,
+  PrivacyProtocol
+> = z.union([
+  z.nativeEnum(PrivacyProtocol),
+  z.string().and(z.custom<Unrecognized<string>>()),
+]);
+
+/** @internal */
 export const V3User$inboundSchema: z.ZodType<V3User, z.ZodTypeDef, unknown> = z
   .object({
     name: z.string(),
     authProtocol: AuthenticationProtocol$inboundSchema.default("none"),
-    authKey: z.any().optional(),
-    privProtocol: z.string().default("none"),
+    authKey: z.string().optional(),
+    privProtocol: PrivacyProtocol$inboundSchema.default("none"),
+    privKey: z.string().optional(),
   });
 /** @internal */
 export type V3User$Outbound = {
   name: string;
   authProtocol: string;
-  authKey?: any | undefined;
+  authKey?: string | undefined;
   privProtocol: string;
+  privKey?: string | undefined;
 };
 
 /** @internal */
@@ -450,8 +497,9 @@ export const V3User$outboundSchema: z.ZodType<
 > = z.object({
   name: z.string(),
   authProtocol: AuthenticationProtocol$outboundSchema.default("none"),
-  authKey: z.any().optional(),
-  privProtocol: z.string().default("none"),
+  authKey: z.string().optional(),
+  privProtocol: PrivacyProtocol$outboundSchema.default("none"),
+  privKey: z.string().optional(),
 });
 
 export function v3UserToJSON(v3User: V3User): string {

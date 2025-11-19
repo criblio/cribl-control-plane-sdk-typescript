@@ -3,9 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type ListConfigGroupByProductRequest = {
@@ -17,17 +14,6 @@ export type ListConfigGroupByProductRequest = {
    * Name of the Cribl product to get the Worker Groups or Edge Fleets for.
    */
   product: models.ProductsCore;
-};
-
-/**
- * a list of ConfigGroup objects
- */
-export type ListConfigGroupByProductResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.ConfigGroup> | undefined;
 };
 
 /** @internal */
@@ -53,25 +39,5 @@ export function listConfigGroupByProductRequestToJSON(
     ListConfigGroupByProductRequest$outboundSchema.parse(
       listConfigGroupByProductRequest,
     ),
-  );
-}
-
-/** @internal */
-export const ListConfigGroupByProductResponse$inboundSchema: z.ZodType<
-  ListConfigGroupByProductResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.ConfigGroup$inboundSchema).optional(),
-});
-
-export function listConfigGroupByProductResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<ListConfigGroupByProductResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ListConfigGroupByProductResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ListConfigGroupByProductResponse' from JSON`,
   );
 }
