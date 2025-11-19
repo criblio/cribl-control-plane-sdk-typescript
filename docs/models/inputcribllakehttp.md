@@ -54,14 +54,21 @@ let value: InputCriblLakeHttp = {
       ],
       splunkHecMetadata: {
         enabled: true,
+        defaultDataset: "<value>",
+        allowedIndexesAtToken: [
+          "<value 1>",
+          "<value 2>",
+          "<value 3>",
+        ],
       },
       elasticsearchMetadata: {
         enabled: false,
+        defaultDataset: "<value>",
       },
     },
   ],
   description:
-    "deceivingly unwilling boohoo guest obnoxiously forenenst blossom satirise before",
+    "beside cute adult obediently consequently westernise by bug wing insidious",
 };
 ```
 

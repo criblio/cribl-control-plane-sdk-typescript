@@ -4,9 +4,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type UpdateOutputByIdRequest = {
@@ -18,17 +15,6 @@ export type UpdateOutputByIdRequest = {
    * Output object
    */
   output: models.Output;
-};
-
-/**
- * a list of Destination objects
- */
-export type UpdateOutputByIdResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.Output> | undefined;
 };
 
 /** @internal */
@@ -56,25 +42,5 @@ export function updateOutputByIdRequestToJSON(
 ): string {
   return JSON.stringify(
     UpdateOutputByIdRequest$outboundSchema.parse(updateOutputByIdRequest),
-  );
-}
-
-/** @internal */
-export const UpdateOutputByIdResponse$inboundSchema: z.ZodType<
-  UpdateOutputByIdResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.Output$inboundSchema).optional(),
-});
-
-export function updateOutputByIdResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<UpdateOutputByIdResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UpdateOutputByIdResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UpdateOutputByIdResponse' from JSON`,
   );
 }
