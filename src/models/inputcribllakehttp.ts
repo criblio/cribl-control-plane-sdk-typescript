@@ -171,10 +171,13 @@ export type InputCriblLakeHttpAuthTokensExtMetadatum = {
 
 export type SplunkHecMetadata = {
   enabled?: boolean | undefined;
+  defaultDataset?: string | undefined;
+  allowedIndexesAtToken?: Array<string> | undefined;
 };
 
 export type ElasticsearchMetadata = {
   enabled?: boolean | undefined;
+  defaultDataset?: string | undefined;
 };
 
 export type InputCriblLakeHttpAuthTokensExt = {
@@ -708,10 +711,14 @@ export const SplunkHecMetadata$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   enabled: z.boolean().optional(),
+  defaultDataset: z.string().optional(),
+  allowedIndexesAtToken: z.array(z.string()).optional(),
 });
 /** @internal */
 export type SplunkHecMetadata$Outbound = {
   enabled?: boolean | undefined;
+  defaultDataset?: string | undefined;
+  allowedIndexesAtToken?: Array<string> | undefined;
 };
 
 /** @internal */
@@ -721,6 +728,8 @@ export const SplunkHecMetadata$outboundSchema: z.ZodType<
   SplunkHecMetadata
 > = z.object({
   enabled: z.boolean().optional(),
+  defaultDataset: z.string().optional(),
+  allowedIndexesAtToken: z.array(z.string()).optional(),
 });
 
 export function splunkHecMetadataToJSON(
@@ -747,10 +756,12 @@ export const ElasticsearchMetadata$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   enabled: z.boolean().optional(),
+  defaultDataset: z.string().optional(),
 });
 /** @internal */
 export type ElasticsearchMetadata$Outbound = {
   enabled?: boolean | undefined;
+  defaultDataset?: string | undefined;
 };
 
 /** @internal */
@@ -760,6 +771,7 @@ export const ElasticsearchMetadata$outboundSchema: z.ZodType<
   ElasticsearchMetadata
 > = z.object({
   enabled: z.boolean().optional(),
+  defaultDataset: z.string().optional(),
 });
 
 export function elasticsearchMetadataToJSON(

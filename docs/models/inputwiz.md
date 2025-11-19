@@ -34,12 +34,11 @@ let value: InputWiz = {
   ],
   retryRules: {
     codes: [
-      5668.03,
-      2663.29,
-      2735.91,
+      1412.18,
     ],
   },
-  description: "psst parsnip schlep cluttered off next",
+  description:
+    "masquerade overcook thump pro towards rawhide aha forearm irritably",
   clientSecret: "<value>",
   textSecret: "<value>",
 };

@@ -210,6 +210,17 @@ export type SubscriptionMetadatum = {
   value: string;
 };
 
+export type Query = {
+  /**
+   * The Path attribute from the relevant XML Select element
+   */
+  path: string;
+  /**
+   * The XPath query inside the relevant XML Select element
+   */
+  queryExpression: string;
+};
+
 export type Subscription = {
   subscriptionName: string;
   /**
@@ -253,6 +264,11 @@ export type Subscription = {
    * Fields to add to events ingested under this subscription
    */
   metadata?: Array<SubscriptionMetadatum> | undefined;
+  queries?: Array<Query> | undefined;
+  /**
+   * The XPath query to use for selecting events
+   */
+  xmlQuery?: string | undefined;
 };
 
 export type InputWefMetadatum = {
@@ -773,6 +789,41 @@ export function subscriptionMetadatumFromJSON(
 }
 
 /** @internal */
+export const Query$inboundSchema: z.ZodType<Query, z.ZodTypeDef, unknown> = z
+  .object({
+    path: z.string(),
+    queryExpression: z.string(),
+  });
+/** @internal */
+export type Query$Outbound = {
+  path: string;
+  queryExpression: string;
+};
+
+/** @internal */
+export const Query$outboundSchema: z.ZodType<
+  Query$Outbound,
+  z.ZodTypeDef,
+  Query
+> = z.object({
+  path: z.string(),
+  queryExpression: z.string(),
+});
+
+export function queryToJSON(query: Query): string {
+  return JSON.stringify(Query$outboundSchema.parse(query));
+}
+export function queryFromJSON(
+  jsonString: string,
+): SafeParseResult<Query, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Query$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Query' from JSON`,
+  );
+}
+
+/** @internal */
 export const Subscription$inboundSchema: z.ZodType<
   Subscription,
   z.ZodTypeDef,
@@ -791,6 +842,8 @@ export const Subscription$inboundSchema: z.ZodType<
   querySelector: QueryBuilderMode$inboundSchema.default("simple"),
   metadata: z.array(z.lazy(() => SubscriptionMetadatum$inboundSchema))
     .optional(),
+  queries: z.array(z.lazy(() => Query$inboundSchema)).optional(),
+  xmlQuery: z.string().optional(),
 });
 /** @internal */
 export type Subscription$Outbound = {
@@ -806,6 +859,8 @@ export type Subscription$Outbound = {
   locale: string;
   querySelector: string;
   metadata?: Array<SubscriptionMetadatum$Outbound> | undefined;
+  queries?: Array<Query$Outbound> | undefined;
+  xmlQuery?: string | undefined;
 };
 
 /** @internal */
@@ -827,6 +882,8 @@ export const Subscription$outboundSchema: z.ZodType<
   querySelector: QueryBuilderMode$outboundSchema.default("simple"),
   metadata: z.array(z.lazy(() => SubscriptionMetadatum$outboundSchema))
     .optional(),
+  queries: z.array(z.lazy(() => Query$outboundSchema)).optional(),
+  xmlQuery: z.string().optional(),
 });
 
 export function subscriptionToJSON(subscription: Subscription): string {

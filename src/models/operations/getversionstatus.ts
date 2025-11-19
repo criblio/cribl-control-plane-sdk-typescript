@@ -3,27 +3,12 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
 
 export type GetVersionStatusRequest = {
   /**
    * The <code>id</code> of the Worker Group or Edge Fleet to get the status for.
    */
   groupId?: string | undefined;
-};
-
-/**
- * a list of GitStatusResult objects
- */
-export type GetVersionStatusResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.GitStatusResult> | undefined;
 };
 
 /** @internal */
@@ -45,25 +30,5 @@ export function getVersionStatusRequestToJSON(
 ): string {
   return JSON.stringify(
     GetVersionStatusRequest$outboundSchema.parse(getVersionStatusRequest),
-  );
-}
-
-/** @internal */
-export const GetVersionStatusResponse$inboundSchema: z.ZodType<
-  GetVersionStatusResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.GitStatusResult$inboundSchema).optional(),
-});
-
-export function getVersionStatusResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<GetVersionStatusResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetVersionStatusResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetVersionStatusResponse' from JSON`,
   );
 }

@@ -78,7 +78,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.ListRoutesResponse](../../models/operations/listroutesresponse.md)\>**
+**Promise\<[models.CountedRoutes](../../models/countedroutes.md)\>**
 
 ### Errors
 
@@ -158,7 +158,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetRoutesByIdResponse](../../models/operations/getroutesbyidresponse.md)\>**
+**Promise\<[models.CountedRoutes](../../models/countedroutes.md)\>**
 
 ### Errors
 
@@ -270,7 +270,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.UpdateRoutesByIdResponse](../../models/operations/updateroutesbyidresponse.md)\>**
+**Promise\<[models.CountedRoutes](../../models/countedroutes.md)\>**
 
 ### Errors
 
@@ -352,7 +352,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateRoutesAppendByIdResponse](../../models/operations/createroutesappendbyidresponse.md)\>**
+**Promise\<[models.CountedRoutes](../../models/countedroutes.md)\>**
 
 ### Errors
 
