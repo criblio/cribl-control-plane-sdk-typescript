@@ -53,7 +53,7 @@ jobs:
           # Find the latest official (non-rc) version tag
           # Extract all version tags (with or without 'v' prefix), exclude rc tags, sort semver-style
           LATEST_OFFICIAL=$(git ls-remote --tags --refs origin | awk '{print $2}' | sed 's|refs/tags/||' | sed 's|^v||' \
-            | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' || true | sort -t. -k1,1n -k2,2n -k3,3n | tail -n 1 || true)
+            | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' || true | sort -V | tail -n 1 || true)
 
           if [[ -z "${LATEST_OFFICIAL}" ]]; then
             echo "Error: No official version tags found. Cannot compute prerelease version."
