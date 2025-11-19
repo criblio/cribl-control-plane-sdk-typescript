@@ -5,7 +5,9 @@
 ```typescript
 import { OutputSplunkLbAuthToken } from "cribl-control-plane/models";
 
-let value: OutputSplunkLbAuthToken = {};
+let value: OutputSplunkLbAuthToken = {
+  textSecret: "<value>",
+};
 ```
 
 ## Fields
@@ -13,3 +15,5 @@ let value: OutputSplunkLbAuthToken = {};
 | Field                                                                                                                            | Type                                                                                                                             | Required                                                                                                                         | Description                                                                                                                      |
 | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | `authType`                                                                                                                       | [models.IndexerDiscoveryConfigsAuthTokenAuthenticationMethod](../models/indexerdiscoveryconfigsauthtokenauthenticationmethod.md) | :heavy_minus_sign:                                                                                                               | Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate                             |
+| `authToken`                                                                                                                      | *string*                                                                                                                         | :heavy_minus_sign:                                                                                                               | Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.              |
+| `textSecret`                                                                                                                     | *string*                                                                                                                         | :heavy_minus_sign:                                                                                                               | Select or create a stored text secret                                                                                            |

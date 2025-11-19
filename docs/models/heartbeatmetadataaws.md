@@ -9,7 +9,9 @@ let value: HeartbeatMetadataAws = {
   enabled: false,
   instanceId: "<id>",
   region: "<value>",
-  tags: {},
+  tags: {
+    "key": "<value>",
+  },
   type: "<value>",
   zone: "<value>",
 };
@@ -17,11 +19,11 @@ let value: HeartbeatMetadataAws = {
 
 ## Fields
 
-| Field                                                              | Type                                                               | Required                                                           | Description                                                        |
-| ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
-| `enabled`                                                          | *boolean*                                                          | :heavy_check_mark:                                                 | N/A                                                                |
-| `instanceId`                                                       | *string*                                                           | :heavy_check_mark:                                                 | N/A                                                                |
-| `region`                                                           | *string*                                                           | :heavy_check_mark:                                                 | N/A                                                                |
-| `tags`                                                             | [models.HeartbeatMetadataTags](../models/heartbeatmetadatatags.md) | :heavy_minus_sign:                                                 | N/A                                                                |
-| `type`                                                             | *string*                                                           | :heavy_check_mark:                                                 | N/A                                                                |
-| `zone`                                                             | *string*                                                           | :heavy_check_mark:                                                 | N/A                                                                |
+| Field                    | Type                     | Required                 | Description              |
+| ------------------------ | ------------------------ | ------------------------ | ------------------------ |
+| `enabled`                | *boolean*                | :heavy_check_mark:       | N/A                      |
+| `instanceId`             | *string*                 | :heavy_check_mark:       | N/A                      |
+| `region`                 | *string*                 | :heavy_check_mark:       | N/A                      |
+| `tags`                   | Record<string, *string*> | :heavy_minus_sign:       | N/A                      |
+| `type`                   | *string*                 | :heavy_check_mark:       | N/A                      |
+| `zone`                   | *string*                 | :heavy_check_mark:       | N/A                      |

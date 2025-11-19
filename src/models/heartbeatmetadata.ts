@@ -7,13 +7,11 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type HeartbeatMetadataTags = {};
-
 export type HeartbeatMetadataAws = {
   enabled: boolean;
   instanceId: string;
   region: string;
-  tags?: HeartbeatMetadataTags | undefined;
+  tags?: { [k: string]: string } | undefined;
   type: string;
   zone: string;
 };
@@ -54,23 +52,6 @@ export type HeartbeatMetadata = {
 };
 
 /** @internal */
-export const HeartbeatMetadataTags$inboundSchema: z.ZodType<
-  HeartbeatMetadataTags,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-export function heartbeatMetadataTagsFromJSON(
-  jsonString: string,
-): SafeParseResult<HeartbeatMetadataTags, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => HeartbeatMetadataTags$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'HeartbeatMetadataTags' from JSON`,
-  );
-}
-
-/** @internal */
 export const HeartbeatMetadataAws$inboundSchema: z.ZodType<
   HeartbeatMetadataAws,
   z.ZodTypeDef,
@@ -79,7 +60,7 @@ export const HeartbeatMetadataAws$inboundSchema: z.ZodType<
   enabled: z.boolean(),
   instanceId: z.string(),
   region: z.string(),
-  tags: z.lazy(() => HeartbeatMetadataTags$inboundSchema).optional(),
+  tags: z.record(z.string()).optional(),
   type: z.string(),
   zone: z.string(),
 });

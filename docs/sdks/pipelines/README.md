@@ -79,7 +79,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.ListPipelineResponse](../../models/operations/listpipelineresponse.md)\>**
+**Promise\<[models.CountedPipeline](../../models/countedpipeline.md)\>**
 
 ### Errors
 
@@ -207,7 +207,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreatePipelineResponse](../../models/operations/createpipelineresponse.md)\>**
+**Promise\<[models.CountedPipeline](../../models/countedpipeline.md)\>**
 
 ### Errors
 
@@ -287,7 +287,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetPipelineByIdResponse](../../models/operations/getpipelinebyidresponse.md)\>**
+**Promise\<[models.CountedPipeline](../../models/countedpipeline.md)\>**
 
 ### Errors
 
@@ -421,7 +421,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.UpdatePipelineByIdResponse](../../models/operations/updatepipelinebyidresponse.md)\>**
+**Promise\<[models.CountedPipeline](../../models/countedpipeline.md)\>**
 
 ### Errors
 
@@ -501,7 +501,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.DeletePipelineByIdResponse](../../models/operations/deletepipelinebyidresponse.md)\>**
+**Promise\<[models.CountedPipeline](../../models/countedpipeline.md)\>**
 
 ### Errors
 

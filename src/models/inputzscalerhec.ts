@@ -122,8 +122,14 @@ export type InputZscalerHecAuthToken = {
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
   authType?: InputZscalerHecAuthenticationMethod | undefined;
-  tokenSecret?: any | undefined;
-  token?: any | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  tokenSecret?: string | undefined;
+  /**
+   * Shared secret to be provided by any client (Authorization: <token>)
+   */
+  token: string;
   enabled?: boolean | undefined;
   description?: string | undefined;
   /**
@@ -574,8 +580,8 @@ export const InputZscalerHecAuthToken$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   authType: InputZscalerHecAuthenticationMethod$inboundSchema.default("manual"),
-  tokenSecret: z.any().optional(),
-  token: z.any().optional(),
+  tokenSecret: z.string().optional(),
+  token: z.string(),
   enabled: z.boolean().default(true),
   description: z.string().optional(),
   allowedIndexesAtToken: z.array(z.string()).optional(),
@@ -586,8 +592,8 @@ export const InputZscalerHecAuthToken$inboundSchema: z.ZodType<
 /** @internal */
 export type InputZscalerHecAuthToken$Outbound = {
   authType: string;
-  tokenSecret?: any | undefined;
-  token?: any | undefined;
+  tokenSecret?: string | undefined;
+  token: string;
   enabled: boolean;
   description?: string | undefined;
   allowedIndexesAtToken?: Array<string> | undefined;
@@ -603,8 +609,8 @@ export const InputZscalerHecAuthToken$outboundSchema: z.ZodType<
   authType: InputZscalerHecAuthenticationMethod$outboundSchema.default(
     "manual",
   ),
-  tokenSecret: z.any().optional(),
-  token: z.any().optional(),
+  tokenSecret: z.string().optional(),
+  token: z.string(),
   enabled: z.boolean().default(true),
   description: z.string().optional(),
   allowedIndexesAtToken: z.array(z.string()).optional(),

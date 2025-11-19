@@ -3,27 +3,12 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
 
 export type GetPipelineByIdRequest = {
   /**
    * The <code>id</code> of the Pipeline to get.
    */
   id: string;
-};
-
-/**
- * a list of Pipeline objects
- */
-export type GetPipelineByIdResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.Pipeline> | undefined;
 };
 
 /** @internal */
@@ -45,25 +30,5 @@ export function getPipelineByIdRequestToJSON(
 ): string {
   return JSON.stringify(
     GetPipelineByIdRequest$outboundSchema.parse(getPipelineByIdRequest),
-  );
-}
-
-/** @internal */
-export const GetPipelineByIdResponse$inboundSchema: z.ZodType<
-  GetPipelineByIdResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.Pipeline$inboundSchema).optional(),
-});
-
-export function getPipelineByIdResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<GetPipelineByIdResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetPipelineByIdResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetPipelineByIdResponse' from JSON`,
   );
 }
