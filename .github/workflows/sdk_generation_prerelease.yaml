@@ -52,8 +52,10 @@ jobs:
 
           # Find the latest official (non-rc) version tag
           # Extract all version tags (with or without 'v' prefix), exclude rc tags, sort semver-style
+          # Use awk to pad version numbers for proper numeric sorting
           LATEST_OFFICIAL=$(git ls-remote --tags --refs origin | awk '{print $2}' | sed 's|refs/tags/||' | sed 's|^v||' \
-            | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' || true | sort -V | tail -n 1 || true)
+            | { grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' || true; } \
+            | awk -F. '{printf "%03d.%03d.%03d %s\n", $1, $2, $3, $0}' | sort -r | head -n 1 | awk '{print $2}' || true)
 
           if [[ -z "${LATEST_OFFICIAL}" ]]; then
             echo "Error: No official version tags found. Cannot compute prerelease version."
