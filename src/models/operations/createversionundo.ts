@@ -3,26 +3,12 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type CreateVersionUndoRequest = {
   /**
    * The <code>id</code> of the Worker Group or Edge Fleet to undo the uncommited changes for.
    */
   groupId?: string | undefined;
-};
-
-/**
- * a list of object objects
- */
-export type CreateVersionUndoResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<{ [k: string]: any }> | undefined;
 };
 
 /** @internal */
@@ -44,25 +30,5 @@ export function createVersionUndoRequestToJSON(
 ): string {
   return JSON.stringify(
     CreateVersionUndoRequest$outboundSchema.parse(createVersionUndoRequest),
-  );
-}
-
-/** @internal */
-export const CreateVersionUndoResponse$inboundSchema: z.ZodType<
-  CreateVersionUndoResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(z.record(z.any())).optional(),
-});
-
-export function createVersionUndoResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateVersionUndoResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateVersionUndoResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateVersionUndoResponse' from JSON`,
   );
 }

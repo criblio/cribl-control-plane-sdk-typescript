@@ -100,6 +100,7 @@ export type InputCloudflareHecPq = {
  */
 export const InputCloudflareHecAuthenticationMethod = {
   Secret: "secret",
+  Manual: "manual",
 } as const;
 /**
  * Select Secret to use a text secret to authenticate
@@ -121,8 +122,14 @@ export type InputCloudflareHecAuthToken = {
    * Select Secret to use a text secret to authenticate
    */
   authType?: InputCloudflareHecAuthenticationMethod | undefined;
-  tokenSecret?: any | undefined;
-  token?: any | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  tokenSecret?: string | undefined;
+  /**
+   * Shared secret to be provided by any client (Authorization: <token>)
+   */
+  token?: string | undefined;
   enabled?: boolean | undefined;
   description?: string | undefined;
   /**
@@ -586,8 +593,8 @@ export const InputCloudflareHecAuthToken$inboundSchema: z.ZodType<
   authType: InputCloudflareHecAuthenticationMethod$inboundSchema.default(
     "secret",
   ),
-  tokenSecret: z.any().optional(),
-  token: z.any().optional(),
+  tokenSecret: z.string().optional(),
+  token: z.string().optional(),
   enabled: z.boolean().default(true),
   description: z.string().optional(),
   allowedIndexesAtToken: z.array(z.string()).optional(),
@@ -598,8 +605,8 @@ export const InputCloudflareHecAuthToken$inboundSchema: z.ZodType<
 /** @internal */
 export type InputCloudflareHecAuthToken$Outbound = {
   authType: string;
-  tokenSecret?: any | undefined;
-  token?: any | undefined;
+  tokenSecret?: string | undefined;
+  token?: string | undefined;
   enabled: boolean;
   description?: string | undefined;
   allowedIndexesAtToken?: Array<string> | undefined;
@@ -615,8 +622,8 @@ export const InputCloudflareHecAuthToken$outboundSchema: z.ZodType<
   authType: InputCloudflareHecAuthenticationMethod$outboundSchema.default(
     "secret",
   ),
-  tokenSecret: z.any().optional(),
-  token: z.any().optional(),
+  tokenSecret: z.string().optional(),
+  token: z.string().optional(),
   enabled: z.boolean().default(true),
   description: z.string().optional(),
   allowedIndexesAtToken: z.array(z.string()).optional(),
