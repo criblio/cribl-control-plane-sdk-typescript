@@ -4,9 +4,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type UpdateInputHecTokenByIdAndTokenRequest = {
@@ -22,17 +19,6 @@ export type UpdateInputHecTokenByIdAndTokenRequest = {
    * UpdateHecTokenRequest object
    */
   updateHecTokenRequest: models.UpdateHecTokenRequest;
-};
-
-/**
- * a list of InputSplunkHec objects
- */
-export type UpdateInputHecTokenByIdAndTokenResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.InputSplunkHec> | undefined;
 };
 
 /** @internal */
@@ -65,31 +51,5 @@ export function updateInputHecTokenByIdAndTokenRequestToJSON(
     UpdateInputHecTokenByIdAndTokenRequest$outboundSchema.parse(
       updateInputHecTokenByIdAndTokenRequest,
     ),
-  );
-}
-
-/** @internal */
-export const UpdateInputHecTokenByIdAndTokenResponse$inboundSchema: z.ZodType<
-  UpdateInputHecTokenByIdAndTokenResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.InputSplunkHec$inboundSchema).optional(),
-});
-
-export function updateInputHecTokenByIdAndTokenResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  UpdateInputHecTokenByIdAndTokenResponse,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      UpdateInputHecTokenByIdAndTokenResponse$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'UpdateInputHecTokenByIdAndTokenResponse' from JSON`,
   );
 }

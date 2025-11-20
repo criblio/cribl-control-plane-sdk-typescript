@@ -4,9 +4,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type CreateVersionRevertRequest = {
@@ -18,17 +15,6 @@ export type CreateVersionRevertRequest = {
    * GitRevertParams object
    */
   gitRevertParams: models.GitRevertParams;
-};
-
-/**
- * a list of GitRevertResult objects
- */
-export type CreateVersionRevertResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.GitRevertResult> | undefined;
 };
 
 /** @internal */
@@ -56,25 +42,5 @@ export function createVersionRevertRequestToJSON(
 ): string {
   return JSON.stringify(
     CreateVersionRevertRequest$outboundSchema.parse(createVersionRevertRequest),
-  );
-}
-
-/** @internal */
-export const CreateVersionRevertResponse$inboundSchema: z.ZodType<
-  CreateVersionRevertResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.GitRevertResult$inboundSchema).optional(),
-});
-
-export function createVersionRevertResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateVersionRevertResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateVersionRevertResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateVersionRevertResponse' from JSON`,
   );
 }

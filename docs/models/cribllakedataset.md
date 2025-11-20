@@ -18,12 +18,12 @@ let value: CriblLakeDataset = {
       "<value 2>",
       "<value 3>",
     ],
-    backfillStatus: "started",
+    backfillStatus: "finished",
     cacheRef: "<value>",
-    createdAt: 773.58,
+    createdAt: 7461.31,
     lakehouseConnectionType: "cache",
     migrationQueryId: "<id>",
-    retentionInDays: 5606.92,
+    retentionInDays: 4050.95,
   },
   deletionStartedAt: 4431.11,
   description:
@@ -32,15 +32,13 @@ let value: CriblLakeDataset = {
   httpDAUsed: true,
   id: "<id>",
   metrics: {
-    currentSizeBytes: 7990.13,
+    currentSizeBytes: 6909.79,
     metricsDate: "<value>",
   },
   retentionPeriodInDays: 3012.23,
   searchConfig: {
     datatypes: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
     metadata: {
       earliest: "<value>",
@@ -51,10 +49,10 @@ let value: CriblLakeDataset = {
         "<value 3>",
       ],
       latestRunInfo: {
-        earliestScannedTime: 4514.45,
-        finishedAt: 4750.45,
-        latestScannedTime: 8488.95,
-        objectCount: 359.3,
+        earliestScannedTime: 2718.64,
+        finishedAt: 7126.23,
+        latestScannedTime: 160.67,
+        objectCount: 7729.98,
       },
       scanMode: "detailed",
     },

@@ -419,7 +419,7 @@ const value: models.InputSplunkHec = {
     {
       tokenSecret: "<value>",
       token: "<value>",
-      description: "seemingly yogurt gee yawningly meander zowie",
+      description: "throbbing sting sore",
       allowedIndexesAtToken: [
         "<value 1>",
       ],
@@ -437,8 +437,8 @@ const value: models.InputSplunkHec = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1.2",
-    maxVersion: "TLSv1.3",
+    minVersion: "TLSv1.3",
+    maxVersion: "TLSv1.1",
   },
   enableHealthCheck: "<value>",
   metadata: [
@@ -449,9 +449,13 @@ const value: models.InputSplunkHec = {
   ],
   allowedIndexes: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   breakerRulesets: [
     "<value 1>",
+    "<value 2>",
+    "<value 3>",
   ],
   accessControlAllowOrigin: [
     "<value 1>",
@@ -460,9 +464,9 @@ const value: models.InputSplunkHec = {
   accessControlAllowHeaders: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
-  description:
-    "brr plump vainly reprove dismal whoa best-seller mushy underpants suspiciously",
+  description: "what mockingly excluding",
 };
 ```
 
@@ -1219,7 +1223,7 @@ const value: models.InputEventhub = {
   ],
   topics: [],
   sasl: {
-    password: "ZVoXsr5CskK1lW7",
+    password: "ZcrxTx4Amn7CtfA",
     textSecret: "<value>",
     clientSecret: "<value>",
     clientTextSecret: "<value>",
@@ -1232,8 +1236,8 @@ const value: models.InputEventhub = {
     scope: "<value>",
   },
   tls: {},
-  autoCommitInterval: 6010.39,
-  autoCommitThreshold: 3174.01,
+  autoCommitInterval: 5448.32,
+  autoCommitThreshold: 5569.57,
   metadata: [
     {
       name: "<value>",
@@ -1241,7 +1245,7 @@ const value: models.InputEventhub = {
     },
   ],
   description:
-    "wonderfully broadcast to questionable upward haul preheat nutritious",
+    "questionable upward haul preheat nutritious since even so silently",
 };
 ```
 
@@ -1579,7 +1583,7 @@ const value: models.InputTcpjson = {
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1",
+    minVersion: "TLSv1.3",
     maxVersion: "TLSv1.3",
   },
   metadata: [
@@ -1588,8 +1592,7 @@ const value: models.InputTcpjson = {
       value: "<value>",
     },
   ],
-  description:
-    "march eek flickering oh although debut needily reluctantly what",
+  description: "woot er likewise unlike ravioli whenever",
   textSecret: "<value>",
 };
 ```
@@ -2723,19 +2726,19 @@ const value: models.InputAppscope = {
         config: "<value>",
       },
     ],
-    transportURL: "https://muted-disadvantage.org",
+    transportURL: "https://lawful-impact.net",
   },
   persistence: {},
-  description: "extroverted wombat what zowie sup wafer velocity",
-  host: "creative-shark.biz",
-  port: 9808.35,
+  description: "inspection adventurously gnash if scheme ew wrongly",
+  host: "twin-reporter.name",
+  port: 3370.32,
   tls: {
     certificateName: "<value>",
     privKeyPath: "<value>",
     passphrase: "<value>",
     certPath: "<value>",
     caPath: "<value>",
-    minVersion: "TLSv1.1",
+    minVersion: "TLSv1.2",
     maxVersion: "TLSv1.3",
   },
   unixSocketPerms: "<value>",
@@ -2901,7 +2904,7 @@ const value: models.InputJournalFiles = {
   rules: [
     {
       filter: "<value>",
-      description: "knowingly about scarily leading stealthily strict",
+      description: "yahoo uh-huh dirty behind manner",
     },
   ],
   maxAgeDur: "<value>",
@@ -2911,7 +2914,7 @@ const value: models.InputJournalFiles = {
       value: "<value>",
     },
   ],
-  description: "yahoo uh-huh dirty behind manner",
+  description: "honored given shoulder why cheerful",
 };
 ```
 
@@ -2947,12 +2950,11 @@ const value: models.InputWiz = {
   ],
   retryRules: {
     codes: [
-      5668.03,
-      2663.29,
-      2735.91,
+      1412.18,
     ],
   },
-  description: "psst parsnip schlep cluttered off next",
+  description:
+    "masquerade overcook thump pro towards rawhide aha forearm irritably",
   clientSecret: "<value>",
   textSecret: "<value>",
 };
