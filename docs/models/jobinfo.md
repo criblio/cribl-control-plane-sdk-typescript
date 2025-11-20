@@ -8,8 +8,8 @@ import { JobInfo } from "cribl-control-plane/models";
 let value: JobInfo = {
   args: {
     id: "<id>",
-    description: "astride where huzzah till",
-    type: "executor",
+    description: "microblog um furiously",
+    type: "scheduledSearch",
     ttl: "4h",
     ignoreGroupJobsLimit: false,
     removeFields: [
@@ -19,7 +19,7 @@ let value: JobInfo = {
     resumeOnBoot: false,
     environment: "<value>",
     schedule: {
-      enabled: true,
+      enabled: false,
       skippable: true,
       resumeMissed: false,
       cronSchedule: "*/5 * * * *",
@@ -32,8 +32,8 @@ let value: JobInfo = {
         jobTimeout: "0",
         mode: "list",
         timeRangeType: "relative",
-        earliest: 5516.53,
-        latest: 4479.75,
+        earliest: 3143.53,
+        latest: 995.72,
         timestampTimezone: "<value>",
         timeWarning: {},
         expression: "true",
@@ -43,6 +43,7 @@ let value: JobInfo = {
     },
     streamtags: [
       "<value 1>",
+      "<value 2>",
     ],
     executor: {
       type: "<value>",
@@ -64,8 +65,9 @@ let value: JobInfo = {
   status: {
     reason: {
       "key": "<value>",
+      "key1": "<value>",
     },
-    state: 1,
+    state: 0,
   },
 };
 ```

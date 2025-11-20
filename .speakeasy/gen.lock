@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: ae8c55091e5afdc7ade0ebab9dd4727b
-  docVersion: 4.15.0-f275b803
+  docChecksum: 30b6ead4c81d520480f31eac5d9c7951
+  docVersion: 4.16.0-alpha.1763640448660-89844071
   speakeasyVersion: 1.650.0
   generationVersion: 2.743.2
-  releaseVersion: 0.3.0
-  configChecksum: e665e3aea248a6f8ea3cb0b286f41886
+  releaseVersion: 0.4.0-rc.2
+  configChecksum: ab131455f56c8733afe06fe9bd4d62d8
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -82,6 +82,35 @@ generatedFiles:
   - docs/models/configgrouptype.md
   - docs/models/container.md
   - docs/models/containermode.md
+  - docs/models/countedbranchinfo.md
+  - docs/models/countedconfiggroup.md
+  - docs/models/countedcribllakedataset.md
+  - docs/models/counteddistributedsummary.md
+  - docs/models/countedgitcommitsummary.md
+  - docs/models/countedgitcountresult.md
+  - docs/models/countedgitdiffresult.md
+  - docs/models/countedgitfilesresponse.md
+  - docs/models/countedgitinfo.md
+  - docs/models/countedgitlogresult.md
+  - docs/models/countedgitrevertresult.md
+  - docs/models/countedgitshowresult.md
+  - docs/models/countedgitstatusresult.md
+  - docs/models/countedinput.md
+  - docs/models/countedinputsplunkhec.md
+  - docs/models/countedjobinfo.md
+  - docs/models/countedmasterworkerentry.md
+  - docs/models/countednumber.md
+  - docs/models/countedobject.md
+  - docs/models/countedoutput.md
+  - docs/models/countedoutputsamplesresponse.md
+  - docs/models/countedoutputtestresponse.md
+  - docs/models/countedpackinfo.md
+  - docs/models/countedpackinstallinfo.md
+  - docs/models/countedpipeline.md
+  - docs/models/countedroutes.md
+  - docs/models/countedstring.md
+  - docs/models/countedteamaccesscontrollist.md
+  - docs/models/counteduseraccesscontrollist.md
   - docs/models/criblevent.md
   - docs/models/cribllakedataset.md
   - docs/models/cribllakedatasetformat.md
@@ -96,6 +125,13 @@ generatedFiles:
   - docs/models/deployrequestlookups.md
   - docs/models/deployrequestlookupslookup.md
   - docs/models/difffiles.md
+  - docs/models/diffline.md
+  - docs/models/difflinecontext.md
+  - docs/models/difflinecontexttype.md
+  - docs/models/difflinedelete.md
+  - docs/models/difflinedeletetype.md
+  - docs/models/difflineinsert.md
+  - docs/models/difflineinserttype.md
   - docs/models/disksandfilesystems.md
   - docs/models/distmode.md
   - docs/models/distributedsummary.md
@@ -148,7 +184,6 @@ generatedFiles:
   - docs/models/heartbeatmetadatakube.md
   - docs/models/heartbeatmetadataos.md
   - docs/models/heartbeatmetadataowner.md
-  - docs/models/heartbeatmetadatatags.md
   - docs/models/hostinfo.md
   - docs/models/hostsfile.md
   - docs/models/indexerdiscoveryconfigs.md
@@ -955,11 +990,6 @@ generatedFiles:
   - docs/models/lakedatasetmetrics.md
   - docs/models/lakedatasetsearchconfig.md
   - docs/models/lakehouseconnectiontype.md
-  - docs/models/lastmetrics.md
-  - docs/models/line1.md
-  - docs/models/line2.md
-  - docs/models/line3.md
-  - docs/models/lineunion.md
   - docs/models/listeningports.md
   - docs/models/loggedinusers.md
   - docs/models/logininfo.md
@@ -969,7 +999,6 @@ generatedFiles:
   - docs/models/lokiauthoauthheader2.md
   - docs/models/lokiauthoauthparam1.md
   - docs/models/lokiauthoauthparam2.md
-  - docs/models/lookupversions.md
   - docs/models/mappingtype.md
   - docs/models/masterworkerentry.md
   - docs/models/masterworkerentrytype.md
@@ -985,119 +1014,59 @@ generatedFiles:
   - docs/models/nodeprovidedinfoos1.md
   - docs/models/nodeprovidedinfoos2.md
   - docs/models/nodeprovidedinfoowner.md
-  - docs/models/nodeprovidedinfotags.md
   - docs/models/nodeskippedupgradestatus.md
   - docs/models/nodeupgradestate.md
   - docs/models/nodeupgradestatus.md
   - docs/models/oldmode.md
   - docs/models/operations/createconfiggroupbyproductrequest.md
-  - docs/models/operations/createconfiggroupbyproductresponse.md
   - docs/models/operations/createcribllakedatasetbylakeidrequest.md
-  - docs/models/operations/createcribllakedatasetbylakeidresponse.md
   - docs/models/operations/createinputhectokenbyidrequest.md
-  - docs/models/operations/createinputhectokenbyidresponse.md
-  - docs/models/operations/createinputresponse.md
-  - docs/models/operations/createoutputresponse.md
   - docs/models/operations/createoutputtestbyidrequest.md
-  - docs/models/operations/createoutputtestbyidresponse.md
-  - docs/models/operations/createpacksresponse.md
-  - docs/models/operations/createpipelineresponse.md
   - docs/models/operations/createroutesappendbyidrequest.md
-  - docs/models/operations/createroutesappendbyidresponse.md
   - docs/models/operations/createversioncommitrequest.md
-  - docs/models/operations/createversioncommitresponse.md
-  - docs/models/operations/createversionpushresponse.md
   - docs/models/operations/createversionrevertrequest.md
-  - docs/models/operations/createversionrevertresponse.md
   - docs/models/operations/createversionundorequest.md
-  - docs/models/operations/createversionundoresponse.md
   - docs/models/operations/deleteconfiggroupbyproductandidrequest.md
-  - docs/models/operations/deleteconfiggroupbyproductandidresponse.md
   - docs/models/operations/deletecribllakedatasetbylakeidandidrequest.md
-  - docs/models/operations/deletecribllakedatasetbylakeidandidresponse.md
   - docs/models/operations/deleteinputbyidrequest.md
-  - docs/models/operations/deleteinputbyidresponse.md
   - docs/models/operations/deleteoutputbyidrequest.md
-  - docs/models/operations/deleteoutputbyidresponse.md
   - docs/models/operations/deleteoutputpqbyidrequest.md
-  - docs/models/operations/deleteoutputpqbyidresponse.md
   - docs/models/operations/deletepacksbyidrequest.md
-  - docs/models/operations/deletepacksbyidresponse.md
   - docs/models/operations/deletepipelinebyidrequest.md
-  - docs/models/operations/deletepipelinebyidresponse.md
   - docs/models/operations/getconfiggroupaclbyproductandidrequest.md
-  - docs/models/operations/getconfiggroupaclbyproductandidresponse.md
   - docs/models/operations/getconfiggroupaclteamsbyproductandidrequest.md
-  - docs/models/operations/getconfiggroupaclteamsbyproductandidresponse.md
   - docs/models/operations/getconfiggroupbyproductandidrequest.md
-  - docs/models/operations/getconfiggroupbyproductandidresponse.md
   - docs/models/operations/getconfiggroupconfigversionbyproductandidrequest.md
-  - docs/models/operations/getconfiggroupconfigversionbyproductandidresponse.md
   - docs/models/operations/getcribllakedatasetbylakeidandidrequest.md
-  - docs/models/operations/getcribllakedatasetbylakeidandidresponse.md
   - docs/models/operations/getcribllakedatasetbylakeidrequest.md
-  - docs/models/operations/getcribllakedatasetbylakeidresponse.md
   - docs/models/operations/getinputbyidrequest.md
-  - docs/models/operations/getinputbyidresponse.md
   - docs/models/operations/getmasterworkerentryrequest.md
-  - docs/models/operations/getmasterworkerentryresponse.md
   - docs/models/operations/getoutputbyidrequest.md
-  - docs/models/operations/getoutputbyidresponse.md
   - docs/models/operations/getoutputpqbyidrequest.md
-  - docs/models/operations/getoutputpqbyidresponse.md
   - docs/models/operations/getoutputsamplesbyidrequest.md
-  - docs/models/operations/getoutputsamplesbyidresponse.md
   - docs/models/operations/getpacksbyidrequest.md
-  - docs/models/operations/getpacksbyidresponse.md
   - docs/models/operations/getpacksrequest.md
-  - docs/models/operations/getpacksresponse.md
   - docs/models/operations/getpipelinebyidrequest.md
-  - docs/models/operations/getpipelinebyidresponse.md
   - docs/models/operations/getroutesbyidrequest.md
-  - docs/models/operations/getroutesbyidresponse.md
   - docs/models/operations/getsummaryrequest.md
-  - docs/models/operations/getsummaryresponse.md
-  - docs/models/operations/getversionbranchresponse.md
   - docs/models/operations/getversioncountrequest.md
-  - docs/models/operations/getversioncountresponse.md
   - docs/models/operations/getversiondiffrequest.md
-  - docs/models/operations/getversiondiffresponse.md
   - docs/models/operations/getversionfilesrequest.md
-  - docs/models/operations/getversionfilesresponse.md
-  - docs/models/operations/getversioninforesponse.md
   - docs/models/operations/getversionrequest.md
-  - docs/models/operations/getversionresponse.md
   - docs/models/operations/getversionshowrequest.md
-  - docs/models/operations/getversionshowresponse.md
   - docs/models/operations/getversionstatusrequest.md
-  - docs/models/operations/getversionstatusresponse.md
   - docs/models/operations/listconfiggroupbyproductrequest.md
-  - docs/models/operations/listconfiggroupbyproductresponse.md
-  - docs/models/operations/listinputresponse.md
   - docs/models/operations/listmasterworkerentryrequest.md
-  - docs/models/operations/listmasterworkerentryresponse.md
-  - docs/models/operations/listoutputresponse.md
-  - docs/models/operations/listpipelineresponse.md
-  - docs/models/operations/listroutesresponse.md
   - docs/models/operations/updateconfiggroupbyproductandidrequest.md
-  - docs/models/operations/updateconfiggroupbyproductandidresponse.md
   - docs/models/operations/updateconfiggroupdeploybyproductandidrequest.md
-  - docs/models/operations/updateconfiggroupdeploybyproductandidresponse.md
   - docs/models/operations/updatecribllakedatasetbylakeidandidrequest.md
-  - docs/models/operations/updatecribllakedatasetbylakeidandidresponse.md
   - docs/models/operations/updateinputbyidrequest.md
-  - docs/models/operations/updateinputbyidresponse.md
   - docs/models/operations/updateinputhectokenbyidandtokenrequest.md
-  - docs/models/operations/updateinputhectokenbyidandtokenresponse.md
   - docs/models/operations/updateoutputbyidrequest.md
-  - docs/models/operations/updateoutputbyidresponse.md
   - docs/models/operations/updatepacksbyidrequest.md
-  - docs/models/operations/updatepacksbyidresponse.md
   - docs/models/operations/updatepacksrequest.md
   - docs/models/operations/updatepipelinebyidrequest.md
-  - docs/models/operations/updatepipelinebyidresponse.md
   - docs/models/operations/updateroutesbyidrequest.md
-  - docs/models/operations/updateroutesbyidresponse.md
   - docs/models/os.md
   - docs/models/outpostnodeinfo.md
   - docs/models/output.md
@@ -2200,6 +2169,35 @@ generatedFiles:
   - src/models/configgroup.ts
   - src/models/configgroupcloud.ts
   - src/models/configgrouplookups.ts
+  - src/models/countedbranchinfo.ts
+  - src/models/countedconfiggroup.ts
+  - src/models/countedcribllakedataset.ts
+  - src/models/counteddistributedsummary.ts
+  - src/models/countedgitcommitsummary.ts
+  - src/models/countedgitcountresult.ts
+  - src/models/countedgitdiffresult.ts
+  - src/models/countedgitfilesresponse.ts
+  - src/models/countedgitinfo.ts
+  - src/models/countedgitlogresult.ts
+  - src/models/countedgitrevertresult.ts
+  - src/models/countedgitshowresult.ts
+  - src/models/countedgitstatusresult.ts
+  - src/models/countedinput.ts
+  - src/models/countedinputsplunkhec.ts
+  - src/models/countedjobinfo.ts
+  - src/models/countedmasterworkerentry.ts
+  - src/models/countednumber.ts
+  - src/models/countedobject.ts
+  - src/models/countedoutput.ts
+  - src/models/countedoutputsamplesresponse.ts
+  - src/models/countedoutputtestresponse.ts
+  - src/models/countedpackinfo.ts
+  - src/models/countedpackinstallinfo.ts
+  - src/models/countedpipeline.ts
+  - src/models/countedroutes.ts
+  - src/models/countedstring.ts
+  - src/models/countedteamaccesscontrollist.ts
+  - src/models/counteduseraccesscontrollist.ts
   - src/models/criblevent.ts
   - src/models/cribllakedataset.ts
   - src/models/cribllakedatasetupdate.ts
@@ -2209,6 +2207,10 @@ generatedFiles:
   - src/models/deployrequest.ts
   - src/models/deployrequestlookups.ts
   - src/models/difffiles.ts
+  - src/models/diffline.ts
+  - src/models/difflinecontext.ts
+  - src/models/difflinedelete.ts
+  - src/models/difflineinsert.ts
   - src/models/distributedsummary.ts
   - src/models/errors/criblcontrolplanedefaulterror.ts
   - src/models/errors/criblcontrolplaneerror.ts
@@ -2303,7 +2305,6 @@ generatedFiles:
   - src/models/lakedatasetsearchconfig.ts
   - src/models/lakehouseconnectiontype.ts
   - src/models/logininfo.ts
-  - src/models/lookupversions.ts
   - src/models/masterworkerentry.ts
   - src/models/nodeactiveupgradestatus.ts
   - src/models/nodefailedupgradestatus.ts
@@ -2313,15 +2314,10 @@ generatedFiles:
   - src/models/nodeupgradestatus.ts
   - src/models/operations/createconfiggroupbyproduct.ts
   - src/models/operations/createcribllakedatasetbylakeid.ts
-  - src/models/operations/createinput.ts
   - src/models/operations/createinputhectokenbyid.ts
-  - src/models/operations/createoutput.ts
   - src/models/operations/createoutputtestbyid.ts
-  - src/models/operations/createpacks.ts
-  - src/models/operations/createpipeline.ts
   - src/models/operations/createroutesappendbyid.ts
   - src/models/operations/createversioncommit.ts
-  - src/models/operations/createversionpush.ts
   - src/models/operations/createversionrevert.ts
   - src/models/operations/createversionundo.ts
   - src/models/operations/deleteconfiggroupbyproductandid.ts
@@ -2348,20 +2344,14 @@ generatedFiles:
   - src/models/operations/getroutesbyid.ts
   - src/models/operations/getsummary.ts
   - src/models/operations/getversion.ts
-  - src/models/operations/getversionbranch.ts
   - src/models/operations/getversioncount.ts
   - src/models/operations/getversiondiff.ts
   - src/models/operations/getversionfiles.ts
-  - src/models/operations/getversioninfo.ts
   - src/models/operations/getversionshow.ts
   - src/models/operations/getversionstatus.ts
   - src/models/operations/index.ts
   - src/models/operations/listconfiggroupbyproduct.ts
-  - src/models/operations/listinput.ts
   - src/models/operations/listmasterworkerentry.ts
-  - src/models/operations/listoutput.ts
-  - src/models/operations/listpipeline.ts
-  - src/models/operations/listroutes.ts
   - src/models/operations/updateconfiggroupbyproductandid.ts
   - src/models/operations/updateconfiggroupdeploybyproductandid.ts
   - src/models/operations/updatecribllakedatasetbylakeidandid.ts
@@ -2878,7 +2868,7 @@ examples:
           groupId: "<id>"
       responses:
         "200":
-          application/json: {"count": 969040, "items": [{"commitMessage": "<value>", "diffJson": [{"addedLines": 9690.4, "blocks": [{"header": "<value>", "lines": [{"content": "<value>", "oldNumber": 3887.81}], "newStartLine": 76.45, "oldStartLine": 9379.01, "oldStartLine2": 5511.01}], "changedPercentage": 2205.67, "checksumAfter": "<value>", "checksumBefore": "<value>", "deletedFileMode": "<value>", "deletedLines": 7460.36, "isBinary": true, "isCombined": true, "isCopy": false, "isDeleted": false, "isGitDiff": false, "isNew": true, "isRename": false, "isTooBig": false, "language": "<value>", "mode": "<value>", "newFileMode": "<value>", "newMode": "<value>", "newName": "<value>", "oldMode": ["<value 1>", "<value 2>"], "oldName": "<value>", "unchangedPercentage": 3722.48}]}, {"commitMessage": "<value>", "diffJson": [{"addedLines": 9690.4, "blocks": [{"header": "<value>", "lines": [{"content": "<value>", "oldNumber": 3887.81}], "newStartLine": 76.45, "oldStartLine": 9379.01, "oldStartLine2": 5511.01}], "changedPercentage": 2205.67, "checksumAfter": "<value>", "checksumBefore": "<value>", "deletedFileMode": "<value>", "deletedLines": 7460.36, "isBinary": true, "isCombined": true, "isCopy": false, "isDeleted": false, "isGitDiff": false, "isNew": true, "isRename": false, "isTooBig": false, "language": "<value>", "mode": "<value>", "newFileMode": "<value>", "newMode": "<value>", "newName": "<value>", "oldMode": ["<value 1>", "<value 2>"], "oldName": "<value>", "unchangedPercentage": 3722.48}]}]}
+          application/json: {"count": 969040, "items": [{"commitMessage": "<value>", "diffJson": [{"addedLines": 9690.4, "blocks": [{"header": "<value>", "lines": [{"type": "context", "newNumber": 9690.4, "oldNumber": 6372.82, "content": "<value>"}], "newStartLine": 76.45, "oldStartLine": 9379.01, "oldStartLine2": 5511.01}], "changedPercentage": 2205.67, "checksumAfter": "<value>", "checksumBefore": "<value>", "deletedFileMode": "<value>", "deletedLines": 7460.36, "isBinary": true, "isCombined": true, "isCopy": false, "isDeleted": false, "isGitDiff": false, "isNew": true, "isRename": false, "isTooBig": false, "language": "<value>", "mode": "<value>", "newFileMode": "<value>", "newMode": "<value>", "newName": "<value>", "oldMode": ["<value 1>", "<value 2>"], "oldName": "<value>", "unchangedPercentage": 3722.48}]}, {"commitMessage": "<value>", "diffJson": [{"addedLines": 9690.4, "blocks": [{"header": "<value>", "lines": [{"type": "context", "newNumber": 349.88, "oldNumber": 3887.81, "content": "<value>"}], "newStartLine": 76.45, "oldStartLine": 9379.01, "oldStartLine2": 5511.01}], "changedPercentage": 2205.67, "checksumAfter": "<value>", "checksumBefore": "<value>", "deletedFileMode": "<value>", "deletedLines": 7460.36, "isBinary": true, "isCombined": true, "isCopy": false, "isDeleted": false, "isGitDiff": false, "isNew": true, "isRename": false, "isTooBig": false, "language": "<value>", "mode": "<value>", "newFileMode": "<value>", "newMode": "<value>", "newName": "<value>", "oldMode": ["<value 1>", "<value 2>"], "oldName": "<value>", "unchangedPercentage": 3722.48}]}]}
         "500":
           application/json: {"message": "<value>"}
   getVersionStatus:
@@ -3563,3 +3553,8 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
+releaseNotes: |
+  ## Typescript SDK Changes Detected:
+  * `criblcontrolplane.nodes.list()`:  `response.items.[]` **Changed** **Breaking** :warning:
+  * `criblcontrolplane.versions.commits.diff()`:  `response.items.[].diffJson.[].blocks.[].lines.[]` **Changed**
+  * `criblcontrolplane.versions.commits.get()`:  `response.items.[].diffJson.[].blocks.[].lines.[]` **Changed**

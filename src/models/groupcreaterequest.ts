@@ -72,6 +72,7 @@ export type GroupCreateRequestGit = {
 
 export const GroupCreateRequestType = {
   LakeAccess: "lake_access",
+  Riptide: "riptide",
 } as const;
 export type GroupCreateRequestType = OpenEnum<typeof GroupCreateRequestType>;
 
