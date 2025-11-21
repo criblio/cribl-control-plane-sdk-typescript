@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -390,40 +386,26 @@ export const InputSecurityLakeMode$inboundSchema: z.ZodType<
   InputSecurityLakeMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputSecurityLakeMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputSecurityLakeMode);
 /** @internal */
 export const InputSecurityLakeMode$outboundSchema: z.ZodType<
-  InputSecurityLakeMode,
+  string,
   z.ZodTypeDef,
   InputSecurityLakeMode
-> = z.union([
-  z.nativeEnum(InputSecurityLakeMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputSecurityLakeMode);
 
 /** @internal */
 export const InputSecurityLakeCompression$inboundSchema: z.ZodType<
   InputSecurityLakeCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputSecurityLakeCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputSecurityLakeCompression);
 /** @internal */
 export const InputSecurityLakeCompression$outboundSchema: z.ZodType<
-  InputSecurityLakeCompression,
+  string,
   z.ZodTypeDef,
   InputSecurityLakeCompression
-> = z.union([
-  z.nativeEnum(InputSecurityLakeCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputSecurityLakeCompression);
 
 /** @internal */
 export const InputSecurityLakePqControls$inboundSchema: z.ZodType<
@@ -527,40 +509,26 @@ export const InputSecurityLakeAuthenticationMethod$inboundSchema: z.ZodType<
   InputSecurityLakeAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputSecurityLakeAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputSecurityLakeAuthenticationMethod);
 /** @internal */
 export const InputSecurityLakeAuthenticationMethod$outboundSchema: z.ZodType<
-  InputSecurityLakeAuthenticationMethod,
+  string,
   z.ZodTypeDef,
   InputSecurityLakeAuthenticationMethod
-> = z.union([
-  z.nativeEnum(InputSecurityLakeAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputSecurityLakeAuthenticationMethod);
 
 /** @internal */
 export const InputSecurityLakeSignatureVersion$inboundSchema: z.ZodType<
   InputSecurityLakeSignatureVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputSecurityLakeSignatureVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputSecurityLakeSignatureVersion);
 /** @internal */
 export const InputSecurityLakeSignatureVersion$outboundSchema: z.ZodType<
-  InputSecurityLakeSignatureVersion,
+  string,
   z.ZodTypeDef,
   InputSecurityLakeSignatureVersion
-> = z.union([
-  z.nativeEnum(InputSecurityLakeSignatureVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputSecurityLakeSignatureVersion);
 
 /** @internal */
 export const InputSecurityLakePreprocess$inboundSchema: z.ZodType<
@@ -700,20 +668,13 @@ export const InputSecurityLakeTagAfterProcessing$inboundSchema: z.ZodType<
   InputSecurityLakeTagAfterProcessing,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputSecurityLakeTagAfterProcessing),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputSecurityLakeTagAfterProcessing);
 /** @internal */
 export const InputSecurityLakeTagAfterProcessing$outboundSchema: z.ZodType<
-  InputSecurityLakeTagAfterProcessing,
+  string,
   z.ZodTypeDef,
   InputSecurityLakeTagAfterProcessing
-> = z.union([
-  z.nativeEnum(InputSecurityLakeTagAfterProcessing),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputSecurityLakeTagAfterProcessing);
 
 /** @internal */
 export const InputSecurityLake$inboundSchema: z.ZodType<

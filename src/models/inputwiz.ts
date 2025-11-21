@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -378,40 +374,26 @@ export const InputWizMode$inboundSchema: z.ZodType<
   InputWizMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputWizMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputWizMode);
 /** @internal */
 export const InputWizMode$outboundSchema: z.ZodType<
-  InputWizMode,
+  string,
   z.ZodTypeDef,
   InputWizMode
-> = z.union([
-  z.nativeEnum(InputWizMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputWizMode);
 
 /** @internal */
 export const InputWizCompression$inboundSchema: z.ZodType<
   InputWizCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputWizCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputWizCompression);
 /** @internal */
 export const InputWizCompression$outboundSchema: z.ZodType<
-  InputWizCompression,
+  string,
   z.ZodTypeDef,
   InputWizCompression
-> = z.union([
-  z.nativeEnum(InputWizCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputWizCompression);
 
 /** @internal */
 export const InputWizPqControls$inboundSchema: z.ZodType<
@@ -536,20 +518,13 @@ export const InputWizLogLevel$inboundSchema: z.ZodType<
   InputWizLogLevel,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputWizLogLevel),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputWizLogLevel);
 /** @internal */
 export const InputWizLogLevel$outboundSchema: z.ZodType<
-  InputWizLogLevel,
+  string,
   z.ZodTypeDef,
   InputWizLogLevel
-> = z.union([
-  z.nativeEnum(InputWizLogLevel),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputWizLogLevel);
 
 /** @internal */
 export const InputWizContentConfig$inboundSchema: z.ZodType<
@@ -681,20 +656,13 @@ export const InputWizRetryType$inboundSchema: z.ZodType<
   InputWizRetryType,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputWizRetryType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputWizRetryType);
 /** @internal */
 export const InputWizRetryType$outboundSchema: z.ZodType<
-  InputWizRetryType,
+  string,
   z.ZodTypeDef,
   InputWizRetryType
-> = z.union([
-  z.nativeEnum(InputWizRetryType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputWizRetryType);
 
 /** @internal */
 export const InputWizRetryRules$inboundSchema: z.ZodType<
@@ -761,20 +729,13 @@ export const InputWizAuthenticationMethod$inboundSchema: z.ZodType<
   InputWizAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputWizAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputWizAuthenticationMethod);
 /** @internal */
 export const InputWizAuthenticationMethod$outboundSchema: z.ZodType<
-  InputWizAuthenticationMethod,
+  string,
   z.ZodTypeDef,
   InputWizAuthenticationMethod
-> = z.union([
-  z.nativeEnum(InputWizAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputWizAuthenticationMethod);
 
 /** @internal */
 export const InputWiz$inboundSchema: z.ZodType<
