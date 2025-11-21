@@ -4,7 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -53,11 +54,7 @@ export const MasterWorkerEntryType$inboundSchema: z.ZodType<
   MasterWorkerEntryType,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(MasterWorkerEntryType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(MasterWorkerEntryType);
 
 /** @internal */
 export const MasterWorkerEntryWorkers$inboundSchema: z.ZodType<

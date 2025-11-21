@@ -3,10 +3,10 @@ id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
   docChecksum: 2a45ff0f169a944da986fae2d62956b9
   docVersion: 4.16.0-alpha.1763717483983-bf4ec3a8
-  speakeasyVersion: 1.650.0
-  generationVersion: 2.743.2
-  releaseVersion: 0.4.0-beta.2
-  configChecksum: 95c4001ba14493a34059e14612c15ab7
+  speakeasyVersion: 1.659.0
+  generationVersion: 2.755.9
+  releaseVersion: 0.4.0-beta.3
+  configChecksum: d6736a5e3fadaf04e48a376d50727a3e
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -15,7 +15,7 @@ features:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.2
     constsAndDefaults: 0.1.12
-    core: 3.26.3
+    core: 3.26.7
     defaultEnabledRetries: 0.1.0
     devContainers: 2.90.1
     enumUnions: 0.1.0
@@ -3550,4 +3550,3 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes Detected:\n* `criblcontrolplane.sources.list()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.get()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.update()`: \n  *  `request.input` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.delete()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.hecTokens.create()`:  `response.items.[].authTokens.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.hecTokens.update()`:  `response.items.[].authTokens.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.list()`:  `response.items.[].[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n* `criblcontrolplane.destinations.create()`: \n  *  `request.[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n  *  `response.items.[].[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n* `criblcontrolplane.destinations.get()`:  `response.items.[].[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output.[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n  *  `response.items.[].[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n* `criblcontrolplane.destinations.delete()`:  `response.items.[].[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n"
