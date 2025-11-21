@@ -1545,14 +1545,21 @@ const value: models.InputCriblLakeHttp = {
       ],
       splunkHecMetadata: {
         enabled: true,
+        defaultDataset: "<value>",
+        allowedIndexesAtToken: [
+          "<value 1>",
+          "<value 2>",
+          "<value 3>",
+        ],
       },
       elasticsearchMetadata: {
         enabled: false,
+        defaultDataset: "<value>",
       },
     },
   ],
   description:
-    "deceivingly unwilling boohoo guest obnoxiously forenenst blossom satirise before",
+    "beside cute adult obediently consequently westernise by bug wing insidious",
 };
 ```
 
@@ -2353,6 +2360,7 @@ const value: models.InputSnmp = {
       {
         name: "<value>",
         authKey: "<value>",
+        privKey: "<value>",
       },
     ],
   },
@@ -2795,6 +2803,13 @@ const value: models.InputWef = {
           value: "<value>",
         },
       ],
+      queries: [
+        {
+          path: "/boot/defaults",
+          queryExpression: "<value>",
+        },
+      ],
+      xmlQuery: "<value>",
     },
   ],
   metadata: [
@@ -2803,7 +2818,7 @@ const value: models.InputWef = {
       value: "<value>",
     },
   ],
-  description: "bah mmm ecstatic",
+  description: "availability fellow obsess scale decongestant",
 };
 ```
 

@@ -190,6 +190,14 @@ export type OutputSplunkLbAuthToken = {
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
   authType?: IndexerDiscoveryConfigsAuthTokenAuthenticationMethod | undefined;
+  /**
+   * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
+   */
+  authToken?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  textSecret?: string | undefined;
 };
 
 /**
@@ -746,10 +754,14 @@ export const OutputSplunkLbAuthToken$inboundSchema: z.ZodType<
 > = z.object({
   authType: IndexerDiscoveryConfigsAuthTokenAuthenticationMethod$inboundSchema
     .default("manual"),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
 });
 /** @internal */
 export type OutputSplunkLbAuthToken$Outbound = {
   authType: string;
+  authToken: string;
+  textSecret?: string | undefined;
 };
 
 /** @internal */
@@ -760,6 +772,8 @@ export const OutputSplunkLbAuthToken$outboundSchema: z.ZodType<
 > = z.object({
   authType: IndexerDiscoveryConfigsAuthTokenAuthenticationMethod$outboundSchema
     .default("manual"),
+  authToken: z.string().default(""),
+  textSecret: z.string().optional(),
 });
 
 export function outputSplunkLbAuthTokenToJSON(
