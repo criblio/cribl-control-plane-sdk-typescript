@@ -53,7 +53,7 @@ let value: ConfigGroup = {
     "<value 1>",
   ],
   tags: "<value>",
-  type: "riptide",
+  type: "local_search",
   upgradeVersion: "<value>",
   workerCount: 9778.69,
   workerRemoteAccess: true,
