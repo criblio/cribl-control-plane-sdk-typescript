@@ -57,7 +57,7 @@ let value: UpdateConfigGroupByProductAndIdRequest = {
       "<value 2>",
     ],
     tags: "<value>",
-    type: "riptide",
+    type: "local_search",
     upgradeVersion: "<value>",
     workerCount: 3493.89,
     workerRemoteAccess: true,

@@ -57,7 +57,7 @@ let value: CreateConfigGroupByProductRequest = {
       "<value 3>",
     ],
     tags: "<value>",
-    type: "riptide",
+    type: "local_search",
     upgradeVersion: "<value>",
     workerCount: 5687.41,
     workerRemoteAccess: false,
