@@ -3,7 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import { OpenEnum, Unrecognized } from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Commit, Commit$Outbound, Commit$outboundSchema } from "./commit.js";
 import {
   ConfigGroupCloud,
@@ -72,6 +73,7 @@ export type GroupCreateRequestGit = {
 
 export const GroupCreateRequestType = {
   LakeAccess: "lake_access",
+  Riptide: "riptide",
 } as const;
 export type GroupCreateRequestType = OpenEnum<typeof GroupCreateRequestType>;
 
@@ -105,13 +107,10 @@ export type GroupCreateRequest = {
 
 /** @internal */
 export const GroupCreateRequestEstimatedIngestRate$outboundSchema: z.ZodType<
-  GroupCreateRequestEstimatedIngestRate,
+  number,
   z.ZodTypeDef,
   GroupCreateRequestEstimatedIngestRate
-> = z.union([
-  z.nativeEnum(GroupCreateRequestEstimatedIngestRate),
-  z.number().and(z.custom<Unrecognized<number>>()),
-]);
+> = openEnums.outboundSchemaInt(GroupCreateRequestEstimatedIngestRate);
 
 /** @internal */
 export type GroupCreateRequestGit$Outbound = {
@@ -141,13 +140,10 @@ export function groupCreateRequestGitToJSON(
 
 /** @internal */
 export const GroupCreateRequestType$outboundSchema: z.ZodType<
-  GroupCreateRequestType,
+  string,
   z.ZodTypeDef,
   GroupCreateRequestType
-> = z.union([
-  z.nativeEnum(GroupCreateRequestType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(GroupCreateRequestType);
 
 /** @internal */
 export type GroupCreateRequest$Outbound = {

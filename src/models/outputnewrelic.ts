@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -396,40 +392,26 @@ export const OutputNewrelicRegion$inboundSchema: z.ZodType<
   OutputNewrelicRegion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputNewrelicRegion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputNewrelicRegion);
 /** @internal */
 export const OutputNewrelicRegion$outboundSchema: z.ZodType<
-  OutputNewrelicRegion,
+  string,
   z.ZodTypeDef,
   OutputNewrelicRegion
-> = z.union([
-  z.nativeEnum(OutputNewrelicRegion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputNewrelicRegion);
 
 /** @internal */
 export const FieldName$inboundSchema: z.ZodType<
   FieldName,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(FieldName),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(FieldName);
 /** @internal */
 export const FieldName$outboundSchema: z.ZodType<
-  FieldName,
+  string,
   z.ZodTypeDef,
   FieldName
-> = z.union([
-  z.nativeEnum(FieldName),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(FieldName);
 
 /** @internal */
 export const OutputNewrelicMetadatum$inboundSchema: z.ZodType<
@@ -522,20 +504,13 @@ export const OutputNewrelicFailedRequestLoggingMode$inboundSchema: z.ZodType<
   OutputNewrelicFailedRequestLoggingMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputNewrelicFailedRequestLoggingMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputNewrelicFailedRequestLoggingMode);
 /** @internal */
 export const OutputNewrelicFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  OutputNewrelicFailedRequestLoggingMode,
+  string,
   z.ZodTypeDef,
   OutputNewrelicFailedRequestLoggingMode
-> = z.union([
-  z.nativeEnum(OutputNewrelicFailedRequestLoggingMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputNewrelicFailedRequestLoggingMode);
 
 /** @internal */
 export const OutputNewrelicResponseRetrySetting$inboundSchema: z.ZodType<
@@ -644,100 +619,65 @@ export const OutputNewrelicBackpressureBehavior$inboundSchema: z.ZodType<
   OutputNewrelicBackpressureBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputNewrelicBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputNewrelicBackpressureBehavior);
 /** @internal */
 export const OutputNewrelicBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputNewrelicBackpressureBehavior,
+  string,
   z.ZodTypeDef,
   OutputNewrelicBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputNewrelicBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputNewrelicBackpressureBehavior);
 
 /** @internal */
 export const OutputNewrelicAuthenticationMethod$inboundSchema: z.ZodType<
   OutputNewrelicAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputNewrelicAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputNewrelicAuthenticationMethod);
 /** @internal */
 export const OutputNewrelicAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputNewrelicAuthenticationMethod,
+  string,
   z.ZodTypeDef,
   OutputNewrelicAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputNewrelicAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputNewrelicAuthenticationMethod);
 
 /** @internal */
 export const OutputNewrelicMode$inboundSchema: z.ZodType<
   OutputNewrelicMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputNewrelicMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputNewrelicMode);
 /** @internal */
 export const OutputNewrelicMode$outboundSchema: z.ZodType<
-  OutputNewrelicMode,
+  string,
   z.ZodTypeDef,
   OutputNewrelicMode
-> = z.union([
-  z.nativeEnum(OutputNewrelicMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputNewrelicMode);
 
 /** @internal */
 export const OutputNewrelicCompression$inboundSchema: z.ZodType<
   OutputNewrelicCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputNewrelicCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputNewrelicCompression);
 /** @internal */
 export const OutputNewrelicCompression$outboundSchema: z.ZodType<
-  OutputNewrelicCompression,
+  string,
   z.ZodTypeDef,
   OutputNewrelicCompression
-> = z.union([
-  z.nativeEnum(OutputNewrelicCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputNewrelicCompression);
 
 /** @internal */
 export const OutputNewrelicQueueFullBehavior$inboundSchema: z.ZodType<
   OutputNewrelicQueueFullBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputNewrelicQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputNewrelicQueueFullBehavior);
 /** @internal */
 export const OutputNewrelicQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputNewrelicQueueFullBehavior,
+  string,
   z.ZodTypeDef,
   OutputNewrelicQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputNewrelicQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputNewrelicQueueFullBehavior);
 
 /** @internal */
 export const OutputNewrelicPqControls$inboundSchema: z.ZodType<

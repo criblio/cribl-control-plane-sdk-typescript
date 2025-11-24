@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -377,40 +373,26 @@ export const InputS3Mode$inboundSchema: z.ZodType<
   InputS3Mode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputS3Mode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputS3Mode);
 /** @internal */
 export const InputS3Mode$outboundSchema: z.ZodType<
-  InputS3Mode,
+  string,
   z.ZodTypeDef,
   InputS3Mode
-> = z.union([
-  z.nativeEnum(InputS3Mode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputS3Mode);
 
 /** @internal */
 export const InputS3Compression$inboundSchema: z.ZodType<
   InputS3Compression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputS3Compression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputS3Compression);
 /** @internal */
 export const InputS3Compression$outboundSchema: z.ZodType<
-  InputS3Compression,
+  string,
   z.ZodTypeDef,
   InputS3Compression
-> = z.union([
-  z.nativeEnum(InputS3Compression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputS3Compression);
 
 /** @internal */
 export const InputS3PqControls$inboundSchema: z.ZodType<
@@ -506,40 +488,26 @@ export const InputS3AuthenticationMethod$inboundSchema: z.ZodType<
   InputS3AuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputS3AuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputS3AuthenticationMethod);
 /** @internal */
 export const InputS3AuthenticationMethod$outboundSchema: z.ZodType<
-  InputS3AuthenticationMethod,
+  string,
   z.ZodTypeDef,
   InputS3AuthenticationMethod
-> = z.union([
-  z.nativeEnum(InputS3AuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputS3AuthenticationMethod);
 
 /** @internal */
 export const InputS3SignatureVersion$inboundSchema: z.ZodType<
   InputS3SignatureVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputS3SignatureVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputS3SignatureVersion);
 /** @internal */
 export const InputS3SignatureVersion$outboundSchema: z.ZodType<
-  InputS3SignatureVersion,
+  string,
   z.ZodTypeDef,
   InputS3SignatureVersion
-> = z.union([
-  z.nativeEnum(InputS3SignatureVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputS3SignatureVersion);
 
 /** @internal */
 export const InputS3Preprocess$inboundSchema: z.ZodType<

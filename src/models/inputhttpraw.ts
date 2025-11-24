@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -351,40 +347,26 @@ export const InputHttpRawMode$inboundSchema: z.ZodType<
   InputHttpRawMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputHttpRawMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputHttpRawMode);
 /** @internal */
 export const InputHttpRawMode$outboundSchema: z.ZodType<
-  InputHttpRawMode,
+  string,
   z.ZodTypeDef,
   InputHttpRawMode
-> = z.union([
-  z.nativeEnum(InputHttpRawMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputHttpRawMode);
 
 /** @internal */
 export const InputHttpRawCompression$inboundSchema: z.ZodType<
   InputHttpRawCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputHttpRawCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputHttpRawCompression);
 /** @internal */
 export const InputHttpRawCompression$outboundSchema: z.ZodType<
-  InputHttpRawCompression,
+  string,
   z.ZodTypeDef,
   InputHttpRawCompression
-> = z.union([
-  z.nativeEnum(InputHttpRawCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputHttpRawCompression);
 
 /** @internal */
 export const InputHttpRawPqControls$inboundSchema: z.ZodType<
@@ -480,40 +462,26 @@ export const InputHttpRawMinimumTLSVersion$inboundSchema: z.ZodType<
   InputHttpRawMinimumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputHttpRawMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputHttpRawMinimumTLSVersion);
 /** @internal */
 export const InputHttpRawMinimumTLSVersion$outboundSchema: z.ZodType<
-  InputHttpRawMinimumTLSVersion,
+  string,
   z.ZodTypeDef,
   InputHttpRawMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(InputHttpRawMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputHttpRawMinimumTLSVersion);
 
 /** @internal */
 export const InputHttpRawMaximumTLSVersion$inboundSchema: z.ZodType<
   InputHttpRawMaximumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputHttpRawMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputHttpRawMaximumTLSVersion);
 /** @internal */
 export const InputHttpRawMaximumTLSVersion$outboundSchema: z.ZodType<
-  InputHttpRawMaximumTLSVersion,
+  string,
   z.ZodTypeDef,
   InputHttpRawMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(InputHttpRawMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputHttpRawMaximumTLSVersion);
 
 /** @internal */
 export const InputHttpRawTLSSettingsServerSide$inboundSchema: z.ZodType<

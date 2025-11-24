@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -389,60 +385,39 @@ export const OutputTcpjsonCompression$inboundSchema: z.ZodType<
   OutputTcpjsonCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputTcpjsonCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputTcpjsonCompression);
 /** @internal */
 export const OutputTcpjsonCompression$outboundSchema: z.ZodType<
-  OutputTcpjsonCompression,
+  string,
   z.ZodTypeDef,
   OutputTcpjsonCompression
-> = z.union([
-  z.nativeEnum(OutputTcpjsonCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputTcpjsonCompression);
 
 /** @internal */
 export const OutputTcpjsonMinimumTLSVersion$inboundSchema: z.ZodType<
   OutputTcpjsonMinimumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputTcpjsonMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputTcpjsonMinimumTLSVersion);
 /** @internal */
 export const OutputTcpjsonMinimumTLSVersion$outboundSchema: z.ZodType<
-  OutputTcpjsonMinimumTLSVersion,
+  string,
   z.ZodTypeDef,
   OutputTcpjsonMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(OutputTcpjsonMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputTcpjsonMinimumTLSVersion);
 
 /** @internal */
 export const OutputTcpjsonMaximumTLSVersion$inboundSchema: z.ZodType<
   OutputTcpjsonMaximumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputTcpjsonMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputTcpjsonMaximumTLSVersion);
 /** @internal */
 export const OutputTcpjsonMaximumTLSVersion$outboundSchema: z.ZodType<
-  OutputTcpjsonMaximumTLSVersion,
+  string,
   z.ZodTypeDef,
   OutputTcpjsonMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(OutputTcpjsonMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputTcpjsonMaximumTLSVersion);
 
 /** @internal */
 export const OutputTcpjsonTLSSettingsClientSide$inboundSchema: z.ZodType<
@@ -518,60 +493,39 @@ export const OutputTcpjsonBackpressureBehavior$inboundSchema: z.ZodType<
   OutputTcpjsonBackpressureBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputTcpjsonBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputTcpjsonBackpressureBehavior);
 /** @internal */
 export const OutputTcpjsonBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputTcpjsonBackpressureBehavior,
+  string,
   z.ZodTypeDef,
   OutputTcpjsonBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputTcpjsonBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputTcpjsonBackpressureBehavior);
 
 /** @internal */
 export const OutputTcpjsonAuthenticationMethod$inboundSchema: z.ZodType<
   OutputTcpjsonAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputTcpjsonAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputTcpjsonAuthenticationMethod);
 /** @internal */
 export const OutputTcpjsonAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputTcpjsonAuthenticationMethod,
+  string,
   z.ZodTypeDef,
   OutputTcpjsonAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputTcpjsonAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputTcpjsonAuthenticationMethod);
 
 /** @internal */
 export const OutputTcpjsonTLS$inboundSchema: z.ZodType<
   OutputTcpjsonTLS,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputTcpjsonTLS),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputTcpjsonTLS);
 /** @internal */
 export const OutputTcpjsonTLS$outboundSchema: z.ZodType<
-  OutputTcpjsonTLS,
+  string,
   z.ZodTypeDef,
   OutputTcpjsonTLS
-> = z.union([
-  z.nativeEnum(OutputTcpjsonTLS),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputTcpjsonTLS);
 
 /** @internal */
 export const OutputTcpjsonHost$inboundSchema: z.ZodType<
@@ -629,60 +583,39 @@ export const OutputTcpjsonMode$inboundSchema: z.ZodType<
   OutputTcpjsonMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputTcpjsonMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputTcpjsonMode);
 /** @internal */
 export const OutputTcpjsonMode$outboundSchema: z.ZodType<
-  OutputTcpjsonMode,
+  string,
   z.ZodTypeDef,
   OutputTcpjsonMode
-> = z.union([
-  z.nativeEnum(OutputTcpjsonMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputTcpjsonMode);
 
 /** @internal */
 export const OutputTcpjsonPqCompressCompression$inboundSchema: z.ZodType<
   OutputTcpjsonPqCompressCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputTcpjsonPqCompressCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputTcpjsonPqCompressCompression);
 /** @internal */
 export const OutputTcpjsonPqCompressCompression$outboundSchema: z.ZodType<
-  OutputTcpjsonPqCompressCompression,
+  string,
   z.ZodTypeDef,
   OutputTcpjsonPqCompressCompression
-> = z.union([
-  z.nativeEnum(OutputTcpjsonPqCompressCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputTcpjsonPqCompressCompression);
 
 /** @internal */
 export const OutputTcpjsonQueueFullBehavior$inboundSchema: z.ZodType<
   OutputTcpjsonQueueFullBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputTcpjsonQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputTcpjsonQueueFullBehavior);
 /** @internal */
 export const OutputTcpjsonQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputTcpjsonQueueFullBehavior,
+  string,
   z.ZodTypeDef,
   OutputTcpjsonQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputTcpjsonQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputTcpjsonQueueFullBehavior);
 
 /** @internal */
 export const OutputTcpjsonPqControls$inboundSchema: z.ZodType<

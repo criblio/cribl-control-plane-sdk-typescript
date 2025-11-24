@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -401,40 +397,26 @@ export const InputLokiMode$inboundSchema: z.ZodType<
   InputLokiMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputLokiMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputLokiMode);
 /** @internal */
 export const InputLokiMode$outboundSchema: z.ZodType<
-  InputLokiMode,
+  string,
   z.ZodTypeDef,
   InputLokiMode
-> = z.union([
-  z.nativeEnum(InputLokiMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputLokiMode);
 
 /** @internal */
 export const InputLokiCompression$inboundSchema: z.ZodType<
   InputLokiCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputLokiCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputLokiCompression);
 /** @internal */
 export const InputLokiCompression$outboundSchema: z.ZodType<
-  InputLokiCompression,
+  string,
   z.ZodTypeDef,
   InputLokiCompression
-> = z.union([
-  z.nativeEnum(InputLokiCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputLokiCompression);
 
 /** @internal */
 export const InputLokiPqControls$inboundSchema: z.ZodType<
@@ -530,40 +512,26 @@ export const InputLokiMinimumTLSVersion$inboundSchema: z.ZodType<
   InputLokiMinimumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputLokiMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputLokiMinimumTLSVersion);
 /** @internal */
 export const InputLokiMinimumTLSVersion$outboundSchema: z.ZodType<
-  InputLokiMinimumTLSVersion,
+  string,
   z.ZodTypeDef,
   InputLokiMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(InputLokiMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputLokiMinimumTLSVersion);
 
 /** @internal */
 export const InputLokiMaximumTLSVersion$inboundSchema: z.ZodType<
   InputLokiMaximumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputLokiMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputLokiMaximumTLSVersion);
 /** @internal */
 export const InputLokiMaximumTLSVersion$outboundSchema: z.ZodType<
-  InputLokiMaximumTLSVersion,
+  string,
   z.ZodTypeDef,
   InputLokiMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(InputLokiMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputLokiMaximumTLSVersion);
 
 /** @internal */
 export const InputLokiTLSSettingsServerSide$inboundSchema: z.ZodType<
@@ -641,20 +609,13 @@ export const InputLokiAuthenticationType$inboundSchema: z.ZodType<
   InputLokiAuthenticationType,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputLokiAuthenticationType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputLokiAuthenticationType);
 /** @internal */
 export const InputLokiAuthenticationType$outboundSchema: z.ZodType<
-  InputLokiAuthenticationType,
+  string,
   z.ZodTypeDef,
   InputLokiAuthenticationType
-> = z.union([
-  z.nativeEnum(InputLokiAuthenticationType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputLokiAuthenticationType);
 
 /** @internal */
 export const InputLokiMetadatum$inboundSchema: z.ZodType<

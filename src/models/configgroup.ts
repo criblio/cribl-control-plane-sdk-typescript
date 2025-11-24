@@ -4,11 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   Commit,
@@ -86,6 +83,7 @@ export type ConfigGroupGit = {
 
 export const ConfigGroupType = {
   LakeAccess: "lake_access",
+  Riptide: "riptide",
 } as const;
 export type ConfigGroupType = OpenEnum<typeof ConfigGroupType>;
 
@@ -122,20 +120,13 @@ export const ConfigGroupEstimatedIngestRate$inboundSchema: z.ZodType<
   ConfigGroupEstimatedIngestRate,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(ConfigGroupEstimatedIngestRate),
-    z.number().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchemaInt(ConfigGroupEstimatedIngestRate);
 /** @internal */
 export const ConfigGroupEstimatedIngestRate$outboundSchema: z.ZodType<
-  ConfigGroupEstimatedIngestRate,
+  number,
   z.ZodTypeDef,
   ConfigGroupEstimatedIngestRate
-> = z.union([
-  z.nativeEnum(ConfigGroupEstimatedIngestRate),
-  z.number().and(z.custom<Unrecognized<number>>()),
-]);
+> = openEnums.outboundSchemaInt(ConfigGroupEstimatedIngestRate);
 
 /** @internal */
 export const ConfigGroupGit$inboundSchema: z.ZodType<
@@ -183,20 +174,13 @@ export const ConfigGroupType$inboundSchema: z.ZodType<
   ConfigGroupType,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(ConfigGroupType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(ConfigGroupType);
 /** @internal */
 export const ConfigGroupType$outboundSchema: z.ZodType<
-  ConfigGroupType,
+  string,
   z.ZodTypeDef,
   ConfigGroupType
-> = z.union([
-  z.nativeEnum(ConfigGroupType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(ConfigGroupType);
 
 /** @internal */
 export const ConfigGroup$inboundSchema: z.ZodType<
