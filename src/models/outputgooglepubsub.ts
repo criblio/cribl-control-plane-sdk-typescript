@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -267,101 +263,66 @@ export const OutputGooglePubsubGoogleAuthenticationMethod$inboundSchema:
     OutputGooglePubsubGoogleAuthenticationMethod,
     z.ZodTypeDef,
     unknown
-  > = z
-    .union([
-      z.nativeEnum(OutputGooglePubsubGoogleAuthenticationMethod),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  > = openEnums.inboundSchema(OutputGooglePubsubGoogleAuthenticationMethod);
 /** @internal */
 export const OutputGooglePubsubGoogleAuthenticationMethod$outboundSchema:
   z.ZodType<
-    OutputGooglePubsubGoogleAuthenticationMethod,
+    string,
     z.ZodTypeDef,
     OutputGooglePubsubGoogleAuthenticationMethod
-  > = z.union([
-    z.nativeEnum(OutputGooglePubsubGoogleAuthenticationMethod),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  > = openEnums.outboundSchema(OutputGooglePubsubGoogleAuthenticationMethod);
 
 /** @internal */
 export const OutputGooglePubsubBackpressureBehavior$inboundSchema: z.ZodType<
   OutputGooglePubsubBackpressureBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGooglePubsubBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputGooglePubsubBackpressureBehavior);
 /** @internal */
 export const OutputGooglePubsubBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputGooglePubsubBackpressureBehavior,
+  string,
   z.ZodTypeDef,
   OutputGooglePubsubBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputGooglePubsubBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputGooglePubsubBackpressureBehavior);
 
 /** @internal */
 export const OutputGooglePubsubMode$inboundSchema: z.ZodType<
   OutputGooglePubsubMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGooglePubsubMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputGooglePubsubMode);
 /** @internal */
 export const OutputGooglePubsubMode$outboundSchema: z.ZodType<
-  OutputGooglePubsubMode,
+  string,
   z.ZodTypeDef,
   OutputGooglePubsubMode
-> = z.union([
-  z.nativeEnum(OutputGooglePubsubMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputGooglePubsubMode);
 
 /** @internal */
 export const OutputGooglePubsubCompression$inboundSchema: z.ZodType<
   OutputGooglePubsubCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGooglePubsubCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputGooglePubsubCompression);
 /** @internal */
 export const OutputGooglePubsubCompression$outboundSchema: z.ZodType<
-  OutputGooglePubsubCompression,
+  string,
   z.ZodTypeDef,
   OutputGooglePubsubCompression
-> = z.union([
-  z.nativeEnum(OutputGooglePubsubCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputGooglePubsubCompression);
 
 /** @internal */
 export const OutputGooglePubsubQueueFullBehavior$inboundSchema: z.ZodType<
   OutputGooglePubsubQueueFullBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGooglePubsubQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputGooglePubsubQueueFullBehavior);
 /** @internal */
 export const OutputGooglePubsubQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputGooglePubsubQueueFullBehavior,
+  string,
   z.ZodTypeDef,
   OutputGooglePubsubQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputGooglePubsubQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputGooglePubsubQueueFullBehavior);
 
 /** @internal */
 export const OutputGooglePubsubPqControls$inboundSchema: z.ZodType<
