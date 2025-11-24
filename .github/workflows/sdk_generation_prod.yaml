@@ -25,25 +25,12 @@ jobs:
   check-branch:
     runs-on: ubuntu-latest
     steps:
-      - name: Ensure workflow is run from main branch or official tag
+      - name: Ensure workflow is run from main branch
         run: |
-          REF_NAME="${GITHUB_REF_NAME}"
-          
-          # Allow main branch
-          if [[ "${REF_NAME}" == "main" ]]; then
-            echo "Workflow triggered from main branch"
-            exit 0
+          if [[ "${GITHUB_REF_NAME}" != "main" ]]; then
+            echo "This workflow can only be run from the main branch."
+            exit 1
           fi
-          
-          # Check if it's an official tag (v{major}.{minor}.{patch} with no pre-release suffix)
-          if [[ "${REF_NAME}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            echo "Workflow triggered from official tag: ${REF_NAME}"
-            exit 0
-          fi
-          
-          # If we get here, it's not allowed
-          echo "This workflow can only be run from main branch or official tags (v{major}.{minor}.{patch})."
-          exit 1
 
   generate:
     needs: check-branch
