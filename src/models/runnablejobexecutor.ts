@@ -4,7 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import { catchUnrecognizedEnum, ClosedEnum, OpenEnum } from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -219,11 +220,7 @@ export const RunnableJobExecutorJobType$inboundSchema: z.ZodType<
   RunnableJobExecutorJobType,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(RunnableJobExecutorJobType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(RunnableJobExecutorJobType);
 
 /** @internal */
 export const RunnableJobExecutorType$inboundSchema: z.ZodNativeEnum<
@@ -352,11 +349,7 @@ export const RunnableJobExecutorLogLevel$inboundSchema: z.ZodType<
   RunnableJobExecutorLogLevel,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(RunnableJobExecutorLogLevel),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(RunnableJobExecutorLogLevel);
 
 /** @internal */
 export const RunnableJobExecutorRun$inboundSchema: z.ZodType<
