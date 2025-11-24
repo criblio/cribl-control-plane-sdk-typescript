@@ -43,6 +43,7 @@ jobs:
           
           # If we get here, it's not allowed
           echo "This workflow can only be run from main branch or official tags (v{major}.{minor}.{patch})."
+          echo "Ref: ${REF_NAME}"
           exit 1
 
   generate:
