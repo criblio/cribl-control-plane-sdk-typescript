@@ -3,26 +3,12 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 
 export type DeleteOutputPqByIdRequest = {
   /**
    * The <code>id</code> of the Destination to clear the PQ for.
    */
   id: string;
-};
-
-/**
- * A list of job ids for the background job that clears the persistent queue
- */
-export type DeleteOutputPqByIdResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<string> | undefined;
 };
 
 /** @internal */
@@ -44,25 +30,5 @@ export function deleteOutputPqByIdRequestToJSON(
 ): string {
   return JSON.stringify(
     DeleteOutputPqByIdRequest$outboundSchema.parse(deleteOutputPqByIdRequest),
-  );
-}
-
-/** @internal */
-export const DeleteOutputPqByIdResponse$inboundSchema: z.ZodType<
-  DeleteOutputPqByIdResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(z.string()).optional(),
-});
-
-export function deleteOutputPqByIdResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<DeleteOutputPqByIdResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DeleteOutputPqByIdResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DeleteOutputPqByIdResponse' from JSON`,
   );
 }

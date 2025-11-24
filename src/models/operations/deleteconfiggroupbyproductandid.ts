@@ -3,9 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type DeleteConfigGroupByProductAndIdRequest = {
@@ -17,17 +14,6 @@ export type DeleteConfigGroupByProductAndIdRequest = {
    * The <code>id</code> of the Worker Group or Edge Fleet to delete.
    */
   id: string;
-};
-
-/**
- * a list of ConfigGroup objects
- */
-export type DeleteConfigGroupByProductAndIdResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.ConfigGroup> | undefined;
 };
 
 /** @internal */
@@ -54,31 +40,5 @@ export function deleteConfigGroupByProductAndIdRequestToJSON(
     DeleteConfigGroupByProductAndIdRequest$outboundSchema.parse(
       deleteConfigGroupByProductAndIdRequest,
     ),
-  );
-}
-
-/** @internal */
-export const DeleteConfigGroupByProductAndIdResponse$inboundSchema: z.ZodType<
-  DeleteConfigGroupByProductAndIdResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.ConfigGroup$inboundSchema).optional(),
-});
-
-export function deleteConfigGroupByProductAndIdResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  DeleteConfigGroupByProductAndIdResponse,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      DeleteConfigGroupByProductAndIdResponse$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'DeleteConfigGroupByProductAndIdResponse' from JSON`,
   );
 }

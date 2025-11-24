@@ -33,16 +33,17 @@ let value: OutputNewrelic = {
   safeHeaders: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
   responseRetrySettings: [
     {
-      httpStatus: 2157.83,
+      httpStatus: 1243.99,
     },
   ],
   timeoutRetrySettings: {},
-  totalMemoryLimitKB: 7414.49,
-  description: "dental to despite",
-  customUrl: "https://limping-following.org/",
+  totalMemoryLimitKB: 7293.26,
+  description: "rapidly fooey now mooch superior sleepily boohoo repeatedly",
+  customUrl: "https://dirty-tinderbox.info/",
   pqControls: {},
   apiKey: "<value>",
   textSecret: "<value>",

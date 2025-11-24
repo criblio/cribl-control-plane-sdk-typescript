@@ -3,10 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
 
 export type DeleteCriblLakeDatasetByLakeIdAndIdRequest = {
   /**
@@ -17,17 +13,6 @@ export type DeleteCriblLakeDatasetByLakeIdAndIdRequest = {
    * The <code>id</code> of the Lake Dataset to delete.
    */
   id: string;
-};
-
-/**
- * a list of CriblLakeDataset objects
- */
-export type DeleteCriblLakeDatasetByLakeIdAndIdResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.CriblLakeDataset> | undefined;
 };
 
 /** @internal */
@@ -55,32 +40,5 @@ export function deleteCriblLakeDatasetByLakeIdAndIdRequestToJSON(
     DeleteCriblLakeDatasetByLakeIdAndIdRequest$outboundSchema.parse(
       deleteCriblLakeDatasetByLakeIdAndIdRequest,
     ),
-  );
-}
-
-/** @internal */
-export const DeleteCriblLakeDatasetByLakeIdAndIdResponse$inboundSchema:
-  z.ZodType<
-    DeleteCriblLakeDatasetByLakeIdAndIdResponse,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    count: z.number().int().optional(),
-    items: z.array(models.CriblLakeDataset$inboundSchema).optional(),
-  });
-
-export function deleteCriblLakeDatasetByLakeIdAndIdResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  DeleteCriblLakeDatasetByLakeIdAndIdResponse,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      DeleteCriblLakeDatasetByLakeIdAndIdResponse$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'DeleteCriblLakeDatasetByLakeIdAndIdResponse' from JSON`,
   );
 }

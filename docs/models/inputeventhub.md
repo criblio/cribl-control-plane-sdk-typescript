@@ -27,7 +27,7 @@ let value: InputEventhub = {
   ],
   topics: [],
   sasl: {
-    password: "ZVoXsr5CskK1lW7",
+    password: "ZcrxTx4Amn7CtfA",
     textSecret: "<value>",
     clientSecret: "<value>",
     clientTextSecret: "<value>",
@@ -40,8 +40,8 @@ let value: InputEventhub = {
     scope: "<value>",
   },
   tls: {},
-  autoCommitInterval: 6010.39,
-  autoCommitThreshold: 3174.01,
+  autoCommitInterval: 5448.32,
+  autoCommitThreshold: 5569.57,
   metadata: [
     {
       name: "<value>",
@@ -49,7 +49,7 @@ let value: InputEventhub = {
     },
   ],
   description:
-    "wonderfully broadcast to questionable upward haul preheat nutritious",
+    "questionable upward haul preheat nutritious since even so silently",
 };
 ```
 

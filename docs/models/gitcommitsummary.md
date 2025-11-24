@@ -7,7 +7,7 @@ import { GitCommitSummary } from "cribl-control-plane/models";
 
 let value: GitCommitSummary = {
   author: {
-    email: "Nicklaus.Nolan@yahoo.com",
+    email: "Antwon19@yahoo.com",
     name: "<value>",
   },
   branch: "<value>",
@@ -15,24 +15,26 @@ let value: GitCommitSummary = {
   files: {
     created: [
       "<value 1>",
-      "<value 2>",
     ],
     deleted: [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
     ],
     modified: [
       "<value 1>",
+      "<value 2>",
     ],
     renamed: [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
     ],
   },
   summary: {
-    changes: 5958.84,
-    deletions: 4410.47,
-    insertions: 8113.93,
+    changes: 4408.76,
+    deletions: 7943.47,
+    insertions: 6422.14,
   },
 };
 ```
