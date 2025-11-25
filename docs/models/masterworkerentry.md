@@ -155,20 +155,11 @@ let value: MasterWorkerEntry = {
     totalmem: 9967.14,
   },
   lastMetrics: {
-    "key": {
-      "key": "<value>",
-      "key1": "<value>",
-      "key2": "<value>",
-    },
-    "key1": {
-      "key": "<value>",
-    },
-    "key2": {
-      "key": "<value>",
-      "key1": "<value>",
-    },
+    "key": "<value>",
+    "key1": "<value>",
+    "key2": "<value>",
   },
-  lastMsgTime: 5282.77,
+  lastMsgTime: 8518.59,
   metadata: {
     aws: {
       enabled: false,
@@ -213,17 +204,17 @@ let value: MasterWorkerEntry = {
     },
   },
   nodeUpgradeStatus: {
-    active: 2,
+    active: 1,
     failed: 0,
     skipped: 3,
     state: 3,
-    timestamp: 5672.54,
+    timestamp: 1569.79,
   },
   status: "<value>",
-  type: "info",
-  workerProcesses: 6281.42,
+  type: "req",
+  workerProcesses: 5121.94,
   workers: {
-    count: 3117.81,
+    count: 5672.54,
   },
 };
 ```
@@ -238,7 +229,7 @@ let value: MasterWorkerEntry = {
 | `group`                                                                  | *string*                                                                 | :heavy_check_mark:                                                       | N/A                                                                      |
 | `id`                                                                     | *string*                                                                 | :heavy_check_mark:                                                       | N/A                                                                      |
 | `info`                                                                   | [models.NodeProvidedInfo](../models/nodeprovidedinfo.md)                 | :heavy_check_mark:                                                       | N/A                                                                      |
-| `lastMetrics`                                                            | Record<string, Record<string, *any*>>                                    | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `lastMetrics`                                                            | Record<string, *any*>                                                    | :heavy_minus_sign:                                                       | N/A                                                                      |
 | `lastMsgTime`                                                            | *number*                                                                 | :heavy_check_mark:                                                       | N/A                                                                      |
 | `metadata`                                                               | [models.HeartbeatMetadata](../models/heartbeatmetadata.md)               | :heavy_minus_sign:                                                       | N/A                                                                      |
 | `nodeUpgradeStatus`                                                      | [models.NodeUpgradeStatus](../models/nodeupgradestatus.md)               | :heavy_minus_sign:                                                       | N/A                                                                      |

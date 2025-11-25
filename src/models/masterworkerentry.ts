@@ -39,7 +39,7 @@ export type MasterWorkerEntry = {
   group: string;
   id: string;
   info: NodeProvidedInfo;
-  lastMetrics?: { [k: string]: { [k: string]: any } } | undefined;
+  lastMetrics?: { [k: string]: any } | undefined;
   lastMsgTime: number;
   metadata?: HeartbeatMetadata | undefined;
   nodeUpgradeStatus?: NodeUpgradeStatus | undefined;
@@ -87,7 +87,7 @@ export const MasterWorkerEntry$inboundSchema: z.ZodType<
   group: z.string(),
   id: z.string(),
   info: NodeProvidedInfo$inboundSchema,
-  lastMetrics: z.record(z.record(z.any())).optional(),
+  lastMetrics: z.record(z.any()).optional(),
   lastMsgTime: z.number(),
   metadata: HeartbeatMetadata$inboundSchema.optional(),
   nodeUpgradeStatus: NodeUpgradeStatus$inboundSchema.optional(),
