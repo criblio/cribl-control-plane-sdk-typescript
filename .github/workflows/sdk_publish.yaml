@@ -62,3 +62,40 @@ jobs:
       github_access_token: ${{ secrets.GITHUB_TOKEN }}
       npm_token: ${{ secrets.NPM_TOKEN }}
       speakeasy_api_key: ${{ secrets.SPEAKEASY_API_KEY }}
+
+  restore-workflow-lock:
+    needs: [check-branch, publish]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Restore workflow.lock from GA tag
+        run: |
+          set -euo pipefail
+          sudo apt-get update && sudo apt-get install -y jq
+          
+          # Example: curl -s https://api.github.com/repos/criblio/cribl-control-plane-sdk-typescript/releases/latest | jq -r '.tag_name'
+          echo "Fetching latest GA release from GitHub..."
+          LAST_GA_TAG=$(curl -s https://api.github.com/repos/${{ github.repository }}/releases/latest | jq -r '.tag_name')
+          echo "✅ Latest GA tag: ${LAST_GA_TAG}"
+          
+          echo "Fetching tags from repository..."
+          git fetch --tags --quiet || true
+          
+          echo "Restoring workflow.lock from tag: ${LAST_GA_TAG}"
+          git restore --source="${LAST_GA_TAG}" .speakeasy/workflow.lock
+          
+          echo "Staging workflow.lock changes..."
+          git add .speakeasy/workflow.lock
+          
+          echo "Committing workflow.lock restoration..."
+          git commit -m "Revert workflow.lock to ${LAST_GA_TAG} for GA release" || echo "No changes to commit, workflow.lock already in sync"
+          
+          CURRENT_BRANCH="${{ needs.check-branch.outputs.branch }}"
+          echo "Pushing changes to ${CURRENT_BRANCH} branch..."
+          git push origin ${CURRENT_BRANCH}
+          echo "✅ Successfully restored workflow.lock from ${LAST_GA_TAG}"
