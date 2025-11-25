@@ -74,6 +74,11 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Set up Git user
+        run: |
+          git config user.name "SyncUpBot"
+          git config user.email "syncupbot@users.noreply.github.com"
+
       - name: Restore workflow.lock from GA tag
         run: |
           set -euo pipefail
