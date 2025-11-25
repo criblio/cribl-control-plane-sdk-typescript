@@ -109,9 +109,9 @@ jobs:
           
           # Restore speakeasyVersion (in both places) and inputs.location to current values
           echo "Restoring speakeasyVersion and inputs.location to current values..."
-          yq -i ".speakeasyVersion = \"${CURRENT_SPEAKEASY_VERSION}\"" .speakeasy/workflow.lock
-          yq -i ".workflow.speakeasyVersion = \"${CURRENT_SPEAKEASY_VERSION}\"" .speakeasy/workflow.lock
-          yq -i ".workflow.sources[\"Cribl API Reference\"].inputs[0].location = \"${CURRENT_INPUTS_LOCATION}\"" .speakeasy/workflow.lock
+          yq -i --indent 4 ".speakeasyVersion = \"${CURRENT_SPEAKEASY_VERSION}\"" .speakeasy/workflow.lock
+          yq -i --indent 4 ".workflow.speakeasyVersion = \"${CURRENT_SPEAKEASY_VERSION}\"" .speakeasy/workflow.lock
+          yq -i --indent 4 ".workflow.sources[\"Cribl API Reference\"].inputs[0].location = \"${CURRENT_INPUTS_LOCATION}\"" .speakeasy/workflow.lock
           
           echo "Staging workflow.lock changes..."
           git add .speakeasy/workflow.lock
