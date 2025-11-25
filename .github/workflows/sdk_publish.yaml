@@ -99,7 +99,7 @@ jobs:
           # Save current speakeasyVersion and inputs.location before restoring
           echo "Saving current speakeasyVersion and inputs.location..."
           CURRENT_SPEAKEASY_VERSION=$(yq '.speakeasyVersion' .speakeasy/workflow.lock)
-          CURRENT_INPUTS_LOCATION=$(yq '.workflow.sources."Cribl API Reference".inputs[0].location' .speakeasy/workflow.lock)
+          CURRENT_INPUTS_LOCATION=$(yq '.workflow.sources["Cribl API Reference"].inputs[0].location' .speakeasy/workflow.lock)
           echo "Current speakeasyVersion: ${CURRENT_SPEAKEASY_VERSION}"
           echo "Current inputs.location: ${CURRENT_INPUTS_LOCATION}"
           
@@ -110,7 +110,7 @@ jobs:
           echo "Restoring speakeasyVersion and inputs.location to current values..."
           yq -i ".speakeasyVersion = \"${CURRENT_SPEAKEASY_VERSION}\"" .speakeasy/workflow.lock
           yq -i ".workflow.speakeasyVersion = \"${CURRENT_SPEAKEASY_VERSION}\"" .speakeasy/workflow.lock
-          yq -i ".workflow.sources.\"Cribl API Reference\".inputs[0].location = \"${CURRENT_INPUTS_LOCATION}\"" .speakeasy/workflow.lock
+          yq -i ".workflow.sources[\"Cribl API Reference\"].inputs[0].location = \"${CURRENT_INPUTS_LOCATION}\"" .speakeasy/workflow.lock
           
           echo "Staging workflow.lock changes..."
           git add .speakeasy/workflow.lock
