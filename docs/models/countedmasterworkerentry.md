@@ -158,13 +158,11 @@ let value: CountedMasterWorkerEntry = {
         totalmem: 9967.14,
       },
       lastMetrics: {
-        "key": {},
-        "key1": {
-          "key": "<value>",
-        },
-        "key2": {},
+        "key": "<value>",
+        "key1": "<value>",
+        "key2": "<value>",
       },
-      lastMsgTime: 9226.83,
+      lastMsgTime: 2041.42,
       metadata: {
         aws: {
           enabled: false,
@@ -209,17 +207,17 @@ let value: CountedMasterWorkerEntry = {
         },
       },
       nodeUpgradeStatus: {
-        active: 2,
+        active: 1,
         failed: 0,
         skipped: 3,
         state: 3,
-        timestamp: 5672.54,
+        timestamp: 1569.79,
       },
       status: "<value>",
-      type: "info",
-      workerProcesses: 154.61,
+      type: "resp",
+      workerProcesses: 9314.25,
       workers: {
-        count: 3117.81,
+        count: 5672.54,
       },
     },
   ],
