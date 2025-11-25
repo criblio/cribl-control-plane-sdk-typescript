@@ -1,4 +1,4 @@
-speakeasyVersion: 1.650.0
+speakeasyVersion: 1.659.0
 sources:
     Cribl API Reference:
         sourceNamespace: cribl-api-reference
@@ -18,11 +18,11 @@ targets:
         codeSamplesRevisionDigest: sha256:c8515b9bb45af713230906dad4b413af2d2f72607a5c334f36eb6b024b54665b
 workflow:
     workflowVersion: 1.0.0
-    speakeasyVersion: 1.650.0
+    speakeasyVersion: 1.659.0
     sources:
         Cribl API Reference:
             inputs:
-                - location: https://raw.githubusercontent.com/criblio/cribl-openapi-spec/main/specs/control-plane.yml
+                - location: https://raw.githubusercontent.com/criblio/cribl-openapi-spec/main/specs/control-plane-stage.yml
             output: .speakeasy/out.openapi.yaml
             registry:
                 location: registry.speakeasyapi.dev/cribl/cribl/cribl-api-reference
