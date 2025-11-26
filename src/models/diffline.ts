@@ -30,21 +30,9 @@ export const DiffLine$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  DiffLineContext$inboundSchema.and(
-    z.object({ type: z.literal("context") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
-  DiffLineDelete$inboundSchema.and(
-    z.object({ type: z.literal("delete") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
-  DiffLineInsert$inboundSchema.and(
-    z.object({ type: z.literal("insert") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
+  DiffLineContext$inboundSchema.and(z.object({ type: z.literal("context") })),
+  DiffLineDelete$inboundSchema.and(z.object({ type: z.literal("delete") })),
+  DiffLineInsert$inboundSchema.and(z.object({ type: z.literal("insert") })),
 ]);
 
 export function diffLineFromJSON(
