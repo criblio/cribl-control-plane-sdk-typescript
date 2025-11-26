@@ -4,9 +4,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type CreateCriblLakeDatasetByLakeIdRequest = {
@@ -18,17 +15,6 @@ export type CreateCriblLakeDatasetByLakeIdRequest = {
    * CriblLakeDataset object
    */
   criblLakeDataset: models.CriblLakeDataset;
-};
-
-/**
- * a list of CriblLakeDataset objects
- */
-export type CreateCriblLakeDatasetByLakeIdResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.CriblLakeDataset> | undefined;
 };
 
 /** @internal */
@@ -58,26 +44,5 @@ export function createCriblLakeDatasetByLakeIdRequestToJSON(
     CreateCriblLakeDatasetByLakeIdRequest$outboundSchema.parse(
       createCriblLakeDatasetByLakeIdRequest,
     ),
-  );
-}
-
-/** @internal */
-export const CreateCriblLakeDatasetByLakeIdResponse$inboundSchema: z.ZodType<
-  CreateCriblLakeDatasetByLakeIdResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.CriblLakeDataset$inboundSchema).optional(),
-});
-
-export function createCriblLakeDatasetByLakeIdResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateCriblLakeDatasetByLakeIdResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CreateCriblLakeDatasetByLakeIdResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateCriblLakeDatasetByLakeIdResponse' from JSON`,
   );
 }

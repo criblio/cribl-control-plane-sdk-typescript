@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -122,60 +118,39 @@ export const OutputRingDataFormat$inboundSchema: z.ZodType<
   OutputRingDataFormat,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputRingDataFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputRingDataFormat);
 /** @internal */
 export const OutputRingDataFormat$outboundSchema: z.ZodType<
-  OutputRingDataFormat,
+  string,
   z.ZodTypeDef,
   OutputRingDataFormat
-> = z.union([
-  z.nativeEnum(OutputRingDataFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputRingDataFormat);
 
 /** @internal */
 export const OutputRingDataCompressionFormat$inboundSchema: z.ZodType<
   OutputRingDataCompressionFormat,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputRingDataCompressionFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputRingDataCompressionFormat);
 /** @internal */
 export const OutputRingDataCompressionFormat$outboundSchema: z.ZodType<
-  OutputRingDataCompressionFormat,
+  string,
   z.ZodTypeDef,
   OutputRingDataCompressionFormat
-> = z.union([
-  z.nativeEnum(OutputRingDataCompressionFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputRingDataCompressionFormat);
 
 /** @internal */
 export const OutputRingBackpressureBehavior$inboundSchema: z.ZodType<
   OutputRingBackpressureBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputRingBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputRingBackpressureBehavior);
 /** @internal */
 export const OutputRingBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputRingBackpressureBehavior,
+  string,
   z.ZodTypeDef,
   OutputRingBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputRingBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputRingBackpressureBehavior);
 
 /** @internal */
 export const OutputRing$inboundSchema: z.ZodType<

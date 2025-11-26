@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -125,11 +121,36 @@ export const AuthenticationProtocol = {
 } as const;
 export type AuthenticationProtocol = OpenEnum<typeof AuthenticationProtocol>;
 
+export const PrivacyProtocol = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * DES
+   */
+  Des: "des",
+  /**
+   * AES128
+   */
+  Aes: "aes",
+  /**
+   * AES256b (Blumenthal)
+   */
+  Aes256b: "aes256b",
+  /**
+   * AES256r (Reeder)
+   */
+  Aes256r: "aes256r",
+} as const;
+export type PrivacyProtocol = OpenEnum<typeof PrivacyProtocol>;
+
 export type V3User = {
   name: string;
   authProtocol?: AuthenticationProtocol | undefined;
-  authKey?: any | undefined;
-  privProtocol?: string | undefined;
+  authKey?: string | undefined;
+  privProtocol?: PrivacyProtocol | undefined;
+  privKey?: string | undefined;
 };
 
 /**
@@ -282,40 +303,26 @@ export const InputSnmpMode$inboundSchema: z.ZodType<
   InputSnmpMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputSnmpMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputSnmpMode);
 /** @internal */
 export const InputSnmpMode$outboundSchema: z.ZodType<
-  InputSnmpMode,
+  string,
   z.ZodTypeDef,
   InputSnmpMode
-> = z.union([
-  z.nativeEnum(InputSnmpMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputSnmpMode);
 
 /** @internal */
 export const InputSnmpCompression$inboundSchema: z.ZodType<
   InputSnmpCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputSnmpCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputSnmpCompression);
 /** @internal */
 export const InputSnmpCompression$outboundSchema: z.ZodType<
-  InputSnmpCompression,
+  string,
   z.ZodTypeDef,
   InputSnmpCompression
-> = z.union([
-  z.nativeEnum(InputSnmpCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputSnmpCompression);
 
 /** @internal */
 export const InputSnmpPqControls$inboundSchema: z.ZodType<
@@ -411,35 +418,43 @@ export const AuthenticationProtocol$inboundSchema: z.ZodType<
   AuthenticationProtocol,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(AuthenticationProtocol),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(AuthenticationProtocol);
 /** @internal */
 export const AuthenticationProtocol$outboundSchema: z.ZodType<
-  AuthenticationProtocol,
+  string,
   z.ZodTypeDef,
   AuthenticationProtocol
-> = z.union([
-  z.nativeEnum(AuthenticationProtocol),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(AuthenticationProtocol);
+
+/** @internal */
+export const PrivacyProtocol$inboundSchema: z.ZodType<
+  PrivacyProtocol,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(PrivacyProtocol);
+/** @internal */
+export const PrivacyProtocol$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PrivacyProtocol
+> = openEnums.outboundSchema(PrivacyProtocol);
 
 /** @internal */
 export const V3User$inboundSchema: z.ZodType<V3User, z.ZodTypeDef, unknown> = z
   .object({
     name: z.string(),
     authProtocol: AuthenticationProtocol$inboundSchema.default("none"),
-    authKey: z.any().optional(),
-    privProtocol: z.string().default("none"),
+    authKey: z.string().optional(),
+    privProtocol: PrivacyProtocol$inboundSchema.default("none"),
+    privKey: z.string().optional(),
   });
 /** @internal */
 export type V3User$Outbound = {
   name: string;
   authProtocol: string;
-  authKey?: any | undefined;
+  authKey?: string | undefined;
   privProtocol: string;
+  privKey?: string | undefined;
 };
 
 /** @internal */
@@ -450,8 +465,9 @@ export const V3User$outboundSchema: z.ZodType<
 > = z.object({
   name: z.string(),
   authProtocol: AuthenticationProtocol$outboundSchema.default("none"),
-  authKey: z.any().optional(),
-  privProtocol: z.string().default("none"),
+  authKey: z.string().optional(),
+  privProtocol: PrivacyProtocol$outboundSchema.default("none"),
+  privKey: z.string().optional(),
 });
 
 export function v3UserToJSON(v3User: V3User): string {

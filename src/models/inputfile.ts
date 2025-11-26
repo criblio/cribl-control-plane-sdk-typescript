@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -283,40 +279,26 @@ export const InputFilePqMode$inboundSchema: z.ZodType<
   InputFilePqMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputFilePqMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputFilePqMode);
 /** @internal */
 export const InputFilePqMode$outboundSchema: z.ZodType<
-  InputFilePqMode,
+  string,
   z.ZodTypeDef,
   InputFilePqMode
-> = z.union([
-  z.nativeEnum(InputFilePqMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputFilePqMode);
 
 /** @internal */
 export const InputFileCompression$inboundSchema: z.ZodType<
   InputFileCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputFileCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputFileCompression);
 /** @internal */
 export const InputFileCompression$outboundSchema: z.ZodType<
-  InputFileCompression,
+  string,
   z.ZodTypeDef,
   InputFileCompression
-> = z.union([
-  z.nativeEnum(InputFileCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputFileCompression);
 
 /** @internal */
 export const InputFilePqControls$inboundSchema: z.ZodType<
@@ -412,20 +394,13 @@ export const InputFileMode$inboundSchema: z.ZodType<
   InputFileMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputFileMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputFileMode);
 /** @internal */
 export const InputFileMode$outboundSchema: z.ZodType<
-  InputFileMode,
+  string,
   z.ZodTypeDef,
   InputFileMode
-> = z.union([
-  z.nativeEnum(InputFileMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputFileMode);
 
 /** @internal */
 export const InputFileMetadatum$inboundSchema: z.ZodType<

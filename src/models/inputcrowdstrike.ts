@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -380,40 +376,26 @@ export const InputCrowdstrikeMode$inboundSchema: z.ZodType<
   InputCrowdstrikeMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputCrowdstrikeMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputCrowdstrikeMode);
 /** @internal */
 export const InputCrowdstrikeMode$outboundSchema: z.ZodType<
-  InputCrowdstrikeMode,
+  string,
   z.ZodTypeDef,
   InputCrowdstrikeMode
-> = z.union([
-  z.nativeEnum(InputCrowdstrikeMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputCrowdstrikeMode);
 
 /** @internal */
 export const InputCrowdstrikeCompression$inboundSchema: z.ZodType<
   InputCrowdstrikeCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputCrowdstrikeCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputCrowdstrikeCompression);
 /** @internal */
 export const InputCrowdstrikeCompression$outboundSchema: z.ZodType<
-  InputCrowdstrikeCompression,
+  string,
   z.ZodTypeDef,
   InputCrowdstrikeCompression
-> = z.union([
-  z.nativeEnum(InputCrowdstrikeCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputCrowdstrikeCompression);
 
 /** @internal */
 export const InputCrowdstrikePqControls$inboundSchema: z.ZodType<
@@ -514,40 +496,26 @@ export const InputCrowdstrikeAuthenticationMethod$inboundSchema: z.ZodType<
   InputCrowdstrikeAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputCrowdstrikeAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputCrowdstrikeAuthenticationMethod);
 /** @internal */
 export const InputCrowdstrikeAuthenticationMethod$outboundSchema: z.ZodType<
-  InputCrowdstrikeAuthenticationMethod,
+  string,
   z.ZodTypeDef,
   InputCrowdstrikeAuthenticationMethod
-> = z.union([
-  z.nativeEnum(InputCrowdstrikeAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputCrowdstrikeAuthenticationMethod);
 
 /** @internal */
 export const InputCrowdstrikeSignatureVersion$inboundSchema: z.ZodType<
   InputCrowdstrikeSignatureVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputCrowdstrikeSignatureVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputCrowdstrikeSignatureVersion);
 /** @internal */
 export const InputCrowdstrikeSignatureVersion$outboundSchema: z.ZodType<
-  InputCrowdstrikeSignatureVersion,
+  string,
   z.ZodTypeDef,
   InputCrowdstrikeSignatureVersion
-> = z.union([
-  z.nativeEnum(InputCrowdstrikeSignatureVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputCrowdstrikeSignatureVersion);
 
 /** @internal */
 export const InputCrowdstrikePreprocess$inboundSchema: z.ZodType<
@@ -685,20 +653,13 @@ export const InputCrowdstrikeTagAfterProcessing$inboundSchema: z.ZodType<
   InputCrowdstrikeTagAfterProcessing,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputCrowdstrikeTagAfterProcessing),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputCrowdstrikeTagAfterProcessing);
 /** @internal */
 export const InputCrowdstrikeTagAfterProcessing$outboundSchema: z.ZodType<
-  InputCrowdstrikeTagAfterProcessing,
+  string,
   z.ZodTypeDef,
   InputCrowdstrikeTagAfterProcessing
-> = z.union([
-  z.nativeEnum(InputCrowdstrikeTagAfterProcessing),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputCrowdstrikeTagAfterProcessing);
 
 /** @internal */
 export const InputCrowdstrike$inboundSchema: z.ZodType<

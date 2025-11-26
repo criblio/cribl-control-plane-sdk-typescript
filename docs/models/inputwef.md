@@ -51,6 +51,13 @@ let value: InputWef = {
           value: "<value>",
         },
       ],
+      queries: [
+        {
+          path: "/boot/defaults",
+          queryExpression: "<value>",
+        },
+      ],
+      xmlQuery: "<value>",
     },
   ],
   metadata: [
@@ -59,7 +66,7 @@ let value: InputWef = {
       value: "<value>",
     },
   ],
-  description: "bah mmm ecstatic",
+  description: "availability fellow obsess scale decongestant",
 };
 ```
 

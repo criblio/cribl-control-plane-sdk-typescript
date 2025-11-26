@@ -4,7 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
@@ -19,8 +20,6 @@ import {
   NodeUpgradeStatus,
   NodeUpgradeStatus$inboundSchema,
 } from "./nodeupgradestatus.js";
-
-export type LastMetrics = {};
 
 export const MasterWorkerEntryType = {
   Info: "info",
@@ -40,7 +39,7 @@ export type MasterWorkerEntry = {
   group: string;
   id: string;
   info: NodeProvidedInfo;
-  lastMetrics?: LastMetrics | undefined;
+  lastMetrics?: { [k: string]: any } | undefined;
   lastMsgTime: number;
   metadata?: HeartbeatMetadata | undefined;
   nodeUpgradeStatus?: NodeUpgradeStatus | undefined;
@@ -51,32 +50,11 @@ export type MasterWorkerEntry = {
 };
 
 /** @internal */
-export const LastMetrics$inboundSchema: z.ZodType<
-  LastMetrics,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-export function lastMetricsFromJSON(
-  jsonString: string,
-): SafeParseResult<LastMetrics, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => LastMetrics$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'LastMetrics' from JSON`,
-  );
-}
-
-/** @internal */
 export const MasterWorkerEntryType$inboundSchema: z.ZodType<
   MasterWorkerEntryType,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(MasterWorkerEntryType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(MasterWorkerEntryType);
 
 /** @internal */
 export const MasterWorkerEntryWorkers$inboundSchema: z.ZodType<
@@ -109,7 +87,7 @@ export const MasterWorkerEntry$inboundSchema: z.ZodType<
   group: z.string(),
   id: z.string(),
   info: NodeProvidedInfo$inboundSchema,
-  lastMetrics: z.lazy(() => LastMetrics$inboundSchema).optional(),
+  lastMetrics: z.record(z.any()).optional(),
   lastMsgTime: z.number(),
   metadata: HeartbeatMetadata$inboundSchema.optional(),
   nodeUpgradeStatus: NodeUpgradeStatus$inboundSchema.optional(),

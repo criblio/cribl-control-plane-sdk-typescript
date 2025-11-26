@@ -3,10 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
 
 export type GetVersionDiffRequest = {
   /**
@@ -25,17 +21,6 @@ export type GetVersionDiffRequest = {
    * Number of lines of the diff to return. Default is 1000. Set to <code>0</code> to return the full diff, regardless of the number of lines.
    */
   diffLineLimit?: number | undefined;
-};
-
-/**
- * a list of GitDiffResult objects
- */
-export type GetVersionDiffResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.GitDiffResult> | undefined;
 };
 
 /** @internal */
@@ -63,25 +48,5 @@ export function getVersionDiffRequestToJSON(
 ): string {
   return JSON.stringify(
     GetVersionDiffRequest$outboundSchema.parse(getVersionDiffRequest),
-  );
-}
-
-/** @internal */
-export const GetVersionDiffResponse$inboundSchema: z.ZodType<
-  GetVersionDiffResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.GitDiffResult$inboundSchema).optional(),
-});
-
-export function getVersionDiffResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<GetVersionDiffResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetVersionDiffResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetVersionDiffResponse' from JSON`,
   );
 }
