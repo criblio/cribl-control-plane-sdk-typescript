@@ -150,6 +150,10 @@ export type InputWizContentConfig = {
    * Collector runtime log level
    */
   logLevel?: InputWizLogLevel | undefined;
+  /**
+   * Maximum number of pages to retrieve per collection task. Defaults to 0. Set to 0 to retrieve all pages.
+   */
+  maxPages?: number | undefined;
 };
 
 export type InputWizMetadatum = {
@@ -549,6 +553,7 @@ export const InputWizContentConfig$inboundSchema: z.ZodType<
   latest: z.string().default("now"),
   jobTimeout: z.string().default("0"),
   logLevel: InputWizLogLevel$inboundSchema.default("info"),
+  maxPages: z.number().default(0),
 });
 /** @internal */
 export type InputWizContentConfig$Outbound = {
@@ -565,6 +570,7 @@ export type InputWizContentConfig$Outbound = {
   latest: string;
   jobTimeout: string;
   logLevel: string;
+  maxPages: number;
 };
 
 /** @internal */
@@ -590,6 +596,7 @@ export const InputWizContentConfig$outboundSchema: z.ZodType<
   latest: z.string().default("now"),
   jobTimeout: z.string().default("0"),
   logLevel: InputWizLogLevel$outboundSchema.default("info"),
+  maxPages: z.number().default(0),
 });
 
 export function inputWizContentConfigToJSON(
