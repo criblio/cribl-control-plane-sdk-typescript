@@ -3,27 +3,12 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
 
 export type DeletePipelineByIdRequest = {
   /**
    * The <code>id</code> of the Pipeline to delete.
    */
   id: string;
-};
-
-/**
- * a list of Pipeline objects
- */
-export type DeletePipelineByIdResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.Pipeline> | undefined;
 };
 
 /** @internal */
@@ -45,25 +30,5 @@ export function deletePipelineByIdRequestToJSON(
 ): string {
   return JSON.stringify(
     DeletePipelineByIdRequest$outboundSchema.parse(deletePipelineByIdRequest),
-  );
-}
-
-/** @internal */
-export const DeletePipelineByIdResponse$inboundSchema: z.ZodType<
-  DeletePipelineByIdResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.Pipeline$inboundSchema).optional(),
-});
-
-export function deletePipelineByIdResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<DeletePipelineByIdResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DeletePipelineByIdResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DeletePipelineByIdResponse' from JSON`,
   );
 }

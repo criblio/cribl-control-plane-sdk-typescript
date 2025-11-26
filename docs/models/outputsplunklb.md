@@ -33,7 +33,9 @@ let value: OutputSplunkLb = {
   indexerDiscoveryConfigs: {
     masterUri: "https://striking-ghost.info",
     authTokens: [
-      {},
+      {
+        textSecret: "<value>",
+      },
     ],
     textSecret: "<value>",
   },

@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -467,220 +463,143 @@ export const OutputCloudflareR2AuthenticationMethod$inboundSchema: z.ZodType<
   OutputCloudflareR2AuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCloudflareR2AuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputCloudflareR2AuthenticationMethod);
 /** @internal */
 export const OutputCloudflareR2AuthenticationMethod$outboundSchema: z.ZodType<
-  OutputCloudflareR2AuthenticationMethod,
+  string,
   z.ZodTypeDef,
   OutputCloudflareR2AuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputCloudflareR2AuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputCloudflareR2AuthenticationMethod);
 
 /** @internal */
 export const OutputCloudflareR2SignatureVersion$inboundSchema: z.ZodType<
   OutputCloudflareR2SignatureVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCloudflareR2SignatureVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputCloudflareR2SignatureVersion);
 /** @internal */
 export const OutputCloudflareR2SignatureVersion$outboundSchema: z.ZodType<
-  OutputCloudflareR2SignatureVersion,
+  string,
   z.ZodTypeDef,
   OutputCloudflareR2SignatureVersion
-> = z.union([
-  z.nativeEnum(OutputCloudflareR2SignatureVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputCloudflareR2SignatureVersion);
 
 /** @internal */
 export const OutputCloudflareR2StorageClass$inboundSchema: z.ZodType<
   OutputCloudflareR2StorageClass,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCloudflareR2StorageClass),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputCloudflareR2StorageClass);
 /** @internal */
 export const OutputCloudflareR2StorageClass$outboundSchema: z.ZodType<
-  OutputCloudflareR2StorageClass,
+  string,
   z.ZodTypeDef,
   OutputCloudflareR2StorageClass
-> = z.union([
-  z.nativeEnum(OutputCloudflareR2StorageClass),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputCloudflareR2StorageClass);
 
 /** @internal */
 export const OutputCloudflareR2ServerSideEncryption$inboundSchema: z.ZodType<
   OutputCloudflareR2ServerSideEncryption,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCloudflareR2ServerSideEncryption),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputCloudflareR2ServerSideEncryption);
 /** @internal */
 export const OutputCloudflareR2ServerSideEncryption$outboundSchema: z.ZodType<
-  OutputCloudflareR2ServerSideEncryption,
+  string,
   z.ZodTypeDef,
   OutputCloudflareR2ServerSideEncryption
-> = z.union([
-  z.nativeEnum(OutputCloudflareR2ServerSideEncryption),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputCloudflareR2ServerSideEncryption);
 
 /** @internal */
 export const OutputCloudflareR2DataFormat$inboundSchema: z.ZodType<
   OutputCloudflareR2DataFormat,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCloudflareR2DataFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputCloudflareR2DataFormat);
 /** @internal */
 export const OutputCloudflareR2DataFormat$outboundSchema: z.ZodType<
-  OutputCloudflareR2DataFormat,
+  string,
   z.ZodTypeDef,
   OutputCloudflareR2DataFormat
-> = z.union([
-  z.nativeEnum(OutputCloudflareR2DataFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputCloudflareR2DataFormat);
 
 /** @internal */
 export const OutputCloudflareR2BackpressureBehavior$inboundSchema: z.ZodType<
   OutputCloudflareR2BackpressureBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCloudflareR2BackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputCloudflareR2BackpressureBehavior);
 /** @internal */
 export const OutputCloudflareR2BackpressureBehavior$outboundSchema: z.ZodType<
-  OutputCloudflareR2BackpressureBehavior,
+  string,
   z.ZodTypeDef,
   OutputCloudflareR2BackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputCloudflareR2BackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputCloudflareR2BackpressureBehavior);
 
 /** @internal */
 export const OutputCloudflareR2DiskSpaceProtection$inboundSchema: z.ZodType<
   OutputCloudflareR2DiskSpaceProtection,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCloudflareR2DiskSpaceProtection),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputCloudflareR2DiskSpaceProtection);
 /** @internal */
 export const OutputCloudflareR2DiskSpaceProtection$outboundSchema: z.ZodType<
-  OutputCloudflareR2DiskSpaceProtection,
+  string,
   z.ZodTypeDef,
   OutputCloudflareR2DiskSpaceProtection
-> = z.union([
-  z.nativeEnum(OutputCloudflareR2DiskSpaceProtection),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputCloudflareR2DiskSpaceProtection);
 
 /** @internal */
 export const OutputCloudflareR2Compression$inboundSchema: z.ZodType<
   OutputCloudflareR2Compression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCloudflareR2Compression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputCloudflareR2Compression);
 /** @internal */
 export const OutputCloudflareR2Compression$outboundSchema: z.ZodType<
-  OutputCloudflareR2Compression,
+  string,
   z.ZodTypeDef,
   OutputCloudflareR2Compression
-> = z.union([
-  z.nativeEnum(OutputCloudflareR2Compression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputCloudflareR2Compression);
 
 /** @internal */
 export const OutputCloudflareR2CompressionLevel$inboundSchema: z.ZodType<
   OutputCloudflareR2CompressionLevel,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCloudflareR2CompressionLevel),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputCloudflareR2CompressionLevel);
 /** @internal */
 export const OutputCloudflareR2CompressionLevel$outboundSchema: z.ZodType<
-  OutputCloudflareR2CompressionLevel,
+  string,
   z.ZodTypeDef,
   OutputCloudflareR2CompressionLevel
-> = z.union([
-  z.nativeEnum(OutputCloudflareR2CompressionLevel),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputCloudflareR2CompressionLevel);
 
 /** @internal */
 export const OutputCloudflareR2ParquetVersion$inboundSchema: z.ZodType<
   OutputCloudflareR2ParquetVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCloudflareR2ParquetVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputCloudflareR2ParquetVersion);
 /** @internal */
 export const OutputCloudflareR2ParquetVersion$outboundSchema: z.ZodType<
-  OutputCloudflareR2ParquetVersion,
+  string,
   z.ZodTypeDef,
   OutputCloudflareR2ParquetVersion
-> = z.union([
-  z.nativeEnum(OutputCloudflareR2ParquetVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputCloudflareR2ParquetVersion);
 
 /** @internal */
 export const OutputCloudflareR2DataPageVersion$inboundSchema: z.ZodType<
   OutputCloudflareR2DataPageVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCloudflareR2DataPageVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputCloudflareR2DataPageVersion);
 /** @internal */
 export const OutputCloudflareR2DataPageVersion$outboundSchema: z.ZodType<
-  OutputCloudflareR2DataPageVersion,
+  string,
   z.ZodTypeDef,
   OutputCloudflareR2DataPageVersion
-> = z.union([
-  z.nativeEnum(OutputCloudflareR2DataPageVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputCloudflareR2DataPageVersion);
 
 /** @internal */
 export const OutputCloudflareR2KeyValueMetadatum$inboundSchema: z.ZodType<

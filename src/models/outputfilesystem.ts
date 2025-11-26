@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -348,140 +344,91 @@ export const OutputFilesystemDataFormat$inboundSchema: z.ZodType<
   OutputFilesystemDataFormat,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputFilesystemDataFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputFilesystemDataFormat);
 /** @internal */
 export const OutputFilesystemDataFormat$outboundSchema: z.ZodType<
-  OutputFilesystemDataFormat,
+  string,
   z.ZodTypeDef,
   OutputFilesystemDataFormat
-> = z.union([
-  z.nativeEnum(OutputFilesystemDataFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputFilesystemDataFormat);
 
 /** @internal */
 export const OutputFilesystemBackpressureBehavior$inboundSchema: z.ZodType<
   OutputFilesystemBackpressureBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputFilesystemBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputFilesystemBackpressureBehavior);
 /** @internal */
 export const OutputFilesystemBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputFilesystemBackpressureBehavior,
+  string,
   z.ZodTypeDef,
   OutputFilesystemBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputFilesystemBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputFilesystemBackpressureBehavior);
 
 /** @internal */
 export const OutputFilesystemDiskSpaceProtection$inboundSchema: z.ZodType<
   OutputFilesystemDiskSpaceProtection,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputFilesystemDiskSpaceProtection),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputFilesystemDiskSpaceProtection);
 /** @internal */
 export const OutputFilesystemDiskSpaceProtection$outboundSchema: z.ZodType<
-  OutputFilesystemDiskSpaceProtection,
+  string,
   z.ZodTypeDef,
   OutputFilesystemDiskSpaceProtection
-> = z.union([
-  z.nativeEnum(OutputFilesystemDiskSpaceProtection),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputFilesystemDiskSpaceProtection);
 
 /** @internal */
 export const OutputFilesystemCompression$inboundSchema: z.ZodType<
   OutputFilesystemCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputFilesystemCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputFilesystemCompression);
 /** @internal */
 export const OutputFilesystemCompression$outboundSchema: z.ZodType<
-  OutputFilesystemCompression,
+  string,
   z.ZodTypeDef,
   OutputFilesystemCompression
-> = z.union([
-  z.nativeEnum(OutputFilesystemCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputFilesystemCompression);
 
 /** @internal */
 export const OutputFilesystemCompressionLevel$inboundSchema: z.ZodType<
   OutputFilesystemCompressionLevel,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputFilesystemCompressionLevel),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputFilesystemCompressionLevel);
 /** @internal */
 export const OutputFilesystemCompressionLevel$outboundSchema: z.ZodType<
-  OutputFilesystemCompressionLevel,
+  string,
   z.ZodTypeDef,
   OutputFilesystemCompressionLevel
-> = z.union([
-  z.nativeEnum(OutputFilesystemCompressionLevel),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputFilesystemCompressionLevel);
 
 /** @internal */
 export const OutputFilesystemParquetVersion$inboundSchema: z.ZodType<
   OutputFilesystemParquetVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputFilesystemParquetVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputFilesystemParquetVersion);
 /** @internal */
 export const OutputFilesystemParquetVersion$outboundSchema: z.ZodType<
-  OutputFilesystemParquetVersion,
+  string,
   z.ZodTypeDef,
   OutputFilesystemParquetVersion
-> = z.union([
-  z.nativeEnum(OutputFilesystemParquetVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputFilesystemParquetVersion);
 
 /** @internal */
 export const OutputFilesystemDataPageVersion$inboundSchema: z.ZodType<
   OutputFilesystemDataPageVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputFilesystemDataPageVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputFilesystemDataPageVersion);
 /** @internal */
 export const OutputFilesystemDataPageVersion$outboundSchema: z.ZodType<
-  OutputFilesystemDataPageVersion,
+  string,
   z.ZodTypeDef,
   OutputFilesystemDataPageVersion
-> = z.union([
-  z.nativeEnum(OutputFilesystemDataPageVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputFilesystemDataPageVersion);
 
 /** @internal */
 export const OutputFilesystemKeyValueMetadatum$inboundSchema: z.ZodType<
