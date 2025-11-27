@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 11e90df88293c6e56c6fe1ebc6b20bac
-  docVersion: 4.16.0-alpha.1764158670783-2be9ec22
+  docChecksum: 66fbf313d45fd03b8a0c0780d6b215af
+  docVersion: 4.16.0-alpha.1764244702228-3886c7b2
   speakeasyVersion: 1.661.2
   generationVersion: 2.763.3
-  releaseVersion: 0.4.0-rc.4
-  configChecksum: 0f42b480baf23a38f114d0db52a1fd64
+  releaseVersion: 0.4.0-rc.5
+  configChecksum: 3d0afba894afe0d6e5c539618c200bca
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
