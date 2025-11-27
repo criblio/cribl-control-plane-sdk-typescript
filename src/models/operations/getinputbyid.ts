@@ -3,27 +3,12 @@
  */
 
 import * as z from "zod/v3";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
-import * as models from "../index.js";
 
 export type GetInputByIdRequest = {
   /**
    * The <code>id</code> of the Source to get.
    */
   id: string;
-};
-
-/**
- * a list of Source objects
- */
-export type GetInputByIdResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.Input> | undefined;
 };
 
 /** @internal */
@@ -45,25 +30,5 @@ export function getInputByIdRequestToJSON(
 ): string {
   return JSON.stringify(
     GetInputByIdRequest$outboundSchema.parse(getInputByIdRequest),
-  );
-}
-
-/** @internal */
-export const GetInputByIdResponse$inboundSchema: z.ZodType<
-  GetInputByIdResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.Input$inboundSchema).optional(),
-});
-
-export function getInputByIdResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<GetInputByIdResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GetInputByIdResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GetInputByIdResponse' from JSON`,
   );
 }

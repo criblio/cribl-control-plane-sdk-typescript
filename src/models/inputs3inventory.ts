@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -396,40 +392,26 @@ export const InputS3InventoryMode$inboundSchema: z.ZodType<
   InputS3InventoryMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputS3InventoryMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputS3InventoryMode);
 /** @internal */
 export const InputS3InventoryMode$outboundSchema: z.ZodType<
-  InputS3InventoryMode,
+  string,
   z.ZodTypeDef,
   InputS3InventoryMode
-> = z.union([
-  z.nativeEnum(InputS3InventoryMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputS3InventoryMode);
 
 /** @internal */
 export const InputS3InventoryCompression$inboundSchema: z.ZodType<
   InputS3InventoryCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputS3InventoryCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputS3InventoryCompression);
 /** @internal */
 export const InputS3InventoryCompression$outboundSchema: z.ZodType<
-  InputS3InventoryCompression,
+  string,
   z.ZodTypeDef,
   InputS3InventoryCompression
-> = z.union([
-  z.nativeEnum(InputS3InventoryCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputS3InventoryCompression);
 
 /** @internal */
 export const InputS3InventoryPqControls$inboundSchema: z.ZodType<
@@ -530,40 +512,26 @@ export const InputS3InventoryAuthenticationMethod$inboundSchema: z.ZodType<
   InputS3InventoryAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputS3InventoryAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputS3InventoryAuthenticationMethod);
 /** @internal */
 export const InputS3InventoryAuthenticationMethod$outboundSchema: z.ZodType<
-  InputS3InventoryAuthenticationMethod,
+  string,
   z.ZodTypeDef,
   InputS3InventoryAuthenticationMethod
-> = z.union([
-  z.nativeEnum(InputS3InventoryAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputS3InventoryAuthenticationMethod);
 
 /** @internal */
 export const InputS3InventorySignatureVersion$inboundSchema: z.ZodType<
   InputS3InventorySignatureVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputS3InventorySignatureVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputS3InventorySignatureVersion);
 /** @internal */
 export const InputS3InventorySignatureVersion$outboundSchema: z.ZodType<
-  InputS3InventorySignatureVersion,
+  string,
   z.ZodTypeDef,
   InputS3InventorySignatureVersion
-> = z.union([
-  z.nativeEnum(InputS3InventorySignatureVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputS3InventorySignatureVersion);
 
 /** @internal */
 export const InputS3InventoryPreprocess$inboundSchema: z.ZodType<
@@ -701,20 +669,13 @@ export const InputS3InventoryTagAfterProcessing$inboundSchema: z.ZodType<
   InputS3InventoryTagAfterProcessing,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputS3InventoryTagAfterProcessing),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputS3InventoryTagAfterProcessing);
 /** @internal */
 export const InputS3InventoryTagAfterProcessing$outboundSchema: z.ZodType<
-  InputS3InventoryTagAfterProcessing,
+  string,
   z.ZodTypeDef,
   InputS3InventoryTagAfterProcessing
-> = z.union([
-  z.nativeEnum(InputS3InventoryTagAfterProcessing),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputS3InventoryTagAfterProcessing);
 
 /** @internal */
 export const InputS3Inventory$inboundSchema: z.ZodType<

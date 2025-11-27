@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -91,20 +87,13 @@ export const OutputDiskSpoolCompression$inboundSchema: z.ZodType<
   OutputDiskSpoolCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDiskSpoolCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputDiskSpoolCompression);
 /** @internal */
 export const OutputDiskSpoolCompression$outboundSchema: z.ZodType<
-  OutputDiskSpoolCompression,
+  string,
   z.ZodTypeDef,
   OutputDiskSpoolCompression
-> = z.union([
-  z.nativeEnum(OutputDiskSpoolCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputDiskSpoolCompression);
 
 /** @internal */
 export const OutputDiskSpool$inboundSchema: z.ZodType<

@@ -61,7 +61,7 @@ async function main() {
       username: ONPREM_USERNAME,
       password: ONPREM_PASSWORD,
     });
-    const token = response.token;
+    const token = response.result.token;
     _tokenExpiresAt = _getJwtExp(token);
     _cachedToken = token;
     return { bearerAuth: token };

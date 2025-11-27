@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -210,6 +206,17 @@ export type SubscriptionMetadatum = {
   value: string;
 };
 
+export type Query = {
+  /**
+   * The Path attribute from the relevant XML Select element
+   */
+  path: string;
+  /**
+   * The XPath query inside the relevant XML Select element
+   */
+  queryExpression: string;
+};
+
 export type Subscription = {
   subscriptionName: string;
   /**
@@ -253,6 +260,11 @@ export type Subscription = {
    * Fields to add to events ingested under this subscription
    */
   metadata?: Array<SubscriptionMetadatum> | undefined;
+  queries?: Array<Query> | undefined;
+  /**
+   * The XPath query to use for selecting events
+   */
+  xmlQuery?: string | undefined;
 };
 
 export type InputWefMetadatum = {
@@ -429,40 +441,26 @@ export const InputWefMode$inboundSchema: z.ZodType<
   InputWefMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputWefMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputWefMode);
 /** @internal */
 export const InputWefMode$outboundSchema: z.ZodType<
-  InputWefMode,
+  string,
   z.ZodTypeDef,
   InputWefMode
-> = z.union([
-  z.nativeEnum(InputWefMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputWefMode);
 
 /** @internal */
 export const InputWefCompression$inboundSchema: z.ZodType<
   InputWefCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputWefCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputWefCompression);
 /** @internal */
 export const InputWefCompression$outboundSchema: z.ZodType<
-  InputWefCompression,
+  string,
   z.ZodTypeDef,
   InputWefCompression
-> = z.union([
-  z.nativeEnum(InputWefCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputWefCompression);
 
 /** @internal */
 export const InputWefPqControls$inboundSchema: z.ZodType<
@@ -558,60 +556,39 @@ export const InputWefAuthenticationMethod$inboundSchema: z.ZodType<
   InputWefAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputWefAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputWefAuthenticationMethod);
 /** @internal */
 export const InputWefAuthenticationMethod$outboundSchema: z.ZodType<
-  InputWefAuthenticationMethod,
+  string,
   z.ZodTypeDef,
   InputWefAuthenticationMethod
-> = z.union([
-  z.nativeEnum(InputWefAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputWefAuthenticationMethod);
 
 /** @internal */
 export const InputWefMinimumTLSVersion$inboundSchema: z.ZodType<
   InputWefMinimumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputWefMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputWefMinimumTLSVersion);
 /** @internal */
 export const InputWefMinimumTLSVersion$outboundSchema: z.ZodType<
-  InputWefMinimumTLSVersion,
+  string,
   z.ZodTypeDef,
   InputWefMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(InputWefMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputWefMinimumTLSVersion);
 
 /** @internal */
 export const InputWefMaximumTLSVersion$inboundSchema: z.ZodType<
   InputWefMaximumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputWefMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputWefMaximumTLSVersion);
 /** @internal */
 export const InputWefMaximumTLSVersion$outboundSchema: z.ZodType<
-  InputWefMaximumTLSVersion,
+  string,
   z.ZodTypeDef,
   InputWefMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(InputWefMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputWefMaximumTLSVersion);
 
 /** @internal */
 export const MTLSSettings$inboundSchema: z.ZodType<
@@ -695,40 +672,26 @@ export const InputWefFormat$inboundSchema: z.ZodType<
   InputWefFormat,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputWefFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputWefFormat);
 /** @internal */
 export const InputWefFormat$outboundSchema: z.ZodType<
-  InputWefFormat,
+  string,
   z.ZodTypeDef,
   InputWefFormat
-> = z.union([
-  z.nativeEnum(InputWefFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputWefFormat);
 
 /** @internal */
 export const QueryBuilderMode$inboundSchema: z.ZodType<
   QueryBuilderMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(QueryBuilderMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(QueryBuilderMode);
 /** @internal */
 export const QueryBuilderMode$outboundSchema: z.ZodType<
-  QueryBuilderMode,
+  string,
   z.ZodTypeDef,
   QueryBuilderMode
-> = z.union([
-  z.nativeEnum(QueryBuilderMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(QueryBuilderMode);
 
 /** @internal */
 export const SubscriptionMetadatum$inboundSchema: z.ZodType<
@@ -773,6 +736,41 @@ export function subscriptionMetadatumFromJSON(
 }
 
 /** @internal */
+export const Query$inboundSchema: z.ZodType<Query, z.ZodTypeDef, unknown> = z
+  .object({
+    path: z.string(),
+    queryExpression: z.string(),
+  });
+/** @internal */
+export type Query$Outbound = {
+  path: string;
+  queryExpression: string;
+};
+
+/** @internal */
+export const Query$outboundSchema: z.ZodType<
+  Query$Outbound,
+  z.ZodTypeDef,
+  Query
+> = z.object({
+  path: z.string(),
+  queryExpression: z.string(),
+});
+
+export function queryToJSON(query: Query): string {
+  return JSON.stringify(Query$outboundSchema.parse(query));
+}
+export function queryFromJSON(
+  jsonString: string,
+): SafeParseResult<Query, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => Query$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Query' from JSON`,
+  );
+}
+
+/** @internal */
 export const Subscription$inboundSchema: z.ZodType<
   Subscription,
   z.ZodTypeDef,
@@ -791,6 +789,8 @@ export const Subscription$inboundSchema: z.ZodType<
   querySelector: QueryBuilderMode$inboundSchema.default("simple"),
   metadata: z.array(z.lazy(() => SubscriptionMetadatum$inboundSchema))
     .optional(),
+  queries: z.array(z.lazy(() => Query$inboundSchema)).optional(),
+  xmlQuery: z.string().optional(),
 });
 /** @internal */
 export type Subscription$Outbound = {
@@ -806,6 +806,8 @@ export type Subscription$Outbound = {
   locale: string;
   querySelector: string;
   metadata?: Array<SubscriptionMetadatum$Outbound> | undefined;
+  queries?: Array<Query$Outbound> | undefined;
+  xmlQuery?: string | undefined;
 };
 
 /** @internal */
@@ -827,6 +829,8 @@ export const Subscription$outboundSchema: z.ZodType<
   querySelector: QueryBuilderMode$outboundSchema.default("simple"),
   metadata: z.array(z.lazy(() => SubscriptionMetadatum$outboundSchema))
     .optional(),
+  queries: z.array(z.lazy(() => Query$outboundSchema)).optional(),
+  xmlQuery: z.string().optional(),
 });
 
 export function subscriptionToJSON(subscription: Subscription): string {
