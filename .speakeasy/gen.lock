@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 90171872a47fb36497680bb638644eef
-  docVersion: 4.15.0-alpha.1763072414698-97546d75
-  speakeasyVersion: 1.659.0
-  generationVersion: 2.755.9
-  releaseVersion: 0.4.0-alpha.7
-  configChecksum: cfc4f3c0370bb5c937d4d25c92a325e3
+  docChecksum: 822674f854529be29b12b4d31e509ad5
+  docVersion: 4.15.1-alpha.1764198138622-538bc24c
+  speakeasyVersion: 1.661.2
+  generationVersion: 2.763.3
+  releaseVersion: 0.4.0-alpha.8
+  configChecksum: f0c9cf9b5d3a603cb8671690152652b3
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -15,7 +15,7 @@ features:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.2
     constsAndDefaults: 0.1.12
-    core: 3.26.7
+    core: 3.26.10
     defaultEnabledRetries: 0.1.0
     devContainers: 2.90.1
     enumUnions: 0.1.0
@@ -2504,6 +2504,7 @@ generatedFiles:
   - src/types/operations.ts
   - src/types/rfcdate.ts
   - src/types/streams.ts
+  - src/types/unrecognized.ts
   - tsconfig.json
 examples:
   getHealthInfo:
@@ -3052,6 +3053,13 @@ examples:
       parameters:
         path:
           lakeId: "<id>"
+        query:
+          storageLocationId: "<id>"
+          format: "<value>"
+          excludeDDSS: "<value>"
+          excludeDeleted: "<value>"
+          excludeInternal: "<value>"
+          excludeBYOS: "<value>"
       responses:
         "200":
           application/json: {"count": 3101, "items": [{"acceleratedFields": ["<value 1>", "<value 2>"], "bucketName": "<value>", "cacheConnection": {"acceleratedFields": ["<value 1>", "<value 2>"], "backfillStatus": "finished", "cacheRef": "<value>", "createdAt": 6343.67, "lakehouseConnectionType": "cache", "migrationQueryId": "<id>", "retentionInDays": 6213}, "deletionStartedAt": 581.96, "description": "remarkable meh whoever ha crossly", "format": "json", "httpDAUsed": true, "id": "<id>", "metrics": {"currentSizeBytes": 31.01, "metricsDate": "<value>"}, "retentionPeriodInDays": 2829.32, "searchConfig": {"datatypes": ["<value 1>"], "metadata": {"earliest": "<value>", "enableAcceleration": true, "fieldList": ["<value 1>", "<value 2>"], "latestRunInfo": {"earliestScannedTime": 4800.7, "finishedAt": 8646.6, "latestScannedTime": 5697.01, "objectCount": 4527.63}, "scanMode": "quick"}}, "storageLocationId": "<id>", "viewName": "<value>"}]}
@@ -3563,3 +3571,6 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
+releaseNotes: |
+  ## Typescript SDK Changes Detected:
+  * `criblcontrolplane.lakeDatasets.list()`:  `request` **Changed**

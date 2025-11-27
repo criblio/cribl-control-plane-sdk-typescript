@@ -489,336 +489,148 @@ export type Output =
 export const Output$inboundSchema: z.ZodType<Output, z.ZodTypeDef, unknown> = z
   .union([
     OutputAzureDataExplorer$inboundSchema.and(
-      z.object({ type: z.literal("azure_data_explorer") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("azure_data_explorer") }),
     ),
     OutputSecurityLake$inboundSchema.and(
-      z.object({ type: z.literal("security_lake") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("security_lake") }),
     ),
     OutputChronicle$inboundSchema.and(
-      z.object({ type: z.literal("chronicle") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("chronicle") }),
     ),
-    OutputSentinel$inboundSchema.and(
-      z.object({ type: z.literal("sentinel") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
+    OutputSentinel$inboundSchema.and(z.object({ type: z.literal("sentinel") })),
     OutputGoogleCloudLogging$inboundSchema.and(
-      z.object({ type: z.literal("google_cloud_logging") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("google_cloud_logging") }),
     ),
-    OutputExabeam$inboundSchema.and(
-      z.object({ type: z.literal("exabeam") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
-    OutputMsk$inboundSchema.and(
-      z.object({ type: z.literal("msk") }).transform((v) => ({ type: v.type })),
-    ),
+    OutputExabeam$inboundSchema.and(z.object({ type: z.literal("exabeam") })),
+    OutputMsk$inboundSchema.and(z.object({ type: z.literal("msk") })),
     OutputCloudwatch$inboundSchema.and(
-      z.object({ type: z.literal("cloudwatch") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("cloudwatch") }),
     ),
     OutputClickHouse$inboundSchema.and(
-      z.object({ type: z.literal("click_house") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("click_house") }),
     ),
     OutputDatabricks$inboundSchema.and(
-      z.object({ type: z.literal("databricks") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("databricks") }),
     ),
-    OutputKinesis$inboundSchema.and(
-      z.object({ type: z.literal("kinesis") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
+    OutputKinesis$inboundSchema.and(z.object({ type: z.literal("kinesis") })),
     OutputAzureEventhub$inboundSchema.and(
-      z.object({ type: z.literal("azure_eventhub") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("azure_eventhub") }),
     ),
     OutputGoogleCloudStorage$inboundSchema.and(
-      z.object({ type: z.literal("google_cloud_storage") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("google_cloud_storage") }),
     ),
-    OutputKafka$inboundSchema.and(
-      z.object({ type: z.literal("kafka") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
+    OutputKafka$inboundSchema.and(z.object({ type: z.literal("kafka") })),
     OutputConfluentCloud$inboundSchema.and(
-      z.object({ type: z.literal("confluent_cloud") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("confluent_cloud") }),
     ),
     OutputElasticCloud$inboundSchema.and(
-      z.object({ type: z.literal("elastic_cloud") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("elastic_cloud") }),
     ),
     OutputNewrelicEvents$inboundSchema.and(
-      z.object({ type: z.literal("newrelic_events") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("newrelic_events") }),
     ),
-    OutputMinio$inboundSchema.and(
-      z.object({ type: z.literal("minio") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
-    OutputSns$inboundSchema.and(
-      z.object({ type: z.literal("sns") }).transform((v) => ({ type: v.type })),
-    ),
-    OutputSqs$inboundSchema.and(
-      z.object({ type: z.literal("sqs") }).transform((v) => ({ type: v.type })),
-    ),
+    OutputMinio$inboundSchema.and(z.object({ type: z.literal("minio") })),
+    OutputSns$inboundSchema.and(z.object({ type: z.literal("sns") })),
+    OutputSqs$inboundSchema.and(z.object({ type: z.literal("sqs") })),
     OutputMicrosoftFabric$inboundSchema.and(
-      z.object({ type: z.literal("microsoft_fabric") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("microsoft_fabric") }),
     ),
     OutputCloudflareR2$inboundSchema.and(
-      z.object({ type: z.literal("cloudflare_r2") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("cloudflare_r2") }),
     ),
-    OutputDefault$inboundSchema.and(
-      z.object({ type: z.literal("default") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
-    OutputSplunk$inboundSchema.and(
-      z.object({ type: z.literal("splunk") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
+    OutputDefault$inboundSchema.and(z.object({ type: z.literal("default") })),
+    OutputSplunk$inboundSchema.and(z.object({ type: z.literal("splunk") })),
     OutputSplunkLb$inboundSchema.and(
-      z.object({ type: z.literal("splunk_lb") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("splunk_lb") }),
     ),
     OutputFilesystem$inboundSchema.and(
-      z.object({ type: z.literal("filesystem") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("filesystem") }),
     ),
-    OutputS3$inboundSchema.and(
-      z.object({ type: z.literal("s3") }).transform((v) => ({ type: v.type })),
-    ),
+    OutputS3$inboundSchema.and(z.object({ type: z.literal("s3") })),
     OutputAzureBlob$inboundSchema.and(
-      z.object({ type: z.literal("azure_blob") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("azure_blob") }),
     ),
     OutputHoneycomb$inboundSchema.and(
-      z.object({ type: z.literal("honeycomb") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("honeycomb") }),
     ),
     OutputGooglePubsub$inboundSchema.and(
-      z.object({ type: z.literal("google_pubsub") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("google_pubsub") }),
     ),
-    OutputElastic$inboundSchema.and(
-      z.object({ type: z.literal("elastic") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
-    OutputInfluxdb$inboundSchema.and(
-      z.object({ type: z.literal("influxdb") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
-    OutputStatsd$inboundSchema.and(
-      z.object({ type: z.literal("statsd") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
+    OutputElastic$inboundSchema.and(z.object({ type: z.literal("elastic") })),
+    OutputInfluxdb$inboundSchema.and(z.object({ type: z.literal("influxdb") })),
+    OutputStatsd$inboundSchema.and(z.object({ type: z.literal("statsd") })),
     OutputStatsdExt$inboundSchema.and(
-      z.object({ type: z.literal("statsd_ext") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("statsd_ext") }),
     ),
-    OutputGraphite$inboundSchema.and(
-      z.object({ type: z.literal("graphite") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
-    OutputRouter$inboundSchema.and(
-      z.object({ type: z.literal("router") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
-    OutputSnmp$inboundSchema.and(
-      z.object({ type: z.literal("snmp") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
+    OutputGraphite$inboundSchema.and(z.object({ type: z.literal("graphite") })),
+    OutputRouter$inboundSchema.and(z.object({ type: z.literal("router") })),
+    OutputSnmp$inboundSchema.and(z.object({ type: z.literal("snmp") })),
     OutputSumoLogic$inboundSchema.and(
-      z.object({ type: z.literal("sumo_logic") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("sumo_logic") }),
     ),
-    OutputLoki$inboundSchema.and(
-      z.object({ type: z.literal("loki") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
+    OutputLoki$inboundSchema.and(z.object({ type: z.literal("loki") })),
     OutputPrometheus$inboundSchema.and(
-      z.object({ type: z.literal("prometheus") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("prometheus") }),
     ),
     OutputOpenTelemetry$inboundSchema.and(
-      z.object({ type: z.literal("open_telemetry") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("open_telemetry") }),
     ),
     OutputServiceNow$inboundSchema.and(
-      z.object({ type: z.literal("service_now") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("service_now") }),
     ),
     OutputCrowdstrikeNextGenSiem$inboundSchema.and(
-      z.object({ type: z.literal("crowdstrike_next_gen_siem") }).transform((
-        v,
-      ) => ({ type: v.type })),
+      z.object({ type: z.literal("crowdstrike_next_gen_siem") }),
     ),
-    OutputDlS3$inboundSchema.and(
-      z.object({ type: z.literal("dl_s3") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
-    OutputNetflow$inboundSchema.and(
-      z.object({ type: z.literal("netflow") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
+    OutputDlS3$inboundSchema.and(z.object({ type: z.literal("dl_s3") })),
+    OutputNetflow$inboundSchema.and(z.object({ type: z.literal("netflow") })),
     OutputDynatraceOtlp$inboundSchema.and(
-      z.object({ type: z.literal("dynatrace_otlp") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("dynatrace_otlp") }),
     ),
-    OutputWebhook$inboundSchema.and(
-      z.object({ type: z.literal("webhook") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
-    OutputDevnull$inboundSchema.and(
-      z.object({ type: z.literal("devnull") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
-    OutputSyslog$inboundSchema.and(
-      z.object({ type: z.literal("syslog") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
+    OutputWebhook$inboundSchema.and(z.object({ type: z.literal("webhook") })),
+    OutputDevnull$inboundSchema.and(z.object({ type: z.literal("devnull") })),
+    OutputSyslog$inboundSchema.and(z.object({ type: z.literal("syslog") })),
     OutputSplunkHec$inboundSchema.and(
-      z.object({ type: z.literal("splunk_hec") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("splunk_hec") }),
     ),
-    OutputTcpjson$inboundSchema.and(
-      z.object({ type: z.literal("tcpjson") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
+    OutputTcpjson$inboundSchema.and(z.object({ type: z.literal("tcpjson") })),
     OutputWavefront$inboundSchema.and(
-      z.object({ type: z.literal("wavefront") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("wavefront") }),
     ),
-    OutputSignalfx$inboundSchema.and(
-      z.object({ type: z.literal("signalfx") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
+    OutputSignalfx$inboundSchema.and(z.object({ type: z.literal("signalfx") })),
     OutputAzureLogs$inboundSchema.and(
-      z.object({ type: z.literal("azure_logs") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("azure_logs") }),
     ),
     OutputGoogleChronicle$inboundSchema.and(
-      z.object({ type: z.literal("google_chronicle") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("google_chronicle") }),
     ),
-    OutputNewrelic$inboundSchema.and(
-      z.object({ type: z.literal("newrelic") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
-    OutputDatadog$inboundSchema.and(
-      z.object({ type: z.literal("datadog") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
-    OutputRing$inboundSchema.and(
-      z.object({ type: z.literal("ring") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
-    OutputDataset$inboundSchema.and(
-      z.object({ type: z.literal("dataset") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
+    OutputNewrelic$inboundSchema.and(z.object({ type: z.literal("newrelic") })),
+    OutputDatadog$inboundSchema.and(z.object({ type: z.literal("datadog") })),
+    OutputRing$inboundSchema.and(z.object({ type: z.literal("ring") })),
+    OutputDataset$inboundSchema.and(z.object({ type: z.literal("dataset") })),
     OutputCriblTcp$inboundSchema.and(
-      z.object({ type: z.literal("cribl_tcp") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("cribl_tcp") }),
     ),
     OutputCriblHttp$inboundSchema.and(
-      z.object({ type: z.literal("cribl_http") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("cribl_http") }),
     ),
     OutputHumioHec$inboundSchema.and(
-      z.object({ type: z.literal("humio_hec") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("humio_hec") }),
     ),
     OutputCriblLake$inboundSchema.and(
-      z.object({ type: z.literal("cribl_lake") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("cribl_lake") }),
     ),
     OutputDiskSpool$inboundSchema.and(
-      z.object({ type: z.literal("disk_spool") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("disk_spool") }),
     ),
-    OutputXsiam$inboundSchema.and(
-      z.object({ type: z.literal("xsiam") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
+    OutputXsiam$inboundSchema.and(z.object({ type: z.literal("xsiam") })),
     OutputDynatraceHttp$inboundSchema.and(
-      z.object({ type: z.literal("dynatrace_http") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("dynatrace_http") }),
     ),
     OutputSentinelOneAiSiem$inboundSchema.and(
-      z.object({ type: z.literal("sentinel_one_ai_siem") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("sentinel_one_ai_siem") }),
     ),
     OutputGrafanaCloud$inboundSchema.and(
-      z.object({ type: z.literal("grafana_cloud") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("grafana_cloud") }),
     ),
   ]);
 /** @internal */
@@ -901,322 +713,142 @@ export const Output$outboundSchema: z.ZodType<
   Output
 > = z.union([
   OutputAzureDataExplorer$outboundSchema.and(
-    z.object({ type: z.literal("azure_data_explorer") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("azure_data_explorer") }),
   ),
   OutputSecurityLake$outboundSchema.and(
-    z.object({ type: z.literal("security_lake") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("security_lake") }),
   ),
   OutputChronicle$outboundSchema.and(
-    z.object({ type: z.literal("chronicle") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("chronicle") }),
   ),
-  OutputSentinel$outboundSchema.and(
-    z.object({ type: z.literal("sentinel") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
+  OutputSentinel$outboundSchema.and(z.object({ type: z.literal("sentinel") })),
   OutputGoogleCloudLogging$outboundSchema.and(
-    z.object({ type: z.literal("google_cloud_logging") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("google_cloud_logging") }),
   ),
-  OutputExabeam$outboundSchema.and(
-    z.object({ type: z.literal("exabeam") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
-  OutputMsk$outboundSchema.and(
-    z.object({ type: z.literal("msk") }).transform((v) => ({ type: v.type })),
-  ),
+  OutputExabeam$outboundSchema.and(z.object({ type: z.literal("exabeam") })),
+  OutputMsk$outboundSchema.and(z.object({ type: z.literal("msk") })),
   OutputCloudwatch$outboundSchema.and(
-    z.object({ type: z.literal("cloudwatch") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("cloudwatch") }),
   ),
   OutputClickHouse$outboundSchema.and(
-    z.object({ type: z.literal("click_house") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("click_house") }),
   ),
   OutputDatabricks$outboundSchema.and(
-    z.object({ type: z.literal("databricks") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("databricks") }),
   ),
-  OutputKinesis$outboundSchema.and(
-    z.object({ type: z.literal("kinesis") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
+  OutputKinesis$outboundSchema.and(z.object({ type: z.literal("kinesis") })),
   OutputAzureEventhub$outboundSchema.and(
-    z.object({ type: z.literal("azure_eventhub") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("azure_eventhub") }),
   ),
   OutputGoogleCloudStorage$outboundSchema.and(
-    z.object({ type: z.literal("google_cloud_storage") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("google_cloud_storage") }),
   ),
-  OutputKafka$outboundSchema.and(
-    z.object({ type: z.literal("kafka") }).transform((v) => ({ type: v.type })),
-  ),
+  OutputKafka$outboundSchema.and(z.object({ type: z.literal("kafka") })),
   OutputConfluentCloud$outboundSchema.and(
-    z.object({ type: z.literal("confluent_cloud") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("confluent_cloud") }),
   ),
   OutputElasticCloud$outboundSchema.and(
-    z.object({ type: z.literal("elastic_cloud") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("elastic_cloud") }),
   ),
   OutputNewrelicEvents$outboundSchema.and(
-    z.object({ type: z.literal("newrelic_events") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("newrelic_events") }),
   ),
-  OutputMinio$outboundSchema.and(
-    z.object({ type: z.literal("minio") }).transform((v) => ({ type: v.type })),
-  ),
-  OutputSns$outboundSchema.and(
-    z.object({ type: z.literal("sns") }).transform((v) => ({ type: v.type })),
-  ),
-  OutputSqs$outboundSchema.and(
-    z.object({ type: z.literal("sqs") }).transform((v) => ({ type: v.type })),
-  ),
+  OutputMinio$outboundSchema.and(z.object({ type: z.literal("minio") })),
+  OutputSns$outboundSchema.and(z.object({ type: z.literal("sns") })),
+  OutputSqs$outboundSchema.and(z.object({ type: z.literal("sqs") })),
   OutputMicrosoftFabric$outboundSchema.and(
-    z.object({ type: z.literal("microsoft_fabric") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("microsoft_fabric") }),
   ),
   OutputCloudflareR2$outboundSchema.and(
-    z.object({ type: z.literal("cloudflare_r2") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("cloudflare_r2") }),
   ),
-  OutputDefault$outboundSchema.and(
-    z.object({ type: z.literal("default") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
-  OutputSplunk$outboundSchema.and(
-    z.object({ type: z.literal("splunk") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
-  OutputSplunkLb$outboundSchema.and(
-    z.object({ type: z.literal("splunk_lb") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
+  OutputDefault$outboundSchema.and(z.object({ type: z.literal("default") })),
+  OutputSplunk$outboundSchema.and(z.object({ type: z.literal("splunk") })),
+  OutputSplunkLb$outboundSchema.and(z.object({ type: z.literal("splunk_lb") })),
   OutputFilesystem$outboundSchema.and(
-    z.object({ type: z.literal("filesystem") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("filesystem") }),
   ),
-  OutputS3$outboundSchema.and(
-    z.object({ type: z.literal("s3") }).transform((v) => ({ type: v.type })),
-  ),
+  OutputS3$outboundSchema.and(z.object({ type: z.literal("s3") })),
   OutputAzureBlob$outboundSchema.and(
-    z.object({ type: z.literal("azure_blob") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("azure_blob") }),
   ),
   OutputHoneycomb$outboundSchema.and(
-    z.object({ type: z.literal("honeycomb") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("honeycomb") }),
   ),
   OutputGooglePubsub$outboundSchema.and(
-    z.object({ type: z.literal("google_pubsub") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("google_pubsub") }),
   ),
-  OutputElastic$outboundSchema.and(
-    z.object({ type: z.literal("elastic") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
-  OutputInfluxdb$outboundSchema.and(
-    z.object({ type: z.literal("influxdb") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
-  OutputStatsd$outboundSchema.and(
-    z.object({ type: z.literal("statsd") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
+  OutputElastic$outboundSchema.and(z.object({ type: z.literal("elastic") })),
+  OutputInfluxdb$outboundSchema.and(z.object({ type: z.literal("influxdb") })),
+  OutputStatsd$outboundSchema.and(z.object({ type: z.literal("statsd") })),
   OutputStatsdExt$outboundSchema.and(
-    z.object({ type: z.literal("statsd_ext") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("statsd_ext") }),
   ),
-  OutputGraphite$outboundSchema.and(
-    z.object({ type: z.literal("graphite") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
-  OutputRouter$outboundSchema.and(
-    z.object({ type: z.literal("router") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
-  OutputSnmp$outboundSchema.and(
-    z.object({ type: z.literal("snmp") }).transform((v) => ({ type: v.type })),
-  ),
+  OutputGraphite$outboundSchema.and(z.object({ type: z.literal("graphite") })),
+  OutputRouter$outboundSchema.and(z.object({ type: z.literal("router") })),
+  OutputSnmp$outboundSchema.and(z.object({ type: z.literal("snmp") })),
   OutputSumoLogic$outboundSchema.and(
-    z.object({ type: z.literal("sumo_logic") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("sumo_logic") }),
   ),
-  OutputLoki$outboundSchema.and(
-    z.object({ type: z.literal("loki") }).transform((v) => ({ type: v.type })),
-  ),
+  OutputLoki$outboundSchema.and(z.object({ type: z.literal("loki") })),
   OutputPrometheus$outboundSchema.and(
-    z.object({ type: z.literal("prometheus") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("prometheus") }),
   ),
   OutputOpenTelemetry$outboundSchema.and(
-    z.object({ type: z.literal("open_telemetry") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("open_telemetry") }),
   ),
   OutputServiceNow$outboundSchema.and(
-    z.object({ type: z.literal("service_now") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("service_now") }),
   ),
   OutputCrowdstrikeNextGenSiem$outboundSchema.and(
-    z.object({ type: z.literal("crowdstrike_next_gen_siem") }).transform((
-      v,
-    ) => ({ type: v.type })),
+    z.object({ type: z.literal("crowdstrike_next_gen_siem") }),
   ),
-  OutputDlS3$outboundSchema.and(
-    z.object({ type: z.literal("dl_s3") }).transform((v) => ({ type: v.type })),
-  ),
-  OutputNetflow$outboundSchema.and(
-    z.object({ type: z.literal("netflow") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
+  OutputDlS3$outboundSchema.and(z.object({ type: z.literal("dl_s3") })),
+  OutputNetflow$outboundSchema.and(z.object({ type: z.literal("netflow") })),
   OutputDynatraceOtlp$outboundSchema.and(
-    z.object({ type: z.literal("dynatrace_otlp") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("dynatrace_otlp") }),
   ),
-  OutputWebhook$outboundSchema.and(
-    z.object({ type: z.literal("webhook") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
-  OutputDevnull$outboundSchema.and(
-    z.object({ type: z.literal("devnull") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
-  OutputSyslog$outboundSchema.and(
-    z.object({ type: z.literal("syslog") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
+  OutputWebhook$outboundSchema.and(z.object({ type: z.literal("webhook") })),
+  OutputDevnull$outboundSchema.and(z.object({ type: z.literal("devnull") })),
+  OutputSyslog$outboundSchema.and(z.object({ type: z.literal("syslog") })),
   OutputSplunkHec$outboundSchema.and(
-    z.object({ type: z.literal("splunk_hec") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("splunk_hec") }),
   ),
-  OutputTcpjson$outboundSchema.and(
-    z.object({ type: z.literal("tcpjson") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
+  OutputTcpjson$outboundSchema.and(z.object({ type: z.literal("tcpjson") })),
   OutputWavefront$outboundSchema.and(
-    z.object({ type: z.literal("wavefront") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("wavefront") }),
   ),
-  OutputSignalfx$outboundSchema.and(
-    z.object({ type: z.literal("signalfx") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
+  OutputSignalfx$outboundSchema.and(z.object({ type: z.literal("signalfx") })),
   OutputAzureLogs$outboundSchema.and(
-    z.object({ type: z.literal("azure_logs") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("azure_logs") }),
   ),
   OutputGoogleChronicle$outboundSchema.and(
-    z.object({ type: z.literal("google_chronicle") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("google_chronicle") }),
   ),
-  OutputNewrelic$outboundSchema.and(
-    z.object({ type: z.literal("newrelic") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
-  OutputDatadog$outboundSchema.and(
-    z.object({ type: z.literal("datadog") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
-  OutputRing$outboundSchema.and(
-    z.object({ type: z.literal("ring") }).transform((v) => ({ type: v.type })),
-  ),
-  OutputDataset$outboundSchema.and(
-    z.object({ type: z.literal("dataset") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
-  OutputCriblTcp$outboundSchema.and(
-    z.object({ type: z.literal("cribl_tcp") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
+  OutputNewrelic$outboundSchema.and(z.object({ type: z.literal("newrelic") })),
+  OutputDatadog$outboundSchema.and(z.object({ type: z.literal("datadog") })),
+  OutputRing$outboundSchema.and(z.object({ type: z.literal("ring") })),
+  OutputDataset$outboundSchema.and(z.object({ type: z.literal("dataset") })),
+  OutputCriblTcp$outboundSchema.and(z.object({ type: z.literal("cribl_tcp") })),
   OutputCriblHttp$outboundSchema.and(
-    z.object({ type: z.literal("cribl_http") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("cribl_http") }),
   ),
-  OutputHumioHec$outboundSchema.and(
-    z.object({ type: z.literal("humio_hec") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
+  OutputHumioHec$outboundSchema.and(z.object({ type: z.literal("humio_hec") })),
   OutputCriblLake$outboundSchema.and(
-    z.object({ type: z.literal("cribl_lake") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("cribl_lake") }),
   ),
   OutputDiskSpool$outboundSchema.and(
-    z.object({ type: z.literal("disk_spool") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("disk_spool") }),
   ),
-  OutputXsiam$outboundSchema.and(
-    z.object({ type: z.literal("xsiam") }).transform((v) => ({ type: v.type })),
-  ),
+  OutputXsiam$outboundSchema.and(z.object({ type: z.literal("xsiam") })),
   OutputDynatraceHttp$outboundSchema.and(
-    z.object({ type: z.literal("dynatrace_http") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("dynatrace_http") }),
   ),
   OutputSentinelOneAiSiem$outboundSchema.and(
-    z.object({ type: z.literal("sentinel_one_ai_siem") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("sentinel_one_ai_siem") }),
   ),
   OutputGrafanaCloud$outboundSchema.and(
-    z.object({ type: z.literal("grafana_cloud") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("grafana_cloud") }),
   ),
 ]);
 

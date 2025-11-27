@@ -213,6 +213,12 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.lakeDatasets.list({
     lakeId: "<id>",
+    storageLocationId: "<id>",
+    format: "<value>",
+    excludeDDSS: "<value>",
+    excludeDeleted: "<value>",
+    excludeInternal: "<value>",
+    excludeBYOS: "<value>",
   });
 
   console.log(result);
@@ -241,6 +247,12 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await lakeDatasetsList(criblControlPlane, {
     lakeId: "<id>",
+    storageLocationId: "<id>",
+    format: "<value>",
+    excludeDDSS: "<value>",
+    excludeDeleted: "<value>",
+    excludeInternal: "<value>",
+    excludeBYOS: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
