@@ -433,8 +433,9 @@ export type InputKafka = {
   sasl?: InputKafkaAuthentication | undefined;
   tls?: InputKafkaTLSSettingsClientSide | undefined;
   /**
-   * @remarks
    *       Timeout used to detect client failures when using Kafka's group-management facilities.
+   *
+   * @remarks
    *       If the client sends no heartbeats to the broker before the timeout expires,
    *       the broker will remove the client from the group and initiate a rebalance.
    *       Value must be between the broker's configured group.min.session.timeout.ms and group.max.session.timeout.ms.

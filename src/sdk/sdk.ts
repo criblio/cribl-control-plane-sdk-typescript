@@ -5,6 +5,7 @@
 import { ClientSDK } from "../lib/sdks.js";
 import { Auth } from "./auth.js";
 import { Destinations } from "./destinations.js";
+import { Functions } from "./functions.js";
 import { Groups } from "./groups.js";
 import { Health } from "./health.js";
 import { LakeDatasets } from "./lakedatasets.js";
@@ -59,6 +60,11 @@ export class CriblControlPlane extends ClientSDK {
   private _versions?: Versions;
   get versions(): Versions {
     return (this._versions ??= new Versions(this._options));
+  }
+
+  private _functions?: Functions;
+  get functions(): Functions {
+    return (this._functions ??= new Functions(this._options));
   }
 
   private _nodes?: Nodes;

@@ -210,6 +210,10 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 * [get](docs/sdks/samples/README.md#get) - Get sample event data for a Destination
 * [create](docs/sdks/samples/README.md#create) - Send sample event data to a Destination
 
+### [functions](docs/sdks/functions/README.md)
+
+* [list](docs/sdks/functions/README.md#list) - Get a list of Function objects
+
 ### [groups](docs/sdks/groups/README.md)
 
 * [list](docs/sdks/groups/README.md#list) - List all Worker Groups or Edge Fleets for the specified Cribl product
@@ -345,6 +349,7 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`destinationsSamplesCreate`](docs/sdks/samples/README.md#create) - Send sample event data to a Destination
 - [`destinationsSamplesGet`](docs/sdks/samples/README.md#get) - Get sample event data for a Destination
 - [`destinationsUpdate`](docs/sdks/destinations/README.md#update) - Update a Destination
+- [`functionsList`](docs/sdks/functions/README.md#list) - Get a list of Function objects
 - [`groupsAclGet`](docs/sdks/acl/README.md#get) - Get the Access Control List for a Worker Group or Edge Fleet
 - [`groupsAclTeamsGet`](docs/sdks/teams/README.md#get) - Get the Access Control List for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
 - [`groupsConfigsVersionsGet`](docs/sdks/configsversions/README.md#get) - Get the configuration version for a Worker Group or Edge Fleet
@@ -741,7 +746,7 @@ run();
 
 
 **Inherit from [`CriblControlPlaneError`](./src/models/errors/criblcontrolplaneerror.ts)**:
-* [`HealthServerStatusError`](./src/models/errors/healthserverstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 63 methods.*
+* [`HealthServerStatusError`](./src/models/errors/healthserverstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 64 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>

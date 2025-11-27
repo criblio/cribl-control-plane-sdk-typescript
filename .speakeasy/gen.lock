@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 11e90df88293c6e56c6fe1ebc6b20bac
-  docVersion: 4.16.0-alpha.1764158670783-2be9ec22
+  docChecksum: 2d24ac635979159f0a3398c9eb223826
+  docVersion: 4.16.0-alpha.1764194816188-74f67661
   speakeasyVersion: 1.661.2
   generationVersion: 2.763.3
-  releaseVersion: 0.4.0-rc.4
-  configChecksum: 0f42b480baf23a38f114d0db52a1fd64
+  releaseVersion: 0.4.0-rc.5
+  configChecksum: 3d0afba894afe0d6e5c539618c200bca
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -47,7 +47,9 @@ generatedFiles:
   - docs/lib/utils/retryconfig.md
   - docs/models/addhectokenrequest.md
   - docs/models/addhectokenrequestmetadatum.md
+  - docs/models/additionalfield.md
   - docs/models/additionalproperty.md
+  - docs/models/aggregation.md
   - docs/models/aisiemendpointpath.md
   - docs/models/allow.md
   - docs/models/audit.md
@@ -56,6 +58,7 @@ generatedFiles:
   - docs/models/authtoken.md
   - docs/models/authtype.md
   - docs/models/awsauthenticationmethod.md
+  - docs/models/bagexpansionmode.md
   - docs/models/blobaccesstier.md
   - docs/models/block.md
   - docs/models/branchinfo.md
@@ -69,9 +72,9 @@ generatedFiles:
   - docs/models/collectors.md
   - docs/models/collectorspecificsettings.md
   - docs/models/columnmapping.md
+  - docs/models/command.md
   - docs/models/comment.md
   - docs/models/commit.md
-  - docs/models/conf.md
   - docs/models/config.md
   - docs/models/configgroup.md
   - docs/models/configgroupcloud.md
@@ -82,10 +85,12 @@ generatedFiles:
   - docs/models/configgrouptype.md
   - docs/models/container.md
   - docs/models/containermode.md
+  - docs/models/countcomparator.md
   - docs/models/countedbranchinfo.md
   - docs/models/countedconfiggroup.md
   - docs/models/countedcribllakedataset.md
   - docs/models/counteddistributedsummary.md
+  - docs/models/countedfunction.md
   - docs/models/countedgitcommitsummary.md
   - docs/models/countedgitcountresult.md
   - docs/models/countedgitdiffresult.md
@@ -121,6 +126,8 @@ generatedFiles:
   - docs/models/datasetmetadata.md
   - docs/models/datasetmetadataruninfo.md
   - docs/models/datasetsite.md
+  - docs/models/defaulttime.md
+  - docs/models/deploymenttype.md
   - docs/models/deployrequest.md
   - docs/models/deployrequestlookups.md
   - docs/models/deployrequestlookupslookup.md
@@ -133,11 +140,13 @@ generatedFiles:
   - docs/models/difflineinsert.md
   - docs/models/difflineinserttype.md
   - docs/models/disksandfilesystems.md
+  - docs/models/distinctconfiguration.md
   - docs/models/distmode.md
   - docs/models/distributedsummary.md
   - docs/models/distributedsummarygroups.md
   - docs/models/distributedsummaryworkers.md
   - docs/models/dns.md
+  - docs/models/dnslookupfield.md
   - docs/models/elasticsearchmetadata.md
   - docs/models/elasticversion.md
   - docs/models/endpoint.md
@@ -150,13 +159,204 @@ generatedFiles:
   - docs/models/eventformat.md
   - docs/models/executor.md
   - docs/models/executorspecificsettings.md
+  - docs/models/existingornew.md
+  - docs/models/extension.md
   - docs/models/extenttag.md
   - docs/models/extralogtype.md
   - docs/models/facility.md
   - docs/models/fieldname.md
   - docs/models/filet.md
   - docs/models/firewall.md
+  - docs/models/functionaggregatemetrics.md
+  - docs/models/functionaggregatemetricsadd.md
+  - docs/models/functionaggregatemetricsconf.md
+  - docs/models/functionaggregatemetricsid.md
+  - docs/models/functionaggregatemetricsmetrictype.md
+  - docs/models/functionaggregation.md
+  - docs/models/functionaggregationadd.md
+  - docs/models/functionaggregationconf.md
+  - docs/models/functionaggregationid.md
+  - docs/models/functionautotimestamp.md
+  - docs/models/functionautotimestampconf.md
+  - docs/models/functionautotimestampid.md
+  - docs/models/functioncef.md
+  - docs/models/functioncefconf.md
+  - docs/models/functioncefid.md
+  - docs/models/functionchain.md
+  - docs/models/functionchainconf.md
+  - docs/models/functionchainid.md
+  - docs/models/functionclone.md
+  - docs/models/functioncloneconf.md
+  - docs/models/functioncloneid.md
+  - docs/models/functioncode.md
+  - docs/models/functioncodeconf.md
+  - docs/models/functioncodeid.md
+  - docs/models/functioncomment.md
+  - docs/models/functioncommentconf.md
+  - docs/models/functioncommentid.md
+  - docs/models/functiondistinct.md
+  - docs/models/functiondistinctid.md
+  - docs/models/functiondnslookup.md
+  - docs/models/functiondnslookupconf.md
+  - docs/models/functiondnslookupid.md
+  - docs/models/functiondrop.md
+  - docs/models/functiondropconf.md
+  - docs/models/functiondropdimensions.md
+  - docs/models/functiondropdimensionsconf.md
+  - docs/models/functiondropdimensionsid.md
+  - docs/models/functiondropid.md
+  - docs/models/functiondynamicsampling.md
+  - docs/models/functiondynamicsamplingconf.md
+  - docs/models/functiondynamicsamplingid.md
+  - docs/models/functioneval.md
+  - docs/models/functionevaladd.md
+  - docs/models/functionevalconf.md
+  - docs/models/functionevalid.md
+  - docs/models/functioneventbreaker.md
+  - docs/models/functioneventbreakerconf.md
+  - docs/models/functioneventbreakerid.md
+  - docs/models/functionexternaldata.md
+  - docs/models/functionexternaldataconf.md
+  - docs/models/functionexternaldataid.md
+  - docs/models/functionflatten.md
+  - docs/models/functionflattenconf.md
+  - docs/models/functionflattenid.md
+  - docs/models/functionfoldkeys.md
+  - docs/models/functionfoldkeysconf.md
+  - docs/models/functionfoldkeysid.md
+  - docs/models/functiongenstats.md
+  - docs/models/functiongenstatsid.md
+  - docs/models/functiongeoip.md
+  - docs/models/functiongeoipconf.md
+  - docs/models/functiongeoipid.md
+  - docs/models/functiongrok.md
+  - docs/models/functiongrokconf.md
+  - docs/models/functiongrokid.md
+  - docs/models/functionjsonunroll.md
+  - docs/models/functionjsonunrollconf.md
+  - docs/models/functionjsonunrollid.md
+  - docs/models/functionlakeexport.md
+  - docs/models/functionlakeexportid.md
+  - docs/models/functionlimit.md
+  - docs/models/functionlimitconf.md
+  - docs/models/functionlimitid.md
+  - docs/models/functionlocalsearchdatatypeparser.md
+  - docs/models/functionlocalsearchdatatypeparserconf.md
+  - docs/models/functionlocalsearchdatatypeparserid.md
+  - docs/models/functionlocalsearchrulesetrunner.md
+  - docs/models/functionlocalsearchrulesetrunnerconf.md
+  - docs/models/functionlocalsearchrulesetrunnerid.md
+  - docs/models/functionlookup.md
+  - docs/models/functionlookupconf.md
+  - docs/models/functionlookupid.md
+  - docs/models/functionmask.md
+  - docs/models/functionmaskconf.md
+  - docs/models/functionmaskflag.md
+  - docs/models/functionmaskid.md
+  - docs/models/functionmaskrule.md
+  - docs/models/functionmvexpand.md
+  - docs/models/functionmvexpandconf.md
+  - docs/models/functionmvexpandid.md
+  - docs/models/functionmvpull.md
+  - docs/models/functionmvpullconf.md
+  - docs/models/functionmvpullid.md
+  - docs/models/functionnotifications.md
+  - docs/models/functionnotificationsconf.md
+  - docs/models/functionnotificationsid.md
+  - docs/models/functionnotify.md
+  - docs/models/functionnotifyid.md
+  - docs/models/functionnumerify.md
+  - docs/models/functionnumerifyconf.md
+  - docs/models/functionnumerifyformat.md
+  - docs/models/functionnumerifyid.md
+  - docs/models/functionotlplogs.md
+  - docs/models/functionotlplogsconf.md
+  - docs/models/functionotlplogsid.md
+  - docs/models/functionotlpmetrics.md
+  - docs/models/functionotlpmetricsconf.md
+  - docs/models/functionotlpmetricsid.md
+  - docs/models/functionotlpmetricsotlpversion.md
+  - docs/models/functionotlptraces.md
+  - docs/models/functionotlptracesconf.md
+  - docs/models/functionotlptracesid.md
+  - docs/models/functionotlptracesotlpversion.md
+  - docs/models/functionpack.md
+  - docs/models/functionpackconf.md
+  - docs/models/functionpackid.md
+  - docs/models/functionpivot.md
+  - docs/models/functionpivotid.md
+  - docs/models/functionpublishmetrics.md
+  - docs/models/functionpublishmetricsconf.md
+  - docs/models/functionpublishmetricsfield.md
+  - docs/models/functionpublishmetricsid.md
+  - docs/models/functionpublishmetricsmetrictype.md
+  - docs/models/functionredis.md
+  - docs/models/functionredisauthenticationmethod.md
+  - docs/models/functionredisconf.md
+  - docs/models/functionredisid.md
+  - docs/models/functionregexextract.md
+  - docs/models/functionregexextractconf.md
+  - docs/models/functionregexextractid.md
+  - docs/models/functionregexextractregexlist.md
+  - docs/models/functionregexfilter.md
+  - docs/models/functionregexfilterconf.md
+  - docs/models/functionregexfilterid.md
+  - docs/models/functionregexfilterregexlist.md
+  - docs/models/functionrename.md
+  - docs/models/functionrenameconf.md
+  - docs/models/functionrenameid.md
+  - docs/models/functionrollupmetrics.md
+  - docs/models/functionrollupmetricsconf.md
+  - docs/models/functionrollupmetricsid.md
+  - docs/models/functionsampling.md
+  - docs/models/functionsamplingconf.md
+  - docs/models/functionsamplingid.md
+  - docs/models/functionsamplingrule.md
+  - docs/models/functionsensitivedatascanner.md
+  - docs/models/functionsensitivedatascannerconf.md
+  - docs/models/functionsensitivedatascannerflag.md
+  - docs/models/functionsensitivedatascannerid.md
+  - docs/models/functionsensitivedatascannerrule.md
+  - docs/models/functionserde.md
+  - docs/models/functionserdeconf.md
+  - docs/models/functionserdeid.md
+  - docs/models/functionserdetype.md
+  - docs/models/functionserialize.md
+  - docs/models/functionserializeconf.md
+  - docs/models/functionserializeid.md
+  - docs/models/functionserializetype.md
+  - docs/models/functionsidlookup.md
+  - docs/models/functionsidlookupconf.md
+  - docs/models/functionsidlookupfield.md
+  - docs/models/functionsidlookupid.md
+  - docs/models/functionsort.md
+  - docs/models/functionsortid.md
   - docs/models/functionspecificconfigs.md
+  - docs/models/functionstore.md
+  - docs/models/functionstoreid.md
+  - docs/models/functionsuppress.md
+  - docs/models/functionsuppressconf.md
+  - docs/models/functionsuppressid.md
+  - docs/models/functiont.md
+  - docs/models/functiontee.md
+  - docs/models/functionteeconf.md
+  - docs/models/functionteeid.md
+  - docs/models/functiontrimtimestamp.md
+  - docs/models/functiontrimtimestampconf.md
+  - docs/models/functiontrimtimestampid.md
+  - docs/models/functionunion.md
+  - docs/models/functionunionid.md
+  - docs/models/functionunroll.md
+  - docs/models/functionunrollconf.md
+  - docs/models/functionunrollid.md
+  - docs/models/functionwindow.md
+  - docs/models/functionwindowconf.md
+  - docs/models/functionwindowid.md
+  - docs/models/functionxmlunroll.md
+  - docs/models/functionxmlunrollconf.md
+  - docs/models/functionxmlunrollid.md
+  - docs/models/gaugeupdate.md
+  - docs/models/genstatsconfiguration.md
   - docs/models/gitcommitparams.md
   - docs/models/gitcommitsummary.md
   - docs/models/gitcommitsummaryfiles.md
@@ -177,6 +377,7 @@ generatedFiles:
   - docs/models/groupcreaterequesttype.md
   - docs/models/hbcriblinfo.md
   - docs/models/hbleaderinfo.md
+  - docs/models/header.md
   - docs/models/healthserverstatus.md
   - docs/models/heartbeatmetadata.md
   - docs/models/heartbeatmetadataaws.md
@@ -189,6 +390,7 @@ generatedFiles:
   - docs/models/indexerdiscoveryconfigs.md
   - docs/models/indexerdiscoveryconfigsauthenticationmethod.md
   - docs/models/indexerdiscoveryconfigsauthtokenauthenticationmethod.md
+  - docs/models/infield.md
   - docs/models/ingestifnotexist.md
   - docs/models/ingestionmode.md
   - docs/models/input.md
@@ -990,17 +1192,20 @@ generatedFiles:
   - docs/models/jobstatus.md
   - docs/models/lakedatasetmetrics.md
   - docs/models/lakedatasetsearchconfig.md
+  - docs/models/lakeexportconfiguration.md
   - docs/models/lakehouseconnectiontype.md
   - docs/models/listeningports.md
   - docs/models/loggedinusers.md
   - docs/models/logininfo.md
   - docs/models/loglabel.md
+  - docs/models/loglevelforfailedlookups.md
   - docs/models/loglocationtype.md
   - docs/models/lokiauthoauthheader1.md
   - docs/models/lokiauthoauthheader2.md
   - docs/models/lokiauthoauthparam1.md
   - docs/models/lokiauthoauthparam2.md
   - docs/models/managestate.md
+  - docs/models/mappingoffieldnames.md
   - docs/models/mappingtype.md
   - docs/models/masterworkerentry.md
   - docs/models/masterworkerentrytype.md
@@ -1019,8 +1224,9 @@ generatedFiles:
   - docs/models/nodeskippedupgradestatus.md
   - docs/models/nodeupgradestate.md
   - docs/models/nodeupgradestatus.md
+  - docs/models/notifyconfiguration.md
   - docs/models/oldmode.md
-  - docs/models/operations/createauthloginresponse.md
+  - docs/models/operationmode.md
   - docs/models/operations/createconfiggroupbyproductrequest.md
   - docs/models/operations/createcribllakedatasetbylakeidrequest.md
   - docs/models/operations/createinputhectokenbyidrequest.md
@@ -1071,6 +1277,7 @@ generatedFiles:
   - docs/models/operations/updatepipelinebyidrequest.md
   - docs/models/operations/updateroutesbyidrequest.md
   - docs/models/os.md
+  - docs/models/outfield.md
   - docs/models/outpostnodeinfo.md
   - docs/models/output.md
   - docs/models/outputazureblob.md
@@ -1384,6 +1591,7 @@ generatedFiles:
   - docs/models/outputexabeamsignatureversion.md
   - docs/models/outputexabeamstorageclass.md
   - docs/models/outputexabeamtype.md
+  - docs/models/outputfieldmappings.md
   - docs/models/outputfilesystem.md
   - docs/models/outputfilesystembackpressurebehavior.md
   - docs/models/outputfilesystemcompression.md
@@ -1958,8 +2166,10 @@ generatedFiles:
   - docs/models/packrequestbodytags2.md
   - docs/models/packrequestbodyunion.md
   - docs/models/packupgraderequest.md
+  - docs/models/patternlist.md
   - docs/models/payloadformat.md
   - docs/models/pipeline.md
+  - docs/models/pipelineconf.md
   - docs/models/pipelinefunctionconf.md
   - docs/models/pipelinegroups.md
   - docs/models/podfilter.md
@@ -1976,16 +2186,20 @@ generatedFiles:
   - docs/models/readmode.md
   - docs/models/remote.md
   - docs/models/remoteenum.md
+  - docs/models/rename.md
   - docs/models/renamed.md
   - docs/models/reportlevel.md
   - docs/models/reportmethod.md
   - docs/models/resourcepolicy.md
+  - docs/models/resourcerecordtype.md
   - docs/models/resourcetypelabel.md
+  - docs/models/reverselookupfield.md
   - docs/models/role.md
   - docs/models/routeconf.md
   - docs/models/routes.md
   - docs/models/routesgroups.md
   - docs/models/routesroute.md
+  - docs/models/rulesettype.md
   - docs/models/runnablejob.md
   - docs/models/runnablejobcollection.md
   - docs/models/runnablejobcollectioninput.md
@@ -2018,6 +2232,7 @@ generatedFiles:
   - docs/models/runnablejobscheduledsearchtimewarning.md
   - docs/models/runnablejobscheduledsearchtype.md
   - docs/models/sample.md
+  - docs/models/samplemode.md
   - docs/models/scanmode.md
   - docs/models/scheduletype.md
   - docs/models/schemeclientoauth.md
@@ -2028,11 +2243,14 @@ generatedFiles:
   - docs/models/services.md
   - docs/models/sharditeratorstart.md
   - docs/models/shardloadbalancing.md
+  - docs/models/simplepivotconfiguration.md
   - docs/models/snmpv3authentication.md
+  - docs/models/sortconfiguration.md
   - docs/models/splunkhecmetadata.md
   - docs/models/state.md
   - docs/models/stats.md
   - docs/models/status.md
+  - docs/models/storefunctionconfiguration.md
   - docs/models/subscription.md
   - docs/models/subscriptionmetadatum.md
   - docs/models/summary.md
@@ -2041,9 +2259,12 @@ generatedFiles:
   - docs/models/teamaccesscontrollist.md
   - docs/models/telemetrytype.md
   - docs/models/timerange.md
+  - docs/models/timestamp.md
   - docs/models/timestampformat.md
   - docs/models/timestampprecision.md
+  - docs/models/triggertype.md
   - docs/models/udmtype.md
+  - docs/models/unionconfiguration.md
   - docs/models/updatehectokenrequest.md
   - docs/models/updatehectokenrequestmetadatum.md
   - docs/models/uploadpackresponse.md
@@ -2059,6 +2280,7 @@ generatedFiles:
   - docs/sdks/configsversions/README.md
   - docs/sdks/destinations/README.md
   - docs/sdks/files/README.md
+  - docs/sdks/functions/README.md
   - docs/sdks/groups/README.md
   - docs/sdks/health/README.md
   - docs/sdks/hectokens/README.md
@@ -2089,6 +2311,7 @@ generatedFiles:
   - src/funcs/destinationsSamplesCreate.ts
   - src/funcs/destinationsSamplesGet.ts
   - src/funcs/destinationsUpdate.ts
+  - src/funcs/functionsList.ts
   - src/funcs/groupsAclGet.ts
   - src/funcs/groupsAclTeamsGet.ts
   - src/funcs/groupsConfigsVersionsGet.ts
@@ -2178,6 +2401,7 @@ generatedFiles:
   - src/models/countedconfiggroup.ts
   - src/models/countedcribllakedataset.ts
   - src/models/counteddistributedsummary.ts
+  - src/models/countedfunction.ts
   - src/models/countedgitcommitsummary.ts
   - src/models/countedgitcountresult.ts
   - src/models/countedgitdiffresult.ts
@@ -2225,6 +2449,65 @@ generatedFiles:
   - src/models/errors/index.ts
   - src/models/errors/responsevalidationerror.ts
   - src/models/errors/sdkvalidationerror.ts
+  - src/models/function.ts
+  - src/models/functionaggregatemetrics.ts
+  - src/models/functionaggregation.ts
+  - src/models/functionautotimestamp.ts
+  - src/models/functioncef.ts
+  - src/models/functionchain.ts
+  - src/models/functionclone.ts
+  - src/models/functioncode.ts
+  - src/models/functioncomment.ts
+  - src/models/functiondistinct.ts
+  - src/models/functiondnslookup.ts
+  - src/models/functiondrop.ts
+  - src/models/functiondropdimensions.ts
+  - src/models/functiondynamicsampling.ts
+  - src/models/functioneval.ts
+  - src/models/functioneventbreaker.ts
+  - src/models/functionexternaldata.ts
+  - src/models/functionflatten.ts
+  - src/models/functionfoldkeys.ts
+  - src/models/functiongenstats.ts
+  - src/models/functiongeoip.ts
+  - src/models/functiongrok.ts
+  - src/models/functionjsonunroll.ts
+  - src/models/functionlakeexport.ts
+  - src/models/functionlimit.ts
+  - src/models/functionlocalsearchdatatypeparser.ts
+  - src/models/functionlocalsearchrulesetrunner.ts
+  - src/models/functionlookup.ts
+  - src/models/functionmask.ts
+  - src/models/functionmvexpand.ts
+  - src/models/functionmvpull.ts
+  - src/models/functionnotifications.ts
+  - src/models/functionnotify.ts
+  - src/models/functionnumerify.ts
+  - src/models/functionotlplogs.ts
+  - src/models/functionotlpmetrics.ts
+  - src/models/functionotlptraces.ts
+  - src/models/functionpack.ts
+  - src/models/functionpivot.ts
+  - src/models/functionpublishmetrics.ts
+  - src/models/functionredis.ts
+  - src/models/functionregexextract.ts
+  - src/models/functionregexfilter.ts
+  - src/models/functionrename.ts
+  - src/models/functionrollupmetrics.ts
+  - src/models/functionsampling.ts
+  - src/models/functionsensitivedatascanner.ts
+  - src/models/functionserde.ts
+  - src/models/functionserialize.ts
+  - src/models/functionsidlookup.ts
+  - src/models/functionsort.ts
+  - src/models/functionstore.ts
+  - src/models/functionsuppress.ts
+  - src/models/functiontee.ts
+  - src/models/functiontrimtimestamp.ts
+  - src/models/functionunion.ts
+  - src/models/functionunroll.ts
+  - src/models/functionwindow.ts
+  - src/models/functionxmlunroll.ts
   - src/models/gitcommitparams.ts
   - src/models/gitcommitsummary.ts
   - src/models/gitcountresult.ts
@@ -2317,7 +2600,6 @@ generatedFiles:
   - src/models/nodeskippedupgradestatus.ts
   - src/models/nodeupgradestate.ts
   - src/models/nodeupgradestatus.ts
-  - src/models/operations/createauthlogin.ts
   - src/models/operations/createconfiggroupbyproduct.ts
   - src/models/operations/createcribllakedatasetbylakeid.ts
   - src/models/operations/createinputhectokenbyid.ts
@@ -2471,6 +2753,7 @@ generatedFiles:
   - src/sdk/configsversions.ts
   - src/sdk/destinations.ts
   - src/sdk/files.ts
+  - src/sdk/functions.ts
   - src/sdk/groups.ts
   - src/sdk/groupsconfigs.ts
   - src/sdk/health.ts
@@ -3495,6 +3778,13 @@ examples:
           application/json: {"role": "standby", "startTime": 7966.74, "status": "healthy"}
         "500":
           application/json: {"message": "<value>"}
+  listFunction:
+    speakeasy-default-list-function:
+      responses:
+        "200":
+          application/json: {"count": 35716, "items": [{"__conf": {"fields": [{"inFieldName": "<value>", "outFieldExpr": "<value>", "metricType": "gauge"}], "overwrite": false, "dimensions": ["<value 1>"], "removeMetrics": ["<value 1>", "<value 2>"], "removeDimensions": ["<value 1>", "<value 2>"]}, "__filename": "example.file", "disabled": true, "group": "<value>", "id": "publish_metrics", "initTime": 5326.26, "loadTime": 1305.9, "modTime": 3874.27, "name": "<value>", "schema": {"key": "<value>"}, "uischema": {"key": "<value>", "key1": "<value>", "key2": "<value>"}, "version": "<value>"}]}
+        "500":
+          application/json: {"message": "<value>"}
 examplesVersion: 1.0.2
 generatedTests:
   getHealthInfo: "2025-07-02T19:03:38+02:00"
@@ -3560,4 +3850,4 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes Detected:\n* `criblcontrolplane.sources.list()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.get()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.update()`: \n  *  `request.input` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.delete()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.hecTokens.create()`:  `response.items.[].authTokens.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.hecTokens.update()`:  `response.items.[].authTokens.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.nodes.list()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.create()`: \n  *  `request.[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n  *  `response.items.[].[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n* `criblcontrolplane.destinations.get()`:  `response.items.[].[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output.[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n  *  `response.items.[].[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n* `criblcontrolplane.destinations.delete()`:  `response.items.[].[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n* `criblcontrolplane.destinations.samples.create()`: \n  *  `request.outputTestRequest.events.[].additionalProperties` **Added**\n* `criblcontrolplane.versions.commits.diff()`:  `response.items.[].diffJson.[].blocks.[].lines.[]` **Changed**\n* `criblcontrolplane.versions.commits.get()`:  `response.items.[].diffJson.[].blocks.[].lines.[]` **Changed**\n* `criblcontrolplane.destinations.list()`:  `response.items.[].[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n"
+releaseNotes: "## Typescript SDK Changes Detected:\n* `criblcontrolplane.nodes.list()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.list()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.get()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.update()`: \n  *  `request.input` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.delete()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.hecTokens.create()`:  `response.items.[].authTokens.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.hecTokens.update()`:  `response.items.[].authTokens.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.list()`:  `response.items.[].[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n* `criblcontrolplane.destinations.create()`: \n  *  `request.[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n  *  `response.items.[].[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n* `criblcontrolplane.destinations.get()`:  `response.items.[].[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output.[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n  *  `response.items.[].[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n* `criblcontrolplane.destinations.delete()`:  `response.items.[].[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n* `criblcontrolplane.destinations.samples.create()`: \n  *  `request.outputTestRequest.events.[].additionalProperties` **Added**\n* `criblcontrolplane.versions.commits.diff()`:  `response.items.[].diffJson.[].blocks.[].lines.[]` **Changed**\n* `criblcontrolplane.versions.commits.get()`:  `response.items.[].diffJson.[].blocks.[].lines.[]` **Changed**\n* `criblcontrolplane.functions.list()`: **Added**\n"

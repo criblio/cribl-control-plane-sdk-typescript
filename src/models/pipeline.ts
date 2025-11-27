@@ -25,7 +25,7 @@ export type PipelineGroups = {
   disabled?: boolean | undefined;
 };
 
-export type Conf = {
+export type PipelineConf = {
   /**
    * Time (in ms) to wait for an async function to complete processing of a data item
    */
@@ -48,7 +48,7 @@ export type Conf = {
 
 export type Pipeline = {
   id: string;
-  conf: Conf;
+  conf: PipelineConf;
 };
 
 /** @internal */
@@ -93,17 +93,20 @@ export function pipelineGroupsFromJSON(
 }
 
 /** @internal */
-export const Conf$inboundSchema: z.ZodType<Conf, z.ZodTypeDef, unknown> = z
-  .object({
-    asyncFuncTimeout: z.number().int().optional(),
-    output: z.string().default("default"),
-    description: z.string().optional(),
-    streamtags: z.array(z.string()).optional(),
-    functions: z.array(PipelineFunctionConf$inboundSchema).optional(),
-    groups: z.record(z.lazy(() => PipelineGroups$inboundSchema)).optional(),
-  });
+export const PipelineConf$inboundSchema: z.ZodType<
+  PipelineConf,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  asyncFuncTimeout: z.number().int().optional(),
+  output: z.string().default("default"),
+  description: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  functions: z.array(PipelineFunctionConf$inboundSchema).optional(),
+  groups: z.record(z.lazy(() => PipelineGroups$inboundSchema)).optional(),
+});
 /** @internal */
-export type Conf$Outbound = {
+export type PipelineConf$Outbound = {
   asyncFuncTimeout?: number | undefined;
   output: string;
   description?: string | undefined;
@@ -113,26 +116,29 @@ export type Conf$Outbound = {
 };
 
 /** @internal */
-export const Conf$outboundSchema: z.ZodType<Conf$Outbound, z.ZodTypeDef, Conf> =
-  z.object({
-    asyncFuncTimeout: z.number().int().optional(),
-    output: z.string().default("default"),
-    description: z.string().optional(),
-    streamtags: z.array(z.string()).optional(),
-    functions: z.array(PipelineFunctionConf$outboundSchema).optional(),
-    groups: z.record(z.lazy(() => PipelineGroups$outboundSchema)).optional(),
-  });
+export const PipelineConf$outboundSchema: z.ZodType<
+  PipelineConf$Outbound,
+  z.ZodTypeDef,
+  PipelineConf
+> = z.object({
+  asyncFuncTimeout: z.number().int().optional(),
+  output: z.string().default("default"),
+  description: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  functions: z.array(PipelineFunctionConf$outboundSchema).optional(),
+  groups: z.record(z.lazy(() => PipelineGroups$outboundSchema)).optional(),
+});
 
-export function confToJSON(conf: Conf): string {
-  return JSON.stringify(Conf$outboundSchema.parse(conf));
+export function pipelineConfToJSON(pipelineConf: PipelineConf): string {
+  return JSON.stringify(PipelineConf$outboundSchema.parse(pipelineConf));
 }
-export function confFromJSON(
+export function pipelineConfFromJSON(
   jsonString: string,
-): SafeParseResult<Conf, SDKValidationError> {
+): SafeParseResult<PipelineConf, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Conf$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Conf' from JSON`,
+    (x) => PipelineConf$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PipelineConf' from JSON`,
   );
 }
 
@@ -143,12 +149,12 @@ export const Pipeline$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string(),
-  conf: z.lazy(() => Conf$inboundSchema),
+  conf: z.lazy(() => PipelineConf$inboundSchema),
 });
 /** @internal */
 export type Pipeline$Outbound = {
   id: string;
-  conf: Conf$Outbound;
+  conf: PipelineConf$Outbound;
 };
 
 /** @internal */
@@ -158,7 +164,7 @@ export const Pipeline$outboundSchema: z.ZodType<
   Pipeline
 > = z.object({
   id: z.string(),
-  conf: z.lazy(() => Conf$outboundSchema),
+  conf: z.lazy(() => PipelineConf$outboundSchema),
 });
 
 export function pipelineToJSON(pipeline: Pipeline): string {
