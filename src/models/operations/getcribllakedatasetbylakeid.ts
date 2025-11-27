@@ -13,6 +13,30 @@ export type GetCriblLakeDatasetByLakeIdRequest = {
    * The <code>id</code> of the Lake that contains the Lake Datasets to list.
    */
   lakeId: string;
+  /**
+   * query string false Filter datasets by storage location ID. Use <code>default</code> for default storage location.
+   */
+  storageLocationId?: string | undefined;
+  /**
+   * query string false Filter datasets by format. Set to <code>ddss</code> to return only DDSS datasets.
+   */
+  format?: string | undefined;
+  /**
+   * query boolean false Exclude DDSS format datasets from the response.
+   */
+  excludeDDSS?: string | undefined;
+  /**
+   * query boolean false Exclude deleted datasets from the response.
+   */
+  excludeDeleted?: string | undefined;
+  /**
+   * query boolean false Exclude internal datasets (those with IDs starting with <code>cribl_</code>) from the response.
+   */
+  excludeInternal?: string | undefined;
+  /**
+   * query boolean false Exclude BYOS (Bring Your Own Storage) datasets from the response.
+   */
+  excludeBYOS?: string | undefined;
 };
 
 /**
@@ -29,6 +53,12 @@ export type GetCriblLakeDatasetByLakeIdResponse = {
 /** @internal */
 export type GetCriblLakeDatasetByLakeIdRequest$Outbound = {
   lakeId: string;
+  storageLocationId?: string | undefined;
+  format?: string | undefined;
+  excludeDDSS?: string | undefined;
+  excludeDeleted?: string | undefined;
+  excludeInternal?: string | undefined;
+  excludeBYOS?: string | undefined;
 };
 
 /** @internal */
@@ -38,6 +68,12 @@ export const GetCriblLakeDatasetByLakeIdRequest$outboundSchema: z.ZodType<
   GetCriblLakeDatasetByLakeIdRequest
 > = z.object({
   lakeId: z.string(),
+  storageLocationId: z.string().optional(),
+  format: z.string().optional(),
+  excludeDDSS: z.string().optional(),
+  excludeDeleted: z.string().optional(),
+  excludeInternal: z.string().optional(),
+  excludeBYOS: z.string().optional(),
 });
 
 export function getCriblLakeDatasetByLakeIdRequestToJSON(
