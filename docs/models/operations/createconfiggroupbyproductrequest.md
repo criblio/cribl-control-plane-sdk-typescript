@@ -9,7 +9,7 @@ let value: CreateConfigGroupByProductRequest = {
   product: "edge",
   groupCreateRequest: {
     cloud: {
-      provider: "aws",
+      provider: "azure",
       region: "<value>",
     },
     deployingWorkerCount: 1686.56,
@@ -17,12 +17,12 @@ let value: CreateConfigGroupByProductRequest = {
     estimatedIngestRate: 5120,
     git: {
       commit: "<value>",
-      localChanges: 4323.13,
+      localChanges: 5624.35,
       log: [
         {
           authorEmail: "<value>",
           authorName: "<value>",
-          date: "2024-12-24",
+          date: "2024-12-12",
           hash: "<value>",
           message: "<value>",
           short: "<value>",
@@ -30,10 +30,10 @@ let value: CreateConfigGroupByProductRequest = {
       ],
     },
     id: "<id>",
-    incompatibleWorkerCount: 4943.01,
+    incompatibleWorkerCount: 4323.13,
     inherits: "<value>",
     isFleet: true,
-    isSearch: false,
+    isSearch: true,
     lookupDeployments: [
       {
         context: "<value>",
@@ -48,8 +48,8 @@ let value: CreateConfigGroupByProductRequest = {
     ],
     maxWorkerAge: "<value>",
     name: "<value>",
-    onPrem: true,
-    provisioned: false,
+    onPrem: false,
+    provisioned: true,
     sourceGroupId: "<id>",
     streamtags: [
       "<value 1>",
@@ -57,7 +57,7 @@ let value: CreateConfigGroupByProductRequest = {
       "<value 3>",
     ],
     tags: "<value>",
-    type: "lake_access",
+    type: "local_search",
     upgradeVersion: "<value>",
     workerCount: 5687.41,
     workerRemoteAccess: false,

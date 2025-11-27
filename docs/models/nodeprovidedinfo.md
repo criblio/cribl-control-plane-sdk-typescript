@@ -8,10 +8,12 @@ import { NodeProvidedInfo } from "cribl-control-plane/models";
 let value: NodeProvidedInfo = {
   architecture: "<value>",
   aws: {
-    enabled: true,
+    enabled: false,
     instanceId: "<id>",
     region: "<value>",
-    tags: {},
+    tags: {
+      "key": "<value>",
+    },
     type: "<value>",
     zone: "<value>",
   },
@@ -20,28 +22,41 @@ let value: NodeProvidedInfo = {
   cribl: {
     config: {
       featuresRev: "<value>",
-      hbPeriodSeconds: 3261.24,
+      hbPeriodSeconds: 3679.01,
       logStreamEnv: "<value>",
       policyRev: "<value>",
       version: "<value>",
     },
     deploymentId: "<id>",
-    disableSNIRouting: false,
-    distMode: "managed-edge",
-    edgeNodes: 6064.13,
+    disableSNIRouting: true,
+    distMode: "outpost",
+    edgeNodes: 674.85,
     group: "<value>",
     guid: "<id>",
     installType: "<value>",
-    lookupVersions: {},
+    lookupVersions: {
+      "key": {
+        "key": "<value>",
+        "key1": "<value>",
+      },
+      "key1": {
+        "key": "<value>",
+      },
+      "key2": {
+        "key": "<value>",
+        "key1": "<value>",
+        "key2": "<value>",
+      },
+    },
     master: {
-      host: "frequent-bell.info",
-      port: 9100.63,
+      host: "boring-distinction.biz",
+      port: 7248.18,
       servername: "<value>",
       tls: true,
     },
-    pid: 5354.01,
-    socksEnabled: false,
-    startTime: 2370.83,
+    pid: 3273.66,
+    socksEnabled: true,
+    startTime: 3411.24,
     tags: [],
     version: "<value>",
   },
@@ -59,7 +74,7 @@ let value: NodeProvidedInfo = {
   hostname: "tender-thigh.com",
   isSaasWorker: true,
   kube: {
-    enabled: false,
+    enabled: true,
     namespace: "<value>",
     node: "<value>",
     owner: {
@@ -75,7 +90,10 @@ let value: NodeProvidedInfo = {
       enabled: false,
       instanceId: "<id>",
       region: "<value>",
-      tags: {},
+      tags: {
+        "key": "<value>",
+        "key1": "<value>",
+      },
       type: "<value>",
       zone: "<value>",
     },
@@ -83,7 +101,6 @@ let value: NodeProvidedInfo = {
       addresses: [
         "<value 1>",
         "<value 2>",
-        "<value 3>",
       ],
       enabled: true,
       id: "<id>",
@@ -101,8 +118,12 @@ let value: NodeProvidedInfo = {
       source: "<value>",
     },
     os: {
-      addresses: [],
-      enabled: true,
+      addresses: [
+        "<value 1>",
+        "<value 2>",
+        "<value 3>",
+      ],
+      enabled: false,
       id: "<id>",
       version: "<value>",
     },
@@ -111,18 +132,16 @@ let value: NodeProvidedInfo = {
   os: {
     addresses: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
   },
   outpost: {
     guid: "<id>",
-    host: "bogus-populist.info",
+    host: "worldly-gerbil.com",
   },
   platform: "<value>",
   release: "<value>",
-  totalDiskSpace: 4145.33,
-  totalmem: 5590.59,
+  totalDiskSpace: 5590.59,
+  totalmem: 5398.99,
 };
 ```
 

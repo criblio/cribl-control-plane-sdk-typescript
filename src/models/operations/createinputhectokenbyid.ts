@@ -4,9 +4,6 @@
 
 import * as z from "zod/v3";
 import { remap as remap$ } from "../../lib/primitives.js";
-import { safeParse } from "../../lib/schemas.js";
-import { Result as SafeParseResult } from "../../types/fp.js";
-import { SDKValidationError } from "../errors/sdkvalidationerror.js";
 import * as models from "../index.js";
 
 export type CreateInputHecTokenByIdRequest = {
@@ -18,17 +15,6 @@ export type CreateInputHecTokenByIdRequest = {
    * AddHecTokenRequest object
    */
   addHecTokenRequest: models.AddHecTokenRequest;
-};
-
-/**
- * a list of InputSplunkHec objects
- */
-export type CreateInputHecTokenByIdResponse = {
-  /**
-   * number of items present in the items array
-   */
-  count?: number | undefined;
-  items?: Array<models.InputSplunkHec> | undefined;
 };
 
 /** @internal */
@@ -58,25 +44,5 @@ export function createInputHecTokenByIdRequestToJSON(
     CreateInputHecTokenByIdRequest$outboundSchema.parse(
       createInputHecTokenByIdRequest,
     ),
-  );
-}
-
-/** @internal */
-export const CreateInputHecTokenByIdResponse$inboundSchema: z.ZodType<
-  CreateInputHecTokenByIdResponse,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number().int().optional(),
-  items: z.array(models.InputSplunkHec$inboundSchema).optional(),
-});
-
-export function createInputHecTokenByIdResponseFromJSON(
-  jsonString: string,
-): SafeParseResult<CreateInputHecTokenByIdResponse, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CreateInputHecTokenByIdResponse$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CreateInputHecTokenByIdResponse' from JSON`,
   );
 }

@@ -3,7 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import { OpenEnum, Unrecognized } from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 export const WorkerTypes = {
   Worker: "worker",
@@ -13,10 +14,7 @@ export type WorkerTypes = OpenEnum<typeof WorkerTypes>;
 
 /** @internal */
 export const WorkerTypes$outboundSchema: z.ZodType<
-  WorkerTypes,
+  string,
   z.ZodTypeDef,
   WorkerTypes
-> = z.union([
-  z.nativeEnum(WorkerTypes),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(WorkerTypes);

@@ -79,7 +79,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.ListOutputResponse](../../models/operations/listoutputresponse.md)\>**
+**Promise\<[models.CountedOutput](../../models/countedoutput.md)\>**
 
 ### Errors
 
@@ -309,7 +309,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.CreateOutputResponse](../../models/operations/createoutputresponse.md)\>**
+**Promise\<[models.CountedOutput](../../models/countedoutput.md)\>**
 
 ### Errors
 
@@ -389,7 +389,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.GetOutputByIdResponse](../../models/operations/getoutputbyidresponse.md)\>**
+**Promise\<[models.CountedOutput](../../models/countedoutput.md)\>**
 
 ### Errors
 
@@ -595,7 +595,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.UpdateOutputByIdResponse](../../models/operations/updateoutputbyidresponse.md)\>**
+**Promise\<[models.CountedOutput](../../models/countedoutput.md)\>**
 
 ### Errors
 
@@ -675,7 +675,7 @@ run();
 
 ### Response
 
-**Promise\<[operations.DeleteOutputByIdResponse](../../models/operations/deleteoutputbyidresponse.md)\>**
+**Promise\<[models.CountedOutput](../../models/countedoutput.md)\>**
 
 ### Errors
 

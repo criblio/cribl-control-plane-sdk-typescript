@@ -17,13 +17,11 @@ import {
   OutpostNodeInfo$inboundSchema,
 } from "./outpostnodeinfo.js";
 
-export type NodeProvidedInfoTags = {};
-
 export type NodeProvidedInfoAws = {
   enabled: boolean;
   instanceId: string;
   region: string;
-  tags?: NodeProvidedInfoTags | undefined;
+  tags?: { [k: string]: string } | undefined;
   type: string;
   zone: string;
 };
@@ -86,23 +84,6 @@ export type NodeProvidedInfo = {
 };
 
 /** @internal */
-export const NodeProvidedInfoTags$inboundSchema: z.ZodType<
-  NodeProvidedInfoTags,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-export function nodeProvidedInfoTagsFromJSON(
-  jsonString: string,
-): SafeParseResult<NodeProvidedInfoTags, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => NodeProvidedInfoTags$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'NodeProvidedInfoTags' from JSON`,
-  );
-}
-
-/** @internal */
 export const NodeProvidedInfoAws$inboundSchema: z.ZodType<
   NodeProvidedInfoAws,
   z.ZodTypeDef,
@@ -111,7 +92,7 @@ export const NodeProvidedInfoAws$inboundSchema: z.ZodType<
   enabled: z.boolean(),
   instanceId: z.string(),
   region: z.string(),
-  tags: z.lazy(() => NodeProvidedInfoTags$inboundSchema).optional(),
+  tags: z.record(z.string()).optional(),
   type: z.string(),
   zone: z.string(),
 });

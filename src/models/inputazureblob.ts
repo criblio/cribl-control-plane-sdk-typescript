@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -293,40 +289,26 @@ export const InputAzureBlobMode$inboundSchema: z.ZodType<
   InputAzureBlobMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputAzureBlobMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputAzureBlobMode);
 /** @internal */
 export const InputAzureBlobMode$outboundSchema: z.ZodType<
-  InputAzureBlobMode,
+  string,
   z.ZodTypeDef,
   InputAzureBlobMode
-> = z.union([
-  z.nativeEnum(InputAzureBlobMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputAzureBlobMode);
 
 /** @internal */
 export const InputAzureBlobCompression$inboundSchema: z.ZodType<
   InputAzureBlobCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputAzureBlobCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputAzureBlobCompression);
 /** @internal */
 export const InputAzureBlobCompression$outboundSchema: z.ZodType<
-  InputAzureBlobCompression,
+  string,
   z.ZodTypeDef,
   InputAzureBlobCompression
-> = z.union([
-  z.nativeEnum(InputAzureBlobCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputAzureBlobCompression);
 
 /** @internal */
 export const InputAzureBlobPqControls$inboundSchema: z.ZodType<
@@ -468,20 +450,13 @@ export const InputAzureBlobAuthenticationMethod$inboundSchema: z.ZodType<
   InputAzureBlobAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputAzureBlobAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputAzureBlobAuthenticationMethod);
 /** @internal */
 export const InputAzureBlobAuthenticationMethod$outboundSchema: z.ZodType<
-  InputAzureBlobAuthenticationMethod,
+  string,
   z.ZodTypeDef,
   InputAzureBlobAuthenticationMethod
-> = z.union([
-  z.nativeEnum(InputAzureBlobAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputAzureBlobAuthenticationMethod);
 
 /** @internal */
 export const InputAzureBlobCertificate$inboundSchema: z.ZodType<
