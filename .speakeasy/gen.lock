@@ -3,10 +3,10 @@ id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
   docChecksum: 822674f854529be29b12b4d31e509ad5
   docVersion: 4.15.1-alpha.1764198138622-538bc24c
-  speakeasyVersion: 1.661.2
-  generationVersion: 2.763.3
-  releaseVersion: 0.4.0-alpha.8
-  configChecksum: f0c9cf9b5d3a603cb8671690152652b3
+  speakeasyVersion: 1.665.0
+  generationVersion: 2.767.2
+  releaseVersion: 0.4.0-alpha.9
+  configChecksum: f788f60c9eb083013d9f180c46b1478a
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -15,7 +15,7 @@ features:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.2
     constsAndDefaults: 0.1.12
-    core: 3.26.10
+    core: 3.26.13
     defaultEnabledRetries: 0.1.0
     devContainers: 2.90.1
     enumUnions: 0.1.0
@@ -32,8 +32,8 @@ features:
     openEnums: 0.1.1
     responseFormat: 0.2.3
     retries: 2.83.0
-    sdkHooks: 0.3.0
-    unions: 2.86.0
+    sdkHooks: 0.4.0
+    unions: 2.86.2
     uploadStreams: 0.1.0
 generatedFiles:
   - .devcontainer/README.md
@@ -3572,5 +3572,5 @@ generatedTests:
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
 releaseNotes: |
-  ## Typescript SDK Changes Detected:
+  ## Typescript SDK Changes:
   * `criblcontrolplane.lakeDatasets.list()`:  `request` **Changed**
