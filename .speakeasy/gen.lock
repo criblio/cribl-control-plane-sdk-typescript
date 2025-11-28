@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 66fbf313d45fd03b8a0c0780d6b215af
-  docVersion: 4.16.0-alpha.1764244702228-3886c7b2
+  docChecksum: d812ee2ec332ca1d14fa793362afe0b9
+  docVersion: 4.16.0-alpha.1764346017403-e12df6ca
   speakeasyVersion: 1.661.2
   generationVersion: 2.763.3
-  releaseVersion: 0.4.0-rc.6
-  configChecksum: 7c2c14c34e16a57438a2920c6b29338a
+  releaseVersion: 0.4.0-rc.7
+  configChecksum: 89944bdeaf2ce03b859419d212d0efed
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -51,6 +51,8 @@ generatedFiles:
   - docs/models/aisiemendpointpath.md
   - docs/models/allow.md
   - docs/models/audit.md
+  - docs/models/authconfig.md
+  - docs/models/authconfigtype.md
   - docs/models/authenticationprotocol.md
   - docs/models/author.md
   - docs/models/authtoken.md
@@ -71,6 +73,7 @@ generatedFiles:
   - docs/models/columnmapping.md
   - docs/models/comment.md
   - docs/models/commit.md
+  - docs/models/commonservicelimitconfigs.md
   - docs/models/conf.md
   - docs/models/config.md
   - docs/models/configgroup.md
@@ -109,6 +112,8 @@ generatedFiles:
   - docs/models/countedpipeline.md
   - docs/models/countedroutes.md
   - docs/models/countedstring.md
+  - docs/models/countedsystemsettings.md
+  - docs/models/countedsystemsettingsconf.md
   - docs/models/countedteamaccesscontrollist.md
   - docs/models/counteduseraccesscontrollist.md
   - docs/models/criblevent.md
@@ -134,10 +139,12 @@ generatedFiles:
   - docs/models/difflineinserttype.md
   - docs/models/disksandfilesystems.md
   - docs/models/distmode.md
+  - docs/models/distributed.md
   - docs/models/distributedsummary.md
   - docs/models/distributedsummarygroups.md
   - docs/models/distributedsummaryworkers.md
   - docs/models/dns.md
+  - docs/models/edgeheartbeatmetricsmode.md
   - docs/models/elasticsearchmetadata.md
   - docs/models/elasticversion.md
   - docs/models/endpoint.md
@@ -166,9 +173,11 @@ generatedFiles:
   - docs/models/gitfilesresponse.md
   - docs/models/gitinfo.md
   - docs/models/gitlogresult.md
+  - docs/models/gitopstype.md
   - docs/models/gitrevertparams.md
   - docs/models/gitrevertresult.md
   - docs/models/gitrevertresultfiles.md
+  - docs/models/gitsettings.md
   - docs/models/gitshowresult.md
   - docs/models/gitstatusresult.md
   - docs/models/groupcreaterequest.md
@@ -987,10 +996,12 @@ generatedFiles:
   - docs/models/inputzscalerhectype.md
   - docs/models/interfaces.md
   - docs/models/jobinfo.md
+  - docs/models/jobsettings.md
   - docs/models/jobstatus.md
   - docs/models/lakedatasetmetrics.md
   - docs/models/lakedatasetsearchconfig.md
   - docs/models/lakehouseconnectiontype.md
+  - docs/models/limits.md
   - docs/models/listeningports.md
   - docs/models/loggedinusers.md
   - docs/models/logininfo.md
@@ -1005,6 +1016,7 @@ generatedFiles:
   - docs/models/masterworkerentry.md
   - docs/models/masterworkerentrytype.md
   - docs/models/masterworkerentryworkers.md
+  - docs/models/maxconcurrentsearchestype.md
   - docs/models/metricsprotocol.md
   - docs/models/mtlssettings.md
   - docs/models/nodeactiveupgradestatus.md
@@ -1974,6 +1986,9 @@ generatedFiles:
   - docs/models/querybuildermode.md
   - docs/models/rbacresource.md
   - docs/models/readmode.md
+  - docs/models/rediscachelimits.md
+  - docs/models/redisconnectionlimits.md
+  - docs/models/redislimits.md
   - docs/models/remote.md
   - docs/models/remoteenum.md
   - docs/models/renamed.md
@@ -2018,14 +2033,20 @@ generatedFiles:
   - docs/models/runnablejobscheduledsearchtimewarning.md
   - docs/models/runnablejobscheduledsearchtype.md
   - docs/models/sample.md
+  - docs/models/samples.md
   - docs/models/scanmode.md
   - docs/models/scheduletype.md
   - docs/models/schemeclientoauth.md
   - docs/models/scrapeprotocolprotocol.md
+  - docs/models/searchqueuelength.md
+  - docs/models/searchsettings.md
   - docs/models/security.md
   - docs/models/sendeventsas.md
   - docs/models/sendlogsas.md
+  - docs/models/serviceprocstype.md
+  - docs/models/serviceprocstypeenum.md
   - docs/models/services.md
+  - docs/models/serviceslimits.md
   - docs/models/sharditeratorstart.md
   - docs/models/shardloadbalancing.md
   - docs/models/snmpv3authentication.md
@@ -2036,6 +2057,41 @@ generatedFiles:
   - docs/models/subscription.md
   - docs/models/subscriptionmetadatum.md
   - docs/models/summary.md
+  - docs/models/systemsettings.md
+  - docs/models/systemsettingsapi.md
+  - docs/models/systemsettingsbackups.md
+  - docs/models/systemsettingsconf.md
+  - docs/models/systemsettingsconfapi.md
+  - docs/models/systemsettingsconfbackups.md
+  - docs/models/systemsettingsconfcustomlogo.md
+  - docs/models/systemsettingsconffeatureflagoverride.md
+  - docs/models/systemsettingsconfpii.md
+  - docs/models/systemsettingsconfproxy.md
+  - docs/models/systemsettingsconfrollback.md
+  - docs/models/systemsettingsconfshutdown.md
+  - docs/models/systemsettingsconfsni.md
+  - docs/models/systemsettingsconfsockets.md
+  - docs/models/systemsettingsconfssl.md
+  - docs/models/systemsettingsconfsupport.md
+  - docs/models/systemsettingsconfsystem.md
+  - docs/models/systemsettingsconftls.md
+  - docs/models/systemsettingsconfupgrade.md
+  - docs/models/systemsettingsconfworkers.md
+  - docs/models/systemsettingscustomlogo.md
+  - docs/models/systemsettingsfeatureflagoverride.md
+  - docs/models/systemsettingsmode.md
+  - docs/models/systemsettingspii.md
+  - docs/models/systemsettingsproxy.md
+  - docs/models/systemsettingsrollback.md
+  - docs/models/systemsettingsshutdown.md
+  - docs/models/systemsettingssni.md
+  - docs/models/systemsettingssockets.md
+  - docs/models/systemsettingsssl.md
+  - docs/models/systemsettingssupport.md
+  - docs/models/systemsettingssystem.md
+  - docs/models/systemsettingstls.md
+  - docs/models/systemsettingsupgrade.md
+  - docs/models/systemsettingsworkers.md
   - docs/models/target.md
   - docs/models/targetprotocol.md
   - docs/models/teamaccesscontrollist.md
@@ -2046,10 +2102,15 @@ generatedFiles:
   - docs/models/udmtype.md
   - docs/models/updatehectokenrequest.md
   - docs/models/updatehectokenrequestmetadatum.md
+  - docs/models/upgradegroupsettings.md
+  - docs/models/upgradepackageurls.md
+  - docs/models/upgradesettings.md
   - docs/models/uploadpackresponse.md
   - docs/models/useraccesscontrollist.md
   - docs/models/usersandgroups.md
   - docs/models/v3user.md
+  - docs/models/warmpoolsize.md
+  - docs/models/warmpoolsizeenum.md
   - docs/models/wheretocapture.md
   - docs/models/workertypes.md
   - docs/models/writeaction.md
@@ -2057,6 +2118,7 @@ generatedFiles:
   - docs/sdks/branches/README.md
   - docs/sdks/commits/README.md
   - docs/sdks/configsversions/README.md
+  - docs/sdks/cribl/README.md
   - docs/sdks/destinations/README.md
   - docs/sdks/files/README.md
   - docs/sdks/groups/README.md
@@ -2129,6 +2191,8 @@ generatedFiles:
   - src/funcs/sourcesHecTokensUpdate.ts
   - src/funcs/sourcesList.ts
   - src/funcs/sourcesUpdate.ts
+  - src/funcs/systemSettingsCriblList.ts
+  - src/funcs/systemSettingsCriblUpdate.ts
   - src/funcs/versionsBranchesGet.ts
   - src/funcs/versionsBranchesList.ts
   - src/funcs/versionsCommitsCreate.ts
@@ -2165,12 +2229,14 @@ generatedFiles:
   - src/lib/security.ts
   - src/lib/url.ts
   - src/models/addhectokenrequest.ts
+  - src/models/authconfig.ts
   - src/models/authtoken.ts
   - src/models/branchinfo.ts
   - src/models/cacheconnection.ts
   - src/models/cacheconnectionbackfillstatus.ts
   - src/models/cloudprovider.ts
   - src/models/commit.ts
+  - src/models/commonservicelimitconfigs.ts
   - src/models/configgroup.ts
   - src/models/configgroupcloud.ts
   - src/models/configgrouplookups.ts
@@ -2201,6 +2267,8 @@ generatedFiles:
   - src/models/countedpipeline.ts
   - src/models/countedroutes.ts
   - src/models/countedstring.ts
+  - src/models/countedsystemsettings.ts
+  - src/models/countedsystemsettingsconf.ts
   - src/models/countedteamaccesscontrollist.ts
   - src/models/counteduseraccesscontrollist.ts
   - src/models/criblevent.ts
@@ -2217,6 +2285,7 @@ generatedFiles:
   - src/models/difflinedelete.ts
   - src/models/difflineinsert.ts
   - src/models/distributedsummary.ts
+  - src/models/edgeheartbeatmetricsmode.ts
   - src/models/errors/criblcontrolplanedefaulterror.ts
   - src/models/errors/criblcontrolplaneerror.ts
   - src/models/errors/error.ts
@@ -2233,8 +2302,10 @@ generatedFiles:
   - src/models/gitfilesresponse.ts
   - src/models/gitinfo.ts
   - src/models/gitlogresult.ts
+  - src/models/gitopstype.ts
   - src/models/gitrevertparams.ts
   - src/models/gitrevertresult.ts
+  - src/models/gitsettings.ts
   - src/models/gitshowresult.ts
   - src/models/gitstatusresult.ts
   - src/models/groupcreaterequest.ts
@@ -2305,12 +2376,15 @@ generatedFiles:
   - src/models/inputwizwebhook.ts
   - src/models/inputzscalerhec.ts
   - src/models/jobinfo.ts
+  - src/models/jobsettings.ts
   - src/models/jobstatus.ts
   - src/models/lakedatasetmetrics.ts
   - src/models/lakedatasetsearchconfig.ts
   - src/models/lakehouseconnectiontype.ts
+  - src/models/limits.ts
   - src/models/logininfo.ts
   - src/models/masterworkerentry.ts
+  - src/models/maxconcurrentsearchestype.ts
   - src/models/nodeactiveupgradestatus.ts
   - src/models/nodefailedupgradestatus.ts
   - src/models/nodeprovidedinfo.ts
@@ -2449,6 +2523,9 @@ generatedFiles:
   - src/models/pipelinefunctionconf.ts
   - src/models/productscore.ts
   - src/models/rbacresource.ts
+  - src/models/rediscachelimits.ts
+  - src/models/redisconnectionlimits.ts
+  - src/models/redislimits.ts
   - src/models/resourcepolicy.ts
   - src/models/routeconf.ts
   - src/models/routes.ts
@@ -2458,9 +2535,17 @@ generatedFiles:
   - src/models/runnablejobexecutor.ts
   - src/models/runnablejobscheduledsearch.ts
   - src/models/schemeclientoauth.ts
+  - src/models/searchsettings.ts
   - src/models/security.ts
+  - src/models/serviceprocstype.ts
+  - src/models/serviceslimits.ts
+  - src/models/systemsettings.ts
+  - src/models/systemsettingsconf.ts
   - src/models/teamaccesscontrollist.ts
   - src/models/updatehectokenrequest.ts
+  - src/models/upgradegroupsettings.ts
+  - src/models/upgradepackageurls.ts
+  - src/models/upgradesettings.ts
   - src/models/uploadpackresponse.ts
   - src/models/useraccesscontrollist.ts
   - src/models/workertypes.ts
@@ -2469,6 +2554,7 @@ generatedFiles:
   - src/sdk/branches.ts
   - src/sdk/commits.ts
   - src/sdk/configsversions.ts
+  - src/sdk/cribl.ts
   - src/sdk/destinations.ts
   - src/sdk/files.ts
   - src/sdk/groups.ts
@@ -2484,9 +2570,11 @@ generatedFiles:
   - src/sdk/routes.ts
   - src/sdk/samples.ts
   - src/sdk/sdk.ts
+  - src/sdk/settings.ts
   - src/sdk/sources.ts
   - src/sdk/statuses.ts
   - src/sdk/summaries.ts
+  - src/sdk/system.ts
   - src/sdk/teams.ts
   - src/sdk/tokens.ts
   - src/sdk/versions.ts
@@ -3441,16 +3529,16 @@ examples:
     speakeasy-default-get-system-settings-conf:
       responses:
         "200":
-          application/json: {"count": 433707, "items": [{"api": {"baseUrl": "https://lucky-archaeology.net/", "disableApiCache": true, "disabled": true, "headers": {}, "host": "torn-typeface.org", "idleSessionTTL": 760.41, "listenOnPort": false, "loginRateLimit": "<value>", "port": 1779.17, "protocol": "<value>", "scripts": false, "sensitiveFields": ["<value 1>", "<value 2>"], "ssl": {"caPath": "<value>", "certPath": "<value>", "disabled": true, "passphrase": "<value>", "privKeyPath": "<value>"}, "ssoRateLimit": "<value>", "workerRemoteAccess": false}, "backups": {"backupPersistence": "<value>", "backupsDirectory": "<value>"}, "customLogo": {"enabled": false, "logoDescription": "<value>", "logoImage": "<value>"}, "pii": {"enablePiiDetection": true}, "proxy": {"useEnvVars": false}, "rollback": {"rollbackEnabled": true, "rollbackRetries": 9806.55, "rollbackTimeout": 4001.24}, "shutdown": {"drainTimeout": 9062.16}, "sni": {"disableSNIRouting": true}, "sockets": {"directory": "/rescue"}, "system": {"intercom": false, "upgrade": "false"}, "tls": {"defaultCipherList": "<value>", "defaultEcdhCurve": "<value>", "maxVersion": "<value>", "minVersion": "<value>", "rejectUnauthorized": true}, "upgradeGroupSettings": {"isRolling": true, "quantity": 5724.97, "retryCount": 6478.36, "retryDelay": 2800.39}, "upgradeSettings": {"automaticUpgradeCheckPeriod": "<value>", "disableAutomaticUpgrade": true, "enableLegacyEdgeUpgrade": false, "packageUrls": [{"packageHashUrl": "https://noted-archaeology.name/", "packageUrl": "https://alive-schnitzel.biz"}], "upgradeSource": "<value>"}, "workers": {"count": 9267.84, "enableHeapSnapshots": true, "loadThrottlePerc": 3447.62, "memory": 8708.09, "minimum": 3092.53, "startupMaxConns": 7695.01, "startupThrottleTimeout": 7646.78, "v8SingleThread": false}}]}
+          application/json: {"count": 433707, "items": [{"api": {"baseUrl": "https://lucky-archaeology.net/", "disableApiCache": true, "disabled": true, "headers": {}, "host": "torn-typeface.org", "idleSessionTTL": 760.41, "listenOnPort": false, "loginRateLimit": "<value>", "port": 1779.17, "protocol": "<value>", "scripts": false, "sensitiveFields": ["<value 1>", "<value 2>"], "ssl": {"caPath": "<value>", "certPath": "<value>", "disabled": true, "passphrase": "<value>", "privKeyPath": "<value>"}, "ssoRateLimit": "<value>", "workerRemoteAccess": false}, "backups": {"backupPersistence": "<value>", "backupsDirectory": "<value>"}, "customLogo": {"enabled": false, "logoDescription": "<value>", "logoImage": "<value>"}, "pii": {"enablePiiDetection": true}, "proxy": {"useEnvVars": false}, "rollback": {"rollbackEnabled": true, "rollbackRetries": 9806.55, "rollbackTimeout": 4001.24}, "shutdown": {"drainTimeout": 9062.16}, "sni": {"disableSNIRouting": true}, "sockets": {"directory": "/rescue"}, "support": {"featureFlagOverrides": [{"disabled": true, "flagId": "<id>"}]}, "system": {"intercom": false, "upgrade": "false"}, "tls": {"defaultCipherList": "<value>", "defaultEcdhCurve": "<value>", "maxVersion": "<value>", "minVersion": "<value>", "rejectUnauthorized": true}, "upgradeGroupSettings": {"isRolling": true, "quantity": 5724.97, "retryCount": 6478.36, "retryDelay": 2800.39}, "upgradeSettings": {"automaticUpgradeCheckPeriod": "<value>", "disableAutomaticUpgrade": true, "enableLegacyEdgeUpgrade": false, "packageUrls": [{"packageHashUrl": "https://noted-archaeology.name/", "packageUrl": "https://alive-schnitzel.biz"}], "upgradeSource": "<value>"}, "workers": {"count": 9267.84, "enableHeapSnapshots": true, "loadThrottlePerc": 3447.62, "memory": 8708.09, "minimum": 3092.53, "startupMaxConns": 7695.01, "startupThrottleTimeout": 7646.78, "v8SingleThread": false}}]}
         "500":
           application/json: {"message": "<value>"}
   updateSystemSettingsConf:
     speakeasy-default-update-system-settings-conf:
       requestBody:
-        application/json: {"api": {"baseUrl": "https://both-draw.com/", "disableApiCache": true, "disabled": false, "headers": {}, "host": "meaty-spring.biz", "idleSessionTTL": 89.27, "listenOnPort": true, "loginRateLimit": "<value>", "port": 2424.38, "protocol": "<value>", "scripts": true, "sensitiveFields": ["<value 1>", "<value 2>"], "ssl": {"caPath": "<value>", "certPath": "<value>", "disabled": true, "passphrase": "<value>", "privKeyPath": "<value>"}, "ssoRateLimit": "<value>", "workerRemoteAccess": true}, "backups": {"backupPersistence": "<value>", "backupsDirectory": "<value>"}, "customLogo": {"enabled": false, "logoDescription": "<value>", "logoImage": "<value>"}, "pii": {"enablePiiDetection": false}, "proxy": {"useEnvVars": true}, "rollback": {"rollbackEnabled": false, "rollbackRetries": 3174.73, "rollbackTimeout": 1506.54}, "shutdown": {"drainTimeout": 3723.75}, "sni": {"disableSNIRouting": false}, "sockets": {"directory": "/usr/ports"}, "system": {"intercom": false, "upgrade": "api"}, "tls": {"defaultCipherList": "<value>", "defaultEcdhCurve": "<value>", "maxVersion": "<value>", "minVersion": "<value>", "rejectUnauthorized": true}, "upgradeGroupSettings": {"isRolling": false, "quantity": 7915.07, "retryCount": 4414.66, "retryDelay": 4374.4}, "upgradeSettings": {"automaticUpgradeCheckPeriod": "<value>", "disableAutomaticUpgrade": false, "enableLegacyEdgeUpgrade": false, "packageUrls": [{"packageHashUrl": "https://thrifty-teammate.net/", "packageUrl": "https://skeletal-dwell.info/"}], "upgradeSource": "<value>"}, "workers": {"count": 2124.14, "enableHeapSnapshots": true, "loadThrottlePerc": 2538.71, "memory": 20.53, "minimum": 6157.83, "startupMaxConns": 4731.29, "startupThrottleTimeout": 1613.48, "v8SingleThread": true}}
+        application/json: {"api": {"baseUrl": "https://both-draw.com/", "disableApiCache": true, "disabled": false, "headers": {}, "host": "meaty-spring.biz", "idleSessionTTL": 89.27, "listenOnPort": true, "loginRateLimit": "<value>", "port": 2424.38, "protocol": "<value>", "scripts": true, "sensitiveFields": ["<value 1>", "<value 2>"], "ssl": {"caPath": "<value>", "certPath": "<value>", "disabled": true, "passphrase": "<value>", "privKeyPath": "<value>"}, "ssoRateLimit": "<value>", "workerRemoteAccess": true}, "backups": {"backupPersistence": "<value>", "backupsDirectory": "<value>"}, "customLogo": {"enabled": false, "logoDescription": "<value>", "logoImage": "<value>"}, "pii": {"enablePiiDetection": false}, "proxy": {"useEnvVars": true}, "rollback": {"rollbackEnabled": false, "rollbackRetries": 3174.73, "rollbackTimeout": 1506.54}, "shutdown": {"drainTimeout": 3723.75}, "sni": {"disableSNIRouting": false}, "sockets": {"directory": "/usr/ports"}, "support": {"featureFlagOverrides": [{"disabled": true, "flagId": "<id>"}]}, "system": {"intercom": false, "upgrade": "api"}, "tls": {"defaultCipherList": "<value>", "defaultEcdhCurve": "<value>", "maxVersion": "<value>", "minVersion": "<value>", "rejectUnauthorized": true}, "upgradeGroupSettings": {"isRolling": false, "quantity": 7915.07, "retryCount": 4414.66, "retryDelay": 4374.4}, "upgradeSettings": {"automaticUpgradeCheckPeriod": "<value>", "disableAutomaticUpgrade": false, "enableLegacyEdgeUpgrade": false, "packageUrls": [{"packageHashUrl": "https://thrifty-teammate.net/", "packageUrl": "https://skeletal-dwell.info/"}], "upgradeSource": "<value>"}, "workers": {"count": 2124.14, "enableHeapSnapshots": true, "loadThrottlePerc": 2538.71, "memory": 20.53, "minimum": 6157.83, "startupMaxConns": 4731.29, "startupThrottleTimeout": 1613.48, "v8SingleThread": true}}
       responses:
         "200":
-          application/json: {"count": 621984, "items": [{"api": {"baseUrl": "https://crafty-humidity.com/", "disableApiCache": false, "disabled": true, "headers": {}, "host": "unwelcome-gastropod.info", "idleSessionTTL": 5654.06, "listenOnPort": false, "loginRateLimit": "<value>", "port": 9260.96, "protocol": "<value>", "scripts": false, "sensitiveFields": ["<value 1>"], "ssl": {"caPath": "<value>", "certPath": "<value>", "disabled": true, "passphrase": "<value>", "privKeyPath": "<value>"}, "ssoRateLimit": "<value>", "workerRemoteAccess": false}, "auth": {"fallback": true, "fallbackBadLogin": true, "filter_type": "<value>", "host": "elementary-tectonics.com", "port": 5119.59, "ssl": false, "type": "saml"}, "backups": {"backupPersistence": "<value>", "backupsDirectory": "<value>"}, "customLogo": {"enabled": true, "logoDescription": "<value>", "logoImage": "<value>"}, "distributed": {"mode": "master"}, "fips": true, "git": {"authType": "<value>", "autoAction": "<value>", "autoActionMessage": "<value>", "autoActionSchedule": "<value>", "branch": "<value>", "commitDeploySingleAction": true, "copilotAutoGitCommitMessages": true, "defaultCommitMessage": "<value>", "gitOps": "pull", "password": "mx2vfxXQJD4Ybfr", "remote": "<value>", "sshKey": "<value>", "strictHostKeyChecking": true, "timeout": 1445.54, "user": "Ursula79"}, "jobLimits": {"concurrentJobLimit": 5261.7, "concurrentScheduledJobLimit": 8739.55, "concurrentSystemJobLimit": 7105.98, "concurrentSystemTaskLimit": 2659.8, "concurrentTaskLimit": 9028.78, "disableTasks": true, "finishedJobArtifactsLimit": 5997.68, "finishedTaskArtifactsLimit": 8338.08, "jobArtifactsReaperPeriod": "<value>", "jobTimeout": "<value>", "maxTaskPerc": 7246.27, "schedulingPolicy": "<value>", "taskHeartbeatPeriod": 7464.28, "taskManifestFlushPeriodMs": 2406.65, "taskManifestMaxBufferSize": 6473.61, "taskManifestReadBufferSize": "<value>", "taskPollTimeoutMs": 5365.61}, "limits": {"cpuProfileTTL": "<value>", "disableMetricsAccessorCache": false, "edgeMetricsCustomExpression": "<value>", "edgeMetricsMode": "all", "edgeNodesCount": 148.31, "enableMetricsPersistence": false, "enableWorkerPersistence": false, "eventsMetadataSources": ["<value 1>", "<value 2>"], "largeEventsThreshold": "<value>", "lookupMaxSize": "<value>", "lookupMaxTotalSize": "<value>", "maxMetrics": 743.26, "maxPQSize": "<value>", "metricsDirectory": "<value>", "metricsDropList": ["<value 1>", "<value 2>"], "metricsFieldsBlacklist": [], "metricsGCPeriod": "<value>", "metricsMaxCardinality": 991.34, "metricsMaxDiskSpace": "<value>", "metricsNeverDropList": ["<value 1>", "<value 2>", "<value 3>"], "metricsWorkerIdBlacklist": ["<value 1>", "<value 2>"], "minFreeSpace": "<value>", "samples": {"maxSize": "<value>"}, "workerMaxMetrics": 3440.42}, "pii": {"enablePiiDetection": false}, "proxy": {"useEnvVars": true}, "redisCacheLimits": {"clientTrackingMechanism": "<value>", "enableServerAssist": false, "keyTTLSecs": 1429.84, "maxCacheSize": 1900.2, "maxNumKeys": 8821.39, "servicePeriodSecs": 2756.18}, "redisLimits": {"connections": {"disabled": true, "maxConnections": 2244.47}}, "rollback": {"rollbackEnabled": false, "rollbackRetries": 251.18, "rollbackTimeout": 5753.48}, "searchLimits": {"compressObjectCacheArtifacts": false, "fieldSummaryMaxFields": 997.95, "fieldSummaryMaxNestedDepth": 6311.46, "maxConcurrentSearches": 9454.72, "maxExecutorsPerSearch": 8461.8, "maxResultsPerSearch": 1247.74, "searchHistoryMaxJobs": 7581.99, "searchQueueLength": 4176.38, "warmPoolSize": "auto", "writeOnlyProviderSecrets": true}, "servicesLimits": {"connections": {"memoryLimit": "<value>"}, "metrics": {"memoryLimit": "<value>"}, "notifications": {"memoryLimit": "<value>"}}, "shutdown": {"drainTimeout": 8291.44}, "sni": {"disableSNIRouting": true}, "sockets": {"directory": "/proc"}, "system": {"intercom": false, "upgrade": "api"}, "tls": {"defaultCipherList": "<value>", "defaultEcdhCurve": "<value>", "maxVersion": "<value>", "minVersion": "<value>", "rejectUnauthorized": true}, "upgradeGroupSettings": {"isRolling": false, "quantity": 7915.07, "retryCount": 4414.66, "retryDelay": 4374.4}, "upgradeSettings": {"automaticUpgradeCheckPeriod": "<value>", "disableAutomaticUpgrade": false, "enableLegacyEdgeUpgrade": false, "packageUrls": [{"packageHashUrl": "https://thrifty-teammate.net/", "packageUrl": "https://skeletal-dwell.info/"}], "upgradeSource": "<value>"}, "workers": {"count": 5732.34, "enableHeapSnapshots": false, "loadThrottlePerc": 580.39, "memory": 8722.5, "minimum": 1180.07, "startupMaxConns": 9534.79, "startupThrottleTimeout": 1509.67, "v8SingleThread": false}}]}
+          application/json: {"count": 621984, "items": [{"api": {"baseUrl": "https://crafty-humidity.com/", "disableApiCache": false, "disabled": true, "headers": {}, "host": "unwelcome-gastropod.info", "idleSessionTTL": 5654.06, "listenOnPort": false, "loginRateLimit": "<value>", "port": 9260.96, "protocol": "<value>", "scripts": false, "sensitiveFields": ["<value 1>"], "ssl": {"caPath": "<value>", "certPath": "<value>", "disabled": true, "passphrase": "<value>", "privKeyPath": "<value>"}, "ssoRateLimit": "<value>", "workerRemoteAccess": false}, "auth": {"fallback": true, "fallbackBadLogin": true, "filter_type": "<value>", "host": "elementary-tectonics.com", "port": 5119.59, "ssl": false, "type": "saml"}, "backups": {"backupPersistence": "<value>", "backupsDirectory": "<value>"}, "customLogo": {"enabled": true, "logoDescription": "<value>", "logoImage": "<value>"}, "distributed": {"mode": "master"}, "fips": true, "git": {"authType": "<value>", "autoAction": "<value>", "autoActionMessage": "<value>", "autoActionSchedule": "<value>", "branch": "<value>", "commitDeploySingleAction": true, "copilotAutoGitCommitMessages": true, "defaultCommitMessage": "<value>", "gitOps": "pull", "password": "mx2vfxXQJD4Ybfr", "remote": "<value>", "sshKey": "<value>", "strictHostKeyChecking": true, "timeout": 1445.54, "user": "Ursula79"}, "jobLimits": {"concurrentJobLimit": 5261.7, "concurrentScheduledJobLimit": 8739.55, "concurrentSystemJobLimit": 7105.98, "concurrentSystemTaskLimit": 2659.8, "concurrentTaskLimit": 9028.78, "disableTasks": true, "finishedJobArtifactsLimit": 5997.68, "finishedTaskArtifactsLimit": 8338.08, "jobArtifactsReaperPeriod": "<value>", "jobTimeout": "<value>", "maxTaskPerc": 7246.27, "schedulingPolicy": "<value>", "taskHeartbeatPeriod": 7464.28, "taskManifestFlushPeriodMs": 2406.65, "taskManifestMaxBufferSize": 6473.61, "taskManifestReadBufferSize": "<value>", "taskPollTimeoutMs": 5365.61}, "limits": {"cpuProfileTTL": "<value>", "disableMetricsAccessorCache": false, "edgeMetricsCustomExpression": "<value>", "edgeMetricsMode": "all", "edgeNodesCount": 148.31, "enableMetricsPersistence": false, "enableWorkerPersistence": false, "eventsMetadataSources": ["<value 1>", "<value 2>"], "largeEventsThreshold": "<value>", "lookupMaxSize": "<value>", "lookupMaxTotalSize": "<value>", "maxDimensionValueSize": 821.15, "maxMetrics": 743.26, "maxPQSize": "<value>", "maxReconnectInterval": "<value>", "metricsDirectory": "<value>", "metricsDropList": ["<value 1>", "<value 2>"], "metricsFieldsBlacklist": [], "metricsGCPeriod": "<value>", "metricsMaxCardinality": 991.34, "metricsMaxDiskSpace": "<value>", "metricsNeverDropList": ["<value 1>", "<value 2>", "<value 3>"], "metricsWorkerIdBlacklist": ["<value 1>", "<value 2>"], "minFreeSpace": "<value>", "minReconnectInterval": "<value>", "netFlowTemplateFlushInterval": 2696.85, "randomReconnectInterval": "<value>", "samples": {"maxSize": "<value>"}, "workerMaxMetrics": 3440.42}, "pii": {"enablePiiDetection": false}, "proxy": {"useEnvVars": true}, "redisCacheLimits": {"clientTrackingMechanism": "<value>", "enableServerAssist": false, "keyTTLSecs": 1429.84, "maxCacheSize": 1900.2, "maxNumKeys": 8821.39, "servicePeriodSecs": 2756.18}, "redisLimits": {"connections": {"disabled": true, "maxConnections": 2244.47}}, "rollback": {"rollbackEnabled": false, "rollbackRetries": 251.18, "rollbackTimeout": 5753.48}, "searchLimits": {"compressObjectCacheArtifacts": false, "fieldSummaryMaxFields": 997.95, "fieldSummaryMaxNestedDepth": 6311.46, "maxConcurrentSearches": 9454.72, "maxExecutorsPerSearch": 8461.8, "maxResultsPerSearch": 1247.74, "maxSearchDuration": "<value>", "searchHistoryMaxJobs": 7581.99, "searchHistoryTTL": "<value>", "searchQueueLength": 4176.38, "warmPoolSize": "auto", "writeOnlyProviderSecrets": true}, "servicesLimits": {"connections": {"memoryLimit": "<value>", "procs": 3795.06}, "metrics": {"memoryLimit": "<value>", "procs": "auto"}, "notifications": {"memoryLimit": "<value>", "procs": "auto"}}, "shutdown": {"drainTimeout": 8291.44}, "sni": {"disableSNIRouting": true}, "sockets": {"directory": "/proc"}, "support": {"featureFlagOverrides": [{"disabled": false, "flagId": "<id>"}]}, "system": {"intercom": false, "upgrade": "api"}, "tls": {"defaultCipherList": "<value>", "defaultEcdhCurve": "<value>", "maxVersion": "<value>", "minVersion": "<value>", "rejectUnauthorized": true}, "upgradeGroupSettings": {"isRolling": false, "quantity": 7915.07, "retryCount": 4414.66, "retryDelay": 4374.4}, "upgradeSettings": {"automaticUpgradeCheckPeriod": "<value>", "disableAutomaticUpgrade": false, "enableLegacyEdgeUpgrade": false, "packageUrls": [{"packageHashUrl": "https://thrifty-teammate.net/", "packageUrl": "https://skeletal-dwell.info/"}], "upgradeSource": "<value>"}, "workers": {"count": 5732.34, "enableHeapSnapshots": false, "loadThrottlePerc": 580.39, "memory": 8722.5, "minimum": 1180.07, "startupMaxConns": 9534.79, "startupThrottleTimeout": 1509.67, "v8SingleThread": false}}]}
         "500":
           application/json: {"message": "<value>"}
   getSystemSettingsGitSettings:
@@ -3560,4 +3648,4 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes Detected:\n* `criblcontrolplane.sources.list()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.get()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.update()`: \n  *  `request.input` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.delete()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.hecTokens.create()`:  `response.items.[].authTokens.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.hecTokens.update()`:  `response.items.[].authTokens.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.nodes.list()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.create()`: \n  *  `request.[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n  *  `response.items.[].[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n* `criblcontrolplane.destinations.get()`:  `response.items.[].[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output.[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n  *  `response.items.[].[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n* `criblcontrolplane.destinations.delete()`:  `response.items.[].[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n* `criblcontrolplane.destinations.samples.create()`: \n  *  `request.outputTestRequest.events.[].additionalProperties` **Added**\n* `criblcontrolplane.versions.commits.diff()`:  `response.items.[].diffJson.[].blocks.[].lines.[]` **Changed**\n* `criblcontrolplane.versions.commits.get()`:  `response.items.[].diffJson.[].blocks.[].lines.[]` **Changed**\n* `criblcontrolplane.destinations.list()`:  `response.items.[].[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n"
+releaseNotes: "## Typescript SDK Changes Detected:\n* `criblcontrolplane.sources.hecTokens.update()`:  `response.items.[].authTokens.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.nodes.list()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.list()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.get()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.update()`: \n  *  `request.input` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.delete()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.hecTokens.create()`:  `response.items.[].authTokens.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.create()`: \n  *  `request.[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n  *  `response.items.[].[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n* `criblcontrolplane.system.settings.cribl.list()`: **Added**\n* `criblcontrolplane.destinations.list()`:  `response.items.[].[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n* `criblcontrolplane.destinations.get()`:  `response.items.[].[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output.[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n  *  `response.items.[].[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n* `criblcontrolplane.destinations.delete()`:  `response.items.[].[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n* `criblcontrolplane.destinations.samples.create()`: \n  *  `request.outputTestRequest.events.[].additionalProperties` **Added**\n* `criblcontrolplane.versions.commits.diff()`:  `response.items.[].diffJson.[].blocks.[].lines.[]` **Changed**\n* `criblcontrolplane.versions.commits.get()`:  `response.items.[].diffJson.[].blocks.[].lines.[]` **Changed**\n* `criblcontrolplane.system.settings.cribl.update()`: **Added**\n"
