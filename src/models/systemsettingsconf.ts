@@ -129,19 +129,19 @@ export type SystemSettingsConfWorkers = {
 
 export type SystemSettingsConf = {
   api: SystemSettingsConfApi;
-  backups: SystemSettingsConfBackups;
+  backups?: SystemSettingsConfBackups | undefined;
   customLogo?: SystemSettingsConfCustomLogo | undefined;
   pii: SystemSettingsConfPii;
   proxy: SystemSettingsConfProxy;
-  rollback: SystemSettingsConfRollback;
-  shutdown: SystemSettingsConfShutdown;
-  sni: SystemSettingsConfSni;
+  rollback?: SystemSettingsConfRollback | undefined;
+  shutdown?: SystemSettingsConfShutdown | undefined;
+  sni?: SystemSettingsConfSni | undefined;
   sockets?: SystemSettingsConfSockets | undefined;
   support?: SystemSettingsConfSupport | undefined;
   system: SystemSettingsConfSystem;
-  tls: SystemSettingsConfTls;
+  tls?: SystemSettingsConfTls | undefined;
   upgradeGroupSettings: UpgradeGroupSettings;
-  upgradeSettings: UpgradeSettings;
+  upgradeSettings?: UpgradeSettings | undefined;
   workers: SystemSettingsConfWorkers;
 };
 
@@ -869,38 +869,38 @@ export const SystemSettingsConf$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   api: z.lazy(() => SystemSettingsConfApi$inboundSchema),
-  backups: z.lazy(() => SystemSettingsConfBackups$inboundSchema),
+  backups: z.lazy(() => SystemSettingsConfBackups$inboundSchema).optional(),
   customLogo: z.lazy(() => SystemSettingsConfCustomLogo$inboundSchema)
     .optional(),
   pii: z.lazy(() => SystemSettingsConfPii$inboundSchema),
   proxy: z.lazy(() => SystemSettingsConfProxy$inboundSchema),
-  rollback: z.lazy(() => SystemSettingsConfRollback$inboundSchema),
-  shutdown: z.lazy(() => SystemSettingsConfShutdown$inboundSchema),
-  sni: z.lazy(() => SystemSettingsConfSni$inboundSchema),
+  rollback: z.lazy(() => SystemSettingsConfRollback$inboundSchema).optional(),
+  shutdown: z.lazy(() => SystemSettingsConfShutdown$inboundSchema).optional(),
+  sni: z.lazy(() => SystemSettingsConfSni$inboundSchema).optional(),
   sockets: z.lazy(() => SystemSettingsConfSockets$inboundSchema).optional(),
   support: z.lazy(() => SystemSettingsConfSupport$inboundSchema).optional(),
   system: z.lazy(() => SystemSettingsConfSystem$inboundSchema),
-  tls: z.lazy(() => SystemSettingsConfTls$inboundSchema),
+  tls: z.lazy(() => SystemSettingsConfTls$inboundSchema).optional(),
   upgradeGroupSettings: UpgradeGroupSettings$inboundSchema,
-  upgradeSettings: UpgradeSettings$inboundSchema,
+  upgradeSettings: UpgradeSettings$inboundSchema.optional(),
   workers: z.lazy(() => SystemSettingsConfWorkers$inboundSchema),
 });
 /** @internal */
 export type SystemSettingsConf$Outbound = {
   api: SystemSettingsConfApi$Outbound;
-  backups: SystemSettingsConfBackups$Outbound;
+  backups?: SystemSettingsConfBackups$Outbound | undefined;
   customLogo?: SystemSettingsConfCustomLogo$Outbound | undefined;
   pii: SystemSettingsConfPii$Outbound;
   proxy: SystemSettingsConfProxy$Outbound;
-  rollback: SystemSettingsConfRollback$Outbound;
-  shutdown: SystemSettingsConfShutdown$Outbound;
-  sni: SystemSettingsConfSni$Outbound;
+  rollback?: SystemSettingsConfRollback$Outbound | undefined;
+  shutdown?: SystemSettingsConfShutdown$Outbound | undefined;
+  sni?: SystemSettingsConfSni$Outbound | undefined;
   sockets?: SystemSettingsConfSockets$Outbound | undefined;
   support?: SystemSettingsConfSupport$Outbound | undefined;
   system: SystemSettingsConfSystem$Outbound;
-  tls: SystemSettingsConfTls$Outbound;
+  tls?: SystemSettingsConfTls$Outbound | undefined;
   upgradeGroupSettings: UpgradeGroupSettings$Outbound;
-  upgradeSettings: UpgradeSettings$Outbound;
+  upgradeSettings?: UpgradeSettings$Outbound | undefined;
   workers: SystemSettingsConfWorkers$Outbound;
 };
 
@@ -911,20 +911,20 @@ export const SystemSettingsConf$outboundSchema: z.ZodType<
   SystemSettingsConf
 > = z.object({
   api: z.lazy(() => SystemSettingsConfApi$outboundSchema),
-  backups: z.lazy(() => SystemSettingsConfBackups$outboundSchema),
+  backups: z.lazy(() => SystemSettingsConfBackups$outboundSchema).optional(),
   customLogo: z.lazy(() => SystemSettingsConfCustomLogo$outboundSchema)
     .optional(),
   pii: z.lazy(() => SystemSettingsConfPii$outboundSchema),
   proxy: z.lazy(() => SystemSettingsConfProxy$outboundSchema),
-  rollback: z.lazy(() => SystemSettingsConfRollback$outboundSchema),
-  shutdown: z.lazy(() => SystemSettingsConfShutdown$outboundSchema),
-  sni: z.lazy(() => SystemSettingsConfSni$outboundSchema),
+  rollback: z.lazy(() => SystemSettingsConfRollback$outboundSchema).optional(),
+  shutdown: z.lazy(() => SystemSettingsConfShutdown$outboundSchema).optional(),
+  sni: z.lazy(() => SystemSettingsConfSni$outboundSchema).optional(),
   sockets: z.lazy(() => SystemSettingsConfSockets$outboundSchema).optional(),
   support: z.lazy(() => SystemSettingsConfSupport$outboundSchema).optional(),
   system: z.lazy(() => SystemSettingsConfSystem$outboundSchema),
-  tls: z.lazy(() => SystemSettingsConfTls$outboundSchema),
+  tls: z.lazy(() => SystemSettingsConfTls$outboundSchema).optional(),
   upgradeGroupSettings: UpgradeGroupSettings$outboundSchema,
-  upgradeSettings: UpgradeSettings$outboundSchema,
+  upgradeSettings: UpgradeSettings$outboundSchema.optional(),
   workers: z.lazy(() => SystemSettingsConfWorkers$outboundSchema),
 });
 

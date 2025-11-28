@@ -154,7 +154,7 @@ export type SystemSettingsWorkers = {
 export type SystemSettings = {
   api: SystemSettingsApi;
   auth: AuthConfig;
-  backups: SystemSettingsBackups;
+  backups?: SystemSettingsBackups | undefined;
   customLogo?: SystemSettingsCustomLogo | undefined;
   distributed: Distributed;
   fips: boolean;
@@ -165,17 +165,17 @@ export type SystemSettings = {
   proxy: SystemSettingsProxy;
   redisCacheLimits: RedisCacheLimits;
   redisLimits: RedisLimits;
-  rollback: SystemSettingsRollback;
+  rollback?: SystemSettingsRollback | undefined;
   searchLimits: SearchSettings;
   servicesLimits: ServicesLimits;
-  shutdown: SystemSettingsShutdown;
-  sni: SystemSettingsSni;
+  shutdown?: SystemSettingsShutdown | undefined;
+  sni?: SystemSettingsSni | undefined;
   sockets?: SystemSettingsSockets | undefined;
   support?: SystemSettingsSupport | undefined;
   system: SystemSettingsSystem;
-  tls: SystemSettingsTls;
+  tls?: SystemSettingsTls | undefined;
   upgradeGroupSettings: UpgradeGroupSettings;
-  upgradeSettings: UpgradeSettings;
+  upgradeSettings?: UpgradeSettings | undefined;
   workers: SystemSettingsWorkers;
 };
 
@@ -543,7 +543,7 @@ export const SystemSettings$inboundSchema: z.ZodType<
 > = z.object({
   api: z.lazy(() => SystemSettingsApi$inboundSchema),
   auth: AuthConfig$inboundSchema,
-  backups: z.lazy(() => SystemSettingsBackups$inboundSchema),
+  backups: z.lazy(() => SystemSettingsBackups$inboundSchema).optional(),
   customLogo: z.lazy(() => SystemSettingsCustomLogo$inboundSchema).optional(),
   distributed: z.lazy(() => Distributed$inboundSchema),
   fips: z.boolean(),
@@ -554,17 +554,17 @@ export const SystemSettings$inboundSchema: z.ZodType<
   proxy: z.lazy(() => SystemSettingsProxy$inboundSchema),
   redisCacheLimits: RedisCacheLimits$inboundSchema,
   redisLimits: RedisLimits$inboundSchema,
-  rollback: z.lazy(() => SystemSettingsRollback$inboundSchema),
+  rollback: z.lazy(() => SystemSettingsRollback$inboundSchema).optional(),
   searchLimits: SearchSettings$inboundSchema,
   servicesLimits: ServicesLimits$inboundSchema,
-  shutdown: z.lazy(() => SystemSettingsShutdown$inboundSchema),
-  sni: z.lazy(() => SystemSettingsSni$inboundSchema),
+  shutdown: z.lazy(() => SystemSettingsShutdown$inboundSchema).optional(),
+  sni: z.lazy(() => SystemSettingsSni$inboundSchema).optional(),
   sockets: z.lazy(() => SystemSettingsSockets$inboundSchema).optional(),
   support: z.lazy(() => SystemSettingsSupport$inboundSchema).optional(),
   system: z.lazy(() => SystemSettingsSystem$inboundSchema),
-  tls: z.lazy(() => SystemSettingsTls$inboundSchema),
+  tls: z.lazy(() => SystemSettingsTls$inboundSchema).optional(),
   upgradeGroupSettings: UpgradeGroupSettings$inboundSchema,
-  upgradeSettings: UpgradeSettings$inboundSchema,
+  upgradeSettings: UpgradeSettings$inboundSchema.optional(),
   workers: z.lazy(() => SystemSettingsWorkers$inboundSchema),
 });
 
