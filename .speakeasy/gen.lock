@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: d812ee2ec332ca1d14fa793362afe0b9
-  docVersion: 4.16.0-alpha.1764346017403-e12df6ca
-  speakeasyVersion: 1.661.2
-  generationVersion: 2.763.3
-  releaseVersion: 0.4.0-rc.7
-  configChecksum: 89944bdeaf2ce03b859419d212d0efed
+  docChecksum: 78eec1d314df9dc939edec86d36a923f
+  docVersion: 4.16.0-alpha.1764354647110-900386f7
+  speakeasyVersion: 1.665.0
+  generationVersion: 2.767.2
+  releaseVersion: 0.4.0-rc.8
+  configChecksum: 563ba26fa893010af4752233d860e53c
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -15,7 +15,7 @@ features:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.2
     constsAndDefaults: 0.1.12
-    core: 3.26.10
+    core: 3.26.13
     defaultEnabledRetries: 0.1.0
     devContainers: 2.90.1
     enumUnions: 0.1.0
@@ -32,8 +32,8 @@ features:
     openEnums: 0.1.1
     responseFormat: 0.2.3
     retries: 2.83.0
-    sdkHooks: 0.3.0
-    unions: 2.86.0
+    sdkHooks: 0.4.0
+    unions: 2.86.2
     uploadStreams: 0.1.0
 generatedFiles:
   - .devcontainer/README.md
@@ -3648,4 +3648,4 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes Detected:\n* `criblcontrolplane.sources.hecTokens.update()`:  `response.items.[].authTokens.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.nodes.list()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.list()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.get()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.update()`: \n  *  `request.input` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.delete()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.hecTokens.create()`:  `response.items.[].authTokens.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.create()`: \n  *  `request.[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n  *  `response.items.[].[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n* `criblcontrolplane.system.settings.cribl.list()`: **Added**\n* `criblcontrolplane.destinations.list()`:  `response.items.[].[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n* `criblcontrolplane.destinations.get()`:  `response.items.[].[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output.[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n  *  `response.items.[].[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n* `criblcontrolplane.destinations.delete()`:  `response.items.[].[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n* `criblcontrolplane.destinations.samples.create()`: \n  *  `request.outputTestRequest.events.[].additionalProperties` **Added**\n* `criblcontrolplane.versions.commits.diff()`:  `response.items.[].diffJson.[].blocks.[].lines.[]` **Changed**\n* `criblcontrolplane.versions.commits.get()`:  `response.items.[].diffJson.[].blocks.[].lines.[]` **Changed**\n* `criblcontrolplane.system.settings.cribl.update()`: **Added**\n"
+releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.system.settings.cribl.list()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.system.settings.cribl.update()`: \n  *  `request` **Changed**\n  *  `response.items.[]` **Changed**\n"
