@@ -91,7 +91,7 @@ export type SystemSettingsApi = {
   protocol?: string | undefined;
   scripts?: boolean | undefined;
   sensitiveFields?: Array<string> | undefined;
-  ssl: SystemSettingsSsl;
+  ssl?: SystemSettingsSsl | undefined;
   ssoRateLimit?: string | undefined;
   workerRemoteAccess?: boolean | undefined;
 };
@@ -204,7 +204,7 @@ export const SystemSettingsApi$inboundSchema: z.ZodType<
   protocol: z.string().optional(),
   scripts: z.boolean().optional(),
   sensitiveFields: z.array(z.string()).optional(),
-  ssl: z.lazy(() => SystemSettingsSsl$inboundSchema),
+  ssl: z.lazy(() => SystemSettingsSsl$inboundSchema).optional(),
   ssoRateLimit: z.string().optional(),
   workerRemoteAccess: z.boolean().optional(),
 });
