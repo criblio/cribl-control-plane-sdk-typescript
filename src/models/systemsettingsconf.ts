@@ -96,7 +96,7 @@ export type SystemSettingsConfApi = {
   protocol?: string | undefined;
   scripts?: boolean | undefined;
   sensitiveFields?: Array<string> | undefined;
-  ssl: SystemSettingsConfSsl;
+  ssl?: SystemSettingsConfSsl | undefined;
   ssoRateLimit?: string | undefined;
   workerRemoteAccess?: boolean | undefined;
 };
@@ -216,7 +216,7 @@ export const SystemSettingsConfApi$inboundSchema: z.ZodType<
   protocol: z.string().optional(),
   scripts: z.boolean().optional(),
   sensitiveFields: z.array(z.string()).optional(),
-  ssl: z.lazy(() => SystemSettingsConfSsl$inboundSchema),
+  ssl: z.lazy(() => SystemSettingsConfSsl$inboundSchema).optional(),
   ssoRateLimit: z.string().optional(),
   workerRemoteAccess: z.boolean().optional(),
 });
@@ -234,7 +234,7 @@ export type SystemSettingsConfApi$Outbound = {
   protocol?: string | undefined;
   scripts?: boolean | undefined;
   sensitiveFields?: Array<string> | undefined;
-  ssl: SystemSettingsConfSsl$Outbound;
+  ssl?: SystemSettingsConfSsl$Outbound | undefined;
   ssoRateLimit?: string | undefined;
   workerRemoteAccess?: boolean | undefined;
 };
@@ -257,7 +257,7 @@ export const SystemSettingsConfApi$outboundSchema: z.ZodType<
   protocol: z.string().optional(),
   scripts: z.boolean().optional(),
   sensitiveFields: z.array(z.string()).optional(),
-  ssl: z.lazy(() => SystemSettingsConfSsl$outboundSchema),
+  ssl: z.lazy(() => SystemSettingsConfSsl$outboundSchema).optional(),
   ssoRateLimit: z.string().optional(),
   workerRemoteAccess: z.boolean().optional(),
 });

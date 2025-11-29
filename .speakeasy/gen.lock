@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 1622281cfde502ea4b0d5bbf8137bb56
-  docVersion: 4.16.0-alpha.1764415638080-68f1b071
+  docChecksum: 3ff211a9efd4b4c068a3dd1ce83868ae
+  docVersion: 4.16.0-alpha.1764417066009-0840ca85
   speakeasyVersion: 1.665.0
   generationVersion: 2.767.2
-  releaseVersion: 0.4.0-rc.10
-  configChecksum: 7514361d1e947b366ab350e021396d48
+  releaseVersion: 0.4.0-rc.11
+  configChecksum: 5c8e83bea9e131329bbef59c540dd233
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -3670,4 +3670,4 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.system.settings.cribl.list()`:  `response.items.[].api` **Changed**\n* `criblcontrolplane.system.settings.cribl.update()`: \n  *  `request.api` **Changed**\n  *  `response.items.[].api` **Changed**\n"
+releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.system.settings.cribl.list()`:  `response.items.[].api.ssl` **Changed**\n* `criblcontrolplane.system.settings.cribl.update()`: \n  *  `request.api.ssl` **Changed**\n  *  `response.items.[].api.ssl` **Changed**\n"
