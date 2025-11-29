@@ -93,12 +93,12 @@ export type SystemSettingsConfApi = {
   listenOnPort?: boolean | undefined;
   loginRateLimit?: string | undefined;
   port: number;
-  protocol: string;
+  protocol?: string | undefined;
   scripts?: boolean | undefined;
   sensitiveFields?: Array<string> | undefined;
   ssl: SystemSettingsConfSsl;
   ssoRateLimit?: string | undefined;
-  workerRemoteAccess: boolean;
+  workerRemoteAccess?: boolean | undefined;
 };
 
 export type SystemSettingsConfSockets = {
@@ -213,12 +213,12 @@ export const SystemSettingsConfApi$inboundSchema: z.ZodType<
   listenOnPort: z.boolean().optional(),
   loginRateLimit: z.string().optional(),
   port: z.number(),
-  protocol: z.string(),
+  protocol: z.string().optional(),
   scripts: z.boolean().optional(),
   sensitiveFields: z.array(z.string()).optional(),
   ssl: z.lazy(() => SystemSettingsConfSsl$inboundSchema),
   ssoRateLimit: z.string().optional(),
-  workerRemoteAccess: z.boolean(),
+  workerRemoteAccess: z.boolean().optional(),
 });
 /** @internal */
 export type SystemSettingsConfApi$Outbound = {
@@ -231,12 +231,12 @@ export type SystemSettingsConfApi$Outbound = {
   listenOnPort?: boolean | undefined;
   loginRateLimit?: string | undefined;
   port: number;
-  protocol: string;
+  protocol?: string | undefined;
   scripts?: boolean | undefined;
   sensitiveFields?: Array<string> | undefined;
   ssl: SystemSettingsConfSsl$Outbound;
   ssoRateLimit?: string | undefined;
-  workerRemoteAccess: boolean;
+  workerRemoteAccess?: boolean | undefined;
 };
 
 /** @internal */
@@ -254,12 +254,12 @@ export const SystemSettingsConfApi$outboundSchema: z.ZodType<
   listenOnPort: z.boolean().optional(),
   loginRateLimit: z.string().optional(),
   port: z.number(),
-  protocol: z.string(),
+  protocol: z.string().optional(),
   scripts: z.boolean().optional(),
   sensitiveFields: z.array(z.string()).optional(),
   ssl: z.lazy(() => SystemSettingsConfSsl$outboundSchema),
   ssoRateLimit: z.string().optional(),
-  workerRemoteAccess: z.boolean(),
+  workerRemoteAccess: z.boolean().optional(),
 });
 
 export function systemSettingsConfApiToJSON(
