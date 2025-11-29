@@ -1,14 +1,14 @@
-# SystemSettingsConfRollback
+# RollbackSettings1
 
 ## Example Usage
 
 ```typescript
-import { SystemSettingsConfRollback } from "cribl-control-plane/models";
+import { RollbackSettings1 } from "cribl-control-plane/models";
 
-let value: SystemSettingsConfRollback = {
-  rollbackEnabled: true,
-  rollbackRetries: 993.68,
-  rollbackTimeout: 4629.14,
+let value: RollbackSettings1 = {
+  rollbackEnabled: false,
+  rollbackRetries: 3647.21,
+  rollbackTimeout: 3519.61,
 };
 ```
 

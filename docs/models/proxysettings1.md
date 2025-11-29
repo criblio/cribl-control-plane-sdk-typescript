@@ -1,12 +1,12 @@
-# SystemSettingsProxy
+# ProxySettings1
 
 ## Example Usage
 
 ```typescript
-import { SystemSettingsProxy } from "cribl-control-plane/models";
+import { ProxySettings1 } from "cribl-control-plane/models";
 
-let value: SystemSettingsProxy = {
-  useEnvVars: false,
+let value: ProxySettings1 = {
+  useEnvVars: true,
 };
 ```
 

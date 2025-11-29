@@ -1,12 +1,12 @@
-# SystemSettingsSni
+# SniSettings1
 
 ## Example Usage
 
 ```typescript
-import { SystemSettingsSni } from "cribl-control-plane/models";
+import { SniSettings1 } from "cribl-control-plane/models";
 
-let value: SystemSettingsSni = {
-  disableSNIRouting: false,
+let value: SniSettings1 = {
+  disableSNIRouting: true,
 };
 ```
 

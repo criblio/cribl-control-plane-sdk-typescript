@@ -7,19 +7,73 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  BackupsSettingsUnion,
+  BackupsSettingsUnion$inboundSchema,
+  BackupsSettingsUnion$Outbound,
+  BackupsSettingsUnion$outboundSchema,
+} from "./backupssettingsunion.js";
+import {
+  CustomLogoUnion,
+  CustomLogoUnion$inboundSchema,
+  CustomLogoUnion$Outbound,
+  CustomLogoUnion$outboundSchema,
+} from "./customlogounion.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  UpgradeGroupSettings,
-  UpgradeGroupSettings$inboundSchema,
-  UpgradeGroupSettings$Outbound,
-  UpgradeGroupSettings$outboundSchema,
-} from "./upgradegroupsettings.js";
+  PiiSettingsUnion,
+  PiiSettingsUnion$inboundSchema,
+  PiiSettingsUnion$Outbound,
+  PiiSettingsUnion$outboundSchema,
+} from "./piisettingsunion.js";
 import {
-  UpgradeSettings,
-  UpgradeSettings$inboundSchema,
-  UpgradeSettings$Outbound,
-  UpgradeSettings$outboundSchema,
-} from "./upgradesettings.js";
+  ProxySettingsUnion,
+  ProxySettingsUnion$inboundSchema,
+  ProxySettingsUnion$Outbound,
+  ProxySettingsUnion$outboundSchema,
+} from "./proxysettingsunion.js";
+import {
+  RollbackSettingsUnion,
+  RollbackSettingsUnion$inboundSchema,
+  RollbackSettingsUnion$Outbound,
+  RollbackSettingsUnion$outboundSchema,
+} from "./rollbacksettingsunion.js";
+import {
+  ShutdownSettingsUnion,
+  ShutdownSettingsUnion$inboundSchema,
+  ShutdownSettingsUnion$Outbound,
+  ShutdownSettingsUnion$outboundSchema,
+} from "./shutdownsettingsunion.js";
+import {
+  SniSettingsUnion,
+  SniSettingsUnion$inboundSchema,
+  SniSettingsUnion$Outbound,
+  SniSettingsUnion$outboundSchema,
+} from "./snisettingsunion.js";
+import {
+  TlsSettingsUnion,
+  TlsSettingsUnion$inboundSchema,
+  TlsSettingsUnion$Outbound,
+  TlsSettingsUnion$outboundSchema,
+} from "./tlssettingsunion.js";
+import {
+  UpgradeGroupSettingsUnion,
+  UpgradeGroupSettingsUnion$inboundSchema,
+  UpgradeGroupSettingsUnion$Outbound,
+  UpgradeGroupSettingsUnion$outboundSchema,
+} from "./upgradegroupsettingsunion.js";
+import {
+  UpgradeSettingsUnion,
+  UpgradeSettingsUnion$inboundSchema,
+  UpgradeSettingsUnion$Outbound,
+  UpgradeSettingsUnion$outboundSchema,
+} from "./upgradesettingsunion.js";
+import {
+  WorkersSettingsUnion,
+  WorkersSettingsUnion$inboundSchema,
+  WorkersSettingsUnion$Outbound,
+  WorkersSettingsUnion$outboundSchema,
+} from "./workerssettingsunion.js";
 
 export type SystemSettingsConfSsl = {
   caPath?: string | undefined;
@@ -45,39 +99,6 @@ export type SystemSettingsConfApi = {
   ssl: SystemSettingsConfSsl;
   ssoRateLimit?: string | undefined;
   workerRemoteAccess: boolean;
-};
-
-export type SystemSettingsConfBackups = {
-  backupPersistence: string;
-  backupsDirectory: string;
-};
-
-export type SystemSettingsConfCustomLogo = {
-  enabled: boolean;
-  logoDescription: string;
-  logoImage: string;
-};
-
-export type SystemSettingsConfPii = {
-  enablePiiDetection: boolean;
-};
-
-export type SystemSettingsConfProxy = {
-  useEnvVars: boolean;
-};
-
-export type SystemSettingsConfRollback = {
-  rollbackEnabled: boolean;
-  rollbackRetries?: number | undefined;
-  rollbackTimeout?: number | undefined;
-};
-
-export type SystemSettingsConfShutdown = {
-  drainTimeout: number;
-};
-
-export type SystemSettingsConfSni = {
-  disableSNIRouting: boolean;
 };
 
 export type SystemSettingsConfSockets = {
@@ -108,41 +129,22 @@ export type SystemSettingsConfSystem = {
   upgrade: SystemSettingsConfUpgrade;
 };
 
-export type SystemSettingsConfTls = {
-  defaultCipherList: string;
-  defaultEcdhCurve: string;
-  maxVersion: string;
-  minVersion: string;
-  rejectUnauthorized: boolean;
-};
-
-export type SystemSettingsConfWorkers = {
-  count: number;
-  enableHeapSnapshots?: boolean | undefined;
-  loadThrottlePerc?: number | undefined;
-  memory: number;
-  minimum: number;
-  startupMaxConns?: number | undefined;
-  startupThrottleTimeout?: number | undefined;
-  v8SingleThread?: boolean | undefined;
-};
-
 export type SystemSettingsConf = {
   api: SystemSettingsConfApi;
-  backups?: SystemSettingsConfBackups | undefined;
-  customLogo?: SystemSettingsConfCustomLogo | undefined;
-  pii: SystemSettingsConfPii;
-  proxy: SystemSettingsConfProxy;
-  rollback?: SystemSettingsConfRollback | undefined;
-  shutdown?: SystemSettingsConfShutdown | undefined;
-  sni?: SystemSettingsConfSni | undefined;
+  backups: BackupsSettingsUnion;
+  customLogo?: CustomLogoUnion | undefined;
+  pii: PiiSettingsUnion;
+  proxy: ProxySettingsUnion;
+  rollback: RollbackSettingsUnion;
+  shutdown: ShutdownSettingsUnion;
+  sni: SniSettingsUnion;
   sockets?: SystemSettingsConfSockets | undefined;
   support?: SystemSettingsConfSupport | undefined;
   system: SystemSettingsConfSystem;
-  tls?: SystemSettingsConfTls | undefined;
-  upgradeGroupSettings: UpgradeGroupSettings;
-  upgradeSettings?: UpgradeSettings | undefined;
-  workers: SystemSettingsConfWorkers;
+  tls: TlsSettingsUnion;
+  upgradeGroupSettings: UpgradeGroupSettingsUnion;
+  upgradeSettings: UpgradeSettingsUnion;
+  workers: WorkersSettingsUnion;
 };
 
 /** @internal */
@@ -274,296 +276,6 @@ export function systemSettingsConfApiFromJSON(
     jsonString,
     (x) => SystemSettingsConfApi$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'SystemSettingsConfApi' from JSON`,
-  );
-}
-
-/** @internal */
-export const SystemSettingsConfBackups$inboundSchema: z.ZodType<
-  SystemSettingsConfBackups,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  backupPersistence: z.string(),
-  backupsDirectory: z.string(),
-});
-/** @internal */
-export type SystemSettingsConfBackups$Outbound = {
-  backupPersistence: string;
-  backupsDirectory: string;
-};
-
-/** @internal */
-export const SystemSettingsConfBackups$outboundSchema: z.ZodType<
-  SystemSettingsConfBackups$Outbound,
-  z.ZodTypeDef,
-  SystemSettingsConfBackups
-> = z.object({
-  backupPersistence: z.string(),
-  backupsDirectory: z.string(),
-});
-
-export function systemSettingsConfBackupsToJSON(
-  systemSettingsConfBackups: SystemSettingsConfBackups,
-): string {
-  return JSON.stringify(
-    SystemSettingsConfBackups$outboundSchema.parse(systemSettingsConfBackups),
-  );
-}
-export function systemSettingsConfBackupsFromJSON(
-  jsonString: string,
-): SafeParseResult<SystemSettingsConfBackups, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SystemSettingsConfBackups$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SystemSettingsConfBackups' from JSON`,
-  );
-}
-
-/** @internal */
-export const SystemSettingsConfCustomLogo$inboundSchema: z.ZodType<
-  SystemSettingsConfCustomLogo,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enabled: z.boolean(),
-  logoDescription: z.string(),
-  logoImage: z.string(),
-});
-/** @internal */
-export type SystemSettingsConfCustomLogo$Outbound = {
-  enabled: boolean;
-  logoDescription: string;
-  logoImage: string;
-};
-
-/** @internal */
-export const SystemSettingsConfCustomLogo$outboundSchema: z.ZodType<
-  SystemSettingsConfCustomLogo$Outbound,
-  z.ZodTypeDef,
-  SystemSettingsConfCustomLogo
-> = z.object({
-  enabled: z.boolean(),
-  logoDescription: z.string(),
-  logoImage: z.string(),
-});
-
-export function systemSettingsConfCustomLogoToJSON(
-  systemSettingsConfCustomLogo: SystemSettingsConfCustomLogo,
-): string {
-  return JSON.stringify(
-    SystemSettingsConfCustomLogo$outboundSchema.parse(
-      systemSettingsConfCustomLogo,
-    ),
-  );
-}
-export function systemSettingsConfCustomLogoFromJSON(
-  jsonString: string,
-): SafeParseResult<SystemSettingsConfCustomLogo, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SystemSettingsConfCustomLogo$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SystemSettingsConfCustomLogo' from JSON`,
-  );
-}
-
-/** @internal */
-export const SystemSettingsConfPii$inboundSchema: z.ZodType<
-  SystemSettingsConfPii,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enablePiiDetection: z.boolean(),
-});
-/** @internal */
-export type SystemSettingsConfPii$Outbound = {
-  enablePiiDetection: boolean;
-};
-
-/** @internal */
-export const SystemSettingsConfPii$outboundSchema: z.ZodType<
-  SystemSettingsConfPii$Outbound,
-  z.ZodTypeDef,
-  SystemSettingsConfPii
-> = z.object({
-  enablePiiDetection: z.boolean(),
-});
-
-export function systemSettingsConfPiiToJSON(
-  systemSettingsConfPii: SystemSettingsConfPii,
-): string {
-  return JSON.stringify(
-    SystemSettingsConfPii$outboundSchema.parse(systemSettingsConfPii),
-  );
-}
-export function systemSettingsConfPiiFromJSON(
-  jsonString: string,
-): SafeParseResult<SystemSettingsConfPii, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SystemSettingsConfPii$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SystemSettingsConfPii' from JSON`,
-  );
-}
-
-/** @internal */
-export const SystemSettingsConfProxy$inboundSchema: z.ZodType<
-  SystemSettingsConfProxy,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  useEnvVars: z.boolean(),
-});
-/** @internal */
-export type SystemSettingsConfProxy$Outbound = {
-  useEnvVars: boolean;
-};
-
-/** @internal */
-export const SystemSettingsConfProxy$outboundSchema: z.ZodType<
-  SystemSettingsConfProxy$Outbound,
-  z.ZodTypeDef,
-  SystemSettingsConfProxy
-> = z.object({
-  useEnvVars: z.boolean(),
-});
-
-export function systemSettingsConfProxyToJSON(
-  systemSettingsConfProxy: SystemSettingsConfProxy,
-): string {
-  return JSON.stringify(
-    SystemSettingsConfProxy$outboundSchema.parse(systemSettingsConfProxy),
-  );
-}
-export function systemSettingsConfProxyFromJSON(
-  jsonString: string,
-): SafeParseResult<SystemSettingsConfProxy, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SystemSettingsConfProxy$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SystemSettingsConfProxy' from JSON`,
-  );
-}
-
-/** @internal */
-export const SystemSettingsConfRollback$inboundSchema: z.ZodType<
-  SystemSettingsConfRollback,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  rollbackEnabled: z.boolean(),
-  rollbackRetries: z.number().optional(),
-  rollbackTimeout: z.number().optional(),
-});
-/** @internal */
-export type SystemSettingsConfRollback$Outbound = {
-  rollbackEnabled: boolean;
-  rollbackRetries?: number | undefined;
-  rollbackTimeout?: number | undefined;
-};
-
-/** @internal */
-export const SystemSettingsConfRollback$outboundSchema: z.ZodType<
-  SystemSettingsConfRollback$Outbound,
-  z.ZodTypeDef,
-  SystemSettingsConfRollback
-> = z.object({
-  rollbackEnabled: z.boolean(),
-  rollbackRetries: z.number().optional(),
-  rollbackTimeout: z.number().optional(),
-});
-
-export function systemSettingsConfRollbackToJSON(
-  systemSettingsConfRollback: SystemSettingsConfRollback,
-): string {
-  return JSON.stringify(
-    SystemSettingsConfRollback$outboundSchema.parse(systemSettingsConfRollback),
-  );
-}
-export function systemSettingsConfRollbackFromJSON(
-  jsonString: string,
-): SafeParseResult<SystemSettingsConfRollback, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SystemSettingsConfRollback$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SystemSettingsConfRollback' from JSON`,
-  );
-}
-
-/** @internal */
-export const SystemSettingsConfShutdown$inboundSchema: z.ZodType<
-  SystemSettingsConfShutdown,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  drainTimeout: z.number(),
-});
-/** @internal */
-export type SystemSettingsConfShutdown$Outbound = {
-  drainTimeout: number;
-};
-
-/** @internal */
-export const SystemSettingsConfShutdown$outboundSchema: z.ZodType<
-  SystemSettingsConfShutdown$Outbound,
-  z.ZodTypeDef,
-  SystemSettingsConfShutdown
-> = z.object({
-  drainTimeout: z.number(),
-});
-
-export function systemSettingsConfShutdownToJSON(
-  systemSettingsConfShutdown: SystemSettingsConfShutdown,
-): string {
-  return JSON.stringify(
-    SystemSettingsConfShutdown$outboundSchema.parse(systemSettingsConfShutdown),
-  );
-}
-export function systemSettingsConfShutdownFromJSON(
-  jsonString: string,
-): SafeParseResult<SystemSettingsConfShutdown, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SystemSettingsConfShutdown$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SystemSettingsConfShutdown' from JSON`,
-  );
-}
-
-/** @internal */
-export const SystemSettingsConfSni$inboundSchema: z.ZodType<
-  SystemSettingsConfSni,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disableSNIRouting: z.boolean(),
-});
-/** @internal */
-export type SystemSettingsConfSni$Outbound = {
-  disableSNIRouting: boolean;
-};
-
-/** @internal */
-export const SystemSettingsConfSni$outboundSchema: z.ZodType<
-  SystemSettingsConfSni$Outbound,
-  z.ZodTypeDef,
-  SystemSettingsConfSni
-> = z.object({
-  disableSNIRouting: z.boolean(),
-});
-
-export function systemSettingsConfSniToJSON(
-  systemSettingsConfSni: SystemSettingsConfSni,
-): string {
-  return JSON.stringify(
-    SystemSettingsConfSni$outboundSchema.parse(systemSettingsConfSni),
-  );
-}
-export function systemSettingsConfSniFromJSON(
-  jsonString: string,
-): SafeParseResult<SystemSettingsConfSni, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SystemSettingsConfSni$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SystemSettingsConfSni' from JSON`,
   );
 }
 
@@ -752,156 +464,44 @@ export function systemSettingsConfSystemFromJSON(
 }
 
 /** @internal */
-export const SystemSettingsConfTls$inboundSchema: z.ZodType<
-  SystemSettingsConfTls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  defaultCipherList: z.string(),
-  defaultEcdhCurve: z.string(),
-  maxVersion: z.string(),
-  minVersion: z.string(),
-  rejectUnauthorized: z.boolean(),
-});
-/** @internal */
-export type SystemSettingsConfTls$Outbound = {
-  defaultCipherList: string;
-  defaultEcdhCurve: string;
-  maxVersion: string;
-  minVersion: string;
-  rejectUnauthorized: boolean;
-};
-
-/** @internal */
-export const SystemSettingsConfTls$outboundSchema: z.ZodType<
-  SystemSettingsConfTls$Outbound,
-  z.ZodTypeDef,
-  SystemSettingsConfTls
-> = z.object({
-  defaultCipherList: z.string(),
-  defaultEcdhCurve: z.string(),
-  maxVersion: z.string(),
-  minVersion: z.string(),
-  rejectUnauthorized: z.boolean(),
-});
-
-export function systemSettingsConfTlsToJSON(
-  systemSettingsConfTls: SystemSettingsConfTls,
-): string {
-  return JSON.stringify(
-    SystemSettingsConfTls$outboundSchema.parse(systemSettingsConfTls),
-  );
-}
-export function systemSettingsConfTlsFromJSON(
-  jsonString: string,
-): SafeParseResult<SystemSettingsConfTls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SystemSettingsConfTls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SystemSettingsConfTls' from JSON`,
-  );
-}
-
-/** @internal */
-export const SystemSettingsConfWorkers$inboundSchema: z.ZodType<
-  SystemSettingsConfWorkers,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  count: z.number(),
-  enableHeapSnapshots: z.boolean().optional(),
-  loadThrottlePerc: z.number().optional(),
-  memory: z.number(),
-  minimum: z.number(),
-  startupMaxConns: z.number().optional(),
-  startupThrottleTimeout: z.number().optional(),
-  v8SingleThread: z.boolean().optional(),
-});
-/** @internal */
-export type SystemSettingsConfWorkers$Outbound = {
-  count: number;
-  enableHeapSnapshots?: boolean | undefined;
-  loadThrottlePerc?: number | undefined;
-  memory: number;
-  minimum: number;
-  startupMaxConns?: number | undefined;
-  startupThrottleTimeout?: number | undefined;
-  v8SingleThread?: boolean | undefined;
-};
-
-/** @internal */
-export const SystemSettingsConfWorkers$outboundSchema: z.ZodType<
-  SystemSettingsConfWorkers$Outbound,
-  z.ZodTypeDef,
-  SystemSettingsConfWorkers
-> = z.object({
-  count: z.number(),
-  enableHeapSnapshots: z.boolean().optional(),
-  loadThrottlePerc: z.number().optional(),
-  memory: z.number(),
-  minimum: z.number(),
-  startupMaxConns: z.number().optional(),
-  startupThrottleTimeout: z.number().optional(),
-  v8SingleThread: z.boolean().optional(),
-});
-
-export function systemSettingsConfWorkersToJSON(
-  systemSettingsConfWorkers: SystemSettingsConfWorkers,
-): string {
-  return JSON.stringify(
-    SystemSettingsConfWorkers$outboundSchema.parse(systemSettingsConfWorkers),
-  );
-}
-export function systemSettingsConfWorkersFromJSON(
-  jsonString: string,
-): SafeParseResult<SystemSettingsConfWorkers, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SystemSettingsConfWorkers$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SystemSettingsConfWorkers' from JSON`,
-  );
-}
-
-/** @internal */
 export const SystemSettingsConf$inboundSchema: z.ZodType<
   SystemSettingsConf,
   z.ZodTypeDef,
   unknown
 > = z.object({
   api: z.lazy(() => SystemSettingsConfApi$inboundSchema),
-  backups: z.lazy(() => SystemSettingsConfBackups$inboundSchema).optional(),
-  customLogo: z.lazy(() => SystemSettingsConfCustomLogo$inboundSchema)
-    .optional(),
-  pii: z.lazy(() => SystemSettingsConfPii$inboundSchema),
-  proxy: z.lazy(() => SystemSettingsConfProxy$inboundSchema),
-  rollback: z.lazy(() => SystemSettingsConfRollback$inboundSchema).optional(),
-  shutdown: z.lazy(() => SystemSettingsConfShutdown$inboundSchema).optional(),
-  sni: z.lazy(() => SystemSettingsConfSni$inboundSchema).optional(),
+  backups: BackupsSettingsUnion$inboundSchema,
+  customLogo: CustomLogoUnion$inboundSchema.optional(),
+  pii: PiiSettingsUnion$inboundSchema,
+  proxy: ProxySettingsUnion$inboundSchema,
+  rollback: RollbackSettingsUnion$inboundSchema,
+  shutdown: ShutdownSettingsUnion$inboundSchema,
+  sni: SniSettingsUnion$inboundSchema,
   sockets: z.lazy(() => SystemSettingsConfSockets$inboundSchema).optional(),
   support: z.lazy(() => SystemSettingsConfSupport$inboundSchema).optional(),
   system: z.lazy(() => SystemSettingsConfSystem$inboundSchema),
-  tls: z.lazy(() => SystemSettingsConfTls$inboundSchema).optional(),
-  upgradeGroupSettings: UpgradeGroupSettings$inboundSchema,
-  upgradeSettings: UpgradeSettings$inboundSchema.optional(),
-  workers: z.lazy(() => SystemSettingsConfWorkers$inboundSchema),
+  tls: TlsSettingsUnion$inboundSchema,
+  upgradeGroupSettings: UpgradeGroupSettingsUnion$inboundSchema,
+  upgradeSettings: UpgradeSettingsUnion$inboundSchema,
+  workers: WorkersSettingsUnion$inboundSchema,
 });
 /** @internal */
 export type SystemSettingsConf$Outbound = {
   api: SystemSettingsConfApi$Outbound;
-  backups?: SystemSettingsConfBackups$Outbound | undefined;
-  customLogo?: SystemSettingsConfCustomLogo$Outbound | undefined;
-  pii: SystemSettingsConfPii$Outbound;
-  proxy: SystemSettingsConfProxy$Outbound;
-  rollback?: SystemSettingsConfRollback$Outbound | undefined;
-  shutdown?: SystemSettingsConfShutdown$Outbound | undefined;
-  sni?: SystemSettingsConfSni$Outbound | undefined;
+  backups: BackupsSettingsUnion$Outbound;
+  customLogo?: CustomLogoUnion$Outbound | undefined;
+  pii: PiiSettingsUnion$Outbound;
+  proxy: ProxySettingsUnion$Outbound;
+  rollback: RollbackSettingsUnion$Outbound;
+  shutdown: ShutdownSettingsUnion$Outbound;
+  sni: SniSettingsUnion$Outbound;
   sockets?: SystemSettingsConfSockets$Outbound | undefined;
   support?: SystemSettingsConfSupport$Outbound | undefined;
   system: SystemSettingsConfSystem$Outbound;
-  tls?: SystemSettingsConfTls$Outbound | undefined;
-  upgradeGroupSettings: UpgradeGroupSettings$Outbound;
-  upgradeSettings?: UpgradeSettings$Outbound | undefined;
-  workers: SystemSettingsConfWorkers$Outbound;
+  tls: TlsSettingsUnion$Outbound;
+  upgradeGroupSettings: UpgradeGroupSettingsUnion$Outbound;
+  upgradeSettings: UpgradeSettingsUnion$Outbound;
+  workers: WorkersSettingsUnion$Outbound;
 };
 
 /** @internal */
@@ -911,21 +511,20 @@ export const SystemSettingsConf$outboundSchema: z.ZodType<
   SystemSettingsConf
 > = z.object({
   api: z.lazy(() => SystemSettingsConfApi$outboundSchema),
-  backups: z.lazy(() => SystemSettingsConfBackups$outboundSchema).optional(),
-  customLogo: z.lazy(() => SystemSettingsConfCustomLogo$outboundSchema)
-    .optional(),
-  pii: z.lazy(() => SystemSettingsConfPii$outboundSchema),
-  proxy: z.lazy(() => SystemSettingsConfProxy$outboundSchema),
-  rollback: z.lazy(() => SystemSettingsConfRollback$outboundSchema).optional(),
-  shutdown: z.lazy(() => SystemSettingsConfShutdown$outboundSchema).optional(),
-  sni: z.lazy(() => SystemSettingsConfSni$outboundSchema).optional(),
+  backups: BackupsSettingsUnion$outboundSchema,
+  customLogo: CustomLogoUnion$outboundSchema.optional(),
+  pii: PiiSettingsUnion$outboundSchema,
+  proxy: ProxySettingsUnion$outboundSchema,
+  rollback: RollbackSettingsUnion$outboundSchema,
+  shutdown: ShutdownSettingsUnion$outboundSchema,
+  sni: SniSettingsUnion$outboundSchema,
   sockets: z.lazy(() => SystemSettingsConfSockets$outboundSchema).optional(),
   support: z.lazy(() => SystemSettingsConfSupport$outboundSchema).optional(),
   system: z.lazy(() => SystemSettingsConfSystem$outboundSchema),
-  tls: z.lazy(() => SystemSettingsConfTls$outboundSchema).optional(),
-  upgradeGroupSettings: UpgradeGroupSettings$outboundSchema,
-  upgradeSettings: UpgradeSettings$outboundSchema.optional(),
-  workers: z.lazy(() => SystemSettingsConfWorkers$outboundSchema),
+  tls: TlsSettingsUnion$outboundSchema,
+  upgradeGroupSettings: UpgradeGroupSettingsUnion$outboundSchema,
+  upgradeSettings: UpgradeSettingsUnion$outboundSchema,
+  workers: WorkersSettingsUnion$outboundSchema,
 });
 
 export function systemSettingsConfToJSON(

@@ -1,11 +1,11 @@
-# SystemSettingsPii
+# PiiSettings1
 
 ## Example Usage
 
 ```typescript
-import { SystemSettingsPii } from "cribl-control-plane/models";
+import { PiiSettings1 } from "cribl-control-plane/models";
 
-let value: SystemSettingsPii = {
+let value: PiiSettings1 = {
   enablePiiDetection: true,
 };
 ```

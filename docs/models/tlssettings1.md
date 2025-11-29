@@ -1,11 +1,11 @@
-# SystemSettingsConfTls
+# TlsSettings1
 
 ## Example Usage
 
 ```typescript
-import { SystemSettingsConfTls } from "cribl-control-plane/models";
+import { TlsSettings1 } from "cribl-control-plane/models";
 
-let value: SystemSettingsConfTls = {
+let value: TlsSettings1 = {
   defaultCipherList: "<value>",
   defaultEcdhCurve: "<value>",
   maxVersion: "<value>",

@@ -1,18 +1,18 @@
-# SystemSettingsWorkers
+# WorkersSettings1
 
 ## Example Usage
 
 ```typescript
-import { SystemSettingsWorkers } from "cribl-control-plane/models";
+import { WorkersSettings1 } from "cribl-control-plane/models";
 
-let value: SystemSettingsWorkers = {
-  count: 744.96,
-  enableHeapSnapshots: false,
-  loadThrottlePerc: 4877.27,
-  memory: 7224.31,
-  minimum: 4539.98,
-  startupMaxConns: 3279.65,
-  startupThrottleTimeout: 5328.26,
+let value: WorkersSettings1 = {
+  count: 5228.04,
+  enableHeapSnapshots: true,
+  loadThrottlePerc: 969.44,
+  memory: 2275.1,
+  minimum: 4116.3,
+  startupMaxConns: 5007.54,
+  startupThrottleTimeout: 4564.7,
   v8SingleThread: true,
 };
 ```

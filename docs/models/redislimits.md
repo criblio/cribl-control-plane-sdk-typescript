@@ -7,8 +7,8 @@ import { RedisLimits } from "cribl-control-plane/models";
 
 let value: RedisLimits = {
   connections: {
-    disabled: true,
-    maxConnections: 9453.02,
+    disabled: false,
+    maxConnections: 9484.43,
   },
 };
 ```

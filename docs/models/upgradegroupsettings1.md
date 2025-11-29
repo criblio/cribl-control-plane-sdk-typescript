@@ -1,15 +1,15 @@
-# UpgradeGroupSettings
+# UpgradeGroupSettings1
 
 ## Example Usage
 
 ```typescript
-import { UpgradeGroupSettings } from "cribl-control-plane/models";
+import { UpgradeGroupSettings1 } from "cribl-control-plane/models";
 
-let value: UpgradeGroupSettings = {
-  isRolling: false,
-  quantity: 7489.95,
-  retryCount: 2074.59,
-  retryDelay: 6885.61,
+let value: UpgradeGroupSettings1 = {
+  isRolling: true,
+  quantity: 1440.37,
+  retryCount: 9212.76,
+  retryDelay: 7958.84,
 };
 ```
 
