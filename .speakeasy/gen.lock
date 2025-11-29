@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 78eec1d314df9dc939edec86d36a923f
-  docVersion: 4.16.0-alpha.1764354647110-900386f7
+  docChecksum: f44c800173163e62a4e33cc062b9fd74
+  docVersion: 4.16.0-alpha.1764405717066-349af032
   speakeasyVersion: 1.665.0
   generationVersion: 2.767.2
-  releaseVersion: 0.4.0-rc.8
-  configChecksum: 563ba26fa893010af4752233d860e53c
+  releaseVersion: 0.4.0-rc.9
+  configChecksum: b1858b06f952f00a052b26186a06edfe
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -58,6 +58,9 @@ generatedFiles:
   - docs/models/authtoken.md
   - docs/models/authtype.md
   - docs/models/awsauthenticationmethod.md
+  - docs/models/backupssettings1.md
+  - docs/models/backupssettings2.md
+  - docs/models/backupssettingsunion.md
   - docs/models/blobaccesstier.md
   - docs/models/block.md
   - docs/models/branchinfo.md
@@ -122,6 +125,9 @@ generatedFiles:
   - docs/models/cribllakedatasetupdate.md
   - docs/models/cribllakedatasetupdateformat.md
   - docs/models/currentbranchresult.md
+  - docs/models/customlogo1.md
+  - docs/models/customlogo2.md
+  - docs/models/customlogounion.md
   - docs/models/datadogsite.md
   - docs/models/datasetmetadata.md
   - docs/models/datasetmetadataruninfo.md
@@ -1971,6 +1977,9 @@ generatedFiles:
   - docs/models/packrequestbodyunion.md
   - docs/models/packupgraderequest.md
   - docs/models/payloadformat.md
+  - docs/models/piisettings1.md
+  - docs/models/piisettings2.md
+  - docs/models/piisettingsunion.md
   - docs/models/pipeline.md
   - docs/models/pipelinefunctionconf.md
   - docs/models/pipelinegroups.md
@@ -1982,6 +1991,9 @@ generatedFiles:
   - docs/models/prometheusauthoauthheader2.md
   - docs/models/prometheusauthoauthparam1.md
   - docs/models/prometheusauthoauthparam2.md
+  - docs/models/proxysettings1.md
+  - docs/models/proxysettings2.md
+  - docs/models/proxysettingsunion.md
   - docs/models/query.md
   - docs/models/querybuildermode.md
   - docs/models/rbacresource.md
@@ -1997,6 +2009,9 @@ generatedFiles:
   - docs/models/resourcepolicy.md
   - docs/models/resourcetypelabel.md
   - docs/models/role.md
+  - docs/models/rollbacksettings1.md
+  - docs/models/rollbacksettings2.md
+  - docs/models/rollbacksettingsunion.md
   - docs/models/routeconf.md
   - docs/models/routes.md
   - docs/models/routesgroups.md
@@ -2049,6 +2064,12 @@ generatedFiles:
   - docs/models/serviceslimits.md
   - docs/models/sharditeratorstart.md
   - docs/models/shardloadbalancing.md
+  - docs/models/shutdownsettings1.md
+  - docs/models/shutdownsettings2.md
+  - docs/models/shutdownsettingsunion.md
+  - docs/models/snisettings1.md
+  - docs/models/snisettings2.md
+  - docs/models/snisettingsunion.md
   - docs/models/snmpv3authentication.md
   - docs/models/splunkhecmetadata.md
   - docs/models/state.md
@@ -2059,39 +2080,21 @@ generatedFiles:
   - docs/models/summary.md
   - docs/models/systemsettings.md
   - docs/models/systemsettingsapi.md
-  - docs/models/systemsettingsbackups.md
   - docs/models/systemsettingsconf.md
   - docs/models/systemsettingsconfapi.md
-  - docs/models/systemsettingsconfbackups.md
-  - docs/models/systemsettingsconfcustomlogo.md
   - docs/models/systemsettingsconffeatureflagoverride.md
-  - docs/models/systemsettingsconfpii.md
-  - docs/models/systemsettingsconfproxy.md
-  - docs/models/systemsettingsconfrollback.md
-  - docs/models/systemsettingsconfshutdown.md
-  - docs/models/systemsettingsconfsni.md
   - docs/models/systemsettingsconfsockets.md
   - docs/models/systemsettingsconfssl.md
   - docs/models/systemsettingsconfsupport.md
   - docs/models/systemsettingsconfsystem.md
-  - docs/models/systemsettingsconftls.md
   - docs/models/systemsettingsconfupgrade.md
-  - docs/models/systemsettingsconfworkers.md
-  - docs/models/systemsettingscustomlogo.md
   - docs/models/systemsettingsfeatureflagoverride.md
   - docs/models/systemsettingsmode.md
-  - docs/models/systemsettingspii.md
-  - docs/models/systemsettingsproxy.md
-  - docs/models/systemsettingsrollback.md
-  - docs/models/systemsettingsshutdown.md
-  - docs/models/systemsettingssni.md
   - docs/models/systemsettingssockets.md
   - docs/models/systemsettingsssl.md
   - docs/models/systemsettingssupport.md
   - docs/models/systemsettingssystem.md
-  - docs/models/systemsettingstls.md
   - docs/models/systemsettingsupgrade.md
-  - docs/models/systemsettingsworkers.md
   - docs/models/target.md
   - docs/models/targetprotocol.md
   - docs/models/teamaccesscontrollist.md
@@ -2099,12 +2102,19 @@ generatedFiles:
   - docs/models/timerange.md
   - docs/models/timestampformat.md
   - docs/models/timestampprecision.md
+  - docs/models/tlssettings1.md
+  - docs/models/tlssettings2.md
+  - docs/models/tlssettingsunion.md
   - docs/models/udmtype.md
   - docs/models/updatehectokenrequest.md
   - docs/models/updatehectokenrequestmetadatum.md
-  - docs/models/upgradegroupsettings.md
+  - docs/models/upgradegroupsettings1.md
+  - docs/models/upgradegroupsettings2.md
+  - docs/models/upgradegroupsettingsunion.md
   - docs/models/upgradepackageurls.md
-  - docs/models/upgradesettings.md
+  - docs/models/upgradesettings1.md
+  - docs/models/upgradesettings2.md
+  - docs/models/upgradesettingsunion.md
   - docs/models/uploadpackresponse.md
   - docs/models/useraccesscontrollist.md
   - docs/models/usersandgroups.md
@@ -2112,6 +2122,9 @@ generatedFiles:
   - docs/models/warmpoolsize.md
   - docs/models/warmpoolsizeenum.md
   - docs/models/wheretocapture.md
+  - docs/models/workerssettings1.md
+  - docs/models/workerssettings2.md
+  - docs/models/workerssettingsunion.md
   - docs/models/workertypes.md
   - docs/models/writeaction.md
   - docs/sdks/acl/README.md
@@ -2231,6 +2244,7 @@ generatedFiles:
   - src/models/addhectokenrequest.ts
   - src/models/authconfig.ts
   - src/models/authtoken.ts
+  - src/models/backupssettingsunion.ts
   - src/models/branchinfo.ts
   - src/models/cacheconnection.ts
   - src/models/cacheconnectionbackfillstatus.ts
@@ -2275,6 +2289,7 @@ generatedFiles:
   - src/models/cribllakedataset.ts
   - src/models/cribllakedatasetupdate.ts
   - src/models/currentbranchresult.ts
+  - src/models/customlogounion.ts
   - src/models/datasetmetadata.ts
   - src/models/datasetmetadataruninfo.ts
   - src/models/deployrequest.ts
@@ -2519,14 +2534,17 @@ generatedFiles:
   - src/models/packinstallinfo.ts
   - src/models/packrequestbodyunion.ts
   - src/models/packupgraderequest.ts
+  - src/models/piisettingsunion.ts
   - src/models/pipeline.ts
   - src/models/pipelinefunctionconf.ts
   - src/models/productscore.ts
+  - src/models/proxysettingsunion.ts
   - src/models/rbacresource.ts
   - src/models/rediscachelimits.ts
   - src/models/redisconnectionlimits.ts
   - src/models/redislimits.ts
   - src/models/resourcepolicy.ts
+  - src/models/rollbacksettingsunion.ts
   - src/models/routeconf.ts
   - src/models/routes.ts
   - src/models/routesroute.ts
@@ -2539,15 +2557,19 @@ generatedFiles:
   - src/models/security.ts
   - src/models/serviceprocstype.ts
   - src/models/serviceslimits.ts
+  - src/models/shutdownsettingsunion.ts
+  - src/models/snisettingsunion.ts
   - src/models/systemsettings.ts
   - src/models/systemsettingsconf.ts
   - src/models/teamaccesscontrollist.ts
+  - src/models/tlssettingsunion.ts
   - src/models/updatehectokenrequest.ts
-  - src/models/upgradegroupsettings.ts
+  - src/models/upgradegroupsettingsunion.ts
   - src/models/upgradepackageurls.ts
-  - src/models/upgradesettings.ts
+  - src/models/upgradesettingsunion.ts
   - src/models/uploadpackresponse.ts
   - src/models/useraccesscontrollist.ts
+  - src/models/workerssettingsunion.ts
   - src/models/workertypes.ts
   - src/sdk/acl.ts
   - src/sdk/auth.ts
@@ -3648,4 +3670,4 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.system.settings.cribl.list()`:  `response.items.[]` **Changed**\n* `criblcontrolplane.system.settings.cribl.update()`: \n  *  `request` **Changed**\n  *  `response.items.[]` **Changed**\n"
+releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.system.settings.cribl.list()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.system.settings.cribl.update()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed** **Breaking** :warning:\n"

@@ -8,15 +8,15 @@ import { ServicesLimits } from "cribl-control-plane/models";
 let value: ServicesLimits = {
   connections: {
     memoryLimit: "<value>",
-    procs: "auto",
+    procs: 9291.32,
   },
   metrics: {
     memoryLimit: "<value>",
-    procs: 1275.01,
+    procs: "auto",
   },
   notifications: {
     memoryLimit: "<value>",
-    procs: 5172.91,
+    procs: "auto",
   },
 };
 ```

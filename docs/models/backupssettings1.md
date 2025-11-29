@@ -1,11 +1,11 @@
-# SystemSettingsBackups
+# BackupsSettings1
 
 ## Example Usage
 
 ```typescript
-import { SystemSettingsBackups } from "cribl-control-plane/models";
+import { BackupsSettings1 } from "cribl-control-plane/models";
 
-let value: SystemSettingsBackups = {
+let value: BackupsSettings1 = {
   backupPersistence: "<value>",
   backupsDirectory: "<value>",
 };

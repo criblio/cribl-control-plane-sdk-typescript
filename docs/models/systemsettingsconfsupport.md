@@ -8,7 +8,7 @@ import { SystemSettingsConfSupport } from "cribl-control-plane/models";
 let value: SystemSettingsConfSupport = {
   featureFlagOverrides: [
     {
-      disabled: false,
+      disabled: true,
       flagId: "<id>",
     },
   ],
