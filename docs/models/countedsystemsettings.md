@@ -161,9 +161,9 @@ let value: CountedSystemSettings = {
         },
       },
       rollback: {
-        rollbackEnabled: false,
-        rollbackRetries: 8496.74,
-        rollbackTimeout: 3039.97,
+        rollbackEnabled: true,
+        rollbackRetries: 3163.15,
+        rollbackTimeout: 6964.89,
       },
       searchLimits: {
         compressObjectCacheArtifacts: true,
@@ -194,13 +194,13 @@ let value: CountedSystemSettings = {
         },
       },
       shutdown: {
-        drainTimeout: 1275.01,
+        drainTimeout: 7.93,
       },
       sni: {
         disableSNIRouting: false,
       },
       sockets: {
-        directory: "/rescue",
+        directory: "/opt/bin",
       },
       support: {
         featureFlagOverrides: [
@@ -215,25 +215,29 @@ let value: CountedSystemSettings = {
         upgrade: "api",
       },
       tls: {},
-      upgradeGroupSettings: {
-        isRolling: true,
-        quantity: 8257.32,
-        retryCount: 9323.66,
-        retryDelay: 1.27,
-      },
+      upgradeGroupSettings: {},
       upgradeSettings: {
         automaticUpgradeCheckPeriod: "<value>",
         disableAutomaticUpgrade: false,
-        enableLegacyEdgeUpgrade: true,
+        enableLegacyEdgeUpgrade: false,
         packageUrls: [
           {
-            packageHashUrl: "https://torn-pigpen.com",
-            packageUrl: "https://lasting-bump.com/",
+            packageHashUrl: "https://best-import.com/",
+            packageUrl: "https://appropriate-responsibility.net/",
           },
         ],
         upgradeSource: "<value>",
       },
-      workers: {},
+      workers: {
+        count: 3968.17,
+        enableHeapSnapshots: false,
+        loadThrottlePerc: 4893.13,
+        memory: 8687.03,
+        minimum: 1481.96,
+        startupMaxConns: 3636.52,
+        startupThrottleTimeout: 5805.06,
+        v8SingleThread: false,
+      },
     },
   ],
 };

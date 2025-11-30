@@ -34,62 +34,67 @@ let value: SystemSettingsConf = {
     workerRemoteAccess: true,
   },
   backups: {},
-  customLogo: {},
-  pii: {
-    enablePiiDetection: true,
+  customLogo: {
+    enabled: true,
+    logoDescription: "<value>",
+    logoImage: "<value>",
   },
-  proxy: {},
+  pii: {},
+  proxy: {
+    useEnvVars: true,
+  },
   rollback: {
-    rollbackEnabled: false,
-    rollbackRetries: 8496.74,
-    rollbackTimeout: 3039.97,
+    rollbackEnabled: true,
+    rollbackRetries: 3163.15,
+    rollbackTimeout: 6964.89,
   },
-  shutdown: {},
-  sni: {
-    disableSNIRouting: false,
+  shutdown: {
+    drainTimeout: 8496.74,
   },
+  sni: {},
   sockets: {
-    directory: "/tmp",
+    directory: "/usr/libdata",
   },
   support: {
     featureFlagOverrides: [
       {
-        disabled: true,
+        disabled: false,
         flagId: "<id>",
       },
     ],
   },
   system: {
-    intercom: false,
-    upgrade: "false",
+    intercom: true,
+    upgrade: "api",
   },
-  tls: {},
-  upgradeGroupSettings: {
-    isRolling: true,
-    quantity: 8257.32,
-    retryCount: 9323.66,
-    retryDelay: 1.27,
+  tls: {
+    defaultCipherList: "<value>",
+    defaultEcdhCurve: "<value>",
+    maxVersion: "<value>",
+    minVersion: "<value>",
+    rejectUnauthorized: true,
   },
+  upgradeGroupSettings: {},
   upgradeSettings: {
     automaticUpgradeCheckPeriod: "<value>",
     disableAutomaticUpgrade: false,
-    enableLegacyEdgeUpgrade: true,
+    enableLegacyEdgeUpgrade: false,
     packageUrls: [
       {
-        packageHashUrl: "https://torn-pigpen.com",
-        packageUrl: "https://lasting-bump.com/",
+        packageHashUrl: "https://best-import.com/",
+        packageUrl: "https://appropriate-responsibility.net/",
       },
     ],
     upgradeSource: "<value>",
   },
   workers: {
-    count: 7544.74,
+    count: 1817.1,
     enableHeapSnapshots: false,
-    loadThrottlePerc: 1817.1,
-    memory: 9569.52,
-    minimum: 4246.78,
-    startupMaxConns: 4433.58,
-    startupThrottleTimeout: 2178.79,
+    loadThrottlePerc: 4246.78,
+    memory: 4433.58,
+    minimum: 2178.79,
+    startupMaxConns: 3611.13,
+    startupThrottleTimeout: 2818.79,
     v8SingleThread: true,
   },
 };
@@ -97,20 +102,20 @@ let value: SystemSettingsConf = {
 
 ## Fields
 
-| Field                                                                      | Type                                                                       | Required                                                                   | Description                                                                |
-| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| `api`                                                                      | [models.SystemSettingsConfApi](../models/systemsettingsconfapi.md)         | :heavy_check_mark:                                                         | N/A                                                                        |
-| `backups`                                                                  | *models.BackupsSettingsUnion*                                              | :heavy_check_mark:                                                         | N/A                                                                        |
-| `customLogo`                                                               | *models.CustomLogoUnion*                                                   | :heavy_check_mark:                                                         | N/A                                                                        |
-| `pii`                                                                      | *models.PiiSettingsUnion*                                                  | :heavy_check_mark:                                                         | N/A                                                                        |
-| `proxy`                                                                    | *models.ProxySettingsUnion*                                                | :heavy_check_mark:                                                         | N/A                                                                        |
-| `rollback`                                                                 | *models.RollbackSettingsUnion*                                             | :heavy_check_mark:                                                         | N/A                                                                        |
-| `shutdown`                                                                 | *models.ShutdownSettingsUnion*                                             | :heavy_check_mark:                                                         | N/A                                                                        |
-| `sni`                                                                      | *models.SniSettingsUnion*                                                  | :heavy_check_mark:                                                         | N/A                                                                        |
-| `sockets`                                                                  | [models.SystemSettingsConfSockets](../models/systemsettingsconfsockets.md) | :heavy_minus_sign:                                                         | N/A                                                                        |
-| `support`                                                                  | [models.SystemSettingsConfSupport](../models/systemsettingsconfsupport.md) | :heavy_minus_sign:                                                         | N/A                                                                        |
-| `system`                                                                   | [models.SystemSettingsConfSystem](../models/systemsettingsconfsystem.md)   | :heavy_check_mark:                                                         | N/A                                                                        |
-| `tls`                                                                      | *models.TlsSettingsUnion*                                                  | :heavy_check_mark:                                                         | N/A                                                                        |
-| `upgradeGroupSettings`                                                     | *models.UpgradeGroupSettingsUnion*                                         | :heavy_check_mark:                                                         | N/A                                                                        |
-| `upgradeSettings`                                                          | [models.UpgradeSettings](../models/upgradesettings.md)                     | :heavy_check_mark:                                                         | N/A                                                                        |
-| `workers`                                                                  | *models.WorkersSettingsUnion*                                              | :heavy_check_mark:                                                         | N/A                                                                        |
+| Field                                                                            | Type                                                                             | Required                                                                         | Description                                                                      |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `api`                                                                            | [models.SystemSettingsConfApi](../models/systemsettingsconfapi.md)               | :heavy_check_mark:                                                               | N/A                                                                              |
+| `backups`                                                                        | *models.BackupsSettingsUnion*                                                    | :heavy_check_mark:                                                               | N/A                                                                              |
+| `customLogo`                                                                     | [models.SystemSettingsConfCustomLogo](../models/systemsettingsconfcustomlogo.md) | :heavy_check_mark:                                                               | N/A                                                                              |
+| `pii`                                                                            | *models.PiiSettingsUnion*                                                        | :heavy_check_mark:                                                               | N/A                                                                              |
+| `proxy`                                                                          | [models.SystemSettingsConfProxy](../models/systemsettingsconfproxy.md)           | :heavy_check_mark:                                                               | N/A                                                                              |
+| `rollback`                                                                       | *models.RollbackSettingsUnion*                                                   | :heavy_check_mark:                                                               | N/A                                                                              |
+| `shutdown`                                                                       | [models.SystemSettingsConfShutdown](../models/systemsettingsconfshutdown.md)     | :heavy_check_mark:                                                               | N/A                                                                              |
+| `sni`                                                                            | *models.SniSettingsUnion*                                                        | :heavy_check_mark:                                                               | N/A                                                                              |
+| `sockets`                                                                        | [models.SystemSettingsConfSockets](../models/systemsettingsconfsockets.md)       | :heavy_minus_sign:                                                               | N/A                                                                              |
+| `support`                                                                        | [models.SystemSettingsConfSupport](../models/systemsettingsconfsupport.md)       | :heavy_minus_sign:                                                               | N/A                                                                              |
+| `system`                                                                         | [models.SystemSettingsConfSystem](../models/systemsettingsconfsystem.md)         | :heavy_check_mark:                                                               | N/A                                                                              |
+| `tls`                                                                            | *models.TlsSettingsUnion*                                                        | :heavy_check_mark:                                                               | N/A                                                                              |
+| `upgradeGroupSettings`                                                           | *models.UpgradeGroupSettingsUnion*                                               | :heavy_check_mark:                                                               | N/A                                                                              |
+| `upgradeSettings`                                                                | [models.UpgradeSettings](../models/upgradesettings.md)                           | :heavy_check_mark:                                                               | N/A                                                                              |
+| `workers`                                                                        | [models.SystemSettingsConfWorkers](../models/systemsettingsconfworkers.md)       | :heavy_check_mark:                                                               | N/A                                                                              |

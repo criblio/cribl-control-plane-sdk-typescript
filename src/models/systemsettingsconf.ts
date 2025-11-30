@@ -13,12 +13,6 @@ import {
   BackupsSettingsUnion$Outbound,
   BackupsSettingsUnion$outboundSchema,
 } from "./backupssettingsunion.js";
-import {
-  CustomLogoUnion,
-  CustomLogoUnion$inboundSchema,
-  CustomLogoUnion$Outbound,
-  CustomLogoUnion$outboundSchema,
-} from "./customlogounion.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   PiiSettingsUnion,
@@ -27,23 +21,11 @@ import {
   PiiSettingsUnion$outboundSchema,
 } from "./piisettingsunion.js";
 import {
-  ProxySettingsUnion,
-  ProxySettingsUnion$inboundSchema,
-  ProxySettingsUnion$Outbound,
-  ProxySettingsUnion$outboundSchema,
-} from "./proxysettingsunion.js";
-import {
   RollbackSettingsUnion,
   RollbackSettingsUnion$inboundSchema,
   RollbackSettingsUnion$Outbound,
   RollbackSettingsUnion$outboundSchema,
 } from "./rollbacksettingsunion.js";
-import {
-  ShutdownSettingsUnion,
-  ShutdownSettingsUnion$inboundSchema,
-  ShutdownSettingsUnion$Outbound,
-  ShutdownSettingsUnion$outboundSchema,
-} from "./shutdownsettingsunion.js";
 import {
   SniSettingsUnion,
   SniSettingsUnion$inboundSchema,
@@ -68,12 +50,6 @@ import {
   UpgradeSettings$Outbound,
   UpgradeSettings$outboundSchema,
 } from "./upgradesettings.js";
-import {
-  WorkersSettingsUnion,
-  WorkersSettingsUnion$inboundSchema,
-  WorkersSettingsUnion$Outbound,
-  WorkersSettingsUnion$outboundSchema,
-} from "./workerssettingsunion.js";
 
 export type SystemSettingsConfSsl = {
   caPath?: string | undefined;
@@ -99,6 +75,20 @@ export type SystemSettingsConfApi = {
   ssl?: SystemSettingsConfSsl | undefined;
   ssoRateLimit?: string | undefined;
   workerRemoteAccess?: boolean | undefined;
+};
+
+export type SystemSettingsConfCustomLogo = {
+  enabled: boolean;
+  logoDescription?: string | undefined;
+  logoImage?: string | undefined;
+};
+
+export type SystemSettingsConfProxy = {
+  useEnvVars: boolean;
+};
+
+export type SystemSettingsConfShutdown = {
+  drainTimeout: number;
 };
 
 export type SystemSettingsConfSockets = {
@@ -129,14 +119,25 @@ export type SystemSettingsConfSystem = {
   upgrade: SystemSettingsConfUpgrade;
 };
 
+export type SystemSettingsConfWorkers = {
+  count: number;
+  enableHeapSnapshots?: boolean | undefined;
+  loadThrottlePerc?: number | undefined;
+  memory: number;
+  minimum: number;
+  startupMaxConns?: number | undefined;
+  startupThrottleTimeout?: number | undefined;
+  v8SingleThread?: boolean | undefined;
+};
+
 export type SystemSettingsConf = {
   api: SystemSettingsConfApi;
   backups: BackupsSettingsUnion;
-  customLogo: CustomLogoUnion;
+  customLogo: SystemSettingsConfCustomLogo;
   pii: PiiSettingsUnion;
-  proxy: ProxySettingsUnion;
+  proxy: SystemSettingsConfProxy;
   rollback: RollbackSettingsUnion;
-  shutdown: ShutdownSettingsUnion;
+  shutdown: SystemSettingsConfShutdown;
   sni: SniSettingsUnion;
   sockets?: SystemSettingsConfSockets | undefined;
   support?: SystemSettingsConfSupport | undefined;
@@ -144,7 +145,7 @@ export type SystemSettingsConf = {
   tls: TlsSettingsUnion;
   upgradeGroupSettings: UpgradeGroupSettingsUnion;
   upgradeSettings: UpgradeSettings;
-  workers: WorkersSettingsUnion;
+  workers: SystemSettingsConfWorkers;
 };
 
 /** @internal */
@@ -276,6 +277,131 @@ export function systemSettingsConfApiFromJSON(
     jsonString,
     (x) => SystemSettingsConfApi$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'SystemSettingsConfApi' from JSON`,
+  );
+}
+
+/** @internal */
+export const SystemSettingsConfCustomLogo$inboundSchema: z.ZodType<
+  SystemSettingsConfCustomLogo,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean(),
+  logoDescription: z.string().optional(),
+  logoImage: z.string().optional(),
+});
+/** @internal */
+export type SystemSettingsConfCustomLogo$Outbound = {
+  enabled: boolean;
+  logoDescription?: string | undefined;
+  logoImage?: string | undefined;
+};
+
+/** @internal */
+export const SystemSettingsConfCustomLogo$outboundSchema: z.ZodType<
+  SystemSettingsConfCustomLogo$Outbound,
+  z.ZodTypeDef,
+  SystemSettingsConfCustomLogo
+> = z.object({
+  enabled: z.boolean(),
+  logoDescription: z.string().optional(),
+  logoImage: z.string().optional(),
+});
+
+export function systemSettingsConfCustomLogoToJSON(
+  systemSettingsConfCustomLogo: SystemSettingsConfCustomLogo,
+): string {
+  return JSON.stringify(
+    SystemSettingsConfCustomLogo$outboundSchema.parse(
+      systemSettingsConfCustomLogo,
+    ),
+  );
+}
+export function systemSettingsConfCustomLogoFromJSON(
+  jsonString: string,
+): SafeParseResult<SystemSettingsConfCustomLogo, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SystemSettingsConfCustomLogo$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SystemSettingsConfCustomLogo' from JSON`,
+  );
+}
+
+/** @internal */
+export const SystemSettingsConfProxy$inboundSchema: z.ZodType<
+  SystemSettingsConfProxy,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  useEnvVars: z.boolean(),
+});
+/** @internal */
+export type SystemSettingsConfProxy$Outbound = {
+  useEnvVars: boolean;
+};
+
+/** @internal */
+export const SystemSettingsConfProxy$outboundSchema: z.ZodType<
+  SystemSettingsConfProxy$Outbound,
+  z.ZodTypeDef,
+  SystemSettingsConfProxy
+> = z.object({
+  useEnvVars: z.boolean(),
+});
+
+export function systemSettingsConfProxyToJSON(
+  systemSettingsConfProxy: SystemSettingsConfProxy,
+): string {
+  return JSON.stringify(
+    SystemSettingsConfProxy$outboundSchema.parse(systemSettingsConfProxy),
+  );
+}
+export function systemSettingsConfProxyFromJSON(
+  jsonString: string,
+): SafeParseResult<SystemSettingsConfProxy, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SystemSettingsConfProxy$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SystemSettingsConfProxy' from JSON`,
+  );
+}
+
+/** @internal */
+export const SystemSettingsConfShutdown$inboundSchema: z.ZodType<
+  SystemSettingsConfShutdown,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  drainTimeout: z.number(),
+});
+/** @internal */
+export type SystemSettingsConfShutdown$Outbound = {
+  drainTimeout: number;
+};
+
+/** @internal */
+export const SystemSettingsConfShutdown$outboundSchema: z.ZodType<
+  SystemSettingsConfShutdown$Outbound,
+  z.ZodTypeDef,
+  SystemSettingsConfShutdown
+> = z.object({
+  drainTimeout: z.number(),
+});
+
+export function systemSettingsConfShutdownToJSON(
+  systemSettingsConfShutdown: SystemSettingsConfShutdown,
+): string {
+  return JSON.stringify(
+    SystemSettingsConfShutdown$outboundSchema.parse(systemSettingsConfShutdown),
+  );
+}
+export function systemSettingsConfShutdownFromJSON(
+  jsonString: string,
+): SafeParseResult<SystemSettingsConfShutdown, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SystemSettingsConfShutdown$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SystemSettingsConfShutdown' from JSON`,
   );
 }
 
@@ -464,6 +590,66 @@ export function systemSettingsConfSystemFromJSON(
 }
 
 /** @internal */
+export const SystemSettingsConfWorkers$inboundSchema: z.ZodType<
+  SystemSettingsConfWorkers,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  count: z.number(),
+  enableHeapSnapshots: z.boolean().optional(),
+  loadThrottlePerc: z.number().optional(),
+  memory: z.number(),
+  minimum: z.number(),
+  startupMaxConns: z.number().optional(),
+  startupThrottleTimeout: z.number().optional(),
+  v8SingleThread: z.boolean().optional(),
+});
+/** @internal */
+export type SystemSettingsConfWorkers$Outbound = {
+  count: number;
+  enableHeapSnapshots?: boolean | undefined;
+  loadThrottlePerc?: number | undefined;
+  memory: number;
+  minimum: number;
+  startupMaxConns?: number | undefined;
+  startupThrottleTimeout?: number | undefined;
+  v8SingleThread?: boolean | undefined;
+};
+
+/** @internal */
+export const SystemSettingsConfWorkers$outboundSchema: z.ZodType<
+  SystemSettingsConfWorkers$Outbound,
+  z.ZodTypeDef,
+  SystemSettingsConfWorkers
+> = z.object({
+  count: z.number(),
+  enableHeapSnapshots: z.boolean().optional(),
+  loadThrottlePerc: z.number().optional(),
+  memory: z.number(),
+  minimum: z.number(),
+  startupMaxConns: z.number().optional(),
+  startupThrottleTimeout: z.number().optional(),
+  v8SingleThread: z.boolean().optional(),
+});
+
+export function systemSettingsConfWorkersToJSON(
+  systemSettingsConfWorkers: SystemSettingsConfWorkers,
+): string {
+  return JSON.stringify(
+    SystemSettingsConfWorkers$outboundSchema.parse(systemSettingsConfWorkers),
+  );
+}
+export function systemSettingsConfWorkersFromJSON(
+  jsonString: string,
+): SafeParseResult<SystemSettingsConfWorkers, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => SystemSettingsConfWorkers$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'SystemSettingsConfWorkers' from JSON`,
+  );
+}
+
+/** @internal */
 export const SystemSettingsConf$inboundSchema: z.ZodType<
   SystemSettingsConf,
   z.ZodTypeDef,
@@ -471,11 +657,11 @@ export const SystemSettingsConf$inboundSchema: z.ZodType<
 > = z.object({
   api: z.lazy(() => SystemSettingsConfApi$inboundSchema),
   backups: BackupsSettingsUnion$inboundSchema,
-  customLogo: CustomLogoUnion$inboundSchema,
+  customLogo: z.lazy(() => SystemSettingsConfCustomLogo$inboundSchema),
   pii: PiiSettingsUnion$inboundSchema,
-  proxy: ProxySettingsUnion$inboundSchema,
+  proxy: z.lazy(() => SystemSettingsConfProxy$inboundSchema),
   rollback: RollbackSettingsUnion$inboundSchema,
-  shutdown: ShutdownSettingsUnion$inboundSchema,
+  shutdown: z.lazy(() => SystemSettingsConfShutdown$inboundSchema),
   sni: SniSettingsUnion$inboundSchema,
   sockets: z.lazy(() => SystemSettingsConfSockets$inboundSchema).optional(),
   support: z.lazy(() => SystemSettingsConfSupport$inboundSchema).optional(),
@@ -483,17 +669,17 @@ export const SystemSettingsConf$inboundSchema: z.ZodType<
   tls: TlsSettingsUnion$inboundSchema,
   upgradeGroupSettings: UpgradeGroupSettingsUnion$inboundSchema,
   upgradeSettings: UpgradeSettings$inboundSchema,
-  workers: WorkersSettingsUnion$inboundSchema,
+  workers: z.lazy(() => SystemSettingsConfWorkers$inboundSchema),
 });
 /** @internal */
 export type SystemSettingsConf$Outbound = {
   api: SystemSettingsConfApi$Outbound;
   backups: BackupsSettingsUnion$Outbound;
-  customLogo: CustomLogoUnion$Outbound;
+  customLogo: SystemSettingsConfCustomLogo$Outbound;
   pii: PiiSettingsUnion$Outbound;
-  proxy: ProxySettingsUnion$Outbound;
+  proxy: SystemSettingsConfProxy$Outbound;
   rollback: RollbackSettingsUnion$Outbound;
-  shutdown: ShutdownSettingsUnion$Outbound;
+  shutdown: SystemSettingsConfShutdown$Outbound;
   sni: SniSettingsUnion$Outbound;
   sockets?: SystemSettingsConfSockets$Outbound | undefined;
   support?: SystemSettingsConfSupport$Outbound | undefined;
@@ -501,7 +687,7 @@ export type SystemSettingsConf$Outbound = {
   tls: TlsSettingsUnion$Outbound;
   upgradeGroupSettings: UpgradeGroupSettingsUnion$Outbound;
   upgradeSettings: UpgradeSettings$Outbound;
-  workers: WorkersSettingsUnion$Outbound;
+  workers: SystemSettingsConfWorkers$Outbound;
 };
 
 /** @internal */
@@ -512,11 +698,11 @@ export const SystemSettingsConf$outboundSchema: z.ZodType<
 > = z.object({
   api: z.lazy(() => SystemSettingsConfApi$outboundSchema),
   backups: BackupsSettingsUnion$outboundSchema,
-  customLogo: CustomLogoUnion$outboundSchema,
+  customLogo: z.lazy(() => SystemSettingsConfCustomLogo$outboundSchema),
   pii: PiiSettingsUnion$outboundSchema,
-  proxy: ProxySettingsUnion$outboundSchema,
+  proxy: z.lazy(() => SystemSettingsConfProxy$outboundSchema),
   rollback: RollbackSettingsUnion$outboundSchema,
-  shutdown: ShutdownSettingsUnion$outboundSchema,
+  shutdown: z.lazy(() => SystemSettingsConfShutdown$outboundSchema),
   sni: SniSettingsUnion$outboundSchema,
   sockets: z.lazy(() => SystemSettingsConfSockets$outboundSchema).optional(),
   support: z.lazy(() => SystemSettingsConfSupport$outboundSchema).optional(),
@@ -524,7 +710,7 @@ export const SystemSettingsConf$outboundSchema: z.ZodType<
   tls: TlsSettingsUnion$outboundSchema,
   upgradeGroupSettings: UpgradeGroupSettingsUnion$outboundSchema,
   upgradeSettings: UpgradeSettings$outboundSchema,
-  workers: WorkersSettingsUnion$outboundSchema,
+  workers: z.lazy(() => SystemSettingsConfWorkers$outboundSchema),
 });
 
 export function systemSettingsConfToJSON(

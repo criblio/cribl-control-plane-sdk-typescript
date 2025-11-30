@@ -140,7 +140,9 @@ let value: SystemSettings = {
   pii: {
     enablePiiDetection: true,
   },
-  proxy: {},
+  proxy: {
+    useEnvVars: true,
+  },
   redisCacheLimits: {
     clientTrackingMechanism: "<value>",
     enableServerAssist: false,
@@ -156,9 +158,9 @@ let value: SystemSettings = {
     },
   },
   rollback: {
-    rollbackEnabled: false,
-    rollbackRetries: 8496.74,
-    rollbackTimeout: 3039.97,
+    rollbackEnabled: true,
+    rollbackRetries: 3163.15,
+    rollbackTimeout: 6964.89,
   },
   searchLimits: {
     compressObjectCacheArtifacts: true,
@@ -189,11 +191,11 @@ let value: SystemSettings = {
     },
   },
   shutdown: {
-    drainTimeout: 1275.01,
+    drainTimeout: 7.93,
   },
   sni: {},
   sockets: {
-    directory: "/rescue",
+    directory: "/opt/bin",
   },
   support: {
     featureFlagOverrides: [
@@ -215,53 +217,62 @@ let value: SystemSettings = {
     rejectUnauthorized: true,
   },
   upgradeGroupSettings: {
-    isRolling: true,
-    quantity: 8257.32,
-    retryCount: 9323.66,
-    retryDelay: 1.27,
+    isRolling: false,
+    quantity: 9214.76,
+    retryCount: 2981.83,
+    retryDelay: 8349.69,
   },
   upgradeSettings: {
     automaticUpgradeCheckPeriod: "<value>",
     disableAutomaticUpgrade: false,
-    enableLegacyEdgeUpgrade: true,
+    enableLegacyEdgeUpgrade: false,
     packageUrls: [
       {
-        packageHashUrl: "https://torn-pigpen.com",
-        packageUrl: "https://lasting-bump.com/",
+        packageHashUrl: "https://best-import.com/",
+        packageUrl: "https://appropriate-responsibility.net/",
       },
     ],
     upgradeSource: "<value>",
   },
-  workers: {},
+  workers: {
+    count: 3968.17,
+    enableHeapSnapshots: false,
+    loadThrottlePerc: 4893.13,
+    memory: 8687.03,
+    minimum: 1481.96,
+    startupMaxConns: 3636.52,
+    startupThrottleTimeout: 5805.06,
+    v8SingleThread: false,
+  },
 };
 ```
 
 ## Fields
 
-| Field                                                              | Type                                                               | Required                                                           | Description                                                        |
-| ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
-| `api`                                                              | [models.SystemSettingsApi](../models/systemsettingsapi.md)         | :heavy_check_mark:                                                 | N/A                                                                |
-| `auth`                                                             | [models.AuthConfig](../models/authconfig.md)                       | :heavy_check_mark:                                                 | N/A                                                                |
-| `backups`                                                          | *models.BackupsSettingsUnion*                                      | :heavy_check_mark:                                                 | N/A                                                                |
-| `customLogo`                                                       | *models.CustomLogoUnion*                                           | :heavy_check_mark:                                                 | N/A                                                                |
-| `distributed`                                                      | [models.Distributed](../models/distributed.md)                     | :heavy_check_mark:                                                 | N/A                                                                |
-| `fips`                                                             | *boolean*                                                          | :heavy_check_mark:                                                 | N/A                                                                |
-| `git`                                                              | [models.GitSettings](../models/gitsettings.md)                     | :heavy_check_mark:                                                 | N/A                                                                |
-| `jobLimits`                                                        | [models.JobSettings](../models/jobsettings.md)                     | :heavy_check_mark:                                                 | N/A                                                                |
-| `limits`                                                           | [models.Limits](../models/limits.md)                               | :heavy_check_mark:                                                 | N/A                                                                |
-| `pii`                                                              | *models.PiiSettingsUnion*                                          | :heavy_check_mark:                                                 | N/A                                                                |
-| `proxy`                                                            | *models.ProxySettingsUnion*                                        | :heavy_check_mark:                                                 | N/A                                                                |
-| `redisCacheLimits`                                                 | [models.RedisCacheLimits](../models/rediscachelimits.md)           | :heavy_check_mark:                                                 | N/A                                                                |
-| `redisLimits`                                                      | [models.RedisLimits](../models/redislimits.md)                     | :heavy_check_mark:                                                 | N/A                                                                |
-| `rollback`                                                         | *models.RollbackSettingsUnion*                                     | :heavy_check_mark:                                                 | N/A                                                                |
-| `searchLimits`                                                     | [models.SearchSettings](../models/searchsettings.md)               | :heavy_check_mark:                                                 | N/A                                                                |
-| `servicesLimits`                                                   | [models.ServicesLimits](../models/serviceslimits.md)               | :heavy_check_mark:                                                 | N/A                                                                |
-| `shutdown`                                                         | *models.ShutdownSettingsUnion*                                     | :heavy_check_mark:                                                 | N/A                                                                |
-| `sni`                                                              | *models.SniSettingsUnion*                                          | :heavy_check_mark:                                                 | N/A                                                                |
-| `sockets`                                                          | [models.SystemSettingsSockets](../models/systemsettingssockets.md) | :heavy_minus_sign:                                                 | N/A                                                                |
-| `support`                                                          | [models.SystemSettingsSupport](../models/systemsettingssupport.md) | :heavy_minus_sign:                                                 | N/A                                                                |
-| `system`                                                           | [models.SystemSettingsSystem](../models/systemsettingssystem.md)   | :heavy_check_mark:                                                 | N/A                                                                |
-| `tls`                                                              | *models.TlsSettingsUnion*                                          | :heavy_check_mark:                                                 | N/A                                                                |
-| `upgradeGroupSettings`                                             | *models.UpgradeGroupSettingsUnion*                                 | :heavy_check_mark:                                                 | N/A                                                                |
-| `upgradeSettings`                                                  | [models.UpgradeSettings](../models/upgradesettings.md)             | :heavy_check_mark:                                                 | N/A                                                                |
-| `workers`                                                          | *models.WorkersSettingsUnion*                                      | :heavy_check_mark:                                                 | N/A                                                                |
+| Field                                                                    | Type                                                                     | Required                                                                 | Description                                                              |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| `api`                                                                    | [models.SystemSettingsApi](../models/systemsettingsapi.md)               | :heavy_check_mark:                                                       | N/A                                                                      |
+| `auth`                                                                   | [models.AuthConfig](../models/authconfig.md)                             | :heavy_check_mark:                                                       | N/A                                                                      |
+| `backups`                                                                | *models.BackupsSettingsUnion*                                            | :heavy_check_mark:                                                       | N/A                                                                      |
+| `customLogo`                                                             | [models.SystemSettingsCustomLogo](../models/systemsettingscustomlogo.md) | :heavy_check_mark:                                                       | N/A                                                                      |
+| `distributed`                                                            | [models.Distributed](../models/distributed.md)                           | :heavy_check_mark:                                                       | N/A                                                                      |
+| `fips`                                                                   | *boolean*                                                                | :heavy_check_mark:                                                       | N/A                                                                      |
+| `git`                                                                    | [models.GitSettings](../models/gitsettings.md)                           | :heavy_check_mark:                                                       | N/A                                                                      |
+| `jobLimits`                                                              | [models.JobSettings](../models/jobsettings.md)                           | :heavy_check_mark:                                                       | N/A                                                                      |
+| `limits`                                                                 | [models.Limits](../models/limits.md)                                     | :heavy_check_mark:                                                       | N/A                                                                      |
+| `pii`                                                                    | *models.PiiSettingsUnion*                                                | :heavy_check_mark:                                                       | N/A                                                                      |
+| `proxy`                                                                  | [models.SystemSettingsProxy](../models/systemsettingsproxy.md)           | :heavy_check_mark:                                                       | N/A                                                                      |
+| `redisCacheLimits`                                                       | [models.RedisCacheLimits](../models/rediscachelimits.md)                 | :heavy_check_mark:                                                       | N/A                                                                      |
+| `redisLimits`                                                            | [models.RedisLimits](../models/redislimits.md)                           | :heavy_check_mark:                                                       | N/A                                                                      |
+| `rollback`                                                               | *models.RollbackSettingsUnion*                                           | :heavy_check_mark:                                                       | N/A                                                                      |
+| `searchLimits`                                                           | [models.SearchSettings](../models/searchsettings.md)                     | :heavy_check_mark:                                                       | N/A                                                                      |
+| `servicesLimits`                                                         | [models.ServicesLimits](../models/serviceslimits.md)                     | :heavy_check_mark:                                                       | N/A                                                                      |
+| `shutdown`                                                               | [models.SystemSettingsShutdown](../models/systemsettingsshutdown.md)     | :heavy_check_mark:                                                       | N/A                                                                      |
+| `sni`                                                                    | *models.SniSettingsUnion*                                                | :heavy_check_mark:                                                       | N/A                                                                      |
+| `sockets`                                                                | [models.SystemSettingsSockets](../models/systemsettingssockets.md)       | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `support`                                                                | [models.SystemSettingsSupport](../models/systemsettingssupport.md)       | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `system`                                                                 | [models.SystemSettingsSystem](../models/systemsettingssystem.md)         | :heavy_check_mark:                                                       | N/A                                                                      |
+| `tls`                                                                    | *models.TlsSettingsUnion*                                                | :heavy_check_mark:                                                       | N/A                                                                      |
+| `upgradeGroupSettings`                                                   | *models.UpgradeGroupSettingsUnion*                                       | :heavy_check_mark:                                                       | N/A                                                                      |
+| `upgradeSettings`                                                        | [models.UpgradeSettings](../models/upgradesettings.md)                   | :heavy_check_mark:                                                       | N/A                                                                      |
+| `workers`                                                                | [models.SystemSettingsWorkers](../models/systemsettingsworkers.md)       | :heavy_check_mark:                                                       | N/A                                                                      |

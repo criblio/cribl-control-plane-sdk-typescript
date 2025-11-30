@@ -1,12 +1,12 @@
-# ShutdownSettings1
+# SystemSettingsShutdown
 
 ## Example Usage
 
 ```typescript
-import { ShutdownSettings1 } from "cribl-control-plane/models";
+import { SystemSettingsShutdown } from "cribl-control-plane/models";
 
-let value: ShutdownSettings1 = {
-  drainTimeout: 4064.87,
+let value: SystemSettingsShutdown = {
+  drainTimeout: 9583.4,
 };
 ```
 

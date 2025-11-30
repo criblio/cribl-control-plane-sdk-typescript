@@ -11,8 +11,8 @@ let value: UpgradeSettings = {
   enableLegacyEdgeUpgrade: false,
   packageUrls: [
     {
-      packageHashUrl: "https://torn-pigpen.com",
-      packageUrl: "https://lasting-bump.com/",
+      packageHashUrl: "https://best-import.com/",
+      packageUrl: "https://appropriate-responsibility.net/",
     },
   ],
   upgradeSource: "<value>",
@@ -27,4 +27,4 @@ let value: UpgradeSettings = {
 | `disableAutomaticUpgrade`                                      | *boolean*                                                      | :heavy_check_mark:                                             | N/A                                                            |
 | `enableLegacyEdgeUpgrade`                                      | *boolean*                                                      | :heavy_check_mark:                                             | N/A                                                            |
 | `packageUrls`                                                  | [models.UpgradePackageUrls](../models/upgradepackageurls.md)[] | :heavy_minus_sign:                                             | N/A                                                            |
-| `upgradeSource`                                                | *string*                                                       | :heavy_check_mark:                                             | N/A                                                            |
+| `upgradeSource`                                                | *string*                                                       | :heavy_minus_sign:                                             | N/A                                                            |
