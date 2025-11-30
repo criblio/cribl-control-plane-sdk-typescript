@@ -18,7 +18,7 @@ export type UpgradeSettings = {
   disableAutomaticUpgrade: boolean;
   enableLegacyEdgeUpgrade: boolean;
   packageUrls?: Array<UpgradePackageUrls> | undefined;
-  upgradeSource: string;
+  upgradeSource?: string | undefined;
 };
 
 /** @internal */
@@ -31,7 +31,7 @@ export const UpgradeSettings$inboundSchema: z.ZodType<
   disableAutomaticUpgrade: z.boolean(),
   enableLegacyEdgeUpgrade: z.boolean(),
   packageUrls: z.array(UpgradePackageUrls$inboundSchema).optional(),
-  upgradeSource: z.string(),
+  upgradeSource: z.string().optional(),
 });
 /** @internal */
 export type UpgradeSettings$Outbound = {
@@ -39,7 +39,7 @@ export type UpgradeSettings$Outbound = {
   disableAutomaticUpgrade: boolean;
   enableLegacyEdgeUpgrade: boolean;
   packageUrls?: Array<UpgradePackageUrls$Outbound> | undefined;
-  upgradeSource: string;
+  upgradeSource?: string | undefined;
 };
 
 /** @internal */
@@ -52,7 +52,7 @@ export const UpgradeSettings$outboundSchema: z.ZodType<
   disableAutomaticUpgrade: z.boolean(),
   enableLegacyEdgeUpgrade: z.boolean(),
   packageUrls: z.array(UpgradePackageUrls$outboundSchema).optional(),
-  upgradeSource: z.string(),
+  upgradeSource: z.string().optional(),
 });
 
 export function upgradeSettingsToJSON(

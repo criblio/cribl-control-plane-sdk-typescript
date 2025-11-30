@@ -52,26 +52,30 @@ let value: CountedSystemSettingsConf = {
         useEnvVars: true,
       },
       rollback: {
-        rollbackEnabled: false,
-        rollbackRetries: 8496.74,
-        rollbackTimeout: 3039.97,
+        rollbackEnabled: true,
+        rollbackRetries: 3163.15,
+        rollbackTimeout: 6964.89,
       },
-      shutdown: {},
-      sni: {},
+      shutdown: {
+        drainTimeout: 8496.74,
+      },
+      sni: {
+        disableSNIRouting: false,
+      },
       sockets: {
-        directory: "/tmp",
+        directory: "/usr/libdata",
       },
       support: {
         featureFlagOverrides: [
           {
-            disabled: true,
+            disabled: false,
             flagId: "<id>",
           },
         ],
       },
       system: {
-        intercom: false,
-        upgrade: "false",
+        intercom: true,
+        upgrade: "api",
       },
       tls: {
         defaultCipherList: "<value>",
@@ -80,27 +84,32 @@ let value: CountedSystemSettingsConf = {
         minVersion: "<value>",
         rejectUnauthorized: true,
       },
-      upgradeGroupSettings: {},
+      upgradeGroupSettings: {
+        isRolling: false,
+        quantity: 9214.76,
+        retryCount: 2981.83,
+        retryDelay: 8349.69,
+      },
       upgradeSettings: {
         automaticUpgradeCheckPeriod: "<value>",
         disableAutomaticUpgrade: false,
-        enableLegacyEdgeUpgrade: true,
+        enableLegacyEdgeUpgrade: false,
         packageUrls: [
           {
-            packageHashUrl: "https://torn-pigpen.com",
-            packageUrl: "https://lasting-bump.com/",
+            packageHashUrl: "https://best-import.com/",
+            packageUrl: "https://appropriate-responsibility.net/",
           },
         ],
         upgradeSource: "<value>",
       },
       workers: {
-        count: 7544.74,
+        count: 1817.1,
         enableHeapSnapshots: false,
-        loadThrottlePerc: 1817.1,
-        memory: 9569.52,
-        minimum: 4246.78,
-        startupMaxConns: 4433.58,
-        startupThrottleTimeout: 2178.79,
+        loadThrottlePerc: 4246.78,
+        memory: 4433.58,
+        minimum: 2178.79,
+        startupMaxConns: 3611.13,
+        startupThrottleTimeout: 2818.79,
         v8SingleThread: true,
       },
     },

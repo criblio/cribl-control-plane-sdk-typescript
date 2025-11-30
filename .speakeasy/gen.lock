@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 2f0243a76af2a0f95ffb2fcd2bb74c3a
-  docVersion: 4.16.0-alpha.1764537500966-708d4cad
+  docChecksum: e9f4b062a3a00c9e3b9d24bf5eb957e3
+  docVersion: 4.16.0-alpha.1764539522165-bd71c8bd
   speakeasyVersion: 1.665.0
   generationVersion: 2.767.2
-  releaseVersion: 0.4.0-rc.12
-  configChecksum: 4c10227a04afbf8179950aadc890648b
+  releaseVersion: 0.4.0-rc.13
+  configChecksum: 1208661c122b57ab6dfb1eeb750ea66d
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -125,9 +125,6 @@ generatedFiles:
   - docs/models/cribllakedatasetupdate.md
   - docs/models/cribllakedatasetupdateformat.md
   - docs/models/currentbranchresult.md
-  - docs/models/customlogo1.md
-  - docs/models/customlogo2.md
-  - docs/models/customlogounion.md
   - docs/models/datadogsite.md
   - docs/models/datasetmetadata.md
   - docs/models/datasetmetadataruninfo.md
@@ -1991,9 +1988,6 @@ generatedFiles:
   - docs/models/prometheusauthoauthheader2.md
   - docs/models/prometheusauthoauthparam1.md
   - docs/models/prometheusauthoauthparam2.md
-  - docs/models/proxysettings1.md
-  - docs/models/proxysettings2.md
-  - docs/models/proxysettingsunion.md
   - docs/models/query.md
   - docs/models/querybuildermode.md
   - docs/models/rbacresource.md
@@ -2064,9 +2058,6 @@ generatedFiles:
   - docs/models/serviceslimits.md
   - docs/models/sharditeratorstart.md
   - docs/models/shardloadbalancing.md
-  - docs/models/shutdownsettings1.md
-  - docs/models/shutdownsettings2.md
-  - docs/models/shutdownsettingsunion.md
   - docs/models/snisettings1.md
   - docs/models/snisettings2.md
   - docs/models/snisettingsunion.md
@@ -2082,19 +2073,27 @@ generatedFiles:
   - docs/models/systemsettingsapi.md
   - docs/models/systemsettingsconf.md
   - docs/models/systemsettingsconfapi.md
+  - docs/models/systemsettingsconfcustomlogo.md
   - docs/models/systemsettingsconffeatureflagoverride.md
+  - docs/models/systemsettingsconfproxy.md
+  - docs/models/systemsettingsconfshutdown.md
   - docs/models/systemsettingsconfsockets.md
   - docs/models/systemsettingsconfssl.md
   - docs/models/systemsettingsconfsupport.md
   - docs/models/systemsettingsconfsystem.md
   - docs/models/systemsettingsconfupgrade.md
+  - docs/models/systemsettingsconfworkers.md
+  - docs/models/systemsettingscustomlogo.md
   - docs/models/systemsettingsfeatureflagoverride.md
   - docs/models/systemsettingsmode.md
+  - docs/models/systemsettingsproxy.md
+  - docs/models/systemsettingsshutdown.md
   - docs/models/systemsettingssockets.md
   - docs/models/systemsettingsssl.md
   - docs/models/systemsettingssupport.md
   - docs/models/systemsettingssystem.md
   - docs/models/systemsettingsupgrade.md
+  - docs/models/systemsettingsworkers.md
   - docs/models/target.md
   - docs/models/targetprotocol.md
   - docs/models/teamaccesscontrollist.md
@@ -2120,9 +2119,6 @@ generatedFiles:
   - docs/models/warmpoolsize.md
   - docs/models/warmpoolsizeenum.md
   - docs/models/wheretocapture.md
-  - docs/models/workerssettings1.md
-  - docs/models/workerssettings2.md
-  - docs/models/workerssettingsunion.md
   - docs/models/workertypes.md
   - docs/models/writeaction.md
   - docs/sdks/acl/README.md
@@ -2287,7 +2283,6 @@ generatedFiles:
   - src/models/cribllakedataset.ts
   - src/models/cribllakedatasetupdate.ts
   - src/models/currentbranchresult.ts
-  - src/models/customlogounion.ts
   - src/models/datasetmetadata.ts
   - src/models/datasetmetadataruninfo.ts
   - src/models/deployrequest.ts
@@ -2536,7 +2531,6 @@ generatedFiles:
   - src/models/pipeline.ts
   - src/models/pipelinefunctionconf.ts
   - src/models/productscore.ts
-  - src/models/proxysettingsunion.ts
   - src/models/rbacresource.ts
   - src/models/rediscachelimits.ts
   - src/models/redisconnectionlimits.ts
@@ -2555,7 +2549,6 @@ generatedFiles:
   - src/models/security.ts
   - src/models/serviceprocstype.ts
   - src/models/serviceslimits.ts
-  - src/models/shutdownsettingsunion.ts
   - src/models/snisettingsunion.ts
   - src/models/systemsettings.ts
   - src/models/systemsettingsconf.ts
@@ -2567,7 +2560,6 @@ generatedFiles:
   - src/models/upgradesettings.ts
   - src/models/uploadpackresponse.ts
   - src/models/useraccesscontrollist.ts
-  - src/models/workerssettingsunion.ts
   - src/models/workertypes.ts
   - src/sdk/acl.ts
   - src/sdk/auth.ts
