@@ -62,9 +62,9 @@ import {
   UpgradeGroupSettingsUnion$inboundSchema,
 } from "./upgradegroupsettingsunion.js";
 import {
-  UpgradeSettingsUnion,
-  UpgradeSettingsUnion$inboundSchema,
-} from "./upgradesettingsunion.js";
+  UpgradeSettings,
+  UpgradeSettings$inboundSchema,
+} from "./upgradesettings.js";
 import {
   WorkersSettingsUnion,
   WorkersSettingsUnion$inboundSchema,
@@ -139,7 +139,7 @@ export type SystemSettings = {
   api: SystemSettingsApi;
   auth: AuthConfig;
   backups: BackupsSettingsUnion;
-  customLogo?: CustomLogoUnion | undefined;
+  customLogo: CustomLogoUnion;
   distributed: Distributed;
   fips: boolean;
   git: GitSettings;
@@ -159,7 +159,7 @@ export type SystemSettings = {
   system: SystemSettingsSystem;
   tls: TlsSettingsUnion;
   upgradeGroupSettings: UpgradeGroupSettingsUnion;
-  upgradeSettings: UpgradeSettingsUnion;
+  upgradeSettings: UpgradeSettings;
   workers: WorkersSettingsUnion;
 };
 
@@ -341,7 +341,7 @@ export const SystemSettings$inboundSchema: z.ZodType<
   api: z.lazy(() => SystemSettingsApi$inboundSchema),
   auth: AuthConfig$inboundSchema,
   backups: BackupsSettingsUnion$inboundSchema,
-  customLogo: CustomLogoUnion$inboundSchema.optional(),
+  customLogo: CustomLogoUnion$inboundSchema,
   distributed: z.lazy(() => Distributed$inboundSchema),
   fips: z.boolean(),
   git: GitSettings$inboundSchema,
@@ -361,7 +361,7 @@ export const SystemSettings$inboundSchema: z.ZodType<
   system: z.lazy(() => SystemSettingsSystem$inboundSchema),
   tls: TlsSettingsUnion$inboundSchema,
   upgradeGroupSettings: UpgradeGroupSettingsUnion$inboundSchema,
-  upgradeSettings: UpgradeSettingsUnion$inboundSchema,
+  upgradeSettings: UpgradeSettings$inboundSchema,
   workers: WorkersSettingsUnion$inboundSchema,
 });
 

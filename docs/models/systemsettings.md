@@ -220,7 +220,18 @@ let value: SystemSettings = {
     retryCount: 9323.66,
     retryDelay: 1.27,
   },
-  upgradeSettings: {},
+  upgradeSettings: {
+    automaticUpgradeCheckPeriod: "<value>",
+    disableAutomaticUpgrade: false,
+    enableLegacyEdgeUpgrade: true,
+    packageUrls: [
+      {
+        packageHashUrl: "https://torn-pigpen.com",
+        packageUrl: "https://lasting-bump.com/",
+      },
+    ],
+    upgradeSource: "<value>",
+  },
   workers: {},
 };
 ```
@@ -232,7 +243,7 @@ let value: SystemSettings = {
 | `api`                                                              | [models.SystemSettingsApi](../models/systemsettingsapi.md)         | :heavy_check_mark:                                                 | N/A                                                                |
 | `auth`                                                             | [models.AuthConfig](../models/authconfig.md)                       | :heavy_check_mark:                                                 | N/A                                                                |
 | `backups`                                                          | *models.BackupsSettingsUnion*                                      | :heavy_check_mark:                                                 | N/A                                                                |
-| `customLogo`                                                       | *models.CustomLogoUnion*                                           | :heavy_minus_sign:                                                 | N/A                                                                |
+| `customLogo`                                                       | *models.CustomLogoUnion*                                           | :heavy_check_mark:                                                 | N/A                                                                |
 | `distributed`                                                      | [models.Distributed](../models/distributed.md)                     | :heavy_check_mark:                                                 | N/A                                                                |
 | `fips`                                                             | *boolean*                                                          | :heavy_check_mark:                                                 | N/A                                                                |
 | `git`                                                              | [models.GitSettings](../models/gitsettings.md)                     | :heavy_check_mark:                                                 | N/A                                                                |
@@ -252,5 +263,5 @@ let value: SystemSettings = {
 | `system`                                                           | [models.SystemSettingsSystem](../models/systemsettingssystem.md)   | :heavy_check_mark:                                                 | N/A                                                                |
 | `tls`                                                              | *models.TlsSettingsUnion*                                          | :heavy_check_mark:                                                 | N/A                                                                |
 | `upgradeGroupSettings`                                             | *models.UpgradeGroupSettingsUnion*                                 | :heavy_check_mark:                                                 | N/A                                                                |
-| `upgradeSettings`                                                  | *models.UpgradeSettingsUnion*                                      | :heavy_check_mark:                                                 | N/A                                                                |
+| `upgradeSettings`                                                  | [models.UpgradeSettings](../models/upgradesettings.md)             | :heavy_check_mark:                                                 | N/A                                                                |
 | `workers`                                                          | *models.WorkersSettingsUnion*                                      | :heavy_check_mark:                                                 | N/A                                                                |

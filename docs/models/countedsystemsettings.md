@@ -221,17 +221,19 @@ let value: CountedSystemSettings = {
         retryCount: 9323.66,
         retryDelay: 1.27,
       },
-      upgradeSettings: {},
-      workers: {
-        count: 8349.69,
-        enableHeapSnapshots: false,
-        loadThrottlePerc: 6678.5,
-        memory: 782.67,
-        minimum: 638.33,
-        startupMaxConns: 4564.1,
-        startupThrottleTimeout: 1068.48,
-        v8SingleThread: true,
+      upgradeSettings: {
+        automaticUpgradeCheckPeriod: "<value>",
+        disableAutomaticUpgrade: false,
+        enableLegacyEdgeUpgrade: true,
+        packageUrls: [
+          {
+            packageHashUrl: "https://torn-pigpen.com",
+            packageUrl: "https://lasting-bump.com/",
+          },
+        ],
+        upgradeSource: "<value>",
       },
+      workers: {},
     },
   ],
 };
