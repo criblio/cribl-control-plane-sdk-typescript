@@ -72,17 +72,26 @@ let value: SystemSettingsConf = {
   },
   upgradeSettings: {
     automaticUpgradeCheckPeriod: "<value>",
-    disableAutomaticUpgrade: true,
+    disableAutomaticUpgrade: false,
     enableLegacyEdgeUpgrade: true,
     packageUrls: [
       {
-        packageHashUrl: "https://strict-alliance.info/",
-        packageUrl: "https://cuddly-bathhouse.info",
+        packageHashUrl: "https://torn-pigpen.com",
+        packageUrl: "https://lasting-bump.com/",
       },
     ],
     upgradeSource: "<value>",
   },
-  workers: {},
+  workers: {
+    count: 7544.74,
+    enableHeapSnapshots: false,
+    loadThrottlePerc: 1817.1,
+    memory: 9569.52,
+    minimum: 4246.78,
+    startupMaxConns: 4433.58,
+    startupThrottleTimeout: 2178.79,
+    v8SingleThread: true,
+  },
 };
 ```
 
@@ -92,7 +101,7 @@ let value: SystemSettingsConf = {
 | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
 | `api`                                                                      | [models.SystemSettingsConfApi](../models/systemsettingsconfapi.md)         | :heavy_check_mark:                                                         | N/A                                                                        |
 | `backups`                                                                  | *models.BackupsSettingsUnion*                                              | :heavy_check_mark:                                                         | N/A                                                                        |
-| `customLogo`                                                               | *models.CustomLogoUnion*                                                   | :heavy_minus_sign:                                                         | N/A                                                                        |
+| `customLogo`                                                               | *models.CustomLogoUnion*                                                   | :heavy_check_mark:                                                         | N/A                                                                        |
 | `pii`                                                                      | *models.PiiSettingsUnion*                                                  | :heavy_check_mark:                                                         | N/A                                                                        |
 | `proxy`                                                                    | *models.ProxySettingsUnion*                                                | :heavy_check_mark:                                                         | N/A                                                                        |
 | `rollback`                                                                 | *models.RollbackSettingsUnion*                                             | :heavy_check_mark:                                                         | N/A                                                                        |
@@ -103,5 +112,5 @@ let value: SystemSettingsConf = {
 | `system`                                                                   | [models.SystemSettingsConfSystem](../models/systemsettingsconfsystem.md)   | :heavy_check_mark:                                                         | N/A                                                                        |
 | `tls`                                                                      | *models.TlsSettingsUnion*                                                  | :heavy_check_mark:                                                         | N/A                                                                        |
 | `upgradeGroupSettings`                                                     | *models.UpgradeGroupSettingsUnion*                                         | :heavy_check_mark:                                                         | N/A                                                                        |
-| `upgradeSettings`                                                          | *models.UpgradeSettingsUnion*                                              | :heavy_check_mark:                                                         | N/A                                                                        |
+| `upgradeSettings`                                                          | [models.UpgradeSettings](../models/upgradesettings.md)                     | :heavy_check_mark:                                                         | N/A                                                                        |
 | `workers`                                                                  | *models.WorkersSettingsUnion*                                              | :heavy_check_mark:                                                         | N/A                                                                        |

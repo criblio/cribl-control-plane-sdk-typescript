@@ -63,11 +63,11 @@ import {
   UpgradeGroupSettingsUnion$outboundSchema,
 } from "./upgradegroupsettingsunion.js";
 import {
-  UpgradeSettingsUnion,
-  UpgradeSettingsUnion$inboundSchema,
-  UpgradeSettingsUnion$Outbound,
-  UpgradeSettingsUnion$outboundSchema,
-} from "./upgradesettingsunion.js";
+  UpgradeSettings,
+  UpgradeSettings$inboundSchema,
+  UpgradeSettings$Outbound,
+  UpgradeSettings$outboundSchema,
+} from "./upgradesettings.js";
 import {
   WorkersSettingsUnion,
   WorkersSettingsUnion$inboundSchema,
@@ -132,7 +132,7 @@ export type SystemSettingsConfSystem = {
 export type SystemSettingsConf = {
   api: SystemSettingsConfApi;
   backups: BackupsSettingsUnion;
-  customLogo?: CustomLogoUnion | undefined;
+  customLogo: CustomLogoUnion;
   pii: PiiSettingsUnion;
   proxy: ProxySettingsUnion;
   rollback: RollbackSettingsUnion;
@@ -143,7 +143,7 @@ export type SystemSettingsConf = {
   system: SystemSettingsConfSystem;
   tls: TlsSettingsUnion;
   upgradeGroupSettings: UpgradeGroupSettingsUnion;
-  upgradeSettings: UpgradeSettingsUnion;
+  upgradeSettings: UpgradeSettings;
   workers: WorkersSettingsUnion;
 };
 
@@ -471,7 +471,7 @@ export const SystemSettingsConf$inboundSchema: z.ZodType<
 > = z.object({
   api: z.lazy(() => SystemSettingsConfApi$inboundSchema),
   backups: BackupsSettingsUnion$inboundSchema,
-  customLogo: CustomLogoUnion$inboundSchema.optional(),
+  customLogo: CustomLogoUnion$inboundSchema,
   pii: PiiSettingsUnion$inboundSchema,
   proxy: ProxySettingsUnion$inboundSchema,
   rollback: RollbackSettingsUnion$inboundSchema,
@@ -482,14 +482,14 @@ export const SystemSettingsConf$inboundSchema: z.ZodType<
   system: z.lazy(() => SystemSettingsConfSystem$inboundSchema),
   tls: TlsSettingsUnion$inboundSchema,
   upgradeGroupSettings: UpgradeGroupSettingsUnion$inboundSchema,
-  upgradeSettings: UpgradeSettingsUnion$inboundSchema,
+  upgradeSettings: UpgradeSettings$inboundSchema,
   workers: WorkersSettingsUnion$inboundSchema,
 });
 /** @internal */
 export type SystemSettingsConf$Outbound = {
   api: SystemSettingsConfApi$Outbound;
   backups: BackupsSettingsUnion$Outbound;
-  customLogo?: CustomLogoUnion$Outbound | undefined;
+  customLogo: CustomLogoUnion$Outbound;
   pii: PiiSettingsUnion$Outbound;
   proxy: ProxySettingsUnion$Outbound;
   rollback: RollbackSettingsUnion$Outbound;
@@ -500,7 +500,7 @@ export type SystemSettingsConf$Outbound = {
   system: SystemSettingsConfSystem$Outbound;
   tls: TlsSettingsUnion$Outbound;
   upgradeGroupSettings: UpgradeGroupSettingsUnion$Outbound;
-  upgradeSettings: UpgradeSettingsUnion$Outbound;
+  upgradeSettings: UpgradeSettings$Outbound;
   workers: WorkersSettingsUnion$Outbound;
 };
 
@@ -512,7 +512,7 @@ export const SystemSettingsConf$outboundSchema: z.ZodType<
 > = z.object({
   api: z.lazy(() => SystemSettingsConfApi$outboundSchema),
   backups: BackupsSettingsUnion$outboundSchema,
-  customLogo: CustomLogoUnion$outboundSchema.optional(),
+  customLogo: CustomLogoUnion$outboundSchema,
   pii: PiiSettingsUnion$outboundSchema,
   proxy: ProxySettingsUnion$outboundSchema,
   rollback: RollbackSettingsUnion$outboundSchema,
@@ -523,7 +523,7 @@ export const SystemSettingsConf$outboundSchema: z.ZodType<
   system: z.lazy(() => SystemSettingsConfSystem$outboundSchema),
   tls: TlsSettingsUnion$outboundSchema,
   upgradeGroupSettings: UpgradeGroupSettingsUnion$outboundSchema,
-  upgradeSettings: UpgradeSettingsUnion$outboundSchema,
+  upgradeSettings: UpgradeSettings$outboundSchema,
   workers: WorkersSettingsUnion$outboundSchema,
 });
 

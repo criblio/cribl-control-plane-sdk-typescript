@@ -1,18 +1,18 @@
-# UpgradeSettings1
+# UpgradeSettings
 
 ## Example Usage
 
 ```typescript
-import { UpgradeSettings1 } from "cribl-control-plane/models";
+import { UpgradeSettings } from "cribl-control-plane/models";
 
-let value: UpgradeSettings1 = {
+let value: UpgradeSettings = {
   automaticUpgradeCheckPeriod: "<value>",
-  disableAutomaticUpgrade: false,
+  disableAutomaticUpgrade: true,
   enableLegacyEdgeUpgrade: false,
   packageUrls: [
     {
-      packageHashUrl: "https://strict-alliance.info/",
-      packageUrl: "https://cuddly-bathhouse.info",
+      packageHashUrl: "https://torn-pigpen.com",
+      packageUrl: "https://lasting-bump.com/",
     },
   ],
   upgradeSource: "<value>",

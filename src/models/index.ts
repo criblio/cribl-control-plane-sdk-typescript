@@ -267,7 +267,7 @@ export * from "./tlssettingsunion.js";
 export * from "./updatehectokenrequest.js";
 export * from "./upgradegroupsettingsunion.js";
 export * from "./upgradepackageurls.js";
-export * from "./upgradesettingsunion.js";
+export * from "./upgradesettings.js";
 export * from "./uploadpackresponse.js";
 export * from "./useraccesscontrollist.js";
 export * from "./workerssettingsunion.js";

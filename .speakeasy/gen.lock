@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 3ff211a9efd4b4c068a3dd1ce83868ae
-  docVersion: 4.16.0-alpha.1764417066009-0840ca85
+  docChecksum: 2f0243a76af2a0f95ffb2fcd2bb74c3a
+  docVersion: 4.16.0-alpha.1764537500966-708d4cad
   speakeasyVersion: 1.665.0
   generationVersion: 2.767.2
-  releaseVersion: 0.4.0-rc.11
-  configChecksum: 5c8e83bea9e131329bbef59c540dd233
+  releaseVersion: 0.4.0-rc.12
+  configChecksum: 4c10227a04afbf8179950aadc890648b
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -2112,9 +2112,7 @@ generatedFiles:
   - docs/models/upgradegroupsettings2.md
   - docs/models/upgradegroupsettingsunion.md
   - docs/models/upgradepackageurls.md
-  - docs/models/upgradesettings1.md
-  - docs/models/upgradesettings2.md
-  - docs/models/upgradesettingsunion.md
+  - docs/models/upgradesettings.md
   - docs/models/uploadpackresponse.md
   - docs/models/useraccesscontrollist.md
   - docs/models/usersandgroups.md
@@ -2566,7 +2564,7 @@ generatedFiles:
   - src/models/updatehectokenrequest.ts
   - src/models/upgradegroupsettingsunion.ts
   - src/models/upgradepackageurls.ts
-  - src/models/upgradesettingsunion.ts
+  - src/models/upgradesettings.ts
   - src/models/uploadpackresponse.ts
   - src/models/useraccesscontrollist.ts
   - src/models/workerssettingsunion.ts
@@ -3670,4 +3668,4 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.system.settings.cribl.list()`:  `response.items.[].api.ssl` **Changed**\n* `criblcontrolplane.system.settings.cribl.update()`: \n  *  `request.api.ssl` **Changed**\n  *  `response.items.[].api.ssl` **Changed**\n"
+releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.system.settings.cribl.list()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.system.settings.cribl.update()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed** **Breaking** :warning:\n"
