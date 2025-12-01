@@ -360,7 +360,7 @@ run();
 
 ### Response
 
-**Promise\<[models.CountedSystemSettings](../../models/countedsystemsettings.md)\>**
+**Promise\<[models.CountedSystemSettingsConf](../../models/countedsystemsettingsconf.md)\>**
 
 ### Errors
 

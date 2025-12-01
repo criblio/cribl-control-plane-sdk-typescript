@@ -1,11 +1,11 @@
-# SystemSettingsSsl
+# Ssl
 
 ## Example Usage
 
 ```typescript
-import { SystemSettingsSsl } from "cribl-control-plane/models";
+import { Ssl } from "cribl-control-plane/models";
 
-let value: SystemSettingsSsl = {
+let value: Ssl = {
   caPath: "<value>",
   certPath: "<value>",
   disabled: true,

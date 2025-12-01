@@ -1,12 +1,12 @@
-# Samples
+# Shutdown
 
 ## Example Usage
 
 ```typescript
-import { Samples } from "cribl-control-plane/models";
+import { Shutdown } from "cribl-control-plane/models";
 
-let value: Samples = {
-  maxSize: "<value>",
+let value: Shutdown = {
+  drainTimeout: 1342.2,
 };
 ```
 
@@ -14,4 +14,4 @@ let value: Samples = {
 
 | Field              | Type               | Required           | Description        |
 | ------------------ | ------------------ | ------------------ | ------------------ |
-| `maxSize`          | *string*           | :heavy_check_mark: | N/A                |
+| `drainTimeout`     | *number*           | :heavy_check_mark: | N/A                |

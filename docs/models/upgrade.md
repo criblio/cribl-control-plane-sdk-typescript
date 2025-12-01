@@ -1,11 +1,11 @@
-# ServiceProcsTypeEnum
+# Upgrade
 
 ## Example Usage
 
 ```typescript
-import { ServiceProcsTypeEnum } from "cribl-control-plane/models";
+import { Upgrade } from "cribl-control-plane/models";
 
-let value: ServiceProcsTypeEnum = "auto";
+let value: Upgrade = "api";
 ```
 
 ## Values
@@ -13,5 +13,5 @@ let value: ServiceProcsTypeEnum = "auto";
 This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
-"auto" | Unrecognized<string>
+"false" | "api" | Unrecognized<string>
 ```

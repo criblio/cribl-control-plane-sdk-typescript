@@ -33,7 +33,7 @@ export class Cribl extends ClientSDK {
   async update(
     request: models.SystemSettingsConf,
     options?: RequestOptions,
-  ): Promise<models.CountedSystemSettings> {
+  ): Promise<models.CountedSystemSettingsConf> {
     return unwrapAsync(systemSettingsCriblUpdate(
       this,
       request,

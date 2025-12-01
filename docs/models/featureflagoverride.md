@@ -1,12 +1,12 @@
-# SystemSettingsConfFeatureFlagOverride
+# FeatureFlagOverride
 
 ## Example Usage
 
 ```typescript
-import { SystemSettingsConfFeatureFlagOverride } from "cribl-control-plane/models";
+import { FeatureFlagOverride } from "cribl-control-plane/models";
 
-let value: SystemSettingsConfFeatureFlagOverride = {
-  disabled: true,
+let value: FeatureFlagOverride = {
+  disabled: false,
   flagId: "<id>",
 };
 ```
