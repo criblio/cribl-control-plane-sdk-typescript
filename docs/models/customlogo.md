@@ -1,11 +1,11 @@
-# SystemSettingsCustomLogo
+# CustomLogo
 
 ## Example Usage
 
 ```typescript
-import { SystemSettingsCustomLogo } from "cribl-control-plane/models";
+import { CustomLogo } from "cribl-control-plane/models";
 
-let value: SystemSettingsCustomLogo = {
+let value: CustomLogo = {
   enabled: true,
   logoDescription: "<value>",
   logoImage: "<value>",

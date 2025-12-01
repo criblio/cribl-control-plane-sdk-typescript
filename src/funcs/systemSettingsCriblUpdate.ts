@@ -37,7 +37,7 @@ export function systemSettingsCriblUpdate(
   options?: RequestOptions,
 ): APIPromise<
   Result<
-    models.CountedSystemSettings,
+    models.CountedSystemSettingsConf,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -63,7 +63,7 @@ async function $do(
 ): Promise<
   [
     Result<
-      models.CountedSystemSettings,
+      models.CountedSystemSettingsConf,
       | errors.ErrorT
       | CriblControlPlaneError
       | ResponseValidationError
@@ -154,7 +154,7 @@ async function $do(
   };
 
   const [result] = await M.match<
-    models.CountedSystemSettings,
+    models.CountedSystemSettingsConf,
     | errors.ErrorT
     | CriblControlPlaneError
     | ResponseValidationError
@@ -165,7 +165,7 @@ async function $do(
     | UnexpectedClientError
     | SDKValidationError
   >(
-    M.json(200, models.CountedSystemSettings$inboundSchema),
+    M.json(200, models.CountedSystemSettingsConf$inboundSchema),
     M.jsonErr(500, errors.ErrorT$inboundSchema),
     M.fail([401, "4XX"]),
     M.fail("5XX"),

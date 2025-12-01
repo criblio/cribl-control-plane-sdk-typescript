@@ -1,12 +1,12 @@
-# SystemSettingsConfSockets
+# Sockets
 
 ## Example Usage
 
 ```typescript
-import { SystemSettingsConfSockets } from "cribl-control-plane/models";
+import { Sockets } from "cribl-control-plane/models";
 
-let value: SystemSettingsConfSockets = {
-  directory: "/private/var",
+let value: Sockets = {
+  directory: "/var/log",
 };
 ```
 
