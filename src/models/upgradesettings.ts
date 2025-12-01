@@ -15,10 +15,10 @@ import {
 
 export type UpgradeSettings = {
   automaticUpgradeCheckPeriod?: string | undefined;
-  disableAutomaticUpgrade: boolean;
-  enableLegacyEdgeUpgrade: boolean;
+  disableAutomaticUpgrade?: boolean | undefined;
+  enableLegacyEdgeUpgrade?: boolean | undefined;
   packageUrls?: Array<UpgradePackageUrls> | undefined;
-  upgradeSource: string;
+  upgradeSource?: string | undefined;
 };
 
 /** @internal */
@@ -28,18 +28,18 @@ export const UpgradeSettings$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   automaticUpgradeCheckPeriod: z.string().optional(),
-  disableAutomaticUpgrade: z.boolean(),
-  enableLegacyEdgeUpgrade: z.boolean(),
+  disableAutomaticUpgrade: z.boolean().optional(),
+  enableLegacyEdgeUpgrade: z.boolean().optional(),
   packageUrls: z.array(UpgradePackageUrls$inboundSchema).optional(),
-  upgradeSource: z.string(),
+  upgradeSource: z.string().optional(),
 });
 /** @internal */
 export type UpgradeSettings$Outbound = {
   automaticUpgradeCheckPeriod?: string | undefined;
-  disableAutomaticUpgrade: boolean;
-  enableLegacyEdgeUpgrade: boolean;
+  disableAutomaticUpgrade?: boolean | undefined;
+  enableLegacyEdgeUpgrade?: boolean | undefined;
   packageUrls?: Array<UpgradePackageUrls$Outbound> | undefined;
-  upgradeSource: string;
+  upgradeSource?: string | undefined;
 };
 
 /** @internal */
@@ -49,10 +49,10 @@ export const UpgradeSettings$outboundSchema: z.ZodType<
   UpgradeSettings
 > = z.object({
   automaticUpgradeCheckPeriod: z.string().optional(),
-  disableAutomaticUpgrade: z.boolean(),
-  enableLegacyEdgeUpgrade: z.boolean(),
+  disableAutomaticUpgrade: z.boolean().optional(),
+  enableLegacyEdgeUpgrade: z.boolean().optional(),
   packageUrls: z.array(UpgradePackageUrls$outboundSchema).optional(),
-  upgradeSource: z.string(),
+  upgradeSource: z.string().optional(),
 });
 
 export function upgradeSettingsToJSON(
