@@ -129,7 +129,7 @@ export type SystemSettingsConfWorkers = {
 export type SystemSettingsConf = {
   api: Api;
   backups: BackupsSettingsUnion;
-  customLogo: CustomLogo;
+  customLogo?: CustomLogo | undefined;
   pii: PiiSettingsUnion;
   proxy: Proxy;
   rollback: RollbackSettingsUnion;
@@ -591,7 +591,7 @@ export const SystemSettingsConf$inboundSchema: z.ZodType<
 > = z.object({
   api: z.lazy(() => Api$inboundSchema),
   backups: BackupsSettingsUnion$inboundSchema,
-  customLogo: z.lazy(() => CustomLogo$inboundSchema),
+  customLogo: z.lazy(() => CustomLogo$inboundSchema).optional(),
   pii: PiiSettingsUnion$inboundSchema,
   proxy: z.lazy(() => Proxy$inboundSchema),
   rollback: RollbackSettingsUnion$inboundSchema,
@@ -609,7 +609,7 @@ export const SystemSettingsConf$inboundSchema: z.ZodType<
 export type SystemSettingsConf$Outbound = {
   api: Api$Outbound;
   backups: BackupsSettingsUnion$Outbound;
-  customLogo: CustomLogo$Outbound;
+  customLogo?: CustomLogo$Outbound | undefined;
   pii: PiiSettingsUnion$Outbound;
   proxy: Proxy$Outbound;
   rollback: RollbackSettingsUnion$Outbound;
@@ -632,7 +632,7 @@ export const SystemSettingsConf$outboundSchema: z.ZodType<
 > = z.object({
   api: z.lazy(() => Api$outboundSchema),
   backups: BackupsSettingsUnion$outboundSchema,
-  customLogo: z.lazy(() => CustomLogo$outboundSchema),
+  customLogo: z.lazy(() => CustomLogo$outboundSchema).optional(),
   pii: PiiSettingsUnion$outboundSchema,
   proxy: z.lazy(() => Proxy$outboundSchema),
   rollback: RollbackSettingsUnion$outboundSchema,

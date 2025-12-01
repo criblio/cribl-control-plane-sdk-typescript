@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: 6e6523be6c5beeb5413e73df70326c23
-  docVersion: 4.16.0-TC779-d71d692f
+  docChecksum: 2aa372f292d86638be531da85bdbdec1
+  docVersion: 4.16.0-T790-846c4cdc
   speakeasyVersion: 1.665.0
   generationVersion: 2.767.2
-  releaseVersion: 0.4.0-rc.16
-  configChecksum: 0e2ad794b0e93a5d26957363603f6d0a
+  releaseVersion: 0.4.0-rc.17
+  configChecksum: eb483450af8c184ba3a93839e9c3a49f
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -3609,4 +3609,4 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.system.settings.cribl.list()`:  `response.items.[].upgradeSettings` **Changed**\n* `criblcontrolplane.system.settings.cribl.update()`: \n  *  `request.upgradeSettings` **Changed**\n  *  `response.items.[].upgradeSettings` **Changed**\n"
+releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.system.settings.cribl.list()`:  `response.items.[].customLogo` **Changed**\n* `criblcontrolplane.system.settings.cribl.update()`: \n  *  `request.customLogo` **Changed**\n  *  `response.items.[].customLogo` **Changed**\n"
