@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -527,40 +523,26 @@ export const InputWindowsMetricsPqMode$inboundSchema: z.ZodType<
   InputWindowsMetricsPqMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputWindowsMetricsPqMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputWindowsMetricsPqMode);
 /** @internal */
 export const InputWindowsMetricsPqMode$outboundSchema: z.ZodType<
-  InputWindowsMetricsPqMode,
+  string,
   z.ZodTypeDef,
   InputWindowsMetricsPqMode
-> = z.union([
-  z.nativeEnum(InputWindowsMetricsPqMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputWindowsMetricsPqMode);
 
 /** @internal */
 export const InputWindowsMetricsCompression$inboundSchema: z.ZodType<
   InputWindowsMetricsCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputWindowsMetricsCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputWindowsMetricsCompression);
 /** @internal */
 export const InputWindowsMetricsCompression$outboundSchema: z.ZodType<
-  InputWindowsMetricsCompression,
+  string,
   z.ZodTypeDef,
   InputWindowsMetricsCompression
-> = z.union([
-  z.nativeEnum(InputWindowsMetricsCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputWindowsMetricsCompression);
 
 /** @internal */
 export const InputWindowsMetricsPqControls$inboundSchema: z.ZodType<
@@ -664,40 +646,26 @@ export const InputWindowsMetricsHostMode$inboundSchema: z.ZodType<
   InputWindowsMetricsHostMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputWindowsMetricsHostMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputWindowsMetricsHostMode);
 /** @internal */
 export const InputWindowsMetricsHostMode$outboundSchema: z.ZodType<
-  InputWindowsMetricsHostMode,
+  string,
   z.ZodTypeDef,
   InputWindowsMetricsHostMode
-> = z.union([
-  z.nativeEnum(InputWindowsMetricsHostMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputWindowsMetricsHostMode);
 
 /** @internal */
 export const InputWindowsMetricsSystemMode$inboundSchema: z.ZodType<
   InputWindowsMetricsSystemMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputWindowsMetricsSystemMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputWindowsMetricsSystemMode);
 /** @internal */
 export const InputWindowsMetricsSystemMode$outboundSchema: z.ZodType<
-  InputWindowsMetricsSystemMode,
+  string,
   z.ZodTypeDef,
   InputWindowsMetricsSystemMode
-> = z.union([
-  z.nativeEnum(InputWindowsMetricsSystemMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputWindowsMetricsSystemMode);
 
 /** @internal */
 export const InputWindowsMetricsSystem$inboundSchema: z.ZodType<
@@ -746,20 +714,13 @@ export const InputWindowsMetricsCpuMode$inboundSchema: z.ZodType<
   InputWindowsMetricsCpuMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputWindowsMetricsCpuMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputWindowsMetricsCpuMode);
 /** @internal */
 export const InputWindowsMetricsCpuMode$outboundSchema: z.ZodType<
-  InputWindowsMetricsCpuMode,
+  string,
   z.ZodTypeDef,
   InputWindowsMetricsCpuMode
-> = z.union([
-  z.nativeEnum(InputWindowsMetricsCpuMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputWindowsMetricsCpuMode);
 
 /** @internal */
 export const InputWindowsMetricsCpu$inboundSchema: z.ZodType<
@@ -814,20 +775,13 @@ export const InputWindowsMetricsMemoryMode$inboundSchema: z.ZodType<
   InputWindowsMetricsMemoryMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputWindowsMetricsMemoryMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputWindowsMetricsMemoryMode);
 /** @internal */
 export const InputWindowsMetricsMemoryMode$outboundSchema: z.ZodType<
-  InputWindowsMetricsMemoryMode,
+  string,
   z.ZodTypeDef,
   InputWindowsMetricsMemoryMode
-> = z.union([
-  z.nativeEnum(InputWindowsMetricsMemoryMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputWindowsMetricsMemoryMode);
 
 /** @internal */
 export const InputWindowsMetricsMemory$inboundSchema: z.ZodType<
@@ -876,20 +830,13 @@ export const InputWindowsMetricsNetworkMode$inboundSchema: z.ZodType<
   InputWindowsMetricsNetworkMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputWindowsMetricsNetworkMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputWindowsMetricsNetworkMode);
 /** @internal */
 export const InputWindowsMetricsNetworkMode$outboundSchema: z.ZodType<
-  InputWindowsMetricsNetworkMode,
+  string,
   z.ZodTypeDef,
   InputWindowsMetricsNetworkMode
-> = z.union([
-  z.nativeEnum(InputWindowsMetricsNetworkMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputWindowsMetricsNetworkMode);
 
 /** @internal */
 export const InputWindowsMetricsNetwork$inboundSchema: z.ZodType<
@@ -947,20 +894,13 @@ export const InputWindowsMetricsDiskMode$inboundSchema: z.ZodType<
   InputWindowsMetricsDiskMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputWindowsMetricsDiskMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputWindowsMetricsDiskMode);
 /** @internal */
 export const InputWindowsMetricsDiskMode$outboundSchema: z.ZodType<
-  InputWindowsMetricsDiskMode,
+  string,
   z.ZodTypeDef,
   InputWindowsMetricsDiskMode
-> = z.union([
-  z.nativeEnum(InputWindowsMetricsDiskMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputWindowsMetricsDiskMode);
 
 /** @internal */
 export const InputWindowsMetricsDisk$inboundSchema: z.ZodType<
@@ -1236,20 +1176,13 @@ export const InputWindowsMetricsDataCompressionFormat$inboundSchema: z.ZodType<
   InputWindowsMetricsDataCompressionFormat,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputWindowsMetricsDataCompressionFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputWindowsMetricsDataCompressionFormat);
 /** @internal */
 export const InputWindowsMetricsDataCompressionFormat$outboundSchema: z.ZodType<
-  InputWindowsMetricsDataCompressionFormat,
+  string,
   z.ZodTypeDef,
   InputWindowsMetricsDataCompressionFormat
-> = z.union([
-  z.nativeEnum(InputWindowsMetricsDataCompressionFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputWindowsMetricsDataCompressionFormat);
 
 /** @internal */
 export const InputWindowsMetricsPersistence$inboundSchema: z.ZodType<

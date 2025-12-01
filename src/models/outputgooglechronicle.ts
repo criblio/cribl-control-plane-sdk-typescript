@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -444,41 +440,24 @@ export const OutputGoogleChronicleAPIVersion$inboundSchema: z.ZodType<
   OutputGoogleChronicleAPIVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGoogleChronicleAPIVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputGoogleChronicleAPIVersion);
 /** @internal */
 export const OutputGoogleChronicleAPIVersion$outboundSchema: z.ZodType<
-  OutputGoogleChronicleAPIVersion,
+  string,
   z.ZodTypeDef,
   OutputGoogleChronicleAPIVersion
-> = z.union([
-  z.nativeEnum(OutputGoogleChronicleAPIVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputGoogleChronicleAPIVersion);
 
 /** @internal */
 export const OutputGoogleChronicleAuthenticationMethod$inboundSchema: z.ZodType<
   OutputGoogleChronicleAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGoogleChronicleAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputGoogleChronicleAuthenticationMethod);
 /** @internal */
 export const OutputGoogleChronicleAuthenticationMethod$outboundSchema:
-  z.ZodType<
-    OutputGoogleChronicleAuthenticationMethod,
-    z.ZodTypeDef,
-    OutputGoogleChronicleAuthenticationMethod
-  > = z.union([
-    z.nativeEnum(OutputGoogleChronicleAuthenticationMethod),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  z.ZodType<string, z.ZodTypeDef, OutputGoogleChronicleAuthenticationMethod> =
+    openEnums.outboundSchema(OutputGoogleChronicleAuthenticationMethod);
 
 /** @internal */
 export const OutputGoogleChronicleResponseRetrySetting$inboundSchema: z.ZodType<
@@ -601,20 +580,13 @@ export const SendEventsAs$inboundSchema: z.ZodType<
   SendEventsAs,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(SendEventsAs),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(SendEventsAs);
 /** @internal */
 export const SendEventsAs$outboundSchema: z.ZodType<
-  SendEventsAs,
+  string,
   z.ZodTypeDef,
   SendEventsAs
-> = z.union([
-  z.nativeEnum(SendEventsAs),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(SendEventsAs);
 
 /** @internal */
 export const OutputGoogleChronicleExtraHttpHeader$inboundSchema: z.ZodType<
@@ -667,42 +639,25 @@ export const OutputGoogleChronicleFailedRequestLoggingMode$inboundSchema:
     OutputGoogleChronicleFailedRequestLoggingMode,
     z.ZodTypeDef,
     unknown
-  > = z
-    .union([
-      z.nativeEnum(OutputGoogleChronicleFailedRequestLoggingMode),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  > = openEnums.inboundSchema(OutputGoogleChronicleFailedRequestLoggingMode);
 /** @internal */
 export const OutputGoogleChronicleFailedRequestLoggingMode$outboundSchema:
   z.ZodType<
-    OutputGoogleChronicleFailedRequestLoggingMode,
+    string,
     z.ZodTypeDef,
     OutputGoogleChronicleFailedRequestLoggingMode
-  > = z.union([
-    z.nativeEnum(OutputGoogleChronicleFailedRequestLoggingMode),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  > = openEnums.outboundSchema(OutputGoogleChronicleFailedRequestLoggingMode);
 
 /** @internal */
 export const OutputGoogleChronicleBackpressureBehavior$inboundSchema: z.ZodType<
   OutputGoogleChronicleBackpressureBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGoogleChronicleBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputGoogleChronicleBackpressureBehavior);
 /** @internal */
 export const OutputGoogleChronicleBackpressureBehavior$outboundSchema:
-  z.ZodType<
-    OutputGoogleChronicleBackpressureBehavior,
-    z.ZodTypeDef,
-    OutputGoogleChronicleBackpressureBehavior
-  > = z.union([
-    z.nativeEnum(OutputGoogleChronicleBackpressureBehavior),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  z.ZodType<string, z.ZodTypeDef, OutputGoogleChronicleBackpressureBehavior> =
+    openEnums.outboundSchema(OutputGoogleChronicleBackpressureBehavior);
 
 /** @internal */
 export const ExtraLogType$inboundSchema: z.ZodType<
@@ -788,77 +743,49 @@ export function outputGoogleChronicleCustomLabelFromJSON(
 
 /** @internal */
 export const UDMType$inboundSchema: z.ZodType<UDMType, z.ZodTypeDef, unknown> =
-  z
-    .union([
-      z.nativeEnum(UDMType),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  openEnums.inboundSchema(UDMType);
 /** @internal */
-export const UDMType$outboundSchema: z.ZodType<UDMType, z.ZodTypeDef, UDMType> =
-  z.union([
-    z.nativeEnum(UDMType),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+export const UDMType$outboundSchema: z.ZodType<string, z.ZodTypeDef, UDMType> =
+  openEnums.outboundSchema(UDMType);
 
 /** @internal */
 export const OutputGoogleChronicleMode$inboundSchema: z.ZodType<
   OutputGoogleChronicleMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGoogleChronicleMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputGoogleChronicleMode);
 /** @internal */
 export const OutputGoogleChronicleMode$outboundSchema: z.ZodType<
-  OutputGoogleChronicleMode,
+  string,
   z.ZodTypeDef,
   OutputGoogleChronicleMode
-> = z.union([
-  z.nativeEnum(OutputGoogleChronicleMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputGoogleChronicleMode);
 
 /** @internal */
 export const OutputGoogleChronicleCompression$inboundSchema: z.ZodType<
   OutputGoogleChronicleCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGoogleChronicleCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputGoogleChronicleCompression);
 /** @internal */
 export const OutputGoogleChronicleCompression$outboundSchema: z.ZodType<
-  OutputGoogleChronicleCompression,
+  string,
   z.ZodTypeDef,
   OutputGoogleChronicleCompression
-> = z.union([
-  z.nativeEnum(OutputGoogleChronicleCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputGoogleChronicleCompression);
 
 /** @internal */
 export const OutputGoogleChronicleQueueFullBehavior$inboundSchema: z.ZodType<
   OutputGoogleChronicleQueueFullBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGoogleChronicleQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputGoogleChronicleQueueFullBehavior);
 /** @internal */
 export const OutputGoogleChronicleQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputGoogleChronicleQueueFullBehavior,
+  string,
   z.ZodTypeDef,
   OutputGoogleChronicleQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputGoogleChronicleQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputGoogleChronicleQueueFullBehavior);
 
 /** @internal */
 export const OutputGoogleChroniclePqControls$inboundSchema: z.ZodType<

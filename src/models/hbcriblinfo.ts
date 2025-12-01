@@ -4,14 +4,11 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { HBLeaderInfo, HBLeaderInfo$inboundSchema } from "./hbleaderinfo.js";
-import {
-  LookupVersions,
-  LookupVersions$inboundSchema,
-} from "./lookupversions.js";
 
 export type Config = {
   featuresRev?: string | undefined;
@@ -41,7 +38,7 @@ export type HBCriblInfo = {
   group: string;
   guid: string;
   installType?: string | undefined;
-  lookupVersions?: LookupVersions | undefined;
+  lookupVersions?: { [k: string]: { [k: string]: string } } | undefined;
   master?: HBLeaderInfo | undefined;
   pid?: number | undefined;
   socksEnabled?: boolean | undefined;
@@ -75,11 +72,7 @@ export const DistMode$inboundSchema: z.ZodType<
   DistMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(DistMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(DistMode);
 
 /** @internal */
 export const HBCriblInfo$inboundSchema: z.ZodType<
@@ -95,7 +88,7 @@ export const HBCriblInfo$inboundSchema: z.ZodType<
   group: z.string(),
   guid: z.string(),
   installType: z.string().optional(),
-  lookupVersions: LookupVersions$inboundSchema.optional(),
+  lookupVersions: z.record(z.record(z.string())).optional(),
   master: HBLeaderInfo$inboundSchema.optional(),
   pid: z.number().optional(),
   socksEnabled: z.boolean().optional(),

@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -93,6 +89,23 @@ export type InputWizPq = {
   pqControls?: InputWizPqControls | undefined;
 };
 
+export type ManageState = {};
+
+/**
+ * Collector runtime log level
+ */
+export const InputWizLogLevel = {
+  Error: "error",
+  Warn: "warn",
+  Info: "info",
+  Debug: "debug",
+  Silly: "silly",
+} as const;
+/**
+ * Collector runtime log level
+ */
+export type InputWizLogLevel = OpenEnum<typeof InputWizLogLevel>;
+
 export type InputWizContentConfig = {
   /**
    * The name of the Wiz query
@@ -100,6 +113,47 @@ export type InputWizContentConfig = {
   contentType: string;
   contentDescription?: string | undefined;
   enabled?: boolean | undefined;
+  /**
+   * Track collection progress between consecutive scheduled executions
+   */
+  stateTracking?: boolean | undefined;
+  /**
+   * JavaScript expression that defines how to update the state from an event. Use the event's data and the current state to compute the new state. See [Understanding State Expression Fields](https://docs.cribl.io/stream/collectors-rest#state-tracking-expression-fields) for more information.
+   */
+  stateUpdateExpression?: string | undefined;
+  /**
+   * JavaScript expression that defines which state to keep when merging a task's newly reported state with previously saved state. Evaluates `prevState` and `newState` variables, resolving to the state to keep.
+   */
+  stateMergeExpression?: string | undefined;
+  manageState?: ManageState | undefined;
+  /**
+   * Template for POST body to send with the Collect request. Reference global variables, or functions using template params: `${C.vars.myVar}`, or `${Date.now()}`, `${param}`.
+   */
+  contentQuery: string;
+  /**
+   * A cron schedule on which to run this job
+   */
+  cronSchedule?: string | undefined;
+  /**
+   * Earliest time, relative to now. Format supported: [+|-]<time_integer><time_unit>@<snap-to_time_unit> (ex: -1hr, -42m, -42m@h)
+   */
+  earliest?: string | undefined;
+  /**
+   * Latest time, relative to now. Format supported: [+|-]<time_integer><time_unit>@<snap-to_time_unit> (ex: -1hr, -42m, -42m@h)
+   */
+  latest?: string | undefined;
+  /**
+   * Maximum time the job is allowed to run (examples: 30, 45s, 15m). Units default to seconds if not specified. Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * Collector runtime log level
+   */
+  logLevel?: InputWizLogLevel | undefined;
+  /**
+   * Maximum number of pages to retrieve per collection task. Defaults to 0. Set to 0 to retrieve all pages.
+   */
+  maxPages?: number | undefined;
 };
 
 export type InputWizMetadatum = {
@@ -324,40 +378,26 @@ export const InputWizMode$inboundSchema: z.ZodType<
   InputWizMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputWizMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputWizMode);
 /** @internal */
 export const InputWizMode$outboundSchema: z.ZodType<
-  InputWizMode,
+  string,
   z.ZodTypeDef,
   InputWizMode
-> = z.union([
-  z.nativeEnum(InputWizMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputWizMode);
 
 /** @internal */
 export const InputWizCompression$inboundSchema: z.ZodType<
   InputWizCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputWizCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputWizCompression);
 /** @internal */
 export const InputWizCompression$outboundSchema: z.ZodType<
-  InputWizCompression,
+  string,
   z.ZodTypeDef,
   InputWizCompression
-> = z.union([
-  z.nativeEnum(InputWizCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputWizCompression);
 
 /** @internal */
 export const InputWizPqControls$inboundSchema: z.ZodType<
@@ -449,6 +489,48 @@ export function inputWizPqFromJSON(
 }
 
 /** @internal */
+export const ManageState$inboundSchema: z.ZodType<
+  ManageState,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+/** @internal */
+export type ManageState$Outbound = {};
+
+/** @internal */
+export const ManageState$outboundSchema: z.ZodType<
+  ManageState$Outbound,
+  z.ZodTypeDef,
+  ManageState
+> = z.object({});
+
+export function manageStateToJSON(manageState: ManageState): string {
+  return JSON.stringify(ManageState$outboundSchema.parse(manageState));
+}
+export function manageStateFromJSON(
+  jsonString: string,
+): SafeParseResult<ManageState, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => ManageState$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'ManageState' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputWizLogLevel$inboundSchema: z.ZodType<
+  InputWizLogLevel,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputWizLogLevel);
+/** @internal */
+export const InputWizLogLevel$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputWizLogLevel
+> = openEnums.outboundSchema(InputWizLogLevel);
+
+/** @internal */
 export const InputWizContentConfig$inboundSchema: z.ZodType<
   InputWizContentConfig,
   z.ZodTypeDef,
@@ -457,12 +539,38 @@ export const InputWizContentConfig$inboundSchema: z.ZodType<
   contentType: z.string(),
   contentDescription: z.string().optional(),
   enabled: z.boolean().default(false),
+  stateTracking: z.boolean().default(false),
+  stateUpdateExpression: z.string().default(
+    "__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}",
+  ),
+  stateMergeExpression: z.string().default(
+    "prevState.latestTime > newState.latestTime ? prevState : newState",
+  ),
+  manageState: z.lazy(() => ManageState$inboundSchema).optional(),
+  contentQuery: z.string(),
+  cronSchedule: z.string().default("0 */12 * * *"),
+  earliest: z.string().default("-12h@h"),
+  latest: z.string().default("now"),
+  jobTimeout: z.string().default("0"),
+  logLevel: InputWizLogLevel$inboundSchema.default("info"),
+  maxPages: z.number().default(0),
 });
 /** @internal */
 export type InputWizContentConfig$Outbound = {
   contentType: string;
   contentDescription?: string | undefined;
   enabled: boolean;
+  stateTracking: boolean;
+  stateUpdateExpression: string;
+  stateMergeExpression: string;
+  manageState?: ManageState$Outbound | undefined;
+  contentQuery: string;
+  cronSchedule: string;
+  earliest: string;
+  latest: string;
+  jobTimeout: string;
+  logLevel: string;
+  maxPages: number;
 };
 
 /** @internal */
@@ -474,6 +582,21 @@ export const InputWizContentConfig$outboundSchema: z.ZodType<
   contentType: z.string(),
   contentDescription: z.string().optional(),
   enabled: z.boolean().default(false),
+  stateTracking: z.boolean().default(false),
+  stateUpdateExpression: z.string().default(
+    "__timestampExtracted !== false && {latestTime: (state.latestTime || 0) > _time ? state.latestTime : _time}",
+  ),
+  stateMergeExpression: z.string().default(
+    "prevState.latestTime > newState.latestTime ? prevState : newState",
+  ),
+  manageState: z.lazy(() => ManageState$outboundSchema).optional(),
+  contentQuery: z.string(),
+  cronSchedule: z.string().default("0 */12 * * *"),
+  earliest: z.string().default("-12h@h"),
+  latest: z.string().default("now"),
+  jobTimeout: z.string().default("0"),
+  logLevel: InputWizLogLevel$outboundSchema.default("info"),
+  maxPages: z.number().default(0),
 });
 
 export function inputWizContentConfigToJSON(
@@ -540,20 +663,13 @@ export const InputWizRetryType$inboundSchema: z.ZodType<
   InputWizRetryType,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputWizRetryType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputWizRetryType);
 /** @internal */
 export const InputWizRetryType$outboundSchema: z.ZodType<
-  InputWizRetryType,
+  string,
   z.ZodTypeDef,
   InputWizRetryType
-> = z.union([
-  z.nativeEnum(InputWizRetryType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputWizRetryType);
 
 /** @internal */
 export const InputWizRetryRules$inboundSchema: z.ZodType<
@@ -620,20 +736,13 @@ export const InputWizAuthenticationMethod$inboundSchema: z.ZodType<
   InputWizAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputWizAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputWizAuthenticationMethod);
 /** @internal */
 export const InputWizAuthenticationMethod$outboundSchema: z.ZodType<
-  InputWizAuthenticationMethod,
+  string,
   z.ZodTypeDef,
   InputWizAuthenticationMethod
-> = z.union([
-  z.nativeEnum(InputWizAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputWizAuthenticationMethod);
 
 /** @internal */
 export const InputWiz$inboundSchema: z.ZodType<

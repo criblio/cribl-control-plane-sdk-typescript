@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: ae8c55091e5afdc7ade0ebab9dd4727b
-  docVersion: 4.15.0-f275b803
-  speakeasyVersion: 1.650.0
-  generationVersion: 2.743.2
-  releaseVersion: 0.3.0
-  configChecksum: e665e3aea248a6f8ea3cb0b286f41886
+  docChecksum: 891c9e02abf5a25503f25c0a4677a34d
+  docVersion: 4.16.0-03894bd6
+  speakeasyVersion: 1.665.0
+  generationVersion: 2.767.2
+  releaseVersion: 0.4.0-rc.15
+  configChecksum: f9fd0c153fcda1316f6b22bc5720f6ec
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -15,7 +15,7 @@ features:
     additionalDependencies: 0.1.0
     additionalProperties: 0.1.2
     constsAndDefaults: 0.1.12
-    core: 3.26.3
+    core: 3.26.13
     defaultEnabledRetries: 0.1.0
     devContainers: 2.90.1
     enumUnions: 0.1.0
@@ -32,8 +32,8 @@ features:
     openEnums: 0.1.1
     responseFormat: 0.2.3
     retries: 2.83.0
-    sdkHooks: 0.3.0
-    unions: 2.86.0
+    sdkHooks: 0.4.0
+    unions: 2.86.2
     uploadStreams: 0.1.0
 generatedFiles:
   - .devcontainer/README.md
@@ -51,11 +51,16 @@ generatedFiles:
   - docs/models/aisiemendpointpath.md
   - docs/models/allow.md
   - docs/models/audit.md
+  - docs/models/authconfig.md
+  - docs/models/authconfigtype.md
   - docs/models/authenticationprotocol.md
   - docs/models/author.md
   - docs/models/authtoken.md
   - docs/models/authtype.md
   - docs/models/awsauthenticationmethod.md
+  - docs/models/backupssettings1.md
+  - docs/models/backupssettings2.md
+  - docs/models/backupssettingsunion.md
   - docs/models/blobaccesstier.md
   - docs/models/block.md
   - docs/models/branchinfo.md
@@ -71,6 +76,7 @@ generatedFiles:
   - docs/models/columnmapping.md
   - docs/models/comment.md
   - docs/models/commit.md
+  - docs/models/commonservicelimitconfigs.md
   - docs/models/conf.md
   - docs/models/config.md
   - docs/models/configgroup.md
@@ -82,6 +88,37 @@ generatedFiles:
   - docs/models/configgrouptype.md
   - docs/models/container.md
   - docs/models/containermode.md
+  - docs/models/countedbranchinfo.md
+  - docs/models/countedconfiggroup.md
+  - docs/models/countedcribllakedataset.md
+  - docs/models/counteddistributedsummary.md
+  - docs/models/countedgitcommitsummary.md
+  - docs/models/countedgitcountresult.md
+  - docs/models/countedgitdiffresult.md
+  - docs/models/countedgitfilesresponse.md
+  - docs/models/countedgitinfo.md
+  - docs/models/countedgitlogresult.md
+  - docs/models/countedgitrevertresult.md
+  - docs/models/countedgitshowresult.md
+  - docs/models/countedgitstatusresult.md
+  - docs/models/countedinput.md
+  - docs/models/countedinputsplunkhec.md
+  - docs/models/countedjobinfo.md
+  - docs/models/countedmasterworkerentry.md
+  - docs/models/countednumber.md
+  - docs/models/countedobject.md
+  - docs/models/countedoutput.md
+  - docs/models/countedoutputsamplesresponse.md
+  - docs/models/countedoutputtestresponse.md
+  - docs/models/countedpackinfo.md
+  - docs/models/countedpackinstallinfo.md
+  - docs/models/countedpipeline.md
+  - docs/models/countedroutes.md
+  - docs/models/countedstring.md
+  - docs/models/countedsystemsettings.md
+  - docs/models/countedsystemsettingsconf.md
+  - docs/models/countedteamaccesscontrollist.md
+  - docs/models/counteduseraccesscontrollist.md
   - docs/models/criblevent.md
   - docs/models/cribllakedataset.md
   - docs/models/cribllakedatasetformat.md
@@ -96,12 +133,21 @@ generatedFiles:
   - docs/models/deployrequestlookups.md
   - docs/models/deployrequestlookupslookup.md
   - docs/models/difffiles.md
+  - docs/models/diffline.md
+  - docs/models/difflinecontext.md
+  - docs/models/difflinecontexttype.md
+  - docs/models/difflinedelete.md
+  - docs/models/difflinedeletetype.md
+  - docs/models/difflineinsert.md
+  - docs/models/difflineinserttype.md
   - docs/models/disksandfilesystems.md
   - docs/models/distmode.md
+  - docs/models/distributed.md
   - docs/models/distributedsummary.md
   - docs/models/distributedsummarygroups.md
   - docs/models/distributedsummaryworkers.md
   - docs/models/dns.md
+  - docs/models/edgeheartbeatmetricsmode.md
   - docs/models/elasticsearchmetadata.md
   - docs/models/elasticversion.md
   - docs/models/endpoint.md
@@ -130,9 +176,11 @@ generatedFiles:
   - docs/models/gitfilesresponse.md
   - docs/models/gitinfo.md
   - docs/models/gitlogresult.md
+  - docs/models/gitopstype.md
   - docs/models/gitrevertparams.md
   - docs/models/gitrevertresult.md
   - docs/models/gitrevertresultfiles.md
+  - docs/models/gitsettings.md
   - docs/models/gitshowresult.md
   - docs/models/gitstatusresult.md
   - docs/models/groupcreaterequest.md
@@ -148,7 +196,6 @@ generatedFiles:
   - docs/models/heartbeatmetadatakube.md
   - docs/models/heartbeatmetadataos.md
   - docs/models/heartbeatmetadataowner.md
-  - docs/models/heartbeatmetadatatags.md
   - docs/models/hostinfo.md
   - docs/models/hostsfile.md
   - docs/models/indexerdiscoveryconfigs.md
@@ -915,6 +962,7 @@ generatedFiles:
   - docs/models/inputwizcompression.md
   - docs/models/inputwizconnection.md
   - docs/models/inputwizcontentconfig.md
+  - docs/models/inputwizloglevel.md
   - docs/models/inputwizmetadatum.md
   - docs/models/inputwizmode.md
   - docs/models/inputwizpq.md
@@ -951,15 +999,12 @@ generatedFiles:
   - docs/models/inputzscalerhectype.md
   - docs/models/interfaces.md
   - docs/models/jobinfo.md
+  - docs/models/jobsettings.md
   - docs/models/jobstatus.md
   - docs/models/lakedatasetmetrics.md
   - docs/models/lakedatasetsearchconfig.md
   - docs/models/lakehouseconnectiontype.md
-  - docs/models/lastmetrics.md
-  - docs/models/line1.md
-  - docs/models/line2.md
-  - docs/models/line3.md
-  - docs/models/lineunion.md
+  - docs/models/limits.md
   - docs/models/listeningports.md
   - docs/models/loggedinusers.md
   - docs/models/logininfo.md
@@ -969,11 +1014,12 @@ generatedFiles:
   - docs/models/lokiauthoauthheader2.md
   - docs/models/lokiauthoauthparam1.md
   - docs/models/lokiauthoauthparam2.md
-  - docs/models/lookupversions.md
+  - docs/models/managestate.md
   - docs/models/mappingtype.md
   - docs/models/masterworkerentry.md
   - docs/models/masterworkerentrytype.md
   - docs/models/masterworkerentryworkers.md
+  - docs/models/maxconcurrentsearchestype.md
   - docs/models/metricsprotocol.md
   - docs/models/mtlssettings.md
   - docs/models/nodeactiveupgradestatus.md
@@ -985,119 +1031,59 @@ generatedFiles:
   - docs/models/nodeprovidedinfoos1.md
   - docs/models/nodeprovidedinfoos2.md
   - docs/models/nodeprovidedinfoowner.md
-  - docs/models/nodeprovidedinfotags.md
   - docs/models/nodeskippedupgradestatus.md
   - docs/models/nodeupgradestate.md
   - docs/models/nodeupgradestatus.md
   - docs/models/oldmode.md
   - docs/models/operations/createconfiggroupbyproductrequest.md
-  - docs/models/operations/createconfiggroupbyproductresponse.md
   - docs/models/operations/createcribllakedatasetbylakeidrequest.md
-  - docs/models/operations/createcribllakedatasetbylakeidresponse.md
   - docs/models/operations/createinputhectokenbyidrequest.md
-  - docs/models/operations/createinputhectokenbyidresponse.md
-  - docs/models/operations/createinputresponse.md
-  - docs/models/operations/createoutputresponse.md
   - docs/models/operations/createoutputtestbyidrequest.md
-  - docs/models/operations/createoutputtestbyidresponse.md
-  - docs/models/operations/createpacksresponse.md
-  - docs/models/operations/createpipelineresponse.md
   - docs/models/operations/createroutesappendbyidrequest.md
-  - docs/models/operations/createroutesappendbyidresponse.md
   - docs/models/operations/createversioncommitrequest.md
-  - docs/models/operations/createversioncommitresponse.md
-  - docs/models/operations/createversionpushresponse.md
   - docs/models/operations/createversionrevertrequest.md
-  - docs/models/operations/createversionrevertresponse.md
   - docs/models/operations/createversionundorequest.md
-  - docs/models/operations/createversionundoresponse.md
   - docs/models/operations/deleteconfiggroupbyproductandidrequest.md
-  - docs/models/operations/deleteconfiggroupbyproductandidresponse.md
   - docs/models/operations/deletecribllakedatasetbylakeidandidrequest.md
-  - docs/models/operations/deletecribllakedatasetbylakeidandidresponse.md
   - docs/models/operations/deleteinputbyidrequest.md
-  - docs/models/operations/deleteinputbyidresponse.md
   - docs/models/operations/deleteoutputbyidrequest.md
-  - docs/models/operations/deleteoutputbyidresponse.md
   - docs/models/operations/deleteoutputpqbyidrequest.md
-  - docs/models/operations/deleteoutputpqbyidresponse.md
   - docs/models/operations/deletepacksbyidrequest.md
-  - docs/models/operations/deletepacksbyidresponse.md
   - docs/models/operations/deletepipelinebyidrequest.md
-  - docs/models/operations/deletepipelinebyidresponse.md
   - docs/models/operations/getconfiggroupaclbyproductandidrequest.md
-  - docs/models/operations/getconfiggroupaclbyproductandidresponse.md
   - docs/models/operations/getconfiggroupaclteamsbyproductandidrequest.md
-  - docs/models/operations/getconfiggroupaclteamsbyproductandidresponse.md
   - docs/models/operations/getconfiggroupbyproductandidrequest.md
-  - docs/models/operations/getconfiggroupbyproductandidresponse.md
   - docs/models/operations/getconfiggroupconfigversionbyproductandidrequest.md
-  - docs/models/operations/getconfiggroupconfigversionbyproductandidresponse.md
   - docs/models/operations/getcribllakedatasetbylakeidandidrequest.md
-  - docs/models/operations/getcribllakedatasetbylakeidandidresponse.md
   - docs/models/operations/getcribllakedatasetbylakeidrequest.md
-  - docs/models/operations/getcribllakedatasetbylakeidresponse.md
   - docs/models/operations/getinputbyidrequest.md
-  - docs/models/operations/getinputbyidresponse.md
   - docs/models/operations/getmasterworkerentryrequest.md
-  - docs/models/operations/getmasterworkerentryresponse.md
   - docs/models/operations/getoutputbyidrequest.md
-  - docs/models/operations/getoutputbyidresponse.md
   - docs/models/operations/getoutputpqbyidrequest.md
-  - docs/models/operations/getoutputpqbyidresponse.md
   - docs/models/operations/getoutputsamplesbyidrequest.md
-  - docs/models/operations/getoutputsamplesbyidresponse.md
   - docs/models/operations/getpacksbyidrequest.md
-  - docs/models/operations/getpacksbyidresponse.md
   - docs/models/operations/getpacksrequest.md
-  - docs/models/operations/getpacksresponse.md
   - docs/models/operations/getpipelinebyidrequest.md
-  - docs/models/operations/getpipelinebyidresponse.md
   - docs/models/operations/getroutesbyidrequest.md
-  - docs/models/operations/getroutesbyidresponse.md
   - docs/models/operations/getsummaryrequest.md
-  - docs/models/operations/getsummaryresponse.md
-  - docs/models/operations/getversionbranchresponse.md
   - docs/models/operations/getversioncountrequest.md
-  - docs/models/operations/getversioncountresponse.md
   - docs/models/operations/getversiondiffrequest.md
-  - docs/models/operations/getversiondiffresponse.md
   - docs/models/operations/getversionfilesrequest.md
-  - docs/models/operations/getversionfilesresponse.md
-  - docs/models/operations/getversioninforesponse.md
   - docs/models/operations/getversionrequest.md
-  - docs/models/operations/getversionresponse.md
   - docs/models/operations/getversionshowrequest.md
-  - docs/models/operations/getversionshowresponse.md
   - docs/models/operations/getversionstatusrequest.md
-  - docs/models/operations/getversionstatusresponse.md
   - docs/models/operations/listconfiggroupbyproductrequest.md
-  - docs/models/operations/listconfiggroupbyproductresponse.md
-  - docs/models/operations/listinputresponse.md
   - docs/models/operations/listmasterworkerentryrequest.md
-  - docs/models/operations/listmasterworkerentryresponse.md
-  - docs/models/operations/listoutputresponse.md
-  - docs/models/operations/listpipelineresponse.md
-  - docs/models/operations/listroutesresponse.md
   - docs/models/operations/updateconfiggroupbyproductandidrequest.md
-  - docs/models/operations/updateconfiggroupbyproductandidresponse.md
   - docs/models/operations/updateconfiggroupdeploybyproductandidrequest.md
-  - docs/models/operations/updateconfiggroupdeploybyproductandidresponse.md
   - docs/models/operations/updatecribllakedatasetbylakeidandidrequest.md
-  - docs/models/operations/updatecribllakedatasetbylakeidandidresponse.md
   - docs/models/operations/updateinputbyidrequest.md
-  - docs/models/operations/updateinputbyidresponse.md
   - docs/models/operations/updateinputhectokenbyidandtokenrequest.md
-  - docs/models/operations/updateinputhectokenbyidandtokenresponse.md
   - docs/models/operations/updateoutputbyidrequest.md
-  - docs/models/operations/updateoutputbyidresponse.md
   - docs/models/operations/updatepacksbyidrequest.md
-  - docs/models/operations/updatepacksbyidresponse.md
   - docs/models/operations/updatepacksrequest.md
   - docs/models/operations/updatepipelinebyidrequest.md
-  - docs/models/operations/updatepipelinebyidresponse.md
   - docs/models/operations/updateroutesbyidrequest.md
-  - docs/models/operations/updateroutesbyidresponse.md
   - docs/models/os.md
   - docs/models/outpostnodeinfo.md
   - docs/models/output.md
@@ -1987,19 +1973,27 @@ generatedFiles:
   - docs/models/packrequestbodyunion.md
   - docs/models/packupgraderequest.md
   - docs/models/payloadformat.md
+  - docs/models/piisettings1.md
+  - docs/models/piisettings2.md
+  - docs/models/piisettingsunion.md
   - docs/models/pipeline.md
   - docs/models/pipelinefunctionconf.md
   - docs/models/pipelinegroups.md
   - docs/models/podfilter.md
   - docs/models/prefixoptional.md
+  - docs/models/privacyprotocol.md
   - docs/models/productscore.md
   - docs/models/prometheusauthoauthheader1.md
   - docs/models/prometheusauthoauthheader2.md
   - docs/models/prometheusauthoauthparam1.md
   - docs/models/prometheusauthoauthparam2.md
+  - docs/models/query.md
   - docs/models/querybuildermode.md
   - docs/models/rbacresource.md
   - docs/models/readmode.md
+  - docs/models/rediscachelimits.md
+  - docs/models/redisconnectionlimits.md
+  - docs/models/redislimits.md
   - docs/models/remote.md
   - docs/models/remoteenum.md
   - docs/models/renamed.md
@@ -2008,6 +2002,9 @@ generatedFiles:
   - docs/models/resourcepolicy.md
   - docs/models/resourcetypelabel.md
   - docs/models/role.md
+  - docs/models/rollbacksettings1.md
+  - docs/models/rollbacksettings2.md
+  - docs/models/rollbacksettingsunion.md
   - docs/models/routeconf.md
   - docs/models/routes.md
   - docs/models/routesgroups.md
@@ -2044,16 +2041,25 @@ generatedFiles:
   - docs/models/runnablejobscheduledsearchtimewarning.md
   - docs/models/runnablejobscheduledsearchtype.md
   - docs/models/sample.md
+  - docs/models/samples.md
   - docs/models/scanmode.md
   - docs/models/scheduletype.md
   - docs/models/schemeclientoauth.md
   - docs/models/scrapeprotocolprotocol.md
+  - docs/models/searchqueuelength.md
+  - docs/models/searchsettings.md
   - docs/models/security.md
   - docs/models/sendeventsas.md
   - docs/models/sendlogsas.md
+  - docs/models/serviceprocstype.md
+  - docs/models/serviceprocstypeenum.md
   - docs/models/services.md
+  - docs/models/serviceslimits.md
   - docs/models/sharditeratorstart.md
   - docs/models/shardloadbalancing.md
+  - docs/models/snisettings1.md
+  - docs/models/snisettings2.md
+  - docs/models/snisettingsunion.md
   - docs/models/snmpv3authentication.md
   - docs/models/splunkhecmetadata.md
   - docs/models/state.md
@@ -2062,6 +2068,31 @@ generatedFiles:
   - docs/models/subscription.md
   - docs/models/subscriptionmetadatum.md
   - docs/models/summary.md
+  - docs/models/systemsettings.md
+  - docs/models/systemsettingsapi.md
+  - docs/models/systemsettingsconf.md
+  - docs/models/systemsettingsconfapi.md
+  - docs/models/systemsettingsconfcustomlogo.md
+  - docs/models/systemsettingsconffeatureflagoverride.md
+  - docs/models/systemsettingsconfproxy.md
+  - docs/models/systemsettingsconfshutdown.md
+  - docs/models/systemsettingsconfsockets.md
+  - docs/models/systemsettingsconfssl.md
+  - docs/models/systemsettingsconfsupport.md
+  - docs/models/systemsettingsconfsystem.md
+  - docs/models/systemsettingsconfupgrade.md
+  - docs/models/systemsettingsconfworkers.md
+  - docs/models/systemsettingscustomlogo.md
+  - docs/models/systemsettingsfeatureflagoverride.md
+  - docs/models/systemsettingsmode.md
+  - docs/models/systemsettingsproxy.md
+  - docs/models/systemsettingsshutdown.md
+  - docs/models/systemsettingssockets.md
+  - docs/models/systemsettingsssl.md
+  - docs/models/systemsettingssupport.md
+  - docs/models/systemsettingssystem.md
+  - docs/models/systemsettingsupgrade.md
+  - docs/models/systemsettingsworkers.md
   - docs/models/target.md
   - docs/models/targetprotocol.md
   - docs/models/teamaccesscontrollist.md
@@ -2069,13 +2100,23 @@ generatedFiles:
   - docs/models/timerange.md
   - docs/models/timestampformat.md
   - docs/models/timestampprecision.md
+  - docs/models/tlssettings1.md
+  - docs/models/tlssettings2.md
+  - docs/models/tlssettingsunion.md
   - docs/models/udmtype.md
   - docs/models/updatehectokenrequest.md
   - docs/models/updatehectokenrequestmetadatum.md
+  - docs/models/upgradegroupsettings1.md
+  - docs/models/upgradegroupsettings2.md
+  - docs/models/upgradegroupsettingsunion.md
+  - docs/models/upgradepackageurls.md
+  - docs/models/upgradesettings.md
   - docs/models/uploadpackresponse.md
   - docs/models/useraccesscontrollist.md
   - docs/models/usersandgroups.md
   - docs/models/v3user.md
+  - docs/models/warmpoolsize.md
+  - docs/models/warmpoolsizeenum.md
   - docs/models/wheretocapture.md
   - docs/models/workertypes.md
   - docs/models/writeaction.md
@@ -2083,6 +2124,7 @@ generatedFiles:
   - docs/sdks/branches/README.md
   - docs/sdks/commits/README.md
   - docs/sdks/configsversions/README.md
+  - docs/sdks/cribl/README.md
   - docs/sdks/destinations/README.md
   - docs/sdks/files/README.md
   - docs/sdks/groups/README.md
@@ -2155,6 +2197,8 @@ generatedFiles:
   - src/funcs/sourcesHecTokensUpdate.ts
   - src/funcs/sourcesList.ts
   - src/funcs/sourcesUpdate.ts
+  - src/funcs/systemSettingsCriblList.ts
+  - src/funcs/systemSettingsCriblUpdate.ts
   - src/funcs/versionsBranchesGet.ts
   - src/funcs/versionsBranchesList.ts
   - src/funcs/versionsCommitsCreate.ts
@@ -2191,15 +2235,49 @@ generatedFiles:
   - src/lib/security.ts
   - src/lib/url.ts
   - src/models/addhectokenrequest.ts
+  - src/models/authconfig.ts
   - src/models/authtoken.ts
+  - src/models/backupssettingsunion.ts
   - src/models/branchinfo.ts
   - src/models/cacheconnection.ts
   - src/models/cacheconnectionbackfillstatus.ts
   - src/models/cloudprovider.ts
   - src/models/commit.ts
+  - src/models/commonservicelimitconfigs.ts
   - src/models/configgroup.ts
   - src/models/configgroupcloud.ts
   - src/models/configgrouplookups.ts
+  - src/models/countedbranchinfo.ts
+  - src/models/countedconfiggroup.ts
+  - src/models/countedcribllakedataset.ts
+  - src/models/counteddistributedsummary.ts
+  - src/models/countedgitcommitsummary.ts
+  - src/models/countedgitcountresult.ts
+  - src/models/countedgitdiffresult.ts
+  - src/models/countedgitfilesresponse.ts
+  - src/models/countedgitinfo.ts
+  - src/models/countedgitlogresult.ts
+  - src/models/countedgitrevertresult.ts
+  - src/models/countedgitshowresult.ts
+  - src/models/countedgitstatusresult.ts
+  - src/models/countedinput.ts
+  - src/models/countedinputsplunkhec.ts
+  - src/models/countedjobinfo.ts
+  - src/models/countedmasterworkerentry.ts
+  - src/models/countednumber.ts
+  - src/models/countedobject.ts
+  - src/models/countedoutput.ts
+  - src/models/countedoutputsamplesresponse.ts
+  - src/models/countedoutputtestresponse.ts
+  - src/models/countedpackinfo.ts
+  - src/models/countedpackinstallinfo.ts
+  - src/models/countedpipeline.ts
+  - src/models/countedroutes.ts
+  - src/models/countedstring.ts
+  - src/models/countedsystemsettings.ts
+  - src/models/countedsystemsettingsconf.ts
+  - src/models/countedteamaccesscontrollist.ts
+  - src/models/counteduseraccesscontrollist.ts
   - src/models/criblevent.ts
   - src/models/cribllakedataset.ts
   - src/models/cribllakedatasetupdate.ts
@@ -2209,7 +2287,12 @@ generatedFiles:
   - src/models/deployrequest.ts
   - src/models/deployrequestlookups.ts
   - src/models/difffiles.ts
+  - src/models/diffline.ts
+  - src/models/difflinecontext.ts
+  - src/models/difflinedelete.ts
+  - src/models/difflineinsert.ts
   - src/models/distributedsummary.ts
+  - src/models/edgeheartbeatmetricsmode.ts
   - src/models/errors/criblcontrolplanedefaulterror.ts
   - src/models/errors/criblcontrolplaneerror.ts
   - src/models/errors/error.ts
@@ -2226,8 +2309,10 @@ generatedFiles:
   - src/models/gitfilesresponse.ts
   - src/models/gitinfo.ts
   - src/models/gitlogresult.ts
+  - src/models/gitopstype.ts
   - src/models/gitrevertparams.ts
   - src/models/gitrevertresult.ts
+  - src/models/gitsettings.ts
   - src/models/gitshowresult.ts
   - src/models/gitstatusresult.ts
   - src/models/groupcreaterequest.ts
@@ -2298,13 +2383,15 @@ generatedFiles:
   - src/models/inputwizwebhook.ts
   - src/models/inputzscalerhec.ts
   - src/models/jobinfo.ts
+  - src/models/jobsettings.ts
   - src/models/jobstatus.ts
   - src/models/lakedatasetmetrics.ts
   - src/models/lakedatasetsearchconfig.ts
   - src/models/lakehouseconnectiontype.ts
+  - src/models/limits.ts
   - src/models/logininfo.ts
-  - src/models/lookupversions.ts
   - src/models/masterworkerentry.ts
+  - src/models/maxconcurrentsearchestype.ts
   - src/models/nodeactiveupgradestatus.ts
   - src/models/nodefailedupgradestatus.ts
   - src/models/nodeprovidedinfo.ts
@@ -2313,15 +2400,10 @@ generatedFiles:
   - src/models/nodeupgradestatus.ts
   - src/models/operations/createconfiggroupbyproduct.ts
   - src/models/operations/createcribllakedatasetbylakeid.ts
-  - src/models/operations/createinput.ts
   - src/models/operations/createinputhectokenbyid.ts
-  - src/models/operations/createoutput.ts
   - src/models/operations/createoutputtestbyid.ts
-  - src/models/operations/createpacks.ts
-  - src/models/operations/createpipeline.ts
   - src/models/operations/createroutesappendbyid.ts
   - src/models/operations/createversioncommit.ts
-  - src/models/operations/createversionpush.ts
   - src/models/operations/createversionrevert.ts
   - src/models/operations/createversionundo.ts
   - src/models/operations/deleteconfiggroupbyproductandid.ts
@@ -2348,20 +2430,14 @@ generatedFiles:
   - src/models/operations/getroutesbyid.ts
   - src/models/operations/getsummary.ts
   - src/models/operations/getversion.ts
-  - src/models/operations/getversionbranch.ts
   - src/models/operations/getversioncount.ts
   - src/models/operations/getversiondiff.ts
   - src/models/operations/getversionfiles.ts
-  - src/models/operations/getversioninfo.ts
   - src/models/operations/getversionshow.ts
   - src/models/operations/getversionstatus.ts
   - src/models/operations/index.ts
   - src/models/operations/listconfiggroupbyproduct.ts
-  - src/models/operations/listinput.ts
   - src/models/operations/listmasterworkerentry.ts
-  - src/models/operations/listoutput.ts
-  - src/models/operations/listpipeline.ts
-  - src/models/operations/listroutes.ts
   - src/models/operations/updateconfiggroupbyproductandid.ts
   - src/models/operations/updateconfiggroupdeploybyproductandid.ts
   - src/models/operations/updatecribllakedatasetbylakeidandid.ts
@@ -2449,11 +2525,16 @@ generatedFiles:
   - src/models/packinstallinfo.ts
   - src/models/packrequestbodyunion.ts
   - src/models/packupgraderequest.ts
+  - src/models/piisettingsunion.ts
   - src/models/pipeline.ts
   - src/models/pipelinefunctionconf.ts
   - src/models/productscore.ts
   - src/models/rbacresource.ts
+  - src/models/rediscachelimits.ts
+  - src/models/redisconnectionlimits.ts
+  - src/models/redislimits.ts
   - src/models/resourcepolicy.ts
+  - src/models/rollbacksettingsunion.ts
   - src/models/routeconf.ts
   - src/models/routes.ts
   - src/models/routesroute.ts
@@ -2462,9 +2543,19 @@ generatedFiles:
   - src/models/runnablejobexecutor.ts
   - src/models/runnablejobscheduledsearch.ts
   - src/models/schemeclientoauth.ts
+  - src/models/searchsettings.ts
   - src/models/security.ts
+  - src/models/serviceprocstype.ts
+  - src/models/serviceslimits.ts
+  - src/models/snisettingsunion.ts
+  - src/models/systemsettings.ts
+  - src/models/systemsettingsconf.ts
   - src/models/teamaccesscontrollist.ts
+  - src/models/tlssettingsunion.ts
   - src/models/updatehectokenrequest.ts
+  - src/models/upgradegroupsettingsunion.ts
+  - src/models/upgradepackageurls.ts
+  - src/models/upgradesettings.ts
   - src/models/uploadpackresponse.ts
   - src/models/useraccesscontrollist.ts
   - src/models/workertypes.ts
@@ -2473,6 +2564,7 @@ generatedFiles:
   - src/sdk/branches.ts
   - src/sdk/commits.ts
   - src/sdk/configsversions.ts
+  - src/sdk/cribl.ts
   - src/sdk/destinations.ts
   - src/sdk/files.ts
   - src/sdk/groups.ts
@@ -2488,9 +2580,11 @@ generatedFiles:
   - src/sdk/routes.ts
   - src/sdk/samples.ts
   - src/sdk/sdk.ts
+  - src/sdk/settings.ts
   - src/sdk/sources.ts
   - src/sdk/statuses.ts
   - src/sdk/summaries.ts
+  - src/sdk/system.ts
   - src/sdk/teams.ts
   - src/sdk/tokens.ts
   - src/sdk/versions.ts
@@ -2504,6 +2598,7 @@ generatedFiles:
   - src/types/operations.ts
   - src/types/rfcdate.ts
   - src/types/streams.ts
+  - src/types/unrecognized.ts
   - tsconfig.json
 examples:
   getHealthInfo:
@@ -2878,7 +2973,7 @@ examples:
           groupId: "<id>"
       responses:
         "200":
-          application/json: {"count": 969040, "items": [{"commitMessage": "<value>", "diffJson": [{"addedLines": 9690.4, "blocks": [{"header": "<value>", "lines": [{"content": "<value>", "oldNumber": 3887.81}], "newStartLine": 76.45, "oldStartLine": 9379.01, "oldStartLine2": 5511.01}], "changedPercentage": 2205.67, "checksumAfter": "<value>", "checksumBefore": "<value>", "deletedFileMode": "<value>", "deletedLines": 7460.36, "isBinary": true, "isCombined": true, "isCopy": false, "isDeleted": false, "isGitDiff": false, "isNew": true, "isRename": false, "isTooBig": false, "language": "<value>", "mode": "<value>", "newFileMode": "<value>", "newMode": "<value>", "newName": "<value>", "oldMode": ["<value 1>", "<value 2>"], "oldName": "<value>", "unchangedPercentage": 3722.48}]}, {"commitMessage": "<value>", "diffJson": [{"addedLines": 9690.4, "blocks": [{"header": "<value>", "lines": [{"content": "<value>", "oldNumber": 3887.81}], "newStartLine": 76.45, "oldStartLine": 9379.01, "oldStartLine2": 5511.01}], "changedPercentage": 2205.67, "checksumAfter": "<value>", "checksumBefore": "<value>", "deletedFileMode": "<value>", "deletedLines": 7460.36, "isBinary": true, "isCombined": true, "isCopy": false, "isDeleted": false, "isGitDiff": false, "isNew": true, "isRename": false, "isTooBig": false, "language": "<value>", "mode": "<value>", "newFileMode": "<value>", "newMode": "<value>", "newName": "<value>", "oldMode": ["<value 1>", "<value 2>"], "oldName": "<value>", "unchangedPercentage": 3722.48}]}]}
+          application/json: {"count": 969040, "items": [{"commitMessage": "<value>", "diffJson": [{"addedLines": 9690.4, "blocks": [{"header": "<value>", "lines": [{"type": "context", "newNumber": 9690.4, "oldNumber": 6372.82, "content": "<value>"}], "newStartLine": 76.45, "oldStartLine": 9379.01, "oldStartLine2": 5511.01}], "changedPercentage": 2205.67, "checksumAfter": "<value>", "checksumBefore": "<value>", "deletedFileMode": "<value>", "deletedLines": 7460.36, "isBinary": true, "isCombined": true, "isCopy": false, "isDeleted": false, "isGitDiff": false, "isNew": true, "isRename": false, "isTooBig": false, "language": "<value>", "mode": "<value>", "newFileMode": "<value>", "newMode": "<value>", "newName": "<value>", "oldMode": ["<value 1>", "<value 2>"], "oldName": "<value>", "unchangedPercentage": 3722.48}]}, {"commitMessage": "<value>", "diffJson": [{"addedLines": 9690.4, "blocks": [{"header": "<value>", "lines": [{"type": "context", "newNumber": 349.88, "oldNumber": 3887.81, "content": "<value>"}], "newStartLine": 76.45, "oldStartLine": 9379.01, "oldStartLine2": 5511.01}], "changedPercentage": 2205.67, "checksumAfter": "<value>", "checksumBefore": "<value>", "deletedFileMode": "<value>", "deletedLines": 7460.36, "isBinary": true, "isCombined": true, "isCopy": false, "isDeleted": false, "isGitDiff": false, "isNew": true, "isRename": false, "isTooBig": false, "language": "<value>", "mode": "<value>", "newFileMode": "<value>", "newMode": "<value>", "newName": "<value>", "oldMode": ["<value 1>", "<value 2>"], "oldName": "<value>", "unchangedPercentage": 3722.48}]}]}
         "500":
           application/json: {"message": "<value>"}
   getVersionStatus:
@@ -3444,16 +3539,16 @@ examples:
     speakeasy-default-get-system-settings-conf:
       responses:
         "200":
-          application/json: {"count": 433707, "items": [{"api": {"baseUrl": "https://lucky-archaeology.net/", "disableApiCache": true, "disabled": true, "headers": {}, "host": "torn-typeface.org", "idleSessionTTL": 760.41, "listenOnPort": false, "loginRateLimit": "<value>", "port": 1779.17, "protocol": "<value>", "scripts": false, "sensitiveFields": ["<value 1>", "<value 2>"], "ssl": {"caPath": "<value>", "certPath": "<value>", "disabled": true, "passphrase": "<value>", "privKeyPath": "<value>"}, "ssoRateLimit": "<value>", "workerRemoteAccess": false}, "backups": {"backupPersistence": "<value>", "backupsDirectory": "<value>"}, "customLogo": {"enabled": false, "logoDescription": "<value>", "logoImage": "<value>"}, "pii": {"enablePiiDetection": true}, "proxy": {"useEnvVars": false}, "rollback": {"rollbackEnabled": true, "rollbackRetries": 9806.55, "rollbackTimeout": 4001.24}, "shutdown": {"drainTimeout": 9062.16}, "sni": {"disableSNIRouting": true}, "sockets": {"directory": "/rescue"}, "system": {"intercom": false, "upgrade": "false"}, "tls": {"defaultCipherList": "<value>", "defaultEcdhCurve": "<value>", "maxVersion": "<value>", "minVersion": "<value>", "rejectUnauthorized": true}, "upgradeGroupSettings": {"isRolling": true, "quantity": 5724.97, "retryCount": 6478.36, "retryDelay": 2800.39}, "upgradeSettings": {"automaticUpgradeCheckPeriod": "<value>", "disableAutomaticUpgrade": true, "enableLegacyEdgeUpgrade": false, "packageUrls": [{"packageHashUrl": "https://noted-archaeology.name/", "packageUrl": "https://alive-schnitzel.biz"}], "upgradeSource": "<value>"}, "workers": {"count": 9267.84, "enableHeapSnapshots": true, "loadThrottlePerc": 3447.62, "memory": 8708.09, "minimum": 3092.53, "startupMaxConns": 7695.01, "startupThrottleTimeout": 7646.78, "v8SingleThread": false}}]}
+          application/json: {"count": 433707, "items": [{"api": {"baseUrl": "https://lucky-archaeology.net/", "disableApiCache": true, "disabled": true, "headers": {}, "host": "torn-typeface.org", "idleSessionTTL": 760.41, "listenOnPort": false, "loginRateLimit": "<value>", "port": 1779.17, "protocol": "<value>", "scripts": false, "sensitiveFields": ["<value 1>", "<value 2>"], "ssl": {"caPath": "<value>", "certPath": "<value>", "disabled": true, "passphrase": "<value>", "privKeyPath": "<value>"}, "ssoRateLimit": "<value>", "workerRemoteAccess": false}, "backups": {"backupPersistence": "<value>", "backupsDirectory": "<value>"}, "customLogo": {"enabled": false, "logoDescription": "<value>", "logoImage": "<value>"}, "pii": {"enablePiiDetection": true}, "proxy": {"useEnvVars": false}, "rollback": {"rollbackEnabled": true, "rollbackRetries": 9806.55, "rollbackTimeout": 4001.24}, "shutdown": {"drainTimeout": 9062.16}, "sni": {"disableSNIRouting": true}, "sockets": {"directory": "/rescue"}, "support": {"featureFlagOverrides": [{"disabled": true, "flagId": "<id>"}]}, "system": {"intercom": false, "upgrade": "false"}, "tls": {"defaultCipherList": "<value>", "defaultEcdhCurve": "<value>", "maxVersion": "<value>", "minVersion": "<value>", "rejectUnauthorized": true}, "upgradeGroupSettings": {"isRolling": true, "quantity": 5724.97, "retryCount": 6478.36, "retryDelay": 2800.39}, "upgradeSettings": {"automaticUpgradeCheckPeriod": "<value>", "disableAutomaticUpgrade": true, "enableLegacyEdgeUpgrade": false, "packageUrls": [{"packageHashUrl": "https://noted-archaeology.name/", "packageUrl": "https://alive-schnitzel.biz"}], "upgradeSource": "<value>"}, "workers": {"count": 9267.84, "enableHeapSnapshots": true, "loadThrottlePerc": 3447.62, "memory": 8708.09, "minimum": 3092.53, "startupMaxConns": 7695.01, "startupThrottleTimeout": 7646.78, "v8SingleThread": false}}]}
         "500":
           application/json: {"message": "<value>"}
   updateSystemSettingsConf:
     speakeasy-default-update-system-settings-conf:
       requestBody:
-        application/json: {"api": {"baseUrl": "https://both-draw.com/", "disableApiCache": true, "disabled": false, "headers": {}, "host": "meaty-spring.biz", "idleSessionTTL": 89.27, "listenOnPort": true, "loginRateLimit": "<value>", "port": 2424.38, "protocol": "<value>", "scripts": true, "sensitiveFields": ["<value 1>", "<value 2>"], "ssl": {"caPath": "<value>", "certPath": "<value>", "disabled": true, "passphrase": "<value>", "privKeyPath": "<value>"}, "ssoRateLimit": "<value>", "workerRemoteAccess": true}, "backups": {"backupPersistence": "<value>", "backupsDirectory": "<value>"}, "customLogo": {"enabled": false, "logoDescription": "<value>", "logoImage": "<value>"}, "pii": {"enablePiiDetection": false}, "proxy": {"useEnvVars": true}, "rollback": {"rollbackEnabled": false, "rollbackRetries": 3174.73, "rollbackTimeout": 1506.54}, "shutdown": {"drainTimeout": 3723.75}, "sni": {"disableSNIRouting": false}, "sockets": {"directory": "/usr/ports"}, "system": {"intercom": false, "upgrade": "api"}, "tls": {"defaultCipherList": "<value>", "defaultEcdhCurve": "<value>", "maxVersion": "<value>", "minVersion": "<value>", "rejectUnauthorized": true}, "upgradeGroupSettings": {"isRolling": false, "quantity": 7915.07, "retryCount": 4414.66, "retryDelay": 4374.4}, "upgradeSettings": {"automaticUpgradeCheckPeriod": "<value>", "disableAutomaticUpgrade": false, "enableLegacyEdgeUpgrade": false, "packageUrls": [{"packageHashUrl": "https://thrifty-teammate.net/", "packageUrl": "https://skeletal-dwell.info/"}], "upgradeSource": "<value>"}, "workers": {"count": 2124.14, "enableHeapSnapshots": true, "loadThrottlePerc": 2538.71, "memory": 20.53, "minimum": 6157.83, "startupMaxConns": 4731.29, "startupThrottleTimeout": 1613.48, "v8SingleThread": true}}
+        application/json: {"api": {"baseUrl": "https://both-draw.com/", "disableApiCache": true, "disabled": false, "headers": {}, "host": "meaty-spring.biz", "idleSessionTTL": 89.27, "listenOnPort": true, "loginRateLimit": "<value>", "port": 2424.38, "protocol": "<value>", "scripts": true, "sensitiveFields": ["<value 1>", "<value 2>"], "ssl": {"caPath": "<value>", "certPath": "<value>", "disabled": true, "passphrase": "<value>", "privKeyPath": "<value>"}, "ssoRateLimit": "<value>", "workerRemoteAccess": true}, "backups": {"backupPersistence": "<value>", "backupsDirectory": "<value>"}, "customLogo": {"enabled": false, "logoDescription": "<value>", "logoImage": "<value>"}, "pii": {"enablePiiDetection": false}, "proxy": {"useEnvVars": true}, "rollback": {"rollbackEnabled": false, "rollbackRetries": 3174.73, "rollbackTimeout": 1506.54}, "shutdown": {"drainTimeout": 3723.75}, "sni": {"disableSNIRouting": false}, "sockets": {"directory": "/usr/ports"}, "support": {"featureFlagOverrides": [{"disabled": true, "flagId": "<id>"}]}, "system": {"intercom": false, "upgrade": "api"}, "tls": {"defaultCipherList": "<value>", "defaultEcdhCurve": "<value>", "maxVersion": "<value>", "minVersion": "<value>", "rejectUnauthorized": true}, "upgradeGroupSettings": {"isRolling": false, "quantity": 7915.07, "retryCount": 4414.66, "retryDelay": 4374.4}, "upgradeSettings": {"automaticUpgradeCheckPeriod": "<value>", "disableAutomaticUpgrade": false, "enableLegacyEdgeUpgrade": false, "packageUrls": [{"packageHashUrl": "https://thrifty-teammate.net/", "packageUrl": "https://skeletal-dwell.info/"}], "upgradeSource": "<value>"}, "workers": {"count": 2124.14, "enableHeapSnapshots": true, "loadThrottlePerc": 2538.71, "memory": 20.53, "minimum": 6157.83, "startupMaxConns": 4731.29, "startupThrottleTimeout": 1613.48, "v8SingleThread": true}}
       responses:
         "200":
-          application/json: {"count": 621984, "items": [{"api": {"baseUrl": "https://crafty-humidity.com/", "disableApiCache": false, "disabled": true, "headers": {}, "host": "unwelcome-gastropod.info", "idleSessionTTL": 5654.06, "listenOnPort": false, "loginRateLimit": "<value>", "port": 9260.96, "protocol": "<value>", "scripts": false, "sensitiveFields": ["<value 1>"], "ssl": {"caPath": "<value>", "certPath": "<value>", "disabled": true, "passphrase": "<value>", "privKeyPath": "<value>"}, "ssoRateLimit": "<value>", "workerRemoteAccess": false}, "auth": {"fallback": true, "fallbackBadLogin": true, "filter_type": "<value>", "host": "elementary-tectonics.com", "port": 5119.59, "ssl": false, "type": "saml"}, "backups": {"backupPersistence": "<value>", "backupsDirectory": "<value>"}, "customLogo": {"enabled": true, "logoDescription": "<value>", "logoImage": "<value>"}, "distributed": {"mode": "master"}, "fips": true, "git": {"authType": "<value>", "autoAction": "<value>", "autoActionMessage": "<value>", "autoActionSchedule": "<value>", "branch": "<value>", "commitDeploySingleAction": true, "copilotAutoGitCommitMessages": true, "defaultCommitMessage": "<value>", "gitOps": "pull", "password": "mx2vfxXQJD4Ybfr", "remote": "<value>", "sshKey": "<value>", "strictHostKeyChecking": true, "timeout": 1445.54, "user": "Ursula79"}, "jobLimits": {"concurrentJobLimit": 5261.7, "concurrentScheduledJobLimit": 8739.55, "concurrentSystemJobLimit": 7105.98, "concurrentSystemTaskLimit": 2659.8, "concurrentTaskLimit": 9028.78, "disableTasks": true, "finishedJobArtifactsLimit": 5997.68, "finishedTaskArtifactsLimit": 8338.08, "jobArtifactsReaperPeriod": "<value>", "jobTimeout": "<value>", "maxTaskPerc": 7246.27, "schedulingPolicy": "<value>", "taskHeartbeatPeriod": 7464.28, "taskManifestFlushPeriodMs": 2406.65, "taskManifestMaxBufferSize": 6473.61, "taskManifestReadBufferSize": "<value>", "taskPollTimeoutMs": 5365.61}, "limits": {"cpuProfileTTL": "<value>", "disableMetricsAccessorCache": false, "edgeMetricsCustomExpression": "<value>", "edgeMetricsMode": "all", "edgeNodesCount": 148.31, "enableMetricsPersistence": false, "enableWorkerPersistence": false, "eventsMetadataSources": ["<value 1>", "<value 2>"], "largeEventsThreshold": "<value>", "lookupMaxSize": "<value>", "lookupMaxTotalSize": "<value>", "maxMetrics": 743.26, "maxPQSize": "<value>", "metricsDirectory": "<value>", "metricsDropList": ["<value 1>", "<value 2>"], "metricsFieldsBlacklist": [], "metricsGCPeriod": "<value>", "metricsMaxCardinality": 991.34, "metricsMaxDiskSpace": "<value>", "metricsNeverDropList": ["<value 1>", "<value 2>", "<value 3>"], "metricsWorkerIdBlacklist": ["<value 1>", "<value 2>"], "minFreeSpace": "<value>", "samples": {"maxSize": "<value>"}, "workerMaxMetrics": 3440.42}, "pii": {"enablePiiDetection": false}, "proxy": {"useEnvVars": true}, "redisCacheLimits": {"clientTrackingMechanism": "<value>", "enableServerAssist": false, "keyTTLSecs": 1429.84, "maxCacheSize": 1900.2, "maxNumKeys": 8821.39, "servicePeriodSecs": 2756.18}, "redisLimits": {"connections": {"disabled": true, "maxConnections": 2244.47}}, "rollback": {"rollbackEnabled": false, "rollbackRetries": 251.18, "rollbackTimeout": 5753.48}, "searchLimits": {"compressObjectCacheArtifacts": false, "fieldSummaryMaxFields": 997.95, "fieldSummaryMaxNestedDepth": 6311.46, "maxConcurrentSearches": 9454.72, "maxExecutorsPerSearch": 8461.8, "maxResultsPerSearch": 1247.74, "searchHistoryMaxJobs": 7581.99, "searchQueueLength": 4176.38, "warmPoolSize": "auto", "writeOnlyProviderSecrets": true}, "servicesLimits": {"connections": {"memoryLimit": "<value>"}, "metrics": {"memoryLimit": "<value>"}, "notifications": {"memoryLimit": "<value>"}}, "shutdown": {"drainTimeout": 8291.44}, "sni": {"disableSNIRouting": true}, "sockets": {"directory": "/proc"}, "system": {"intercom": false, "upgrade": "api"}, "tls": {"defaultCipherList": "<value>", "defaultEcdhCurve": "<value>", "maxVersion": "<value>", "minVersion": "<value>", "rejectUnauthorized": true}, "upgradeGroupSettings": {"isRolling": false, "quantity": 7915.07, "retryCount": 4414.66, "retryDelay": 4374.4}, "upgradeSettings": {"automaticUpgradeCheckPeriod": "<value>", "disableAutomaticUpgrade": false, "enableLegacyEdgeUpgrade": false, "packageUrls": [{"packageHashUrl": "https://thrifty-teammate.net/", "packageUrl": "https://skeletal-dwell.info/"}], "upgradeSource": "<value>"}, "workers": {"count": 5732.34, "enableHeapSnapshots": false, "loadThrottlePerc": 580.39, "memory": 8722.5, "minimum": 1180.07, "startupMaxConns": 9534.79, "startupThrottleTimeout": 1509.67, "v8SingleThread": false}}]}
+          application/json: {"count": 621984, "items": [{"api": {"baseUrl": "https://crafty-humidity.com/", "disableApiCache": false, "disabled": true, "headers": {}, "host": "unwelcome-gastropod.info", "idleSessionTTL": 5654.06, "listenOnPort": false, "loginRateLimit": "<value>", "port": 9260.96, "protocol": "<value>", "scripts": false, "sensitiveFields": ["<value 1>"], "ssl": {"caPath": "<value>", "certPath": "<value>", "disabled": true, "passphrase": "<value>", "privKeyPath": "<value>"}, "ssoRateLimit": "<value>", "workerRemoteAccess": false}, "auth": {"fallback": true, "fallbackBadLogin": true, "filter_type": "<value>", "host": "elementary-tectonics.com", "port": 5119.59, "ssl": false, "type": "saml"}, "backups": {"backupPersistence": "<value>", "backupsDirectory": "<value>"}, "customLogo": {"enabled": true, "logoDescription": "<value>", "logoImage": "<value>"}, "distributed": {"mode": "master"}, "fips": true, "git": {"authType": "<value>", "autoAction": "<value>", "autoActionMessage": "<value>", "autoActionSchedule": "<value>", "branch": "<value>", "commitDeploySingleAction": true, "copilotAutoGitCommitMessages": true, "defaultCommitMessage": "<value>", "gitOps": "pull", "password": "mx2vfxXQJD4Ybfr", "remote": "<value>", "sshKey": "<value>", "strictHostKeyChecking": true, "timeout": 1445.54, "user": "Ursula79"}, "jobLimits": {"concurrentJobLimit": 5261.7, "concurrentScheduledJobLimit": 8739.55, "concurrentSystemJobLimit": 7105.98, "concurrentSystemTaskLimit": 2659.8, "concurrentTaskLimit": 9028.78, "disableTasks": true, "finishedJobArtifactsLimit": 5997.68, "finishedTaskArtifactsLimit": 8338.08, "jobArtifactsReaperPeriod": "<value>", "jobTimeout": "<value>", "maxTaskPerc": 7246.27, "schedulingPolicy": "<value>", "taskHeartbeatPeriod": 7464.28, "taskManifestFlushPeriodMs": 2406.65, "taskManifestMaxBufferSize": 6473.61, "taskManifestReadBufferSize": "<value>", "taskPollTimeoutMs": 5365.61}, "limits": {"cpuProfileTTL": "<value>", "disableMetricsAccessorCache": false, "edgeMetricsCustomExpression": "<value>", "edgeMetricsMode": "all", "edgeNodesCount": 148.31, "enableMetricsPersistence": false, "enableWorkerPersistence": false, "eventsMetadataSources": ["<value 1>", "<value 2>"], "largeEventsThreshold": "<value>", "lookupMaxSize": "<value>", "lookupMaxTotalSize": "<value>", "maxDimensionValueSize": 821.15, "maxMetrics": 743.26, "maxPQSize": "<value>", "maxReconnectInterval": "<value>", "metricsDirectory": "<value>", "metricsDropList": ["<value 1>", "<value 2>"], "metricsFieldsBlacklist": [], "metricsGCPeriod": "<value>", "metricsMaxCardinality": 991.34, "metricsMaxDiskSpace": "<value>", "metricsNeverDropList": ["<value 1>", "<value 2>", "<value 3>"], "metricsWorkerIdBlacklist": ["<value 1>", "<value 2>"], "minFreeSpace": "<value>", "minReconnectInterval": "<value>", "netFlowTemplateFlushInterval": 2696.85, "randomReconnectInterval": "<value>", "samples": {"maxSize": "<value>"}, "workerMaxMetrics": 3440.42}, "pii": {"enablePiiDetection": false}, "proxy": {"useEnvVars": true}, "redisCacheLimits": {"clientTrackingMechanism": "<value>", "enableServerAssist": false, "keyTTLSecs": 1429.84, "maxCacheSize": 1900.2, "maxNumKeys": 8821.39, "servicePeriodSecs": 2756.18}, "redisLimits": {"connections": {"disabled": true, "maxConnections": 2244.47}}, "rollback": {"rollbackEnabled": false, "rollbackRetries": 251.18, "rollbackTimeout": 5753.48}, "searchLimits": {"compressObjectCacheArtifacts": false, "fieldSummaryMaxFields": 997.95, "fieldSummaryMaxNestedDepth": 6311.46, "maxConcurrentSearches": 9454.72, "maxExecutorsPerSearch": 8461.8, "maxResultsPerSearch": 1247.74, "maxSearchDuration": "<value>", "searchHistoryMaxJobs": 7581.99, "searchHistoryTTL": "<value>", "searchQueueLength": 4176.38, "warmPoolSize": "auto", "writeOnlyProviderSecrets": true}, "servicesLimits": {"connections": {"memoryLimit": "<value>", "procs": 3795.06}, "metrics": {"memoryLimit": "<value>", "procs": "auto"}, "notifications": {"memoryLimit": "<value>", "procs": "auto"}}, "shutdown": {"drainTimeout": 8291.44}, "sni": {"disableSNIRouting": true}, "sockets": {"directory": "/proc"}, "support": {"featureFlagOverrides": [{"disabled": false, "flagId": "<id>"}]}, "system": {"intercom": false, "upgrade": "api"}, "tls": {"defaultCipherList": "<value>", "defaultEcdhCurve": "<value>", "maxVersion": "<value>", "minVersion": "<value>", "rejectUnauthorized": true}, "upgradeGroupSettings": {"isRolling": false, "quantity": 7915.07, "retryCount": 4414.66, "retryDelay": 4374.4}, "upgradeSettings": {"automaticUpgradeCheckPeriod": "<value>", "disableAutomaticUpgrade": false, "enableLegacyEdgeUpgrade": false, "packageUrls": [{"packageHashUrl": "https://thrifty-teammate.net/", "packageUrl": "https://skeletal-dwell.info/"}], "upgradeSource": "<value>"}, "workers": {"count": 5732.34, "enableHeapSnapshots": false, "loadThrottlePerc": 580.39, "memory": 8722.5, "minimum": 1180.07, "startupMaxConns": 9534.79, "startupThrottleTimeout": 1509.67, "v8SingleThread": false}}]}
         "500":
           application/json: {"message": "<value>"}
   getSystemSettingsGitSettings:
@@ -3563,3 +3658,4 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
+releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.sources.hecTokens.update()`:  `response.items.[].authTokens.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.nodes.list()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.list()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.create()`: \n  *  `request` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.get()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.update()`: \n  *  `request.input` **Changed** **Breaking** :warning:\n  *  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.delete()`:  `response.items.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.sources.hecTokens.create()`:  `response.items.[].authTokens.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.create()`: \n  *  `request.[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n  *  `response.items.[].[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n* `criblcontrolplane.system.settings.cribl.list()`: **Added**\n* `criblcontrolplane.destinations.list()`:  `response.items.[].[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n* `criblcontrolplane.destinations.get()`:  `response.items.[].[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output.[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n  *  `response.items.[].[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n* `criblcontrolplane.destinations.delete()`:  `response.items.[].[splunkLb].indexerDiscoveryConfigs.authTokens.[]` **Changed**\n* `criblcontrolplane.destinations.samples.create()`: \n  *  `request.outputTestRequest.events.[].additionalProperties` **Added**\n* `criblcontrolplane.versions.commits.diff()`:  `response.items.[].diffJson.[].blocks.[].lines.[]` **Changed**\n* `criblcontrolplane.versions.commits.get()`:  `response.items.[].diffJson.[].blocks.[].lines.[]` **Changed**\n* `criblcontrolplane.system.settings.cribl.update()`: **Added**\n"

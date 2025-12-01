@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -276,40 +272,26 @@ export const InputGooglePubsubMode$inboundSchema: z.ZodType<
   InputGooglePubsubMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputGooglePubsubMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputGooglePubsubMode);
 /** @internal */
 export const InputGooglePubsubMode$outboundSchema: z.ZodType<
-  InputGooglePubsubMode,
+  string,
   z.ZodTypeDef,
   InputGooglePubsubMode
-> = z.union([
-  z.nativeEnum(InputGooglePubsubMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputGooglePubsubMode);
 
 /** @internal */
 export const InputGooglePubsubCompression$inboundSchema: z.ZodType<
   InputGooglePubsubCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputGooglePubsubCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputGooglePubsubCompression);
 /** @internal */
 export const InputGooglePubsubCompression$outboundSchema: z.ZodType<
-  InputGooglePubsubCompression,
+  string,
   z.ZodTypeDef,
   InputGooglePubsubCompression
-> = z.union([
-  z.nativeEnum(InputGooglePubsubCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputGooglePubsubCompression);
 
 /** @internal */
 export const InputGooglePubsubPqControls$inboundSchema: z.ZodType<
@@ -414,21 +396,11 @@ export const InputGooglePubsubGoogleAuthenticationMethod$inboundSchema:
     InputGooglePubsubGoogleAuthenticationMethod,
     z.ZodTypeDef,
     unknown
-  > = z
-    .union([
-      z.nativeEnum(InputGooglePubsubGoogleAuthenticationMethod),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  > = openEnums.inboundSchema(InputGooglePubsubGoogleAuthenticationMethod);
 /** @internal */
 export const InputGooglePubsubGoogleAuthenticationMethod$outboundSchema:
-  z.ZodType<
-    InputGooglePubsubGoogleAuthenticationMethod,
-    z.ZodTypeDef,
-    InputGooglePubsubGoogleAuthenticationMethod
-  > = z.union([
-    z.nativeEnum(InputGooglePubsubGoogleAuthenticationMethod),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  z.ZodType<string, z.ZodTypeDef, InputGooglePubsubGoogleAuthenticationMethod> =
+    openEnums.outboundSchema(InputGooglePubsubGoogleAuthenticationMethod);
 
 /** @internal */
 export const InputGooglePubsubMetadatum$inboundSchema: z.ZodType<

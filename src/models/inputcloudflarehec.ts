@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -100,6 +96,7 @@ export type InputCloudflareHecPq = {
  */
 export const InputCloudflareHecAuthenticationMethod = {
   Secret: "secret",
+  Manual: "manual",
 } as const;
 /**
  * Select Secret to use a text secret to authenticate
@@ -121,8 +118,14 @@ export type InputCloudflareHecAuthToken = {
    * Select Secret to use a text secret to authenticate
    */
   authType?: InputCloudflareHecAuthenticationMethod | undefined;
-  tokenSecret?: any | undefined;
-  token?: any | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  tokenSecret?: string | undefined;
+  /**
+   * Shared secret to be provided by any client (Authorization: <token>)
+   */
+  token?: string | undefined;
   enabled?: boolean | undefined;
   description?: string | undefined;
   /**
@@ -380,40 +383,26 @@ export const InputCloudflareHecMode$inboundSchema: z.ZodType<
   InputCloudflareHecMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputCloudflareHecMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputCloudflareHecMode);
 /** @internal */
 export const InputCloudflareHecMode$outboundSchema: z.ZodType<
-  InputCloudflareHecMode,
+  string,
   z.ZodTypeDef,
   InputCloudflareHecMode
-> = z.union([
-  z.nativeEnum(InputCloudflareHecMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputCloudflareHecMode);
 
 /** @internal */
 export const InputCloudflareHecCompression$inboundSchema: z.ZodType<
   InputCloudflareHecCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputCloudflareHecCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputCloudflareHecCompression);
 /** @internal */
 export const InputCloudflareHecCompression$outboundSchema: z.ZodType<
-  InputCloudflareHecCompression,
+  string,
   z.ZodTypeDef,
   InputCloudflareHecCompression
-> = z.union([
-  z.nativeEnum(InputCloudflareHecCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputCloudflareHecCompression);
 
 /** @internal */
 export const InputCloudflareHecPqControls$inboundSchema: z.ZodType<
@@ -517,20 +506,13 @@ export const InputCloudflareHecAuthenticationMethod$inboundSchema: z.ZodType<
   InputCloudflareHecAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputCloudflareHecAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputCloudflareHecAuthenticationMethod);
 /** @internal */
 export const InputCloudflareHecAuthenticationMethod$outboundSchema: z.ZodType<
-  InputCloudflareHecAuthenticationMethod,
+  string,
   z.ZodTypeDef,
   InputCloudflareHecAuthenticationMethod
-> = z.union([
-  z.nativeEnum(InputCloudflareHecAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputCloudflareHecAuthenticationMethod);
 
 /** @internal */
 export const InputCloudflareHecAuthTokenMetadatum$inboundSchema: z.ZodType<
@@ -586,8 +568,8 @@ export const InputCloudflareHecAuthToken$inboundSchema: z.ZodType<
   authType: InputCloudflareHecAuthenticationMethod$inboundSchema.default(
     "secret",
   ),
-  tokenSecret: z.any().optional(),
-  token: z.any().optional(),
+  tokenSecret: z.string().optional(),
+  token: z.string().optional(),
   enabled: z.boolean().default(true),
   description: z.string().optional(),
   allowedIndexesAtToken: z.array(z.string()).optional(),
@@ -598,8 +580,8 @@ export const InputCloudflareHecAuthToken$inboundSchema: z.ZodType<
 /** @internal */
 export type InputCloudflareHecAuthToken$Outbound = {
   authType: string;
-  tokenSecret?: any | undefined;
-  token?: any | undefined;
+  tokenSecret?: string | undefined;
+  token?: string | undefined;
   enabled: boolean;
   description?: string | undefined;
   allowedIndexesAtToken?: Array<string> | undefined;
@@ -615,8 +597,8 @@ export const InputCloudflareHecAuthToken$outboundSchema: z.ZodType<
   authType: InputCloudflareHecAuthenticationMethod$outboundSchema.default(
     "secret",
   ),
-  tokenSecret: z.any().optional(),
-  token: z.any().optional(),
+  tokenSecret: z.string().optional(),
+  token: z.string().optional(),
   enabled: z.boolean().default(true),
   description: z.string().optional(),
   allowedIndexesAtToken: z.array(z.string()).optional(),
@@ -649,40 +631,26 @@ export const InputCloudflareHecMinimumTLSVersion$inboundSchema: z.ZodType<
   InputCloudflareHecMinimumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputCloudflareHecMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputCloudflareHecMinimumTLSVersion);
 /** @internal */
 export const InputCloudflareHecMinimumTLSVersion$outboundSchema: z.ZodType<
-  InputCloudflareHecMinimumTLSVersion,
+  string,
   z.ZodTypeDef,
   InputCloudflareHecMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(InputCloudflareHecMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputCloudflareHecMinimumTLSVersion);
 
 /** @internal */
 export const InputCloudflareHecMaximumTLSVersion$inboundSchema: z.ZodType<
   InputCloudflareHecMaximumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputCloudflareHecMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputCloudflareHecMaximumTLSVersion);
 /** @internal */
 export const InputCloudflareHecMaximumTLSVersion$outboundSchema: z.ZodType<
-  InputCloudflareHecMaximumTLSVersion,
+  string,
   z.ZodTypeDef,
   InputCloudflareHecMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(InputCloudflareHecMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputCloudflareHecMaximumTLSVersion);
 
 /** @internal */
 export const InputCloudflareHecTLSSettingsServerSide$inboundSchema: z.ZodType<

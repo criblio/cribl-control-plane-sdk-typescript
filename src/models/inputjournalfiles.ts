@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -235,40 +231,26 @@ export const InputJournalFilesMode$inboundSchema: z.ZodType<
   InputJournalFilesMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputJournalFilesMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputJournalFilesMode);
 /** @internal */
 export const InputJournalFilesMode$outboundSchema: z.ZodType<
-  InputJournalFilesMode,
+  string,
   z.ZodTypeDef,
   InputJournalFilesMode
-> = z.union([
-  z.nativeEnum(InputJournalFilesMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputJournalFilesMode);
 
 /** @internal */
 export const InputJournalFilesCompression$inboundSchema: z.ZodType<
   InputJournalFilesCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputJournalFilesCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputJournalFilesCompression);
 /** @internal */
 export const InputJournalFilesCompression$outboundSchema: z.ZodType<
-  InputJournalFilesCompression,
+  string,
   z.ZodTypeDef,
   InputJournalFilesCompression
-> = z.union([
-  z.nativeEnum(InputJournalFilesCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputJournalFilesCompression);
 
 /** @internal */
 export const InputJournalFilesPqControls$inboundSchema: z.ZodType<

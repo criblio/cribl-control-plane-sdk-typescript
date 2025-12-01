@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -327,40 +323,26 @@ export const InputDatadogAgentMode$inboundSchema: z.ZodType<
   InputDatadogAgentMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputDatadogAgentMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputDatadogAgentMode);
 /** @internal */
 export const InputDatadogAgentMode$outboundSchema: z.ZodType<
-  InputDatadogAgentMode,
+  string,
   z.ZodTypeDef,
   InputDatadogAgentMode
-> = z.union([
-  z.nativeEnum(InputDatadogAgentMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputDatadogAgentMode);
 
 /** @internal */
 export const InputDatadogAgentCompression$inboundSchema: z.ZodType<
   InputDatadogAgentCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputDatadogAgentCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputDatadogAgentCompression);
 /** @internal */
 export const InputDatadogAgentCompression$outboundSchema: z.ZodType<
-  InputDatadogAgentCompression,
+  string,
   z.ZodTypeDef,
   InputDatadogAgentCompression
-> = z.union([
-  z.nativeEnum(InputDatadogAgentCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputDatadogAgentCompression);
 
 /** @internal */
 export const InputDatadogAgentPqControls$inboundSchema: z.ZodType<
@@ -464,40 +446,26 @@ export const InputDatadogAgentMinimumTLSVersion$inboundSchema: z.ZodType<
   InputDatadogAgentMinimumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputDatadogAgentMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputDatadogAgentMinimumTLSVersion);
 /** @internal */
 export const InputDatadogAgentMinimumTLSVersion$outboundSchema: z.ZodType<
-  InputDatadogAgentMinimumTLSVersion,
+  string,
   z.ZodTypeDef,
   InputDatadogAgentMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(InputDatadogAgentMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputDatadogAgentMinimumTLSVersion);
 
 /** @internal */
 export const InputDatadogAgentMaximumTLSVersion$inboundSchema: z.ZodType<
   InputDatadogAgentMaximumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputDatadogAgentMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputDatadogAgentMaximumTLSVersion);
 /** @internal */
 export const InputDatadogAgentMaximumTLSVersion$outboundSchema: z.ZodType<
-  InputDatadogAgentMaximumTLSVersion,
+  string,
   z.ZodTypeDef,
   InputDatadogAgentMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(InputDatadogAgentMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputDatadogAgentMaximumTLSVersion);
 
 /** @internal */
 export const InputDatadogAgentTLSSettingsServerSide$inboundSchema: z.ZodType<

@@ -10,7 +10,7 @@ let value: UpdateConfigGroupByProductAndIdRequest = {
   id: "<id>",
   configGroup: {
     cloud: {
-      provider: "aws",
+      provider: "azure",
       region: "<value>",
     },
     configVersion: "<value>",
@@ -19,12 +19,12 @@ let value: UpdateConfigGroupByProductAndIdRequest = {
     estimatedIngestRate: 5120,
     git: {
       commit: "<value>",
-      localChanges: 470.66,
+      localChanges: 2849.05,
       log: [
         {
           authorEmail: "<value>",
           authorName: "<value>",
-          date: "2024-12-24",
+          date: "2024-12-12",
           hash: "<value>",
           message: "<value>",
           short: "<value>",
@@ -57,9 +57,9 @@ let value: UpdateConfigGroupByProductAndIdRequest = {
       "<value 2>",
     ],
     tags: "<value>",
-    type: "lake_access",
+    type: "local_search",
     upgradeVersion: "<value>",
-    workerCount: 9082.83,
+    workerCount: 3493.89,
     workerRemoteAccess: true,
   },
 };
