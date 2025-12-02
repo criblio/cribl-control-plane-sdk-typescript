@@ -5,7 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -21,7 +21,7 @@ export type RunnableJobScheduledSearchJobType = OpenEnum<
 export const RunnableJobScheduledSearchType = {
   Collection: "collection",
 } as const;
-export type RunnableJobScheduledSearchType = ClosedEnum<
+export type RunnableJobScheduledSearchType = OpenEnum<
   typeof RunnableJobScheduledSearchType
 >;
 
@@ -38,7 +38,7 @@ export const RunnableJobScheduledSearchLogLevel = {
 /**
  * Level at which to set task logging
  */
-export type RunnableJobScheduledSearchLogLevel = ClosedEnum<
+export type RunnableJobScheduledSearchLogLevel = OpenEnum<
   typeof RunnableJobScheduledSearchLogLevel
 >;
 
@@ -175,14 +175,18 @@ export const RunnableJobScheduledSearchJobType$inboundSchema: z.ZodType<
 > = openEnums.inboundSchema(RunnableJobScheduledSearchJobType);
 
 /** @internal */
-export const RunnableJobScheduledSearchType$inboundSchema: z.ZodNativeEnum<
-  typeof RunnableJobScheduledSearchType
-> = z.nativeEnum(RunnableJobScheduledSearchType);
+export const RunnableJobScheduledSearchType$inboundSchema: z.ZodType<
+  RunnableJobScheduledSearchType,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(RunnableJobScheduledSearchType);
 
 /** @internal */
-export const RunnableJobScheduledSearchLogLevel$inboundSchema: z.ZodNativeEnum<
-  typeof RunnableJobScheduledSearchLogLevel
-> = z.nativeEnum(RunnableJobScheduledSearchLogLevel);
+export const RunnableJobScheduledSearchLogLevel$inboundSchema: z.ZodType<
+  RunnableJobScheduledSearchLogLevel,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(RunnableJobScheduledSearchLogLevel);
 
 /** @internal */
 export const RunnableJobScheduledSearchTimeWarning$inboundSchema: z.ZodType<
