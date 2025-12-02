@@ -5,7 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -21,9 +21,7 @@ export type RunnableJobExecutorJobType = OpenEnum<
 export const RunnableJobExecutorType = {
   Collection: "collection",
 } as const;
-export type RunnableJobExecutorType = ClosedEnum<
-  typeof RunnableJobExecutorType
->;
+export type RunnableJobExecutorType = OpenEnum<typeof RunnableJobExecutorType>;
 
 /**
  * Level at which to set task logging
@@ -38,7 +36,7 @@ export const RunnableJobExecutorScheduleLogLevel = {
 /**
  * Level at which to set task logging
  */
-export type RunnableJobExecutorScheduleLogLevel = ClosedEnum<
+export type RunnableJobExecutorScheduleLogLevel = OpenEnum<
   typeof RunnableJobExecutorScheduleLogLevel
 >;
 
@@ -223,14 +221,18 @@ export const RunnableJobExecutorJobType$inboundSchema: z.ZodType<
 > = openEnums.inboundSchema(RunnableJobExecutorJobType);
 
 /** @internal */
-export const RunnableJobExecutorType$inboundSchema: z.ZodNativeEnum<
-  typeof RunnableJobExecutorType
-> = z.nativeEnum(RunnableJobExecutorType);
+export const RunnableJobExecutorType$inboundSchema: z.ZodType<
+  RunnableJobExecutorType,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(RunnableJobExecutorType);
 
 /** @internal */
-export const RunnableJobExecutorScheduleLogLevel$inboundSchema: z.ZodNativeEnum<
-  typeof RunnableJobExecutorScheduleLogLevel
-> = z.nativeEnum(RunnableJobExecutorScheduleLogLevel);
+export const RunnableJobExecutorScheduleLogLevel$inboundSchema: z.ZodType<
+  RunnableJobExecutorScheduleLogLevel,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(RunnableJobExecutorScheduleLogLevel);
 
 /** @internal */
 export const RunnableJobExecutorTimeWarning$inboundSchema: z.ZodType<
