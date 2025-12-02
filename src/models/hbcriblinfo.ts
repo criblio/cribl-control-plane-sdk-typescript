@@ -4,7 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { HBLeaderInfo, HBLeaderInfo$inboundSchema } from "./hbleaderinfo.js";
@@ -75,11 +76,7 @@ export const DistMode$inboundSchema: z.ZodType<
   DistMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(DistMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(DistMode);
 
 /** @internal */
 export const HBCriblInfo$inboundSchema: z.ZodType<

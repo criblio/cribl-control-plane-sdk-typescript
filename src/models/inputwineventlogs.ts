@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -272,40 +268,26 @@ export const InputWinEventLogsMode$inboundSchema: z.ZodType<
   InputWinEventLogsMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputWinEventLogsMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputWinEventLogsMode);
 /** @internal */
 export const InputWinEventLogsMode$outboundSchema: z.ZodType<
-  InputWinEventLogsMode,
+  string,
   z.ZodTypeDef,
   InputWinEventLogsMode
-> = z.union([
-  z.nativeEnum(InputWinEventLogsMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputWinEventLogsMode);
 
 /** @internal */
 export const InputWinEventLogsCompression$inboundSchema: z.ZodType<
   InputWinEventLogsCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputWinEventLogsCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputWinEventLogsCompression);
 /** @internal */
 export const InputWinEventLogsCompression$outboundSchema: z.ZodType<
-  InputWinEventLogsCompression,
+  string,
   z.ZodTypeDef,
   InputWinEventLogsCompression
-> = z.union([
-  z.nativeEnum(InputWinEventLogsCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputWinEventLogsCompression);
 
 /** @internal */
 export const InputWinEventLogsPqControls$inboundSchema: z.ZodType<
@@ -409,40 +391,26 @@ export const ReadMode$inboundSchema: z.ZodType<
   ReadMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(ReadMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(ReadMode);
 /** @internal */
 export const ReadMode$outboundSchema: z.ZodType<
-  ReadMode,
+  string,
   z.ZodTypeDef,
   ReadMode
-> = z.union([
-  z.nativeEnum(ReadMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(ReadMode);
 
 /** @internal */
 export const EventFormat$inboundSchema: z.ZodType<
   EventFormat,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(EventFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(EventFormat);
 /** @internal */
 export const EventFormat$outboundSchema: z.ZodType<
-  EventFormat,
+  string,
   z.ZodTypeDef,
   EventFormat
-> = z.union([
-  z.nativeEnum(EventFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(EventFormat);
 
 /** @internal */
 export const InputWinEventLogsMetadatum$inboundSchema: z.ZodType<
