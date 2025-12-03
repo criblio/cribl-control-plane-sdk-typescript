@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -364,40 +360,26 @@ export const InputSystemStateMode$inboundSchema: z.ZodType<
   InputSystemStateMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputSystemStateMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputSystemStateMode);
 /** @internal */
 export const InputSystemStateMode$outboundSchema: z.ZodType<
-  InputSystemStateMode,
+  string,
   z.ZodTypeDef,
   InputSystemStateMode
-> = z.union([
-  z.nativeEnum(InputSystemStateMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputSystemStateMode);
 
 /** @internal */
 export const InputSystemStateCompression$inboundSchema: z.ZodType<
   InputSystemStateCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputSystemStateCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputSystemStateCompression);
 /** @internal */
 export const InputSystemStateCompression$outboundSchema: z.ZodType<
-  InputSystemStateCompression,
+  string,
   z.ZodTypeDef,
   InputSystemStateCompression
-> = z.union([
-  z.nativeEnum(InputSystemStateCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputSystemStateCompression);
 
 /** @internal */
 export const InputSystemStatePqControls$inboundSchema: z.ZodType<
@@ -992,20 +974,13 @@ export const InputSystemStateDataCompressionFormat$inboundSchema: z.ZodType<
   InputSystemStateDataCompressionFormat,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputSystemStateDataCompressionFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputSystemStateDataCompressionFormat);
 /** @internal */
 export const InputSystemStateDataCompressionFormat$outboundSchema: z.ZodType<
-  InputSystemStateDataCompressionFormat,
+  string,
   z.ZodTypeDef,
   InputSystemStateDataCompressionFormat
-> = z.union([
-  z.nativeEnum(InputSystemStateDataCompressionFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputSystemStateDataCompressionFormat);
 
 /** @internal */
 export const InputSystemStatePersistence$inboundSchema: z.ZodType<
