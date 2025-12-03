@@ -14,29 +14,29 @@ export type GetCriblLakeDatasetByLakeIdRequest = {
    */
   lakeId: string;
   /**
-   * query string false Filter datasets by storage location ID. Use <code>default</code> for default storage location.
+   * Filter datasets by storage location ID. Use <code>default</code> for default storage location.
    */
   storageLocationId?: string | undefined;
   /**
-   * query string false Filter datasets by format. Set to <code>ddss</code> to return only DDSS datasets.
+   * Filter datasets by format. Set to <code>ddss</code> to return only DDSS datasets.
    */
   format?: string | undefined;
   /**
-   * query boolean false Exclude DDSS format datasets from the response.
+   * Exclude DDSS format datasets from the response.
    */
-  excludeDDSS?: string | undefined;
+  excludeDDSS?: boolean | undefined;
   /**
-   * query boolean false Exclude deleted datasets from the response.
+   * Exclude deleted datasets from the response.
    */
-  excludeDeleted?: string | undefined;
+  excludeDeleted?: boolean | undefined;
   /**
-   * query boolean false Exclude internal datasets (those with IDs starting with <code>cribl_</code>) from the response.
+   * Exclude internal datasets (those with IDs starting with <code>cribl_</code>) from the response.
    */
-  excludeInternal?: string | undefined;
+  excludeInternal?: boolean | undefined;
   /**
-   * query boolean false Exclude BYOS (Bring Your Own Storage) datasets from the response.
+   * Exclude BYOS (Bring Your Own Storage) datasets from the response.
    */
-  excludeBYOS?: string | undefined;
+  excludeBYOS?: boolean | undefined;
 };
 
 /**
@@ -55,10 +55,10 @@ export type GetCriblLakeDatasetByLakeIdRequest$Outbound = {
   lakeId: string;
   storageLocationId?: string | undefined;
   format?: string | undefined;
-  excludeDDSS?: string | undefined;
-  excludeDeleted?: string | undefined;
-  excludeInternal?: string | undefined;
-  excludeBYOS?: string | undefined;
+  excludeDDSS?: boolean | undefined;
+  excludeDeleted?: boolean | undefined;
+  excludeInternal?: boolean | undefined;
+  excludeBYOS?: boolean | undefined;
 };
 
 /** @internal */
@@ -70,10 +70,10 @@ export const GetCriblLakeDatasetByLakeIdRequest$outboundSchema: z.ZodType<
   lakeId: z.string(),
   storageLocationId: z.string().optional(),
   format: z.string().optional(),
-  excludeDDSS: z.string().optional(),
-  excludeDeleted: z.string().optional(),
-  excludeInternal: z.string().optional(),
-  excludeBYOS: z.string().optional(),
+  excludeDDSS: z.boolean().optional(),
+  excludeDeleted: z.boolean().optional(),
+  excludeInternal: z.boolean().optional(),
+  excludeBYOS: z.boolean().optional(),
 });
 
 export function getCriblLakeDatasetByLakeIdRequestToJSON(

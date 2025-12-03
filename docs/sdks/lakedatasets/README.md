@@ -215,10 +215,10 @@ async function run() {
     lakeId: "<id>",
     storageLocationId: "<id>",
     format: "<value>",
-    excludeDDSS: "<value>",
-    excludeDeleted: "<value>",
-    excludeInternal: "<value>",
-    excludeBYOS: "<value>",
+    excludeDDSS: true,
+    excludeDeleted: true,
+    excludeInternal: false,
+    excludeBYOS: false,
   });
 
   console.log(result);
@@ -249,10 +249,10 @@ async function run() {
     lakeId: "<id>",
     storageLocationId: "<id>",
     format: "<value>",
-    excludeDDSS: "<value>",
-    excludeDeleted: "<value>",
-    excludeInternal: "<value>",
-    excludeBYOS: "<value>",
+    excludeDDSS: true,
+    excludeDeleted: true,
+    excludeInternal: false,
+    excludeBYOS: false,
   });
   if (res.ok) {
     const { value: result } = res;
