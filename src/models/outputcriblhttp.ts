@@ -659,7 +659,7 @@ export const OutputCriblHttpTimeoutRetrySettings$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  timeoutRetry: z.boolean().default(true),
+  timeoutRetry: z.boolean().default(false),
   initialBackoff: z.number().default(1000),
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),
@@ -678,7 +678,7 @@ export const OutputCriblHttpTimeoutRetrySettings$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OutputCriblHttpTimeoutRetrySettings
 > = z.object({
-  timeoutRetry: z.boolean().default(true),
+  timeoutRetry: z.boolean().default(false),
   initialBackoff: z.number().default(1000),
   backoffRate: z.number().default(2),
   maxBackoff: z.number().default(10000),

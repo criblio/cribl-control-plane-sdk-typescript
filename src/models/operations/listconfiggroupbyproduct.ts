@@ -7,19 +7,19 @@ import * as models from "../index.js";
 
 export type ListConfigGroupByProductRequest = {
   /**
-   * Comma-separated list of additional properties to include in the response. Available values are <code>git.commit</code>, <code>git.localChanges</code>, and <code>git.log</code>.
-   */
-  fields?: string | undefined;
-  /**
    * Name of the Cribl product to get the Worker Groups or Edge Fleets for.
    */
   product: models.ProductsCore;
+  /**
+   * Comma-separated list of additional properties to include in the response. Available values are <code>git.commit</code>, <code>git.localChanges</code>, and <code>git.log</code>.
+   */
+  fields?: string | undefined;
 };
 
 /** @internal */
 export type ListConfigGroupByProductRequest$Outbound = {
-  fields?: string | undefined;
   product: string;
+  fields?: string | undefined;
 };
 
 /** @internal */
@@ -28,8 +28,8 @@ export const ListConfigGroupByProductRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   ListConfigGroupByProductRequest
 > = z.object({
-  fields: z.string().optional(),
   product: models.ProductsCore$outboundSchema,
+  fields: z.string().optional(),
 });
 
 export function listConfigGroupByProductRequestToJSON(

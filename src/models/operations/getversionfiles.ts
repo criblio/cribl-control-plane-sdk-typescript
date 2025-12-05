@@ -3,7 +3,6 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../../lib/primitives.js";
 
 export type GetVersionFilesRequest = {
   /**
@@ -13,13 +12,13 @@ export type GetVersionFilesRequest = {
   /**
    * The Git commit hash to use as the starting point for the request.
    */
-  id?: string | undefined;
+  commit?: string | undefined;
 };
 
 /** @internal */
 export type GetVersionFilesRequest$Outbound = {
   groupId?: string | undefined;
-  ID?: string | undefined;
+  commit?: string | undefined;
 };
 
 /** @internal */
@@ -29,11 +28,7 @@ export const GetVersionFilesRequest$outboundSchema: z.ZodType<
   GetVersionFilesRequest
 > = z.object({
   groupId: z.string().optional(),
-  id: z.string().optional(),
-}).transform((v) => {
-  return remap$(v, {
-    id: "ID",
-  });
+  commit: z.string().optional(),
 });
 
 export function getVersionFilesRequestToJSON(
