@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -355,20 +351,13 @@ export const OutputSumoLogicDataFormat$inboundSchema: z.ZodType<
   OutputSumoLogicDataFormat,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSumoLogicDataFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSumoLogicDataFormat);
 /** @internal */
 export const OutputSumoLogicDataFormat$outboundSchema: z.ZodType<
-  OutputSumoLogicDataFormat,
+  string,
   z.ZodTypeDef,
   OutputSumoLogicDataFormat
-> = z.union([
-  z.nativeEnum(OutputSumoLogicDataFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSumoLogicDataFormat);
 
 /** @internal */
 export const OutputSumoLogicExtraHttpHeader$inboundSchema: z.ZodType<
@@ -419,20 +408,13 @@ export const OutputSumoLogicFailedRequestLoggingMode$inboundSchema: z.ZodType<
   OutputSumoLogicFailedRequestLoggingMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSumoLogicFailedRequestLoggingMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSumoLogicFailedRequestLoggingMode);
 /** @internal */
 export const OutputSumoLogicFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  OutputSumoLogicFailedRequestLoggingMode,
+  string,
   z.ZodTypeDef,
   OutputSumoLogicFailedRequestLoggingMode
-> = z.union([
-  z.nativeEnum(OutputSumoLogicFailedRequestLoggingMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSumoLogicFailedRequestLoggingMode);
 
 /** @internal */
 export const OutputSumoLogicResponseRetrySetting$inboundSchema: z.ZodType<
@@ -541,80 +523,52 @@ export const OutputSumoLogicBackpressureBehavior$inboundSchema: z.ZodType<
   OutputSumoLogicBackpressureBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSumoLogicBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSumoLogicBackpressureBehavior);
 /** @internal */
 export const OutputSumoLogicBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputSumoLogicBackpressureBehavior,
+  string,
   z.ZodTypeDef,
   OutputSumoLogicBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputSumoLogicBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSumoLogicBackpressureBehavior);
 
 /** @internal */
 export const OutputSumoLogicMode$inboundSchema: z.ZodType<
   OutputSumoLogicMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSumoLogicMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSumoLogicMode);
 /** @internal */
 export const OutputSumoLogicMode$outboundSchema: z.ZodType<
-  OutputSumoLogicMode,
+  string,
   z.ZodTypeDef,
   OutputSumoLogicMode
-> = z.union([
-  z.nativeEnum(OutputSumoLogicMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSumoLogicMode);
 
 /** @internal */
 export const OutputSumoLogicCompression$inboundSchema: z.ZodType<
   OutputSumoLogicCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSumoLogicCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSumoLogicCompression);
 /** @internal */
 export const OutputSumoLogicCompression$outboundSchema: z.ZodType<
-  OutputSumoLogicCompression,
+  string,
   z.ZodTypeDef,
   OutputSumoLogicCompression
-> = z.union([
-  z.nativeEnum(OutputSumoLogicCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSumoLogicCompression);
 
 /** @internal */
 export const OutputSumoLogicQueueFullBehavior$inboundSchema: z.ZodType<
   OutputSumoLogicQueueFullBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSumoLogicQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSumoLogicQueueFullBehavior);
 /** @internal */
 export const OutputSumoLogicQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputSumoLogicQueueFullBehavior,
+  string,
   z.ZodTypeDef,
   OutputSumoLogicQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputSumoLogicQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSumoLogicQueueFullBehavior);
 
 /** @internal */
 export const OutputSumoLogicPqControls$inboundSchema: z.ZodType<

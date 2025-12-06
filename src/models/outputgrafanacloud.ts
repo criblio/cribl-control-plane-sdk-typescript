@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -913,20 +909,13 @@ export const OutputGrafanaCloudMessageFormat2$inboundSchema: z.ZodType<
   OutputGrafanaCloudMessageFormat2,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGrafanaCloudMessageFormat2),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputGrafanaCloudMessageFormat2);
 /** @internal */
 export const OutputGrafanaCloudMessageFormat2$outboundSchema: z.ZodType<
-  OutputGrafanaCloudMessageFormat2,
+  string,
   z.ZodTypeDef,
   OutputGrafanaCloudMessageFormat2
-> = z.union([
-  z.nativeEnum(OutputGrafanaCloudMessageFormat2),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputGrafanaCloudMessageFormat2);
 
 /** @internal */
 export const OutputGrafanaCloudLabel2$inboundSchema: z.ZodType<
@@ -976,21 +965,18 @@ export const OutputGrafanaCloudPrometheusAuthAuthenticationType2$inboundSchema:
     OutputGrafanaCloudPrometheusAuthAuthenticationType2,
     z.ZodTypeDef,
     unknown
-  > = z
-    .union([
-      z.nativeEnum(OutputGrafanaCloudPrometheusAuthAuthenticationType2),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  > = openEnums.inboundSchema(
+    OutputGrafanaCloudPrometheusAuthAuthenticationType2,
+  );
 /** @internal */
 export const OutputGrafanaCloudPrometheusAuthAuthenticationType2$outboundSchema:
   z.ZodType<
-    OutputGrafanaCloudPrometheusAuthAuthenticationType2,
+    string,
     z.ZodTypeDef,
     OutputGrafanaCloudPrometheusAuthAuthenticationType2
-  > = z.union([
-    z.nativeEnum(OutputGrafanaCloudPrometheusAuthAuthenticationType2),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  > = openEnums.outboundSchema(
+    OutputGrafanaCloudPrometheusAuthAuthenticationType2,
+  );
 
 /** @internal */
 export const OutputGrafanaCloudPrometheusAuth2$inboundSchema: z.ZodType<
@@ -1056,21 +1042,14 @@ export const OutputGrafanaCloudLokiAuthAuthenticationType2$inboundSchema:
     OutputGrafanaCloudLokiAuthAuthenticationType2,
     z.ZodTypeDef,
     unknown
-  > = z
-    .union([
-      z.nativeEnum(OutputGrafanaCloudLokiAuthAuthenticationType2),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  > = openEnums.inboundSchema(OutputGrafanaCloudLokiAuthAuthenticationType2);
 /** @internal */
 export const OutputGrafanaCloudLokiAuthAuthenticationType2$outboundSchema:
   z.ZodType<
-    OutputGrafanaCloudLokiAuthAuthenticationType2,
+    string,
     z.ZodTypeDef,
     OutputGrafanaCloudLokiAuthAuthenticationType2
-  > = z.union([
-    z.nativeEnum(OutputGrafanaCloudLokiAuthAuthenticationType2),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  > = openEnums.outboundSchema(OutputGrafanaCloudLokiAuthAuthenticationType2);
 
 /** @internal */
 export const OutputGrafanaCloudLokiAuth2$inboundSchema: z.ZodType<
@@ -1182,21 +1161,11 @@ export const OutputGrafanaCloudFailedRequestLoggingMode2$inboundSchema:
     OutputGrafanaCloudFailedRequestLoggingMode2,
     z.ZodTypeDef,
     unknown
-  > = z
-    .union([
-      z.nativeEnum(OutputGrafanaCloudFailedRequestLoggingMode2),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  > = openEnums.inboundSchema(OutputGrafanaCloudFailedRequestLoggingMode2);
 /** @internal */
 export const OutputGrafanaCloudFailedRequestLoggingMode2$outboundSchema:
-  z.ZodType<
-    OutputGrafanaCloudFailedRequestLoggingMode2,
-    z.ZodTypeDef,
-    OutputGrafanaCloudFailedRequestLoggingMode2
-  > = z.union([
-    z.nativeEnum(OutputGrafanaCloudFailedRequestLoggingMode2),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  z.ZodType<string, z.ZodTypeDef, OutputGrafanaCloudFailedRequestLoggingMode2> =
+    openEnums.outboundSchema(OutputGrafanaCloudFailedRequestLoggingMode2);
 
 /** @internal */
 export const OutputGrafanaCloudResponseRetrySetting2$inboundSchema: z.ZodType<
@@ -1317,80 +1286,52 @@ export const OutputGrafanaCloudBackpressureBehavior2$inboundSchema: z.ZodType<
   OutputGrafanaCloudBackpressureBehavior2,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGrafanaCloudBackpressureBehavior2),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputGrafanaCloudBackpressureBehavior2);
 /** @internal */
 export const OutputGrafanaCloudBackpressureBehavior2$outboundSchema: z.ZodType<
-  OutputGrafanaCloudBackpressureBehavior2,
+  string,
   z.ZodTypeDef,
   OutputGrafanaCloudBackpressureBehavior2
-> = z.union([
-  z.nativeEnum(OutputGrafanaCloudBackpressureBehavior2),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputGrafanaCloudBackpressureBehavior2);
 
 /** @internal */
 export const OutputGrafanaCloudMode2$inboundSchema: z.ZodType<
   OutputGrafanaCloudMode2,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGrafanaCloudMode2),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputGrafanaCloudMode2);
 /** @internal */
 export const OutputGrafanaCloudMode2$outboundSchema: z.ZodType<
-  OutputGrafanaCloudMode2,
+  string,
   z.ZodTypeDef,
   OutputGrafanaCloudMode2
-> = z.union([
-  z.nativeEnum(OutputGrafanaCloudMode2),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputGrafanaCloudMode2);
 
 /** @internal */
 export const OutputGrafanaCloudCompression2$inboundSchema: z.ZodType<
   OutputGrafanaCloudCompression2,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGrafanaCloudCompression2),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputGrafanaCloudCompression2);
 /** @internal */
 export const OutputGrafanaCloudCompression2$outboundSchema: z.ZodType<
-  OutputGrafanaCloudCompression2,
+  string,
   z.ZodTypeDef,
   OutputGrafanaCloudCompression2
-> = z.union([
-  z.nativeEnum(OutputGrafanaCloudCompression2),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputGrafanaCloudCompression2);
 
 /** @internal */
 export const OutputGrafanaCloudQueueFullBehavior2$inboundSchema: z.ZodType<
   OutputGrafanaCloudQueueFullBehavior2,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGrafanaCloudQueueFullBehavior2),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputGrafanaCloudQueueFullBehavior2);
 /** @internal */
 export const OutputGrafanaCloudQueueFullBehavior2$outboundSchema: z.ZodType<
-  OutputGrafanaCloudQueueFullBehavior2,
+  string,
   z.ZodTypeDef,
   OutputGrafanaCloudQueueFullBehavior2
-> = z.union([
-  z.nativeEnum(OutputGrafanaCloudQueueFullBehavior2),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputGrafanaCloudQueueFullBehavior2);
 
 /** @internal */
 export const OutputGrafanaCloudPqControls2$inboundSchema: z.ZodType<
@@ -1639,20 +1580,13 @@ export const OutputGrafanaCloudMessageFormat1$inboundSchema: z.ZodType<
   OutputGrafanaCloudMessageFormat1,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGrafanaCloudMessageFormat1),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputGrafanaCloudMessageFormat1);
 /** @internal */
 export const OutputGrafanaCloudMessageFormat1$outboundSchema: z.ZodType<
-  OutputGrafanaCloudMessageFormat1,
+  string,
   z.ZodTypeDef,
   OutputGrafanaCloudMessageFormat1
-> = z.union([
-  z.nativeEnum(OutputGrafanaCloudMessageFormat1),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputGrafanaCloudMessageFormat1);
 
 /** @internal */
 export const OutputGrafanaCloudLabel1$inboundSchema: z.ZodType<
@@ -1702,21 +1636,18 @@ export const OutputGrafanaCloudPrometheusAuthAuthenticationType1$inboundSchema:
     OutputGrafanaCloudPrometheusAuthAuthenticationType1,
     z.ZodTypeDef,
     unknown
-  > = z
-    .union([
-      z.nativeEnum(OutputGrafanaCloudPrometheusAuthAuthenticationType1),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  > = openEnums.inboundSchema(
+    OutputGrafanaCloudPrometheusAuthAuthenticationType1,
+  );
 /** @internal */
 export const OutputGrafanaCloudPrometheusAuthAuthenticationType1$outboundSchema:
   z.ZodType<
-    OutputGrafanaCloudPrometheusAuthAuthenticationType1,
+    string,
     z.ZodTypeDef,
     OutputGrafanaCloudPrometheusAuthAuthenticationType1
-  > = z.union([
-    z.nativeEnum(OutputGrafanaCloudPrometheusAuthAuthenticationType1),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  > = openEnums.outboundSchema(
+    OutputGrafanaCloudPrometheusAuthAuthenticationType1,
+  );
 
 /** @internal */
 export const OutputGrafanaCloudPrometheusAuth1$inboundSchema: z.ZodType<
@@ -1782,21 +1713,14 @@ export const OutputGrafanaCloudLokiAuthAuthenticationType1$inboundSchema:
     OutputGrafanaCloudLokiAuthAuthenticationType1,
     z.ZodTypeDef,
     unknown
-  > = z
-    .union([
-      z.nativeEnum(OutputGrafanaCloudLokiAuthAuthenticationType1),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  > = openEnums.inboundSchema(OutputGrafanaCloudLokiAuthAuthenticationType1);
 /** @internal */
 export const OutputGrafanaCloudLokiAuthAuthenticationType1$outboundSchema:
   z.ZodType<
-    OutputGrafanaCloudLokiAuthAuthenticationType1,
+    string,
     z.ZodTypeDef,
     OutputGrafanaCloudLokiAuthAuthenticationType1
-  > = z.union([
-    z.nativeEnum(OutputGrafanaCloudLokiAuthAuthenticationType1),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  > = openEnums.outboundSchema(OutputGrafanaCloudLokiAuthAuthenticationType1);
 
 /** @internal */
 export const OutputGrafanaCloudLokiAuth1$inboundSchema: z.ZodType<
@@ -1908,21 +1832,11 @@ export const OutputGrafanaCloudFailedRequestLoggingMode1$inboundSchema:
     OutputGrafanaCloudFailedRequestLoggingMode1,
     z.ZodTypeDef,
     unknown
-  > = z
-    .union([
-      z.nativeEnum(OutputGrafanaCloudFailedRequestLoggingMode1),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  > = openEnums.inboundSchema(OutputGrafanaCloudFailedRequestLoggingMode1);
 /** @internal */
 export const OutputGrafanaCloudFailedRequestLoggingMode1$outboundSchema:
-  z.ZodType<
-    OutputGrafanaCloudFailedRequestLoggingMode1,
-    z.ZodTypeDef,
-    OutputGrafanaCloudFailedRequestLoggingMode1
-  > = z.union([
-    z.nativeEnum(OutputGrafanaCloudFailedRequestLoggingMode1),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  z.ZodType<string, z.ZodTypeDef, OutputGrafanaCloudFailedRequestLoggingMode1> =
+    openEnums.outboundSchema(OutputGrafanaCloudFailedRequestLoggingMode1);
 
 /** @internal */
 export const OutputGrafanaCloudResponseRetrySetting1$inboundSchema: z.ZodType<
@@ -2043,80 +1957,52 @@ export const OutputGrafanaCloudBackpressureBehavior1$inboundSchema: z.ZodType<
   OutputGrafanaCloudBackpressureBehavior1,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGrafanaCloudBackpressureBehavior1),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputGrafanaCloudBackpressureBehavior1);
 /** @internal */
 export const OutputGrafanaCloudBackpressureBehavior1$outboundSchema: z.ZodType<
-  OutputGrafanaCloudBackpressureBehavior1,
+  string,
   z.ZodTypeDef,
   OutputGrafanaCloudBackpressureBehavior1
-> = z.union([
-  z.nativeEnum(OutputGrafanaCloudBackpressureBehavior1),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputGrafanaCloudBackpressureBehavior1);
 
 /** @internal */
 export const OutputGrafanaCloudMode1$inboundSchema: z.ZodType<
   OutputGrafanaCloudMode1,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGrafanaCloudMode1),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputGrafanaCloudMode1);
 /** @internal */
 export const OutputGrafanaCloudMode1$outboundSchema: z.ZodType<
-  OutputGrafanaCloudMode1,
+  string,
   z.ZodTypeDef,
   OutputGrafanaCloudMode1
-> = z.union([
-  z.nativeEnum(OutputGrafanaCloudMode1),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputGrafanaCloudMode1);
 
 /** @internal */
 export const OutputGrafanaCloudCompression1$inboundSchema: z.ZodType<
   OutputGrafanaCloudCompression1,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGrafanaCloudCompression1),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputGrafanaCloudCompression1);
 /** @internal */
 export const OutputGrafanaCloudCompression1$outboundSchema: z.ZodType<
-  OutputGrafanaCloudCompression1,
+  string,
   z.ZodTypeDef,
   OutputGrafanaCloudCompression1
-> = z.union([
-  z.nativeEnum(OutputGrafanaCloudCompression1),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputGrafanaCloudCompression1);
 
 /** @internal */
 export const OutputGrafanaCloudQueueFullBehavior1$inboundSchema: z.ZodType<
   OutputGrafanaCloudQueueFullBehavior1,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGrafanaCloudQueueFullBehavior1),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputGrafanaCloudQueueFullBehavior1);
 /** @internal */
 export const OutputGrafanaCloudQueueFullBehavior1$outboundSchema: z.ZodType<
-  OutputGrafanaCloudQueueFullBehavior1,
+  string,
   z.ZodTypeDef,
   OutputGrafanaCloudQueueFullBehavior1
-> = z.union([
-  z.nativeEnum(OutputGrafanaCloudQueueFullBehavior1),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputGrafanaCloudQueueFullBehavior1);
 
 /** @internal */
 export const OutputGrafanaCloudPqControls1$inboundSchema: z.ZodType<

@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -751,20 +747,13 @@ export const IngestionMode$inboundSchema: z.ZodType<
   IngestionMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(IngestionMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(IngestionMode);
 /** @internal */
 export const IngestionMode$outboundSchema: z.ZodType<
-  IngestionMode,
+  string,
   z.ZodTypeDef,
   IngestionMode
-> = z.union([
-  z.nativeEnum(IngestionMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(IngestionMode);
 
 /** @internal */
 export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint$inboundSchema:
@@ -772,23 +761,18 @@ export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint$inbou
     OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint,
     z.ZodTypeDef,
     unknown
-  > = z
-    .union([
-      z.nativeEnum(
-        OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint,
-      ),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  > = openEnums.inboundSchema(
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint,
+  );
 /** @internal */
 export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint$outboundSchema:
   z.ZodType<
-    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint,
+    string,
     z.ZodTypeDef,
     OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint
-  > = z.union([
-    z.nativeEnum(OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  > = openEnums.outboundSchema(
+    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint,
+  );
 
 /** @internal */
 export const OutputAzureDataExplorerAuthenticationMethod$inboundSchema:
@@ -796,21 +780,11 @@ export const OutputAzureDataExplorerAuthenticationMethod$inboundSchema:
     OutputAzureDataExplorerAuthenticationMethod,
     z.ZodTypeDef,
     unknown
-  > = z
-    .union([
-      z.nativeEnum(OutputAzureDataExplorerAuthenticationMethod),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  > = openEnums.inboundSchema(OutputAzureDataExplorerAuthenticationMethod);
 /** @internal */
 export const OutputAzureDataExplorerAuthenticationMethod$outboundSchema:
-  z.ZodType<
-    OutputAzureDataExplorerAuthenticationMethod,
-    z.ZodTypeDef,
-    OutputAzureDataExplorerAuthenticationMethod
-  > = z.union([
-    z.nativeEnum(OutputAzureDataExplorerAuthenticationMethod),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  z.ZodType<string, z.ZodTypeDef, OutputAzureDataExplorerAuthenticationMethod> =
+    openEnums.outboundSchema(OutputAzureDataExplorerAuthenticationMethod);
 
 /** @internal */
 export const OutputAzureDataExplorerCertificate$inboundSchema: z.ZodType<
@@ -859,99 +833,61 @@ export const OutputAzureDataExplorerDataFormat$inboundSchema: z.ZodType<
   OutputAzureDataExplorerDataFormat,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureDataExplorerDataFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputAzureDataExplorerDataFormat);
 /** @internal */
 export const OutputAzureDataExplorerDataFormat$outboundSchema: z.ZodType<
-  OutputAzureDataExplorerDataFormat,
+  string,
   z.ZodTypeDef,
   OutputAzureDataExplorerDataFormat
-> = z.union([
-  z.nativeEnum(OutputAzureDataExplorerDataFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputAzureDataExplorerDataFormat);
 
 /** @internal */
 export const OutputAzureDataExplorerCompressCompression$inboundSchema:
   z.ZodType<OutputAzureDataExplorerCompressCompression, z.ZodTypeDef, unknown> =
-    z
-      .union([
-        z.nativeEnum(OutputAzureDataExplorerCompressCompression),
-        z.string().transform(catchUnrecognizedEnum),
-      ]);
+    openEnums.inboundSchema(OutputAzureDataExplorerCompressCompression);
 /** @internal */
 export const OutputAzureDataExplorerCompressCompression$outboundSchema:
-  z.ZodType<
-    OutputAzureDataExplorerCompressCompression,
-    z.ZodTypeDef,
-    OutputAzureDataExplorerCompressCompression
-  > = z.union([
-    z.nativeEnum(OutputAzureDataExplorerCompressCompression),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  z.ZodType<string, z.ZodTypeDef, OutputAzureDataExplorerCompressCompression> =
+    openEnums.outboundSchema(OutputAzureDataExplorerCompressCompression);
 
 /** @internal */
 export const OutputAzureDataExplorerCompressionLevel$inboundSchema: z.ZodType<
   OutputAzureDataExplorerCompressionLevel,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureDataExplorerCompressionLevel),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputAzureDataExplorerCompressionLevel);
 /** @internal */
 export const OutputAzureDataExplorerCompressionLevel$outboundSchema: z.ZodType<
-  OutputAzureDataExplorerCompressionLevel,
+  string,
   z.ZodTypeDef,
   OutputAzureDataExplorerCompressionLevel
-> = z.union([
-  z.nativeEnum(OutputAzureDataExplorerCompressionLevel),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputAzureDataExplorerCompressionLevel);
 
 /** @internal */
 export const OutputAzureDataExplorerParquetVersion$inboundSchema: z.ZodType<
   OutputAzureDataExplorerParquetVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureDataExplorerParquetVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputAzureDataExplorerParquetVersion);
 /** @internal */
 export const OutputAzureDataExplorerParquetVersion$outboundSchema: z.ZodType<
-  OutputAzureDataExplorerParquetVersion,
+  string,
   z.ZodTypeDef,
   OutputAzureDataExplorerParquetVersion
-> = z.union([
-  z.nativeEnum(OutputAzureDataExplorerParquetVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputAzureDataExplorerParquetVersion);
 
 /** @internal */
 export const OutputAzureDataExplorerDataPageVersion$inboundSchema: z.ZodType<
   OutputAzureDataExplorerDataPageVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureDataExplorerDataPageVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputAzureDataExplorerDataPageVersion);
 /** @internal */
 export const OutputAzureDataExplorerDataPageVersion$outboundSchema: z.ZodType<
-  OutputAzureDataExplorerDataPageVersion,
+  string,
   z.ZodTypeDef,
   OutputAzureDataExplorerDataPageVersion
-> = z.union([
-  z.nativeEnum(OutputAzureDataExplorerDataPageVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputAzureDataExplorerDataPageVersion);
 
 /** @internal */
 export const OutputAzureDataExplorerKeyValueMetadatum$inboundSchema: z.ZodType<
@@ -1010,60 +946,33 @@ export const OutputAzureDataExplorerBackpressureBehavior$inboundSchema:
     OutputAzureDataExplorerBackpressureBehavior,
     z.ZodTypeDef,
     unknown
-  > = z
-    .union([
-      z.nativeEnum(OutputAzureDataExplorerBackpressureBehavior),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  > = openEnums.inboundSchema(OutputAzureDataExplorerBackpressureBehavior);
 /** @internal */
 export const OutputAzureDataExplorerBackpressureBehavior$outboundSchema:
-  z.ZodType<
-    OutputAzureDataExplorerBackpressureBehavior,
-    z.ZodTypeDef,
-    OutputAzureDataExplorerBackpressureBehavior
-  > = z.union([
-    z.nativeEnum(OutputAzureDataExplorerBackpressureBehavior),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  z.ZodType<string, z.ZodTypeDef, OutputAzureDataExplorerBackpressureBehavior> =
+    openEnums.outboundSchema(OutputAzureDataExplorerBackpressureBehavior);
 
 /** @internal */
 export const OutputAzureDataExplorerDiskSpaceProtection$inboundSchema:
   z.ZodType<OutputAzureDataExplorerDiskSpaceProtection, z.ZodTypeDef, unknown> =
-    z
-      .union([
-        z.nativeEnum(OutputAzureDataExplorerDiskSpaceProtection),
-        z.string().transform(catchUnrecognizedEnum),
-      ]);
+    openEnums.inboundSchema(OutputAzureDataExplorerDiskSpaceProtection);
 /** @internal */
 export const OutputAzureDataExplorerDiskSpaceProtection$outboundSchema:
-  z.ZodType<
-    OutputAzureDataExplorerDiskSpaceProtection,
-    z.ZodTypeDef,
-    OutputAzureDataExplorerDiskSpaceProtection
-  > = z.union([
-    z.nativeEnum(OutputAzureDataExplorerDiskSpaceProtection),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  z.ZodType<string, z.ZodTypeDef, OutputAzureDataExplorerDiskSpaceProtection> =
+    openEnums.outboundSchema(OutputAzureDataExplorerDiskSpaceProtection);
 
 /** @internal */
 export const PrefixOptional$inboundSchema: z.ZodType<
   PrefixOptional,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(PrefixOptional),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(PrefixOptional);
 /** @internal */
 export const PrefixOptional$outboundSchema: z.ZodType<
-  PrefixOptional,
+  string,
   z.ZodTypeDef,
   PrefixOptional
-> = z.union([
-  z.nativeEnum(PrefixOptional),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(PrefixOptional);
 
 /** @internal */
 export const ExtentTag$inboundSchema: z.ZodType<
@@ -1147,40 +1056,26 @@ export const ReportLevel$inboundSchema: z.ZodType<
   ReportLevel,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(ReportLevel),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(ReportLevel);
 /** @internal */
 export const ReportLevel$outboundSchema: z.ZodType<
-  ReportLevel,
+  string,
   z.ZodTypeDef,
   ReportLevel
-> = z.union([
-  z.nativeEnum(ReportLevel),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(ReportLevel);
 
 /** @internal */
 export const ReportMethod$inboundSchema: z.ZodType<
   ReportMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(ReportMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(ReportMethod);
 /** @internal */
 export const ReportMethod$outboundSchema: z.ZodType<
-  ReportMethod,
+  string,
   z.ZodTypeDef,
   ReportMethod
-> = z.union([
-  z.nativeEnum(ReportMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(ReportMethod);
 
 /** @internal */
 export const AdditionalProperty$inboundSchema: z.ZodType<
@@ -1347,20 +1242,13 @@ export const OutputAzureDataExplorerMode$inboundSchema: z.ZodType<
   OutputAzureDataExplorerMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureDataExplorerMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputAzureDataExplorerMode);
 /** @internal */
 export const OutputAzureDataExplorerMode$outboundSchema: z.ZodType<
-  OutputAzureDataExplorerMode,
+  string,
   z.ZodTypeDef,
   OutputAzureDataExplorerMode
-> = z.union([
-  z.nativeEnum(OutputAzureDataExplorerMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputAzureDataExplorerMode);
 
 /** @internal */
 export const OutputAzureDataExplorerPqCompressCompression$inboundSchema:
@@ -1368,41 +1256,27 @@ export const OutputAzureDataExplorerPqCompressCompression$inboundSchema:
     OutputAzureDataExplorerPqCompressCompression,
     z.ZodTypeDef,
     unknown
-  > = z
-    .union([
-      z.nativeEnum(OutputAzureDataExplorerPqCompressCompression),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  > = openEnums.inboundSchema(OutputAzureDataExplorerPqCompressCompression);
 /** @internal */
 export const OutputAzureDataExplorerPqCompressCompression$outboundSchema:
   z.ZodType<
-    OutputAzureDataExplorerPqCompressCompression,
+    string,
     z.ZodTypeDef,
     OutputAzureDataExplorerPqCompressCompression
-  > = z.union([
-    z.nativeEnum(OutputAzureDataExplorerPqCompressCompression),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  > = openEnums.outboundSchema(OutputAzureDataExplorerPqCompressCompression);
 
 /** @internal */
 export const OutputAzureDataExplorerQueueFullBehavior$inboundSchema: z.ZodType<
   OutputAzureDataExplorerQueueFullBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureDataExplorerQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputAzureDataExplorerQueueFullBehavior);
 /** @internal */
 export const OutputAzureDataExplorerQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputAzureDataExplorerQueueFullBehavior,
+  string,
   z.ZodTypeDef,
   OutputAzureDataExplorerQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputAzureDataExplorerQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputAzureDataExplorerQueueFullBehavior);
 
 /** @internal */
 export const OutputAzureDataExplorerPqControls$inboundSchema: z.ZodType<

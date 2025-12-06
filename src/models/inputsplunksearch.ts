@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -478,40 +474,26 @@ export const InputSplunkSearchMode$inboundSchema: z.ZodType<
   InputSplunkSearchMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputSplunkSearchMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputSplunkSearchMode);
 /** @internal */
 export const InputSplunkSearchMode$outboundSchema: z.ZodType<
-  InputSplunkSearchMode,
+  string,
   z.ZodTypeDef,
   InputSplunkSearchMode
-> = z.union([
-  z.nativeEnum(InputSplunkSearchMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputSplunkSearchMode);
 
 /** @internal */
 export const InputSplunkSearchCompression$inboundSchema: z.ZodType<
   InputSplunkSearchCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputSplunkSearchCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputSplunkSearchCompression);
 /** @internal */
 export const InputSplunkSearchCompression$outboundSchema: z.ZodType<
-  InputSplunkSearchCompression,
+  string,
   z.ZodTypeDef,
   InputSplunkSearchCompression
-> = z.union([
-  z.nativeEnum(InputSplunkSearchCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputSplunkSearchCompression);
 
 /** @internal */
 export const InputSplunkSearchPqControls$inboundSchema: z.ZodType<
@@ -615,20 +597,13 @@ export const OutputMode$inboundSchema: z.ZodType<
   OutputMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputMode);
 /** @internal */
 export const OutputMode$outboundSchema: z.ZodType<
-  OutputMode,
+  string,
   z.ZodTypeDef,
   OutputMode
-> = z.union([
-  z.nativeEnum(OutputMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputMode);
 
 /** @internal */
 export const EndpointParam$inboundSchema: z.ZodType<
@@ -711,20 +686,13 @@ export const InputSplunkSearchLogLevel$inboundSchema: z.ZodType<
   InputSplunkSearchLogLevel,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputSplunkSearchLogLevel),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputSplunkSearchLogLevel);
 /** @internal */
 export const InputSplunkSearchLogLevel$outboundSchema: z.ZodType<
-  InputSplunkSearchLogLevel,
+  string,
   z.ZodTypeDef,
   InputSplunkSearchLogLevel
-> = z.union([
-  z.nativeEnum(InputSplunkSearchLogLevel),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputSplunkSearchLogLevel);
 
 /** @internal */
 export const InputSplunkSearchMetadatum$inboundSchema: z.ZodType<
@@ -773,20 +741,13 @@ export const InputSplunkSearchRetryType$inboundSchema: z.ZodType<
   InputSplunkSearchRetryType,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputSplunkSearchRetryType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputSplunkSearchRetryType);
 /** @internal */
 export const InputSplunkSearchRetryType$outboundSchema: z.ZodType<
-  InputSplunkSearchRetryType,
+  string,
   z.ZodTypeDef,
   InputSplunkSearchRetryType
-> = z.union([
-  z.nativeEnum(InputSplunkSearchRetryType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputSplunkSearchRetryType);
 
 /** @internal */
 export const InputSplunkSearchRetryRules$inboundSchema: z.ZodType<
@@ -855,20 +816,13 @@ export const InputSplunkSearchAuthenticationType$inboundSchema: z.ZodType<
   InputSplunkSearchAuthenticationType,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputSplunkSearchAuthenticationType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputSplunkSearchAuthenticationType);
 /** @internal */
 export const InputSplunkSearchAuthenticationType$outboundSchema: z.ZodType<
-  InputSplunkSearchAuthenticationType,
+  string,
   z.ZodTypeDef,
   InputSplunkSearchAuthenticationType
-> = z.union([
-  z.nativeEnum(InputSplunkSearchAuthenticationType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputSplunkSearchAuthenticationType);
 
 /** @internal */
 export const InputSplunkSearchOauthParam$inboundSchema: z.ZodType<

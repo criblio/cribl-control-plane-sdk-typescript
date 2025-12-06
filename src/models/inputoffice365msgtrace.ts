@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -442,40 +438,26 @@ export const InputOffice365MsgTraceMode$inboundSchema: z.ZodType<
   InputOffice365MsgTraceMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputOffice365MsgTraceMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputOffice365MsgTraceMode);
 /** @internal */
 export const InputOffice365MsgTraceMode$outboundSchema: z.ZodType<
-  InputOffice365MsgTraceMode,
+  string,
   z.ZodTypeDef,
   InputOffice365MsgTraceMode
-> = z.union([
-  z.nativeEnum(InputOffice365MsgTraceMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputOffice365MsgTraceMode);
 
 /** @internal */
 export const InputOffice365MsgTraceCompression$inboundSchema: z.ZodType<
   InputOffice365MsgTraceCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputOffice365MsgTraceCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputOffice365MsgTraceCompression);
 /** @internal */
 export const InputOffice365MsgTraceCompression$outboundSchema: z.ZodType<
-  InputOffice365MsgTraceCompression,
+  string,
   z.ZodTypeDef,
   InputOffice365MsgTraceCompression
-> = z.union([
-  z.nativeEnum(InputOffice365MsgTraceCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputOffice365MsgTraceCompression);
 
 /** @internal */
 export const InputOffice365MsgTracePqControls$inboundSchema: z.ZodType<
@@ -577,41 +559,24 @@ export function inputOffice365MsgTracePqFromJSON(
 /** @internal */
 export const InputOffice365MsgTraceAuthenticationMethod$inboundSchema:
   z.ZodType<InputOffice365MsgTraceAuthenticationMethod, z.ZodTypeDef, unknown> =
-    z
-      .union([
-        z.nativeEnum(InputOffice365MsgTraceAuthenticationMethod),
-        z.string().transform(catchUnrecognizedEnum),
-      ]);
+    openEnums.inboundSchema(InputOffice365MsgTraceAuthenticationMethod);
 /** @internal */
 export const InputOffice365MsgTraceAuthenticationMethod$outboundSchema:
-  z.ZodType<
-    InputOffice365MsgTraceAuthenticationMethod,
-    z.ZodTypeDef,
-    InputOffice365MsgTraceAuthenticationMethod
-  > = z.union([
-    z.nativeEnum(InputOffice365MsgTraceAuthenticationMethod),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  z.ZodType<string, z.ZodTypeDef, InputOffice365MsgTraceAuthenticationMethod> =
+    openEnums.outboundSchema(InputOffice365MsgTraceAuthenticationMethod);
 
 /** @internal */
 export const InputOffice365MsgTraceLogLevel$inboundSchema: z.ZodType<
   InputOffice365MsgTraceLogLevel,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputOffice365MsgTraceLogLevel),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputOffice365MsgTraceLogLevel);
 /** @internal */
 export const InputOffice365MsgTraceLogLevel$outboundSchema: z.ZodType<
-  InputOffice365MsgTraceLogLevel,
+  string,
   z.ZodTypeDef,
   InputOffice365MsgTraceLogLevel
-> = z.union([
-  z.nativeEnum(InputOffice365MsgTraceLogLevel),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputOffice365MsgTraceLogLevel);
 
 /** @internal */
 export const InputOffice365MsgTraceMetadatum$inboundSchema: z.ZodType<
@@ -662,20 +627,13 @@ export const InputOffice365MsgTraceRetryType$inboundSchema: z.ZodType<
   InputOffice365MsgTraceRetryType,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputOffice365MsgTraceRetryType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputOffice365MsgTraceRetryType);
 /** @internal */
 export const InputOffice365MsgTraceRetryType$outboundSchema: z.ZodType<
-  InputOffice365MsgTraceRetryType,
+  string,
   z.ZodTypeDef,
   InputOffice365MsgTraceRetryType
-> = z.union([
-  z.nativeEnum(InputOffice365MsgTraceRetryType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputOffice365MsgTraceRetryType);
 
 /** @internal */
 export const InputOffice365MsgTraceRetryRules$inboundSchema: z.ZodType<
@@ -744,20 +702,13 @@ export const InputOffice365MsgTraceSubscriptionPlan$inboundSchema: z.ZodType<
   InputOffice365MsgTraceSubscriptionPlan,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputOffice365MsgTraceSubscriptionPlan),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputOffice365MsgTraceSubscriptionPlan);
 /** @internal */
 export const InputOffice365MsgTraceSubscriptionPlan$outboundSchema: z.ZodType<
-  InputOffice365MsgTraceSubscriptionPlan,
+  string,
   z.ZodTypeDef,
   InputOffice365MsgTraceSubscriptionPlan
-> = z.union([
-  z.nativeEnum(InputOffice365MsgTraceSubscriptionPlan),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputOffice365MsgTraceSubscriptionPlan);
 
 /** @internal */
 export const CertOptions$inboundSchema: z.ZodType<

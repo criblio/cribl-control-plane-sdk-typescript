@@ -432,294 +432,128 @@ export type Input =
 /** @internal */
 export const Input$inboundSchema: z.ZodType<Input, z.ZodTypeDef, unknown> = z
   .union([
-    InputMsk$inboundSchema.and(
-      z.object({ type: z.literal("msk") }).transform((v) => ({ type: v.type })),
-    ),
-    InputWiz$inboundSchema.and(
-      z.object({ type: z.literal("wiz") }).transform((v) => ({ type: v.type })),
-    ),
-    InputKafka$inboundSchema.and(
-      z.object({ type: z.literal("kafka") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
+    InputMsk$inboundSchema.and(z.object({ type: z.literal("msk") })),
+    InputWiz$inboundSchema.and(z.object({ type: z.literal("wiz") })),
+    InputKafka$inboundSchema.and(z.object({ type: z.literal("kafka") })),
     InputConfluentCloud$inboundSchema.and(
-      z.object({ type: z.literal("confluent_cloud") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("confluent_cloud") }),
     ),
     InputOffice365Mgmt$inboundSchema.and(
-      z.object({ type: z.literal("office365_mgmt") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("office365_mgmt") }),
     ),
     InputOffice365Service$inboundSchema.and(
-      z.object({ type: z.literal("office365_service") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("office365_service") }),
     ),
-    InputEventhub$inboundSchema.and(
-      z.object({ type: z.literal("eventhub") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
-    InputKinesis$inboundSchema.and(
-      z.object({ type: z.literal("kinesis") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
-    InputSqs$inboundSchema.and(
-      z.object({ type: z.literal("sqs") }).transform((v) => ({ type: v.type })),
-    ),
+    InputEventhub$inboundSchema.and(z.object({ type: z.literal("eventhub") })),
+    InputKinesis$inboundSchema.and(z.object({ type: z.literal("kinesis") })),
+    InputSqs$inboundSchema.and(z.object({ type: z.literal("sqs") })),
     InputJournalFiles$inboundSchema.and(
-      z.object({ type: z.literal("journal_files") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("journal_files") }),
     ),
     InputCloudflareHec$inboundSchema.and(
-      z.object({ type: z.literal("cloudflare_hec") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("cloudflare_hec") }),
     ),
-    InputHttp$inboundSchema.and(
-      z.object({ type: z.literal("http") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
-    InputSplunk$inboundSchema.and(
-      z.object({ type: z.literal("splunk") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
+    InputHttp$inboundSchema.and(z.object({ type: z.literal("http") })),
+    InputSplunk$inboundSchema.and(z.object({ type: z.literal("splunk") })),
     InputSplunkSearch$inboundSchema.and(
-      z.object({ type: z.literal("splunk_search") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("splunk_search") }),
     ),
     InputSplunkHec$inboundSchema.and(
-      z.object({ type: z.literal("splunk_hec") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("splunk_hec") }),
     ),
     InputAzureBlob$inboundSchema.and(
-      z.object({ type: z.literal("azure_blob") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("azure_blob") }),
     ),
-    InputElastic$inboundSchema.and(
-      z.object({ type: z.literal("elastic") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
-    InputLoki$inboundSchema.and(
-      z.object({ type: z.literal("loki") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
+    InputElastic$inboundSchema.and(z.object({ type: z.literal("elastic") })),
+    InputLoki$inboundSchema.and(z.object({ type: z.literal("loki") })),
     InputPrometheusRw$inboundSchema.and(
-      z.object({ type: z.literal("prometheus_rw") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("prometheus_rw") }),
     ),
-    InputExec$inboundSchema.and(
-      z.object({ type: z.literal("exec") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
-    InputFirehose$inboundSchema.and(
-      z.object({ type: z.literal("firehose") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
+    InputExec$inboundSchema.and(z.object({ type: z.literal("exec") })),
+    InputFirehose$inboundSchema.and(z.object({ type: z.literal("firehose") })),
     InputGooglePubsub$inboundSchema.and(
-      z.object({ type: z.literal("google_pubsub") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("google_pubsub") }),
     ),
-    InputCriblTcp$inboundSchema.and(
-      z.object({ type: z.literal("cribl_tcp") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
+    InputCriblTcp$inboundSchema.and(z.object({ type: z.literal("cribl_tcp") })),
     InputCriblHttp$inboundSchema.and(
-      z.object({ type: z.literal("cribl_http") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("cribl_http") }),
     ),
     InputCriblLakeHttp$inboundSchema.and(
-      z.object({ type: z.literal("cribl_lake_http") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("cribl_lake_http") }),
     ),
-    InputTcpjson$inboundSchema.and(
-      z.object({ type: z.literal("tcpjson") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
+    InputTcpjson$inboundSchema.and(z.object({ type: z.literal("tcpjson") })),
     InputCrowdstrike$inboundSchema.and(
-      z.object({ type: z.literal("crowdstrike") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("crowdstrike") }),
     ),
     InputDatadogAgent$inboundSchema.and(
-      z.object({ type: z.literal("datadog_agent") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("datadog_agent") }),
     ),
-    InputDatagen$inboundSchema.and(
-      z.object({ type: z.literal("datagen") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
-    InputHttpRaw$inboundSchema.and(
-      z.object({ type: z.literal("http_raw") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
-    InputS3$inboundSchema.and(
-      z.object({ type: z.literal("s3") }).transform((v) => ({ type: v.type })),
-    ),
+    InputDatagen$inboundSchema.and(z.object({ type: z.literal("datagen") })),
+    InputHttpRaw$inboundSchema.and(z.object({ type: z.literal("http_raw") })),
+    InputS3$inboundSchema.and(z.object({ type: z.literal("s3") })),
     InputS3Inventory$inboundSchema.and(
-      z.object({ type: z.literal("s3_inventory") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("s3_inventory") }),
     ),
-    InputTcp$inboundSchema.and(
-      z.object({ type: z.literal("tcp") }).transform((v) => ({ type: v.type })),
-    ),
-    InputWef$inboundSchema.and(
-      z.object({ type: z.literal("wef") }).transform((v) => ({ type: v.type })),
-    ),
+    InputTcp$inboundSchema.and(z.object({ type: z.literal("tcp") })),
+    InputWef$inboundSchema.and(z.object({ type: z.literal("wef") })),
     InputWinEventLogs$inboundSchema.and(
-      z.object({ type: z.literal("win_event_logs") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("win_event_logs") }),
     ),
-    InputRawUdp$inboundSchema.and(
-      z.object({ type: z.literal("raw_udp") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
+    InputRawUdp$inboundSchema.and(z.object({ type: z.literal("raw_udp") })),
     InputWizWebhook$inboundSchema.and(
-      z.object({ type: z.literal("wiz_webhook") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("wiz_webhook") }),
     ),
     InputSecurityLake$inboundSchema.and(
-      z.object({ type: z.literal("security_lake") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("security_lake") }),
     ),
     InputZscalerHec$inboundSchema.and(
-      z.object({ type: z.literal("zscaler_hec") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("zscaler_hec") }),
     ),
     InputPrometheus$inboundSchema.and(
-      z.object({ type: z.literal("prometheus") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("prometheus") }),
     ),
     InputEdgePrometheus$inboundSchema.and(
-      z.object({ type: z.literal("edge_prometheus") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("edge_prometheus") }),
     ),
     InputOffice365MsgTrace$inboundSchema.and(
-      z.object({ type: z.literal("office365_msg_trace") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("office365_msg_trace") }),
     ),
-    InputCribl$inboundSchema.and(
-      z.object({ type: z.literal("cribl") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
+    InputCribl$inboundSchema.and(z.object({ type: z.literal("cribl") })),
     InputSystemMetrics$inboundSchema.and(
-      z.object({ type: z.literal("system_metrics") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("system_metrics") }),
     ),
     InputSystemState$inboundSchema.and(
-      z.object({ type: z.literal("system_state") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("system_state") }),
     ),
     InputKubeMetrics$inboundSchema.and(
-      z.object({ type: z.literal("kube_metrics") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("kube_metrics") }),
     ),
-    InputKubeLogs$inboundSchema.and(
-      z.object({ type: z.literal("kube_logs") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
+    InputKubeLogs$inboundSchema.and(z.object({ type: z.literal("kube_logs") })),
     InputKubeEvents$inboundSchema.and(
-      z.object({ type: z.literal("kube_events") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("kube_events") }),
     ),
     InputWindowsMetrics$inboundSchema.and(
-      z.object({ type: z.literal("windows_metrics") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("windows_metrics") }),
     ),
     InputCriblmetrics$inboundSchema.and(
-      z.object({ type: z.literal("criblmetrics") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("criblmetrics") }),
     ),
-    InputMetrics$inboundSchema.and(
-      z.object({ type: z.literal("metrics") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
-    InputSnmp$inboundSchema.and(
-      z.object({ type: z.literal("snmp") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
+    InputMetrics$inboundSchema.and(z.object({ type: z.literal("metrics") })),
+    InputSnmp$inboundSchema.and(z.object({ type: z.literal("snmp") })),
     InputOpenTelemetry$inboundSchema.and(
-      z.object({ type: z.literal("open_telemetry") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("open_telemetry") }),
     ),
     InputModelDrivenTelemetry$inboundSchema.and(
-      z.object({ type: z.literal("model_driven_telemetry") }).transform((
-        v,
-      ) => ({ type: v.type })),
+      z.object({ type: z.literal("model_driven_telemetry") }),
     ),
-    InputFile$inboundSchema.and(
-      z.object({ type: z.literal("file") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
-    InputAppscope$inboundSchema.and(
-      z.object({ type: z.literal("appscope") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
-    InputNetflow$inboundSchema.and(
-      z.object({ type: z.literal("netflow") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
+    InputFile$inboundSchema.and(z.object({ type: z.literal("file") })),
+    InputAppscope$inboundSchema.and(z.object({ type: z.literal("appscope") })),
+    InputNetflow$inboundSchema.and(z.object({ type: z.literal("netflow") })),
     InputCollection$inboundSchema.and(
-      z.object({ type: z.literal("collection") }).transform((v) => ({
-        type: v.type,
-      })),
+      z.object({ type: z.literal("collection") }),
     ),
-    InputGrafana$inboundSchema.and(
-      z.object({ type: z.literal("grafana") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
-    InputSyslog$inboundSchema.and(
-      z.object({ type: z.literal("syslog") }).transform((v) => ({
-        type: v.type,
-      })),
-    ),
+    InputGrafana$inboundSchema.and(z.object({ type: z.literal("grafana") })),
+    InputSyslog$inboundSchema.and(z.object({ type: z.literal("syslog") })),
   ]);
 /** @internal */
 export type Input$Outbound =
@@ -790,280 +624,128 @@ export const Input$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   Input
 > = z.union([
-  InputMsk$outboundSchema.and(
-    z.object({ type: z.literal("msk") }).transform((v) => ({ type: v.type })),
-  ),
-  InputWiz$outboundSchema.and(
-    z.object({ type: z.literal("wiz") }).transform((v) => ({ type: v.type })),
-  ),
-  InputKafka$outboundSchema.and(
-    z.object({ type: z.literal("kafka") }).transform((v) => ({ type: v.type })),
-  ),
+  InputMsk$outboundSchema.and(z.object({ type: z.literal("msk") })),
+  InputWiz$outboundSchema.and(z.object({ type: z.literal("wiz") })),
+  InputKafka$outboundSchema.and(z.object({ type: z.literal("kafka") })),
   InputConfluentCloud$outboundSchema.and(
-    z.object({ type: z.literal("confluent_cloud") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("confluent_cloud") }),
   ),
   InputOffice365Mgmt$outboundSchema.and(
-    z.object({ type: z.literal("office365_mgmt") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("office365_mgmt") }),
   ),
   InputOffice365Service$outboundSchema.and(
-    z.object({ type: z.literal("office365_service") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("office365_service") }),
   ),
-  InputEventhub$outboundSchema.and(
-    z.object({ type: z.literal("eventhub") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
-  InputKinesis$outboundSchema.and(
-    z.object({ type: z.literal("kinesis") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
-  InputSqs$outboundSchema.and(
-    z.object({ type: z.literal("sqs") }).transform((v) => ({ type: v.type })),
-  ),
+  InputEventhub$outboundSchema.and(z.object({ type: z.literal("eventhub") })),
+  InputKinesis$outboundSchema.and(z.object({ type: z.literal("kinesis") })),
+  InputSqs$outboundSchema.and(z.object({ type: z.literal("sqs") })),
   InputJournalFiles$outboundSchema.and(
-    z.object({ type: z.literal("journal_files") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("journal_files") }),
   ),
   InputCloudflareHec$outboundSchema.and(
-    z.object({ type: z.literal("cloudflare_hec") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("cloudflare_hec") }),
   ),
-  InputHttp$outboundSchema.and(
-    z.object({ type: z.literal("http") }).transform((v) => ({ type: v.type })),
-  ),
-  InputSplunk$outboundSchema.and(
-    z.object({ type: z.literal("splunk") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
+  InputHttp$outboundSchema.and(z.object({ type: z.literal("http") })),
+  InputSplunk$outboundSchema.and(z.object({ type: z.literal("splunk") })),
   InputSplunkSearch$outboundSchema.and(
-    z.object({ type: z.literal("splunk_search") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("splunk_search") }),
   ),
   InputSplunkHec$outboundSchema.and(
-    z.object({ type: z.literal("splunk_hec") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("splunk_hec") }),
   ),
   InputAzureBlob$outboundSchema.and(
-    z.object({ type: z.literal("azure_blob") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("azure_blob") }),
   ),
-  InputElastic$outboundSchema.and(
-    z.object({ type: z.literal("elastic") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
-  InputLoki$outboundSchema.and(
-    z.object({ type: z.literal("loki") }).transform((v) => ({ type: v.type })),
-  ),
+  InputElastic$outboundSchema.and(z.object({ type: z.literal("elastic") })),
+  InputLoki$outboundSchema.and(z.object({ type: z.literal("loki") })),
   InputPrometheusRw$outboundSchema.and(
-    z.object({ type: z.literal("prometheus_rw") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("prometheus_rw") }),
   ),
-  InputExec$outboundSchema.and(
-    z.object({ type: z.literal("exec") }).transform((v) => ({ type: v.type })),
-  ),
-  InputFirehose$outboundSchema.and(
-    z.object({ type: z.literal("firehose") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
+  InputExec$outboundSchema.and(z.object({ type: z.literal("exec") })),
+  InputFirehose$outboundSchema.and(z.object({ type: z.literal("firehose") })),
   InputGooglePubsub$outboundSchema.and(
-    z.object({ type: z.literal("google_pubsub") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("google_pubsub") }),
   ),
-  InputCriblTcp$outboundSchema.and(
-    z.object({ type: z.literal("cribl_tcp") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
+  InputCriblTcp$outboundSchema.and(z.object({ type: z.literal("cribl_tcp") })),
   InputCriblHttp$outboundSchema.and(
-    z.object({ type: z.literal("cribl_http") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("cribl_http") }),
   ),
   InputCriblLakeHttp$outboundSchema.and(
-    z.object({ type: z.literal("cribl_lake_http") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("cribl_lake_http") }),
   ),
-  InputTcpjson$outboundSchema.and(
-    z.object({ type: z.literal("tcpjson") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
+  InputTcpjson$outboundSchema.and(z.object({ type: z.literal("tcpjson") })),
   InputCrowdstrike$outboundSchema.and(
-    z.object({ type: z.literal("crowdstrike") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("crowdstrike") }),
   ),
   InputDatadogAgent$outboundSchema.and(
-    z.object({ type: z.literal("datadog_agent") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("datadog_agent") }),
   ),
-  InputDatagen$outboundSchema.and(
-    z.object({ type: z.literal("datagen") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
-  InputHttpRaw$outboundSchema.and(
-    z.object({ type: z.literal("http_raw") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
-  InputS3$outboundSchema.and(
-    z.object({ type: z.literal("s3") }).transform((v) => ({ type: v.type })),
-  ),
+  InputDatagen$outboundSchema.and(z.object({ type: z.literal("datagen") })),
+  InputHttpRaw$outboundSchema.and(z.object({ type: z.literal("http_raw") })),
+  InputS3$outboundSchema.and(z.object({ type: z.literal("s3") })),
   InputS3Inventory$outboundSchema.and(
-    z.object({ type: z.literal("s3_inventory") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("s3_inventory") }),
   ),
-  InputTcp$outboundSchema.and(
-    z.object({ type: z.literal("tcp") }).transform((v) => ({ type: v.type })),
-  ),
-  InputWef$outboundSchema.and(
-    z.object({ type: z.literal("wef") }).transform((v) => ({ type: v.type })),
-  ),
+  InputTcp$outboundSchema.and(z.object({ type: z.literal("tcp") })),
+  InputWef$outboundSchema.and(z.object({ type: z.literal("wef") })),
   InputWinEventLogs$outboundSchema.and(
-    z.object({ type: z.literal("win_event_logs") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("win_event_logs") }),
   ),
-  InputRawUdp$outboundSchema.and(
-    z.object({ type: z.literal("raw_udp") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
+  InputRawUdp$outboundSchema.and(z.object({ type: z.literal("raw_udp") })),
   InputWizWebhook$outboundSchema.and(
-    z.object({ type: z.literal("wiz_webhook") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("wiz_webhook") }),
   ),
   InputSecurityLake$outboundSchema.and(
-    z.object({ type: z.literal("security_lake") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("security_lake") }),
   ),
   InputZscalerHec$outboundSchema.and(
-    z.object({ type: z.literal("zscaler_hec") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("zscaler_hec") }),
   ),
   InputPrometheus$outboundSchema.and(
-    z.object({ type: z.literal("prometheus") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("prometheus") }),
   ),
   InputEdgePrometheus$outboundSchema.and(
-    z.object({ type: z.literal("edge_prometheus") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("edge_prometheus") }),
   ),
   InputOffice365MsgTrace$outboundSchema.and(
-    z.object({ type: z.literal("office365_msg_trace") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("office365_msg_trace") }),
   ),
-  InputCribl$outboundSchema.and(
-    z.object({ type: z.literal("cribl") }).transform((v) => ({ type: v.type })),
-  ),
+  InputCribl$outboundSchema.and(z.object({ type: z.literal("cribl") })),
   InputSystemMetrics$outboundSchema.and(
-    z.object({ type: z.literal("system_metrics") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("system_metrics") }),
   ),
   InputSystemState$outboundSchema.and(
-    z.object({ type: z.literal("system_state") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("system_state") }),
   ),
   InputKubeMetrics$outboundSchema.and(
-    z.object({ type: z.literal("kube_metrics") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("kube_metrics") }),
   ),
-  InputKubeLogs$outboundSchema.and(
-    z.object({ type: z.literal("kube_logs") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
+  InputKubeLogs$outboundSchema.and(z.object({ type: z.literal("kube_logs") })),
   InputKubeEvents$outboundSchema.and(
-    z.object({ type: z.literal("kube_events") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("kube_events") }),
   ),
   InputWindowsMetrics$outboundSchema.and(
-    z.object({ type: z.literal("windows_metrics") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("windows_metrics") }),
   ),
   InputCriblmetrics$outboundSchema.and(
-    z.object({ type: z.literal("criblmetrics") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("criblmetrics") }),
   ),
-  InputMetrics$outboundSchema.and(
-    z.object({ type: z.literal("metrics") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
-  InputSnmp$outboundSchema.and(
-    z.object({ type: z.literal("snmp") }).transform((v) => ({ type: v.type })),
-  ),
+  InputMetrics$outboundSchema.and(z.object({ type: z.literal("metrics") })),
+  InputSnmp$outboundSchema.and(z.object({ type: z.literal("snmp") })),
   InputOpenTelemetry$outboundSchema.and(
-    z.object({ type: z.literal("open_telemetry") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("open_telemetry") }),
   ),
   InputModelDrivenTelemetry$outboundSchema.and(
-    z.object({ type: z.literal("model_driven_telemetry") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("model_driven_telemetry") }),
   ),
-  InputFile$outboundSchema.and(
-    z.object({ type: z.literal("file") }).transform((v) => ({ type: v.type })),
-  ),
-  InputAppscope$outboundSchema.and(
-    z.object({ type: z.literal("appscope") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
-  InputNetflow$outboundSchema.and(
-    z.object({ type: z.literal("netflow") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
+  InputFile$outboundSchema.and(z.object({ type: z.literal("file") })),
+  InputAppscope$outboundSchema.and(z.object({ type: z.literal("appscope") })),
+  InputNetflow$outboundSchema.and(z.object({ type: z.literal("netflow") })),
   InputCollection$outboundSchema.and(
-    z.object({ type: z.literal("collection") }).transform((v) => ({
-      type: v.type,
-    })),
+    z.object({ type: z.literal("collection") }),
   ),
-  InputGrafana$outboundSchema.and(
-    z.object({ type: z.literal("grafana") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
-  InputSyslog$outboundSchema.and(
-    z.object({ type: z.literal("syslog") }).transform((v) => ({
-      type: v.type,
-    })),
-  ),
+  InputGrafana$outboundSchema.and(z.object({ type: z.literal("grafana") })),
+  InputSyslog$outboundSchema.and(z.object({ type: z.literal("syslog") })),
 ]);
 
 export function inputToJSON(input: Input): string {

@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -226,40 +222,26 @@ export const InputCollectionMode$inboundSchema: z.ZodType<
   InputCollectionMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputCollectionMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputCollectionMode);
 /** @internal */
 export const InputCollectionMode$outboundSchema: z.ZodType<
-  InputCollectionMode,
+  string,
   z.ZodTypeDef,
   InputCollectionMode
-> = z.union([
-  z.nativeEnum(InputCollectionMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputCollectionMode);
 
 /** @internal */
 export const InputCollectionCompression$inboundSchema: z.ZodType<
   InputCollectionCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputCollectionCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputCollectionCompression);
 /** @internal */
 export const InputCollectionCompression$outboundSchema: z.ZodType<
-  InputCollectionCompression,
+  string,
   z.ZodTypeDef,
   InputCollectionCompression
-> = z.union([
-  z.nativeEnum(InputCollectionCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputCollectionCompression);
 
 /** @internal */
 export const InputCollectionPqControls$inboundSchema: z.ZodType<

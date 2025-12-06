@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -271,40 +267,26 @@ export const InputKubeLogsMode$inboundSchema: z.ZodType<
   InputKubeLogsMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputKubeLogsMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputKubeLogsMode);
 /** @internal */
 export const InputKubeLogsMode$outboundSchema: z.ZodType<
-  InputKubeLogsMode,
+  string,
   z.ZodTypeDef,
   InputKubeLogsMode
-> = z.union([
-  z.nativeEnum(InputKubeLogsMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputKubeLogsMode);
 
 /** @internal */
 export const InputKubeLogsPqCompression$inboundSchema: z.ZodType<
   InputKubeLogsPqCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputKubeLogsPqCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputKubeLogsPqCompression);
 /** @internal */
 export const InputKubeLogsPqCompression$outboundSchema: z.ZodType<
-  InputKubeLogsPqCompression,
+  string,
   z.ZodTypeDef,
   InputKubeLogsPqCompression
-> = z.union([
-  z.nativeEnum(InputKubeLogsPqCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputKubeLogsPqCompression);
 
 /** @internal */
 export const InputKubeLogsPqControls$inboundSchema: z.ZodType<
@@ -486,20 +468,13 @@ export const InputKubeLogsPersistenceCompression$inboundSchema: z.ZodType<
   InputKubeLogsPersistenceCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputKubeLogsPersistenceCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputKubeLogsPersistenceCompression);
 /** @internal */
 export const InputKubeLogsPersistenceCompression$outboundSchema: z.ZodType<
-  InputKubeLogsPersistenceCompression,
+  string,
   z.ZodTypeDef,
   InputKubeLogsPersistenceCompression
-> = z.union([
-  z.nativeEnum(InputKubeLogsPersistenceCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputKubeLogsPersistenceCompression);
 
 /** @internal */
 export const InputKubeLogsDiskSpooling$inboundSchema: z.ZodType<

@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -208,40 +204,26 @@ export const InputCriblmetricsMode$inboundSchema: z.ZodType<
   InputCriblmetricsMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputCriblmetricsMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputCriblmetricsMode);
 /** @internal */
 export const InputCriblmetricsMode$outboundSchema: z.ZodType<
-  InputCriblmetricsMode,
+  string,
   z.ZodTypeDef,
   InputCriblmetricsMode
-> = z.union([
-  z.nativeEnum(InputCriblmetricsMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputCriblmetricsMode);
 
 /** @internal */
 export const InputCriblmetricsCompression$inboundSchema: z.ZodType<
   InputCriblmetricsCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputCriblmetricsCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputCriblmetricsCompression);
 /** @internal */
 export const InputCriblmetricsCompression$outboundSchema: z.ZodType<
-  InputCriblmetricsCompression,
+  string,
   z.ZodTypeDef,
   InputCriblmetricsCompression
-> = z.union([
-  z.nativeEnum(InputCriblmetricsCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputCriblmetricsCompression);
 
 /** @internal */
 export const InputCriblmetricsPqControls$inboundSchema: z.ZodType<

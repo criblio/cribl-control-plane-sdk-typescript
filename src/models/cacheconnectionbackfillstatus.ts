@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 export const CacheConnectionBackfillStatus = {
   Scheduled: "scheduled",
@@ -25,17 +22,10 @@ export const CacheConnectionBackfillStatus$inboundSchema: z.ZodType<
   CacheConnectionBackfillStatus,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(CacheConnectionBackfillStatus),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(CacheConnectionBackfillStatus);
 /** @internal */
 export const CacheConnectionBackfillStatus$outboundSchema: z.ZodType<
-  CacheConnectionBackfillStatus,
+  string,
   z.ZodTypeDef,
   CacheConnectionBackfillStatus
-> = z.union([
-  z.nativeEnum(CacheConnectionBackfillStatus),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(CacheConnectionBackfillStatus);

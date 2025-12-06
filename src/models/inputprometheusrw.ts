@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -405,40 +401,26 @@ export const InputPrometheusRwMode$inboundSchema: z.ZodType<
   InputPrometheusRwMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputPrometheusRwMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputPrometheusRwMode);
 /** @internal */
 export const InputPrometheusRwMode$outboundSchema: z.ZodType<
-  InputPrometheusRwMode,
+  string,
   z.ZodTypeDef,
   InputPrometheusRwMode
-> = z.union([
-  z.nativeEnum(InputPrometheusRwMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputPrometheusRwMode);
 
 /** @internal */
 export const InputPrometheusRwCompression$inboundSchema: z.ZodType<
   InputPrometheusRwCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputPrometheusRwCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputPrometheusRwCompression);
 /** @internal */
 export const InputPrometheusRwCompression$outboundSchema: z.ZodType<
-  InputPrometheusRwCompression,
+  string,
   z.ZodTypeDef,
   InputPrometheusRwCompression
-> = z.union([
-  z.nativeEnum(InputPrometheusRwCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputPrometheusRwCompression);
 
 /** @internal */
 export const InputPrometheusRwPqControls$inboundSchema: z.ZodType<
@@ -542,40 +524,26 @@ export const InputPrometheusRwMinimumTLSVersion$inboundSchema: z.ZodType<
   InputPrometheusRwMinimumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputPrometheusRwMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputPrometheusRwMinimumTLSVersion);
 /** @internal */
 export const InputPrometheusRwMinimumTLSVersion$outboundSchema: z.ZodType<
-  InputPrometheusRwMinimumTLSVersion,
+  string,
   z.ZodTypeDef,
   InputPrometheusRwMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(InputPrometheusRwMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputPrometheusRwMinimumTLSVersion);
 
 /** @internal */
 export const InputPrometheusRwMaximumTLSVersion$inboundSchema: z.ZodType<
   InputPrometheusRwMaximumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputPrometheusRwMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputPrometheusRwMaximumTLSVersion);
 /** @internal */
 export const InputPrometheusRwMaximumTLSVersion$outboundSchema: z.ZodType<
-  InputPrometheusRwMaximumTLSVersion,
+  string,
   z.ZodTypeDef,
   InputPrometheusRwMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(InputPrometheusRwMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputPrometheusRwMaximumTLSVersion);
 
 /** @internal */
 export const InputPrometheusRwTLSSettingsServerSide$inboundSchema: z.ZodType<
@@ -655,20 +623,13 @@ export const InputPrometheusRwAuthenticationType$inboundSchema: z.ZodType<
   InputPrometheusRwAuthenticationType,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputPrometheusRwAuthenticationType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputPrometheusRwAuthenticationType);
 /** @internal */
 export const InputPrometheusRwAuthenticationType$outboundSchema: z.ZodType<
-  InputPrometheusRwAuthenticationType,
+  string,
   z.ZodTypeDef,
   InputPrometheusRwAuthenticationType
-> = z.union([
-  z.nativeEnum(InputPrometheusRwAuthenticationType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputPrometheusRwAuthenticationType);
 
 /** @internal */
 export const InputPrometheusRwMetadatum$inboundSchema: z.ZodType<

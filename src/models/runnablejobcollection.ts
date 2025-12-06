@@ -4,7 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import { catchUnrecognizedEnum, ClosedEnum, OpenEnum } from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -384,11 +385,7 @@ export const RunnableJobCollectionJobType$inboundSchema: z.ZodType<
   RunnableJobCollectionJobType,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(RunnableJobCollectionJobType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(RunnableJobCollectionJobType);
 
 /** @internal */
 export const RunnableJobCollectionRunType$inboundSchema: z.ZodNativeEnum<
@@ -526,11 +523,7 @@ export const InputType$inboundSchema: z.ZodType<
   InputType,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputType);
 
 /** @internal */
 export const RunnableJobCollectionPreprocess$inboundSchema: z.ZodType<
@@ -607,33 +600,21 @@ export const RunnableJobCollectionLogLevel$inboundSchema: z.ZodType<
   RunnableJobCollectionLogLevel,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(RunnableJobCollectionLogLevel),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(RunnableJobCollectionLogLevel);
 
 /** @internal */
 export const RunnableJobCollectionMode$inboundSchema: z.ZodType<
   RunnableJobCollectionMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(RunnableJobCollectionMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(RunnableJobCollectionMode);
 
 /** @internal */
 export const TimeRange$inboundSchema: z.ZodType<
   TimeRange,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(TimeRange),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(TimeRange);
 
 /** @internal */
 export const RunnableJobCollectionTimeWarning$inboundSchema: z.ZodType<
@@ -657,11 +638,7 @@ export const WhereToCapture$inboundSchema: z.ZodType<
   WhereToCapture,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(WhereToCapture),
-    z.number().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchemaInt(WhereToCapture);
 
 /** @internal */
 export const CaptureSettings$inboundSchema: z.ZodType<
@@ -671,7 +648,7 @@ export const CaptureSettings$inboundSchema: z.ZodType<
 > = z.object({
   duration: z.number().default(60),
   maxEvents: z.number().default(100),
-  level: WhereToCapture$inboundSchema,
+  level: WhereToCapture$inboundSchema.default(0),
 });
 
 export function captureSettingsFromJSON(

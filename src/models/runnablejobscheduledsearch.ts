@@ -4,7 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import { catchUnrecognizedEnum, ClosedEnum, OpenEnum } from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -171,11 +172,7 @@ export const RunnableJobScheduledSearchJobType$inboundSchema: z.ZodType<
   RunnableJobScheduledSearchJobType,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(RunnableJobScheduledSearchJobType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(RunnableJobScheduledSearchJobType);
 
 /** @internal */
 export const RunnableJobScheduledSearchType$inboundSchema: z.ZodNativeEnum<

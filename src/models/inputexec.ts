@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -236,40 +232,26 @@ export const InputExecMode$inboundSchema: z.ZodType<
   InputExecMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputExecMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputExecMode);
 /** @internal */
 export const InputExecMode$outboundSchema: z.ZodType<
-  InputExecMode,
+  string,
   z.ZodTypeDef,
   InputExecMode
-> = z.union([
-  z.nativeEnum(InputExecMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputExecMode);
 
 /** @internal */
 export const InputExecCompression$inboundSchema: z.ZodType<
   InputExecCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputExecCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputExecCompression);
 /** @internal */
 export const InputExecCompression$outboundSchema: z.ZodType<
-  InputExecCompression,
+  string,
   z.ZodTypeDef,
   InputExecCompression
-> = z.union([
-  z.nativeEnum(InputExecCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputExecCompression);
 
 /** @internal */
 export const InputExecPqControls$inboundSchema: z.ZodType<
@@ -365,20 +347,13 @@ export const ScheduleType$inboundSchema: z.ZodType<
   ScheduleType,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(ScheduleType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(ScheduleType);
 /** @internal */
 export const ScheduleType$outboundSchema: z.ZodType<
-  ScheduleType,
+  string,
   z.ZodTypeDef,
   ScheduleType
-> = z.union([
-  z.nativeEnum(ScheduleType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(ScheduleType);
 
 /** @internal */
 export const InputExecMetadatum$inboundSchema: z.ZodType<

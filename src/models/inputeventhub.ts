@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -421,40 +417,26 @@ export const InputEventhubMode$inboundSchema: z.ZodType<
   InputEventhubMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputEventhubMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputEventhubMode);
 /** @internal */
 export const InputEventhubMode$outboundSchema: z.ZodType<
-  InputEventhubMode,
+  string,
   z.ZodTypeDef,
   InputEventhubMode
-> = z.union([
-  z.nativeEnum(InputEventhubMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputEventhubMode);
 
 /** @internal */
 export const InputEventhubCompression$inboundSchema: z.ZodType<
   InputEventhubCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputEventhubCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputEventhubCompression);
 /** @internal */
 export const InputEventhubCompression$outboundSchema: z.ZodType<
-  InputEventhubCompression,
+  string,
   z.ZodTypeDef,
   InputEventhubCompression
-> = z.union([
-  z.nativeEnum(InputEventhubCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputEventhubCompression);
 
 /** @internal */
 export const InputEventhubPqControls$inboundSchema: z.ZodType<
@@ -552,41 +534,24 @@ export const InputEventhubAuthTypeAuthenticationMethod$inboundSchema: z.ZodType<
   InputEventhubAuthTypeAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputEventhubAuthTypeAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputEventhubAuthTypeAuthenticationMethod);
 /** @internal */
 export const InputEventhubAuthTypeAuthenticationMethod$outboundSchema:
-  z.ZodType<
-    InputEventhubAuthTypeAuthenticationMethod,
-    z.ZodTypeDef,
-    InputEventhubAuthTypeAuthenticationMethod
-  > = z.union([
-    z.nativeEnum(InputEventhubAuthTypeAuthenticationMethod),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  z.ZodType<string, z.ZodTypeDef, InputEventhubAuthTypeAuthenticationMethod> =
+    openEnums.outboundSchema(InputEventhubAuthTypeAuthenticationMethod);
 
 /** @internal */
 export const InputEventhubSASLMechanism$inboundSchema: z.ZodType<
   InputEventhubSASLMechanism,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputEventhubSASLMechanism),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputEventhubSASLMechanism);
 /** @internal */
 export const InputEventhubSASLMechanism$outboundSchema: z.ZodType<
-  InputEventhubSASLMechanism,
+  string,
   z.ZodTypeDef,
   InputEventhubSASLMechanism
-> = z.union([
-  z.nativeEnum(InputEventhubSASLMechanism),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputEventhubSASLMechanism);
 
 /** @internal */
 export const InputEventhubClientSecretAuthTypeAuthenticationMethod$inboundSchema:
@@ -594,21 +559,18 @@ export const InputEventhubClientSecretAuthTypeAuthenticationMethod$inboundSchema
     InputEventhubClientSecretAuthTypeAuthenticationMethod,
     z.ZodTypeDef,
     unknown
-  > = z
-    .union([
-      z.nativeEnum(InputEventhubClientSecretAuthTypeAuthenticationMethod),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  > = openEnums.inboundSchema(
+    InputEventhubClientSecretAuthTypeAuthenticationMethod,
+  );
 /** @internal */
 export const InputEventhubClientSecretAuthTypeAuthenticationMethod$outboundSchema:
   z.ZodType<
-    InputEventhubClientSecretAuthTypeAuthenticationMethod,
+    string,
     z.ZodTypeDef,
     InputEventhubClientSecretAuthTypeAuthenticationMethod
-  > = z.union([
-    z.nativeEnum(InputEventhubClientSecretAuthTypeAuthenticationMethod),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  > = openEnums.outboundSchema(
+    InputEventhubClientSecretAuthTypeAuthenticationMethod,
+  );
 
 /** @internal */
 export const InputEventhubMicrosoftEntraIDAuthenticationEndpoint$inboundSchema:
@@ -616,21 +578,18 @@ export const InputEventhubMicrosoftEntraIDAuthenticationEndpoint$inboundSchema:
     InputEventhubMicrosoftEntraIDAuthenticationEndpoint,
     z.ZodTypeDef,
     unknown
-  > = z
-    .union([
-      z.nativeEnum(InputEventhubMicrosoftEntraIDAuthenticationEndpoint),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  > = openEnums.inboundSchema(
+    InputEventhubMicrosoftEntraIDAuthenticationEndpoint,
+  );
 /** @internal */
 export const InputEventhubMicrosoftEntraIDAuthenticationEndpoint$outboundSchema:
   z.ZodType<
-    InputEventhubMicrosoftEntraIDAuthenticationEndpoint,
+    string,
     z.ZodTypeDef,
     InputEventhubMicrosoftEntraIDAuthenticationEndpoint
-  > = z.union([
-    z.nativeEnum(InputEventhubMicrosoftEntraIDAuthenticationEndpoint),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  > = openEnums.outboundSchema(
+    InputEventhubMicrosoftEntraIDAuthenticationEndpoint,
+  );
 
 /** @internal */
 export const InputEventhubAuthentication$inboundSchema: z.ZodType<

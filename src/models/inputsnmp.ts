@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -282,40 +278,26 @@ export const InputSnmpMode$inboundSchema: z.ZodType<
   InputSnmpMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputSnmpMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputSnmpMode);
 /** @internal */
 export const InputSnmpMode$outboundSchema: z.ZodType<
-  InputSnmpMode,
+  string,
   z.ZodTypeDef,
   InputSnmpMode
-> = z.union([
-  z.nativeEnum(InputSnmpMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputSnmpMode);
 
 /** @internal */
 export const InputSnmpCompression$inboundSchema: z.ZodType<
   InputSnmpCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputSnmpCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputSnmpCompression);
 /** @internal */
 export const InputSnmpCompression$outboundSchema: z.ZodType<
-  InputSnmpCompression,
+  string,
   z.ZodTypeDef,
   InputSnmpCompression
-> = z.union([
-  z.nativeEnum(InputSnmpCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputSnmpCompression);
 
 /** @internal */
 export const InputSnmpPqControls$inboundSchema: z.ZodType<
@@ -411,20 +393,13 @@ export const AuthenticationProtocol$inboundSchema: z.ZodType<
   AuthenticationProtocol,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(AuthenticationProtocol),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(AuthenticationProtocol);
 /** @internal */
 export const AuthenticationProtocol$outboundSchema: z.ZodType<
-  AuthenticationProtocol,
+  string,
   z.ZodTypeDef,
   AuthenticationProtocol
-> = z.union([
-  z.nativeEnum(AuthenticationProtocol),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(AuthenticationProtocol);
 
 /** @internal */
 export const V3User$inboundSchema: z.ZodType<V3User, z.ZodTypeDef, unknown> = z

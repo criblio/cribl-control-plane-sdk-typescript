@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -389,20 +385,13 @@ export const OutputHoneycombFailedRequestLoggingMode$inboundSchema: z.ZodType<
   OutputHoneycombFailedRequestLoggingMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputHoneycombFailedRequestLoggingMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputHoneycombFailedRequestLoggingMode);
 /** @internal */
 export const OutputHoneycombFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  OutputHoneycombFailedRequestLoggingMode,
+  string,
   z.ZodTypeDef,
   OutputHoneycombFailedRequestLoggingMode
-> = z.union([
-  z.nativeEnum(OutputHoneycombFailedRequestLoggingMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputHoneycombFailedRequestLoggingMode);
 
 /** @internal */
 export const OutputHoneycombResponseRetrySetting$inboundSchema: z.ZodType<
@@ -511,100 +500,65 @@ export const OutputHoneycombBackpressureBehavior$inboundSchema: z.ZodType<
   OutputHoneycombBackpressureBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputHoneycombBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputHoneycombBackpressureBehavior);
 /** @internal */
 export const OutputHoneycombBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputHoneycombBackpressureBehavior,
+  string,
   z.ZodTypeDef,
   OutputHoneycombBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputHoneycombBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputHoneycombBackpressureBehavior);
 
 /** @internal */
 export const OutputHoneycombAuthenticationMethod$inboundSchema: z.ZodType<
   OutputHoneycombAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputHoneycombAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputHoneycombAuthenticationMethod);
 /** @internal */
 export const OutputHoneycombAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputHoneycombAuthenticationMethod,
+  string,
   z.ZodTypeDef,
   OutputHoneycombAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputHoneycombAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputHoneycombAuthenticationMethod);
 
 /** @internal */
 export const OutputHoneycombMode$inboundSchema: z.ZodType<
   OutputHoneycombMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputHoneycombMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputHoneycombMode);
 /** @internal */
 export const OutputHoneycombMode$outboundSchema: z.ZodType<
-  OutputHoneycombMode,
+  string,
   z.ZodTypeDef,
   OutputHoneycombMode
-> = z.union([
-  z.nativeEnum(OutputHoneycombMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputHoneycombMode);
 
 /** @internal */
 export const OutputHoneycombCompression$inboundSchema: z.ZodType<
   OutputHoneycombCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputHoneycombCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputHoneycombCompression);
 /** @internal */
 export const OutputHoneycombCompression$outboundSchema: z.ZodType<
-  OutputHoneycombCompression,
+  string,
   z.ZodTypeDef,
   OutputHoneycombCompression
-> = z.union([
-  z.nativeEnum(OutputHoneycombCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputHoneycombCompression);
 
 /** @internal */
 export const OutputHoneycombQueueFullBehavior$inboundSchema: z.ZodType<
   OutputHoneycombQueueFullBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputHoneycombQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputHoneycombQueueFullBehavior);
 /** @internal */
 export const OutputHoneycombQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputHoneycombQueueFullBehavior,
+  string,
   z.ZodTypeDef,
   OutputHoneycombQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputHoneycombQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputHoneycombQueueFullBehavior);
 
 /** @internal */
 export const OutputHoneycombPqControls$inboundSchema: z.ZodType<

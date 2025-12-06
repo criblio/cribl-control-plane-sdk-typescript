@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 export const RbacResource = {
   Groups: "groups",
@@ -25,17 +22,10 @@ export const RbacResource$inboundSchema: z.ZodType<
   RbacResource,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(RbacResource),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(RbacResource);
 /** @internal */
 export const RbacResource$outboundSchema: z.ZodType<
-  RbacResource,
+  string,
   z.ZodTypeDef,
   RbacResource
-> = z.union([
-  z.nativeEnum(RbacResource),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(RbacResource);
