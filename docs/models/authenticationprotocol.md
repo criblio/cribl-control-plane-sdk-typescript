@@ -1,11 +1,11 @@
-# FunctionSnmpTrapSerializeAuthenticationProtocol
+# AuthenticationProtocol
 
 ## Example Usage
 
 ```typescript
-import { FunctionSnmpTrapSerializeAuthenticationProtocol } from "cribl-control-plane/models";
+import { AuthenticationProtocol } from "cribl-control-plane/models";
 
-let value: FunctionSnmpTrapSerializeAuthenticationProtocol = "sha224";
+let value: AuthenticationProtocol = "sha";
 ```
 
 ## Values
