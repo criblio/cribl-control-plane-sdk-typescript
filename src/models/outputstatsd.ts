@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -244,100 +240,65 @@ export const OutputStatsdDestinationProtocol$inboundSchema: z.ZodType<
   OutputStatsdDestinationProtocol,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputStatsdDestinationProtocol),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputStatsdDestinationProtocol);
 /** @internal */
 export const OutputStatsdDestinationProtocol$outboundSchema: z.ZodType<
-  OutputStatsdDestinationProtocol,
+  string,
   z.ZodTypeDef,
   OutputStatsdDestinationProtocol
-> = z.union([
-  z.nativeEnum(OutputStatsdDestinationProtocol),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputStatsdDestinationProtocol);
 
 /** @internal */
 export const OutputStatsdBackpressureBehavior$inboundSchema: z.ZodType<
   OutputStatsdBackpressureBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputStatsdBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputStatsdBackpressureBehavior);
 /** @internal */
 export const OutputStatsdBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputStatsdBackpressureBehavior,
+  string,
   z.ZodTypeDef,
   OutputStatsdBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputStatsdBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputStatsdBackpressureBehavior);
 
 /** @internal */
 export const OutputStatsdMode$inboundSchema: z.ZodType<
   OutputStatsdMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputStatsdMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputStatsdMode);
 /** @internal */
 export const OutputStatsdMode$outboundSchema: z.ZodType<
-  OutputStatsdMode,
+  string,
   z.ZodTypeDef,
   OutputStatsdMode
-> = z.union([
-  z.nativeEnum(OutputStatsdMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputStatsdMode);
 
 /** @internal */
 export const OutputStatsdCompression$inboundSchema: z.ZodType<
   OutputStatsdCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputStatsdCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputStatsdCompression);
 /** @internal */
 export const OutputStatsdCompression$outboundSchema: z.ZodType<
-  OutputStatsdCompression,
+  string,
   z.ZodTypeDef,
   OutputStatsdCompression
-> = z.union([
-  z.nativeEnum(OutputStatsdCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputStatsdCompression);
 
 /** @internal */
 export const OutputStatsdQueueFullBehavior$inboundSchema: z.ZodType<
   OutputStatsdQueueFullBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputStatsdQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputStatsdQueueFullBehavior);
 /** @internal */
 export const OutputStatsdQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputStatsdQueueFullBehavior,
+  string,
   z.ZodTypeDef,
   OutputStatsdQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputStatsdQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputStatsdQueueFullBehavior);
 
 /** @internal */
 export const OutputStatsdPqControls$inboundSchema: z.ZodType<

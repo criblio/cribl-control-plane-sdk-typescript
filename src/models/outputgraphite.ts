@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -246,100 +242,65 @@ export const OutputGraphiteDestinationProtocol$inboundSchema: z.ZodType<
   OutputGraphiteDestinationProtocol,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGraphiteDestinationProtocol),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputGraphiteDestinationProtocol);
 /** @internal */
 export const OutputGraphiteDestinationProtocol$outboundSchema: z.ZodType<
-  OutputGraphiteDestinationProtocol,
+  string,
   z.ZodTypeDef,
   OutputGraphiteDestinationProtocol
-> = z.union([
-  z.nativeEnum(OutputGraphiteDestinationProtocol),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputGraphiteDestinationProtocol);
 
 /** @internal */
 export const OutputGraphiteBackpressureBehavior$inboundSchema: z.ZodType<
   OutputGraphiteBackpressureBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGraphiteBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputGraphiteBackpressureBehavior);
 /** @internal */
 export const OutputGraphiteBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputGraphiteBackpressureBehavior,
+  string,
   z.ZodTypeDef,
   OutputGraphiteBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputGraphiteBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputGraphiteBackpressureBehavior);
 
 /** @internal */
 export const OutputGraphiteMode$inboundSchema: z.ZodType<
   OutputGraphiteMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGraphiteMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputGraphiteMode);
 /** @internal */
 export const OutputGraphiteMode$outboundSchema: z.ZodType<
-  OutputGraphiteMode,
+  string,
   z.ZodTypeDef,
   OutputGraphiteMode
-> = z.union([
-  z.nativeEnum(OutputGraphiteMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputGraphiteMode);
 
 /** @internal */
 export const OutputGraphiteCompression$inboundSchema: z.ZodType<
   OutputGraphiteCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGraphiteCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputGraphiteCompression);
 /** @internal */
 export const OutputGraphiteCompression$outboundSchema: z.ZodType<
-  OutputGraphiteCompression,
+  string,
   z.ZodTypeDef,
   OutputGraphiteCompression
-> = z.union([
-  z.nativeEnum(OutputGraphiteCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputGraphiteCompression);
 
 /** @internal */
 export const OutputGraphiteQueueFullBehavior$inboundSchema: z.ZodType<
   OutputGraphiteQueueFullBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGraphiteQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputGraphiteQueueFullBehavior);
 /** @internal */
 export const OutputGraphiteQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputGraphiteQueueFullBehavior,
+  string,
   z.ZodTypeDef,
   OutputGraphiteQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputGraphiteQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputGraphiteQueueFullBehavior);
 
 /** @internal */
 export const OutputGraphitePqControls$inboundSchema: z.ZodType<

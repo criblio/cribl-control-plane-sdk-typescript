@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -236,40 +232,26 @@ export const InputNetflowMode$inboundSchema: z.ZodType<
   InputNetflowMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputNetflowMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputNetflowMode);
 /** @internal */
 export const InputNetflowMode$outboundSchema: z.ZodType<
-  InputNetflowMode,
+  string,
   z.ZodTypeDef,
   InputNetflowMode
-> = z.union([
-  z.nativeEnum(InputNetflowMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputNetflowMode);
 
 /** @internal */
 export const InputNetflowCompression$inboundSchema: z.ZodType<
   InputNetflowCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputNetflowCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputNetflowCompression);
 /** @internal */
 export const InputNetflowCompression$outboundSchema: z.ZodType<
-  InputNetflowCompression,
+  string,
   z.ZodTypeDef,
   InputNetflowCompression
-> = z.union([
-  z.nativeEnum(InputNetflowCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputNetflowCompression);
 
 /** @internal */
 export const InputNetflowPqControls$inboundSchema: z.ZodType<

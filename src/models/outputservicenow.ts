@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -499,80 +495,52 @@ export const OutputServiceNowOTLPVersion$inboundSchema: z.ZodType<
   OutputServiceNowOTLPVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputServiceNowOTLPVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputServiceNowOTLPVersion);
 /** @internal */
 export const OutputServiceNowOTLPVersion$outboundSchema: z.ZodType<
-  OutputServiceNowOTLPVersion,
+  string,
   z.ZodTypeDef,
   OutputServiceNowOTLPVersion
-> = z.union([
-  z.nativeEnum(OutputServiceNowOTLPVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputServiceNowOTLPVersion);
 
 /** @internal */
 export const OutputServiceNowProtocol$inboundSchema: z.ZodType<
   OutputServiceNowProtocol,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputServiceNowProtocol),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputServiceNowProtocol);
 /** @internal */
 export const OutputServiceNowProtocol$outboundSchema: z.ZodType<
-  OutputServiceNowProtocol,
+  string,
   z.ZodTypeDef,
   OutputServiceNowProtocol
-> = z.union([
-  z.nativeEnum(OutputServiceNowProtocol),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputServiceNowProtocol);
 
 /** @internal */
 export const OutputServiceNowCompressCompression$inboundSchema: z.ZodType<
   OutputServiceNowCompressCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputServiceNowCompressCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputServiceNowCompressCompression);
 /** @internal */
 export const OutputServiceNowCompressCompression$outboundSchema: z.ZodType<
-  OutputServiceNowCompressCompression,
+  string,
   z.ZodTypeDef,
   OutputServiceNowCompressCompression
-> = z.union([
-  z.nativeEnum(OutputServiceNowCompressCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputServiceNowCompressCompression);
 
 /** @internal */
 export const OutputServiceNowHttpCompressCompression$inboundSchema: z.ZodType<
   OutputServiceNowHttpCompressCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputServiceNowHttpCompressCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputServiceNowHttpCompressCompression);
 /** @internal */
 export const OutputServiceNowHttpCompressCompression$outboundSchema: z.ZodType<
-  OutputServiceNowHttpCompressCompression,
+  string,
   z.ZodTypeDef,
   OutputServiceNowHttpCompressCompression
-> = z.union([
-  z.nativeEnum(OutputServiceNowHttpCompressCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputServiceNowHttpCompressCompression);
 
 /** @internal */
 export const OutputServiceNowMetadatum$inboundSchema: z.ZodType<
@@ -621,40 +589,26 @@ export const OutputServiceNowFailedRequestLoggingMode$inboundSchema: z.ZodType<
   OutputServiceNowFailedRequestLoggingMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputServiceNowFailedRequestLoggingMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputServiceNowFailedRequestLoggingMode);
 /** @internal */
 export const OutputServiceNowFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  OutputServiceNowFailedRequestLoggingMode,
+  string,
   z.ZodTypeDef,
   OutputServiceNowFailedRequestLoggingMode
-> = z.union([
-  z.nativeEnum(OutputServiceNowFailedRequestLoggingMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputServiceNowFailedRequestLoggingMode);
 
 /** @internal */
 export const OutputServiceNowBackpressureBehavior$inboundSchema: z.ZodType<
   OutputServiceNowBackpressureBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputServiceNowBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputServiceNowBackpressureBehavior);
 /** @internal */
 export const OutputServiceNowBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputServiceNowBackpressureBehavior,
+  string,
   z.ZodTypeDef,
   OutputServiceNowBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputServiceNowBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputServiceNowBackpressureBehavior);
 
 /** @internal */
 export const OutputServiceNowExtraHttpHeader$inboundSchema: z.ZodType<
@@ -807,40 +761,26 @@ export const OutputServiceNowMinimumTLSVersion$inboundSchema: z.ZodType<
   OutputServiceNowMinimumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputServiceNowMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputServiceNowMinimumTLSVersion);
 /** @internal */
 export const OutputServiceNowMinimumTLSVersion$outboundSchema: z.ZodType<
-  OutputServiceNowMinimumTLSVersion,
+  string,
   z.ZodTypeDef,
   OutputServiceNowMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(OutputServiceNowMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputServiceNowMinimumTLSVersion);
 
 /** @internal */
 export const OutputServiceNowMaximumTLSVersion$inboundSchema: z.ZodType<
   OutputServiceNowMaximumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputServiceNowMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputServiceNowMaximumTLSVersion);
 /** @internal */
 export const OutputServiceNowMaximumTLSVersion$outboundSchema: z.ZodType<
-  OutputServiceNowMaximumTLSVersion,
+  string,
   z.ZodTypeDef,
   OutputServiceNowMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(OutputServiceNowMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputServiceNowMaximumTLSVersion);
 
 /** @internal */
 export const OutputServiceNowTLSSettingsClientSide$inboundSchema: z.ZodType<
@@ -913,60 +853,39 @@ export const OutputServiceNowMode$inboundSchema: z.ZodType<
   OutputServiceNowMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputServiceNowMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputServiceNowMode);
 /** @internal */
 export const OutputServiceNowMode$outboundSchema: z.ZodType<
-  OutputServiceNowMode,
+  string,
   z.ZodTypeDef,
   OutputServiceNowMode
-> = z.union([
-  z.nativeEnum(OutputServiceNowMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputServiceNowMode);
 
 /** @internal */
 export const OutputServiceNowPqCompressCompression$inboundSchema: z.ZodType<
   OutputServiceNowPqCompressCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputServiceNowPqCompressCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputServiceNowPqCompressCompression);
 /** @internal */
 export const OutputServiceNowPqCompressCompression$outboundSchema: z.ZodType<
-  OutputServiceNowPqCompressCompression,
+  string,
   z.ZodTypeDef,
   OutputServiceNowPqCompressCompression
-> = z.union([
-  z.nativeEnum(OutputServiceNowPqCompressCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputServiceNowPqCompressCompression);
 
 /** @internal */
 export const OutputServiceNowQueueFullBehavior$inboundSchema: z.ZodType<
   OutputServiceNowQueueFullBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputServiceNowQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputServiceNowQueueFullBehavior);
 /** @internal */
 export const OutputServiceNowQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputServiceNowQueueFullBehavior,
+  string,
   z.ZodTypeDef,
   OutputServiceNowQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputServiceNowQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputServiceNowQueueFullBehavior);
 
 /** @internal */
 export const OutputServiceNowPqControls$inboundSchema: z.ZodType<

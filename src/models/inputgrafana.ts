@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -943,40 +939,26 @@ export const InputGrafanaMode2$inboundSchema: z.ZodType<
   InputGrafanaMode2,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputGrafanaMode2),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputGrafanaMode2);
 /** @internal */
 export const InputGrafanaMode2$outboundSchema: z.ZodType<
-  InputGrafanaMode2,
+  string,
   z.ZodTypeDef,
   InputGrafanaMode2
-> = z.union([
-  z.nativeEnum(InputGrafanaMode2),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputGrafanaMode2);
 
 /** @internal */
 export const InputGrafanaCompression2$inboundSchema: z.ZodType<
   InputGrafanaCompression2,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputGrafanaCompression2),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputGrafanaCompression2);
 /** @internal */
 export const InputGrafanaCompression2$outboundSchema: z.ZodType<
-  InputGrafanaCompression2,
+  string,
   z.ZodTypeDef,
   InputGrafanaCompression2
-> = z.union([
-  z.nativeEnum(InputGrafanaCompression2),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputGrafanaCompression2);
 
 /** @internal */
 export const InputGrafanaPqControls2$inboundSchema: z.ZodType<
@@ -1074,40 +1056,26 @@ export const InputGrafanaMinimumTLSVersion2$inboundSchema: z.ZodType<
   InputGrafanaMinimumTLSVersion2,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputGrafanaMinimumTLSVersion2),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputGrafanaMinimumTLSVersion2);
 /** @internal */
 export const InputGrafanaMinimumTLSVersion2$outboundSchema: z.ZodType<
-  InputGrafanaMinimumTLSVersion2,
+  string,
   z.ZodTypeDef,
   InputGrafanaMinimumTLSVersion2
-> = z.union([
-  z.nativeEnum(InputGrafanaMinimumTLSVersion2),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputGrafanaMinimumTLSVersion2);
 
 /** @internal */
 export const InputGrafanaMaximumTLSVersion2$inboundSchema: z.ZodType<
   InputGrafanaMaximumTLSVersion2,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputGrafanaMaximumTLSVersion2),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputGrafanaMaximumTLSVersion2);
 /** @internal */
 export const InputGrafanaMaximumTLSVersion2$outboundSchema: z.ZodType<
-  InputGrafanaMaximumTLSVersion2,
+  string,
   z.ZodTypeDef,
   InputGrafanaMaximumTLSVersion2
-> = z.union([
-  z.nativeEnum(InputGrafanaMaximumTLSVersion2),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputGrafanaMaximumTLSVersion2);
 
 /** @internal */
 export const InputGrafanaTLSSettingsServerSide2$inboundSchema: z.ZodType<
@@ -1187,21 +1155,14 @@ export const InputGrafanaPrometheusAuthAuthenticationType2$inboundSchema:
     InputGrafanaPrometheusAuthAuthenticationType2,
     z.ZodTypeDef,
     unknown
-  > = z
-    .union([
-      z.nativeEnum(InputGrafanaPrometheusAuthAuthenticationType2),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  > = openEnums.inboundSchema(InputGrafanaPrometheusAuthAuthenticationType2);
 /** @internal */
 export const InputGrafanaPrometheusAuthAuthenticationType2$outboundSchema:
   z.ZodType<
-    InputGrafanaPrometheusAuthAuthenticationType2,
+    string,
     z.ZodTypeDef,
     InputGrafanaPrometheusAuthAuthenticationType2
-  > = z.union([
-    z.nativeEnum(InputGrafanaPrometheusAuthAuthenticationType2),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  > = openEnums.outboundSchema(InputGrafanaPrometheusAuthAuthenticationType2);
 
 /** @internal */
 export const PrometheusAuthOauthParam2$inboundSchema: z.ZodType<
@@ -1379,20 +1340,13 @@ export const InputGrafanaLokiAuthAuthenticationType2$inboundSchema: z.ZodType<
   InputGrafanaLokiAuthAuthenticationType2,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputGrafanaLokiAuthAuthenticationType2),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputGrafanaLokiAuthAuthenticationType2);
 /** @internal */
 export const InputGrafanaLokiAuthAuthenticationType2$outboundSchema: z.ZodType<
-  InputGrafanaLokiAuthAuthenticationType2,
+  string,
   z.ZodTypeDef,
   InputGrafanaLokiAuthAuthenticationType2
-> = z.union([
-  z.nativeEnum(InputGrafanaLokiAuthAuthenticationType2),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputGrafanaLokiAuthAuthenticationType2);
 
 /** @internal */
 export const LokiAuthOauthParam2$inboundSchema: z.ZodType<
@@ -1796,40 +1750,26 @@ export const InputGrafanaMode1$inboundSchema: z.ZodType<
   InputGrafanaMode1,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputGrafanaMode1),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputGrafanaMode1);
 /** @internal */
 export const InputGrafanaMode1$outboundSchema: z.ZodType<
-  InputGrafanaMode1,
+  string,
   z.ZodTypeDef,
   InputGrafanaMode1
-> = z.union([
-  z.nativeEnum(InputGrafanaMode1),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputGrafanaMode1);
 
 /** @internal */
 export const InputGrafanaCompression1$inboundSchema: z.ZodType<
   InputGrafanaCompression1,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputGrafanaCompression1),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputGrafanaCompression1);
 /** @internal */
 export const InputGrafanaCompression1$outboundSchema: z.ZodType<
-  InputGrafanaCompression1,
+  string,
   z.ZodTypeDef,
   InputGrafanaCompression1
-> = z.union([
-  z.nativeEnum(InputGrafanaCompression1),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputGrafanaCompression1);
 
 /** @internal */
 export const InputGrafanaPqControls1$inboundSchema: z.ZodType<
@@ -1927,40 +1867,26 @@ export const InputGrafanaMinimumTLSVersion1$inboundSchema: z.ZodType<
   InputGrafanaMinimumTLSVersion1,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputGrafanaMinimumTLSVersion1),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputGrafanaMinimumTLSVersion1);
 /** @internal */
 export const InputGrafanaMinimumTLSVersion1$outboundSchema: z.ZodType<
-  InputGrafanaMinimumTLSVersion1,
+  string,
   z.ZodTypeDef,
   InputGrafanaMinimumTLSVersion1
-> = z.union([
-  z.nativeEnum(InputGrafanaMinimumTLSVersion1),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputGrafanaMinimumTLSVersion1);
 
 /** @internal */
 export const InputGrafanaMaximumTLSVersion1$inboundSchema: z.ZodType<
   InputGrafanaMaximumTLSVersion1,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputGrafanaMaximumTLSVersion1),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputGrafanaMaximumTLSVersion1);
 /** @internal */
 export const InputGrafanaMaximumTLSVersion1$outboundSchema: z.ZodType<
-  InputGrafanaMaximumTLSVersion1,
+  string,
   z.ZodTypeDef,
   InputGrafanaMaximumTLSVersion1
-> = z.union([
-  z.nativeEnum(InputGrafanaMaximumTLSVersion1),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputGrafanaMaximumTLSVersion1);
 
 /** @internal */
 export const InputGrafanaTLSSettingsServerSide1$inboundSchema: z.ZodType<
@@ -2040,21 +1966,14 @@ export const InputGrafanaPrometheusAuthAuthenticationType1$inboundSchema:
     InputGrafanaPrometheusAuthAuthenticationType1,
     z.ZodTypeDef,
     unknown
-  > = z
-    .union([
-      z.nativeEnum(InputGrafanaPrometheusAuthAuthenticationType1),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  > = openEnums.inboundSchema(InputGrafanaPrometheusAuthAuthenticationType1);
 /** @internal */
 export const InputGrafanaPrometheusAuthAuthenticationType1$outboundSchema:
   z.ZodType<
-    InputGrafanaPrometheusAuthAuthenticationType1,
+    string,
     z.ZodTypeDef,
     InputGrafanaPrometheusAuthAuthenticationType1
-  > = z.union([
-    z.nativeEnum(InputGrafanaPrometheusAuthAuthenticationType1),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  > = openEnums.outboundSchema(InputGrafanaPrometheusAuthAuthenticationType1);
 
 /** @internal */
 export const PrometheusAuthOauthParam1$inboundSchema: z.ZodType<
@@ -2232,20 +2151,13 @@ export const InputGrafanaLokiAuthAuthenticationType1$inboundSchema: z.ZodType<
   InputGrafanaLokiAuthAuthenticationType1,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputGrafanaLokiAuthAuthenticationType1),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputGrafanaLokiAuthAuthenticationType1);
 /** @internal */
 export const InputGrafanaLokiAuthAuthenticationType1$outboundSchema: z.ZodType<
-  InputGrafanaLokiAuthAuthenticationType1,
+  string,
   z.ZodTypeDef,
   InputGrafanaLokiAuthAuthenticationType1
-> = z.union([
-  z.nativeEnum(InputGrafanaLokiAuthAuthenticationType1),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputGrafanaLokiAuthAuthenticationType1);
 
 /** @internal */
 export const LokiAuthOauthParam1$inboundSchema: z.ZodType<

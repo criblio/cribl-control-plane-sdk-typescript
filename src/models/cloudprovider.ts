@@ -3,11 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 export const CloudProvider = {
   Aws: "aws",
@@ -20,17 +17,10 @@ export const CloudProvider$inboundSchema: z.ZodType<
   CloudProvider,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(CloudProvider),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(CloudProvider);
 /** @internal */
 export const CloudProvider$outboundSchema: z.ZodType<
-  CloudProvider,
+  string,
   z.ZodTypeDef,
   CloudProvider
-> = z.union([
-  z.nativeEnum(CloudProvider),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(CloudProvider);

@@ -3,7 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import { OpenEnum, Unrecognized } from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 export const ProductsCore = {
   Stream: "stream",
@@ -13,10 +14,7 @@ export type ProductsCore = OpenEnum<typeof ProductsCore>;
 
 /** @internal */
 export const ProductsCore$outboundSchema: z.ZodType<
-  ProductsCore,
+  string,
   z.ZodTypeDef,
   ProductsCore
-> = z.union([
-  z.nativeEnum(ProductsCore),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(ProductsCore);

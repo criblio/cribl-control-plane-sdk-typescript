@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -595,40 +591,26 @@ export const InputSystemMetricsPqMode$inboundSchema: z.ZodType<
   InputSystemMetricsPqMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputSystemMetricsPqMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputSystemMetricsPqMode);
 /** @internal */
 export const InputSystemMetricsPqMode$outboundSchema: z.ZodType<
-  InputSystemMetricsPqMode,
+  string,
   z.ZodTypeDef,
   InputSystemMetricsPqMode
-> = z.union([
-  z.nativeEnum(InputSystemMetricsPqMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputSystemMetricsPqMode);
 
 /** @internal */
 export const InputSystemMetricsCompression$inboundSchema: z.ZodType<
   InputSystemMetricsCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputSystemMetricsCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputSystemMetricsCompression);
 /** @internal */
 export const InputSystemMetricsCompression$outboundSchema: z.ZodType<
-  InputSystemMetricsCompression,
+  string,
   z.ZodTypeDef,
   InputSystemMetricsCompression
-> = z.union([
-  z.nativeEnum(InputSystemMetricsCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputSystemMetricsCompression);
 
 /** @internal */
 export const InputSystemMetricsPqControls$inboundSchema: z.ZodType<
@@ -732,40 +714,26 @@ export const InputSystemMetricsHostMode$inboundSchema: z.ZodType<
   InputSystemMetricsHostMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputSystemMetricsHostMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputSystemMetricsHostMode);
 /** @internal */
 export const InputSystemMetricsHostMode$outboundSchema: z.ZodType<
-  InputSystemMetricsHostMode,
+  string,
   z.ZodTypeDef,
   InputSystemMetricsHostMode
-> = z.union([
-  z.nativeEnum(InputSystemMetricsHostMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputSystemMetricsHostMode);
 
 /** @internal */
 export const InputSystemMetricsSystemMode$inboundSchema: z.ZodType<
   InputSystemMetricsSystemMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputSystemMetricsSystemMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputSystemMetricsSystemMode);
 /** @internal */
 export const InputSystemMetricsSystemMode$outboundSchema: z.ZodType<
-  InputSystemMetricsSystemMode,
+  string,
   z.ZodTypeDef,
   InputSystemMetricsSystemMode
-> = z.union([
-  z.nativeEnum(InputSystemMetricsSystemMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputSystemMetricsSystemMode);
 
 /** @internal */
 export const InputSystemMetricsSystem$inboundSchema: z.ZodType<
@@ -814,20 +782,13 @@ export const InputSystemMetricsCpuMode$inboundSchema: z.ZodType<
   InputSystemMetricsCpuMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputSystemMetricsCpuMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputSystemMetricsCpuMode);
 /** @internal */
 export const InputSystemMetricsCpuMode$outboundSchema: z.ZodType<
-  InputSystemMetricsCpuMode,
+  string,
   z.ZodTypeDef,
   InputSystemMetricsCpuMode
-> = z.union([
-  z.nativeEnum(InputSystemMetricsCpuMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputSystemMetricsCpuMode);
 
 /** @internal */
 export const InputSystemMetricsCpu$inboundSchema: z.ZodType<
@@ -882,20 +843,13 @@ export const InputSystemMetricsMemoryMode$inboundSchema: z.ZodType<
   InputSystemMetricsMemoryMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputSystemMetricsMemoryMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputSystemMetricsMemoryMode);
 /** @internal */
 export const InputSystemMetricsMemoryMode$outboundSchema: z.ZodType<
-  InputSystemMetricsMemoryMode,
+  string,
   z.ZodTypeDef,
   InputSystemMetricsMemoryMode
-> = z.union([
-  z.nativeEnum(InputSystemMetricsMemoryMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputSystemMetricsMemoryMode);
 
 /** @internal */
 export const InputSystemMetricsMemory$inboundSchema: z.ZodType<
@@ -944,20 +898,13 @@ export const InputSystemMetricsNetworkMode$inboundSchema: z.ZodType<
   InputSystemMetricsNetworkMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputSystemMetricsNetworkMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputSystemMetricsNetworkMode);
 /** @internal */
 export const InputSystemMetricsNetworkMode$outboundSchema: z.ZodType<
-  InputSystemMetricsNetworkMode,
+  string,
   z.ZodTypeDef,
   InputSystemMetricsNetworkMode
-> = z.union([
-  z.nativeEnum(InputSystemMetricsNetworkMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputSystemMetricsNetworkMode);
 
 /** @internal */
 export const InputSystemMetricsNetwork$inboundSchema: z.ZodType<
@@ -1015,20 +962,13 @@ export const InputSystemMetricsDiskMode$inboundSchema: z.ZodType<
   InputSystemMetricsDiskMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputSystemMetricsDiskMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputSystemMetricsDiskMode);
 /** @internal */
 export const InputSystemMetricsDiskMode$outboundSchema: z.ZodType<
-  InputSystemMetricsDiskMode,
+  string,
   z.ZodTypeDef,
   InputSystemMetricsDiskMode
-> = z.union([
-  z.nativeEnum(InputSystemMetricsDiskMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputSystemMetricsDiskMode);
 
 /** @internal */
 export const InputSystemMetricsDisk$inboundSchema: z.ZodType<
@@ -1269,20 +1209,13 @@ export const ContainerMode$inboundSchema: z.ZodType<
   ContainerMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(ContainerMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(ContainerMode);
 /** @internal */
 export const ContainerMode$outboundSchema: z.ZodType<
-  ContainerMode,
+  string,
   z.ZodTypeDef,
   ContainerMode
-> = z.union([
-  z.nativeEnum(ContainerMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(ContainerMode);
 
 /** @internal */
 export const InputSystemMetricsFilter$inboundSchema: z.ZodType<
@@ -1427,20 +1360,13 @@ export const InputSystemMetricsDataCompressionFormat$inboundSchema: z.ZodType<
   InputSystemMetricsDataCompressionFormat,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputSystemMetricsDataCompressionFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputSystemMetricsDataCompressionFormat);
 /** @internal */
 export const InputSystemMetricsDataCompressionFormat$outboundSchema: z.ZodType<
-  InputSystemMetricsDataCompressionFormat,
+  string,
   z.ZodTypeDef,
   InputSystemMetricsDataCompressionFormat
-> = z.union([
-  z.nativeEnum(InputSystemMetricsDataCompressionFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputSystemMetricsDataCompressionFormat);
 
 /** @internal */
 export const InputSystemMetricsPersistence$inboundSchema: z.ZodType<

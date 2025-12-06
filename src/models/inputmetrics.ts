@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -283,40 +279,26 @@ export const InputMetricsMode$inboundSchema: z.ZodType<
   InputMetricsMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputMetricsMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputMetricsMode);
 /** @internal */
 export const InputMetricsMode$outboundSchema: z.ZodType<
-  InputMetricsMode,
+  string,
   z.ZodTypeDef,
   InputMetricsMode
-> = z.union([
-  z.nativeEnum(InputMetricsMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputMetricsMode);
 
 /** @internal */
 export const InputMetricsCompression$inboundSchema: z.ZodType<
   InputMetricsCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputMetricsCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputMetricsCompression);
 /** @internal */
 export const InputMetricsCompression$outboundSchema: z.ZodType<
-  InputMetricsCompression,
+  string,
   z.ZodTypeDef,
   InputMetricsCompression
-> = z.union([
-  z.nativeEnum(InputMetricsCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputMetricsCompression);
 
 /** @internal */
 export const InputMetricsPqControls$inboundSchema: z.ZodType<
@@ -412,40 +394,26 @@ export const InputMetricsMinimumTLSVersion$inboundSchema: z.ZodType<
   InputMetricsMinimumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputMetricsMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputMetricsMinimumTLSVersion);
 /** @internal */
 export const InputMetricsMinimumTLSVersion$outboundSchema: z.ZodType<
-  InputMetricsMinimumTLSVersion,
+  string,
   z.ZodTypeDef,
   InputMetricsMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(InputMetricsMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputMetricsMinimumTLSVersion);
 
 /** @internal */
 export const InputMetricsMaximumTLSVersion$inboundSchema: z.ZodType<
   InputMetricsMaximumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputMetricsMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputMetricsMaximumTLSVersion);
 /** @internal */
 export const InputMetricsMaximumTLSVersion$outboundSchema: z.ZodType<
-  InputMetricsMaximumTLSVersion,
+  string,
   z.ZodTypeDef,
   InputMetricsMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(InputMetricsMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputMetricsMaximumTLSVersion);
 
 /** @internal */
 export const InputMetricsTLSSettingsServerSide$inboundSchema: z.ZodType<

@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -499,120 +495,78 @@ export const OutputSyslogProtocol$inboundSchema: z.ZodType<
   OutputSyslogProtocol,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSyslogProtocol),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSyslogProtocol);
 /** @internal */
 export const OutputSyslogProtocol$outboundSchema: z.ZodType<
-  OutputSyslogProtocol,
+  string,
   z.ZodTypeDef,
   OutputSyslogProtocol
-> = z.union([
-  z.nativeEnum(OutputSyslogProtocol),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSyslogProtocol);
 
 /** @internal */
 export const Facility$inboundSchema: z.ZodType<
   Facility,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(Facility),
-    z.number().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchemaInt(Facility);
 /** @internal */
 export const Facility$outboundSchema: z.ZodType<
-  Facility,
+  number,
   z.ZodTypeDef,
   Facility
-> = z.union([
-  z.nativeEnum(Facility),
-  z.number().and(z.custom<Unrecognized<number>>()),
-]);
+> = openEnums.outboundSchemaInt(Facility);
 
 /** @internal */
 export const OutputSyslogSeverity$inboundSchema: z.ZodType<
   OutputSyslogSeverity,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSyslogSeverity),
-    z.number().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchemaInt(OutputSyslogSeverity);
 /** @internal */
 export const OutputSyslogSeverity$outboundSchema: z.ZodType<
-  OutputSyslogSeverity,
+  number,
   z.ZodTypeDef,
   OutputSyslogSeverity
-> = z.union([
-  z.nativeEnum(OutputSyslogSeverity),
-  z.number().and(z.custom<Unrecognized<number>>()),
-]);
+> = openEnums.outboundSchemaInt(OutputSyslogSeverity);
 
 /** @internal */
 export const OutputSyslogMessageFormat$inboundSchema: z.ZodType<
   OutputSyslogMessageFormat,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSyslogMessageFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSyslogMessageFormat);
 /** @internal */
 export const OutputSyslogMessageFormat$outboundSchema: z.ZodType<
-  OutputSyslogMessageFormat,
+  string,
   z.ZodTypeDef,
   OutputSyslogMessageFormat
-> = z.union([
-  z.nativeEnum(OutputSyslogMessageFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSyslogMessageFormat);
 
 /** @internal */
 export const TimestampFormat$inboundSchema: z.ZodType<
   TimestampFormat,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(TimestampFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(TimestampFormat);
 /** @internal */
 export const TimestampFormat$outboundSchema: z.ZodType<
-  TimestampFormat,
+  string,
   z.ZodTypeDef,
   TimestampFormat
-> = z.union([
-  z.nativeEnum(TimestampFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(TimestampFormat);
 
 /** @internal */
 export const OutputSyslogTLS$inboundSchema: z.ZodType<
   OutputSyslogTLS,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSyslogTLS),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSyslogTLS);
 /** @internal */
 export const OutputSyslogTLS$outboundSchema: z.ZodType<
-  OutputSyslogTLS,
+  string,
   z.ZodTypeDef,
   OutputSyslogTLS
-> = z.union([
-  z.nativeEnum(OutputSyslogTLS),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSyslogTLS);
 
 /** @internal */
 export const OutputSyslogHost$inboundSchema: z.ZodType<
@@ -670,40 +624,26 @@ export const OutputSyslogMinimumTLSVersion$inboundSchema: z.ZodType<
   OutputSyslogMinimumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSyslogMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSyslogMinimumTLSVersion);
 /** @internal */
 export const OutputSyslogMinimumTLSVersion$outboundSchema: z.ZodType<
-  OutputSyslogMinimumTLSVersion,
+  string,
   z.ZodTypeDef,
   OutputSyslogMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(OutputSyslogMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSyslogMinimumTLSVersion);
 
 /** @internal */
 export const OutputSyslogMaximumTLSVersion$inboundSchema: z.ZodType<
   OutputSyslogMaximumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSyslogMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSyslogMaximumTLSVersion);
 /** @internal */
 export const OutputSyslogMaximumTLSVersion$outboundSchema: z.ZodType<
-  OutputSyslogMaximumTLSVersion,
+  string,
   z.ZodTypeDef,
   OutputSyslogMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(OutputSyslogMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSyslogMaximumTLSVersion);
 
 /** @internal */
 export const OutputSyslogTLSSettingsClientSide$inboundSchema: z.ZodType<
@@ -778,80 +718,52 @@ export const OutputSyslogBackpressureBehavior$inboundSchema: z.ZodType<
   OutputSyslogBackpressureBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSyslogBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSyslogBackpressureBehavior);
 /** @internal */
 export const OutputSyslogBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputSyslogBackpressureBehavior,
+  string,
   z.ZodTypeDef,
   OutputSyslogBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputSyslogBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSyslogBackpressureBehavior);
 
 /** @internal */
 export const OutputSyslogMode$inboundSchema: z.ZodType<
   OutputSyslogMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSyslogMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSyslogMode);
 /** @internal */
 export const OutputSyslogMode$outboundSchema: z.ZodType<
-  OutputSyslogMode,
+  string,
   z.ZodTypeDef,
   OutputSyslogMode
-> = z.union([
-  z.nativeEnum(OutputSyslogMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSyslogMode);
 
 /** @internal */
 export const OutputSyslogCompression$inboundSchema: z.ZodType<
   OutputSyslogCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSyslogCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSyslogCompression);
 /** @internal */
 export const OutputSyslogCompression$outboundSchema: z.ZodType<
-  OutputSyslogCompression,
+  string,
   z.ZodTypeDef,
   OutputSyslogCompression
-> = z.union([
-  z.nativeEnum(OutputSyslogCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSyslogCompression);
 
 /** @internal */
 export const OutputSyslogQueueFullBehavior$inboundSchema: z.ZodType<
   OutputSyslogQueueFullBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSyslogQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSyslogQueueFullBehavior);
 /** @internal */
 export const OutputSyslogQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputSyslogQueueFullBehavior,
+  string,
   z.ZodTypeDef,
   OutputSyslogQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputSyslogQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSyslogQueueFullBehavior);
 
 /** @internal */
 export const OutputSyslogPqControls$inboundSchema: z.ZodType<

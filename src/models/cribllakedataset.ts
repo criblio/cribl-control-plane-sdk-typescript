@@ -4,11 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import {
   CacheConnection,
@@ -58,20 +55,13 @@ export const CriblLakeDatasetFormat$inboundSchema: z.ZodType<
   CriblLakeDatasetFormat,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(CriblLakeDatasetFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(CriblLakeDatasetFormat);
 /** @internal */
 export const CriblLakeDatasetFormat$outboundSchema: z.ZodType<
-  CriblLakeDatasetFormat,
+  string,
   z.ZodTypeDef,
   CriblLakeDatasetFormat
-> = z.union([
-  z.nativeEnum(CriblLakeDatasetFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(CriblLakeDatasetFormat);
 
 /** @internal */
 export const CriblLakeDataset$inboundSchema: z.ZodType<

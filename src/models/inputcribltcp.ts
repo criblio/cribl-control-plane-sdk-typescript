@@ -4,12 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -305,40 +301,26 @@ export const InputCriblTcpMode$inboundSchema: z.ZodType<
   InputCriblTcpMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputCriblTcpMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputCriblTcpMode);
 /** @internal */
 export const InputCriblTcpMode$outboundSchema: z.ZodType<
-  InputCriblTcpMode,
+  string,
   z.ZodTypeDef,
   InputCriblTcpMode
-> = z.union([
-  z.nativeEnum(InputCriblTcpMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputCriblTcpMode);
 
 /** @internal */
 export const InputCriblTcpCompression$inboundSchema: z.ZodType<
   InputCriblTcpCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputCriblTcpCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputCriblTcpCompression);
 /** @internal */
 export const InputCriblTcpCompression$outboundSchema: z.ZodType<
-  InputCriblTcpCompression,
+  string,
   z.ZodTypeDef,
   InputCriblTcpCompression
-> = z.union([
-  z.nativeEnum(InputCriblTcpCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputCriblTcpCompression);
 
 /** @internal */
 export const InputCriblTcpPqControls$inboundSchema: z.ZodType<
@@ -436,40 +418,26 @@ export const InputCriblTcpMinimumTLSVersion$inboundSchema: z.ZodType<
   InputCriblTcpMinimumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputCriblTcpMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputCriblTcpMinimumTLSVersion);
 /** @internal */
 export const InputCriblTcpMinimumTLSVersion$outboundSchema: z.ZodType<
-  InputCriblTcpMinimumTLSVersion,
+  string,
   z.ZodTypeDef,
   InputCriblTcpMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(InputCriblTcpMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputCriblTcpMinimumTLSVersion);
 
 /** @internal */
 export const InputCriblTcpMaximumTLSVersion$inboundSchema: z.ZodType<
   InputCriblTcpMaximumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputCriblTcpMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputCriblTcpMaximumTLSVersion);
 /** @internal */
 export const InputCriblTcpMaximumTLSVersion$outboundSchema: z.ZodType<
-  InputCriblTcpMaximumTLSVersion,
+  string,
   z.ZodTypeDef,
   InputCriblTcpMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(InputCriblTcpMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputCriblTcpMaximumTLSVersion);
 
 /** @internal */
 export const InputCriblTcpTLSSettingsServerSide$inboundSchema: z.ZodType<
