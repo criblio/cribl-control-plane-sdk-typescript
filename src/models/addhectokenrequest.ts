@@ -10,6 +10,7 @@ export type AddHecTokenRequestMetadatum = {
 };
 
 export type AddHecTokenRequest = {
+  allowedIndexesAtToken?: Array<string> | undefined;
   description?: string | undefined;
   enabled?: boolean | undefined;
   metadata?: Array<AddHecTokenRequestMetadatum> | undefined;
@@ -44,6 +45,7 @@ export function addHecTokenRequestMetadatumToJSON(
 
 /** @internal */
 export type AddHecTokenRequest$Outbound = {
+  allowedIndexesAtToken?: Array<string> | undefined;
   description?: string | undefined;
   enabled?: boolean | undefined;
   metadata?: Array<AddHecTokenRequestMetadatum$Outbound> | undefined;
@@ -56,6 +58,7 @@ export const AddHecTokenRequest$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   AddHecTokenRequest
 > = z.object({
+  allowedIndexesAtToken: z.array(z.string()).optional(),
   description: z.string().optional(),
   enabled: z.boolean().optional(),
   metadata: z.array(z.lazy(() => AddHecTokenRequestMetadatum$outboundSchema))
