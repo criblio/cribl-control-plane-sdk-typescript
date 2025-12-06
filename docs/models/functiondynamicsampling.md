@@ -1,0 +1,46 @@
+# FunctionDynamicSampling
+
+## Example Usage
+
+```typescript
+import { FunctionDynamicSampling } from "cribl-control-plane/models";
+
+let value: FunctionDynamicSampling = {
+  filename: "example.file",
+  asyncTimeout: 2144.07,
+  criblVersion: "<value>",
+  disabled: false,
+  group: "<value>",
+  handleSignals: true,
+  id: "dynamic_sampling",
+  loadTime: 6490.45,
+  modTime: 1373.57,
+  name: "<value>",
+  sync: true,
+  uischema: {
+    "key": "<value>",
+    "key1": "<value>",
+  },
+  version: "<value>",
+  schema: {},
+};
+```
+
+## Fields
+
+| Field                                                                              | Type                                                                               | Required                                                                           | Description                                                                        |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `filename`                                                                         | *string*                                                                           | :heavy_check_mark:                                                                 | N/A                                                                                |
+| `asyncTimeout`                                                                     | *number*                                                                           | :heavy_minus_sign:                                                                 | N/A                                                                                |
+| `criblVersion`                                                                     | *string*                                                                           | :heavy_minus_sign:                                                                 | N/A                                                                                |
+| `disabled`                                                                         | *boolean*                                                                          | :heavy_check_mark:                                                                 | N/A                                                                                |
+| `group`                                                                            | *string*                                                                           | :heavy_check_mark:                                                                 | N/A                                                                                |
+| `handleSignals`                                                                    | *boolean*                                                                          | :heavy_minus_sign:                                                                 | N/A                                                                                |
+| `id`                                                                               | [models.FunctionDynamicSamplingId](../models/functiondynamicsamplingid.md)         | :heavy_check_mark:                                                                 | N/A                                                                                |
+| `loadTime`                                                                         | *number*                                                                           | :heavy_check_mark:                                                                 | N/A                                                                                |
+| `modTime`                                                                          | *number*                                                                           | :heavy_check_mark:                                                                 | N/A                                                                                |
+| `name`                                                                             | *string*                                                                           | :heavy_check_mark:                                                                 | N/A                                                                                |
+| `sync`                                                                             | *boolean*                                                                          | :heavy_minus_sign:                                                                 | N/A                                                                                |
+| `uischema`                                                                         | Record<string, *any*>                                                              | :heavy_check_mark:                                                                 | N/A                                                                                |
+| `version`                                                                          | *string*                                                                           | :heavy_check_mark:                                                                 | N/A                                                                                |
+| `schema`                                                                           | [models.FunctionDynamicSamplingSchema](../models/functiondynamicsamplingschema.md) | :heavy_minus_sign:                                                                 | N/A                                                                                |

@@ -1,0 +1,56 @@
+# FunctionNotify
+
+## Example Usage
+
+```typescript
+import { FunctionNotify } from "cribl-control-plane/models";
+
+let value: FunctionNotify = {
+  filename: "example.file",
+  asyncTimeout: 1105.87,
+  criblVersion: "<value>",
+  disabled: true,
+  group: "<value>",
+  handleSignals: false,
+  id: "notify",
+  loadTime: 547.8,
+  modTime: 2195.7,
+  name: "<value>",
+  sync: false,
+  uischema: {
+    "key": "<value>",
+  },
+  version: "<value>",
+  schema: {
+    searchId: "<id>",
+    savedQueryId: "<id>",
+    trigger: "<value>",
+    triggerType: "resultsCount",
+    triggerComparator: "!==",
+    searchUrl: "https://caring-decision.name",
+    message: "<value>",
+    authToken: "<value>",
+    messagesEndpoint: "<value>",
+    tenantId: "<id>",
+  },
+};
+```
+
+## Fields
+
+| Field                                                          | Type                                                           | Required                                                       | Description                                                    |
+| -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- |
+| `filename`                                                     | *string*                                                       | :heavy_check_mark:                                             | N/A                                                            |
+| `asyncTimeout`                                                 | *number*                                                       | :heavy_minus_sign:                                             | N/A                                                            |
+| `criblVersion`                                                 | *string*                                                       | :heavy_minus_sign:                                             | N/A                                                            |
+| `disabled`                                                     | *boolean*                                                      | :heavy_check_mark:                                             | N/A                                                            |
+| `group`                                                        | *string*                                                       | :heavy_check_mark:                                             | N/A                                                            |
+| `handleSignals`                                                | *boolean*                                                      | :heavy_minus_sign:                                             | N/A                                                            |
+| `id`                                                           | [models.FunctionNotifyId](../models/functionnotifyid.md)       | :heavy_check_mark:                                             | N/A                                                            |
+| `loadTime`                                                     | *number*                                                       | :heavy_check_mark:                                             | N/A                                                            |
+| `modTime`                                                      | *number*                                                       | :heavy_check_mark:                                             | N/A                                                            |
+| `name`                                                         | *string*                                                       | :heavy_check_mark:                                             | N/A                                                            |
+| `sync`                                                         | *boolean*                                                      | :heavy_minus_sign:                                             | N/A                                                            |
+| `uischema`                                                     | Record<string, *any*>                                          | :heavy_check_mark:                                             | N/A                                                            |
+| `version`                                                      | *string*                                                       | :heavy_check_mark:                                             | N/A                                                            |
+| `schema`                                                       | [models.NotifyConfiguration](../models/notifyconfiguration.md) | :heavy_minus_sign:                                             | N/A                                                            |
