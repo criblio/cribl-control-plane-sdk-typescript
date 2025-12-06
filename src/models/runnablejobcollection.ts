@@ -5,7 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -21,7 +21,7 @@ export type RunnableJobCollectionJobType = OpenEnum<
 export const RunnableJobCollectionRunType = {
   Collection: "collection",
 } as const;
-export type RunnableJobCollectionRunType = ClosedEnum<
+export type RunnableJobCollectionRunType = OpenEnum<
   typeof RunnableJobCollectionRunType
 >;
 
@@ -38,7 +38,7 @@ export const RunnableJobCollectionScheduleLogLevel = {
 /**
  * Level at which to set task logging
  */
-export type RunnableJobCollectionScheduleLogLevel = ClosedEnum<
+export type RunnableJobCollectionScheduleLogLevel = OpenEnum<
   typeof RunnableJobCollectionScheduleLogLevel
 >;
 
@@ -388,15 +388,18 @@ export const RunnableJobCollectionJobType$inboundSchema: z.ZodType<
 > = openEnums.inboundSchema(RunnableJobCollectionJobType);
 
 /** @internal */
-export const RunnableJobCollectionRunType$inboundSchema: z.ZodNativeEnum<
-  typeof RunnableJobCollectionRunType
-> = z.nativeEnum(RunnableJobCollectionRunType);
+export const RunnableJobCollectionRunType$inboundSchema: z.ZodType<
+  RunnableJobCollectionRunType,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(RunnableJobCollectionRunType);
 
 /** @internal */
-export const RunnableJobCollectionScheduleLogLevel$inboundSchema:
-  z.ZodNativeEnum<typeof RunnableJobCollectionScheduleLogLevel> = z.nativeEnum(
-    RunnableJobCollectionScheduleLogLevel,
-  );
+export const RunnableJobCollectionScheduleLogLevel$inboundSchema: z.ZodType<
+  RunnableJobCollectionScheduleLogLevel,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(RunnableJobCollectionScheduleLogLevel);
 
 /** @internal */
 export const RunnableJobCollectionScheduleTimeWarning$inboundSchema: z.ZodType<

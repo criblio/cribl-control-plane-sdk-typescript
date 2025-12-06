@@ -33,8 +33,8 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.groups.list({
-    fields: "<value>",
     product: "edge",
+    fields: "<value>",
   });
 
   console.log(result);
@@ -62,8 +62,8 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await groupsList(criblControlPlane, {
-    fields: "<value>",
     product: "edge",
+    fields: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;

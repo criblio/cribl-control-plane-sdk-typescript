@@ -93,8 +93,8 @@ async function $do(
   const path = pathToFunc("/version/count")();
 
   const query = encodeFormQuery({
+    "commit": payload?.commit,
     "groupId": payload?.groupId,
-    "ID": payload?.ID,
   });
 
   const headers = new Headers(compactMap({
