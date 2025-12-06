@@ -9,8 +9,11 @@ let value: UpdateInputHecTokenByIdAndTokenRequest = {
   id: "<id>",
   token: "<value>",
   updateHecTokenRequest: {
-    description: "reflate thick glimmer brand",
-    enabled: false,
+    allowedIndexesAtToken: [
+      "<value 1>",
+    ],
+    description: "pleasure mild about utilization oval exalted so",
+    enabled: true,
     metadata: [
       {
         name: "<value>",
