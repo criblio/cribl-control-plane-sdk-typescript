@@ -1,0 +1,45 @@
+# FunctionExternaldata
+
+## Example Usage
+
+```typescript
+import { FunctionExternaldata } from "cribl-control-plane/models";
+
+let value: FunctionExternaldata = {
+  filename: "example.file",
+  asyncTimeout: 2130.05,
+  criblVersion: "<value>",
+  disabled: false,
+  group: "<value>",
+  handleSignals: false,
+  id: "externaldata",
+  loadTime: 3395.47,
+  modTime: 3451.45,
+  name: "<value>",
+  sync: false,
+  uischema: {
+    "key": "<value>",
+  },
+  version: "<value>",
+  schema: {},
+};
+```
+
+## Fields
+
+| Field                                                                        | Type                                                                         | Required                                                                     | Description                                                                  |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `filename`                                                                   | *string*                                                                     | :heavy_check_mark:                                                           | N/A                                                                          |
+| `asyncTimeout`                                                               | *number*                                                                     | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `criblVersion`                                                               | *string*                                                                     | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `disabled`                                                                   | *boolean*                                                                    | :heavy_check_mark:                                                           | N/A                                                                          |
+| `group`                                                                      | *string*                                                                     | :heavy_check_mark:                                                           | N/A                                                                          |
+| `handleSignals`                                                              | *boolean*                                                                    | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `id`                                                                         | [models.FunctionExternaldataId](../models/functionexternaldataid.md)         | :heavy_check_mark:                                                           | N/A                                                                          |
+| `loadTime`                                                                   | *number*                                                                     | :heavy_check_mark:                                                           | N/A                                                                          |
+| `modTime`                                                                    | *number*                                                                     | :heavy_check_mark:                                                           | N/A                                                                          |
+| `name`                                                                       | *string*                                                                     | :heavy_check_mark:                                                           | N/A                                                                          |
+| `sync`                                                                       | *boolean*                                                                    | :heavy_minus_sign:                                                           | N/A                                                                          |
+| `uischema`                                                                   | Record<string, *any*>                                                        | :heavy_check_mark:                                                           | N/A                                                                          |
+| `version`                                                                    | *string*                                                                     | :heavy_check_mark:                                                           | N/A                                                                          |
+| `schema`                                                                     | [models.FunctionExternaldataSchema](../models/functionexternaldataschema.md) | :heavy_minus_sign:                                                           | N/A                                                                          |
