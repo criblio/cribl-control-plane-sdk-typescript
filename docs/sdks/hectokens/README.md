@@ -29,9 +29,6 @@ async function run() {
   const result = await criblControlPlane.sources.hecTokens.create({
     id: "<id>",
     addHecTokenRequest: {
-      allowedIndexesAtToken: [
-        "<value 1>",
-      ],
       description: "bah ick stingy",
       enabled: false,
       metadata: [
@@ -71,9 +68,6 @@ async function run() {
   const res = await sourcesHecTokensCreate(criblControlPlane, {
     id: "<id>",
     addHecTokenRequest: {
-      allowedIndexesAtToken: [
-        "<value 1>",
-      ],
       description: "bah ick stingy",
       enabled: false,
       metadata: [
@@ -138,9 +132,6 @@ async function run() {
     id: "<id>",
     token: "<value>",
     updateHecTokenRequest: {
-      allowedIndexesAtToken: [
-        "<value 1>",
-      ],
       description: "by bleakly fortunately phew barring",
       enabled: false,
       metadata: [
@@ -180,9 +171,6 @@ async function run() {
     id: "<id>",
     token: "<value>",
     updateHecTokenRequest: {
-      allowedIndexesAtToken: [
-        "<value 1>",
-      ],
       description: "by bleakly fortunately phew barring",
       enabled: false,
       metadata: [
