@@ -5,8 +5,8 @@ management:
   docVersion: 4.16.0-alpha.1765093932083-077e245e
   speakeasyVersion: 1.665.0
   generationVersion: 2.767.2
-  releaseVersion: 0.4.0-rc.20
-  configChecksum: e14e41c46ffe25914097cc8e86a40e73
+  releaseVersion: 0.4.0-rc.21
+  configChecksum: a1aaea16b4b12c02dd0e2f47d7adcae7
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
@@ -5072,4 +5072,3 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.sources.hecTokens.create()`: \n  *  `request.addHecTokenRequest.allowedIndexesAtToken` **Removed** **Breaking** :warning:\n* `criblcontrolplane.sources.hecTokens.update()`: \n  *  `request.updateHecTokenRequest.allowedIndexesAtToken` **Removed** **Breaking** :warning:\n* `criblcontrolplane.destinations.list()`:  `response.items.[].[netflow].enableIpSpoofing` **Removed** **Breaking** :warning:\n* `criblcontrolplane.destinations.create()`: \n  *  `request.[netflow].enableIpSpoofing` **Removed** **Breaking** :warning:\n  *  `response.items.[].[netflow].enableIpSpoofing` **Removed** **Breaking** :warning:\n* `criblcontrolplane.destinations.get()`:  `response.items.[].[netflow].enableIpSpoofing` **Removed** **Breaking** :warning:\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output.[netflow].enableIpSpoofing` **Removed** **Breaking** :warning:\n  *  `response.items.[].[netflow].enableIpSpoofing` **Removed** **Breaking** :warning:\n* `criblcontrolplane.destinations.delete()`:  `response.items.[].[netflow].enableIpSpoofing` **Removed** **Breaking** :warning:\n* `criblcontrolplane.functions.list()`: **Added**\n* `criblcontrolplane.functions.get()`: **Added**\n"
