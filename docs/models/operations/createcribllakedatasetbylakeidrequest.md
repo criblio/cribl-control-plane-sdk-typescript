@@ -27,7 +27,7 @@ let value: CreateCriblLakeDatasetByLakeIdRequest = {
     },
     deletionStartedAt: 9954.16,
     description: "starboard husky connect unnaturally skateboard legitimize",
-    format: "parquet",
+    format: "ddss",
     httpDAUsed: true,
     id: "<id>",
     metrics: {
