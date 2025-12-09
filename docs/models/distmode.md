@@ -13,5 +13,5 @@ let value: DistMode = "managed-edge";
 This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
-"edge" | "worker" | "single" | "master" | "managed-edge" | "outpost" | "search-supervisor" | Unrecognized<string>
+"single" | "master" | "worker" | "edge" | "managed-edge" | "outpost" | "search-supervisor" | Unrecognized<string>
 ```

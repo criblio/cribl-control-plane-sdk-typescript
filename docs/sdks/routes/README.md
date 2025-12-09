@@ -188,13 +188,24 @@ async function run() {
   const result = await criblControlPlane.routes.update({
     id: "<id>",
     routes: {
-      id: "<id>",
-      routes: [],
+      id: "default",
+      routes: [
+        {
+          id: "default",
+          name: "my-route",
+          disabled: true,
+          filter: "source == \"access.log\"",
+          pipeline: "main",
+          output: "<value>",
+          outputExpression: "<value>",
+          description: "Route access logs to main pipeline",
+        },
+      ],
       groups: {
         "key": {
           name: "<value>",
-          description: "where internationalize yesterday woefully tank underneath",
-          disabled: true,
+          description: "ugh eyeliner authorized even burgeon chime expansion boldly midst and",
+          disabled: false,
         },
       },
       comments: [
@@ -232,13 +243,24 @@ async function run() {
   const res = await routesUpdate(criblControlPlane, {
     id: "<id>",
     routes: {
-      id: "<id>",
-      routes: [],
+      id: "default",
+      routes: [
+        {
+          id: "default",
+          name: "my-route",
+          disabled: true,
+          filter: "source == \"access.log\"",
+          pipeline: "main",
+          output: "<value>",
+          outputExpression: "<value>",
+          description: "Route access logs to main pipeline",
+        },
+      ],
       groups: {
         "key": {
           name: "<value>",
-          description: "where internationalize yesterday woefully tank underneath",
-          disabled: true,
+          description: "ugh eyeliner authorized even burgeon chime expansion boldly midst and",
+          disabled: false,
         },
       },
       comments: [
@@ -299,7 +321,30 @@ const criblControlPlane = new CriblControlPlane({
 async function run() {
   const result = await criblControlPlane.routes.append({
     id: "<id>",
-    requestBody: [],
+    requestBody: [
+      {
+        clones: [
+          {
+            "key": "<value>",
+          },
+          {
+
+          },
+        ],
+        context: "<value>",
+        description: "Route new logs to main pipeline",
+        disabled: true,
+        enableOutputExpression: true,
+        filter: "source == \"new.log\"",
+        final: true,
+        groupId: "<id>",
+        id: "route-new",
+        name: "new-route",
+        output: "<value>",
+        outputExpression: "<value>",
+        pipeline: "main",
+      },
+    ],
   });
 
   console.log(result);
@@ -328,7 +373,30 @@ const criblControlPlane = new CriblControlPlaneCore({
 async function run() {
   const res = await routesAppend(criblControlPlane, {
     id: "<id>",
-    requestBody: [],
+    requestBody: [
+      {
+        clones: [
+          {
+            "key": "<value>",
+          },
+          {
+  
+          },
+        ],
+        context: "<value>",
+        description: "Route new logs to main pipeline",
+        disabled: true,
+        enableOutputExpression: true,
+        filter: "source == \"new.log\"",
+        final: true,
+        groupId: "<id>",
+        id: "route-new",
+        name: "new-route",
+        output: "<value>",
+        outputExpression: "<value>",
+        pipeline: "main",
+      },
+    ],
   });
   if (res.ok) {
     const { value: result } = res;
