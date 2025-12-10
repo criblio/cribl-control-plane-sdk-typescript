@@ -14,6 +14,7 @@ let value: RunnableJobCollectionInput = {
     args: [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
     ],
   },
   metadata: [

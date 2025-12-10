@@ -7,6 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import { CollectorConf, CollectorConf$inboundSchema } from "./collectorconf.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const RunnableJobCollectionJobType = {
@@ -126,14 +127,15 @@ export type RunnableJobCollectionSchedule = {
   run?: RunnableJobCollectionRunSettings | undefined;
 };
 
-export type CollectorSpecificSettings = {};
-
 export type Collector = {
   /**
    * The type of collector to run
    */
   type: string;
-  conf: CollectorSpecificSettings;
+  /**
+   * Collector configuration
+   */
+  conf: CollectorConf;
   /**
    * Delete any files collected (where applicable)
    */
@@ -483,30 +485,13 @@ export function runnableJobCollectionScheduleFromJSON(
 }
 
 /** @internal */
-export const CollectorSpecificSettings$inboundSchema: z.ZodType<
-  CollectorSpecificSettings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-export function collectorSpecificSettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorSpecificSettings, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CollectorSpecificSettings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorSpecificSettings' from JSON`,
-  );
-}
-
-/** @internal */
 export const Collector$inboundSchema: z.ZodType<
   Collector,
   z.ZodTypeDef,
   unknown
 > = z.object({
   type: z.string(),
-  conf: z.lazy(() => CollectorSpecificSettings$inboundSchema),
+  conf: CollectorConf$inboundSchema,
   destructive: z.boolean().default(false),
   encoding: z.string().optional(),
 });
