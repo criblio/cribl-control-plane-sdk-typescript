@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputSecurityLakeType = {
-  SecurityLake: "security_lake",
-} as const;
-export type InputSecurityLakeType = ClosedEnum<typeof InputSecurityLakeType>;
 
 export type InputSecurityLakeConnection = {
   pipeline?: string | undefined;
@@ -173,7 +168,7 @@ export type InputSecurityLake = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputSecurityLakeType;
+  type: "security_lake";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -327,15 +322,6 @@ export type InputSecurityLake = {
    */
   processedTagValue?: string | undefined;
 };
-
-/** @internal */
-export const InputSecurityLakeType$inboundSchema: z.ZodNativeEnum<
-  typeof InputSecurityLakeType
-> = z.nativeEnum(InputSecurityLakeType);
-/** @internal */
-export const InputSecurityLakeType$outboundSchema: z.ZodNativeEnum<
-  typeof InputSecurityLakeType
-> = InputSecurityLakeType$inboundSchema;
 
 /** @internal */
 export const InputSecurityLakeConnection$inboundSchema: z.ZodType<
@@ -683,7 +669,7 @@ export const InputSecurityLake$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputSecurityLakeType$inboundSchema,
+  type: z.literal("security_lake"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -740,7 +726,7 @@ export const InputSecurityLake$inboundSchema: z.ZodType<
 /** @internal */
 export type InputSecurityLake$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "security_lake";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -794,7 +780,7 @@ export const InputSecurityLake$outboundSchema: z.ZodType<
   InputSecurityLake
 > = z.object({
   id: z.string().optional(),
-  type: InputSecurityLakeType$outboundSchema,
+  type: z.literal("security_lake"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

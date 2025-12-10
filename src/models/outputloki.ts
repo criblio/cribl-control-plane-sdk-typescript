@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputLokiType = {
-  Loki: "loki",
-} as const;
-export type OutputLokiType = ClosedEnum<typeof OutputLokiType>;
 
 /**
  * Format to use when sending logs to Loki (Protobuf or JSON)
@@ -218,7 +213,7 @@ export type OutputLoki = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputLokiType;
+  type: "loki";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -384,15 +379,6 @@ export type OutputLoki = {
   pqOnBackpressure?: OutputLokiQueueFullBehavior | undefined;
   pqControls?: OutputLokiPqControls | undefined;
 };
-
-/** @internal */
-export const OutputLokiType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputLokiType
-> = z.nativeEnum(OutputLokiType);
-/** @internal */
-export const OutputLokiType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputLokiType
-> = OutputLokiType$inboundSchema;
 
 /** @internal */
 export const OutputLokiMessageFormat$inboundSchema: z.ZodType<
@@ -707,7 +693,7 @@ export const OutputLoki$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputLokiType$inboundSchema,
+  type: z.literal("loki"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -762,7 +748,7 @@ export const OutputLoki$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputLoki$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "loki";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -817,7 +803,7 @@ export const OutputLoki$outboundSchema: z.ZodType<
   OutputLoki
 > = z.object({
   id: z.string().optional(),
-  type: OutputLokiType$outboundSchema,
+  type: z.literal("loki"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

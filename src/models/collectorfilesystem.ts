@@ -4,22 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * Collector type: filesystem
- */
-export const CollectorFilesystemType = {
-  Filesystem: "filesystem",
-} as const;
-/**
- * Collector type: filesystem
- */
-export type CollectorFilesystemType = ClosedEnum<
-  typeof CollectorFilesystemType
->;
 
 export type CollectorFilesystemExtractor = {
   /**
@@ -36,7 +22,7 @@ export type CollectorFilesystem = {
   /**
    * Collector type: filesystem
    */
-  type: CollectorFilesystemType;
+  type: "filesystem";
   /**
    * Select a predefined configuration (a Destination) to auto-populate Collector settings
    */
@@ -58,11 +44,6 @@ export type CollectorFilesystem = {
    */
   maxBatchSize?: number | undefined;
 };
-
-/** @internal */
-export const CollectorFilesystemType$inboundSchema: z.ZodNativeEnum<
-  typeof CollectorFilesystemType
-> = z.nativeEnum(CollectorFilesystemType);
 
 /** @internal */
 export const CollectorFilesystemExtractor$inboundSchema: z.ZodType<
@@ -90,7 +71,7 @@ export const CollectorFilesystem$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: CollectorFilesystemType$inboundSchema,
+  type: z.literal("filesystem"),
   outputName: z.string().optional(),
   path: z.string(),
   extractors: z.array(z.lazy(() => CollectorFilesystemExtractor$inboundSchema))

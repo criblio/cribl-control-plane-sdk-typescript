@@ -5,20 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * Collector type: s3
- */
-export const CollectorS3Type = {
-  S3: "s3",
-} as const;
-/**
- * Collector type: s3
- */
-export type CollectorS3Type = ClosedEnum<typeof CollectorS3Type>;
 
 /**
  * Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
@@ -91,7 +80,7 @@ export type CollectorS3 = {
   /**
    * Collector type: s3
    */
-  type: CollectorS3Type;
+  type: "s3";
   /**
    * Name of the predefined Destination that will be used to auto-populate Collector settings
    */
@@ -176,11 +165,6 @@ export type CollectorS3 = {
 };
 
 /** @internal */
-export const CollectorS3Type$inboundSchema: z.ZodNativeEnum<
-  typeof CollectorS3Type
-> = z.nativeEnum(CollectorS3Type);
-
-/** @internal */
 export const PartitioningScheme$inboundSchema: z.ZodType<
   PartitioningScheme,
   z.ZodTypeDef,
@@ -227,7 +211,7 @@ export const CollectorS3$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: CollectorS3Type$inboundSchema,
+  type: z.literal("s3"),
   outputName: z.string().optional(),
   bucket: z.string(),
   parquetChunkSizeMB: z.number().default(5),

@@ -5,20 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * Collector type: splunk
- */
-export const CollectorSplunkType = {
-  Splunk: "splunk",
-} as const;
-/**
- * Collector type: splunk
- */
-export type CollectorSplunkType = ClosedEnum<typeof CollectorSplunkType>;
 
 /**
  * Format of the returned output
@@ -124,7 +113,7 @@ export type CollectorSplunk = {
   /**
    * Collector type: splunk
    */
-  type: CollectorSplunkType;
+  type: "splunk";
   /**
    * Search head base URL. Can be an expression. Default is https://localhost:8089.
    */
@@ -185,11 +174,6 @@ export type CollectorSplunk = {
   handleEscapedChars?: boolean | undefined;
   retryRules?: CollectorSplunkRetryRules | undefined;
 };
-
-/** @internal */
-export const CollectorSplunkType$inboundSchema: z.ZodNativeEnum<
-  typeof CollectorSplunkType
-> = z.nativeEnum(CollectorSplunkType);
 
 /** @internal */
 export const CollectorSplunkOutputMode$inboundSchema: z.ZodType<
@@ -285,7 +269,7 @@ export const CollectorSplunk$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: CollectorSplunkType$inboundSchema,
+  type: z.literal("splunk"),
   searchHead: z.string().default("https://localhost:8089"),
   search: z.string(),
   earliest: z.string().optional(),

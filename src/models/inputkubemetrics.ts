@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputKubeMetricsType = {
-  KubeMetrics: "kube_metrics",
-} as const;
-export type InputKubeMetricsType = ClosedEnum<typeof InputKubeMetricsType>;
 
 export type InputKubeMetricsConnection = {
   pipeline?: string | undefined;
@@ -147,7 +142,7 @@ export type InputKubeMetrics = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputKubeMetricsType;
+  type: "kube_metrics";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -189,15 +184,6 @@ export type InputKubeMetrics = {
   persistence?: InputKubeMetricsPersistence | undefined;
   description?: string | undefined;
 };
-
-/** @internal */
-export const InputKubeMetricsType$inboundSchema: z.ZodNativeEnum<
-  typeof InputKubeMetricsType
-> = z.nativeEnum(InputKubeMetricsType);
-/** @internal */
-export const InputKubeMetricsType$outboundSchema: z.ZodNativeEnum<
-  typeof InputKubeMetricsType
-> = InputKubeMetricsType$inboundSchema;
 
 /** @internal */
 export const InputKubeMetricsConnection$inboundSchema: z.ZodType<
@@ -523,7 +509,7 @@ export const InputKubeMetrics$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputKubeMetricsType$inboundSchema,
+  type: z.literal("kube_metrics"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -544,7 +530,7 @@ export const InputKubeMetrics$inboundSchema: z.ZodType<
 /** @internal */
 export type InputKubeMetrics$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "kube_metrics";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -567,7 +553,7 @@ export const InputKubeMetrics$outboundSchema: z.ZodType<
   InputKubeMetrics
 > = z.object({
   id: z.string().optional(),
-  type: InputKubeMetricsType$outboundSchema,
+  type: z.literal("kube_metrics"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

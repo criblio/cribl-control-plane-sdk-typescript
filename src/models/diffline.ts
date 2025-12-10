@@ -19,10 +19,7 @@ import {
 } from "./difflineinsert.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type DiffLine =
-  | (DiffLineContext & { type: "context" })
-  | (DiffLineDelete & { type: "delete" })
-  | (DiffLineInsert & { type: "insert" });
+export type DiffLine = DiffLineDelete | DiffLineInsert | DiffLineContext;
 
 /** @internal */
 export const DiffLine$inboundSchema: z.ZodType<
@@ -30,9 +27,9 @@ export const DiffLine$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  DiffLineContext$inboundSchema.and(z.object({ type: z.literal("context") })),
-  DiffLineDelete$inboundSchema.and(z.object({ type: z.literal("delete") })),
-  DiffLineInsert$inboundSchema.and(z.object({ type: z.literal("insert") })),
+  DiffLineDelete$inboundSchema,
+  DiffLineInsert$inboundSchema,
+  DiffLineContext$inboundSchema,
 ]);
 
 export function diffLineFromJSON(

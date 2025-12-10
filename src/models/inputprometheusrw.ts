@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputPrometheusRwType = {
-  PrometheusRw: "prometheus_rw",
-} as const;
-export type InputPrometheusRwType = ClosedEnum<typeof InputPrometheusRwType>;
 
 export type InputPrometheusRwConnection = {
   pipeline?: string | undefined;
@@ -202,7 +197,7 @@ export type InputPrometheusRw = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputPrometheusRwType;
+  type: "prometheus_rw";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -342,15 +337,6 @@ export type InputPrometheusRw = {
    */
   oauthHeaders?: Array<InputPrometheusRwOauthHeader> | undefined;
 };
-
-/** @internal */
-export const InputPrometheusRwType$inboundSchema: z.ZodNativeEnum<
-  typeof InputPrometheusRwType
-> = z.nativeEnum(InputPrometheusRwType);
-/** @internal */
-export const InputPrometheusRwType$outboundSchema: z.ZodNativeEnum<
-  typeof InputPrometheusRwType
-> = InputPrometheusRwType$inboundSchema;
 
 /** @internal */
 export const InputPrometheusRwConnection$inboundSchema: z.ZodType<
@@ -768,7 +754,7 @@ export const InputPrometheusRw$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputPrometheusRwType$inboundSchema,
+  type: z.literal("prometheus_rw"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -818,7 +804,7 @@ export const InputPrometheusRw$inboundSchema: z.ZodType<
 /** @internal */
 export type InputPrometheusRw$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "prometheus_rw";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -867,7 +853,7 @@ export const InputPrometheusRw$outboundSchema: z.ZodType<
   InputPrometheusRw
 > = z.object({
   id: z.string().optional(),
-  type: InputPrometheusRwType$outboundSchema,
+  type: z.literal("prometheus_rw"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

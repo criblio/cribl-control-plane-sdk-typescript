@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputSplunkHecType = {
-  SplunkHec: "splunk_hec",
-} as const;
-export type OutputSplunkHecType = ClosedEnum<typeof OutputSplunkHecType>;
 
 export const OutputSplunkHecMinimumTLSVersion = {
   TLSv1: "TLSv1",
@@ -246,7 +241,7 @@ export type OutputSplunkHec = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputSplunkHecType;
+  type: "splunk_hec";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -417,15 +412,6 @@ export type OutputSplunkHec = {
   pqOnBackpressure?: OutputSplunkHecQueueFullBehavior | undefined;
   pqControls?: OutputSplunkHecPqControls | undefined;
 };
-
-/** @internal */
-export const OutputSplunkHecType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSplunkHecType
-> = z.nativeEnum(OutputSplunkHecType);
-/** @internal */
-export const OutputSplunkHecType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSplunkHecType
-> = OutputSplunkHecType$inboundSchema;
 
 /** @internal */
 export const OutputSplunkHecMinimumTLSVersion$inboundSchema: z.ZodType<
@@ -825,7 +811,7 @@ export const OutputSplunkHec$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputSplunkHecType$inboundSchema,
+  type: z.literal("splunk_hec"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -886,7 +872,7 @@ export const OutputSplunkHec$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputSplunkHec$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "splunk_hec";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -944,7 +930,7 @@ export const OutputSplunkHec$outboundSchema: z.ZodType<
   OutputSplunkHec
 > = z.object({
   id: z.string().optional(),
-  type: OutputSplunkHecType$outboundSchema,
+  type: z.literal("splunk_hec"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

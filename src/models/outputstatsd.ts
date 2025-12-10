@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputStatsdType = {
-  Statsd: "statsd",
-} as const;
-export type OutputStatsdType = ClosedEnum<typeof OutputStatsdType>;
 
 /**
  * Protocol to use when communicating with the destination.
@@ -125,7 +120,7 @@ export type OutputStatsd = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputStatsdType;
+  type: "statsd";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -225,15 +220,6 @@ export type OutputStatsd = {
   pqOnBackpressure?: OutputStatsdQueueFullBehavior | undefined;
   pqControls?: OutputStatsdPqControls | undefined;
 };
-
-/** @internal */
-export const OutputStatsdType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputStatsdType
-> = z.nativeEnum(OutputStatsdType);
-/** @internal */
-export const OutputStatsdType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputStatsdType
-> = OutputStatsdType$inboundSchema;
 
 /** @internal */
 export const OutputStatsdDestinationProtocol$inboundSchema: z.ZodType<
@@ -340,7 +326,7 @@ export const OutputStatsd$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputStatsdType$inboundSchema,
+  type: z.literal("statsd"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -375,7 +361,7 @@ export const OutputStatsd$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputStatsd$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "statsd";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -411,7 +397,7 @@ export const OutputStatsd$outboundSchema: z.ZodType<
   OutputStatsd
 > = z.object({
   id: z.string().optional(),
-  type: OutputStatsdType$outboundSchema,
+  type: z.literal("statsd"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

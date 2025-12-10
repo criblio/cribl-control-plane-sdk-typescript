@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputRingType = {
-  Ring: "ring",
-} as const;
-export type OutputRingType = ClosedEnum<typeof OutputRingType>;
 
 /**
  * Format of the output data.
@@ -59,7 +54,7 @@ export type OutputRing = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputRingType;
+  type: "ring";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -103,15 +98,6 @@ export type OutputRing = {
   onBackpressure?: OutputRingBackpressureBehavior | undefined;
   description?: string | undefined;
 };
-
-/** @internal */
-export const OutputRingType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputRingType
-> = z.nativeEnum(OutputRingType);
-/** @internal */
-export const OutputRingType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputRingType
-> = OutputRingType$inboundSchema;
 
 /** @internal */
 export const OutputRingDataFormat$inboundSchema: z.ZodType<
@@ -159,7 +145,7 @@ export const OutputRing$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputRingType$inboundSchema,
+  type: z.literal("ring"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -176,7 +162,7 @@ export const OutputRing$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputRing$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "ring";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -198,7 +184,7 @@ export const OutputRing$outboundSchema: z.ZodType<
   OutputRing
 > = z.object({
   id: z.string().optional(),
-  type: OutputRingType$outboundSchema,
+  type: z.literal("ring"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

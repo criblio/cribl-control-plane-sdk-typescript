@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputGooglePubsubType = {
-  GooglePubsub: "google_pubsub",
-} as const;
-export type OutputGooglePubsubType = ClosedEnum<typeof OutputGooglePubsubType>;
 
 /**
  * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
@@ -131,7 +126,7 @@ export type OutputGooglePubsub = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputGooglePubsubType;
+  type: "google_pubsub";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -249,15 +244,6 @@ export type OutputGooglePubsub = {
 };
 
 /** @internal */
-export const OutputGooglePubsubType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputGooglePubsubType
-> = z.nativeEnum(OutputGooglePubsubType);
-/** @internal */
-export const OutputGooglePubsubType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputGooglePubsubType
-> = OutputGooglePubsubType$inboundSchema;
-
-/** @internal */
 export const OutputGooglePubsubGoogleAuthenticationMethod$inboundSchema:
   z.ZodType<
     OutputGooglePubsubGoogleAuthenticationMethod,
@@ -366,7 +352,7 @@ export const OutputGooglePubsub$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputGooglePubsubType$inboundSchema,
+  type: z.literal("google_pubsub"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -407,7 +393,7 @@ export const OutputGooglePubsub$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputGooglePubsub$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "google_pubsub";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -447,7 +433,7 @@ export const OutputGooglePubsub$outboundSchema: z.ZodType<
   OutputGooglePubsub
 > = z.object({
   id: z.string().optional(),
-  type: OutputGooglePubsubType$outboundSchema,
+  type: z.literal("google_pubsub"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

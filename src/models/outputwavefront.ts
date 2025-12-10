@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputWavefrontType = {
-  Wavefront: "wavefront",
-} as const;
-export type OutputWavefrontType = ClosedEnum<typeof OutputWavefrontType>;
 
 /**
  * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
@@ -185,7 +180,7 @@ export type OutputWavefront = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputWavefrontType;
+  type: "wavefront";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -326,15 +321,6 @@ export type OutputWavefront = {
   pqOnBackpressure?: OutputWavefrontQueueFullBehavior | undefined;
   pqControls?: OutputWavefrontPqControls | undefined;
 };
-
-/** @internal */
-export const OutputWavefrontType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputWavefrontType
-> = z.nativeEnum(OutputWavefrontType);
-/** @internal */
-export const OutputWavefrontType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputWavefrontType
-> = OutputWavefrontType$inboundSchema;
 
 /** @internal */
 export const OutputWavefrontAuthenticationMethod$inboundSchema: z.ZodType<
@@ -600,7 +586,7 @@ export const OutputWavefront$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputWavefrontType$inboundSchema,
+  type: z.literal("wavefront"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -651,7 +637,7 @@ export const OutputWavefront$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputWavefront$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "wavefront";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -700,7 +686,7 @@ export const OutputWavefront$outboundSchema: z.ZodType<
   OutputWavefront
 > = z.object({
   id: z.string().optional(),
-  type: OutputWavefrontType$outboundSchema,
+  type: z.literal("wavefront"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

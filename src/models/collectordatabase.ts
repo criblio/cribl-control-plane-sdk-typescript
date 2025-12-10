@@ -6,20 +6,9 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * Collector type: database
- */
-export const CollectorDatabaseType = {
-  Database: "database",
-} as const;
-/**
- * Collector type: database
- */
-export type CollectorDatabaseType = ClosedEnum<typeof CollectorDatabaseType>;
 
 export const CollectorDatabaseHiddenDefaultBreakers = {
   Cribl: "Cribl",
@@ -43,7 +32,7 @@ export type CollectorDatabase = {
   /**
    * Collector type: database
    */
-  type: CollectorDatabaseType;
+  type: "database";
   /**
    * Select an existing Connection, or go to Knowledge > Database Connections to add one
    */
@@ -59,11 +48,6 @@ export type CollectorDatabase = {
   defaultBreakers?: CollectorDatabaseHiddenDefaultBreakers | undefined;
   scheduling?: CollectorDatabaseScheduling | undefined;
 };
-
-/** @internal */
-export const CollectorDatabaseType$inboundSchema: z.ZodNativeEnum<
-  typeof CollectorDatabaseType
-> = z.nativeEnum(CollectorDatabaseType);
 
 /** @internal */
 export const CollectorDatabaseHiddenDefaultBreakers$inboundSchema: z.ZodType<
@@ -117,7 +101,7 @@ export const CollectorDatabase$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: CollectorDatabaseType$inboundSchema,
+  type: z.literal("database"),
   connectionId: z.string(),
   query: z.string(),
   queryValidationEnabled: z.boolean().default(true),

@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputMinioType = {
-  Minio: "minio",
-} as const;
-export type OutputMinioType = ClosedEnum<typeof OutputMinioType>;
 
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
@@ -276,7 +271,7 @@ export type OutputMinio = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputMinioType;
+  type: "minio";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -497,15 +492,6 @@ export type OutputMinio = {
 };
 
 /** @internal */
-export const OutputMinioType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputMinioType
-> = z.nativeEnum(OutputMinioType);
-/** @internal */
-export const OutputMinioType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputMinioType
-> = OutputMinioType$inboundSchema;
-
-/** @internal */
 export const OutputMinioAuthenticationMethod$inboundSchema: z.ZodType<
   OutputMinioAuthenticationMethod,
   z.ZodTypeDef,
@@ -712,7 +698,7 @@ export const OutputMinio$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputMinioType$inboundSchema,
+  type: z.literal("minio"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -790,7 +776,7 @@ export const OutputMinio$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputMinio$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "minio";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -855,7 +841,7 @@ export const OutputMinio$outboundSchema: z.ZodType<
   OutputMinio
 > = z.object({
   id: z.string().optional(),
-  type: OutputMinioType$outboundSchema,
+  type: z.literal("minio"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

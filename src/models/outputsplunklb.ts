@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputSplunkLbType = {
-  SplunkLb: "splunk_lb",
-} as const;
-export type OutputSplunkLbType = ClosedEnum<typeof OutputSplunkLbType>;
 
 /**
  * How to serialize nested fields into index-time fields
@@ -352,7 +347,7 @@ export type OutputSplunkLb = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputSplunkLbType;
+  type: "splunk_lb";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -501,15 +496,6 @@ export type OutputSplunkLb = {
    */
   textSecret?: string | undefined;
 };
-
-/** @internal */
-export const OutputSplunkLbType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSplunkLbType
-> = z.nativeEnum(OutputSplunkLbType);
-/** @internal */
-export const OutputSplunkLbType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSplunkLbType
-> = OutputSplunkLbType$inboundSchema;
 
 /** @internal */
 export const OutputSplunkLbNestedFieldSerialization$inboundSchema: z.ZodType<
@@ -958,7 +944,7 @@ export const OutputSplunkLb$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputSplunkLbType$inboundSchema,
+  type: z.literal("splunk_lb"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -1010,7 +996,7 @@ export const OutputSplunkLb$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputSplunkLb$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "splunk_lb";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -1059,7 +1045,7 @@ export const OutputSplunkLb$outboundSchema: z.ZodType<
   OutputSplunkLb
 > = z.object({
   id: z.string().optional(),
-  type: OutputSplunkLbType$outboundSchema,
+  type: z.literal("splunk_lb"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

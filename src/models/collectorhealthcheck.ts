@@ -5,7 +5,7 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -139,19 +139,6 @@ export type CollectorHealthCheckRetryRules = {
   enableHeader?: any | undefined;
 };
 
-/**
- * Collector type: health_check
- */
-export const CollectorHealthCheckType = {
-  HealthCheck: "health_check",
-} as const;
-/**
- * Collector type: health_check
- */
-export type CollectorHealthCheckType = ClosedEnum<
-  typeof CollectorHealthCheckType
->;
-
 export type CollectorHealthCheck = {
   discovery?: CollectorHealthCheckDiscovery | undefined;
   /**
@@ -195,7 +182,7 @@ export type CollectorHealthCheck = {
   /**
    * Collector type: health_check
    */
-  type: CollectorHealthCheckType;
+  type: "health_check";
 };
 
 /** @internal */
@@ -303,11 +290,6 @@ export function collectorHealthCheckRetryRulesFromJSON(
 }
 
 /** @internal */
-export const CollectorHealthCheckType$inboundSchema: z.ZodNativeEnum<
-  typeof CollectorHealthCheckType
-> = z.nativeEnum(CollectorHealthCheckType);
-
-/** @internal */
 export const CollectorHealthCheck$inboundSchema: z.ZodType<
   CollectorHealthCheck,
   z.ZodTypeDef,
@@ -333,7 +315,7 @@ export const CollectorHealthCheck$inboundSchema: z.ZodType<
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() => CollectorHealthCheckRetryRules$inboundSchema)
     .optional(),
-  type: CollectorHealthCheckType$inboundSchema,
+  type: z.literal("health_check"),
 });
 
 export function collectorHealthCheckFromJSON(

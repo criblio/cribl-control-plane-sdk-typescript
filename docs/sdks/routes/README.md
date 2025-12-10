@@ -1,5 +1,4 @@
 # Routes
-(*routes*)
 
 ## Overview
 

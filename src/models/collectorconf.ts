@@ -45,16 +45,16 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
  * Collector configuration
  */
 export type CollectorConf =
-  | (CollectorDatabase & { type: "database" })
-  | (CollectorScript & { type: "script" })
-  | (CollectorAzureBlob & { type: "azure_blob" })
-  | (CollectorCriblLake & { type: "cribl_lake" })
-  | (CollectorFilesystem & { type: "filesystem" })
-  | (CollectorGoogleCloudStorage & { type: "google_cloud_storage" })
-  | (CollectorHealthCheck & { type: "health_check" })
-  | (CollectorRest & { type: "rest" })
-  | (CollectorS3 & { type: "s3" })
-  | (CollectorSplunk & { type: "splunk" });
+  | CollectorAzureBlob
+  | CollectorCriblLake
+  | CollectorDatabase
+  | CollectorFilesystem
+  | CollectorGoogleCloudStorage
+  | CollectorHealthCheck
+  | CollectorRest
+  | CollectorS3
+  | CollectorScript
+  | CollectorSplunk;
 
 /** @internal */
 export const CollectorConf$inboundSchema: z.ZodType<
@@ -62,28 +62,16 @@ export const CollectorConf$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  CollectorDatabase$inboundSchema.and(
-    z.object({ type: z.literal("database") }),
-  ),
-  CollectorScript$inboundSchema.and(z.object({ type: z.literal("script") })),
-  CollectorAzureBlob$inboundSchema.and(
-    z.object({ type: z.literal("azure_blob") }),
-  ),
-  CollectorCriblLake$inboundSchema.and(
-    z.object({ type: z.literal("cribl_lake") }),
-  ),
-  CollectorFilesystem$inboundSchema.and(
-    z.object({ type: z.literal("filesystem") }),
-  ),
-  CollectorGoogleCloudStorage$inboundSchema.and(
-    z.object({ type: z.literal("google_cloud_storage") }),
-  ),
-  CollectorHealthCheck$inboundSchema.and(
-    z.object({ type: z.literal("health_check") }),
-  ),
-  CollectorRest$inboundSchema.and(z.object({ type: z.literal("rest") })),
-  CollectorS3$inboundSchema.and(z.object({ type: z.literal("s3") })),
-  CollectorSplunk$inboundSchema.and(z.object({ type: z.literal("splunk") })),
+  CollectorAzureBlob$inboundSchema,
+  CollectorCriblLake$inboundSchema,
+  CollectorDatabase$inboundSchema,
+  CollectorFilesystem$inboundSchema,
+  CollectorGoogleCloudStorage$inboundSchema,
+  CollectorHealthCheck$inboundSchema,
+  CollectorRest$inboundSchema,
+  CollectorS3$inboundSchema,
+  CollectorScript$inboundSchema,
+  CollectorSplunk$inboundSchema,
 ]);
 
 export function collectorConfFromJSON(
