@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputAzureLogsType = {
-  AzureLogs: "azure_logs",
-} as const;
-export type OutputAzureLogsType = ClosedEnum<typeof OutputAzureLogsType>;
 
 export type OutputAzureLogsExtraHttpHeader = {
   name?: string | undefined;
@@ -185,7 +180,7 @@ export type OutputAzureLogs = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputAzureLogsType;
+  type: "azure_logs";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -335,15 +330,6 @@ export type OutputAzureLogs = {
    */
   keypairSecret?: string | undefined;
 };
-
-/** @internal */
-export const OutputAzureLogsType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureLogsType
-> = z.nativeEnum(OutputAzureLogsType);
-/** @internal */
-export const OutputAzureLogsType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureLogsType
-> = OutputAzureLogsType$inboundSchema;
 
 /** @internal */
 export const OutputAzureLogsExtraHttpHeader$inboundSchema: z.ZodType<
@@ -609,7 +595,7 @@ export const OutputAzureLogs$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputAzureLogsType$inboundSchema,
+  type: z.literal("azure_logs"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -663,7 +649,7 @@ export const OutputAzureLogs$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputAzureLogs$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "azure_logs";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -715,7 +701,7 @@ export const OutputAzureLogs$outboundSchema: z.ZodType<
   OutputAzureLogs
 > = z.object({
   id: z.string().optional(),
-  type: OutputAzureLogsType$outboundSchema,
+  type: z.literal("azure_logs"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

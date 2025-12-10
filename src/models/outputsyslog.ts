@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputSyslogType = {
-  Syslog: "syslog",
-} as const;
-export type OutputSyslogType = ClosedEnum<typeof OutputSyslogType>;
 
 /**
  * The network protocol to use for sending out syslog messages
@@ -327,7 +322,7 @@ export type OutputSyslog = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputSyslogType;
+  type: "syslog";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -480,15 +475,6 @@ export type OutputSyslog = {
   pqOnBackpressure?: OutputSyslogQueueFullBehavior | undefined;
   pqControls?: OutputSyslogPqControls | undefined;
 };
-
-/** @internal */
-export const OutputSyslogType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSyslogType
-> = z.nativeEnum(OutputSyslogType);
-/** @internal */
-export const OutputSyslogType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSyslogType
-> = OutputSyslogType$inboundSchema;
 
 /** @internal */
 export const OutputSyslogProtocol$inboundSchema: z.ZodType<
@@ -805,7 +791,7 @@ export const OutputSyslog$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputSyslogType$inboundSchema,
+  type: z.literal("syslog"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -854,7 +840,7 @@ export const OutputSyslog$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputSyslog$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "syslog";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -904,7 +890,7 @@ export const OutputSyslog$outboundSchema: z.ZodType<
   OutputSyslog
 > = z.object({
   id: z.string().optional(),
-  type: OutputSyslogType$outboundSchema,
+  type: z.literal("syslog"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

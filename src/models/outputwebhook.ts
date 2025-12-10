@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputWebhookType = {
-  Webhook: "webhook",
-} as const;
-export type OutputWebhookType = ClosedEnum<typeof OutputWebhookType>;
 
 /**
  * The method to use when sending events
@@ -329,7 +324,7 @@ export type OutputWebhook = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputWebhookType;
+  type: "webhook";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -570,15 +565,6 @@ export type OutputWebhook = {
    */
   loadBalanceStatsPeriodSec?: number | undefined;
 };
-
-/** @internal */
-export const OutputWebhookType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputWebhookType
-> = z.nativeEnum(OutputWebhookType);
-/** @internal */
-export const OutputWebhookType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputWebhookType
-> = OutputWebhookType$inboundSchema;
 
 /** @internal */
 export const OutputWebhookMethod$inboundSchema: z.ZodType<
@@ -1086,7 +1072,7 @@ export const OutputWebhook$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputWebhookType$inboundSchema,
+  type: z.literal("webhook"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -1169,7 +1155,7 @@ export const OutputWebhook$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputWebhook$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "webhook";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -1245,7 +1231,7 @@ export const OutputWebhook$outboundSchema: z.ZodType<
   OutputWebhook
 > = z.object({
   id: z.string().optional(),
-  type: OutputWebhookType$outboundSchema,
+  type: z.literal("webhook"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

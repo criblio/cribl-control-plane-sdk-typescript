@@ -5,16 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputGoogleCloudLoggingType = {
-  GoogleCloudLogging: "google_cloud_logging",
-} as const;
-export type OutputGoogleCloudLoggingType = ClosedEnum<
-  typeof OutputGoogleCloudLoggingType
->;
 
 export const LogLocationType = {
   /**
@@ -195,7 +188,7 @@ export type OutputGoogleCloudLogging = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputGoogleCloudLoggingType;
+  type: "google_cloud_logging";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -457,15 +450,6 @@ export type OutputGoogleCloudLogging = {
 };
 
 /** @internal */
-export const OutputGoogleCloudLoggingType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputGoogleCloudLoggingType
-> = z.nativeEnum(OutputGoogleCloudLoggingType);
-/** @internal */
-export const OutputGoogleCloudLoggingType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputGoogleCloudLoggingType
-> = OutputGoogleCloudLoggingType$inboundSchema;
-
-/** @internal */
 export const LogLocationType$inboundSchema: z.ZodType<
   LogLocationType,
   z.ZodTypeDef,
@@ -685,7 +669,7 @@ export const OutputGoogleCloudLogging$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputGoogleCloudLoggingType$inboundSchema,
+  type: z.literal("google_cloud_logging"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -764,7 +748,7 @@ export const OutputGoogleCloudLogging$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputGoogleCloudLogging$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "google_cloud_logging";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -841,7 +825,7 @@ export const OutputGoogleCloudLogging$outboundSchema: z.ZodType<
   OutputGoogleCloudLogging
 > = z.object({
   id: z.string().optional(),
-  type: OutputGoogleCloudLoggingType$outboundSchema,
+  type: z.literal("google_cloud_logging"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

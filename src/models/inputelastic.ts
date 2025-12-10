@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputElasticType = {
-  Elastic: "elastic",
-} as const;
-export type InputElasticType = ClosedEnum<typeof InputElasticType>;
 
 export type InputElasticConnection = {
   pipeline?: string | undefined;
@@ -257,7 +252,7 @@ export type InputElastic = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputElasticType;
+  type: "elastic";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -371,15 +366,6 @@ export type InputElastic = {
    */
   customAPIVersion?: string | undefined;
 };
-
-/** @internal */
-export const InputElasticType$inboundSchema: z.ZodNativeEnum<
-  typeof InputElasticType
-> = z.nativeEnum(InputElasticType);
-/** @internal */
-export const InputElasticType$outboundSchema: z.ZodNativeEnum<
-  typeof InputElasticType
-> = InputElasticType$inboundSchema;
 
 /** @internal */
 export const InputElasticConnection$inboundSchema: z.ZodType<
@@ -830,7 +816,7 @@ export const InputElastic$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputElasticType$inboundSchema,
+  type: z.literal("elastic"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -875,7 +861,7 @@ export const InputElastic$inboundSchema: z.ZodType<
 /** @internal */
 export type InputElastic$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "elastic";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -919,7 +905,7 @@ export const InputElastic$outboundSchema: z.ZodType<
   InputElastic
 > = z.object({
   id: z.string().optional(),
-  type: InputElasticType$outboundSchema,
+  type: z.literal("elastic"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

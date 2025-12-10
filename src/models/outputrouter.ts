@@ -4,14 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputRouterType = {
-  Router: "router",
-} as const;
-export type OutputRouterType = ClosedEnum<typeof OutputRouterType>;
 
 export type OutputRouterRule = {
   /**
@@ -37,7 +31,7 @@ export type OutputRouter = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputRouterType;
+  type: "router";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -60,15 +54,6 @@ export type OutputRouter = {
   rules: Array<OutputRouterRule>;
   description?: string | undefined;
 };
-
-/** @internal */
-export const OutputRouterType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputRouterType
-> = z.nativeEnum(OutputRouterType);
-/** @internal */
-export const OutputRouterType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputRouterType
-> = OutputRouterType$inboundSchema;
 
 /** @internal */
 export const OutputRouterRule$inboundSchema: z.ZodType<
@@ -125,7 +110,7 @@ export const OutputRouter$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputRouterType$inboundSchema,
+  type: z.literal("router"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -136,7 +121,7 @@ export const OutputRouter$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputRouter$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "router";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -152,7 +137,7 @@ export const OutputRouter$outboundSchema: z.ZodType<
   OutputRouter
 > = z.object({
   id: z.string().optional(),
-  type: OutputRouterType$outboundSchema,
+  type: z.literal("router"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

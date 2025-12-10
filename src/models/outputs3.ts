@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputS3Type = {
-  S3: "s3",
-} as const;
-export type OutputS3Type = ClosedEnum<typeof OutputS3Type>;
 
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
@@ -294,7 +289,7 @@ export type OutputS3 = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputS3Type;
+  type: "s3";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -538,13 +533,6 @@ export type OutputS3 = {
 };
 
 /** @internal */
-export const OutputS3Type$inboundSchema: z.ZodNativeEnum<typeof OutputS3Type> =
-  z.nativeEnum(OutputS3Type);
-/** @internal */
-export const OutputS3Type$outboundSchema: z.ZodNativeEnum<typeof OutputS3Type> =
-  OutputS3Type$inboundSchema;
-
-/** @internal */
 export const OutputS3AuthenticationMethod$inboundSchema: z.ZodType<
   OutputS3AuthenticationMethod,
   z.ZodTypeDef,
@@ -751,7 +739,7 @@ export const OutputS3$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputS3Type$inboundSchema,
+  type: z.literal("s3"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -832,7 +820,7 @@ export const OutputS3$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputS3$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "s3";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -903,7 +891,7 @@ export const OutputS3$outboundSchema: z.ZodType<
   OutputS3
 > = z.object({
   id: z.string().optional(),
-  type: OutputS3Type$outboundSchema,
+  type: z.literal("s3"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

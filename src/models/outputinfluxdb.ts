@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputInfluxdbType = {
-  Influxdb: "influxdb",
-} as const;
-export type OutputInfluxdbType = ClosedEnum<typeof OutputInfluxdbType>;
 
 /**
  * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
@@ -245,7 +240,7 @@ export type OutputInfluxdb = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputInfluxdbType;
+  type: "influxdb";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -448,15 +443,6 @@ export type OutputInfluxdb = {
    */
   oauthHeaders?: Array<OutputInfluxdbOauthHeader> | undefined;
 };
-
-/** @internal */
-export const OutputInfluxdbType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputInfluxdbType
-> = z.nativeEnum(OutputInfluxdbType);
-/** @internal */
-export const OutputInfluxdbType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputInfluxdbType
-> = OutputInfluxdbType$inboundSchema;
 
 /** @internal */
 export const TimestampPrecision$inboundSchema: z.ZodType<
@@ -819,7 +805,7 @@ export const OutputInfluxdb$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputInfluxdbType$inboundSchema,
+  type: z.literal("influxdb"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -890,7 +876,7 @@ export const OutputInfluxdb$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputInfluxdb$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "influxdb";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -957,7 +943,7 @@ export const OutputInfluxdb$outboundSchema: z.ZodType<
   OutputInfluxdb
 > = z.object({
   id: z.string().optional(),
-  type: OutputInfluxdbType$outboundSchema,
+  type: z.literal("influxdb"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

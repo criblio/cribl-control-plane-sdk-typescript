@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputDatadogType = {
-  Datadog: "datadog",
-} as const;
-export type OutputDatadogType = ClosedEnum<typeof OutputDatadogType>;
 
 /**
  * The content type to use when sending logs
@@ -283,7 +278,7 @@ export type OutputDatadog = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputDatadogType;
+  type: "datadog";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -465,15 +460,6 @@ export type OutputDatadog = {
    */
   textSecret?: string | undefined;
 };
-
-/** @internal */
-export const OutputDatadogType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputDatadogType
-> = z.nativeEnum(OutputDatadogType);
-/** @internal */
-export const OutputDatadogType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputDatadogType
-> = OutputDatadogType$inboundSchema;
 
 /** @internal */
 export const SendLogsAs$inboundSchema: z.ZodType<
@@ -776,7 +762,7 @@ export const OutputDatadog$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputDatadogType$inboundSchema,
+  type: z.literal("datadog"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -839,7 +825,7 @@ export const OutputDatadog$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputDatadog$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "datadog";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -898,7 +884,7 @@ export const OutputDatadog$outboundSchema: z.ZodType<
   OutputDatadog
 > = z.object({
   id: z.string().optional(),
-  type: OutputDatadogType$outboundSchema,
+  type: z.literal("datadog"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

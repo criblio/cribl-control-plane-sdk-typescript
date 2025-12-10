@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputCriblHttpType = {
-  CriblHttp: "cribl_http",
-} as const;
-export type OutputCriblHttpType = ClosedEnum<typeof OutputCriblHttpType>;
 
 export const OutputCriblHttpMinimumTLSVersion = {
   TLSv1: "TLSv1",
@@ -268,7 +263,7 @@ export type OutputCriblHttp = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputCriblHttpType;
+  type: "cribl_http";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -427,15 +422,6 @@ export type OutputCriblHttp = {
   pqOnBackpressure?: OutputCriblHttpQueueFullBehavior | undefined;
   pqControls?: OutputCriblHttpPqControls | undefined;
 };
-
-/** @internal */
-export const OutputCriblHttpType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputCriblHttpType
-> = z.nativeEnum(OutputCriblHttpType);
-/** @internal */
-export const OutputCriblHttpType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputCriblHttpType
-> = OutputCriblHttpType$inboundSchema;
 
 /** @internal */
 export const OutputCriblHttpMinimumTLSVersion$inboundSchema: z.ZodType<
@@ -883,7 +869,7 @@ export const OutputCriblHttp$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputCriblHttpType$inboundSchema,
+  type: z.literal("cribl_http"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -944,7 +930,7 @@ export const OutputCriblHttp$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputCriblHttp$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "cribl_http";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -999,7 +985,7 @@ export const OutputCriblHttp$outboundSchema: z.ZodType<
   OutputCriblHttp
 > = z.object({
   id: z.string().optional(),
-  type: OutputCriblHttpType$outboundSchema,
+  type: z.literal("cribl_http"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

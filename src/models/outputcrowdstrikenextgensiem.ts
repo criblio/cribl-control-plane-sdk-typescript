@@ -5,16 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputCrowdstrikeNextGenSiemType = {
-  CrowdstrikeNextGenSiem: "crowdstrike_next_gen_siem",
-} as const;
-export type OutputCrowdstrikeNextGenSiemType = ClosedEnum<
-  typeof OutputCrowdstrikeNextGenSiemType
->;
 
 export type OutputCrowdstrikeNextGenSiemExtraHttpHeader = {
   name?: string | undefined;
@@ -209,7 +202,7 @@ export type OutputCrowdstrikeNextGenSiem = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputCrowdstrikeNextGenSiemType;
+  type: "crowdstrike_next_gen_siem";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -358,15 +351,6 @@ export type OutputCrowdstrikeNextGenSiem = {
   pqOnBackpressure?: OutputCrowdstrikeNextGenSiemQueueFullBehavior | undefined;
   pqControls?: OutputCrowdstrikeNextGenSiemPqControls | undefined;
 };
-
-/** @internal */
-export const OutputCrowdstrikeNextGenSiemType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputCrowdstrikeNextGenSiemType
-> = z.nativeEnum(OutputCrowdstrikeNextGenSiemType);
-/** @internal */
-export const OutputCrowdstrikeNextGenSiemType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputCrowdstrikeNextGenSiemType
-> = OutputCrowdstrikeNextGenSiemType$inboundSchema;
 
 /** @internal */
 export const OutputCrowdstrikeNextGenSiemExtraHttpHeader$inboundSchema:
@@ -688,7 +672,7 @@ export const OutputCrowdstrikeNextGenSiem$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputCrowdstrikeNextGenSiemType$inboundSchema,
+  type: z.literal("crowdstrike_next_gen_siem"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -748,7 +732,7 @@ export const OutputCrowdstrikeNextGenSiem$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputCrowdstrikeNextGenSiem$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "crowdstrike_next_gen_siem";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -800,7 +784,7 @@ export const OutputCrowdstrikeNextGenSiem$outboundSchema: z.ZodType<
   OutputCrowdstrikeNextGenSiem
 > = z.object({
   id: z.string().optional(),
-  type: OutputCrowdstrikeNextGenSiemType$outboundSchema,
+  type: z.literal("crowdstrike_next_gen_siem"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

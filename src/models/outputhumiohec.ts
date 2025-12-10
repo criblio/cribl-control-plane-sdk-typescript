@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputHumioHecType = {
-  HumioHec: "humio_hec",
-} as const;
-export type OutputHumioHecType = ClosedEnum<typeof OutputHumioHecType>;
 
 export type OutputHumioHecExtraHttpHeader = {
   name?: string | undefined;
@@ -205,7 +200,7 @@ export type OutputHumioHec = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputHumioHecType;
+  type: "humio_hec";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -346,15 +341,6 @@ export type OutputHumioHec = {
   pqOnBackpressure?: OutputHumioHecQueueFullBehavior | undefined;
   pqControls?: OutputHumioHecPqControls | undefined;
 };
-
-/** @internal */
-export const OutputHumioHecType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputHumioHecType
-> = z.nativeEnum(OutputHumioHecType);
-/** @internal */
-export const OutputHumioHecType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputHumioHecType
-> = OutputHumioHecType$inboundSchema;
 
 /** @internal */
 export const OutputHumioHecExtraHttpHeader$inboundSchema: z.ZodType<
@@ -633,7 +619,7 @@ export const OutputHumioHec$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputHumioHecType$inboundSchema,
+  type: z.literal("humio_hec"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -685,7 +671,7 @@ export const OutputHumioHec$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputHumioHec$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "humio_hec";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -735,7 +721,7 @@ export const OutputHumioHec$outboundSchema: z.ZodType<
   OutputHumioHec
 > = z.object({
   id: z.string().optional(),
-  type: OutputHumioHecType$outboundSchema,
+  type: z.literal("humio_hec"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

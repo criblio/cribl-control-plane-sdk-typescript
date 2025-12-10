@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputExabeamType = {
-  Exabeam: "exabeam",
-} as const;
-export type OutputExabeamType = ClosedEnum<typeof OutputExabeamType>;
 
 /**
  * Signature version to use for signing Google Cloud Storage requests
@@ -135,7 +130,7 @@ export type OutputExabeam = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputExabeamType;
+  type: "exabeam";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -271,15 +266,6 @@ export type OutputExabeam = {
 };
 
 /** @internal */
-export const OutputExabeamType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputExabeamType
-> = z.nativeEnum(OutputExabeamType);
-/** @internal */
-export const OutputExabeamType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputExabeamType
-> = OutputExabeamType$inboundSchema;
-
-/** @internal */
 export const OutputExabeamSignatureVersion$inboundSchema: z.ZodType<
   OutputExabeamSignatureVersion,
   z.ZodTypeDef,
@@ -351,7 +337,7 @@ export const OutputExabeam$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputExabeamType$inboundSchema,
+  type: z.literal("exabeam"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -393,7 +379,7 @@ export const OutputExabeam$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputExabeam$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "exabeam";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -437,7 +423,7 @@ export const OutputExabeam$outboundSchema: z.ZodType<
   OutputExabeam
 > = z.object({
   id: z.string().optional(),
-  type: OutputExabeamType$outboundSchema,
+  type: z.literal("exabeam"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

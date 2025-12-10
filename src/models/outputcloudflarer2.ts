@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputCloudflareR2Type = {
-  CloudflareR2: "cloudflare_r2",
-} as const;
-export type OutputCloudflareR2Type = ClosedEnum<typeof OutputCloudflareR2Type>;
 
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
@@ -235,7 +230,7 @@ export type OutputCloudflareR2 = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputCloudflareR2Type;
+  type: "cloudflare_r2";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -450,15 +445,6 @@ export type OutputCloudflareR2 = {
 };
 
 /** @internal */
-export const OutputCloudflareR2Type$inboundSchema: z.ZodNativeEnum<
-  typeof OutputCloudflareR2Type
-> = z.nativeEnum(OutputCloudflareR2Type);
-/** @internal */
-export const OutputCloudflareR2Type$outboundSchema: z.ZodNativeEnum<
-  typeof OutputCloudflareR2Type
-> = OutputCloudflareR2Type$inboundSchema;
-
-/** @internal */
 export const OutputCloudflareR2AuthenticationMethod$inboundSchema: z.ZodType<
   OutputCloudflareR2AuthenticationMethod,
   z.ZodTypeDef,
@@ -653,7 +639,7 @@ export const OutputCloudflareR2$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputCloudflareR2Type$inboundSchema,
+  type: z.literal("cloudflare_r2"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -731,7 +717,7 @@ export const OutputCloudflareR2$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputCloudflareR2$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "cloudflare_r2";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -798,7 +784,7 @@ export const OutputCloudflareR2$outboundSchema: z.ZodType<
   OutputCloudflareR2
 > = z.object({
   id: z.string().optional(),
-  type: OutputCloudflareR2Type$outboundSchema,
+  type: z.literal("cloudflare_r2"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

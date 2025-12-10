@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputCrowdstrikeType = {
-  Crowdstrike: "crowdstrike",
-} as const;
-export type InputCrowdstrikeType = ClosedEnum<typeof InputCrowdstrikeType>;
 
 export type InputCrowdstrikeConnection = {
   pipeline?: string | undefined;
@@ -173,7 +168,7 @@ export type InputCrowdstrike = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputCrowdstrikeType;
+  type: "crowdstrike";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -319,15 +314,6 @@ export type InputCrowdstrike = {
    */
   processedTagValue?: string | undefined;
 };
-
-/** @internal */
-export const InputCrowdstrikeType$inboundSchema: z.ZodNativeEnum<
-  typeof InputCrowdstrikeType
-> = z.nativeEnum(InputCrowdstrikeType);
-/** @internal */
-export const InputCrowdstrikeType$outboundSchema: z.ZodNativeEnum<
-  typeof InputCrowdstrikeType
-> = InputCrowdstrikeType$inboundSchema;
 
 /** @internal */
 export const InputCrowdstrikeConnection$inboundSchema: z.ZodType<
@@ -668,7 +654,7 @@ export const InputCrowdstrike$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputCrowdstrikeType$inboundSchema,
+  type: z.literal("crowdstrike"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -722,7 +708,7 @@ export const InputCrowdstrike$inboundSchema: z.ZodType<
 /** @internal */
 export type InputCrowdstrike$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "crowdstrike";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -774,7 +760,7 @@ export const InputCrowdstrike$outboundSchema: z.ZodType<
   InputCrowdstrike
 > = z.object({
   id: z.string().optional(),
-  type: InputCrowdstrikeType$outboundSchema,
+  type: z.literal("crowdstrike"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

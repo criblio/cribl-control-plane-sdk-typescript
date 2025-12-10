@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputWefType = {
-  Wef: "wef",
-} as const;
-export type InputWefType = ClosedEnum<typeof InputWefType>;
 
 export type InputWefConnection = {
   pipeline?: string | undefined;
@@ -264,7 +259,7 @@ export type InputWef = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputWefType;
+  type: "wef";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -370,13 +365,6 @@ export type InputWef = {
    */
   logFingerprintMismatch?: boolean | undefined;
 };
-
-/** @internal */
-export const InputWefType$inboundSchema: z.ZodNativeEnum<typeof InputWefType> =
-  z.nativeEnum(InputWefType);
-/** @internal */
-export const InputWefType$outboundSchema: z.ZodNativeEnum<typeof InputWefType> =
-  InputWefType$inboundSchema;
 
 /** @internal */
 export const InputWefConnection$inboundSchema: z.ZodType<
@@ -838,7 +826,7 @@ export const InputWef$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputWefType$inboundSchema,
+  type: z.literal("wef"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -873,7 +861,7 @@ export const InputWef$inboundSchema: z.ZodType<
 /** @internal */
 export type InputWef$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "wef";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -912,7 +900,7 @@ export const InputWef$outboundSchema: z.ZodType<
   InputWef
 > = z.object({
   id: z.string().optional(),
-  type: InputWefType$outboundSchema,
+  type: z.literal("wef"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

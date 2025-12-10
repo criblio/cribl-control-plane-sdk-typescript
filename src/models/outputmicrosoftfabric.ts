@@ -6,16 +6,9 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputMicrosoftFabricType = {
-  MicrosoftFabric: "microsoft_fabric",
-} as const;
-export type OutputMicrosoftFabricType = ClosedEnum<
-  typeof OutputMicrosoftFabricType
->;
 
 /**
  * Control the number of required acknowledgments
@@ -247,7 +240,7 @@ export type OutputMicrosoftFabric = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputMicrosoftFabricType;
+  type: "microsoft_fabric";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -376,15 +369,6 @@ export type OutputMicrosoftFabric = {
   pqOnBackpressure?: OutputMicrosoftFabricQueueFullBehavior | undefined;
   pqControls?: OutputMicrosoftFabricPqControls | undefined;
 };
-
-/** @internal */
-export const OutputMicrosoftFabricType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputMicrosoftFabricType
-> = z.nativeEnum(OutputMicrosoftFabricType);
-/** @internal */
-export const OutputMicrosoftFabricType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputMicrosoftFabricType
-> = OutputMicrosoftFabricType$inboundSchema;
 
 /** @internal */
 export const OutputMicrosoftFabricAcknowledgments$inboundSchema: z.ZodType<
@@ -684,7 +668,7 @@ export const OutputMicrosoftFabric$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputMicrosoftFabricType$inboundSchema,
+  type: z.literal("microsoft_fabric"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -732,7 +716,7 @@ export const OutputMicrosoftFabric$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputMicrosoftFabric$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "microsoft_fabric";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -776,7 +760,7 @@ export const OutputMicrosoftFabric$outboundSchema: z.ZodType<
   OutputMicrosoftFabric
 > = z.object({
   id: z.string().optional(),
-  type: OutputMicrosoftFabricType$outboundSchema,
+  type: z.literal("microsoft_fabric"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
