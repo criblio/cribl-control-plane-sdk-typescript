@@ -1,13 +1,13 @@
-# OutputMode
+# InputSplunkSearchOutputMode
 
 Format of the returned output
 
 ## Example Usage
 
 ```typescript
-import { OutputMode } from "cribl-control-plane/models";
+import { InputSplunkSearchOutputMode } from "cribl-control-plane/models";
 
-let value: OutputMode = "csv";
+let value: InputSplunkSearchOutputMode = "csv";
 ```
 
 ## Values

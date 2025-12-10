@@ -31,19 +31,33 @@ let value: RunnableJobCollection = {
   ],
   collector: {
     type: "<value>",
-    conf: {},
+    conf: {
+      type: "filesystem",
+      outputName: "<value>",
+      path: "/private",
+      extractors: [
+        {
+          key: "<key>",
+          expression: "<value>",
+        },
+      ],
+      recurse: true,
+      maxBatchSize: 10,
+    },
     encoding: "<value>",
   },
   input: {
     breakerRulesets: [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
     ],
     preprocess: {
       command: "<value>",
       args: [
         "<value 1>",
         "<value 2>",
+        "<value 3>",
       ],
     },
     metadata: [
@@ -56,8 +70,8 @@ let value: RunnableJobCollection = {
     output: "<value>",
   },
   run: {
-    earliest: 9029.54,
-    latest: 8097.94,
+    earliest: 2342.33,
+    latest: 5817.49,
     timeWarning: {},
     capture: {},
   },
