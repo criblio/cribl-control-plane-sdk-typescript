@@ -5,16 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputAzureDataExplorerType = {
-  AzureDataExplorer: "azure_data_explorer",
-} as const;
-export type OutputAzureDataExplorerType = ClosedEnum<
-  typeof OutputAzureDataExplorerType
->;
 
 export const IngestionMode = {
   /**
@@ -407,7 +400,7 @@ export type OutputAzureDataExplorer = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputAzureDataExplorerType;
+  type: "azure_data_explorer";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -732,15 +725,6 @@ export type OutputAzureDataExplorer = {
   pqOnBackpressure?: OutputAzureDataExplorerQueueFullBehavior | undefined;
   pqControls?: OutputAzureDataExplorerPqControls | undefined;
 };
-
-/** @internal */
-export const OutputAzureDataExplorerType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureDataExplorerType
-> = z.nativeEnum(OutputAzureDataExplorerType);
-/** @internal */
-export const OutputAzureDataExplorerType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureDataExplorerType
-> = OutputAzureDataExplorerType$inboundSchema;
 
 /** @internal */
 export const IngestionMode$inboundSchema: z.ZodType<
@@ -1320,7 +1304,7 @@ export const OutputAzureDataExplorer$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputAzureDataExplorerType$inboundSchema,
+  type: z.literal("azure_data_explorer"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -1432,7 +1416,7 @@ export const OutputAzureDataExplorer$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputAzureDataExplorer$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "azure_data_explorer";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -1529,7 +1513,7 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   OutputAzureDataExplorer
 > = z.object({
   id: z.string().optional(),
-  type: OutputAzureDataExplorerType$outboundSchema,
+  type: z.literal("azure_data_explorer"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

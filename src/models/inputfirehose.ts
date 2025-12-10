@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputFirehoseType = {
-  Firehose: "firehose",
-} as const;
-export type InputFirehoseType = ClosedEnum<typeof InputFirehoseType>;
 
 export type InputFirehoseConnection = {
   pipeline?: string | undefined;
@@ -162,7 +157,7 @@ export type InputFirehose = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputFirehoseType;
+  type: "firehose";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -252,15 +247,6 @@ export type InputFirehose = {
   metadata?: Array<InputFirehoseMetadatum> | undefined;
   description?: string | undefined;
 };
-
-/** @internal */
-export const InputFirehoseType$inboundSchema: z.ZodNativeEnum<
-  typeof InputFirehoseType
-> = z.nativeEnum(InputFirehoseType);
-/** @internal */
-export const InputFirehoseType$outboundSchema: z.ZodNativeEnum<
-  typeof InputFirehoseType
-> = InputFirehoseType$inboundSchema;
 
 /** @internal */
 export const InputFirehoseConnection$inboundSchema: z.ZodType<
@@ -568,7 +554,7 @@ export const InputFirehose$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputFirehoseType$inboundSchema,
+  type: z.literal("firehose"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -601,7 +587,7 @@ export const InputFirehose$inboundSchema: z.ZodType<
 /** @internal */
 export type InputFirehose$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "firehose";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -636,7 +622,7 @@ export const InputFirehose$outboundSchema: z.ZodType<
   InputFirehose
 > = z.object({
   id: z.string().optional(),
-  type: InputFirehoseType$outboundSchema,
+  type: z.literal("firehose"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

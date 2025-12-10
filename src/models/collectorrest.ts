@@ -6,20 +6,9 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * Collector type: rest
- */
-export const CollectorRestType = {
-  Rest: "rest",
-} as const;
-/**
- * Collector type: rest
- */
-export type CollectorRestType = ClosedEnum<typeof CollectorRestType>;
 
 /**
  * Defines how task discovery will be performed. Each entry returned by the Discover operation will result in a Collect task.
@@ -178,7 +167,7 @@ export type CollectorRest = {
   /**
    * Collector type: rest
    */
-  type: CollectorRestType;
+  type: "rest";
   discovery?: CollectorRestDiscovery | undefined;
   /**
    * URL (constant or JavaScript expression) to use for the Collect operation
@@ -229,11 +218,6 @@ export type CollectorRest = {
   retryRules?: CollectorRestRetryRules | undefined;
   scheduling?: CollectorRestScheduling | undefined;
 };
-
-/** @internal */
-export const CollectorRestType$inboundSchema: z.ZodNativeEnum<
-  typeof CollectorRestType
-> = z.nativeEnum(CollectorRestType);
 
 /** @internal */
 export const CollectorRestDiscoverType$inboundSchema: z.ZodType<
@@ -400,7 +384,7 @@ export const CollectorRest$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: CollectorRestType$inboundSchema,
+  type: z.literal("rest"),
   discovery: z.lazy(() => CollectorRestDiscovery$inboundSchema).optional(),
   collectUrl: z.string(),
   collectMethod: CollectMethod$inboundSchema.default("get"),

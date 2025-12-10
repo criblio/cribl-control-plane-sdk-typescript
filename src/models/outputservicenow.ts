@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputServiceNowType = {
-  ServiceNow: "service_now",
-} as const;
-export type OutputServiceNowType = ClosedEnum<typeof OutputServiceNowType>;
 
 /**
  * The version of OTLP Protobuf definitions to use when structuring data to send
@@ -309,7 +304,7 @@ export type OutputServiceNow = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputServiceNowType;
+  type: "service_now";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -480,15 +475,6 @@ export type OutputServiceNow = {
   pqOnBackpressure?: OutputServiceNowQueueFullBehavior | undefined;
   pqControls?: OutputServiceNowPqControls | undefined;
 };
-
-/** @internal */
-export const OutputServiceNowType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputServiceNowType
-> = z.nativeEnum(OutputServiceNowType);
-/** @internal */
-export const OutputServiceNowType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputServiceNowType
-> = OutputServiceNowType$inboundSchema;
 
 /** @internal */
 export const OutputServiceNowOTLPVersion$inboundSchema: z.ZodType<
@@ -927,7 +913,7 @@ export const OutputServiceNow$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputServiceNowType$inboundSchema,
+  type: z.literal("service_now"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -993,7 +979,7 @@ export const OutputServiceNow$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputServiceNow$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "service_now";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -1053,7 +1039,7 @@ export const OutputServiceNow$outboundSchema: z.ZodType<
   OutputServiceNow
 > = z.object({
   id: z.string().optional(),
-  type: OutputServiceNowType$outboundSchema,
+  type: z.literal("service_now"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

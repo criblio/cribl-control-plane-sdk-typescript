@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputEventhubType = {
-  Eventhub: "eventhub",
-} as const;
-export type InputEventhubType = ClosedEnum<typeof InputEventhubType>;
 
 export type InputEventhubConnection = {
   pipeline?: string | undefined;
@@ -225,7 +220,7 @@ export type InputEventhub = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputEventhubType;
+  type: "eventhub";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -360,15 +355,6 @@ export type InputEventhub = {
   metadata?: Array<InputEventhubMetadatum> | undefined;
   description?: string | undefined;
 };
-
-/** @internal */
-export const InputEventhubType$inboundSchema: z.ZodNativeEnum<
-  typeof InputEventhubType
-> = z.nativeEnum(InputEventhubType);
-/** @internal */
-export const InputEventhubType$outboundSchema: z.ZodNativeEnum<
-  typeof InputEventhubType
-> = InputEventhubType$inboundSchema;
 
 /** @internal */
 export const InputEventhubConnection$inboundSchema: z.ZodType<
@@ -789,7 +775,7 @@ export const InputEventhub$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputEventhubType$inboundSchema,
+  type: z.literal("eventhub"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -830,7 +816,7 @@ export const InputEventhub$inboundSchema: z.ZodType<
 /** @internal */
 export type InputEventhub$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "eventhub";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -873,7 +859,7 @@ export const InputEventhub$outboundSchema: z.ZodType<
   InputEventhub
 > = z.object({
   id: z.string().optional(),
-  type: InputEventhubType$outboundSchema,
+  type: z.literal("eventhub"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

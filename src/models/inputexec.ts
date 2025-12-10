@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputExecType = {
-  Exec: "exec",
-} as const;
-export type InputExecType = ClosedEnum<typeof InputExecType>;
 
 export type InputExecConnection = {
   pipeline?: string | undefined;
@@ -114,7 +109,7 @@ export type InputExec = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputExecType;
+  type: "exec";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -175,15 +170,6 @@ export type InputExec = {
    */
   cronSchedule?: string | undefined;
 };
-
-/** @internal */
-export const InputExecType$inboundSchema: z.ZodNativeEnum<
-  typeof InputExecType
-> = z.nativeEnum(InputExecType);
-/** @internal */
-export const InputExecType$outboundSchema: z.ZodNativeEnum<
-  typeof InputExecType
-> = InputExecType$inboundSchema;
 
 /** @internal */
 export const InputExecConnection$inboundSchema: z.ZodType<
@@ -404,7 +390,7 @@ export const InputExec$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputExecType$inboundSchema,
+  type: z.literal("exec"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -427,7 +413,7 @@ export const InputExec$inboundSchema: z.ZodType<
 /** @internal */
 export type InputExec$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "exec";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -454,7 +440,7 @@ export const InputExec$outboundSchema: z.ZodType<
   InputExec
 > = z.object({
   id: z.string().optional(),
-  type: InputExecType$outboundSchema,
+  type: z.literal("exec"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

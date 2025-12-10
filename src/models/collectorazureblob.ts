@@ -5,20 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * Collector type: azure_blob
- */
-export const CollectorAzureBlobType = {
-  AzureBlob: "azure_blob",
-} as const;
-/**
- * Collector type: azure_blob
- */
-export type CollectorAzureBlobType = ClosedEnum<typeof CollectorAzureBlobType>;
 
 /**
  * Enter authentication data directly, or select a secret referencing your auth data
@@ -51,7 +40,7 @@ export type CollectorAzureBlob = {
   /**
    * Collector type: azure_blob
    */
-  type: CollectorAzureBlobType;
+  type: "azure_blob";
   /**
    * An optional predefined Destination that will be used to auto-populate Collector settings
    */
@@ -99,11 +88,6 @@ export type CollectorAzureBlob = {
 };
 
 /** @internal */
-export const CollectorAzureBlobType$inboundSchema: z.ZodNativeEnum<
-  typeof CollectorAzureBlobType
-> = z.nativeEnum(CollectorAzureBlobType);
-
-/** @internal */
 export const CollectorAzureBlobAuthenticationMethod$inboundSchema: z.ZodType<
   CollectorAzureBlobAuthenticationMethod,
   z.ZodTypeDef,
@@ -136,7 +120,7 @@ export const CollectorAzureBlob$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: CollectorAzureBlobType$inboundSchema,
+  type: z.literal("azure_blob"),
   outputName: z.string().optional(),
   authType: CollectorAzureBlobAuthenticationMethod$inboundSchema.default(
     "manual",

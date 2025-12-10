@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputSnsType = {
-  Sns: "sns",
-} as const;
-export type OutputSnsType = ClosedEnum<typeof OutputSnsType>;
 
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
@@ -143,7 +138,7 @@ export type OutputSns = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputSnsType;
+  type: "sns";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -267,15 +262,6 @@ export type OutputSns = {
 };
 
 /** @internal */
-export const OutputSnsType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSnsType
-> = z.nativeEnum(OutputSnsType);
-/** @internal */
-export const OutputSnsType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSnsType
-> = OutputSnsType$inboundSchema;
-
-/** @internal */
 export const OutputSnsAuthenticationMethod$inboundSchema: z.ZodType<
   OutputSnsAuthenticationMethod,
   z.ZodTypeDef,
@@ -393,7 +379,7 @@ export const OutputSns$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputSnsType$inboundSchema,
+  type: z.literal("sns"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -433,7 +419,7 @@ export const OutputSns$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputSns$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "sns";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -476,7 +462,7 @@ export const OutputSns$outboundSchema: z.ZodType<
   OutputSns
 > = z.object({
   id: z.string().optional(),
-  type: OutputSnsType$outboundSchema,
+  type: z.literal("sns"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

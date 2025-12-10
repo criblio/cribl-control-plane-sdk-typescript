@@ -5,16 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputOffice365ServiceType = {
-  Office365Service: "office365_service",
-} as const;
-export type InputOffice365ServiceType = ClosedEnum<
-  typeof InputOffice365ServiceType
->;
 
 export type InputOffice365ServiceConnection = {
   pipeline?: string | undefined;
@@ -242,7 +235,7 @@ export type InputOffice365Service = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputOffice365ServiceType;
+  type: "office365_service";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -328,15 +321,6 @@ export type InputOffice365Service = {
    */
   textSecret?: string | undefined;
 };
-
-/** @internal */
-export const InputOffice365ServiceType$inboundSchema: z.ZodNativeEnum<
-  typeof InputOffice365ServiceType
-> = z.nativeEnum(InputOffice365ServiceType);
-/** @internal */
-export const InputOffice365ServiceType$outboundSchema: z.ZodNativeEnum<
-  typeof InputOffice365ServiceType
-> = InputOffice365ServiceType$inboundSchema;
 
 /** @internal */
 export const InputOffice365ServiceConnection$inboundSchema: z.ZodType<
@@ -722,7 +706,7 @@ export const InputOffice365Service$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputOffice365ServiceType$inboundSchema,
+  type: z.literal("office365_service"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -761,7 +745,7 @@ export const InputOffice365Service$inboundSchema: z.ZodType<
 /** @internal */
 export type InputOffice365Service$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "office365_service";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -797,7 +781,7 @@ export const InputOffice365Service$outboundSchema: z.ZodType<
   InputOffice365Service
 > = z.object({
   id: z.string().optional(),
-  type: InputOffice365ServiceType$outboundSchema,
+  type: z.literal("office365_service"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

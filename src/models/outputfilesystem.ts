@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputFilesystemType = {
-  Filesystem: "filesystem",
-} as const;
-export type OutputFilesystemType = ClosedEnum<typeof OutputFilesystemType>;
 
 /**
  * Format of the output data
@@ -170,7 +165,7 @@ export type OutputFilesystem = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputFilesystemType;
+  type: "filesystem";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -331,15 +326,6 @@ export type OutputFilesystem = {
 };
 
 /** @internal */
-export const OutputFilesystemType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputFilesystemType
-> = z.nativeEnum(OutputFilesystemType);
-/** @internal */
-export const OutputFilesystemType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputFilesystemType
-> = OutputFilesystemType$inboundSchema;
-
-/** @internal */
 export const OutputFilesystemDataFormat$inboundSchema: z.ZodType<
   OutputFilesystemDataFormat,
   z.ZodTypeDef,
@@ -481,7 +467,7 @@ export const OutputFilesystem$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputFilesystemType$inboundSchema,
+  type: z.literal("filesystem"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -541,7 +527,7 @@ export const OutputFilesystem$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputFilesystem$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "filesystem";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -593,7 +579,7 @@ export const OutputFilesystem$outboundSchema: z.ZodType<
   OutputFilesystem
 > = z.object({
   id: z.string().optional(),
-  type: OutputFilesystemType$outboundSchema,
+  type: z.literal("filesystem"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

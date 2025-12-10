@@ -5,22 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * Collector type: google_cloud_storage
- */
-export const CollectorGoogleCloudStorageType = {
-  GoogleCloudStorage: "google_cloud_storage",
-} as const;
-/**
- * Collector type: google_cloud_storage
- */
-export type CollectorGoogleCloudStorageType = ClosedEnum<
-  typeof CollectorGoogleCloudStorageType
->;
 
 export type CollectorGoogleCloudStorageExtractor = {
   /**
@@ -52,7 +39,7 @@ export type CollectorGoogleCloudStorage = {
   /**
    * Collector type: google_cloud_storage
    */
-  type: CollectorGoogleCloudStorageType;
+  type: "google_cloud_storage";
   /**
    * Name of the predefined Destination that will be used to auto-populate Collector settings
    */
@@ -100,11 +87,6 @@ export type CollectorGoogleCloudStorage = {
 };
 
 /** @internal */
-export const CollectorGoogleCloudStorageType$inboundSchema: z.ZodNativeEnum<
-  typeof CollectorGoogleCloudStorageType
-> = z.nativeEnum(CollectorGoogleCloudStorageType);
-
-/** @internal */
 export const CollectorGoogleCloudStorageExtractor$inboundSchema: z.ZodType<
   CollectorGoogleCloudStorageExtractor,
   z.ZodTypeDef,
@@ -139,7 +121,7 @@ export const CollectorGoogleCloudStorage$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: CollectorGoogleCloudStorageType$inboundSchema,
+  type: z.literal("google_cloud_storage"),
   outputName: z.string().optional(),
   bucket: z.string(),
   path: z.string().optional(),

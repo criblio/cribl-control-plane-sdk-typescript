@@ -15,9 +15,9 @@ let value: DiffLineContext = {
 
 ## Fields
 
-| Field                                                          | Type                                                           | Required                                                       | Description                                                    |
-| -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------- |
-| `type`                                                         | [models.DiffLineContextType](../models/difflinecontexttype.md) | :heavy_check_mark:                                             | N/A                                                            |
-| `newNumber`                                                    | *number*                                                       | :heavy_check_mark:                                             | N/A                                                            |
-| `oldNumber`                                                    | *number*                                                       | :heavy_check_mark:                                             | N/A                                                            |
-| `content`                                                      | *string*                                                       | :heavy_check_mark:                                             | N/A                                                            |
+| Field              | Type               | Required           | Description        |
+| ------------------ | ------------------ | ------------------ | ------------------ |
+| `type`             | *"context"*        | :heavy_check_mark: | N/A                |
+| `newNumber`        | *number*           | :heavy_check_mark: | N/A                |
+| `oldNumber`        | *number*           | :heavy_check_mark: | N/A                |
+| `content`          | *string*           | :heavy_check_mark: | N/A                |

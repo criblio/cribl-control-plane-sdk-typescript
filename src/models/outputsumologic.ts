@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputSumoLogicType = {
-  SumoLogic: "sumo_logic",
-} as const;
-export type OutputSumoLogicType = ClosedEnum<typeof OutputSumoLogicType>;
 
 /**
  * Preserve the raw event format instead of JSONifying it
@@ -191,7 +186,7 @@ export type OutputSumoLogic = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputSumoLogicType;
+  type: "sumo_logic";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -336,15 +331,6 @@ export type OutputSumoLogic = {
   pqOnBackpressure?: OutputSumoLogicQueueFullBehavior | undefined;
   pqControls?: OutputSumoLogicPqControls | undefined;
 };
-
-/** @internal */
-export const OutputSumoLogicType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSumoLogicType
-> = z.nativeEnum(OutputSumoLogicType);
-/** @internal */
-export const OutputSumoLogicType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSumoLogicType
-> = OutputSumoLogicType$inboundSchema;
 
 /** @internal */
 export const OutputSumoLogicDataFormat$inboundSchema: z.ZodType<
@@ -610,7 +596,7 @@ export const OutputSumoLogic$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputSumoLogicType$inboundSchema,
+  type: z.literal("sumo_logic"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -662,7 +648,7 @@ export const OutputSumoLogic$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputSumoLogic$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "sumo_logic";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -712,7 +698,7 @@ export const OutputSumoLogic$outboundSchema: z.ZodType<
   OutputSumoLogic
 > = z.object({
   id: z.string().optional(),
-  type: OutputSumoLogicType$outboundSchema,
+  type: z.literal("sumo_logic"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

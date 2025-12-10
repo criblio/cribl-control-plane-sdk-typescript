@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputFileType = {
-  File: "file",
-} as const;
-export type InputFileType = ClosedEnum<typeof InputFileType>;
 
 export type InputFileConnection = {
   pipeline?: string | undefined;
@@ -120,7 +115,7 @@ export type InputFile = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputFileType;
+  type: "file";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -222,15 +217,6 @@ export type InputFile = {
    */
   includeUnidentifiableBinary?: boolean | undefined;
 };
-
-/** @internal */
-export const InputFileType$inboundSchema: z.ZodNativeEnum<
-  typeof InputFileType
-> = z.nativeEnum(InputFileType);
-/** @internal */
-export const InputFileType$outboundSchema: z.ZodNativeEnum<
-  typeof InputFileType
-> = InputFileType$inboundSchema;
 
 /** @internal */
 export const InputFileConnection$inboundSchema: z.ZodType<
@@ -451,7 +437,7 @@ export const InputFile$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputFileType$inboundSchema,
+  type: z.literal("file"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -485,7 +471,7 @@ export const InputFile$inboundSchema: z.ZodType<
 /** @internal */
 export type InputFile$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "file";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -523,7 +509,7 @@ export const InputFile$outboundSchema: z.ZodType<
   InputFile
 > = z.object({
   id: z.string().optional(),
-  type: InputFileType$outboundSchema,
+  type: z.literal("file"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

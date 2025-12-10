@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputNetflowType = {
-  Netflow: "netflow",
-} as const;
-export type InputNetflowType = ClosedEnum<typeof InputNetflowType>;
 
 export type InputNetflowConnection = {
   pipeline?: string | undefined;
@@ -102,7 +97,7 @@ export type InputNetflow = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputNetflowType;
+  type: "netflow";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -175,15 +170,6 @@ export type InputNetflow = {
   metadata?: Array<InputNetflowMetadatum> | undefined;
   description?: string | undefined;
 };
-
-/** @internal */
-export const InputNetflowType$inboundSchema: z.ZodNativeEnum<
-  typeof InputNetflowType
-> = z.nativeEnum(InputNetflowType);
-/** @internal */
-export const InputNetflowType$outboundSchema: z.ZodNativeEnum<
-  typeof InputNetflowType
-> = InputNetflowType$inboundSchema;
 
 /** @internal */
 export const InputNetflowConnection$inboundSchema: z.ZodType<
@@ -391,7 +377,7 @@ export const InputNetflow$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputNetflowType$inboundSchema,
+  type: z.literal("netflow"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -418,7 +404,7 @@ export const InputNetflow$inboundSchema: z.ZodType<
 /** @internal */
 export type InputNetflow$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "netflow";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -448,7 +434,7 @@ export const InputNetflow$outboundSchema: z.ZodType<
   InputNetflow
 > = z.object({
   id: z.string().optional(),
-  type: InputNetflowType$outboundSchema,
+  type: z.literal("netflow"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

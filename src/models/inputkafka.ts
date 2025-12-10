@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputKafkaType = {
-  Kafka: "kafka",
-} as const;
-export type InputKafkaType = ClosedEnum<typeof InputKafkaType>;
 
 export type InputKafkaConnection = {
   pipeline?: string | undefined;
@@ -351,7 +346,7 @@ export type InputKafka = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputKafkaType;
+  type: "kafka";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -483,15 +478,6 @@ export type InputKafka = {
   metadata?: Array<InputKafkaMetadatum> | undefined;
   description?: string | undefined;
 };
-
-/** @internal */
-export const InputKafkaType$inboundSchema: z.ZodNativeEnum<
-  typeof InputKafkaType
-> = z.nativeEnum(InputKafkaType);
-/** @internal */
-export const InputKafkaType$outboundSchema: z.ZodNativeEnum<
-  typeof InputKafkaType
-> = InputKafkaType$inboundSchema;
 
 /** @internal */
 export const InputKafkaConnection$inboundSchema: z.ZodType<
@@ -1212,7 +1198,7 @@ export const InputKafka$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputKafkaType$inboundSchema,
+  type: z.literal("kafka"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -1253,7 +1239,7 @@ export const InputKafka$inboundSchema: z.ZodType<
 /** @internal */
 export type InputKafka$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "kafka";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -1298,7 +1284,7 @@ export const InputKafka$outboundSchema: z.ZodType<
   InputKafka
 > = z.object({
   id: z.string().optional(),
-  type: InputKafkaType$outboundSchema,
+  type: z.literal("kafka"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputSqsType = {
-  Sqs: "sqs",
-} as const;
-export type InputSqsType = ClosedEnum<typeof InputSqsType>;
 
 export type InputSqsConnection = {
   pipeline?: string | undefined;
@@ -158,7 +153,7 @@ export type InputSqs = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputSqsType;
+  type: "sqs";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -269,13 +264,6 @@ export type InputSqs = {
    */
   numReceivers?: number | undefined;
 };
-
-/** @internal */
-export const InputSqsType$inboundSchema: z.ZodNativeEnum<typeof InputSqsType> =
-  z.nativeEnum(InputSqsType);
-/** @internal */
-export const InputSqsType$outboundSchema: z.ZodNativeEnum<typeof InputSqsType> =
-  InputSqsType$inboundSchema;
 
 /** @internal */
 export const InputSqsConnection$inboundSchema: z.ZodType<
@@ -522,7 +510,7 @@ export const InputSqs$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputSqsType$inboundSchema,
+  type: z.literal("sqs"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -561,7 +549,7 @@ export const InputSqs$inboundSchema: z.ZodType<
 /** @internal */
 export type InputSqs$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "sqs";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -602,7 +590,7 @@ export const InputSqs$outboundSchema: z.ZodType<
   InputSqs
 > = z.object({
   id: z.string().optional(),
-  type: InputSqsType$outboundSchema,
+  type: z.literal("sqs"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

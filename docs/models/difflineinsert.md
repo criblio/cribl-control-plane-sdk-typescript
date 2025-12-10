@@ -14,8 +14,8 @@ let value: DiffLineInsert = {
 
 ## Fields
 
-| Field                                                        | Type                                                         | Required                                                     | Description                                                  |
-| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `type`                                                       | [models.DiffLineInsertType](../models/difflineinserttype.md) | :heavy_check_mark:                                           | N/A                                                          |
-| `newNumber`                                                  | *number*                                                     | :heavy_check_mark:                                           | N/A                                                          |
-| `content`                                                    | *string*                                                     | :heavy_check_mark:                                           | N/A                                                          |
+| Field              | Type               | Required           | Description        |
+| ------------------ | ------------------ | ------------------ | ------------------ |
+| `type`             | *"insert"*         | :heavy_check_mark: | N/A                |
+| `newNumber`        | *number*           | :heavy_check_mark: | N/A                |
+| `content`          | *string*           | :heavy_check_mark: | N/A                |

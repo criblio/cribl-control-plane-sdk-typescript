@@ -5,16 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputWindowsMetricsType = {
-  WindowsMetrics: "windows_metrics",
-} as const;
-export type InputWindowsMetricsType = ClosedEnum<
-  typeof InputWindowsMetricsType
->;
 
 export type InputWindowsMetricsConnection = {
   pipeline?: string | undefined;
@@ -420,7 +413,7 @@ export type InputWindowsMetrics = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputWindowsMetricsType;
+  type: "windows_metrics";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -464,15 +457,6 @@ export type InputWindowsMetrics = {
   disableNativeModule?: boolean | undefined;
   description?: string | undefined;
 };
-
-/** @internal */
-export const InputWindowsMetricsType$inboundSchema: z.ZodNativeEnum<
-  typeof InputWindowsMetricsType
-> = z.nativeEnum(InputWindowsMetricsType);
-/** @internal */
-export const InputWindowsMetricsType$outboundSchema: z.ZodNativeEnum<
-  typeof InputWindowsMetricsType
-> = InputWindowsMetricsType$inboundSchema;
 
 /** @internal */
 export const InputWindowsMetricsConnection$inboundSchema: z.ZodType<
@@ -1251,7 +1235,7 @@ export const InputWindowsMetrics$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputWindowsMetricsType$inboundSchema,
+  type: z.literal("windows_metrics"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -1275,7 +1259,7 @@ export const InputWindowsMetrics$inboundSchema: z.ZodType<
 /** @internal */
 export type InputWindowsMetrics$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "windows_metrics";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -1300,7 +1284,7 @@ export const InputWindowsMetrics$outboundSchema: z.ZodType<
   InputWindowsMetrics
 > = z.object({
   id: z.string().optional(),
-  type: InputWindowsMetricsType$outboundSchema,
+  type: z.literal("windows_metrics"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

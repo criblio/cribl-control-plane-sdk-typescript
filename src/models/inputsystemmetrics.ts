@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputSystemMetricsType = {
-  SystemMetrics: "system_metrics",
-} as const;
-export type InputSystemMetricsType = ClosedEnum<typeof InputSystemMetricsType>;
 
 export type InputSystemMetricsConnection = {
   pipeline?: string | undefined;
@@ -491,7 +486,7 @@ export type InputSystemMetrics = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputSystemMetricsType;
+  type: "system_metrics";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -532,15 +527,6 @@ export type InputSystemMetrics = {
   persistence?: InputSystemMetricsPersistence | undefined;
   description?: string | undefined;
 };
-
-/** @internal */
-export const InputSystemMetricsType$inboundSchema: z.ZodNativeEnum<
-  typeof InputSystemMetricsType
-> = z.nativeEnum(InputSystemMetricsType);
-/** @internal */
-export const InputSystemMetricsType$outboundSchema: z.ZodNativeEnum<
-  typeof InputSystemMetricsType
-> = InputSystemMetricsType$inboundSchema;
 
 /** @internal */
 export const InputSystemMetricsConnection$inboundSchema: z.ZodType<
@@ -1435,7 +1421,7 @@ export const InputSystemMetrics$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputSystemMetricsType$inboundSchema,
+  type: z.literal("system_metrics"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -1458,7 +1444,7 @@ export const InputSystemMetrics$inboundSchema: z.ZodType<
 /** @internal */
 export type InputSystemMetrics$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "system_metrics";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -1483,7 +1469,7 @@ export const InputSystemMetrics$outboundSchema: z.ZodType<
   InputSystemMetrics
 > = z.object({
   id: z.string().optional(),
-  type: InputSystemMetricsType$outboundSchema,
+  type: z.literal("system_metrics"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

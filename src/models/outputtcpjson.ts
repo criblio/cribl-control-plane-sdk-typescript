@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputTcpjsonType = {
-  Tcpjson: "tcpjson",
-} as const;
-export type OutputTcpjsonType = ClosedEnum<typeof OutputTcpjsonType>;
 
 /**
  * Codec to use to compress the data before sending
@@ -233,7 +228,7 @@ export type OutputTcpjson = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputTcpjsonType;
+  type: "tcpjson";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -370,15 +365,6 @@ export type OutputTcpjson = {
    */
   textSecret?: string | undefined;
 };
-
-/** @internal */
-export const OutputTcpjsonType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputTcpjsonType
-> = z.nativeEnum(OutputTcpjsonType);
-/** @internal */
-export const OutputTcpjsonType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputTcpjsonType
-> = OutputTcpjsonType$inboundSchema;
 
 /** @internal */
 export const OutputTcpjsonCompression$inboundSchema: z.ZodType<
@@ -657,7 +643,7 @@ export const OutputTcpjson$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputTcpjsonType$inboundSchema,
+  type: z.literal("tcpjson"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -703,7 +689,7 @@ export const OutputTcpjson$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputTcpjson$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "tcpjson";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -749,7 +735,7 @@ export const OutputTcpjson$outboundSchema: z.ZodType<
   OutputTcpjson
 > = z.object({
   id: z.string().optional(),
-  type: OutputTcpjsonType$outboundSchema,
+  type: z.literal("tcpjson"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

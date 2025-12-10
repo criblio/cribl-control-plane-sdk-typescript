@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputHoneycombType = {
-  Honeycomb: "honeycomb",
-} as const;
-export type OutputHoneycombType = ClosedEnum<typeof OutputHoneycombType>;
 
 export type OutputHoneycombExtraHttpHeader = {
   name?: string | undefined;
@@ -185,7 +180,7 @@ export type OutputHoneycomb = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputHoneycombType;
+  type: "honeycomb";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -326,15 +321,6 @@ export type OutputHoneycomb = {
    */
   textSecret?: string | undefined;
 };
-
-/** @internal */
-export const OutputHoneycombType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputHoneycombType
-> = z.nativeEnum(OutputHoneycombType);
-/** @internal */
-export const OutputHoneycombType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputHoneycombType
-> = OutputHoneycombType$inboundSchema;
 
 /** @internal */
 export const OutputHoneycombExtraHttpHeader$inboundSchema: z.ZodType<
@@ -600,7 +586,7 @@ export const OutputHoneycomb$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputHoneycombType$inboundSchema,
+  type: z.literal("honeycomb"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -651,7 +637,7 @@ export const OutputHoneycomb$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputHoneycomb$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "honeycomb";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -700,7 +686,7 @@ export const OutputHoneycomb$outboundSchema: z.ZodType<
   OutputHoneycomb
 > = z.object({
   id: z.string().optional(),
-  type: OutputHoneycombType$outboundSchema,
+  type: z.literal("honeycomb"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

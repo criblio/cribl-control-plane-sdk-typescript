@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputJournalFilesType = {
-  JournalFiles: "journal_files",
-} as const;
-export type InputJournalFilesType = ClosedEnum<typeof InputJournalFilesType>;
 
 export type InputJournalFilesConnection = {
   pipeline?: string | undefined;
@@ -115,7 +110,7 @@ export type InputJournalFiles = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputJournalFilesType;
+  type: "journal_files";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -172,15 +167,6 @@ export type InputJournalFiles = {
   metadata?: Array<InputJournalFilesMetadatum> | undefined;
   description?: string | undefined;
 };
-
-/** @internal */
-export const InputJournalFilesType$inboundSchema: z.ZodNativeEnum<
-  typeof InputJournalFilesType
-> = z.nativeEnum(InputJournalFilesType);
-/** @internal */
-export const InputJournalFilesType$outboundSchema: z.ZodNativeEnum<
-  typeof InputJournalFilesType
-> = InputJournalFilesType$inboundSchema;
 
 /** @internal */
 export const InputJournalFilesConnection$inboundSchema: z.ZodType<
@@ -440,7 +426,7 @@ export const InputJournalFiles$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputJournalFilesType$inboundSchema,
+  type: z.literal("journal_files"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -463,7 +449,7 @@ export const InputJournalFiles$inboundSchema: z.ZodType<
 /** @internal */
 export type InputJournalFiles$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "journal_files";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -489,7 +475,7 @@ export const InputJournalFiles$outboundSchema: z.ZodType<
   InputJournalFiles
 > = z.object({
   id: z.string().optional(),
-  type: InputJournalFilesType$outboundSchema,
+  type: z.literal("journal_files"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

@@ -5,16 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputDynatraceHttpType = {
-  DynatraceHttp: "dynatrace_http",
-} as const;
-export type OutputDynatraceHttpType = ClosedEnum<
-  typeof OutputDynatraceHttpType
->;
 
 /**
  * The method to use when sending events
@@ -250,7 +243,7 @@ export type OutputDynatraceHttp = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputDynatraceHttpType;
+  type: "dynatrace_http";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -414,15 +407,6 @@ export type OutputDynatraceHttp = {
    */
   url?: string | undefined;
 };
-
-/** @internal */
-export const OutputDynatraceHttpType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputDynatraceHttpType
-> = z.nativeEnum(OutputDynatraceHttpType);
-/** @internal */
-export const OutputDynatraceHttpType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputDynatraceHttpType
-> = OutputDynatraceHttpType$inboundSchema;
 
 /** @internal */
 export const OutputDynatraceHttpMethod$inboundSchema: z.ZodType<
@@ -754,7 +738,7 @@ export const OutputDynatraceHttp$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputDynatraceHttpType$inboundSchema,
+  type: z.literal("dynatrace_http"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -816,7 +800,7 @@ export const OutputDynatraceHttp$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputDynatraceHttp$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "dynatrace_http";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -875,7 +859,7 @@ export const OutputDynatraceHttp$outboundSchema: z.ZodType<
   OutputDynatraceHttp
 > = z.object({
   id: z.string().optional(),
-  type: OutputDynatraceHttpType$outboundSchema,
+  type: z.literal("dynatrace_http"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputElasticCloudType = {
-  ElasticCloud: "elastic_cloud",
-} as const;
-export type OutputElasticCloudType = ClosedEnum<typeof OutputElasticCloudType>;
 
 export type OutputElasticCloudExtraHttpHeader = {
   name?: string | undefined;
@@ -214,7 +209,7 @@ export type OutputElasticCloud = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputElasticCloudType;
+  type: "elastic_cloud";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -356,15 +351,6 @@ export type OutputElasticCloud = {
   pqOnBackpressure?: OutputElasticCloudQueueFullBehavior | undefined;
   pqControls?: OutputElasticCloudPqControls | undefined;
 };
-
-/** @internal */
-export const OutputElasticCloudType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputElasticCloudType
-> = z.nativeEnum(OutputElasticCloudType);
-/** @internal */
-export const OutputElasticCloudType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputElasticCloudType
-> = OutputElasticCloudType$inboundSchema;
 
 /** @internal */
 export const OutputElasticCloudExtraHttpHeader$inboundSchema: z.ZodType<
@@ -735,7 +721,7 @@ export const OutputElasticCloud$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputElasticCloudType$inboundSchema,
+  type: z.literal("elastic_cloud"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -789,7 +775,7 @@ export const OutputElasticCloud$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputElasticCloud$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "elastic_cloud";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -841,7 +827,7 @@ export const OutputElasticCloud$outboundSchema: z.ZodType<
   OutputElasticCloud
 > = z.object({
   id: z.string().optional(),
-  type: OutputElasticCloudType$outboundSchema,
+  type: z.literal("elastic_cloud"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

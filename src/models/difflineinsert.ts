@@ -4,25 +4,14 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export const DiffLineInsertType = {
-  Insert: "insert",
-} as const;
-export type DiffLineInsertType = ClosedEnum<typeof DiffLineInsertType>;
-
 export type DiffLineInsert = {
-  type: DiffLineInsertType;
+  type: "insert";
   newNumber: number;
   content: string;
 };
-
-/** @internal */
-export const DiffLineInsertType$inboundSchema: z.ZodNativeEnum<
-  typeof DiffLineInsertType
-> = z.nativeEnum(DiffLineInsertType);
 
 /** @internal */
 export const DiffLineInsert$inboundSchema: z.ZodType<
@@ -30,7 +19,7 @@ export const DiffLineInsert$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: DiffLineInsertType$inboundSchema,
+  type: z.literal("insert"),
   newNumber: z.number(),
   content: z.string(),
 });

@@ -4,26 +4,14 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * Collector type: cribl_lake
- */
-export const CollectorCriblLakeType = {
-  CriblLake: "cribl_lake",
-} as const;
-/**
- * Collector type: cribl_lake
- */
-export type CollectorCriblLakeType = ClosedEnum<typeof CollectorCriblLakeType>;
 
 export type CollectorCriblLake = {
   /**
    * Collector type: cribl_lake
    */
-  type: CollectorCriblLakeType;
+  type: "cribl_lake";
   /**
    * Lake dataset to collect data from.
    */
@@ -31,17 +19,12 @@ export type CollectorCriblLake = {
 };
 
 /** @internal */
-export const CollectorCriblLakeType$inboundSchema: z.ZodNativeEnum<
-  typeof CollectorCriblLakeType
-> = z.nativeEnum(CollectorCriblLakeType);
-
-/** @internal */
 export const CollectorCriblLake$inboundSchema: z.ZodType<
   CollectorCriblLake,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: CollectorCriblLakeType$inboundSchema,
+  type: z.literal("cribl_lake"),
   dataset: z.string(),
 });
 

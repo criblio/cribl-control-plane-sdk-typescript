@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputAzureBlobType = {
-  AzureBlob: "azure_blob",
-} as const;
-export type OutputAzureBlobType = ClosedEnum<typeof OutputAzureBlobType>;
 
 /**
  * Format of the output data
@@ -211,7 +206,7 @@ export type OutputAzureBlob = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputAzureBlobType;
+  type: "azure_blob";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -417,15 +412,6 @@ export type OutputAzureBlob = {
   clientTextSecret?: string | undefined;
   certificate?: OutputAzureBlobCertificate | undefined;
 };
-
-/** @internal */
-export const OutputAzureBlobType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureBlobType
-> = z.nativeEnum(OutputAzureBlobType);
-/** @internal */
-export const OutputAzureBlobType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureBlobType
-> = OutputAzureBlobType$inboundSchema;
 
 /** @internal */
 export const OutputAzureBlobDataFormat$inboundSchema: z.ZodType<
@@ -634,7 +620,7 @@ export const OutputAzureBlob$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputAzureBlobType$inboundSchema,
+  type: z.literal("azure_blob"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -709,7 +695,7 @@ export const OutputAzureBlob$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputAzureBlob$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "azure_blob";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -775,7 +761,7 @@ export const OutputAzureBlob$outboundSchema: z.ZodType<
   OutputAzureBlob
 > = z.object({
   id: z.string().optional(),
-  type: OutputAzureBlobType$outboundSchema,
+  type: z.literal("azure_blob"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

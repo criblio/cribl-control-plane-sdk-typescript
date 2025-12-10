@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputCriblHttpType = {
-  CriblHttp: "cribl_http",
-} as const;
-export type InputCriblHttpType = ClosedEnum<typeof InputCriblHttpType>;
 
 export type InputCriblHttpConnection = {
   pipeline?: string | undefined;
@@ -174,7 +169,7 @@ export type InputCriblHttp = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputCriblHttpType;
+  type: "cribl_http";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -264,15 +259,6 @@ export type InputCriblHttp = {
   metadata?: Array<InputCriblHttpMetadatum> | undefined;
   description?: string | undefined;
 };
-
-/** @internal */
-export const InputCriblHttpType$inboundSchema: z.ZodNativeEnum<
-  typeof InputCriblHttpType
-> = z.nativeEnum(InputCriblHttpType);
-/** @internal */
-export const InputCriblHttpType$outboundSchema: z.ZodNativeEnum<
-  typeof InputCriblHttpType
-> = InputCriblHttpType$inboundSchema;
 
 /** @internal */
 export const InputCriblHttpConnection$inboundSchema: z.ZodType<
@@ -627,7 +613,7 @@ export const InputCriblHttp$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputCriblHttpType$inboundSchema,
+  type: z.literal("cribl_http"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -661,7 +647,7 @@ export const InputCriblHttp$inboundSchema: z.ZodType<
 /** @internal */
 export type InputCriblHttp$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "cribl_http";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -696,7 +682,7 @@ export const InputCriblHttp$outboundSchema: z.ZodType<
   InputCriblHttp
 > = z.object({
   id: z.string().optional(),
-  type: InputCriblHttpType$outboundSchema,
+  type: z.literal("cribl_http"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

@@ -4,20 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * Collector type: script
- */
-export const CollectorScriptType = {
-  Script: "script",
-} as const;
-/**
- * Collector type: script
- */
-export type CollectorScriptType = ClosedEnum<typeof CollectorScriptType>;
 
 export type EnvVar = {
   /**
@@ -34,7 +22,7 @@ export type CollectorScript = {
   /**
    * Collector type: script
    */
-  type: CollectorScriptType;
+  type: "script";
   /**
    * Script to discover what to collect. Should output one task per line in stdout.
    */
@@ -52,11 +40,6 @@ export type CollectorScript = {
    */
   envVars?: Array<EnvVar> | undefined;
 };
-
-/** @internal */
-export const CollectorScriptType$inboundSchema: z.ZodNativeEnum<
-  typeof CollectorScriptType
-> = z.nativeEnum(CollectorScriptType);
 
 /** @internal */
 export const EnvVar$inboundSchema: z.ZodType<EnvVar, z.ZodTypeDef, unknown> = z
@@ -81,7 +64,7 @@ export const CollectorScript$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: CollectorScriptType$inboundSchema,
+  type: z.literal("script"),
   discoverScript: z.string(),
   collectScript: z.string(),
   shell: z.string().default("/bin/bash"),

@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputSplunkSearchType = {
-  SplunkSearch: "splunk_search",
-} as const;
-export type InputSplunkSearchType = ClosedEnum<typeof InputSplunkSearchType>;
 
 export type InputSplunkSearchConnection = {
   pipeline?: string | undefined;
@@ -249,7 +244,7 @@ export type InputSplunkSearch = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputSplunkSearchType;
+  type: "splunk_search";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -417,15 +412,6 @@ export type InputSplunkSearch = {
    */
   oauthHeaders?: Array<InputSplunkSearchOauthHeader> | undefined;
 };
-
-/** @internal */
-export const InputSplunkSearchType$inboundSchema: z.ZodNativeEnum<
-  typeof InputSplunkSearchType
-> = z.nativeEnum(InputSplunkSearchType);
-/** @internal */
-export const InputSplunkSearchType$outboundSchema: z.ZodNativeEnum<
-  typeof InputSplunkSearchType
-> = InputSplunkSearchType$inboundSchema;
 
 /** @internal */
 export const InputSplunkSearchConnection$inboundSchema: z.ZodType<
@@ -921,7 +907,7 @@ export const InputSplunkSearch$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputSplunkSearchType$inboundSchema,
+  type: z.literal("splunk_search"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -979,7 +965,7 @@ export const InputSplunkSearch$inboundSchema: z.ZodType<
 /** @internal */
 export type InputSplunkSearch$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "splunk_search";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -1035,7 +1021,7 @@ export const InputSplunkSearch$outboundSchema: z.ZodType<
   InputSplunkSearch
 > = z.object({
   id: z.string().optional(),
-  type: InputSplunkSearchType$outboundSchema,
+  type: z.literal("splunk_search"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
