@@ -5,16 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputOpenTelemetryType = {
-  OpenTelemetry: "open_telemetry",
-} as const;
-export type OutputOpenTelemetryType = ClosedEnum<
-  typeof OutputOpenTelemetryType
->;
 
 /**
  * Select a transport option for OpenTelemetry
@@ -355,7 +348,7 @@ export type OutputOpenTelemetry = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputOpenTelemetryType;
+  type: "open_telemetry";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -571,15 +564,6 @@ export type OutputOpenTelemetry = {
   pqOnBackpressure?: OutputOpenTelemetryQueueFullBehavior | undefined;
   pqControls?: OutputOpenTelemetryPqControls | undefined;
 };
-
-/** @internal */
-export const OutputOpenTelemetryType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputOpenTelemetryType
-> = z.nativeEnum(OutputOpenTelemetryType);
-/** @internal */
-export const OutputOpenTelemetryType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputOpenTelemetryType
-> = OutputOpenTelemetryType$inboundSchema;
 
 /** @internal */
 export const OutputOpenTelemetryProtocol$inboundSchema: z.ZodType<
@@ -1137,7 +1121,7 @@ export const OutputOpenTelemetry$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputOpenTelemetryType$inboundSchema,
+  type: z.literal("open_telemetry"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -1221,7 +1205,7 @@ export const OutputOpenTelemetry$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputOpenTelemetry$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "open_telemetry";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -1293,7 +1277,7 @@ export const OutputOpenTelemetry$outboundSchema: z.ZodType<
   OutputOpenTelemetry
 > = z.object({
   id: z.string().optional(),
-  type: OutputOpenTelemetryType$outboundSchema,
+  type: z.literal("open_telemetry"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

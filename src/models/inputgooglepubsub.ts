@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputGooglePubsubType = {
-  GooglePubsub: "google_pubsub",
-} as const;
-export type InputGooglePubsubType = ClosedEnum<typeof InputGooglePubsubType>;
 
 export type InputGooglePubsubConnection = {
   pipeline?: string | undefined;
@@ -128,7 +123,7 @@ export type InputGooglePubsub = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputGooglePubsubType;
+  type: "google_pubsub";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -213,15 +208,6 @@ export type InputGooglePubsub = {
    */
   orderedDelivery?: boolean | undefined;
 };
-
-/** @internal */
-export const InputGooglePubsubType$inboundSchema: z.ZodNativeEnum<
-  typeof InputGooglePubsubType
-> = z.nativeEnum(InputGooglePubsubType);
-/** @internal */
-export const InputGooglePubsubType$outboundSchema: z.ZodNativeEnum<
-  typeof InputGooglePubsubType
-> = InputGooglePubsubType$inboundSchema;
 
 /** @internal */
 export const InputGooglePubsubConnection$inboundSchema: z.ZodType<
@@ -451,7 +437,7 @@ export const InputGooglePubsub$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputGooglePubsubType$inboundSchema,
+  type: z.literal("google_pubsub"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -482,7 +468,7 @@ export const InputGooglePubsub$inboundSchema: z.ZodType<
 /** @internal */
 export type InputGooglePubsub$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "google_pubsub";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -515,7 +501,7 @@ export const InputGooglePubsub$outboundSchema: z.ZodType<
   InputGooglePubsub
 > = z.object({
   id: z.string().optional(),
-  type: InputGooglePubsubType$outboundSchema,
+  type: z.literal("google_pubsub"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

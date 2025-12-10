@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputXsiamType = {
-  Xsiam: "xsiam",
-} as const;
-export type OutputXsiamType = ClosedEnum<typeof OutputXsiamType>;
 
 export type OutputXsiamExtraHttpHeader = {
   name?: string | undefined;
@@ -191,7 +186,7 @@ export type OutputXsiam = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputXsiamType;
+  type: "xsiam";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -349,15 +344,6 @@ export type OutputXsiam = {
   pqOnBackpressure?: OutputXsiamQueueFullBehavior | undefined;
   pqControls?: OutputXsiamPqControls | undefined;
 };
-
-/** @internal */
-export const OutputXsiamType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputXsiamType
-> = z.nativeEnum(OutputXsiamType);
-/** @internal */
-export const OutputXsiamType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputXsiamType
-> = OutputXsiamType$inboundSchema;
 
 /** @internal */
 export const OutputXsiamExtraHttpHeader$inboundSchema: z.ZodType<
@@ -657,7 +643,7 @@ export const OutputXsiam$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputXsiamType$inboundSchema,
+  type: z.literal("xsiam"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -712,7 +698,7 @@ export const OutputXsiam$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputXsiam$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "xsiam";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -765,7 +751,7 @@ export const OutputXsiam$outboundSchema: z.ZodType<
   OutputXsiam
 > = z.object({
   id: z.string().optional(),
-  type: OutputXsiamType$outboundSchema,
+  type: z.literal("xsiam"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

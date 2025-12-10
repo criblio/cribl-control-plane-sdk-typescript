@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputMskType = {
-  Msk: "msk",
-} as const;
-export type InputMskType = ClosedEnum<typeof InputMskType>;
 
 export type InputMskConnection = {
   pipeline?: string | undefined;
@@ -290,7 +285,7 @@ export type InputMsk = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputMskType;
+  type: "msk";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -465,13 +460,6 @@ export type InputMsk = {
    */
   awsSecret?: string | undefined;
 };
-
-/** @internal */
-export const InputMskType$inboundSchema: z.ZodNativeEnum<typeof InputMskType> =
-  z.nativeEnum(InputMskType);
-/** @internal */
-export const InputMskType$outboundSchema: z.ZodNativeEnum<typeof InputMskType> =
-  InputMskType$inboundSchema;
 
 /** @internal */
 export const InputMskConnection$inboundSchema: z.ZodType<
@@ -1019,7 +1007,7 @@ export const InputMsk$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputMskType$inboundSchema,
+  type: z.literal("msk"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -1074,7 +1062,7 @@ export const InputMsk$inboundSchema: z.ZodType<
 /** @internal */
 export type InputMsk$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "msk";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -1131,7 +1119,7 @@ export const InputMsk$outboundSchema: z.ZodType<
   InputMsk
 > = z.object({
   id: z.string().optional(),
-  type: InputMskType$outboundSchema,
+  type: z.literal("msk"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

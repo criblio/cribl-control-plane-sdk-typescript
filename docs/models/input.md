@@ -8,6 +8,7 @@
 ```typescript
 const value: models.InputCollection = {
   id: "<id>",
+  type: "collection",
   pipeline: "<value>",
   environment: "<value>",
   streamtags: [

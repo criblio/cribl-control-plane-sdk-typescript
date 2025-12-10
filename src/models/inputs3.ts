@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputS3Type = {
-  S3: "s3",
-} as const;
-export type InputS3Type = ClosedEnum<typeof InputS3Type>;
 
 export type InputS3Connection = {
   pipeline?: string | undefined;
@@ -161,7 +156,7 @@ export type InputS3 = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputS3Type;
+  type: "s3";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -318,13 +313,6 @@ export type InputS3 = {
    */
   processedTagValue?: string | undefined;
 };
-
-/** @internal */
-export const InputS3Type$inboundSchema: z.ZodNativeEnum<typeof InputS3Type> = z
-  .nativeEnum(InputS3Type);
-/** @internal */
-export const InputS3Type$outboundSchema: z.ZodNativeEnum<typeof InputS3Type> =
-  InputS3Type$inboundSchema;
 
 /** @internal */
 export const InputS3Connection$inboundSchema: z.ZodType<
@@ -642,7 +630,7 @@ export function inputS3CheckpointingFromJSON(
 export const InputS3$inboundSchema: z.ZodType<InputS3, z.ZodTypeDef, unknown> =
   z.object({
     id: z.string().optional(),
-    type: InputS3Type$inboundSchema,
+    type: z.literal("s3"),
     disabled: z.boolean().default(false),
     pipeline: z.string().optional(),
     sendToRoutes: z.boolean().default(true),
@@ -694,7 +682,7 @@ export const InputS3$inboundSchema: z.ZodType<InputS3, z.ZodTypeDef, unknown> =
 /** @internal */
 export type InputS3$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "s3";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -748,7 +736,7 @@ export const InputS3$outboundSchema: z.ZodType<
   InputS3
 > = z.object({
   id: z.string().optional(),
-  type: InputS3Type$outboundSchema,
+  type: z.literal("s3"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

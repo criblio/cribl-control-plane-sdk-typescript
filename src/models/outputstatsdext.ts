@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputStatsdExtType = {
-  StatsdExt: "statsd_ext",
-} as const;
-export type OutputStatsdExtType = ClosedEnum<typeof OutputStatsdExtType>;
 
 /**
  * Protocol to use when communicating with the destination.
@@ -127,7 +122,7 @@ export type OutputStatsdExt = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputStatsdExtType;
+  type: "statsd_ext";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -227,15 +222,6 @@ export type OutputStatsdExt = {
   pqOnBackpressure?: OutputStatsdExtQueueFullBehavior | undefined;
   pqControls?: OutputStatsdExtPqControls | undefined;
 };
-
-/** @internal */
-export const OutputStatsdExtType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputStatsdExtType
-> = z.nativeEnum(OutputStatsdExtType);
-/** @internal */
-export const OutputStatsdExtType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputStatsdExtType
-> = OutputStatsdExtType$inboundSchema;
 
 /** @internal */
 export const OutputStatsdExtDestinationProtocol$inboundSchema: z.ZodType<
@@ -342,7 +328,7 @@ export const OutputStatsdExt$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputStatsdExtType$inboundSchema,
+  type: z.literal("statsd_ext"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -377,7 +363,7 @@ export const OutputStatsdExt$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputStatsdExt$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "statsd_ext";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -413,7 +399,7 @@ export const OutputStatsdExt$outboundSchema: z.ZodType<
   OutputStatsdExt
 > = z.object({
   id: z.string().optional(),
-  type: OutputStatsdExtType$outboundSchema,
+  type: z.literal("statsd_ext"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

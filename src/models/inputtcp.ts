@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputTcpType = {
-  Tcp: "tcp",
-} as const;
-export type InputTcpType = ClosedEnum<typeof InputTcpType>;
 
 export type InputTcpConnection = {
   pipeline?: string | undefined;
@@ -186,7 +181,7 @@ export type InputTcp = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputTcpType;
+  type: "tcp";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -277,13 +272,6 @@ export type InputTcp = {
    */
   textSecret?: string | undefined;
 };
-
-/** @internal */
-export const InputTcpType$inboundSchema: z.ZodNativeEnum<typeof InputTcpType> =
-  z.nativeEnum(InputTcpType);
-/** @internal */
-export const InputTcpType$outboundSchema: z.ZodNativeEnum<typeof InputTcpType> =
-  InputTcpType$inboundSchema;
 
 /** @internal */
 export const InputTcpConnection$inboundSchema: z.ZodType<
@@ -646,7 +634,7 @@ export const InputTcp$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputTcpType$inboundSchema,
+  type: z.literal("tcp"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -678,7 +666,7 @@ export const InputTcp$inboundSchema: z.ZodType<
 /** @internal */
 export type InputTcp$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "tcp";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -714,7 +702,7 @@ export const InputTcp$outboundSchema: z.ZodType<
   InputTcp
 > = z.object({
   id: z.string().optional(),
-  type: InputTcpType$outboundSchema,
+  type: z.literal("tcp"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

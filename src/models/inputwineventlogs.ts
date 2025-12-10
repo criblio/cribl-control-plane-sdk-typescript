@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputWinEventLogsType = {
-  WinEventLogs: "win_event_logs",
-} as const;
-export type InputWinEventLogsType = ClosedEnum<typeof InputWinEventLogsType>;
 
 export type InputWinEventLogsConnection = {
   pipeline?: string | undefined;
@@ -140,7 +135,7 @@ export type InputWinEventLogs = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputWinEventLogsType;
+  type: "win_event_logs";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -209,15 +204,6 @@ export type InputWinEventLogs = {
    */
   disableXmlRendering?: boolean | undefined;
 };
-
-/** @internal */
-export const InputWinEventLogsType$inboundSchema: z.ZodNativeEnum<
-  typeof InputWinEventLogsType
-> = z.nativeEnum(InputWinEventLogsType);
-/** @internal */
-export const InputWinEventLogsType$outboundSchema: z.ZodNativeEnum<
-  typeof InputWinEventLogsType
-> = InputWinEventLogsType$inboundSchema;
 
 /** @internal */
 export const InputWinEventLogsConnection$inboundSchema: z.ZodType<
@@ -461,7 +447,7 @@ export const InputWinEventLogs$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputWinEventLogsType$inboundSchema,
+  type: z.literal("win_event_logs"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -487,7 +473,7 @@ export const InputWinEventLogs$inboundSchema: z.ZodType<
 /** @internal */
 export type InputWinEventLogs$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "win_event_logs";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -516,7 +502,7 @@ export const InputWinEventLogs$outboundSchema: z.ZodType<
   InputWinEventLogs
 > = z.object({
   id: z.string().optional(),
-  type: InputWinEventLogsType$outboundSchema,
+  type: z.literal("win_event_logs"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

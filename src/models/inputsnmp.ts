@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputSnmpType = {
-  Snmp: "snmp",
-} as const;
-export type InputSnmpType = ClosedEnum<typeof InputSnmpType>;
 
 export type InputSnmpConnection = {
   pipeline?: string | undefined;
@@ -156,7 +151,7 @@ export type InputSnmp = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputSnmpType;
+  type: "snmp";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -221,15 +216,6 @@ export type InputSnmp = {
   bestEffortParsing?: boolean | undefined;
   description?: string | undefined;
 };
-
-/** @internal */
-export const InputSnmpType$inboundSchema: z.ZodNativeEnum<
-  typeof InputSnmpType
-> = z.nativeEnum(InputSnmpType);
-/** @internal */
-export const InputSnmpType$outboundSchema: z.ZodNativeEnum<
-  typeof InputSnmpType
-> = InputSnmpType$inboundSchema;
 
 /** @internal */
 export const InputSnmpConnection$inboundSchema: z.ZodType<
@@ -536,7 +522,7 @@ export const InputSnmp$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputSnmpType$inboundSchema,
+  type: z.literal("snmp"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -560,7 +546,7 @@ export const InputSnmp$inboundSchema: z.ZodType<
 /** @internal */
 export type InputSnmp$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "snmp";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -588,7 +574,7 @@ export const InputSnmp$outboundSchema: z.ZodType<
   InputSnmp
 > = z.object({
   id: z.string().optional(),
-  type: InputSnmpType$outboundSchema,
+  type: z.literal("snmp"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

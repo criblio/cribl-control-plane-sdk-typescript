@@ -5,16 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputGoogleChronicleType = {
-  GoogleChronicle: "google_chronicle",
-} as const;
-export type OutputGoogleChronicleType = ClosedEnum<
-  typeof OutputGoogleChronicleType
->;
 
 export const OutputGoogleChronicleAPIVersion = {
   /**
@@ -245,7 +238,7 @@ export type OutputGoogleChronicle = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputGoogleChronicleType;
+  type: "google_chronicle";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -425,15 +418,6 @@ export type OutputGoogleChronicle = {
   pqOnBackpressure?: OutputGoogleChronicleQueueFullBehavior | undefined;
   pqControls?: OutputGoogleChroniclePqControls | undefined;
 };
-
-/** @internal */
-export const OutputGoogleChronicleType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputGoogleChronicleType
-> = z.nativeEnum(OutputGoogleChronicleType);
-/** @internal */
-export const OutputGoogleChronicleType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputGoogleChronicleType
-> = OutputGoogleChronicleType$inboundSchema;
 
 /** @internal */
 export const OutputGoogleChronicleAPIVersion$inboundSchema: z.ZodType<
@@ -829,7 +813,7 @@ export const OutputGoogleChronicle$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputGoogleChronicleType$inboundSchema,
+  type: z.literal("google_chronicle"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -894,7 +878,7 @@ export const OutputGoogleChronicle$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputGoogleChronicle$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "google_chronicle";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -957,7 +941,7 @@ export const OutputGoogleChronicle$outboundSchema: z.ZodType<
   OutputGoogleChronicle
 > = z.object({
   id: z.string().optional(),
-  type: OutputGoogleChronicleType$outboundSchema,
+  type: z.literal("google_chronicle"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

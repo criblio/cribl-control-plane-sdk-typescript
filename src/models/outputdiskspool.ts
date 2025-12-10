@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputDiskSpoolType = {
-  DiskSpool: "disk_spool",
-} as const;
-export type OutputDiskSpoolType = ClosedEnum<typeof OutputDiskSpoolType>;
 
 /**
  * Data compression format. Default is gzip.
@@ -33,7 +28,7 @@ export type OutputDiskSpool = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputDiskSpoolType;
+  type: "disk_spool";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -74,15 +69,6 @@ export type OutputDiskSpool = {
 };
 
 /** @internal */
-export const OutputDiskSpoolType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputDiskSpoolType
-> = z.nativeEnum(OutputDiskSpoolType);
-/** @internal */
-export const OutputDiskSpoolType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputDiskSpoolType
-> = OutputDiskSpoolType$inboundSchema;
-
-/** @internal */
 export const OutputDiskSpoolCompression$inboundSchema: z.ZodType<
   OutputDiskSpoolCompression,
   z.ZodTypeDef,
@@ -102,7 +88,7 @@ export const OutputDiskSpool$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputDiskSpoolType$inboundSchema,
+  type: z.literal("disk_spool"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -117,7 +103,7 @@ export const OutputDiskSpool$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputDiskSpool$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "disk_spool";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -137,7 +123,7 @@ export const OutputDiskSpool$outboundSchema: z.ZodType<
   OutputDiskSpool
 > = z.object({
   id: z.string().optional(),
-  type: OutputDiskSpoolType$outboundSchema,
+  type: z.literal("disk_spool"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

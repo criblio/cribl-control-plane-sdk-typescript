@@ -416,295 +416,219 @@ import {
 } from "./outputxsiam.js";
 
 export type Output =
-  | (OutputAzureDataExplorer & { type: "azure_data_explorer" })
-  | (OutputSecurityLake & { type: "security_lake" })
-  | (OutputChronicle & { type: "chronicle" })
-  | (OutputSentinel & { type: "sentinel" })
-  | (OutputGoogleCloudLogging & { type: "google_cloud_logging" })
-  | (OutputExabeam & { type: "exabeam" })
-  | (OutputMsk & { type: "msk" })
-  | (OutputCloudwatch & { type: "cloudwatch" })
-  | (OutputClickHouse & { type: "click_house" })
-  | (OutputDatabricks & { type: "databricks" })
-  | (OutputKinesis & { type: "kinesis" })
-  | (OutputAzureEventhub & { type: "azure_eventhub" })
-  | (OutputGoogleCloudStorage & { type: "google_cloud_storage" })
-  | (OutputKafka & { type: "kafka" })
-  | (OutputConfluentCloud & { type: "confluent_cloud" })
-  | (OutputElasticCloud & { type: "elastic_cloud" })
-  | (OutputNewrelicEvents & { type: "newrelic_events" })
-  | (OutputMinio & { type: "minio" })
-  | (OutputSns & { type: "sns" })
-  | (OutputSqs & { type: "sqs" })
-  | (OutputMicrosoftFabric & { type: "microsoft_fabric" })
-  | (OutputCloudflareR2 & { type: "cloudflare_r2" })
-  | (OutputDefault & { type: "default" })
-  | (OutputSplunk & { type: "splunk" })
-  | (OutputSplunkLb & { type: "splunk_lb" })
-  | (OutputFilesystem & { type: "filesystem" })
-  | (OutputS3 & { type: "s3" })
-  | (OutputAzureBlob & { type: "azure_blob" })
-  | (OutputHoneycomb & { type: "honeycomb" })
-  | (OutputGooglePubsub & { type: "google_pubsub" })
-  | (OutputElastic & { type: "elastic" })
-  | (OutputInfluxdb & { type: "influxdb" })
-  | (OutputStatsd & { type: "statsd" })
-  | (OutputStatsdExt & { type: "statsd_ext" })
-  | (OutputGraphite & { type: "graphite" })
-  | (OutputRouter & { type: "router" })
-  | (OutputSnmp & { type: "snmp" })
-  | (OutputSumoLogic & { type: "sumo_logic" })
-  | (OutputLoki & { type: "loki" })
-  | (OutputPrometheus & { type: "prometheus" })
-  | (OutputOpenTelemetry & { type: "open_telemetry" })
-  | (OutputServiceNow & { type: "service_now" })
-  | (OutputCrowdstrikeNextGenSiem & { type: "crowdstrike_next_gen_siem" })
-  | (OutputDlS3 & { type: "dl_s3" })
-  | (OutputNetflow & { type: "netflow" })
-  | (OutputDynatraceOtlp & { type: "dynatrace_otlp" })
-  | (OutputWebhook & { type: "webhook" })
-  | (OutputDevnull & { type: "devnull" })
-  | (OutputSyslog & { type: "syslog" })
-  | (OutputSplunkHec & { type: "splunk_hec" })
-  | (OutputTcpjson & { type: "tcpjson" })
-  | (OutputWavefront & { type: "wavefront" })
-  | (OutputSignalfx & { type: "signalfx" })
-  | (OutputAzureLogs & { type: "azure_logs" })
-  | (OutputGoogleChronicle & { type: "google_chronicle" })
-  | (OutputNewrelic & { type: "newrelic" })
-  | (OutputDatadog & { type: "datadog" })
-  | (OutputRing & { type: "ring" })
-  | (OutputDataset & { type: "dataset" })
-  | (OutputCriblTcp & { type: "cribl_tcp" })
-  | (OutputCriblHttp & { type: "cribl_http" })
-  | (OutputHumioHec & { type: "humio_hec" })
-  | (OutputCriblLake & { type: "cribl_lake" })
-  | (OutputDiskSpool & { type: "disk_spool" })
-  | (OutputXsiam & { type: "xsiam" })
-  | (OutputDynatraceHttp & { type: "dynatrace_http" })
-  | (OutputSentinelOneAiSiem & { type: "sentinel_one_ai_siem" })
-  | (OutputGrafanaCloud & { type: "grafana_cloud" });
+  | OutputDefault
+  | OutputWebhook
+  | OutputSentinel
+  | OutputDevnull
+  | OutputSyslog
+  | OutputSplunk
+  | OutputSplunkLb
+  | OutputSplunkHec
+  | OutputTcpjson
+  | OutputWavefront
+  | OutputSignalfx
+  | OutputFilesystem
+  | OutputS3
+  | OutputAzureBlob
+  | OutputAzureDataExplorer
+  | OutputAzureLogs
+  | OutputKinesis
+  | OutputHoneycomb
+  | OutputAzureEventhub
+  | OutputGoogleChronicle
+  | OutputGoogleCloudStorage
+  | OutputGoogleCloudLogging
+  | OutputGooglePubsub
+  | OutputExabeam
+  | OutputKafka
+  | OutputConfluentCloud
+  | OutputMsk
+  | OutputElastic
+  | OutputElasticCloud
+  | OutputNewrelic
+  | OutputNewrelicEvents
+  | OutputInfluxdb
+  | OutputCloudwatch
+  | OutputMinio
+  | OutputStatsd
+  | OutputStatsdExt
+  | OutputGraphite
+  | OutputRouter
+  | OutputSns
+  | OutputSqs
+  | OutputSnmp
+  | OutputSumoLogic
+  | OutputDatadog
+  | (OutputGrafanaCloud & { type: "grafana_cloud" })
+  | OutputLoki
+  | OutputPrometheus
+  | OutputRing
+  | OutputOpenTelemetry
+  | OutputServiceNow
+  | OutputDataset
+  | OutputCriblTcp
+  | OutputCriblHttp
+  | OutputHumioHec
+  | OutputCrowdstrikeNextGenSiem
+  | OutputDlS3
+  | OutputSecurityLake
+  | OutputCriblLake
+  | OutputDiskSpool
+  | OutputClickHouse
+  | OutputXsiam
+  | OutputNetflow
+  | OutputDynatraceHttp
+  | OutputDynatraceOtlp
+  | OutputSentinelOneAiSiem
+  | OutputChronicle
+  | OutputDatabricks
+  | OutputMicrosoftFabric
+  | OutputCloudflareR2;
 
 /** @internal */
 export const Output$inboundSchema: z.ZodType<Output, z.ZodTypeDef, unknown> = z
   .union([
-    OutputAzureDataExplorer$inboundSchema.and(
-      z.object({ type: z.literal("azure_data_explorer") }),
-    ),
-    OutputSecurityLake$inboundSchema.and(
-      z.object({ type: z.literal("security_lake") }),
-    ),
-    OutputChronicle$inboundSchema.and(
-      z.object({ type: z.literal("chronicle") }),
-    ),
-    OutputSentinel$inboundSchema.and(z.object({ type: z.literal("sentinel") })),
-    OutputGoogleCloudLogging$inboundSchema.and(
-      z.object({ type: z.literal("google_cloud_logging") }),
-    ),
-    OutputExabeam$inboundSchema.and(z.object({ type: z.literal("exabeam") })),
-    OutputMsk$inboundSchema.and(z.object({ type: z.literal("msk") })),
-    OutputCloudwatch$inboundSchema.and(
-      z.object({ type: z.literal("cloudwatch") }),
-    ),
-    OutputClickHouse$inboundSchema.and(
-      z.object({ type: z.literal("click_house") }),
-    ),
-    OutputDatabricks$inboundSchema.and(
-      z.object({ type: z.literal("databricks") }),
-    ),
-    OutputKinesis$inboundSchema.and(z.object({ type: z.literal("kinesis") })),
-    OutputAzureEventhub$inboundSchema.and(
-      z.object({ type: z.literal("azure_eventhub") }),
-    ),
-    OutputGoogleCloudStorage$inboundSchema.and(
-      z.object({ type: z.literal("google_cloud_storage") }),
-    ),
-    OutputKafka$inboundSchema.and(z.object({ type: z.literal("kafka") })),
-    OutputConfluentCloud$inboundSchema.and(
-      z.object({ type: z.literal("confluent_cloud") }),
-    ),
-    OutputElasticCloud$inboundSchema.and(
-      z.object({ type: z.literal("elastic_cloud") }),
-    ),
-    OutputNewrelicEvents$inboundSchema.and(
-      z.object({ type: z.literal("newrelic_events") }),
-    ),
-    OutputMinio$inboundSchema.and(z.object({ type: z.literal("minio") })),
-    OutputSns$inboundSchema.and(z.object({ type: z.literal("sns") })),
-    OutputSqs$inboundSchema.and(z.object({ type: z.literal("sqs") })),
-    OutputMicrosoftFabric$inboundSchema.and(
-      z.object({ type: z.literal("microsoft_fabric") }),
-    ),
-    OutputCloudflareR2$inboundSchema.and(
-      z.object({ type: z.literal("cloudflare_r2") }),
-    ),
-    OutputDefault$inboundSchema.and(z.object({ type: z.literal("default") })),
-    OutputSplunk$inboundSchema.and(z.object({ type: z.literal("splunk") })),
-    OutputSplunkLb$inboundSchema.and(
-      z.object({ type: z.literal("splunk_lb") }),
-    ),
-    OutputFilesystem$inboundSchema.and(
-      z.object({ type: z.literal("filesystem") }),
-    ),
-    OutputS3$inboundSchema.and(z.object({ type: z.literal("s3") })),
-    OutputAzureBlob$inboundSchema.and(
-      z.object({ type: z.literal("azure_blob") }),
-    ),
-    OutputHoneycomb$inboundSchema.and(
-      z.object({ type: z.literal("honeycomb") }),
-    ),
-    OutputGooglePubsub$inboundSchema.and(
-      z.object({ type: z.literal("google_pubsub") }),
-    ),
-    OutputElastic$inboundSchema.and(z.object({ type: z.literal("elastic") })),
-    OutputInfluxdb$inboundSchema.and(z.object({ type: z.literal("influxdb") })),
-    OutputStatsd$inboundSchema.and(z.object({ type: z.literal("statsd") })),
-    OutputStatsdExt$inboundSchema.and(
-      z.object({ type: z.literal("statsd_ext") }),
-    ),
-    OutputGraphite$inboundSchema.and(z.object({ type: z.literal("graphite") })),
-    OutputRouter$inboundSchema.and(z.object({ type: z.literal("router") })),
-    OutputSnmp$inboundSchema.and(z.object({ type: z.literal("snmp") })),
-    OutputSumoLogic$inboundSchema.and(
-      z.object({ type: z.literal("sumo_logic") }),
-    ),
-    OutputLoki$inboundSchema.and(z.object({ type: z.literal("loki") })),
-    OutputPrometheus$inboundSchema.and(
-      z.object({ type: z.literal("prometheus") }),
-    ),
-    OutputOpenTelemetry$inboundSchema.and(
-      z.object({ type: z.literal("open_telemetry") }),
-    ),
-    OutputServiceNow$inboundSchema.and(
-      z.object({ type: z.literal("service_now") }),
-    ),
-    OutputCrowdstrikeNextGenSiem$inboundSchema.and(
-      z.object({ type: z.literal("crowdstrike_next_gen_siem") }),
-    ),
-    OutputDlS3$inboundSchema.and(z.object({ type: z.literal("dl_s3") })),
-    OutputNetflow$inboundSchema.and(z.object({ type: z.literal("netflow") })),
-    OutputDynatraceOtlp$inboundSchema.and(
-      z.object({ type: z.literal("dynatrace_otlp") }),
-    ),
-    OutputWebhook$inboundSchema.and(z.object({ type: z.literal("webhook") })),
-    OutputDevnull$inboundSchema.and(z.object({ type: z.literal("devnull") })),
-    OutputSyslog$inboundSchema.and(z.object({ type: z.literal("syslog") })),
-    OutputSplunkHec$inboundSchema.and(
-      z.object({ type: z.literal("splunk_hec") }),
-    ),
-    OutputTcpjson$inboundSchema.and(z.object({ type: z.literal("tcpjson") })),
-    OutputWavefront$inboundSchema.and(
-      z.object({ type: z.literal("wavefront") }),
-    ),
-    OutputSignalfx$inboundSchema.and(z.object({ type: z.literal("signalfx") })),
-    OutputAzureLogs$inboundSchema.and(
-      z.object({ type: z.literal("azure_logs") }),
-    ),
-    OutputGoogleChronicle$inboundSchema.and(
-      z.object({ type: z.literal("google_chronicle") }),
-    ),
-    OutputNewrelic$inboundSchema.and(z.object({ type: z.literal("newrelic") })),
-    OutputDatadog$inboundSchema.and(z.object({ type: z.literal("datadog") })),
-    OutputRing$inboundSchema.and(z.object({ type: z.literal("ring") })),
-    OutputDataset$inboundSchema.and(z.object({ type: z.literal("dataset") })),
-    OutputCriblTcp$inboundSchema.and(
-      z.object({ type: z.literal("cribl_tcp") }),
-    ),
-    OutputCriblHttp$inboundSchema.and(
-      z.object({ type: z.literal("cribl_http") }),
-    ),
-    OutputHumioHec$inboundSchema.and(
-      z.object({ type: z.literal("humio_hec") }),
-    ),
-    OutputCriblLake$inboundSchema.and(
-      z.object({ type: z.literal("cribl_lake") }),
-    ),
-    OutputDiskSpool$inboundSchema.and(
-      z.object({ type: z.literal("disk_spool") }),
-    ),
-    OutputXsiam$inboundSchema.and(z.object({ type: z.literal("xsiam") })),
-    OutputDynatraceHttp$inboundSchema.and(
-      z.object({ type: z.literal("dynatrace_http") }),
-    ),
-    OutputSentinelOneAiSiem$inboundSchema.and(
-      z.object({ type: z.literal("sentinel_one_ai_siem") }),
-    ),
+    OutputDefault$inboundSchema,
+    OutputWebhook$inboundSchema,
+    OutputSentinel$inboundSchema,
+    OutputDevnull$inboundSchema,
+    OutputSyslog$inboundSchema,
+    OutputSplunk$inboundSchema,
+    OutputSplunkLb$inboundSchema,
+    OutputSplunkHec$inboundSchema,
+    OutputTcpjson$inboundSchema,
+    OutputWavefront$inboundSchema,
+    OutputSignalfx$inboundSchema,
+    OutputFilesystem$inboundSchema,
+    OutputS3$inboundSchema,
+    OutputAzureBlob$inboundSchema,
+    OutputAzureDataExplorer$inboundSchema,
+    OutputAzureLogs$inboundSchema,
+    OutputKinesis$inboundSchema,
+    OutputHoneycomb$inboundSchema,
+    OutputAzureEventhub$inboundSchema,
+    OutputGoogleChronicle$inboundSchema,
+    OutputGoogleCloudStorage$inboundSchema,
+    OutputGoogleCloudLogging$inboundSchema,
+    OutputGooglePubsub$inboundSchema,
+    OutputExabeam$inboundSchema,
+    OutputKafka$inboundSchema,
+    OutputConfluentCloud$inboundSchema,
+    OutputMsk$inboundSchema,
+    OutputElastic$inboundSchema,
+    OutputElasticCloud$inboundSchema,
+    OutputNewrelic$inboundSchema,
+    OutputNewrelicEvents$inboundSchema,
+    OutputInfluxdb$inboundSchema,
+    OutputCloudwatch$inboundSchema,
+    OutputMinio$inboundSchema,
+    OutputStatsd$inboundSchema,
+    OutputStatsdExt$inboundSchema,
+    OutputGraphite$inboundSchema,
+    OutputRouter$inboundSchema,
+    OutputSns$inboundSchema,
+    OutputSqs$inboundSchema,
+    OutputSnmp$inboundSchema,
+    OutputSumoLogic$inboundSchema,
+    OutputDatadog$inboundSchema,
     OutputGrafanaCloud$inboundSchema.and(
       z.object({ type: z.literal("grafana_cloud") }),
     ),
+    OutputLoki$inboundSchema,
+    OutputPrometheus$inboundSchema,
+    OutputRing$inboundSchema,
+    OutputOpenTelemetry$inboundSchema,
+    OutputServiceNow$inboundSchema,
+    OutputDataset$inboundSchema,
+    OutputCriblTcp$inboundSchema,
+    OutputCriblHttp$inboundSchema,
+    OutputHumioHec$inboundSchema,
+    OutputCrowdstrikeNextGenSiem$inboundSchema,
+    OutputDlS3$inboundSchema,
+    OutputSecurityLake$inboundSchema,
+    OutputCriblLake$inboundSchema,
+    OutputDiskSpool$inboundSchema,
+    OutputClickHouse$inboundSchema,
+    OutputXsiam$inboundSchema,
+    OutputNetflow$inboundSchema,
+    OutputDynatraceHttp$inboundSchema,
+    OutputDynatraceOtlp$inboundSchema,
+    OutputSentinelOneAiSiem$inboundSchema,
+    OutputChronicle$inboundSchema,
+    OutputDatabricks$inboundSchema,
+    OutputMicrosoftFabric$inboundSchema,
+    OutputCloudflareR2$inboundSchema,
   ]);
 /** @internal */
 export type Output$Outbound =
-  | (OutputAzureDataExplorer$Outbound & { type: "azure_data_explorer" })
-  | (OutputSecurityLake$Outbound & { type: "security_lake" })
-  | (OutputChronicle$Outbound & { type: "chronicle" })
-  | (OutputSentinel$Outbound & { type: "sentinel" })
-  | (OutputGoogleCloudLogging$Outbound & { type: "google_cloud_logging" })
-  | (OutputExabeam$Outbound & { type: "exabeam" })
-  | (OutputMsk$Outbound & { type: "msk" })
-  | (OutputCloudwatch$Outbound & { type: "cloudwatch" })
-  | (OutputClickHouse$Outbound & { type: "click_house" })
-  | (OutputDatabricks$Outbound & { type: "databricks" })
-  | (OutputKinesis$Outbound & { type: "kinesis" })
-  | (OutputAzureEventhub$Outbound & { type: "azure_eventhub" })
-  | (OutputGoogleCloudStorage$Outbound & { type: "google_cloud_storage" })
-  | (OutputKafka$Outbound & { type: "kafka" })
-  | (OutputConfluentCloud$Outbound & { type: "confluent_cloud" })
-  | (OutputElasticCloud$Outbound & { type: "elastic_cloud" })
-  | (OutputNewrelicEvents$Outbound & { type: "newrelic_events" })
-  | (OutputMinio$Outbound & { type: "minio" })
-  | (OutputSns$Outbound & { type: "sns" })
-  | (OutputSqs$Outbound & { type: "sqs" })
-  | (OutputMicrosoftFabric$Outbound & { type: "microsoft_fabric" })
-  | (OutputCloudflareR2$Outbound & { type: "cloudflare_r2" })
-  | (OutputDefault$Outbound & { type: "default" })
-  | (OutputSplunk$Outbound & { type: "splunk" })
-  | (OutputSplunkLb$Outbound & { type: "splunk_lb" })
-  | (OutputFilesystem$Outbound & { type: "filesystem" })
-  | (OutputS3$Outbound & { type: "s3" })
-  | (OutputAzureBlob$Outbound & { type: "azure_blob" })
-  | (OutputHoneycomb$Outbound & { type: "honeycomb" })
-  | (OutputGooglePubsub$Outbound & { type: "google_pubsub" })
-  | (OutputElastic$Outbound & { type: "elastic" })
-  | (OutputInfluxdb$Outbound & { type: "influxdb" })
-  | (OutputStatsd$Outbound & { type: "statsd" })
-  | (OutputStatsdExt$Outbound & { type: "statsd_ext" })
-  | (OutputGraphite$Outbound & { type: "graphite" })
-  | (OutputRouter$Outbound & { type: "router" })
-  | (OutputSnmp$Outbound & { type: "snmp" })
-  | (OutputSumoLogic$Outbound & { type: "sumo_logic" })
-  | (OutputLoki$Outbound & { type: "loki" })
-  | (OutputPrometheus$Outbound & { type: "prometheus" })
-  | (OutputOpenTelemetry$Outbound & { type: "open_telemetry" })
-  | (OutputServiceNow$Outbound & { type: "service_now" })
-  | (OutputCrowdstrikeNextGenSiem$Outbound & {
-    type: "crowdstrike_next_gen_siem";
-  })
-  | (OutputDlS3$Outbound & { type: "dl_s3" })
-  | (OutputNetflow$Outbound & { type: "netflow" })
-  | (OutputDynatraceOtlp$Outbound & { type: "dynatrace_otlp" })
-  | (OutputWebhook$Outbound & { type: "webhook" })
-  | (OutputDevnull$Outbound & { type: "devnull" })
-  | (OutputSyslog$Outbound & { type: "syslog" })
-  | (OutputSplunkHec$Outbound & { type: "splunk_hec" })
-  | (OutputTcpjson$Outbound & { type: "tcpjson" })
-  | (OutputWavefront$Outbound & { type: "wavefront" })
-  | (OutputSignalfx$Outbound & { type: "signalfx" })
-  | (OutputAzureLogs$Outbound & { type: "azure_logs" })
-  | (OutputGoogleChronicle$Outbound & { type: "google_chronicle" })
-  | (OutputNewrelic$Outbound & { type: "newrelic" })
-  | (OutputDatadog$Outbound & { type: "datadog" })
-  | (OutputRing$Outbound & { type: "ring" })
-  | (OutputDataset$Outbound & { type: "dataset" })
-  | (OutputCriblTcp$Outbound & { type: "cribl_tcp" })
-  | (OutputCriblHttp$Outbound & { type: "cribl_http" })
-  | (OutputHumioHec$Outbound & { type: "humio_hec" })
-  | (OutputCriblLake$Outbound & { type: "cribl_lake" })
-  | (OutputDiskSpool$Outbound & { type: "disk_spool" })
-  | (OutputXsiam$Outbound & { type: "xsiam" })
-  | (OutputDynatraceHttp$Outbound & { type: "dynatrace_http" })
-  | (OutputSentinelOneAiSiem$Outbound & { type: "sentinel_one_ai_siem" })
-  | (OutputGrafanaCloud$Outbound & { type: "grafana_cloud" });
+  | OutputDefault$Outbound
+  | OutputWebhook$Outbound
+  | OutputSentinel$Outbound
+  | OutputDevnull$Outbound
+  | OutputSyslog$Outbound
+  | OutputSplunk$Outbound
+  | OutputSplunkLb$Outbound
+  | OutputSplunkHec$Outbound
+  | OutputTcpjson$Outbound
+  | OutputWavefront$Outbound
+  | OutputSignalfx$Outbound
+  | OutputFilesystem$Outbound
+  | OutputS3$Outbound
+  | OutputAzureBlob$Outbound
+  | OutputAzureDataExplorer$Outbound
+  | OutputAzureLogs$Outbound
+  | OutputKinesis$Outbound
+  | OutputHoneycomb$Outbound
+  | OutputAzureEventhub$Outbound
+  | OutputGoogleChronicle$Outbound
+  | OutputGoogleCloudStorage$Outbound
+  | OutputGoogleCloudLogging$Outbound
+  | OutputGooglePubsub$Outbound
+  | OutputExabeam$Outbound
+  | OutputKafka$Outbound
+  | OutputConfluentCloud$Outbound
+  | OutputMsk$Outbound
+  | OutputElastic$Outbound
+  | OutputElasticCloud$Outbound
+  | OutputNewrelic$Outbound
+  | OutputNewrelicEvents$Outbound
+  | OutputInfluxdb$Outbound
+  | OutputCloudwatch$Outbound
+  | OutputMinio$Outbound
+  | OutputStatsd$Outbound
+  | OutputStatsdExt$Outbound
+  | OutputGraphite$Outbound
+  | OutputRouter$Outbound
+  | OutputSns$Outbound
+  | OutputSqs$Outbound
+  | OutputSnmp$Outbound
+  | OutputSumoLogic$Outbound
+  | OutputDatadog$Outbound
+  | (OutputGrafanaCloud$Outbound & { type: "grafana_cloud" })
+  | OutputLoki$Outbound
+  | OutputPrometheus$Outbound
+  | OutputRing$Outbound
+  | OutputOpenTelemetry$Outbound
+  | OutputServiceNow$Outbound
+  | OutputDataset$Outbound
+  | OutputCriblTcp$Outbound
+  | OutputCriblHttp$Outbound
+  | OutputHumioHec$Outbound
+  | OutputCrowdstrikeNextGenSiem$Outbound
+  | OutputDlS3$Outbound
+  | OutputSecurityLake$Outbound
+  | OutputCriblLake$Outbound
+  | OutputDiskSpool$Outbound
+  | OutputClickHouse$Outbound
+  | OutputXsiam$Outbound
+  | OutputNetflow$Outbound
+  | OutputDynatraceHttp$Outbound
+  | OutputDynatraceOtlp$Outbound
+  | OutputSentinelOneAiSiem$Outbound
+  | OutputChronicle$Outbound
+  | OutputDatabricks$Outbound
+  | OutputMicrosoftFabric$Outbound
+  | OutputCloudflareR2$Outbound;
 
 /** @internal */
 export const Output$outboundSchema: z.ZodType<
@@ -712,144 +636,76 @@ export const Output$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   Output
 > = z.union([
-  OutputAzureDataExplorer$outboundSchema.and(
-    z.object({ type: z.literal("azure_data_explorer") }),
-  ),
-  OutputSecurityLake$outboundSchema.and(
-    z.object({ type: z.literal("security_lake") }),
-  ),
-  OutputChronicle$outboundSchema.and(
-    z.object({ type: z.literal("chronicle") }),
-  ),
-  OutputSentinel$outboundSchema.and(z.object({ type: z.literal("sentinel") })),
-  OutputGoogleCloudLogging$outboundSchema.and(
-    z.object({ type: z.literal("google_cloud_logging") }),
-  ),
-  OutputExabeam$outboundSchema.and(z.object({ type: z.literal("exabeam") })),
-  OutputMsk$outboundSchema.and(z.object({ type: z.literal("msk") })),
-  OutputCloudwatch$outboundSchema.and(
-    z.object({ type: z.literal("cloudwatch") }),
-  ),
-  OutputClickHouse$outboundSchema.and(
-    z.object({ type: z.literal("click_house") }),
-  ),
-  OutputDatabricks$outboundSchema.and(
-    z.object({ type: z.literal("databricks") }),
-  ),
-  OutputKinesis$outboundSchema.and(z.object({ type: z.literal("kinesis") })),
-  OutputAzureEventhub$outboundSchema.and(
-    z.object({ type: z.literal("azure_eventhub") }),
-  ),
-  OutputGoogleCloudStorage$outboundSchema.and(
-    z.object({ type: z.literal("google_cloud_storage") }),
-  ),
-  OutputKafka$outboundSchema.and(z.object({ type: z.literal("kafka") })),
-  OutputConfluentCloud$outboundSchema.and(
-    z.object({ type: z.literal("confluent_cloud") }),
-  ),
-  OutputElasticCloud$outboundSchema.and(
-    z.object({ type: z.literal("elastic_cloud") }),
-  ),
-  OutputNewrelicEvents$outboundSchema.and(
-    z.object({ type: z.literal("newrelic_events") }),
-  ),
-  OutputMinio$outboundSchema.and(z.object({ type: z.literal("minio") })),
-  OutputSns$outboundSchema.and(z.object({ type: z.literal("sns") })),
-  OutputSqs$outboundSchema.and(z.object({ type: z.literal("sqs") })),
-  OutputMicrosoftFabric$outboundSchema.and(
-    z.object({ type: z.literal("microsoft_fabric") }),
-  ),
-  OutputCloudflareR2$outboundSchema.and(
-    z.object({ type: z.literal("cloudflare_r2") }),
-  ),
-  OutputDefault$outboundSchema.and(z.object({ type: z.literal("default") })),
-  OutputSplunk$outboundSchema.and(z.object({ type: z.literal("splunk") })),
-  OutputSplunkLb$outboundSchema.and(z.object({ type: z.literal("splunk_lb") })),
-  OutputFilesystem$outboundSchema.and(
-    z.object({ type: z.literal("filesystem") }),
-  ),
-  OutputS3$outboundSchema.and(z.object({ type: z.literal("s3") })),
-  OutputAzureBlob$outboundSchema.and(
-    z.object({ type: z.literal("azure_blob") }),
-  ),
-  OutputHoneycomb$outboundSchema.and(
-    z.object({ type: z.literal("honeycomb") }),
-  ),
-  OutputGooglePubsub$outboundSchema.and(
-    z.object({ type: z.literal("google_pubsub") }),
-  ),
-  OutputElastic$outboundSchema.and(z.object({ type: z.literal("elastic") })),
-  OutputInfluxdb$outboundSchema.and(z.object({ type: z.literal("influxdb") })),
-  OutputStatsd$outboundSchema.and(z.object({ type: z.literal("statsd") })),
-  OutputStatsdExt$outboundSchema.and(
-    z.object({ type: z.literal("statsd_ext") }),
-  ),
-  OutputGraphite$outboundSchema.and(z.object({ type: z.literal("graphite") })),
-  OutputRouter$outboundSchema.and(z.object({ type: z.literal("router") })),
-  OutputSnmp$outboundSchema.and(z.object({ type: z.literal("snmp") })),
-  OutputSumoLogic$outboundSchema.and(
-    z.object({ type: z.literal("sumo_logic") }),
-  ),
-  OutputLoki$outboundSchema.and(z.object({ type: z.literal("loki") })),
-  OutputPrometheus$outboundSchema.and(
-    z.object({ type: z.literal("prometheus") }),
-  ),
-  OutputOpenTelemetry$outboundSchema.and(
-    z.object({ type: z.literal("open_telemetry") }),
-  ),
-  OutputServiceNow$outboundSchema.and(
-    z.object({ type: z.literal("service_now") }),
-  ),
-  OutputCrowdstrikeNextGenSiem$outboundSchema.and(
-    z.object({ type: z.literal("crowdstrike_next_gen_siem") }),
-  ),
-  OutputDlS3$outboundSchema.and(z.object({ type: z.literal("dl_s3") })),
-  OutputNetflow$outboundSchema.and(z.object({ type: z.literal("netflow") })),
-  OutputDynatraceOtlp$outboundSchema.and(
-    z.object({ type: z.literal("dynatrace_otlp") }),
-  ),
-  OutputWebhook$outboundSchema.and(z.object({ type: z.literal("webhook") })),
-  OutputDevnull$outboundSchema.and(z.object({ type: z.literal("devnull") })),
-  OutputSyslog$outboundSchema.and(z.object({ type: z.literal("syslog") })),
-  OutputSplunkHec$outboundSchema.and(
-    z.object({ type: z.literal("splunk_hec") }),
-  ),
-  OutputTcpjson$outboundSchema.and(z.object({ type: z.literal("tcpjson") })),
-  OutputWavefront$outboundSchema.and(
-    z.object({ type: z.literal("wavefront") }),
-  ),
-  OutputSignalfx$outboundSchema.and(z.object({ type: z.literal("signalfx") })),
-  OutputAzureLogs$outboundSchema.and(
-    z.object({ type: z.literal("azure_logs") }),
-  ),
-  OutputGoogleChronicle$outboundSchema.and(
-    z.object({ type: z.literal("google_chronicle") }),
-  ),
-  OutputNewrelic$outboundSchema.and(z.object({ type: z.literal("newrelic") })),
-  OutputDatadog$outboundSchema.and(z.object({ type: z.literal("datadog") })),
-  OutputRing$outboundSchema.and(z.object({ type: z.literal("ring") })),
-  OutputDataset$outboundSchema.and(z.object({ type: z.literal("dataset") })),
-  OutputCriblTcp$outboundSchema.and(z.object({ type: z.literal("cribl_tcp") })),
-  OutputCriblHttp$outboundSchema.and(
-    z.object({ type: z.literal("cribl_http") }),
-  ),
-  OutputHumioHec$outboundSchema.and(z.object({ type: z.literal("humio_hec") })),
-  OutputCriblLake$outboundSchema.and(
-    z.object({ type: z.literal("cribl_lake") }),
-  ),
-  OutputDiskSpool$outboundSchema.and(
-    z.object({ type: z.literal("disk_spool") }),
-  ),
-  OutputXsiam$outboundSchema.and(z.object({ type: z.literal("xsiam") })),
-  OutputDynatraceHttp$outboundSchema.and(
-    z.object({ type: z.literal("dynatrace_http") }),
-  ),
-  OutputSentinelOneAiSiem$outboundSchema.and(
-    z.object({ type: z.literal("sentinel_one_ai_siem") }),
-  ),
+  OutputDefault$outboundSchema,
+  OutputWebhook$outboundSchema,
+  OutputSentinel$outboundSchema,
+  OutputDevnull$outboundSchema,
+  OutputSyslog$outboundSchema,
+  OutputSplunk$outboundSchema,
+  OutputSplunkLb$outboundSchema,
+  OutputSplunkHec$outboundSchema,
+  OutputTcpjson$outboundSchema,
+  OutputWavefront$outboundSchema,
+  OutputSignalfx$outboundSchema,
+  OutputFilesystem$outboundSchema,
+  OutputS3$outboundSchema,
+  OutputAzureBlob$outboundSchema,
+  OutputAzureDataExplorer$outboundSchema,
+  OutputAzureLogs$outboundSchema,
+  OutputKinesis$outboundSchema,
+  OutputHoneycomb$outboundSchema,
+  OutputAzureEventhub$outboundSchema,
+  OutputGoogleChronicle$outboundSchema,
+  OutputGoogleCloudStorage$outboundSchema,
+  OutputGoogleCloudLogging$outboundSchema,
+  OutputGooglePubsub$outboundSchema,
+  OutputExabeam$outboundSchema,
+  OutputKafka$outboundSchema,
+  OutputConfluentCloud$outboundSchema,
+  OutputMsk$outboundSchema,
+  OutputElastic$outboundSchema,
+  OutputElasticCloud$outboundSchema,
+  OutputNewrelic$outboundSchema,
+  OutputNewrelicEvents$outboundSchema,
+  OutputInfluxdb$outboundSchema,
+  OutputCloudwatch$outboundSchema,
+  OutputMinio$outboundSchema,
+  OutputStatsd$outboundSchema,
+  OutputStatsdExt$outboundSchema,
+  OutputGraphite$outboundSchema,
+  OutputRouter$outboundSchema,
+  OutputSns$outboundSchema,
+  OutputSqs$outboundSchema,
+  OutputSnmp$outboundSchema,
+  OutputSumoLogic$outboundSchema,
+  OutputDatadog$outboundSchema,
   OutputGrafanaCloud$outboundSchema.and(
     z.object({ type: z.literal("grafana_cloud") }),
   ),
+  OutputLoki$outboundSchema,
+  OutputPrometheus$outboundSchema,
+  OutputRing$outboundSchema,
+  OutputOpenTelemetry$outboundSchema,
+  OutputServiceNow$outboundSchema,
+  OutputDataset$outboundSchema,
+  OutputCriblTcp$outboundSchema,
+  OutputCriblHttp$outboundSchema,
+  OutputHumioHec$outboundSchema,
+  OutputCrowdstrikeNextGenSiem$outboundSchema,
+  OutputDlS3$outboundSchema,
+  OutputSecurityLake$outboundSchema,
+  OutputCriblLake$outboundSchema,
+  OutputDiskSpool$outboundSchema,
+  OutputClickHouse$outboundSchema,
+  OutputXsiam$outboundSchema,
+  OutputNetflow$outboundSchema,
+  OutputDynatraceHttp$outboundSchema,
+  OutputDynatraceOtlp$outboundSchema,
+  OutputSentinelOneAiSiem$outboundSchema,
+  OutputChronicle$outboundSchema,
+  OutputDatabricks$outboundSchema,
+  OutputMicrosoftFabric$outboundSchema,
+  OutputCloudflareR2$outboundSchema,
 ]);
 
 export function outputToJSON(output: Output): string {

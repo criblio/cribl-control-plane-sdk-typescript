@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputCriblLakeType = {
-  CriblLake: "cribl_lake",
-} as const;
-export type OutputCriblLakeType = ClosedEnum<typeof OutputCriblLakeType>;
 
 /**
  * Signature version to use for signing S3 requests
@@ -185,7 +180,7 @@ export type OutputCriblLake = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputCriblLakeType;
+  type: "cribl_lake";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -359,15 +354,6 @@ export type OutputCriblLake = {
 };
 
 /** @internal */
-export const OutputCriblLakeType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputCriblLakeType
-> = z.nativeEnum(OutputCriblLakeType);
-/** @internal */
-export const OutputCriblLakeType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputCriblLakeType
-> = OutputCriblLakeType$inboundSchema;
-
-/** @internal */
 export const OutputCriblLakeSignatureVersion$inboundSchema: z.ZodType<
   OutputCriblLakeSignatureVersion,
   z.ZodTypeDef,
@@ -484,7 +470,7 @@ export const OutputCriblLake$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputCriblLakeType$inboundSchema,
+  type: z.literal("cribl_lake"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -543,7 +529,7 @@ export const OutputCriblLake$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputCriblLake$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "cribl_lake";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -598,7 +584,7 @@ export const OutputCriblLake$outboundSchema: z.ZodType<
   OutputCriblLake
 > = z.object({
   id: z.string().optional(),
-  type: OutputCriblLakeType$outboundSchema,
+  type: z.literal("cribl_lake"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

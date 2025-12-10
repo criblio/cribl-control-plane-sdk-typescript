@@ -5,16 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputDynatraceOtlpType = {
-  DynatraceOtlp: "dynatrace_otlp",
-} as const;
-export type OutputDynatraceOtlpType = ClosedEnum<
-  typeof OutputDynatraceOtlpType
->;
 
 /**
  * Select a transport option for Dynatrace
@@ -272,7 +265,7 @@ export type OutputDynatraceOtlp = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputDynatraceOtlpType;
+  type: "dynatrace_otlp";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -446,15 +439,6 @@ export type OutputDynatraceOtlp = {
   pqOnBackpressure?: OutputDynatraceOtlpQueueFullBehavior | undefined;
   pqControls?: OutputDynatraceOtlpPqControls | undefined;
 };
-
-/** @internal */
-export const OutputDynatraceOtlpType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputDynatraceOtlpType
-> = z.nativeEnum(OutputDynatraceOtlpType);
-/** @internal */
-export const OutputDynatraceOtlpType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputDynatraceOtlpType
-> = OutputDynatraceOtlpType$inboundSchema;
 
 /** @internal */
 export const OutputDynatraceOtlpProtocol$inboundSchema: z.ZodType<
@@ -826,7 +810,7 @@ export const OutputDynatraceOtlp$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputDynatraceOtlpType$inboundSchema,
+  type: z.literal("dynatrace_otlp"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -895,7 +879,7 @@ export const OutputDynatraceOtlp$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputDynatraceOtlp$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "dynatrace_otlp";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -955,7 +939,7 @@ export const OutputDynatraceOtlp$outboundSchema: z.ZodType<
   OutputDynatraceOtlp
 > = z.object({
   id: z.string().optional(),
-  type: OutputDynatraceOtlpType$outboundSchema,
+  type: z.literal("dynatrace_otlp"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

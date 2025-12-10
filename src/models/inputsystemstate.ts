@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputSystemStateType = {
-  SystemState: "system_state",
-} as const;
-export type InputSystemStateType = ClosedEnum<typeof InputSystemStateType>;
 
 export type InputSystemStateConnection = {
   pipeline?: string | undefined;
@@ -260,7 +255,7 @@ export type InputSystemState = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputSystemStateType;
+  type: "system_state";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -303,15 +298,6 @@ export type InputSystemState = {
   disableNativeModule?: boolean | undefined;
   description?: string | undefined;
 };
-
-/** @internal */
-export const InputSystemStateType$inboundSchema: z.ZodNativeEnum<
-  typeof InputSystemStateType
-> = z.nativeEnum(InputSystemStateType);
-/** @internal */
-export const InputSystemStateType$outboundSchema: z.ZodNativeEnum<
-  typeof InputSystemStateType
-> = InputSystemStateType$inboundSchema;
 
 /** @internal */
 export const InputSystemStateConnection$inboundSchema: z.ZodType<
@@ -1047,7 +1033,7 @@ export const InputSystemState$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputSystemStateType$inboundSchema,
+  type: z.literal("system_state"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -1069,7 +1055,7 @@ export const InputSystemState$inboundSchema: z.ZodType<
 /** @internal */
 export type InputSystemState$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "system_state";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -1093,7 +1079,7 @@ export const InputSystemState$outboundSchema: z.ZodType<
   InputSystemState
 > = z.object({
   id: z.string().optional(),
-  type: InputSystemStateType$outboundSchema,
+  type: z.literal("system_state"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

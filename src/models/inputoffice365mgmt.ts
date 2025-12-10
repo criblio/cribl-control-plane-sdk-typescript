@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputOffice365MgmtType = {
-  Office365Mgmt: "office365_mgmt",
-} as const;
-export type InputOffice365MgmtType = ClosedEnum<typeof InputOffice365MgmtType>;
 
 export type InputOffice365MgmtConnection = {
   pipeline?: string | undefined;
@@ -238,7 +233,7 @@ export type InputOffice365Mgmt = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputOffice365MgmtType;
+  type: "office365_mgmt";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -332,15 +327,6 @@ export type InputOffice365Mgmt = {
    */
   textSecret?: string | undefined;
 };
-
-/** @internal */
-export const InputOffice365MgmtType$inboundSchema: z.ZodNativeEnum<
-  typeof InputOffice365MgmtType
-> = z.nativeEnum(InputOffice365MgmtType);
-/** @internal */
-export const InputOffice365MgmtType$outboundSchema: z.ZodNativeEnum<
-  typeof InputOffice365MgmtType
-> = InputOffice365MgmtType$inboundSchema;
 
 /** @internal */
 export const InputOffice365MgmtConnection$inboundSchema: z.ZodType<
@@ -727,7 +713,7 @@ export const InputOffice365Mgmt$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputOffice365MgmtType$inboundSchema,
+  type: z.literal("office365_mgmt"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -767,7 +753,7 @@ export const InputOffice365Mgmt$inboundSchema: z.ZodType<
 /** @internal */
 export type InputOffice365Mgmt$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "office365_mgmt";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -803,7 +789,7 @@ export const InputOffice365Mgmt$outboundSchema: z.ZodType<
   InputOffice365Mgmt
 > = z.object({
   id: z.string().optional(),
-  type: InputOffice365MgmtType$outboundSchema,
+  type: z.literal("office365_mgmt"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

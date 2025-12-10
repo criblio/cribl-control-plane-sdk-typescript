@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputDatagenType = {
-  Datagen: "datagen",
-} as const;
-export type InputDatagenType = ClosedEnum<typeof InputDatagenType>;
 
 export type InputDatagenConnection = {
   pipeline?: string | undefined;
@@ -110,7 +105,7 @@ export type InputDatagen = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputDatagenType;
+  type: "datagen";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -144,15 +139,6 @@ export type InputDatagen = {
   metadata?: Array<InputDatagenMetadatum> | undefined;
   description?: string | undefined;
 };
-
-/** @internal */
-export const InputDatagenType$inboundSchema: z.ZodNativeEnum<
-  typeof InputDatagenType
-> = z.nativeEnum(InputDatagenType);
-/** @internal */
-export const InputDatagenType$outboundSchema: z.ZodNativeEnum<
-  typeof InputDatagenType
-> = InputDatagenType$inboundSchema;
 
 /** @internal */
 export const InputDatagenConnection$inboundSchema: z.ZodType<
@@ -395,7 +381,7 @@ export const InputDatagen$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputDatagenType$inboundSchema,
+  type: z.literal("datagen"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -413,7 +399,7 @@ export const InputDatagen$inboundSchema: z.ZodType<
 /** @internal */
 export type InputDatagen$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "datagen";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -434,7 +420,7 @@ export const InputDatagen$outboundSchema: z.ZodType<
   InputDatagen
 > = z.object({
   id: z.string().optional(),
-  type: InputDatagenType$outboundSchema,
+  type: z.literal("datagen"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

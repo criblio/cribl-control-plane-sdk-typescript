@@ -5,16 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputOffice365MsgTraceType = {
-  Office365MsgTrace: "office365_msg_trace",
-} as const;
-export type InputOffice365MsgTraceType = ClosedEnum<
-  typeof InputOffice365MsgTraceType
->;
 
 export type InputOffice365MsgTraceConnection = {
   pipeline?: string | undefined;
@@ -248,7 +241,7 @@ export type InputOffice365MsgTrace = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputOffice365MsgTraceType;
+  type: "office365_msg_trace";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -379,15 +372,6 @@ export type InputOffice365MsgTrace = {
   textSecret?: string | undefined;
   certOptions?: CertOptions | undefined;
 };
-
-/** @internal */
-export const InputOffice365MsgTraceType$inboundSchema: z.ZodNativeEnum<
-  typeof InputOffice365MsgTraceType
-> = z.nativeEnum(InputOffice365MsgTraceType);
-/** @internal */
-export const InputOffice365MsgTraceType$outboundSchema: z.ZodNativeEnum<
-  typeof InputOffice365MsgTraceType
-> = InputOffice365MsgTraceType$inboundSchema;
 
 /** @internal */
 export const InputOffice365MsgTraceConnection$inboundSchema: z.ZodType<
@@ -761,7 +745,7 @@ export const InputOffice365MsgTrace$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputOffice365MsgTraceType$inboundSchema,
+  type: z.literal("office365_msg_trace"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -812,7 +796,7 @@ export const InputOffice365MsgTrace$inboundSchema: z.ZodType<
 /** @internal */
 export type InputOffice365MsgTrace$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "office365_msg_trace";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -858,7 +842,7 @@ export const InputOffice365MsgTrace$outboundSchema: z.ZodType<
   InputOffice365MsgTrace
 > = z.object({
   id: z.string().optional(),
-  type: InputOffice365MsgTraceType$outboundSchema,
+  type: z.literal("office365_msg_trace"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

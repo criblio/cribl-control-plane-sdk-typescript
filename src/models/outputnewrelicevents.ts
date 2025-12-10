@@ -5,16 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputNewrelicEventsType = {
-  NewrelicEvents: "newrelic_events",
-} as const;
-export type OutputNewrelicEventsType = ClosedEnum<
-  typeof OutputNewrelicEventsType
->;
 
 /**
  * Which New Relic region endpoint to use.
@@ -213,7 +206,7 @@ export type OutputNewrelicEvents = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputNewrelicEventsType;
+  type: "newrelic_events";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -363,15 +356,6 @@ export type OutputNewrelicEvents = {
    */
   textSecret?: string | undefined;
 };
-
-/** @internal */
-export const OutputNewrelicEventsType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputNewrelicEventsType
-> = z.nativeEnum(OutputNewrelicEventsType);
-/** @internal */
-export const OutputNewrelicEventsType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputNewrelicEventsType
-> = OutputNewrelicEventsType$inboundSchema;
 
 /** @internal */
 export const OutputNewrelicEventsRegion$inboundSchema: z.ZodType<
@@ -667,7 +651,7 @@ export const OutputNewrelicEvents$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputNewrelicEventsType$inboundSchema,
+  type: z.literal("newrelic_events"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -723,7 +707,7 @@ export const OutputNewrelicEvents$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputNewrelicEvents$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "newrelic_events";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -777,7 +761,7 @@ export const OutputNewrelicEvents$outboundSchema: z.ZodType<
   OutputNewrelicEvents
 > = z.object({
   id: z.string().optional(),
-  type: OutputNewrelicEventsType$outboundSchema,
+  type: z.literal("newrelic_events"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

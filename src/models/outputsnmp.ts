@@ -4,14 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputSnmpType = {
-  Snmp: "snmp",
-} as const;
-export type OutputSnmpType = ClosedEnum<typeof OutputSnmpType>;
 
 export type OutputSnmpHost = {
   /**
@@ -29,7 +23,7 @@ export type OutputSnmp = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputSnmpType;
+  type: "snmp";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -56,15 +50,6 @@ export type OutputSnmp = {
   dnsResolvePeriodSec?: number | undefined;
   description?: string | undefined;
 };
-
-/** @internal */
-export const OutputSnmpType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSnmpType
-> = z.nativeEnum(OutputSnmpType);
-/** @internal */
-export const OutputSnmpType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSnmpType
-> = OutputSnmpType$inboundSchema;
 
 /** @internal */
 export const OutputSnmpHost$inboundSchema: z.ZodType<
@@ -111,7 +96,7 @@ export const OutputSnmp$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputSnmpType$inboundSchema,
+  type: z.literal("snmp"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -123,7 +108,7 @@ export const OutputSnmp$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputSnmp$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "snmp";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -140,7 +125,7 @@ export const OutputSnmp$outboundSchema: z.ZodType<
   OutputSnmp
 > = z.object({
   id: z.string().optional(),
-  type: OutputSnmpType$outboundSchema,
+  type: z.literal("snmp"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputAppscopeType = {
-  Appscope: "appscope",
-} as const;
-export type InputAppscopeType = ClosedEnum<typeof InputAppscopeType>;
 
 export type InputAppscopeConnection = {
   pipeline?: string | undefined;
@@ -234,7 +229,7 @@ export type InputAppscope = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputAppscopeType;
+  type: "appscope";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -334,15 +329,6 @@ export type InputAppscope = {
    */
   textSecret?: string | undefined;
 };
-
-/** @internal */
-export const InputAppscopeType$inboundSchema: z.ZodNativeEnum<
-  typeof InputAppscopeType
-> = z.nativeEnum(InputAppscopeType);
-/** @internal */
-export const InputAppscopeType$outboundSchema: z.ZodNativeEnum<
-  typeof InputAppscopeType
-> = InputAppscopeType$inboundSchema;
 
 /** @internal */
 export const InputAppscopeConnection$inboundSchema: z.ZodType<
@@ -810,7 +796,7 @@ export const InputAppscope$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputAppscopeType$inboundSchema,
+  type: z.literal("appscope"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -847,7 +833,7 @@ export const InputAppscope$inboundSchema: z.ZodType<
 /** @internal */
 export type InputAppscope$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "appscope";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -886,7 +872,7 @@ export const InputAppscope$outboundSchema: z.ZodType<
   InputAppscope
 > = z.object({
   id: z.string().optional(),
-  type: InputAppscopeType$outboundSchema,
+  type: z.literal("appscope"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
