@@ -24,7 +24,7 @@ export * from "./getconfiggroupbyproductandid.js";
 export * from "./getconfiggroupconfigversionbyproductandid.js";
 export * from "./getcribllakedatasetbylakeid.js";
 export * from "./getcribllakedatasetbylakeidandid.js";
-export * from "./getfunctionresponsebyid.js";
+export * from "./getfunctionsbyid.js";
 export * from "./getinputbyid.js";
 export * from "./getmasterworkerentry.js";
 export * from "./getoutputbyid.js";
