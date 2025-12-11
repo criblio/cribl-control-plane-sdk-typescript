@@ -84,7 +84,7 @@ export type InputSnmpPq = {
   pqControls?: InputSnmpPqControls | undefined;
 };
 
-export const AuthenticationProtocol = {
+export const InputSnmpAuthenticationProtocol = {
   /**
    * None
    */
@@ -114,7 +114,9 @@ export const AuthenticationProtocol = {
    */
   Sha512: "sha512",
 } as const;
-export type AuthenticationProtocol = OpenEnum<typeof AuthenticationProtocol>;
+export type InputSnmpAuthenticationProtocol = OpenEnum<
+  typeof InputSnmpAuthenticationProtocol
+>;
 
 export const PrivacyProtocol = {
   /**
@@ -140,9 +142,9 @@ export const PrivacyProtocol = {
 } as const;
 export type PrivacyProtocol = OpenEnum<typeof PrivacyProtocol>;
 
-export type V3User = {
+export type InputSnmpV3User = {
   name: string;
-  authProtocol?: AuthenticationProtocol | undefined;
+  authProtocol?: InputSnmpAuthenticationProtocol | undefined;
   authKey?: string | undefined;
   privProtocol?: PrivacyProtocol | undefined;
   privKey?: string | undefined;
@@ -160,7 +162,7 @@ export type SNMPv3Authentication = {
   /**
    * User credentials for receiving v3 traps
    */
-  v3Users?: Array<V3User> | undefined;
+  v3Users?: Array<InputSnmpV3User> | undefined;
 };
 
 export type InputSnmpMetadatum = {
@@ -400,17 +402,17 @@ export function inputSnmpPqFromJSON(
 }
 
 /** @internal */
-export const AuthenticationProtocol$inboundSchema: z.ZodType<
-  AuthenticationProtocol,
+export const InputSnmpAuthenticationProtocol$inboundSchema: z.ZodType<
+  InputSnmpAuthenticationProtocol,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(AuthenticationProtocol);
+> = openEnums.inboundSchema(InputSnmpAuthenticationProtocol);
 /** @internal */
-export const AuthenticationProtocol$outboundSchema: z.ZodType<
+export const InputSnmpAuthenticationProtocol$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  AuthenticationProtocol
-> = openEnums.outboundSchema(AuthenticationProtocol);
+  InputSnmpAuthenticationProtocol
+> = openEnums.outboundSchema(InputSnmpAuthenticationProtocol);
 
 /** @internal */
 export const PrivacyProtocol$inboundSchema: z.ZodType<
@@ -426,16 +428,19 @@ export const PrivacyProtocol$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(PrivacyProtocol);
 
 /** @internal */
-export const V3User$inboundSchema: z.ZodType<V3User, z.ZodTypeDef, unknown> = z
-  .object({
-    name: z.string(),
-    authProtocol: AuthenticationProtocol$inboundSchema.default("none"),
-    authKey: z.string().optional(),
-    privProtocol: PrivacyProtocol$inboundSchema.default("none"),
-    privKey: z.string().optional(),
-  });
+export const InputSnmpV3User$inboundSchema: z.ZodType<
+  InputSnmpV3User,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  authProtocol: InputSnmpAuthenticationProtocol$inboundSchema.default("none"),
+  authKey: z.string().optional(),
+  privProtocol: PrivacyProtocol$inboundSchema.default("none"),
+  privKey: z.string().optional(),
+});
 /** @internal */
-export type V3User$Outbound = {
+export type InputSnmpV3User$Outbound = {
   name: string;
   authProtocol: string;
   authKey?: string | undefined;
@@ -444,28 +449,30 @@ export type V3User$Outbound = {
 };
 
 /** @internal */
-export const V3User$outboundSchema: z.ZodType<
-  V3User$Outbound,
+export const InputSnmpV3User$outboundSchema: z.ZodType<
+  InputSnmpV3User$Outbound,
   z.ZodTypeDef,
-  V3User
+  InputSnmpV3User
 > = z.object({
   name: z.string(),
-  authProtocol: AuthenticationProtocol$outboundSchema.default("none"),
+  authProtocol: InputSnmpAuthenticationProtocol$outboundSchema.default("none"),
   authKey: z.string().optional(),
   privProtocol: PrivacyProtocol$outboundSchema.default("none"),
   privKey: z.string().optional(),
 });
 
-export function v3UserToJSON(v3User: V3User): string {
-  return JSON.stringify(V3User$outboundSchema.parse(v3User));
+export function inputSnmpV3UserToJSON(
+  inputSnmpV3User: InputSnmpV3User,
+): string {
+  return JSON.stringify(InputSnmpV3User$outboundSchema.parse(inputSnmpV3User));
 }
-export function v3UserFromJSON(
+export function inputSnmpV3UserFromJSON(
   jsonString: string,
-): SafeParseResult<V3User, SDKValidationError> {
+): SafeParseResult<InputSnmpV3User, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => V3User$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'V3User' from JSON`,
+    (x) => InputSnmpV3User$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSnmpV3User' from JSON`,
   );
 }
 
@@ -477,13 +484,13 @@ export const SNMPv3Authentication$inboundSchema: z.ZodType<
 > = z.object({
   v3AuthEnabled: z.boolean().default(false),
   allowUnmatchedTrap: z.boolean().default(false),
-  v3Users: z.array(z.lazy(() => V3User$inboundSchema)).optional(),
+  v3Users: z.array(z.lazy(() => InputSnmpV3User$inboundSchema)).optional(),
 });
 /** @internal */
 export type SNMPv3Authentication$Outbound = {
   v3AuthEnabled: boolean;
   allowUnmatchedTrap: boolean;
-  v3Users?: Array<V3User$Outbound> | undefined;
+  v3Users?: Array<InputSnmpV3User$Outbound> | undefined;
 };
 
 /** @internal */
@@ -494,7 +501,7 @@ export const SNMPv3Authentication$outboundSchema: z.ZodType<
 > = z.object({
   v3AuthEnabled: z.boolean().default(false),
   allowUnmatchedTrap: z.boolean().default(false),
-  v3Users: z.array(z.lazy(() => V3User$outboundSchema)).optional(),
+  v3Users: z.array(z.lazy(() => InputSnmpV3User$outboundSchema)).optional(),
 });
 
 export function snmPv3AuthenticationToJSON(
