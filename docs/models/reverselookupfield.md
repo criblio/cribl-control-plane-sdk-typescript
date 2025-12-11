@@ -1,0 +1,19 @@
+# ReverseLookupField
+
+## Example Usage
+
+```typescript
+import { ReverseLookupField } from "cribl-control-plane/models";
+
+let value: ReverseLookupField = {
+  inFieldName: "<value>",
+  outFieldName: "<value>",
+};
+```
+
+## Fields
+
+| Field                                                                                                                    | Type                                                                                                                     | Required                                                                                                                 | Description                                                                                                              |
+| ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ |
+| `inFieldName`                                                                                                            | *string*                                                                                                                 | :heavy_minus_sign:                                                                                                       | Name of the field containing the IP to look up. If the field value is not in IPv4 or IPv6 format, the lookup is skipped. |
+| `outFieldName`                                                                                                           | *string*                                                                                                                 | :heavy_minus_sign:                                                                                                       | Name of field to add the resolved domain to. Leave blank to overwrite the lookup field.                                  |
