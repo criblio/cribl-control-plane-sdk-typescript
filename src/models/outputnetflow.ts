@@ -48,10 +48,6 @@ export type OutputNetflow = {
    * How often to resolve the destination hostname to an IP address. Ignored if all destinations are IP addresses. A value of 0 means every datagram sent will incur a DNS lookup.
    */
   dnsResolvePeriodSec?: number | undefined;
-  /**
-   * Send NetFlow traffic using the original event's Source IP and port. To enable this, you must install the external `udp-sender` helper binary at `/usr/bin/udp-sender` on all Worker Nodes and grant it the `CAP_NET_RAW` capability.
-   */
-  enableIpSpoofing?: boolean | undefined;
   description?: string | undefined;
 };
 
@@ -111,7 +107,6 @@ export const OutputNetflow$inboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   hosts: z.array(z.lazy(() => OutputNetflowHost$inboundSchema)),
   dnsResolvePeriodSec: z.number().default(0),
-  enableIpSpoofing: z.boolean().default(false),
   description: z.string().optional(),
 });
 /** @internal */
@@ -124,7 +119,6 @@ export type OutputNetflow$Outbound = {
   streamtags?: Array<string> | undefined;
   hosts: Array<OutputNetflowHost$Outbound>;
   dnsResolvePeriodSec: number;
-  enableIpSpoofing: boolean;
   description?: string | undefined;
 };
 
@@ -142,7 +136,6 @@ export const OutputNetflow$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   hosts: z.array(z.lazy(() => OutputNetflowHost$outboundSchema)),
   dnsResolvePeriodSec: z.number().default(0),
-  enableIpSpoofing: z.boolean().default(false),
   description: z.string().optional(),
 });
 
