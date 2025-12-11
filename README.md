@@ -260,8 +260,8 @@ run();
 
 ### [Functions](docs/sdks/functions/README.md)
 
-* [list](docs/sdks/functions/README.md#list) - Get a list of FunctionResponse objects
-* [get](docs/sdks/functions/README.md#get) - Get FunctionResponse by ID
+* [get](docs/sdks/functions/README.md#get) - Get a Function
+* [list](docs/sdks/functions/README.md#list) - List all Functions
 
 ### [Groups](docs/sdks/groups/README.md)
 
@@ -403,8 +403,8 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 - [`destinationsSamplesCreate`](docs/sdks/samples/README.md#create) - Send sample event data to a Destination
 - [`destinationsSamplesGet`](docs/sdks/samples/README.md#get) - Get sample event data for a Destination
 - [`destinationsUpdate`](docs/sdks/destinations/README.md#update) - Update a Destination
-- [`functionsGet`](docs/sdks/functions/README.md#get) - Get FunctionResponse by ID
-- [`functionsList`](docs/sdks/functions/README.md#list) - Get a list of FunctionResponse objects
+- [`functionsGet`](docs/sdks/functions/README.md#get) - Get a Function
+- [`functionsList`](docs/sdks/functions/README.md#list) - List all Functions
 - [`groupsAclGet`](docs/sdks/acl/README.md#get) - Get the Access Control List for a Worker Group or Edge Fleet
 - [`groupsAclTeamsGet`](docs/sdks/teams/README.md#get) - Get the Access Control List for teams with permissions on a Worker Group or Edge Fleet for the specified Cribl product
 - [`groupsConfigsVersionsGet`](docs/sdks/configsversions/README.md#get) - Get the configuration version for a Worker Group or Edge Fleet

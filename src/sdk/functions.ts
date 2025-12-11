@@ -11,33 +11,33 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class Functions extends ClientSDK {
   /**
-   * Get a list of FunctionResponse objects
+   * Get a Function
    *
    * @remarks
-   * Get a list of FunctionResponse objects
+   * Get the specified Function.
+   */
+  async get(
+    request: operations.GetFunctionsByIdRequest,
+    options?: RequestOptions,
+  ): Promise<models.CountedFunctionResponse> {
+    return unwrapAsync(functionsGet(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * List all Functions
+   *
+   * @remarks
+   * Get a list of all Functions.
    */
   async list(
     options?: RequestOptions,
   ): Promise<models.CountedFunctionResponse> {
     return unwrapAsync(functionsList(
       this,
-      options,
-    ));
-  }
-
-  /**
-   * Get FunctionResponse by ID
-   *
-   * @remarks
-   * Get FunctionResponse by ID
-   */
-  async get(
-    request: operations.GetFunctionResponseByIdRequest,
-    options?: RequestOptions,
-  ): Promise<models.CountedFunctionResponse> {
-    return unwrapAsync(functionsGet(
-      this,
-      request,
       options,
     ));
   }
