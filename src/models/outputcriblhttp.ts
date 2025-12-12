@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputCriblHttpType = {
-  CriblHttp: "cribl_http",
-} as const;
-export type OutputCriblHttpType = ClosedEnum<typeof OutputCriblHttpType>;
 
 export const OutputCriblHttpMinimumTLSVersion = {
   TLSv1: "TLSv1",
@@ -268,7 +263,7 @@ export type OutputCriblHttp = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputCriblHttpType;
+  type: "cribl_http";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -344,6 +339,10 @@ export type OutputCriblHttp = {
    * List of headers that are safe to log in plain text
    */
   safeHeaders?: Array<string> | undefined;
+  /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
@@ -427,15 +426,6 @@ export type OutputCriblHttp = {
   pqOnBackpressure?: OutputCriblHttpQueueFullBehavior | undefined;
   pqControls?: OutputCriblHttpPqControls | undefined;
 };
-
-/** @internal */
-export const OutputCriblHttpType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputCriblHttpType
-> = z.nativeEnum(OutputCriblHttpType);
-/** @internal */
-export const OutputCriblHttpType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputCriblHttpType
-> = OutputCriblHttpType$inboundSchema;
 
 /** @internal */
 export const OutputCriblHttpMinimumTLSVersion$inboundSchema: z.ZodType<
@@ -883,7 +873,7 @@ export const OutputCriblHttp$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputCriblHttpType$inboundSchema,
+  type: z.literal("cribl_http"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -906,6 +896,7 @@ export const OutputCriblHttp$inboundSchema: z.ZodType<
   failedRequestLoggingMode:
     OutputCriblHttpFailedRequestLoggingMode$inboundSchema.default("none"),
   safeHeaders: z.array(z.string()).optional(),
+  throttleRatePerSec: z.string().default("0"),
   responseRetrySettings: z.array(
     z.lazy(() => OutputCriblHttpResponseRetrySetting$inboundSchema),
   ).optional(),
@@ -944,7 +935,7 @@ export const OutputCriblHttp$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputCriblHttp$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "cribl_http";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -963,6 +954,7 @@ export type OutputCriblHttp$Outbound = {
   extraHttpHeaders?: Array<OutputCriblHttpExtraHttpHeader$Outbound> | undefined;
   failedRequestLoggingMode: string;
   safeHeaders?: Array<string> | undefined;
+  throttleRatePerSec: string;
   responseRetrySettings?:
     | Array<OutputCriblHttpResponseRetrySetting$Outbound>
     | undefined;
@@ -999,7 +991,7 @@ export const OutputCriblHttp$outboundSchema: z.ZodType<
   OutputCriblHttp
 > = z.object({
   id: z.string().optional(),
-  type: OutputCriblHttpType$outboundSchema,
+  type: z.literal("cribl_http"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -1022,6 +1014,7 @@ export const OutputCriblHttp$outboundSchema: z.ZodType<
   failedRequestLoggingMode:
     OutputCriblHttpFailedRequestLoggingMode$outboundSchema.default("none"),
   safeHeaders: z.array(z.string()).optional(),
+  throttleRatePerSec: z.string().default("0"),
   responseRetrySettings: z.array(
     z.lazy(() => OutputCriblHttpResponseRetrySetting$outboundSchema),
   ).optional(),

@@ -5,16 +5,8 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionTrimTimestampId = {
-  TrimTimestamp: "trim_timestamp",
-} as const;
-export type FunctionTrimTimestampId = ClosedEnum<
-  typeof FunctionTrimTimestampId
->;
 
 export type FunctionTrimTimestampSchema = {
   /**
@@ -27,10 +19,10 @@ export type FunctionTrimTimestamp = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionTrimTimestampId;
+  id: "trim_timestamp";
   loadTime: number;
   modTime: number;
   name: string;
@@ -39,11 +31,6 @@ export type FunctionTrimTimestamp = {
   version: string;
   schema?: FunctionTrimTimestampSchema | undefined;
 };
-
-/** @internal */
-export const FunctionTrimTimestampId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionTrimTimestampId
-> = z.nativeEnum(FunctionTrimTimestampId);
 
 /** @internal */
 export const FunctionTrimTimestampSchema$inboundSchema: z.ZodType<
@@ -73,10 +60,10 @@ export const FunctionTrimTimestamp$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionTrimTimestampId$inboundSchema,
+  id: z.literal("trim_timestamp"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

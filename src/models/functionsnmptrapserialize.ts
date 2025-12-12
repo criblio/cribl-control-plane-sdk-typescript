@@ -6,16 +6,9 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionSnmpTrapSerializeId = {
-  SnmpTrapSerialize: "snmp_trap_serialize",
-} as const;
-export type FunctionSnmpTrapSerializeId = ClosedEnum<
-  typeof FunctionSnmpTrapSerializeId
->;
 
 export const FunctionSnmpTrapSerializeAuthenticationProtocol = {
   /**
@@ -74,10 +67,10 @@ export type FunctionSnmpTrapSerialize = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionSnmpTrapSerializeId;
+  id: "snmp_trap_serialize";
   loadTime: number;
   modTime: number;
   name: string;
@@ -86,11 +79,6 @@ export type FunctionSnmpTrapSerialize = {
   version: string;
   schema?: FunctionSnmpTrapSerializeSchema | undefined;
 };
-
-/** @internal */
-export const FunctionSnmpTrapSerializeId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionSnmpTrapSerializeId
-> = z.nativeEnum(FunctionSnmpTrapSerializeId);
 
 /** @internal */
 export const FunctionSnmpTrapSerializeAuthenticationProtocol$inboundSchema:
@@ -154,10 +142,10 @@ export const FunctionSnmpTrapSerialize$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionSnmpTrapSerializeId$inboundSchema,
+  id: z.literal("snmp_trap_serialize"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputTcpjsonType = {
-  Tcpjson: "tcpjson",
-} as const;
-export type InputTcpjsonType = ClosedEnum<typeof InputTcpjsonType>;
 
 export type InputTcpjsonConnection = {
   pipeline?: string | undefined;
@@ -174,7 +169,7 @@ export type InputTcpjson = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputTcpjsonType;
+  type: "tcpjson";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -256,15 +251,6 @@ export type InputTcpjson = {
    */
   textSecret?: string | undefined;
 };
-
-/** @internal */
-export const InputTcpjsonType$inboundSchema: z.ZodNativeEnum<
-  typeof InputTcpjsonType
-> = z.nativeEnum(InputTcpjsonType);
-/** @internal */
-export const InputTcpjsonType$outboundSchema: z.ZodNativeEnum<
-  typeof InputTcpjsonType
-> = InputTcpjsonType$inboundSchema;
 
 /** @internal */
 export const InputTcpjsonConnection$inboundSchema: z.ZodType<
@@ -582,7 +568,7 @@ export const InputTcpjson$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputTcpjsonType$inboundSchema,
+  type: z.literal("tcpjson"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -612,7 +598,7 @@ export const InputTcpjson$inboundSchema: z.ZodType<
 /** @internal */
 export type InputTcpjson$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "tcpjson";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -645,7 +631,7 @@ export const InputTcpjson$outboundSchema: z.ZodType<
   InputTcpjson
 > = z.object({
   id: z.string().optional(),
-  type: InputTcpjsonType$outboundSchema,
+  type: z.literal("tcpjson"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

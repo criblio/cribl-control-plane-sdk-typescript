@@ -5,14 +5,8 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionRenameId = {
-  Rename: "rename",
-} as const;
-export type FunctionRenameId = ClosedEnum<typeof FunctionRenameId>;
 
 export type Rename = {
   /**
@@ -48,10 +42,10 @@ export type FunctionRename = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionRenameId;
+  id: "rename";
   loadTime: number;
   modTime: number;
   name: string;
@@ -60,11 +54,6 @@ export type FunctionRename = {
   version: string;
   schema?: FunctionRenameSchema | undefined;
 };
-
-/** @internal */
-export const FunctionRenameId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionRenameId
-> = z.nativeEnum(FunctionRenameId);
 
 /** @internal */
 export const Rename$inboundSchema: z.ZodType<Rename, z.ZodTypeDef, unknown> = z
@@ -114,10 +103,10 @@ export const FunctionRename$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionRenameId$inboundSchema,
+  id: z.literal("rename"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

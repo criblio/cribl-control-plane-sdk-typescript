@@ -30,7 +30,7 @@ let value: CountedCriblLakeDataset = {
       },
       deletionStartedAt: 4494.7,
       description: "round successfully indolent miskey righteously around",
-      format: "ddss",
+      format: "parquet",
       httpDAUsed: false,
       id: "<id>",
       metrics: {

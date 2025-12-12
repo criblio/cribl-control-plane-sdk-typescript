@@ -6,14 +6,9 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionSendId = {
-  Send: "send",
-} as const;
-export type FunctionSendId = ClosedEnum<typeof FunctionSendId>;
 
 /**
  * In Sender mode, forwards search results directly to the destination. In Metrics mode, accumulates metrics from federated send operators, and forwards the aggregate metrics.
@@ -47,7 +42,7 @@ export type SendConfiguration = {
   /**
    * Id of the search this function is running on.
    */
-  searchId?: string | undefined;
+  searchId: string;
   /**
    * Tee results to search. When set to true results will be shipped instead of stats
    */
@@ -70,10 +65,10 @@ export type FunctionSend = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionSendId;
+  id: "send";
   loadTime: number;
   modTime: number;
   name: string;
@@ -82,11 +77,6 @@ export type FunctionSend = {
   version: string;
   schema?: SendConfiguration | undefined;
 };
-
-/** @internal */
-export const FunctionSendId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionSendId
-> = z.nativeEnum(FunctionSendId);
 
 /** @internal */
 export const FunctionSendMode$inboundSchema: z.ZodType<
@@ -105,7 +95,7 @@ export const SendConfiguration$inboundSchema: z.ZodType<
   group: z.string().default("default"),
   workspace: z.string().default("main"),
   sendUrlTemplate: z.string().optional(),
-  searchId: z.string().optional(),
+  searchId: z.string(),
   tee: z.string().default("false"),
   flushMs: z.number().default(1000),
   suppressPreviews: z.boolean().optional(),
@@ -131,10 +121,10 @@ export const FunctionSend$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionSendId$inboundSchema,
+  id: z.literal("send"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

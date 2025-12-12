@@ -6,14 +6,9 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionSerdeId = {
-  Serde: "serde",
-} as const;
-export type FunctionSerdeId = ClosedEnum<typeof FunctionSerdeId>;
 
 /**
  * Extract creates new fields. Reserialize extracts and filters fields, and then reserializes.
@@ -103,10 +98,10 @@ export type FunctionSerde = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionSerdeId;
+  id: "serde";
   loadTime: number;
   modTime: number;
   name: string;
@@ -115,11 +110,6 @@ export type FunctionSerde = {
   version: string;
   schema?: FunctionSerdeSchema | undefined;
 };
-
-/** @internal */
-export const FunctionSerdeId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionSerdeId
-> = z.nativeEnum(FunctionSerdeId);
 
 /** @internal */
 export const OperationMode$inboundSchema: z.ZodType<
@@ -171,10 +161,10 @@ export const FunctionSerde$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionSerdeId$inboundSchema,
+  id: z.literal("serde"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

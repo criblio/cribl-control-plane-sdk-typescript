@@ -6,16 +6,9 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionRollupMetricsId = {
-  RollupMetrics: "rollup_metrics",
-} as const;
-export type FunctionRollupMetricsId = ClosedEnum<
-  typeof FunctionRollupMetricsId
->;
 
 /**
  * The operation to use when rolling up gauge metrics. Defaults to last.
@@ -62,10 +55,10 @@ export type FunctionRollupMetrics = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionRollupMetricsId;
+  id: "rollup_metrics";
   loadTime: number;
   modTime: number;
   name: string;
@@ -74,11 +67,6 @@ export type FunctionRollupMetrics = {
   version: string;
   schema?: FunctionRollupMetricsSchema | undefined;
 };
-
-/** @internal */
-export const FunctionRollupMetricsId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionRollupMetricsId
-> = z.nativeEnum(FunctionRollupMetricsId);
 
 /** @internal */
 export const GaugeUpdate$inboundSchema: z.ZodType<
@@ -117,10 +105,10 @@ export const FunctionRollupMetrics$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionRollupMetricsId$inboundSchema,
+  id: z.literal("rollup_metrics"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

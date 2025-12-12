@@ -5,14 +5,8 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionMaskId = {
-  Mask: "mask",
-} as const;
-export type FunctionMaskId = ClosedEnum<typeof FunctionMaskId>;
 
 export type FunctionMaskRule = {
   /**
@@ -38,7 +32,7 @@ export type FunctionMaskFlag = {
 };
 
 export type FunctionMaskSchema = {
-  rules?: Array<FunctionMaskRule> | undefined;
+  rules: Array<FunctionMaskRule>;
   /**
    * Fields on which to apply the masking rules. Supports * wildcards, except when used on internal fields.
    */
@@ -57,10 +51,10 @@ export type FunctionMask = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionMaskId;
+  id: "mask";
   loadTime: number;
   modTime: number;
   name: string;
@@ -69,11 +63,6 @@ export type FunctionMask = {
   version: string;
   schema?: FunctionMaskSchema | undefined;
 };
-
-/** @internal */
-export const FunctionMaskId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionMaskId
-> = z.nativeEnum(FunctionMaskId);
 
 /** @internal */
 export const FunctionMaskRule$inboundSchema: z.ZodType<
@@ -122,7 +111,7 @@ export const FunctionMaskSchema$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  rules: z.array(z.lazy(() => FunctionMaskRule$inboundSchema)).optional(),
+  rules: z.array(z.lazy(() => FunctionMaskRule$inboundSchema)),
   fields: z.array(z.string()).optional(),
   depth: z.number().int().default(5),
   flags: z.array(z.lazy(() => FunctionMaskFlag$inboundSchema)).optional(),
@@ -147,10 +136,10 @@ export const FunctionMask$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionMaskId$inboundSchema,
+  id: z.literal("mask"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

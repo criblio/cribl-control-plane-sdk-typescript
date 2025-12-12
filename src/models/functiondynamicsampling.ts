@@ -6,16 +6,9 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionDynamicSamplingId = {
-  DynamicSampling: "dynamic_sampling",
-} as const;
-export type FunctionDynamicSamplingId = ClosedEnum<
-  typeof FunctionDynamicSamplingId
->;
 
 /**
  * Defines how sample rate will be derived: log(previousPeriodCount) or sqrt(previousPeriodCount)
@@ -62,10 +55,10 @@ export type FunctionDynamicSampling = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionDynamicSamplingId;
+  id: "dynamic_sampling";
   loadTime: number;
   modTime: number;
   name: string;
@@ -74,11 +67,6 @@ export type FunctionDynamicSampling = {
   version: string;
   schema?: FunctionDynamicSamplingSchema | undefined;
 };
-
-/** @internal */
-export const FunctionDynamicSamplingId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionDynamicSamplingId
-> = z.nativeEnum(FunctionDynamicSamplingId);
 
 /** @internal */
 export const SampleMode$inboundSchema: z.ZodType<
@@ -119,10 +107,10 @@ export const FunctionDynamicSampling$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionDynamicSamplingId$inboundSchema,
+  id: z.literal("dynamic_sampling"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

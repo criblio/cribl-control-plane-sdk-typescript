@@ -6,14 +6,9 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputSentinelType = {
-  Sentinel: "sentinel",
-} as const;
-export type OutputSentinelType = ClosedEnum<typeof OutputSentinelType>;
 
 export type OutputSentinelExtraHttpHeader = {
   name?: string | undefined;
@@ -203,7 +198,7 @@ export type OutputSentinel = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputSentinelType;
+  type: "sentinel";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -402,15 +397,6 @@ export type OutputSentinel = {
    */
   streamName?: string | undefined;
 };
-
-/** @internal */
-export const OutputSentinelType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSentinelType
-> = z.nativeEnum(OutputSentinelType);
-/** @internal */
-export const OutputSentinelType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSentinelType
-> = OutputSentinelType$inboundSchema;
 
 /** @internal */
 export const OutputSentinelExtraHttpHeader$inboundSchema: z.ZodType<
@@ -702,7 +688,7 @@ export const OutputSentinel$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputSentinelType$inboundSchema,
+  type: z.literal("sentinel"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -774,7 +760,7 @@ export const OutputSentinel$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputSentinel$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "sentinel";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -840,7 +826,7 @@ export const OutputSentinel$outboundSchema: z.ZodType<
   OutputSentinel
 > = z.object({
   id: z.string().optional(),
-  type: OutputSentinelType$outboundSchema,
+  type: z.literal("sentinel"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

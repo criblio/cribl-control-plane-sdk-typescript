@@ -29,8 +29,8 @@ import {
 
 export const CriblLakeDatasetFormat = {
   Json: "json",
-  Ddss: "ddss",
   Parquet: "parquet",
+  Ddss: "ddss",
 } as const;
 export type CriblLakeDatasetFormat = OpenEnum<typeof CriblLakeDatasetFormat>;
 

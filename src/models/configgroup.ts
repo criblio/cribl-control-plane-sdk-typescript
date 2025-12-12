@@ -82,6 +82,9 @@ export type ConfigGroupGit = {
 };
 
 export const ConfigGroupType = {
+  Edge: "edge",
+  Stream: "stream",
+  Search: "search",
   LakeAccess: "lake_access",
   LocalSearch: "local_search",
 } as const;

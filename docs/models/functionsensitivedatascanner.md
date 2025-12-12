@@ -22,17 +22,13 @@ let value: FunctionSensitiveDataScanner = {
   },
   version: "<value>",
   schema: {
-    rules: [
-      {
-        rulesetId: "<id>",
-      },
-    ],
+    rules: [],
     fields: [
       "<value 1>",
+      "<value 2>",
     ],
     excludeFields: [
       "<value 1>",
-      "<value 2>",
     ],
     flags: [
       {
@@ -51,10 +47,10 @@ let value: FunctionSensitiveDataScanner = {
 | `filename`                                                                                   | *string*                                                                                     | :heavy_check_mark:                                                                           | N/A                                                                                          |
 | `asyncTimeout`                                                                               | *number*                                                                                     | :heavy_minus_sign:                                                                           | N/A                                                                                          |
 | `criblVersion`                                                                               | *string*                                                                                     | :heavy_minus_sign:                                                                           | N/A                                                                                          |
-| `disabled`                                                                                   | *boolean*                                                                                    | :heavy_check_mark:                                                                           | N/A                                                                                          |
+| `disabled`                                                                                   | *boolean*                                                                                    | :heavy_minus_sign:                                                                           | N/A                                                                                          |
 | `group`                                                                                      | *string*                                                                                     | :heavy_check_mark:                                                                           | N/A                                                                                          |
 | `handleSignals`                                                                              | *boolean*                                                                                    | :heavy_minus_sign:                                                                           | N/A                                                                                          |
-| `id`                                                                                         | [models.FunctionSensitiveDataScannerId](../models/functionsensitivedatascannerid.md)         | :heavy_check_mark:                                                                           | N/A                                                                                          |
+| `id`                                                                                         | *"sensitive_data_scanner"*                                                                   | :heavy_check_mark:                                                                           | N/A                                                                                          |
 | `loadTime`                                                                                   | *number*                                                                                     | :heavy_check_mark:                                                                           | N/A                                                                                          |
 | `modTime`                                                                                    | *number*                                                                                     | :heavy_check_mark:                                                                           | N/A                                                                                          |
 | `name`                                                                                       | *string*                                                                                     | :heavy_check_mark:                                                                           | N/A                                                                                          |

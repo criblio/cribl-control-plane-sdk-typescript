@@ -5,16 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputAzureEventhubType = {
-  AzureEventhub: "azure_eventhub",
-} as const;
-export type OutputAzureEventhubType = ClosedEnum<
-  typeof OutputAzureEventhubType
->;
 
 /**
  * Control the number of required acknowledgments
@@ -272,7 +265,7 @@ export type OutputAzureEventhub = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputAzureEventhubType;
+  type: "azure_eventhub";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -401,15 +394,6 @@ export type OutputAzureEventhub = {
   pqOnBackpressure?: OutputAzureEventhubQueueFullBehavior | undefined;
   pqControls?: OutputAzureEventhubPqControls | undefined;
 };
-
-/** @internal */
-export const OutputAzureEventhubType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureEventhubType
-> = z.nativeEnum(OutputAzureEventhubType);
-/** @internal */
-export const OutputAzureEventhubType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureEventhubType
-> = OutputAzureEventhubType$inboundSchema;
 
 /** @internal */
 export const OutputAzureEventhubAcknowledgments$inboundSchema: z.ZodType<
@@ -747,7 +731,7 @@ export const OutputAzureEventhub$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputAzureEventhubType$inboundSchema,
+  type: z.literal("azure_eventhub"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -793,7 +777,7 @@ export const OutputAzureEventhub$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputAzureEventhub$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "azure_eventhub";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -837,7 +821,7 @@ export const OutputAzureEventhub$outboundSchema: z.ZodType<
   OutputAzureEventhub
 > = z.object({
   id: z.string().optional(),
-  type: OutputAzureEventhubType$outboundSchema,
+  type: z.literal("azure_eventhub"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

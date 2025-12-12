@@ -5,30 +5,24 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionChainId = {
-  Chain: "chain",
-} as const;
-export type FunctionChainId = ClosedEnum<typeof FunctionChainId>;
 
 export type FunctionChainSchema = {
   /**
    * The data processor (Pack/Pipeline) to send events through
    */
-  processor?: string | undefined;
+  processor: string;
 };
 
 export type FunctionChain = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionChainId;
+  id: "chain";
   loadTime: number;
   modTime: number;
   name: string;
@@ -39,17 +33,12 @@ export type FunctionChain = {
 };
 
 /** @internal */
-export const FunctionChainId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionChainId
-> = z.nativeEnum(FunctionChainId);
-
-/** @internal */
 export const FunctionChainSchema$inboundSchema: z.ZodType<
   FunctionChainSchema,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  processor: z.string().optional(),
+  processor: z.string(),
 });
 
 export function functionChainSchemaFromJSON(
@@ -71,10 +60,10 @@ export const FunctionChain$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionChainId$inboundSchema,
+  id: z.literal("chain"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

@@ -5,14 +5,8 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionHandlebarId = {
-  Handlebar: "handlebar",
-} as const;
-export type FunctionHandlebarId = ClosedEnum<typeof FunctionHandlebarId>;
 
 export type TemplateDefinition = {
   /**
@@ -33,7 +27,7 @@ export type FunctionHandlebarSchema = {
   /**
    * Object with template_id as keys and template definitions as values. Uses event.__template_id to select template at runtime.
    */
-  templates?: { [k: string]: TemplateDefinition } | undefined;
+  templates: { [k: string]: TemplateDefinition };
   /**
    * Field name to store the rendered template result. Defaults to _raw.
    */
@@ -52,10 +46,10 @@ export type FunctionHandlebar = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionHandlebarId;
+  id: "handlebar";
   loadTime: number;
   modTime: number;
   name: string;
@@ -64,11 +58,6 @@ export type FunctionHandlebar = {
   version: string;
   schema?: FunctionHandlebarSchema | undefined;
 };
-
-/** @internal */
-export const FunctionHandlebarId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionHandlebarId
-> = z.nativeEnum(FunctionHandlebarId);
 
 /** @internal */
 export const TemplateDefinition$inboundSchema: z.ZodType<
@@ -97,8 +86,7 @@ export const FunctionHandlebarSchema$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  templates: z.record(z.lazy(() => TemplateDefinition$inboundSchema))
-    .optional(),
+  templates: z.record(z.lazy(() => TemplateDefinition$inboundSchema)),
   targetField: z.string().default("_raw"),
   parseJson: z.boolean().default(false),
   removeOnNull: z.boolean().default(true),
@@ -123,10 +111,10 @@ export const FunctionHandlebar$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionHandlebarId$inboundSchema,
+  id: z.literal("handlebar"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

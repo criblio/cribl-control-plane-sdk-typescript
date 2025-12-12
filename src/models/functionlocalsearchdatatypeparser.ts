@@ -5,32 +5,24 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionLocalSearchDatatypeParserId = {
-  LocalSearchDatatypeParser: "local_search_datatype_parser",
-} as const;
-export type FunctionLocalSearchDatatypeParserId = ClosedEnum<
-  typeof FunctionLocalSearchDatatypeParserId
->;
 
 export type FunctionLocalSearchDatatypeParserSchema = {
   /**
    * ID of the local search datatype ruleset
    */
-  rulesetId?: string | undefined;
+  rulesetId: string;
 };
 
 export type FunctionLocalSearchDatatypeParser = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionLocalSearchDatatypeParserId;
+  id: "local_search_datatype_parser";
   loadTime: number;
   modTime: number;
   name: string;
@@ -41,17 +33,12 @@ export type FunctionLocalSearchDatatypeParser = {
 };
 
 /** @internal */
-export const FunctionLocalSearchDatatypeParserId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionLocalSearchDatatypeParserId
-> = z.nativeEnum(FunctionLocalSearchDatatypeParserId);
-
-/** @internal */
 export const FunctionLocalSearchDatatypeParserSchema$inboundSchema: z.ZodType<
   FunctionLocalSearchDatatypeParserSchema,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  rulesetId: z.string().optional(),
+  rulesetId: z.string(),
 });
 
 export function functionLocalSearchDatatypeParserSchemaFromJSON(
@@ -79,10 +66,10 @@ export const FunctionLocalSearchDatatypeParser$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionLocalSearchDatatypeParserId$inboundSchema,
+  id: z.literal("local_search_datatype_parser"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

@@ -27,14 +27,14 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get FunctionResponse by ID
+ * Get a Function
  *
  * @remarks
- * Get FunctionResponse by ID
+ * Get the specified Function.
  */
 export function functionsGet(
   client: CriblControlPlaneCore,
-  request: operations.GetFunctionResponseByIdRequest,
+  request: operations.GetFunctionsByIdRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -59,7 +59,7 @@ export function functionsGet(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.GetFunctionResponseByIdRequest,
+  request: operations.GetFunctionsByIdRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -80,8 +80,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) =>
-      operations.GetFunctionResponseByIdRequest$outboundSchema.parse(value),
+    (value) => operations.GetFunctionsByIdRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
@@ -109,7 +108,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "getFunctionResponseById",
+    operationID: "getFunctionsById",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,

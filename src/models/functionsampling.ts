@@ -5,14 +5,8 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionSamplingId = {
-  Sampling: "sampling",
-} as const;
-export type FunctionSamplingId = ClosedEnum<typeof FunctionSamplingId>;
 
 export type FunctionSamplingRule = {
   /**
@@ -36,10 +30,10 @@ export type FunctionSampling = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionSamplingId;
+  id: "sampling";
   loadTime: number;
   modTime: number;
   name: string;
@@ -48,11 +42,6 @@ export type FunctionSampling = {
   version: string;
   schema?: FunctionSamplingSchema | undefined;
 };
-
-/** @internal */
-export const FunctionSamplingId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionSamplingId
-> = z.nativeEnum(FunctionSamplingId);
 
 /** @internal */
 export const FunctionSamplingRule$inboundSchema: z.ZodType<
@@ -102,10 +91,10 @@ export const FunctionSampling$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionSamplingId$inboundSchema,
+  id: z.literal("sampling"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

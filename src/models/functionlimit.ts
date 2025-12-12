@@ -5,14 +5,8 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionLimitId = {
-  Limit: "limit",
-} as const;
-export type FunctionLimitId = ClosedEnum<typeof FunctionLimitId>;
 
 export type FunctionLimitSchema = {
   /**
@@ -25,10 +19,10 @@ export type FunctionLimit = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionLimitId;
+  id: "limit";
   loadTime: number;
   modTime: number;
   name: string;
@@ -37,11 +31,6 @@ export type FunctionLimit = {
   version: string;
   schema?: FunctionLimitSchema | undefined;
 };
-
-/** @internal */
-export const FunctionLimitId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionLimitId
-> = z.nativeEnum(FunctionLimitId);
 
 /** @internal */
 export const FunctionLimitSchema$inboundSchema: z.ZodType<
@@ -71,10 +60,10 @@ export const FunctionLimit$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionLimitId$inboundSchema,
+  id: z.literal("limit"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

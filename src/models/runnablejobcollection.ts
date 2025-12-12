@@ -7,6 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import { CollectorConf, CollectorConf$inboundSchema } from "./collectorconf.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 export const RunnableJobCollectionJobType = {
@@ -126,14 +127,15 @@ export type RunnableJobCollectionSchedule = {
   run?: RunnableJobCollectionRunSettings | undefined;
 };
 
-export type CollectorSpecificSettings = {};
-
-export type Collector = {
+export type RunnableJobCollectionCollector = {
   /**
    * The type of collector to run
    */
   type: string;
-  conf: CollectorSpecificSettings;
+  /**
+   * Collector configuration
+   */
+  conf: CollectorConf;
   /**
    * Delete any files collected (where applicable)
    */
@@ -144,10 +146,12 @@ export type Collector = {
   encoding?: string | undefined;
 };
 
-export const InputType = {
+export const RunnableJobCollectionInputType = {
   Collection: "collection",
 } as const;
-export type InputType = OpenEnum<typeof InputType>;
+export type RunnableJobCollectionInputType = OpenEnum<
+  typeof RunnableJobCollectionInputType
+>;
 
 export type RunnableJobCollectionPreprocess = {
   disabled?: boolean | undefined;
@@ -170,7 +174,7 @@ export type RunnableJobCollectionMetadatum = {
 };
 
 export type RunnableJobCollectionInput = {
-  type?: InputType | undefined;
+  type?: RunnableJobCollectionInputType | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -375,7 +379,7 @@ export type RunnableJobCollection = {
    * If enabled, tasks are created and run by the same Worker Node
    */
   workerAffinity?: boolean | undefined;
-  collector: Collector;
+  collector: RunnableJobCollectionCollector;
   input?: RunnableJobCollectionInput | undefined;
   run: RunnableJobCollectionRun;
 };
@@ -483,50 +487,33 @@ export function runnableJobCollectionScheduleFromJSON(
 }
 
 /** @internal */
-export const CollectorSpecificSettings$inboundSchema: z.ZodType<
-  CollectorSpecificSettings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-export function collectorSpecificSettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorSpecificSettings, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CollectorSpecificSettings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorSpecificSettings' from JSON`,
-  );
-}
-
-/** @internal */
-export const Collector$inboundSchema: z.ZodType<
-  Collector,
+export const RunnableJobCollectionCollector$inboundSchema: z.ZodType<
+  RunnableJobCollectionCollector,
   z.ZodTypeDef,
   unknown
 > = z.object({
   type: z.string(),
-  conf: z.lazy(() => CollectorSpecificSettings$inboundSchema),
+  conf: CollectorConf$inboundSchema,
   destructive: z.boolean().default(false),
   encoding: z.string().optional(),
 });
 
-export function collectorFromJSON(
+export function runnableJobCollectionCollectorFromJSON(
   jsonString: string,
-): SafeParseResult<Collector, SDKValidationError> {
+): SafeParseResult<RunnableJobCollectionCollector, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Collector$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Collector' from JSON`,
+    (x) => RunnableJobCollectionCollector$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RunnableJobCollectionCollector' from JSON`,
   );
 }
 
 /** @internal */
-export const InputType$inboundSchema: z.ZodType<
-  InputType,
+export const RunnableJobCollectionInputType$inboundSchema: z.ZodType<
+  RunnableJobCollectionInputType,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(InputType);
+> = openEnums.inboundSchema(RunnableJobCollectionInputType);
 
 /** @internal */
 export const RunnableJobCollectionPreprocess$inboundSchema: z.ZodType<
@@ -575,7 +562,7 @@ export const RunnableJobCollectionInput$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: InputType$inboundSchema.default("collection"),
+  type: RunnableJobCollectionInputType$inboundSchema.default("collection"),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().default(10000),
   sendToRoutes: z.boolean().default(true),
@@ -716,7 +703,7 @@ export const RunnableJobCollection$inboundSchema: z.ZodType<
     .optional(),
   streamtags: z.array(z.string()).optional(),
   workerAffinity: z.boolean().default(false),
-  collector: z.lazy(() => Collector$inboundSchema),
+  collector: z.lazy(() => RunnableJobCollectionCollector$inboundSchema),
   input: z.lazy(() => RunnableJobCollectionInput$inboundSchema).optional(),
   run: z.lazy(() => RunnableJobCollectionRun$inboundSchema),
 });

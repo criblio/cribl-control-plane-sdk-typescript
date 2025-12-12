@@ -5,14 +5,8 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionRegexExtractId = {
-  RegexExtract: "regex_extract",
-} as const;
-export type FunctionRegexExtractId = ClosedEnum<typeof FunctionRegexExtractId>;
 
 export type FunctionRegexExtractRegexList = {
   /**
@@ -25,7 +19,7 @@ export type FunctionRegexExtractSchema = {
   /**
    * Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as (?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
    */
-  regex?: string | undefined;
+  regex: string;
   regexList?: Array<FunctionRegexExtractRegexList> | undefined;
   /**
    * Field on which to perform regex field extraction
@@ -49,10 +43,10 @@ export type FunctionRegexExtract = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionRegexExtractId;
+  id: "regex_extract";
   loadTime: number;
   modTime: number;
   name: string;
@@ -61,11 +55,6 @@ export type FunctionRegexExtract = {
   version: string;
   schema?: FunctionRegexExtractSchema | undefined;
 };
-
-/** @internal */
-export const FunctionRegexExtractId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionRegexExtractId
-> = z.nativeEnum(FunctionRegexExtractId);
 
 /** @internal */
 export const FunctionRegexExtractRegexList$inboundSchema: z.ZodType<
@@ -92,7 +81,7 @@ export const FunctionRegexExtractSchema$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  regex: z.string().optional(),
+  regex: z.string(),
   regexList: z.array(z.lazy(() => FunctionRegexExtractRegexList$inboundSchema))
     .optional(),
   source: z.string().default("_raw"),
@@ -120,10 +109,10 @@ export const FunctionRegexExtract$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionRegexExtractId$inboundSchema,
+  id: z.literal("regex_extract"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

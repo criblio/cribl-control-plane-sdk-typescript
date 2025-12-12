@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputDatabricksType = {
-  Databricks: "databricks",
-} as const;
-export type OutputDatabricksType = ClosedEnum<typeof OutputDatabricksType>;
 
 /**
  * Format of the output data
@@ -170,7 +165,7 @@ export type OutputDatabricks = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputDatabricksType;
+  type: "databricks";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -363,15 +358,6 @@ export type OutputDatabricks = {
 };
 
 /** @internal */
-export const OutputDatabricksType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputDatabricksType
-> = z.nativeEnum(OutputDatabricksType);
-/** @internal */
-export const OutputDatabricksType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputDatabricksType
-> = OutputDatabricksType$inboundSchema;
-
-/** @internal */
 export const OutputDatabricksDataFormat$inboundSchema: z.ZodType<
   OutputDatabricksDataFormat,
   z.ZodTypeDef,
@@ -513,7 +499,7 @@ export const OutputDatabricks$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputDatabricksType$inboundSchema,
+  type: z.literal("databricks"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -581,7 +567,7 @@ export const OutputDatabricks$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputDatabricks$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "databricks";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -641,7 +627,7 @@ export const OutputDatabricks$outboundSchema: z.ZodType<
   OutputDatabricks
 > = z.object({
   id: z.string().optional(),
-  type: OutputDatabricksType$outboundSchema,
+  type: z.literal("databricks"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

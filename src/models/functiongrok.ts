@@ -5,14 +5,8 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionGrokId = {
-  Grok: "grok",
-} as const;
-export type FunctionGrokId = ClosedEnum<typeof FunctionGrokId>;
 
 export type PatternList = {
   /**
@@ -25,7 +19,7 @@ export type FunctionGrokSchema = {
   /**
    * Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
    */
-  pattern?: string | undefined;
+  pattern: string;
   patternList?: Array<PatternList> | undefined;
   /**
    * Field on which to perform Grok extractions
@@ -37,10 +31,10 @@ export type FunctionGrok = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionGrokId;
+  id: "grok";
   loadTime: number;
   modTime: number;
   name: string;
@@ -49,11 +43,6 @@ export type FunctionGrok = {
   version: string;
   schema?: FunctionGrokSchema | undefined;
 };
-
-/** @internal */
-export const FunctionGrokId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionGrokId
-> = z.nativeEnum(FunctionGrokId);
 
 /** @internal */
 export const PatternList$inboundSchema: z.ZodType<
@@ -80,7 +69,7 @@ export const FunctionGrokSchema$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  pattern: z.string().optional(),
+  pattern: z.string(),
   patternList: z.array(z.lazy(() => PatternList$inboundSchema)).optional(),
   source: z.string().default("_raw"),
 });
@@ -104,10 +93,10 @@ export const FunctionGrok$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionGrokId$inboundSchema,
+  id: z.literal("grok"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

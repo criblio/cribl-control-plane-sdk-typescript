@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputSplunkType = {
-  Splunk: "splunk",
-} as const;
-export type OutputSplunkType = ClosedEnum<typeof OutputSplunkType>;
 
 /**
  * How to serialize nested fields into index-time fields
@@ -236,7 +231,7 @@ export type OutputSplunk = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputSplunkType;
+  type: "splunk";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -361,15 +356,6 @@ export type OutputSplunk = {
    */
   textSecret?: string | undefined;
 };
-
-/** @internal */
-export const OutputSplunkType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSplunkType
-> = z.nativeEnum(OutputSplunkType);
-/** @internal */
-export const OutputSplunkType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSplunkType
-> = OutputSplunkType$inboundSchema;
 
 /** @internal */
 export const OutputSplunkNestedFieldSerialization$inboundSchema: z.ZodType<
@@ -609,7 +595,7 @@ export const OutputSplunk$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputSplunkType$inboundSchema,
+  type: z.literal("splunk"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -653,7 +639,7 @@ export const OutputSplunk$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputSplunk$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "splunk";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -696,7 +682,7 @@ export const OutputSplunk$outboundSchema: z.ZodType<
   OutputSplunk
 > = z.object({
   id: z.string().optional(),
-  type: OutputSplunkType$outboundSchema,
+  type: z.literal("splunk"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

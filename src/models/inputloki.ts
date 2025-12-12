@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputLokiType = {
-  Loki: "loki",
-} as const;
-export type InputLokiType = ClosedEnum<typeof InputLokiType>;
 
 export type InputLokiConnection = {
   pipeline?: string | undefined;
@@ -200,7 +195,7 @@ export type InputLoki = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputLokiType;
+  type: "loki";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -340,15 +335,6 @@ export type InputLoki = {
    */
   oauthHeaders?: Array<InputLokiOauthHeader> | undefined;
 };
-
-/** @internal */
-export const InputLokiType$inboundSchema: z.ZodNativeEnum<
-  typeof InputLokiType
-> = z.nativeEnum(InputLokiType);
-/** @internal */
-export const InputLokiType$outboundSchema: z.ZodNativeEnum<
-  typeof InputLokiType
-> = InputLokiType$inboundSchema;
 
 /** @internal */
 export const InputLokiConnection$inboundSchema: z.ZodType<
@@ -750,7 +736,7 @@ export const InputLoki$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputLokiType$inboundSchema,
+  type: z.literal("loki"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -797,7 +783,7 @@ export const InputLoki$inboundSchema: z.ZodType<
 /** @internal */
 export type InputLoki$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "loki";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -846,7 +832,7 @@ export const InputLoki$outboundSchema: z.ZodType<
   InputLoki
 > = z.object({
   id: z.string().optional(),
-  type: InputLokiType$outboundSchema,
+  type: z.literal("loki"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

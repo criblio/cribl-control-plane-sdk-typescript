@@ -5,16 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputConfluentCloudType = {
-  ConfluentCloud: "confluent_cloud",
-} as const;
-export type OutputConfluentCloudType = ClosedEnum<
-  typeof OutputConfluentCloudType
->;
 
 export const OutputConfluentCloudMinimumTLSVersion = {
   TLSv1: "TLSv1",
@@ -456,7 +449,7 @@ export type OutputConfluentCloud = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputConfluentCloudType;
+  type: "confluent_cloud";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -600,15 +593,6 @@ export type OutputConfluentCloud = {
   pqOnBackpressure?: OutputConfluentCloudQueueFullBehavior | undefined;
   pqControls?: OutputConfluentCloudPqControls | undefined;
 };
-
-/** @internal */
-export const OutputConfluentCloudType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputConfluentCloudType
-> = z.nativeEnum(OutputConfluentCloudType);
-/** @internal */
-export const OutputConfluentCloudType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputConfluentCloudType
-> = OutputConfluentCloudType$inboundSchema;
 
 /** @internal */
 export const OutputConfluentCloudMinimumTLSVersion$inboundSchema: z.ZodType<
@@ -1302,7 +1286,7 @@ export const OutputConfluentCloud$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputConfluentCloudType$inboundSchema,
+  type: z.literal("confluent_cloud"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -1355,7 +1339,7 @@ export const OutputConfluentCloud$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputConfluentCloud$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "confluent_cloud";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -1405,7 +1389,7 @@ export const OutputConfluentCloud$outboundSchema: z.ZodType<
   OutputConfluentCloud
 > = z.object({
   id: z.string().optional(),
-  type: OutputConfluentCloudType$outboundSchema,
+  type: z.literal("confluent_cloud"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

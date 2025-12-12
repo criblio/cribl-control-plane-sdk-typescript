@@ -18,5 +18,5 @@ let value: FunctionPackSchema = {
 
 | Field                                                  | Type                                                   | Required                                               | Description                                            |
 | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ |
-| `unpackedFields`                                       | *string*[]                                             | :heavy_minus_sign:                                     | List of fields to keep, everything else will be packed |
+| `unpackedFields`                                       | *string*[]                                             | :heavy_check_mark:                                     | List of fields to keep, everything else will be packed |
 | `target`                                               | *string*                                               | :heavy_minus_sign:                                     | Name of the (packed) target field                      |

@@ -5,14 +5,8 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionFlattenId = {
-  Flatten: "flatten",
-} as const;
-export type FunctionFlattenId = ClosedEnum<typeof FunctionFlattenId>;
 
 export type FunctionFlattenSchema = {
   /**
@@ -37,10 +31,10 @@ export type FunctionFlatten = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionFlattenId;
+  id: "flatten";
   loadTime: number;
   modTime: number;
   name: string;
@@ -49,11 +43,6 @@ export type FunctionFlatten = {
   version: string;
   schema?: FunctionFlattenSchema | undefined;
 };
-
-/** @internal */
-export const FunctionFlattenId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionFlattenId
-> = z.nativeEnum(FunctionFlattenId);
 
 /** @internal */
 export const FunctionFlattenSchema$inboundSchema: z.ZodType<
@@ -86,10 +75,10 @@ export const FunctionFlatten$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionFlattenId$inboundSchema,
+  id: z.literal("flatten"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

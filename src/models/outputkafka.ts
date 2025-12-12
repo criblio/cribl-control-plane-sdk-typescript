@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputKafkaType = {
-  Kafka: "kafka",
-} as const;
-export type OutputKafkaType = ClosedEnum<typeof OutputKafkaType>;
 
 /**
  * Control the number of required acknowledgments.
@@ -444,7 +439,7 @@ export type OutputKafka = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputKafkaType;
+  type: "kafka";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -588,15 +583,6 @@ export type OutputKafka = {
   pqOnBackpressure?: OutputKafkaQueueFullBehavior | undefined;
   pqControls?: OutputKafkaPqControls | undefined;
 };
-
-/** @internal */
-export const OutputKafkaType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputKafkaType
-> = z.nativeEnum(OutputKafkaType);
-/** @internal */
-export const OutputKafkaType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputKafkaType
-> = OutputKafkaType$inboundSchema;
 
 /** @internal */
 export const OutputKafkaAcknowledgments$inboundSchema: z.ZodType<
@@ -1252,7 +1238,7 @@ export const OutputKafka$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputKafkaType$inboundSchema,
+  type: z.literal("kafka"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -1299,7 +1285,7 @@ export const OutputKafka$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputKafka$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "kafka";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -1349,7 +1335,7 @@ export const OutputKafka$outboundSchema: z.ZodType<
   OutputKafka
 > = z.object({
   id: z.string().optional(),
-  type: OutputKafkaType$outboundSchema,
+  type: z.literal("kafka"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

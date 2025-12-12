@@ -5,14 +5,8 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionExternaldataId = {
-  Externaldata: "externaldata",
-} as const;
-export type FunctionExternaldataId = ClosedEnum<typeof FunctionExternaldataId>;
 
 export type FunctionExternaldataSchema = {};
 
@@ -20,10 +14,10 @@ export type FunctionExternaldata = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionExternaldataId;
+  id: "externaldata";
   loadTime: number;
   modTime: number;
   name: string;
@@ -32,11 +26,6 @@ export type FunctionExternaldata = {
   version: string;
   schema?: FunctionExternaldataSchema | undefined;
 };
-
-/** @internal */
-export const FunctionExternaldataId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionExternaldataId
-> = z.nativeEnum(FunctionExternaldataId);
 
 /** @internal */
 export const FunctionExternaldataSchema$inboundSchema: z.ZodType<
@@ -64,10 +53,10 @@ export const FunctionExternaldata$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionExternaldataId$inboundSchema,
+  id: z.literal("externaldata"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

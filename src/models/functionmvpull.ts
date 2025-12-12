@@ -5,28 +5,22 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionMvPullId = {
-  MvPull: "mv_pull",
-} as const;
-export type FunctionMvPullId = ClosedEnum<typeof FunctionMvPullId>;
 
 export type FunctionMvPullSchema = {
   /**
    * Field name of the array within events that contains the data objects of interest. Can be a path.
    */
-  arrayPath?: string | undefined;
+  arrayPath: string;
   /**
    * Extract the K-V pair's key from this field, relative to the data object.
    */
-  relativeKeyPath?: string | undefined;
+  relativeKeyPath: string;
   /**
    * Extract the K-V pair's value from this field, relative to the data object.
    */
-  relativeValuePath?: string | undefined;
+  relativeValuePath: string;
   /**
    * Optionally, specify a bag as the target for K-V entries. If not specified, these entries are stored on each top-level event.
    */
@@ -41,10 +35,10 @@ export type FunctionMvPull = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionMvPullId;
+  id: "mv_pull";
   loadTime: number;
   modTime: number;
   name: string;
@@ -55,19 +49,14 @@ export type FunctionMvPull = {
 };
 
 /** @internal */
-export const FunctionMvPullId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionMvPullId
-> = z.nativeEnum(FunctionMvPullId);
-
-/** @internal */
 export const FunctionMvPullSchema$inboundSchema: z.ZodType<
   FunctionMvPullSchema,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  arrayPath: z.string().optional(),
-  relativeKeyPath: z.string().optional(),
-  relativeValuePath: z.string().optional(),
+  arrayPath: z.string(),
+  relativeKeyPath: z.string(),
+  relativeValuePath: z.string(),
   targetBagPath: z.nullable(z.string()).default(null),
   deleteOriginal: z.boolean().default(false),
 });
@@ -91,10 +80,10 @@ export const FunctionMvPull$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionMvPullId$inboundSchema,
+  id: z.literal("mv_pull"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

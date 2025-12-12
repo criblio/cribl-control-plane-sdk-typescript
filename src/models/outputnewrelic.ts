@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputNewrelicType = {
-  Newrelic: "newrelic",
-} as const;
-export type OutputNewrelicType = ClosedEnum<typeof OutputNewrelicType>;
 
 /**
  * Which New Relic region endpoint to use.
@@ -223,7 +218,7 @@ export type OutputNewrelic = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputNewrelicType;
+  type: "newrelic";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -377,15 +372,6 @@ export type OutputNewrelic = {
    */
   textSecret?: string | undefined;
 };
-
-/** @internal */
-export const OutputNewrelicType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputNewrelicType
-> = z.nativeEnum(OutputNewrelicType);
-/** @internal */
-export const OutputNewrelicType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputNewrelicType
-> = OutputNewrelicType$inboundSchema;
 
 /** @internal */
 export const OutputNewrelicRegion$inboundSchema: z.ZodType<
@@ -719,7 +705,7 @@ export const OutputNewrelic$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputNewrelicType$inboundSchema,
+  type: z.literal("newrelic"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -776,7 +762,7 @@ export const OutputNewrelic$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputNewrelic$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "newrelic";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -830,7 +816,7 @@ export const OutputNewrelic$outboundSchema: z.ZodType<
   OutputNewrelic
 > = z.object({
   id: z.string().optional(),
-  type: OutputNewrelicType$outboundSchema,
+  type: z.literal("newrelic"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

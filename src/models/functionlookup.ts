@@ -5,14 +5,8 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionLookupId = {
-  Lookup: "lookup",
-} as const;
-export type FunctionLookupId = ClosedEnum<typeof FunctionLookupId>;
 
 export type InField = {
   /**
@@ -44,7 +38,7 @@ export type FunctionLookupSchema = {
   /**
    * Path to the lookup file. Reference environment variables via $. Example: $HOME/file.csv
    */
-  file?: string | undefined;
+  file: string;
   /**
    * Enable to use a disk-based lookup. This option displays only the settings relevant to disk-based mode and hides those for in-memory lookups.
    */
@@ -71,10 +65,10 @@ export type FunctionLookup = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionLookupId;
+  id: "lookup";
   loadTime: number;
   modTime: number;
   name: string;
@@ -83,11 +77,6 @@ export type FunctionLookup = {
   version: string;
   schema?: FunctionLookupSchema | undefined;
 };
-
-/** @internal */
-export const FunctionLookupId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionLookupId
-> = z.nativeEnum(FunctionLookupId);
 
 /** @internal */
 export const InField$inboundSchema: z.ZodType<InField, z.ZodTypeDef, unknown> =
@@ -133,7 +122,7 @@ export const FunctionLookupSchema$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  file: z.string().optional(),
+  file: z.string(),
   dbLookup: z.boolean().default(false),
   matchMode: z.any().optional(),
   matchType: z.any().optional(),
@@ -163,10 +152,10 @@ export const FunctionLookup$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionLookupId$inboundSchema,
+  id: z.literal("lookup"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

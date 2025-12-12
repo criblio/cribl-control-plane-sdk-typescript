@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputDatadogAgentType = {
-  DatadogAgent: "datadog_agent",
-} as const;
-export type InputDatadogAgentType = ClosedEnum<typeof InputDatadogAgentType>;
 
 export type InputDatadogAgentConnection = {
   pipeline?: string | undefined;
@@ -173,7 +168,7 @@ export type InputDatadogAgent = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputDatadogAgentType;
+  type: "datadog_agent";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -264,15 +259,6 @@ export type InputDatadogAgent = {
   proxyMode?: InputDatadogAgentProxyMode | undefined;
   description?: string | undefined;
 };
-
-/** @internal */
-export const InputDatadogAgentType$inboundSchema: z.ZodNativeEnum<
-  typeof InputDatadogAgentType
-> = z.nativeEnum(InputDatadogAgentType);
-/** @internal */
-export const InputDatadogAgentType$outboundSchema: z.ZodNativeEnum<
-  typeof InputDatadogAgentType
-> = InputDatadogAgentType$inboundSchema;
 
 /** @internal */
 export const InputDatadogAgentConnection$inboundSchema: z.ZodType<
@@ -631,7 +617,7 @@ export const InputDatadogAgent$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputDatadogAgentType$inboundSchema,
+  type: z.literal("datadog_agent"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -665,7 +651,7 @@ export const InputDatadogAgent$inboundSchema: z.ZodType<
 /** @internal */
 export type InputDatadogAgent$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "datadog_agent";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -701,7 +687,7 @@ export const InputDatadogAgent$outboundSchema: z.ZodType<
   InputDatadogAgent
 > = z.object({
   id: z.string().optional(),
-  type: InputDatadogAgentType$outboundSchema,
+  type: z.literal("datadog_agent"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

@@ -5,24 +5,18 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionLakeExportId = {
-  LakeExport: "lake_export",
-} as const;
-export type FunctionLakeExportId = ClosedEnum<typeof FunctionLakeExportId>;
 
 export type LakeExportConfiguration = {
   /**
    * Id of the search job this function is running on.
    */
-  searchJobId?: string | undefined;
+  searchJobId: string;
   /**
    * Name of the dataset
    */
-  dataset?: string | undefined;
+  dataset: string;
   /**
    * Name of the lake
    */
@@ -45,10 +39,10 @@ export type FunctionLakeExport = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionLakeExportId;
+  id: "lake_export";
   loadTime: number;
   modTime: number;
   name: string;
@@ -59,18 +53,13 @@ export type FunctionLakeExport = {
 };
 
 /** @internal */
-export const FunctionLakeExportId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionLakeExportId
-> = z.nativeEnum(FunctionLakeExportId);
-
-/** @internal */
 export const LakeExportConfiguration$inboundSchema: z.ZodType<
   LakeExportConfiguration,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  searchJobId: z.string().optional(),
-  dataset: z.string().optional(),
+  searchJobId: z.string(),
+  dataset: z.string(),
   lake: z.string().default("default"),
   tee: z.string().default("false"),
   flushMs: z.number().default(1000),
@@ -96,10 +85,10 @@ export const FunctionLakeExport$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionLakeExportId$inboundSchema,
+  id: z.literal("lake_export"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

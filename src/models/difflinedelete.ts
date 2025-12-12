@@ -4,25 +4,14 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export const DiffLineDeleteType = {
-  Delete: "delete",
-} as const;
-export type DiffLineDeleteType = ClosedEnum<typeof DiffLineDeleteType>;
-
 export type DiffLineDelete = {
-  type: DiffLineDeleteType;
+  type: "delete";
   oldNumber: number;
   content: string;
 };
-
-/** @internal */
-export const DiffLineDeleteType$inboundSchema: z.ZodNativeEnum<
-  typeof DiffLineDeleteType
-> = z.nativeEnum(DiffLineDeleteType);
 
 /** @internal */
 export const DiffLineDelete$inboundSchema: z.ZodType<
@@ -30,7 +19,7 @@ export const DiffLineDelete$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: DiffLineDeleteType$inboundSchema,
+  type: z.literal("delete"),
   oldNumber: z.number(),
   content: z.string(),
 });

@@ -27,9 +27,7 @@ let value: FunctionPivot = {
       "<value 1>",
       "<value 2>",
     ],
-    qualifierFields: [
-      "<value 1>",
-    ],
+    qualifierFields: [],
   },
 };
 ```
@@ -41,10 +39,10 @@ let value: FunctionPivot = {
 | `filename`                                                               | *string*                                                                 | :heavy_check_mark:                                                       | N/A                                                                      |
 | `asyncTimeout`                                                           | *number*                                                                 | :heavy_minus_sign:                                                       | N/A                                                                      |
 | `criblVersion`                                                           | *string*                                                                 | :heavy_minus_sign:                                                       | N/A                                                                      |
-| `disabled`                                                               | *boolean*                                                                | :heavy_check_mark:                                                       | N/A                                                                      |
+| `disabled`                                                               | *boolean*                                                                | :heavy_minus_sign:                                                       | N/A                                                                      |
 | `group`                                                                  | *string*                                                                 | :heavy_check_mark:                                                       | N/A                                                                      |
 | `handleSignals`                                                          | *boolean*                                                                | :heavy_minus_sign:                                                       | N/A                                                                      |
-| `id`                                                                     | [models.FunctionPivotId](../models/functionpivotid.md)                   | :heavy_check_mark:                                                       | N/A                                                                      |
+| `id`                                                                     | *"pivot"*                                                                | :heavy_check_mark:                                                       | N/A                                                                      |
 | `loadTime`                                                               | *number*                                                                 | :heavy_check_mark:                                                       | N/A                                                                      |
 | `modTime`                                                                | *number*                                                                 | :heavy_check_mark:                                                       | N/A                                                                      |
 | `name`                                                                   | *string*                                                                 | :heavy_check_mark:                                                       | N/A                                                                      |

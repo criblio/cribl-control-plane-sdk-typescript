@@ -6,16 +6,9 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionLocalSearchRulesetRunnerId = {
-  LocalSearchRulesetRunner: "local_search_ruleset_runner",
-} as const;
-export type FunctionLocalSearchRulesetRunnerId = ClosedEnum<
-  typeof FunctionLocalSearchRulesetRunnerId
->;
 
 export const RulesetType = {
   Dataset: "dataset",
@@ -32,10 +25,10 @@ export type FunctionLocalSearchRulesetRunner = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionLocalSearchRulesetRunnerId;
+  id: "local_search_ruleset_runner";
   loadTime: number;
   modTime: number;
   name: string;
@@ -44,11 +37,6 @@ export type FunctionLocalSearchRulesetRunner = {
   version: string;
   schema?: FunctionLocalSearchRulesetRunnerSchema | undefined;
 };
-
-/** @internal */
-export const FunctionLocalSearchRulesetRunnerId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionLocalSearchRulesetRunnerId
-> = z.nativeEnum(FunctionLocalSearchRulesetRunnerId);
 
 /** @internal */
 export const RulesetType$inboundSchema: z.ZodType<
@@ -87,10 +75,10 @@ export const FunctionLocalSearchRulesetRunner$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionLocalSearchRulesetRunnerId$inboundSchema,
+  id: z.literal("local_search_ruleset_runner"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

@@ -5,14 +5,8 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionCommentId = {
-  Comment: "comment",
-} as const;
-export type FunctionCommentId = ClosedEnum<typeof FunctionCommentId>;
 
 export type FunctionCommentSchema = {
   /**
@@ -25,10 +19,10 @@ export type FunctionComment = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionCommentId;
+  id: "comment";
   loadTime: number;
   modTime: number;
   name: string;
@@ -37,11 +31,6 @@ export type FunctionComment = {
   version: string;
   schema?: FunctionCommentSchema | undefined;
 };
-
-/** @internal */
-export const FunctionCommentId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionCommentId
-> = z.nativeEnum(FunctionCommentId);
 
 /** @internal */
 export const FunctionCommentSchema$inboundSchema: z.ZodType<
@@ -71,10 +60,10 @@ export const FunctionComment$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionCommentId$inboundSchema,
+  id: z.literal("comment"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

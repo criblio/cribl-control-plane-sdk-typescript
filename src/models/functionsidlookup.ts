@@ -5,14 +5,8 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionSidlookupId = {
-  Sidlookup: "sidlookup",
-} as const;
-export type FunctionSidlookupId = ClosedEnum<typeof FunctionSidlookupId>;
 
 export type FunctionSidlookupField = {
   name?: string | undefined;
@@ -37,10 +31,10 @@ export type FunctionSidlookup = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionSidlookupId;
+  id: "sidlookup";
   loadTime: number;
   modTime: number;
   name: string;
@@ -49,11 +43,6 @@ export type FunctionSidlookup = {
   version: string;
   schema?: FunctionSidlookupSchema | undefined;
 };
-
-/** @internal */
-export const FunctionSidlookupId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionSidlookupId
-> = z.nativeEnum(FunctionSidlookupId);
 
 /** @internal */
 export const FunctionSidlookupField$inboundSchema: z.ZodType<
@@ -105,10 +94,10 @@ export const FunctionSidlookup$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionSidlookupId$inboundSchema,
+  id: z.literal("sidlookup"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

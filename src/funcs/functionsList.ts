@@ -24,10 +24,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get a list of FunctionResponse objects
+ * List all Functions
  *
  * @remarks
- * Get a list of FunctionResponse objects
+ * Get a list of all Functions.
  */
 export function functionsList(
   client: CriblControlPlaneCore,
@@ -84,7 +84,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "listFunctionResponse",
+    operationID: "getFunctions",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,

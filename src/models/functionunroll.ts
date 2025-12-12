@@ -5,14 +5,8 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionUnrollId = {
-  Unroll: "unroll",
-} as const;
-export type FunctionUnrollId = ClosedEnum<typeof FunctionUnrollId>;
 
 export type FunctionUnrollSchema = {
   /**
@@ -29,10 +23,10 @@ export type FunctionUnroll = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionUnrollId;
+  id: "unroll";
   loadTime: number;
   modTime: number;
   name: string;
@@ -41,11 +35,6 @@ export type FunctionUnroll = {
   version: string;
   schema?: FunctionUnrollSchema | undefined;
 };
-
-/** @internal */
-export const FunctionUnrollId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionUnrollId
-> = z.nativeEnum(FunctionUnrollId);
 
 /** @internal */
 export const FunctionUnrollSchema$inboundSchema: z.ZodType<
@@ -76,10 +65,10 @@ export const FunctionUnroll$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionUnrollId$inboundSchema,
+  id: z.literal("unroll"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

@@ -5,7 +5,7 @@
 ```typescript
 import { GroupCreateRequestType } from "cribl-control-plane/models";
 
-let value: GroupCreateRequestType = "lake_access";
+let value: GroupCreateRequestType = "stream";
 ```
 
 ## Values
@@ -13,5 +13,5 @@ let value: GroupCreateRequestType = "lake_access";
 This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
-"lake_access" | "local_search" | Unrecognized<string>
+"edge" | "stream" | "search" | "lake_access" | "local_search" | Unrecognized<string>
 ```

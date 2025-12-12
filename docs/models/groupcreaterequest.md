@@ -56,7 +56,7 @@ let value: GroupCreateRequest = {
     "<value 3>",
   ],
   tags: "<value>",
-  type: "local_search",
+  type: "lake_access",
   upgradeVersion: "<value>",
   workerCount: 2070.7,
   workerRemoteAccess: false,

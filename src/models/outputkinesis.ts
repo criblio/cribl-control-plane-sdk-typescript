@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputKinesisType = {
-  Kinesis: "kinesis",
-} as const;
-export type OutputKinesisType = ClosedEnum<typeof OutputKinesisType>;
 
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
@@ -165,7 +160,7 @@ export type OutputKinesis = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputKinesisType;
+  type: "kinesis";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -309,15 +304,6 @@ export type OutputKinesis = {
 };
 
 /** @internal */
-export const OutputKinesisType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputKinesisType
-> = z.nativeEnum(OutputKinesisType);
-/** @internal */
-export const OutputKinesisType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputKinesisType
-> = OutputKinesisType$inboundSchema;
-
-/** @internal */
 export const OutputKinesisAuthenticationMethod$inboundSchema: z.ZodType<
   OutputKinesisAuthenticationMethod,
   z.ZodTypeDef,
@@ -448,7 +434,7 @@ export const OutputKinesis$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputKinesisType$inboundSchema,
+  type: z.literal("kinesis"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -496,7 +482,7 @@ export const OutputKinesis$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputKinesis$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "kinesis";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -544,7 +530,7 @@ export const OutputKinesis$outboundSchema: z.ZodType<
   OutputKinesis
 > = z.object({
   id: z.string().optional(),
-  type: OutputKinesisType$outboundSchema,
+  type: z.literal("kinesis"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputCollectionType = {
-  Collection: "collection",
-} as const;
-export type InputCollectionType = ClosedEnum<typeof InputCollectionType>;
 
 export type InputCollectionConnection = {
   pipeline?: string | undefined;
@@ -116,7 +111,7 @@ export type InputCollection = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type?: InputCollectionType | undefined;
+  type: "collection";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process results
@@ -165,15 +160,6 @@ export type InputCollection = {
    */
   output?: string | undefined;
 };
-
-/** @internal */
-export const InputCollectionType$inboundSchema: z.ZodNativeEnum<
-  typeof InputCollectionType
-> = z.nativeEnum(InputCollectionType);
-/** @internal */
-export const InputCollectionType$outboundSchema: z.ZodNativeEnum<
-  typeof InputCollectionType
-> = InputCollectionType$inboundSchema;
 
 /** @internal */
 export const InputCollectionConnection$inboundSchema: z.ZodType<
@@ -430,7 +416,7 @@ export const InputCollection$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputCollectionType$inboundSchema.default("collection"),
+  type: z.literal("collection"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -451,7 +437,7 @@ export const InputCollection$inboundSchema: z.ZodType<
 /** @internal */
 export type InputCollection$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "collection";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -475,7 +461,7 @@ export const InputCollection$outboundSchema: z.ZodType<
   InputCollection
 > = z.object({
   id: z.string().optional(),
-  type: InputCollectionType$outboundSchema.default("collection"),
+  type: z.literal("collection"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

@@ -19,10 +19,10 @@ export type Config = {
 };
 
 export const DistMode = {
-  Edge: "edge",
-  Worker: "worker",
   Single: "single",
   Master: "master",
+  Worker: "worker",
+  Edge: "edge",
   ManagedEdge: "managed-edge",
   Outpost: "outpost",
   SearchSupervisor: "search-supervisor",

@@ -1,5 +1,4 @@
 # Destinations
-(*destinations*)
 
 ## Overview
 
@@ -107,8 +106,8 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.destinations.create({
-    id: "<id>",
-    type: "elastic_cloud",
+    id: "tcpjson-output",
+    type: "tcpjson",
     pipeline: "<value>",
     systemFields: [
       "<value 1>",
@@ -118,60 +117,44 @@ async function run() {
     streamtags: [
       "<value 1>",
     ],
-    url: "https://probable-rationale.com/",
-    index: "<value>",
-    concurrency: 5,
-    maxPayloadSizeKB: 4096,
-    maxPayloadEvents: 0,
-    compress: true,
-    rejectUnauthorized: true,
-    timeoutSec: 30,
-    flushPeriodSec: 1,
-    extraHttpHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    failedRequestLoggingMode: "none",
-    safeHeaders: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    extraParams: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    auth: {
-      disabled: false,
-      username: "Imogene1",
-      password: "tA9DUjJtHSnXqh9",
-      authType: "manual",
-      credentialsSecret: "<value>",
-      manualAPIKey: "<value>",
-      textSecret: "<value>",
+    loadBalanced: true,
+    compression: "gzip",
+    logFailedRequests: false,
+    throttleRatePerSec: "0",
+    tls: {
+      disabled: true,
+      rejectUnauthorized: true,
+      servername: "<value>",
+      certificateName: "<value>",
+      caPath: "<value>",
+      privKeyPath: "<value>",
+      certPath: "<value>",
+      passphrase: "<value>",
+      minVersion: "TLSv1.2",
+      maxVersion: "TLSv1.2",
     },
-    elasticPipeline: "<value>",
-    includeDocId: true,
-    responseRetrySettings: [
-      {
-        httpStatus: 7295.73,
-        initialBackoff: 1000,
-        backoffRate: 2,
-        maxBackoff: 10000,
-      },
-    ],
-    timeoutRetrySettings: {
-      timeoutRetry: false,
-      initialBackoff: 1000,
-      backoffRate: 2,
-      maxBackoff: 10000,
-    },
-    responseHonorRetryAfterHeader: false,
+    connectionTimeout: 10000,
+    writeTimeout: 60000,
+    tokenTTLMinutes: 60,
+    sendHeader: true,
     onBackpressure: "block",
+    authType: "manual",
     description: "hourly about into",
+    host: "localhost",
+    port: 10090,
+    excludeSelf: false,
+    hosts: [
+      {
+        host: "chilly-exterior.net",
+        port: 6458.17,
+        tls: "inherit",
+        servername: "<value>",
+        weight: 1,
+      },
+    ],
+    dnsResolvePeriodSec: 600,
+    loadBalanceStatsPeriodSec: 300,
+    maxConcurrentSenders: 0,
     pqStrictOrdering: true,
     pqRatePerSec: 0,
     pqMode: "error",
@@ -183,6 +166,8 @@ async function run() {
     pqCompress: "none",
     pqOnBackpressure: "block",
     pqControls: {},
+    authToken: "",
+    textSecret: "<value>",
   });
 
   console.log(result);
@@ -210,8 +195,8 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await destinationsCreate(criblControlPlane, {
-    id: "<id>",
-    type: "elastic_cloud",
+    id: "tcpjson-output",
+    type: "tcpjson",
     pipeline: "<value>",
     systemFields: [
       "<value 1>",
@@ -221,60 +206,44 @@ async function run() {
     streamtags: [
       "<value 1>",
     ],
-    url: "https://probable-rationale.com/",
-    index: "<value>",
-    concurrency: 5,
-    maxPayloadSizeKB: 4096,
-    maxPayloadEvents: 0,
-    compress: true,
-    rejectUnauthorized: true,
-    timeoutSec: 30,
-    flushPeriodSec: 1,
-    extraHttpHeaders: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    failedRequestLoggingMode: "none",
-    safeHeaders: [
-      "<value 1>",
-      "<value 2>",
-    ],
-    extraParams: [
-      {
-        name: "<value>",
-        value: "<value>",
-      },
-    ],
-    auth: {
-      disabled: false,
-      username: "Imogene1",
-      password: "tA9DUjJtHSnXqh9",
-      authType: "manual",
-      credentialsSecret: "<value>",
-      manualAPIKey: "<value>",
-      textSecret: "<value>",
+    loadBalanced: true,
+    compression: "gzip",
+    logFailedRequests: false,
+    throttleRatePerSec: "0",
+    tls: {
+      disabled: true,
+      rejectUnauthorized: true,
+      servername: "<value>",
+      certificateName: "<value>",
+      caPath: "<value>",
+      privKeyPath: "<value>",
+      certPath: "<value>",
+      passphrase: "<value>",
+      minVersion: "TLSv1.2",
+      maxVersion: "TLSv1.2",
     },
-    elasticPipeline: "<value>",
-    includeDocId: true,
-    responseRetrySettings: [
-      {
-        httpStatus: 7295.73,
-        initialBackoff: 1000,
-        backoffRate: 2,
-        maxBackoff: 10000,
-      },
-    ],
-    timeoutRetrySettings: {
-      timeoutRetry: false,
-      initialBackoff: 1000,
-      backoffRate: 2,
-      maxBackoff: 10000,
-    },
-    responseHonorRetryAfterHeader: false,
+    connectionTimeout: 10000,
+    writeTimeout: 60000,
+    tokenTTLMinutes: 60,
+    sendHeader: true,
     onBackpressure: "block",
+    authType: "manual",
     description: "hourly about into",
+    host: "localhost",
+    port: 10090,
+    excludeSelf: false,
+    hosts: [
+      {
+        host: "chilly-exterior.net",
+        port: 6458.17,
+        tls: "inherit",
+        servername: "<value>",
+        weight: 1,
+      },
+    ],
+    dnsResolvePeriodSec: 600,
+    loadBalanceStatsPeriodSec: 300,
+    maxConcurrentSenders: 0,
     pqStrictOrdering: true,
     pqRatePerSec: 0,
     pqMode: "error",
@@ -286,6 +255,8 @@ async function run() {
     pqCompress: "none",
     pqOnBackpressure: "block",
     pqControls: {},
+    authToken: "",
+    textSecret: "<value>",
   });
   if (res.ok) {
     const { value: result } = res;
@@ -419,8 +390,8 @@ async function run() {
   const result = await criblControlPlane.destinations.update({
     id: "<id>",
     output: {
-      id: "<id>",
-      type: "signalfx",
+      id: "default-output",
+      type: "default",
       pipeline: "<value>",
       systemFields: [
         "<value 1>",
@@ -430,56 +401,7 @@ async function run() {
         "<value 1>",
         "<value 2>",
       ],
-      authType: "manual",
-      realm: "us0",
-      concurrency: 5,
-      maxPayloadSizeKB: 4096,
-      maxPayloadEvents: 0,
-      compress: true,
-      rejectUnauthorized: true,
-      timeoutSec: 30,
-      flushPeriodSec: 1,
-      extraHttpHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      useRoundRobinDns: false,
-      failedRequestLoggingMode: "none",
-      safeHeaders: [
-        "<value 1>",
-      ],
-      responseRetrySettings: [
-        {
-          httpStatus: 2924.72,
-          initialBackoff: 1000,
-          backoffRate: 2,
-          maxBackoff: 10000,
-        },
-      ],
-      timeoutRetrySettings: {
-        timeoutRetry: false,
-        initialBackoff: 1000,
-        backoffRate: 2,
-        maxBackoff: 10000,
-      },
-      responseHonorRetryAfterHeader: false,
-      onBackpressure: "block",
-      description: "phooey positively a consequently meh until",
-      token: "<value>",
-      textSecret: "<value>",
-      pqStrictOrdering: true,
-      pqRatePerSec: 0,
-      pqMode: "error",
-      pqMaxBufferSize: 42,
-      pqMaxBackpressureSec: 30,
-      pqMaxFileSize: "1 MB",
-      pqMaxSize: "5GB",
-      pqPath: "$CRIBL_HOME/state/queues",
-      pqCompress: "none",
-      pqOnBackpressure: "block",
-      pqControls: {},
+      defaultId: "my-default-output",
     },
   });
 
@@ -510,8 +432,8 @@ async function run() {
   const res = await destinationsUpdate(criblControlPlane, {
     id: "<id>",
     output: {
-      id: "<id>",
-      type: "signalfx",
+      id: "default-output",
+      type: "default",
       pipeline: "<value>",
       systemFields: [
         "<value 1>",
@@ -521,56 +443,7 @@ async function run() {
         "<value 1>",
         "<value 2>",
       ],
-      authType: "manual",
-      realm: "us0",
-      concurrency: 5,
-      maxPayloadSizeKB: 4096,
-      maxPayloadEvents: 0,
-      compress: true,
-      rejectUnauthorized: true,
-      timeoutSec: 30,
-      flushPeriodSec: 1,
-      extraHttpHeaders: [
-        {
-          name: "<value>",
-          value: "<value>",
-        },
-      ],
-      useRoundRobinDns: false,
-      failedRequestLoggingMode: "none",
-      safeHeaders: [
-        "<value 1>",
-      ],
-      responseRetrySettings: [
-        {
-          httpStatus: 2924.72,
-          initialBackoff: 1000,
-          backoffRate: 2,
-          maxBackoff: 10000,
-        },
-      ],
-      timeoutRetrySettings: {
-        timeoutRetry: false,
-        initialBackoff: 1000,
-        backoffRate: 2,
-        maxBackoff: 10000,
-      },
-      responseHonorRetryAfterHeader: false,
-      onBackpressure: "block",
-      description: "phooey positively a consequently meh until",
-      token: "<value>",
-      textSecret: "<value>",
-      pqStrictOrdering: true,
-      pqRatePerSec: 0,
-      pqMode: "error",
-      pqMaxBufferSize: 42,
-      pqMaxBackpressureSec: 30,
-      pqMaxFileSize: "1 MB",
-      pqMaxSize: "5GB",
-      pqPath: "$CRIBL_HOME/state/queues",
-      pqCompress: "none",
-      pqOnBackpressure: "block",
-      pqControls: {},
+      defaultId: "my-default-output",
     },
   });
   if (res.ok) {

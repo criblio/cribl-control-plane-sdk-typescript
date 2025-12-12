@@ -106,6 +106,10 @@ import {
   FunctionMvPull$inboundSchema,
 } from "./functionmvpull.js";
 import {
+  FunctionNotificationPolicies,
+  FunctionNotificationPolicies$inboundSchema,
+} from "./functionnotificationpolicies.js";
+import {
   FunctionNotifications,
   FunctionNotifications$inboundSchema,
 } from "./functionnotifications.js";
@@ -200,69 +204,70 @@ import {
 } from "./functionxmlunroll.js";
 
 export type FunctionResponse =
-  | (FunctionAggregateMetrics & { id: "aggregate_metrics" })
-  | (FunctionAggregation & { id: "aggregation" })
-  | (FunctionAutoTimestamp & { id: "auto_timestamp" })
-  | (FunctionCef & { id: "cef" })
-  | (FunctionChain & { id: "chain" })
-  | (FunctionClone & { id: "clone" })
-  | (FunctionCode & { id: "code" })
-  | (FunctionComment & { id: "comment" })
-  | (FunctionDistinct & { id: "distinct" })
-  | (FunctionDnsLookup & { id: "dns_lookup" })
-  | (FunctionDrop & { id: "drop" })
-  | (FunctionDropDimensions & { id: "drop_dimensions" })
-  | (FunctionDynamicSampling & { id: "dynamic_sampling" })
-  | (FunctionEval & { id: "eval" })
-  | (FunctionEventBreaker & { id: "event_breaker" })
-  | (FunctionEventstats & { id: "eventstats" })
-  | (FunctionExternaldata & { id: "externaldata" })
-  | (FunctionFlatten & { id: "flatten" })
-  | (FunctionFoldkeys & { id: "foldkeys" })
-  | (FunctionGenStats & { id: "gen_stats" })
-  | (FunctionGeoip & { id: "geoip" })
-  | (FunctionGrok & { id: "grok" })
-  | (FunctionHandlebar & { id: "handlebar" })
-  | (FunctionJoin & { id: "join" })
-  | (FunctionJsonUnroll & { id: "json_unroll" })
-  | (FunctionLakeExport & { id: "lake_export" })
-  | (FunctionLimit & { id: "limit" })
-  | (FunctionLocalSearchDatatypeParser & { id: "local_search_datatype_parser" })
-  | (FunctionLocalSearchRulesetRunner & { id: "local_search_ruleset_runner" })
-  | (FunctionLookup & { id: "lookup" })
-  | (FunctionMask & { id: "mask" })
-  | (FunctionMvExpand & { id: "mv_expand" })
-  | (FunctionMvPull & { id: "mv_pull" })
-  | (FunctionNotifications & { id: "notifications" })
-  | (FunctionNotify & { id: "notify" })
-  | (FunctionNumerify & { id: "numerify" })
-  | (FunctionOtlpLogs & { id: "otlp_logs" })
-  | (FunctionOtlpMetrics & { id: "otlp_metrics" })
-  | (FunctionOtlpTraces & { id: "otlp_traces" })
-  | (FunctionPack & { id: "pack" })
-  | (FunctionPivot & { id: "pivot" })
-  | (FunctionPublishMetrics & { id: "publish_metrics" })
-  | (FunctionRedis & { id: "redis" })
-  | (FunctionRegexExtract & { id: "regex_extract" })
-  | (FunctionRegexFilter & { id: "regex_filter" })
-  | (FunctionRename & { id: "rename" })
-  | (FunctionRollupMetrics & { id: "rollup_metrics" })
-  | (FunctionSampling & { id: "sampling" })
-  | (FunctionSend & { id: "send" })
-  | (FunctionSensitiveDataScanner & { id: "sensitive_data_scanner" })
-  | (FunctionSerde & { id: "serde" })
-  | (FunctionSerialize & { id: "serialize" })
-  | (FunctionSidlookup & { id: "sidlookup" })
-  | (FunctionSnmpTrapSerialize & { id: "snmp_trap_serialize" })
-  | (FunctionSort & { id: "sort" })
-  | (FunctionStore & { id: "store" })
-  | (FunctionSuppress & { id: "suppress" })
-  | (FunctionTee & { id: "tee" })
-  | (FunctionTrimTimestamp & { id: "trim_timestamp" })
-  | (FunctionUnion & { id: "union" })
-  | (FunctionUnroll & { id: "unroll" })
-  | (FunctionWindow & { id: "window" })
-  | (FunctionXmlUnroll & { id: "xml_unroll" });
+  | FunctionAggregateMetrics
+  | FunctionAggregation
+  | FunctionAutoTimestamp
+  | FunctionCef
+  | FunctionChain
+  | FunctionClone
+  | FunctionCode
+  | FunctionComment
+  | FunctionDistinct
+  | FunctionDnsLookup
+  | FunctionDrop
+  | FunctionDropDimensions
+  | FunctionDynamicSampling
+  | FunctionEval
+  | FunctionEventBreaker
+  | FunctionEventstats
+  | FunctionExternaldata
+  | FunctionFlatten
+  | FunctionFoldkeys
+  | FunctionGenStats
+  | FunctionGeoip
+  | FunctionGrok
+  | FunctionHandlebar
+  | FunctionJoin
+  | FunctionJsonUnroll
+  | FunctionLakeExport
+  | FunctionLimit
+  | FunctionLocalSearchDatatypeParser
+  | FunctionLocalSearchRulesetRunner
+  | FunctionLookup
+  | FunctionMask
+  | FunctionMvExpand
+  | FunctionMvPull
+  | FunctionNotificationPolicies
+  | FunctionNotifications
+  | FunctionNotify
+  | FunctionNumerify
+  | FunctionOtlpLogs
+  | FunctionOtlpMetrics
+  | FunctionOtlpTraces
+  | FunctionPack
+  | FunctionPivot
+  | FunctionPublishMetrics
+  | FunctionRedis
+  | FunctionRegexExtract
+  | FunctionRegexFilter
+  | FunctionRename
+  | FunctionRollupMetrics
+  | FunctionSampling
+  | FunctionSend
+  | FunctionSensitiveDataScanner
+  | FunctionSerde
+  | FunctionSerialize
+  | FunctionSidlookup
+  | FunctionSnmpTrapSerialize
+  | FunctionSort
+  | FunctionStore
+  | FunctionSuppress
+  | FunctionTee
+  | FunctionTrimTimestamp
+  | FunctionUnion
+  | FunctionUnroll
+  | FunctionWindow
+  | FunctionXmlUnroll;
 
 /** @internal */
 export const FunctionResponse$inboundSchema: z.ZodType<
@@ -270,117 +275,70 @@ export const FunctionResponse$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  FunctionAggregateMetrics$inboundSchema.and(
-    z.object({ id: z.literal("aggregate_metrics") }),
-  ),
-  FunctionAggregation$inboundSchema.and(
-    z.object({ id: z.literal("aggregation") }),
-  ),
-  FunctionAutoTimestamp$inboundSchema.and(
-    z.object({ id: z.literal("auto_timestamp") }),
-  ),
-  FunctionCef$inboundSchema.and(z.object({ id: z.literal("cef") })),
-  FunctionChain$inboundSchema.and(z.object({ id: z.literal("chain") })),
-  FunctionClone$inboundSchema.and(z.object({ id: z.literal("clone") })),
-  FunctionCode$inboundSchema.and(z.object({ id: z.literal("code") })),
-  FunctionComment$inboundSchema.and(z.object({ id: z.literal("comment") })),
-  FunctionDistinct$inboundSchema.and(z.object({ id: z.literal("distinct") })),
-  FunctionDnsLookup$inboundSchema.and(
-    z.object({ id: z.literal("dns_lookup") }),
-  ),
-  FunctionDrop$inboundSchema.and(z.object({ id: z.literal("drop") })),
-  FunctionDropDimensions$inboundSchema.and(
-    z.object({ id: z.literal("drop_dimensions") }),
-  ),
-  FunctionDynamicSampling$inboundSchema.and(
-    z.object({ id: z.literal("dynamic_sampling") }),
-  ),
-  FunctionEval$inboundSchema.and(z.object({ id: z.literal("eval") })),
-  FunctionEventBreaker$inboundSchema.and(
-    z.object({ id: z.literal("event_breaker") }),
-  ),
-  FunctionEventstats$inboundSchema.and(
-    z.object({ id: z.literal("eventstats") }),
-  ),
-  FunctionExternaldata$inboundSchema.and(
-    z.object({ id: z.literal("externaldata") }),
-  ),
-  FunctionFlatten$inboundSchema.and(z.object({ id: z.literal("flatten") })),
-  FunctionFoldkeys$inboundSchema.and(z.object({ id: z.literal("foldkeys") })),
-  FunctionGenStats$inboundSchema.and(z.object({ id: z.literal("gen_stats") })),
-  FunctionGeoip$inboundSchema.and(z.object({ id: z.literal("geoip") })),
-  FunctionGrok$inboundSchema.and(z.object({ id: z.literal("grok") })),
-  FunctionHandlebar$inboundSchema.and(z.object({ id: z.literal("handlebar") })),
-  FunctionJoin$inboundSchema.and(z.object({ id: z.literal("join") })),
-  FunctionJsonUnroll$inboundSchema.and(
-    z.object({ id: z.literal("json_unroll") }),
-  ),
-  FunctionLakeExport$inboundSchema.and(
-    z.object({ id: z.literal("lake_export") }),
-  ),
-  FunctionLimit$inboundSchema.and(z.object({ id: z.literal("limit") })),
-  FunctionLocalSearchDatatypeParser$inboundSchema.and(
-    z.object({ id: z.literal("local_search_datatype_parser") }),
-  ),
-  FunctionLocalSearchRulesetRunner$inboundSchema.and(
-    z.object({ id: z.literal("local_search_ruleset_runner") }),
-  ),
-  FunctionLookup$inboundSchema.and(z.object({ id: z.literal("lookup") })),
-  FunctionMask$inboundSchema.and(z.object({ id: z.literal("mask") })),
-  FunctionMvExpand$inboundSchema.and(z.object({ id: z.literal("mv_expand") })),
-  FunctionMvPull$inboundSchema.and(z.object({ id: z.literal("mv_pull") })),
-  FunctionNotifications$inboundSchema.and(
-    z.object({ id: z.literal("notifications") }),
-  ),
-  FunctionNotify$inboundSchema.and(z.object({ id: z.literal("notify") })),
-  FunctionNumerify$inboundSchema.and(z.object({ id: z.literal("numerify") })),
-  FunctionOtlpLogs$inboundSchema.and(z.object({ id: z.literal("otlp_logs") })),
-  FunctionOtlpMetrics$inboundSchema.and(
-    z.object({ id: z.literal("otlp_metrics") }),
-  ),
-  FunctionOtlpTraces$inboundSchema.and(
-    z.object({ id: z.literal("otlp_traces") }),
-  ),
-  FunctionPack$inboundSchema.and(z.object({ id: z.literal("pack") })),
-  FunctionPivot$inboundSchema.and(z.object({ id: z.literal("pivot") })),
-  FunctionPublishMetrics$inboundSchema.and(
-    z.object({ id: z.literal("publish_metrics") }),
-  ),
-  FunctionRedis$inboundSchema.and(z.object({ id: z.literal("redis") })),
-  FunctionRegexExtract$inboundSchema.and(
-    z.object({ id: z.literal("regex_extract") }),
-  ),
-  FunctionRegexFilter$inboundSchema.and(
-    z.object({ id: z.literal("regex_filter") }),
-  ),
-  FunctionRename$inboundSchema.and(z.object({ id: z.literal("rename") })),
-  FunctionRollupMetrics$inboundSchema.and(
-    z.object({ id: z.literal("rollup_metrics") }),
-  ),
-  FunctionSampling$inboundSchema.and(z.object({ id: z.literal("sampling") })),
-  FunctionSend$inboundSchema.and(z.object({ id: z.literal("send") })),
-  FunctionSensitiveDataScanner$inboundSchema.and(
-    z.object({ id: z.literal("sensitive_data_scanner") }),
-  ),
-  FunctionSerde$inboundSchema.and(z.object({ id: z.literal("serde") })),
-  FunctionSerialize$inboundSchema.and(z.object({ id: z.literal("serialize") })),
-  FunctionSidlookup$inboundSchema.and(z.object({ id: z.literal("sidlookup") })),
-  FunctionSnmpTrapSerialize$inboundSchema.and(
-    z.object({ id: z.literal("snmp_trap_serialize") }),
-  ),
-  FunctionSort$inboundSchema.and(z.object({ id: z.literal("sort") })),
-  FunctionStore$inboundSchema.and(z.object({ id: z.literal("store") })),
-  FunctionSuppress$inboundSchema.and(z.object({ id: z.literal("suppress") })),
-  FunctionTee$inboundSchema.and(z.object({ id: z.literal("tee") })),
-  FunctionTrimTimestamp$inboundSchema.and(
-    z.object({ id: z.literal("trim_timestamp") }),
-  ),
-  FunctionUnion$inboundSchema.and(z.object({ id: z.literal("union") })),
-  FunctionUnroll$inboundSchema.and(z.object({ id: z.literal("unroll") })),
-  FunctionWindow$inboundSchema.and(z.object({ id: z.literal("window") })),
-  FunctionXmlUnroll$inboundSchema.and(
-    z.object({ id: z.literal("xml_unroll") }),
-  ),
+  FunctionAggregateMetrics$inboundSchema,
+  FunctionAggregation$inboundSchema,
+  FunctionAutoTimestamp$inboundSchema,
+  FunctionCef$inboundSchema,
+  FunctionChain$inboundSchema,
+  FunctionClone$inboundSchema,
+  FunctionCode$inboundSchema,
+  FunctionComment$inboundSchema,
+  FunctionDistinct$inboundSchema,
+  FunctionDnsLookup$inboundSchema,
+  FunctionDrop$inboundSchema,
+  FunctionDropDimensions$inboundSchema,
+  FunctionDynamicSampling$inboundSchema,
+  FunctionEval$inboundSchema,
+  FunctionEventBreaker$inboundSchema,
+  FunctionEventstats$inboundSchema,
+  FunctionExternaldata$inboundSchema,
+  FunctionFlatten$inboundSchema,
+  FunctionFoldkeys$inboundSchema,
+  FunctionGenStats$inboundSchema,
+  FunctionGeoip$inboundSchema,
+  FunctionGrok$inboundSchema,
+  FunctionHandlebar$inboundSchema,
+  FunctionJoin$inboundSchema,
+  FunctionJsonUnroll$inboundSchema,
+  FunctionLakeExport$inboundSchema,
+  FunctionLimit$inboundSchema,
+  FunctionLocalSearchDatatypeParser$inboundSchema,
+  FunctionLocalSearchRulesetRunner$inboundSchema,
+  FunctionLookup$inboundSchema,
+  FunctionMask$inboundSchema,
+  FunctionMvExpand$inboundSchema,
+  FunctionMvPull$inboundSchema,
+  FunctionNotificationPolicies$inboundSchema,
+  FunctionNotifications$inboundSchema,
+  FunctionNotify$inboundSchema,
+  FunctionNumerify$inboundSchema,
+  FunctionOtlpLogs$inboundSchema,
+  FunctionOtlpMetrics$inboundSchema,
+  FunctionOtlpTraces$inboundSchema,
+  FunctionPack$inboundSchema,
+  FunctionPivot$inboundSchema,
+  FunctionPublishMetrics$inboundSchema,
+  FunctionRedis$inboundSchema,
+  FunctionRegexExtract$inboundSchema,
+  FunctionRegexFilter$inboundSchema,
+  FunctionRename$inboundSchema,
+  FunctionRollupMetrics$inboundSchema,
+  FunctionSampling$inboundSchema,
+  FunctionSend$inboundSchema,
+  FunctionSensitiveDataScanner$inboundSchema,
+  FunctionSerde$inboundSchema,
+  FunctionSerialize$inboundSchema,
+  FunctionSidlookup$inboundSchema,
+  FunctionSnmpTrapSerialize$inboundSchema,
+  FunctionSort$inboundSchema,
+  FunctionStore$inboundSchema,
+  FunctionSuppress$inboundSchema,
+  FunctionTee$inboundSchema,
+  FunctionTrimTimestamp$inboundSchema,
+  FunctionUnion$inboundSchema,
+  FunctionUnroll$inboundSchema,
+  FunctionWindow$inboundSchema,
+  FunctionXmlUnroll$inboundSchema,
 ]);
 
 export function functionResponseFromJSON(
