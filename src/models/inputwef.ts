@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputWefType = {
-  Wef: "wef",
-} as const;
-export type InputWefType = ClosedEnum<typeof InputWefType>;
 
 export type InputWefConnection = {
   pipeline?: string | undefined;
@@ -268,7 +259,7 @@ export type InputWef = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputWefType;
+  type: "wef";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -376,13 +367,6 @@ export type InputWef = {
 };
 
 /** @internal */
-export const InputWefType$inboundSchema: z.ZodNativeEnum<typeof InputWefType> =
-  z.nativeEnum(InputWefType);
-/** @internal */
-export const InputWefType$outboundSchema: z.ZodNativeEnum<typeof InputWefType> =
-  InputWefType$inboundSchema;
-
-/** @internal */
 export const InputWefConnection$inboundSchema: z.ZodType<
   InputWefConnection,
   z.ZodTypeDef,
@@ -429,40 +413,26 @@ export const InputWefMode$inboundSchema: z.ZodType<
   InputWefMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputWefMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputWefMode);
 /** @internal */
 export const InputWefMode$outboundSchema: z.ZodType<
-  InputWefMode,
+  string,
   z.ZodTypeDef,
   InputWefMode
-> = z.union([
-  z.nativeEnum(InputWefMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputWefMode);
 
 /** @internal */
 export const InputWefCompression$inboundSchema: z.ZodType<
   InputWefCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputWefCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputWefCompression);
 /** @internal */
 export const InputWefCompression$outboundSchema: z.ZodType<
-  InputWefCompression,
+  string,
   z.ZodTypeDef,
   InputWefCompression
-> = z.union([
-  z.nativeEnum(InputWefCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputWefCompression);
 
 /** @internal */
 export const InputWefPqControls$inboundSchema: z.ZodType<
@@ -558,60 +528,39 @@ export const InputWefAuthenticationMethod$inboundSchema: z.ZodType<
   InputWefAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputWefAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputWefAuthenticationMethod);
 /** @internal */
 export const InputWefAuthenticationMethod$outboundSchema: z.ZodType<
-  InputWefAuthenticationMethod,
+  string,
   z.ZodTypeDef,
   InputWefAuthenticationMethod
-> = z.union([
-  z.nativeEnum(InputWefAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputWefAuthenticationMethod);
 
 /** @internal */
 export const InputWefMinimumTLSVersion$inboundSchema: z.ZodType<
   InputWefMinimumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputWefMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputWefMinimumTLSVersion);
 /** @internal */
 export const InputWefMinimumTLSVersion$outboundSchema: z.ZodType<
-  InputWefMinimumTLSVersion,
+  string,
   z.ZodTypeDef,
   InputWefMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(InputWefMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputWefMinimumTLSVersion);
 
 /** @internal */
 export const InputWefMaximumTLSVersion$inboundSchema: z.ZodType<
   InputWefMaximumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputWefMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputWefMaximumTLSVersion);
 /** @internal */
 export const InputWefMaximumTLSVersion$outboundSchema: z.ZodType<
-  InputWefMaximumTLSVersion,
+  string,
   z.ZodTypeDef,
   InputWefMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(InputWefMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputWefMaximumTLSVersion);
 
 /** @internal */
 export const MTLSSettings$inboundSchema: z.ZodType<
@@ -695,40 +644,26 @@ export const InputWefFormat$inboundSchema: z.ZodType<
   InputWefFormat,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputWefFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputWefFormat);
 /** @internal */
 export const InputWefFormat$outboundSchema: z.ZodType<
-  InputWefFormat,
+  string,
   z.ZodTypeDef,
   InputWefFormat
-> = z.union([
-  z.nativeEnum(InputWefFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputWefFormat);
 
 /** @internal */
 export const QueryBuilderMode$inboundSchema: z.ZodType<
   QueryBuilderMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(QueryBuilderMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(QueryBuilderMode);
 /** @internal */
 export const QueryBuilderMode$outboundSchema: z.ZodType<
-  QueryBuilderMode,
+  string,
   z.ZodTypeDef,
   QueryBuilderMode
-> = z.union([
-  z.nativeEnum(QueryBuilderMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(QueryBuilderMode);
 
 /** @internal */
 export const SubscriptionMetadatum$inboundSchema: z.ZodType<
@@ -891,7 +826,7 @@ export const InputWef$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputWefType$inboundSchema,
+  type: z.literal("wef"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -926,7 +861,7 @@ export const InputWef$inboundSchema: z.ZodType<
 /** @internal */
 export type InputWef$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "wef";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -965,7 +900,7 @@ export const InputWef$outboundSchema: z.ZodType<
   InputWef
 > = z.object({
   id: z.string().optional(),
-  type: InputWefType$outboundSchema,
+  type: z.literal("wef"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

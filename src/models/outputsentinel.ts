@@ -5,19 +5,10 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputSentinelType = {
-  Sentinel: "sentinel",
-} as const;
-export type OutputSentinelType = ClosedEnum<typeof OutputSentinelType>;
 
 export type OutputSentinelExtraHttpHeader = {
   name?: string | undefined;
@@ -207,7 +198,7 @@ export type OutputSentinel = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputSentinelType;
+  type: "sentinel";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -408,15 +399,6 @@ export type OutputSentinel = {
 };
 
 /** @internal */
-export const OutputSentinelType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSentinelType
-> = z.nativeEnum(OutputSentinelType);
-/** @internal */
-export const OutputSentinelType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSentinelType
-> = OutputSentinelType$inboundSchema;
-
-/** @internal */
 export const OutputSentinelExtraHttpHeader$inboundSchema: z.ZodType<
   OutputSentinelExtraHttpHeader,
   z.ZodTypeDef,
@@ -465,20 +447,13 @@ export const OutputSentinelFailedRequestLoggingMode$inboundSchema: z.ZodType<
   OutputSentinelFailedRequestLoggingMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSentinelFailedRequestLoggingMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSentinelFailedRequestLoggingMode);
 /** @internal */
 export const OutputSentinelFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  OutputSentinelFailedRequestLoggingMode,
+  string,
   z.ZodTypeDef,
   OutputSentinelFailedRequestLoggingMode
-> = z.union([
-  z.nativeEnum(OutputSentinelFailedRequestLoggingMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSentinelFailedRequestLoggingMode);
 
 /** @internal */
 export const OutputSentinelResponseRetrySetting$inboundSchema: z.ZodType<
@@ -587,140 +562,91 @@ export const OutputSentinelBackpressureBehavior$inboundSchema: z.ZodType<
   OutputSentinelBackpressureBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSentinelBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSentinelBackpressureBehavior);
 /** @internal */
 export const OutputSentinelBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputSentinelBackpressureBehavior,
+  string,
   z.ZodTypeDef,
   OutputSentinelBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputSentinelBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSentinelBackpressureBehavior);
 
 /** @internal */
 export const AuthType$inboundSchema: z.ZodType<
   AuthType,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(AuthType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(AuthType);
 /** @internal */
 export const AuthType$outboundSchema: z.ZodType<
-  AuthType,
+  string,
   z.ZodTypeDef,
   AuthType
-> = z.union([
-  z.nativeEnum(AuthType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(AuthType);
 
 /** @internal */
 export const EndpointConfiguration$inboundSchema: z.ZodType<
   EndpointConfiguration,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(EndpointConfiguration),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(EndpointConfiguration);
 /** @internal */
 export const EndpointConfiguration$outboundSchema: z.ZodType<
-  EndpointConfiguration,
+  string,
   z.ZodTypeDef,
   EndpointConfiguration
-> = z.union([
-  z.nativeEnum(EndpointConfiguration),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(EndpointConfiguration);
 
 /** @internal */
 export const OutputSentinelFormat$inboundSchema: z.ZodType<
   OutputSentinelFormat,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSentinelFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSentinelFormat);
 /** @internal */
 export const OutputSentinelFormat$outboundSchema: z.ZodType<
-  OutputSentinelFormat,
+  string,
   z.ZodTypeDef,
   OutputSentinelFormat
-> = z.union([
-  z.nativeEnum(OutputSentinelFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSentinelFormat);
 
 /** @internal */
 export const OutputSentinelMode$inboundSchema: z.ZodType<
   OutputSentinelMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSentinelMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSentinelMode);
 /** @internal */
 export const OutputSentinelMode$outboundSchema: z.ZodType<
-  OutputSentinelMode,
+  string,
   z.ZodTypeDef,
   OutputSentinelMode
-> = z.union([
-  z.nativeEnum(OutputSentinelMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSentinelMode);
 
 /** @internal */
 export const OutputSentinelCompression$inboundSchema: z.ZodType<
   OutputSentinelCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSentinelCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSentinelCompression);
 /** @internal */
 export const OutputSentinelCompression$outboundSchema: z.ZodType<
-  OutputSentinelCompression,
+  string,
   z.ZodTypeDef,
   OutputSentinelCompression
-> = z.union([
-  z.nativeEnum(OutputSentinelCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSentinelCompression);
 
 /** @internal */
 export const OutputSentinelQueueFullBehavior$inboundSchema: z.ZodType<
   OutputSentinelQueueFullBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSentinelQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSentinelQueueFullBehavior);
 /** @internal */
 export const OutputSentinelQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputSentinelQueueFullBehavior,
+  string,
   z.ZodTypeDef,
   OutputSentinelQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputSentinelQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSentinelQueueFullBehavior);
 
 /** @internal */
 export const OutputSentinelPqControls$inboundSchema: z.ZodType<
@@ -762,7 +688,7 @@ export const OutputSentinel$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputSentinelType$inboundSchema,
+  type: z.literal("sentinel"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -834,7 +760,7 @@ export const OutputSentinel$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputSentinel$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "sentinel";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -900,7 +826,7 @@ export const OutputSentinel$outboundSchema: z.ZodType<
   OutputSentinel
 > = z.object({
   id: z.string().optional(),
-  type: OutputSentinelType$outboundSchema,
+  type: z.literal("sentinel"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

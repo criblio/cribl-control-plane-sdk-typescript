@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputOffice365MgmtType = {
-  Office365Mgmt: "office365_mgmt",
-} as const;
-export type InputOffice365MgmtType = ClosedEnum<typeof InputOffice365MgmtType>;
 
 export type InputOffice365MgmtConnection = {
   pipeline?: string | undefined;
@@ -242,7 +233,7 @@ export type InputOffice365Mgmt = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputOffice365MgmtType;
+  type: "office365_mgmt";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -338,15 +329,6 @@ export type InputOffice365Mgmt = {
 };
 
 /** @internal */
-export const InputOffice365MgmtType$inboundSchema: z.ZodNativeEnum<
-  typeof InputOffice365MgmtType
-> = z.nativeEnum(InputOffice365MgmtType);
-/** @internal */
-export const InputOffice365MgmtType$outboundSchema: z.ZodNativeEnum<
-  typeof InputOffice365MgmtType
-> = InputOffice365MgmtType$inboundSchema;
-
-/** @internal */
 export const InputOffice365MgmtConnection$inboundSchema: z.ZodType<
   InputOffice365MgmtConnection,
   z.ZodTypeDef,
@@ -395,40 +377,26 @@ export const InputOffice365MgmtMode$inboundSchema: z.ZodType<
   InputOffice365MgmtMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputOffice365MgmtMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputOffice365MgmtMode);
 /** @internal */
 export const InputOffice365MgmtMode$outboundSchema: z.ZodType<
-  InputOffice365MgmtMode,
+  string,
   z.ZodTypeDef,
   InputOffice365MgmtMode
-> = z.union([
-  z.nativeEnum(InputOffice365MgmtMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputOffice365MgmtMode);
 
 /** @internal */
 export const InputOffice365MgmtCompression$inboundSchema: z.ZodType<
   InputOffice365MgmtCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputOffice365MgmtCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputOffice365MgmtCompression);
 /** @internal */
 export const InputOffice365MgmtCompression$outboundSchema: z.ZodType<
-  InputOffice365MgmtCompression,
+  string,
   z.ZodTypeDef,
   InputOffice365MgmtCompression
-> = z.union([
-  z.nativeEnum(InputOffice365MgmtCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputOffice365MgmtCompression);
 
 /** @internal */
 export const InputOffice365MgmtPqControls$inboundSchema: z.ZodType<
@@ -532,20 +500,13 @@ export const InputOffice365MgmtSubscriptionPlan$inboundSchema: z.ZodType<
   InputOffice365MgmtSubscriptionPlan,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputOffice365MgmtSubscriptionPlan),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputOffice365MgmtSubscriptionPlan);
 /** @internal */
 export const InputOffice365MgmtSubscriptionPlan$outboundSchema: z.ZodType<
-  InputOffice365MgmtSubscriptionPlan,
+  string,
   z.ZodTypeDef,
   InputOffice365MgmtSubscriptionPlan
-> = z.union([
-  z.nativeEnum(InputOffice365MgmtSubscriptionPlan),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputOffice365MgmtSubscriptionPlan);
 
 /** @internal */
 export const InputOffice365MgmtMetadatum$inboundSchema: z.ZodType<
@@ -596,20 +557,13 @@ export const InputOffice365MgmtLogLevel$inboundSchema: z.ZodType<
   InputOffice365MgmtLogLevel,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputOffice365MgmtLogLevel),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputOffice365MgmtLogLevel);
 /** @internal */
 export const InputOffice365MgmtLogLevel$outboundSchema: z.ZodType<
-  InputOffice365MgmtLogLevel,
+  string,
   z.ZodTypeDef,
   InputOffice365MgmtLogLevel
-> = z.union([
-  z.nativeEnum(InputOffice365MgmtLogLevel),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputOffice365MgmtLogLevel);
 
 /** @internal */
 export const InputOffice365MgmtContentConfig$inboundSchema: z.ZodType<
@@ -669,20 +623,13 @@ export const InputOffice365MgmtRetryType$inboundSchema: z.ZodType<
   InputOffice365MgmtRetryType,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputOffice365MgmtRetryType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputOffice365MgmtRetryType);
 /** @internal */
 export const InputOffice365MgmtRetryType$outboundSchema: z.ZodType<
-  InputOffice365MgmtRetryType,
+  string,
   z.ZodTypeDef,
   InputOffice365MgmtRetryType
-> = z.union([
-  z.nativeEnum(InputOffice365MgmtRetryType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputOffice365MgmtRetryType);
 
 /** @internal */
 export const InputOffice365MgmtRetryRules$inboundSchema: z.ZodType<
@@ -751,20 +698,13 @@ export const InputOffice365MgmtAuthenticationMethod$inboundSchema: z.ZodType<
   InputOffice365MgmtAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputOffice365MgmtAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputOffice365MgmtAuthenticationMethod);
 /** @internal */
 export const InputOffice365MgmtAuthenticationMethod$outboundSchema: z.ZodType<
-  InputOffice365MgmtAuthenticationMethod,
+  string,
   z.ZodTypeDef,
   InputOffice365MgmtAuthenticationMethod
-> = z.union([
-  z.nativeEnum(InputOffice365MgmtAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputOffice365MgmtAuthenticationMethod);
 
 /** @internal */
 export const InputOffice365Mgmt$inboundSchema: z.ZodType<
@@ -773,7 +713,7 @@ export const InputOffice365Mgmt$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputOffice365MgmtType$inboundSchema,
+  type: z.literal("office365_mgmt"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -813,7 +753,7 @@ export const InputOffice365Mgmt$inboundSchema: z.ZodType<
 /** @internal */
 export type InputOffice365Mgmt$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "office365_mgmt";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -849,7 +789,7 @@ export const InputOffice365Mgmt$outboundSchema: z.ZodType<
   InputOffice365Mgmt
 > = z.object({
   id: z.string().optional(),
-  type: InputOffice365MgmtType$outboundSchema,
+  type: z.literal("office365_mgmt"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

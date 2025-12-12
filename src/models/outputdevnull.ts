@@ -4,21 +4,15 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputDevnullType = {
-  Devnull: "devnull",
-} as const;
-export type OutputDevnullType = ClosedEnum<typeof OutputDevnullType>;
 
 export type OutputDevnull = {
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputDevnullType;
+  type: "devnull";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -38,22 +32,13 @@ export type OutputDevnull = {
 };
 
 /** @internal */
-export const OutputDevnullType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputDevnullType
-> = z.nativeEnum(OutputDevnullType);
-/** @internal */
-export const OutputDevnullType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputDevnullType
-> = OutputDevnullType$inboundSchema;
-
-/** @internal */
 export const OutputDevnull$inboundSchema: z.ZodType<
   OutputDevnull,
   z.ZodTypeDef,
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputDevnullType$inboundSchema,
+  type: z.literal("devnull"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -62,7 +47,7 @@ export const OutputDevnull$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputDevnull$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "devnull";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -76,7 +61,7 @@ export const OutputDevnull$outboundSchema: z.ZodType<
   OutputDevnull
 > = z.object({
   id: z.string().optional(),
-  type: OutputDevnullType$outboundSchema,
+  type: z.literal("devnull"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

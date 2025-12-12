@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputKubeLogsType = {
-  KubeLogs: "kube_logs",
-} as const;
-export type InputKubeLogsType = ClosedEnum<typeof InputKubeLogsType>;
 
 export type InputKubeLogsConnection = {
   pipeline?: string | undefined;
@@ -156,7 +147,7 @@ export type InputKubeLogs = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputKubeLogsType;
+  type: "kube_logs";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -216,15 +207,6 @@ export type InputKubeLogs = {
 };
 
 /** @internal */
-export const InputKubeLogsType$inboundSchema: z.ZodNativeEnum<
-  typeof InputKubeLogsType
-> = z.nativeEnum(InputKubeLogsType);
-/** @internal */
-export const InputKubeLogsType$outboundSchema: z.ZodNativeEnum<
-  typeof InputKubeLogsType
-> = InputKubeLogsType$inboundSchema;
-
-/** @internal */
 export const InputKubeLogsConnection$inboundSchema: z.ZodType<
   InputKubeLogsConnection,
   z.ZodTypeDef,
@@ -271,40 +253,26 @@ export const InputKubeLogsMode$inboundSchema: z.ZodType<
   InputKubeLogsMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputKubeLogsMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputKubeLogsMode);
 /** @internal */
 export const InputKubeLogsMode$outboundSchema: z.ZodType<
-  InputKubeLogsMode,
+  string,
   z.ZodTypeDef,
   InputKubeLogsMode
-> = z.union([
-  z.nativeEnum(InputKubeLogsMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputKubeLogsMode);
 
 /** @internal */
 export const InputKubeLogsPqCompression$inboundSchema: z.ZodType<
   InputKubeLogsPqCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputKubeLogsPqCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputKubeLogsPqCompression);
 /** @internal */
 export const InputKubeLogsPqCompression$outboundSchema: z.ZodType<
-  InputKubeLogsPqCompression,
+  string,
   z.ZodTypeDef,
   InputKubeLogsPqCompression
-> = z.union([
-  z.nativeEnum(InputKubeLogsPqCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputKubeLogsPqCompression);
 
 /** @internal */
 export const InputKubeLogsPqControls$inboundSchema: z.ZodType<
@@ -486,20 +454,13 @@ export const InputKubeLogsPersistenceCompression$inboundSchema: z.ZodType<
   InputKubeLogsPersistenceCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputKubeLogsPersistenceCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputKubeLogsPersistenceCompression);
 /** @internal */
 export const InputKubeLogsPersistenceCompression$outboundSchema: z.ZodType<
-  InputKubeLogsPersistenceCompression,
+  string,
   z.ZodTypeDef,
   InputKubeLogsPersistenceCompression
-> = z.union([
-  z.nativeEnum(InputKubeLogsPersistenceCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputKubeLogsPersistenceCompression);
 
 /** @internal */
 export const InputKubeLogsDiskSpooling$inboundSchema: z.ZodType<
@@ -559,7 +520,7 @@ export const InputKubeLogs$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputKubeLogsType$inboundSchema,
+  type: z.literal("kube_logs"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -583,7 +544,7 @@ export const InputKubeLogs$inboundSchema: z.ZodType<
 /** @internal */
 export type InputKubeLogs$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "kube_logs";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -610,7 +571,7 @@ export const InputKubeLogs$outboundSchema: z.ZodType<
   InputKubeLogs
 > = z.object({
   id: z.string().optional(),
-  type: InputKubeLogsType$outboundSchema,
+  type: z.literal("kube_logs"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

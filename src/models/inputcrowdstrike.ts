@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputCrowdstrikeType = {
-  Crowdstrike: "crowdstrike",
-} as const;
-export type InputCrowdstrikeType = ClosedEnum<typeof InputCrowdstrikeType>;
 
 export type InputCrowdstrikeConnection = {
   pipeline?: string | undefined;
@@ -177,7 +168,7 @@ export type InputCrowdstrike = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputCrowdstrikeType;
+  type: "crowdstrike";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -325,15 +316,6 @@ export type InputCrowdstrike = {
 };
 
 /** @internal */
-export const InputCrowdstrikeType$inboundSchema: z.ZodNativeEnum<
-  typeof InputCrowdstrikeType
-> = z.nativeEnum(InputCrowdstrikeType);
-/** @internal */
-export const InputCrowdstrikeType$outboundSchema: z.ZodNativeEnum<
-  typeof InputCrowdstrikeType
-> = InputCrowdstrikeType$inboundSchema;
-
-/** @internal */
 export const InputCrowdstrikeConnection$inboundSchema: z.ZodType<
   InputCrowdstrikeConnection,
   z.ZodTypeDef,
@@ -380,40 +362,26 @@ export const InputCrowdstrikeMode$inboundSchema: z.ZodType<
   InputCrowdstrikeMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputCrowdstrikeMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputCrowdstrikeMode);
 /** @internal */
 export const InputCrowdstrikeMode$outboundSchema: z.ZodType<
-  InputCrowdstrikeMode,
+  string,
   z.ZodTypeDef,
   InputCrowdstrikeMode
-> = z.union([
-  z.nativeEnum(InputCrowdstrikeMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputCrowdstrikeMode);
 
 /** @internal */
 export const InputCrowdstrikeCompression$inboundSchema: z.ZodType<
   InputCrowdstrikeCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputCrowdstrikeCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputCrowdstrikeCompression);
 /** @internal */
 export const InputCrowdstrikeCompression$outboundSchema: z.ZodType<
-  InputCrowdstrikeCompression,
+  string,
   z.ZodTypeDef,
   InputCrowdstrikeCompression
-> = z.union([
-  z.nativeEnum(InputCrowdstrikeCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputCrowdstrikeCompression);
 
 /** @internal */
 export const InputCrowdstrikePqControls$inboundSchema: z.ZodType<
@@ -514,40 +482,26 @@ export const InputCrowdstrikeAuthenticationMethod$inboundSchema: z.ZodType<
   InputCrowdstrikeAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputCrowdstrikeAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputCrowdstrikeAuthenticationMethod);
 /** @internal */
 export const InputCrowdstrikeAuthenticationMethod$outboundSchema: z.ZodType<
-  InputCrowdstrikeAuthenticationMethod,
+  string,
   z.ZodTypeDef,
   InputCrowdstrikeAuthenticationMethod
-> = z.union([
-  z.nativeEnum(InputCrowdstrikeAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputCrowdstrikeAuthenticationMethod);
 
 /** @internal */
 export const InputCrowdstrikeSignatureVersion$inboundSchema: z.ZodType<
   InputCrowdstrikeSignatureVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputCrowdstrikeSignatureVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputCrowdstrikeSignatureVersion);
 /** @internal */
 export const InputCrowdstrikeSignatureVersion$outboundSchema: z.ZodType<
-  InputCrowdstrikeSignatureVersion,
+  string,
   z.ZodTypeDef,
   InputCrowdstrikeSignatureVersion
-> = z.union([
-  z.nativeEnum(InputCrowdstrikeSignatureVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputCrowdstrikeSignatureVersion);
 
 /** @internal */
 export const InputCrowdstrikePreprocess$inboundSchema: z.ZodType<
@@ -685,20 +639,13 @@ export const InputCrowdstrikeTagAfterProcessing$inboundSchema: z.ZodType<
   InputCrowdstrikeTagAfterProcessing,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputCrowdstrikeTagAfterProcessing),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputCrowdstrikeTagAfterProcessing);
 /** @internal */
 export const InputCrowdstrikeTagAfterProcessing$outboundSchema: z.ZodType<
-  InputCrowdstrikeTagAfterProcessing,
+  string,
   z.ZodTypeDef,
   InputCrowdstrikeTagAfterProcessing
-> = z.union([
-  z.nativeEnum(InputCrowdstrikeTagAfterProcessing),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputCrowdstrikeTagAfterProcessing);
 
 /** @internal */
 export const InputCrowdstrike$inboundSchema: z.ZodType<
@@ -707,7 +654,7 @@ export const InputCrowdstrike$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputCrowdstrikeType$inboundSchema,
+  type: z.literal("crowdstrike"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -761,7 +708,7 @@ export const InputCrowdstrike$inboundSchema: z.ZodType<
 /** @internal */
 export type InputCrowdstrike$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "crowdstrike";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -813,7 +760,7 @@ export const InputCrowdstrike$outboundSchema: z.ZodType<
   InputCrowdstrike
 > = z.object({
   id: z.string().optional(),
-  type: InputCrowdstrikeType$outboundSchema,
+  type: z.literal("crowdstrike"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

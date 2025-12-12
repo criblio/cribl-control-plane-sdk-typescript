@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputAzureLogsType = {
-  AzureLogs: "azure_logs",
-} as const;
-export type OutputAzureLogsType = ClosedEnum<typeof OutputAzureLogsType>;
 
 export type OutputAzureLogsExtraHttpHeader = {
   name?: string | undefined;
@@ -189,7 +180,7 @@ export type OutputAzureLogs = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputAzureLogsType;
+  type: "azure_logs";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -341,15 +332,6 @@ export type OutputAzureLogs = {
 };
 
 /** @internal */
-export const OutputAzureLogsType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureLogsType
-> = z.nativeEnum(OutputAzureLogsType);
-/** @internal */
-export const OutputAzureLogsType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputAzureLogsType
-> = OutputAzureLogsType$inboundSchema;
-
-/** @internal */
 export const OutputAzureLogsExtraHttpHeader$inboundSchema: z.ZodType<
   OutputAzureLogsExtraHttpHeader,
   z.ZodTypeDef,
@@ -398,20 +380,13 @@ export const OutputAzureLogsFailedRequestLoggingMode$inboundSchema: z.ZodType<
   OutputAzureLogsFailedRequestLoggingMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureLogsFailedRequestLoggingMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputAzureLogsFailedRequestLoggingMode);
 /** @internal */
 export const OutputAzureLogsFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  OutputAzureLogsFailedRequestLoggingMode,
+  string,
   z.ZodTypeDef,
   OutputAzureLogsFailedRequestLoggingMode
-> = z.union([
-  z.nativeEnum(OutputAzureLogsFailedRequestLoggingMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputAzureLogsFailedRequestLoggingMode);
 
 /** @internal */
 export const OutputAzureLogsResponseRetrySetting$inboundSchema: z.ZodType<
@@ -520,100 +495,65 @@ export const OutputAzureLogsBackpressureBehavior$inboundSchema: z.ZodType<
   OutputAzureLogsBackpressureBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureLogsBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputAzureLogsBackpressureBehavior);
 /** @internal */
 export const OutputAzureLogsBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputAzureLogsBackpressureBehavior,
+  string,
   z.ZodTypeDef,
   OutputAzureLogsBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputAzureLogsBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputAzureLogsBackpressureBehavior);
 
 /** @internal */
 export const OutputAzureLogsAuthenticationMethod$inboundSchema: z.ZodType<
   OutputAzureLogsAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureLogsAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputAzureLogsAuthenticationMethod);
 /** @internal */
 export const OutputAzureLogsAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputAzureLogsAuthenticationMethod,
+  string,
   z.ZodTypeDef,
   OutputAzureLogsAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputAzureLogsAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputAzureLogsAuthenticationMethod);
 
 /** @internal */
 export const OutputAzureLogsMode$inboundSchema: z.ZodType<
   OutputAzureLogsMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureLogsMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputAzureLogsMode);
 /** @internal */
 export const OutputAzureLogsMode$outboundSchema: z.ZodType<
-  OutputAzureLogsMode,
+  string,
   z.ZodTypeDef,
   OutputAzureLogsMode
-> = z.union([
-  z.nativeEnum(OutputAzureLogsMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputAzureLogsMode);
 
 /** @internal */
 export const OutputAzureLogsCompression$inboundSchema: z.ZodType<
   OutputAzureLogsCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureLogsCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputAzureLogsCompression);
 /** @internal */
 export const OutputAzureLogsCompression$outboundSchema: z.ZodType<
-  OutputAzureLogsCompression,
+  string,
   z.ZodTypeDef,
   OutputAzureLogsCompression
-> = z.union([
-  z.nativeEnum(OutputAzureLogsCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputAzureLogsCompression);
 
 /** @internal */
 export const OutputAzureLogsQueueFullBehavior$inboundSchema: z.ZodType<
   OutputAzureLogsQueueFullBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputAzureLogsQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputAzureLogsQueueFullBehavior);
 /** @internal */
 export const OutputAzureLogsQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputAzureLogsQueueFullBehavior,
+  string,
   z.ZodTypeDef,
   OutputAzureLogsQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputAzureLogsQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputAzureLogsQueueFullBehavior);
 
 /** @internal */
 export const OutputAzureLogsPqControls$inboundSchema: z.ZodType<
@@ -655,7 +595,7 @@ export const OutputAzureLogs$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputAzureLogsType$inboundSchema,
+  type: z.literal("azure_logs"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -709,7 +649,7 @@ export const OutputAzureLogs$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputAzureLogs$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "azure_logs";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -761,7 +701,7 @@ export const OutputAzureLogs$outboundSchema: z.ZodType<
   OutputAzureLogs
 > = z.object({
   id: z.string().optional(),
-  type: OutputAzureLogsType$outboundSchema,
+  type: z.literal("azure_logs"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

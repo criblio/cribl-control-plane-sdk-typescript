@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputHumioHecType = {
-  HumioHec: "humio_hec",
-} as const;
-export type OutputHumioHecType = ClosedEnum<typeof OutputHumioHecType>;
 
 export type OutputHumioHecExtraHttpHeader = {
   name?: string | undefined;
@@ -209,7 +200,7 @@ export type OutputHumioHec = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputHumioHecType;
+  type: "humio_hec";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -352,15 +343,6 @@ export type OutputHumioHec = {
 };
 
 /** @internal */
-export const OutputHumioHecType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputHumioHecType
-> = z.nativeEnum(OutputHumioHecType);
-/** @internal */
-export const OutputHumioHecType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputHumioHecType
-> = OutputHumioHecType$inboundSchema;
-
-/** @internal */
 export const OutputHumioHecExtraHttpHeader$inboundSchema: z.ZodType<
   OutputHumioHecExtraHttpHeader,
   z.ZodTypeDef,
@@ -409,60 +391,39 @@ export const OutputHumioHecFailedRequestLoggingMode$inboundSchema: z.ZodType<
   OutputHumioHecFailedRequestLoggingMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputHumioHecFailedRequestLoggingMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputHumioHecFailedRequestLoggingMode);
 /** @internal */
 export const OutputHumioHecFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  OutputHumioHecFailedRequestLoggingMode,
+  string,
   z.ZodTypeDef,
   OutputHumioHecFailedRequestLoggingMode
-> = z.union([
-  z.nativeEnum(OutputHumioHecFailedRequestLoggingMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputHumioHecFailedRequestLoggingMode);
 
 /** @internal */
 export const OutputHumioHecRequestFormat$inboundSchema: z.ZodType<
   OutputHumioHecRequestFormat,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputHumioHecRequestFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputHumioHecRequestFormat);
 /** @internal */
 export const OutputHumioHecRequestFormat$outboundSchema: z.ZodType<
-  OutputHumioHecRequestFormat,
+  string,
   z.ZodTypeDef,
   OutputHumioHecRequestFormat
-> = z.union([
-  z.nativeEnum(OutputHumioHecRequestFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputHumioHecRequestFormat);
 
 /** @internal */
 export const OutputHumioHecAuthenticationMethod$inboundSchema: z.ZodType<
   OutputHumioHecAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputHumioHecAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputHumioHecAuthenticationMethod);
 /** @internal */
 export const OutputHumioHecAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputHumioHecAuthenticationMethod,
+  string,
   z.ZodTypeDef,
   OutputHumioHecAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputHumioHecAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputHumioHecAuthenticationMethod);
 
 /** @internal */
 export const OutputHumioHecResponseRetrySetting$inboundSchema: z.ZodType<
@@ -571,80 +532,52 @@ export const OutputHumioHecBackpressureBehavior$inboundSchema: z.ZodType<
   OutputHumioHecBackpressureBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputHumioHecBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputHumioHecBackpressureBehavior);
 /** @internal */
 export const OutputHumioHecBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputHumioHecBackpressureBehavior,
+  string,
   z.ZodTypeDef,
   OutputHumioHecBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputHumioHecBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputHumioHecBackpressureBehavior);
 
 /** @internal */
 export const OutputHumioHecMode$inboundSchema: z.ZodType<
   OutputHumioHecMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputHumioHecMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputHumioHecMode);
 /** @internal */
 export const OutputHumioHecMode$outboundSchema: z.ZodType<
-  OutputHumioHecMode,
+  string,
   z.ZodTypeDef,
   OutputHumioHecMode
-> = z.union([
-  z.nativeEnum(OutputHumioHecMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputHumioHecMode);
 
 /** @internal */
 export const OutputHumioHecCompression$inboundSchema: z.ZodType<
   OutputHumioHecCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputHumioHecCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputHumioHecCompression);
 /** @internal */
 export const OutputHumioHecCompression$outboundSchema: z.ZodType<
-  OutputHumioHecCompression,
+  string,
   z.ZodTypeDef,
   OutputHumioHecCompression
-> = z.union([
-  z.nativeEnum(OutputHumioHecCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputHumioHecCompression);
 
 /** @internal */
 export const OutputHumioHecQueueFullBehavior$inboundSchema: z.ZodType<
   OutputHumioHecQueueFullBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputHumioHecQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputHumioHecQueueFullBehavior);
 /** @internal */
 export const OutputHumioHecQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputHumioHecQueueFullBehavior,
+  string,
   z.ZodTypeDef,
   OutputHumioHecQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputHumioHecQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputHumioHecQueueFullBehavior);
 
 /** @internal */
 export const OutputHumioHecPqControls$inboundSchema: z.ZodType<
@@ -686,7 +619,7 @@ export const OutputHumioHec$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputHumioHecType$inboundSchema,
+  type: z.literal("humio_hec"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -738,7 +671,7 @@ export const OutputHumioHec$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputHumioHec$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "humio_hec";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -788,7 +721,7 @@ export const OutputHumioHec$outboundSchema: z.ZodType<
   OutputHumioHec
 > = z.object({
   id: z.string().optional(),
-  type: OutputHumioHecType$outboundSchema,
+  type: z.literal("humio_hec"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

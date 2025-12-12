@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputKinesisType = {
-  Kinesis: "kinesis",
-} as const;
-export type InputKinesisType = ClosedEnum<typeof InputKinesisType>;
 
 export type InputKinesisConnection = {
   pipeline?: string | undefined;
@@ -208,7 +199,7 @@ export type InputKinesis = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputKinesisType;
+  type: "kinesis";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -329,15 +320,6 @@ export type InputKinesis = {
 };
 
 /** @internal */
-export const InputKinesisType$inboundSchema: z.ZodNativeEnum<
-  typeof InputKinesisType
-> = z.nativeEnum(InputKinesisType);
-/** @internal */
-export const InputKinesisType$outboundSchema: z.ZodNativeEnum<
-  typeof InputKinesisType
-> = InputKinesisType$inboundSchema;
-
-/** @internal */
 export const InputKinesisConnection$inboundSchema: z.ZodType<
   InputKinesisConnection,
   z.ZodTypeDef,
@@ -384,40 +366,26 @@ export const InputKinesisMode$inboundSchema: z.ZodType<
   InputKinesisMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputKinesisMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputKinesisMode);
 /** @internal */
 export const InputKinesisMode$outboundSchema: z.ZodType<
-  InputKinesisMode,
+  string,
   z.ZodTypeDef,
   InputKinesisMode
-> = z.union([
-  z.nativeEnum(InputKinesisMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputKinesisMode);
 
 /** @internal */
 export const InputKinesisCompression$inboundSchema: z.ZodType<
   InputKinesisCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputKinesisCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputKinesisCompression);
 /** @internal */
 export const InputKinesisCompression$outboundSchema: z.ZodType<
-  InputKinesisCompression,
+  string,
   z.ZodTypeDef,
   InputKinesisCompression
-> = z.union([
-  z.nativeEnum(InputKinesisCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputKinesisCompression);
 
 /** @internal */
 export const InputKinesisPqControls$inboundSchema: z.ZodType<
@@ -513,100 +481,65 @@ export const ShardIteratorStart$inboundSchema: z.ZodType<
   ShardIteratorStart,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(ShardIteratorStart),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(ShardIteratorStart);
 /** @internal */
 export const ShardIteratorStart$outboundSchema: z.ZodType<
-  ShardIteratorStart,
+  string,
   z.ZodTypeDef,
   ShardIteratorStart
-> = z.union([
-  z.nativeEnum(ShardIteratorStart),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(ShardIteratorStart);
 
 /** @internal */
 export const InputKinesisRecordDataFormat$inboundSchema: z.ZodType<
   InputKinesisRecordDataFormat,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputKinesisRecordDataFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputKinesisRecordDataFormat);
 /** @internal */
 export const InputKinesisRecordDataFormat$outboundSchema: z.ZodType<
-  InputKinesisRecordDataFormat,
+  string,
   z.ZodTypeDef,
   InputKinesisRecordDataFormat
-> = z.union([
-  z.nativeEnum(InputKinesisRecordDataFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputKinesisRecordDataFormat);
 
 /** @internal */
 export const ShardLoadBalancing$inboundSchema: z.ZodType<
   ShardLoadBalancing,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(ShardLoadBalancing),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(ShardLoadBalancing);
 /** @internal */
 export const ShardLoadBalancing$outboundSchema: z.ZodType<
-  ShardLoadBalancing,
+  string,
   z.ZodTypeDef,
   ShardLoadBalancing
-> = z.union([
-  z.nativeEnum(ShardLoadBalancing),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(ShardLoadBalancing);
 
 /** @internal */
 export const InputKinesisAuthenticationMethod$inboundSchema: z.ZodType<
   InputKinesisAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputKinesisAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputKinesisAuthenticationMethod);
 /** @internal */
 export const InputKinesisAuthenticationMethod$outboundSchema: z.ZodType<
-  InputKinesisAuthenticationMethod,
+  string,
   z.ZodTypeDef,
   InputKinesisAuthenticationMethod
-> = z.union([
-  z.nativeEnum(InputKinesisAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputKinesisAuthenticationMethod);
 
 /** @internal */
 export const InputKinesisSignatureVersion$inboundSchema: z.ZodType<
   InputKinesisSignatureVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputKinesisSignatureVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputKinesisSignatureVersion);
 /** @internal */
 export const InputKinesisSignatureVersion$outboundSchema: z.ZodType<
-  InputKinesisSignatureVersion,
+  string,
   z.ZodTypeDef,
   InputKinesisSignatureVersion
-> = z.union([
-  z.nativeEnum(InputKinesisSignatureVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputKinesisSignatureVersion);
 
 /** @internal */
 export const InputKinesisMetadatum$inboundSchema: z.ZodType<
@@ -657,7 +590,7 @@ export const InputKinesis$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputKinesisType$inboundSchema,
+  type: z.literal("kinesis"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -700,7 +633,7 @@ export const InputKinesis$inboundSchema: z.ZodType<
 /** @internal */
 export type InputKinesis$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "kinesis";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -743,7 +676,7 @@ export const InputKinesis$outboundSchema: z.ZodType<
   InputKinesis
 > = z.object({
   id: z.string().optional(),
-  type: InputKinesisType$outboundSchema,
+  type: z.literal("kinesis"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

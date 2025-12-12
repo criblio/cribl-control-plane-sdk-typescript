@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputKubeEventsType = {
-  KubeEvents: "kube_events",
-} as const;
-export type InputKubeEventsType = ClosedEnum<typeof InputKubeEventsType>;
 
 export type InputKubeEventsConnection = {
   pipeline?: string | undefined;
@@ -119,7 +110,7 @@ export type InputKubeEvents = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputKubeEventsType;
+  type: "kube_events";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -156,15 +147,6 @@ export type InputKubeEvents = {
   metadata?: Array<InputKubeEventsMetadatum> | undefined;
   description?: string | undefined;
 };
-
-/** @internal */
-export const InputKubeEventsType$inboundSchema: z.ZodNativeEnum<
-  typeof InputKubeEventsType
-> = z.nativeEnum(InputKubeEventsType);
-/** @internal */
-export const InputKubeEventsType$outboundSchema: z.ZodNativeEnum<
-  typeof InputKubeEventsType
-> = InputKubeEventsType$inboundSchema;
 
 /** @internal */
 export const InputKubeEventsConnection$inboundSchema: z.ZodType<
@@ -213,40 +195,26 @@ export const InputKubeEventsMode$inboundSchema: z.ZodType<
   InputKubeEventsMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputKubeEventsMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputKubeEventsMode);
 /** @internal */
 export const InputKubeEventsMode$outboundSchema: z.ZodType<
-  InputKubeEventsMode,
+  string,
   z.ZodTypeDef,
   InputKubeEventsMode
-> = z.union([
-  z.nativeEnum(InputKubeEventsMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputKubeEventsMode);
 
 /** @internal */
 export const InputKubeEventsCompression$inboundSchema: z.ZodType<
   InputKubeEventsCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputKubeEventsCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputKubeEventsCompression);
 /** @internal */
 export const InputKubeEventsCompression$outboundSchema: z.ZodType<
-  InputKubeEventsCompression,
+  string,
   z.ZodTypeDef,
   InputKubeEventsCompression
-> = z.union([
-  z.nativeEnum(InputKubeEventsCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputKubeEventsCompression);
 
 /** @internal */
 export const InputKubeEventsPqControls$inboundSchema: z.ZodType<
@@ -432,7 +400,7 @@ export const InputKubeEvents$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputKubeEventsType$inboundSchema,
+  type: z.literal("kube_events"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -450,7 +418,7 @@ export const InputKubeEvents$inboundSchema: z.ZodType<
 /** @internal */
 export type InputKubeEvents$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "kube_events";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -471,7 +439,7 @@ export const InputKubeEvents$outboundSchema: z.ZodType<
   InputKubeEvents
 > = z.object({
   id: z.string().optional(),
-  type: InputKubeEventsType$outboundSchema,
+  type: z.literal("kube_events"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

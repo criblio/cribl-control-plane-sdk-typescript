@@ -4,21 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputNewrelicEventsType = {
-  NewrelicEvents: "newrelic_events",
-} as const;
-export type OutputNewrelicEventsType = ClosedEnum<
-  typeof OutputNewrelicEventsType
->;
 
 /**
  * Which New Relic region endpoint to use.
@@ -217,7 +206,7 @@ export type OutputNewrelicEvents = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputNewrelicEventsType;
+  type: "newrelic_events";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -369,33 +358,17 @@ export type OutputNewrelicEvents = {
 };
 
 /** @internal */
-export const OutputNewrelicEventsType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputNewrelicEventsType
-> = z.nativeEnum(OutputNewrelicEventsType);
-/** @internal */
-export const OutputNewrelicEventsType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputNewrelicEventsType
-> = OutputNewrelicEventsType$inboundSchema;
-
-/** @internal */
 export const OutputNewrelicEventsRegion$inboundSchema: z.ZodType<
   OutputNewrelicEventsRegion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputNewrelicEventsRegion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputNewrelicEventsRegion);
 /** @internal */
 export const OutputNewrelicEventsRegion$outboundSchema: z.ZodType<
-  OutputNewrelicEventsRegion,
+  string,
   z.ZodTypeDef,
   OutputNewrelicEventsRegion
-> = z.union([
-  z.nativeEnum(OutputNewrelicEventsRegion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputNewrelicEventsRegion);
 
 /** @internal */
 export const OutputNewrelicEventsExtraHttpHeader$inboundSchema: z.ZodType<
@@ -448,21 +421,14 @@ export const OutputNewrelicEventsFailedRequestLoggingMode$inboundSchema:
     OutputNewrelicEventsFailedRequestLoggingMode,
     z.ZodTypeDef,
     unknown
-  > = z
-    .union([
-      z.nativeEnum(OutputNewrelicEventsFailedRequestLoggingMode),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  > = openEnums.inboundSchema(OutputNewrelicEventsFailedRequestLoggingMode);
 /** @internal */
 export const OutputNewrelicEventsFailedRequestLoggingMode$outboundSchema:
   z.ZodType<
-    OutputNewrelicEventsFailedRequestLoggingMode,
+    string,
     z.ZodTypeDef,
     OutputNewrelicEventsFailedRequestLoggingMode
-  > = z.union([
-    z.nativeEnum(OutputNewrelicEventsFailedRequestLoggingMode),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  > = openEnums.outboundSchema(OutputNewrelicEventsFailedRequestLoggingMode);
 
 /** @internal */
 export const OutputNewrelicEventsResponseRetrySetting$inboundSchema: z.ZodType<
@@ -583,100 +549,65 @@ export const OutputNewrelicEventsBackpressureBehavior$inboundSchema: z.ZodType<
   OutputNewrelicEventsBackpressureBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputNewrelicEventsBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputNewrelicEventsBackpressureBehavior);
 /** @internal */
 export const OutputNewrelicEventsBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputNewrelicEventsBackpressureBehavior,
+  string,
   z.ZodTypeDef,
   OutputNewrelicEventsBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputNewrelicEventsBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputNewrelicEventsBackpressureBehavior);
 
 /** @internal */
 export const OutputNewrelicEventsAuthenticationMethod$inboundSchema: z.ZodType<
   OutputNewrelicEventsAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputNewrelicEventsAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputNewrelicEventsAuthenticationMethod);
 /** @internal */
 export const OutputNewrelicEventsAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputNewrelicEventsAuthenticationMethod,
+  string,
   z.ZodTypeDef,
   OutputNewrelicEventsAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputNewrelicEventsAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputNewrelicEventsAuthenticationMethod);
 
 /** @internal */
 export const OutputNewrelicEventsMode$inboundSchema: z.ZodType<
   OutputNewrelicEventsMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputNewrelicEventsMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputNewrelicEventsMode);
 /** @internal */
 export const OutputNewrelicEventsMode$outboundSchema: z.ZodType<
-  OutputNewrelicEventsMode,
+  string,
   z.ZodTypeDef,
   OutputNewrelicEventsMode
-> = z.union([
-  z.nativeEnum(OutputNewrelicEventsMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputNewrelicEventsMode);
 
 /** @internal */
 export const OutputNewrelicEventsCompression$inboundSchema: z.ZodType<
   OutputNewrelicEventsCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputNewrelicEventsCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputNewrelicEventsCompression);
 /** @internal */
 export const OutputNewrelicEventsCompression$outboundSchema: z.ZodType<
-  OutputNewrelicEventsCompression,
+  string,
   z.ZodTypeDef,
   OutputNewrelicEventsCompression
-> = z.union([
-  z.nativeEnum(OutputNewrelicEventsCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputNewrelicEventsCompression);
 
 /** @internal */
 export const OutputNewrelicEventsQueueFullBehavior$inboundSchema: z.ZodType<
   OutputNewrelicEventsQueueFullBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputNewrelicEventsQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputNewrelicEventsQueueFullBehavior);
 /** @internal */
 export const OutputNewrelicEventsQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputNewrelicEventsQueueFullBehavior,
+  string,
   z.ZodTypeDef,
   OutputNewrelicEventsQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputNewrelicEventsQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputNewrelicEventsQueueFullBehavior);
 
 /** @internal */
 export const OutputNewrelicEventsPqControls$inboundSchema: z.ZodType<
@@ -720,7 +651,7 @@ export const OutputNewrelicEvents$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputNewrelicEventsType$inboundSchema,
+  type: z.literal("newrelic_events"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -776,7 +707,7 @@ export const OutputNewrelicEvents$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputNewrelicEvents$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "newrelic_events";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -830,7 +761,7 @@ export const OutputNewrelicEvents$outboundSchema: z.ZodType<
   OutputNewrelicEvents
 > = z.object({
   id: z.string().optional(),
-  type: OutputNewrelicEventsType$outboundSchema,
+  type: z.literal("newrelic_events"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

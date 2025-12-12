@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputZscalerHecType = {
-  ZscalerHec: "zscaler_hec",
-} as const;
-export type InputZscalerHecType = ClosedEnum<typeof InputZscalerHecType>;
 
 export type InputZscalerHecConnection = {
   pipeline?: string | undefined;
@@ -207,7 +198,7 @@ export type InputZscalerHec = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputZscalerHecType;
+  type: "zscaler_hec";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -320,15 +311,6 @@ export type InputZscalerHec = {
 };
 
 /** @internal */
-export const InputZscalerHecType$inboundSchema: z.ZodNativeEnum<
-  typeof InputZscalerHecType
-> = z.nativeEnum(InputZscalerHecType);
-/** @internal */
-export const InputZscalerHecType$outboundSchema: z.ZodNativeEnum<
-  typeof InputZscalerHecType
-> = InputZscalerHecType$inboundSchema;
-
-/** @internal */
 export const InputZscalerHecConnection$inboundSchema: z.ZodType<
   InputZscalerHecConnection,
   z.ZodTypeDef,
@@ -375,40 +357,26 @@ export const InputZscalerHecMode$inboundSchema: z.ZodType<
   InputZscalerHecMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputZscalerHecMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputZscalerHecMode);
 /** @internal */
 export const InputZscalerHecMode$outboundSchema: z.ZodType<
-  InputZscalerHecMode,
+  string,
   z.ZodTypeDef,
   InputZscalerHecMode
-> = z.union([
-  z.nativeEnum(InputZscalerHecMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputZscalerHecMode);
 
 /** @internal */
 export const InputZscalerHecCompression$inboundSchema: z.ZodType<
   InputZscalerHecCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputZscalerHecCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputZscalerHecCompression);
 /** @internal */
 export const InputZscalerHecCompression$outboundSchema: z.ZodType<
-  InputZscalerHecCompression,
+  string,
   z.ZodTypeDef,
   InputZscalerHecCompression
-> = z.union([
-  z.nativeEnum(InputZscalerHecCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputZscalerHecCompression);
 
 /** @internal */
 export const InputZscalerHecPqControls$inboundSchema: z.ZodType<
@@ -508,20 +476,13 @@ export const InputZscalerHecAuthenticationMethod$inboundSchema: z.ZodType<
   InputZscalerHecAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputZscalerHecAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputZscalerHecAuthenticationMethod);
 /** @internal */
 export const InputZscalerHecAuthenticationMethod$outboundSchema: z.ZodType<
-  InputZscalerHecAuthenticationMethod,
+  string,
   z.ZodTypeDef,
   InputZscalerHecAuthenticationMethod
-> = z.union([
-  z.nativeEnum(InputZscalerHecAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputZscalerHecAuthenticationMethod);
 
 /** @internal */
 export const InputZscalerHecAuthTokenMetadatum$inboundSchema: z.ZodType<
@@ -635,40 +596,26 @@ export const InputZscalerHecMinimumTLSVersion$inboundSchema: z.ZodType<
   InputZscalerHecMinimumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputZscalerHecMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputZscalerHecMinimumTLSVersion);
 /** @internal */
 export const InputZscalerHecMinimumTLSVersion$outboundSchema: z.ZodType<
-  InputZscalerHecMinimumTLSVersion,
+  string,
   z.ZodTypeDef,
   InputZscalerHecMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(InputZscalerHecMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputZscalerHecMinimumTLSVersion);
 
 /** @internal */
 export const InputZscalerHecMaximumTLSVersion$inboundSchema: z.ZodType<
   InputZscalerHecMaximumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputZscalerHecMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputZscalerHecMaximumTLSVersion);
 /** @internal */
 export const InputZscalerHecMaximumTLSVersion$outboundSchema: z.ZodType<
-  InputZscalerHecMaximumTLSVersion,
+  string,
   z.ZodTypeDef,
   InputZscalerHecMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(InputZscalerHecMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputZscalerHecMaximumTLSVersion);
 
 /** @internal */
 export const InputZscalerHecTLSSettingsServerSide$inboundSchema: z.ZodType<
@@ -791,7 +738,7 @@ export const InputZscalerHec$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputZscalerHecType$inboundSchema,
+  type: z.literal("zscaler_hec"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -831,7 +778,7 @@ export const InputZscalerHec$inboundSchema: z.ZodType<
 /** @internal */
 export type InputZscalerHec$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "zscaler_hec";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -872,7 +819,7 @@ export const InputZscalerHec$outboundSchema: z.ZodType<
   InputZscalerHec
 > = z.object({
   id: z.string().optional(),
-  type: InputZscalerHecType$outboundSchema,
+  type: z.literal("zscaler_hec"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

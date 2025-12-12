@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputMskType = {
-  Msk: "msk",
-} as const;
-export type InputMskType = ClosedEnum<typeof InputMskType>;
 
 export type InputMskConnection = {
   pipeline?: string | undefined;
@@ -294,7 +285,7 @@ export type InputMsk = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputMskType;
+  type: "msk";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -471,13 +462,6 @@ export type InputMsk = {
 };
 
 /** @internal */
-export const InputMskType$inboundSchema: z.ZodNativeEnum<typeof InputMskType> =
-  z.nativeEnum(InputMskType);
-/** @internal */
-export const InputMskType$outboundSchema: z.ZodNativeEnum<typeof InputMskType> =
-  InputMskType$inboundSchema;
-
-/** @internal */
 export const InputMskConnection$inboundSchema: z.ZodType<
   InputMskConnection,
   z.ZodTypeDef,
@@ -524,40 +508,26 @@ export const InputMskMode$inboundSchema: z.ZodType<
   InputMskMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputMskMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputMskMode);
 /** @internal */
 export const InputMskMode$outboundSchema: z.ZodType<
-  InputMskMode,
+  string,
   z.ZodTypeDef,
   InputMskMode
-> = z.union([
-  z.nativeEnum(InputMskMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputMskMode);
 
 /** @internal */
 export const InputMskCompression$inboundSchema: z.ZodType<
   InputMskCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputMskCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputMskCompression);
 /** @internal */
 export const InputMskCompression$outboundSchema: z.ZodType<
-  InputMskCompression,
+  string,
   z.ZodTypeDef,
   InputMskCompression
-> = z.union([
-  z.nativeEnum(InputMskCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputMskCompression);
 
 /** @internal */
 export const InputMskPqControls$inboundSchema: z.ZodType<
@@ -734,21 +704,14 @@ export const InputMskKafkaSchemaRegistryMinimumTLSVersion$inboundSchema:
     InputMskKafkaSchemaRegistryMinimumTLSVersion,
     z.ZodTypeDef,
     unknown
-  > = z
-    .union([
-      z.nativeEnum(InputMskKafkaSchemaRegistryMinimumTLSVersion),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  > = openEnums.inboundSchema(InputMskKafkaSchemaRegistryMinimumTLSVersion);
 /** @internal */
 export const InputMskKafkaSchemaRegistryMinimumTLSVersion$outboundSchema:
   z.ZodType<
-    InputMskKafkaSchemaRegistryMinimumTLSVersion,
+    string,
     z.ZodTypeDef,
     InputMskKafkaSchemaRegistryMinimumTLSVersion
-  > = z.union([
-    z.nativeEnum(InputMskKafkaSchemaRegistryMinimumTLSVersion),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  > = openEnums.outboundSchema(InputMskKafkaSchemaRegistryMinimumTLSVersion);
 
 /** @internal */
 export const InputMskKafkaSchemaRegistryMaximumTLSVersion$inboundSchema:
@@ -756,21 +719,14 @@ export const InputMskKafkaSchemaRegistryMaximumTLSVersion$inboundSchema:
     InputMskKafkaSchemaRegistryMaximumTLSVersion,
     z.ZodTypeDef,
     unknown
-  > = z
-    .union([
-      z.nativeEnum(InputMskKafkaSchemaRegistryMaximumTLSVersion),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  > = openEnums.inboundSchema(InputMskKafkaSchemaRegistryMaximumTLSVersion);
 /** @internal */
 export const InputMskKafkaSchemaRegistryMaximumTLSVersion$outboundSchema:
   z.ZodType<
-    InputMskKafkaSchemaRegistryMaximumTLSVersion,
+    string,
     z.ZodTypeDef,
     InputMskKafkaSchemaRegistryMaximumTLSVersion
-  > = z.union([
-    z.nativeEnum(InputMskKafkaSchemaRegistryMaximumTLSVersion),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  > = openEnums.outboundSchema(InputMskKafkaSchemaRegistryMaximumTLSVersion);
 
 /** @internal */
 export const InputMskKafkaSchemaRegistryTLSSettingsClientSide$inboundSchema:
@@ -929,80 +885,52 @@ export const InputMskAuthenticationMethod$inboundSchema: z.ZodType<
   InputMskAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputMskAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputMskAuthenticationMethod);
 /** @internal */
 export const InputMskAuthenticationMethod$outboundSchema: z.ZodType<
-  InputMskAuthenticationMethod,
+  string,
   z.ZodTypeDef,
   InputMskAuthenticationMethod
-> = z.union([
-  z.nativeEnum(InputMskAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputMskAuthenticationMethod);
 
 /** @internal */
 export const InputMskSignatureVersion$inboundSchema: z.ZodType<
   InputMskSignatureVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputMskSignatureVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputMskSignatureVersion);
 /** @internal */
 export const InputMskSignatureVersion$outboundSchema: z.ZodType<
-  InputMskSignatureVersion,
+  string,
   z.ZodTypeDef,
   InputMskSignatureVersion
-> = z.union([
-  z.nativeEnum(InputMskSignatureVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputMskSignatureVersion);
 
 /** @internal */
 export const InputMskMinimumTLSVersion$inboundSchema: z.ZodType<
   InputMskMinimumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputMskMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputMskMinimumTLSVersion);
 /** @internal */
 export const InputMskMinimumTLSVersion$outboundSchema: z.ZodType<
-  InputMskMinimumTLSVersion,
+  string,
   z.ZodTypeDef,
   InputMskMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(InputMskMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputMskMinimumTLSVersion);
 
 /** @internal */
 export const InputMskMaximumTLSVersion$inboundSchema: z.ZodType<
   InputMskMaximumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputMskMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputMskMaximumTLSVersion);
 /** @internal */
 export const InputMskMaximumTLSVersion$outboundSchema: z.ZodType<
-  InputMskMaximumTLSVersion,
+  string,
   z.ZodTypeDef,
   InputMskMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(InputMskMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputMskMaximumTLSVersion);
 
 /** @internal */
 export const InputMskTLSSettingsClientSide$inboundSchema: z.ZodType<
@@ -1079,7 +1007,7 @@ export const InputMsk$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputMskType$inboundSchema,
+  type: z.literal("msk"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -1134,7 +1062,7 @@ export const InputMsk$inboundSchema: z.ZodType<
 /** @internal */
 export type InputMsk$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "msk";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -1191,7 +1119,7 @@ export const InputMsk$outboundSchema: z.ZodType<
   InputMsk
 > = z.object({
   id: z.string().optional(),
-  type: InputMskType$outboundSchema,
+  type: z.literal("msk"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

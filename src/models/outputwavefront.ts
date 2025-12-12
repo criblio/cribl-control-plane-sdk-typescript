@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputWavefrontType = {
-  Wavefront: "wavefront",
-} as const;
-export type OutputWavefrontType = ClosedEnum<typeof OutputWavefrontType>;
 
 /**
  * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
@@ -189,7 +180,7 @@ export type OutputWavefront = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputWavefrontType;
+  type: "wavefront";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -332,33 +323,17 @@ export type OutputWavefront = {
 };
 
 /** @internal */
-export const OutputWavefrontType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputWavefrontType
-> = z.nativeEnum(OutputWavefrontType);
-/** @internal */
-export const OutputWavefrontType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputWavefrontType
-> = OutputWavefrontType$inboundSchema;
-
-/** @internal */
 export const OutputWavefrontAuthenticationMethod$inboundSchema: z.ZodType<
   OutputWavefrontAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputWavefrontAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputWavefrontAuthenticationMethod);
 /** @internal */
 export const OutputWavefrontAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputWavefrontAuthenticationMethod,
+  string,
   z.ZodTypeDef,
   OutputWavefrontAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputWavefrontAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputWavefrontAuthenticationMethod);
 
 /** @internal */
 export const OutputWavefrontExtraHttpHeader$inboundSchema: z.ZodType<
@@ -409,20 +384,13 @@ export const OutputWavefrontFailedRequestLoggingMode$inboundSchema: z.ZodType<
   OutputWavefrontFailedRequestLoggingMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputWavefrontFailedRequestLoggingMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputWavefrontFailedRequestLoggingMode);
 /** @internal */
 export const OutputWavefrontFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  OutputWavefrontFailedRequestLoggingMode,
+  string,
   z.ZodTypeDef,
   OutputWavefrontFailedRequestLoggingMode
-> = z.union([
-  z.nativeEnum(OutputWavefrontFailedRequestLoggingMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputWavefrontFailedRequestLoggingMode);
 
 /** @internal */
 export const OutputWavefrontResponseRetrySetting$inboundSchema: z.ZodType<
@@ -531,80 +499,52 @@ export const OutputWavefrontBackpressureBehavior$inboundSchema: z.ZodType<
   OutputWavefrontBackpressureBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputWavefrontBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputWavefrontBackpressureBehavior);
 /** @internal */
 export const OutputWavefrontBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputWavefrontBackpressureBehavior,
+  string,
   z.ZodTypeDef,
   OutputWavefrontBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputWavefrontBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputWavefrontBackpressureBehavior);
 
 /** @internal */
 export const OutputWavefrontMode$inboundSchema: z.ZodType<
   OutputWavefrontMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputWavefrontMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputWavefrontMode);
 /** @internal */
 export const OutputWavefrontMode$outboundSchema: z.ZodType<
-  OutputWavefrontMode,
+  string,
   z.ZodTypeDef,
   OutputWavefrontMode
-> = z.union([
-  z.nativeEnum(OutputWavefrontMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputWavefrontMode);
 
 /** @internal */
 export const OutputWavefrontCompression$inboundSchema: z.ZodType<
   OutputWavefrontCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputWavefrontCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputWavefrontCompression);
 /** @internal */
 export const OutputWavefrontCompression$outboundSchema: z.ZodType<
-  OutputWavefrontCompression,
+  string,
   z.ZodTypeDef,
   OutputWavefrontCompression
-> = z.union([
-  z.nativeEnum(OutputWavefrontCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputWavefrontCompression);
 
 /** @internal */
 export const OutputWavefrontQueueFullBehavior$inboundSchema: z.ZodType<
   OutputWavefrontQueueFullBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputWavefrontQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputWavefrontQueueFullBehavior);
 /** @internal */
 export const OutputWavefrontQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputWavefrontQueueFullBehavior,
+  string,
   z.ZodTypeDef,
   OutputWavefrontQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputWavefrontQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputWavefrontQueueFullBehavior);
 
 /** @internal */
 export const OutputWavefrontPqControls$inboundSchema: z.ZodType<
@@ -646,7 +586,7 @@ export const OutputWavefront$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputWavefrontType$inboundSchema,
+  type: z.literal("wavefront"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -697,7 +637,7 @@ export const OutputWavefront$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputWavefront$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "wavefront";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -746,7 +686,7 @@ export const OutputWavefront$outboundSchema: z.ZodType<
   OutputWavefront
 > = z.object({
   id: z.string().optional(),
-  type: OutputWavefrontType$outboundSchema,
+  type: z.literal("wavefront"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

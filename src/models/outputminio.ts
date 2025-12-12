@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputMinioType = {
-  Minio: "minio",
-} as const;
-export type OutputMinioType = ClosedEnum<typeof OutputMinioType>;
 
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
@@ -280,7 +271,7 @@ export type OutputMinio = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputMinioType;
+  type: "minio";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -501,253 +492,160 @@ export type OutputMinio = {
 };
 
 /** @internal */
-export const OutputMinioType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputMinioType
-> = z.nativeEnum(OutputMinioType);
-/** @internal */
-export const OutputMinioType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputMinioType
-> = OutputMinioType$inboundSchema;
-
-/** @internal */
 export const OutputMinioAuthenticationMethod$inboundSchema: z.ZodType<
   OutputMinioAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMinioAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputMinioAuthenticationMethod);
 /** @internal */
 export const OutputMinioAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputMinioAuthenticationMethod,
+  string,
   z.ZodTypeDef,
   OutputMinioAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputMinioAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputMinioAuthenticationMethod);
 
 /** @internal */
 export const OutputMinioSignatureVersion$inboundSchema: z.ZodType<
   OutputMinioSignatureVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMinioSignatureVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputMinioSignatureVersion);
 /** @internal */
 export const OutputMinioSignatureVersion$outboundSchema: z.ZodType<
-  OutputMinioSignatureVersion,
+  string,
   z.ZodTypeDef,
   OutputMinioSignatureVersion
-> = z.union([
-  z.nativeEnum(OutputMinioSignatureVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputMinioSignatureVersion);
 
 /** @internal */
 export const OutputMinioObjectACL$inboundSchema: z.ZodType<
   OutputMinioObjectACL,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMinioObjectACL),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputMinioObjectACL);
 /** @internal */
 export const OutputMinioObjectACL$outboundSchema: z.ZodType<
-  OutputMinioObjectACL,
+  string,
   z.ZodTypeDef,
   OutputMinioObjectACL
-> = z.union([
-  z.nativeEnum(OutputMinioObjectACL),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputMinioObjectACL);
 
 /** @internal */
 export const OutputMinioStorageClass$inboundSchema: z.ZodType<
   OutputMinioStorageClass,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMinioStorageClass),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputMinioStorageClass);
 /** @internal */
 export const OutputMinioStorageClass$outboundSchema: z.ZodType<
-  OutputMinioStorageClass,
+  string,
   z.ZodTypeDef,
   OutputMinioStorageClass
-> = z.union([
-  z.nativeEnum(OutputMinioStorageClass),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputMinioStorageClass);
 
 /** @internal */
 export const OutputMinioServerSideEncryption$inboundSchema: z.ZodType<
   OutputMinioServerSideEncryption,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMinioServerSideEncryption),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputMinioServerSideEncryption);
 /** @internal */
 export const OutputMinioServerSideEncryption$outboundSchema: z.ZodType<
-  OutputMinioServerSideEncryption,
+  string,
   z.ZodTypeDef,
   OutputMinioServerSideEncryption
-> = z.union([
-  z.nativeEnum(OutputMinioServerSideEncryption),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputMinioServerSideEncryption);
 
 /** @internal */
 export const OutputMinioDataFormat$inboundSchema: z.ZodType<
   OutputMinioDataFormat,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMinioDataFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputMinioDataFormat);
 /** @internal */
 export const OutputMinioDataFormat$outboundSchema: z.ZodType<
-  OutputMinioDataFormat,
+  string,
   z.ZodTypeDef,
   OutputMinioDataFormat
-> = z.union([
-  z.nativeEnum(OutputMinioDataFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputMinioDataFormat);
 
 /** @internal */
 export const OutputMinioBackpressureBehavior$inboundSchema: z.ZodType<
   OutputMinioBackpressureBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMinioBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputMinioBackpressureBehavior);
 /** @internal */
 export const OutputMinioBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputMinioBackpressureBehavior,
+  string,
   z.ZodTypeDef,
   OutputMinioBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputMinioBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputMinioBackpressureBehavior);
 
 /** @internal */
 export const OutputMinioDiskSpaceProtection$inboundSchema: z.ZodType<
   OutputMinioDiskSpaceProtection,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMinioDiskSpaceProtection),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputMinioDiskSpaceProtection);
 /** @internal */
 export const OutputMinioDiskSpaceProtection$outboundSchema: z.ZodType<
-  OutputMinioDiskSpaceProtection,
+  string,
   z.ZodTypeDef,
   OutputMinioDiskSpaceProtection
-> = z.union([
-  z.nativeEnum(OutputMinioDiskSpaceProtection),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputMinioDiskSpaceProtection);
 
 /** @internal */
 export const OutputMinioCompression$inboundSchema: z.ZodType<
   OutputMinioCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMinioCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputMinioCompression);
 /** @internal */
 export const OutputMinioCompression$outboundSchema: z.ZodType<
-  OutputMinioCompression,
+  string,
   z.ZodTypeDef,
   OutputMinioCompression
-> = z.union([
-  z.nativeEnum(OutputMinioCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputMinioCompression);
 
 /** @internal */
 export const OutputMinioCompressionLevel$inboundSchema: z.ZodType<
   OutputMinioCompressionLevel,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMinioCompressionLevel),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputMinioCompressionLevel);
 /** @internal */
 export const OutputMinioCompressionLevel$outboundSchema: z.ZodType<
-  OutputMinioCompressionLevel,
+  string,
   z.ZodTypeDef,
   OutputMinioCompressionLevel
-> = z.union([
-  z.nativeEnum(OutputMinioCompressionLevel),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputMinioCompressionLevel);
 
 /** @internal */
 export const OutputMinioParquetVersion$inboundSchema: z.ZodType<
   OutputMinioParquetVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMinioParquetVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputMinioParquetVersion);
 /** @internal */
 export const OutputMinioParquetVersion$outboundSchema: z.ZodType<
-  OutputMinioParquetVersion,
+  string,
   z.ZodTypeDef,
   OutputMinioParquetVersion
-> = z.union([
-  z.nativeEnum(OutputMinioParquetVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputMinioParquetVersion);
 
 /** @internal */
 export const OutputMinioDataPageVersion$inboundSchema: z.ZodType<
   OutputMinioDataPageVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMinioDataPageVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputMinioDataPageVersion);
 /** @internal */
 export const OutputMinioDataPageVersion$outboundSchema: z.ZodType<
-  OutputMinioDataPageVersion,
+  string,
   z.ZodTypeDef,
   OutputMinioDataPageVersion
-> = z.union([
-  z.nativeEnum(OutputMinioDataPageVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputMinioDataPageVersion);
 
 /** @internal */
 export const OutputMinioKeyValueMetadatum$inboundSchema: z.ZodType<
@@ -800,7 +698,7 @@ export const OutputMinio$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputMinioType$inboundSchema,
+  type: z.literal("minio"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -878,7 +776,7 @@ export const OutputMinio$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputMinio$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "minio";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -943,7 +841,7 @@ export const OutputMinio$outboundSchema: z.ZodType<
   OutputMinio
 > = z.object({
   id: z.string().optional(),
-  type: OutputMinioType$outboundSchema,
+  type: z.literal("minio"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

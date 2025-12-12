@@ -4,21 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputOffice365ServiceType = {
-  Office365Service: "office365_service",
-} as const;
-export type InputOffice365ServiceType = ClosedEnum<
-  typeof InputOffice365ServiceType
->;
 
 export type InputOffice365ServiceConnection = {
   pipeline?: string | undefined;
@@ -246,7 +235,7 @@ export type InputOffice365Service = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputOffice365ServiceType;
+  type: "office365_service";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -334,15 +323,6 @@ export type InputOffice365Service = {
 };
 
 /** @internal */
-export const InputOffice365ServiceType$inboundSchema: z.ZodNativeEnum<
-  typeof InputOffice365ServiceType
-> = z.nativeEnum(InputOffice365ServiceType);
-/** @internal */
-export const InputOffice365ServiceType$outboundSchema: z.ZodNativeEnum<
-  typeof InputOffice365ServiceType
-> = InputOffice365ServiceType$inboundSchema;
-
-/** @internal */
 export const InputOffice365ServiceConnection$inboundSchema: z.ZodType<
   InputOffice365ServiceConnection,
   z.ZodTypeDef,
@@ -391,40 +371,26 @@ export const InputOffice365ServiceMode$inboundSchema: z.ZodType<
   InputOffice365ServiceMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputOffice365ServiceMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputOffice365ServiceMode);
 /** @internal */
 export const InputOffice365ServiceMode$outboundSchema: z.ZodType<
-  InputOffice365ServiceMode,
+  string,
   z.ZodTypeDef,
   InputOffice365ServiceMode
-> = z.union([
-  z.nativeEnum(InputOffice365ServiceMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputOffice365ServiceMode);
 
 /** @internal */
 export const InputOffice365ServiceCompression$inboundSchema: z.ZodType<
   InputOffice365ServiceCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputOffice365ServiceCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputOffice365ServiceCompression);
 /** @internal */
 export const InputOffice365ServiceCompression$outboundSchema: z.ZodType<
-  InputOffice365ServiceCompression,
+  string,
   z.ZodTypeDef,
   InputOffice365ServiceCompression
-> = z.union([
-  z.nativeEnum(InputOffice365ServiceCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputOffice365ServiceCompression);
 
 /** @internal */
 export const InputOffice365ServicePqControls$inboundSchema: z.ZodType<
@@ -528,20 +494,13 @@ export const InputOffice365ServiceSubscriptionPlan$inboundSchema: z.ZodType<
   InputOffice365ServiceSubscriptionPlan,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputOffice365ServiceSubscriptionPlan),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputOffice365ServiceSubscriptionPlan);
 /** @internal */
 export const InputOffice365ServiceSubscriptionPlan$outboundSchema: z.ZodType<
-  InputOffice365ServiceSubscriptionPlan,
+  string,
   z.ZodTypeDef,
   InputOffice365ServiceSubscriptionPlan
-> = z.union([
-  z.nativeEnum(InputOffice365ServiceSubscriptionPlan),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputOffice365ServiceSubscriptionPlan);
 
 /** @internal */
 export const InputOffice365ServiceMetadatum$inboundSchema: z.ZodType<
@@ -592,20 +551,13 @@ export const InputOffice365ServiceLogLevel$inboundSchema: z.ZodType<
   InputOffice365ServiceLogLevel,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputOffice365ServiceLogLevel),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputOffice365ServiceLogLevel);
 /** @internal */
 export const InputOffice365ServiceLogLevel$outboundSchema: z.ZodType<
-  InputOffice365ServiceLogLevel,
+  string,
   z.ZodTypeDef,
   InputOffice365ServiceLogLevel
-> = z.union([
-  z.nativeEnum(InputOffice365ServiceLogLevel),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputOffice365ServiceLogLevel);
 
 /** @internal */
 export const InputOffice365ServiceContentConfig$inboundSchema: z.ZodType<
@@ -666,20 +618,13 @@ export const InputOffice365ServiceRetryType$inboundSchema: z.ZodType<
   InputOffice365ServiceRetryType,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputOffice365ServiceRetryType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputOffice365ServiceRetryType);
 /** @internal */
 export const InputOffice365ServiceRetryType$outboundSchema: z.ZodType<
-  InputOffice365ServiceRetryType,
+  string,
   z.ZodTypeDef,
   InputOffice365ServiceRetryType
-> = z.union([
-  z.nativeEnum(InputOffice365ServiceRetryType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputOffice365ServiceRetryType);
 
 /** @internal */
 export const InputOffice365ServiceRetryRules$inboundSchema: z.ZodType<
@@ -748,21 +693,11 @@ export const InputOffice365ServiceAuthenticationMethod$inboundSchema: z.ZodType<
   InputOffice365ServiceAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputOffice365ServiceAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputOffice365ServiceAuthenticationMethod);
 /** @internal */
 export const InputOffice365ServiceAuthenticationMethod$outboundSchema:
-  z.ZodType<
-    InputOffice365ServiceAuthenticationMethod,
-    z.ZodTypeDef,
-    InputOffice365ServiceAuthenticationMethod
-  > = z.union([
-    z.nativeEnum(InputOffice365ServiceAuthenticationMethod),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  z.ZodType<string, z.ZodTypeDef, InputOffice365ServiceAuthenticationMethod> =
+    openEnums.outboundSchema(InputOffice365ServiceAuthenticationMethod);
 
 /** @internal */
 export const InputOffice365Service$inboundSchema: z.ZodType<
@@ -771,7 +706,7 @@ export const InputOffice365Service$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputOffice365ServiceType$inboundSchema,
+  type: z.literal("office365_service"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -810,7 +745,7 @@ export const InputOffice365Service$inboundSchema: z.ZodType<
 /** @internal */
 export type InputOffice365Service$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "office365_service";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -846,7 +781,7 @@ export const InputOffice365Service$outboundSchema: z.ZodType<
   InputOffice365Service
 > = z.object({
   id: z.string().optional(),
-  type: InputOffice365ServiceType$outboundSchema,
+  type: z.literal("office365_service"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
