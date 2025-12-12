@@ -4,21 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputModelDrivenTelemetryType = {
-  ModelDrivenTelemetry: "model_driven_telemetry",
-} as const;
-export type InputModelDrivenTelemetryType = ClosedEnum<
-  typeof InputModelDrivenTelemetryType
->;
 
 export type InputModelDrivenTelemetryConnection = {
   pipeline?: string | undefined;
@@ -170,7 +159,7 @@ export type InputModelDrivenTelemetry = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputModelDrivenTelemetryType;
+  type: "model_driven_telemetry";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -222,15 +211,6 @@ export type InputModelDrivenTelemetry = {
 };
 
 /** @internal */
-export const InputModelDrivenTelemetryType$inboundSchema: z.ZodNativeEnum<
-  typeof InputModelDrivenTelemetryType
-> = z.nativeEnum(InputModelDrivenTelemetryType);
-/** @internal */
-export const InputModelDrivenTelemetryType$outboundSchema: z.ZodNativeEnum<
-  typeof InputModelDrivenTelemetryType
-> = InputModelDrivenTelemetryType$inboundSchema;
-
-/** @internal */
 export const InputModelDrivenTelemetryConnection$inboundSchema: z.ZodType<
   InputModelDrivenTelemetryConnection,
   z.ZodTypeDef,
@@ -280,40 +260,26 @@ export const InputModelDrivenTelemetryMode$inboundSchema: z.ZodType<
   InputModelDrivenTelemetryMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputModelDrivenTelemetryMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputModelDrivenTelemetryMode);
 /** @internal */
 export const InputModelDrivenTelemetryMode$outboundSchema: z.ZodType<
-  InputModelDrivenTelemetryMode,
+  string,
   z.ZodTypeDef,
   InputModelDrivenTelemetryMode
-> = z.union([
-  z.nativeEnum(InputModelDrivenTelemetryMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputModelDrivenTelemetryMode);
 
 /** @internal */
 export const InputModelDrivenTelemetryCompression$inboundSchema: z.ZodType<
   InputModelDrivenTelemetryCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputModelDrivenTelemetryCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputModelDrivenTelemetryCompression);
 /** @internal */
 export const InputModelDrivenTelemetryCompression$outboundSchema: z.ZodType<
-  InputModelDrivenTelemetryCompression,
+  string,
   z.ZodTypeDef,
   InputModelDrivenTelemetryCompression
-> = z.union([
-  z.nativeEnum(InputModelDrivenTelemetryCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputModelDrivenTelemetryCompression);
 
 /** @internal */
 export const InputModelDrivenTelemetryPqControls$inboundSchema: z.ZodType<
@@ -418,40 +384,20 @@ export function inputModelDrivenTelemetryPqFromJSON(
 /** @internal */
 export const InputModelDrivenTelemetryMinimumTLSVersion$inboundSchema:
   z.ZodType<InputModelDrivenTelemetryMinimumTLSVersion, z.ZodTypeDef, unknown> =
-    z
-      .union([
-        z.nativeEnum(InputModelDrivenTelemetryMinimumTLSVersion),
-        z.string().transform(catchUnrecognizedEnum),
-      ]);
+    openEnums.inboundSchema(InputModelDrivenTelemetryMinimumTLSVersion);
 /** @internal */
 export const InputModelDrivenTelemetryMinimumTLSVersion$outboundSchema:
-  z.ZodType<
-    InputModelDrivenTelemetryMinimumTLSVersion,
-    z.ZodTypeDef,
-    InputModelDrivenTelemetryMinimumTLSVersion
-  > = z.union([
-    z.nativeEnum(InputModelDrivenTelemetryMinimumTLSVersion),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  z.ZodType<string, z.ZodTypeDef, InputModelDrivenTelemetryMinimumTLSVersion> =
+    openEnums.outboundSchema(InputModelDrivenTelemetryMinimumTLSVersion);
 
 /** @internal */
 export const InputModelDrivenTelemetryMaximumTLSVersion$inboundSchema:
   z.ZodType<InputModelDrivenTelemetryMaximumTLSVersion, z.ZodTypeDef, unknown> =
-    z
-      .union([
-        z.nativeEnum(InputModelDrivenTelemetryMaximumTLSVersion),
-        z.string().transform(catchUnrecognizedEnum),
-      ]);
+    openEnums.inboundSchema(InputModelDrivenTelemetryMaximumTLSVersion);
 /** @internal */
 export const InputModelDrivenTelemetryMaximumTLSVersion$outboundSchema:
-  z.ZodType<
-    InputModelDrivenTelemetryMaximumTLSVersion,
-    z.ZodTypeDef,
-    InputModelDrivenTelemetryMaximumTLSVersion
-  > = z.union([
-    z.nativeEnum(InputModelDrivenTelemetryMaximumTLSVersion),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  z.ZodType<string, z.ZodTypeDef, InputModelDrivenTelemetryMaximumTLSVersion> =
+    openEnums.outboundSchema(InputModelDrivenTelemetryMaximumTLSVersion);
 
 /** @internal */
 export const InputModelDrivenTelemetryTLSSettingsServerSide$inboundSchema:
@@ -589,7 +535,7 @@ export const InputModelDrivenTelemetry$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputModelDrivenTelemetryType$inboundSchema,
+  type: z.literal("model_driven_telemetry"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -615,7 +561,7 @@ export const InputModelDrivenTelemetry$inboundSchema: z.ZodType<
 /** @internal */
 export type InputModelDrivenTelemetry$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "model_driven_telemetry";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -640,7 +586,7 @@ export const InputModelDrivenTelemetry$outboundSchema: z.ZodType<
   InputModelDrivenTelemetry
 > = z.object({
   id: z.string().optional(),
-  type: InputModelDrivenTelemetryType$outboundSchema,
+  type: z.literal("model_driven_telemetry"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

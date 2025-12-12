@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputLokiType = {
-  Loki: "loki",
-} as const;
-export type OutputLokiType = ClosedEnum<typeof OutputLokiType>;
 
 /**
  * Format to use when sending logs to Loki (Protobuf or JSON)
@@ -222,7 +213,7 @@ export type OutputLoki = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputLokiType;
+  type: "loki";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -390,33 +381,17 @@ export type OutputLoki = {
 };
 
 /** @internal */
-export const OutputLokiType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputLokiType
-> = z.nativeEnum(OutputLokiType);
-/** @internal */
-export const OutputLokiType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputLokiType
-> = OutputLokiType$inboundSchema;
-
-/** @internal */
 export const OutputLokiMessageFormat$inboundSchema: z.ZodType<
   OutputLokiMessageFormat,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputLokiMessageFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputLokiMessageFormat);
 /** @internal */
 export const OutputLokiMessageFormat$outboundSchema: z.ZodType<
-  OutputLokiMessageFormat,
+  string,
   z.ZodTypeDef,
   OutputLokiMessageFormat
-> = z.union([
-  z.nativeEnum(OutputLokiMessageFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputLokiMessageFormat);
 
 /** @internal */
 export const OutputLokiLabel$inboundSchema: z.ZodType<
@@ -463,20 +438,13 @@ export const OutputLokiAuthenticationType$inboundSchema: z.ZodType<
   OutputLokiAuthenticationType,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputLokiAuthenticationType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputLokiAuthenticationType);
 /** @internal */
 export const OutputLokiAuthenticationType$outboundSchema: z.ZodType<
-  OutputLokiAuthenticationType,
+  string,
   z.ZodTypeDef,
   OutputLokiAuthenticationType
-> = z.union([
-  z.nativeEnum(OutputLokiAuthenticationType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputLokiAuthenticationType);
 
 /** @internal */
 export const OutputLokiExtraHttpHeader$inboundSchema: z.ZodType<
@@ -525,20 +493,13 @@ export const OutputLokiFailedRequestLoggingMode$inboundSchema: z.ZodType<
   OutputLokiFailedRequestLoggingMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputLokiFailedRequestLoggingMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputLokiFailedRequestLoggingMode);
 /** @internal */
 export const OutputLokiFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  OutputLokiFailedRequestLoggingMode,
+  string,
   z.ZodTypeDef,
   OutputLokiFailedRequestLoggingMode
-> = z.union([
-  z.nativeEnum(OutputLokiFailedRequestLoggingMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputLokiFailedRequestLoggingMode);
 
 /** @internal */
 export const OutputLokiResponseRetrySetting$inboundSchema: z.ZodType<
@@ -645,80 +606,52 @@ export const OutputLokiBackpressureBehavior$inboundSchema: z.ZodType<
   OutputLokiBackpressureBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputLokiBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputLokiBackpressureBehavior);
 /** @internal */
 export const OutputLokiBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputLokiBackpressureBehavior,
+  string,
   z.ZodTypeDef,
   OutputLokiBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputLokiBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputLokiBackpressureBehavior);
 
 /** @internal */
 export const OutputLokiMode$inboundSchema: z.ZodType<
   OutputLokiMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputLokiMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputLokiMode);
 /** @internal */
 export const OutputLokiMode$outboundSchema: z.ZodType<
-  OutputLokiMode,
+  string,
   z.ZodTypeDef,
   OutputLokiMode
-> = z.union([
-  z.nativeEnum(OutputLokiMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputLokiMode);
 
 /** @internal */
 export const OutputLokiCompression$inboundSchema: z.ZodType<
   OutputLokiCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputLokiCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputLokiCompression);
 /** @internal */
 export const OutputLokiCompression$outboundSchema: z.ZodType<
-  OutputLokiCompression,
+  string,
   z.ZodTypeDef,
   OutputLokiCompression
-> = z.union([
-  z.nativeEnum(OutputLokiCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputLokiCompression);
 
 /** @internal */
 export const OutputLokiQueueFullBehavior$inboundSchema: z.ZodType<
   OutputLokiQueueFullBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputLokiQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputLokiQueueFullBehavior);
 /** @internal */
 export const OutputLokiQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputLokiQueueFullBehavior,
+  string,
   z.ZodTypeDef,
   OutputLokiQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputLokiQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputLokiQueueFullBehavior);
 
 /** @internal */
 export const OutputLokiPqControls$inboundSchema: z.ZodType<
@@ -760,7 +693,7 @@ export const OutputLoki$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputLokiType$inboundSchema,
+  type: z.literal("loki"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -815,7 +748,7 @@ export const OutputLoki$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputLoki$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "loki";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -870,7 +803,7 @@ export const OutputLoki$outboundSchema: z.ZodType<
   OutputLoki
 > = z.object({
   id: z.string().optional(),
-  type: OutputLokiType$outboundSchema,
+  type: z.literal("loki"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

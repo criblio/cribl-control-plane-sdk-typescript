@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputCriblHttpType = {
-  CriblHttp: "cribl_http",
-} as const;
-export type InputCriblHttpType = ClosedEnum<typeof InputCriblHttpType>;
 
 export type InputCriblHttpConnection = {
   pipeline?: string | undefined;
@@ -178,7 +169,7 @@ export type InputCriblHttp = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputCriblHttpType;
+  type: "cribl_http";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -270,15 +261,6 @@ export type InputCriblHttp = {
 };
 
 /** @internal */
-export const InputCriblHttpType$inboundSchema: z.ZodNativeEnum<
-  typeof InputCriblHttpType
-> = z.nativeEnum(InputCriblHttpType);
-/** @internal */
-export const InputCriblHttpType$outboundSchema: z.ZodNativeEnum<
-  typeof InputCriblHttpType
-> = InputCriblHttpType$inboundSchema;
-
-/** @internal */
 export const InputCriblHttpConnection$inboundSchema: z.ZodType<
   InputCriblHttpConnection,
   z.ZodTypeDef,
@@ -325,40 +307,26 @@ export const InputCriblHttpMode$inboundSchema: z.ZodType<
   InputCriblHttpMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputCriblHttpMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputCriblHttpMode);
 /** @internal */
 export const InputCriblHttpMode$outboundSchema: z.ZodType<
-  InputCriblHttpMode,
+  string,
   z.ZodTypeDef,
   InputCriblHttpMode
-> = z.union([
-  z.nativeEnum(InputCriblHttpMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputCriblHttpMode);
 
 /** @internal */
 export const InputCriblHttpCompression$inboundSchema: z.ZodType<
   InputCriblHttpCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputCriblHttpCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputCriblHttpCompression);
 /** @internal */
 export const InputCriblHttpCompression$outboundSchema: z.ZodType<
-  InputCriblHttpCompression,
+  string,
   z.ZodTypeDef,
   InputCriblHttpCompression
-> = z.union([
-  z.nativeEnum(InputCriblHttpCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputCriblHttpCompression);
 
 /** @internal */
 export const InputCriblHttpPqControls$inboundSchema: z.ZodType<
@@ -503,40 +471,26 @@ export const InputCriblHttpMinimumTLSVersion$inboundSchema: z.ZodType<
   InputCriblHttpMinimumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputCriblHttpMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputCriblHttpMinimumTLSVersion);
 /** @internal */
 export const InputCriblHttpMinimumTLSVersion$outboundSchema: z.ZodType<
-  InputCriblHttpMinimumTLSVersion,
+  string,
   z.ZodTypeDef,
   InputCriblHttpMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(InputCriblHttpMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputCriblHttpMinimumTLSVersion);
 
 /** @internal */
 export const InputCriblHttpMaximumTLSVersion$inboundSchema: z.ZodType<
   InputCriblHttpMaximumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputCriblHttpMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputCriblHttpMaximumTLSVersion);
 /** @internal */
 export const InputCriblHttpMaximumTLSVersion$outboundSchema: z.ZodType<
-  InputCriblHttpMaximumTLSVersion,
+  string,
   z.ZodTypeDef,
   InputCriblHttpMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(InputCriblHttpMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputCriblHttpMaximumTLSVersion);
 
 /** @internal */
 export const InputCriblHttpTLSSettingsServerSide$inboundSchema: z.ZodType<
@@ -659,7 +613,7 @@ export const InputCriblHttp$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputCriblHttpType$inboundSchema,
+  type: z.literal("cribl_http"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -693,7 +647,7 @@ export const InputCriblHttp$inboundSchema: z.ZodType<
 /** @internal */
 export type InputCriblHttp$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "cribl_http";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -728,7 +682,7 @@ export const InputCriblHttp$outboundSchema: z.ZodType<
   InputCriblHttp
 > = z.object({
   id: z.string().optional(),
-  type: InputCriblHttpType$outboundSchema,
+  type: z.literal("cribl_http"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

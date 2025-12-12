@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputS3Type = {
-  S3: "s3",
-} as const;
-export type InputS3Type = ClosedEnum<typeof InputS3Type>;
 
 export type InputS3Connection = {
   pipeline?: string | undefined;
@@ -165,7 +156,7 @@ export type InputS3 = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputS3Type;
+  type: "s3";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -324,13 +315,6 @@ export type InputS3 = {
 };
 
 /** @internal */
-export const InputS3Type$inboundSchema: z.ZodNativeEnum<typeof InputS3Type> = z
-  .nativeEnum(InputS3Type);
-/** @internal */
-export const InputS3Type$outboundSchema: z.ZodNativeEnum<typeof InputS3Type> =
-  InputS3Type$inboundSchema;
-
-/** @internal */
 export const InputS3Connection$inboundSchema: z.ZodType<
   InputS3Connection,
   z.ZodTypeDef,
@@ -377,40 +361,26 @@ export const InputS3Mode$inboundSchema: z.ZodType<
   InputS3Mode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputS3Mode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputS3Mode);
 /** @internal */
 export const InputS3Mode$outboundSchema: z.ZodType<
-  InputS3Mode,
+  string,
   z.ZodTypeDef,
   InputS3Mode
-> = z.union([
-  z.nativeEnum(InputS3Mode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputS3Mode);
 
 /** @internal */
 export const InputS3Compression$inboundSchema: z.ZodType<
   InputS3Compression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputS3Compression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputS3Compression);
 /** @internal */
 export const InputS3Compression$outboundSchema: z.ZodType<
-  InputS3Compression,
+  string,
   z.ZodTypeDef,
   InputS3Compression
-> = z.union([
-  z.nativeEnum(InputS3Compression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputS3Compression);
 
 /** @internal */
 export const InputS3PqControls$inboundSchema: z.ZodType<
@@ -506,40 +476,26 @@ export const InputS3AuthenticationMethod$inboundSchema: z.ZodType<
   InputS3AuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputS3AuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputS3AuthenticationMethod);
 /** @internal */
 export const InputS3AuthenticationMethod$outboundSchema: z.ZodType<
-  InputS3AuthenticationMethod,
+  string,
   z.ZodTypeDef,
   InputS3AuthenticationMethod
-> = z.union([
-  z.nativeEnum(InputS3AuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputS3AuthenticationMethod);
 
 /** @internal */
 export const InputS3SignatureVersion$inboundSchema: z.ZodType<
   InputS3SignatureVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputS3SignatureVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputS3SignatureVersion);
 /** @internal */
 export const InputS3SignatureVersion$outboundSchema: z.ZodType<
-  InputS3SignatureVersion,
+  string,
   z.ZodTypeDef,
   InputS3SignatureVersion
-> = z.union([
-  z.nativeEnum(InputS3SignatureVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputS3SignatureVersion);
 
 /** @internal */
 export const InputS3Preprocess$inboundSchema: z.ZodType<
@@ -674,7 +630,7 @@ export function inputS3CheckpointingFromJSON(
 export const InputS3$inboundSchema: z.ZodType<InputS3, z.ZodTypeDef, unknown> =
   z.object({
     id: z.string().optional(),
-    type: InputS3Type$inboundSchema,
+    type: z.literal("s3"),
     disabled: z.boolean().default(false),
     pipeline: z.string().optional(),
     sendToRoutes: z.boolean().default(true),
@@ -726,7 +682,7 @@ export const InputS3$inboundSchema: z.ZodType<InputS3, z.ZodTypeDef, unknown> =
 /** @internal */
 export type InputS3$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "s3";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -780,7 +736,7 @@ export const InputS3$outboundSchema: z.ZodType<
   InputS3
 > = z.object({
   id: z.string().optional(),
-  type: InputS3Type$outboundSchema,
+  type: z.literal("s3"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputCriblLakeHttpType = {
-  CriblLakeHttp: "cribl_lake_http",
-} as const;
-export type InputCriblLakeHttpType = ClosedEnum<typeof InputCriblLakeHttpType>;
 
 export type InputCriblLakeHttpConnection = {
   pipeline?: string | undefined;
@@ -193,7 +184,7 @@ export type InputCriblLakeHttp = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputCriblLakeHttpType;
+  type: "cribl_lake_http";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -299,15 +290,6 @@ export type InputCriblLakeHttp = {
 };
 
 /** @internal */
-export const InputCriblLakeHttpType$inboundSchema: z.ZodNativeEnum<
-  typeof InputCriblLakeHttpType
-> = z.nativeEnum(InputCriblLakeHttpType);
-/** @internal */
-export const InputCriblLakeHttpType$outboundSchema: z.ZodNativeEnum<
-  typeof InputCriblLakeHttpType
-> = InputCriblLakeHttpType$inboundSchema;
-
-/** @internal */
 export const InputCriblLakeHttpConnection$inboundSchema: z.ZodType<
   InputCriblLakeHttpConnection,
   z.ZodTypeDef,
@@ -356,40 +338,26 @@ export const InputCriblLakeHttpMode$inboundSchema: z.ZodType<
   InputCriblLakeHttpMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputCriblLakeHttpMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputCriblLakeHttpMode);
 /** @internal */
 export const InputCriblLakeHttpMode$outboundSchema: z.ZodType<
-  InputCriblLakeHttpMode,
+  string,
   z.ZodTypeDef,
   InputCriblLakeHttpMode
-> = z.union([
-  z.nativeEnum(InputCriblLakeHttpMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputCriblLakeHttpMode);
 
 /** @internal */
 export const InputCriblLakeHttpCompression$inboundSchema: z.ZodType<
   InputCriblLakeHttpCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputCriblLakeHttpCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputCriblLakeHttpCompression);
 /** @internal */
 export const InputCriblLakeHttpCompression$outboundSchema: z.ZodType<
-  InputCriblLakeHttpCompression,
+  string,
   z.ZodTypeDef,
   InputCriblLakeHttpCompression
-> = z.union([
-  z.nativeEnum(InputCriblLakeHttpCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputCriblLakeHttpCompression);
 
 /** @internal */
 export const InputCriblLakeHttpPqControls$inboundSchema: z.ZodType<
@@ -493,40 +461,26 @@ export const InputCriblLakeHttpMinimumTLSVersion$inboundSchema: z.ZodType<
   InputCriblLakeHttpMinimumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputCriblLakeHttpMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputCriblLakeHttpMinimumTLSVersion);
 /** @internal */
 export const InputCriblLakeHttpMinimumTLSVersion$outboundSchema: z.ZodType<
-  InputCriblLakeHttpMinimumTLSVersion,
+  string,
   z.ZodTypeDef,
   InputCriblLakeHttpMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(InputCriblLakeHttpMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputCriblLakeHttpMinimumTLSVersion);
 
 /** @internal */
 export const InputCriblLakeHttpMaximumTLSVersion$inboundSchema: z.ZodType<
   InputCriblLakeHttpMaximumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputCriblLakeHttpMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputCriblLakeHttpMaximumTLSVersion);
 /** @internal */
 export const InputCriblLakeHttpMaximumTLSVersion$outboundSchema: z.ZodType<
-  InputCriblLakeHttpMaximumTLSVersion,
+  string,
   z.ZodTypeDef,
   InputCriblLakeHttpMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(InputCriblLakeHttpMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputCriblLakeHttpMaximumTLSVersion);
 
 /** @internal */
 export const InputCriblLakeHttpTLSSettingsServerSide$inboundSchema: z.ZodType<
@@ -847,7 +801,7 @@ export const InputCriblLakeHttp$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputCriblLakeHttpType$inboundSchema,
+  type: z.literal("cribl_lake_http"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -887,7 +841,7 @@ export const InputCriblLakeHttp$inboundSchema: z.ZodType<
 /** @internal */
 export type InputCriblLakeHttp$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "cribl_lake_http";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -927,7 +881,7 @@ export const InputCriblLakeHttp$outboundSchema: z.ZodType<
   InputCriblLakeHttp
 > = z.object({
   id: z.string().optional(),
-  type: InputCriblLakeHttpType$outboundSchema,
+  type: z.literal("cribl_lake_http"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputDatabricksType = {
-  Databricks: "databricks",
-} as const;
-export type OutputDatabricksType = ClosedEnum<typeof OutputDatabricksType>;
 
 /**
  * Format of the output data
@@ -174,7 +165,7 @@ export type OutputDatabricks = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputDatabricksType;
+  type: "databricks";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -367,153 +358,95 @@ export type OutputDatabricks = {
 };
 
 /** @internal */
-export const OutputDatabricksType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputDatabricksType
-> = z.nativeEnum(OutputDatabricksType);
-/** @internal */
-export const OutputDatabricksType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputDatabricksType
-> = OutputDatabricksType$inboundSchema;
-
-/** @internal */
 export const OutputDatabricksDataFormat$inboundSchema: z.ZodType<
   OutputDatabricksDataFormat,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatabricksDataFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputDatabricksDataFormat);
 /** @internal */
 export const OutputDatabricksDataFormat$outboundSchema: z.ZodType<
-  OutputDatabricksDataFormat,
+  string,
   z.ZodTypeDef,
   OutputDatabricksDataFormat
-> = z.union([
-  z.nativeEnum(OutputDatabricksDataFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputDatabricksDataFormat);
 
 /** @internal */
 export const OutputDatabricksBackpressureBehavior$inboundSchema: z.ZodType<
   OutputDatabricksBackpressureBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatabricksBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputDatabricksBackpressureBehavior);
 /** @internal */
 export const OutputDatabricksBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputDatabricksBackpressureBehavior,
+  string,
   z.ZodTypeDef,
   OutputDatabricksBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputDatabricksBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputDatabricksBackpressureBehavior);
 
 /** @internal */
 export const OutputDatabricksDiskSpaceProtection$inboundSchema: z.ZodType<
   OutputDatabricksDiskSpaceProtection,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatabricksDiskSpaceProtection),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputDatabricksDiskSpaceProtection);
 /** @internal */
 export const OutputDatabricksDiskSpaceProtection$outboundSchema: z.ZodType<
-  OutputDatabricksDiskSpaceProtection,
+  string,
   z.ZodTypeDef,
   OutputDatabricksDiskSpaceProtection
-> = z.union([
-  z.nativeEnum(OutputDatabricksDiskSpaceProtection),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputDatabricksDiskSpaceProtection);
 
 /** @internal */
 export const OutputDatabricksCompression$inboundSchema: z.ZodType<
   OutputDatabricksCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatabricksCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputDatabricksCompression);
 /** @internal */
 export const OutputDatabricksCompression$outboundSchema: z.ZodType<
-  OutputDatabricksCompression,
+  string,
   z.ZodTypeDef,
   OutputDatabricksCompression
-> = z.union([
-  z.nativeEnum(OutputDatabricksCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputDatabricksCompression);
 
 /** @internal */
 export const OutputDatabricksCompressionLevel$inboundSchema: z.ZodType<
   OutputDatabricksCompressionLevel,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatabricksCompressionLevel),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputDatabricksCompressionLevel);
 /** @internal */
 export const OutputDatabricksCompressionLevel$outboundSchema: z.ZodType<
-  OutputDatabricksCompressionLevel,
+  string,
   z.ZodTypeDef,
   OutputDatabricksCompressionLevel
-> = z.union([
-  z.nativeEnum(OutputDatabricksCompressionLevel),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputDatabricksCompressionLevel);
 
 /** @internal */
 export const OutputDatabricksParquetVersion$inboundSchema: z.ZodType<
   OutputDatabricksParquetVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatabricksParquetVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputDatabricksParquetVersion);
 /** @internal */
 export const OutputDatabricksParquetVersion$outboundSchema: z.ZodType<
-  OutputDatabricksParquetVersion,
+  string,
   z.ZodTypeDef,
   OutputDatabricksParquetVersion
-> = z.union([
-  z.nativeEnum(OutputDatabricksParquetVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputDatabricksParquetVersion);
 
 /** @internal */
 export const OutputDatabricksDataPageVersion$inboundSchema: z.ZodType<
   OutputDatabricksDataPageVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatabricksDataPageVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputDatabricksDataPageVersion);
 /** @internal */
 export const OutputDatabricksDataPageVersion$outboundSchema: z.ZodType<
-  OutputDatabricksDataPageVersion,
+  string,
   z.ZodTypeDef,
   OutputDatabricksDataPageVersion
-> = z.union([
-  z.nativeEnum(OutputDatabricksDataPageVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputDatabricksDataPageVersion);
 
 /** @internal */
 export const OutputDatabricksKeyValueMetadatum$inboundSchema: z.ZodType<
@@ -566,7 +499,7 @@ export const OutputDatabricks$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputDatabricksType$inboundSchema,
+  type: z.literal("databricks"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -634,7 +567,7 @@ export const OutputDatabricks$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputDatabricks$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "databricks";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -694,7 +627,7 @@ export const OutputDatabricks$outboundSchema: z.ZodType<
   OutputDatabricks
 > = z.object({
   id: z.string().optional(),
-  type: OutputDatabricksType$outboundSchema,
+  type: z.literal("databricks"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

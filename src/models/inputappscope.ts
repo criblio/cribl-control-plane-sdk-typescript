@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputAppscopeType = {
-  Appscope: "appscope",
-} as const;
-export type InputAppscopeType = ClosedEnum<typeof InputAppscopeType>;
 
 export type InputAppscopeConnection = {
   pipeline?: string | undefined;
@@ -238,7 +229,7 @@ export type InputAppscope = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputAppscopeType;
+  type: "appscope";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -340,15 +331,6 @@ export type InputAppscope = {
 };
 
 /** @internal */
-export const InputAppscopeType$inboundSchema: z.ZodNativeEnum<
-  typeof InputAppscopeType
-> = z.nativeEnum(InputAppscopeType);
-/** @internal */
-export const InputAppscopeType$outboundSchema: z.ZodNativeEnum<
-  typeof InputAppscopeType
-> = InputAppscopeType$inboundSchema;
-
-/** @internal */
 export const InputAppscopeConnection$inboundSchema: z.ZodType<
   InputAppscopeConnection,
   z.ZodTypeDef,
@@ -395,40 +377,26 @@ export const InputAppscopeMode$inboundSchema: z.ZodType<
   InputAppscopeMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputAppscopeMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputAppscopeMode);
 /** @internal */
 export const InputAppscopeMode$outboundSchema: z.ZodType<
-  InputAppscopeMode,
+  string,
   z.ZodTypeDef,
   InputAppscopeMode
-> = z.union([
-  z.nativeEnum(InputAppscopeMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputAppscopeMode);
 
 /** @internal */
 export const InputAppscopeCompression$inboundSchema: z.ZodType<
   InputAppscopeCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputAppscopeCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputAppscopeCompression);
 /** @internal */
 export const InputAppscopeCompression$outboundSchema: z.ZodType<
-  InputAppscopeCompression,
+  string,
   z.ZodTypeDef,
   InputAppscopeCompression
-> = z.union([
-  z.nativeEnum(InputAppscopeCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputAppscopeCompression);
 
 /** @internal */
 export const InputAppscopePqControls$inboundSchema: z.ZodType<
@@ -648,20 +616,13 @@ export const InputAppscopeDataCompressionFormat$inboundSchema: z.ZodType<
   InputAppscopeDataCompressionFormat,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputAppscopeDataCompressionFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputAppscopeDataCompressionFormat);
 /** @internal */
 export const InputAppscopeDataCompressionFormat$outboundSchema: z.ZodType<
-  InputAppscopeDataCompressionFormat,
+  string,
   z.ZodTypeDef,
   InputAppscopeDataCompressionFormat
-> = z.union([
-  z.nativeEnum(InputAppscopeDataCompressionFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputAppscopeDataCompressionFormat);
 
 /** @internal */
 export const InputAppscopePersistence$inboundSchema: z.ZodType<
@@ -722,60 +683,39 @@ export const InputAppscopeAuthenticationMethod$inboundSchema: z.ZodType<
   InputAppscopeAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputAppscopeAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputAppscopeAuthenticationMethod);
 /** @internal */
 export const InputAppscopeAuthenticationMethod$outboundSchema: z.ZodType<
-  InputAppscopeAuthenticationMethod,
+  string,
   z.ZodTypeDef,
   InputAppscopeAuthenticationMethod
-> = z.union([
-  z.nativeEnum(InputAppscopeAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputAppscopeAuthenticationMethod);
 
 /** @internal */
 export const InputAppscopeMinimumTLSVersion$inboundSchema: z.ZodType<
   InputAppscopeMinimumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputAppscopeMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputAppscopeMinimumTLSVersion);
 /** @internal */
 export const InputAppscopeMinimumTLSVersion$outboundSchema: z.ZodType<
-  InputAppscopeMinimumTLSVersion,
+  string,
   z.ZodTypeDef,
   InputAppscopeMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(InputAppscopeMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputAppscopeMinimumTLSVersion);
 
 /** @internal */
 export const InputAppscopeMaximumTLSVersion$inboundSchema: z.ZodType<
   InputAppscopeMaximumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputAppscopeMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputAppscopeMaximumTLSVersion);
 /** @internal */
 export const InputAppscopeMaximumTLSVersion$outboundSchema: z.ZodType<
-  InputAppscopeMaximumTLSVersion,
+  string,
   z.ZodTypeDef,
   InputAppscopeMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(InputAppscopeMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputAppscopeMaximumTLSVersion);
 
 /** @internal */
 export const InputAppscopeTLSSettingsServerSide$inboundSchema: z.ZodType<
@@ -856,7 +796,7 @@ export const InputAppscope$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputAppscopeType$inboundSchema,
+  type: z.literal("appscope"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -893,7 +833,7 @@ export const InputAppscope$inboundSchema: z.ZodType<
 /** @internal */
 export type InputAppscope$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "appscope";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -932,7 +872,7 @@ export const InputAppscope$outboundSchema: z.ZodType<
   InputAppscope
 > = z.object({
   id: z.string().optional(),
-  type: InputAppscopeType$outboundSchema,
+  type: z.literal("appscope"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

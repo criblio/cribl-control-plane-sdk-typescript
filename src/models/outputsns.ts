@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputSnsType = {
-  Sns: "sns",
-} as const;
-export type OutputSnsType = ClosedEnum<typeof OutputSnsType>;
 
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
@@ -147,7 +138,7 @@ export type OutputSns = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputSnsType;
+  type: "sns";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -271,133 +262,82 @@ export type OutputSns = {
 };
 
 /** @internal */
-export const OutputSnsType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSnsType
-> = z.nativeEnum(OutputSnsType);
-/** @internal */
-export const OutputSnsType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSnsType
-> = OutputSnsType$inboundSchema;
-
-/** @internal */
 export const OutputSnsAuthenticationMethod$inboundSchema: z.ZodType<
   OutputSnsAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSnsAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSnsAuthenticationMethod);
 /** @internal */
 export const OutputSnsAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputSnsAuthenticationMethod,
+  string,
   z.ZodTypeDef,
   OutputSnsAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputSnsAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSnsAuthenticationMethod);
 
 /** @internal */
 export const OutputSnsSignatureVersion$inboundSchema: z.ZodType<
   OutputSnsSignatureVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSnsSignatureVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSnsSignatureVersion);
 /** @internal */
 export const OutputSnsSignatureVersion$outboundSchema: z.ZodType<
-  OutputSnsSignatureVersion,
+  string,
   z.ZodTypeDef,
   OutputSnsSignatureVersion
-> = z.union([
-  z.nativeEnum(OutputSnsSignatureVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSnsSignatureVersion);
 
 /** @internal */
 export const OutputSnsBackpressureBehavior$inboundSchema: z.ZodType<
   OutputSnsBackpressureBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSnsBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSnsBackpressureBehavior);
 /** @internal */
 export const OutputSnsBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputSnsBackpressureBehavior,
+  string,
   z.ZodTypeDef,
   OutputSnsBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputSnsBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSnsBackpressureBehavior);
 
 /** @internal */
 export const OutputSnsMode$inboundSchema: z.ZodType<
   OutputSnsMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSnsMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSnsMode);
 /** @internal */
 export const OutputSnsMode$outboundSchema: z.ZodType<
-  OutputSnsMode,
+  string,
   z.ZodTypeDef,
   OutputSnsMode
-> = z.union([
-  z.nativeEnum(OutputSnsMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSnsMode);
 
 /** @internal */
 export const OutputSnsCompression$inboundSchema: z.ZodType<
   OutputSnsCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSnsCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSnsCompression);
 /** @internal */
 export const OutputSnsCompression$outboundSchema: z.ZodType<
-  OutputSnsCompression,
+  string,
   z.ZodTypeDef,
   OutputSnsCompression
-> = z.union([
-  z.nativeEnum(OutputSnsCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSnsCompression);
 
 /** @internal */
 export const OutputSnsQueueFullBehavior$inboundSchema: z.ZodType<
   OutputSnsQueueFullBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSnsQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSnsQueueFullBehavior);
 /** @internal */
 export const OutputSnsQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputSnsQueueFullBehavior,
+  string,
   z.ZodTypeDef,
   OutputSnsQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputSnsQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSnsQueueFullBehavior);
 
 /** @internal */
 export const OutputSnsPqControls$inboundSchema: z.ZodType<
@@ -439,7 +379,7 @@ export const OutputSns$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputSnsType$inboundSchema,
+  type: z.literal("sns"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -479,7 +419,7 @@ export const OutputSns$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputSns$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "sns";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -522,7 +462,7 @@ export const OutputSns$outboundSchema: z.ZodType<
   OutputSns
 > = z.object({
   id: z.string().optional(),
-  type: OutputSnsType$outboundSchema,
+  type: z.literal("sns"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

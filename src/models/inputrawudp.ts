@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputRawUdpType = {
-  RawUdp: "raw_udp",
-} as const;
-export type InputRawUdpType = ClosedEnum<typeof InputRawUdpType>;
 
 export type InputRawUdpConnection = {
   pipeline?: string | undefined;
@@ -106,7 +97,7 @@ export type InputRawUdp = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputRawUdpType;
+  type: "raw_udp";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -169,15 +160,6 @@ export type InputRawUdp = {
 };
 
 /** @internal */
-export const InputRawUdpType$inboundSchema: z.ZodNativeEnum<
-  typeof InputRawUdpType
-> = z.nativeEnum(InputRawUdpType);
-/** @internal */
-export const InputRawUdpType$outboundSchema: z.ZodNativeEnum<
-  typeof InputRawUdpType
-> = InputRawUdpType$inboundSchema;
-
-/** @internal */
 export const InputRawUdpConnection$inboundSchema: z.ZodType<
   InputRawUdpConnection,
   z.ZodTypeDef,
@@ -224,40 +206,26 @@ export const InputRawUdpMode$inboundSchema: z.ZodType<
   InputRawUdpMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputRawUdpMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputRawUdpMode);
 /** @internal */
 export const InputRawUdpMode$outboundSchema: z.ZodType<
-  InputRawUdpMode,
+  string,
   z.ZodTypeDef,
   InputRawUdpMode
-> = z.union([
-  z.nativeEnum(InputRawUdpMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputRawUdpMode);
 
 /** @internal */
 export const InputRawUdpCompression$inboundSchema: z.ZodType<
   InputRawUdpCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputRawUdpCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputRawUdpCompression);
 /** @internal */
 export const InputRawUdpCompression$outboundSchema: z.ZodType<
-  InputRawUdpCompression,
+  string,
   z.ZodTypeDef,
   InputRawUdpCompression
-> = z.union([
-  z.nativeEnum(InputRawUdpCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputRawUdpCompression);
 
 /** @internal */
 export const InputRawUdpPqControls$inboundSchema: z.ZodType<
@@ -397,7 +365,7 @@ export const InputRawUdp$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputRawUdpType$inboundSchema,
+  type: z.literal("raw_udp"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -421,7 +389,7 @@ export const InputRawUdp$inboundSchema: z.ZodType<
 /** @internal */
 export type InputRawUdp$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "raw_udp";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -448,7 +416,7 @@ export const InputRawUdp$outboundSchema: z.ZodType<
   InputRawUdp
 > = z.object({
   id: z.string().optional(),
-  type: InputRawUdpType$outboundSchema,
+  type: z.literal("raw_udp"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

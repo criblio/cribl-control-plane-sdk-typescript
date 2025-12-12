@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputElasticCloudType = {
-  ElasticCloud: "elastic_cloud",
-} as const;
-export type OutputElasticCloudType = ClosedEnum<typeof OutputElasticCloudType>;
 
 export type OutputElasticCloudExtraHttpHeader = {
   name?: string | undefined;
@@ -218,7 +209,7 @@ export type OutputElasticCloud = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputElasticCloudType;
+  type: "elastic_cloud";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -362,15 +353,6 @@ export type OutputElasticCloud = {
 };
 
 /** @internal */
-export const OutputElasticCloudType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputElasticCloudType
-> = z.nativeEnum(OutputElasticCloudType);
-/** @internal */
-export const OutputElasticCloudType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputElasticCloudType
-> = OutputElasticCloudType$inboundSchema;
-
-/** @internal */
 export const OutputElasticCloudExtraHttpHeader$inboundSchema: z.ZodType<
   OutputElasticCloudExtraHttpHeader,
   z.ZodTypeDef,
@@ -417,21 +399,11 @@ export function outputElasticCloudExtraHttpHeaderFromJSON(
 /** @internal */
 export const OutputElasticCloudFailedRequestLoggingMode$inboundSchema:
   z.ZodType<OutputElasticCloudFailedRequestLoggingMode, z.ZodTypeDef, unknown> =
-    z
-      .union([
-        z.nativeEnum(OutputElasticCloudFailedRequestLoggingMode),
-        z.string().transform(catchUnrecognizedEnum),
-      ]);
+    openEnums.inboundSchema(OutputElasticCloudFailedRequestLoggingMode);
 /** @internal */
 export const OutputElasticCloudFailedRequestLoggingMode$outboundSchema:
-  z.ZodType<
-    OutputElasticCloudFailedRequestLoggingMode,
-    z.ZodTypeDef,
-    OutputElasticCloudFailedRequestLoggingMode
-  > = z.union([
-    z.nativeEnum(OutputElasticCloudFailedRequestLoggingMode),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  z.ZodType<string, z.ZodTypeDef, OutputElasticCloudFailedRequestLoggingMode> =
+    openEnums.outboundSchema(OutputElasticCloudFailedRequestLoggingMode);
 
 /** @internal */
 export const OutputElasticCloudExtraParam$inboundSchema: z.ZodType<
@@ -482,20 +454,13 @@ export const OutputElasticCloudAuthenticationMethod$inboundSchema: z.ZodType<
   OutputElasticCloudAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputElasticCloudAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputElasticCloudAuthenticationMethod);
 /** @internal */
 export const OutputElasticCloudAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputElasticCloudAuthenticationMethod,
+  string,
   z.ZodTypeDef,
   OutputElasticCloudAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputElasticCloudAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputElasticCloudAuthenticationMethod);
 
 /** @internal */
 export const OutputElasticCloudAuth$inboundSchema: z.ZodType<
@@ -667,80 +632,52 @@ export const OutputElasticCloudBackpressureBehavior$inboundSchema: z.ZodType<
   OutputElasticCloudBackpressureBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputElasticCloudBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputElasticCloudBackpressureBehavior);
 /** @internal */
 export const OutputElasticCloudBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputElasticCloudBackpressureBehavior,
+  string,
   z.ZodTypeDef,
   OutputElasticCloudBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputElasticCloudBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputElasticCloudBackpressureBehavior);
 
 /** @internal */
 export const OutputElasticCloudMode$inboundSchema: z.ZodType<
   OutputElasticCloudMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputElasticCloudMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputElasticCloudMode);
 /** @internal */
 export const OutputElasticCloudMode$outboundSchema: z.ZodType<
-  OutputElasticCloudMode,
+  string,
   z.ZodTypeDef,
   OutputElasticCloudMode
-> = z.union([
-  z.nativeEnum(OutputElasticCloudMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputElasticCloudMode);
 
 /** @internal */
 export const OutputElasticCloudCompression$inboundSchema: z.ZodType<
   OutputElasticCloudCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputElasticCloudCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputElasticCloudCompression);
 /** @internal */
 export const OutputElasticCloudCompression$outboundSchema: z.ZodType<
-  OutputElasticCloudCompression,
+  string,
   z.ZodTypeDef,
   OutputElasticCloudCompression
-> = z.union([
-  z.nativeEnum(OutputElasticCloudCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputElasticCloudCompression);
 
 /** @internal */
 export const OutputElasticCloudQueueFullBehavior$inboundSchema: z.ZodType<
   OutputElasticCloudQueueFullBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputElasticCloudQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputElasticCloudQueueFullBehavior);
 /** @internal */
 export const OutputElasticCloudQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputElasticCloudQueueFullBehavior,
+  string,
   z.ZodTypeDef,
   OutputElasticCloudQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputElasticCloudQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputElasticCloudQueueFullBehavior);
 
 /** @internal */
 export const OutputElasticCloudPqControls$inboundSchema: z.ZodType<
@@ -784,7 +721,7 @@ export const OutputElasticCloud$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputElasticCloudType$inboundSchema,
+  type: z.literal("elastic_cloud"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -838,7 +775,7 @@ export const OutputElasticCloud$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputElasticCloud$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "elastic_cloud";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -890,7 +827,7 @@ export const OutputElasticCloud$outboundSchema: z.ZodType<
   OutputElasticCloud
 > = z.object({
   id: z.string().optional(),
-  type: OutputElasticCloudType$outboundSchema,
+  type: z.literal("elastic_cloud"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

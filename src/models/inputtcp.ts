@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputTcpType = {
-  Tcp: "tcp",
-} as const;
-export type InputTcpType = ClosedEnum<typeof InputTcpType>;
 
 export type InputTcpConnection = {
   pipeline?: string | undefined;
@@ -190,7 +181,7 @@ export type InputTcp = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputTcpType;
+  type: "tcp";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -283,13 +274,6 @@ export type InputTcp = {
 };
 
 /** @internal */
-export const InputTcpType$inboundSchema: z.ZodNativeEnum<typeof InputTcpType> =
-  z.nativeEnum(InputTcpType);
-/** @internal */
-export const InputTcpType$outboundSchema: z.ZodNativeEnum<typeof InputTcpType> =
-  InputTcpType$inboundSchema;
-
-/** @internal */
 export const InputTcpConnection$inboundSchema: z.ZodType<
   InputTcpConnection,
   z.ZodTypeDef,
@@ -336,40 +320,26 @@ export const InputTcpMode$inboundSchema: z.ZodType<
   InputTcpMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputTcpMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputTcpMode);
 /** @internal */
 export const InputTcpMode$outboundSchema: z.ZodType<
-  InputTcpMode,
+  string,
   z.ZodTypeDef,
   InputTcpMode
-> = z.union([
-  z.nativeEnum(InputTcpMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputTcpMode);
 
 /** @internal */
 export const InputTcpCompression$inboundSchema: z.ZodType<
   InputTcpCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputTcpCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputTcpCompression);
 /** @internal */
 export const InputTcpCompression$outboundSchema: z.ZodType<
-  InputTcpCompression,
+  string,
   z.ZodTypeDef,
   InputTcpCompression
-> = z.union([
-  z.nativeEnum(InputTcpCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputTcpCompression);
 
 /** @internal */
 export const InputTcpPqControls$inboundSchema: z.ZodType<
@@ -465,40 +435,26 @@ export const InputTcpMinimumTLSVersion$inboundSchema: z.ZodType<
   InputTcpMinimumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputTcpMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputTcpMinimumTLSVersion);
 /** @internal */
 export const InputTcpMinimumTLSVersion$outboundSchema: z.ZodType<
-  InputTcpMinimumTLSVersion,
+  string,
   z.ZodTypeDef,
   InputTcpMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(InputTcpMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputTcpMinimumTLSVersion);
 
 /** @internal */
 export const InputTcpMaximumTLSVersion$inboundSchema: z.ZodType<
   InputTcpMaximumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputTcpMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputTcpMaximumTLSVersion);
 /** @internal */
 export const InputTcpMaximumTLSVersion$outboundSchema: z.ZodType<
-  InputTcpMaximumTLSVersion,
+  string,
   z.ZodTypeDef,
   InputTcpMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(InputTcpMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputTcpMaximumTLSVersion);
 
 /** @internal */
 export const InputTcpTLSSettingsServerSide$inboundSchema: z.ZodType<
@@ -663,20 +619,13 @@ export const InputTcpAuthenticationMethod$inboundSchema: z.ZodType<
   InputTcpAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputTcpAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputTcpAuthenticationMethod);
 /** @internal */
 export const InputTcpAuthenticationMethod$outboundSchema: z.ZodType<
-  InputTcpAuthenticationMethod,
+  string,
   z.ZodTypeDef,
   InputTcpAuthenticationMethod
-> = z.union([
-  z.nativeEnum(InputTcpAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputTcpAuthenticationMethod);
 
 /** @internal */
 export const InputTcp$inboundSchema: z.ZodType<
@@ -685,7 +634,7 @@ export const InputTcp$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputTcpType$inboundSchema,
+  type: z.literal("tcp"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -717,7 +666,7 @@ export const InputTcp$inboundSchema: z.ZodType<
 /** @internal */
 export type InputTcp$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "tcp";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -753,7 +702,7 @@ export const InputTcp$outboundSchema: z.ZodType<
   InputTcp
 > = z.object({
   id: z.string().optional(),
-  type: InputTcpType$outboundSchema,
+  type: z.literal("tcp"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

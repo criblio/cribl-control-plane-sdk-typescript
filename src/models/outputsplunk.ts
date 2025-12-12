@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputSplunkType = {
-  Splunk: "splunk",
-} as const;
-export type OutputSplunkType = ClosedEnum<typeof OutputSplunkType>;
 
 /**
  * How to serialize nested fields into index-time fields
@@ -240,7 +231,7 @@ export type OutputSplunk = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputSplunkType;
+  type: "splunk";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -367,73 +358,43 @@ export type OutputSplunk = {
 };
 
 /** @internal */
-export const OutputSplunkType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSplunkType
-> = z.nativeEnum(OutputSplunkType);
-/** @internal */
-export const OutputSplunkType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSplunkType
-> = OutputSplunkType$inboundSchema;
-
-/** @internal */
 export const OutputSplunkNestedFieldSerialization$inboundSchema: z.ZodType<
   OutputSplunkNestedFieldSerialization,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkNestedFieldSerialization),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSplunkNestedFieldSerialization);
 /** @internal */
 export const OutputSplunkNestedFieldSerialization$outboundSchema: z.ZodType<
-  OutputSplunkNestedFieldSerialization,
+  string,
   z.ZodTypeDef,
   OutputSplunkNestedFieldSerialization
-> = z.union([
-  z.nativeEnum(OutputSplunkNestedFieldSerialization),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSplunkNestedFieldSerialization);
 
 /** @internal */
 export const OutputSplunkMinimumTLSVersion$inboundSchema: z.ZodType<
   OutputSplunkMinimumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSplunkMinimumTLSVersion);
 /** @internal */
 export const OutputSplunkMinimumTLSVersion$outboundSchema: z.ZodType<
-  OutputSplunkMinimumTLSVersion,
+  string,
   z.ZodTypeDef,
   OutputSplunkMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(OutputSplunkMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSplunkMinimumTLSVersion);
 
 /** @internal */
 export const OutputSplunkMaximumTLSVersion$inboundSchema: z.ZodType<
   OutputSplunkMaximumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSplunkMaximumTLSVersion);
 /** @internal */
 export const OutputSplunkMaximumTLSVersion$outboundSchema: z.ZodType<
-  OutputSplunkMaximumTLSVersion,
+  string,
   z.ZodTypeDef,
   OutputSplunkMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(OutputSplunkMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSplunkMaximumTLSVersion);
 
 /** @internal */
 export const OutputSplunkTLSSettingsClientSide$inboundSchema: z.ZodType<
@@ -508,140 +469,91 @@ export const OutputSplunkMaxS2SVersion$inboundSchema: z.ZodType<
   OutputSplunkMaxS2SVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkMaxS2SVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSplunkMaxS2SVersion);
 /** @internal */
 export const OutputSplunkMaxS2SVersion$outboundSchema: z.ZodType<
-  OutputSplunkMaxS2SVersion,
+  string,
   z.ZodTypeDef,
   OutputSplunkMaxS2SVersion
-> = z.union([
-  z.nativeEnum(OutputSplunkMaxS2SVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSplunkMaxS2SVersion);
 
 /** @internal */
 export const OutputSplunkBackpressureBehavior$inboundSchema: z.ZodType<
   OutputSplunkBackpressureBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSplunkBackpressureBehavior);
 /** @internal */
 export const OutputSplunkBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputSplunkBackpressureBehavior,
+  string,
   z.ZodTypeDef,
   OutputSplunkBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputSplunkBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSplunkBackpressureBehavior);
 
 /** @internal */
 export const OutputSplunkAuthenticationMethod$inboundSchema: z.ZodType<
   OutputSplunkAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSplunkAuthenticationMethod);
 /** @internal */
 export const OutputSplunkAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputSplunkAuthenticationMethod,
+  string,
   z.ZodTypeDef,
   OutputSplunkAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputSplunkAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSplunkAuthenticationMethod);
 
 /** @internal */
 export const OutputSplunkCompressCompression$inboundSchema: z.ZodType<
   OutputSplunkCompressCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkCompressCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSplunkCompressCompression);
 /** @internal */
 export const OutputSplunkCompressCompression$outboundSchema: z.ZodType<
-  OutputSplunkCompressCompression,
+  string,
   z.ZodTypeDef,
   OutputSplunkCompressCompression
-> = z.union([
-  z.nativeEnum(OutputSplunkCompressCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSplunkCompressCompression);
 
 /** @internal */
 export const OutputSplunkMode$inboundSchema: z.ZodType<
   OutputSplunkMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSplunkMode);
 /** @internal */
 export const OutputSplunkMode$outboundSchema: z.ZodType<
-  OutputSplunkMode,
+  string,
   z.ZodTypeDef,
   OutputSplunkMode
-> = z.union([
-  z.nativeEnum(OutputSplunkMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSplunkMode);
 
 /** @internal */
 export const OutputSplunkPqCompressCompression$inboundSchema: z.ZodType<
   OutputSplunkPqCompressCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkPqCompressCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSplunkPqCompressCompression);
 /** @internal */
 export const OutputSplunkPqCompressCompression$outboundSchema: z.ZodType<
-  OutputSplunkPqCompressCompression,
+  string,
   z.ZodTypeDef,
   OutputSplunkPqCompressCompression
-> = z.union([
-  z.nativeEnum(OutputSplunkPqCompressCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSplunkPqCompressCompression);
 
 /** @internal */
 export const OutputSplunkQueueFullBehavior$inboundSchema: z.ZodType<
   OutputSplunkQueueFullBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSplunkQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSplunkQueueFullBehavior);
 /** @internal */
 export const OutputSplunkQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputSplunkQueueFullBehavior,
+  string,
   z.ZodTypeDef,
   OutputSplunkQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputSplunkQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSplunkQueueFullBehavior);
 
 /** @internal */
 export const OutputSplunkPqControls$inboundSchema: z.ZodType<
@@ -683,7 +595,7 @@ export const OutputSplunk$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputSplunkType$inboundSchema,
+  type: z.literal("splunk"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -727,7 +639,7 @@ export const OutputSplunk$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputSplunk$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "splunk";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -770,7 +682,7 @@ export const OutputSplunk$outboundSchema: z.ZodType<
   OutputSplunk
 > = z.object({
   id: z.string().optional(),
-  type: OutputSplunkType$outboundSchema,
+  type: z.literal("splunk"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

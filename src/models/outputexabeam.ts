@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputExabeamType = {
-  Exabeam: "exabeam",
-} as const;
-export type OutputExabeamType = ClosedEnum<typeof OutputExabeamType>;
 
 /**
  * Signature version to use for signing Google Cloud Storage requests
@@ -139,7 +130,7 @@ export type OutputExabeam = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputExabeamType;
+  type: "exabeam";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -275,113 +266,69 @@ export type OutputExabeam = {
 };
 
 /** @internal */
-export const OutputExabeamType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputExabeamType
-> = z.nativeEnum(OutputExabeamType);
-/** @internal */
-export const OutputExabeamType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputExabeamType
-> = OutputExabeamType$inboundSchema;
-
-/** @internal */
 export const OutputExabeamSignatureVersion$inboundSchema: z.ZodType<
   OutputExabeamSignatureVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputExabeamSignatureVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputExabeamSignatureVersion);
 /** @internal */
 export const OutputExabeamSignatureVersion$outboundSchema: z.ZodType<
-  OutputExabeamSignatureVersion,
+  string,
   z.ZodTypeDef,
   OutputExabeamSignatureVersion
-> = z.union([
-  z.nativeEnum(OutputExabeamSignatureVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputExabeamSignatureVersion);
 
 /** @internal */
 export const OutputExabeamObjectACL$inboundSchema: z.ZodType<
   OutputExabeamObjectACL,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputExabeamObjectACL),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputExabeamObjectACL);
 /** @internal */
 export const OutputExabeamObjectACL$outboundSchema: z.ZodType<
-  OutputExabeamObjectACL,
+  string,
   z.ZodTypeDef,
   OutputExabeamObjectACL
-> = z.union([
-  z.nativeEnum(OutputExabeamObjectACL),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputExabeamObjectACL);
 
 /** @internal */
 export const OutputExabeamStorageClass$inboundSchema: z.ZodType<
   OutputExabeamStorageClass,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputExabeamStorageClass),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputExabeamStorageClass);
 /** @internal */
 export const OutputExabeamStorageClass$outboundSchema: z.ZodType<
-  OutputExabeamStorageClass,
+  string,
   z.ZodTypeDef,
   OutputExabeamStorageClass
-> = z.union([
-  z.nativeEnum(OutputExabeamStorageClass),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputExabeamStorageClass);
 
 /** @internal */
 export const OutputExabeamBackpressureBehavior$inboundSchema: z.ZodType<
   OutputExabeamBackpressureBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputExabeamBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputExabeamBackpressureBehavior);
 /** @internal */
 export const OutputExabeamBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputExabeamBackpressureBehavior,
+  string,
   z.ZodTypeDef,
   OutputExabeamBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputExabeamBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputExabeamBackpressureBehavior);
 
 /** @internal */
 export const OutputExabeamDiskSpaceProtection$inboundSchema: z.ZodType<
   OutputExabeamDiskSpaceProtection,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputExabeamDiskSpaceProtection),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputExabeamDiskSpaceProtection);
 /** @internal */
 export const OutputExabeamDiskSpaceProtection$outboundSchema: z.ZodType<
-  OutputExabeamDiskSpaceProtection,
+  string,
   z.ZodTypeDef,
   OutputExabeamDiskSpaceProtection
-> = z.union([
-  z.nativeEnum(OutputExabeamDiskSpaceProtection),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputExabeamDiskSpaceProtection);
 
 /** @internal */
 export const OutputExabeam$inboundSchema: z.ZodType<
@@ -390,7 +337,7 @@ export const OutputExabeam$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputExabeamType$inboundSchema,
+  type: z.literal("exabeam"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -432,7 +379,7 @@ export const OutputExabeam$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputExabeam$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "exabeam";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -476,7 +423,7 @@ export const OutputExabeam$outboundSchema: z.ZodType<
   OutputExabeam
 > = z.object({
   id: z.string().optional(),
-  type: OutputExabeamType$outboundSchema,
+  type: z.literal("exabeam"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

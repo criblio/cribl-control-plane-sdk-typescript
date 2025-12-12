@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputAzureBlobType = {
-  AzureBlob: "azure_blob",
-} as const;
-export type InputAzureBlobType = ClosedEnum<typeof InputAzureBlobType>;
 
 export type InputAzureBlobConnection = {
   pipeline?: string | undefined;
@@ -125,7 +116,7 @@ export type InputAzureBlob = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputAzureBlobType;
+  type: "azure_blob";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -238,15 +229,6 @@ export type InputAzureBlob = {
 };
 
 /** @internal */
-export const InputAzureBlobType$inboundSchema: z.ZodNativeEnum<
-  typeof InputAzureBlobType
-> = z.nativeEnum(InputAzureBlobType);
-/** @internal */
-export const InputAzureBlobType$outboundSchema: z.ZodNativeEnum<
-  typeof InputAzureBlobType
-> = InputAzureBlobType$inboundSchema;
-
-/** @internal */
 export const InputAzureBlobConnection$inboundSchema: z.ZodType<
   InputAzureBlobConnection,
   z.ZodTypeDef,
@@ -293,40 +275,26 @@ export const InputAzureBlobMode$inboundSchema: z.ZodType<
   InputAzureBlobMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputAzureBlobMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputAzureBlobMode);
 /** @internal */
 export const InputAzureBlobMode$outboundSchema: z.ZodType<
-  InputAzureBlobMode,
+  string,
   z.ZodTypeDef,
   InputAzureBlobMode
-> = z.union([
-  z.nativeEnum(InputAzureBlobMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputAzureBlobMode);
 
 /** @internal */
 export const InputAzureBlobCompression$inboundSchema: z.ZodType<
   InputAzureBlobCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputAzureBlobCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputAzureBlobCompression);
 /** @internal */
 export const InputAzureBlobCompression$outboundSchema: z.ZodType<
-  InputAzureBlobCompression,
+  string,
   z.ZodTypeDef,
   InputAzureBlobCompression
-> = z.union([
-  z.nativeEnum(InputAzureBlobCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputAzureBlobCompression);
 
 /** @internal */
 export const InputAzureBlobPqControls$inboundSchema: z.ZodType<
@@ -468,20 +436,13 @@ export const InputAzureBlobAuthenticationMethod$inboundSchema: z.ZodType<
   InputAzureBlobAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputAzureBlobAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputAzureBlobAuthenticationMethod);
 /** @internal */
 export const InputAzureBlobAuthenticationMethod$outboundSchema: z.ZodType<
-  InputAzureBlobAuthenticationMethod,
+  string,
   z.ZodTypeDef,
   InputAzureBlobAuthenticationMethod
-> = z.union([
-  z.nativeEnum(InputAzureBlobAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputAzureBlobAuthenticationMethod);
 
 /** @internal */
 export const InputAzureBlobCertificate$inboundSchema: z.ZodType<
@@ -529,7 +490,7 @@ export const InputAzureBlob$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputAzureBlobType$inboundSchema,
+  type: z.literal("azure_blob"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -567,7 +528,7 @@ export const InputAzureBlob$inboundSchema: z.ZodType<
 /** @internal */
 export type InputAzureBlob$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "azure_blob";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -608,7 +569,7 @@ export const InputAzureBlob$outboundSchema: z.ZodType<
   InputAzureBlob
 > = z.object({
   id: z.string().optional(),
-  type: InputAzureBlobType$outboundSchema,
+  type: z.literal("azure_blob"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
