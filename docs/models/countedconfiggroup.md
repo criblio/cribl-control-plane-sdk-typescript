@@ -58,7 +58,7 @@ let value: CountedConfigGroup = {
         "<value 2>",
       ],
       tags: "<value>",
-      type: "lake_access",
+      type: "edge",
       upgradeVersion: "<value>",
       workerCount: 927.49,
       workerRemoteAccess: true,

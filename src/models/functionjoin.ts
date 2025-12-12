@@ -31,7 +31,7 @@ export type JoinConfiguration = {
   /**
    * Fields to use when joining
    */
-  fieldConditions: Array<FieldCondition>;
+  fieldConditions?: Array<FieldCondition> | undefined;
   /**
    * The id for this search job.
    */
@@ -87,7 +87,8 @@ export const JoinConfiguration$inboundSchema: z.ZodType<
 > = z.object({
   kind: z.string().optional(),
   hints: z.record(z.string()).optional(),
-  fieldConditions: z.array(z.lazy(() => FieldCondition$inboundSchema)),
+  fieldConditions: z.array(z.lazy(() => FieldCondition$inboundSchema))
+    .optional(),
   searchJobId: z.string().optional(),
   stageId: z.string().optional(),
 });

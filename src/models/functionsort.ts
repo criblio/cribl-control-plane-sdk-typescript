@@ -16,7 +16,7 @@ export type SortConfiguration = {
   /**
    * The expression can access the events via the 'left' and 'right' properties.
    */
-  comparisonExpression: string;
+  comparisonExpression?: string | undefined;
   /**
    * Limits the output to N (highest/lowest) events
    */
@@ -55,7 +55,7 @@ export const SortConfiguration$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   sortId: z.string().optional(),
-  comparisonExpression: z.string(),
+  comparisonExpression: z.string().optional(),
   topN: z.number().optional(),
   maxEvents: z.number().optional(),
   suppressPreviews: z.boolean().optional(),

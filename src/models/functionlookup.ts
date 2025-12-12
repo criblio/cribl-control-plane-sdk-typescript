@@ -38,7 +38,7 @@ export type FunctionLookupSchema = {
   /**
    * Path to the lookup file. Reference environment variables via $. Example: $HOME/file.csv
    */
-  file: string;
+  file?: string | undefined;
   /**
    * Enable to use a disk-based lookup. This option displays only the settings relevant to disk-based mode and hides those for in-memory lookups.
    */
@@ -122,7 +122,7 @@ export const FunctionLookupSchema$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  file: z.string(),
+  file: z.string().optional(),
   dbLookup: z.boolean().default(false),
   matchMode: z.any().optional(),
   matchType: z.any().optional(),

@@ -12,7 +12,7 @@ export type DistinctConfiguration = {
   /**
    * Defines the properties that are concatenated to produce distinct key
    */
-  groupBy: Array<string>;
+  groupBy?: Array<string> | undefined;
   /**
    * maximum number of tracked combinations
    */
@@ -54,7 +54,7 @@ export const DistinctConfiguration$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  groupBy: z.array(z.string()),
+  groupBy: z.array(z.string()).optional(),
   maxCombinations: z.number().default(10000),
   maxDepth: z.number().default(15),
   isFederated: z.boolean().default(false),

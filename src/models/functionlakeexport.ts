@@ -12,11 +12,11 @@ export type LakeExportConfiguration = {
   /**
    * Id of the search job this function is running on.
    */
-  searchJobId: string;
+  searchJobId?: string | undefined;
   /**
    * Name of the dataset
    */
-  dataset: string;
+  dataset?: string | undefined;
   /**
    * Name of the lake
    */
@@ -58,8 +58,8 @@ export const LakeExportConfiguration$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  searchJobId: z.string(),
-  dataset: z.string(),
+  searchJobId: z.string().optional(),
+  dataset: z.string().optional(),
   lake: z.string().default("default"),
   tee: z.string().default("false"),
   flushMs: z.number().default(1000),

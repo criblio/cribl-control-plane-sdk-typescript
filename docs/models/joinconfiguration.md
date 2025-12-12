@@ -11,7 +11,12 @@ let value: JoinConfiguration = {
     "key": "<value>",
     "key1": "<value>",
   },
-  fieldConditions: [],
+  fieldConditions: [
+    {
+      leftFieldName: "<value>",
+      rightFieldName: "<value>",
+    },
+  ],
   searchJobId: "<id>",
   stageId: "<id>",
 };
@@ -23,6 +28,6 @@ let value: JoinConfiguration = {
 | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ |
 | `kind`                                                 | *string*                                               | :heavy_minus_sign:                                     | Join kind, e.g. inner                                  |
 | `hints`                                                | Record<string, *string*>                               | :heavy_minus_sign:                                     | Hints passed to the join function                      |
-| `fieldConditions`                                      | [models.FieldCondition](../models/fieldcondition.md)[] | :heavy_check_mark:                                     | Fields to use when joining                             |
+| `fieldConditions`                                      | [models.FieldCondition](../models/fieldcondition.md)[] | :heavy_minus_sign:                                     | Fields to use when joining                             |
 | `searchJobId`                                          | *string*                                               | :heavy_minus_sign:                                     | The id for this search job.                            |
 | `stageId`                                              | *string*                                               | :heavy_minus_sign:                                     | The stage we are joining with.                         |

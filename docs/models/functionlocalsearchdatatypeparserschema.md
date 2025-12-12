@@ -14,4 +14,4 @@ let value: FunctionLocalSearchDatatypeParserSchema = {
 
 | Field                                   | Type                                    | Required                                | Description                             |
 | --------------------------------------- | --------------------------------------- | --------------------------------------- | --------------------------------------- |
-| `rulesetId`                             | *string*                                | :heavy_check_mark:                      | ID of the local search datatype ruleset |
+| `rulesetId`                             | *string*                                | :heavy_minus_sign:                      | ID of the local search datatype ruleset |

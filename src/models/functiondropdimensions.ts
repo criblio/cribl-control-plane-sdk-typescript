@@ -16,7 +16,7 @@ export type FunctionDropDimensionsSchema = {
   /**
    * One or more dimensions to be dropped. Supports wildcard expressions. Warning: Using wildcard '*' causes all dimensions in the event to be dropped.
    */
-  dropDimensions: Array<string>;
+  dropDimensions?: Array<string> | undefined;
   /**
    * Flush aggregations when an input stream is closed. If disabled, aggregations are flushed based on Time Window Settings instead.
    */
@@ -47,7 +47,7 @@ export const FunctionDropDimensionsSchema$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   timeWindow: z.string().default("10s"),
-  dropDimensions: z.array(z.string()),
+  dropDimensions: z.array(z.string()).optional(),
   flushOnInputClose: z.boolean().default(true),
 });
 

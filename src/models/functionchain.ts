@@ -12,7 +12,7 @@ export type FunctionChainSchema = {
   /**
    * The data processor (Pack/Pipeline) to send events through
    */
-  processor: string;
+  processor?: string | undefined;
 };
 
 export type FunctionChain = {
@@ -38,7 +38,7 @@ export const FunctionChainSchema$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  processor: z.string(),
+  processor: z.string().optional(),
 });
 
 export function functionChainSchemaFromJSON(

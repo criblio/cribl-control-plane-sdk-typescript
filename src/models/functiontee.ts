@@ -12,7 +12,7 @@ export type FunctionTeeSchema = {
   /**
    * Command to execute and feed events to, via stdin. One JSON-formatted event per line.
    */
-  command: string;
+  command?: string | undefined;
   args?: Array<string> | undefined;
   /**
    * Restart the process if it exits and/or we fail to write to it
@@ -47,7 +47,7 @@ export const FunctionTeeSchema$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  command: z.string(),
+  command: z.string().optional(),
   args: z.array(z.string()).optional(),
   restartOnExit: z.boolean().default(true),
   env: z.record(z.string()).optional(),

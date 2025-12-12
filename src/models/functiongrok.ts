@@ -19,7 +19,7 @@ export type FunctionGrokSchema = {
   /**
    * Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
    */
-  pattern: string;
+  pattern?: string | undefined;
   patternList?: Array<PatternList> | undefined;
   /**
    * Field on which to perform Grok extractions
@@ -69,7 +69,7 @@ export const FunctionGrokSchema$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  pattern: z.string(),
+  pattern: z.string().optional(),
   patternList: z.array(z.lazy(() => PatternList$inboundSchema)).optional(),
   source: z.string().default("_raw"),
 });

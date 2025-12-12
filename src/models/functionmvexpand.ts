@@ -32,7 +32,7 @@ export type FunctionMvExpandSchema = {
   /**
    * Array of property-/field-names to expand
    */
-  sourceFields: Array<string>;
+  sourceFields?: Array<string> | undefined;
   /**
    * stores the value as new target field name
    */
@@ -81,7 +81,7 @@ export const FunctionMvExpandSchema$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  sourceFields: z.array(z.string()),
+  sourceFields: z.array(z.string()).optional(),
   targetNames: z.array(z.string()).optional(),
   rowLimit: z.number().default(9007199254740991),
   itemIndexName: z.string().optional(),

@@ -72,7 +72,7 @@ export type FunctionAggregateMetricsSchema = {
   /**
    * Combination of Aggregation function and output metric type
    */
-  aggregations: Array<Aggregation>;
+  aggregations?: Array<Aggregation> | undefined;
   /**
    * Optional: One or more dimensions to group aggregates by. Supports wildcard expressions. Wrap dimension names in quotes if using literal identifiers, such as 'service.name'. Warning: Using wildcard '*' causes all dimensions in the event to be included, which can result in high cardinality and increased memory usage. Exclude dimensions that can result in high cardinality before using wildcards. Example: !_time, !_numericValue, *
    */
@@ -180,7 +180,7 @@ export const FunctionAggregateMetricsSchema$inboundSchema: z.ZodType<
   sufficientStatsOnly: z.boolean().default(false),
   prefix: z.string().optional(),
   timeWindow: z.string().default("10s"),
-  aggregations: z.array(z.lazy(() => Aggregation$inboundSchema)),
+  aggregations: z.array(z.lazy(() => Aggregation$inboundSchema)).optional(),
   groupbys: z.array(z.string()).optional(),
   flushEventLimit: z.number().optional(),
   flushMemLimit: z.string().optional(),

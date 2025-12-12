@@ -12,15 +12,15 @@ export type FunctionNotificationsSchema = {
   /**
    * Notification ID
    */
-  id: string;
+  id?: string | undefined;
   /**
    * Notification event state field name
    */
-  field: string;
+  field?: string | undefined;
   /**
    * Toggle deduplication.
    */
-  deduplicate: boolean;
+  deduplicate?: boolean | undefined;
 };
 
 export type FunctionNotifications = {
@@ -46,9 +46,9 @@ export const FunctionNotificationsSchema$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string(),
-  field: z.string(),
-  deduplicate: z.boolean(),
+  id: z.string().optional(),
+  field: z.string().optional(),
+  deduplicate: z.boolean().optional(),
 });
 
 export function functionNotificationsSchemaFromJSON(
