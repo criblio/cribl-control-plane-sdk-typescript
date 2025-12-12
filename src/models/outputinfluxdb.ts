@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputInfluxdbType = {
-  Influxdb: "influxdb",
-} as const;
-export type OutputInfluxdbType = ClosedEnum<typeof OutputInfluxdbType>;
 
 /**
  * Sets the precision for the supplied Unix time values. Defaults to milliseconds.
@@ -249,7 +240,7 @@ export type OutputInfluxdb = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputInfluxdbType;
+  type: "influxdb";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -454,33 +445,17 @@ export type OutputInfluxdb = {
 };
 
 /** @internal */
-export const OutputInfluxdbType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputInfluxdbType
-> = z.nativeEnum(OutputInfluxdbType);
-/** @internal */
-export const OutputInfluxdbType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputInfluxdbType
-> = OutputInfluxdbType$inboundSchema;
-
-/** @internal */
 export const TimestampPrecision$inboundSchema: z.ZodType<
   TimestampPrecision,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(TimestampPrecision),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(TimestampPrecision);
 /** @internal */
 export const TimestampPrecision$outboundSchema: z.ZodType<
-  TimestampPrecision,
+  string,
   z.ZodTypeDef,
   TimestampPrecision
-> = z.union([
-  z.nativeEnum(TimestampPrecision),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(TimestampPrecision);
 
 /** @internal */
 export const OutputInfluxdbExtraHttpHeader$inboundSchema: z.ZodType<
@@ -531,20 +506,13 @@ export const OutputInfluxdbFailedRequestLoggingMode$inboundSchema: z.ZodType<
   OutputInfluxdbFailedRequestLoggingMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputInfluxdbFailedRequestLoggingMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputInfluxdbFailedRequestLoggingMode);
 /** @internal */
 export const OutputInfluxdbFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  OutputInfluxdbFailedRequestLoggingMode,
+  string,
   z.ZodTypeDef,
   OutputInfluxdbFailedRequestLoggingMode
-> = z.union([
-  z.nativeEnum(OutputInfluxdbFailedRequestLoggingMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputInfluxdbFailedRequestLoggingMode);
 
 /** @internal */
 export const OutputInfluxdbResponseRetrySetting$inboundSchema: z.ZodType<
@@ -653,100 +621,65 @@ export const OutputInfluxdbBackpressureBehavior$inboundSchema: z.ZodType<
   OutputInfluxdbBackpressureBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputInfluxdbBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputInfluxdbBackpressureBehavior);
 /** @internal */
 export const OutputInfluxdbBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputInfluxdbBackpressureBehavior,
+  string,
   z.ZodTypeDef,
   OutputInfluxdbBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputInfluxdbBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputInfluxdbBackpressureBehavior);
 
 /** @internal */
 export const OutputInfluxdbAuthenticationType$inboundSchema: z.ZodType<
   OutputInfluxdbAuthenticationType,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputInfluxdbAuthenticationType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputInfluxdbAuthenticationType);
 /** @internal */
 export const OutputInfluxdbAuthenticationType$outboundSchema: z.ZodType<
-  OutputInfluxdbAuthenticationType,
+  string,
   z.ZodTypeDef,
   OutputInfluxdbAuthenticationType
-> = z.union([
-  z.nativeEnum(OutputInfluxdbAuthenticationType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputInfluxdbAuthenticationType);
 
 /** @internal */
 export const OutputInfluxdbMode$inboundSchema: z.ZodType<
   OutputInfluxdbMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputInfluxdbMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputInfluxdbMode);
 /** @internal */
 export const OutputInfluxdbMode$outboundSchema: z.ZodType<
-  OutputInfluxdbMode,
+  string,
   z.ZodTypeDef,
   OutputInfluxdbMode
-> = z.union([
-  z.nativeEnum(OutputInfluxdbMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputInfluxdbMode);
 
 /** @internal */
 export const OutputInfluxdbCompression$inboundSchema: z.ZodType<
   OutputInfluxdbCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputInfluxdbCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputInfluxdbCompression);
 /** @internal */
 export const OutputInfluxdbCompression$outboundSchema: z.ZodType<
-  OutputInfluxdbCompression,
+  string,
   z.ZodTypeDef,
   OutputInfluxdbCompression
-> = z.union([
-  z.nativeEnum(OutputInfluxdbCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputInfluxdbCompression);
 
 /** @internal */
 export const OutputInfluxdbQueueFullBehavior$inboundSchema: z.ZodType<
   OutputInfluxdbQueueFullBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputInfluxdbQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputInfluxdbQueueFullBehavior);
 /** @internal */
 export const OutputInfluxdbQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputInfluxdbQueueFullBehavior,
+  string,
   z.ZodTypeDef,
   OutputInfluxdbQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputInfluxdbQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputInfluxdbQueueFullBehavior);
 
 /** @internal */
 export const OutputInfluxdbPqControls$inboundSchema: z.ZodType<
@@ -872,7 +805,7 @@ export const OutputInfluxdb$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputInfluxdbType$inboundSchema,
+  type: z.literal("influxdb"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -943,7 +876,7 @@ export const OutputInfluxdb$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputInfluxdb$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "influxdb";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -1010,7 +943,7 @@ export const OutputInfluxdb$outboundSchema: z.ZodType<
   OutputInfluxdb
 > = z.object({
   id: z.string().optional(),
-  type: OutputInfluxdbType$outboundSchema,
+  type: z.literal("influxdb"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

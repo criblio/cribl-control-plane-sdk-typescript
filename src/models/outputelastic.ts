@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputElasticType = {
-  Elastic: "elastic",
-} as const;
-export type OutputElasticType = ClosedEnum<typeof OutputElasticType>;
 
 export type OutputElasticExtraHttpHeader = {
   name?: string | undefined;
@@ -269,7 +260,7 @@ export type OutputElastic = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputElasticType;
+  type: "elastic";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -443,15 +434,6 @@ export type OutputElastic = {
 };
 
 /** @internal */
-export const OutputElasticType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputElasticType
-> = z.nativeEnum(OutputElasticType);
-/** @internal */
-export const OutputElasticType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputElasticType
-> = OutputElasticType$inboundSchema;
-
-/** @internal */
 export const OutputElasticExtraHttpHeader$inboundSchema: z.ZodType<
   OutputElasticExtraHttpHeader,
   z.ZodTypeDef,
@@ -500,20 +482,13 @@ export const OutputElasticFailedRequestLoggingMode$inboundSchema: z.ZodType<
   OutputElasticFailedRequestLoggingMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputElasticFailedRequestLoggingMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputElasticFailedRequestLoggingMode);
 /** @internal */
 export const OutputElasticFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  OutputElasticFailedRequestLoggingMode,
+  string,
   z.ZodTypeDef,
   OutputElasticFailedRequestLoggingMode
-> = z.union([
-  z.nativeEnum(OutputElasticFailedRequestLoggingMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputElasticFailedRequestLoggingMode);
 
 /** @internal */
 export const OutputElasticResponseRetrySetting$inboundSchema: z.ZodType<
@@ -662,20 +637,13 @@ export const OutputElasticAuthenticationMethod$inboundSchema: z.ZodType<
   OutputElasticAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputElasticAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputElasticAuthenticationMethod);
 /** @internal */
 export const OutputElasticAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputElasticAuthenticationMethod,
+  string,
   z.ZodTypeDef,
   OutputElasticAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputElasticAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputElasticAuthenticationMethod);
 
 /** @internal */
 export const OutputElasticAuth$inboundSchema: z.ZodType<
@@ -739,60 +707,39 @@ export const ElasticVersion$inboundSchema: z.ZodType<
   ElasticVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(ElasticVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(ElasticVersion);
 /** @internal */
 export const ElasticVersion$outboundSchema: z.ZodType<
-  ElasticVersion,
+  string,
   z.ZodTypeDef,
   ElasticVersion
-> = z.union([
-  z.nativeEnum(ElasticVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(ElasticVersion);
 
 /** @internal */
 export const WriteAction$inboundSchema: z.ZodType<
   WriteAction,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(WriteAction),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(WriteAction);
 /** @internal */
 export const WriteAction$outboundSchema: z.ZodType<
-  WriteAction,
+  string,
   z.ZodTypeDef,
   WriteAction
-> = z.union([
-  z.nativeEnum(WriteAction),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(WriteAction);
 
 /** @internal */
 export const OutputElasticBackpressureBehavior$inboundSchema: z.ZodType<
   OutputElasticBackpressureBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputElasticBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputElasticBackpressureBehavior);
 /** @internal */
 export const OutputElasticBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputElasticBackpressureBehavior,
+  string,
   z.ZodTypeDef,
   OutputElasticBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputElasticBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputElasticBackpressureBehavior);
 
 /** @internal */
 export const OutputElasticUrl$inboundSchema: z.ZodType<
@@ -841,60 +788,39 @@ export const OutputElasticMode$inboundSchema: z.ZodType<
   OutputElasticMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputElasticMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputElasticMode);
 /** @internal */
 export const OutputElasticMode$outboundSchema: z.ZodType<
-  OutputElasticMode,
+  string,
   z.ZodTypeDef,
   OutputElasticMode
-> = z.union([
-  z.nativeEnum(OutputElasticMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputElasticMode);
 
 /** @internal */
 export const OutputElasticCompression$inboundSchema: z.ZodType<
   OutputElasticCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputElasticCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputElasticCompression);
 /** @internal */
 export const OutputElasticCompression$outboundSchema: z.ZodType<
-  OutputElasticCompression,
+  string,
   z.ZodTypeDef,
   OutputElasticCompression
-> = z.union([
-  z.nativeEnum(OutputElasticCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputElasticCompression);
 
 /** @internal */
 export const OutputElasticQueueFullBehavior$inboundSchema: z.ZodType<
   OutputElasticQueueFullBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputElasticQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputElasticQueueFullBehavior);
 /** @internal */
 export const OutputElasticQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputElasticQueueFullBehavior,
+  string,
   z.ZodTypeDef,
   OutputElasticQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputElasticQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputElasticQueueFullBehavior);
 
 /** @internal */
 export const OutputElasticPqControls$inboundSchema: z.ZodType<
@@ -936,7 +862,7 @@ export const OutputElastic$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputElasticType$inboundSchema,
+  type: z.literal("elastic"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -999,7 +925,7 @@ export const OutputElastic$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputElastic$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "elastic";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -1057,7 +983,7 @@ export const OutputElastic$outboundSchema: z.ZodType<
   OutputElastic
 > = z.object({
   id: z.string().optional(),
-  type: OutputElasticType$outboundSchema,
+  type: z.literal("elastic"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

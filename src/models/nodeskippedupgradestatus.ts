@@ -3,7 +3,8 @@
  */
 
 import * as z from "zod/v3";
-import { catchUnrecognizedEnum, OpenEnum } from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 
 export const NodeSkippedUpgradeStatus = {
   Zero: 0,
@@ -20,8 +21,4 @@ export const NodeSkippedUpgradeStatus$inboundSchema: z.ZodType<
   NodeSkippedUpgradeStatus,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(NodeSkippedUpgradeStatus),
-    z.number().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchemaInt(NodeSkippedUpgradeStatus);

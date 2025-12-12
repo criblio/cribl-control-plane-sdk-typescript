@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputDlS3Type = {
-  DlS3: "dl_s3",
-} as const;
-export type OutputDlS3Type = ClosedEnum<typeof OutputDlS3Type>;
 
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
@@ -302,7 +293,7 @@ export type OutputDlS3 = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputDlS3Type;
+  type: "dl_s3";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -546,93 +537,56 @@ export type OutputDlS3 = {
 };
 
 /** @internal */
-export const OutputDlS3Type$inboundSchema: z.ZodNativeEnum<
-  typeof OutputDlS3Type
-> = z.nativeEnum(OutputDlS3Type);
-/** @internal */
-export const OutputDlS3Type$outboundSchema: z.ZodNativeEnum<
-  typeof OutputDlS3Type
-> = OutputDlS3Type$inboundSchema;
-
-/** @internal */
 export const OutputDlS3AuthenticationMethod$inboundSchema: z.ZodType<
   OutputDlS3AuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDlS3AuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputDlS3AuthenticationMethod);
 /** @internal */
 export const OutputDlS3AuthenticationMethod$outboundSchema: z.ZodType<
-  OutputDlS3AuthenticationMethod,
+  string,
   z.ZodTypeDef,
   OutputDlS3AuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputDlS3AuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputDlS3AuthenticationMethod);
 
 /** @internal */
 export const OutputDlS3SignatureVersion$inboundSchema: z.ZodType<
   OutputDlS3SignatureVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDlS3SignatureVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputDlS3SignatureVersion);
 /** @internal */
 export const OutputDlS3SignatureVersion$outboundSchema: z.ZodType<
-  OutputDlS3SignatureVersion,
+  string,
   z.ZodTypeDef,
   OutputDlS3SignatureVersion
-> = z.union([
-  z.nativeEnum(OutputDlS3SignatureVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputDlS3SignatureVersion);
 
 /** @internal */
 export const OutputDlS3ObjectACL$inboundSchema: z.ZodType<
   OutputDlS3ObjectACL,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDlS3ObjectACL),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputDlS3ObjectACL);
 /** @internal */
 export const OutputDlS3ObjectACL$outboundSchema: z.ZodType<
-  OutputDlS3ObjectACL,
+  string,
   z.ZodTypeDef,
   OutputDlS3ObjectACL
-> = z.union([
-  z.nativeEnum(OutputDlS3ObjectACL),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputDlS3ObjectACL);
 
 /** @internal */
 export const OutputDlS3StorageClass$inboundSchema: z.ZodType<
   OutputDlS3StorageClass,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDlS3StorageClass),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputDlS3StorageClass);
 /** @internal */
 export const OutputDlS3StorageClass$outboundSchema: z.ZodType<
-  OutputDlS3StorageClass,
+  string,
   z.ZodTypeDef,
   OutputDlS3StorageClass
-> = z.union([
-  z.nativeEnum(OutputDlS3StorageClass),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputDlS3StorageClass);
 
 /** @internal */
 export const OutputDlS3ServerSideEncryptionForUploadedObjects$inboundSchema:
@@ -640,161 +594,107 @@ export const OutputDlS3ServerSideEncryptionForUploadedObjects$inboundSchema:
     OutputDlS3ServerSideEncryptionForUploadedObjects,
     z.ZodTypeDef,
     unknown
-  > = z
-    .union([
-      z.nativeEnum(OutputDlS3ServerSideEncryptionForUploadedObjects),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  > = openEnums.inboundSchema(OutputDlS3ServerSideEncryptionForUploadedObjects);
 /** @internal */
 export const OutputDlS3ServerSideEncryptionForUploadedObjects$outboundSchema:
   z.ZodType<
-    OutputDlS3ServerSideEncryptionForUploadedObjects,
+    string,
     z.ZodTypeDef,
     OutputDlS3ServerSideEncryptionForUploadedObjects
-  > = z.union([
-    z.nativeEnum(OutputDlS3ServerSideEncryptionForUploadedObjects),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  > = openEnums.outboundSchema(
+    OutputDlS3ServerSideEncryptionForUploadedObjects,
+  );
 
 /** @internal */
 export const OutputDlS3DataFormat$inboundSchema: z.ZodType<
   OutputDlS3DataFormat,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDlS3DataFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputDlS3DataFormat);
 /** @internal */
 export const OutputDlS3DataFormat$outboundSchema: z.ZodType<
-  OutputDlS3DataFormat,
+  string,
   z.ZodTypeDef,
   OutputDlS3DataFormat
-> = z.union([
-  z.nativeEnum(OutputDlS3DataFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputDlS3DataFormat);
 
 /** @internal */
 export const OutputDlS3BackpressureBehavior$inboundSchema: z.ZodType<
   OutputDlS3BackpressureBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDlS3BackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputDlS3BackpressureBehavior);
 /** @internal */
 export const OutputDlS3BackpressureBehavior$outboundSchema: z.ZodType<
-  OutputDlS3BackpressureBehavior,
+  string,
   z.ZodTypeDef,
   OutputDlS3BackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputDlS3BackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputDlS3BackpressureBehavior);
 
 /** @internal */
 export const OutputDlS3DiskSpaceProtection$inboundSchema: z.ZodType<
   OutputDlS3DiskSpaceProtection,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDlS3DiskSpaceProtection),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputDlS3DiskSpaceProtection);
 /** @internal */
 export const OutputDlS3DiskSpaceProtection$outboundSchema: z.ZodType<
-  OutputDlS3DiskSpaceProtection,
+  string,
   z.ZodTypeDef,
   OutputDlS3DiskSpaceProtection
-> = z.union([
-  z.nativeEnum(OutputDlS3DiskSpaceProtection),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputDlS3DiskSpaceProtection);
 
 /** @internal */
 export const OutputDlS3Compression$inboundSchema: z.ZodType<
   OutputDlS3Compression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDlS3Compression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputDlS3Compression);
 /** @internal */
 export const OutputDlS3Compression$outboundSchema: z.ZodType<
-  OutputDlS3Compression,
+  string,
   z.ZodTypeDef,
   OutputDlS3Compression
-> = z.union([
-  z.nativeEnum(OutputDlS3Compression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputDlS3Compression);
 
 /** @internal */
 export const OutputDlS3CompressionLevel$inboundSchema: z.ZodType<
   OutputDlS3CompressionLevel,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDlS3CompressionLevel),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputDlS3CompressionLevel);
 /** @internal */
 export const OutputDlS3CompressionLevel$outboundSchema: z.ZodType<
-  OutputDlS3CompressionLevel,
+  string,
   z.ZodTypeDef,
   OutputDlS3CompressionLevel
-> = z.union([
-  z.nativeEnum(OutputDlS3CompressionLevel),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputDlS3CompressionLevel);
 
 /** @internal */
 export const OutputDlS3ParquetVersion$inboundSchema: z.ZodType<
   OutputDlS3ParquetVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDlS3ParquetVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputDlS3ParquetVersion);
 /** @internal */
 export const OutputDlS3ParquetVersion$outboundSchema: z.ZodType<
-  OutputDlS3ParquetVersion,
+  string,
   z.ZodTypeDef,
   OutputDlS3ParquetVersion
-> = z.union([
-  z.nativeEnum(OutputDlS3ParquetVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputDlS3ParquetVersion);
 
 /** @internal */
 export const OutputDlS3DataPageVersion$inboundSchema: z.ZodType<
   OutputDlS3DataPageVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDlS3DataPageVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputDlS3DataPageVersion);
 /** @internal */
 export const OutputDlS3DataPageVersion$outboundSchema: z.ZodType<
-  OutputDlS3DataPageVersion,
+  string,
   z.ZodTypeDef,
   OutputDlS3DataPageVersion
-> = z.union([
-  z.nativeEnum(OutputDlS3DataPageVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputDlS3DataPageVersion);
 
 /** @internal */
 export const OutputDlS3KeyValueMetadatum$inboundSchema: z.ZodType<
@@ -847,7 +747,7 @@ export const OutputDlS3$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputDlS3Type$inboundSchema,
+  type: z.literal("dl_s3"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -926,7 +826,7 @@ export const OutputDlS3$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputDlS3$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "dl_s3";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -997,7 +897,7 @@ export const OutputDlS3$outboundSchema: z.ZodType<
   OutputDlS3
 > = z.object({
   id: z.string().optional(),
-  type: OutputDlS3Type$outboundSchema,
+  type: z.literal("dl_s3"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

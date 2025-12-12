@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputGooglePubsubType = {
-  GooglePubsub: "google_pubsub",
-} as const;
-export type InputGooglePubsubType = ClosedEnum<typeof InputGooglePubsubType>;
 
 export type InputGooglePubsubConnection = {
   pipeline?: string | undefined;
@@ -132,7 +123,7 @@ export type InputGooglePubsub = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputGooglePubsubType;
+  type: "google_pubsub";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -219,15 +210,6 @@ export type InputGooglePubsub = {
 };
 
 /** @internal */
-export const InputGooglePubsubType$inboundSchema: z.ZodNativeEnum<
-  typeof InputGooglePubsubType
-> = z.nativeEnum(InputGooglePubsubType);
-/** @internal */
-export const InputGooglePubsubType$outboundSchema: z.ZodNativeEnum<
-  typeof InputGooglePubsubType
-> = InputGooglePubsubType$inboundSchema;
-
-/** @internal */
 export const InputGooglePubsubConnection$inboundSchema: z.ZodType<
   InputGooglePubsubConnection,
   z.ZodTypeDef,
@@ -276,40 +258,26 @@ export const InputGooglePubsubMode$inboundSchema: z.ZodType<
   InputGooglePubsubMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputGooglePubsubMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputGooglePubsubMode);
 /** @internal */
 export const InputGooglePubsubMode$outboundSchema: z.ZodType<
-  InputGooglePubsubMode,
+  string,
   z.ZodTypeDef,
   InputGooglePubsubMode
-> = z.union([
-  z.nativeEnum(InputGooglePubsubMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputGooglePubsubMode);
 
 /** @internal */
 export const InputGooglePubsubCompression$inboundSchema: z.ZodType<
   InputGooglePubsubCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputGooglePubsubCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputGooglePubsubCompression);
 /** @internal */
 export const InputGooglePubsubCompression$outboundSchema: z.ZodType<
-  InputGooglePubsubCompression,
+  string,
   z.ZodTypeDef,
   InputGooglePubsubCompression
-> = z.union([
-  z.nativeEnum(InputGooglePubsubCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputGooglePubsubCompression);
 
 /** @internal */
 export const InputGooglePubsubPqControls$inboundSchema: z.ZodType<
@@ -414,21 +382,11 @@ export const InputGooglePubsubGoogleAuthenticationMethod$inboundSchema:
     InputGooglePubsubGoogleAuthenticationMethod,
     z.ZodTypeDef,
     unknown
-  > = z
-    .union([
-      z.nativeEnum(InputGooglePubsubGoogleAuthenticationMethod),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  > = openEnums.inboundSchema(InputGooglePubsubGoogleAuthenticationMethod);
 /** @internal */
 export const InputGooglePubsubGoogleAuthenticationMethod$outboundSchema:
-  z.ZodType<
-    InputGooglePubsubGoogleAuthenticationMethod,
-    z.ZodTypeDef,
-    InputGooglePubsubGoogleAuthenticationMethod
-  > = z.union([
-    z.nativeEnum(InputGooglePubsubGoogleAuthenticationMethod),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  z.ZodType<string, z.ZodTypeDef, InputGooglePubsubGoogleAuthenticationMethod> =
+    openEnums.outboundSchema(InputGooglePubsubGoogleAuthenticationMethod);
 
 /** @internal */
 export const InputGooglePubsubMetadatum$inboundSchema: z.ZodType<
@@ -479,7 +437,7 @@ export const InputGooglePubsub$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputGooglePubsubType$inboundSchema,
+  type: z.literal("google_pubsub"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -510,7 +468,7 @@ export const InputGooglePubsub$inboundSchema: z.ZodType<
 /** @internal */
 export type InputGooglePubsub$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "google_pubsub";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -543,7 +501,7 @@ export const InputGooglePubsub$outboundSchema: z.ZodType<
   InputGooglePubsub
 > = z.object({
   id: z.string().optional(),
-  type: InputGooglePubsubType$outboundSchema,
+  type: z.literal("google_pubsub"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputClickHouseType = {
-  ClickHouse: "click_house",
-} as const;
-export type OutputClickHouseType = ClosedEnum<typeof OutputClickHouseType>;
 
 export const OutputClickHouseAuthenticationType = {
   None: "none",
@@ -311,7 +302,7 @@ export type OutputClickHouse = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputClickHouseType;
+  type: "click_house";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -528,113 +519,69 @@ export type OutputClickHouse = {
 };
 
 /** @internal */
-export const OutputClickHouseType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputClickHouseType
-> = z.nativeEnum(OutputClickHouseType);
-/** @internal */
-export const OutputClickHouseType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputClickHouseType
-> = OutputClickHouseType$inboundSchema;
-
-/** @internal */
 export const OutputClickHouseAuthenticationType$inboundSchema: z.ZodType<
   OutputClickHouseAuthenticationType,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputClickHouseAuthenticationType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputClickHouseAuthenticationType);
 /** @internal */
 export const OutputClickHouseAuthenticationType$outboundSchema: z.ZodType<
-  OutputClickHouseAuthenticationType,
+  string,
   z.ZodTypeDef,
   OutputClickHouseAuthenticationType
-> = z.union([
-  z.nativeEnum(OutputClickHouseAuthenticationType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputClickHouseAuthenticationType);
 
 /** @internal */
 export const OutputClickHouseFormat$inboundSchema: z.ZodType<
   OutputClickHouseFormat,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputClickHouseFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputClickHouseFormat);
 /** @internal */
 export const OutputClickHouseFormat$outboundSchema: z.ZodType<
-  OutputClickHouseFormat,
+  string,
   z.ZodTypeDef,
   OutputClickHouseFormat
-> = z.union([
-  z.nativeEnum(OutputClickHouseFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputClickHouseFormat);
 
 /** @internal */
 export const MappingType$inboundSchema: z.ZodType<
   MappingType,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(MappingType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(MappingType);
 /** @internal */
 export const MappingType$outboundSchema: z.ZodType<
-  MappingType,
+  string,
   z.ZodTypeDef,
   MappingType
-> = z.union([
-  z.nativeEnum(MappingType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(MappingType);
 
 /** @internal */
 export const OutputClickHouseMinimumTLSVersion$inboundSchema: z.ZodType<
   OutputClickHouseMinimumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputClickHouseMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputClickHouseMinimumTLSVersion);
 /** @internal */
 export const OutputClickHouseMinimumTLSVersion$outboundSchema: z.ZodType<
-  OutputClickHouseMinimumTLSVersion,
+  string,
   z.ZodTypeDef,
   OutputClickHouseMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(OutputClickHouseMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputClickHouseMinimumTLSVersion);
 
 /** @internal */
 export const OutputClickHouseMaximumTLSVersion$inboundSchema: z.ZodType<
   OutputClickHouseMaximumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputClickHouseMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputClickHouseMaximumTLSVersion);
 /** @internal */
 export const OutputClickHouseMaximumTLSVersion$outboundSchema: z.ZodType<
-  OutputClickHouseMaximumTLSVersion,
+  string,
   z.ZodTypeDef,
   OutputClickHouseMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(OutputClickHouseMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputClickHouseMaximumTLSVersion);
 
 /** @internal */
 export const OutputClickHouseTLSSettingsClientSide$inboundSchema: z.ZodType<
@@ -751,20 +698,13 @@ export const OutputClickHouseFailedRequestLoggingMode$inboundSchema: z.ZodType<
   OutputClickHouseFailedRequestLoggingMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputClickHouseFailedRequestLoggingMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputClickHouseFailedRequestLoggingMode);
 /** @internal */
 export const OutputClickHouseFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  OutputClickHouseFailedRequestLoggingMode,
+  string,
   z.ZodTypeDef,
   OutputClickHouseFailedRequestLoggingMode
-> = z.union([
-  z.nativeEnum(OutputClickHouseFailedRequestLoggingMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputClickHouseFailedRequestLoggingMode);
 
 /** @internal */
 export const OutputClickHouseResponseRetrySetting$inboundSchema: z.ZodType<
@@ -873,20 +813,13 @@ export const OutputClickHouseBackpressureBehavior$inboundSchema: z.ZodType<
   OutputClickHouseBackpressureBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputClickHouseBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputClickHouseBackpressureBehavior);
 /** @internal */
 export const OutputClickHouseBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputClickHouseBackpressureBehavior,
+  string,
   z.ZodTypeDef,
   OutputClickHouseBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputClickHouseBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputClickHouseBackpressureBehavior);
 
 /** @internal */
 export const OutputClickHouseOauthParam$inboundSchema: z.ZodType<
@@ -1020,60 +953,39 @@ export const OutputClickHouseMode$inboundSchema: z.ZodType<
   OutputClickHouseMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputClickHouseMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputClickHouseMode);
 /** @internal */
 export const OutputClickHouseMode$outboundSchema: z.ZodType<
-  OutputClickHouseMode,
+  string,
   z.ZodTypeDef,
   OutputClickHouseMode
-> = z.union([
-  z.nativeEnum(OutputClickHouseMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputClickHouseMode);
 
 /** @internal */
 export const OutputClickHouseCompression$inboundSchema: z.ZodType<
   OutputClickHouseCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputClickHouseCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputClickHouseCompression);
 /** @internal */
 export const OutputClickHouseCompression$outboundSchema: z.ZodType<
-  OutputClickHouseCompression,
+  string,
   z.ZodTypeDef,
   OutputClickHouseCompression
-> = z.union([
-  z.nativeEnum(OutputClickHouseCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputClickHouseCompression);
 
 /** @internal */
 export const OutputClickHouseQueueFullBehavior$inboundSchema: z.ZodType<
   OutputClickHouseQueueFullBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputClickHouseQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputClickHouseQueueFullBehavior);
 /** @internal */
 export const OutputClickHouseQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputClickHouseQueueFullBehavior,
+  string,
   z.ZodTypeDef,
   OutputClickHouseQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputClickHouseQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputClickHouseQueueFullBehavior);
 
 /** @internal */
 export const OutputClickHousePqControls$inboundSchema: z.ZodType<
@@ -1115,7 +1027,7 @@ export const OutputClickHouse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputClickHouseType$inboundSchema,
+  type: z.literal("click_house"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -1194,7 +1106,7 @@ export const OutputClickHouse$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputClickHouse$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "click_house";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -1268,7 +1180,7 @@ export const OutputClickHouse$outboundSchema: z.ZodType<
   OutputClickHouse
 > = z.object({
   id: z.string().optional(),
-  type: OutputClickHouseType$outboundSchema,
+  type: z.literal("click_house"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

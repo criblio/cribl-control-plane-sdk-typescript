@@ -4,14 +4,8 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputNetflowType = {
-  Netflow: "netflow",
-} as const;
-export type OutputNetflowType = ClosedEnum<typeof OutputNetflowType>;
 
 export type OutputNetflowHost = {
   /**
@@ -29,7 +23,7 @@ export type OutputNetflow = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputNetflowType;
+  type: "netflow";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -56,15 +50,6 @@ export type OutputNetflow = {
   dnsResolvePeriodSec?: number | undefined;
   description?: string | undefined;
 };
-
-/** @internal */
-export const OutputNetflowType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputNetflowType
-> = z.nativeEnum(OutputNetflowType);
-/** @internal */
-export const OutputNetflowType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputNetflowType
-> = OutputNetflowType$inboundSchema;
 
 /** @internal */
 export const OutputNetflowHost$inboundSchema: z.ZodType<
@@ -115,7 +100,7 @@ export const OutputNetflow$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputNetflowType$inboundSchema,
+  type: z.literal("netflow"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -127,7 +112,7 @@ export const OutputNetflow$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputNetflow$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "netflow";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -144,7 +129,7 @@ export const OutputNetflow$outboundSchema: z.ZodType<
   OutputNetflow
 > = z.object({
   id: z.string().optional(),
-  type: OutputNetflowType$outboundSchema,
+  type: z.literal("netflow"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

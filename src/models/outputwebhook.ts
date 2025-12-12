@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputWebhookType = {
-  Webhook: "webhook",
-} as const;
-export type OutputWebhookType = ClosedEnum<typeof OutputWebhookType>;
 
 /**
  * The method to use when sending events
@@ -333,7 +324,7 @@ export type OutputWebhook = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputWebhookType;
+  type: "webhook";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -576,53 +567,30 @@ export type OutputWebhook = {
 };
 
 /** @internal */
-export const OutputWebhookType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputWebhookType
-> = z.nativeEnum(OutputWebhookType);
-/** @internal */
-export const OutputWebhookType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputWebhookType
-> = OutputWebhookType$inboundSchema;
-
-/** @internal */
 export const OutputWebhookMethod$inboundSchema: z.ZodType<
   OutputWebhookMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputWebhookMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputWebhookMethod);
 /** @internal */
 export const OutputWebhookMethod$outboundSchema: z.ZodType<
-  OutputWebhookMethod,
+  string,
   z.ZodTypeDef,
   OutputWebhookMethod
-> = z.union([
-  z.nativeEnum(OutputWebhookMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputWebhookMethod);
 
 /** @internal */
 export const OutputWebhookFormat$inboundSchema: z.ZodType<
   OutputWebhookFormat,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputWebhookFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputWebhookFormat);
 /** @internal */
 export const OutputWebhookFormat$outboundSchema: z.ZodType<
-  OutputWebhookFormat,
+  string,
   z.ZodTypeDef,
   OutputWebhookFormat
-> = z.union([
-  z.nativeEnum(OutputWebhookFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputWebhookFormat);
 
 /** @internal */
 export const OutputWebhookExtraHttpHeader$inboundSchema: z.ZodType<
@@ -673,20 +641,13 @@ export const OutputWebhookFailedRequestLoggingMode$inboundSchema: z.ZodType<
   OutputWebhookFailedRequestLoggingMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputWebhookFailedRequestLoggingMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputWebhookFailedRequestLoggingMode);
 /** @internal */
 export const OutputWebhookFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  OutputWebhookFailedRequestLoggingMode,
+  string,
   z.ZodTypeDef,
   OutputWebhookFailedRequestLoggingMode
-> = z.union([
-  z.nativeEnum(OutputWebhookFailedRequestLoggingMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputWebhookFailedRequestLoggingMode);
 
 /** @internal */
 export const OutputWebhookResponseRetrySetting$inboundSchema: z.ZodType<
@@ -793,80 +754,52 @@ export const OutputWebhookBackpressureBehavior$inboundSchema: z.ZodType<
   OutputWebhookBackpressureBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputWebhookBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputWebhookBackpressureBehavior);
 /** @internal */
 export const OutputWebhookBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputWebhookBackpressureBehavior,
+  string,
   z.ZodTypeDef,
   OutputWebhookBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputWebhookBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputWebhookBackpressureBehavior);
 
 /** @internal */
 export const OutputWebhookAuthenticationType$inboundSchema: z.ZodType<
   OutputWebhookAuthenticationType,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputWebhookAuthenticationType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputWebhookAuthenticationType);
 /** @internal */
 export const OutputWebhookAuthenticationType$outboundSchema: z.ZodType<
-  OutputWebhookAuthenticationType,
+  string,
   z.ZodTypeDef,
   OutputWebhookAuthenticationType
-> = z.union([
-  z.nativeEnum(OutputWebhookAuthenticationType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputWebhookAuthenticationType);
 
 /** @internal */
 export const OutputWebhookMinimumTLSVersion$inboundSchema: z.ZodType<
   OutputWebhookMinimumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputWebhookMinimumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputWebhookMinimumTLSVersion);
 /** @internal */
 export const OutputWebhookMinimumTLSVersion$outboundSchema: z.ZodType<
-  OutputWebhookMinimumTLSVersion,
+  string,
   z.ZodTypeDef,
   OutputWebhookMinimumTLSVersion
-> = z.union([
-  z.nativeEnum(OutputWebhookMinimumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputWebhookMinimumTLSVersion);
 
 /** @internal */
 export const OutputWebhookMaximumTLSVersion$inboundSchema: z.ZodType<
   OutputWebhookMaximumTLSVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputWebhookMaximumTLSVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputWebhookMaximumTLSVersion);
 /** @internal */
 export const OutputWebhookMaximumTLSVersion$outboundSchema: z.ZodType<
-  OutputWebhookMaximumTLSVersion,
+  string,
   z.ZodTypeDef,
   OutputWebhookMaximumTLSVersion
-> = z.union([
-  z.nativeEnum(OutputWebhookMaximumTLSVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputWebhookMaximumTLSVersion);
 
 /** @internal */
 export const OutputWebhookTLSSettingsClientSide$inboundSchema: z.ZodType<
@@ -939,60 +872,39 @@ export const OutputWebhookMode$inboundSchema: z.ZodType<
   OutputWebhookMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputWebhookMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputWebhookMode);
 /** @internal */
 export const OutputWebhookMode$outboundSchema: z.ZodType<
-  OutputWebhookMode,
+  string,
   z.ZodTypeDef,
   OutputWebhookMode
-> = z.union([
-  z.nativeEnum(OutputWebhookMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputWebhookMode);
 
 /** @internal */
 export const OutputWebhookCompression$inboundSchema: z.ZodType<
   OutputWebhookCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputWebhookCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputWebhookCompression);
 /** @internal */
 export const OutputWebhookCompression$outboundSchema: z.ZodType<
-  OutputWebhookCompression,
+  string,
   z.ZodTypeDef,
   OutputWebhookCompression
-> = z.union([
-  z.nativeEnum(OutputWebhookCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputWebhookCompression);
 
 /** @internal */
 export const OutputWebhookQueueFullBehavior$inboundSchema: z.ZodType<
   OutputWebhookQueueFullBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputWebhookQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputWebhookQueueFullBehavior);
 /** @internal */
 export const OutputWebhookQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputWebhookQueueFullBehavior,
+  string,
   z.ZodTypeDef,
   OutputWebhookQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputWebhookQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputWebhookQueueFullBehavior);
 
 /** @internal */
 export const OutputWebhookPqControls$inboundSchema: z.ZodType<
@@ -1160,7 +1072,7 @@ export const OutputWebhook$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputWebhookType$inboundSchema,
+  type: z.literal("webhook"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -1243,7 +1155,7 @@ export const OutputWebhook$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputWebhook$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "webhook";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -1319,7 +1231,7 @@ export const OutputWebhook$outboundSchema: z.ZodType<
   OutputWebhook
 > = z.object({
   id: z.string().optional(),
-  type: OutputWebhookType$outboundSchema,
+  type: z.literal("webhook"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

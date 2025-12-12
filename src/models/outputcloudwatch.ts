@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputCloudwatchType = {
-  Cloudwatch: "cloudwatch",
-} as const;
-export type OutputCloudwatchType = ClosedEnum<typeof OutputCloudwatchType>;
 
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
@@ -135,7 +126,7 @@ export type OutputCloudwatch = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputCloudwatchType;
+  type: "cloudwatch";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -263,113 +254,69 @@ export type OutputCloudwatch = {
 };
 
 /** @internal */
-export const OutputCloudwatchType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputCloudwatchType
-> = z.nativeEnum(OutputCloudwatchType);
-/** @internal */
-export const OutputCloudwatchType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputCloudwatchType
-> = OutputCloudwatchType$inboundSchema;
-
-/** @internal */
 export const OutputCloudwatchAuthenticationMethod$inboundSchema: z.ZodType<
   OutputCloudwatchAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCloudwatchAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputCloudwatchAuthenticationMethod);
 /** @internal */
 export const OutputCloudwatchAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputCloudwatchAuthenticationMethod,
+  string,
   z.ZodTypeDef,
   OutputCloudwatchAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputCloudwatchAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputCloudwatchAuthenticationMethod);
 
 /** @internal */
 export const OutputCloudwatchBackpressureBehavior$inboundSchema: z.ZodType<
   OutputCloudwatchBackpressureBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCloudwatchBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputCloudwatchBackpressureBehavior);
 /** @internal */
 export const OutputCloudwatchBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputCloudwatchBackpressureBehavior,
+  string,
   z.ZodTypeDef,
   OutputCloudwatchBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputCloudwatchBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputCloudwatchBackpressureBehavior);
 
 /** @internal */
 export const OutputCloudwatchMode$inboundSchema: z.ZodType<
   OutputCloudwatchMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCloudwatchMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputCloudwatchMode);
 /** @internal */
 export const OutputCloudwatchMode$outboundSchema: z.ZodType<
-  OutputCloudwatchMode,
+  string,
   z.ZodTypeDef,
   OutputCloudwatchMode
-> = z.union([
-  z.nativeEnum(OutputCloudwatchMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputCloudwatchMode);
 
 /** @internal */
 export const OutputCloudwatchCompression$inboundSchema: z.ZodType<
   OutputCloudwatchCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCloudwatchCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputCloudwatchCompression);
 /** @internal */
 export const OutputCloudwatchCompression$outboundSchema: z.ZodType<
-  OutputCloudwatchCompression,
+  string,
   z.ZodTypeDef,
   OutputCloudwatchCompression
-> = z.union([
-  z.nativeEnum(OutputCloudwatchCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputCloudwatchCompression);
 
 /** @internal */
 export const OutputCloudwatchQueueFullBehavior$inboundSchema: z.ZodType<
   OutputCloudwatchQueueFullBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputCloudwatchQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputCloudwatchQueueFullBehavior);
 /** @internal */
 export const OutputCloudwatchQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputCloudwatchQueueFullBehavior,
+  string,
   z.ZodTypeDef,
   OutputCloudwatchQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputCloudwatchQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputCloudwatchQueueFullBehavior);
 
 /** @internal */
 export const OutputCloudwatchPqControls$inboundSchema: z.ZodType<
@@ -411,7 +358,7 @@ export const OutputCloudwatch$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputCloudwatchType$inboundSchema,
+  type: z.literal("cloudwatch"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -455,7 +402,7 @@ export const OutputCloudwatch$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputCloudwatch$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "cloudwatch";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -499,7 +446,7 @@ export const OutputCloudwatch$outboundSchema: z.ZodType<
   OutputCloudwatch
 > = z.object({
   id: z.string().optional(),
-  type: OutputCloudwatchType$outboundSchema,
+  type: z.literal("cloudwatch"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

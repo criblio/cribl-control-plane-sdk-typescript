@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputCriblmetricsType = {
-  Criblmetrics: "criblmetrics",
-} as const;
-export type InputCriblmetricsType = ClosedEnum<typeof InputCriblmetricsType>;
 
 export type InputCriblmetricsConnection = {
   pipeline?: string | undefined;
@@ -108,7 +99,7 @@ export type InputCriblmetrics = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputCriblmetricsType;
+  type: "criblmetrics";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -149,15 +140,6 @@ export type InputCriblmetrics = {
   metadata?: Array<InputCriblmetricsMetadatum> | undefined;
   description?: string | undefined;
 };
-
-/** @internal */
-export const InputCriblmetricsType$inboundSchema: z.ZodNativeEnum<
-  typeof InputCriblmetricsType
-> = z.nativeEnum(InputCriblmetricsType);
-/** @internal */
-export const InputCriblmetricsType$outboundSchema: z.ZodNativeEnum<
-  typeof InputCriblmetricsType
-> = InputCriblmetricsType$inboundSchema;
 
 /** @internal */
 export const InputCriblmetricsConnection$inboundSchema: z.ZodType<
@@ -208,40 +190,26 @@ export const InputCriblmetricsMode$inboundSchema: z.ZodType<
   InputCriblmetricsMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputCriblmetricsMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputCriblmetricsMode);
 /** @internal */
 export const InputCriblmetricsMode$outboundSchema: z.ZodType<
-  InputCriblmetricsMode,
+  string,
   z.ZodTypeDef,
   InputCriblmetricsMode
-> = z.union([
-  z.nativeEnum(InputCriblmetricsMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputCriblmetricsMode);
 
 /** @internal */
 export const InputCriblmetricsCompression$inboundSchema: z.ZodType<
   InputCriblmetricsCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputCriblmetricsCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputCriblmetricsCompression);
 /** @internal */
 export const InputCriblmetricsCompression$outboundSchema: z.ZodType<
-  InputCriblmetricsCompression,
+  string,
   z.ZodTypeDef,
   InputCriblmetricsCompression
-> = z.union([
-  z.nativeEnum(InputCriblmetricsCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputCriblmetricsCompression);
 
 /** @internal */
 export const InputCriblmetricsPqControls$inboundSchema: z.ZodType<
@@ -389,7 +357,7 @@ export const InputCriblmetrics$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputCriblmetricsType$inboundSchema,
+  type: z.literal("criblmetrics"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -408,7 +376,7 @@ export const InputCriblmetrics$inboundSchema: z.ZodType<
 /** @internal */
 export type InputCriblmetrics$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "criblmetrics";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -430,7 +398,7 @@ export const InputCriblmetrics$outboundSchema: z.ZodType<
   InputCriblmetrics
 > = z.object({
   id: z.string().optional(),
-  type: InputCriblmetricsType$outboundSchema,
+  type: z.literal("criblmetrics"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

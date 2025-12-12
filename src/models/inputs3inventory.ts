@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputS3InventoryType = {
-  S3Inventory: "s3_inventory",
-} as const;
-export type InputS3InventoryType = ClosedEnum<typeof InputS3InventoryType>;
 
 export type InputS3InventoryConnection = {
   pipeline?: string | undefined;
@@ -177,7 +168,7 @@ export type InputS3Inventory = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputS3InventoryType;
+  type: "s3_inventory";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -341,15 +332,6 @@ export type InputS3Inventory = {
 };
 
 /** @internal */
-export const InputS3InventoryType$inboundSchema: z.ZodNativeEnum<
-  typeof InputS3InventoryType
-> = z.nativeEnum(InputS3InventoryType);
-/** @internal */
-export const InputS3InventoryType$outboundSchema: z.ZodNativeEnum<
-  typeof InputS3InventoryType
-> = InputS3InventoryType$inboundSchema;
-
-/** @internal */
 export const InputS3InventoryConnection$inboundSchema: z.ZodType<
   InputS3InventoryConnection,
   z.ZodTypeDef,
@@ -396,40 +378,26 @@ export const InputS3InventoryMode$inboundSchema: z.ZodType<
   InputS3InventoryMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputS3InventoryMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputS3InventoryMode);
 /** @internal */
 export const InputS3InventoryMode$outboundSchema: z.ZodType<
-  InputS3InventoryMode,
+  string,
   z.ZodTypeDef,
   InputS3InventoryMode
-> = z.union([
-  z.nativeEnum(InputS3InventoryMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputS3InventoryMode);
 
 /** @internal */
 export const InputS3InventoryCompression$inboundSchema: z.ZodType<
   InputS3InventoryCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputS3InventoryCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputS3InventoryCompression);
 /** @internal */
 export const InputS3InventoryCompression$outboundSchema: z.ZodType<
-  InputS3InventoryCompression,
+  string,
   z.ZodTypeDef,
   InputS3InventoryCompression
-> = z.union([
-  z.nativeEnum(InputS3InventoryCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputS3InventoryCompression);
 
 /** @internal */
 export const InputS3InventoryPqControls$inboundSchema: z.ZodType<
@@ -530,40 +498,26 @@ export const InputS3InventoryAuthenticationMethod$inboundSchema: z.ZodType<
   InputS3InventoryAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputS3InventoryAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputS3InventoryAuthenticationMethod);
 /** @internal */
 export const InputS3InventoryAuthenticationMethod$outboundSchema: z.ZodType<
-  InputS3InventoryAuthenticationMethod,
+  string,
   z.ZodTypeDef,
   InputS3InventoryAuthenticationMethod
-> = z.union([
-  z.nativeEnum(InputS3InventoryAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputS3InventoryAuthenticationMethod);
 
 /** @internal */
 export const InputS3InventorySignatureVersion$inboundSchema: z.ZodType<
   InputS3InventorySignatureVersion,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputS3InventorySignatureVersion),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputS3InventorySignatureVersion);
 /** @internal */
 export const InputS3InventorySignatureVersion$outboundSchema: z.ZodType<
-  InputS3InventorySignatureVersion,
+  string,
   z.ZodTypeDef,
   InputS3InventorySignatureVersion
-> = z.union([
-  z.nativeEnum(InputS3InventorySignatureVersion),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputS3InventorySignatureVersion);
 
 /** @internal */
 export const InputS3InventoryPreprocess$inboundSchema: z.ZodType<
@@ -701,20 +655,13 @@ export const InputS3InventoryTagAfterProcessing$inboundSchema: z.ZodType<
   InputS3InventoryTagAfterProcessing,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(InputS3InventoryTagAfterProcessing),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(InputS3InventoryTagAfterProcessing);
 /** @internal */
 export const InputS3InventoryTagAfterProcessing$outboundSchema: z.ZodType<
-  InputS3InventoryTagAfterProcessing,
+  string,
   z.ZodTypeDef,
   InputS3InventoryTagAfterProcessing
-> = z.union([
-  z.nativeEnum(InputS3InventoryTagAfterProcessing),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(InputS3InventoryTagAfterProcessing);
 
 /** @internal */
 export const InputS3Inventory$inboundSchema: z.ZodType<
@@ -723,7 +670,7 @@ export const InputS3Inventory$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputS3InventoryType$inboundSchema,
+  type: z.literal("s3_inventory"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -781,7 +728,7 @@ export const InputS3Inventory$inboundSchema: z.ZodType<
 /** @internal */
 export type InputS3Inventory$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "s3_inventory";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -837,7 +784,7 @@ export const InputS3Inventory$outboundSchema: z.ZodType<
   InputS3Inventory
 > = z.object({
   id: z.string().optional(),
-  type: InputS3InventoryType$outboundSchema,
+  type: z.literal("s3_inventory"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

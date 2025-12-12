@@ -4,21 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputGoogleCloudLoggingType = {
-  GoogleCloudLogging: "google_cloud_logging",
-} as const;
-export type OutputGoogleCloudLoggingType = ClosedEnum<
-  typeof OutputGoogleCloudLoggingType
->;
 
 export const LogLocationType = {
   /**
@@ -199,7 +188,7 @@ export type OutputGoogleCloudLogging = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputGoogleCloudLoggingType;
+  type: "google_cloud_logging";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -461,53 +450,30 @@ export type OutputGoogleCloudLogging = {
 };
 
 /** @internal */
-export const OutputGoogleCloudLoggingType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputGoogleCloudLoggingType
-> = z.nativeEnum(OutputGoogleCloudLoggingType);
-/** @internal */
-export const OutputGoogleCloudLoggingType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputGoogleCloudLoggingType
-> = OutputGoogleCloudLoggingType$inboundSchema;
-
-/** @internal */
 export const LogLocationType$inboundSchema: z.ZodType<
   LogLocationType,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(LogLocationType),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(LogLocationType);
 /** @internal */
 export const LogLocationType$outboundSchema: z.ZodType<
-  LogLocationType,
+  string,
   z.ZodTypeDef,
   LogLocationType
-> = z.union([
-  z.nativeEnum(LogLocationType),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(LogLocationType);
 
 /** @internal */
 export const PayloadFormat$inboundSchema: z.ZodType<
   PayloadFormat,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(PayloadFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(PayloadFormat);
 /** @internal */
 export const PayloadFormat$outboundSchema: z.ZodType<
-  PayloadFormat,
+  string,
   z.ZodTypeDef,
   PayloadFormat
-> = z.union([
-  z.nativeEnum(PayloadFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(PayloadFormat);
 
 /** @internal */
 export const LogLabel$inboundSchema: z.ZodType<
@@ -595,21 +561,18 @@ export const OutputGoogleCloudLoggingGoogleAuthenticationMethod$inboundSchema:
     OutputGoogleCloudLoggingGoogleAuthenticationMethod,
     z.ZodTypeDef,
     unknown
-  > = z
-    .union([
-      z.nativeEnum(OutputGoogleCloudLoggingGoogleAuthenticationMethod),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  > = openEnums.inboundSchema(
+    OutputGoogleCloudLoggingGoogleAuthenticationMethod,
+  );
 /** @internal */
 export const OutputGoogleCloudLoggingGoogleAuthenticationMethod$outboundSchema:
   z.ZodType<
-    OutputGoogleCloudLoggingGoogleAuthenticationMethod,
+    string,
     z.ZodTypeDef,
     OutputGoogleCloudLoggingGoogleAuthenticationMethod
-  > = z.union([
-    z.nativeEnum(OutputGoogleCloudLoggingGoogleAuthenticationMethod),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  > = openEnums.outboundSchema(
+    OutputGoogleCloudLoggingGoogleAuthenticationMethod,
+  );
 
 /** @internal */
 export const OutputGoogleCloudLoggingBackpressureBehavior$inboundSchema:
@@ -617,82 +580,51 @@ export const OutputGoogleCloudLoggingBackpressureBehavior$inboundSchema:
     OutputGoogleCloudLoggingBackpressureBehavior,
     z.ZodTypeDef,
     unknown
-  > = z
-    .union([
-      z.nativeEnum(OutputGoogleCloudLoggingBackpressureBehavior),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  > = openEnums.inboundSchema(OutputGoogleCloudLoggingBackpressureBehavior);
 /** @internal */
 export const OutputGoogleCloudLoggingBackpressureBehavior$outboundSchema:
   z.ZodType<
-    OutputGoogleCloudLoggingBackpressureBehavior,
+    string,
     z.ZodTypeDef,
     OutputGoogleCloudLoggingBackpressureBehavior
-  > = z.union([
-    z.nativeEnum(OutputGoogleCloudLoggingBackpressureBehavior),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  > = openEnums.outboundSchema(OutputGoogleCloudLoggingBackpressureBehavior);
 
 /** @internal */
 export const OutputGoogleCloudLoggingMode$inboundSchema: z.ZodType<
   OutputGoogleCloudLoggingMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGoogleCloudLoggingMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputGoogleCloudLoggingMode);
 /** @internal */
 export const OutputGoogleCloudLoggingMode$outboundSchema: z.ZodType<
-  OutputGoogleCloudLoggingMode,
+  string,
   z.ZodTypeDef,
   OutputGoogleCloudLoggingMode
-> = z.union([
-  z.nativeEnum(OutputGoogleCloudLoggingMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputGoogleCloudLoggingMode);
 
 /** @internal */
 export const OutputGoogleCloudLoggingCompression$inboundSchema: z.ZodType<
   OutputGoogleCloudLoggingCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGoogleCloudLoggingCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputGoogleCloudLoggingCompression);
 /** @internal */
 export const OutputGoogleCloudLoggingCompression$outboundSchema: z.ZodType<
-  OutputGoogleCloudLoggingCompression,
+  string,
   z.ZodTypeDef,
   OutputGoogleCloudLoggingCompression
-> = z.union([
-  z.nativeEnum(OutputGoogleCloudLoggingCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputGoogleCloudLoggingCompression);
 
 /** @internal */
 export const OutputGoogleCloudLoggingQueueFullBehavior$inboundSchema: z.ZodType<
   OutputGoogleCloudLoggingQueueFullBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputGoogleCloudLoggingQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputGoogleCloudLoggingQueueFullBehavior);
 /** @internal */
 export const OutputGoogleCloudLoggingQueueFullBehavior$outboundSchema:
-  z.ZodType<
-    OutputGoogleCloudLoggingQueueFullBehavior,
-    z.ZodTypeDef,
-    OutputGoogleCloudLoggingQueueFullBehavior
-  > = z.union([
-    z.nativeEnum(OutputGoogleCloudLoggingQueueFullBehavior),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  z.ZodType<string, z.ZodTypeDef, OutputGoogleCloudLoggingQueueFullBehavior> =
+    openEnums.outboundSchema(OutputGoogleCloudLoggingQueueFullBehavior);
 
 /** @internal */
 export const OutputGoogleCloudLoggingPqControls$inboundSchema: z.ZodType<
@@ -737,7 +669,7 @@ export const OutputGoogleCloudLogging$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputGoogleCloudLoggingType$inboundSchema,
+  type: z.literal("google_cloud_logging"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -816,7 +748,7 @@ export const OutputGoogleCloudLogging$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputGoogleCloudLogging$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "google_cloud_logging";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -893,7 +825,7 @@ export const OutputGoogleCloudLogging$outboundSchema: z.ZodType<
   OutputGoogleCloudLogging
 > = z.object({
   id: z.string().optional(),
-  type: OutputGoogleCloudLoggingType$outboundSchema,
+  type: z.literal("google_cloud_logging"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

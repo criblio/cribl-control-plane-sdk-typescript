@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputSignalfxType = {
-  Signalfx: "signalfx",
-} as const;
-export type OutputSignalfxType = ClosedEnum<typeof OutputSignalfxType>;
 
 /**
  * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
@@ -189,7 +180,7 @@ export type OutputSignalfx = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputSignalfxType;
+  type: "signalfx";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -328,33 +319,17 @@ export type OutputSignalfx = {
 };
 
 /** @internal */
-export const OutputSignalfxType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSignalfxType
-> = z.nativeEnum(OutputSignalfxType);
-/** @internal */
-export const OutputSignalfxType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSignalfxType
-> = OutputSignalfxType$inboundSchema;
-
-/** @internal */
 export const OutputSignalfxAuthenticationMethod$inboundSchema: z.ZodType<
   OutputSignalfxAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSignalfxAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSignalfxAuthenticationMethod);
 /** @internal */
 export const OutputSignalfxAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputSignalfxAuthenticationMethod,
+  string,
   z.ZodTypeDef,
   OutputSignalfxAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputSignalfxAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSignalfxAuthenticationMethod);
 
 /** @internal */
 export const OutputSignalfxExtraHttpHeader$inboundSchema: z.ZodType<
@@ -405,20 +380,13 @@ export const OutputSignalfxFailedRequestLoggingMode$inboundSchema: z.ZodType<
   OutputSignalfxFailedRequestLoggingMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSignalfxFailedRequestLoggingMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSignalfxFailedRequestLoggingMode);
 /** @internal */
 export const OutputSignalfxFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  OutputSignalfxFailedRequestLoggingMode,
+  string,
   z.ZodTypeDef,
   OutputSignalfxFailedRequestLoggingMode
-> = z.union([
-  z.nativeEnum(OutputSignalfxFailedRequestLoggingMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSignalfxFailedRequestLoggingMode);
 
 /** @internal */
 export const OutputSignalfxResponseRetrySetting$inboundSchema: z.ZodType<
@@ -527,80 +495,52 @@ export const OutputSignalfxBackpressureBehavior$inboundSchema: z.ZodType<
   OutputSignalfxBackpressureBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSignalfxBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSignalfxBackpressureBehavior);
 /** @internal */
 export const OutputSignalfxBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputSignalfxBackpressureBehavior,
+  string,
   z.ZodTypeDef,
   OutputSignalfxBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputSignalfxBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSignalfxBackpressureBehavior);
 
 /** @internal */
 export const OutputSignalfxMode$inboundSchema: z.ZodType<
   OutputSignalfxMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSignalfxMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSignalfxMode);
 /** @internal */
 export const OutputSignalfxMode$outboundSchema: z.ZodType<
-  OutputSignalfxMode,
+  string,
   z.ZodTypeDef,
   OutputSignalfxMode
-> = z.union([
-  z.nativeEnum(OutputSignalfxMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSignalfxMode);
 
 /** @internal */
 export const OutputSignalfxCompression$inboundSchema: z.ZodType<
   OutputSignalfxCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSignalfxCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSignalfxCompression);
 /** @internal */
 export const OutputSignalfxCompression$outboundSchema: z.ZodType<
-  OutputSignalfxCompression,
+  string,
   z.ZodTypeDef,
   OutputSignalfxCompression
-> = z.union([
-  z.nativeEnum(OutputSignalfxCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSignalfxCompression);
 
 /** @internal */
 export const OutputSignalfxQueueFullBehavior$inboundSchema: z.ZodType<
   OutputSignalfxQueueFullBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputSignalfxQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputSignalfxQueueFullBehavior);
 /** @internal */
 export const OutputSignalfxQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputSignalfxQueueFullBehavior,
+  string,
   z.ZodTypeDef,
   OutputSignalfxQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputSignalfxQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputSignalfxQueueFullBehavior);
 
 /** @internal */
 export const OutputSignalfxPqControls$inboundSchema: z.ZodType<
@@ -642,7 +582,7 @@ export const OutputSignalfx$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputSignalfxType$inboundSchema,
+  type: z.literal("signalfx"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -693,7 +633,7 @@ export const OutputSignalfx$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputSignalfx$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "signalfx";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -742,7 +682,7 @@ export const OutputSignalfx$outboundSchema: z.ZodType<
   OutputSignalfx
 > = z.object({
   id: z.string().optional(),
-  type: OutputSignalfxType$outboundSchema,
+  type: z.literal("signalfx"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

@@ -4,19 +4,10 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputDatadogType = {
-  Datadog: "datadog",
-} as const;
-export type OutputDatadogType = ClosedEnum<typeof OutputDatadogType>;
 
 /**
  * The content type to use when sending logs
@@ -287,7 +278,7 @@ export type OutputDatadog = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputDatadogType;
+  type: "datadog";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -471,73 +462,43 @@ export type OutputDatadog = {
 };
 
 /** @internal */
-export const OutputDatadogType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputDatadogType
-> = z.nativeEnum(OutputDatadogType);
-/** @internal */
-export const OutputDatadogType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputDatadogType
-> = OutputDatadogType$inboundSchema;
-
-/** @internal */
 export const SendLogsAs$inboundSchema: z.ZodType<
   SendLogsAs,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(SendLogsAs),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(SendLogsAs);
 /** @internal */
 export const SendLogsAs$outboundSchema: z.ZodType<
-  SendLogsAs,
+  string,
   z.ZodTypeDef,
   SendLogsAs
-> = z.union([
-  z.nativeEnum(SendLogsAs),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(SendLogsAs);
 
 /** @internal */
 export const OutputDatadogSeverity$inboundSchema: z.ZodType<
   OutputDatadogSeverity,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatadogSeverity),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputDatadogSeverity);
 /** @internal */
 export const OutputDatadogSeverity$outboundSchema: z.ZodType<
-  OutputDatadogSeverity,
+  string,
   z.ZodTypeDef,
   OutputDatadogSeverity
-> = z.union([
-  z.nativeEnum(OutputDatadogSeverity),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputDatadogSeverity);
 
 /** @internal */
 export const DatadogSite$inboundSchema: z.ZodType<
   DatadogSite,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(DatadogSite),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(DatadogSite);
 /** @internal */
 export const DatadogSite$outboundSchema: z.ZodType<
-  DatadogSite,
+  string,
   z.ZodTypeDef,
   DatadogSite
-> = z.union([
-  z.nativeEnum(DatadogSite),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(DatadogSite);
 
 /** @internal */
 export const OutputDatadogExtraHttpHeader$inboundSchema: z.ZodType<
@@ -588,20 +549,13 @@ export const OutputDatadogFailedRequestLoggingMode$inboundSchema: z.ZodType<
   OutputDatadogFailedRequestLoggingMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatadogFailedRequestLoggingMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputDatadogFailedRequestLoggingMode);
 /** @internal */
 export const OutputDatadogFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  OutputDatadogFailedRequestLoggingMode,
+  string,
   z.ZodTypeDef,
   OutputDatadogFailedRequestLoggingMode
-> = z.union([
-  z.nativeEnum(OutputDatadogFailedRequestLoggingMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputDatadogFailedRequestLoggingMode);
 
 /** @internal */
 export const OutputDatadogResponseRetrySetting$inboundSchema: z.ZodType<
@@ -708,100 +662,65 @@ export const OutputDatadogBackpressureBehavior$inboundSchema: z.ZodType<
   OutputDatadogBackpressureBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatadogBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputDatadogBackpressureBehavior);
 /** @internal */
 export const OutputDatadogBackpressureBehavior$outboundSchema: z.ZodType<
-  OutputDatadogBackpressureBehavior,
+  string,
   z.ZodTypeDef,
   OutputDatadogBackpressureBehavior
-> = z.union([
-  z.nativeEnum(OutputDatadogBackpressureBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputDatadogBackpressureBehavior);
 
 /** @internal */
 export const OutputDatadogAuthenticationMethod$inboundSchema: z.ZodType<
   OutputDatadogAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatadogAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputDatadogAuthenticationMethod);
 /** @internal */
 export const OutputDatadogAuthenticationMethod$outboundSchema: z.ZodType<
-  OutputDatadogAuthenticationMethod,
+  string,
   z.ZodTypeDef,
   OutputDatadogAuthenticationMethod
-> = z.union([
-  z.nativeEnum(OutputDatadogAuthenticationMethod),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputDatadogAuthenticationMethod);
 
 /** @internal */
 export const OutputDatadogMode$inboundSchema: z.ZodType<
   OutputDatadogMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatadogMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputDatadogMode);
 /** @internal */
 export const OutputDatadogMode$outboundSchema: z.ZodType<
-  OutputDatadogMode,
+  string,
   z.ZodTypeDef,
   OutputDatadogMode
-> = z.union([
-  z.nativeEnum(OutputDatadogMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputDatadogMode);
 
 /** @internal */
 export const OutputDatadogCompression$inboundSchema: z.ZodType<
   OutputDatadogCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatadogCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputDatadogCompression);
 /** @internal */
 export const OutputDatadogCompression$outboundSchema: z.ZodType<
-  OutputDatadogCompression,
+  string,
   z.ZodTypeDef,
   OutputDatadogCompression
-> = z.union([
-  z.nativeEnum(OutputDatadogCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputDatadogCompression);
 
 /** @internal */
 export const OutputDatadogQueueFullBehavior$inboundSchema: z.ZodType<
   OutputDatadogQueueFullBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputDatadogQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputDatadogQueueFullBehavior);
 /** @internal */
 export const OutputDatadogQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputDatadogQueueFullBehavior,
+  string,
   z.ZodTypeDef,
   OutputDatadogQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputDatadogQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputDatadogQueueFullBehavior);
 
 /** @internal */
 export const OutputDatadogPqControls$inboundSchema: z.ZodType<
@@ -843,7 +762,7 @@ export const OutputDatadog$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputDatadogType$inboundSchema,
+  type: z.literal("datadog"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -906,7 +825,7 @@ export const OutputDatadog$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputDatadog$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "datadog";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -965,7 +884,7 @@ export const OutputDatadog$outboundSchema: z.ZodType<
   OutputDatadog
 > = z.object({
   id: z.string().optional(),
-  type: OutputDatadogType$outboundSchema,
+  type: z.literal("datadog"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

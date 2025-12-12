@@ -5,21 +5,10 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import {
-  catchUnrecognizedEnum,
-  ClosedEnum,
-  OpenEnum,
-  Unrecognized,
-} from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputMicrosoftFabricType = {
-  MicrosoftFabric: "microsoft_fabric",
-} as const;
-export type OutputMicrosoftFabricType = ClosedEnum<
-  typeof OutputMicrosoftFabricType
->;
 
 /**
  * Control the number of required acknowledgments
@@ -251,7 +240,7 @@ export type OutputMicrosoftFabric = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputMicrosoftFabricType;
+  type: "microsoft_fabric";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -382,94 +371,54 @@ export type OutputMicrosoftFabric = {
 };
 
 /** @internal */
-export const OutputMicrosoftFabricType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputMicrosoftFabricType
-> = z.nativeEnum(OutputMicrosoftFabricType);
-/** @internal */
-export const OutputMicrosoftFabricType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputMicrosoftFabricType
-> = OutputMicrosoftFabricType$inboundSchema;
-
-/** @internal */
 export const OutputMicrosoftFabricAcknowledgments$inboundSchema: z.ZodType<
   OutputMicrosoftFabricAcknowledgments,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMicrosoftFabricAcknowledgments),
-    z.number().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchemaInt(OutputMicrosoftFabricAcknowledgments);
 /** @internal */
 export const OutputMicrosoftFabricAcknowledgments$outboundSchema: z.ZodType<
-  OutputMicrosoftFabricAcknowledgments,
+  number,
   z.ZodTypeDef,
   OutputMicrosoftFabricAcknowledgments
-> = z.union([
-  z.nativeEnum(OutputMicrosoftFabricAcknowledgments),
-  z.number().and(z.custom<Unrecognized<number>>()),
-]);
+> = openEnums.outboundSchemaInt(OutputMicrosoftFabricAcknowledgments);
 
 /** @internal */
 export const OutputMicrosoftFabricRecordDataFormat$inboundSchema: z.ZodType<
   OutputMicrosoftFabricRecordDataFormat,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMicrosoftFabricRecordDataFormat),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputMicrosoftFabricRecordDataFormat);
 /** @internal */
 export const OutputMicrosoftFabricRecordDataFormat$outboundSchema: z.ZodType<
-  OutputMicrosoftFabricRecordDataFormat,
+  string,
   z.ZodTypeDef,
   OutputMicrosoftFabricRecordDataFormat
-> = z.union([
-  z.nativeEnum(OutputMicrosoftFabricRecordDataFormat),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputMicrosoftFabricRecordDataFormat);
 
 /** @internal */
 export const OutputMicrosoftFabricSASLMechanism$inboundSchema: z.ZodType<
   OutputMicrosoftFabricSASLMechanism,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMicrosoftFabricSASLMechanism),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputMicrosoftFabricSASLMechanism);
 /** @internal */
 export const OutputMicrosoftFabricSASLMechanism$outboundSchema: z.ZodType<
-  OutputMicrosoftFabricSASLMechanism,
+  string,
   z.ZodTypeDef,
   OutputMicrosoftFabricSASLMechanism
-> = z.union([
-  z.nativeEnum(OutputMicrosoftFabricSASLMechanism),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputMicrosoftFabricSASLMechanism);
 
 /** @internal */
 export const OutputMicrosoftFabricAuthenticationMethod$inboundSchema: z.ZodType<
   OutputMicrosoftFabricAuthenticationMethod,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMicrosoftFabricAuthenticationMethod),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputMicrosoftFabricAuthenticationMethod);
 /** @internal */
 export const OutputMicrosoftFabricAuthenticationMethod$outboundSchema:
-  z.ZodType<
-    OutputMicrosoftFabricAuthenticationMethod,
-    z.ZodTypeDef,
-    OutputMicrosoftFabricAuthenticationMethod
-  > = z.union([
-    z.nativeEnum(OutputMicrosoftFabricAuthenticationMethod),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  z.ZodType<string, z.ZodTypeDef, OutputMicrosoftFabricAuthenticationMethod> =
+    openEnums.outboundSchema(OutputMicrosoftFabricAuthenticationMethod);
 
 /** @internal */
 export const OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint$inboundSchema:
@@ -477,21 +426,18 @@ export const OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint$inbound
     OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint,
     z.ZodTypeDef,
     unknown
-  > = z
-    .union([
-      z.nativeEnum(OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint),
-      z.string().transform(catchUnrecognizedEnum),
-    ]);
+  > = openEnums.inboundSchema(
+    OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint,
+  );
 /** @internal */
 export const OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint$outboundSchema:
   z.ZodType<
-    OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint,
+    string,
     z.ZodTypeDef,
     OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint
-  > = z.union([
-    z.nativeEnum(OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  > = openEnums.outboundSchema(
+    OutputMicrosoftFabricMicrosoftEntraIDAuthenticationEndpoint,
+  );
 
 /** @internal */
 export const OutputMicrosoftFabricAuthentication$inboundSchema: z.ZodType<
@@ -635,81 +581,50 @@ export const OutputMicrosoftFabricBackpressureBehavior$inboundSchema: z.ZodType<
   OutputMicrosoftFabricBackpressureBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMicrosoftFabricBackpressureBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputMicrosoftFabricBackpressureBehavior);
 /** @internal */
 export const OutputMicrosoftFabricBackpressureBehavior$outboundSchema:
-  z.ZodType<
-    OutputMicrosoftFabricBackpressureBehavior,
-    z.ZodTypeDef,
-    OutputMicrosoftFabricBackpressureBehavior
-  > = z.union([
-    z.nativeEnum(OutputMicrosoftFabricBackpressureBehavior),
-    z.string().and(z.custom<Unrecognized<string>>()),
-  ]);
+  z.ZodType<string, z.ZodTypeDef, OutputMicrosoftFabricBackpressureBehavior> =
+    openEnums.outboundSchema(OutputMicrosoftFabricBackpressureBehavior);
 
 /** @internal */
 export const OutputMicrosoftFabricMode$inboundSchema: z.ZodType<
   OutputMicrosoftFabricMode,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMicrosoftFabricMode),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputMicrosoftFabricMode);
 /** @internal */
 export const OutputMicrosoftFabricMode$outboundSchema: z.ZodType<
-  OutputMicrosoftFabricMode,
+  string,
   z.ZodTypeDef,
   OutputMicrosoftFabricMode
-> = z.union([
-  z.nativeEnum(OutputMicrosoftFabricMode),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputMicrosoftFabricMode);
 
 /** @internal */
 export const OutputMicrosoftFabricCompression$inboundSchema: z.ZodType<
   OutputMicrosoftFabricCompression,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMicrosoftFabricCompression),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputMicrosoftFabricCompression);
 /** @internal */
 export const OutputMicrosoftFabricCompression$outboundSchema: z.ZodType<
-  OutputMicrosoftFabricCompression,
+  string,
   z.ZodTypeDef,
   OutputMicrosoftFabricCompression
-> = z.union([
-  z.nativeEnum(OutputMicrosoftFabricCompression),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputMicrosoftFabricCompression);
 
 /** @internal */
 export const OutputMicrosoftFabricQueueFullBehavior$inboundSchema: z.ZodType<
   OutputMicrosoftFabricQueueFullBehavior,
   z.ZodTypeDef,
   unknown
-> = z
-  .union([
-    z.nativeEnum(OutputMicrosoftFabricQueueFullBehavior),
-    z.string().transform(catchUnrecognizedEnum),
-  ]);
+> = openEnums.inboundSchema(OutputMicrosoftFabricQueueFullBehavior);
 /** @internal */
 export const OutputMicrosoftFabricQueueFullBehavior$outboundSchema: z.ZodType<
-  OutputMicrosoftFabricQueueFullBehavior,
+  string,
   z.ZodTypeDef,
   OutputMicrosoftFabricQueueFullBehavior
-> = z.union([
-  z.nativeEnum(OutputMicrosoftFabricQueueFullBehavior),
-  z.string().and(z.custom<Unrecognized<string>>()),
-]);
+> = openEnums.outboundSchema(OutputMicrosoftFabricQueueFullBehavior);
 
 /** @internal */
 export const OutputMicrosoftFabricPqControls$inboundSchema: z.ZodType<
@@ -753,7 +668,7 @@ export const OutputMicrosoftFabric$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputMicrosoftFabricType$inboundSchema,
+  type: z.literal("microsoft_fabric"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -801,7 +716,7 @@ export const OutputMicrosoftFabric$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputMicrosoftFabric$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "microsoft_fabric";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -845,7 +760,7 @@ export const OutputMicrosoftFabric$outboundSchema: z.ZodType<
   OutputMicrosoftFabric
 > = z.object({
   id: z.string().optional(),
-  type: OutputMicrosoftFabricType$outboundSchema,
+  type: z.literal("microsoft_fabric"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
