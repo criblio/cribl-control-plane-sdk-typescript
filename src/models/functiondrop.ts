@@ -5,14 +5,8 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionDropId = {
-  Drop: "drop",
-} as const;
-export type FunctionDropId = ClosedEnum<typeof FunctionDropId>;
 
 export type FunctionDropSchema = {};
 
@@ -20,10 +14,10 @@ export type FunctionDrop = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionDropId;
+  id: "drop";
   loadTime: number;
   modTime: number;
   name: string;
@@ -32,11 +26,6 @@ export type FunctionDrop = {
   version: string;
   schema?: FunctionDropSchema | undefined;
 };
-
-/** @internal */
-export const FunctionDropId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionDropId
-> = z.nativeEnum(FunctionDropId);
 
 /** @internal */
 export const FunctionDropSchema$inboundSchema: z.ZodType<
@@ -64,10 +53,10 @@ export const FunctionDrop$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionDropId$inboundSchema,
+  id: z.literal("drop"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

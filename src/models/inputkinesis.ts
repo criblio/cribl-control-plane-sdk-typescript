@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputKinesisType = {
-  Kinesis: "kinesis",
-} as const;
-export type InputKinesisType = ClosedEnum<typeof InputKinesisType>;
 
 export type InputKinesisConnection = {
   pipeline?: string | undefined;
@@ -204,7 +199,7 @@ export type InputKinesis = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputKinesisType;
+  type: "kinesis";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -323,15 +318,6 @@ export type InputKinesis = {
    */
   awsSecret?: string | undefined;
 };
-
-/** @internal */
-export const InputKinesisType$inboundSchema: z.ZodNativeEnum<
-  typeof InputKinesisType
-> = z.nativeEnum(InputKinesisType);
-/** @internal */
-export const InputKinesisType$outboundSchema: z.ZodNativeEnum<
-  typeof InputKinesisType
-> = InputKinesisType$inboundSchema;
 
 /** @internal */
 export const InputKinesisConnection$inboundSchema: z.ZodType<
@@ -604,7 +590,7 @@ export const InputKinesis$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputKinesisType$inboundSchema,
+  type: z.literal("kinesis"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -647,7 +633,7 @@ export const InputKinesis$inboundSchema: z.ZodType<
 /** @internal */
 export type InputKinesis$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "kinesis";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -690,7 +676,7 @@ export const InputKinesis$outboundSchema: z.ZodType<
   InputKinesis
 > = z.object({
   id: z.string().optional(),
-  type: InputKinesisType$outboundSchema,
+  type: z.literal("kinesis"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

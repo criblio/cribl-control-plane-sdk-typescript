@@ -5,20 +5,14 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionJsonUnrollId = {
-  JsonUnroll: "json_unroll",
-} as const;
-export type FunctionJsonUnrollId = ClosedEnum<typeof FunctionJsonUnrollId>;
 
 export type FunctionJsonUnrollSchema = {
   /**
    * Path to array to unroll, such as foo.0.bar
    */
-  path?: string | undefined;
+  path: string;
   /**
    * Name of each exploded array element in each new event. Leave empty to expand the array element with its original name.
    */
@@ -29,10 +23,10 @@ export type FunctionJsonUnroll = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionJsonUnrollId;
+  id: "json_unroll";
   loadTime: number;
   modTime: number;
   name: string;
@@ -43,17 +37,12 @@ export type FunctionJsonUnroll = {
 };
 
 /** @internal */
-export const FunctionJsonUnrollId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionJsonUnrollId
-> = z.nativeEnum(FunctionJsonUnrollId);
-
-/** @internal */
 export const FunctionJsonUnrollSchema$inboundSchema: z.ZodType<
   FunctionJsonUnrollSchema,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  path: z.string().optional(),
+  path: z.string(),
   name: z.string().optional(),
 });
 
@@ -76,10 +65,10 @@ export const FunctionJsonUnroll$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionJsonUnrollId$inboundSchema,
+  id: z.literal("json_unroll"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

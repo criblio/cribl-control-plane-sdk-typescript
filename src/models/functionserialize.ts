@@ -6,14 +6,9 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionSerializeId = {
-  Serialize: "serialize",
-} as const;
-export type FunctionSerializeId = ClosedEnum<typeof FunctionSerializeId>;
 
 /**
  * Data output format
@@ -76,10 +71,10 @@ export type FunctionSerialize = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionSerializeId;
+  id: "serialize";
   loadTime: number;
   modTime: number;
   name: string;
@@ -88,11 +83,6 @@ export type FunctionSerialize = {
   version: string;
   schema?: FunctionSerializeSchema | undefined;
 };
-
-/** @internal */
-export const FunctionSerializeId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionSerializeId
-> = z.nativeEnum(FunctionSerializeId);
 
 /** @internal */
 export const FunctionSerializeType$inboundSchema: z.ZodType<
@@ -136,10 +126,10 @@ export const FunctionSerialize$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionSerializeId$inboundSchema,
+  id: z.literal("serialize"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

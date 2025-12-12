@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputDatasetType = {
-  Dataset: "dataset",
-} as const;
-export type OutputDatasetType = ClosedEnum<typeof OutputDatasetType>;
 
 /**
  * Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
@@ -245,7 +240,7 @@ export type OutputDataset = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputDatasetType;
+  type: "dataset";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -407,15 +402,6 @@ export type OutputDataset = {
    */
   textSecret?: string | undefined;
 };
-
-/** @internal */
-export const OutputDatasetType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputDatasetType
-> = z.nativeEnum(OutputDatasetType);
-/** @internal */
-export const OutputDatasetType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputDatasetType
-> = OutputDatasetType$inboundSchema;
 
 /** @internal */
 export const OutputDatasetSeverity$inboundSchema: z.ZodType<
@@ -705,7 +691,7 @@ export const OutputDataset$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputDatasetType$inboundSchema,
+  type: z.literal("dataset"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -763,7 +749,7 @@ export const OutputDataset$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputDataset$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "dataset";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -817,7 +803,7 @@ export const OutputDataset$outboundSchema: z.ZodType<
   OutputDataset
 > = z.object({
   id: z.string().optional(),
-  type: OutputDatasetType$outboundSchema,
+  type: z.literal("dataset"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

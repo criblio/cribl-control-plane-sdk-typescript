@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputDlS3Type = {
-  DlS3: "dl_s3",
-} as const;
-export type OutputDlS3Type = ClosedEnum<typeof OutputDlS3Type>;
 
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
@@ -298,7 +293,7 @@ export type OutputDlS3 = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputDlS3Type;
+  type: "dl_s3";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -542,15 +537,6 @@ export type OutputDlS3 = {
 };
 
 /** @internal */
-export const OutputDlS3Type$inboundSchema: z.ZodNativeEnum<
-  typeof OutputDlS3Type
-> = z.nativeEnum(OutputDlS3Type);
-/** @internal */
-export const OutputDlS3Type$outboundSchema: z.ZodNativeEnum<
-  typeof OutputDlS3Type
-> = OutputDlS3Type$inboundSchema;
-
-/** @internal */
 export const OutputDlS3AuthenticationMethod$inboundSchema: z.ZodType<
   OutputDlS3AuthenticationMethod,
   z.ZodTypeDef,
@@ -761,7 +747,7 @@ export const OutputDlS3$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputDlS3Type$inboundSchema,
+  type: z.literal("dl_s3"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -840,7 +826,7 @@ export const OutputDlS3$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputDlS3$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "dl_s3";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -911,7 +897,7 @@ export const OutputDlS3$outboundSchema: z.ZodType<
   OutputDlS3
 > = z.object({
   id: z.string().optional(),
-  type: OutputDlS3Type$outboundSchema,
+  type: z.literal("dl_s3"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

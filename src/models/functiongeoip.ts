@@ -5,14 +5,8 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionGeoipId = {
-  Geoip: "geoip",
-} as const;
-export type FunctionGeoipId = ClosedEnum<typeof FunctionGeoipId>;
 
 export type AdditionalField = {
   /**
@@ -34,7 +28,7 @@ export type FunctionGeoipSchema = {
   /**
    * Select an uploaded Maxmind database, or specify path to a Maxmind database with .mmdb extension
    */
-  file?: string | undefined;
+  file: string;
   /**
    * Field name in which to find an IP to look up. Can be nested.
    */
@@ -54,10 +48,10 @@ export type FunctionGeoip = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionGeoipId;
+  id: "geoip";
   loadTime: number;
   modTime: number;
   name: string;
@@ -66,11 +60,6 @@ export type FunctionGeoip = {
   version: string;
   schema?: FunctionGeoipSchema | undefined;
 };
-
-/** @internal */
-export const FunctionGeoipId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionGeoipId
-> = z.nativeEnum(FunctionGeoipId);
 
 /** @internal */
 export const AdditionalField$inboundSchema: z.ZodType<
@@ -115,7 +104,7 @@ export const FunctionGeoipSchema$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  file: z.string().optional(),
+  file: z.string(),
   inField: z.string().default("ip"),
   outField: z.string().default("geoip"),
   additionalFields: z.array(z.lazy(() => AdditionalField$inboundSchema))
@@ -142,10 +131,10 @@ export const FunctionGeoip$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionGeoipId$inboundSchema,
+  id: z.literal("geoip"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

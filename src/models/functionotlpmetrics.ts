@@ -6,14 +6,9 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionOtlpMetricsId = {
-  OtlpMetrics: "otlp_metrics",
-} as const;
-export type FunctionOtlpMetricsId = ClosedEnum<typeof FunctionOtlpMetricsId>;
 
 export const FunctionOTLPMetricsOTLPVersion = {
   /**
@@ -46,10 +41,10 @@ export type FunctionOtlpMetrics = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionOtlpMetricsId;
+  id: "otlp_metrics";
   loadTime: number;
   modTime: number;
   name: string;
@@ -58,11 +53,6 @@ export type FunctionOtlpMetrics = {
   version: string;
   schema?: FunctionOtlpMetricsSchema | undefined;
 };
-
-/** @internal */
-export const FunctionOtlpMetricsId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionOtlpMetricsId
-> = z.nativeEnum(FunctionOtlpMetricsId);
 
 /** @internal */
 export const FunctionOTLPMetricsOTLPVersion$inboundSchema: z.ZodType<
@@ -102,10 +92,10 @@ export const FunctionOtlpMetrics$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionOtlpMetricsId$inboundSchema,
+  id: z.literal("otlp_metrics"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

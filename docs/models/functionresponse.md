@@ -34,7 +34,7 @@ const value: models.FunctionAggregateMetrics = {
       "<value 2>",
       "<value 3>",
     ],
-    flushEventLimit: 9419.26,
+    flushEventLimit: 956.12,
     flushMemLimit: "<value>",
     add: [
       {
@@ -496,7 +496,6 @@ const value: models.FunctionEventstats = {
   schema: {
     aggregations: [
       "<value 1>",
-      "<value 2>",
     ],
     groupBys: [
       "<value 1>",
@@ -698,8 +697,7 @@ const value: models.FunctionHandlebar = {
     templates: {
       "key": {
         content: "<value>",
-        description:
-          "overconfidently underneath surface amongst shakily afore anneal stoop",
+        description: "and what appropriate singe within although configuration",
       },
     },
   },
@@ -929,13 +927,11 @@ const value: models.FunctionMask = {
   uischema: {},
   version: "<value>",
   schema: {
-    rules: [
-      {
-        matchRegex: "<value>",
-      },
-    ],
+    rules: [],
     fields: [
       "<value 1>",
+      "<value 2>",
+      "<value 3>",
     ],
     flags: [
       {
@@ -969,7 +965,6 @@ const value: models.FunctionMvExpand = {
   schema: {
     sourceFields: [
       "<value 1>",
-      "<value 2>",
     ],
     targetNames: [
       "<value 1>",
@@ -1003,6 +998,56 @@ const value: models.FunctionMvPull = {
     relativeKeyPath: "<value>",
     relativeValuePath: "<value>",
     targetBagPath: "<value>",
+  },
+};
+```
+
+### `models.FunctionNotificationPolicies`
+
+```typescript
+const value: models.FunctionNotificationPolicies = {
+  filename: "example.file",
+  asyncTimeout: 963.15,
+  criblVersion: "<value>",
+  disabled: true,
+  group: "<value>",
+  handleSignals: false,
+  id: "notification_policies",
+  loadTime: 7086.88,
+  modTime: 7258.07,
+  name: "<value>",
+  sync: false,
+  uischema: {
+    "key": "<value>",
+  },
+  version: "<value>",
+  schema: {
+    policies: [
+      {
+        id: "<id>",
+        waitToGroup: 146.33,
+        groupByLabels: [
+          "<value 1>",
+          "<value 2>",
+        ],
+        conditions: [
+          [
+            {
+              key: "<key>",
+              operator: "=~",
+              value: false,
+            },
+          ],
+          [],
+        ],
+        templateTargetPairs: [
+          {
+            templateId: "<id>",
+            targetId: "<id>",
+          },
+        ],
+      },
+    ],
   },
 };
 ```
@@ -1191,9 +1236,7 @@ const value: models.FunctionPack = {
   },
   version: "<value>",
   schema: {
-    unpackedFields: [
-      "<value 1>",
-    ],
+    unpackedFields: [],
   },
 };
 ```
@@ -1223,9 +1266,7 @@ const value: models.FunctionPivot = {
       "<value 1>",
       "<value 2>",
     ],
-    qualifierFields: [
-      "<value 1>",
-    ],
+    qualifierFields: [],
   },
 };
 ```
@@ -1293,15 +1334,8 @@ const value: models.FunctionRedis = {
   },
   version: "<value>",
   schema: {
-    commands: [
-      {
-        outField: "<value>",
-        command: "<value>",
-        keyExpr: "<value>",
-        argsExpr: "<value>",
-      },
-    ],
-    enableClientSideCaching: true,
+    commands: [],
+    enableClientSideCaching: false,
   },
 };
 ```
@@ -1503,17 +1537,13 @@ const value: models.FunctionSensitiveDataScanner = {
   },
   version: "<value>",
   schema: {
-    rules: [
-      {
-        rulesetId: "<id>",
-      },
-    ],
+    rules: [],
     fields: [
       "<value 1>",
+      "<value 2>",
     ],
     excludeFields: [
       "<value 1>",
-      "<value 2>",
     ],
     flags: [
       {

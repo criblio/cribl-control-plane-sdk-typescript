@@ -5,14 +5,8 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionGenStatsId = {
-  GenStats: "gen_stats",
-} as const;
-export type FunctionGenStatsId = ClosedEnum<typeof FunctionGenStatsId>;
 
 export type GenStatsConfiguration = {
   fields?: Array<string> | undefined;
@@ -22,10 +16,10 @@ export type FunctionGenStats = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionGenStatsId;
+  id: "gen_stats";
   loadTime: number;
   modTime: number;
   name: string;
@@ -34,11 +28,6 @@ export type FunctionGenStats = {
   version: string;
   schema?: GenStatsConfiguration | undefined;
 };
-
-/** @internal */
-export const FunctionGenStatsId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionGenStatsId
-> = z.nativeEnum(FunctionGenStatsId);
 
 /** @internal */
 export const GenStatsConfiguration$inboundSchema: z.ZodType<
@@ -68,10 +57,10 @@ export const FunctionGenStats$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionGenStatsId$inboundSchema,
+  id: z.literal("gen_stats"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

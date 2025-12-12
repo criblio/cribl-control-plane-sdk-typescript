@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputMetricsType = {
-  Metrics: "metrics",
-} as const;
-export type InputMetricsType = ClosedEnum<typeof InputMetricsType>;
 
 export type InputMetricsConnection = {
   pipeline?: string | undefined;
@@ -160,7 +155,7 @@ export type InputMetrics = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputMetricsType;
+  type: "metrics";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -222,15 +217,6 @@ export type InputMetrics = {
   udpSocketRxBufSize?: number | undefined;
   description?: string | undefined;
 };
-
-/** @internal */
-export const InputMetricsType$inboundSchema: z.ZodNativeEnum<
-  typeof InputMetricsType
-> = z.nativeEnum(InputMetricsType);
-/** @internal */
-export const InputMetricsType$outboundSchema: z.ZodNativeEnum<
-  typeof InputMetricsType
-> = InputMetricsType$inboundSchema;
 
 /** @internal */
 export const InputMetricsConnection$inboundSchema: z.ZodType<
@@ -535,7 +521,7 @@ export const InputMetrics$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputMetricsType$inboundSchema,
+  type: z.literal("metrics"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -560,7 +546,7 @@ export const InputMetrics$inboundSchema: z.ZodType<
 /** @internal */
 export type InputMetrics$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "metrics";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -588,7 +574,7 @@ export const InputMetrics$outboundSchema: z.ZodType<
   InputMetrics
 > = z.object({
   id: z.string().optional(),
-  type: InputMetricsType$outboundSchema,
+  type: z.literal("metrics"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

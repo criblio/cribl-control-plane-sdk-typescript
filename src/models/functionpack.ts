@@ -5,20 +5,14 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionPackId = {
-  Pack: "pack",
-} as const;
-export type FunctionPackId = ClosedEnum<typeof FunctionPackId>;
 
 export type FunctionPackSchema = {
   /**
    * List of fields to keep, everything else will be packed
    */
-  unpackedFields?: Array<string> | undefined;
+  unpackedFields: Array<string>;
   /**
    * Name of the (packed) target field
    */
@@ -29,10 +23,10 @@ export type FunctionPack = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionPackId;
+  id: "pack";
   loadTime: number;
   modTime: number;
   name: string;
@@ -43,17 +37,12 @@ export type FunctionPack = {
 };
 
 /** @internal */
-export const FunctionPackId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionPackId
-> = z.nativeEnum(FunctionPackId);
-
-/** @internal */
 export const FunctionPackSchema$inboundSchema: z.ZodType<
   FunctionPackSchema,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  unpackedFields: z.array(z.string()).optional(),
+  unpackedFields: z.array(z.string()),
   target: z.string().default("_pack"),
 });
 
@@ -76,10 +65,10 @@ export const FunctionPack$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionPackId$inboundSchema,
+  id: z.literal("pack"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

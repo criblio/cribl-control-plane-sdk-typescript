@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputChronicleType = {
-  Chronicle: "chronicle",
-} as const;
-export type OutputChronicleType = ClosedEnum<typeof OutputChronicleType>;
 
 export const OutputChronicleAuthenticationMethod = {
   ServiceAccount: "serviceAccount",
@@ -188,7 +183,7 @@ export type OutputChronicle = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputChronicleType;
+  type: "chronicle";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -356,15 +351,6 @@ export type OutputChronicle = {
   pqOnBackpressure?: OutputChronicleQueueFullBehavior | undefined;
   pqControls?: OutputChroniclePqControls | undefined;
 };
-
-/** @internal */
-export const OutputChronicleType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputChronicleType
-> = z.nativeEnum(OutputChronicleType);
-/** @internal */
-export const OutputChronicleType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputChronicleType
-> = OutputChronicleType$inboundSchema;
 
 /** @internal */
 export const OutputChronicleAuthenticationMethod$inboundSchema: z.ZodType<
@@ -675,7 +661,7 @@ export const OutputChronicle$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputChronicleType$inboundSchema,
+  type: z.literal("chronicle"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -737,7 +723,7 @@ export const OutputChronicle$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputChronicle$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "chronicle";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -795,7 +781,7 @@ export const OutputChronicle$outboundSchema: z.ZodType<
   OutputChronicle
 > = z.object({
   id: z.string().optional(),
-  type: OutputChronicleType$outboundSchema,
+  type: z.literal("chronicle"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

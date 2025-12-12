@@ -5,38 +5,32 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionPivotId = {
-  Pivot: "pivot",
-} as const;
-export type FunctionPivotId = ClosedEnum<typeof FunctionPivotId>;
 
 export type SimplePivotConfiguration = {
   /**
    * Fields to be used for the left-most column.
    */
-  labelField?: string | undefined;
+  labelField: string;
   /**
    * Fields with the cell values (i.e. aggregates)
    */
-  dataFields?: Array<string> | undefined;
+  dataFields: Array<string>;
   /**
    * Fields to qualify or group data fields
    */
-  qualifierFields?: Array<string> | undefined;
+  qualifierFields: Array<string>;
 };
 
 export type FunctionPivot = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionPivotId;
+  id: "pivot";
   loadTime: number;
   modTime: number;
   name: string;
@@ -47,19 +41,14 @@ export type FunctionPivot = {
 };
 
 /** @internal */
-export const FunctionPivotId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionPivotId
-> = z.nativeEnum(FunctionPivotId);
-
-/** @internal */
 export const SimplePivotConfiguration$inboundSchema: z.ZodType<
   SimplePivotConfiguration,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  labelField: z.string().optional(),
-  dataFields: z.array(z.string()).optional(),
-  qualifierFields: z.array(z.string()).optional(),
+  labelField: z.string(),
+  dataFields: z.array(z.string()),
+  qualifierFields: z.array(z.string()),
 });
 
 export function simplePivotConfigurationFromJSON(
@@ -81,10 +70,10 @@ export const FunctionPivot$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionPivotId$inboundSchema,
+  id: z.literal("pivot"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

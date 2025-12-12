@@ -5,20 +5,14 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionDistinctId = {
-  Distinct: "distinct",
-} as const;
-export type FunctionDistinctId = ClosedEnum<typeof FunctionDistinctId>;
 
 export type DistinctConfiguration = {
   /**
    * Defines the properties that are concatenated to produce distinct key
    */
-  groupBy?: Array<string> | undefined;
+  groupBy: Array<string>;
   /**
    * maximum number of tracked combinations
    */
@@ -41,10 +35,10 @@ export type FunctionDistinct = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionDistinctId;
+  id: "distinct";
   loadTime: number;
   modTime: number;
   name: string;
@@ -55,17 +49,12 @@ export type FunctionDistinct = {
 };
 
 /** @internal */
-export const FunctionDistinctId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionDistinctId
-> = z.nativeEnum(FunctionDistinctId);
-
-/** @internal */
 export const DistinctConfiguration$inboundSchema: z.ZodType<
   DistinctConfiguration,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  groupBy: z.array(z.string()).optional(),
+  groupBy: z.array(z.string()),
   maxCombinations: z.number().default(10000),
   maxDepth: z.number().default(15),
   isFederated: z.boolean().default(false),
@@ -91,10 +80,10 @@ export const FunctionDistinct$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionDistinctId$inboundSchema,
+  id: z.literal("distinct"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

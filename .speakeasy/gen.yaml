@@ -24,12 +24,13 @@ generation:
   schemas:
     allOfMergeStrategy: shallowMerge
   requestBodyFieldName: ""
+  persistentEdits: {}
   tests:
     generateTests: true
     generateNewTests: false
     skipResponseBodyAssertions: false
 typescript:
-  version: 0.4.0-rc.20
+  version: 0.4.0-rc.23
   acceptHeaderEnum: true
   additionalDependencies:
     dependencies: {}
@@ -74,6 +75,7 @@ typescript:
   multipartArrayFormat: legacy
   outputModelSuffix: output
   packageName: cribl-control-plane
+  preApplyUnionDiscriminators: true
   responseFormat: flat
   sseFlatResponse: false
   templateVersion: v2

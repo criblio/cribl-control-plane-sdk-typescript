@@ -1,5 +1,4 @@
-# HecTokens
-(*sources.hecTokens*)
+# Sources.HecTokens
 
 ## Overview
 
@@ -29,15 +28,18 @@ async function run() {
   const result = await criblControlPlane.sources.hecTokens.create({
     id: "<id>",
     addHecTokenRequest: {
-      description: "bah ick stingy",
-      enabled: false,
+      allowedIndexesAtToken: [
+        "<value 1>",
+      ],
+      description: "toward precedent merry vaguely across ha fooey ingratiate jealously outlying",
+      enabled: true,
       metadata: [
         {
-          name: "<value>",
-          value: "<value>",
+          name: "fieldX",
+          value: "valueX",
         },
       ],
-      token: "<value>",
+      token: "12345678901",
     },
   });
 
@@ -68,15 +70,18 @@ async function run() {
   const res = await sourcesHecTokensCreate(criblControlPlane, {
     id: "<id>",
     addHecTokenRequest: {
-      description: "bah ick stingy",
-      enabled: false,
+      allowedIndexesAtToken: [
+        "<value 1>",
+      ],
+      description: "toward precedent merry vaguely across ha fooey ingratiate jealously outlying",
+      enabled: true,
       metadata: [
         {
-          name: "<value>",
-          value: "<value>",
+          name: "fieldX",
+          value: "valueX",
         },
       ],
-      token: "<value>",
+      token: "12345678901",
     },
   });
   if (res.ok) {
@@ -132,12 +137,15 @@ async function run() {
     id: "<id>",
     token: "<value>",
     updateHecTokenRequest: {
-      description: "by bleakly fortunately phew barring",
-      enabled: false,
+      allowedIndexesAtToken: [
+        "<value 1>",
+      ],
+      description: "once lively fooey who though while dampen please denitrify pish",
+      enabled: true,
       metadata: [
         {
-          name: "<value>",
-          value: "<value>",
+          name: "fieldX",
+          value: "valueX",
         },
       ],
     },
@@ -171,12 +179,15 @@ async function run() {
     id: "<id>",
     token: "<value>",
     updateHecTokenRequest: {
-      description: "by bleakly fortunately phew barring",
-      enabled: false,
+      allowedIndexesAtToken: [
+        "<value 1>",
+      ],
+      description: "once lively fooey who though while dampen please denitrify pish",
+      enabled: true,
       metadata: [
         {
-          name: "<value>",
-          value: "<value>",
+          name: "fieldX",
+          value: "valueX",
         },
       ],
     },

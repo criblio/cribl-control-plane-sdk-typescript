@@ -4,21 +4,15 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputDefaultType = {
-  Default: "default",
-} as const;
-export type OutputDefaultType = ClosedEnum<typeof OutputDefaultType>;
 
 export type OutputDefault = {
   /**
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputDefaultType;
+  type: "default";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -42,22 +36,13 @@ export type OutputDefault = {
 };
 
 /** @internal */
-export const OutputDefaultType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputDefaultType
-> = z.nativeEnum(OutputDefaultType);
-/** @internal */
-export const OutputDefaultType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputDefaultType
-> = OutputDefaultType$inboundSchema;
-
-/** @internal */
 export const OutputDefault$inboundSchema: z.ZodType<
   OutputDefault,
   z.ZodTypeDef,
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputDefaultType$inboundSchema,
+  type: z.literal("default"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -67,7 +52,7 @@ export const OutputDefault$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputDefault$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "default";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -82,7 +67,7 @@ export const OutputDefault$outboundSchema: z.ZodType<
   OutputDefault
 > = z.object({
   id: z.string().optional(),
-  type: OutputDefaultType$outboundSchema,
+  type: z.literal("default"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

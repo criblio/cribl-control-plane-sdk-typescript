@@ -5,14 +5,8 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionSortId = {
-  Sort: "sort",
-} as const;
-export type FunctionSortId = ClosedEnum<typeof FunctionSortId>;
 
 export type SortConfiguration = {
   /**
@@ -22,7 +16,7 @@ export type SortConfiguration = {
   /**
    * The expression can access the events via the 'left' and 'right' properties.
    */
-  comparisonExpression?: string | undefined;
+  comparisonExpression: string;
   /**
    * Limits the output to N (highest/lowest) events
    */
@@ -41,10 +35,10 @@ export type FunctionSort = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionSortId;
+  id: "sort";
   loadTime: number;
   modTime: number;
   name: string;
@@ -55,18 +49,13 @@ export type FunctionSort = {
 };
 
 /** @internal */
-export const FunctionSortId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionSortId
-> = z.nativeEnum(FunctionSortId);
-
-/** @internal */
 export const SortConfiguration$inboundSchema: z.ZodType<
   SortConfiguration,
   z.ZodTypeDef,
   unknown
 > = z.object({
   sortId: z.string().optional(),
-  comparisonExpression: z.string().optional(),
+  comparisonExpression: z.string(),
   topN: z.number().optional(),
   maxEvents: z.number().optional(),
   suppressPreviews: z.boolean().optional(),
@@ -91,10 +80,10 @@ export const FunctionSort$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionSortId$inboundSchema,
+  id: z.literal("sort"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

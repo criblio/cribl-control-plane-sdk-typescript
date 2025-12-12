@@ -5,14 +5,8 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionEvalId = {
-  Eval: "eval",
-} as const;
-export type FunctionEvalId = ClosedEnum<typeof FunctionEvalId>;
 
 export type FunctionEvalAdd = {
   name?: string | undefined;
@@ -45,10 +39,10 @@ export type FunctionEval = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionEvalId;
+  id: "eval";
   loadTime: number;
   modTime: number;
   name: string;
@@ -57,11 +51,6 @@ export type FunctionEval = {
   version: string;
   schema?: FunctionEvalSchema | undefined;
 };
-
-/** @internal */
-export const FunctionEvalId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionEvalId
-> = z.nativeEnum(FunctionEvalId);
 
 /** @internal */
 export const FunctionEvalAdd$inboundSchema: z.ZodType<
@@ -114,10 +103,10 @@ export const FunctionEval$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionEvalId$inboundSchema,
+  id: z.literal("eval"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

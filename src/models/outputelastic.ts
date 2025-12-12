@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputElasticType = {
-  Elastic: "elastic",
-} as const;
-export type OutputElasticType = ClosedEnum<typeof OutputElasticType>;
 
 export type OutputElasticExtraHttpHeader = {
   name?: string | undefined;
@@ -265,7 +260,7 @@ export type OutputElastic = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputElasticType;
+  type: "elastic";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -437,15 +432,6 @@ export type OutputElastic = {
   pqOnBackpressure?: OutputElasticQueueFullBehavior | undefined;
   pqControls?: OutputElasticPqControls | undefined;
 };
-
-/** @internal */
-export const OutputElasticType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputElasticType
-> = z.nativeEnum(OutputElasticType);
-/** @internal */
-export const OutputElasticType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputElasticType
-> = OutputElasticType$inboundSchema;
 
 /** @internal */
 export const OutputElasticExtraHttpHeader$inboundSchema: z.ZodType<
@@ -876,7 +862,7 @@ export const OutputElastic$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputElasticType$inboundSchema,
+  type: z.literal("elastic"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -939,7 +925,7 @@ export const OutputElastic$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputElastic$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "elastic";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -997,7 +983,7 @@ export const OutputElastic$outboundSchema: z.ZodType<
   OutputElastic
 > = z.object({
   id: z.string().optional(),
-  type: OutputElasticType$outboundSchema,
+  type: z.literal("elastic"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

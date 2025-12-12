@@ -6,16 +6,9 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionPublishMetricsId = {
-  PublishMetrics: "publish_metrics",
-} as const;
-export type FunctionPublishMetricsId = ClosedEnum<
-  typeof FunctionPublishMetricsId
->;
 
 export const FunctionPublishMetricsMetricType = {
   /**
@@ -86,10 +79,10 @@ export type FunctionPublishMetrics = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionPublishMetricsId;
+  id: "publish_metrics";
   loadTime: number;
   modTime: number;
   name: string;
@@ -98,11 +91,6 @@ export type FunctionPublishMetrics = {
   version: string;
   schema?: FunctionPublishMetricsSchema | undefined;
 };
-
-/** @internal */
-export const FunctionPublishMetricsId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionPublishMetricsId
-> = z.nativeEnum(FunctionPublishMetricsId);
 
 /** @internal */
 export const FunctionPublishMetricsMetricType$inboundSchema: z.ZodType<
@@ -165,10 +153,10 @@ export const FunctionPublishMetrics$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionPublishMetricsId$inboundSchema,
+  id: z.literal("publish_metrics"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

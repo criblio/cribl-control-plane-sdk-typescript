@@ -6,14 +6,9 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionNumerifyId = {
-  Numerify: "numerify",
-} as const;
-export type FunctionNumerifyId = ClosedEnum<typeof FunctionNumerifyId>;
 
 export const FunctionNumerifyFormat = {
   /**
@@ -55,10 +50,10 @@ export type FunctionNumerify = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionNumerifyId;
+  id: "numerify";
   loadTime: number;
   modTime: number;
   name: string;
@@ -67,11 +62,6 @@ export type FunctionNumerify = {
   version: string;
   schema?: FunctionNumerifySchema | undefined;
 };
-
-/** @internal */
-export const FunctionNumerifyId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionNumerifyId
-> = z.nativeEnum(FunctionNumerifyId);
 
 /** @internal */
 export const FunctionNumerifyFormat$inboundSchema: z.ZodType<
@@ -111,10 +101,10 @@ export const FunctionNumerify$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionNumerifyId$inboundSchema,
+  id: z.literal("numerify"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

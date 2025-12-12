@@ -5,16 +5,8 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionDropDimensionsId = {
-  DropDimensions: "drop_dimensions",
-} as const;
-export type FunctionDropDimensionsId = ClosedEnum<
-  typeof FunctionDropDimensionsId
->;
 
 export type FunctionDropDimensionsSchema = {
   /**
@@ -24,7 +16,7 @@ export type FunctionDropDimensionsSchema = {
   /**
    * One or more dimensions to be dropped. Supports wildcard expressions. Warning: Using wildcard '*' causes all dimensions in the event to be dropped.
    */
-  dropDimensions?: Array<string> | undefined;
+  dropDimensions: Array<string>;
   /**
    * Flush aggregations when an input stream is closed. If disabled, aggregations are flushed based on Time Window Settings instead.
    */
@@ -35,10 +27,10 @@ export type FunctionDropDimensions = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionDropDimensionsId;
+  id: "drop_dimensions";
   loadTime: number;
   modTime: number;
   name: string;
@@ -49,18 +41,13 @@ export type FunctionDropDimensions = {
 };
 
 /** @internal */
-export const FunctionDropDimensionsId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionDropDimensionsId
-> = z.nativeEnum(FunctionDropDimensionsId);
-
-/** @internal */
 export const FunctionDropDimensionsSchema$inboundSchema: z.ZodType<
   FunctionDropDimensionsSchema,
   z.ZodTypeDef,
   unknown
 > = z.object({
   timeWindow: z.string().default("10s"),
-  dropDimensions: z.array(z.string()).optional(),
+  dropDimensions: z.array(z.string()),
   flushOnInputClose: z.boolean().default(true),
 });
 
@@ -83,10 +70,10 @@ export const FunctionDropDimensions$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionDropDimensionsId$inboundSchema,
+  id: z.literal("drop_dimensions"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

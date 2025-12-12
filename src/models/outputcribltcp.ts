@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputCriblTcpType = {
-  CriblTcp: "cribl_tcp",
-} as const;
-export type OutputCriblTcpType = ClosedEnum<typeof OutputCriblTcpType>;
 
 /**
  * Codec to use to compress the data before sending
@@ -231,7 +226,7 @@ export type OutputCriblTcp = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputCriblTcpType;
+  type: "cribl_tcp";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -360,15 +355,6 @@ export type OutputCriblTcp = {
   pqOnBackpressure?: OutputCriblTcpQueueFullBehavior | undefined;
   pqControls?: OutputCriblTcpPqControls | undefined;
 };
-
-/** @internal */
-export const OutputCriblTcpType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputCriblTcpType
-> = z.nativeEnum(OutputCriblTcpType);
-/** @internal */
-export const OutputCriblTcpType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputCriblTcpType
-> = OutputCriblTcpType$inboundSchema;
 
 /** @internal */
 export const OutputCriblTcpCompression$inboundSchema: z.ZodType<
@@ -679,7 +665,7 @@ export const OutputCriblTcp$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputCriblTcpType$inboundSchema,
+  type: z.literal("cribl_tcp"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -724,7 +710,7 @@ export const OutputCriblTcp$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputCriblTcp$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "cribl_tcp";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -768,7 +754,7 @@ export const OutputCriblTcp$outboundSchema: z.ZodType<
   OutputCriblTcp
 > = z.object({
   id: z.string().optional(),
-  type: OutputCriblTcpType$outboundSchema,
+  type: z.literal("cribl_tcp"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

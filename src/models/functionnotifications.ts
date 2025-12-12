@@ -5,40 +5,32 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionNotificationsId = {
-  Notifications: "notifications",
-} as const;
-export type FunctionNotificationsId = ClosedEnum<
-  typeof FunctionNotificationsId
->;
 
 export type FunctionNotificationsSchema = {
   /**
    * Notification ID
    */
-  id?: string | undefined;
+  id: string;
   /**
    * Notification event state field name
    */
-  field?: string | undefined;
+  field: string;
   /**
    * Toggle deduplication.
    */
-  deduplicate?: boolean | undefined;
+  deduplicate: boolean;
 };
 
 export type FunctionNotifications = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionNotificationsId;
+  id: "notifications";
   loadTime: number;
   modTime: number;
   name: string;
@@ -49,19 +41,14 @@ export type FunctionNotifications = {
 };
 
 /** @internal */
-export const FunctionNotificationsId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionNotificationsId
-> = z.nativeEnum(FunctionNotificationsId);
-
-/** @internal */
 export const FunctionNotificationsSchema$inboundSchema: z.ZodType<
   FunctionNotificationsSchema,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  id: z.string().optional(),
-  field: z.string().optional(),
-  deduplicate: z.boolean().optional(),
+  id: z.string(),
+  field: z.string(),
+  deduplicate: z.boolean(),
 });
 
 export function functionNotificationsSchemaFromJSON(
@@ -83,10 +70,10 @@ export const FunctionNotifications$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionNotificationsId$inboundSchema,
+  id: z.literal("notifications"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

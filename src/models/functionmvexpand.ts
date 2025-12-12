@@ -6,14 +6,9 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionMvExpandId = {
-  MvExpand: "mv_expand",
-} as const;
-export type FunctionMvExpandId = ClosedEnum<typeof FunctionMvExpandId>;
 
 /**
  * decides if bag-values are expanded to bags or arrays
@@ -37,7 +32,7 @@ export type FunctionMvExpandSchema = {
   /**
    * Array of property-/field-names to expand
    */
-  sourceFields?: Array<string> | undefined;
+  sourceFields: Array<string>;
   /**
    * stores the value as new target field name
    */
@@ -60,10 +55,10 @@ export type FunctionMvExpand = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionMvExpandId;
+  id: "mv_expand";
   loadTime: number;
   modTime: number;
   name: string;
@@ -72,11 +67,6 @@ export type FunctionMvExpand = {
   version: string;
   schema?: FunctionMvExpandSchema | undefined;
 };
-
-/** @internal */
-export const FunctionMvExpandId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionMvExpandId
-> = z.nativeEnum(FunctionMvExpandId);
 
 /** @internal */
 export const BagExpansionMode$inboundSchema: z.ZodType<
@@ -91,7 +81,7 @@ export const FunctionMvExpandSchema$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  sourceFields: z.array(z.string()).optional(),
+  sourceFields: z.array(z.string()),
   targetNames: z.array(z.string()).optional(),
   rowLimit: z.number().default(9007199254740991),
   itemIndexName: z.string().optional(),
@@ -117,10 +107,10 @@ export const FunctionMvExpand$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionMvExpandId$inboundSchema,
+  id: z.literal("mv_expand"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

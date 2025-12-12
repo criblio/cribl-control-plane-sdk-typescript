@@ -26,8 +26,7 @@ let value: FunctionHandlebar = {
     templates: {
       "key": {
         content: "<value>",
-        description:
-          "overconfidently underneath surface amongst shakily afore anneal stoop",
+        description: "and what appropriate singe within although configuration",
       },
     },
   },
@@ -41,10 +40,10 @@ let value: FunctionHandlebar = {
 | `filename`                                                             | *string*                                                               | :heavy_check_mark:                                                     | N/A                                                                    |
 | `asyncTimeout`                                                         | *number*                                                               | :heavy_minus_sign:                                                     | N/A                                                                    |
 | `criblVersion`                                                         | *string*                                                               | :heavy_minus_sign:                                                     | N/A                                                                    |
-| `disabled`                                                             | *boolean*                                                              | :heavy_check_mark:                                                     | N/A                                                                    |
+| `disabled`                                                             | *boolean*                                                              | :heavy_minus_sign:                                                     | N/A                                                                    |
 | `group`                                                                | *string*                                                               | :heavy_check_mark:                                                     | N/A                                                                    |
 | `handleSignals`                                                        | *boolean*                                                              | :heavy_minus_sign:                                                     | N/A                                                                    |
-| `id`                                                                   | [models.FunctionHandlebarId](../models/functionhandlebarid.md)         | :heavy_check_mark:                                                     | N/A                                                                    |
+| `id`                                                                   | *"handlebar"*                                                          | :heavy_check_mark:                                                     | N/A                                                                    |
 | `loadTime`                                                             | *number*                                                               | :heavy_check_mark:                                                     | N/A                                                                    |
 | `modTime`                                                              | *number*                                                               | :heavy_check_mark:                                                     | N/A                                                                    |
 | `name`                                                                 | *string*                                                               | :heavy_check_mark:                                                     | N/A                                                                    |

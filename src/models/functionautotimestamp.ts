@@ -6,16 +6,9 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionAutoTimestampId = {
-  AutoTimestamp: "auto_timestamp",
-} as const;
-export type FunctionAutoTimestampId = ClosedEnum<
-  typeof FunctionAutoTimestampId
->;
 
 /**
  * How to set the time field if no timestamp is found
@@ -98,10 +91,10 @@ export type FunctionAutoTimestamp = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionAutoTimestampId;
+  id: "auto_timestamp";
   loadTime: number;
   modTime: number;
   name: string;
@@ -110,11 +103,6 @@ export type FunctionAutoTimestamp = {
   version: string;
   schema?: FunctionAutoTimestampSchema | undefined;
 };
-
-/** @internal */
-export const FunctionAutoTimestampId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionAutoTimestampId
-> = z.nativeEnum(FunctionAutoTimestampId);
 
 /** @internal */
 export const DefaultTime$inboundSchema: z.ZodType<
@@ -181,10 +169,10 @@ export const FunctionAutoTimestamp$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionAutoTimestampId$inboundSchema,
+  id: z.literal("auto_timestamp"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

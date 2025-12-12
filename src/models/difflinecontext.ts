@@ -4,26 +4,15 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export const DiffLineContextType = {
-  Context: "context",
-} as const;
-export type DiffLineContextType = ClosedEnum<typeof DiffLineContextType>;
-
 export type DiffLineContext = {
-  type: DiffLineContextType;
+  type: "context";
   newNumber: number;
   oldNumber: number;
   content: string;
 };
-
-/** @internal */
-export const DiffLineContextType$inboundSchema: z.ZodNativeEnum<
-  typeof DiffLineContextType
-> = z.nativeEnum(DiffLineContextType);
 
 /** @internal */
 export const DiffLineContext$inboundSchema: z.ZodType<
@@ -31,7 +20,7 @@ export const DiffLineContext$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: DiffLineContextType$inboundSchema,
+  type: z.literal("context"),
   newNumber: z.number(),
   oldNumber: z.number(),
   content: z.string(),

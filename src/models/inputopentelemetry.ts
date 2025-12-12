@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputOpenTelemetryType = {
-  OpenTelemetry: "open_telemetry",
-} as const;
-export type InputOpenTelemetryType = ClosedEnum<typeof InputOpenTelemetryType>;
 
 export type InputOpenTelemetryConnection = {
   pipeline?: string | undefined;
@@ -242,7 +237,7 @@ export type InputOpenTelemetry = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputOpenTelemetryType;
+  type: "open_telemetry";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -393,15 +388,6 @@ export type InputOpenTelemetry = {
    */
   extractLogs?: boolean | undefined;
 };
-
-/** @internal */
-export const InputOpenTelemetryType$inboundSchema: z.ZodNativeEnum<
-  typeof InputOpenTelemetryType
-> = z.nativeEnum(InputOpenTelemetryType);
-/** @internal */
-export const InputOpenTelemetryType$outboundSchema: z.ZodNativeEnum<
-  typeof InputOpenTelemetryType
-> = InputOpenTelemetryType$inboundSchema;
 
 /** @internal */
 export const InputOpenTelemetryConnection$inboundSchema: z.ZodType<
@@ -852,7 +838,7 @@ export const InputOpenTelemetry$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputOpenTelemetryType$inboundSchema,
+  type: z.literal("open_telemetry"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -907,7 +893,7 @@ export const InputOpenTelemetry$inboundSchema: z.ZodType<
 /** @internal */
 export type InputOpenTelemetry$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "open_telemetry";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -961,7 +947,7 @@ export const InputOpenTelemetry$outboundSchema: z.ZodType<
   InputOpenTelemetry
 > = z.object({
   id: z.string().optional(),
-  type: InputOpenTelemetryType$outboundSchema,
+  type: z.literal("open_telemetry"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

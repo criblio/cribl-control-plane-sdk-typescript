@@ -5,7 +5,7 @@
 ```typescript
 import { ConfigGroupType } from "cribl-control-plane/models";
 
-let value: ConfigGroupType = "local_search";
+let value: ConfigGroupType = "lake_access";
 ```
 
 ## Values
@@ -13,5 +13,5 @@ let value: ConfigGroupType = "local_search";
 This is an open enum. Unrecognized values will be captured as the `Unrecognized<string>` branded type.
 
 ```typescript
-"lake_access" | "local_search" | Unrecognized<string>
+"edge" | "stream" | "search" | "lake_access" | "local_search" | Unrecognized<string>
 ```

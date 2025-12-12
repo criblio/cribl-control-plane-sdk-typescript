@@ -5,16 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputGoogleCloudStorageType = {
-  GoogleCloudStorage: "google_cloud_storage",
-} as const;
-export type OutputGoogleCloudStorageType = ClosedEnum<
-  typeof OutputGoogleCloudStorageType
->;
 
 /**
  * Signature version to use for signing Google Cloud Storage requests
@@ -268,7 +261,7 @@ export type OutputGoogleCloudStorage = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputGoogleCloudStorageType;
+  type: "google_cloud_storage";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -484,15 +477,6 @@ export type OutputGoogleCloudStorage = {
 };
 
 /** @internal */
-export const OutputGoogleCloudStorageType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputGoogleCloudStorageType
-> = z.nativeEnum(OutputGoogleCloudStorageType);
-/** @internal */
-export const OutputGoogleCloudStorageType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputGoogleCloudStorageType
-> = OutputGoogleCloudStorageType$inboundSchema;
-
-/** @internal */
 export const OutputGoogleCloudStorageSignatureVersion$inboundSchema: z.ZodType<
   OutputGoogleCloudStorageSignatureVersion,
   z.ZodTypeDef,
@@ -697,7 +681,7 @@ export const OutputGoogleCloudStorage$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputGoogleCloudStorageType$inboundSchema,
+  type: z.literal("google_cloud_storage"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -771,7 +755,7 @@ export const OutputGoogleCloudStorage$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputGoogleCloudStorage$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "google_cloud_storage";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -836,7 +820,7 @@ export const OutputGoogleCloudStorage$outboundSchema: z.ZodType<
   OutputGoogleCloudStorage
 > = z.object({
   id: z.string().optional(),
-  type: OutputGoogleCloudStorageType$outboundSchema,
+  type: z.literal("google_cloud_storage"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputClickHouseType = {
-  ClickHouse: "click_house",
-} as const;
-export type OutputClickHouseType = ClosedEnum<typeof OutputClickHouseType>;
 
 export const OutputClickHouseAuthenticationType = {
   None: "none",
@@ -307,7 +302,7 @@ export type OutputClickHouse = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputClickHouseType;
+  type: "click_house";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -522,15 +517,6 @@ export type OutputClickHouse = {
   pqOnBackpressure?: OutputClickHouseQueueFullBehavior | undefined;
   pqControls?: OutputClickHousePqControls | undefined;
 };
-
-/** @internal */
-export const OutputClickHouseType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputClickHouseType
-> = z.nativeEnum(OutputClickHouseType);
-/** @internal */
-export const OutputClickHouseType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputClickHouseType
-> = OutputClickHouseType$inboundSchema;
 
 /** @internal */
 export const OutputClickHouseAuthenticationType$inboundSchema: z.ZodType<
@@ -1041,7 +1027,7 @@ export const OutputClickHouse$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputClickHouseType$inboundSchema,
+  type: z.literal("click_house"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -1120,7 +1106,7 @@ export const OutputClickHouse$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputClickHouse$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "click_house";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -1194,7 +1180,7 @@ export const OutputClickHouse$outboundSchema: z.ZodType<
   OutputClickHouse
 > = z.object({
   id: z.string().optional(),
-  type: OutputClickHouseType$outboundSchema,
+  type: z.literal("click_house"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

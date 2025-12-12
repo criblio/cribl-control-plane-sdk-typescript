@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputSqsType = {
-  Sqs: "sqs",
-} as const;
-export type OutputSqsType = ClosedEnum<typeof OutputSqsType>;
 
 /**
  * The queue type used (or created). Defaults to Standard.
@@ -161,7 +156,7 @@ export type OutputSqs = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputSqsType;
+  type: "sqs";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -309,15 +304,6 @@ export type OutputSqs = {
 };
 
 /** @internal */
-export const OutputSqsType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputSqsType
-> = z.nativeEnum(OutputSqsType);
-/** @internal */
-export const OutputSqsType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputSqsType
-> = OutputSqsType$inboundSchema;
-
-/** @internal */
 export const OutputSqsQueueType$inboundSchema: z.ZodType<
   OutputSqsQueueType,
   z.ZodTypeDef,
@@ -448,7 +434,7 @@ export const OutputSqs$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputSqsType$inboundSchema,
+  type: z.literal("sqs"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -494,7 +480,7 @@ export const OutputSqs$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputSqs$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "sqs";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -543,7 +529,7 @@ export const OutputSqs$outboundSchema: z.ZodType<
   OutputSqs
 > = z.object({
   id: z.string().optional(),
-  type: OutputSqsType$outboundSchema,
+  type: z.literal("sqs"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

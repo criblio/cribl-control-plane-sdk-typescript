@@ -5,20 +5,14 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionEventstatsId = {
-  Eventstats: "eventstats",
-} as const;
-export type FunctionEventstatsId = ClosedEnum<typeof FunctionEventstatsId>;
 
 export type EventstatsConfiguration = {
   /**
    * Aggregate function(s) to perform on events. E.g., sum(bytes).where(action=='REJECT').as(TotalBytes)
    */
-  aggregations?: Array<string> | undefined;
+  aggregations: Array<string>;
   /**
    * Fields to group aggregates by, supports wildcard expressions.
    */
@@ -37,10 +31,10 @@ export type FunctionEventstats = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionEventstatsId;
+  id: "eventstats";
   loadTime: number;
   modTime: number;
   name: string;
@@ -51,17 +45,12 @@ export type FunctionEventstats = {
 };
 
 /** @internal */
-export const FunctionEventstatsId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionEventstatsId
-> = z.nativeEnum(FunctionEventstatsId);
-
-/** @internal */
 export const EventstatsConfiguration$inboundSchema: z.ZodType<
   EventstatsConfiguration,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  aggregations: z.array(z.string()).optional(),
+  aggregations: z.array(z.string()),
   groupBys: z.array(z.string()).optional(),
   maxEvents: z.number().default(50000),
   flushOnInputClose: z.boolean().default(false),
@@ -86,10 +75,10 @@ export const FunctionEventstats$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionEventstatsId$inboundSchema,
+  id: z.literal("eventstats"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputPrometheusType = {
-  Prometheus: "prometheus",
-} as const;
-export type OutputPrometheusType = ClosedEnum<typeof OutputPrometheusType>;
 
 export type OutputPrometheusExtraHttpHeader = {
   name?: string | undefined;
@@ -211,7 +206,7 @@ export type OutputPrometheus = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputPrometheusType;
+  type: "prometheus";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -398,15 +393,6 @@ export type OutputPrometheus = {
    */
   oauthHeaders?: Array<OutputPrometheusOauthHeader> | undefined;
 };
-
-/** @internal */
-export const OutputPrometheusType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputPrometheusType
-> = z.nativeEnum(OutputPrometheusType);
-/** @internal */
-export const OutputPrometheusType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputPrometheusType
-> = OutputPrometheusType$inboundSchema;
 
 /** @internal */
 export const OutputPrometheusExtraHttpHeader$inboundSchema: z.ZodType<
@@ -758,7 +744,7 @@ export const OutputPrometheus$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputPrometheusType$inboundSchema,
+  type: z.literal("prometheus"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -824,7 +810,7 @@ export const OutputPrometheus$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputPrometheus$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "prometheus";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -888,7 +874,7 @@ export const OutputPrometheus$outboundSchema: z.ZodType<
   OutputPrometheus
 > = z.object({
   id: z.string().optional(),
-  type: OutputPrometheusType$outboundSchema,
+  type: z.literal("prometheus"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

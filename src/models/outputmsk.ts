@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputMskType = {
-  Msk: "msk",
-} as const;
-export type OutputMskType = ClosedEnum<typeof OutputMskType>;
 
 /**
  * Control the number of required acknowledgments.
@@ -381,7 +376,7 @@ export type OutputMsk = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputMskType;
+  type: "msk";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -565,15 +560,6 @@ export type OutputMsk = {
   pqOnBackpressure?: OutputMskQueueFullBehavior | undefined;
   pqControls?: OutputMskPqControls | undefined;
 };
-
-/** @internal */
-export const OutputMskType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputMskType
-> = z.nativeEnum(OutputMskType);
-/** @internal */
-export const OutputMskType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputMskType
-> = OutputMskType$inboundSchema;
 
 /** @internal */
 export const OutputMskAcknowledgments$inboundSchema: z.ZodType<
@@ -1050,7 +1036,7 @@ export const OutputMsk$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputMskType$inboundSchema,
+  type: z.literal("msk"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -1109,7 +1095,7 @@ export const OutputMsk$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputMsk$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "msk";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -1171,7 +1157,7 @@ export const OutputMsk$outboundSchema: z.ZodType<
   OutputMsk
 > = z.object({
   id: z.string().optional(),
-  type: OutputMskType$outboundSchema,
+  type: z.literal("msk"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

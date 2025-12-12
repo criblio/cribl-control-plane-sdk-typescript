@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputWizWebhookType = {
-  WizWebhook: "wiz_webhook",
-} as const;
-export type InputWizWebhookType = ClosedEnum<typeof InputWizWebhookType>;
 
 export type InputWizWebhookConnection = {
   pipeline?: string | undefined;
@@ -182,7 +177,7 @@ export type InputWizWebhook = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputWizWebhookType;
+  type: "wiz_webhook";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -292,15 +287,6 @@ export type InputWizWebhook = {
   authTokensExt?: Array<InputWizWebhookAuthTokensExt> | undefined;
   description?: string | undefined;
 };
-
-/** @internal */
-export const InputWizWebhookType$inboundSchema: z.ZodNativeEnum<
-  typeof InputWizWebhookType
-> = z.nativeEnum(InputWizWebhookType);
-/** @internal */
-export const InputWizWebhookType$outboundSchema: z.ZodNativeEnum<
-  typeof InputWizWebhookType
-> = InputWizWebhookType$inboundSchema;
 
 /** @internal */
 export const InputWizWebhookConnection$inboundSchema: z.ZodType<
@@ -706,7 +692,7 @@ export const InputWizWebhook$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputWizWebhookType$inboundSchema,
+  type: z.literal("wiz_webhook"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -746,7 +732,7 @@ export const InputWizWebhook$inboundSchema: z.ZodType<
 /** @internal */
 export type InputWizWebhook$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "wiz_webhook";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -786,7 +772,7 @@ export const InputWizWebhook$outboundSchema: z.ZodType<
   InputWizWebhook
 > = z.object({
   id: z.string().optional(),
-  type: InputWizWebhookType$outboundSchema,
+  type: z.literal("wiz_webhook"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

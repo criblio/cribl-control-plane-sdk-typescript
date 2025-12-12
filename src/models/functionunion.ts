@@ -5,34 +5,28 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionUnionId = {
-  Union: "union",
-} as const;
-export type FunctionUnionId = ClosedEnum<typeof FunctionUnionId>;
 
 export type UnionConfiguration = {
   /**
    * The id for this search job.
    */
-  searchJobId?: string | undefined;
+  searchJobId: string;
   /**
    * The stages we are unioning with.
    */
-  stageIds?: Array<string> | undefined;
+  stageIds: Array<string>;
 };
 
 export type FunctionUnion = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionUnionId;
+  id: "union";
   loadTime: number;
   modTime: number;
   name: string;
@@ -43,18 +37,13 @@ export type FunctionUnion = {
 };
 
 /** @internal */
-export const FunctionUnionId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionUnionId
-> = z.nativeEnum(FunctionUnionId);
-
-/** @internal */
 export const UnionConfiguration$inboundSchema: z.ZodType<
   UnionConfiguration,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  searchJobId: z.string().optional(),
-  stageIds: z.array(z.string()).optional(),
+  searchJobId: z.string(),
+  stageIds: z.array(z.string()),
 });
 
 export function unionConfigurationFromJSON(
@@ -76,10 +65,10 @@ export const FunctionUnion$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionUnionId$inboundSchema,
+  id: z.literal("union"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

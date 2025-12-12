@@ -5,24 +5,18 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionWindowId = {
-  Window: "window",
-} as const;
-export type FunctionWindowId = ClosedEnum<typeof FunctionWindowId>;
 
 export type FunctionWindowSchema = {
   /**
    * Identifies the unique ID, used for a event window
    */
-  eventWindowId?: number | undefined;
+  eventWindowId: number;
   /**
    * All window functions, tracked by this event window
    */
-  registeredFunctions?: Array<string> | undefined;
+  registeredFunctions: Array<string>;
   /**
    * Number of events to keep before the current event in the window
    */
@@ -37,10 +31,10 @@ export type FunctionWindow = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionWindowId;
+  id: "window";
   loadTime: number;
   modTime: number;
   name: string;
@@ -51,18 +45,13 @@ export type FunctionWindow = {
 };
 
 /** @internal */
-export const FunctionWindowId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionWindowId
-> = z.nativeEnum(FunctionWindowId);
-
-/** @internal */
 export const FunctionWindowSchema$inboundSchema: z.ZodType<
   FunctionWindowSchema,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  eventWindowId: z.number().optional(),
-  registeredFunctions: z.array(z.string()).optional(),
+  eventWindowId: z.number(),
+  registeredFunctions: z.array(z.string()),
   tailEventCount: z.number().default(0),
   headEventCount: z.number().default(0),
 });
@@ -86,10 +75,10 @@ export const FunctionWindow$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionWindowId$inboundSchema,
+  id: z.literal("window"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

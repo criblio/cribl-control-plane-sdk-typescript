@@ -5,16 +5,8 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionSensitiveDataScannerId = {
-  SensitiveDataScanner: "sensitive_data_scanner",
-} as const;
-export type FunctionSensitiveDataScannerId = ClosedEnum<
-  typeof FunctionSensitiveDataScannerId
->;
 
 export type FunctionSensitiveDataScannerRule = {
   /**
@@ -34,7 +26,7 @@ export type FunctionSensitiveDataScannerFlag = {
 };
 
 export type FunctionSensitiveDataScannerSchema = {
-  rules?: Array<FunctionSensitiveDataScannerRule> | undefined;
+  rules: Array<FunctionSensitiveDataScannerRule>;
   /**
    * Rulesets act on the events contained in these fields. Mitigation expressions apply to the scan results. Supports wildcards (*).
    */
@@ -57,10 +49,10 @@ export type FunctionSensitiveDataScanner = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionSensitiveDataScannerId;
+  id: "sensitive_data_scanner";
   loadTime: number;
   modTime: number;
   name: string;
@@ -69,11 +61,6 @@ export type FunctionSensitiveDataScanner = {
   version: string;
   schema?: FunctionSensitiveDataScannerSchema | undefined;
 };
-
-/** @internal */
-export const FunctionSensitiveDataScannerId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionSensitiveDataScannerId
-> = z.nativeEnum(FunctionSensitiveDataScannerId);
 
 /** @internal */
 export const FunctionSensitiveDataScannerRule$inboundSchema: z.ZodType<
@@ -122,8 +109,7 @@ export const FunctionSensitiveDataScannerSchema$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  rules: z.array(z.lazy(() => FunctionSensitiveDataScannerRule$inboundSchema))
-    .optional(),
+  rules: z.array(z.lazy(() => FunctionSensitiveDataScannerRule$inboundSchema)),
   fields: z.array(z.string()).optional(),
   excludeFields: z.array(z.string()).optional(),
   flags: z.array(z.lazy(() => FunctionSensitiveDataScannerFlag$inboundSchema))
@@ -151,10 +137,10 @@ export const FunctionSensitiveDataScanner$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionSensitiveDataScannerId$inboundSchema,
+  id: z.literal("sensitive_data_scanner"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

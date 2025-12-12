@@ -9,14 +9,9 @@ import {
   safeParse,
 } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionDnsLookupId = {
-  DnsLookup: "dns_lookup",
-} as const;
-export type FunctionDnsLookupId = ClosedEnum<typeof FunctionDnsLookupId>;
 
 /**
  * The DNS record type (RR) to return. Defaults to 'A'.
@@ -162,10 +157,10 @@ export type FunctionDnsLookup = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionDnsLookupId;
+  id: "dns_lookup";
   loadTime: number;
   modTime: number;
   name: string;
@@ -174,11 +169,6 @@ export type FunctionDnsLookup = {
   version: string;
   schema?: FunctionDnsLookupSchema | undefined;
 };
-
-/** @internal */
-export const FunctionDnsLookupId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionDnsLookupId
-> = z.nativeEnum(FunctionDnsLookupId);
 
 /** @internal */
 export const ResourceRecordType$inboundSchema: z.ZodType<
@@ -277,10 +267,10 @@ export const FunctionDnsLookup$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionDnsLookupId$inboundSchema,
+  id: z.literal("dns_lookup"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

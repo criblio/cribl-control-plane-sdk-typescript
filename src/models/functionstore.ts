@@ -5,14 +5,8 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionStoreId = {
-  Store: "store",
-} as const;
-export type FunctionStoreId = ClosedEnum<typeof FunctionStoreId>;
 
 /**
  * Mapping event property names to output field names
@@ -66,10 +60,10 @@ export type FunctionStore = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionStoreId;
+  id: "store";
   loadTime: number;
   modTime: number;
   name: string;
@@ -78,11 +72,6 @@ export type FunctionStore = {
   version: string;
   schema?: StoreFunctionConfiguration | undefined;
 };
-
-/** @internal */
-export const FunctionStoreId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionStoreId
-> = z.nativeEnum(FunctionStoreId);
 
 /** @internal */
 export const MappingOfFieldNames$inboundSchema: z.ZodType<
@@ -138,10 +127,10 @@ export const FunctionStore$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionStoreId$inboundSchema,
+  id: z.literal("store"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

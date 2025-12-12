@@ -6,16 +6,9 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionAggregateMetricsId = {
-  AggregateMetrics: "aggregate_metrics",
-} as const;
-export type FunctionAggregateMetricsId = ClosedEnum<
-  typeof FunctionAggregateMetricsId
->;
 
 /**
  * The output metric type
@@ -79,7 +72,7 @@ export type FunctionAggregateMetricsSchema = {
   /**
    * Combination of Aggregation function and output metric type
    */
-  aggregations?: Array<Aggregation> | undefined;
+  aggregations: Array<Aggregation>;
   /**
    * Optional: One or more dimensions to group aggregates by. Supports wildcard expressions. Wrap dimension names in quotes if using literal identifiers, such as 'service.name'. Warning: Using wildcard '*' causes all dimensions in the event to be included, which can result in high cardinality and increased memory usage. Exclude dimensions that can result in high cardinality before using wildcards. Example: !_time, !_numericValue, *
    */
@@ -114,10 +107,10 @@ export type FunctionAggregateMetrics = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionAggregateMetricsId;
+  id: "aggregate_metrics";
   loadTime: number;
   modTime: number;
   name: string;
@@ -126,11 +119,6 @@ export type FunctionAggregateMetrics = {
   version: string;
   schema?: FunctionAggregateMetricsSchema | undefined;
 };
-
-/** @internal */
-export const FunctionAggregateMetricsId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionAggregateMetricsId
-> = z.nativeEnum(FunctionAggregateMetricsId);
 
 /** @internal */
 export const FunctionAggregateMetricsMetricType$inboundSchema: z.ZodType<
@@ -192,7 +180,7 @@ export const FunctionAggregateMetricsSchema$inboundSchema: z.ZodType<
   sufficientStatsOnly: z.boolean().default(false),
   prefix: z.string().optional(),
   timeWindow: z.string().default("10s"),
-  aggregations: z.array(z.lazy(() => Aggregation$inboundSchema)).optional(),
+  aggregations: z.array(z.lazy(() => Aggregation$inboundSchema)),
   groupbys: z.array(z.string()).optional(),
   flushEventLimit: z.number().optional(),
   flushMemLimit: z.string().optional(),
@@ -222,10 +210,10 @@ export const FunctionAggregateMetrics$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionAggregateMetricsId$inboundSchema,
+  id: z.literal("aggregate_metrics"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

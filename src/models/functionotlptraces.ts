@@ -6,14 +6,9 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionOtlpTracesId = {
-  OtlpTraces: "otlp_traces",
-} as const;
-export type FunctionOtlpTracesId = ClosedEnum<typeof FunctionOtlpTracesId>;
 
 export const FunctionOTLPTracesOTLPVersion = {
   /**
@@ -42,10 +37,10 @@ export type FunctionOtlpTraces = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionOtlpTracesId;
+  id: "otlp_traces";
   loadTime: number;
   modTime: number;
   name: string;
@@ -54,11 +49,6 @@ export type FunctionOtlpTraces = {
   version: string;
   schema?: FunctionOtlpTracesSchema | undefined;
 };
-
-/** @internal */
-export const FunctionOtlpTracesId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionOtlpTracesId
-> = z.nativeEnum(FunctionOtlpTracesId);
 
 /** @internal */
 export const FunctionOTLPTracesOTLPVersion$inboundSchema: z.ZodType<
@@ -97,10 +87,10 @@ export const FunctionOtlpTraces$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionOtlpTracesId$inboundSchema,
+  id: z.literal("otlp_traces"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

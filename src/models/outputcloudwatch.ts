@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputCloudwatchType = {
-  Cloudwatch: "cloudwatch",
-} as const;
-export type OutputCloudwatchType = ClosedEnum<typeof OutputCloudwatchType>;
 
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
@@ -131,7 +126,7 @@ export type OutputCloudwatch = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputCloudwatchType;
+  type: "cloudwatch";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -259,15 +254,6 @@ export type OutputCloudwatch = {
 };
 
 /** @internal */
-export const OutputCloudwatchType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputCloudwatchType
-> = z.nativeEnum(OutputCloudwatchType);
-/** @internal */
-export const OutputCloudwatchType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputCloudwatchType
-> = OutputCloudwatchType$inboundSchema;
-
-/** @internal */
 export const OutputCloudwatchAuthenticationMethod$inboundSchema: z.ZodType<
   OutputCloudwatchAuthenticationMethod,
   z.ZodTypeDef,
@@ -372,7 +358,7 @@ export const OutputCloudwatch$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputCloudwatchType$inboundSchema,
+  type: z.literal("cloudwatch"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -416,7 +402,7 @@ export const OutputCloudwatch$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputCloudwatch$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "cloudwatch";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -460,7 +446,7 @@ export const OutputCloudwatch$outboundSchema: z.ZodType<
   OutputCloudwatch
 > = z.object({
   id: z.string().optional(),
-  type: OutputCloudwatchType$outboundSchema,
+  type: z.literal("cloudwatch"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

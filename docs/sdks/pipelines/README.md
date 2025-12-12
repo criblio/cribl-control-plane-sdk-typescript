@@ -1,5 +1,4 @@
 # Pipelines
-(*pipelines*)
 
 ## Overview
 
@@ -107,29 +106,14 @@ const criblControlPlane = new CriblControlPlane({
 
 async function run() {
   const result = await criblControlPlane.pipelines.create({
-    id: "<id>",
+    id: "empty-pipeline",
     conf: {
-      asyncFuncTimeout: 905091,
-      description: "next tightly positively",
-      streamtags: [
-        "<value 1>",
-      ],
-      functions: [
-        {
-          id: "<id>",
-          description: "academics woot finally woot queasy bah",
-          disabled: false,
-          final: false,
-          conf: {},
-          groupId: "<id>",
-        },
-      ],
+      asyncFuncTimeout: 1000,
+      description: "",
+      streamtags: [],
+      functions: [],
       groups: {
-        "key": {
-          name: "<value>",
-          description: "yuck terribly ostrich enhance sentimental strictly whereas before reboot sleet",
-          disabled: true,
-        },
+
       },
     },
   });
@@ -159,29 +143,14 @@ const criblControlPlane = new CriblControlPlaneCore({
 
 async function run() {
   const res = await pipelinesCreate(criblControlPlane, {
-    id: "<id>",
+    id: "empty-pipeline",
     conf: {
-      asyncFuncTimeout: 905091,
-      description: "next tightly positively",
-      streamtags: [
-        "<value 1>",
-      ],
-      functions: [
-        {
-          id: "<id>",
-          description: "academics woot finally woot queasy bah",
-          disabled: false,
-          final: false,
-          conf: {},
-          groupId: "<id>",
-        },
-      ],
+      asyncFuncTimeout: 1000,
+      description: "",
+      streamtags: [],
+      functions: [],
       groups: {
-        "key": {
-          name: "<value>",
-          description: "yuck terribly ostrich enhance sentimental strictly whereas before reboot sleet",
-          disabled: true,
-        },
+  
       },
     },
   });
@@ -317,29 +286,14 @@ async function run() {
   const result = await criblControlPlane.pipelines.update({
     id: "<id>",
     pipeline: {
-      id: "<id>",
+      id: "empty-pipeline",
       conf: {
-        asyncFuncTimeout: 430119,
-        description: "reflecting for productive extroverted instead upwardly",
-        streamtags: [
-          "<value 1>",
-        ],
-        functions: [
-          {
-            id: "<id>",
-            description: "mozzarella boohoo possession as grok",
-            disabled: false,
-            final: false,
-            conf: {},
-            groupId: "<id>",
-          },
-        ],
+        asyncFuncTimeout: 1000,
+        description: "",
+        streamtags: [],
+        functions: [],
         groups: {
-          "key": {
-            name: "<value>",
-            description: "definitive ew but busily freely scaly indeed",
-            disabled: true,
-          },
+
         },
       },
     },
@@ -372,29 +326,14 @@ async function run() {
   const res = await pipelinesUpdate(criblControlPlane, {
     id: "<id>",
     pipeline: {
-      id: "<id>",
+      id: "empty-pipeline",
       conf: {
-        asyncFuncTimeout: 430119,
-        description: "reflecting for productive extroverted instead upwardly",
-        streamtags: [
-          "<value 1>",
-        ],
-        functions: [
-          {
-            id: "<id>",
-            description: "mozzarella boohoo possession as grok",
-            disabled: false,
-            final: false,
-            conf: {},
-            groupId: "<id>",
-          },
-        ],
+        asyncFuncTimeout: 1000,
+        description: "",
+        streamtags: [],
+        functions: [],
         groups: {
-          "key": {
-            name: "<value>",
-            description: "definitive ew but busily freely scaly indeed",
-            disabled: true,
-          },
+  
         },
       },
     },

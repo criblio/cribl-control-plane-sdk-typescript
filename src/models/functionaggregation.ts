@@ -5,14 +5,8 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionAggregationId = {
-  Aggregation: "aggregation",
-} as const;
-export type FunctionAggregationId = ClosedEnum<typeof FunctionAggregationId>;
 
 export type FunctionAggregationAdd = {
   name?: string | undefined;
@@ -50,7 +44,7 @@ export type FunctionAggregationSchema = {
   /**
    * Aggregate function to perform on events. Example: sum(bytes).where(action=='REJECT').as(TotalBytes)
    */
-  aggregations?: Array<string> | undefined;
+  aggregations: Array<string>;
   /**
    * Optional: One or more fields to group aggregates by. Supports wildcard expressions. Warning: Using wildcard '*' causes all fields in the event to be included, which can result in high cardinality and increased memory usage. Exclude fields that can result in high cardinality before using wildcards. Example: !_time, !_numericValue, *
    */
@@ -89,10 +83,10 @@ export type FunctionAggregation = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionAggregationId;
+  id: "aggregation";
   loadTime: number;
   modTime: number;
   name: string;
@@ -101,11 +95,6 @@ export type FunctionAggregation = {
   version: string;
   schema?: FunctionAggregationSchema | undefined;
 };
-
-/** @internal */
-export const FunctionAggregationId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionAggregationId
-> = z.nativeEnum(FunctionAggregationId);
 
 /** @internal */
 export const FunctionAggregationAdd$inboundSchema: z.ZodType<
@@ -139,7 +128,7 @@ export const FunctionAggregationSchema$inboundSchema: z.ZodType<
   metricsMode: z.boolean().default(false),
   prefix: z.string().optional(),
   timeWindow: z.string().default("10s"),
-  aggregations: z.array(z.string()).optional(),
+  aggregations: z.array(z.string()),
   groupbys: z.array(z.string()).optional(),
   flushEventLimit: z.number().optional(),
   flushMemLimit: z.string().optional(),
@@ -169,10 +158,10 @@ export const FunctionAggregation$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionAggregationId$inboundSchema,
+  id: z.literal("aggregation"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

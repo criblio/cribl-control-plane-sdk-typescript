@@ -6,14 +6,9 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionNotifyId = {
-  Notify: "notify",
-} as const;
-export type FunctionNotifyId = ClosedEnum<typeof FunctionNotifyId>;
 
 /**
  * Type of the trigger condition. custom applies a kusto expression over the results, and results count applies a comparison over results count
@@ -79,11 +74,11 @@ export type NotifyConfiguration = {
   /**
    * Id of the search this function is running on.
    */
-  searchId?: string | undefined;
+  searchId: string;
   /**
    * Id of the saved query
    */
-  savedQueryId?: string | undefined;
+  savedQueryId: string;
   /**
    * Js expression that filters events, a greater than 'Trigger Count' events will trigger the notification
    */
@@ -107,7 +102,7 @@ export type NotifyConfiguration = {
   /**
    * Url of the search results
    */
-  searchUrl?: string | undefined;
+  searchUrl: string;
   /**
    * Message content template, available fields: searchId, resultSet, savedQueryId, notificationId, searchResultsUrl
    */
@@ -115,11 +110,11 @@ export type NotifyConfiguration = {
   /**
    * Auth token for sending notification messages
    */
-  authToken?: string | undefined;
+  authToken: string;
   /**
    * System messages api endpoint
    */
-  messagesEndpoint?: string | undefined;
+  messagesEndpoint: string;
   /**
    * Current tenant id
    */
@@ -130,10 +125,10 @@ export type FunctionNotify = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionNotifyId;
+  id: "notify";
   loadTime: number;
   modTime: number;
   name: string;
@@ -142,11 +137,6 @@ export type FunctionNotify = {
   version: string;
   schema?: NotifyConfiguration | undefined;
 };
-
-/** @internal */
-export const FunctionNotifyId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionNotifyId
-> = z.nativeEnum(FunctionNotifyId);
 
 /** @internal */
 export const TriggerType$inboundSchema: z.ZodType<
@@ -170,17 +160,17 @@ export const NotifyConfiguration$inboundSchema: z.ZodType<
 > = z.object({
   group: z.string().default("default"),
   notificationId: z.string().default("main"),
-  searchId: z.string().optional(),
-  savedQueryId: z.string().optional(),
+  searchId: z.string(),
+  savedQueryId: z.string(),
   trigger: z.string().optional(),
   triggerType: TriggerType$inboundSchema.optional(),
   triggerComparator: CountComparator$inboundSchema.optional(),
   triggerCount: z.number().default(0),
   resultsLimit: z.number().default(50),
-  searchUrl: z.string().optional(),
+  searchUrl: z.string(),
   message: z.string().optional(),
-  authToken: z.string().optional(),
-  messagesEndpoint: z.string().optional(),
+  authToken: z.string(),
+  messagesEndpoint: z.string(),
   tenantId: z.string().optional(),
 });
 
@@ -203,10 +193,10 @@ export const FunctionNotify$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionNotifyId$inboundSchema,
+  id: z.literal("notify"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputSplunkSearchType = {
-  SplunkSearch: "splunk_search",
-} as const;
-export type InputSplunkSearchType = ClosedEnum<typeof InputSplunkSearchType>;
 
 export type InputSplunkSearchConnection = {
   pipeline?: string | undefined;
@@ -94,14 +89,16 @@ export type InputSplunkSearchPq = {
 /**
  * Format of the returned output
  */
-export const OutputMode = {
+export const InputSplunkSearchOutputMode = {
   Csv: "csv",
   Json: "json",
 } as const;
 /**
  * Format of the returned output
  */
-export type OutputMode = OpenEnum<typeof OutputMode>;
+export type InputSplunkSearchOutputMode = OpenEnum<
+  typeof InputSplunkSearchOutputMode
+>;
 
 export type EndpointParam = {
   name: string;
@@ -247,7 +244,7 @@ export type InputSplunkSearch = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputSplunkSearchType;
+  type: "splunk_search";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -301,7 +298,7 @@ export type InputSplunkSearch = {
   /**
    * Format of the returned output
    */
-  outputMode?: OutputMode | undefined;
+  outputMode?: InputSplunkSearchOutputMode | undefined;
   /**
    * Optional request parameters to send to the endpoint
    */
@@ -415,15 +412,6 @@ export type InputSplunkSearch = {
    */
   oauthHeaders?: Array<InputSplunkSearchOauthHeader> | undefined;
 };
-
-/** @internal */
-export const InputSplunkSearchType$inboundSchema: z.ZodNativeEnum<
-  typeof InputSplunkSearchType
-> = z.nativeEnum(InputSplunkSearchType);
-/** @internal */
-export const InputSplunkSearchType$outboundSchema: z.ZodNativeEnum<
-  typeof InputSplunkSearchType
-> = InputSplunkSearchType$inboundSchema;
 
 /** @internal */
 export const InputSplunkSearchConnection$inboundSchema: z.ZodType<
@@ -593,17 +581,17 @@ export function inputSplunkSearchPqFromJSON(
 }
 
 /** @internal */
-export const OutputMode$inboundSchema: z.ZodType<
-  OutputMode,
+export const InputSplunkSearchOutputMode$inboundSchema: z.ZodType<
+  InputSplunkSearchOutputMode,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(OutputMode);
+> = openEnums.inboundSchema(InputSplunkSearchOutputMode);
 /** @internal */
-export const OutputMode$outboundSchema: z.ZodType<
+export const InputSplunkSearchOutputMode$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  OutputMode
-> = openEnums.outboundSchema(OutputMode);
+  InputSplunkSearchOutputMode
+> = openEnums.outboundSchema(InputSplunkSearchOutputMode);
 
 /** @internal */
 export const EndpointParam$inboundSchema: z.ZodType<
@@ -919,7 +907,7 @@ export const InputSplunkSearch$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputSplunkSearchType$inboundSchema,
+  type: z.literal("splunk_search"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -935,7 +923,7 @@ export const InputSplunkSearch$inboundSchema: z.ZodType<
   latest: z.string().default("-1m@m"),
   cronSchedule: z.string().default("*/15 * * * *"),
   endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: OutputMode$inboundSchema.default("json"),
+  outputMode: InputSplunkSearchOutputMode$inboundSchema.default("json"),
   endpointParams: z.array(z.lazy(() => EndpointParam$inboundSchema)).optional(),
   endpointHeaders: z.array(z.lazy(() => EndpointHeader$inboundSchema))
     .optional(),
@@ -977,7 +965,7 @@ export const InputSplunkSearch$inboundSchema: z.ZodType<
 /** @internal */
 export type InputSplunkSearch$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "splunk_search";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -1033,7 +1021,7 @@ export const InputSplunkSearch$outboundSchema: z.ZodType<
   InputSplunkSearch
 > = z.object({
   id: z.string().optional(),
-  type: InputSplunkSearchType$outboundSchema,
+  type: z.literal("splunk_search"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -1049,7 +1037,7 @@ export const InputSplunkSearch$outboundSchema: z.ZodType<
   latest: z.string().default("-1m@m"),
   cronSchedule: z.string().default("*/15 * * * *"),
   endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: OutputMode$outboundSchema.default("json"),
+  outputMode: InputSplunkSearchOutputMode$outboundSchema.default("json"),
   endpointParams: z.array(z.lazy(() => EndpointParam$outboundSchema))
     .optional(),
   endpointHeaders: z.array(z.lazy(() => EndpointHeader$outboundSchema))

@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const OutputGraphiteType = {
-  Graphite: "graphite",
-} as const;
-export type OutputGraphiteType = ClosedEnum<typeof OutputGraphiteType>;
 
 /**
  * Protocol to use when communicating with the destination.
@@ -127,7 +122,7 @@ export type OutputGraphite = {
    * Unique ID for this output
    */
   id?: string | undefined;
-  type: OutputGraphiteType;
+  type: "graphite";
   /**
    * Pipeline to process data before sending out to this output
    */
@@ -227,15 +222,6 @@ export type OutputGraphite = {
   pqOnBackpressure?: OutputGraphiteQueueFullBehavior | undefined;
   pqControls?: OutputGraphitePqControls | undefined;
 };
-
-/** @internal */
-export const OutputGraphiteType$inboundSchema: z.ZodNativeEnum<
-  typeof OutputGraphiteType
-> = z.nativeEnum(OutputGraphiteType);
-/** @internal */
-export const OutputGraphiteType$outboundSchema: z.ZodNativeEnum<
-  typeof OutputGraphiteType
-> = OutputGraphiteType$inboundSchema;
 
 /** @internal */
 export const OutputGraphiteDestinationProtocol$inboundSchema: z.ZodType<
@@ -342,7 +328,7 @@ export const OutputGraphite$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: OutputGraphiteType$inboundSchema,
+  type: z.literal("graphite"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),
@@ -377,7 +363,7 @@ export const OutputGraphite$inboundSchema: z.ZodType<
 /** @internal */
 export type OutputGraphite$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "graphite";
   pipeline?: string | undefined;
   systemFields?: Array<string> | undefined;
   environment?: string | undefined;
@@ -413,7 +399,7 @@ export const OutputGraphite$outboundSchema: z.ZodType<
   OutputGraphite
 > = z.object({
   id: z.string().optional(),
-  type: OutputGraphiteType$outboundSchema,
+  type: z.literal("graphite"),
   pipeline: z.string().optional(),
   systemFields: z.array(z.string()).optional(),
   environment: z.string().optional(),

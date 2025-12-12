@@ -6,14 +6,9 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionRedisId = {
-  Redis: "redis",
-} as const;
-export type FunctionRedisId = ClosedEnum<typeof FunctionRedisId>;
 
 export type Command = {
   /**
@@ -79,7 +74,7 @@ export type FunctionRedisAuthenticationMethod = OpenEnum<
 >;
 
 export type FunctionRedisSchema = {
-  commands?: Array<Command> | undefined;
+  commands: Array<Command>;
   /**
    * How the Redis server is configured. Defaults to Standalone
    */
@@ -99,10 +94,10 @@ export type FunctionRedis = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionRedisId;
+  id: "redis";
   loadTime: number;
   modTime: number;
   name: string;
@@ -111,11 +106,6 @@ export type FunctionRedis = {
   version: string;
   schema?: FunctionRedisSchema | undefined;
 };
-
-/** @internal */
-export const FunctionRedisId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionRedisId
-> = z.nativeEnum(FunctionRedisId);
 
 /** @internal */
 export const Command$inboundSchema: z.ZodType<Command, z.ZodTypeDef, unknown> =
@@ -156,7 +146,7 @@ export const FunctionRedisSchema$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  commands: z.array(z.lazy(() => Command$inboundSchema)).optional(),
+  commands: z.array(z.lazy(() => Command$inboundSchema)),
   deploymentType: DeploymentType$inboundSchema.default("standalone"),
   authType: FunctionRedisAuthenticationMethod$inboundSchema.default("none"),
   maxBlockSecs: z.number().default(60),
@@ -182,10 +172,10 @@ export const FunctionRedis$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionRedisId$inboundSchema,
+  id: z.literal("redis"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

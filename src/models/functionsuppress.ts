@@ -5,20 +5,14 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionSuppressId = {
-  Suppress: "suppress",
-} as const;
-export type FunctionSuppressId = ClosedEnum<typeof FunctionSuppressId>;
 
 export type FunctionSuppressSchema = {
   /**
    * Suppression key expression used to uniquely identify events to suppress. For example, `${ip}:${port}` will use fields ip and port from each event to generate the key.
    */
-  keyExpr?: string | undefined;
+  keyExpr: string;
   /**
    * The number of events to allow per time period
    */
@@ -49,10 +43,10 @@ export type FunctionSuppress = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionSuppressId;
+  id: "suppress";
   loadTime: number;
   modTime: number;
   name: string;
@@ -63,17 +57,12 @@ export type FunctionSuppress = {
 };
 
 /** @internal */
-export const FunctionSuppressId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionSuppressId
-> = z.nativeEnum(FunctionSuppressId);
-
-/** @internal */
 export const FunctionSuppressSchema$inboundSchema: z.ZodType<
   FunctionSuppressSchema,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  keyExpr: z.string().optional(),
+  keyExpr: z.string(),
   allow: z.number().default(1),
   suppressPeriodSec: z.number().default(30),
   dropEventsMode: z.boolean().default(true),
@@ -101,10 +90,10 @@ export const FunctionSuppress$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionSuppressId$inboundSchema,
+  id: z.literal("suppress"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

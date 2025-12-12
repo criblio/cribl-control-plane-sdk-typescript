@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputHttpRawType = {
-  HttpRaw: "http_raw",
-} as const;
-export type InputHttpRawType = ClosedEnum<typeof InputHttpRawType>;
 
 export type InputHttpRawConnection = {
   pipeline?: string | undefined;
@@ -180,7 +175,7 @@ export type InputHttpRaw = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputHttpRawType;
+  type: "http_raw";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -290,15 +285,6 @@ export type InputHttpRaw = {
   authTokensExt?: Array<InputHttpRawAuthTokensExt> | undefined;
   description?: string | undefined;
 };
-
-/** @internal */
-export const InputHttpRawType$inboundSchema: z.ZodNativeEnum<
-  typeof InputHttpRawType
-> = z.nativeEnum(InputHttpRawType);
-/** @internal */
-export const InputHttpRawType$outboundSchema: z.ZodNativeEnum<
-  typeof InputHttpRawType
-> = InputHttpRawType$inboundSchema;
 
 /** @internal */
 export const InputHttpRawConnection$inboundSchema: z.ZodType<
@@ -697,7 +683,7 @@ export const InputHttpRaw$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputHttpRawType$inboundSchema,
+  type: z.literal("http_raw"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -735,7 +721,7 @@ export const InputHttpRaw$inboundSchema: z.ZodType<
 /** @internal */
 export type InputHttpRaw$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "http_raw";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -775,7 +761,7 @@ export const InputHttpRaw$outboundSchema: z.ZodType<
   InputHttpRaw
 > = z.object({
   id: z.string().optional(),
-  type: InputHttpRawType$outboundSchema,
+  type: z.literal("http_raw"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

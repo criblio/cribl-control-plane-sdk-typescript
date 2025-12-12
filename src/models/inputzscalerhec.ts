@@ -5,14 +5,9 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const InputZscalerHecType = {
-  ZscalerHec: "zscaler_hec",
-} as const;
-export type InputZscalerHecType = ClosedEnum<typeof InputZscalerHecType>;
 
 export type InputZscalerHecConnection = {
   pipeline?: string | undefined;
@@ -209,7 +204,7 @@ export type InputZscalerHec = {
    * Unique ID for this input
    */
   id?: string | undefined;
-  type: InputZscalerHecType;
+  type: "zscaler_hec";
   disabled?: boolean | undefined;
   /**
    * Pipeline to process data from this Source before sending it through the Routes
@@ -320,15 +315,6 @@ export type InputZscalerHec = {
   emitTokenMetrics?: boolean | undefined;
   description?: string | undefined;
 };
-
-/** @internal */
-export const InputZscalerHecType$inboundSchema: z.ZodNativeEnum<
-  typeof InputZscalerHecType
-> = z.nativeEnum(InputZscalerHecType);
-/** @internal */
-export const InputZscalerHecType$outboundSchema: z.ZodNativeEnum<
-  typeof InputZscalerHecType
-> = InputZscalerHecType$inboundSchema;
 
 /** @internal */
 export const InputZscalerHecConnection$inboundSchema: z.ZodType<
@@ -758,7 +744,7 @@ export const InputZscalerHec$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string().optional(),
-  type: InputZscalerHecType$inboundSchema,
+  type: z.literal("zscaler_hec"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),
@@ -798,7 +784,7 @@ export const InputZscalerHec$inboundSchema: z.ZodType<
 /** @internal */
 export type InputZscalerHec$Outbound = {
   id?: string | undefined;
-  type: string;
+  type: "zscaler_hec";
   disabled: boolean;
   pipeline?: string | undefined;
   sendToRoutes: boolean;
@@ -839,7 +825,7 @@ export const InputZscalerHec$outboundSchema: z.ZodType<
   InputZscalerHec
 > = z.object({
   id: z.string().optional(),
-  type: InputZscalerHecType$outboundSchema,
+  type: z.literal("zscaler_hec"),
   disabled: z.boolean().default(false),
   pipeline: z.string().optional(),
   sendToRoutes: z.boolean().default(true),

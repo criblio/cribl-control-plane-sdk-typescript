@@ -6,14 +6,9 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { ClosedEnum, OpenEnum } from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionEventBreakerId = {
-  EventBreaker: "event_breaker",
-} as const;
-export type FunctionEventBreakerId = ClosedEnum<typeof FunctionEventBreakerId>;
 
 export const ExistingOrNew = {
   /**
@@ -39,10 +34,10 @@ export type FunctionEventBreaker = {
   filename: string;
   asyncTimeout?: number | undefined;
   criblVersion?: string | undefined;
-  disabled: boolean;
+  disabled?: boolean | undefined;
   group: string;
   handleSignals?: boolean | undefined;
-  id: FunctionEventBreakerId;
+  id: "event_breaker";
   loadTime: number;
   modTime: number;
   name: string;
@@ -51,11 +46,6 @@ export type FunctionEventBreaker = {
   version: string;
   schema?: FunctionEventBreakerSchema | undefined;
 };
-
-/** @internal */
-export const FunctionEventBreakerId$inboundSchema: z.ZodNativeEnum<
-  typeof FunctionEventBreakerId
-> = z.nativeEnum(FunctionEventBreakerId);
 
 /** @internal */
 export const ExistingOrNew$inboundSchema: z.ZodType<
@@ -93,10 +83,10 @@ export const FunctionEventBreaker$inboundSchema: z.ZodType<
   __filename: z.string(),
   asyncTimeout: z.number().optional(),
   cribl_version: z.string().optional(),
-  disabled: z.boolean(),
+  disabled: z.boolean().optional(),
   group: z.string(),
   handleSignals: z.boolean().optional(),
-  id: FunctionEventBreakerId$inboundSchema,
+  id: z.literal("event_breaker"),
   loadTime: z.number(),
   modTime: z.number(),
   name: z.string(),

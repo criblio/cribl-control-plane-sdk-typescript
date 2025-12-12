@@ -24,15 +24,8 @@ let value: FunctionRedis = {
   },
   version: "<value>",
   schema: {
-    commands: [
-      {
-        outField: "<value>",
-        command: "<value>",
-        keyExpr: "<value>",
-        argsExpr: "<value>",
-      },
-    ],
-    enableClientSideCaching: true,
+    commands: [],
+    enableClientSideCaching: false,
   },
 };
 ```
@@ -44,10 +37,10 @@ let value: FunctionRedis = {
 | `filename`                                                     | *string*                                                       | :heavy_check_mark:                                             | N/A                                                            |
 | `asyncTimeout`                                                 | *number*                                                       | :heavy_minus_sign:                                             | N/A                                                            |
 | `criblVersion`                                                 | *string*                                                       | :heavy_minus_sign:                                             | N/A                                                            |
-| `disabled`                                                     | *boolean*                                                      | :heavy_check_mark:                                             | N/A                                                            |
+| `disabled`                                                     | *boolean*                                                      | :heavy_minus_sign:                                             | N/A                                                            |
 | `group`                                                        | *string*                                                       | :heavy_check_mark:                                             | N/A                                                            |
 | `handleSignals`                                                | *boolean*                                                      | :heavy_minus_sign:                                             | N/A                                                            |
-| `id`                                                           | [models.FunctionRedisId](../models/functionredisid.md)         | :heavy_check_mark:                                             | N/A                                                            |
+| `id`                                                           | *"redis"*                                                      | :heavy_check_mark:                                             | N/A                                                            |
 | `loadTime`                                                     | *number*                                                       | :heavy_check_mark:                                             | N/A                                                            |
 | `modTime`                                                      | *number*                                                       | :heavy_check_mark:                                             | N/A                                                            |
 | `name`                                                         | *string*                                                       | :heavy_check_mark:                                             | N/A                                                            |
