@@ -12,7 +12,7 @@ export type FunctionLocalSearchDatatypeParserSchema = {
   /**
    * ID of the local search datatype ruleset
    */
-  rulesetId: string;
+  rulesetId?: string | undefined;
 };
 
 export type FunctionLocalSearchDatatypeParser = {
@@ -38,7 +38,7 @@ export const FunctionLocalSearchDatatypeParserSchema$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  rulesetId: z.string(),
+  rulesetId: z.string().optional(),
 });
 
 export function functionLocalSearchDatatypeParserSchemaFromJSON(

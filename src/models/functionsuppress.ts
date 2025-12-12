@@ -12,7 +12,7 @@ export type FunctionSuppressSchema = {
   /**
    * Suppression key expression used to uniquely identify events to suppress. For example, `${ip}:${port}` will use fields ip and port from each event to generate the key.
    */
-  keyExpr: string;
+  keyExpr?: string | undefined;
   /**
    * The number of events to allow per time period
    */
@@ -62,7 +62,7 @@ export const FunctionSuppressSchema$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  keyExpr: z.string(),
+  keyExpr: z.string().optional(),
   allow: z.number().default(1),
   suppressPeriodSec: z.number().default(30),
   dropEventsMode: z.boolean().default(true),

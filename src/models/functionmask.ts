@@ -32,7 +32,7 @@ export type FunctionMaskFlag = {
 };
 
 export type FunctionMaskSchema = {
-  rules: Array<FunctionMaskRule>;
+  rules?: Array<FunctionMaskRule> | undefined;
   /**
    * Fields on which to apply the masking rules. Supports * wildcards, except when used on internal fields.
    */
@@ -111,7 +111,7 @@ export const FunctionMaskSchema$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  rules: z.array(z.lazy(() => FunctionMaskRule$inboundSchema)),
+  rules: z.array(z.lazy(() => FunctionMaskRule$inboundSchema)).optional(),
   fields: z.array(z.string()).optional(),
   depth: z.number().int().default(5),
   flags: z.array(z.lazy(() => FunctionMaskFlag$inboundSchema)).optional(),

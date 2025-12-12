@@ -12,15 +12,15 @@ export type FunctionMvPullSchema = {
   /**
    * Field name of the array within events that contains the data objects of interest. Can be a path.
    */
-  arrayPath: string;
+  arrayPath?: string | undefined;
   /**
    * Extract the K-V pair's key from this field, relative to the data object.
    */
-  relativeKeyPath: string;
+  relativeKeyPath?: string | undefined;
   /**
    * Extract the K-V pair's value from this field, relative to the data object.
    */
-  relativeValuePath: string;
+  relativeValuePath?: string | undefined;
   /**
    * Optionally, specify a bag as the target for K-V entries. If not specified, these entries are stored on each top-level event.
    */
@@ -54,9 +54,9 @@ export const FunctionMvPullSchema$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  arrayPath: z.string(),
-  relativeKeyPath: z.string(),
-  relativeValuePath: z.string(),
+  arrayPath: z.string().optional(),
+  relativeKeyPath: z.string().optional(),
+  relativeValuePath: z.string().optional(),
   targetBagPath: z.nullable(z.string()).default(null),
   deleteOriginal: z.boolean().default(false),
 });

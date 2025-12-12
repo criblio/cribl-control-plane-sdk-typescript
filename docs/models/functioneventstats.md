@@ -26,6 +26,7 @@ let value: FunctionEventstats = {
   schema: {
     aggregations: [
       "<value 1>",
+      "<value 2>",
     ],
     groupBys: [
       "<value 1>",

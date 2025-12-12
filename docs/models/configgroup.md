@@ -53,7 +53,7 @@ let value: ConfigGroup = {
     "<value 1>",
   ],
   tags: "<value>",
-  type: "local_search",
+  type: "lake_access",
   upgradeVersion: "<value>",
   workerCount: 9778.69,
   workerRemoteAccess: true,

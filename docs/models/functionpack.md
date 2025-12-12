@@ -24,7 +24,9 @@ let value: FunctionPack = {
   },
   version: "<value>",
   schema: {
-    unpackedFields: [],
+    unpackedFields: [
+      "<value 1>",
+    ],
   },
 };
 ```

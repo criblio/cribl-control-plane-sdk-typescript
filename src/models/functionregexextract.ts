@@ -19,7 +19,7 @@ export type FunctionRegexExtractSchema = {
   /**
    * Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as (?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
    */
-  regex: string;
+  regex?: string | undefined;
   regexList?: Array<FunctionRegexExtractRegexList> | undefined;
   /**
    * Field on which to perform regex field extraction
@@ -81,7 +81,7 @@ export const FunctionRegexExtractSchema$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  regex: z.string(),
+  regex: z.string().optional(),
   regexList: z.array(z.lazy(() => FunctionRegexExtractRegexList$inboundSchema))
     .optional(),
   source: z.string().default("_raw"),

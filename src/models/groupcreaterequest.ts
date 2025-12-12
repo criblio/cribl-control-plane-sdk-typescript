@@ -72,6 +72,9 @@ export type GroupCreateRequestGit = {
 };
 
 export const GroupCreateRequestType = {
+  Edge: "edge",
+  Stream: "stream",
+  Search: "search",
   LakeAccess: "lake_access",
   LocalSearch: "local_search",
 } as const;

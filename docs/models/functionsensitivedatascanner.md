@@ -22,13 +22,17 @@ let value: FunctionSensitiveDataScanner = {
   },
   version: "<value>",
   schema: {
-    rules: [],
+    rules: [
+      {
+        rulesetId: "<id>",
+      },
+    ],
     fields: [
       "<value 1>",
-      "<value 2>",
     ],
     excludeFields: [
       "<value 1>",
+      "<value 2>",
     ],
     flags: [
       {

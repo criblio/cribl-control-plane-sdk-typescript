@@ -340,6 +340,10 @@ export type OutputCriblHttp = {
    */
   safeHeaders?: Array<string> | undefined;
   /**
+   * Rate (in bytes per second) to throttle while writing to an output. Accepts values with multiple-byte units, such as KB, MB, and GB. (Example: 42 MB) Default value of 0 specifies no throttling.
+   */
+  throttleRatePerSec?: string | undefined;
+  /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
   responseRetrySettings?:
@@ -892,6 +896,7 @@ export const OutputCriblHttp$inboundSchema: z.ZodType<
   failedRequestLoggingMode:
     OutputCriblHttpFailedRequestLoggingMode$inboundSchema.default("none"),
   safeHeaders: z.array(z.string()).optional(),
+  throttleRatePerSec: z.string().default("0"),
   responseRetrySettings: z.array(
     z.lazy(() => OutputCriblHttpResponseRetrySetting$inboundSchema),
   ).optional(),
@@ -949,6 +954,7 @@ export type OutputCriblHttp$Outbound = {
   extraHttpHeaders?: Array<OutputCriblHttpExtraHttpHeader$Outbound> | undefined;
   failedRequestLoggingMode: string;
   safeHeaders?: Array<string> | undefined;
+  throttleRatePerSec: string;
   responseRetrySettings?:
     | Array<OutputCriblHttpResponseRetrySetting$Outbound>
     | undefined;
@@ -1008,6 +1014,7 @@ export const OutputCriblHttp$outboundSchema: z.ZodType<
   failedRequestLoggingMode:
     OutputCriblHttpFailedRequestLoggingMode$outboundSchema.default("none"),
   safeHeaders: z.array(z.string()).optional(),
+  throttleRatePerSec: z.string().default("0"),
   responseRetrySettings: z.array(
     z.lazy(() => OutputCriblHttpResponseRetrySetting$outboundSchema),
   ).optional(),

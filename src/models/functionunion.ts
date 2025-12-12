@@ -12,11 +12,11 @@ export type UnionConfiguration = {
   /**
    * The id for this search job.
    */
-  searchJobId: string;
+  searchJobId?: string | undefined;
   /**
    * The stages we are unioning with.
    */
-  stageIds: Array<string>;
+  stageIds?: Array<string> | undefined;
 };
 
 export type FunctionUnion = {
@@ -42,8 +42,8 @@ export const UnionConfiguration$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  searchJobId: z.string(),
-  stageIds: z.array(z.string()),
+  searchJobId: z.string().optional(),
+  stageIds: z.array(z.string()).optional(),
 });
 
 export function unionConfigurationFromJSON(

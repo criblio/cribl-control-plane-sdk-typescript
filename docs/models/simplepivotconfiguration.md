@@ -9,10 +9,12 @@ let value: SimplePivotConfiguration = {
   labelField: "<value>",
   dataFields: [
     "<value 1>",
+    "<value 2>",
   ],
   qualifierFields: [
     "<value 1>",
     "<value 2>",
+    "<value 3>",
   ],
 };
 ```
@@ -21,6 +23,6 @@ let value: SimplePivotConfiguration = {
 
 | Field                                         | Type                                          | Required                                      | Description                                   |
 | --------------------------------------------- | --------------------------------------------- | --------------------------------------------- | --------------------------------------------- |
-| `labelField`                                  | *string*                                      | :heavy_check_mark:                            | Fields to be used for the left-most column.   |
-| `dataFields`                                  | *string*[]                                    | :heavy_check_mark:                            | Fields with the cell values (i.e. aggregates) |
-| `qualifierFields`                             | *string*[]                                    | :heavy_check_mark:                            | Fields to qualify or group data fields        |
+| `labelField`                                  | *string*                                      | :heavy_minus_sign:                            | Fields to be used for the left-most column.   |
+| `dataFields`                                  | *string*[]                                    | :heavy_minus_sign:                            | Fields with the cell values (i.e. aggregates) |
+| `qualifierFields`                             | *string*[]                                    | :heavy_minus_sign:                            | Fields to qualify or group data fields        |
