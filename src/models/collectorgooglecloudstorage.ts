@@ -95,7 +95,31 @@ export const CollectorGoogleCloudStorageExtractor$inboundSchema: z.ZodType<
   key: z.string(),
   expression: z.string(),
 });
+/** @internal */
+export type CollectorGoogleCloudStorageExtractor$Outbound = {
+  key: string;
+  expression: string;
+};
 
+/** @internal */
+export const CollectorGoogleCloudStorageExtractor$outboundSchema: z.ZodType<
+  CollectorGoogleCloudStorageExtractor$Outbound,
+  z.ZodTypeDef,
+  CollectorGoogleCloudStorageExtractor
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+
+export function collectorGoogleCloudStorageExtractorToJSON(
+  collectorGoogleCloudStorageExtractor: CollectorGoogleCloudStorageExtractor,
+): string {
+  return JSON.stringify(
+    CollectorGoogleCloudStorageExtractor$outboundSchema.parse(
+      collectorGoogleCloudStorageExtractor,
+    ),
+  );
+}
 export function collectorGoogleCloudStorageExtractorFromJSON(
   jsonString: string,
 ): SafeParseResult<CollectorGoogleCloudStorageExtractor, SDKValidationError> {
@@ -114,6 +138,13 @@ export const CollectorGoogleCloudStorageAuthenticationMethod$inboundSchema:
     z.ZodTypeDef,
     unknown
   > = openEnums.inboundSchema(CollectorGoogleCloudStorageAuthenticationMethod);
+/** @internal */
+export const CollectorGoogleCloudStorageAuthenticationMethod$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    CollectorGoogleCloudStorageAuthenticationMethod
+  > = openEnums.outboundSchema(CollectorGoogleCloudStorageAuthenticationMethod);
 
 /** @internal */
 export const CollectorGoogleCloudStorage$inboundSchema: z.ZodType<
@@ -137,7 +168,54 @@ export const CollectorGoogleCloudStorage$inboundSchema: z.ZodType<
   parquetChunkSizeMB: z.number().default(5),
   parquetChunkDownloadTimeout: z.number().default(600),
 });
+/** @internal */
+export type CollectorGoogleCloudStorage$Outbound = {
+  type: "google_cloud_storage";
+  outputName?: string | undefined;
+  bucket: string;
+  path?: string | undefined;
+  extractors?: Array<CollectorGoogleCloudStorageExtractor$Outbound> | undefined;
+  endpoint?: string | undefined;
+  disableTimeFilter: boolean;
+  recurse: boolean;
+  maxBatchSize: number;
+  authType: string;
+  parquetChunkSizeMB: number;
+  parquetChunkDownloadTimeout: number;
+};
 
+/** @internal */
+export const CollectorGoogleCloudStorage$outboundSchema: z.ZodType<
+  CollectorGoogleCloudStorage$Outbound,
+  z.ZodTypeDef,
+  CollectorGoogleCloudStorage
+> = z.object({
+  type: z.literal("google_cloud_storage"),
+  outputName: z.string().optional(),
+  bucket: z.string(),
+  path: z.string().optional(),
+  extractors: z.array(
+    z.lazy(() => CollectorGoogleCloudStorageExtractor$outboundSchema),
+  ).optional(),
+  endpoint: z.string().optional(),
+  disableTimeFilter: z.boolean().default(false),
+  recurse: z.boolean().default(true),
+  maxBatchSize: z.number().default(10),
+  authType: CollectorGoogleCloudStorageAuthenticationMethod$outboundSchema
+    .default("manual"),
+  parquetChunkSizeMB: z.number().default(5),
+  parquetChunkDownloadTimeout: z.number().default(600),
+});
+
+export function collectorGoogleCloudStorageToJSON(
+  collectorGoogleCloudStorage: CollectorGoogleCloudStorage,
+): string {
+  return JSON.stringify(
+    CollectorGoogleCloudStorage$outboundSchema.parse(
+      collectorGoogleCloudStorage,
+    ),
+  );
+}
 export function collectorGoogleCloudStorageFromJSON(
   jsonString: string,
 ): SafeParseResult<CollectorGoogleCloudStorage, SDKValidationError> {

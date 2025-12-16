@@ -1,11 +1,11 @@
-# ExecutorSpecificSettings
+# SavedJobExecutorTimeWarning
 
 ## Example Usage
 
 ```typescript
-import { ExecutorSpecificSettings } from "cribl-control-plane/models";
+import { SavedJobExecutorTimeWarning } from "cribl-control-plane/models";
 
-let value: ExecutorSpecificSettings = {};
+let value: SavedJobExecutorTimeWarning = {};
 ```
 
 ## Fields

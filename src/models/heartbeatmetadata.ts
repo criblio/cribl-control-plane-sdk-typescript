@@ -16,6 +16,19 @@ export type HeartbeatMetadataAws = {
   zone: string;
 };
 
+export type HeartbeatMetadataAzure = {
+  enabled: boolean;
+  hostname?: string | undefined;
+  instanceId?: string | undefined;
+  name?: string | undefined;
+  region?: string | undefined;
+  resourceGroup?: string | undefined;
+  subscriptionId?: string | undefined;
+  tags?: { [k: string]: string } | undefined;
+  type?: string | undefined;
+  zone?: string | undefined;
+};
+
 export type HeartbeatMetadataHostOs = {
   addresses: Array<string>;
   enabled: boolean;
@@ -46,6 +59,7 @@ export type HeartbeatMetadataOs = {
 
 export type HeartbeatMetadata = {
   aws?: HeartbeatMetadataAws | undefined;
+  azure?: HeartbeatMetadataAzure | undefined;
   hostOs?: HeartbeatMetadataHostOs | undefined;
   kube?: HeartbeatMetadataKube | undefined;
   os?: HeartbeatMetadataOs | undefined;
@@ -72,6 +86,34 @@ export function heartbeatMetadataAwsFromJSON(
     jsonString,
     (x) => HeartbeatMetadataAws$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'HeartbeatMetadataAws' from JSON`,
+  );
+}
+
+/** @internal */
+export const HeartbeatMetadataAzure$inboundSchema: z.ZodType<
+  HeartbeatMetadataAzure,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean(),
+  hostname: z.string().optional(),
+  instanceId: z.string().optional(),
+  name: z.string().optional(),
+  region: z.string().optional(),
+  resourceGroup: z.string().optional(),
+  subscriptionId: z.string().optional(),
+  tags: z.record(z.string()).optional(),
+  type: z.string().optional(),
+  zone: z.string().optional(),
+});
+
+export function heartbeatMetadataAzureFromJSON(
+  jsonString: string,
+): SafeParseResult<HeartbeatMetadataAzure, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => HeartbeatMetadataAzure$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'HeartbeatMetadataAzure' from JSON`,
   );
 }
 
@@ -170,6 +212,7 @@ export const HeartbeatMetadata$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   aws: z.lazy(() => HeartbeatMetadataAws$inboundSchema).optional(),
+  azure: z.lazy(() => HeartbeatMetadataAzure$inboundSchema).optional(),
   hostOs: z.lazy(() => HeartbeatMetadataHostOs$inboundSchema).optional(),
   kube: z.lazy(() => HeartbeatMetadataKube$inboundSchema).optional(),
   os: z.lazy(() => HeartbeatMetadataOs$inboundSchema).optional(),

@@ -93,6 +93,12 @@ export const CollectorAzureBlobAuthenticationMethod$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(CollectorAzureBlobAuthenticationMethod);
+/** @internal */
+export const CollectorAzureBlobAuthenticationMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorAzureBlobAuthenticationMethod
+> = openEnums.outboundSchema(CollectorAzureBlobAuthenticationMethod);
 
 /** @internal */
 export const CollectorAzureBlobExtractor$inboundSchema: z.ZodType<
@@ -103,7 +109,31 @@ export const CollectorAzureBlobExtractor$inboundSchema: z.ZodType<
   key: z.string(),
   expression: z.string(),
 });
+/** @internal */
+export type CollectorAzureBlobExtractor$Outbound = {
+  key: string;
+  expression: string;
+};
 
+/** @internal */
+export const CollectorAzureBlobExtractor$outboundSchema: z.ZodType<
+  CollectorAzureBlobExtractor$Outbound,
+  z.ZodTypeDef,
+  CollectorAzureBlobExtractor
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+
+export function collectorAzureBlobExtractorToJSON(
+  collectorAzureBlobExtractor: CollectorAzureBlobExtractor,
+): string {
+  return JSON.stringify(
+    CollectorAzureBlobExtractor$outboundSchema.parse(
+      collectorAzureBlobExtractor,
+    ),
+  );
+}
 export function collectorAzureBlobExtractorFromJSON(
   jsonString: string,
 ): SafeParseResult<CollectorAzureBlobExtractor, SDKValidationError> {
@@ -136,7 +166,52 @@ export const CollectorAzureBlob$inboundSchema: z.ZodType<
   parquetChunkSizeMB: z.number().default(5),
   parquetChunkDownloadTimeout: z.number().default(600),
 });
+/** @internal */
+export type CollectorAzureBlob$Outbound = {
+  type: "azure_blob";
+  outputName?: string | undefined;
+  authType: string;
+  containerName: string;
+  path?: string | undefined;
+  extractors?: Array<CollectorAzureBlobExtractor$Outbound> | undefined;
+  recurse: boolean;
+  includeMetadata: boolean;
+  includeTags: boolean;
+  maxBatchSize: number;
+  parquetChunkSizeMB: number;
+  parquetChunkDownloadTimeout: number;
+};
 
+/** @internal */
+export const CollectorAzureBlob$outboundSchema: z.ZodType<
+  CollectorAzureBlob$Outbound,
+  z.ZodTypeDef,
+  CollectorAzureBlob
+> = z.object({
+  type: z.literal("azure_blob"),
+  outputName: z.string().optional(),
+  authType: CollectorAzureBlobAuthenticationMethod$outboundSchema.default(
+    "manual",
+  ),
+  containerName: z.string(),
+  path: z.string().optional(),
+  extractors: z.array(z.lazy(() => CollectorAzureBlobExtractor$outboundSchema))
+    .optional(),
+  recurse: z.boolean().default(true),
+  includeMetadata: z.boolean().default(true),
+  includeTags: z.boolean().default(true),
+  maxBatchSize: z.number().default(10),
+  parquetChunkSizeMB: z.number().default(5),
+  parquetChunkDownloadTimeout: z.number().default(600),
+});
+
+export function collectorAzureBlobToJSON(
+  collectorAzureBlob: CollectorAzureBlob,
+): string {
+  return JSON.stringify(
+    CollectorAzureBlob$outboundSchema.parse(collectorAzureBlob),
+  );
+}
 export function collectorAzureBlobFromJSON(
   jsonString: string,
 ): SafeParseResult<CollectorAzureBlob, SDKValidationError> {

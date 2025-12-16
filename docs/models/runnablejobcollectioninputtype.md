@@ -1,11 +1,11 @@
-# InputType
+# RunnableJobCollectionInputType
 
 ## Example Usage
 
 ```typescript
-import { InputType } from "cribl-control-plane/models";
+import { RunnableJobCollectionInputType } from "cribl-control-plane/models";
 
-let value: InputType = "collection";
+let value: RunnableJobCollectionInputType = "collection";
 ```
 
 ## Values

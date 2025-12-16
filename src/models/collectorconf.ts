@@ -8,36 +8,62 @@ import { Result as SafeParseResult } from "../types/fp.js";
 import {
   CollectorAzureBlob,
   CollectorAzureBlob$inboundSchema,
+  CollectorAzureBlob$Outbound,
+  CollectorAzureBlob$outboundSchema,
 } from "./collectorazureblob.js";
 import {
   CollectorCriblLake,
   CollectorCriblLake$inboundSchema,
+  CollectorCriblLake$Outbound,
+  CollectorCriblLake$outboundSchema,
 } from "./collectorcribllake.js";
 import {
   CollectorDatabase,
   CollectorDatabase$inboundSchema,
+  CollectorDatabase$Outbound,
+  CollectorDatabase$outboundSchema,
 } from "./collectordatabase.js";
 import {
   CollectorFilesystem,
   CollectorFilesystem$inboundSchema,
+  CollectorFilesystem$Outbound,
+  CollectorFilesystem$outboundSchema,
 } from "./collectorfilesystem.js";
 import {
   CollectorGoogleCloudStorage,
   CollectorGoogleCloudStorage$inboundSchema,
+  CollectorGoogleCloudStorage$Outbound,
+  CollectorGoogleCloudStorage$outboundSchema,
 } from "./collectorgooglecloudstorage.js";
 import {
   CollectorHealthCheck,
   CollectorHealthCheck$inboundSchema,
+  CollectorHealthCheck$Outbound,
+  CollectorHealthCheck$outboundSchema,
 } from "./collectorhealthcheck.js";
-import { CollectorRest, CollectorRest$inboundSchema } from "./collectorrest.js";
-import { CollectorS3, CollectorS3$inboundSchema } from "./collectors3.js";
+import {
+  CollectorRest,
+  CollectorRest$inboundSchema,
+  CollectorRest$Outbound,
+  CollectorRest$outboundSchema,
+} from "./collectorrest.js";
+import {
+  CollectorS3,
+  CollectorS3$inboundSchema,
+  CollectorS3$Outbound,
+  CollectorS3$outboundSchema,
+} from "./collectors3.js";
 import {
   CollectorScript,
   CollectorScript$inboundSchema,
+  CollectorScript$Outbound,
+  CollectorScript$outboundSchema,
 } from "./collectorscript.js";
 import {
   CollectorSplunk,
   CollectorSplunk$inboundSchema,
+  CollectorSplunk$Outbound,
+  CollectorSplunk$outboundSchema,
 } from "./collectorsplunk.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
@@ -73,7 +99,40 @@ export const CollectorConf$inboundSchema: z.ZodType<
   CollectorScript$inboundSchema,
   CollectorSplunk$inboundSchema,
 ]);
+/** @internal */
+export type CollectorConf$Outbound =
+  | CollectorAzureBlob$Outbound
+  | CollectorCriblLake$Outbound
+  | CollectorDatabase$Outbound
+  | CollectorFilesystem$Outbound
+  | CollectorGoogleCloudStorage$Outbound
+  | CollectorHealthCheck$Outbound
+  | CollectorRest$Outbound
+  | CollectorS3$Outbound
+  | CollectorScript$Outbound
+  | CollectorSplunk$Outbound;
 
+/** @internal */
+export const CollectorConf$outboundSchema: z.ZodType<
+  CollectorConf$Outbound,
+  z.ZodTypeDef,
+  CollectorConf
+> = z.union([
+  CollectorAzureBlob$outboundSchema,
+  CollectorCriblLake$outboundSchema,
+  CollectorDatabase$outboundSchema,
+  CollectorFilesystem$outboundSchema,
+  CollectorGoogleCloudStorage$outboundSchema,
+  CollectorHealthCheck$outboundSchema,
+  CollectorRest$outboundSchema,
+  CollectorS3$outboundSchema,
+  CollectorScript$outboundSchema,
+  CollectorSplunk$outboundSchema,
+]);
+
+export function collectorConfToJSON(collectorConf: CollectorConf): string {
+  return JSON.stringify(CollectorConf$outboundSchema.parse(collectorConf));
+}
 export function collectorConfFromJSON(
   jsonString: string,
 ): SafeParseResult<CollectorConf, SDKValidationError> {

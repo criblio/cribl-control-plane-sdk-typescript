@@ -191,6 +191,12 @@ export const CollectorHealthCheckDiscoverType$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(CollectorHealthCheckDiscoverType);
+/** @internal */
+export const CollectorHealthCheckDiscoverType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorHealthCheckDiscoverType
+> = openEnums.outboundSchema(CollectorHealthCheckDiscoverType);
 
 /** @internal */
 export const CollectorHealthCheckDiscovery$inboundSchema: z.ZodType<
@@ -200,7 +206,29 @@ export const CollectorHealthCheckDiscovery$inboundSchema: z.ZodType<
 > = z.object({
   discoverType: CollectorHealthCheckDiscoverType$inboundSchema.default("none"),
 });
+/** @internal */
+export type CollectorHealthCheckDiscovery$Outbound = {
+  discoverType: string;
+};
 
+/** @internal */
+export const CollectorHealthCheckDiscovery$outboundSchema: z.ZodType<
+  CollectorHealthCheckDiscovery$Outbound,
+  z.ZodTypeDef,
+  CollectorHealthCheckDiscovery
+> = z.object({
+  discoverType: CollectorHealthCheckDiscoverType$outboundSchema.default("none"),
+});
+
+export function collectorHealthCheckDiscoveryToJSON(
+  collectorHealthCheckDiscovery: CollectorHealthCheckDiscovery,
+): string {
+  return JSON.stringify(
+    CollectorHealthCheckDiscovery$outboundSchema.parse(
+      collectorHealthCheckDiscovery,
+    ),
+  );
+}
 export function collectorHealthCheckDiscoveryFromJSON(
   jsonString: string,
 ): SafeParseResult<CollectorHealthCheckDiscovery, SDKValidationError> {
@@ -217,6 +245,12 @@ export const HealthCheckMethod$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(HealthCheckMethod);
+/** @internal */
+export const HealthCheckMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  HealthCheckMethod
+> = openEnums.outboundSchema(HealthCheckMethod);
 
 /** @internal */
 export const CollectorHealthCheckCollectRequestHeader$inboundSchema: z.ZodType<
@@ -227,7 +261,32 @@ export const CollectorHealthCheckCollectRequestHeader$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
+/** @internal */
+export type CollectorHealthCheckCollectRequestHeader$Outbound = {
+  name: string;
+  value: string;
+};
 
+/** @internal */
+export const CollectorHealthCheckCollectRequestHeader$outboundSchema: z.ZodType<
+  CollectorHealthCheckCollectRequestHeader$Outbound,
+  z.ZodTypeDef,
+  CollectorHealthCheckCollectRequestHeader
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorHealthCheckCollectRequestHeaderToJSON(
+  collectorHealthCheckCollectRequestHeader:
+    CollectorHealthCheckCollectRequestHeader,
+): string {
+  return JSON.stringify(
+    CollectorHealthCheckCollectRequestHeader$outboundSchema.parse(
+      collectorHealthCheckCollectRequestHeader,
+    ),
+  );
+}
 export function collectorHealthCheckCollectRequestHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<
@@ -250,6 +309,12 @@ export const CollectorHealthCheckAuthentication$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(CollectorHealthCheckAuthentication);
+/** @internal */
+export const CollectorHealthCheckAuthentication$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorHealthCheckAuthentication
+> = openEnums.outboundSchema(CollectorHealthCheckAuthentication);
 
 /** @internal */
 export const CollectorHealthCheckHiddenDefaultBreakers$inboundSchema: z.ZodType<
@@ -257,6 +322,10 @@ export const CollectorHealthCheckHiddenDefaultBreakers$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(CollectorHealthCheckHiddenDefaultBreakers);
+/** @internal */
+export const CollectorHealthCheckHiddenDefaultBreakers$outboundSchema:
+  z.ZodType<string, z.ZodTypeDef, CollectorHealthCheckHiddenDefaultBreakers> =
+    openEnums.outboundSchema(CollectorHealthCheckHiddenDefaultBreakers);
 
 /** @internal */
 export const CollectorHealthCheckRetryType$inboundSchema: z.ZodType<
@@ -264,6 +333,12 @@ export const CollectorHealthCheckRetryType$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(CollectorHealthCheckRetryType);
+/** @internal */
+export const CollectorHealthCheckRetryType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorHealthCheckRetryType
+> = openEnums.outboundSchema(CollectorHealthCheckRetryType);
 
 /** @internal */
 export const CollectorHealthCheckRetryRules$inboundSchema: z.ZodType<
@@ -278,7 +353,39 @@ export const CollectorHealthCheckRetryRules$inboundSchema: z.ZodType<
   codes: z.any().optional(),
   enableHeader: z.any().optional(),
 });
+/** @internal */
+export type CollectorHealthCheckRetryRules$Outbound = {
+  type: string;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+};
 
+/** @internal */
+export const CollectorHealthCheckRetryRules$outboundSchema: z.ZodType<
+  CollectorHealthCheckRetryRules$Outbound,
+  z.ZodTypeDef,
+  CollectorHealthCheckRetryRules
+> = z.object({
+  type: CollectorHealthCheckRetryType$outboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+});
+
+export function collectorHealthCheckRetryRulesToJSON(
+  collectorHealthCheckRetryRules: CollectorHealthCheckRetryRules,
+): string {
+  return JSON.stringify(
+    CollectorHealthCheckRetryRules$outboundSchema.parse(
+      collectorHealthCheckRetryRules,
+    ),
+  );
+}
 export function collectorHealthCheckRetryRulesFromJSON(
   jsonString: string,
 ): SafeParseResult<CollectorHealthCheckRetryRules, SDKValidationError> {
@@ -317,7 +424,62 @@ export const CollectorHealthCheck$inboundSchema: z.ZodType<
     .optional(),
   type: z.literal("health_check"),
 });
+/** @internal */
+export type CollectorHealthCheck$Outbound = {
+  discovery?: CollectorHealthCheckDiscovery$Outbound | undefined;
+  collectUrl: string;
+  collectMethod: string;
+  collectRequestParams?: any | undefined;
+  collectBody?: any | undefined;
+  collectRequestHeaders?:
+    | Array<CollectorHealthCheckCollectRequestHeader$Outbound>
+    | undefined;
+  authenticateCollect: boolean;
+  authentication: string;
+  timeout: number;
+  rejectUnauthorized: boolean;
+  defaultBreakers?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: CollectorHealthCheckRetryRules$Outbound | undefined;
+  type: "health_check";
+};
 
+/** @internal */
+export const CollectorHealthCheck$outboundSchema: z.ZodType<
+  CollectorHealthCheck$Outbound,
+  z.ZodTypeDef,
+  CollectorHealthCheck
+> = z.object({
+  discovery: z.lazy(() => CollectorHealthCheckDiscovery$outboundSchema)
+    .optional(),
+  collectUrl: z.string(),
+  collectMethod: HealthCheckMethod$outboundSchema.default("get"),
+  collectRequestParams: z.any().optional(),
+  collectBody: z.any().optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorHealthCheckCollectRequestHeader$outboundSchema),
+  ).optional(),
+  authenticateCollect: z.boolean().default(false),
+  authentication: CollectorHealthCheckAuthentication$outboundSchema.default(
+    "none",
+  ),
+  timeout: z.number().default(30),
+  rejectUnauthorized: z.boolean().default(false),
+  defaultBreakers: CollectorHealthCheckHiddenDefaultBreakers$outboundSchema
+    .optional(),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.lazy(() => CollectorHealthCheckRetryRules$outboundSchema)
+    .optional(),
+  type: z.literal("health_check"),
+});
+
+export function collectorHealthCheckToJSON(
+  collectorHealthCheck: CollectorHealthCheck,
+): string {
+  return JSON.stringify(
+    CollectorHealthCheck$outboundSchema.parse(collectorHealthCheck),
+  );
+}
 export function collectorHealthCheckFromJSON(
   jsonString: string,
 ): SafeParseResult<CollectorHealthCheck, SDKValidationError> {

@@ -225,6 +225,12 @@ export const CollectorRestDiscoverType$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(CollectorRestDiscoverType);
+/** @internal */
+export const CollectorRestDiscoverType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestDiscoverType
+> = openEnums.outboundSchema(CollectorRestDiscoverType);
 
 /** @internal */
 export const CollectorRestDiscovery$inboundSchema: z.ZodType<
@@ -234,7 +240,27 @@ export const CollectorRestDiscovery$inboundSchema: z.ZodType<
 > = z.object({
   discoverType: CollectorRestDiscoverType$inboundSchema.default("none"),
 });
+/** @internal */
+export type CollectorRestDiscovery$Outbound = {
+  discoverType: string;
+};
 
+/** @internal */
+export const CollectorRestDiscovery$outboundSchema: z.ZodType<
+  CollectorRestDiscovery$Outbound,
+  z.ZodTypeDef,
+  CollectorRestDiscovery
+> = z.object({
+  discoverType: CollectorRestDiscoverType$outboundSchema.default("none"),
+});
+
+export function collectorRestDiscoveryToJSON(
+  collectorRestDiscovery: CollectorRestDiscovery,
+): string {
+  return JSON.stringify(
+    CollectorRestDiscovery$outboundSchema.parse(collectorRestDiscovery),
+  );
+}
 export function collectorRestDiscoveryFromJSON(
   jsonString: string,
 ): SafeParseResult<CollectorRestDiscovery, SDKValidationError> {
@@ -251,6 +277,12 @@ export const CollectMethod$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(CollectMethod);
+/** @internal */
+export const CollectMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectMethod
+> = openEnums.outboundSchema(CollectMethod);
 
 /** @internal */
 export const CollectorRestCollectRequestHeader$inboundSchema: z.ZodType<
@@ -261,7 +293,31 @@ export const CollectorRestCollectRequestHeader$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
+/** @internal */
+export type CollectorRestCollectRequestHeader$Outbound = {
+  name: string;
+  value: string;
+};
 
+/** @internal */
+export const CollectorRestCollectRequestHeader$outboundSchema: z.ZodType<
+  CollectorRestCollectRequestHeader$Outbound,
+  z.ZodTypeDef,
+  CollectorRestCollectRequestHeader
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorRestCollectRequestHeaderToJSON(
+  collectorRestCollectRequestHeader: CollectorRestCollectRequestHeader,
+): string {
+  return JSON.stringify(
+    CollectorRestCollectRequestHeader$outboundSchema.parse(
+      collectorRestCollectRequestHeader,
+    ),
+  );
+}
 export function collectorRestCollectRequestHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<CollectorRestCollectRequestHeader, SDKValidationError> {
@@ -278,6 +334,12 @@ export const PaginationEnum$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(PaginationEnum);
+/** @internal */
+export const PaginationEnum$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PaginationEnum
+> = openEnums.outboundSchema(PaginationEnum);
 
 /** @internal */
 export const Pagination$inboundSchema: z.ZodType<
@@ -287,7 +349,23 @@ export const Pagination$inboundSchema: z.ZodType<
 > = z.object({
   type: PaginationEnum$inboundSchema.default("none"),
 });
+/** @internal */
+export type Pagination$Outbound = {
+  type: string;
+};
 
+/** @internal */
+export const Pagination$outboundSchema: z.ZodType<
+  Pagination$Outbound,
+  z.ZodTypeDef,
+  Pagination
+> = z.object({
+  type: PaginationEnum$outboundSchema.default("none"),
+});
+
+export function paginationToJSON(pagination: Pagination): string {
+  return JSON.stringify(Pagination$outboundSchema.parse(pagination));
+}
 export function paginationFromJSON(
   jsonString: string,
 ): SafeParseResult<Pagination, SDKValidationError> {
@@ -304,6 +382,12 @@ export const CollectorRestAuthentication$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(CollectorRestAuthentication);
+/** @internal */
+export const CollectorRestAuthentication$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestAuthentication
+> = openEnums.outboundSchema(CollectorRestAuthentication);
 
 /** @internal */
 export const CollectorRestRetryType$inboundSchema: z.ZodType<
@@ -311,6 +395,12 @@ export const CollectorRestRetryType$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(CollectorRestRetryType);
+/** @internal */
+export const CollectorRestRetryType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorRestRetryType
+> = openEnums.outboundSchema(CollectorRestRetryType);
 
 /** @internal */
 export const CollectorRestRetryRules$inboundSchema: z.ZodType<
@@ -328,7 +418,43 @@ export const CollectorRestRetryRules$inboundSchema: z.ZodType<
   retryConnectTimeout: z.any().optional(),
   retryConnectReset: z.any().optional(),
 });
+/** @internal */
+export type CollectorRestRetryRules$Outbound = {
+  type: string;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  maxIntervalMs?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
 
+/** @internal */
+export const CollectorRestRetryRules$outboundSchema: z.ZodType<
+  CollectorRestRetryRules$Outbound,
+  z.ZodTypeDef,
+  CollectorRestRetryRules
+> = z.object({
+  type: CollectorRestRetryType$outboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  maxIntervalMs: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+
+export function collectorRestRetryRulesToJSON(
+  collectorRestRetryRules: CollectorRestRetryRules,
+): string {
+  return JSON.stringify(
+    CollectorRestRetryRules$outboundSchema.parse(collectorRestRetryRules),
+  );
+}
 export function collectorRestRetryRulesFromJSON(
   jsonString: string,
 ): SafeParseResult<CollectorRestRetryRules, SDKValidationError> {
@@ -347,7 +473,27 @@ export const CollectorRestStateTracking$inboundSchema: z.ZodType<
 > = z.object({
   enabled: z.boolean().optional(),
 });
+/** @internal */
+export type CollectorRestStateTracking$Outbound = {
+  enabled?: boolean | undefined;
+};
 
+/** @internal */
+export const CollectorRestStateTracking$outboundSchema: z.ZodType<
+  CollectorRestStateTracking$Outbound,
+  z.ZodTypeDef,
+  CollectorRestStateTracking
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+
+export function collectorRestStateTrackingToJSON(
+  collectorRestStateTracking: CollectorRestStateTracking,
+): string {
+  return JSON.stringify(
+    CollectorRestStateTracking$outboundSchema.parse(collectorRestStateTracking),
+  );
+}
 export function collectorRestStateTrackingFromJSON(
   jsonString: string,
 ): SafeParseResult<CollectorRestStateTracking, SDKValidationError> {
@@ -367,7 +513,28 @@ export const CollectorRestScheduling$inboundSchema: z.ZodType<
   stateTracking: z.lazy(() => CollectorRestStateTracking$inboundSchema)
     .optional(),
 });
+/** @internal */
+export type CollectorRestScheduling$Outbound = {
+  stateTracking?: CollectorRestStateTracking$Outbound | undefined;
+};
 
+/** @internal */
+export const CollectorRestScheduling$outboundSchema: z.ZodType<
+  CollectorRestScheduling$Outbound,
+  z.ZodTypeDef,
+  CollectorRestScheduling
+> = z.object({
+  stateTracking: z.lazy(() => CollectorRestStateTracking$outboundSchema)
+    .optional(),
+});
+
+export function collectorRestSchedulingToJSON(
+  collectorRestScheduling: CollectorRestScheduling,
+): string {
+  return JSON.stringify(
+    CollectorRestScheduling$outboundSchema.parse(collectorRestScheduling),
+  );
+}
 export function collectorRestSchedulingFromJSON(
   jsonString: string,
 ): SafeParseResult<CollectorRestScheduling, SDKValidationError> {
@@ -411,7 +578,69 @@ export const CollectorRest$inboundSchema: z.ZodType<
     "__scheduling": "scheduling",
   });
 });
+/** @internal */
+export type CollectorRest$Outbound = {
+  type: "rest";
+  discovery?: CollectorRestDiscovery$Outbound | undefined;
+  collectUrl: string;
+  collectMethod: string;
+  collectVerb?: any | undefined;
+  collectRequestParams?: any | undefined;
+  collectBody?: any | undefined;
+  collectRequestHeaders?:
+    | Array<CollectorRestCollectRequestHeader$Outbound>
+    | undefined;
+  pagination?: Pagination$Outbound | undefined;
+  authentication: string;
+  timeout: number;
+  useRoundRobinDns: boolean;
+  disableTimeFilter: boolean;
+  decodeUrl: boolean;
+  rejectUnauthorized: boolean;
+  captureHeaders: boolean;
+  stopOnEmptyResults: boolean;
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: CollectorRestRetryRules$Outbound | undefined;
+  __scheduling?: CollectorRestScheduling$Outbound | undefined;
+};
 
+/** @internal */
+export const CollectorRest$outboundSchema: z.ZodType<
+  CollectorRest$Outbound,
+  z.ZodTypeDef,
+  CollectorRest
+> = z.object({
+  type: z.literal("rest"),
+  discovery: z.lazy(() => CollectorRestDiscovery$outboundSchema).optional(),
+  collectUrl: z.string(),
+  collectMethod: CollectMethod$outboundSchema.default("get"),
+  collectVerb: z.any().optional(),
+  collectRequestParams: z.any().optional(),
+  collectBody: z.any().optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorRestCollectRequestHeader$outboundSchema),
+  ).optional(),
+  pagination: z.lazy(() => Pagination$outboundSchema).optional(),
+  authentication: CollectorRestAuthentication$outboundSchema.default("none"),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(false),
+  decodeUrl: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  captureHeaders: z.boolean().default(false),
+  stopOnEmptyResults: z.boolean().default(false),
+  safeHeaders: z.array(z.string()).optional(),
+  retryRules: z.lazy(() => CollectorRestRetryRules$outboundSchema).optional(),
+  scheduling: z.lazy(() => CollectorRestScheduling$outboundSchema).optional(),
+}).transform((v) => {
+  return remap$(v, {
+    scheduling: "__scheduling",
+  });
+});
+
+export function collectorRestToJSON(collectorRest: CollectorRest): string {
+  return JSON.stringify(CollectorRest$outboundSchema.parse(collectorRest));
+}
 export function collectorRestFromJSON(
   jsonString: string,
 ): SafeParseResult<CollectorRest, SDKValidationError> {
