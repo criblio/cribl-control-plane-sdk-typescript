@@ -74,7 +74,7 @@ export type FunctionRedisAuthenticationMethod = OpenEnum<
 >;
 
 export type FunctionRedisSchema = {
-  commands: Array<Command>;
+  commands?: Array<Command> | undefined;
   /**
    * How the Redis server is configured. Defaults to Standalone
    */
@@ -146,7 +146,7 @@ export const FunctionRedisSchema$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  commands: z.array(z.lazy(() => Command$inboundSchema)),
+  commands: z.array(z.lazy(() => Command$inboundSchema)).optional(),
   deploymentType: DeploymentType$inboundSchema.default("standalone"),
   authType: FunctionRedisAuthenticationMethod$inboundSchema.default("none"),
   maxBlockSecs: z.number().default(60),

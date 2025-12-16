@@ -12,11 +12,11 @@ export type FunctionWindowSchema = {
   /**
    * Identifies the unique ID, used for a event window
    */
-  eventWindowId: number;
+  eventWindowId?: number | undefined;
   /**
    * All window functions, tracked by this event window
    */
-  registeredFunctions: Array<string>;
+  registeredFunctions?: Array<string> | undefined;
   /**
    * Number of events to keep before the current event in the window
    */
@@ -50,8 +50,8 @@ export const FunctionWindowSchema$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  eventWindowId: z.number(),
-  registeredFunctions: z.array(z.string()),
+  eventWindowId: z.number().optional(),
+  registeredFunctions: z.array(z.string()).optional(),
   tailEventCount: z.number().default(0),
   headEventCount: z.number().default(0),
 });

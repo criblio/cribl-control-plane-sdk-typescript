@@ -12,7 +12,7 @@ export type FunctionJsonUnrollSchema = {
   /**
    * Path to array to unroll, such as foo.0.bar
    */
-  path: string;
+  path?: string | undefined;
   /**
    * Name of each exploded array element in each new event. Leave empty to expand the array element with its original name.
    */
@@ -42,7 +42,7 @@ export const FunctionJsonUnrollSchema$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  path: z.string(),
+  path: z.string().optional(),
   name: z.string().optional(),
 });
 

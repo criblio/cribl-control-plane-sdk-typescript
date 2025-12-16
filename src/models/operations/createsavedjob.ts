@@ -8,7 +8,7 @@ import * as models from "../index.js";
 
 export type CreateSavedJobRequest = {
   /**
-   * Pack ID
+   * The <code>id</code> of the Pack to create the Collector in.
    */
   criblPack?: string | undefined;
   /**

@@ -24,6 +24,7 @@ let value: FunctionMvExpand = {
   schema: {
     sourceFields: [
       "<value 1>",
+      "<value 2>",
     ],
     targetNames: [
       "<value 1>",

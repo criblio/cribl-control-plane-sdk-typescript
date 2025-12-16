@@ -16,6 +16,6 @@ let value: FunctionNotificationsSchema = {
 
 | Field                               | Type                                | Required                            | Description                         |
 | ----------------------------------- | ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| `id`                                | *string*                            | :heavy_check_mark:                  | Notification ID                     |
-| `field`                             | *string*                            | :heavy_check_mark:                  | Notification event state field name |
-| `deduplicate`                       | *boolean*                           | :heavy_check_mark:                  | Toggle deduplication.               |
+| `id`                                | *string*                            | :heavy_minus_sign:                  | Notification ID                     |
+| `field`                             | *string*                            | :heavy_minus_sign:                  | Notification event state field name |
+| `deduplicate`                       | *boolean*                           | :heavy_minus_sign:                  | Toggle deduplication.               |

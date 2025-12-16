@@ -12,7 +12,7 @@ export type EventstatsConfiguration = {
   /**
    * Aggregate function(s) to perform on events. E.g., sum(bytes).where(action=='REJECT').as(TotalBytes)
    */
-  aggregations: Array<string>;
+  aggregations?: Array<string> | undefined;
   /**
    * Fields to group aggregates by, supports wildcard expressions.
    */
@@ -50,7 +50,7 @@ export const EventstatsConfiguration$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  aggregations: z.array(z.string()),
+  aggregations: z.array(z.string()).optional(),
   groupBys: z.array(z.string()).optional(),
   maxEvents: z.number().default(50000),
   flushOnInputClose: z.boolean().default(false),

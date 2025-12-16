@@ -6,11 +6,11 @@ import * as z from "zod/v3";
 
 export type GetSavedJobByIdRequest = {
   /**
-   * Collector ID
+   * The <code>id</code> of the Collector to get.
    */
   id: string;
   /**
-   * Pack ID
+   * The <code>id</code> of the Pack that includes the Collector to get.
    */
   criblPack?: string | undefined;
 };

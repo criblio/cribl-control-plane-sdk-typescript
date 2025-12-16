@@ -8,11 +8,11 @@ import * as models from "../index.js";
 
 export type UpdateSavedJobByIdRequest = {
   /**
-   * Collector ID
+   * The <code>id</code> of the Collector to update.
    */
   id: string;
   /**
-   * Pack ID
+   * The <code>id</code> of the Pack that includes the Collector to update.
    */
   criblPack?: string | undefined;
   /**

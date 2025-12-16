@@ -74,11 +74,11 @@ export type NotifyConfiguration = {
   /**
    * Id of the search this function is running on.
    */
-  searchId: string;
+  searchId?: string | undefined;
   /**
    * Id of the saved query
    */
-  savedQueryId: string;
+  savedQueryId?: string | undefined;
   /**
    * Js expression that filters events, a greater than 'Trigger Count' events will trigger the notification
    */
@@ -102,7 +102,7 @@ export type NotifyConfiguration = {
   /**
    * Url of the search results
    */
-  searchUrl: string;
+  searchUrl?: string | undefined;
   /**
    * Message content template, available fields: searchId, resultSet, savedQueryId, notificationId, searchResultsUrl
    */
@@ -110,11 +110,11 @@ export type NotifyConfiguration = {
   /**
    * Auth token for sending notification messages
    */
-  authToken: string;
+  authToken?: string | undefined;
   /**
    * System messages api endpoint
    */
-  messagesEndpoint: string;
+  messagesEndpoint?: string | undefined;
   /**
    * Current tenant id
    */
@@ -160,17 +160,17 @@ export const NotifyConfiguration$inboundSchema: z.ZodType<
 > = z.object({
   group: z.string().default("default"),
   notificationId: z.string().default("main"),
-  searchId: z.string(),
-  savedQueryId: z.string(),
+  searchId: z.string().optional(),
+  savedQueryId: z.string().optional(),
   trigger: z.string().optional(),
   triggerType: TriggerType$inboundSchema.optional(),
   triggerComparator: CountComparator$inboundSchema.optional(),
   triggerCount: z.number().default(0),
   resultsLimit: z.number().default(50),
-  searchUrl: z.string(),
+  searchUrl: z.string().optional(),
   message: z.string().optional(),
-  authToken: z.string(),
-  messagesEndpoint: z.string(),
+  authToken: z.string().optional(),
+  messagesEndpoint: z.string().optional(),
   tenantId: z.string().optional(),
 });
 

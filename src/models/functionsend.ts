@@ -42,7 +42,7 @@ export type SendConfiguration = {
   /**
    * Id of the search this function is running on.
    */
-  searchId: string;
+  searchId?: string | undefined;
   /**
    * Tee results to search. When set to true results will be shipped instead of stats
    */
@@ -95,7 +95,7 @@ export const SendConfiguration$inboundSchema: z.ZodType<
   group: z.string().default("default"),
   workspace: z.string().default("main"),
   sendUrlTemplate: z.string().optional(),
-  searchId: z.string(),
+  searchId: z.string().optional(),
   tee: z.string().default("false"),
   flushMs: z.number().default(1000),
   suppressPreviews: z.boolean().optional(),

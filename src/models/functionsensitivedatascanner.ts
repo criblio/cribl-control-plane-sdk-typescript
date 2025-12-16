@@ -26,7 +26,7 @@ export type FunctionSensitiveDataScannerFlag = {
 };
 
 export type FunctionSensitiveDataScannerSchema = {
-  rules: Array<FunctionSensitiveDataScannerRule>;
+  rules?: Array<FunctionSensitiveDataScannerRule> | undefined;
   /**
    * Rulesets act on the events contained in these fields. Mitigation expressions apply to the scan results. Supports wildcards (*).
    */
@@ -109,7 +109,8 @@ export const FunctionSensitiveDataScannerSchema$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  rules: z.array(z.lazy(() => FunctionSensitiveDataScannerRule$inboundSchema)),
+  rules: z.array(z.lazy(() => FunctionSensitiveDataScannerRule$inboundSchema))
+    .optional(),
   fields: z.array(z.string()).optional(),
   excludeFields: z.array(z.string()).optional(),
   flags: z.array(z.lazy(() => FunctionSensitiveDataScannerFlag$inboundSchema))

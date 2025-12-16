@@ -12,7 +12,7 @@ export type FunctionXmlUnrollSchema = {
   /**
    * Path to array to unroll. Example: ^root\.child\.ElementToUnroll$
    */
-  unroll: string;
+  unroll?: string | undefined;
   /**
    * Regex matching elements to copy into each unrolled event. Example: ^root\.(childA|childB|childC)$
    */
@@ -50,7 +50,7 @@ export const FunctionXmlUnrollSchema$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  unroll: z.string(),
+  unroll: z.string().optional(),
   inherit: z.string().optional(),
   unrollIdxField: z.string().default("unroll_idx"),
   pretty: z.boolean().default(false),

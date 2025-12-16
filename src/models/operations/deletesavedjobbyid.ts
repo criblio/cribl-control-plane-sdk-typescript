@@ -6,15 +6,15 @@ import * as z from "zod/v3";
 
 export type DeleteSavedJobByIdRequest = {
   /**
-   * Collector ID
+   * The <code>id</code> of the Collector to delete.
    */
   id: string;
   /**
-   * Pack ID
+   * The <code>id</code> of the Pack that includes the Collector to delete.
    */
   criblPack?: string | undefined;
   /**
-   * Worker group ID
+   * The <code>id</code> of the Worker Group that includes the Collector to delete.
    */
   groupId?: string | undefined;
 };

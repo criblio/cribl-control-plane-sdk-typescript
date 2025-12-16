@@ -27,7 +27,7 @@ export type FunctionHandlebarSchema = {
   /**
    * Object with template_id as keys and template definitions as values. Uses event.__template_id to select template at runtime.
    */
-  templates: { [k: string]: TemplateDefinition };
+  templates?: { [k: string]: TemplateDefinition } | undefined;
   /**
    * Field name to store the rendered template result. Defaults to _raw.
    */
@@ -86,7 +86,8 @@ export const FunctionHandlebarSchema$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  templates: z.record(z.lazy(() => TemplateDefinition$inboundSchema)),
+  templates: z.record(z.lazy(() => TemplateDefinition$inboundSchema))
+    .optional(),
   targetField: z.string().default("_raw"),
   parseJson: z.boolean().default(false),
   removeOnNull: z.boolean().default(true),

@@ -28,7 +28,7 @@ export type FunctionGeoipSchema = {
   /**
    * Select an uploaded Maxmind database, or specify path to a Maxmind database with .mmdb extension
    */
-  file: string;
+  file?: string | undefined;
   /**
    * Field name in which to find an IP to look up. Can be nested.
    */
@@ -104,7 +104,7 @@ export const FunctionGeoipSchema$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  file: z.string(),
+  file: z.string().optional(),
   inField: z.string().default("ip"),
   outField: z.string().default("geoip"),
   additionalFields: z.array(z.lazy(() => AdditionalField$inboundSchema))

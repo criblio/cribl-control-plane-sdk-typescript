@@ -26,7 +26,8 @@ let value: FunctionHandlebar = {
     templates: {
       "key": {
         content: "<value>",
-        description: "and what appropriate singe within although configuration",
+        description:
+          "overconfidently underneath surface amongst shakily afore anneal stoop",
       },
     },
   },
