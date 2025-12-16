@@ -26,6 +26,19 @@ export type NodeProvidedInfoAws = {
   zone: string;
 };
 
+export type NodeProvidedInfoAzure = {
+  enabled: boolean;
+  hostname?: string | undefined;
+  instanceId?: string | undefined;
+  name?: string | undefined;
+  region?: string | undefined;
+  resourceGroup?: string | undefined;
+  subscriptionId?: string | undefined;
+  tags?: { [k: string]: string } | undefined;
+  type?: string | undefined;
+  zone?: string | undefined;
+};
+
 export type NodeProvidedInfoHostOs = {
   addresses: Array<string>;
   enabled: boolean;
@@ -63,6 +76,7 @@ export type Os = NodeProvidedInfoOs1 | NodeProvidedInfoOs2;
 export type NodeProvidedInfo = {
   architecture: string;
   aws?: NodeProvidedInfoAws | undefined;
+  azure?: NodeProvidedInfoAzure | undefined;
   connIp?: string | undefined;
   cpus: number;
   cribl: HBCriblInfo;
@@ -104,6 +118,34 @@ export function nodeProvidedInfoAwsFromJSON(
     jsonString,
     (x) => NodeProvidedInfoAws$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'NodeProvidedInfoAws' from JSON`,
+  );
+}
+
+/** @internal */
+export const NodeProvidedInfoAzure$inboundSchema: z.ZodType<
+  NodeProvidedInfoAzure,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean(),
+  hostname: z.string().optional(),
+  instanceId: z.string().optional(),
+  name: z.string().optional(),
+  region: z.string().optional(),
+  resourceGroup: z.string().optional(),
+  subscriptionId: z.string().optional(),
+  tags: z.record(z.string()).optional(),
+  type: z.string().optional(),
+  zone: z.string().optional(),
+});
+
+export function nodeProvidedInfoAzureFromJSON(
+  jsonString: string,
+): SafeParseResult<NodeProvidedInfoAzure, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => NodeProvidedInfoAzure$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'NodeProvidedInfoAzure' from JSON`,
   );
 }
 
@@ -238,6 +280,7 @@ export const NodeProvidedInfo$inboundSchema: z.ZodType<
 > = z.object({
   architecture: z.string(),
   aws: z.lazy(() => NodeProvidedInfoAws$inboundSchema).optional(),
+  azure: z.lazy(() => NodeProvidedInfoAzure$inboundSchema).optional(),
   conn_ip: z.string().optional(),
   cpus: z.number(),
   cribl: HBCriblInfo$inboundSchema,

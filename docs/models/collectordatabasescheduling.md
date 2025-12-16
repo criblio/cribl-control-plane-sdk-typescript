@@ -7,7 +7,7 @@ import { CollectorDatabaseScheduling } from "cribl-control-plane/models";
 
 let value: CollectorDatabaseScheduling = {
   stateTracking: {
-    enabled: false,
+    enabled: true,
   },
 };
 ```

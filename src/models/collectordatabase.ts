@@ -55,6 +55,12 @@ export const CollectorDatabaseHiddenDefaultBreakers$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(CollectorDatabaseHiddenDefaultBreakers);
+/** @internal */
+export const CollectorDatabaseHiddenDefaultBreakers$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorDatabaseHiddenDefaultBreakers
+> = openEnums.outboundSchema(CollectorDatabaseHiddenDefaultBreakers);
 
 /** @internal */
 export const CollectorDatabaseStateTracking$inboundSchema: z.ZodType<
@@ -64,7 +70,29 @@ export const CollectorDatabaseStateTracking$inboundSchema: z.ZodType<
 > = z.object({
   enabled: z.boolean().optional(),
 });
+/** @internal */
+export type CollectorDatabaseStateTracking$Outbound = {
+  enabled?: boolean | undefined;
+};
 
+/** @internal */
+export const CollectorDatabaseStateTracking$outboundSchema: z.ZodType<
+  CollectorDatabaseStateTracking$Outbound,
+  z.ZodTypeDef,
+  CollectorDatabaseStateTracking
+> = z.object({
+  enabled: z.boolean().optional(),
+});
+
+export function collectorDatabaseStateTrackingToJSON(
+  collectorDatabaseStateTracking: CollectorDatabaseStateTracking,
+): string {
+  return JSON.stringify(
+    CollectorDatabaseStateTracking$outboundSchema.parse(
+      collectorDatabaseStateTracking,
+    ),
+  );
+}
 export function collectorDatabaseStateTrackingFromJSON(
   jsonString: string,
 ): SafeParseResult<CollectorDatabaseStateTracking, SDKValidationError> {
@@ -84,7 +112,30 @@ export const CollectorDatabaseScheduling$inboundSchema: z.ZodType<
   stateTracking: z.lazy(() => CollectorDatabaseStateTracking$inboundSchema)
     .optional(),
 });
+/** @internal */
+export type CollectorDatabaseScheduling$Outbound = {
+  stateTracking?: CollectorDatabaseStateTracking$Outbound | undefined;
+};
 
+/** @internal */
+export const CollectorDatabaseScheduling$outboundSchema: z.ZodType<
+  CollectorDatabaseScheduling$Outbound,
+  z.ZodTypeDef,
+  CollectorDatabaseScheduling
+> = z.object({
+  stateTracking: z.lazy(() => CollectorDatabaseStateTracking$outboundSchema)
+    .optional(),
+});
+
+export function collectorDatabaseSchedulingToJSON(
+  collectorDatabaseScheduling: CollectorDatabaseScheduling,
+): string {
+  return JSON.stringify(
+    CollectorDatabaseScheduling$outboundSchema.parse(
+      collectorDatabaseScheduling,
+    ),
+  );
+}
 export function collectorDatabaseSchedulingFromJSON(
   jsonString: string,
 ): SafeParseResult<CollectorDatabaseScheduling, SDKValidationError> {
@@ -114,7 +165,43 @@ export const CollectorDatabase$inboundSchema: z.ZodType<
     "__scheduling": "scheduling",
   });
 });
+/** @internal */
+export type CollectorDatabase$Outbound = {
+  type: "database";
+  connectionId: string;
+  query: string;
+  queryValidationEnabled: boolean;
+  defaultBreakers?: string | undefined;
+  __scheduling?: CollectorDatabaseScheduling$Outbound | undefined;
+};
 
+/** @internal */
+export const CollectorDatabase$outboundSchema: z.ZodType<
+  CollectorDatabase$Outbound,
+  z.ZodTypeDef,
+  CollectorDatabase
+> = z.object({
+  type: z.literal("database"),
+  connectionId: z.string(),
+  query: z.string(),
+  queryValidationEnabled: z.boolean().default(true),
+  defaultBreakers: CollectorDatabaseHiddenDefaultBreakers$outboundSchema
+    .optional(),
+  scheduling: z.lazy(() => CollectorDatabaseScheduling$outboundSchema)
+    .optional(),
+}).transform((v) => {
+  return remap$(v, {
+    scheduling: "__scheduling",
+  });
+});
+
+export function collectorDatabaseToJSON(
+  collectorDatabase: CollectorDatabase,
+): string {
+  return JSON.stringify(
+    CollectorDatabase$outboundSchema.parse(collectorDatabase),
+  );
+}
 export function collectorDatabaseFromJSON(
   jsonString: string,
 ): SafeParseResult<CollectorDatabase, SDKValidationError> {

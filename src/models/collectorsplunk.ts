@@ -181,6 +181,12 @@ export const CollectorSplunkOutputMode$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(CollectorSplunkOutputMode);
+/** @internal */
+export const CollectorSplunkOutputMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorSplunkOutputMode
+> = openEnums.outboundSchema(CollectorSplunkOutputMode);
 
 /** @internal */
 export const CollectRequestParam$inboundSchema: z.ZodType<
@@ -191,7 +197,29 @@ export const CollectRequestParam$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
+/** @internal */
+export type CollectRequestParam$Outbound = {
+  name: string;
+  value: string;
+};
 
+/** @internal */
+export const CollectRequestParam$outboundSchema: z.ZodType<
+  CollectRequestParam$Outbound,
+  z.ZodTypeDef,
+  CollectRequestParam
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectRequestParamToJSON(
+  collectRequestParam: CollectRequestParam,
+): string {
+  return JSON.stringify(
+    CollectRequestParam$outboundSchema.parse(collectRequestParam),
+  );
+}
 export function collectRequestParamFromJSON(
   jsonString: string,
 ): SafeParseResult<CollectRequestParam, SDKValidationError> {
@@ -211,7 +239,31 @@ export const CollectorSplunkCollectRequestHeader$inboundSchema: z.ZodType<
   name: z.string(),
   value: z.string(),
 });
+/** @internal */
+export type CollectorSplunkCollectRequestHeader$Outbound = {
+  name: string;
+  value: string;
+};
 
+/** @internal */
+export const CollectorSplunkCollectRequestHeader$outboundSchema: z.ZodType<
+  CollectorSplunkCollectRequestHeader$Outbound,
+  z.ZodTypeDef,
+  CollectorSplunkCollectRequestHeader
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorSplunkCollectRequestHeaderToJSON(
+  collectorSplunkCollectRequestHeader: CollectorSplunkCollectRequestHeader,
+): string {
+  return JSON.stringify(
+    CollectorSplunkCollectRequestHeader$outboundSchema.parse(
+      collectorSplunkCollectRequestHeader,
+    ),
+  );
+}
 export function collectorSplunkCollectRequestHeaderFromJSON(
   jsonString: string,
 ): SafeParseResult<CollectorSplunkCollectRequestHeader, SDKValidationError> {
@@ -229,6 +281,12 @@ export const CollectorSplunkAuthentication$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(CollectorSplunkAuthentication);
+/** @internal */
+export const CollectorSplunkAuthentication$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorSplunkAuthentication
+> = openEnums.outboundSchema(CollectorSplunkAuthentication);
 
 /** @internal */
 export const CollectorSplunkRetryType$inboundSchema: z.ZodType<
@@ -236,6 +294,12 @@ export const CollectorSplunkRetryType$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(CollectorSplunkRetryType);
+/** @internal */
+export const CollectorSplunkRetryType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorSplunkRetryType
+> = openEnums.outboundSchema(CollectorSplunkRetryType);
 
 /** @internal */
 export const CollectorSplunkRetryRules$inboundSchema: z.ZodType<
@@ -252,7 +316,41 @@ export const CollectorSplunkRetryRules$inboundSchema: z.ZodType<
   retryConnectTimeout: z.any().optional(),
   retryConnectReset: z.any().optional(),
 });
+/** @internal */
+export type CollectorSplunkRetryRules$Outbound = {
+  type: string;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
 
+/** @internal */
+export const CollectorSplunkRetryRules$outboundSchema: z.ZodType<
+  CollectorSplunkRetryRules$Outbound,
+  z.ZodTypeDef,
+  CollectorSplunkRetryRules
+> = z.object({
+  type: CollectorSplunkRetryType$outboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+
+export function collectorSplunkRetryRulesToJSON(
+  collectorSplunkRetryRules: CollectorSplunkRetryRules,
+): string {
+  return JSON.stringify(
+    CollectorSplunkRetryRules$outboundSchema.parse(collectorSplunkRetryRules),
+  );
+}
 export function collectorSplunkRetryRulesFromJSON(
   jsonString: string,
 ): SafeParseResult<CollectorSplunkRetryRules, SDKValidationError> {
@@ -289,7 +387,61 @@ export const CollectorSplunk$inboundSchema: z.ZodType<
   handleEscapedChars: z.boolean().default(false),
   retryRules: z.lazy(() => CollectorSplunkRetryRules$inboundSchema).optional(),
 });
+/** @internal */
+export type CollectorSplunk$Outbound = {
+  type: "splunk";
+  searchHead: string;
+  search: string;
+  earliest?: string | undefined;
+  latest?: string | undefined;
+  endpoint: string;
+  outputMode: string;
+  collectRequestParams?: Array<CollectRequestParam$Outbound> | undefined;
+  collectRequestHeaders?:
+    | Array<CollectorSplunkCollectRequestHeader$Outbound>
+    | undefined;
+  authentication: string;
+  timeout: number;
+  useRoundRobinDns: boolean;
+  disableTimeFilter: boolean;
+  rejectUnauthorized: boolean;
+  handleEscapedChars: boolean;
+  retryRules?: CollectorSplunkRetryRules$Outbound | undefined;
+};
 
+/** @internal */
+export const CollectorSplunk$outboundSchema: z.ZodType<
+  CollectorSplunk$Outbound,
+  z.ZodTypeDef,
+  CollectorSplunk
+> = z.object({
+  type: z.literal("splunk"),
+  searchHead: z.string().default("https://localhost:8089"),
+  search: z.string(),
+  earliest: z.string().optional(),
+  latest: z.string().optional(),
+  endpoint: z.string().default("/services/search/v2/jobs/export"),
+  outputMode: CollectorSplunkOutputMode$outboundSchema.default("json"),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectRequestParam$outboundSchema),
+  ).optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorSplunkCollectRequestHeader$outboundSchema),
+  ).optional(),
+  authentication: CollectorSplunkAuthentication$outboundSchema.default("basic"),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  handleEscapedChars: z.boolean().default(false),
+  retryRules: z.lazy(() => CollectorSplunkRetryRules$outboundSchema).optional(),
+});
+
+export function collectorSplunkToJSON(
+  collectorSplunk: CollectorSplunk,
+): string {
+  return JSON.stringify(CollectorSplunk$outboundSchema.parse(collectorSplunk));
+}
 export function collectorSplunkFromJSON(
   jsonString: string,
 ): SafeParseResult<CollectorSplunk, SDKValidationError> {

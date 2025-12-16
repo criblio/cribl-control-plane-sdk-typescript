@@ -12,7 +12,7 @@ let value: CollectorDatabase = {
   defaultBreakers: "Cribl",
   scheduling: {
     stateTracking: {
-      enabled: false,
+      enabled: true,
     },
   },
 };

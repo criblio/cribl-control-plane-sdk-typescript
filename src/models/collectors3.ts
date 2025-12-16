@@ -170,6 +170,12 @@ export const PartitioningScheme$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(PartitioningScheme);
+/** @internal */
+export const PartitioningScheme$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PartitioningScheme
+> = openEnums.outboundSchema(PartitioningScheme);
 
 /** @internal */
 export const CollectorS3Extractor$inboundSchema: z.ZodType<
@@ -180,7 +186,29 @@ export const CollectorS3Extractor$inboundSchema: z.ZodType<
   key: z.string(),
   expression: z.string(),
 });
+/** @internal */
+export type CollectorS3Extractor$Outbound = {
+  key: string;
+  expression: string;
+};
 
+/** @internal */
+export const CollectorS3Extractor$outboundSchema: z.ZodType<
+  CollectorS3Extractor$Outbound,
+  z.ZodTypeDef,
+  CollectorS3Extractor
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+
+export function collectorS3ExtractorToJSON(
+  collectorS3Extractor: CollectorS3Extractor,
+): string {
+  return JSON.stringify(
+    CollectorS3Extractor$outboundSchema.parse(collectorS3Extractor),
+  );
+}
 export function collectorS3ExtractorFromJSON(
   jsonString: string,
 ): SafeParseResult<CollectorS3Extractor, SDKValidationError> {
@@ -197,6 +225,12 @@ export const CollectorS3AuthenticationMethod$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(CollectorS3AuthenticationMethod);
+/** @internal */
+export const CollectorS3AuthenticationMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorS3AuthenticationMethod
+> = openEnums.outboundSchema(CollectorS3AuthenticationMethod);
 
 /** @internal */
 export const CollectorS3SignatureVersion$inboundSchema: z.ZodType<
@@ -204,6 +238,12 @@ export const CollectorS3SignatureVersion$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = openEnums.inboundSchema(CollectorS3SignatureVersion);
+/** @internal */
+export const CollectorS3SignatureVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorS3SignatureVersion
+> = openEnums.outboundSchema(CollectorS3SignatureVersion);
 
 /** @internal */
 export const CollectorS3$inboundSchema: z.ZodType<
@@ -236,7 +276,67 @@ export const CollectorS3$inboundSchema: z.ZodType<
   verifyPermissions: z.boolean().default(true),
   disableTimeFilter: z.boolean().default(false),
 });
+/** @internal */
+export type CollectorS3$Outbound = {
+  type: "s3";
+  outputName?: string | undefined;
+  bucket: string;
+  parquetChunkSizeMB: number;
+  parquetChunkDownloadTimeout: number;
+  region?: string | undefined;
+  path?: string | undefined;
+  partitioningScheme: string;
+  extractors?: Array<CollectorS3Extractor$Outbound> | undefined;
+  awsAuthenticationMethod: string;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  maxBatchSize: number;
+  recurse?: any | undefined;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  verifyPermissions: boolean;
+  disableTimeFilter: boolean;
+};
 
+/** @internal */
+export const CollectorS3$outboundSchema: z.ZodType<
+  CollectorS3$Outbound,
+  z.ZodTypeDef,
+  CollectorS3
+> = z.object({
+  type: z.literal("s3"),
+  outputName: z.string().optional(),
+  bucket: z.string(),
+  parquetChunkSizeMB: z.number().default(5),
+  parquetChunkDownloadTimeout: z.number().default(600),
+  region: z.string().optional(),
+  path: z.string().optional(),
+  partitioningScheme: PartitioningScheme$outboundSchema.default("none"),
+  extractors: z.array(z.lazy(() => CollectorS3Extractor$outboundSchema))
+    .optional(),
+  awsAuthenticationMethod: CollectorS3AuthenticationMethod$outboundSchema
+    .default("auto"),
+  endpoint: z.string().optional(),
+  signatureVersion: CollectorS3SignatureVersion$outboundSchema.default("v4"),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxBatchSize: z.number().default(10),
+  recurse: z.any().optional(),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  verifyPermissions: z.boolean().default(true),
+  disableTimeFilter: z.boolean().default(false),
+});
+
+export function collectorS3ToJSON(collectorS3: CollectorS3): string {
+  return JSON.stringify(CollectorS3$outboundSchema.parse(collectorS3));
+}
 export function collectorS3FromJSON(
   jsonString: string,
 ): SafeParseResult<CollectorS3, SDKValidationError> {

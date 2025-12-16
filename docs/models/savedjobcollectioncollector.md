@@ -1,23 +1,30 @@
-# Collector
+# SavedJobCollectionCollector
 
 ## Example Usage
 
 ```typescript
-import { Collector } from "cribl-control-plane/models";
+import { SavedJobCollectionCollector } from "cribl-control-plane/models";
 
-let value: Collector = {
+let value: SavedJobCollectionCollector = {
   type: "<value>",
   conf: {
-    type: "database",
-    connectionId: "<id>",
-    query: "<value>",
-    queryValidationEnabled: true,
-    defaultBreakers: "Cribl",
-    scheduling: {
-      stateTracking: {
-        enabled: false,
+    type: "azure_blob",
+    outputName: "<value>",
+    authType: "manual",
+    containerName: "<value>",
+    path: "/usr/local/bin",
+    extractors: [
+      {
+        key: "<key>",
+        expression: "<value>",
       },
-    },
+    ],
+    recurse: true,
+    includeMetadata: true,
+    includeTags: true,
+    maxBatchSize: 10,
+    parquetChunkSizeMB: 5,
+    parquetChunkDownloadTimeout: 600,
   },
   encoding: "<value>",
 };

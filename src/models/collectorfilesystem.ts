@@ -54,7 +54,31 @@ export const CollectorFilesystemExtractor$inboundSchema: z.ZodType<
   key: z.string(),
   expression: z.string(),
 });
+/** @internal */
+export type CollectorFilesystemExtractor$Outbound = {
+  key: string;
+  expression: string;
+};
 
+/** @internal */
+export const CollectorFilesystemExtractor$outboundSchema: z.ZodType<
+  CollectorFilesystemExtractor$Outbound,
+  z.ZodTypeDef,
+  CollectorFilesystemExtractor
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+
+export function collectorFilesystemExtractorToJSON(
+  collectorFilesystemExtractor: CollectorFilesystemExtractor,
+): string {
+  return JSON.stringify(
+    CollectorFilesystemExtractor$outboundSchema.parse(
+      collectorFilesystemExtractor,
+    ),
+  );
+}
 export function collectorFilesystemExtractorFromJSON(
   jsonString: string,
 ): SafeParseResult<CollectorFilesystemExtractor, SDKValidationError> {
@@ -79,7 +103,38 @@ export const CollectorFilesystem$inboundSchema: z.ZodType<
   recurse: z.boolean().default(true),
   maxBatchSize: z.number().default(10),
 });
+/** @internal */
+export type CollectorFilesystem$Outbound = {
+  type: "filesystem";
+  outputName?: string | undefined;
+  path: string;
+  extractors?: Array<CollectorFilesystemExtractor$Outbound> | undefined;
+  recurse: boolean;
+  maxBatchSize: number;
+};
 
+/** @internal */
+export const CollectorFilesystem$outboundSchema: z.ZodType<
+  CollectorFilesystem$Outbound,
+  z.ZodTypeDef,
+  CollectorFilesystem
+> = z.object({
+  type: z.literal("filesystem"),
+  outputName: z.string().optional(),
+  path: z.string(),
+  extractors: z.array(z.lazy(() => CollectorFilesystemExtractor$outboundSchema))
+    .optional(),
+  recurse: z.boolean().default(true),
+  maxBatchSize: z.number().default(10),
+});
+
+export function collectorFilesystemToJSON(
+  collectorFilesystem: CollectorFilesystem,
+): string {
+  return JSON.stringify(
+    CollectorFilesystem$outboundSchema.parse(collectorFilesystem),
+  );
+}
 export function collectorFilesystemFromJSON(
   jsonString: string,
 ): SafeParseResult<CollectorFilesystem, SDKValidationError> {

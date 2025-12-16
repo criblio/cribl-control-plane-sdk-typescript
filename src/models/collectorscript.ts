@@ -47,7 +47,25 @@ export const EnvVar$inboundSchema: z.ZodType<EnvVar, z.ZodTypeDef, unknown> = z
     name: z.string(),
     value: z.string(),
   });
+/** @internal */
+export type EnvVar$Outbound = {
+  name: string;
+  value: string;
+};
 
+/** @internal */
+export const EnvVar$outboundSchema: z.ZodType<
+  EnvVar$Outbound,
+  z.ZodTypeDef,
+  EnvVar
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function envVarToJSON(envVar: EnvVar): string {
+  return JSON.stringify(EnvVar$outboundSchema.parse(envVar));
+}
 export function envVarFromJSON(
   jsonString: string,
 ): SafeParseResult<EnvVar, SDKValidationError> {
@@ -70,7 +88,33 @@ export const CollectorScript$inboundSchema: z.ZodType<
   shell: z.string().default("/bin/bash"),
   envVars: z.array(z.lazy(() => EnvVar$inboundSchema)).optional(),
 });
+/** @internal */
+export type CollectorScript$Outbound = {
+  type: "script";
+  discoverScript: string;
+  collectScript: string;
+  shell: string;
+  envVars?: Array<EnvVar$Outbound> | undefined;
+};
 
+/** @internal */
+export const CollectorScript$outboundSchema: z.ZodType<
+  CollectorScript$Outbound,
+  z.ZodTypeDef,
+  CollectorScript
+> = z.object({
+  type: z.literal("script"),
+  discoverScript: z.string(),
+  collectScript: z.string(),
+  shell: z.string().default("/bin/bash"),
+  envVars: z.array(z.lazy(() => EnvVar$outboundSchema)).optional(),
+});
+
+export function collectorScriptToJSON(
+  collectorScript: CollectorScript,
+): string {
+  return JSON.stringify(CollectorScript$outboundSchema.parse(collectorScript));
+}
 export function collectorScriptFromJSON(
   jsonString: string,
 ): SafeParseResult<CollectorScript, SDKValidationError> {

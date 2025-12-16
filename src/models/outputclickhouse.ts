@@ -172,6 +172,16 @@ export type OutputClickHouseTimeoutRetrySettings = {
   maxBackoff?: number | undefined;
 };
 
+export type StatsDestination = {
+  url?: string | undefined;
+  database?: string | undefined;
+  tableName?: string | undefined;
+  authType?: string | undefined;
+  username?: string | undefined;
+  sqlUsername?: string | undefined;
+  password?: string | undefined;
+};
+
 /**
  * How to handle events when all receivers are exerting backpressure
  */
@@ -407,6 +417,7 @@ export type OutputClickHouse = {
    * Log the most recent event that fails to match the table schema
    */
   dumpFormatErrorsToDisk?: boolean | undefined;
+  statsDestination?: StatsDestination | undefined;
   /**
    * How to handle events when all receivers are exerting backpressure
    */
@@ -809,6 +820,63 @@ export function outputClickHouseTimeoutRetrySettingsFromJSON(
 }
 
 /** @internal */
+export const StatsDestination$inboundSchema: z.ZodType<
+  StatsDestination,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  url: z.string().optional(),
+  database: z.string().optional(),
+  tableName: z.string().optional(),
+  authType: z.string().optional(),
+  username: z.string().optional(),
+  sqlUsername: z.string().optional(),
+  password: z.string().optional(),
+});
+/** @internal */
+export type StatsDestination$Outbound = {
+  url?: string | undefined;
+  database?: string | undefined;
+  tableName?: string | undefined;
+  authType?: string | undefined;
+  username?: string | undefined;
+  sqlUsername?: string | undefined;
+  password?: string | undefined;
+};
+
+/** @internal */
+export const StatsDestination$outboundSchema: z.ZodType<
+  StatsDestination$Outbound,
+  z.ZodTypeDef,
+  StatsDestination
+> = z.object({
+  url: z.string().optional(),
+  database: z.string().optional(),
+  tableName: z.string().optional(),
+  authType: z.string().optional(),
+  username: z.string().optional(),
+  sqlUsername: z.string().optional(),
+  password: z.string().optional(),
+});
+
+export function statsDestinationToJSON(
+  statsDestination: StatsDestination,
+): string {
+  return JSON.stringify(
+    StatsDestination$outboundSchema.parse(statsDestination),
+  );
+}
+export function statsDestinationFromJSON(
+  jsonString: string,
+): SafeParseResult<StatsDestination, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => StatsDestination$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'StatsDestination' from JSON`,
+  );
+}
+
+/** @internal */
 export const OutputClickHouseBackpressureBehavior$inboundSchema: z.ZodType<
   OutputClickHouseBackpressureBehavior,
   z.ZodTypeDef,
@@ -1065,6 +1133,7 @@ export const OutputClickHouse$inboundSchema: z.ZodType<
   ).optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
   dumpFormatErrorsToDisk: z.boolean().default(false),
+  statsDestination: z.lazy(() => StatsDestination$inboundSchema).optional(),
   onBackpressure: OutputClickHouseBackpressureBehavior$inboundSchema.default(
     "block",
   ),
@@ -1140,6 +1209,7 @@ export type OutputClickHouse$Outbound = {
     | undefined;
   responseHonorRetryAfterHeader: boolean;
   dumpFormatErrorsToDisk: boolean;
+  statsDestination?: StatsDestination$Outbound | undefined;
   onBackpressure: string;
   description?: string | undefined;
   username?: string | undefined;
@@ -1218,6 +1288,7 @@ export const OutputClickHouse$outboundSchema: z.ZodType<
   ).optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
   dumpFormatErrorsToDisk: z.boolean().default(false),
+  statsDestination: z.lazy(() => StatsDestination$outboundSchema).optional(),
   onBackpressure: OutputClickHouseBackpressureBehavior$outboundSchema.default(
     "block",
   ),
