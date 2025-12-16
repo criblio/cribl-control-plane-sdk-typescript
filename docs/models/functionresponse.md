@@ -34,7 +34,7 @@ const value: models.FunctionAggregateMetrics = {
       "<value 2>",
       "<value 3>",
     ],
-    flushEventLimit: 956.12,
+    flushEventLimit: 9419.26,
     flushMemLimit: "<value>",
     add: [
       {
@@ -496,6 +496,7 @@ const value: models.FunctionEventstats = {
   schema: {
     aggregations: [
       "<value 1>",
+      "<value 2>",
     ],
     groupBys: [
       "<value 1>",
@@ -697,7 +698,8 @@ const value: models.FunctionHandlebar = {
     templates: {
       "key": {
         content: "<value>",
-        description: "and what appropriate singe within although configuration",
+        description:
+          "overconfidently underneath surface amongst shakily afore anneal stoop",
       },
     },
   },
@@ -927,11 +929,13 @@ const value: models.FunctionMask = {
   uischema: {},
   version: "<value>",
   schema: {
-    rules: [],
+    rules: [
+      {
+        matchRegex: "<value>",
+      },
+    ],
     fields: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
     flags: [
       {
@@ -965,6 +969,7 @@ const value: models.FunctionMvExpand = {
   schema: {
     sourceFields: [
       "<value 1>",
+      "<value 2>",
     ],
     targetNames: [
       "<value 1>",
@@ -1236,7 +1241,9 @@ const value: models.FunctionPack = {
   },
   version: "<value>",
   schema: {
-    unpackedFields: [],
+    unpackedFields: [
+      "<value 1>",
+    ],
   },
 };
 ```
@@ -1266,7 +1273,9 @@ const value: models.FunctionPivot = {
       "<value 1>",
       "<value 2>",
     ],
-    qualifierFields: [],
+    qualifierFields: [
+      "<value 1>",
+    ],
   },
 };
 ```
@@ -1334,8 +1343,15 @@ const value: models.FunctionRedis = {
   },
   version: "<value>",
   schema: {
-    commands: [],
-    enableClientSideCaching: false,
+    commands: [
+      {
+        outField: "<value>",
+        command: "<value>",
+        keyExpr: "<value>",
+        argsExpr: "<value>",
+      },
+    ],
+    enableClientSideCaching: true,
   },
 };
 ```
@@ -1537,13 +1553,17 @@ const value: models.FunctionSensitiveDataScanner = {
   },
   version: "<value>",
   schema: {
-    rules: [],
+    rules: [
+      {
+        rulesetId: "<id>",
+      },
+    ],
     fields: [
       "<value 1>",
-      "<value 2>",
     ],
     excludeFields: [
       "<value 1>",
+      "<value 2>",
     ],
     flags: [
       {

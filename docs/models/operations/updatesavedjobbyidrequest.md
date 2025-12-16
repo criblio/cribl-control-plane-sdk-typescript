@@ -55,8 +55,8 @@ let value: UpdateSavedJobByIdRequest = {
 
 ## Fields
 
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `id`               | *string*           | :heavy_check_mark: | Collector ID       |
-| `criblPack`        | *string*           | :heavy_minus_sign: | Pack ID            |
-| `savedJob`         | *models.SavedJob*  | :heavy_check_mark: | SavedJob object    |
+| Field                                                                  | Type                                                                   | Required                                                               | Description                                                            |
+| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `id`                                                                   | *string*                                                               | :heavy_check_mark:                                                     | The <code>id</code> of the Collector to update.                        |
+| `criblPack`                                                            | *string*                                                               | :heavy_minus_sign:                                                     | The <code>id</code> of the Pack that includes the Collector to update. |
+| `savedJob`                                                             | *models.SavedJob*                                                      | :heavy_check_mark:                                                     | SavedJob object                                                        |

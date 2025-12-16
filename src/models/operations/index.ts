@@ -36,6 +36,7 @@ export * from "./getpacks.js";
 export * from "./getpacksbyid.js";
 export * from "./getpipelinebyid.js";
 export * from "./getroutesbyid.js";
+export * from "./getsavedjob.js";
 export * from "./getsavedjobbyid.js";
 export * from "./getsummary.js";
 export * from "./getversion.js";

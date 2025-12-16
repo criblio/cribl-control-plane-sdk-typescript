@@ -6,7 +6,9 @@
 import { FunctionMvExpandSchema } from "cribl-control-plane/models";
 
 let value: FunctionMvExpandSchema = {
-  sourceFields: [],
+  sourceFields: [
+    "<value 1>",
+  ],
   targetNames: [
     "<value 1>",
     "<value 2>",
@@ -19,7 +21,7 @@ let value: FunctionMvExpandSchema = {
 
 | Field                                                        | Type                                                         | Required                                                     | Description                                                  |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| `sourceFields`                                               | *string*[]                                                   | :heavy_check_mark:                                           | Array of property-/field-names to expand                     |
+| `sourceFields`                                               | *string*[]                                                   | :heavy_minus_sign:                                           | Array of property-/field-names to expand                     |
 | `targetNames`                                                | *string*[]                                                   | :heavy_minus_sign:                                           | stores the value as new target field name                    |
 | `rowLimit`                                                   | *number*                                                     | :heavy_minus_sign:                                           | max. number of rows generated out of every source events     |
 | `itemIndexName`                                              | *string*                                                     | :heavy_minus_sign:                                           | name of an optional index property generated into the output |

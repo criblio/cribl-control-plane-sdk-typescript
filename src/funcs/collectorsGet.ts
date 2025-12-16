@@ -27,10 +27,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Get a collector by ID
+ * Get a Collector
  *
  * @remarks
- * Get a collector by ID
+ * Get the specified Collector.
  */
 export function collectorsGet(
   client: CriblControlPlaneCore,

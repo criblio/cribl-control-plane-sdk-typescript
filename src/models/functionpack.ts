@@ -12,7 +12,7 @@ export type FunctionPackSchema = {
   /**
    * List of fields to keep, everything else will be packed
    */
-  unpackedFields: Array<string>;
+  unpackedFields?: Array<string> | undefined;
   /**
    * Name of the (packed) target field
    */
@@ -42,7 +42,7 @@ export const FunctionPackSchema$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  unpackedFields: z.array(z.string()),
+  unpackedFields: z.array(z.string()).optional(),
   target: z.string().default("_pack"),
 });
 

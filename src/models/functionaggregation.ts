@@ -44,7 +44,7 @@ export type FunctionAggregationSchema = {
   /**
    * Aggregate function to perform on events. Example: sum(bytes).where(action=='REJECT').as(TotalBytes)
    */
-  aggregations: Array<string>;
+  aggregations?: Array<string> | undefined;
   /**
    * Optional: One or more fields to group aggregates by. Supports wildcard expressions. Warning: Using wildcard '*' causes all fields in the event to be included, which can result in high cardinality and increased memory usage. Exclude fields that can result in high cardinality before using wildcards. Example: !_time, !_numericValue, *
    */
@@ -128,7 +128,7 @@ export const FunctionAggregationSchema$inboundSchema: z.ZodType<
   metricsMode: z.boolean().default(false),
   prefix: z.string().optional(),
   timeWindow: z.string().default("10s"),
-  aggregations: z.array(z.string()),
+  aggregations: z.array(z.string()).optional(),
   groupbys: z.array(z.string()).optional(),
   flushEventLimit: z.number().optional(),
   flushMemLimit: z.string().optional(),

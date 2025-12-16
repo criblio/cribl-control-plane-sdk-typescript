@@ -27,7 +27,9 @@ let value: FunctionPivot = {
       "<value 1>",
       "<value 2>",
     ],
-    qualifierFields: [],
+    qualifierFields: [
+      "<value 1>",
+    ],
   },
 };
 ```

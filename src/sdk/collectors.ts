@@ -5,6 +5,7 @@
 import { collectorsCreate } from "../funcs/collectorsCreate.js";
 import { collectorsDelete } from "../funcs/collectorsDelete.js";
 import { collectorsGet } from "../funcs/collectorsGet.js";
+import { collectorsList } from "../funcs/collectorsList.js";
 import { collectorsUpdate } from "../funcs/collectorsUpdate.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
@@ -13,10 +14,10 @@ import { unwrapAsync } from "../types/fp.js";
 
 export class Collectors extends ClientSDK {
   /**
-   * Create a new collector
+   * Create a Collector
    *
    * @remarks
-   * Create a new collector
+   * Create a new Collector.
    */
   async create(
     request: operations.CreateSavedJobRequest,
@@ -30,10 +31,27 @@ export class Collectors extends ClientSDK {
   }
 
   /**
-   * Delete a collector by ID
+   * List all Collectors
    *
    * @remarks
-   * Delete a collector by ID
+   * Get a list of all Collectors.
+   */
+  async list(
+    request?: operations.GetSavedJobRequest | undefined,
+    options?: RequestOptions,
+  ): Promise<models.CountedSavedJob> {
+    return unwrapAsync(collectorsList(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Delete a Collector
+   *
+   * @remarks
+   * Delete the specified Collector.
    */
   async delete(
     request: operations.DeleteSavedJobByIdRequest,
@@ -47,10 +65,10 @@ export class Collectors extends ClientSDK {
   }
 
   /**
-   * Get a collector by ID
+   * Get a Collector
    *
    * @remarks
-   * Get a collector by ID
+   * Get the specified Collector.
    */
   async get(
     request: operations.GetSavedJobByIdRequest,
@@ -64,10 +82,10 @@ export class Collectors extends ClientSDK {
   }
 
   /**
-   * Update an existing collector
+   * Update a Collector
    *
    * @remarks
-   * Update an existing collector
+   * Update the specified Collector.<br><br>Provide a complete representation of the Collector that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Collector.<br><br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Collector might not function as expected.
    */
   async update(
     request: operations.UpdateSavedJobByIdRequest,

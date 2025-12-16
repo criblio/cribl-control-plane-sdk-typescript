@@ -12,15 +12,15 @@ export type SimplePivotConfiguration = {
   /**
    * Fields to be used for the left-most column.
    */
-  labelField: string;
+  labelField?: string | undefined;
   /**
    * Fields with the cell values (i.e. aggregates)
    */
-  dataFields: Array<string>;
+  dataFields?: Array<string> | undefined;
   /**
    * Fields to qualify or group data fields
    */
-  qualifierFields: Array<string>;
+  qualifierFields?: Array<string> | undefined;
 };
 
 export type FunctionPivot = {
@@ -46,9 +46,9 @@ export const SimplePivotConfiguration$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
-  labelField: z.string(),
-  dataFields: z.array(z.string()),
-  qualifierFields: z.array(z.string()),
+  labelField: z.string().optional(),
+  dataFields: z.array(z.string()).optional(),
+  qualifierFields: z.array(z.string()).optional(),
 });
 
 export function simplePivotConfigurationFromJSON(

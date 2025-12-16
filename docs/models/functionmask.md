@@ -20,11 +20,13 @@ let value: FunctionMask = {
   uischema: {},
   version: "<value>",
   schema: {
-    rules: [],
+    rules: [
+      {
+        matchRegex: "<value>",
+      },
+    ],
     fields: [
       "<value 1>",
-      "<value 2>",
-      "<value 3>",
     ],
     flags: [
       {

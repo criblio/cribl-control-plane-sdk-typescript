@@ -17,12 +17,26 @@ let value: NodeProvidedInfo = {
     type: "<value>",
     zone: "<value>",
   },
+  azure: {
+    enabled: false,
+    hostname: "hidden-hundred.net",
+    instanceId: "<id>",
+    name: "<value>",
+    region: "<value>",
+    resourceGroup: "<value>",
+    subscriptionId: "<id>",
+    tags: {
+      "key": "<value>",
+    },
+    type: "<value>",
+    zone: "<value>",
+  },
   connIp: "<value>",
   cpus: 5118.26,
   cribl: {
     config: {
       featuresRev: "<value>",
-      hbPeriodSeconds: 3679.01,
+      hbPeriodSeconds: 6830.62,
       logStreamEnv: "<value>",
       policyRev: "<value>",
       version: "<value>",
@@ -30,33 +44,22 @@ let value: NodeProvidedInfo = {
     deploymentId: "<id>",
     disableSNIRouting: true,
     distMode: "outpost",
-    edgeNodes: 674.85,
+    edgeNodes: 809.07,
     group: "<value>",
     guid: "<id>",
     installType: "<value>",
     lookupVersions: {
-      "key": {
-        "key": "<value>",
-        "key1": "<value>",
-      },
-      "key1": {
-        "key": "<value>",
-      },
-      "key2": {
-        "key": "<value>",
-        "key1": "<value>",
-        "key2": "<value>",
-      },
+      "key": {},
     },
     master: {
-      host: "boring-distinction.biz",
-      port: 7248.18,
+      host: "serene-corporation.biz",
+      port: 3710.27,
       servername: "<value>",
       tls: true,
     },
-    pid: 3273.66,
-    socksEnabled: true,
-    startTime: 3411.24,
+    pid: 2440.94,
+    socksEnabled: false,
+    startTime: 2048.24,
     tags: [],
     version: "<value>",
   },
@@ -66,8 +69,11 @@ let value: NodeProvidedInfo = {
   },
   freeDiskSpace: 6937.14,
   hostOs: {
-    addresses: [],
-    enabled: true,
+    addresses: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    enabled: false,
     id: "<id>",
     version: "<value>",
   },
@@ -87,12 +93,29 @@ let value: NodeProvidedInfo = {
   localTime: 813.42,
   metadata: {
     aws: {
-      enabled: false,
+      enabled: true,
       instanceId: "<id>",
       region: "<value>",
       tags: {
         "key": "<value>",
         "key1": "<value>",
+        "key2": "<value>",
+      },
+      type: "<value>",
+      zone: "<value>",
+    },
+    azure: {
+      enabled: false,
+      hostname: "timely-gastropod.name",
+      instanceId: "<id>",
+      name: "<value>",
+      region: "<value>",
+      resourceGroup: "<value>",
+      subscriptionId: "<id>",
+      tags: {
+        "key": "<value>",
+        "key1": "<value>",
+        "key2": "<value>",
       },
       type: "<value>",
       zone: "<value>",
@@ -101,13 +124,14 @@ let value: NodeProvidedInfo = {
       addresses: [
         "<value 1>",
         "<value 2>",
+        "<value 3>",
       ],
       enabled: true,
       id: "<id>",
       version: "<value>",
     },
     kube: {
-      enabled: false,
+      enabled: true,
       namespace: "<value>",
       node: "<value>",
       owner: {
@@ -118,11 +142,7 @@ let value: NodeProvidedInfo = {
       source: "<value>",
     },
     os: {
-      addresses: [
-        "<value 1>",
-        "<value 2>",
-        "<value 3>",
-      ],
+      addresses: [],
       enabled: false,
       id: "<id>",
       version: "<value>",
@@ -130,18 +150,16 @@ let value: NodeProvidedInfo = {
   },
   node: "<value>",
   os: {
-    addresses: [
-      "<value 1>",
-    ],
+    addresses: [],
   },
   outpost: {
     guid: "<id>",
-    host: "worldly-gerbil.com",
+    host: "hefty-castanet.org",
   },
   platform: "<value>",
   release: "<value>",
-  totalDiskSpace: 5590.59,
-  totalmem: 5398.99,
+  totalDiskSpace: 4145.33,
+  totalmem: 5590.59,
 };
 ```
 
@@ -151,6 +169,7 @@ let value: NodeProvidedInfo = {
 | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
 | `architecture`                                                       | *string*                                                             | :heavy_check_mark:                                                   | N/A                                                                  |
 | `aws`                                                                | [models.NodeProvidedInfoAws](../models/nodeprovidedinfoaws.md)       | :heavy_minus_sign:                                                   | N/A                                                                  |
+| `azure`                                                              | [models.NodeProvidedInfoAzure](../models/nodeprovidedinfoazure.md)   | :heavy_minus_sign:                                                   | N/A                                                                  |
 | `connIp`                                                             | *string*                                                             | :heavy_minus_sign:                                                   | N/A                                                                  |
 | `cpus`                                                               | *number*                                                             | :heavy_check_mark:                                                   | N/A                                                                  |
 | `cribl`                                                              | [models.HBCriblInfo](../models/hbcriblinfo.md)                       | :heavy_check_mark:                                                   | N/A                                                                  |

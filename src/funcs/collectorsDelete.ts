@@ -27,10 +27,10 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Delete a collector by ID
+ * Delete a Collector
  *
  * @remarks
- * Delete a collector by ID
+ * Delete the specified Collector.
  */
 export function collectorsDelete(
   client: CriblControlPlaneCore,

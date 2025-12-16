@@ -24,8 +24,15 @@ let value: FunctionRedis = {
   },
   version: "<value>",
   schema: {
-    commands: [],
-    enableClientSideCaching: false,
+    commands: [
+      {
+        outField: "<value>",
+        command: "<value>",
+        keyExpr: "<value>",
+        argsExpr: "<value>",
+      },
+    ],
+    enableClientSideCaching: true,
   },
 };
 ```

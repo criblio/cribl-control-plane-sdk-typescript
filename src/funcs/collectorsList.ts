@@ -3,7 +3,7 @@
  */
 
 import { CriblControlPlaneCore } from "../core.js";
-import { encodeFormQuery, encodeJSON, encodeSimple } from "../lib/encodings.js";
+import { encodeFormQuery } from "../lib/encodings.js";
 import * as M from "../lib/matchers.js";
 import { compactMap } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
@@ -27,14 +27,14 @@ import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
 /**
- * Update a Collector
+ * List all Collectors
  *
  * @remarks
- * Update the specified Collector.<br><br>Provide a complete representation of the Collector that you want to update in the request body. This endpoint does not support partial updates. Cribl removes any omitted fields when updating the Collector.<br><br>Confirm that the configuration in your request body is correct before sending the request. If the configuration is incorrect, the updated Collector might not function as expected.
+ * Get a list of all Collectors.
  */
-export function collectorsUpdate(
+export function collectorsList(
   client: CriblControlPlaneCore,
-  request: operations.UpdateSavedJobByIdRequest,
+  request?: operations.GetSavedJobRequest | undefined,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -59,7 +59,7 @@ export function collectorsUpdate(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: operations.UpdateSavedJobByIdRequest,
+  request?: operations.GetSavedJobRequest | undefined,
   options?: RequestOptions,
 ): Promise<
   [
@@ -80,30 +80,25 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => operations.UpdateSavedJobByIdRequest$outboundSchema.parse(value),
+    (value) =>
+      operations.GetSavedJobRequest$outboundSchema.optional().parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {
     return [parsed, { status: "invalid" }];
   }
   const payload = parsed.value;
-  const body = encodeJSON("body", payload.SavedJob, { explode: true });
+  const body = null;
 
-  const pathParams = {
-    id: encodeSimple("id", payload.id, {
-      explode: false,
-      charEncoding: "percent",
-    }),
-  };
-
-  const path = pathToFunc("/lib/jobs/{id}")(pathParams);
+  const path = pathToFunc("/lib/jobs")();
 
   const query = encodeFormQuery({
-    "criblPack": payload.criblPack,
+    "collectorType": payload?.collectorType,
+    "criblPack": payload?.criblPack,
+    "groupId": payload?.groupId,
   });
 
   const headers = new Headers(compactMap({
-    "Content-Type": "application/json",
     Accept: "application/json",
   }));
 
@@ -113,7 +108,7 @@ async function $do(
   const context = {
     options: client._options,
     baseURL: options?.serverURL ?? client._baseURL ?? "",
-    operationID: "updateSavedJobById",
+    operationID: "getSavedJob",
     oAuth2Scopes: [],
 
     resolvedSecurity: requestSecurity,
@@ -137,7 +132,7 @@ async function $do(
 
   const requestRes = client._createRequest(context, {
     security: requestSecurity,
-    method: "PATCH",
+    method: "GET",
     baseURL: options?.serverURL,
     path: path,
     headers: headers,

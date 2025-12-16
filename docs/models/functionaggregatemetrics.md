@@ -33,7 +33,7 @@ let value: FunctionAggregateMetrics = {
       "<value 2>",
       "<value 3>",
     ],
-    flushEventLimit: 956.12,
+    flushEventLimit: 9419.26,
     flushMemLimit: "<value>",
     add: [
       {
