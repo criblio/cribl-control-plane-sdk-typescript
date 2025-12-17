@@ -9,9 +9,12 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   PipelineFunctionConf,
   PipelineFunctionConf$inboundSchema,
-  PipelineFunctionConf$Outbound,
-  PipelineFunctionConf$outboundSchema,
 } from "./pipelinefunctionconf.js";
+import {
+  PipelineFunctionConfInput,
+  PipelineFunctionConfInput$Outbound,
+  PipelineFunctionConfInput$outboundSchema,
+} from "./pipelinefunctionconfinput.js";
 
 export type PipelineGroups = {
   name: string;
@@ -25,7 +28,7 @@ export type PipelineGroups = {
   disabled?: boolean | undefined;
 };
 
-export type Conf = {
+export type PipelineConf = {
   /**
    * Time (in ms) to wait for an async function to complete processing of a data item
    */
@@ -48,7 +51,33 @@ export type Conf = {
 
 export type Pipeline = {
   id: string;
-  conf: Conf;
+  conf: PipelineConf;
+};
+
+export type ConfInput = {
+  /**
+   * Time (in ms) to wait for an async function to complete processing of a data item
+   */
+  asyncFuncTimeout?: number | undefined;
+  /**
+   * The output destination for events processed by this Pipeline
+   */
+  output?: string | undefined;
+  description?: string | undefined;
+  /**
+   * Tags for filtering and grouping in @{product}
+   */
+  streamtags?: Array<string> | undefined;
+  /**
+   * List of Functions to pass data through
+   */
+  functions?: Array<PipelineFunctionConfInput> | undefined;
+  groups?: { [k: string]: PipelineGroups } | undefined;
+};
+
+export type PipelineInput = {
+  id: string;
+  conf: ConfInput;
 };
 
 /** @internal */
@@ -93,46 +122,26 @@ export function pipelineGroupsFromJSON(
 }
 
 /** @internal */
-export const Conf$inboundSchema: z.ZodType<Conf, z.ZodTypeDef, unknown> = z
-  .object({
-    asyncFuncTimeout: z.number().int().optional(),
-    output: z.string().default("default"),
-    description: z.string().optional(),
-    streamtags: z.array(z.string()).optional(),
-    functions: z.array(PipelineFunctionConf$inboundSchema).optional(),
-    groups: z.record(z.lazy(() => PipelineGroups$inboundSchema)).optional(),
-  });
-/** @internal */
-export type Conf$Outbound = {
-  asyncFuncTimeout?: number | undefined;
-  output: string;
-  description?: string | undefined;
-  streamtags?: Array<string> | undefined;
-  functions?: Array<PipelineFunctionConf$Outbound> | undefined;
-  groups?: { [k: string]: PipelineGroups$Outbound } | undefined;
-};
+export const PipelineConf$inboundSchema: z.ZodType<
+  PipelineConf,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  asyncFuncTimeout: z.number().int().optional(),
+  output: z.string().default("default"),
+  description: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  functions: z.array(PipelineFunctionConf$inboundSchema).optional(),
+  groups: z.record(z.lazy(() => PipelineGroups$inboundSchema)).optional(),
+});
 
-/** @internal */
-export const Conf$outboundSchema: z.ZodType<Conf$Outbound, z.ZodTypeDef, Conf> =
-  z.object({
-    asyncFuncTimeout: z.number().int().optional(),
-    output: z.string().default("default"),
-    description: z.string().optional(),
-    streamtags: z.array(z.string()).optional(),
-    functions: z.array(PipelineFunctionConf$outboundSchema).optional(),
-    groups: z.record(z.lazy(() => PipelineGroups$outboundSchema)).optional(),
-  });
-
-export function confToJSON(conf: Conf): string {
-  return JSON.stringify(Conf$outboundSchema.parse(conf));
-}
-export function confFromJSON(
+export function pipelineConfFromJSON(
   jsonString: string,
-): SafeParseResult<Conf, SDKValidationError> {
+): SafeParseResult<PipelineConf, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => Conf$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Conf' from JSON`,
+    (x) => PipelineConf$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PipelineConf' from JSON`,
   );
 }
 
@@ -143,27 +152,9 @@ export const Pipeline$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   id: z.string(),
-  conf: z.lazy(() => Conf$inboundSchema),
-});
-/** @internal */
-export type Pipeline$Outbound = {
-  id: string;
-  conf: Conf$Outbound;
-};
-
-/** @internal */
-export const Pipeline$outboundSchema: z.ZodType<
-  Pipeline$Outbound,
-  z.ZodTypeDef,
-  Pipeline
-> = z.object({
-  id: z.string(),
-  conf: z.lazy(() => Conf$outboundSchema),
+  conf: z.lazy(() => PipelineConf$inboundSchema),
 });
 
-export function pipelineToJSON(pipeline: Pipeline): string {
-  return JSON.stringify(Pipeline$outboundSchema.parse(pipeline));
-}
 export function pipelineFromJSON(
   jsonString: string,
 ): SafeParseResult<Pipeline, SDKValidationError> {
@@ -172,4 +163,52 @@ export function pipelineFromJSON(
     (x) => Pipeline$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'Pipeline' from JSON`,
   );
+}
+
+/** @internal */
+export type ConfInput$Outbound = {
+  asyncFuncTimeout?: number | undefined;
+  output: string;
+  description?: string | undefined;
+  streamtags?: Array<string> | undefined;
+  functions?: Array<PipelineFunctionConfInput$Outbound> | undefined;
+  groups?: { [k: string]: PipelineGroups$Outbound } | undefined;
+};
+
+/** @internal */
+export const ConfInput$outboundSchema: z.ZodType<
+  ConfInput$Outbound,
+  z.ZodTypeDef,
+  ConfInput
+> = z.object({
+  asyncFuncTimeout: z.number().int().optional(),
+  output: z.string().default("default"),
+  description: z.string().optional(),
+  streamtags: z.array(z.string()).optional(),
+  functions: z.array(PipelineFunctionConfInput$outboundSchema).optional(),
+  groups: z.record(z.lazy(() => PipelineGroups$outboundSchema)).optional(),
+});
+
+export function confInputToJSON(confInput: ConfInput): string {
+  return JSON.stringify(ConfInput$outboundSchema.parse(confInput));
+}
+
+/** @internal */
+export type PipelineInput$Outbound = {
+  id: string;
+  conf: ConfInput$Outbound;
+};
+
+/** @internal */
+export const PipelineInput$outboundSchema: z.ZodType<
+  PipelineInput$Outbound,
+  z.ZodTypeDef,
+  PipelineInput
+> = z.object({
+  id: z.string(),
+  conf: z.lazy(() => ConfInput$outboundSchema),
+});
+
+export function pipelineInputToJSON(pipelineInput: PipelineInput): string {
+  return JSON.stringify(PipelineInput$outboundSchema.parse(pipelineInput));
 }

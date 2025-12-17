@@ -5,63 +5,12 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionSnmpTrapSerializeAuthenticationProtocol = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * MD5
-   */
-  Md5: "md5",
-  /**
-   * SHA1
-   */
-  Sha: "sha",
-  /**
-   * SHA224
-   */
-  Sha224: "sha224",
-  /**
-   * SHA256
-   */
-  Sha256: "sha256",
-  /**
-   * SHA384
-   */
-  Sha384: "sha384",
-  /**
-   * SHA512
-   */
-  Sha512: "sha512",
-} as const;
-export type FunctionSnmpTrapSerializeAuthenticationProtocol = OpenEnum<
-  typeof FunctionSnmpTrapSerializeAuthenticationProtocol
->;
-
-export type FunctionSnmpTrapSerializeV3User = {
-  name?: string | undefined;
-  authProtocol?: FunctionSnmpTrapSerializeAuthenticationProtocol | undefined;
-  authKey?: any | undefined;
-  privProtocol?: string | undefined;
-};
-
-export type FunctionSnmpTrapSerializeSchema = {
-  /**
-   * Prevent event serialization if any required fields are missing. When disabled, @{product} will attempt to serialize the event even if required fields are missing, which could cause unexpected behavior at the downstream receiver.
-   */
-  strict?: boolean | undefined;
-  /**
-   * When disabled, `snmpSerializeErrors` will be set on the event, and the `__snmpRaw` field will be removed to prevent @{product} from sending the event from the SNMP Trap Destination
-   */
-  dropFailedEvents?: boolean | undefined;
-  v3User?: FunctionSnmpTrapSerializeV3User | undefined;
-};
+import {
+  FunctionConfSchemaSnmpTrapSerialize,
+  FunctionConfSchemaSnmpTrapSerialize$inboundSchema,
+} from "./functionconfschemasnmptrapserialize.js";
 
 export type FunctionSnmpTrapSerialize = {
   filename: string;
@@ -77,61 +26,8 @@ export type FunctionSnmpTrapSerialize = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionSnmpTrapSerializeSchema | undefined;
+  schema?: FunctionConfSchemaSnmpTrapSerialize | undefined;
 };
-
-/** @internal */
-export const FunctionSnmpTrapSerializeAuthenticationProtocol$inboundSchema:
-  z.ZodType<
-    FunctionSnmpTrapSerializeAuthenticationProtocol,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(FunctionSnmpTrapSerializeAuthenticationProtocol);
-
-/** @internal */
-export const FunctionSnmpTrapSerializeV3User$inboundSchema: z.ZodType<
-  FunctionSnmpTrapSerializeV3User,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  authProtocol: FunctionSnmpTrapSerializeAuthenticationProtocol$inboundSchema
-    .default("none"),
-  authKey: z.any().optional(),
-  privProtocol: z.string().default("none"),
-});
-
-export function functionSnmpTrapSerializeV3UserFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionSnmpTrapSerializeV3User, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionSnmpTrapSerializeV3User$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionSnmpTrapSerializeV3User' from JSON`,
-  );
-}
-
-/** @internal */
-export const FunctionSnmpTrapSerializeSchema$inboundSchema: z.ZodType<
-  FunctionSnmpTrapSerializeSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  strict: z.boolean().default(true),
-  dropFailedEvents: z.boolean().default(true),
-  v3User: z.lazy(() => FunctionSnmpTrapSerializeV3User$inboundSchema)
-    .optional(),
-});
-
-export function functionSnmpTrapSerializeSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionSnmpTrapSerializeSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionSnmpTrapSerializeSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionSnmpTrapSerializeSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionSnmpTrapSerialize$inboundSchema: z.ZodType<
@@ -152,8 +48,7 @@ export const FunctionSnmpTrapSerialize$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionSnmpTrapSerializeSchema$inboundSchema)
-    .optional(),
+  schema: FunctionConfSchemaSnmpTrapSerialize$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

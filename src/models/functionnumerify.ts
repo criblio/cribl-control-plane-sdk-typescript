@@ -5,46 +5,12 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionNumerifyFormat = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Fix
-   */
-  Fix: "fix",
-  /**
-   * Floor
-   */
-  Floor: "floor",
-  /**
-   * Ceil
-   */
-  Ceil: "ceil",
-} as const;
-export type FunctionNumerifyFormat = OpenEnum<typeof FunctionNumerifyFormat>;
-
-export type FunctionNumerifySchema = {
-  /**
-   * Depth to which the Numerify Function will search within a nested event. Depth greater than 5 (the default) could decrease performance.
-   */
-  depth?: number | undefined;
-  /**
-   * Fields to NOT numerify. Takes precedence over 'Include expression' when set. Supports wildcards. A '!' before field name(s) means: numerify all fields EXCEPT these. For syntax details, see [Wildcard Lists](https://docs.cribl.io/stream/introduction-reference/#wildcard-lists).
-   */
-  ignoreFields?: Array<string> | undefined;
-  /**
-   * Optional JavaScript expression to determine whether a field should be numerified. If left blank, all fields will be numerified. Use the 'name' and 'value' global variables to access fields' names/values. Examples: `value != null`, `name=='fieldname'`. You can access other fields' values via `__e.<fieldName>`.
-   */
-  filterExpr?: string | undefined;
-  format?: FunctionNumerifyFormat | undefined;
-};
+import {
+  FunctionConfSchemaNumerify,
+  FunctionConfSchemaNumerify$inboundSchema,
+} from "./functionconfschemanumerify.js";
 
 export type FunctionNumerify = {
   filename: string;
@@ -60,37 +26,8 @@ export type FunctionNumerify = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionNumerifySchema | undefined;
+  schema?: FunctionConfSchemaNumerify | undefined;
 };
-
-/** @internal */
-export const FunctionNumerifyFormat$inboundSchema: z.ZodType<
-  FunctionNumerifyFormat,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(FunctionNumerifyFormat);
-
-/** @internal */
-export const FunctionNumerifySchema$inboundSchema: z.ZodType<
-  FunctionNumerifySchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  depth: z.number().int().default(5),
-  ignoreFields: z.array(z.string()).optional(),
-  filterExpr: z.string().optional(),
-  format: FunctionNumerifyFormat$inboundSchema.default("none"),
-});
-
-export function functionNumerifySchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionNumerifySchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionNumerifySchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionNumerifySchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionNumerify$inboundSchema: z.ZodType<
@@ -111,7 +48,7 @@ export const FunctionNumerify$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionNumerifySchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaNumerify$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

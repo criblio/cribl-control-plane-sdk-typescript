@@ -7,43 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type FunctionSensitiveDataScannerRule = {
-  /**
-   * The ID of the ruleset to use for the scan
-   */
-  rulesetId: string;
-  /**
-   * A JavaScript expression or literal to replace the matching content. Capturing groups can be referenced as g1, g2, and so on, and event fields as event.<fieldName>.
-   */
-  replaceExpr?: string | undefined;
-  disabled?: boolean | undefined;
-};
-
-export type FunctionSensitiveDataScannerFlag = {
-  name?: string | undefined;
-  value: string;
-};
-
-export type FunctionSensitiveDataScannerSchema = {
-  rules?: Array<FunctionSensitiveDataScannerRule> | undefined;
-  /**
-   * Rulesets act on the events contained in these fields. Mitigation expressions apply to the scan results. Supports wildcards (*).
-   */
-  fields?: Array<string> | undefined;
-  /**
-   * Fields that the mitigation expression will not be applied to. Supports wildcards (*).
-   */
-  excludeFields?: Array<string> | undefined;
-  /**
-   * Fields to add when mitigation is applied to an event
-   */
-  flags?: Array<FunctionSensitiveDataScannerFlag> | undefined;
-  /**
-   * If enabled, Add matching ruleset IDs to a field called "__detected"
-   */
-  includeDetectedRules?: boolean | undefined;
-};
+import {
+  FunctionConfSchemaSensitiveDataScanner,
+  FunctionConfSchemaSensitiveDataScanner$inboundSchema,
+} from "./functionconfschemasensitivedatascanner.js";
 
 export type FunctionSensitiveDataScanner = {
   filename: string;
@@ -59,75 +26,8 @@ export type FunctionSensitiveDataScanner = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionSensitiveDataScannerSchema | undefined;
+  schema?: FunctionConfSchemaSensitiveDataScanner | undefined;
 };
-
-/** @internal */
-export const FunctionSensitiveDataScannerRule$inboundSchema: z.ZodType<
-  FunctionSensitiveDataScannerRule,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  rulesetId: z.string(),
-  replaceExpr: z.string().default("'REDACTED'"),
-  disabled: z.boolean().default(false),
-});
-
-export function functionSensitiveDataScannerRuleFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionSensitiveDataScannerRule, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionSensitiveDataScannerRule$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionSensitiveDataScannerRule' from JSON`,
-  );
-}
-
-/** @internal */
-export const FunctionSensitiveDataScannerFlag$inboundSchema: z.ZodType<
-  FunctionSensitiveDataScannerFlag,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-export function functionSensitiveDataScannerFlagFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionSensitiveDataScannerFlag, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionSensitiveDataScannerFlag$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionSensitiveDataScannerFlag' from JSON`,
-  );
-}
-
-/** @internal */
-export const FunctionSensitiveDataScannerSchema$inboundSchema: z.ZodType<
-  FunctionSensitiveDataScannerSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  rules: z.array(z.lazy(() => FunctionSensitiveDataScannerRule$inboundSchema))
-    .optional(),
-  fields: z.array(z.string()).optional(),
-  excludeFields: z.array(z.string()).optional(),
-  flags: z.array(z.lazy(() => FunctionSensitiveDataScannerFlag$inboundSchema))
-    .optional(),
-  includeDetectedRules: z.boolean().default(true),
-});
-
-export function functionSensitiveDataScannerSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionSensitiveDataScannerSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      FunctionSensitiveDataScannerSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionSensitiveDataScannerSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionSensitiveDataScanner$inboundSchema: z.ZodType<
@@ -148,8 +48,7 @@ export const FunctionSensitiveDataScanner$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionSensitiveDataScannerSchema$inboundSchema)
-    .optional(),
+  schema: FunctionConfSchemaSensitiveDataScanner$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

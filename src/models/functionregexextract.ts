@@ -7,37 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type FunctionRegexExtractRegexList = {
-  /**
-   * Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as (?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
-   */
-  regex: string;
-};
-
-export type FunctionRegexExtractSchema = {
-  /**
-   * Regex literal with named capturing groups, such as (?<foo>bar), or _NAME_ and _VALUE_ capturing groups, such as (?<_NAME_0>[^ =]+)=(?<_VALUE_0>[^,]+)
-   */
-  regex?: string | undefined;
-  regexList?: Array<FunctionRegexExtractRegexList> | undefined;
-  /**
-   * Field on which to perform regex field extraction
-   */
-  source?: string | undefined;
-  /**
-   * The maximum number of times to apply regex to source field when the global flag is set, or when using _NAME_ and _VALUE_ capturing groups
-   */
-  iterations?: number | undefined;
-  /**
-   * JavaScript expression to format field names when _NAME_n and _VALUE_n capturing groups are used. Original field name is in global variable 'name'. Example: To append XX to all field names, use `${name}_XX` (backticks are literal). If empty, names will be sanitized using this regex: /^[_0-9]+|[^a-zA-Z0-9_]+/g. You can access other fields values via __e.<fieldName>.
-   */
-  fieldNameExpression?: string | undefined;
-  /**
-   * Overwrite existing event fields with extracted values. If disabled, existing fields will be converted to an array.
-   */
-  overwrite?: boolean | undefined;
-};
+import {
+  FunctionConfSchemaRegexExtract,
+  FunctionConfSchemaRegexExtract$inboundSchema,
+} from "./functionconfschemaregexextract.js";
 
 export type FunctionRegexExtract = {
   filename: string;
@@ -53,52 +26,8 @@ export type FunctionRegexExtract = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionRegexExtractSchema | undefined;
+  schema?: FunctionConfSchemaRegexExtract | undefined;
 };
-
-/** @internal */
-export const FunctionRegexExtractRegexList$inboundSchema: z.ZodType<
-  FunctionRegexExtractRegexList,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  regex: z.string(),
-});
-
-export function functionRegexExtractRegexListFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionRegexExtractRegexList, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionRegexExtractRegexList$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionRegexExtractRegexList' from JSON`,
-  );
-}
-
-/** @internal */
-export const FunctionRegexExtractSchema$inboundSchema: z.ZodType<
-  FunctionRegexExtractSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  regex: z.string().optional(),
-  regexList: z.array(z.lazy(() => FunctionRegexExtractRegexList$inboundSchema))
-    .optional(),
-  source: z.string().default("_raw"),
-  iterations: z.number().default(100),
-  fieldNameExpression: z.string().optional(),
-  overwrite: z.boolean().default(false),
-});
-
-export function functionRegexExtractSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionRegexExtractSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionRegexExtractSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionRegexExtractSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionRegexExtract$inboundSchema: z.ZodType<
@@ -119,7 +48,7 @@ export const FunctionRegexExtract$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionRegexExtractSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaRegexExtract$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

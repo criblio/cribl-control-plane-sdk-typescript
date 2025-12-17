@@ -33,7 +33,7 @@ import { Result } from "../types/fp.js";
  */
 export function pipelinesCreate(
   client: CriblControlPlaneCore,
-  request: models.Pipeline,
+  request: models.PipelineInput,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -58,7 +58,7 @@ export function pipelinesCreate(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: models.Pipeline,
+  request: models.PipelineInput,
   options?: RequestOptions,
 ): Promise<
   [
@@ -79,7 +79,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => models.Pipeline$outboundSchema.parse(value),
+    (value) => models.PipelineInput$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {

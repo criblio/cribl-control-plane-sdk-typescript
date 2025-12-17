@@ -4,6 +4,7 @@
 
 import { ClientSDK } from "../lib/sdks.js";
 import { Auth } from "./auth.js";
+import { Collectors } from "./collectors.js";
 import { Destinations } from "./destinations.js";
 import { Functions } from "./functions.js";
 import { Groups } from "./groups.js";
@@ -21,6 +22,11 @@ export class CriblControlPlane extends ClientSDK {
   private _lakeDatasets?: LakeDatasets;
   get lakeDatasets(): LakeDatasets {
     return (this._lakeDatasets ??= new LakeDatasets(this._options));
+  }
+
+  private _collectors?: Collectors;
+  get collectors(): Collectors {
+    return (this._collectors ??= new Collectors(this._options));
   }
 
   private _sources?: Sources;

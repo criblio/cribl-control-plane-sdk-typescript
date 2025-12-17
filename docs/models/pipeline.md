@@ -18,11 +18,28 @@ let value: Pipeline = {
     ],
     functions: [
       {
-        id: "<id>",
-        description: "whoever meanwhile achieve whoa barring properly excited",
+        filter: "true",
+        id: "notify",
+        description:
+          "zen priesthood characterization fictionalize than exasperation oh fervently afterwards before",
         disabled: true,
         final: true,
-        conf: {},
+        conf: {
+          group: "default",
+          notificationId: "main",
+          searchId: "<id>",
+          savedQueryId: "<id>",
+          trigger: "<value>",
+          triggerType: "resultsCount",
+          triggerComparator: ">",
+          triggerCount: 0,
+          resultsLimit: 50,
+          searchUrl: "https://negligible-collaboration.biz",
+          message: "<value>",
+          authToken: "<value>",
+          messagesEndpoint: "<value>",
+          tenantId: "<id>",
+        },
         groupId: "<id>",
       },
     ],
@@ -30,8 +47,8 @@ let value: Pipeline = {
       "key": {
         name: "<value>",
         description:
-          "usefully what airline usefully ack regularly uh-huh naturally kettledrum",
-        disabled: false,
+          "ack regularly uh-huh naturally kettledrum before frenetically beard inasmuch quickly",
+        disabled: true,
       },
     },
   },
@@ -40,7 +57,7 @@ let value: Pipeline = {
 
 ## Fields
 
-| Field                            | Type                             | Required                         | Description                      |
-| -------------------------------- | -------------------------------- | -------------------------------- | -------------------------------- |
-| `id`                             | *string*                         | :heavy_check_mark:               | N/A                              |
-| `conf`                           | [models.Conf](../models/conf.md) | :heavy_check_mark:               | N/A                              |
+| Field                                            | Type                                             | Required                                         | Description                                      |
+| ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ |
+| `id`                                             | *string*                                         | :heavy_check_mark:                               | N/A                                              |
+| `conf`                                           | [models.PipelineConf](../models/pipelineconf.md) | :heavy_check_mark:                               | N/A                                              |

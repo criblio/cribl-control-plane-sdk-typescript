@@ -7,13 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type FunctionCommentSchema = {
-  /**
-   * Optional, short description of this Function's purpose in the Pipeline
-   */
-  comment?: string | undefined;
-};
+import {
+  FunctionConfSchemaComment,
+  FunctionConfSchemaComment$inboundSchema,
+} from "./functionconfschemacomment.js";
 
 export type FunctionComment = {
   filename: string;
@@ -29,27 +26,8 @@ export type FunctionComment = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionCommentSchema | undefined;
+  schema?: FunctionConfSchemaComment | undefined;
 };
-
-/** @internal */
-export const FunctionCommentSchema$inboundSchema: z.ZodType<
-  FunctionCommentSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  comment: z.string().optional(),
-});
-
-export function functionCommentSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionCommentSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionCommentSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionCommentSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionComment$inboundSchema: z.ZodType<
@@ -70,7 +48,7 @@ export const FunctionComment$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionCommentSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaComment$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

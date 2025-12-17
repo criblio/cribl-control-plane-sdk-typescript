@@ -7,25 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type FunctionRegexFilterRegexList = {
-  /**
-   * Regex to test against
-   */
-  regex: string;
-};
-
-export type FunctionRegexFilterSchema = {
-  /**
-   * Regex to test against
-   */
-  regex?: string | undefined;
-  regexList?: Array<FunctionRegexFilterRegexList> | undefined;
-  /**
-   * Name of the field to apply the regex on (defaults to _raw)
-   */
-  field?: string | undefined;
-};
+import {
+  FunctionConfSchemaRegexFilter,
+  FunctionConfSchemaRegexFilter$inboundSchema,
+} from "./functionconfschemaregexfilter.js";
 
 export type FunctionRegexFilter = {
   filename: string;
@@ -41,49 +26,8 @@ export type FunctionRegexFilter = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionRegexFilterSchema | undefined;
+  schema?: FunctionConfSchemaRegexFilter | undefined;
 };
-
-/** @internal */
-export const FunctionRegexFilterRegexList$inboundSchema: z.ZodType<
-  FunctionRegexFilterRegexList,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  regex: z.string(),
-});
-
-export function functionRegexFilterRegexListFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionRegexFilterRegexList, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionRegexFilterRegexList$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionRegexFilterRegexList' from JSON`,
-  );
-}
-
-/** @internal */
-export const FunctionRegexFilterSchema$inboundSchema: z.ZodType<
-  FunctionRegexFilterSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  regex: z.string().optional(),
-  regexList: z.array(z.lazy(() => FunctionRegexFilterRegexList$inboundSchema))
-    .optional(),
-  field: z.string().default("_raw"),
-});
-
-export function functionRegexFilterSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionRegexFilterSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionRegexFilterSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionRegexFilterSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionRegexFilter$inboundSchema: z.ZodType<
@@ -104,7 +48,7 @@ export const FunctionRegexFilter$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionRegexFilterSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaRegexFilter$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

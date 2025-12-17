@@ -7,40 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type FieldCondition = {
-  /**
-   * The field name to join on, on the left side.
-   */
-  leftFieldName: string;
-  /**
-   * The field name on the right side of the data, i.e. the stage results, that we are joining with
-   */
-  rightFieldName: string;
-};
-
-export type JoinConfiguration = {
-  /**
-   * Join kind, e.g. inner
-   */
-  kind?: string | undefined;
-  /**
-   * Hints passed to the join function
-   */
-  hints?: { [k: string]: string } | undefined;
-  /**
-   * Fields to use when joining
-   */
-  fieldConditions?: Array<FieldCondition> | undefined;
-  /**
-   * The id for this search job.
-   */
-  searchJobId?: string | undefined;
-  /**
-   * The stage we are joining with.
-   */
-  stageId?: string | undefined;
-};
+import {
+  FunctionConfSchemaJoin,
+  FunctionConfSchemaJoin$inboundSchema,
+} from "./functionconfschemajoin.js";
 
 export type FunctionJoin = {
   filename: string;
@@ -56,52 +26,8 @@ export type FunctionJoin = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: JoinConfiguration | undefined;
+  schema?: FunctionConfSchemaJoin | undefined;
 };
-
-/** @internal */
-export const FieldCondition$inboundSchema: z.ZodType<
-  FieldCondition,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  leftFieldName: z.string(),
-  rightFieldName: z.string(),
-});
-
-export function fieldConditionFromJSON(
-  jsonString: string,
-): SafeParseResult<FieldCondition, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FieldCondition$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FieldCondition' from JSON`,
-  );
-}
-
-/** @internal */
-export const JoinConfiguration$inboundSchema: z.ZodType<
-  JoinConfiguration,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  kind: z.string().optional(),
-  hints: z.record(z.string()).optional(),
-  fieldConditions: z.array(z.lazy(() => FieldCondition$inboundSchema))
-    .optional(),
-  searchJobId: z.string().optional(),
-  stageId: z.string().optional(),
-});
-
-export function joinConfigurationFromJSON(
-  jsonString: string,
-): SafeParseResult<JoinConfiguration, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => JoinConfiguration$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'JoinConfiguration' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionJoin$inboundSchema: z.ZodType<
@@ -122,7 +48,7 @@ export const FunctionJoin$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => JoinConfiguration$inboundSchema).optional(),
+  schema: FunctionConfSchemaJoin$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

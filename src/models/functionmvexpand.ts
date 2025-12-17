@@ -5,51 +5,12 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * decides if bag-values are expanded to bags or arrays
- */
-export const BagExpansionMode = {
-  /**
-   * Store as object
-   */
-  Bag: "bag",
-  /**
-   * Store as array
-   */
-  Array: "array",
-} as const;
-/**
- * decides if bag-values are expanded to bags or arrays
- */
-export type BagExpansionMode = OpenEnum<typeof BagExpansionMode>;
-
-export type FunctionMvExpandSchema = {
-  /**
-   * Array of property-/field-names to expand
-   */
-  sourceFields?: Array<string> | undefined;
-  /**
-   * stores the value as new target field name
-   */
-  targetNames?: Array<string> | undefined;
-  /**
-   * max. number of rows generated out of every source events
-   */
-  rowLimit?: number | undefined;
-  /**
-   * name of an optional index property generated into the output
-   */
-  itemIndexName?: string | undefined;
-  /**
-   * decides if bag-values are expanded to bags or arrays
-   */
-  bagExpansionMode?: BagExpansionMode | undefined;
-};
+import {
+  FunctionConfSchemaMvExpand,
+  FunctionConfSchemaMvExpand$inboundSchema,
+} from "./functionconfschemamvexpand.js";
 
 export type FunctionMvExpand = {
   filename: string;
@@ -65,38 +26,8 @@ export type FunctionMvExpand = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionMvExpandSchema | undefined;
+  schema?: FunctionConfSchemaMvExpand | undefined;
 };
-
-/** @internal */
-export const BagExpansionMode$inboundSchema: z.ZodType<
-  BagExpansionMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(BagExpansionMode);
-
-/** @internal */
-export const FunctionMvExpandSchema$inboundSchema: z.ZodType<
-  FunctionMvExpandSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sourceFields: z.array(z.string()).optional(),
-  targetNames: z.array(z.string()).optional(),
-  rowLimit: z.number().default(9007199254740991),
-  itemIndexName: z.string().optional(),
-  bagExpansionMode: BagExpansionMode$inboundSchema.default("bag"),
-});
-
-export function functionMvExpandSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionMvExpandSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionMvExpandSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionMvExpandSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionMvExpand$inboundSchema: z.ZodType<
@@ -117,7 +48,7 @@ export const FunctionMvExpand$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionMvExpandSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaMvExpand$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

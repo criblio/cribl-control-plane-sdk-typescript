@@ -7,13 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type FunctionLimitSchema = {
-  /**
-   * Number of qualifying events to pass through
-   */
-  limit?: number | undefined;
-};
+import {
+  FunctionConfSchemaLimit,
+  FunctionConfSchemaLimit$inboundSchema,
+} from "./functionconfschemalimit.js";
 
 export type FunctionLimit = {
   filename: string;
@@ -29,27 +26,8 @@ export type FunctionLimit = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionLimitSchema | undefined;
+  schema?: FunctionConfSchemaLimit | undefined;
 };
-
-/** @internal */
-export const FunctionLimitSchema$inboundSchema: z.ZodType<
-  FunctionLimitSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  limit: z.number().int().default(100),
-});
-
-export function functionLimitSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionLimitSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionLimitSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionLimitSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionLimit$inboundSchema: z.ZodType<
@@ -70,7 +48,7 @@ export const FunctionLimit$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionLimitSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaLimit$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

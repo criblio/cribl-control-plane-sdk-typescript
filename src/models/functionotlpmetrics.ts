@@ -5,37 +5,12 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionOTLPMetricsOTLPVersion = {
-  /**
-   * 0.10.0
-   */
-  ZeroDot10Dot0: "0.10.0",
-  /**
-   * 1.3.1
-   */
-  OneDot3Dot1: "1.3.1",
-} as const;
-export type FunctionOTLPMetricsOTLPVersion = OpenEnum<
-  typeof FunctionOTLPMetricsOTLPVersion
->;
-
-export type FunctionOtlpMetricsSchema = {
-  /**
-   * The prefixes of top-level attributes to add as resource attributes. Each attribute must match the regex pattern `^[a-zA-Z0-9_\.]+$`. Use Eval to copy nested attributes to the top level for matching.
-   */
-  resourceAttributePrefixes?: Array<string> | undefined;
-  dropNonMetricEvents?: boolean | undefined;
-  otlpVersion?: FunctionOTLPMetricsOTLPVersion | undefined;
-  /**
-   * Batch OTLP metrics by shared top-level `resource` attributes
-   */
-  batchOTLPMetrics?: boolean | undefined;
-};
+import {
+  FunctionConfSchemaOtlpMetrics,
+  FunctionConfSchemaOtlpMetrics$inboundSchema,
+} from "./functionconfschemaotlpmetrics.js";
 
 export type FunctionOtlpMetrics = {
   filename: string;
@@ -51,37 +26,8 @@ export type FunctionOtlpMetrics = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionOtlpMetricsSchema | undefined;
+  schema?: FunctionConfSchemaOtlpMetrics | undefined;
 };
-
-/** @internal */
-export const FunctionOTLPMetricsOTLPVersion$inboundSchema: z.ZodType<
-  FunctionOTLPMetricsOTLPVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(FunctionOTLPMetricsOTLPVersion);
-
-/** @internal */
-export const FunctionOtlpMetricsSchema$inboundSchema: z.ZodType<
-  FunctionOtlpMetricsSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  resourceAttributePrefixes: z.array(z.string()).optional(),
-  dropNonMetricEvents: z.boolean().default(false),
-  otlpVersion: FunctionOTLPMetricsOTLPVersion$inboundSchema.default("0.10.0"),
-  batchOTLPMetrics: z.boolean().default(false),
-});
-
-export function functionOtlpMetricsSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionOtlpMetricsSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionOtlpMetricsSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionOtlpMetricsSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionOtlpMetrics$inboundSchema: z.ZodType<
@@ -102,7 +48,7 @@ export const FunctionOtlpMetrics$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionOtlpMetricsSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaOtlpMetrics$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

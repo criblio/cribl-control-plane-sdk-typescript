@@ -7,13 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type FunctionTrimTimestampSchema = {
-  /**
-   * Name of field in which to save the timestamp. (If empty, timestamp will not be saved to a field.)
-   */
-  field?: string | undefined;
-};
+import {
+  FunctionConfSchemaTrimTimestamp,
+  FunctionConfSchemaTrimTimestamp$inboundSchema,
+} from "./functionconfschematrimtimestamp.js";
 
 export type FunctionTrimTimestamp = {
   filename: string;
@@ -29,27 +26,8 @@ export type FunctionTrimTimestamp = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionTrimTimestampSchema | undefined;
+  schema?: FunctionConfSchemaTrimTimestamp | undefined;
 };
-
-/** @internal */
-export const FunctionTrimTimestampSchema$inboundSchema: z.ZodType<
-  FunctionTrimTimestampSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  field: z.string().optional(),
-});
-
-export function functionTrimTimestampSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionTrimTimestampSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionTrimTimestampSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionTrimTimestampSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionTrimTimestamp$inboundSchema: z.ZodType<
@@ -70,7 +48,7 @@ export const FunctionTrimTimestamp$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionTrimTimestampSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaTrimTimestamp$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

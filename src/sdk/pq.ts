@@ -3,6 +3,7 @@
  */
 
 import { destinationsPqClear } from "../funcs/destinationsPqClear.js";
+import { destinationsPqGet } from "../funcs/destinationsPqGet.js";
 import { ClientSDK, RequestOptions } from "../lib/sdks.js";
 import * as models from "../models/index.js";
 import * as operations from "../models/operations/index.js";
@@ -20,6 +21,23 @@ export class Pq extends ClientSDK {
     options?: RequestOptions,
   ): Promise<models.CountedString> {
     return unwrapAsync(destinationsPqClear(
+      this,
+      request,
+      options,
+    ));
+  }
+
+  /**
+   * Get information about the latest job to clear the persistent queue for a Destination
+   *
+   * @remarks
+   * Get information about the latest job to clear the persistent queue (PQ) for the specified Destination.
+   */
+  async get(
+    request: operations.GetOutputPqByIdRequest,
+    options?: RequestOptions,
+  ): Promise<models.CountedJobInfo> {
+    return unwrapAsync(destinationsPqGet(
       this,
       request,
       options,

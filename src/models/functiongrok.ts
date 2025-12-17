@@ -7,25 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type PatternList = {
-  /**
-   * Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
-   */
-  pattern: string;
-};
-
-export type FunctionGrokSchema = {
-  /**
-   * Grok pattern to extract fields. Syntax supported: %{PATTERN_NAME:FIELD_NAME}
-   */
-  pattern?: string | undefined;
-  patternList?: Array<PatternList> | undefined;
-  /**
-   * Field on which to perform Grok extractions
-   */
-  source?: string | undefined;
-};
+import {
+  FunctionConfSchemaGrok,
+  FunctionConfSchemaGrok$inboundSchema,
+} from "./functionconfschemagrok.js";
 
 export type FunctionGrok = {
   filename: string;
@@ -41,48 +26,8 @@ export type FunctionGrok = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionGrokSchema | undefined;
+  schema?: FunctionConfSchemaGrok | undefined;
 };
-
-/** @internal */
-export const PatternList$inboundSchema: z.ZodType<
-  PatternList,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pattern: z.string(),
-});
-
-export function patternListFromJSON(
-  jsonString: string,
-): SafeParseResult<PatternList, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PatternList$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PatternList' from JSON`,
-  );
-}
-
-/** @internal */
-export const FunctionGrokSchema$inboundSchema: z.ZodType<
-  FunctionGrokSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pattern: z.string().optional(),
-  patternList: z.array(z.lazy(() => PatternList$inboundSchema)).optional(),
-  source: z.string().default("_raw"),
-});
-
-export function functionGrokSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionGrokSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionGrokSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionGrokSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionGrok$inboundSchema: z.ZodType<
@@ -103,7 +48,7 @@ export const FunctionGrok$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionGrokSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaGrok$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

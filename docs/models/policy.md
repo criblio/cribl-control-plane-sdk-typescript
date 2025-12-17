@@ -15,8 +15,8 @@ let value: Policy = {
     [
       {
         key: "<key>",
-        operator: "=~",
-        value: false,
+        operator: "!=",
+        value: 4612.54,
       },
     ],
   ],

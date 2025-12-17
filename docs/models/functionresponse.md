@@ -1030,27 +1030,30 @@ const value: models.FunctionNotificationPolicies = {
     policies: [
       {
         id: "<id>",
-        waitToGroup: 146.33,
+        waitToGroup: 8810.59,
         groupByLabels: [
           "<value 1>",
           "<value 2>",
+          "<value 3>",
         ],
         conditions: [
           [
             {
               key: "<key>",
-              operator: "=~",
-              value: false,
+              operator: "!=",
+              value: 4612.54,
+            },
+          ],
+          [
+            {
+              key: "<key>",
+              operator: "!=",
+              value: 4612.54,
             },
           ],
           [],
         ],
-        templateTargetPairs: [
-          {
-            templateId: "<id>",
-            targetId: "<id>",
-          },
-        ],
+        templateTargetPairs: [],
       },
     ],
   },
