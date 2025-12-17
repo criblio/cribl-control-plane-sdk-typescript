@@ -5,15 +5,15 @@ management:
   docVersion: 4.16.0-alpha.1766009482375-5da8fbaa
   speakeasyVersion: 1.674.0
   generationVersion: 2.778.0
-  releaseVersion: 0.5.0-rc.3
-  configChecksum: bd84d8c69ed34bf2d35743a1e56943ad
+  releaseVersion: 0.5.0-rc.4
+  configChecksum: cb4dbe5048c4ba689da5d9704492077d
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: e984e1ce-fd3a-4522-ab97-8c091ba43abd
-  pristine_commit_hash: 60f70fbf07718747d8d16cc8c7132354176ac170
-  pristine_tree_hash: 0678423333697136235cd60e6110cf0d0e84ab54
+  generation_id: 559a6972-84ee-49e7-b807-fe349fc6a801
+  pristine_commit_hash: 2f8b13c8ab5225f654f12ee699b4c70bc50644ff
+  pristine_tree_hash: bb36bc686388cbc7756abf14267a9edb9cdb4400
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -9471,12 +9471,12 @@ trackedFiles:
     pristine_git_object: 67bccfec985be20a00970d90155752832dd47135
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:ad366fc29d7eda00d7183ab24e7272ffeea6fbc9
-    pristine_git_object: a09579b8aa9afd616ef949d3ca8c9eaec4c65050
+    last_write_checksum: sha1:ca956d9d5d2dca4009f045377fc589ff0fed83ab
+    pristine_git_object: a49254597b7b056c3e747bdae19638fcf5208504
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:044f1cf7087af6c6a797cf15f21608a4b8f925bd
-    pristine_git_object: 4589fd223daf1bbb5f982d4fcbf47629d13124dd
+    last_write_checksum: sha1:7c7b7ee063468c7324ec2078389b8ab8e9259d8c
+    pristine_git_object: b3efa16576003271af9e107f50b016d06a9f544b
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:2df5998a0eb3c71f5c1d2f90e885944ec2ce4243
@@ -9795,8 +9795,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:ee595e6d1442262097f67aa0e49c3dd1181db1e7
-    pristine_git_object: ce7980e5089880c2806cc8f64866a5266e2bb7c6
+    last_write_checksum: sha1:70bacd234cdad8021ef7d54020dd5ea01f0f3c08
+    pristine_git_object: 8e719c5b87a0cf19520c1a2dc779bf6ff228df45
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -16758,7 +16758,6 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.pipelines.list()`:  `response.items.[].conf.functions.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.pipelines.create()`: \n  *  `request.conf.functions.[]` **Changed** **Breaking** :warning:\n  *  `response.items.[].conf.functions.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.pipelines.get()`:  `response.items.[].conf.functions.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.pipelines.update()`: \n  *  `request.pipeline.conf.functions.[]` **Changed** **Breaking** :warning:\n  *  `response.items.[].conf.functions.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.pipelines.delete()`:  `response.items.[].conf.functions.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.collectors.create()`: **Added**\n* `criblcontrolplane.collectors.list()`: **Added**\n* `criblcontrolplane.collectors.delete()`: **Added**\n* `criblcontrolplane.collectors.get()`: **Added**\n* `criblcontrolplane.collectors.update()`: **Added**\n* `criblcontrolplane.destinations.pq.get()`: **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
