@@ -5,15 +5,15 @@ management:
   docVersion: 4.16.0-alpha.1765998729742-5f1d1005
   speakeasyVersion: 1.674.0
   generationVersion: 2.778.0
-  releaseVersion: 0.5.0-rc.1
-  configChecksum: 0ad7872f994359426fd53de7b38e3efa
+  releaseVersion: 0.5.0-rc.2
+  configChecksum: 41cd7442cb00dcb4b4b773faf9ea55dc
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: 2e7b9b5f-31ef-4a61-b2dd-3d7c49e4688f
-  pristine_commit_hash: e836aea69c7919da9670544e3a47636317e89189
-  pristine_tree_hash: 63fd4b15a9467c41b7554d5f1094841534d06bbf
+  generation_id: 060e9f84-5527-4f52-adf6-aedae68cb0e1
+  pristine_commit_hash: 628bd49fecfbfbaa557017b7f659fd8354bf7bc5
+  pristine_tree_hash: f20f59cd132864a93971cc7be0b62e6ef009b5c2
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -8414,12 +8414,12 @@ trackedFiles:
     pristine_git_object: 67bccfec985be20a00970d90155752832dd47135
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:d35750193fee8cc5f1457167a86df0952d64cb05
-    pristine_git_object: 81dab2a88ab41dbee4c9cb93ace61c5b354bea9f
+    last_write_checksum: sha1:5b3df3a4a2d2142b2439d0495a7703cc0ca61526
+    pristine_git_object: cda26ab4c17caa4a25d24a28b642403cc1a1192b
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:c37bbda4db424a4897cde0f36b70bb131ea8b4e2
-    pristine_git_object: d2c681dd477807489838473fa838435c9f15d0f8
+    last_write_checksum: sha1:fd900acc2c32d9fa6850c96b05535833170c8b59
+    pristine_git_object: 44d3274b6ffd29d5c96b1e5ec3356ec554f46721
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:2df5998a0eb3c71f5c1d2f90e885944ec2ce4243
@@ -8714,8 +8714,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:8c6bd406cd95d480ef88fa19bc6a5f403005dfff
-    pristine_git_object: 8238d27cfa236a847e503321006cf216ffe23036
+    last_write_checksum: sha1:9469845f95b96d6ab4bea979a244c6f4f9589437
+    pristine_git_object: 30ebd72bbd439094cb3e6f90bdb0de8254d31994
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -15037,7 +15037,6 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.collectors.create()`: **Deleted** **Breaking** :warning:\n* `criblcontrolplane.collectors.list()`: **Deleted** **Breaking** :warning:\n* `criblcontrolplane.collectors.delete()`: **Deleted** **Breaking** :warning:\n* `criblcontrolplane.collectors.get()`: **Deleted** **Breaking** :warning:\n* `criblcontrolplane.collectors.update()`: **Deleted** **Breaking** :warning:\n* `criblcontrolplane.destinations.pq.get()`: **Deleted** **Breaking** :warning:\n* `criblcontrolplane.destinations.list()`:  `response.items.[].[netflow].maxRecordSize` **Added**\n* `criblcontrolplane.destinations.create()`: \n  *  `request.[netflow].maxRecordSize` **Added**\n  *  `response.items.[].[netflow].maxRecordSize` **Added**\n* `criblcontrolplane.destinations.get()`:  `response.items.[].[netflow].maxRecordSize` **Added**\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output.[netflow].maxRecordSize` **Added**\n  *  `response.items.[].[netflow].maxRecordSize` **Added**\n* `criblcontrolplane.destinations.delete()`:  `response.items.[].[netflow].maxRecordSize` **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
