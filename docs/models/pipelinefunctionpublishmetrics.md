@@ -1,0 +1,44 @@
+# PipelineFunctionPublishMetrics
+
+## Example Usage
+
+```typescript
+import { PipelineFunctionPublishMetrics } from "cribl-control-plane/models";
+
+let value: PipelineFunctionPublishMetrics = {
+  id: "publish_metrics",
+  description: "madly after pushy gosh bustling anenst as geez past blind",
+  disabled: true,
+  final: true,
+  conf: {
+    fields: [
+      {
+        inFieldName: "<value>",
+        outFieldExpr: "<value>",
+      },
+    ],
+    dimensions: [
+      "<value 1>",
+    ],
+    removeMetrics: [
+      "<value 1>",
+    ],
+    removeDimensions: [
+      "<value 1>",
+    ],
+  },
+  groupId: "<id>",
+};
+```
+
+## Fields
+
+| Field                                                                                        | Type                                                                                         | Required                                                                                     | Description                                                                                  |
+| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `filter`                                                                                     | *string*                                                                                     | :heavy_minus_sign:                                                                           | Filter that selects data to be fed through this Function                                     |
+| `id`                                                                                         | *"publish_metrics"*                                                                          | :heavy_check_mark:                                                                           | Function ID                                                                                  |
+| `description`                                                                                | *string*                                                                                     | :heavy_minus_sign:                                                                           | Simple description of this step                                                              |
+| `disabled`                                                                                   | *boolean*                                                                                    | :heavy_minus_sign:                                                                           | If true, data will not be pushed through this function                                       |
+| `final`                                                                                      | *boolean*                                                                                    | :heavy_minus_sign:                                                                           | If enabled, stops the results of this Function from being passed to the downstream Functions |
+| `conf`                                                                                       | [models.FunctionConfSchemaPublishMetrics](../models/functionconfschemapublishmetrics.md)     | :heavy_check_mark:                                                                           | N/A                                                                                          |
+| `groupId`                                                                                    | *string*                                                                                     | :heavy_minus_sign:                                                                           | Group ID                                                                                     |

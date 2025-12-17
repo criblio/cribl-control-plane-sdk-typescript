@@ -7,21 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type SimplePivotConfiguration = {
-  /**
-   * Fields to be used for the left-most column.
-   */
-  labelField?: string | undefined;
-  /**
-   * Fields with the cell values (i.e. aggregates)
-   */
-  dataFields?: Array<string> | undefined;
-  /**
-   * Fields to qualify or group data fields
-   */
-  qualifierFields?: Array<string> | undefined;
-};
+import {
+  FunctionConfSchemaPivot,
+  FunctionConfSchemaPivot$inboundSchema,
+} from "./functionconfschemapivot.js";
 
 export type FunctionPivot = {
   filename: string;
@@ -37,29 +26,8 @@ export type FunctionPivot = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: SimplePivotConfiguration | undefined;
+  schema?: FunctionConfSchemaPivot | undefined;
 };
-
-/** @internal */
-export const SimplePivotConfiguration$inboundSchema: z.ZodType<
-  SimplePivotConfiguration,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  labelField: z.string().optional(),
-  dataFields: z.array(z.string()).optional(),
-  qualifierFields: z.array(z.string()).optional(),
-});
-
-export function simplePivotConfigurationFromJSON(
-  jsonString: string,
-): SafeParseResult<SimplePivotConfiguration, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SimplePivotConfiguration$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SimplePivotConfiguration' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionPivot$inboundSchema: z.ZodType<
@@ -80,7 +48,7 @@ export const FunctionPivot$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => SimplePivotConfiguration$inboundSchema).optional(),
+  schema: FunctionConfSchemaPivot$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

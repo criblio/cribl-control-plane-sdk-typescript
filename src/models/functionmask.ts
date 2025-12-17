@@ -7,45 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type FunctionMaskRule = {
-  /**
-   * Pattern to replace. Use /g to replace all matches.
-   */
-  matchRegex: string;
-  /**
-   * A JavaScript expression or literal to replace the matching content. Capturing groups can be referenced as g1, g2, and so on, and event fields as event.<fieldName>.
-   */
-  replaceExpr?: string | undefined;
-  /**
-   * Set to No to disable the evaluation of an individual rule
-   */
-  disabled?: boolean | undefined;
-};
-
-export type FunctionMaskFlag = {
-  name?: string | undefined;
-  /**
-   * JavaScript expression to compute the value (can be constant)
-   */
-  value: string;
-};
-
-export type FunctionMaskSchema = {
-  rules?: Array<FunctionMaskRule> | undefined;
-  /**
-   * Fields on which to apply the masking rules. Supports * wildcards, except when used on internal fields.
-   */
-  fields?: Array<string> | undefined;
-  /**
-   * Depth to which the Mask Function will search for fields to mask
-   */
-  depth?: number | undefined;
-  /**
-   * Fields to evaluate if one or more masking rules are matched
-   */
-  flags?: Array<FunctionMaskFlag> | undefined;
-};
+import {
+  FunctionConfSchemaMask,
+  FunctionConfSchemaMask$inboundSchema,
+} from "./functionconfschemamask.js";
 
 export type FunctionMask = {
   filename: string;
@@ -61,71 +26,8 @@ export type FunctionMask = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionMaskSchema | undefined;
+  schema?: FunctionConfSchemaMask | undefined;
 };
-
-/** @internal */
-export const FunctionMaskRule$inboundSchema: z.ZodType<
-  FunctionMaskRule,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  matchRegex: z.string(),
-  replaceExpr: z.string().default("''"),
-  disabled: z.boolean().default(false),
-});
-
-export function functionMaskRuleFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionMaskRule, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionMaskRule$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionMaskRule' from JSON`,
-  );
-}
-
-/** @internal */
-export const FunctionMaskFlag$inboundSchema: z.ZodType<
-  FunctionMaskFlag,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-export function functionMaskFlagFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionMaskFlag, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionMaskFlag$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionMaskFlag' from JSON`,
-  );
-}
-
-/** @internal */
-export const FunctionMaskSchema$inboundSchema: z.ZodType<
-  FunctionMaskSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  rules: z.array(z.lazy(() => FunctionMaskRule$inboundSchema)).optional(),
-  fields: z.array(z.string()).optional(),
-  depth: z.number().int().default(5),
-  flags: z.array(z.lazy(() => FunctionMaskFlag$inboundSchema)).optional(),
-});
-
-export function functionMaskSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionMaskSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionMaskSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionMaskSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionMask$inboundSchema: z.ZodType<
@@ -146,7 +48,7 @@ export const FunctionMask$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionMaskSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaMask$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

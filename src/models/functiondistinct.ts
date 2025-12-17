@@ -7,29 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type DistinctConfiguration = {
-  /**
-   * Defines the properties that are concatenated to produce distinct key
-   */
-  groupBy?: Array<string> | undefined;
-  /**
-   * maximum number of tracked combinations
-   */
-  maxCombinations?: number | undefined;
-  /**
-   * maximum number of groupBy properties
-   */
-  maxDepth?: number | undefined;
-  /**
-   * indicator that the operator runs on a federated executor
-   */
-  isFederated?: boolean | undefined;
-  /**
-   * Toggle this on to suppress generating previews of intermediate results
-   */
-  suppressPreviews?: boolean | undefined;
-};
+import {
+  FunctionConfSchemaDistinct,
+  FunctionConfSchemaDistinct$inboundSchema,
+} from "./functionconfschemadistinct.js";
 
 export type FunctionDistinct = {
   filename: string;
@@ -45,31 +26,8 @@ export type FunctionDistinct = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: DistinctConfiguration | undefined;
+  schema?: FunctionConfSchemaDistinct | undefined;
 };
-
-/** @internal */
-export const DistinctConfiguration$inboundSchema: z.ZodType<
-  DistinctConfiguration,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  groupBy: z.array(z.string()).optional(),
-  maxCombinations: z.number().default(10000),
-  maxDepth: z.number().default(15),
-  isFederated: z.boolean().default(false),
-  suppressPreviews: z.boolean().optional(),
-});
-
-export function distinctConfigurationFromJSON(
-  jsonString: string,
-): SafeParseResult<DistinctConfiguration, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => DistinctConfiguration$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'DistinctConfiguration' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionDistinct$inboundSchema: z.ZodType<
@@ -90,7 +48,7 @@ export const FunctionDistinct$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => DistinctConfiguration$inboundSchema).optional(),
+  schema: FunctionConfSchemaDistinct$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

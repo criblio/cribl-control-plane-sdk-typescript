@@ -7,42 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type AdditionalField = {
-  /**
-   * Field name in which to find an IP to look up. Can be nested.
-   */
-  extraInField: string;
-  /**
-   * Field name in which to store the GeoIP lookup results
-   */
-  extraOutField: string;
-};
-
-/**
- * Search-specific mappings for granular control over event enrichment
- */
-export type OutputFieldMappings = {};
-
-export type FunctionGeoipSchema = {
-  /**
-   * Select an uploaded Maxmind database, or specify path to a Maxmind database with .mmdb extension
-   */
-  file?: string | undefined;
-  /**
-   * Field name in which to find an IP to look up. Can be nested.
-   */
-  inField?: string | undefined;
-  /**
-   * Field name in which to store the GeoIP lookup results
-   */
-  outField?: string | undefined;
-  additionalFields?: Array<AdditionalField> | undefined;
-  /**
-   * Search-specific mappings for granular control over event enrichment
-   */
-  outFieldMappings?: OutputFieldMappings | undefined;
-};
+import {
+  FunctionConfSchemaGeoip,
+  FunctionConfSchemaGeoip$inboundSchema,
+} from "./functionconfschemageoip.js";
 
 export type FunctionGeoip = {
   filename: string;
@@ -58,69 +26,8 @@ export type FunctionGeoip = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionGeoipSchema | undefined;
+  schema?: FunctionConfSchemaGeoip | undefined;
 };
-
-/** @internal */
-export const AdditionalField$inboundSchema: z.ZodType<
-  AdditionalField,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  extraInField: z.string(),
-  extraOutField: z.string(),
-});
-
-export function additionalFieldFromJSON(
-  jsonString: string,
-): SafeParseResult<AdditionalField, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => AdditionalField$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'AdditionalField' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputFieldMappings$inboundSchema: z.ZodType<
-  OutputFieldMappings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-export function outputFieldMappingsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputFieldMappings, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputFieldMappings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputFieldMappings' from JSON`,
-  );
-}
-
-/** @internal */
-export const FunctionGeoipSchema$inboundSchema: z.ZodType<
-  FunctionGeoipSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  file: z.string().optional(),
-  inField: z.string().default("ip"),
-  outField: z.string().default("geoip"),
-  additionalFields: z.array(z.lazy(() => AdditionalField$inboundSchema))
-    .optional(),
-  outFieldMappings: z.lazy(() => OutputFieldMappings$inboundSchema).optional(),
-});
-
-export function functionGeoipSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionGeoipSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionGeoipSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionGeoipSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionGeoip$inboundSchema: z.ZodType<
@@ -141,7 +48,7 @@ export const FunctionGeoip$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionGeoipSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaGeoip$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

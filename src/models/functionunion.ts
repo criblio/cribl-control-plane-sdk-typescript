@@ -7,17 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type UnionConfiguration = {
-  /**
-   * The id for this search job.
-   */
-  searchJobId?: string | undefined;
-  /**
-   * The stages we are unioning with.
-   */
-  stageIds?: Array<string> | undefined;
-};
+import {
+  FunctionConfSchemaUnion,
+  FunctionConfSchemaUnion$inboundSchema,
+} from "./functionconfschemaunion.js";
 
 export type FunctionUnion = {
   filename: string;
@@ -33,28 +26,8 @@ export type FunctionUnion = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: UnionConfiguration | undefined;
+  schema?: FunctionConfSchemaUnion | undefined;
 };
-
-/** @internal */
-export const UnionConfiguration$inboundSchema: z.ZodType<
-  UnionConfiguration,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  searchJobId: z.string().optional(),
-  stageIds: z.array(z.string()).optional(),
-});
-
-export function unionConfigurationFromJSON(
-  jsonString: string,
-): SafeParseResult<UnionConfiguration, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => UnionConfiguration$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'UnionConfiguration' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionUnion$inboundSchema: z.ZodType<
@@ -75,7 +48,7 @@ export const FunctionUnion$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => UnionConfiguration$inboundSchema).optional(),
+  schema: FunctionConfSchemaUnion$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

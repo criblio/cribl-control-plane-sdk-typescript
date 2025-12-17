@@ -7,33 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type LakeExportConfiguration = {
-  /**
-   * Id of the search job this function is running on.
-   */
-  searchJobId?: string | undefined;
-  /**
-   * Name of the dataset
-   */
-  dataset?: string | undefined;
-  /**
-   * Name of the lake
-   */
-  lake?: string | undefined;
-  /**
-   * Tee results to search. When set to true results will be shipped instead of stats
-   */
-  tee?: string | undefined;
-  /**
-   * How often are stats flushed in ms
-   */
-  flushMs?: number | undefined;
-  /**
-   * Disables generation of intermediate stats. When true stats will be emitted only on end
-   */
-  suppressPreviews?: boolean | undefined;
-};
+import {
+  FunctionConfSchemaLakeExport,
+  FunctionConfSchemaLakeExport$inboundSchema,
+} from "./functionconfschemalakeexport.js";
 
 export type FunctionLakeExport = {
   filename: string;
@@ -49,32 +26,8 @@ export type FunctionLakeExport = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: LakeExportConfiguration | undefined;
+  schema?: FunctionConfSchemaLakeExport | undefined;
 };
-
-/** @internal */
-export const LakeExportConfiguration$inboundSchema: z.ZodType<
-  LakeExportConfiguration,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  searchJobId: z.string().optional(),
-  dataset: z.string().optional(),
-  lake: z.string().default("default"),
-  tee: z.string().default("false"),
-  flushMs: z.number().default(1000),
-  suppressPreviews: z.boolean().optional(),
-});
-
-export function lakeExportConfigurationFromJSON(
-  jsonString: string,
-): SafeParseResult<LakeExportConfiguration, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => LakeExportConfiguration$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'LakeExportConfiguration' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionLakeExport$inboundSchema: z.ZodType<
@@ -95,7 +48,7 @@ export const FunctionLakeExport$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => LakeExportConfiguration$inboundSchema).optional(),
+  schema: FunctionConfSchemaLakeExport$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

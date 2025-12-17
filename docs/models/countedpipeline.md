@@ -21,12 +21,28 @@ let value: CountedPipeline = {
         ],
         functions: [
           {
-            id: "<id>",
+            filter: "true",
+            id: "notify",
             description:
-              "whoever meanwhile achieve whoa barring properly excited",
+              "zen priesthood characterization fictionalize than exasperation oh fervently afterwards before",
             disabled: true,
             final: true,
-            conf: {},
+            conf: {
+              group: "default",
+              notificationId: "main",
+              searchId: "<id>",
+              savedQueryId: "<id>",
+              trigger: "<value>",
+              triggerType: "resultsCount",
+              triggerComparator: ">",
+              triggerCount: 0,
+              resultsLimit: 50,
+              searchUrl: "https://negligible-collaboration.biz",
+              message: "<value>",
+              authToken: "<value>",
+              messagesEndpoint: "<value>",
+              tenantId: "<id>",
+            },
             groupId: "<id>",
           },
         ],
@@ -34,8 +50,8 @@ let value: CountedPipeline = {
           "key": {
             name: "<value>",
             description:
-              "usefully what airline usefully ack regularly uh-huh naturally kettledrum",
-            disabled: false,
+              "ack regularly uh-huh naturally kettledrum before frenetically beard inasmuch quickly",
+            disabled: true,
           },
         },
       },

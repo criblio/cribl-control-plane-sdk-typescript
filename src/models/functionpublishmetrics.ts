@@ -5,75 +5,12 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionPublishMetricsMetricType = {
-  /**
-   * Counter
-   */
-  Counter: "counter",
-  /**
-   * Timer
-   */
-  Timer: "timer",
-  /**
-   * Gauge
-   */
-  Gauge: "gauge",
-  /**
-   * Distribution
-   */
-  Distribution: "distribution",
-  /**
-   * Summary
-   */
-  Summary: "summary",
-  /**
-   * Histogram
-   */
-  Histogram: "histogram",
-} as const;
-export type FunctionPublishMetricsMetricType = OpenEnum<
-  typeof FunctionPublishMetricsMetricType
->;
-
-export type FunctionPublishMetricsField = {
-  /**
-   * The name of the field in the event that contains the metric value
-   */
-  inFieldName: string;
-  /**
-   * JavaScript expression to evaluate the metric field name. Defaults to Event Field Name.
-   */
-  outFieldExpr?: string | undefined;
-  metricType?: FunctionPublishMetricsMetricType | undefined;
-};
-
-export type FunctionPublishMetricsSchema = {
-  /**
-   * List of metrics from event to extract and format. Formatted metrics can be used by a destination to pass metrics to a metrics aggregation platform.
-   */
-  fields?: Array<FunctionPublishMetricsField> | undefined;
-  /**
-   * Overwrite previous metric specs. Leave disabled to append.
-   */
-  overwrite?: boolean | undefined;
-  /**
-   * Optional list of dimensions to include in events. Wildcards supported. If you don't specify metrics, values will be appended to every metric found in the event. When you add a new metric, dimensions will be present only in those new metrics.
-   */
-  dimensions?: Array<string> | undefined;
-  /**
-   * Optional list of metric field names to look for when removing metrics. When a metric's field name matches an element in this list, the metric will be removed from the event.
-   */
-  removeMetrics?: Array<string> | undefined;
-  /**
-   * Optional list of dimensions to remove from every metric found in the event. Wildcards supported.
-   */
-  removeDimensions?: Array<string> | undefined;
-};
+import {
+  FunctionConfSchemaPublishMetrics,
+  FunctionConfSchemaPublishMetrics$inboundSchema,
+} from "./functionconfschemapublishmetrics.js";
 
 export type FunctionPublishMetrics = {
   filename: string;
@@ -89,60 +26,8 @@ export type FunctionPublishMetrics = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionPublishMetricsSchema | undefined;
+  schema?: FunctionConfSchemaPublishMetrics | undefined;
 };
-
-/** @internal */
-export const FunctionPublishMetricsMetricType$inboundSchema: z.ZodType<
-  FunctionPublishMetricsMetricType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(FunctionPublishMetricsMetricType);
-
-/** @internal */
-export const FunctionPublishMetricsField$inboundSchema: z.ZodType<
-  FunctionPublishMetricsField,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  inFieldName: z.string(),
-  outFieldExpr: z.string().optional(),
-  metricType: FunctionPublishMetricsMetricType$inboundSchema.default("gauge"),
-});
-
-export function functionPublishMetricsFieldFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionPublishMetricsField, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionPublishMetricsField$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionPublishMetricsField' from JSON`,
-  );
-}
-
-/** @internal */
-export const FunctionPublishMetricsSchema$inboundSchema: z.ZodType<
-  FunctionPublishMetricsSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  fields: z.array(z.lazy(() => FunctionPublishMetricsField$inboundSchema))
-    .optional(),
-  overwrite: z.boolean().default(false),
-  dimensions: z.array(z.string()).optional(),
-  removeMetrics: z.array(z.string()).optional(),
-  removeDimensions: z.array(z.string()).optional(),
-});
-
-export function functionPublishMetricsSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionPublishMetricsSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionPublishMetricsSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionPublishMetricsSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionPublishMetrics$inboundSchema: z.ZodType<
@@ -163,7 +48,7 @@ export const FunctionPublishMetrics$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionPublishMetricsSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaPublishMetrics$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

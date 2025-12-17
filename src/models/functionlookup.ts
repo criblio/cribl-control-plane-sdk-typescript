@@ -7,59 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type InField = {
-  /**
-   * Field name as it appears in events
-   */
-  eventField: string;
-  /**
-   * Optional: The field name as it appears in the lookup file. Defaults to event field name
-   */
-  lookupField?: string | undefined;
-};
-
-export type OutField = {
-  /**
-   * The field name as it appears in the lookup file
-   */
-  lookupField: string;
-  /**
-   * Optional: Field name to add to event. Defaults to lookup field name.
-   */
-  eventField?: string | undefined;
-  /**
-   * Optional: Value to assign if lookup entry is not found
-   */
-  defaultValue?: string | undefined;
-};
-
-export type FunctionLookupSchema = {
-  /**
-   * Path to the lookup file. Reference environment variables via $. Example: $HOME/file.csv
-   */
-  file?: string | undefined;
-  /**
-   * Enable to use a disk-based lookup. This option displays only the settings relevant to disk-based mode and hides those for in-memory lookups.
-   */
-  dbLookup?: boolean | undefined;
-  matchMode?: any | undefined;
-  matchType?: any | undefined;
-  reloadPeriodSec?: any | undefined;
-  /**
-   * Fields that should be used to key into the lookup table
-   */
-  inFields?: Array<InField> | undefined;
-  /**
-   * Fields to add to events after matching lookup. Defaults to all if not specified.
-   */
-  outFields?: Array<OutField> | undefined;
-  /**
-   * Add the looked-up values to _raw, as key=value pairs
-   */
-  addToEvent?: boolean | undefined;
-  ignoreCase?: any | undefined;
-};
+import {
+  FunctionConfSchemaLookup,
+  FunctionConfSchemaLookup$inboundSchema,
+} from "./functionconfschemalookup.js";
 
 export type FunctionLookup = {
   filename: string;
@@ -75,73 +26,8 @@ export type FunctionLookup = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionLookupSchema | undefined;
+  schema?: FunctionConfSchemaLookup | undefined;
 };
-
-/** @internal */
-export const InField$inboundSchema: z.ZodType<InField, z.ZodTypeDef, unknown> =
-  z.object({
-    eventField: z.string(),
-    lookupField: z.string().optional(),
-  });
-
-export function inFieldFromJSON(
-  jsonString: string,
-): SafeParseResult<InField, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InField$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InField' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutField$inboundSchema: z.ZodType<
-  OutField,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  lookupField: z.string(),
-  eventField: z.string().optional(),
-  defaultValue: z.string().optional(),
-});
-
-export function outFieldFromJSON(
-  jsonString: string,
-): SafeParseResult<OutField, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutField$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutField' from JSON`,
-  );
-}
-
-/** @internal */
-export const FunctionLookupSchema$inboundSchema: z.ZodType<
-  FunctionLookupSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  file: z.string().optional(),
-  dbLookup: z.boolean().default(false),
-  matchMode: z.any().optional(),
-  matchType: z.any().optional(),
-  reloadPeriodSec: z.any().optional(),
-  inFields: z.array(z.lazy(() => InField$inboundSchema)).optional(),
-  outFields: z.array(z.lazy(() => OutField$inboundSchema)).optional(),
-  addToEvent: z.boolean().default(false),
-  ignoreCase: z.any().optional(),
-});
-
-export function functionLookupSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionLookupSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionLookupSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionLookupSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionLookup$inboundSchema: z.ZodType<
@@ -162,7 +48,7 @@ export const FunctionLookup$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionLookupSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaLookup$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

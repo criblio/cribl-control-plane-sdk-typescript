@@ -7,21 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type FunctionDropDimensionsSchema = {
-  /**
-   * The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
-   */
-  timeWindow?: string | undefined;
-  /**
-   * One or more dimensions to be dropped. Supports wildcard expressions. Warning: Using wildcard '*' causes all dimensions in the event to be dropped.
-   */
-  dropDimensions?: Array<string> | undefined;
-  /**
-   * Flush aggregations when an input stream is closed. If disabled, aggregations are flushed based on Time Window Settings instead.
-   */
-  flushOnInputClose?: boolean | undefined;
-};
+import {
+  FunctionConfSchemaDropDimensions,
+  FunctionConfSchemaDropDimensions$inboundSchema,
+} from "./functionconfschemadropdimensions.js";
 
 export type FunctionDropDimensions = {
   filename: string;
@@ -37,29 +26,8 @@ export type FunctionDropDimensions = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionDropDimensionsSchema | undefined;
+  schema?: FunctionConfSchemaDropDimensions | undefined;
 };
-
-/** @internal */
-export const FunctionDropDimensionsSchema$inboundSchema: z.ZodType<
-  FunctionDropDimensionsSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  timeWindow: z.string().default("10s"),
-  dropDimensions: z.array(z.string()).optional(),
-  flushOnInputClose: z.boolean().default(true),
-});
-
-export function functionDropDimensionsSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionDropDimensionsSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionDropDimensionsSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionDropDimensionsSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionDropDimensions$inboundSchema: z.ZodType<
@@ -80,7 +48,7 @@ export const FunctionDropDimensions$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionDropDimensionsSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaDropDimensions$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

@@ -9,7 +9,6 @@ let value: UnionConfiguration = {
   searchJobId: "<id>",
   stageIds: [
     "<value 1>",
-    "<value 2>",
   ],
 };
 ```
@@ -18,5 +17,5 @@ let value: UnionConfiguration = {
 
 | Field                            | Type                             | Required                         | Description                      |
 | -------------------------------- | -------------------------------- | -------------------------------- | -------------------------------- |
-| `searchJobId`                    | *string*                         | :heavy_minus_sign:               | The id for this search job.      |
-| `stageIds`                       | *string*[]                       | :heavy_minus_sign:               | The stages we are unioning with. |
+| `searchJobId`                    | *string*                         | :heavy_check_mark:               | The id for this search job.      |
+| `stageIds`                       | *string*[]                       | :heavy_check_mark:               | The stages we are unioning with. |

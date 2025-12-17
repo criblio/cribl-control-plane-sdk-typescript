@@ -35,7 +35,7 @@ export class Pipelines extends ClientSDK {
    * Create a new Pipeline.
    */
   async create(
-    request: models.Pipeline,
+    request: models.PipelineInput,
     options?: RequestOptions,
   ): Promise<models.CountedPipeline> {
     return unwrapAsync(pipelinesCreate(

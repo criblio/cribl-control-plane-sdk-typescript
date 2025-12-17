@@ -5,51 +5,12 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * Defines how sample rate will be derived: log(previousPeriodCount) or sqrt(previousPeriodCount)
- */
-export const SampleMode = {
-  /**
-   * Logarithmic
-   */
-  Log: "log",
-  /**
-   * Square Root
-   */
-  Sqrt: "sqrt",
-} as const;
-/**
- * Defines how sample rate will be derived: log(previousPeriodCount) or sqrt(previousPeriodCount)
- */
-export type SampleMode = OpenEnum<typeof SampleMode>;
-
-export type FunctionDynamicSamplingSchema = {
-  /**
-   * Defines how sample rate will be derived: log(previousPeriodCount) or sqrt(previousPeriodCount)
-   */
-  mode?: SampleMode | undefined;
-  /**
-   * Expression used to derive sample group key. Example:`${domain}:${status}`. Each sample group will have its own derived sampling rate based on volume. Defaults to `${host}`.
-   */
-  keyExpr?: string | undefined;
-  /**
-   * How often (in seconds) sample rates will be adjusted
-   */
-  samplePeriod?: number | undefined;
-  /**
-   * Minimum number of events that must be received in previous sample period for sampling mode to be applied to current period. If the number of events received for a sample group is less than this minimum, a sample rate of 1:1 is used.
-   */
-  minEvents?: number | undefined;
-  /**
-   * Maximum sampling rate. If computed sampling rate is above this value, it will be limited to this value.
-   */
-  maxSampleRate?: number | undefined;
-};
+import {
+  FunctionConfSchemaDynamicSampling,
+  FunctionConfSchemaDynamicSampling$inboundSchema,
+} from "./functionconfschemadynamicsampling.js";
 
 export type FunctionDynamicSampling = {
   filename: string;
@@ -65,38 +26,8 @@ export type FunctionDynamicSampling = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionDynamicSamplingSchema | undefined;
+  schema?: FunctionConfSchemaDynamicSampling | undefined;
 };
-
-/** @internal */
-export const SampleMode$inboundSchema: z.ZodType<
-  SampleMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(SampleMode);
-
-/** @internal */
-export const FunctionDynamicSamplingSchema$inboundSchema: z.ZodType<
-  FunctionDynamicSamplingSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: SampleMode$inboundSchema.default("log"),
-  keyExpr: z.string().default("`${host}`"),
-  samplePeriod: z.number().default(30),
-  minEvents: z.number().default(30),
-  maxSampleRate: z.number().default(100),
-});
-
-export function functionDynamicSamplingSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionDynamicSamplingSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionDynamicSamplingSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionDynamicSamplingSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionDynamicSampling$inboundSchema: z.ZodType<
@@ -117,7 +48,7 @@ export const FunctionDynamicSampling$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionDynamicSamplingSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaDynamicSampling$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

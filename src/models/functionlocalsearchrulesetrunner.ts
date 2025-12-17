@@ -5,21 +5,12 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const RulesetType = {
-  Dataset: "dataset",
-  Datatype: "datatype",
-} as const;
-export type RulesetType = OpenEnum<typeof RulesetType>;
-
-export type FunctionLocalSearchRulesetRunnerSchema = {
-  rulesetType?: RulesetType | undefined;
-  rulesetId?: string | undefined;
-};
+import {
+  FunctionConfSchemaLocalSearchRulesetRunner,
+  FunctionConfSchemaLocalSearchRulesetRunner$inboundSchema,
+} from "./functionconfschemalocalsearchrulesetrunner.js";
 
 export type FunctionLocalSearchRulesetRunner = {
   filename: string;
@@ -35,36 +26,8 @@ export type FunctionLocalSearchRulesetRunner = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionLocalSearchRulesetRunnerSchema | undefined;
+  schema?: FunctionConfSchemaLocalSearchRulesetRunner | undefined;
 };
-
-/** @internal */
-export const RulesetType$inboundSchema: z.ZodType<
-  RulesetType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(RulesetType);
-
-/** @internal */
-export const FunctionLocalSearchRulesetRunnerSchema$inboundSchema: z.ZodType<
-  FunctionLocalSearchRulesetRunnerSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  rulesetType: RulesetType$inboundSchema.optional(),
-  rulesetId: z.string().optional(),
-});
-
-export function functionLocalSearchRulesetRunnerSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionLocalSearchRulesetRunnerSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      FunctionLocalSearchRulesetRunnerSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionLocalSearchRulesetRunnerSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionLocalSearchRulesetRunner$inboundSchema: z.ZodType<
@@ -85,8 +48,7 @@ export const FunctionLocalSearchRulesetRunner$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionLocalSearchRulesetRunnerSchema$inboundSchema)
-    .optional(),
+  schema: FunctionConfSchemaLocalSearchRulesetRunner$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

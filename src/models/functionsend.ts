@@ -5,61 +5,12 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * In Sender mode, forwards search results directly to the destination. In Metrics mode, accumulates metrics from federated send operators, and forwards the aggregate metrics.
- */
-export const FunctionSendMode = {
-  Sender: "sender",
-  Metrics: "metrics",
-} as const;
-/**
- * In Sender mode, forwards search results directly to the destination. In Metrics mode, accumulates metrics from federated send operators, and forwards the aggregate metrics.
- */
-export type FunctionSendMode = OpenEnum<typeof FunctionSendMode>;
-
-export type SendConfiguration = {
-  /**
-   * Full URL to send search to.
-   */
-  url?: string | undefined;
-  /**
-   * Group within the workspace we're sending to.
-   */
-  group?: string | undefined;
-  /**
-   * Workspace within the deployment to send the search results to.
-   */
-  workspace?: string | undefined;
-  /**
-   * Template to build the URL to send from.
-   */
-  sendUrlTemplate?: string | undefined;
-  /**
-   * Id of the search this function is running on.
-   */
-  searchId?: string | undefined;
-  /**
-   * Tee results to search. When set to true results will be shipped instead of stats
-   */
-  tee?: string | undefined;
-  /**
-   * How often are stats flushed in ms
-   */
-  flushMs?: number | undefined;
-  /**
-   * Disables generation of intermediate stats. When true stats will be emitted only on end
-   */
-  suppressPreviews?: boolean | undefined;
-  /**
-   * In Sender mode, forwards search results directly to the destination. In Metrics mode, accumulates metrics from federated send operators, and forwards the aggregate metrics.
-   */
-  mode?: FunctionSendMode | undefined;
-};
+import {
+  FunctionConfSchemaSend,
+  FunctionConfSchemaSend$inboundSchema,
+} from "./functionconfschemasend.js";
 
 export type FunctionSend = {
   filename: string;
@@ -75,42 +26,8 @@ export type FunctionSend = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: SendConfiguration | undefined;
+  schema?: FunctionConfSchemaSend | undefined;
 };
-
-/** @internal */
-export const FunctionSendMode$inboundSchema: z.ZodType<
-  FunctionSendMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(FunctionSendMode);
-
-/** @internal */
-export const SendConfiguration$inboundSchema: z.ZodType<
-  SendConfiguration,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  url: z.string().optional(),
-  group: z.string().default("default"),
-  workspace: z.string().default("main"),
-  sendUrlTemplate: z.string().optional(),
-  searchId: z.string().optional(),
-  tee: z.string().default("false"),
-  flushMs: z.number().default(1000),
-  suppressPreviews: z.boolean().optional(),
-  mode: FunctionSendMode$inboundSchema.optional(),
-});
-
-export function sendConfigurationFromJSON(
-  jsonString: string,
-): SafeParseResult<SendConfiguration, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SendConfiguration$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SendConfiguration' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionSend$inboundSchema: z.ZodType<
@@ -131,7 +48,7 @@ export const FunctionSend$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => SendConfiguration$inboundSchema).optional(),
+  schema: FunctionConfSchemaSend$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

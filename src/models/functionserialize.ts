@@ -5,67 +5,12 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * Data output format
- */
-export const FunctionSerializeType = {
-  /**
-   * CSV
-   */
-  Csv: "csv",
-  /**
-   * Extended Log File Format
-   */
-  Elff: "elff",
-  /**
-   * Common Log Format
-   */
-  Clf: "clf",
-  /**
-   * Key=Value Pairs
-   */
-  Kvp: "kvp",
-  /**
-   * JSON Object
-   */
-  Json: "json",
-  /**
-   * Delimited values
-   */
-  Delim: "delim",
-} as const;
-/**
- * Data output format
- */
-export type FunctionSerializeType = OpenEnum<typeof FunctionSerializeType>;
-
-export type FunctionSerializeSchema = {
-  /**
-   * Data output format
-   */
-  type?: FunctionSerializeType | undefined;
-  delimChar?: any | undefined;
-  quoteChar?: any | undefined;
-  escapeChar?: any | undefined;
-  nullValue?: any | undefined;
-  /**
-   * Required for CSV, ELFF, CLF, and Delimited values. All other formats support wildcard field lists. Examples: host, array*, !host *
-   */
-  fields?: Array<string> | undefined;
-  /**
-   * Field containing object to serialize. Leave blank to serialize top-level event fields.
-   */
-  srcField?: string | undefined;
-  /**
-   * Field to serialize data to
-   */
-  dstField?: string | undefined;
-};
+import {
+  FunctionConfSchemaSerialize,
+  FunctionConfSchemaSerialize$inboundSchema,
+} from "./functionconfschemaserialize.js";
 
 export type FunctionSerialize = {
   filename: string;
@@ -81,41 +26,8 @@ export type FunctionSerialize = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionSerializeSchema | undefined;
+  schema?: FunctionConfSchemaSerialize | undefined;
 };
-
-/** @internal */
-export const FunctionSerializeType$inboundSchema: z.ZodType<
-  FunctionSerializeType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(FunctionSerializeType);
-
-/** @internal */
-export const FunctionSerializeSchema$inboundSchema: z.ZodType<
-  FunctionSerializeSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: FunctionSerializeType$inboundSchema.default("csv"),
-  delimChar: z.any().optional(),
-  quoteChar: z.any().optional(),
-  escapeChar: z.any().optional(),
-  nullValue: z.any().optional(),
-  fields: z.array(z.string()).optional(),
-  srcField: z.string().optional(),
-  dstField: z.string().default("_raw"),
-});
-
-export function functionSerializeSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionSerializeSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionSerializeSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionSerializeSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionSerialize$inboundSchema: z.ZodType<
@@ -136,7 +48,7 @@ export const FunctionSerialize$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionSerializeSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaSerialize$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",
