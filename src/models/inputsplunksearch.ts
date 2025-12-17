@@ -89,16 +89,14 @@ export type InputSplunkSearchPq = {
 /**
  * Format of the returned output
  */
-export const InputSplunkSearchOutputMode = {
+export const OutputMode = {
   Csv: "csv",
   Json: "json",
 } as const;
 /**
  * Format of the returned output
  */
-export type InputSplunkSearchOutputMode = OpenEnum<
-  typeof InputSplunkSearchOutputMode
->;
+export type OutputMode = OpenEnum<typeof OutputMode>;
 
 export type EndpointParam = {
   name: string;
@@ -298,7 +296,7 @@ export type InputSplunkSearch = {
   /**
    * Format of the returned output
    */
-  outputMode?: InputSplunkSearchOutputMode | undefined;
+  outputMode?: OutputMode | undefined;
   /**
    * Optional request parameters to send to the endpoint
    */
@@ -581,17 +579,17 @@ export function inputSplunkSearchPqFromJSON(
 }
 
 /** @internal */
-export const InputSplunkSearchOutputMode$inboundSchema: z.ZodType<
-  InputSplunkSearchOutputMode,
+export const OutputMode$inboundSchema: z.ZodType<
+  OutputMode,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(InputSplunkSearchOutputMode);
+> = openEnums.inboundSchema(OutputMode);
 /** @internal */
-export const InputSplunkSearchOutputMode$outboundSchema: z.ZodType<
+export const OutputMode$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  InputSplunkSearchOutputMode
-> = openEnums.outboundSchema(InputSplunkSearchOutputMode);
+  OutputMode
+> = openEnums.outboundSchema(OutputMode);
 
 /** @internal */
 export const EndpointParam$inboundSchema: z.ZodType<
@@ -923,7 +921,7 @@ export const InputSplunkSearch$inboundSchema: z.ZodType<
   latest: z.string().default("-1m@m"),
   cronSchedule: z.string().default("*/15 * * * *"),
   endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: InputSplunkSearchOutputMode$inboundSchema.default("json"),
+  outputMode: OutputMode$inboundSchema.default("json"),
   endpointParams: z.array(z.lazy(() => EndpointParam$inboundSchema)).optional(),
   endpointHeaders: z.array(z.lazy(() => EndpointHeader$inboundSchema))
     .optional(),
@@ -1037,7 +1035,7 @@ export const InputSplunkSearch$outboundSchema: z.ZodType<
   latest: z.string().default("-1m@m"),
   cronSchedule: z.string().default("*/15 * * * *"),
   endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: InputSplunkSearchOutputMode$outboundSchema.default("json"),
+  outputMode: OutputMode$outboundSchema.default("json"),
   endpointParams: z.array(z.lazy(() => EndpointParam$outboundSchema))
     .optional(),
   endpointHeaders: z.array(z.lazy(() => EndpointHeader$outboundSchema))

@@ -192,14 +192,6 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 
 * [get](docs/sdks/tokens/README.md#get) - Log in and fetch an authentication token
 
-### [Collectors](docs/sdks/collectors/README.md)
-
-* [create](docs/sdks/collectors/README.md#create) - Create a Collector
-* [list](docs/sdks/collectors/README.md#list) - List all Collectors
-* [delete](docs/sdks/collectors/README.md#delete) - Delete a Collector
-* [get](docs/sdks/collectors/README.md#get) - Get a Collector
-* [update](docs/sdks/collectors/README.md#update) - Update a Collector
-
 ### [Destinations](docs/sdks/destinations/README.md)
 
 * [list](docs/sdks/destinations/README.md#list) - List all Destinations
@@ -211,7 +203,6 @@ The [On-Prem Authentication Example](https://github.com/criblio/cribl-control-pl
 #### [Destinations.Pq](docs/sdks/pq/README.md)
 
 * [clear](docs/sdks/pq/README.md#clear) - Clear the persistent queue for a Destination
-* [get](docs/sdks/pq/README.md#get) - Get information about the latest job to clear the persistent queue for a Destination
 
 #### [Destinations.Samples](docs/sdks/samples/README.md)
 
@@ -354,17 +345,11 @@ To read more about standalone functions, check [FUNCTIONS.md](./FUNCTIONS.md).
 <summary>Available standalone functions</summary>
 
 - [`authTokensGet`](docs/sdks/tokens/README.md#get) - Log in and fetch an authentication token
-- [`collectorsCreate`](docs/sdks/collectors/README.md#create) - Create a Collector
-- [`collectorsDelete`](docs/sdks/collectors/README.md#delete) - Delete a Collector
-- [`collectorsGet`](docs/sdks/collectors/README.md#get) - Get a Collector
-- [`collectorsList`](docs/sdks/collectors/README.md#list) - List all Collectors
-- [`collectorsUpdate`](docs/sdks/collectors/README.md#update) - Update a Collector
 - [`destinationsCreate`](docs/sdks/destinations/README.md#create) - Create a Destination
 - [`destinationsDelete`](docs/sdks/destinations/README.md#delete) - Delete a Destination
 - [`destinationsGet`](docs/sdks/destinations/README.md#get) - Get a Destination
 - [`destinationsList`](docs/sdks/destinations/README.md#list) - List all Destinations
 - [`destinationsPqClear`](docs/sdks/pq/README.md#clear) - Clear the persistent queue for a Destination
-- [`destinationsPqGet`](docs/sdks/pq/README.md#get) - Get information about the latest job to clear the persistent queue for a Destination
 - [`destinationsSamplesCreate`](docs/sdks/samples/README.md#create) - Send sample event data to a Destination
 - [`destinationsSamplesGet`](docs/sdks/samples/README.md#get) - Get sample event data for a Destination
 - [`destinationsUpdate`](docs/sdks/destinations/README.md#update) - Update a Destination
@@ -768,7 +753,7 @@ run();
 
 
 **Inherit from [`CriblControlPlaneError`](./src/models/errors/criblcontrolplaneerror.ts)**:
-* [`HealthServerStatusError`](./src/models/errors/healthserverstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 72 methods.*
+* [`HealthServerStatusError`](./src/models/errors/healthserverstatuserror.ts): Healthy status. Status code `420`. Applicable to 1 of 66 methods.*
 * [`ResponseValidationError`](./src/models/errors/responsevalidationerror.ts): Type mismatch between the data returned from the server and the structure expected by the SDK. See `error.rawValue` for the raw value and `error.pretty()` for a nicely formatted multi-line string.
 
 </details>

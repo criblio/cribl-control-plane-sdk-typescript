@@ -41,7 +41,7 @@ export type OutputNetflow = {
    */
   streamtags?: Array<string> | undefined;
   /**
-   * One or more NetFlow destinations to forward events to
+   * One or more NetFlow Destinations to forward events to
    */
   hosts: Array<OutputNetflowHost>;
   /**
@@ -53,6 +53,10 @@ export type OutputNetflow = {
    */
   enableIpSpoofing?: boolean | undefined;
   description?: string | undefined;
+  /**
+   * MTU in bytes. The actual maximum NetFlow payload size will be MTU minus IP and UDP headers (28 bytes for IPv4, 48 bytes for IPv6). For example, with the default MTU of 1500, the max payload is 1472 bytes for IPv4. Payloads exceeding this limit will be dropped.
+   */
+  maxRecordSize?: number | undefined;
 };
 
 /** @internal */
@@ -113,6 +117,7 @@ export const OutputNetflow$inboundSchema: z.ZodType<
   dnsResolvePeriodSec: z.number().default(0),
   enableIpSpoofing: z.boolean().default(false),
   description: z.string().optional(),
+  maxRecordSize: z.number().default(1500),
 });
 /** @internal */
 export type OutputNetflow$Outbound = {
@@ -126,6 +131,7 @@ export type OutputNetflow$Outbound = {
   dnsResolvePeriodSec: number;
   enableIpSpoofing: boolean;
   description?: string | undefined;
+  maxRecordSize: number;
 };
 
 /** @internal */
@@ -144,6 +150,7 @@ export const OutputNetflow$outboundSchema: z.ZodType<
   dnsResolvePeriodSec: z.number().default(0),
   enableIpSpoofing: z.boolean().default(false),
   description: z.string().optional(),
+  maxRecordSize: z.number().default(1500),
 });
 
 export function outputNetflowToJSON(outputNetflow: OutputNetflow): string {
