@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: fa1551e69819c96eeeeb90b7f3cc439d
-  docVersion: 4.15.1-bbf1374d
+  docChecksum: 2fa956387fbb7eff069be89e4f822c45
+  docVersion: 4.15.1-1b453caa
   speakeasyVersion: 1.674.0
   generationVersion: 2.778.0
-  releaseVersion: 0.4.0-rc.22
-  configChecksum: 24916d77110888f8d8db5c735d001cf1
+  releaseVersion: 0.4.0
+  configChecksum: fb7d78874180dbaadafe41ae6d2d6f32
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: 2de2c3f8-309a-4451-b3f3-48550fc967ee
-  pristine_commit_hash: 84e9398ab4f6faef293c06893043ed900aa87e40
-  pristine_tree_hash: 135569b8e28cd9668549f4b52b8f3473abfa52ba
+  generation_id: c7878601-7bb2-447f-80a7-f87700b1ce4d
+  pristine_commit_hash: 12c23b417df66413e0ca2f915d4ef1d6ef5b7572
+  pristine_tree_hash: e760109e01a18d14e6fbf479137b9f284858fe9c
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -7810,12 +7810,12 @@ trackedFiles:
     pristine_git_object: 67bccfec985be20a00970d90155752832dd47135
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:4bed08ce32c8c3c1a3f0475a3624f2f660e3373b
-    pristine_git_object: b152bc9f992dc05f4758fc3b62622fd39dd52ba5
+    last_write_checksum: sha1:7d2a35d53eee322233c25f6c50ede3975bf72228
+    pristine_git_object: f123c98ea46296bb870b45329aa892ae38296472
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:be47ed4902f9445d745f8a7a1ff4558e716c746a
-    pristine_git_object: 9a96ce91c2f02e32ab1a8586acc4936958bf29d6
+    last_write_checksum: sha1:349a806168230f8af43328eccd166473eb540cdf
+    pristine_git_object: b668c2bcc0dfd00b0b0bde774056379647cd77c4
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:2df5998a0eb3c71f5c1d2f90e885944ec2ce4243
@@ -8098,8 +8098,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:addf089770d2ff7949fd7d22b212f89b5325a23f
-    pristine_git_object: cc8858da0f33c11257fbf5eb48b06c662e5478fa
+    last_write_checksum: sha1:380b56e3de352b63bb0486c5cf6b69b5b52f092d
+    pristine_git_object: 130a4c79603367922a9b444c2c6eaf6c241883f9
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -10489,7 +10489,7 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "This is just for the test showing that customization is possible\ ## Typescript SDK Changes:\n* `criblcontrolplane.lakeDatasets.list()`:  `request` **Changed**\n* `criblcontrolplane.sources.hecTokens.create()`: \n  *  `request.addHecTokenRequest.allowedIndexesAtToken` **Added**\n* `criblcontrolplane.sources.hecTokens.update()`: \n  *  `request.updateHecTokenRequest.allowedIndexesAtToken` **Added**\n* `criblcontrolplane.destinations.list()`:  `response.items.[].[criblHttp].throttleRatePerSec` **Added**\n* `criblcontrolplane.destinations.create()`: \n  *  `request.[criblHttp].throttleRatePerSec` **Added**\n  *  `response.items.[].[criblHttp].throttleRatePerSec` **Added**\n* `criblcontrolplane.destinations.get()`:  `response.items.[].[criblHttp].throttleRatePerSec` **Added**\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output.[criblHttp].throttleRatePerSec` **Added**\n  *  `response.items.[].[criblHttp].throttleRatePerSec` **Added**\n* `criblcontrolplane.destinations.delete()`:  `response.items.[].[criblHttp].throttleRatePerSec` **Added**\n"
+releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.lakeDatasets.list()`:  `request` **Changed**\n* `criblcontrolplane.sources.hecTokens.create()`: \n  *  `request.addHecTokenRequest.allowedIndexesAtToken` **Added**\n* `criblcontrolplane.sources.hecTokens.update()`: \n  *  `request.updateHecTokenRequest.allowedIndexesAtToken` **Added**\n* `criblcontrolplane.destinations.list()`:  `response.items.[].[criblHttp].throttleRatePerSec` **Added**\n* `criblcontrolplane.destinations.create()`: \n  *  `request.[criblHttp].throttleRatePerSec` **Added**\n  *  `response.items.[].[criblHttp].throttleRatePerSec` **Added**\n* `criblcontrolplane.destinations.get()`:  `response.items.[].[criblHttp].throttleRatePerSec` **Added**\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output.[criblHttp].throttleRatePerSec` **Added**\n  *  `response.items.[].[criblHttp].throttleRatePerSec` **Added**\n* `criblcontrolplane.destinations.delete()`:  `response.items.[].[criblHttp].throttleRatePerSec` **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
