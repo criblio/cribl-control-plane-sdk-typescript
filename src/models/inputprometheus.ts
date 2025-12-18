@@ -112,7 +112,7 @@ export type InputPrometheusDiscoveryType = OpenEnum<
 >;
 
 /**
- * Collector runtime Log Level
+ * Collector runtime log level
  */
 export const InputPrometheusLogLevel = {
   Error: "error",
@@ -121,7 +121,7 @@ export const InputPrometheusLogLevel = {
   Debug: "debug",
 } as const;
 /**
- * Collector runtime Log Level
+ * Collector runtime log level
  */
 export type InputPrometheusLogLevel = OpenEnum<typeof InputPrometheusLogLevel>;
 
@@ -148,7 +148,7 @@ export type InputPrometheusAuthTypeAuthenticationMethod = OpenEnum<
 >;
 
 /**
- * DNS Record type to resolve
+ * DNS record type to resolve
  */
 export const InputPrometheusRecordType = {
   Srv: "SRV",
@@ -156,7 +156,7 @@ export const InputPrometheusRecordType = {
   Aaaa: "AAAA",
 } as const;
 /**
- * DNS Record type to resolve
+ * DNS record type to resolve
  */
 export type InputPrometheusRecordType = OpenEnum<
   typeof InputPrometheusRecordType
@@ -199,11 +199,11 @@ export type InputPrometheusAwsAuthenticationMethodAuthenticationMethod =
 
 export type InputPrometheusSearchFilter = {
   /**
-   * Search filter attribute name, see: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html for more information. Attributes can be manually entered if not present in the drop down list
+   * See https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html for information. Attributes can be manually entered if not present in the list.
    */
   name: string;
   /**
-   * Search Filter Values, if empty only "running" EC2 instances will be returned
+   * Values to match within this row's attribute. If empty, search will return only running EC2 instances.
    */
   values: Array<string>;
 };
@@ -263,17 +263,21 @@ export type InputPrometheus = {
    */
   discoveryType?: InputPrometheusDiscoveryType | undefined;
   /**
-   * How often in minutes to scrape targets for metrics, 60 must be evenly divisible by the value or save will fail.
+   * How often, in minutes, to scrape targets for metrics. Maximum of 60 minutes. 60 must be evenly divisible by the value you enter.
    */
   interval?: number | undefined;
   /**
-   * Collector runtime Log Level
+   * Collector runtime log level
    */
   logLevel?: InputPrometheusLogLevel | undefined;
   /**
    * Reject certificates that cannot be verified against a valid CA, such as self-signed certificates
    */
   rejectUnauthorized?: boolean | undefined;
+  /**
+   * Time, in seconds, before aborting HTTP connection attempts; use 0 for no timeout
+   */
+  timeout?: number | undefined;
   /**
    * How often workers should check in with the scheduler to keep job subscription alive
    */
@@ -308,11 +312,11 @@ export type InputPrometheus = {
    */
   targetList?: Array<string> | undefined;
   /**
-   * DNS Record type to resolve
+   * DNS record type to resolve
    */
   recordType?: InputPrometheusRecordType | undefined;
   /**
-   * The port number in the metrics URL for discovered targets.
+   * The port number in the metrics URL for discovered targets
    */
   scrapePort?: number | undefined;
   /**
@@ -339,11 +343,11 @@ export type InputPrometheus = {
    */
   awsSecret?: string | undefined;
   /**
-   * Use public IP address for discovered targets. Set to false if the private IP address should be used.
+   * Use public IP address for discovered targets. Disable to use the private IP address.
    */
   usePublicIp?: boolean | undefined;
   /**
-   * EC2 Instance Search Filter
+   * Filter to apply when searching for EC2 instances
    */
   searchFilter?: Array<InputPrometheusSearchFilter> | undefined;
   awsSecretKey?: string | undefined;
@@ -768,6 +772,7 @@ export const InputPrometheus$inboundSchema: z.ZodType<
   interval: z.number().default(15),
   logLevel: InputPrometheusLogLevel$inboundSchema.default("info"),
   rejectUnauthorized: z.boolean().default(true),
+  timeout: z.number().default(0),
   keepAliveTime: z.number().default(30),
   jobTimeout: z.string().default("0"),
   maxMissedKeepAlives: z.number().default(3),
@@ -823,6 +828,7 @@ export type InputPrometheus$Outbound = {
   interval: number;
   logLevel: string;
   rejectUnauthorized: boolean;
+  timeout: number;
   keepAliveTime: number;
   jobTimeout: string;
   maxMissedKeepAlives: number;
@@ -878,6 +884,7 @@ export const InputPrometheus$outboundSchema: z.ZodType<
   interval: z.number().default(15),
   logLevel: InputPrometheusLogLevel$outboundSchema.default("info"),
   rejectUnauthorized: z.boolean().default(true),
+  timeout: z.number().default(0),
   keepAliveTime: z.number().default(30),
   jobTimeout: z.string().default("0"),
   maxMissedKeepAlives: z.number().default(3),
