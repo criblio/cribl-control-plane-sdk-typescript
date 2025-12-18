@@ -211,7 +211,7 @@ export type Target = {
 };
 
 /**
- * DNS Record type to resolve
+ * DNS record type to resolve
  */
 export const InputEdgePrometheusRecordType = {
   Srv: "SRV",
@@ -219,7 +219,7 @@ export const InputEdgePrometheusRecordType = {
   Aaaa: "AAAA",
 } as const;
 /**
- * DNS Record type to resolve
+ * DNS record type to resolve
  */
 export type InputEdgePrometheusRecordType = OpenEnum<
   typeof InputEdgePrometheusRecordType
@@ -264,11 +264,11 @@ export type InputEdgePrometheusAwsAuthenticationMethodAuthenticationMethod =
 
 export type InputEdgePrometheusSearchFilter = {
   /**
-   * Search filter attribute name, see: https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html for more information. Attributes can be manually entered if not present in the drop down list
+   * See https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_DescribeInstances.html for information. Attributes can be manually entered if not present in the list.
    */
   name: string;
   /**
-   * Search Filter Values, if empty only "running" EC2 instances will be returned
+   * Values to match within this row's attribute. If empty, search will return only running EC2 instances.
    */
   values: Array<string>;
 };
@@ -358,7 +358,7 @@ export type InputEdgePrometheus = {
   description?: string | undefined;
   targets?: Array<Target> | undefined;
   /**
-   * DNS Record type to resolve
+   * DNS record type to resolve
    */
   recordType?: InputEdgePrometheusRecordType | undefined;
   /**
@@ -389,11 +389,11 @@ export type InputEdgePrometheus = {
    */
   awsSecret?: string | undefined;
   /**
-   * Use public IP address for discovered targets. Set to false if the private IP address should be used.
+   * Use public IP address for discovered targets. Disable to use the private IP address.
    */
   usePublicIp?: boolean | undefined;
   /**
-   * EC2 Instance Search Filter
+   * Filter to apply when searching for EC2 instances
    */
   searchFilter?: Array<InputEdgePrometheusSearchFilter> | undefined;
   awsSecretKey?: string | undefined;
