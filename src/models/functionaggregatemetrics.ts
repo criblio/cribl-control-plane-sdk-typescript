@@ -5,103 +5,12 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * The output metric type
- */
-export const FunctionAggregateMetricsMetricType = {
-  Automatic: "automatic",
-  Counter: "counter",
-  Distribution: "distribution",
-  Gauge: "gauge",
-  Histogram: "histogram",
-  Summary: "summary",
-  Timer: "timer",
-} as const;
-/**
- * The output metric type
- */
-export type FunctionAggregateMetricsMetricType = OpenEnum<
-  typeof FunctionAggregateMetricsMetricType
->;
-
-export type Aggregation = {
-  /**
-   * The output metric type
-   */
-  metricType?: FunctionAggregateMetricsMetricType | undefined;
-  /**
-   * Aggregate function to perform on events. Example: sum(bytes).where(action=='REJECT').as(TotalBytes)
-   */
-  agg: string;
-};
-
-export type FunctionAggregateMetricsAdd = {
-  name?: string | undefined;
-  /**
-   * JavaScript expression to compute the value (can be constant)
-   */
-  value: string;
-};
-
-export type FunctionAggregateMetricsSchema = {
-  /**
-   * Pass through the original events along with the aggregation events
-   */
-  passthrough?: boolean | undefined;
-  /**
-   * Preserve the structure of the original aggregation event's groupby fields
-   */
-  preserveGroupBys?: boolean | undefined;
-  /**
-   * Output only statistics that are sufficient for the supplied aggregations
-   */
-  sufficientStatsOnly?: boolean | undefined;
-  /**
-   * A prefix that is prepended to all of the fields output by this Aggregations Function
-   */
-  prefix?: string | undefined;
-  /**
-   * The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
-   */
-  timeWindow?: string | undefined;
-  /**
-   * Combination of Aggregation function and output metric type
-   */
-  aggregations?: Array<Aggregation> | undefined;
-  /**
-   * Optional: One or more dimensions to group aggregates by. Supports wildcard expressions. Wrap dimension names in quotes if using literal identifiers, such as 'service.name'. Warning: Using wildcard '*' causes all dimensions in the event to be included, which can result in high cardinality and increased memory usage. Exclude dimensions that can result in high cardinality before using wildcards. Example: !_time, !_numericValue, *
-   */
-  groupbys?: Array<string> | undefined;
-  /**
-   * The maximum number of events to include in any given aggregation event
-   */
-  flushEventLimit?: number | undefined;
-  /**
-   * The memory usage limit to impose upon aggregations. Defaults to 80% of the process memory; value configured above default limit is ignored. Accepts numerals with units like KB and MB (example: 128MB).
-   */
-  flushMemLimit?: string | undefined;
-  /**
-   * Enable to retain aggregations for cumulative aggregations when flushing out an aggregation table event. When disabled (the default), aggregations are reset to 0 on flush.
-   */
-  cumulative?: boolean | undefined;
-  /**
-   * Treat dots in dimension names as literals. This is useful for top-level dimensions that contain dots, such as 'service.name'.
-   */
-  shouldTreatDotsAsLiterals?: boolean | undefined;
-  /**
-   * Set of key-value pairs to evaluate and add/set
-   */
-  add?: Array<FunctionAggregateMetricsAdd> | undefined;
-  /**
-   * Flush aggregations when an input stream is closed. If disabled, Time Window Settings control flush behavior.
-   */
-  flushOnInputClose?: boolean | undefined;
-};
+import {
+  FunctionConfSchemaAggregateMetrics,
+  FunctionConfSchemaAggregateMetrics$inboundSchema,
+} from "./functionconfschemaaggregatemetrics.js";
 
 export type FunctionAggregateMetrics = {
   filename: string;
@@ -117,89 +26,8 @@ export type FunctionAggregateMetrics = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionAggregateMetricsSchema | undefined;
+  schema?: FunctionConfSchemaAggregateMetrics | undefined;
 };
-
-/** @internal */
-export const FunctionAggregateMetricsMetricType$inboundSchema: z.ZodType<
-  FunctionAggregateMetricsMetricType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(FunctionAggregateMetricsMetricType);
-
-/** @internal */
-export const Aggregation$inboundSchema: z.ZodType<
-  Aggregation,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  metricType: FunctionAggregateMetricsMetricType$inboundSchema.default(
-    "automatic",
-  ),
-  agg: z.string(),
-});
-
-export function aggregationFromJSON(
-  jsonString: string,
-): SafeParseResult<Aggregation, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Aggregation$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Aggregation' from JSON`,
-  );
-}
-
-/** @internal */
-export const FunctionAggregateMetricsAdd$inboundSchema: z.ZodType<
-  FunctionAggregateMetricsAdd,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-export function functionAggregateMetricsAddFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionAggregateMetricsAdd, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionAggregateMetricsAdd$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionAggregateMetricsAdd' from JSON`,
-  );
-}
-
-/** @internal */
-export const FunctionAggregateMetricsSchema$inboundSchema: z.ZodType<
-  FunctionAggregateMetricsSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  passthrough: z.boolean().default(false),
-  preserveGroupBys: z.boolean().default(false),
-  sufficientStatsOnly: z.boolean().default(false),
-  prefix: z.string().optional(),
-  timeWindow: z.string().default("10s"),
-  aggregations: z.array(z.lazy(() => Aggregation$inboundSchema)).optional(),
-  groupbys: z.array(z.string()).optional(),
-  flushEventLimit: z.number().optional(),
-  flushMemLimit: z.string().optional(),
-  cumulative: z.boolean().default(false),
-  shouldTreatDotsAsLiterals: z.boolean().default(true),
-  add: z.array(z.lazy(() => FunctionAggregateMetricsAdd$inboundSchema))
-    .optional(),
-  flushOnInputClose: z.boolean().default(true),
-});
-
-export function functionAggregateMetricsSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionAggregateMetricsSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionAggregateMetricsSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionAggregateMetricsSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionAggregateMetrics$inboundSchema: z.ZodType<
@@ -220,7 +48,7 @@ export const FunctionAggregateMetrics$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionAggregateMetricsSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaAggregateMetrics$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

@@ -7,77 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type FunctionAggregationAdd = {
-  name?: string | undefined;
-  /**
-   * JavaScript expression to compute the value (can be constant)
-   */
-  value: string;
-};
-
-export type FunctionAggregationSchema = {
-  /**
-   * Pass through the original events along with the aggregation events
-   */
-  passthrough?: boolean | undefined;
-  /**
-   * Preserve the structure of the original aggregation event's groupby fields
-   */
-  preserveGroupBys?: boolean | undefined;
-  /**
-   * Output only statistics that are sufficient for the supplied aggregations
-   */
-  sufficientStatsOnly?: boolean | undefined;
-  /**
-   * Enable to output the aggregates as metrics. When disabled, aggregates are output as events.
-   */
-  metricsMode?: boolean | undefined;
-  /**
-   * A prefix that is prepended to all of the fields output by this Aggregations Function
-   */
-  prefix?: string | undefined;
-  /**
-   * The time span of the tumbling window for aggregating events. Must be a valid time string (such as 10s).
-   */
-  timeWindow?: string | undefined;
-  /**
-   * Aggregate function to perform on events. Example: sum(bytes).where(action=='REJECT').as(TotalBytes)
-   */
-  aggregations?: Array<string> | undefined;
-  /**
-   * Optional: One or more fields to group aggregates by. Supports wildcard expressions. Warning: Using wildcard '*' causes all fields in the event to be included, which can result in high cardinality and increased memory usage. Exclude fields that can result in high cardinality before using wildcards. Example: !_time, !_numericValue, *
-   */
-  groupbys?: Array<string> | undefined;
-  /**
-   * The maximum number of events to include in any given aggregation event
-   */
-  flushEventLimit?: number | undefined;
-  /**
-   * The memory usage limit to impose upon aggregations. Defaults to 80% of the process memory; value configured above default limit is ignored. Accepts numerals with units like KB and MB (example: 128MB).
-   */
-  flushMemLimit?: string | undefined;
-  /**
-   * Enable to retain aggregations for cumulative aggregations when flushing out an aggregation table event. When disabled (the default), aggregations are reset to 0 on flush.
-   */
-  cumulative?: boolean | undefined;
-  /**
-   * Allows Cribl Search-specific aggregation configuration
-   */
-  searchAggMode?: string | undefined;
-  /**
-   * Set of key-value pairs to evaluate and add/set
-   */
-  add?: Array<FunctionAggregationAdd> | undefined;
-  /**
-   * Treat dots in dimension names as literals. This is useful for top-level dimensions that contain dots, such as 'service.name'.
-   */
-  shouldTreatDotsAsLiterals?: boolean | undefined;
-  /**
-   * Flush aggregations when an input stream is closed. If disabled, Time Window Settings control flush behavior.
-   */
-  flushOnInputClose?: boolean | undefined;
-};
+import {
+  FunctionConfSchemaAggregation,
+  FunctionConfSchemaAggregation$inboundSchema,
+} from "./functionconfschemaaggregation.js";
 
 export type FunctionAggregation = {
   filename: string;
@@ -93,61 +26,8 @@ export type FunctionAggregation = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionAggregationSchema | undefined;
+  schema?: FunctionConfSchemaAggregation | undefined;
 };
-
-/** @internal */
-export const FunctionAggregationAdd$inboundSchema: z.ZodType<
-  FunctionAggregationAdd,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-export function functionAggregationAddFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionAggregationAdd, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionAggregationAdd$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionAggregationAdd' from JSON`,
-  );
-}
-
-/** @internal */
-export const FunctionAggregationSchema$inboundSchema: z.ZodType<
-  FunctionAggregationSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  passthrough: z.boolean().default(false),
-  preserveGroupBys: z.boolean().default(false),
-  sufficientStatsOnly: z.boolean().default(false),
-  metricsMode: z.boolean().default(false),
-  prefix: z.string().optional(),
-  timeWindow: z.string().default("10s"),
-  aggregations: z.array(z.string()).optional(),
-  groupbys: z.array(z.string()).optional(),
-  flushEventLimit: z.number().optional(),
-  flushMemLimit: z.string().optional(),
-  cumulative: z.boolean().default(false),
-  searchAggMode: z.string().optional(),
-  add: z.array(z.lazy(() => FunctionAggregationAdd$inboundSchema)).optional(),
-  shouldTreatDotsAsLiterals: z.boolean().default(false),
-  flushOnInputClose: z.boolean().default(true),
-});
-
-export function functionAggregationSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionAggregationSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionAggregationSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionAggregationSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionAggregation$inboundSchema: z.ZodType<
@@ -168,7 +48,7 @@ export const FunctionAggregation$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionAggregationSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaAggregation$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

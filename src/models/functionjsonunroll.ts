@@ -7,17 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type FunctionJsonUnrollSchema = {
-  /**
-   * Path to array to unroll, such as foo.0.bar
-   */
-  path?: string | undefined;
-  /**
-   * Name of each exploded array element in each new event. Leave empty to expand the array element with its original name.
-   */
-  name?: string | undefined;
-};
+import {
+  FunctionConfSchemaJsonUnroll,
+  FunctionConfSchemaJsonUnroll$inboundSchema,
+} from "./functionconfschemajsonunroll.js";
 
 export type FunctionJsonUnroll = {
   filename: string;
@@ -33,28 +26,8 @@ export type FunctionJsonUnroll = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionJsonUnrollSchema | undefined;
+  schema?: FunctionConfSchemaJsonUnroll | undefined;
 };
-
-/** @internal */
-export const FunctionJsonUnrollSchema$inboundSchema: z.ZodType<
-  FunctionJsonUnrollSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  path: z.string().optional(),
-  name: z.string().optional(),
-});
-
-export function functionJsonUnrollSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionJsonUnrollSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionJsonUnrollSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionJsonUnrollSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionJsonUnroll$inboundSchema: z.ZodType<
@@ -75,7 +48,7 @@ export const FunctionJsonUnroll$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionJsonUnrollSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaJsonUnroll$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

@@ -7,13 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type FunctionLocalSearchDatatypeParserSchema = {
-  /**
-   * ID of the local search datatype ruleset
-   */
-  rulesetId?: string | undefined;
-};
+import {
+  FunctionConfSchemaLocalSearchDatatypeParser,
+  FunctionConfSchemaLocalSearchDatatypeParser$inboundSchema,
+} from "./functionconfschemalocalsearchdatatypeparser.js";
 
 export type FunctionLocalSearchDatatypeParser = {
   filename: string;
@@ -29,33 +26,8 @@ export type FunctionLocalSearchDatatypeParser = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionLocalSearchDatatypeParserSchema | undefined;
+  schema?: FunctionConfSchemaLocalSearchDatatypeParser | undefined;
 };
-
-/** @internal */
-export const FunctionLocalSearchDatatypeParserSchema$inboundSchema: z.ZodType<
-  FunctionLocalSearchDatatypeParserSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  rulesetId: z.string().optional(),
-});
-
-export function functionLocalSearchDatatypeParserSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  FunctionLocalSearchDatatypeParserSchema,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      FunctionLocalSearchDatatypeParserSchema$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'FunctionLocalSearchDatatypeParserSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionLocalSearchDatatypeParser$inboundSchema: z.ZodType<
@@ -76,8 +48,7 @@ export const FunctionLocalSearchDatatypeParser$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionLocalSearchDatatypeParserSchema$inboundSchema)
-    .optional(),
+  schema: FunctionConfSchemaLocalSearchDatatypeParser$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

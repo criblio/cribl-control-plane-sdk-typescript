@@ -7,29 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type SortConfiguration = {
-  /**
-   * Has to be unique if there are multiple sorts on the pipeline.
-   */
-  sortId?: string | undefined;
-  /**
-   * The expression can access the events via the 'left' and 'right' properties.
-   */
-  comparisonExpression?: string | undefined;
-  /**
-   * Limits the output to N (highest/lowest) events
-   */
-  topN?: number | undefined;
-  /**
-   * Specifies the number of events that can flow into this function
-   */
-  maxEvents?: number | undefined;
-  /**
-   * Toggle this on to suppress generating previews of intermediate results
-   */
-  suppressPreviews?: boolean | undefined;
-};
+import {
+  FunctionConfSchemaSort,
+  FunctionConfSchemaSort$inboundSchema,
+} from "./functionconfschemasort.js";
 
 export type FunctionSort = {
   filename: string;
@@ -45,31 +26,8 @@ export type FunctionSort = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: SortConfiguration | undefined;
+  schema?: FunctionConfSchemaSort | undefined;
 };
-
-/** @internal */
-export const SortConfiguration$inboundSchema: z.ZodType<
-  SortConfiguration,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  sortId: z.string().optional(),
-  comparisonExpression: z.string().optional(),
-  topN: z.number().optional(),
-  maxEvents: z.number().optional(),
-  suppressPreviews: z.boolean().optional(),
-});
-
-export function sortConfigurationFromJSON(
-  jsonString: string,
-): SafeParseResult<SortConfiguration, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SortConfiguration$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SortConfiguration' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionSort$inboundSchema: z.ZodType<
@@ -90,7 +48,7 @@ export const FunctionSort$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => SortConfiguration$inboundSchema).optional(),
+  schema: FunctionConfSchemaSort$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

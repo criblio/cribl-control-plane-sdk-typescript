@@ -5,30 +5,12 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const ExistingOrNew = {
-  /**
-   * Use Existing
-   */
-  Existing: "existing",
-  /**
-   * Create New
-   */
-  New: "new",
-} as const;
-export type ExistingOrNew = OpenEnum<typeof ExistingOrNew>;
-
-export type FunctionEventBreakerSchema = {
-  existingOrNew?: ExistingOrNew | undefined;
-  /**
-   * Add this Function name to the cribl_breaker field
-   */
-  shouldMarkCriblBreaker?: boolean | undefined;
-};
+import {
+  FunctionConfSchemaEventBreaker,
+  FunctionConfSchemaEventBreaker$inboundSchema,
+} from "./functionconfschemaeventbreaker.js";
 
 export type FunctionEventBreaker = {
   filename: string;
@@ -44,35 +26,8 @@ export type FunctionEventBreaker = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionEventBreakerSchema | undefined;
+  schema?: FunctionConfSchemaEventBreaker | undefined;
 };
-
-/** @internal */
-export const ExistingOrNew$inboundSchema: z.ZodType<
-  ExistingOrNew,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(ExistingOrNew);
-
-/** @internal */
-export const FunctionEventBreakerSchema$inboundSchema: z.ZodType<
-  FunctionEventBreakerSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  existingOrNew: ExistingOrNew$inboundSchema.default("existing"),
-  shouldMarkCriblBreaker: z.boolean().default(true),
-});
-
-export function functionEventBreakerSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionEventBreakerSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionEventBreakerSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionEventBreakerSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionEventBreaker$inboundSchema: z.ZodType<
@@ -93,7 +48,7 @@ export const FunctionEventBreaker$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionEventBreakerSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaEventBreaker$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

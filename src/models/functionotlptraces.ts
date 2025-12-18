@@ -5,33 +5,12 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const FunctionOTLPTracesOTLPVersion = {
-  /**
-   * 0.10.0
-   */
-  ZeroDot10Dot0: "0.10.0",
-  /**
-   * 1.3.1
-   */
-  OneDot3Dot1: "1.3.1",
-} as const;
-export type FunctionOTLPTracesOTLPVersion = OpenEnum<
-  typeof FunctionOTLPTracesOTLPVersion
->;
-
-export type FunctionOtlpTracesSchema = {
-  dropNonTraceEvents?: boolean | undefined;
-  otlpVersion?: FunctionOTLPTracesOTLPVersion | undefined;
-  /**
-   * Batch OTLP traces by shared top-level `resource` attributes
-   */
-  batchOTLPTraces?: boolean | undefined;
-};
+import {
+  FunctionConfSchemaOtlpTraces,
+  FunctionConfSchemaOtlpTraces$inboundSchema,
+} from "./functionconfschemaotlptraces.js";
 
 export type FunctionOtlpTraces = {
   filename: string;
@@ -47,36 +26,8 @@ export type FunctionOtlpTraces = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionOtlpTracesSchema | undefined;
+  schema?: FunctionConfSchemaOtlpTraces | undefined;
 };
-
-/** @internal */
-export const FunctionOTLPTracesOTLPVersion$inboundSchema: z.ZodType<
-  FunctionOTLPTracesOTLPVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(FunctionOTLPTracesOTLPVersion);
-
-/** @internal */
-export const FunctionOtlpTracesSchema$inboundSchema: z.ZodType<
-  FunctionOtlpTracesSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  dropNonTraceEvents: z.boolean().default(false),
-  otlpVersion: FunctionOTLPTracesOTLPVersion$inboundSchema.default("0.10.0"),
-  batchOTLPTraces: z.boolean().default(false),
-});
-
-export function functionOtlpTracesSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionOtlpTracesSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionOtlpTracesSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionOtlpTracesSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionOtlpTraces$inboundSchema: z.ZodType<
@@ -97,7 +48,7 @@ export const FunctionOtlpTraces$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionOtlpTracesSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaOtlpTraces$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

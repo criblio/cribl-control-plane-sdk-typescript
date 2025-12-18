@@ -7,13 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type FunctionChainSchema = {
-  /**
-   * The data processor (Pack/Pipeline) to send events through
-   */
-  processor?: string | undefined;
-};
+import {
+  FunctionConfSchemaChain,
+  FunctionConfSchemaChain$inboundSchema,
+} from "./functionconfschemachain.js";
 
 export type FunctionChain = {
   filename: string;
@@ -29,27 +26,8 @@ export type FunctionChain = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionChainSchema | undefined;
+  schema?: FunctionConfSchemaChain | undefined;
 };
-
-/** @internal */
-export const FunctionChainSchema$inboundSchema: z.ZodType<
-  FunctionChainSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  processor: z.string().optional(),
-});
-
-export function functionChainSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionChainSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionChainSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionChainSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionChain$inboundSchema: z.ZodType<
@@ -70,7 +48,7 @@ export const FunctionChain$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionChainSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaChain$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

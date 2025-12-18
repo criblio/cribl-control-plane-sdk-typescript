@@ -7,29 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type FunctionMvPullSchema = {
-  /**
-   * Field name of the array within events that contains the data objects of interest. Can be a path.
-   */
-  arrayPath?: string | undefined;
-  /**
-   * Extract the K-V pair's key from this field, relative to the data object.
-   */
-  relativeKeyPath?: string | undefined;
-  /**
-   * Extract the K-V pair's value from this field, relative to the data object.
-   */
-  relativeValuePath?: string | undefined;
-  /**
-   * Optionally, specify a bag as the target for K-V entries. If not specified, these entries are stored on each top-level event.
-   */
-  targetBagPath?: string | null | undefined;
-  /**
-   * Toggle this on to remove each original array of data objects after extraction. If toggled off, arrays are retained.
-   */
-  deleteOriginal?: boolean | undefined;
-};
+import {
+  FunctionConfSchemaMvPull,
+  FunctionConfSchemaMvPull$inboundSchema,
+} from "./functionconfschemamvpull.js";
 
 export type FunctionMvPull = {
   filename: string;
@@ -45,31 +26,8 @@ export type FunctionMvPull = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionMvPullSchema | undefined;
+  schema?: FunctionConfSchemaMvPull | undefined;
 };
-
-/** @internal */
-export const FunctionMvPullSchema$inboundSchema: z.ZodType<
-  FunctionMvPullSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  arrayPath: z.string().optional(),
-  relativeKeyPath: z.string().optional(),
-  relativeValuePath: z.string().optional(),
-  targetBagPath: z.nullable(z.string()).default(null),
-  deleteOriginal: z.boolean().default(false),
-});
-
-export function functionMvPullSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionMvPullSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionMvPullSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionMvPullSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionMvPull$inboundSchema: z.ZodType<
@@ -90,7 +48,7 @@ export const FunctionMvPull$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionMvPullSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaMvPull$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

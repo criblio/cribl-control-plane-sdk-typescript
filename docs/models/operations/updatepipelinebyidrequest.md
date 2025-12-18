@@ -10,22 +10,31 @@ let value: UpdatePipelineByIdRequest = {
   pipeline: {
     id: "<id>",
     conf: {
-      asyncFuncTimeout: 772456,
-      description:
-        "self-confidence certify seagull bah once steeple miskey fit fowl dispose",
+      asyncFuncTimeout: 603520,
+      description: "republican subsidy marketplace uh-huh",
       streamtags: [
         "<value 1>",
         "<value 2>",
-        "<value 3>",
       ],
       functions: [
         {
-          id: "<id>",
-          description:
-            "whoever meanwhile achieve whoa barring properly excited",
-          disabled: true,
-          final: true,
-          conf: {},
+          filter: "true",
+          id: "tee",
+          description: "per decision truthfully abnormally woot zealous limply",
+          disabled: false,
+          final: false,
+          conf: {
+            command: "<value>",
+            args: [
+              "<value 1>",
+              "<value 2>",
+              "<value 3>",
+            ],
+            restartOnExit: true,
+            env: {
+              "key": "<value>",
+            },
+          },
           groupId: "<id>",
         },
       ],
@@ -33,8 +42,8 @@ let value: UpdatePipelineByIdRequest = {
         "key": {
           name: "<value>",
           description:
-            "usefully what airline usefully ack regularly uh-huh naturally kettledrum",
-          disabled: false,
+            "ack regularly uh-huh naturally kettledrum before frenetically beard inasmuch quickly",
+          disabled: true,
         },
       },
     },
@@ -44,7 +53,7 @@ let value: UpdatePipelineByIdRequest = {
 
 ## Fields
 
-| Field                                          | Type                                           | Required                                       | Description                                    |
-| ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- |
-| `id`                                           | *string*                                       | :heavy_check_mark:                             | The <code>id</code> of the Pipeline to update. |
-| `pipeline`                                     | [models.Pipeline](../../models/pipeline.md)    | :heavy_check_mark:                             | Pipeline object                                |
+| Field                                                 | Type                                                  | Required                                              | Description                                           |
+| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| `id`                                                  | *string*                                              | :heavy_check_mark:                                    | The <code>id</code> of the Pipeline to update.        |
+| `pipeline`                                            | [models.PipelineInput](../../models/pipelineinput.md) | :heavy_check_mark:                                    | Pipeline object                                       |

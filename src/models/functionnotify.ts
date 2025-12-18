@@ -5,121 +5,12 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * Type of the trigger condition. custom applies a kusto expression over the results, and results count applies a comparison over results count
- */
-export const TriggerType = {
-  /**
-   * Where
-   */
-  Custom: "custom",
-  /**
-   * Count of Results
-   */
-  ResultsCount: "resultsCount",
-} as const;
-/**
- * Type of the trigger condition. custom applies a kusto expression over the results, and results count applies a comparison over results count
- */
-export type TriggerType = OpenEnum<typeof TriggerType>;
-
-/**
- * Operation to be applied over the results count
- */
-export const CountComparator = {
-  /**
-   * greater than
-   */
-  GreaterThan: ">",
-  /**
-   * less than
-   */
-  LessThan: "<",
-  /**
-   * equals
-   */
-  EqualEqualEqual: "===",
-  /**
-   * not equal to
-   */
-  NotEqualEqual: "!==",
-  /**
-   * greater than or equal to
-   */
-  GreaterThanEqual: ">=",
-  /**
-   * less than or equal to
-   */
-  LessThanEqual: "<=",
-} as const;
-/**
- * Operation to be applied over the results count
- */
-export type CountComparator = OpenEnum<typeof CountComparator>;
-
-export type NotifyConfiguration = {
-  /**
-   * Group the notification belongs to
-   */
-  group?: string | undefined;
-  /**
-   * Workspace within the deployment to send the search results to.
-   */
-  notificationId?: string | undefined;
-  /**
-   * Id of the search this function is running on.
-   */
-  searchId?: string | undefined;
-  /**
-   * Id of the saved query
-   */
-  savedQueryId?: string | undefined;
-  /**
-   * Js expression that filters events, a greater than 'Trigger Count' events will trigger the notification
-   */
-  trigger?: string | undefined;
-  /**
-   * Type of the trigger condition. custom applies a kusto expression over the results, and results count applies a comparison over results count
-   */
-  triggerType?: TriggerType | undefined;
-  /**
-   * Operation to be applied over the results count
-   */
-  triggerComparator?: CountComparator | undefined;
-  /**
-   * How many results that match trigger the condition
-   */
-  triggerCount?: number | undefined;
-  /**
-   * Number of results to include in the notification event
-   */
-  resultsLimit?: number | undefined;
-  /**
-   * Url of the search results
-   */
-  searchUrl?: string | undefined;
-  /**
-   * Message content template, available fields: searchId, resultSet, savedQueryId, notificationId, searchResultsUrl
-   */
-  message?: string | undefined;
-  /**
-   * Auth token for sending notification messages
-   */
-  authToken?: string | undefined;
-  /**
-   * System messages api endpoint
-   */
-  messagesEndpoint?: string | undefined;
-  /**
-   * Current tenant id
-   */
-  tenantId?: string | undefined;
-};
+import {
+  FunctionConfSchemaNotify,
+  FunctionConfSchemaNotify$inboundSchema,
+} from "./functionconfschemanotify.js";
 
 export type FunctionNotify = {
   filename: string;
@@ -135,54 +26,8 @@ export type FunctionNotify = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: NotifyConfiguration | undefined;
+  schema?: FunctionConfSchemaNotify | undefined;
 };
-
-/** @internal */
-export const TriggerType$inboundSchema: z.ZodType<
-  TriggerType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(TriggerType);
-
-/** @internal */
-export const CountComparator$inboundSchema: z.ZodType<
-  CountComparator,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(CountComparator);
-
-/** @internal */
-export const NotifyConfiguration$inboundSchema: z.ZodType<
-  NotifyConfiguration,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  group: z.string().default("default"),
-  notificationId: z.string().default("main"),
-  searchId: z.string().optional(),
-  savedQueryId: z.string().optional(),
-  trigger: z.string().optional(),
-  triggerType: TriggerType$inboundSchema.optional(),
-  triggerComparator: CountComparator$inboundSchema.optional(),
-  triggerCount: z.number().default(0),
-  resultsLimit: z.number().default(50),
-  searchUrl: z.string().optional(),
-  message: z.string().optional(),
-  authToken: z.string().optional(),
-  messagesEndpoint: z.string().optional(),
-  tenantId: z.string().optional(),
-});
-
-export function notifyConfigurationFromJSON(
-  jsonString: string,
-): SafeParseResult<NotifyConfiguration, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => NotifyConfiguration$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'NotifyConfiguration' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionNotify$inboundSchema: z.ZodType<
@@ -203,7 +48,7 @@ export const FunctionNotify$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => NotifyConfiguration$inboundSchema).optional(),
+  schema: FunctionConfSchemaNotify$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

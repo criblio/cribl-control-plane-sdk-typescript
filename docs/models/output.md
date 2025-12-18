@@ -2323,6 +2323,66 @@ const value: models.OutputCriblHttp = {
 };
 ```
 
+### `models.OutputCriblSearchEngine`
+
+```typescript
+const value: models.OutputCriblSearchEngine = {
+  id: "<id>",
+  type: "cribl_search_engine",
+  pipeline: "<value>",
+  systemFields: [
+    "<value 1>",
+  ],
+  environment: "<value>",
+  streamtags: [
+    "<value 1>",
+  ],
+  tls: {
+    servername: "<value>",
+    certificateName: "<value>",
+    caPath: "<value>",
+    privKeyPath: "<value>",
+    certPath: "<value>",
+    passphrase: "<value>",
+    minVersion: "TLSv1",
+    maxVersion: "TLSv1",
+  },
+  excludeFields: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  extraHttpHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  safeHeaders: [
+    "<value 1>",
+  ],
+  responseRetrySettings: [
+    {
+      httpStatus: 5704.16,
+    },
+  ],
+  timeoutRetrySettings: {},
+  authTokens: [
+    {
+      tokenSecret: "<value>",
+      description: "diligently reluctantly unit dearly cleave boohoo gah",
+    },
+  ],
+  description: "blah huzzah stay sway milestone barring",
+  url: "https://merry-plumber.biz/",
+  urls: [
+    {
+      url: "https://sparkling-glider.org",
+    },
+  ],
+  pqControls: {},
+};
+```
+
 ### `models.OutputHumioHec`
 
 ```typescript

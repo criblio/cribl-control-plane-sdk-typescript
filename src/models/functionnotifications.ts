@@ -7,21 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type FunctionNotificationsSchema = {
-  /**
-   * Notification ID
-   */
-  id?: string | undefined;
-  /**
-   * Notification event state field name
-   */
-  field?: string | undefined;
-  /**
-   * Toggle deduplication.
-   */
-  deduplicate?: boolean | undefined;
-};
+import {
+  FunctionConfSchemaNotifications,
+  FunctionConfSchemaNotifications$inboundSchema,
+} from "./functionconfschemanotifications.js";
 
 export type FunctionNotifications = {
   filename: string;
@@ -37,29 +26,8 @@ export type FunctionNotifications = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionNotificationsSchema | undefined;
+  schema?: FunctionConfSchemaNotifications | undefined;
 };
-
-/** @internal */
-export const FunctionNotificationsSchema$inboundSchema: z.ZodType<
-  FunctionNotificationsSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  id: z.string().optional(),
-  field: z.string().optional(),
-  deduplicate: z.boolean().optional(),
-});
-
-export function functionNotificationsSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionNotificationsSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionNotificationsSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionNotificationsSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionNotifications$inboundSchema: z.ZodType<
@@ -80,7 +48,7 @@ export const FunctionNotifications$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionNotificationsSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaNotifications$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

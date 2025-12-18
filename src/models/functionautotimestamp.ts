@@ -5,87 +5,12 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * How to set the time field if no timestamp is found
- */
-export const DefaultTime = {
-  /**
-   * Current Time
-   */
-  Now: "now",
-  /**
-   * Last Event's Time
-   */
-  Last: "last",
-  /**
-   * None
-   */
-  None: "none",
-} as const;
-/**
- * How to set the time field if no timestamp is found
- */
-export type DefaultTime = OpenEnum<typeof DefaultTime>;
-
-export type Timestamp = {
-  /**
-   * Regex with first capturing group matching the timestamp
-   */
-  regex: string;
-  /**
-   * Select or enter strptime format for the captured timestamp
-   */
-  strptime: string;
-};
-
-export type FunctionAutoTimestampSchema = {
-  /**
-   * Field to search for a timestamp
-   */
-  srcField?: string | undefined;
-  /**
-   * Field to place timestamp in
-   */
-  dstField?: string | undefined;
-  /**
-   * Timezone to assign to timestamps without timezone info
-   */
-  defaultTimezone?: string | undefined;
-  /**
-   * Expression to use to format time. Current time, as a JavaScript Date object, is in global `time`. You can access other fields' values via __e.<fieldName>.
-   */
-  timeExpression?: string | undefined;
-  /**
-   * The offset into the string from which to look for a timestamp
-   */
-  offset?: number | undefined;
-  /**
-   * Maximum string length at which to look for a timestamp
-   */
-  maxLen?: number | undefined;
-  /**
-   * How to set the time field if no timestamp is found
-   */
-  defaultTime?: DefaultTime | undefined;
-  /**
-   * The latest timestamp value allowed relative to now, such as +42days. Parsed values after this date will be set to the Default time.
-   */
-  latestDateAllowed?: string | undefined;
-  spacer?: string | undefined;
-  /**
-   * The earliest timestamp value allowed relative to now, such as -42years. Parsed values prior to this date will be set to the Default time.
-   */
-  earliestDateAllowed?: string | undefined;
-  /**
-   * Add regex/strptime pairs to extract additional timestamp formats
-   */
-  timestamps?: Array<Timestamp> | undefined;
-};
+import {
+  FunctionConfSchemaAutoTimestamp,
+  FunctionConfSchemaAutoTimestamp$inboundSchema,
+} from "./functionconfschemaautotimestamp.js";
 
 export type FunctionAutoTimestamp = {
   filename: string;
@@ -101,64 +26,8 @@ export type FunctionAutoTimestamp = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionAutoTimestampSchema | undefined;
+  schema?: FunctionConfSchemaAutoTimestamp | undefined;
 };
-
-/** @internal */
-export const DefaultTime$inboundSchema: z.ZodType<
-  DefaultTime,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(DefaultTime);
-
-/** @internal */
-export const Timestamp$inboundSchema: z.ZodType<
-  Timestamp,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  regex: z.string(),
-  strptime: z.string(),
-});
-
-export function timestampFromJSON(
-  jsonString: string,
-): SafeParseResult<Timestamp, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Timestamp$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Timestamp' from JSON`,
-  );
-}
-
-/** @internal */
-export const FunctionAutoTimestampSchema$inboundSchema: z.ZodType<
-  FunctionAutoTimestampSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  srcField: z.string().default("_raw"),
-  dstField: z.string().default("_time"),
-  defaultTimezone: z.string().default("local"),
-  timeExpression: z.string().default("time.getTime() / 1000"),
-  offset: z.number().default(0),
-  maxLen: z.number().default(150),
-  defaultTime: DefaultTime$inboundSchema.default("now"),
-  latestDateAllowed: z.string().default("+1week"),
-  spacer: z.string().optional(),
-  earliestDateAllowed: z.string().default("-420weeks"),
-  timestamps: z.array(z.lazy(() => Timestamp$inboundSchema)).optional(),
-});
-
-export function functionAutoTimestampSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionAutoTimestampSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionAutoTimestampSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionAutoTimestampSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionAutoTimestamp$inboundSchema: z.ZodType<
@@ -179,7 +48,7 @@ export const FunctionAutoTimestamp$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionAutoTimestampSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaAutoTimestamp$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

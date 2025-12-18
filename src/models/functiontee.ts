@@ -7,22 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type FunctionTeeSchema = {
-  /**
-   * Command to execute and feed events to, via stdin. One JSON-formatted event per line.
-   */
-  command?: string | undefined;
-  args?: Array<string> | undefined;
-  /**
-   * Restart the process if it exits and/or we fail to write to it
-   */
-  restartOnExit?: boolean | undefined;
-  /**
-   * Environment variables to overwrite or set
-   */
-  env?: { [k: string]: string } | undefined;
-};
+import {
+  FunctionConfSchemaTee,
+  FunctionConfSchemaTee$inboundSchema,
+} from "./functionconfschematee.js";
 
 export type FunctionTee = {
   filename: string;
@@ -38,30 +26,8 @@ export type FunctionTee = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionTeeSchema | undefined;
+  schema?: FunctionConfSchemaTee | undefined;
 };
-
-/** @internal */
-export const FunctionTeeSchema$inboundSchema: z.ZodType<
-  FunctionTeeSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  command: z.string().optional(),
-  args: z.array(z.string()).optional(),
-  restartOnExit: z.boolean().default(true),
-  env: z.record(z.string()).optional(),
-});
-
-export function functionTeeSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionTeeSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionTeeSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionTeeSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionTee$inboundSchema: z.ZodType<
@@ -82,7 +48,7 @@ export const FunctionTee$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionTeeSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaTee$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

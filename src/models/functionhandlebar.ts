@@ -7,40 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type TemplateDefinition = {
-  /**
-   * Handlebars template string
-   */
-  content: string;
-  /**
-   * Optional description of what this template is used for
-   */
-  description?: string | undefined;
-  /**
-   * Type categorization for the template (e.g., Universal, Email, Slack)
-   */
-  type?: string | undefined;
-};
-
-export type FunctionHandlebarSchema = {
-  /**
-   * Object with template_id as keys and template definitions as values. Uses event.__template_id to select template at runtime.
-   */
-  templates?: { [k: string]: TemplateDefinition } | undefined;
-  /**
-   * Field name to store the rendered template result. Defaults to _raw.
-   */
-  targetField?: string | undefined;
-  /**
-   * Parse the rendered template as JSON and store as an object instead of a string. Useful for building structured data like Slack blocks.
-   */
-  parseJson?: boolean | undefined;
-  /**
-   * Remove the target field if the rendered result is empty or null.
-   */
-  removeOnNull?: boolean | undefined;
-};
+import {
+  FunctionConfSchemaHandlebar,
+  FunctionConfSchemaHandlebar$inboundSchema,
+} from "./functionconfschemahandlebar.js";
 
 export type FunctionHandlebar = {
   filename: string;
@@ -56,52 +26,8 @@ export type FunctionHandlebar = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionHandlebarSchema | undefined;
+  schema?: FunctionConfSchemaHandlebar | undefined;
 };
-
-/** @internal */
-export const TemplateDefinition$inboundSchema: z.ZodType<
-  TemplateDefinition,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  content: z.string(),
-  description: z.string().optional(),
-  type: z.string().default("Universal"),
-});
-
-export function templateDefinitionFromJSON(
-  jsonString: string,
-): SafeParseResult<TemplateDefinition, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => TemplateDefinition$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'TemplateDefinition' from JSON`,
-  );
-}
-
-/** @internal */
-export const FunctionHandlebarSchema$inboundSchema: z.ZodType<
-  FunctionHandlebarSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  templates: z.record(z.lazy(() => TemplateDefinition$inboundSchema))
-    .optional(),
-  targetField: z.string().default("_raw"),
-  parseJson: z.boolean().default(false),
-  removeOnNull: z.boolean().default(true),
-});
-
-export function functionHandlebarSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionHandlebarSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionHandlebarSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionHandlebarSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionHandlebar$inboundSchema: z.ZodType<
@@ -122,7 +48,7 @@ export const FunctionHandlebar$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionHandlebarSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaHandlebar$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

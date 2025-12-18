@@ -7,10 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type GenStatsConfiguration = {
-  fields?: Array<string> | undefined;
-};
+import {
+  FunctionConfSchemaGenStats,
+  FunctionConfSchemaGenStats$inboundSchema,
+} from "./functionconfschemagenstats.js";
 
 export type FunctionGenStats = {
   filename: string;
@@ -26,27 +26,8 @@ export type FunctionGenStats = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: GenStatsConfiguration | undefined;
+  schema?: FunctionConfSchemaGenStats | undefined;
 };
-
-/** @internal */
-export const GenStatsConfiguration$inboundSchema: z.ZodType<
-  GenStatsConfiguration,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  fields: z.array(z.string()).optional(),
-});
-
-export function genStatsConfigurationFromJSON(
-  jsonString: string,
-): SafeParseResult<GenStatsConfiguration, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => GenStatsConfiguration$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'GenStatsConfiguration' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionGenStats$inboundSchema: z.ZodType<
@@ -67,7 +48,7 @@ export const FunctionGenStats$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => GenStatsConfiguration$inboundSchema).optional(),
+  schema: FunctionConfSchemaGenStats$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

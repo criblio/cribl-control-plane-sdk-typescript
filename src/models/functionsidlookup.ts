@@ -7,25 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type FunctionSidlookupField = {
-  name?: string | undefined;
-  /**
-   * JavaScript expression to compute the value (can be constant)
-   */
-  expr: string;
-  /**
-   * Set to No to disable the evaluation of an individual expression
-   */
-  disabled?: boolean | undefined;
-};
-
-export type FunctionSidlookupSchema = {
-  /**
-   * Set of expressions matched to lookup responses
-   */
-  fields?: Array<FunctionSidlookupField> | undefined;
-};
+import {
+  FunctionConfSchemaSidlookup,
+  FunctionConfSchemaSidlookup$inboundSchema,
+} from "./functionconfschemasidlookup.js";
 
 export type FunctionSidlookup = {
   filename: string;
@@ -41,49 +26,8 @@ export type FunctionSidlookup = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionSidlookupSchema | undefined;
+  schema?: FunctionConfSchemaSidlookup | undefined;
 };
-
-/** @internal */
-export const FunctionSidlookupField$inboundSchema: z.ZodType<
-  FunctionSidlookupField,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  expr: z.string(),
-  disabled: z.boolean().default(false),
-});
-
-export function functionSidlookupFieldFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionSidlookupField, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionSidlookupField$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionSidlookupField' from JSON`,
-  );
-}
-
-/** @internal */
-export const FunctionSidlookupSchema$inboundSchema: z.ZodType<
-  FunctionSidlookupSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  fields: z.array(z.lazy(() => FunctionSidlookupField$inboundSchema))
-    .optional(),
-});
-
-export function functionSidlookupSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionSidlookupSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionSidlookupSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionSidlookupSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionSidlookup$inboundSchema: z.ZodType<
@@ -104,7 +48,7 @@ export const FunctionSidlookup$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionSidlookupSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaSidlookup$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",
