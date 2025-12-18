@@ -7,33 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type FunctionEvalAdd = {
-  name?: string | undefined;
-  /**
-   * JavaScript expression to compute the value (can be constant)
-   */
-  value: string;
-  /**
-   * Set to No to disable the evaluation of an individual expression
-   */
-  disabled?: boolean | undefined;
-};
-
-export type FunctionEvalSchema = {
-  /**
-   * Set of key-value pairs to evaluate and add/set
-   */
-  add?: Array<FunctionEvalAdd> | undefined;
-  /**
-   * List of fields to keep. Supports * wildcards. Takes precedence over 'Remove fields'.
-   */
-  keep?: Array<string> | undefined;
-  /**
-   * List of fields to remove. Supports * wildcards. Fields that match 'Keep fields' will not be removed. Enclose field names containing special characters in single or double quotes.
-   */
-  remove?: Array<string> | undefined;
-};
+import {
+  FunctionConfSchemaEval,
+  FunctionConfSchemaEval$inboundSchema,
+} from "./functionconfschemaeval.js";
 
 export type FunctionEval = {
   filename: string;
@@ -49,50 +26,8 @@ export type FunctionEval = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionEvalSchema | undefined;
+  schema?: FunctionConfSchemaEval | undefined;
 };
-
-/** @internal */
-export const FunctionEvalAdd$inboundSchema: z.ZodType<
-  FunctionEvalAdd,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-  disabled: z.boolean().default(false),
-});
-
-export function functionEvalAddFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionEvalAdd, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionEvalAdd$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionEvalAdd' from JSON`,
-  );
-}
-
-/** @internal */
-export const FunctionEvalSchema$inboundSchema: z.ZodType<
-  FunctionEvalSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  add: z.array(z.lazy(() => FunctionEvalAdd$inboundSchema)).optional(),
-  keep: z.array(z.string()).optional(),
-  remove: z.array(z.string()).optional(),
-});
-
-export function functionEvalSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionEvalSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionEvalSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionEvalSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionEval$inboundSchema: z.ZodType<
@@ -113,7 +48,7 @@ export const FunctionEval$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionEvalSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaEval$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

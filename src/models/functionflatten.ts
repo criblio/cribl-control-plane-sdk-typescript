@@ -7,25 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type FunctionFlattenSchema = {
-  /**
-   * List of top-level fields to include for flattening. Supports * wildcards, except when used on internal fields. Defaults to empty array, which means all fields.
-   */
-  fields?: Array<string> | undefined;
-  /**
-   * Prefix string for flattened field names. Defaults to empty.
-   */
-  prefix?: string | undefined;
-  /**
-   * Number representing the nested levels to consider for flattening. Defaults to 5. Minimum should be 1.
-   */
-  depth?: number | undefined;
-  /**
-   * Delimiter to be used for flattening. Defaults to underscore.
-   */
-  delimiter?: string | undefined;
-};
+import {
+  FunctionConfSchemaFlatten,
+  FunctionConfSchemaFlatten$inboundSchema,
+} from "./functionconfschemaflatten.js";
 
 export type FunctionFlatten = {
   filename: string;
@@ -41,30 +26,8 @@ export type FunctionFlatten = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionFlattenSchema | undefined;
+  schema?: FunctionConfSchemaFlatten | undefined;
 };
-
-/** @internal */
-export const FunctionFlattenSchema$inboundSchema: z.ZodType<
-  FunctionFlattenSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  fields: z.array(z.string()).optional(),
-  prefix: z.string().default(""),
-  depth: z.number().default(5),
-  delimiter: z.string().default("_"),
-});
-
-export function functionFlattenSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionFlattenSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionFlattenSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionFlattenSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionFlatten$inboundSchema: z.ZodType<
@@ -85,7 +48,7 @@ export const FunctionFlatten$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionFlattenSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaFlatten$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

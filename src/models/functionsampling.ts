@@ -7,24 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type FunctionSamplingRule = {
-  /**
-   * JavaScript filter expression matching events to be sampled. Use true to match all.
-   */
-  filter?: string | undefined;
-  /**
-   * Sampling rate; picks one out of N matching events
-   */
-  rate?: number | undefined;
-};
-
-export type FunctionSamplingSchema = {
-  /**
-   * Events matching these rules will be sampled at the given rate
-   */
-  rules?: Array<FunctionSamplingRule> | undefined;
-};
+import {
+  FunctionConfSchemaSampling,
+  FunctionConfSchemaSampling$inboundSchema,
+} from "./functionconfschemasampling.js";
 
 export type FunctionSampling = {
   filename: string;
@@ -40,47 +26,8 @@ export type FunctionSampling = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionSamplingSchema | undefined;
+  schema?: FunctionConfSchemaSampling | undefined;
 };
-
-/** @internal */
-export const FunctionSamplingRule$inboundSchema: z.ZodType<
-  FunctionSamplingRule,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  filter: z.string().default("true"),
-  rate: z.number().int().default(1),
-});
-
-export function functionSamplingRuleFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionSamplingRule, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionSamplingRule$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionSamplingRule' from JSON`,
-  );
-}
-
-/** @internal */
-export const FunctionSamplingSchema$inboundSchema: z.ZodType<
-  FunctionSamplingSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  rules: z.array(z.lazy(() => FunctionSamplingRule$inboundSchema)).optional(),
-});
-
-export function functionSamplingSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionSamplingSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionSamplingSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionSamplingSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionSampling$inboundSchema: z.ZodType<
@@ -101,7 +48,7 @@ export const FunctionSampling$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionSamplingSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaSampling$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

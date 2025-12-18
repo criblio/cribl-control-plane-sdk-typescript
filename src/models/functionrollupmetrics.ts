@@ -5,51 +5,12 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * The operation to use when rolling up gauge metrics. Defaults to last.
- */
-export const GaugeUpdate = {
-  /**
-   * Last
-   */
-  Last: "last",
-  /**
-   * Maximum
-   */
-  Max: "max",
-  /**
-   * Minimum
-   */
-  Min: "min",
-  /**
-   * Average
-   */
-  Avg: "avg",
-} as const;
-/**
- * The operation to use when rolling up gauge metrics. Defaults to last.
- */
-export type GaugeUpdate = OpenEnum<typeof GaugeUpdate>;
-
-export type FunctionRollupMetricsSchema = {
-  /**
-   * List of dimensions across which to perform rollups. Supports wildcards. Defaults to all original dimensions.
-   */
-  dimensions?: Array<string> | undefined;
-  /**
-   * The time span of the rollup window. Must be a valid time string (such as 10s).
-   */
-  timeWindow?: string | undefined;
-  /**
-   * The operation to use when rolling up gauge metrics. Defaults to last.
-   */
-  gaugeRollup?: GaugeUpdate | undefined;
-};
+import {
+  FunctionConfSchemaRollupMetrics,
+  FunctionConfSchemaRollupMetrics$inboundSchema,
+} from "./functionconfschemarollupmetrics.js";
 
 export type FunctionRollupMetrics = {
   filename: string;
@@ -65,36 +26,8 @@ export type FunctionRollupMetrics = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionRollupMetricsSchema | undefined;
+  schema?: FunctionConfSchemaRollupMetrics | undefined;
 };
-
-/** @internal */
-export const GaugeUpdate$inboundSchema: z.ZodType<
-  GaugeUpdate,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(GaugeUpdate);
-
-/** @internal */
-export const FunctionRollupMetricsSchema$inboundSchema: z.ZodType<
-  FunctionRollupMetricsSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  dimensions: z.array(z.string()).optional(),
-  timeWindow: z.string().default("30s"),
-  gaugeRollup: GaugeUpdate$inboundSchema.default("last"),
-});
-
-export function functionRollupMetricsSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionRollupMetricsSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionRollupMetricsSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionRollupMetricsSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionRollupMetrics$inboundSchema: z.ZodType<
@@ -115,7 +48,7 @@ export const FunctionRollupMetrics$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionRollupMetricsSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaRollupMetrics$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

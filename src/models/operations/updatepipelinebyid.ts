@@ -14,13 +14,13 @@ export type UpdatePipelineByIdRequest = {
   /**
    * Pipeline object
    */
-  pipeline: models.Pipeline;
+  pipeline: models.PipelineInput;
 };
 
 /** @internal */
 export type UpdatePipelineByIdRequest$Outbound = {
   id: string;
-  Pipeline: models.Pipeline$Outbound;
+  Pipeline: models.PipelineInput$Outbound;
 };
 
 /** @internal */
@@ -30,7 +30,7 @@ export const UpdatePipelineByIdRequest$outboundSchema: z.ZodType<
   UpdatePipelineByIdRequest
 > = z.object({
   id: z.string(),
-  pipeline: models.Pipeline$outboundSchema,
+  pipeline: models.PipelineInput$outboundSchema,
 }).transform((v) => {
   return remap$(v, {
     pipeline: "Pipeline",

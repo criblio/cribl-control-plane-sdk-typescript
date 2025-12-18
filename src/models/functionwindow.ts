@@ -7,25 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type FunctionWindowSchema = {
-  /**
-   * Identifies the unique ID, used for a event window
-   */
-  eventWindowId?: number | undefined;
-  /**
-   * All window functions, tracked by this event window
-   */
-  registeredFunctions?: Array<string> | undefined;
-  /**
-   * Number of events to keep before the current event in the window
-   */
-  tailEventCount?: number | undefined;
-  /**
-   * Number of events to keep after the current event in the window
-   */
-  headEventCount?: number | undefined;
-};
+import {
+  FunctionConfSchemaWindow,
+  FunctionConfSchemaWindow$inboundSchema,
+} from "./functionconfschemawindow.js";
 
 export type FunctionWindow = {
   filename: string;
@@ -41,30 +26,8 @@ export type FunctionWindow = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionWindowSchema | undefined;
+  schema?: FunctionConfSchemaWindow | undefined;
 };
-
-/** @internal */
-export const FunctionWindowSchema$inboundSchema: z.ZodType<
-  FunctionWindowSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  eventWindowId: z.number().optional(),
-  registeredFunctions: z.array(z.string()).optional(),
-  tailEventCount: z.number().default(0),
-  headEventCount: z.number().default(0),
-});
-
-export function functionWindowSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionWindowSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionWindowSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionWindowSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionWindow$inboundSchema: z.ZodType<
@@ -85,7 +48,7 @@ export const FunctionWindow$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionWindowSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaWindow$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

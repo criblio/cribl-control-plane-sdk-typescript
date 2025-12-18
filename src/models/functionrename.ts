@@ -7,36 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type Rename = {
-  /**
-   * Name of the field to rename. Literal identifiers must be quoted.
-   */
-  currentName: string;
-  /**
-   * The name the field will be renamed to. Literal identifiers must be quoted.
-   */
-  newName: string;
-};
-
-export type FunctionRenameSchema = {
-  /**
-   * Fields whose children will inherit the Rename fields and Rename expression operations. Supports wildcards. If empty, only top-level fields will be renamed.
-   */
-  baseFields?: Array<string> | undefined;
-  /**
-   * Set of key-value pairs to rename fields, where key is the current name and value is the new name. Does not support internal fields.
-   */
-  rename?: Array<Rename> | undefined;
-  /**
-   * Optional JavaScript expression whose returned value will be used to rename fields. Use the 'name' and 'value' global variables to access field names/values. Example: `name.startsWith('data') ? name.toUpperCase() : name`. You can access other field values via __e.<fieldName>.
-   */
-  renameExpr?: string | undefined;
-  /**
-   * For wildcards specified in Parent fields, sets the maximum depth within events to match and rename fields. Enter `0` to match only top-level fields. Defaults to `5` levels down.
-   */
-  wildcardDepth?: number | undefined;
-};
+import {
+  FunctionConfSchemaRename,
+  FunctionConfSchemaRename$inboundSchema,
+} from "./functionconfschemarename.js";
 
 export type FunctionRename = {
   filename: string;
@@ -52,47 +26,8 @@ export type FunctionRename = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionRenameSchema | undefined;
+  schema?: FunctionConfSchemaRename | undefined;
 };
-
-/** @internal */
-export const Rename$inboundSchema: z.ZodType<Rename, z.ZodTypeDef, unknown> = z
-  .object({
-    currentName: z.string(),
-    newName: z.string(),
-  });
-
-export function renameFromJSON(
-  jsonString: string,
-): SafeParseResult<Rename, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Rename$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Rename' from JSON`,
-  );
-}
-
-/** @internal */
-export const FunctionRenameSchema$inboundSchema: z.ZodType<
-  FunctionRenameSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  baseFields: z.array(z.string()).optional(),
-  rename: z.array(z.lazy(() => Rename$inboundSchema)).optional(),
-  renameExpr: z.string().optional(),
-  wildcardDepth: z.number().int().default(5),
-});
-
-export function functionRenameSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionRenameSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionRenameSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionRenameSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionRename$inboundSchema: z.ZodType<
@@ -113,7 +48,7 @@ export const FunctionRename$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionRenameSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaRename$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

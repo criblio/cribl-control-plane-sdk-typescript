@@ -7,8 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type FunctionDropSchema = {};
+import {
+  FunctionConfSchemaDrop,
+  FunctionConfSchemaDrop$inboundSchema,
+} from "./functionconfschemadrop.js";
 
 export type FunctionDrop = {
   filename: string;
@@ -24,25 +26,8 @@ export type FunctionDrop = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionDropSchema | undefined;
+  schema?: FunctionConfSchemaDrop | undefined;
 };
-
-/** @internal */
-export const FunctionDropSchema$inboundSchema: z.ZodType<
-  FunctionDropSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-export function functionDropSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionDropSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionDropSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionDropSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionDrop$inboundSchema: z.ZodType<
@@ -63,7 +48,7 @@ export const FunctionDrop$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionDropSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaDrop$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

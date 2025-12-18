@@ -7,8 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type FunctionExternaldataSchema = {};
+import {
+  FunctionConfSchemaExternaldata,
+  FunctionConfSchemaExternaldata$inboundSchema,
+} from "./functionconfschemaexternaldata.js";
 
 export type FunctionExternaldata = {
   filename: string;
@@ -24,25 +26,8 @@ export type FunctionExternaldata = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionExternaldataSchema | undefined;
+  schema?: FunctionConfSchemaExternaldata | undefined;
 };
-
-/** @internal */
-export const FunctionExternaldataSchema$inboundSchema: z.ZodType<
-  FunctionExternaldataSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-export function functionExternaldataSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionExternaldataSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionExternaldataSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionExternaldataSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionExternaldata$inboundSchema: z.ZodType<
@@ -63,7 +48,7 @@ export const FunctionExternaldata$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionExternaldataSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaExternaldata$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

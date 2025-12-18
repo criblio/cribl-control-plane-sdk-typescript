@@ -7,14 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type FunctionOtlpLogsSchema = {
-  dropNonLogEvents?: boolean | undefined;
-  /**
-   * Batch OTLP log records by shared top-level `resource` attributes
-   */
-  batchOTLPLogs?: boolean | undefined;
-};
+import {
+  FunctionConfSchemaOtlpLogs,
+  FunctionConfSchemaOtlpLogs$inboundSchema,
+} from "./functionconfschemaotlplogs.js";
 
 export type FunctionOtlpLogs = {
   filename: string;
@@ -30,28 +26,8 @@ export type FunctionOtlpLogs = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionOtlpLogsSchema | undefined;
+  schema?: FunctionConfSchemaOtlpLogs | undefined;
 };
-
-/** @internal */
-export const FunctionOtlpLogsSchema$inboundSchema: z.ZodType<
-  FunctionOtlpLogsSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  dropNonLogEvents: z.boolean().default(false),
-  batchOTLPLogs: z.boolean().default(false),
-});
-
-export function functionOtlpLogsSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionOtlpLogsSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionOtlpLogsSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionOtlpLogsSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionOtlpLogs$inboundSchema: z.ZodType<
@@ -72,7 +48,7 @@ export const FunctionOtlpLogs$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionOtlpLogsSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaOtlpLogs$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

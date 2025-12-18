@@ -7,37 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type Header = {
-  name?: string | undefined;
-  /**
-   * JavaScript expression to compute the value (can be constant)
-   */
-  value: string;
-};
-
-export type Extension = {
-  name: string;
-  /**
-   * JavaScript expression to compute the value (can be constant)
-   */
-  value: string;
-};
-
-export type FunctionCefSchema = {
-  /**
-   * The field to which the CEF formatted event will be output
-   */
-  outputField?: string | undefined;
-  /**
-   * Set of header key/value pairs
-   */
-  header?: Array<Header> | undefined;
-  /**
-   * Set of extension key-value pairs
-   */
-  extension?: Array<Extension> | undefined;
-};
+import {
+  FunctionConfSchemaCef,
+  FunctionConfSchemaCef$inboundSchema,
+} from "./functionconfschemacef.js";
 
 export type FunctionCef = {
   filename: string;
@@ -53,66 +26,8 @@ export type FunctionCef = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionCefSchema | undefined;
+  schema?: FunctionConfSchemaCef | undefined;
 };
-
-/** @internal */
-export const Header$inboundSchema: z.ZodType<Header, z.ZodTypeDef, unknown> = z
-  .object({
-    name: z.string().optional(),
-    value: z.string(),
-  });
-
-export function headerFromJSON(
-  jsonString: string,
-): SafeParseResult<Header, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Header$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Header' from JSON`,
-  );
-}
-
-/** @internal */
-export const Extension$inboundSchema: z.ZodType<
-  Extension,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function extensionFromJSON(
-  jsonString: string,
-): SafeParseResult<Extension, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => Extension$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'Extension' from JSON`,
-  );
-}
-
-/** @internal */
-export const FunctionCefSchema$inboundSchema: z.ZodType<
-  FunctionCefSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  outputField: z.string().default("_raw"),
-  header: z.array(z.lazy(() => Header$inboundSchema)).optional(),
-  extension: z.array(z.lazy(() => Extension$inboundSchema)).optional(),
-});
-
-export function functionCefSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionCefSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionCefSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionCefSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionCef$inboundSchema: z.ZodType<
@@ -133,7 +48,7 @@ export const FunctionCef$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionCefSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaCef$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

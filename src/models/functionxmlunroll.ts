@@ -7,25 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type FunctionXmlUnrollSchema = {
-  /**
-   * Path to array to unroll. Example: ^root\.child\.ElementToUnroll$
-   */
-  unroll?: string | undefined;
-  /**
-   * Regex matching elements to copy into each unrolled event. Example: ^root\.(childA|childB|childC)$
-   */
-  inherit?: string | undefined;
-  /**
-   * Add a field with this name, containing the index at which the item was located, starting from 0
-   */
-  unrollIdxField?: string | undefined;
-  /**
-   * Pretty print the output XML
-   */
-  pretty?: boolean | undefined;
-};
+import {
+  FunctionConfSchemaXmlUnroll,
+  FunctionConfSchemaXmlUnroll$inboundSchema,
+} from "./functionconfschemaxmlunroll.js";
 
 export type FunctionXmlUnroll = {
   filename: string;
@@ -41,30 +26,8 @@ export type FunctionXmlUnroll = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionXmlUnrollSchema | undefined;
+  schema?: FunctionConfSchemaXmlUnroll | undefined;
 };
-
-/** @internal */
-export const FunctionXmlUnrollSchema$inboundSchema: z.ZodType<
-  FunctionXmlUnrollSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  unroll: z.string().optional(),
-  inherit: z.string().optional(),
-  unrollIdxField: z.string().default("unroll_idx"),
-  pretty: z.boolean().default(false),
-});
-
-export function functionXmlUnrollSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionXmlUnrollSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionXmlUnrollSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionXmlUnrollSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionXmlUnroll$inboundSchema: z.ZodType<
@@ -85,7 +48,7 @@ export const FunctionXmlUnroll$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionXmlUnrollSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaXmlUnroll$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

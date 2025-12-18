@@ -7,17 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type FunctionPackSchema = {
-  /**
-   * List of fields to keep, everything else will be packed
-   */
-  unpackedFields?: Array<string> | undefined;
-  /**
-   * Name of the (packed) target field
-   */
-  target?: string | undefined;
-};
+import {
+  FunctionConfSchemaPack,
+  FunctionConfSchemaPack$inboundSchema,
+} from "./functionconfschemapack.js";
 
 export type FunctionPack = {
   filename: string;
@@ -33,28 +26,8 @@ export type FunctionPack = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionPackSchema | undefined;
+  schema?: FunctionConfSchemaPack | undefined;
 };
-
-/** @internal */
-export const FunctionPackSchema$inboundSchema: z.ZodType<
-  FunctionPackSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  unpackedFields: z.array(z.string()).optional(),
-  target: z.string().default("_pack"),
-});
-
-export function functionPackSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionPackSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionPackSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionPackSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionPack$inboundSchema: z.ZodType<
@@ -75,7 +48,7 @@ export const FunctionPack$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionPackSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaPack$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

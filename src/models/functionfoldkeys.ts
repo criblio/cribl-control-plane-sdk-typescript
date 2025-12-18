@@ -7,21 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type FunctionFoldkeysSchema = {
-  /**
-   * When enabled (default), only the folded keys are kept. When disabled, the original entries are retained alongside the folded keys.
-   */
-  deleteOriginal?: boolean | undefined;
-  /**
-   * Character or string used to separate key levels to be folded. Defaults to the dot (.) character.
-   */
-  separator?: string | undefined;
-  /**
-   * Optional regular expression to select a subset of the keys to fold.
-   */
-  selectionRegExp?: string | undefined;
-};
+import {
+  FunctionConfSchemaFoldkeys,
+  FunctionConfSchemaFoldkeys$inboundSchema,
+} from "./functionconfschemafoldkeys.js";
 
 export type FunctionFoldkeys = {
   filename: string;
@@ -37,29 +26,8 @@ export type FunctionFoldkeys = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionFoldkeysSchema | undefined;
+  schema?: FunctionConfSchemaFoldkeys | undefined;
 };
-
-/** @internal */
-export const FunctionFoldkeysSchema$inboundSchema: z.ZodType<
-  FunctionFoldkeysSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  deleteOriginal: z.boolean().default(true),
-  separator: z.string().default("."),
-  selectionRegExp: z.string().optional(),
-});
-
-export function functionFoldkeysSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionFoldkeysSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionFoldkeysSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionFoldkeysSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionFoldkeys$inboundSchema: z.ZodType<
@@ -80,7 +48,7 @@ export const FunctionFoldkeys$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionFoldkeysSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaFoldkeys$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

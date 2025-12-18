@@ -7,25 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type FunctionCodeSchema = {
-  /**
-   * Caution: This Function will be evaluated in an unprotected context. This means that you will be able to execute almost any JavaScript code.
-   */
-  code?: string | undefined;
-  /**
-   * The maximum number of allowed iterations within this Function. Defaults to 5,000.
-   */
-  maxNumOfIterations?: number | undefined;
-  /**
-   * Rate at which this Function logs errors. For example, a value of 1 (the default) logs every error, a value of 10 logs every tenth error, and so on.
-   */
-  activeLogSampleRate?: number | undefined;
-  /**
-   * Logs from this Function will be sent to a unique channel in the form `func:code:${pipelineName}:${functionIndex}`. Disable to use the generic `func:code` log channel instead.
-   */
-  useUniqueLogChannel?: boolean | undefined;
-};
+import {
+  FunctionConfSchemaCode,
+  FunctionConfSchemaCode$inboundSchema,
+} from "./functionconfschemacode.js";
 
 export type FunctionCode = {
   filename: string;
@@ -41,30 +26,8 @@ export type FunctionCode = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionCodeSchema | undefined;
+  schema?: FunctionConfSchemaCode | undefined;
 };
-
-/** @internal */
-export const FunctionCodeSchema$inboundSchema: z.ZodType<
-  FunctionCodeSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  code: z.string().optional(),
-  maxNumOfIterations: z.number().default(5000),
-  activeLogSampleRate: z.number().default(1),
-  useUniqueLogChannel: z.boolean().default(true),
-});
-
-export function functionCodeSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionCodeSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionCodeSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionCodeSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionCode$inboundSchema: z.ZodType<
@@ -85,7 +48,7 @@ export const FunctionCode$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionCodeSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaCode$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",

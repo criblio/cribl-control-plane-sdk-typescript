@@ -7,13 +7,10 @@ import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type FunctionCloneSchema = {
-  /**
-   * Create clones with the following fields set
-   */
-  clones?: Array<{ [k: string]: string }> | undefined;
-};
+import {
+  FunctionConfSchemaClone,
+  FunctionConfSchemaClone$inboundSchema,
+} from "./functionconfschemaclone.js";
 
 export type FunctionClone = {
   filename: string;
@@ -29,27 +26,8 @@ export type FunctionClone = {
   sync?: boolean | undefined;
   uischema: { [k: string]: any };
   version: string;
-  schema?: FunctionCloneSchema | undefined;
+  schema?: FunctionConfSchemaClone | undefined;
 };
-
-/** @internal */
-export const FunctionCloneSchema$inboundSchema: z.ZodType<
-  FunctionCloneSchema,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  clones: z.array(z.record(z.string())).optional(),
-});
-
-export function functionCloneSchemaFromJSON(
-  jsonString: string,
-): SafeParseResult<FunctionCloneSchema, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => FunctionCloneSchema$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'FunctionCloneSchema' from JSON`,
-  );
-}
 
 /** @internal */
 export const FunctionClone$inboundSchema: z.ZodType<
@@ -70,7 +48,7 @@ export const FunctionClone$inboundSchema: z.ZodType<
   sync: z.boolean().optional(),
   uischema: z.record(z.any()),
   version: z.string(),
-  schema: z.lazy(() => FunctionCloneSchema$inboundSchema).optional(),
+  schema: FunctionConfSchemaClone$inboundSchema.optional(),
 }).transform((v) => {
   return remap$(v, {
     "__filename": "filename",
