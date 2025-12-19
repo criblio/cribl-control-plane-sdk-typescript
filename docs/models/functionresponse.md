@@ -836,9 +836,7 @@ const value: models.FunctionLocalSearchDatatypeParser = {
     "key1": "<value>",
   },
   version: "<value>",
-  schema: {
-    rulesetId: "<id>",
-  },
+  schema: {},
 };
 ```
 
@@ -864,6 +862,7 @@ const value: models.FunctionLocalSearchRulesetRunner = {
   schema: {
     rulesetType: "datatype",
     rulesetId: "<id>",
+    ruleset: {},
   },
 };
 ```

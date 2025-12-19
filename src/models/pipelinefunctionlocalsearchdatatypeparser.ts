@@ -6,13 +6,12 @@ import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type PipelineFunctionLocalSearchDatatypeParserConf = {
-  /**
-   * ID of the local search datatype ruleset
-   */
-  rulesetId: string;
-};
+import {
+  FunctionConfSchemaLocalSearchDatatypeParser,
+  FunctionConfSchemaLocalSearchDatatypeParser$inboundSchema,
+  FunctionConfSchemaLocalSearchDatatypeParser$Outbound,
+  FunctionConfSchemaLocalSearchDatatypeParser$outboundSchema,
+} from "./functionconfschemalocalsearchdatatypeparser.js";
 
 export type PipelineFunctionLocalSearchDatatypeParser = {
   /**
@@ -35,62 +34,12 @@ export type PipelineFunctionLocalSearchDatatypeParser = {
    * If enabled, stops the results of this Function from being passed to the downstream Functions
    */
   final?: boolean | undefined;
-  conf: PipelineFunctionLocalSearchDatatypeParserConf;
+  conf: FunctionConfSchemaLocalSearchDatatypeParser;
   /**
    * Group ID
    */
   groupId?: string | undefined;
 };
-
-/** @internal */
-export const PipelineFunctionLocalSearchDatatypeParserConf$inboundSchema:
-  z.ZodType<
-    PipelineFunctionLocalSearchDatatypeParserConf,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    rulesetId: z.string(),
-  });
-/** @internal */
-export type PipelineFunctionLocalSearchDatatypeParserConf$Outbound = {
-  rulesetId: string;
-};
-
-/** @internal */
-export const PipelineFunctionLocalSearchDatatypeParserConf$outboundSchema:
-  z.ZodType<
-    PipelineFunctionLocalSearchDatatypeParserConf$Outbound,
-    z.ZodTypeDef,
-    PipelineFunctionLocalSearchDatatypeParserConf
-  > = z.object({
-    rulesetId: z.string(),
-  });
-
-export function pipelineFunctionLocalSearchDatatypeParserConfToJSON(
-  pipelineFunctionLocalSearchDatatypeParserConf:
-    PipelineFunctionLocalSearchDatatypeParserConf,
-): string {
-  return JSON.stringify(
-    PipelineFunctionLocalSearchDatatypeParserConf$outboundSchema.parse(
-      pipelineFunctionLocalSearchDatatypeParserConf,
-    ),
-  );
-}
-export function pipelineFunctionLocalSearchDatatypeParserConfFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  PipelineFunctionLocalSearchDatatypeParserConf,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      PipelineFunctionLocalSearchDatatypeParserConf$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'PipelineFunctionLocalSearchDatatypeParserConf' from JSON`,
-  );
-}
 
 /** @internal */
 export const PipelineFunctionLocalSearchDatatypeParser$inboundSchema: z.ZodType<
@@ -103,9 +52,7 @@ export const PipelineFunctionLocalSearchDatatypeParser$inboundSchema: z.ZodType<
   description: z.string().optional(),
   disabled: z.boolean().optional(),
   final: z.boolean().optional(),
-  conf: z.lazy(() =>
-    PipelineFunctionLocalSearchDatatypeParserConf$inboundSchema
-  ),
+  conf: FunctionConfSchemaLocalSearchDatatypeParser$inboundSchema,
   groupId: z.string().optional(),
 });
 /** @internal */
@@ -115,7 +62,7 @@ export type PipelineFunctionLocalSearchDatatypeParser$Outbound = {
   description?: string | undefined;
   disabled?: boolean | undefined;
   final?: boolean | undefined;
-  conf: PipelineFunctionLocalSearchDatatypeParserConf$Outbound;
+  conf: FunctionConfSchemaLocalSearchDatatypeParser$Outbound;
   groupId?: string | undefined;
 };
 
@@ -131,9 +78,7 @@ export const PipelineFunctionLocalSearchDatatypeParser$outboundSchema:
     description: z.string().optional(),
     disabled: z.boolean().optional(),
     final: z.boolean().optional(),
-    conf: z.lazy(() =>
-      PipelineFunctionLocalSearchDatatypeParserConf$outboundSchema
-    ),
+    conf: FunctionConfSchemaLocalSearchDatatypeParser$outboundSchema,
     groupId: z.string().optional(),
   });
 

@@ -24,6 +24,7 @@ let value: FunctionLocalSearchRulesetRunner = {
   schema: {
     rulesetType: "datatype",
     rulesetId: "<id>",
+    ruleset: {},
   },
 };
 ```

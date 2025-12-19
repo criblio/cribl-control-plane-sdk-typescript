@@ -47,7 +47,7 @@ export class Destinations extends ClientSDK {
    * Create a new Destination.
    */
   async create(
-    request: models.Output,
+    request: operations.CreateOutputRequest,
     options?: RequestOptions,
   ): Promise<models.CountedOutput> {
     return unwrapAsync(destinationsCreate(

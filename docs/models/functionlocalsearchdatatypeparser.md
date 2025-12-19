@@ -22,9 +22,7 @@ let value: FunctionLocalSearchDatatypeParser = {
     "key1": "<value>",
   },
   version: "<value>",
-  schema: {
-    rulesetId: "<id>",
-  },
+  schema: {},
 };
 ```
 
