@@ -5,15 +5,15 @@ management:
   docVersion: 4.16.0-alpha.1766093766014-6100b10e
   speakeasyVersion: 1.674.0
   generationVersion: 2.778.0
-  releaseVersion: 0.5.0-beta.2
-  configChecksum: 72b9b7af12b5a76009139b06032f8efe
+  releaseVersion: 0.5.0-beta.3
+  configChecksum: 3214d1ffb8c227d7f0564e46d4959972
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: c578695c-0307-4735-bb86-ed6457ddfc38
-  pristine_commit_hash: 987ce3454f0783fcfe76a7fa1e9aab2b9312b676
-  pristine_tree_hash: c2aff511e2b359c18715af1f1970f0938447596e
+  generation_id: 6921d085-4b44-4011-972f-7e03ea8d595b
+  pristine_commit_hash: e4b582ea525ecb7491580562717f6b454302b3c2
+  pristine_tree_hash: b7dcce2ae400c2e1821bb7f548906b2836a880a9
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -9535,12 +9535,12 @@ trackedFiles:
     pristine_git_object: 67bccfec985be20a00970d90155752832dd47135
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:3452a5925391397772e309e4d5bc90c3c14c2c0e
-    pristine_git_object: f882087e06339a8c27b9f2e21da25c1818a59755
+    last_write_checksum: sha1:69074d5c5f8adcb6865dc9c386189d7399714a77
+    pristine_git_object: 0b5015fd402fda8a0d643f35ea39aa33067ae2ac
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:1c17b8dedff383566726506aa4be7fb45ad1cabe
-    pristine_git_object: 34f71220d48ae6e2e35028b621ac144c682eadf5
+    last_write_checksum: sha1:618b69e2bd44f84a07576017ae3e676941f9861a
+    pristine_git_object: fe94b683c6770dad5171fcc89be4d68ec9a20e5e
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:2df5998a0eb3c71f5c1d2f90e885944ec2ce4243
@@ -9859,8 +9859,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:2aeffd651b9c969eeea0ba7f6ced44d2a4066f50
-    pristine_git_object: 6e17d47f4f58a901a0d665004e2375f64223fe61
+    last_write_checksum: sha1:086061bb4bd532e031756dfaf2bf4101423fbdbc
+    pristine_git_object: b85114c80b9ec2e3b840fddd92928176e7da68ab
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -16845,7 +16845,6 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.pipelines.list()`:  `response.items.[].conf.functions.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.pipelines.create()`: \n  *  `request.conf.functions.[]` **Changed** **Breaking** :warning:\n  *  `response.items.[].conf.functions.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.pipelines.get()`:  `response.items.[].conf.functions.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.pipelines.update()`: \n  *  `request.pipeline.conf.functions.[]` **Changed** **Breaking** :warning:\n  *  `response.items.[].conf.functions.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.pipelines.delete()`:  `response.items.[].conf.functions.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.destinations.list()`:  `response.items.[].[criblSearchEngine]` **Added**\n* `criblcontrolplane.destinations.create()`: \n  *  `request.[criblSearchEngine]` **Added**\n  *  `response.items.[].[criblSearchEngine]` **Added**\n* `criblcontrolplane.destinations.get()`:  `response.items.[].[criblSearchEngine]` **Added**\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output.[criblSearchEngine]` **Added**\n  *  `response.items.[].[criblSearchEngine]` **Added**\n* `criblcontrolplane.destinations.delete()`:  `response.items.[].[criblSearchEngine]` **Added**\n* `criblcontrolplane.functions.get()`:  `response.items.[].[sensitiveDataScanner].schema.backgroundDetection` **Added**\n* `criblcontrolplane.functions.list()`:  `response.items.[].[sensitiveDataScanner].schema.backgroundDetection` **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json
