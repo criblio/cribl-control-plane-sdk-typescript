@@ -40,11 +40,10 @@ const AWS_REGION = "us-east-2"; // Replace with your S3 bucket region
 
 import {
   ConfigGroup,
-  InputSyslog,
-  OutputS3,
   Pipeline,
   RoutesRoute,
 } from "../dist/esm/models";
+import { InputSyslog, OutputS3 } from "../dist/esm/models/operations";
 import { baseUrl, createCriblClient } from "./auth";
 
 // Create Fleet

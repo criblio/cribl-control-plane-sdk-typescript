@@ -28,11 +28,10 @@
 
 import {
   ConfigGroup,
-  InputTcpjson,
-  OutputFilesystem,
   Pipeline,
   RoutesRoute,
 } from "../dist/esm/models";
+import { InputTcpjson, OutputFilesystem } from "../dist/esm/models/operations";
 import { baseUrl, createCriblClient } from "./auth";
 
 const PORT = 9020;

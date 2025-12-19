@@ -25,11 +25,10 @@
  */
 
 import {
-  InputTcpjson,
-  OutputS3,
   Pipeline,
   RoutesRoute,
 } from "../dist/esm/models";
+import { InputTcpjson, OutputS3 } from "../dist/esm/models/operations";
 import { baseUrl, createCriblClient } from "./auth";
 
 const PACK_URL = "https://github.com/criblpacks/cribl-palo-alto-networks/releases/download/1.1.5/cribl-palo-alto-networks-d6bc6883-1.1.5.crbl";
