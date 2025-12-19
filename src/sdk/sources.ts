@@ -41,7 +41,7 @@ export class Sources extends ClientSDK {
    * Create a new Source.
    */
   async create(
-    request: models.Input,
+    request: operations.CreateInputRequest,
     options?: RequestOptions,
   ): Promise<models.CountedInput> {
     return unwrapAsync(sourcesCreate(

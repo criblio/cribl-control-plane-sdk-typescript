@@ -22,6 +22,7 @@ import * as errors from "../models/errors/index.js";
 import { ResponseValidationError } from "../models/errors/responsevalidationerror.js";
 import { SDKValidationError } from "../models/errors/sdkvalidationerror.js";
 import * as models from "../models/index.js";
+import * as operations from "../models/operations/index.js";
 import { APICall, APIPromise } from "../types/async.js";
 import { Result } from "../types/fp.js";
 
@@ -33,7 +34,7 @@ import { Result } from "../types/fp.js";
  */
 export function destinationsCreate(
   client: CriblControlPlaneCore,
-  request: models.Output,
+  request: operations.CreateOutputRequest,
   options?: RequestOptions,
 ): APIPromise<
   Result<
@@ -58,7 +59,7 @@ export function destinationsCreate(
 
 async function $do(
   client: CriblControlPlaneCore,
-  request: models.Output,
+  request: operations.CreateOutputRequest,
   options?: RequestOptions,
 ): Promise<
   [
@@ -79,7 +80,7 @@ async function $do(
 > {
   const parsed = safeParse(
     request,
-    (value) => models.Output$outboundSchema.parse(value),
+    (value) => operations.CreateOutputRequest$outboundSchema.parse(value),
     "Input validation failed",
   );
   if (!parsed.ok) {

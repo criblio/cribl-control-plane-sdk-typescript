@@ -13,6 +13,7 @@ let value: PipelineFunctionLocalSearchRulesetRunner = {
   conf: {
     rulesetType: "dataset",
     rulesetId: "<id>",
+    ruleset: {},
   },
   groupId: "<id>",
 };
