@@ -39,9 +39,10 @@ export type PipelineFunctionSensitiveDataScannerConf = {
    */
   flags?: Array<PipelineFunctionSensitiveDataScannerFlag> | undefined;
   /**
-   * If enabled, Add matching ruleset IDs to a field called "__detected"
+   * Add matching ruleset IDs to a field called "__detected"
    */
   includeDetectedRules?: boolean | undefined;
+  backgroundDetection?: boolean | undefined;
 };
 
 export type PipelineFunctionSensitiveDataScanner = {
@@ -192,6 +193,7 @@ export const PipelineFunctionSensitiveDataScannerConf$inboundSchema: z.ZodType<
     z.lazy(() => PipelineFunctionSensitiveDataScannerFlag$inboundSchema),
   ).optional(),
   includeDetectedRules: z.boolean().default(true),
+  backgroundDetection: z.boolean().default(false),
 });
 /** @internal */
 export type PipelineFunctionSensitiveDataScannerConf$Outbound = {
@@ -200,6 +202,7 @@ export type PipelineFunctionSensitiveDataScannerConf$Outbound = {
   excludeFields?: Array<string> | undefined;
   flags?: Array<PipelineFunctionSensitiveDataScannerFlag$Outbound> | undefined;
   includeDetectedRules: boolean;
+  backgroundDetection: boolean;
 };
 
 /** @internal */
@@ -217,6 +220,7 @@ export const PipelineFunctionSensitiveDataScannerConf$outboundSchema: z.ZodType<
     z.lazy(() => PipelineFunctionSensitiveDataScannerFlag$outboundSchema),
   ).optional(),
   includeDetectedRules: z.boolean().default(true),
+  backgroundDetection: z.boolean().default(false),
 });
 
 export function pipelineFunctionSensitiveDataScannerConfToJSON(

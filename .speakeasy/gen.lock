@@ -1,19 +1,19 @@
 lockVersion: 2.0.0
 id: d194774b-8596-4eb8-b73a-3a28004d94eb
 management:
-  docChecksum: f1b3282c53ecb5c1b6182d8b662ef40e
-  docVersion: 4.16.0-alpha.1766009482375-5da8fbaa
+  docChecksum: 68229766ca5401af2c878540022c1f94
+  docVersion: 4.16.0-alpha.1766106021338-503d0e0d
   speakeasyVersion: 1.674.0
   generationVersion: 2.778.0
-  releaseVersion: 0.5.0-rc.3
-  configChecksum: bd84d8c69ed34bf2d35743a1e56943ad
+  releaseVersion: 0.5.0-rc.4
+  configChecksum: cb4dbe5048c4ba689da5d9704492077d
   repoURL: https://github.com/criblio/cribl-control-plane-sdk-typescript.git
   installationURL: https://github.com/criblio/cribl-control-plane-sdk-typescript
   published: true
 persistentEdits:
-  generation_id: e984e1ce-fd3a-4522-ab97-8c091ba43abd
-  pristine_commit_hash: 60f70fbf07718747d8d16cc8c7132354176ac170
-  pristine_tree_hash: 0678423333697136235cd60e6110cf0d0e84ab54
+  generation_id: deec127a-e13e-478c-abdf-91fab16702ff
+  pristine_commit_hash: a8b183a2fa76176959effab1aa1a6c67f6613500
+  pristine_tree_hash: ca30a3bcb8969b54db2bd32380c1b64c19ef3af8
 features:
   typescript:
     additionalDependencies: 0.1.0
@@ -1091,8 +1091,8 @@ trackedFiles:
     pristine_git_object: 0996cc67329141bfdd79e3cdf87ae33383e238b0
   docs/models/functionconfschemasensitivedatascanner.md:
     id: 92a3ed1b08b8
-    last_write_checksum: sha1:983af1c56ac35db3b5161a8939e700daaf26a0fd
-    pristine_git_object: ca4d18842bbb0760bd8babd6976f393a7aee7c65
+    last_write_checksum: sha1:a720a4fff2d14edcb39f4f0b654eea62cce69450
+    pristine_git_object: 129c7998e41aab8b3e94f66f1914bc7ecb9bccf6
   docs/models/functionconfschemasensitivedatascannerflag.md:
     id: 788a468187e4
     last_write_checksum: sha1:658aede5f4b492ede101bd4a371d5dc81035fd97
@@ -4919,8 +4919,8 @@ trackedFiles:
     pristine_git_object: ebdf3c0fbc37f47d4e3c49b7c1b51d2e852b6189
   docs/models/output.md:
     id: 376633b966cd
-    last_write_checksum: sha1:fc34095bc692087eea4b399ab711553dae5cbb59
-    pristine_git_object: 0b8cc4a2aabf159ab320b99e77b81471379f903d
+    last_write_checksum: sha1:e8bdb3f2575b5184fea8bfc2bbe049f8e1d26738
+    pristine_git_object: 5fb8e2a99847663043c9ce4b4793f29a9f47c7f7
   docs/models/outputazureblob.md:
     id: a995af061056
     last_write_checksum: sha1:829ff39a7347c2ec08d70023a57d76b2004f9643
@@ -5517,6 +5517,70 @@ trackedFiles:
     id: e8c505cb9b5d
     last_write_checksum: sha1:0d5d62abd4d3f4cfc2e5a1f554911e7265247074
     pristine_git_object: 9dd9d66be9f167a429ccc941c1e4cc252e384667
+  docs/models/outputcriblsearchengine.md:
+    id: 0ed418fdd6c7
+    last_write_checksum: sha1:9efb412fc840ae26b48eb96e8eba0059c6b92b9a
+    pristine_git_object: 0b2ae63ce67a5d73d8d9aaecd0441df32928cea9
+  docs/models/outputcriblsearchengineauthtoken.md:
+    id: 45638acc4946
+    last_write_checksum: sha1:0f5fbfe1346be74e7210614a9a68e2c88578cfc1
+    pristine_git_object: 8ade85769085257a22d7f1fbacb4f78370a0e2cb
+  docs/models/outputcriblsearchenginebackpressurebehavior.md:
+    id: b875ee050b67
+    last_write_checksum: sha1:3623395d85dd49ca280f41466564751aacfe8f1a
+    pristine_git_object: 737cb99394e1af7c5ce74a3279f07f8c77b668b9
+  docs/models/outputcriblsearchenginecompression.md:
+    id: b9efffd18da8
+    last_write_checksum: sha1:bc9c5976b7918873759a57badd3dd2294b93c7ad
+    pristine_git_object: 5f285d1a3a14ace0f4e1e40ef947bb6f13f0e568
+  docs/models/outputcriblsearchengineextrahttpheader.md:
+    id: 6bf4ad87aa28
+    last_write_checksum: sha1:af12197675a64b8fba05362026417cd86dff9915
+    pristine_git_object: bab0ba04ba961eab0fff1d35ef9038c8f82362b2
+  docs/models/outputcriblsearchenginefailedrequestloggingmode.md:
+    id: 0cc70e01fce7
+    last_write_checksum: sha1:a7b49fb97b73ac483ffd57110a40fac15b32cba0
+    pristine_git_object: 8e45021cd46596059fe7ffd29dac16efa17b8658
+  docs/models/outputcriblsearchenginemaximumtlsversion.md:
+    id: a9b4fbb75a35
+    last_write_checksum: sha1:fc8c0fbf52e8a541d8bb835beadb215dbe1c035a
+    pristine_git_object: 074a831b20d146d1f406d3fb8c569ff24a90725a
+  docs/models/outputcriblsearchengineminimumtlsversion.md:
+    id: 39d58a77bc10
+    last_write_checksum: sha1:9561fbc99496c8ed180278e715544cc1db6254a4
+    pristine_git_object: 2bb50474538cbccc07546fe4956b8418b62b0c39
+  docs/models/outputcriblsearchenginemode.md:
+    id: 3d0d53380300
+    last_write_checksum: sha1:e8eb31952b13d88ee787a5990996b4cf57eecabd
+    pristine_git_object: 149a535dbfdf141508ea96d2f70f45fb9c19e8d4
+  docs/models/outputcriblsearchenginepqcompresscompression.md:
+    id: 811bceb80ae3
+    last_write_checksum: sha1:885ef9bfeab94f562f44a9a8f920742a255879f2
+    pristine_git_object: 367384948ad2cafe55ce59ec957b8f82dae866cc
+  docs/models/outputcriblsearchenginepqcontrols.md:
+    id: a7983f68b41a
+    last_write_checksum: sha1:57fc5395fa950c1fb25a46950f6d6834ece81750
+    pristine_git_object: 0ae34c41071b36a5373558c7106692ec2e0def4d
+  docs/models/outputcriblsearchenginequeuefullbehavior.md:
+    id: 452d5ed554e1
+    last_write_checksum: sha1:981c0edf5982cff230eaaa87c55eede9b828caf1
+    pristine_git_object: bf218e8ef834f943b76a74347ebe7953230af110
+  docs/models/outputcriblsearchengineresponseretrysetting.md:
+    id: da411e8fb44a
+    last_write_checksum: sha1:5e943126a94720c1779386fac69af9be118ab96d
+    pristine_git_object: 6a647b38a836d31be15d67471049ca8608e87518
+  docs/models/outputcriblsearchenginetimeoutretrysettings.md:
+    id: f855c912aaa5
+    last_write_checksum: sha1:1ccf314eb87358a863709c3451e45949af27b67c
+    pristine_git_object: 6eb2261cd20e70c79dd883553b0ee73c15776445
+  docs/models/outputcriblsearchenginetlssettingsclientside.md:
+    id: 4f4a57820b5b
+    last_write_checksum: sha1:162990a706af0c4b436e0bc4c25d04d66207409b
+    pristine_git_object: e3a413f76363241f101ed59a2c9038795d71056b
+  docs/models/outputcriblsearchengineurl.md:
+    id: c3df2a7eda66
+    last_write_checksum: sha1:860555ef6484ccf9e4b2748cefb4db7a095a5296
+    pristine_git_object: 537e4aeb3c6e9b69d7212e110c3612c6c2f2d05b
   docs/models/outputcribltcp.md:
     id: 7d25803eb5cb
     last_write_checksum: sha1:aec5c976bd6adfbf9a1f10fcad7a9cfda2c2c953
@@ -8611,8 +8675,8 @@ trackedFiles:
     pristine_git_object: db3e5bf05ae29189647a3c9c7705ad0ca992dad5
   docs/models/pipelinefunctionsensitivedatascannerconf.md:
     id: d853a8ca53ec
-    last_write_checksum: sha1:62951e3f73e8f0c0084f37f88dc513d2a8a237e9
-    pristine_git_object: e6a0ec65b7d5238cf848a76930aba06be3654a28
+    last_write_checksum: sha1:e13ceffb1f8c3478641db93beea2aa31026655ce
+    pristine_git_object: 9d11cc206fb0fd8323bbf46f8b44aaedbf740c5a
   docs/models/pipelinefunctionsensitivedatascannerflag.md:
     id: b0e6d09ed3c5
     last_write_checksum: sha1:f5a91f5493882485f98985fb2574cbb9f84d80a5
@@ -9471,12 +9535,12 @@ trackedFiles:
     pristine_git_object: 67bccfec985be20a00970d90155752832dd47135
   jsr.json:
     id: 7f6ab7767282
-    last_write_checksum: sha1:ad366fc29d7eda00d7183ab24e7272ffeea6fbc9
-    pristine_git_object: a09579b8aa9afd616ef949d3ca8c9eaec4c65050
+    last_write_checksum: sha1:ca956d9d5d2dca4009f045377fc589ff0fed83ab
+    pristine_git_object: a49254597b7b056c3e747bdae19638fcf5208504
   package.json:
     id: 7030d0b2f71b
-    last_write_checksum: sha1:044f1cf7087af6c6a797cf15f21608a4b8f925bd
-    pristine_git_object: 4589fd223daf1bbb5f982d4fcbf47629d13124dd
+    last_write_checksum: sha1:7c7b7ee063468c7324ec2078389b8ab8e9259d8c
+    pristine_git_object: b3efa16576003271af9e107f50b016d06a9f544b
   src/core.ts:
     id: f431fdbcd144
     last_write_checksum: sha1:2df5998a0eb3c71f5c1d2f90e885944ec2ce4243
@@ -9795,8 +9859,8 @@ trackedFiles:
     pristine_git_object: 0aebd8b0a4867e35cb3348fc52921c3c0b4725b7
   src/lib/config.ts:
     id: 320761608fb3
-    last_write_checksum: sha1:ee595e6d1442262097f67aa0e49c3dd1181db1e7
-    pristine_git_object: ce7980e5089880c2806cc8f64866a5266e2bb7c6
+    last_write_checksum: sha1:c8919ef53c8689033bade9e88ad6643035206009
+    pristine_git_object: 19c3ef7c14b5fc920cb37f9970e8be6e968a85a6
   src/lib/dlv.ts:
     id: b1988214835a
     last_write_checksum: sha1:1dd3e3fbb4550c4bf31f5ef997faff355d6f3250
@@ -10395,8 +10459,8 @@ trackedFiles:
     pristine_git_object: 8b630f0dc9d03fb529cd62744915fbf33f66f9f9
   src/models/functionconfschemasensitivedatascanner.ts:
     id: 9d9b9b13da26
-    last_write_checksum: sha1:049a499fb0a9a2438085776e2da793b6b99df59d
-    pristine_git_object: d4bf7ef93ad7935e635012c241da20c4612b7686
+    last_write_checksum: sha1:55c3452ed80c1c6cfe71bd17d3f684fcb9fce3e3
+    pristine_git_object: 2a67c111a8889139a59e3c4ac14c9115843ec0c7
   src/models/functionconfschemaserde.ts:
     id: a23db3c06cbd
     last_write_checksum: sha1:605065d7b680351269b68adcc79362675649051a
@@ -10747,8 +10811,8 @@ trackedFiles:
     pristine_git_object: 171781b3902434d90b91b4af6f4cb36be5ef62ab
   src/models/index.ts:
     id: f93644b0f37e
-    last_write_checksum: sha1:62470a7f4518dfbaad7a221a05d36c2ffaed14bd
-    pristine_git_object: d1a3b0bf8d90fb62821834dcc48b3e1ab94ef060
+    last_write_checksum: sha1:312c43ad4c1c402c732f45b93f3f1d21e1c956e4
+    pristine_git_object: 6aba4f4b2fcdb0ca09be09b17b35ecdfa694a57c
   src/models/input.ts:
     id: 3b376a2db155
     last_write_checksum: sha1:319a09d631a7ef50bc57ab0632445be9ea7ac6e3
@@ -11279,8 +11343,8 @@ trackedFiles:
     pristine_git_object: 249979a4dedde96ea419748e033ab14caf332760
   src/models/output.ts:
     id: 7cf8a406e886
-    last_write_checksum: sha1:96230066edb330864f017b3300d7012b9d831f9c
-    pristine_git_object: b5fcda3032570494550e5c92b3e4e9e84f5dbe0e
+    last_write_checksum: sha1:c29f534521c22577d0baaca94d9bce5654098864
+    pristine_git_object: e40ec151b8b2eed6970bccf5c5871a42573ee7b8
   src/models/outputazureblob.ts:
     id: 1135a47e98e0
     last_write_checksum: sha1:44109a6c3309fc02922d461e16930fa4caa2875a
@@ -11325,6 +11389,10 @@ trackedFiles:
     id: 61ffe27fff5e
     last_write_checksum: sha1:0475cc22a28d584e36d84d45ae9566ac9dfcb08c
     pristine_git_object: 0800e665c999e54402218baa0569a67bcf69a647
+  src/models/outputcriblsearchengine.ts:
+    id: bcb3e6bd4a44
+    last_write_checksum: sha1:a3b0e762815fca2d20f0ea75b4c9cfc7a3f49f03
+    pristine_git_object: bed4a5a47530de01f5617ea75e92da730c1ec682
   src/models/outputcribltcp.ts:
     id: 7bae96e70b93
     last_write_checksum: sha1:bc02c163a3377115dd81c4653ca2b747f4563993
@@ -11803,8 +11871,8 @@ trackedFiles:
     pristine_git_object: a46c38216195db5f3ba6cd20312afb3989524092
   src/models/pipelinefunctionsensitivedatascanner.ts:
     id: e078cc6f2ae3
-    last_write_checksum: sha1:00d5745f54ea7905d577a13a7070763632259c23
-    pristine_git_object: f55d85f7921db9392cac50c155c4cc93e135b17e
+    last_write_checksum: sha1:92a52ea6bee861f83df9482d1e284d77531e54cd
+    pristine_git_object: 6d252443a5b4cab6241b7663a55cff88f237f6fb
   src/models/pipelinefunctionserde.ts:
     id: 4536090179d0
     last_write_checksum: sha1:8e7737720cb9147bd61b975e82d9c7865350db23
@@ -13945,6 +14013,14 @@ examples:
           application/json: {"count": 578974, "items": [{"id": "<id>", "type": "disk_spool", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>"], "timeWindow": "10m", "maxDataSize": "1GB", "maxDataTime": "24h", "compress": "gzip", "partitionExpr": "<value>", "description": "misfire afore suddenly openly huzzah"}]}
         "500":
           application/json: {"message": "<value>"}
+    OutputCreateExamplesCriblSearchEngine:
+      requestBody:
+        application/json: {"id": "cribl-search-engine-output", "type": "cribl_search_engine", "pipeline": "<value>", "systemFields": ["cribl_pipe"], "environment": "<value>", "streamtags": [], "loadBalanced": false, "tls": {"disabled": true, "rejectUnauthorized": true, "servername": "<value>", "certificateName": "<value>", "caPath": "<value>", "privKeyPath": "<value>", "certPath": "<value>", "passphrase": "<value>", "minVersion": "TLSv1.1", "maxVersion": "TLSv1.1"}, "tokenTTLMinutes": 60, "excludeFields": ["__kube_*", "__metadata", "__winEvent"], "compression": "gzip", "concurrency": 5, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "rejectUnauthorized": true, "timeoutSec": 30, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "failedRequestLoggingMode": "none", "safeHeaders": [], "throttleRatePerSec": "0", "responseRetrySettings": [{"httpStatus": 401, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 20000}, {"httpStatus": 403, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 20000}, {"httpStatus": 408, "initialBackoff": 250, "backoffRate": 2, "maxBackoff": 10000}, {"httpStatus": 429, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, {"httpStatus": 500, "initialBackoff": 250, "backoffRate": 2, "maxBackoff": 10000}, {"httpStatus": 502, "initialBackoff": 250, "backoffRate": 2, "maxBackoff": 10000}, {"httpStatus": 503, "initialBackoff": 250, "backoffRate": 2, "maxBackoff": 10000}, {"httpStatus": 504, "initialBackoff": 250, "backoffRate": 2, "maxBackoff": 10000}, {"httpStatus": 509, "initialBackoff": 250, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": true, "authTokens": [{"tokenSecret": "<value>", "enabled": true, "description": "bob often heating mixture incidentally rewrite cow why"}], "onBackpressure": "block", "useRoundRobinDns": true, "description": "flickering equally defensive worth miserably unexpectedly yuck ample", "url": "https://0.0.0.0:10200", "excludeSelf": false, "urls": [{"url": "https://unkempt-travel.net/", "weight": 1}], "dnsResolvePeriodSec": 600, "loadBalanceStatsPeriodSec": 300, "pqStrictOrdering": true, "pqRatePerSec": 0, "pqMode": "error", "pqMaxBufferSize": 42, "pqMaxBackpressureSec": 30, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqControls": {}}
+      responses:
+        "200":
+          application/json: {"count": 578974, "items": [{"id": "<id>", "type": "disk_spool", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>", "<value 3>"], "environment": "<value>", "streamtags": ["<value 1>"], "timeWindow": "10m", "maxDataSize": "1GB", "maxDataTime": "24h", "compress": "gzip", "partitionExpr": "<value>", "description": "misfire afore suddenly openly huzzah"}]}
+        "500":
+          application/json: {"message": "<value>"}
   getOutputById:
     speakeasy-default-get-output-by-id:
       parameters:
@@ -14704,6 +14780,17 @@ examples:
           application/json: {"count": 85742, "items": [{"id": "<id>", "type": "google_chronicle", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "apiVersion": "v1", "authenticationMethod": "serviceAccount", "responseRetrySettings": [{"httpStatus": 1271.28, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "logFormatType": "unstructured", "region": "<value>", "concurrency": 5, "maxPayloadSizeKB": 1024, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 90, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>"], "useRoundRobinDns": false, "onBackpressure": "block", "totalMemoryLimitKB": 3612.5, "description": "yum tomatillo off tune-up", "extraLogTypes": [{"logType": "<value>", "description": "busy for concerned buck grandiose dreamily what solder"}], "logType": "<value>", "logTextField": "<value>", "customerId": "<id>", "namespace": "<value>", "customLabels": [{"key": "<key>", "value": "<value>"}], "udmType": "logs", "apiKey": "<value>", "apiKeySecret": "<value>", "serviceAccountCredentials": "<value>", "serviceAccountCredentialsSecret": "<value>", "pqStrictOrdering": true, "pqRatePerSec": 0, "pqMode": "error", "pqMaxBufferSize": 42, "pqMaxBackpressureSec": 30, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqControls": {}}]}
         "500":
           application/json: {"message": "<value>"}
+    OutputCreateExamplesCriblSearchEngine:
+      parameters:
+        path:
+          id: "<id>"
+      requestBody:
+        application/json: {"id": "cribl-search-engine-output", "type": "cribl_search_engine", "pipeline": "<value>", "systemFields": ["cribl_pipe"], "environment": "<value>", "streamtags": [], "loadBalanced": false, "tls": {"disabled": true, "rejectUnauthorized": true, "servername": "<value>", "certificateName": "<value>", "caPath": "<value>", "privKeyPath": "<value>", "certPath": "<value>", "passphrase": "<value>", "minVersion": "TLSv1", "maxVersion": "TLSv1.2"}, "tokenTTLMinutes": 60, "excludeFields": ["__kube_*", "__metadata", "__winEvent"], "compression": "gzip", "concurrency": 5, "maxPayloadSizeKB": 4096, "maxPayloadEvents": 0, "rejectUnauthorized": true, "timeoutSec": 30, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "failedRequestLoggingMode": "none", "safeHeaders": [], "throttleRatePerSec": "0", "responseRetrySettings": [{"httpStatus": 401, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 20000}, {"httpStatus": 403, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 20000}, {"httpStatus": 408, "initialBackoff": 250, "backoffRate": 2, "maxBackoff": 10000}, {"httpStatus": 429, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, {"httpStatus": 500, "initialBackoff": 250, "backoffRate": 2, "maxBackoff": 10000}, {"httpStatus": 502, "initialBackoff": 250, "backoffRate": 2, "maxBackoff": 10000}, {"httpStatus": 503, "initialBackoff": 250, "backoffRate": 2, "maxBackoff": 10000}, {"httpStatus": 504, "initialBackoff": 250, "backoffRate": 2, "maxBackoff": 10000}, {"httpStatus": 509, "initialBackoff": 250, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": true, "authTokens": [{"tokenSecret": "<value>", "enabled": true, "description": "developmental yum tomatillo"}], "onBackpressure": "block", "useRoundRobinDns": true, "description": "contradict unless busy for concerned buck grandiose dreamily what solder", "url": "https://0.0.0.0:10200", "excludeSelf": false, "urls": [{"url": "https://short-term-ectoderm.net/", "weight": 1}], "dnsResolvePeriodSec": 600, "loadBalanceStatsPeriodSec": 300, "pqStrictOrdering": true, "pqRatePerSec": 0, "pqMode": "error", "pqMaxBufferSize": 42, "pqMaxBackpressureSec": 30, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqControls": {}}
+      responses:
+        "200":
+          application/json: {"count": 85742, "items": [{"id": "<id>", "type": "google_chronicle", "pipeline": "<value>", "systemFields": ["<value 1>", "<value 2>"], "environment": "<value>", "streamtags": ["<value 1>"], "apiVersion": "v1", "authenticationMethod": "serviceAccount", "responseRetrySettings": [{"httpStatus": 1271.28, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}], "timeoutRetrySettings": {"timeoutRetry": false, "initialBackoff": 1000, "backoffRate": 2, "maxBackoff": 10000}, "responseHonorRetryAfterHeader": false, "logFormatType": "unstructured", "region": "<value>", "concurrency": 5, "maxPayloadSizeKB": 1024, "maxPayloadEvents": 0, "compress": true, "rejectUnauthorized": true, "timeoutSec": 90, "flushPeriodSec": 1, "extraHttpHeaders": [{"name": "<value>", "value": "<value>"}], "failedRequestLoggingMode": "none", "safeHeaders": ["<value 1>"], "useRoundRobinDns": false, "onBackpressure": "block", "totalMemoryLimitKB": 3612.5, "description": "yum tomatillo off tune-up", "extraLogTypes": [{"logType": "<value>", "description": "busy for concerned buck grandiose dreamily what solder"}], "logType": "<value>", "logTextField": "<value>", "customerId": "<id>", "namespace": "<value>", "customLabels": [{"key": "<key>", "value": "<value>"}], "udmType": "logs", "apiKey": "<value>", "apiKeySecret": "<value>", "serviceAccountCredentials": "<value>", "serviceAccountCredentialsSecret": "<value>", "pqStrictOrdering": true, "pqRatePerSec": 0, "pqMode": "error", "pqMaxBufferSize": 42, "pqMaxBackpressureSec": 30, "pqMaxFileSize": "1 MB", "pqMaxSize": "5GB", "pqPath": "$CRIBL_HOME/state/queues", "pqCompress": "none", "pqOnBackpressure": "block", "pqControls": {}}]}
+        "500":
+          application/json: {"message": "<value>"}
   deleteOutputById:
     speakeasy-default-delete-output-by-id:
       parameters:
@@ -15027,7 +15114,7 @@ examples:
           application/json: {"message": "<value>"}
     PipelineExamplesGuard:
       requestBody:
-        application/json: {"id": "guard-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that scans for sensitive data and applies mitigation expressions", "streamtags": [], "functions": [{"filter": "true", "id": "sensitive_data_scanner", "description": "knowledgeably supposing athwart generally atop behest", "disabled": false, "final": true, "conf": {"rules": [{"rulesetId": "Finance_Global", "replaceExpr": "'REDACTED'", "disabled": false}], "fields": ["_raw"], "excludeFields": [], "flags": [{"name": "_sensitive", "value": "true"}], "includeDetectedRules": true}, "groupId": "<id>"}], "groups": {}}}
+        application/json: {"id": "guard-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that scans for sensitive data and applies mitigation expressions", "streamtags": [], "functions": [{"filter": "true", "id": "sensitive_data_scanner", "description": "knowledgeably supposing athwart generally atop behest", "disabled": false, "final": true, "conf": {"rules": [{"rulesetId": "Finance_Global", "replaceExpr": "'REDACTED'", "disabled": false}], "fields": ["_raw"], "excludeFields": [], "flags": [{"name": "_sensitive", "value": "true"}], "includeDetectedRules": true, "backgroundDetection": false}, "groupId": "<id>"}], "groups": {}}}
       responses:
         "200":
           application/json: {"count": 905091, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 95850, "output": "default", "description": "whoever that how thunderbolt apropos ah if react", "streamtags": ["<value 1>", "<value 2>"], "functions": [{"filter": "true", "id": "suppress", "description": "next tightly positively", "disabled": true, "final": true, "conf": {"keyExpr": "<value>", "allow": 1, "suppressPeriodSec": 30, "dropEventsMode": true, "maxCacheSize": 50000, "cacheIdleTimeoutPeriods": 2, "numEventsIdleTimeoutTrigger": 10000}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "numeric gorgeous object gah purse gadzooks now", "disabled": false}}}}]}
@@ -15426,7 +15513,7 @@ examples:
         path:
           id: "<id>"
       requestBody:
-        application/json: {"id": "guard-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that scans for sensitive data and applies mitigation expressions", "streamtags": [], "functions": [{"filter": "true", "id": "sensitive_data_scanner", "description": "lid snuggle toe", "disabled": true, "final": true, "conf": {"rules": [{"rulesetId": "Finance_Global", "replaceExpr": "'REDACTED'", "disabled": false}], "fields": ["_raw"], "excludeFields": [], "flags": [{"name": "_sensitive", "value": "true"}], "includeDetectedRules": true}, "groupId": "<id>"}], "groups": {}}}
+        application/json: {"id": "guard-pipeline", "conf": {"asyncFuncTimeout": 1000, "output": "default", "description": "Pipeline that scans for sensitive data and applies mitigation expressions", "streamtags": [], "functions": [{"filter": "true", "id": "sensitive_data_scanner", "description": "lid snuggle toe", "disabled": true, "final": true, "conf": {"rules": [{"rulesetId": "Finance_Global", "replaceExpr": "'REDACTED'", "disabled": false}], "fields": ["_raw"], "excludeFields": [], "flags": [{"name": "_sensitive", "value": "true"}], "includeDetectedRules": true, "backgroundDetection": false}, "groupId": "<id>"}], "groups": {}}}
       responses:
         "200":
           application/json: {"count": 430119, "items": [{"id": "<id>", "conf": {"asyncFuncTimeout": 381921, "output": "default", "description": "fantastic smuggle monthly crossly", "streamtags": ["<value 1>"], "functions": [{"filter": "true", "id": "local_search_datatype_parser", "description": "reflecting for productive extroverted instead upwardly", "disabled": true, "final": true, "conf": {"rulesetId": "<id>"}, "groupId": "<id>"}], "groups": {"key": {"name": "<value>", "description": "for fabricate considering", "disabled": false}}}}]}
@@ -16758,7 +16845,7 @@ generatedTests:
   updatePacksById: "2025-07-31T13:41:19Z"
   deleteGroupsById: "2025-08-01T20:03:31Z"
   updateGroupsById: "2025-08-01T20:03:31Z"
-releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.pipelines.list()`:  `response.items.[].conf.functions.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.pipelines.create()`: \n  *  `request.conf.functions.[]` **Changed** **Breaking** :warning:\n  *  `response.items.[].conf.functions.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.pipelines.get()`:  `response.items.[].conf.functions.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.pipelines.update()`: \n  *  `request.pipeline.conf.functions.[]` **Changed** **Breaking** :warning:\n  *  `response.items.[].conf.functions.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.pipelines.delete()`:  `response.items.[].conf.functions.[]` **Changed** **Breaking** :warning:\n* `criblcontrolplane.collectors.create()`: **Added**\n* `criblcontrolplane.collectors.list()`: **Added**\n* `criblcontrolplane.collectors.delete()`: **Added**\n* `criblcontrolplane.collectors.get()`: **Added**\n* `criblcontrolplane.collectors.update()`: **Added**\n* `criblcontrolplane.destinations.pq.get()`: **Added**\n"
+releaseNotes: "## Typescript SDK Changes:\n* `criblcontrolplane.destinations.list()`:  `response.items.[].[criblSearchEngine]` **Added**\n* `criblcontrolplane.destinations.create()`: \n  *  `request.[criblSearchEngine]` **Added**\n  *  `response.items.[].[criblSearchEngine]` **Added**\n* `criblcontrolplane.destinations.get()`:  `response.items.[].[criblSearchEngine]` **Added**\n* `criblcontrolplane.destinations.update()`: \n  *  `request.output.[criblSearchEngine]` **Added**\n  *  `response.items.[].[criblSearchEngine]` **Added**\n* `criblcontrolplane.destinations.delete()`:  `response.items.[].[criblSearchEngine]` **Added**\n* `criblcontrolplane.pipelines.list()`:  `response.items.[].conf.functions.[].[sensitiveDataScanner].conf.backgroundDetection` **Added**\n* `criblcontrolplane.pipelines.create()`: \n  *  `request.conf.functions.[].[sensitiveDataScanner].conf.backgroundDetection` **Added**\n  *  `response.items.[].conf.functions.[].[sensitiveDataScanner].conf.backgroundDetection` **Added**\n* `criblcontrolplane.pipelines.get()`:  `response.items.[].conf.functions.[].[sensitiveDataScanner].conf.backgroundDetection` **Added**\n* `criblcontrolplane.pipelines.update()`: \n  *  `request.pipeline.conf.functions.[].[sensitiveDataScanner].conf.backgroundDetection` **Added**\n  *  `response.items.[].conf.functions.[].[sensitiveDataScanner].conf.backgroundDetection` **Added**\n* `criblcontrolplane.pipelines.delete()`:  `response.items.[].conf.functions.[].[sensitiveDataScanner].conf.backgroundDetection` **Added**\n* `criblcontrolplane.functions.get()`:  `response.items.[].[sensitiveDataScanner].schema.backgroundDetection` **Added**\n* `criblcontrolplane.functions.list()`:  `response.items.[].[sensitiveDataScanner].schema.backgroundDetection` **Added**\n"
 generatedFiles:
   - .devcontainer/README.md
   - .devcontainer/devcontainer.json

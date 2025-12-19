@@ -73,6 +73,12 @@ import {
   OutputCriblLake$outboundSchema,
 } from "./outputcribllake.js";
 import {
+  OutputCriblSearchEngine,
+  OutputCriblSearchEngine$inboundSchema,
+  OutputCriblSearchEngine$Outbound,
+  OutputCriblSearchEngine$outboundSchema,
+} from "./outputcriblsearchengine.js";
+import {
   OutputCriblTcp,
   OutputCriblTcp$inboundSchema,
   OutputCriblTcp$Outbound,
@@ -468,6 +474,7 @@ export type Output =
   | OutputDataset
   | OutputCriblTcp
   | OutputCriblHttp
+  | OutputCriblSearchEngine
   | OutputHumioHec
   | OutputCrowdstrikeNextGenSiem
   | OutputDlS3
@@ -542,6 +549,7 @@ export const Output$inboundSchema: z.ZodType<Output, z.ZodTypeDef, unknown> = z
     OutputDataset$inboundSchema,
     OutputCriblTcp$inboundSchema,
     OutputCriblHttp$inboundSchema,
+    OutputCriblSearchEngine$inboundSchema,
     OutputHumioHec$inboundSchema,
     OutputCrowdstrikeNextGenSiem$inboundSchema,
     OutputDlS3$inboundSchema,
@@ -613,6 +621,7 @@ export type Output$Outbound =
   | OutputDataset$Outbound
   | OutputCriblTcp$Outbound
   | OutputCriblHttp$Outbound
+  | OutputCriblSearchEngine$Outbound
   | OutputHumioHec$Outbound
   | OutputCrowdstrikeNextGenSiem$Outbound
   | OutputDlS3$Outbound
@@ -690,6 +699,7 @@ export const Output$outboundSchema: z.ZodType<
   OutputDataset$outboundSchema,
   OutputCriblTcp$outboundSchema,
   OutputCriblHttp$outboundSchema,
+  OutputCriblSearchEngine$outboundSchema,
   OutputHumioHec$outboundSchema,
   OutputCrowdstrikeNextGenSiem$outboundSchema,
   OutputDlS3$outboundSchema,
