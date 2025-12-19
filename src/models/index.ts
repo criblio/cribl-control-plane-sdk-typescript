@@ -303,6 +303,7 @@ export * from "./outputcloudwatch.js";
 export * from "./outputconfluentcloud.js";
 export * from "./outputcriblhttp.js";
 export * from "./outputcribllake.js";
+export * from "./outputcriblsearchengine.js";
 export * from "./outputcribltcp.js";
 export * from "./outputcrowdstrikenextgensiem.js";
 export * from "./outputdatabricks.js";

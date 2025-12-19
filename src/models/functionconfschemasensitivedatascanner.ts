@@ -39,9 +39,10 @@ export type FunctionConfSchemaSensitiveDataScanner = {
    */
   flags?: Array<FunctionConfSchemaSensitiveDataScannerFlag> | undefined;
   /**
-   * If enabled, Add matching ruleset IDs to a field called "__detected"
+   * Add matching ruleset IDs to a field called "__detected"
    */
   includeDetectedRules?: boolean | undefined;
+  backgroundDetection?: boolean | undefined;
 };
 
 /** @internal */
@@ -108,6 +109,7 @@ export const FunctionConfSchemaSensitiveDataScanner$inboundSchema: z.ZodType<
     z.lazy(() => FunctionConfSchemaSensitiveDataScannerFlag$inboundSchema),
   ).optional(),
   includeDetectedRules: z.boolean().default(true),
+  backgroundDetection: z.boolean().default(false),
 });
 
 export function functionConfSchemaSensitiveDataScannerFromJSON(
