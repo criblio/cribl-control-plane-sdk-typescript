@@ -40,12 +40,10 @@ const AWS_REGION = "us-east-2"; // Replace with your S3 bucket region
 
 import {
   ConfigGroup,
-  GroupCreateRequest,
-  InputSyslog,
-  OutputS3,
   Pipeline,
   RoutesRoute,
 } from "../dist/esm/models";
+import { CreateInputRequest, CreateOutputRequest } from "../dist/esm/models/operations";
 import { baseUrl, createCriblClient } from "./auth";
 
 // Create Fleet
@@ -58,7 +56,7 @@ const myFleet: ConfigGroup = {
 };
 
 // Create Syslog Source
-const syslogSource: InputSyslog = {
+const syslogSource: CreateInputRequest = {
   id: "my-syslog-source",
   type: "syslog",
   tcpPort: SYSLOG_PORT,
@@ -68,7 +66,7 @@ const syslogSource: InputSyslog = {
 };
 
 // Create Amazon S3 Destination
-const s3Destination: OutputS3 = {
+const s3Destination: CreateOutputRequest = {
   id: "my-s3-destination",
   type: "s3",
   bucket: AWS_BUCKET_NAME,
@@ -122,7 +120,7 @@ async function main() {
   }
 
   // Create Fleet
-  await cribl.groups.create({ product: "edge", groupCreateRequest: myFleet as GroupCreateRequest });
+  await cribl.groups.create({ product: "edge", groupCreateRequest: myFleet });
   console.log(`✅ Fleet created: ${myFleet.id}`);
 
   // Create Syslog Source

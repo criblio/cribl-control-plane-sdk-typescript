@@ -1,0 +1,34 @@
+# AuthTokenCloudflareHec
+
+## Example Usage
+
+```typescript
+import { AuthTokenCloudflareHec } from "cribl-control-plane/models/operations";
+
+let value: AuthTokenCloudflareHec = {
+  tokenSecret: "<value>",
+  token: "<value>",
+  description: "junior before lovingly oof far neatly duh geez",
+  allowedIndexesAtToken: [
+    "<value 1>",
+  ],
+  metadata: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+};
+```
+
+## Fields
+
+| Field                                                                                                                                    | Type                                                                                                                                     | Required                                                                                                                                 | Description                                                                                                                              |
+| ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `authType`                                                                                                                               | [operations.AuthenticationMethodCloudflareHec](../../models/operations/authenticationmethodcloudflarehec.md)                             | :heavy_minus_sign:                                                                                                                       | Select Secret to use a text secret to authenticate                                                                                       |
+| `tokenSecret`                                                                                                                            | *string*                                                                                                                                 | :heavy_minus_sign:                                                                                                                       | Select or create a stored text secret                                                                                                    |
+| `token`                                                                                                                                  | *string*                                                                                                                                 | :heavy_minus_sign:                                                                                                                       | Shared secret to be provided by any client (Authorization: <token>)                                                                      |
+| `enabled`                                                                                                                                | *boolean*                                                                                                                                | :heavy_minus_sign:                                                                                                                       | N/A                                                                                                                                      |
+| `description`                                                                                                                            | *string*                                                                                                                                 | :heavy_minus_sign:                                                                                                                       | N/A                                                                                                                                      |
+| `allowedIndexesAtToken`                                                                                                                  | *string*[]                                                                                                                               | :heavy_minus_sign:                                                                                                                       | Enter the values you want to allow in the HEC event index field at the token level. Supports wildcards. To skip validation, leave blank. |
+| `metadata`                                                                                                                               | [operations.AuthTokenMetadatumCloudflareHec](../../models/operations/authtokenmetadatumcloudflarehec.md)[]                               | :heavy_minus_sign:                                                                                                                       | Fields to add to events referencing this token                                                                                           |
