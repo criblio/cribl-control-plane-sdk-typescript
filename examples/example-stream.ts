@@ -28,12 +28,10 @@
 
 import {
   ConfigGroup,
-  GroupCreateRequest,
-  InputTcpjson,
-  OutputFilesystem,
   Pipeline,
   RoutesRoute,
 } from "../dist/esm/models";
+import { CreateInputRequest, CreateOutputRequest } from "../dist/esm/models/operations";
 import { baseUrl, createCriblClient } from "./auth";
 
 const PORT = 9020;
@@ -47,7 +45,7 @@ const myWorkerGroup: ConfigGroup = {
 };
 
 // TCP JSON Source configuration
-const tcpJsonSource: InputTcpjson = {
+const tcpJsonSource: CreateInputRequest = {
   id: "my-tcp-json",
   type: "tcpjson",
   port: PORT,
@@ -56,7 +54,7 @@ const tcpJsonSource: InputTcpjson = {
 };
 
 // Filesystem Destination configuration
-const fileSystemDestination: OutputFilesystem = {
+const fileSystemDestination: CreateOutputRequest = {
   id: "my-fs-destination",
   type: "filesystem",
   destPath: "/tmp/my-output",
@@ -108,7 +106,7 @@ async function main() {
   }
 
   // Create Worker Group
-  await cribl.groups.create({ product: "stream", groupCreateRequest: myWorkerGroup as GroupCreateRequest });
+  await cribl.groups.create({ product: "stream", groupCreateRequest: myWorkerGroup });
   console.log(`✅ Worker Group created: ${myWorkerGroup.id}`);
 
   // Create TCP JSON Source
