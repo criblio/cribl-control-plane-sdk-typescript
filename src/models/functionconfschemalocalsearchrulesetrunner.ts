@@ -15,9 +15,19 @@ export const RulesetType = {
 } as const;
 export type RulesetType = OpenEnum<typeof RulesetType>;
 
+export type FullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesets =
+  {};
+
 export type FunctionConfSchemaLocalSearchRulesetRunner = {
   rulesetType?: RulesetType | undefined;
   rulesetId?: string | undefined;
+  ruleset?:
+    | FullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesets
+    | undefined;
+  /**
+   * Only for use with live data capture. Mark events that were dropped by dataset rules and still include them for capture
+   */
+  markAndIncludeDroppedEvents?: boolean | undefined;
 };
 
 /** @internal */
@@ -34,16 +44,69 @@ export const RulesetType$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(RulesetType);
 
 /** @internal */
+export const FullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesets$inboundSchema:
+  z.ZodType<
+    FullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesets,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({});
+/** @internal */
+export type FullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesets$Outbound =
+  {};
+
+/** @internal */
+export const FullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesets$outboundSchema:
+  z.ZodType<
+    FullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesets$Outbound,
+    z.ZodTypeDef,
+    FullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesets
+  > = z.object({});
+
+export function fullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesetsToJSON(
+  fullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesets:
+    FullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesets,
+): string {
+  return JSON.stringify(
+    FullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesets$outboundSchema
+      .parse(
+        fullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesets,
+      ),
+  );
+}
+export function fullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesetsFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  FullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesets,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      FullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesets$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'FullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesets' from JSON`,
+  );
+}
+
+/** @internal */
 export const FunctionConfSchemaLocalSearchRulesetRunner$inboundSchema:
   z.ZodType<FunctionConfSchemaLocalSearchRulesetRunner, z.ZodTypeDef, unknown> =
     z.object({
       rulesetType: RulesetType$inboundSchema.optional(),
       rulesetId: z.string().optional(),
+      ruleset: z.lazy(() =>
+        FullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesets$inboundSchema
+      ).optional(),
+      markAndIncludeDroppedEvents: z.boolean().default(false),
     });
 /** @internal */
 export type FunctionConfSchemaLocalSearchRulesetRunner$Outbound = {
   rulesetType?: string | undefined;
   rulesetId?: string | undefined;
+  ruleset?:
+    | FullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesets$Outbound
+    | undefined;
+  markAndIncludeDroppedEvents: boolean;
 };
 
 /** @internal */
@@ -55,6 +118,10 @@ export const FunctionConfSchemaLocalSearchRulesetRunner$outboundSchema:
   > = z.object({
     rulesetType: RulesetType$outboundSchema.optional(),
     rulesetId: z.string().optional(),
+    ruleset: z.lazy(() =>
+      FullRulesetIEForUseWithLiveDataCaptureWhichUsesDraftUnsavedRulesets$outboundSchema
+    ).optional(),
+    markAndIncludeDroppedEvents: z.boolean().default(false),
   });
 
 export function functionConfSchemaLocalSearchRulesetRunnerToJSON(

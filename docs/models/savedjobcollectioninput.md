@@ -14,6 +14,7 @@ let value: SavedJobCollectionInput = {
     command: "<value>",
     args: [
       "<value 1>",
+      "<value 2>",
     ],
   },
   metadata: [

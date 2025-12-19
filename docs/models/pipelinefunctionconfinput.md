@@ -528,9 +528,7 @@ const value: models.PipelineFunctionLocalSearchDatatypeParser = {
   description: "ligate ick each fowl boss hopelessly yuck",
   disabled: false,
   final: true,
-  conf: {
-    rulesetId: "<id>",
-  },
+  conf: {},
   groupId: "<id>",
 };
 ```
@@ -546,6 +544,7 @@ const value: models.PipelineFunctionLocalSearchRulesetRunner = {
   conf: {
     rulesetType: "dataset",
     rulesetId: "<id>",
+    ruleset: {},
   },
   groupId: "<id>",
 };

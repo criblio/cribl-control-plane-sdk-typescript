@@ -9,16 +9,34 @@ Collector configuration
 
 ```typescript
 const value: models.CollectorAzureBlob = {
+  authType: "manual",
+  connectionString: "<value>",
   type: "azure_blob",
   outputName: "<value>",
   containerName: "<value>",
-  path: "/var",
+  path: "/Applications",
   extractors: [
     {
       key: "<key>",
       expression: "<value>",
     },
   ],
+  recurse: true,
+  includeMetadata: true,
+  includeTags: true,
+  maxBatchSize: 10,
+  parquetChunkSizeMB: 5,
+  parquetChunkDownloadTimeout: 600,
+  textSecret: "<value>",
+  storageAccountName: "<value>",
+  tenantId: "<id>",
+  clientId: "<id>",
+  clientTextSecret: "<value>",
+  endpointSuffix: "<value>",
+  azureCloud: "<value>",
+  certificate: {
+    certificateName: "<value>",
+  },
 };
 ```
 
@@ -67,10 +85,11 @@ const value: models.CollectorFilesystem = {
 
 ```typescript
 const value: models.CollectorGoogleCloudStorage = {
+  authType: "manual",
   type: "google_cloud_storage",
   outputName: "<value>",
   bucket: "<value>",
-  path: "/var/tmp",
+  path: "/private/tmp",
   extractors: [
     {
       key: "<key>",
@@ -78,6 +97,13 @@ const value: models.CollectorGoogleCloudStorage = {
     },
   ],
   endpoint: "<value>",
+  disableTimeFilter: false,
+  recurse: true,
+  maxBatchSize: 10,
+  parquetChunkSizeMB: 5,
+  parquetChunkDownloadTimeout: 600,
+  serviceAccountCredentials: "<value>",
+  textSecret: "<value>",
 };
 ```
 
@@ -85,28 +111,64 @@ const value: models.CollectorGoogleCloudStorage = {
 
 ```typescript
 const value: models.CollectorHealthCheck = {
-  discovery: {},
-  collectUrl: "https://downright-circumference.net",
-  collectRequestParams: "<value>",
-  collectBody: "<value>",
+  collectMethod: "get",
+  collectRequestParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  discovery: {
+    discoverType: "none",
+  },
+  collectUrl: "https://crooked-shoulder.name/",
+  collectBody: "`{ }`",
   collectRequestHeaders: [
     {
       name: "<value>",
       value: "<value>",
     },
   ],
+  authenticateCollect: false,
+  authentication: "none",
+  timeout: 30,
+  rejectUnauthorized: false,
   defaultBreakers: "Cribl",
   safeHeaders: [
     "<value 1>",
     "<value 2>",
   ],
   retryRules: {
+    type: "backoff",
     interval: "<value>",
     limit: "<value>",
     multiplier: "<value>",
     codes: "<value>",
     enableHeader: "<value>",
   },
+  username: "Louisa.Turcotte",
+  password: "0RYmS35HdTLMgXY",
+  credentialsSecret: "<value>",
+  loginUrl: "",
+  loginBody:
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  tokenRespAttribute: "<value>",
+  authHeaderExpr: "`Bearer ${token}`",
+  authRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  clientSecretParamName: "client_secret",
+  clientSecretParamValue: "<value>",
+  authRequestParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  textSecret: "<value>",
   type: "health_check",
 };
 ```
@@ -115,11 +177,19 @@ const value: models.CollectorHealthCheck = {
 
 ```typescript
 const value: models.CollectorRest = {
+  collectMethod: "get",
+  collectRequestParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
   type: "rest",
-  discovery: {},
-  collectUrl: "https://easy-republican.com",
+  discovery: {
+    discoverType: "none",
+  },
+  collectUrl: "https://close-decision.net",
   collectVerb: "<value>",
-  collectRequestParams: "<value>",
   collectBody: "<value>",
   collectRequestHeaders: [
     {
@@ -127,11 +197,23 @@ const value: models.CollectorRest = {
       value: "<value>",
     },
   ],
-  pagination: {},
+  pagination: {
+    type: "none",
+  },
+  authentication: "none",
+  timeout: 0,
+  useRoundRobinDns: false,
+  disableTimeFilter: false,
+  decodeUrl: true,
+  rejectUnauthorized: false,
+  captureHeaders: false,
+  stopOnEmptyResults: false,
   safeHeaders: [
     "<value 1>",
+    "<value 2>",
   ],
   retryRules: {
+    type: "backoff",
     interval: "<value>",
     limit: "<value>",
     multiplier: "<value>",
@@ -143,9 +225,38 @@ const value: models.CollectorRest = {
   },
   scheduling: {
     stateTracking: {
-      enabled: false,
+      enabled: true,
     },
   },
+  username: "Jarvis_Renner",
+  password: "ObmmR1tG_KRVLtd",
+  credentialsSecret: "<value>",
+  loginUrl: "",
+  loginBody:
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  getAuthTokenFromHeader: false,
+  authHeaderKey: "Authorization",
+  authHeaderExpr: "`Bearer ${token}`",
+  authRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  tokenRespAttribute: "<value>",
+  clientSecretParamName: "client_secret",
+  clientSecretParamValue: "<value>",
+  authRequestParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  textSecret: "<value>",
+  scopes: [],
+  serviceAccountCredentials: "<value>",
+  subject: "<value>",
+  hmacFunctionId: "<id>",
 };
 ```
 
@@ -153,21 +264,36 @@ const value: models.CollectorRest = {
 
 ```typescript
 const value: models.CollectorS3 = {
+  partitioningScheme: "none",
   type: "s3",
   outputName: "<value>",
   bucket: "<value>",
+  parquetChunkSizeMB: 5,
+  parquetChunkDownloadTimeout: 600,
   region: "<value>",
-  path: "/boot",
+  path: "/bin",
   extractors: [
     {
       key: "<key>",
       expression: "<value>",
     },
   ],
+  awsAuthenticationMethod: "auto",
   endpoint: "<value>",
+  signatureVersion: "v4",
+  enableAssumeRole: false,
   assumeRoleArn: "<value>",
   assumeRoleExternalId: "<id>",
-  recurse: "<value>",
+  durationSeconds: 3600,
+  maxBatchSize: 10,
+  recurse: true,
+  reuseConnections: true,
+  rejectUnauthorized: true,
+  verifyPermissions: true,
+  disableTimeFilter: false,
+  awsApiKey: "<value>",
+  awsSecretKey: "<value>",
+  awsSecret: "<value>",
 };
 ```
 
@@ -191,10 +317,14 @@ const value: models.CollectorScript = {
 
 ```typescript
 const value: models.CollectorSplunk = {
+  authentication: "basic",
   type: "splunk",
+  searchHead: "https://localhost:8089",
   search: "<value>",
   earliest: "<value>",
   latest: "<value>",
+  endpoint: "/services/search/v2/jobs/export",
+  outputMode: "json",
   collectRequestParams: [
     {
       name: "<value>",
@@ -207,7 +337,13 @@ const value: models.CollectorSplunk = {
       value: "<value>",
     },
   ],
+  timeout: 0,
+  useRoundRobinDns: false,
+  disableTimeFilter: true,
+  rejectUnauthorized: false,
+  handleEscapedChars: false,
   retryRules: {
+    type: "backoff",
     interval: "<value>",
     limit: "<value>",
     multiplier: "<value>",
@@ -216,6 +352,16 @@ const value: models.CollectorSplunk = {
     retryConnectTimeout: "<value>",
     retryConnectReset: "<value>",
   },
+  username: "Enrico53",
+  password: "a6l5mrPhEvtGkTu",
+  credentialsSecret: "<value>",
+  token: "<value>",
+  tokenSecret: "<value>",
+  loginUrl: "`https://localhost:9000/api/v1/auth/login`",
+  loginBody:
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  tokenRespAttribute: "token",
+  authHeaderExpr: "`Bearer ${token}`",
 };
 ```
 

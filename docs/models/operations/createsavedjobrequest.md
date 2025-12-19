@@ -49,13 +49,18 @@ let value: CreateSavedJobRequest = {
     collector: {
       type: "<value>",
       conf: {
+        collectMethod: "get",
+        collectRequestParams: [
+          {
+            name: "<value>",
+            value: "<value>",
+          },
+        ],
         discovery: {
           discoverType: "none",
         },
-        collectUrl: "https://late-pantyhose.name",
-        collectMethod: "get",
-        collectRequestParams: "<value>",
-        collectBody: "<value>",
+        collectUrl: "https://proper-majority.info/",
+        collectBody: "`{ }`",
         collectRequestHeaders: [
           {
             name: "<value>",
@@ -70,6 +75,7 @@ let value: CreateSavedJobRequest = {
         safeHeaders: [
           "<value 1>",
           "<value 2>",
+          "<value 3>",
         ],
         retryRules: {
           type: "backoff",
@@ -79,6 +85,29 @@ let value: CreateSavedJobRequest = {
           codes: "<value>",
           enableHeader: "<value>",
         },
+        username: "Andre.Hills-Reilly62",
+        password: "gwiUSzD5T_NZKTX",
+        credentialsSecret: "<value>",
+        loginUrl: "",
+        loginBody:
+          "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+        tokenRespAttribute: "<value>",
+        authHeaderExpr: "`Bearer ${token}`",
+        authRequestHeaders: [
+          {
+            name: "<value>",
+            value: "<value>",
+          },
+        ],
+        clientSecretParamName: "client_secret",
+        clientSecretParamValue: "<value>",
+        authRequestParams: [
+          {
+            name: "<value>",
+            value: "<value>",
+          },
+        ],
+        textSecret: "<value>",
         type: "health_check",
       },
       destructive: false,
@@ -98,6 +127,7 @@ let value: CreateSavedJobRequest = {
         command: "<value>",
         args: [
           "<value 1>",
+          "<value 2>",
         ],
       },
       throttleRatePerSec: "0",

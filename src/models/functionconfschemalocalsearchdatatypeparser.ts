@@ -7,12 +7,7 @@ import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type FunctionConfSchemaLocalSearchDatatypeParser = {
-  /**
-   * ID of the local search datatype ruleset
-   */
-  rulesetId?: string | undefined;
-};
+export type FunctionConfSchemaLocalSearchDatatypeParser = {};
 
 /** @internal */
 export const FunctionConfSchemaLocalSearchDatatypeParser$inboundSchema:
@@ -20,10 +15,28 @@ export const FunctionConfSchemaLocalSearchDatatypeParser$inboundSchema:
     FunctionConfSchemaLocalSearchDatatypeParser,
     z.ZodTypeDef,
     unknown
-  > = z.object({
-    rulesetId: z.string().optional(),
-  });
+  > = z.object({});
+/** @internal */
+export type FunctionConfSchemaLocalSearchDatatypeParser$Outbound = {};
 
+/** @internal */
+export const FunctionConfSchemaLocalSearchDatatypeParser$outboundSchema:
+  z.ZodType<
+    FunctionConfSchemaLocalSearchDatatypeParser$Outbound,
+    z.ZodTypeDef,
+    FunctionConfSchemaLocalSearchDatatypeParser
+  > = z.object({});
+
+export function functionConfSchemaLocalSearchDatatypeParserToJSON(
+  functionConfSchemaLocalSearchDatatypeParser:
+    FunctionConfSchemaLocalSearchDatatypeParser,
+): string {
+  return JSON.stringify(
+    FunctionConfSchemaLocalSearchDatatypeParser$outboundSchema.parse(
+      functionConfSchemaLocalSearchDatatypeParser,
+    ),
+  );
+}
 export function functionConfSchemaLocalSearchDatatypeParserFromJSON(
   jsonString: string,
 ): SafeParseResult<
