@@ -71,16 +71,16 @@ import { SDKValidationError } from "./errors/sdkvalidationerror.js";
  * Collector configuration
  */
 export type CollectorConf =
-  | CollectorAzureBlob
+  | (CollectorAzureBlob & { type: "azure_blob" })
   | CollectorCriblLake
   | CollectorDatabase
   | CollectorFilesystem
-  | CollectorGoogleCloudStorage
-  | CollectorHealthCheck
-  | CollectorRest
-  | CollectorS3
+  | (CollectorGoogleCloudStorage & { type: "google_cloud_storage" })
+  | (CollectorHealthCheck & { type: "health_check" })
+  | (CollectorRest & { type: "rest" })
+  | (CollectorS3 & { type: "s3" })
   | CollectorScript
-  | CollectorSplunk;
+  | (CollectorSplunk & { type: "splunk" });
 
 /** @internal */
 export const CollectorConf$inboundSchema: z.ZodType<
@@ -88,29 +88,35 @@ export const CollectorConf$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
-  CollectorAzureBlob$inboundSchema,
+  CollectorAzureBlob$inboundSchema.and(
+    z.object({ type: z.literal("azure_blob") }),
+  ),
   CollectorCriblLake$inboundSchema,
   CollectorDatabase$inboundSchema,
   CollectorFilesystem$inboundSchema,
-  CollectorGoogleCloudStorage$inboundSchema,
-  CollectorHealthCheck$inboundSchema,
-  CollectorRest$inboundSchema,
-  CollectorS3$inboundSchema,
+  CollectorGoogleCloudStorage$inboundSchema.and(
+    z.object({ type: z.literal("google_cloud_storage") }),
+  ),
+  CollectorHealthCheck$inboundSchema.and(
+    z.object({ type: z.literal("health_check") }),
+  ),
+  CollectorRest$inboundSchema.and(z.object({ type: z.literal("rest") })),
+  CollectorS3$inboundSchema.and(z.object({ type: z.literal("s3") })),
   CollectorScript$inboundSchema,
-  CollectorSplunk$inboundSchema,
+  CollectorSplunk$inboundSchema.and(z.object({ type: z.literal("splunk") })),
 ]);
 /** @internal */
 export type CollectorConf$Outbound =
-  | CollectorAzureBlob$Outbound
+  | (CollectorAzureBlob$Outbound & { type: "azure_blob" })
   | CollectorCriblLake$Outbound
   | CollectorDatabase$Outbound
   | CollectorFilesystem$Outbound
-  | CollectorGoogleCloudStorage$Outbound
-  | CollectorHealthCheck$Outbound
-  | CollectorRest$Outbound
-  | CollectorS3$Outbound
+  | (CollectorGoogleCloudStorage$Outbound & { type: "google_cloud_storage" })
+  | (CollectorHealthCheck$Outbound & { type: "health_check" })
+  | (CollectorRest$Outbound & { type: "rest" })
+  | (CollectorS3$Outbound & { type: "s3" })
   | CollectorScript$Outbound
-  | CollectorSplunk$Outbound;
+  | (CollectorSplunk$Outbound & { type: "splunk" });
 
 /** @internal */
 export const CollectorConf$outboundSchema: z.ZodType<
@@ -118,16 +124,22 @@ export const CollectorConf$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CollectorConf
 > = z.union([
-  CollectorAzureBlob$outboundSchema,
+  CollectorAzureBlob$outboundSchema.and(
+    z.object({ type: z.literal("azure_blob") }),
+  ),
   CollectorCriblLake$outboundSchema,
   CollectorDatabase$outboundSchema,
   CollectorFilesystem$outboundSchema,
-  CollectorGoogleCloudStorage$outboundSchema,
-  CollectorHealthCheck$outboundSchema,
-  CollectorRest$outboundSchema,
-  CollectorS3$outboundSchema,
+  CollectorGoogleCloudStorage$outboundSchema.and(
+    z.object({ type: z.literal("google_cloud_storage") }),
+  ),
+  CollectorHealthCheck$outboundSchema.and(
+    z.object({ type: z.literal("health_check") }),
+  ),
+  CollectorRest$outboundSchema.and(z.object({ type: z.literal("rest") })),
+  CollectorS3$outboundSchema.and(z.object({ type: z.literal("s3") })),
   CollectorScript$outboundSchema,
-  CollectorSplunk$outboundSchema,
+  CollectorSplunk$outboundSchema.and(z.object({ type: z.literal("splunk") })),
 ]);
 
 export function collectorConfToJSON(collectorConf: CollectorConf): string {

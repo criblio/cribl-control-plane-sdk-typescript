@@ -5,44 +5,14 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
- * Format of the returned output
- */
-export const CollectorSplunkOutputMode = {
-  Csv: "csv",
-  Json: "json",
-} as const;
-/**
- * Format of the returned output
- */
-export type CollectorSplunkOutputMode = OpenEnum<
-  typeof CollectorSplunkOutputMode
->;
-
-export type CollectRequestParam = {
-  name: string;
-  /**
-   * JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
-   */
-  value: string;
-};
-
-export type CollectorSplunkCollectRequestHeader = {
-  name: string;
-  /**
-   * JavaScript expression to compute the header's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
-   */
-  value: string;
-};
-
-/**
  * Authentication method for Discover and Collect REST calls
  */
-export const CollectorSplunkAuthentication = {
+export const CollectorSplunkAuthentication7 = {
   /**
    * None
    */
@@ -67,14 +37,55 @@ export const CollectorSplunkAuthentication = {
 /**
  * Authentication method for Discover and Collect REST calls
  */
-export type CollectorSplunkAuthentication = OpenEnum<
-  typeof CollectorSplunkAuthentication
+export type CollectorSplunkAuthentication7 = OpenEnum<
+  typeof CollectorSplunkAuthentication7
 >;
+
+/**
+ * Collector type: splunk
+ */
+export const CollectorSplunkType7 = {
+  Splunk: "splunk",
+} as const;
+/**
+ * Collector type: splunk
+ */
+export type CollectorSplunkType7 = ClosedEnum<typeof CollectorSplunkType7>;
+
+/**
+ * Format of the returned output
+ */
+export const CollectorSplunkOutputMode7 = {
+  Csv: "csv",
+  Json: "json",
+} as const;
+/**
+ * Format of the returned output
+ */
+export type CollectorSplunkOutputMode7 = OpenEnum<
+  typeof CollectorSplunkOutputMode7
+>;
+
+export type CollectorSplunkCollectRequestParam7 = {
+  name: string;
+  /**
+   * JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
+   */
+  value: string;
+};
+
+export type CollectorSplunkCollectRequestHeader7 = {
+  name: string;
+  /**
+   * JavaScript expression to compute the header's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
+   */
+  value: string;
+};
 
 /**
  * Algorithm to use when performing HTTP retries
  */
-export const CollectorSplunkRetryType = {
+export const CollectorSplunkRetryType7 = {
   /**
    * Disabled
    */
@@ -91,15 +102,15 @@ export const CollectorSplunkRetryType = {
 /**
  * Algorithm to use when performing HTTP retries
  */
-export type CollectorSplunkRetryType = OpenEnum<
-  typeof CollectorSplunkRetryType
+export type CollectorSplunkRetryType7 = OpenEnum<
+  typeof CollectorSplunkRetryType7
 >;
 
-export type CollectorSplunkRetryRules = {
+export type CollectorSplunkRetryRules7 = {
   /**
    * Algorithm to use when performing HTTP retries
    */
-  type?: CollectorSplunkRetryType | undefined;
+  type?: CollectorSplunkRetryType7 | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -109,11 +120,35 @@ export type CollectorSplunkRetryRules = {
   retryConnectReset?: any | undefined;
 };
 
-export type CollectorSplunk = {
+export type CollectorSplunkSplunk7 = {
+  /**
+   * Authentication method for Discover and Collect REST calls
+   */
+  authentication?: CollectorSplunkAuthentication7 | undefined;
+  /**
+   * URL to use for login API call, this call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Select or create a stored secret that references your login credentials
+   */
+  credentialsSecret: string;
+  /**
+   * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
+   */
+  loginBody?: string | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are allowed.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
   /**
    * Collector type: splunk
    */
-  type: "splunk";
+  type: CollectorSplunkType7;
   /**
    * Search head base URL. Can be an expression. Default is https://localhost:8089.
    */
@@ -137,21 +172,17 @@ export type CollectorSplunk = {
   /**
    * Format of the returned output
    */
-  outputMode?: CollectorSplunkOutputMode | undefined;
+  outputMode?: CollectorSplunkOutputMode7 | undefined;
   /**
    * Optional collect request parameters
    */
-  collectRequestParams?: Array<CollectRequestParam> | undefined;
+  collectRequestParams?: Array<CollectorSplunkCollectRequestParam7> | undefined;
   /**
    * Optional collect request headers
    */
   collectRequestHeaders?:
-    | Array<CollectorSplunkCollectRequestHeader>
+    | Array<CollectorSplunkCollectRequestHeader7>
     | undefined;
-  /**
-   * Authentication method for Discover and Collect REST calls
-   */
-  authentication?: CollectorSplunkAuthentication | undefined;
   /**
    * HTTP request inactivity timeout. Use 0 for no timeout.
    */
@@ -172,25 +203,1287 @@ export type CollectorSplunk = {
    * Escape characters (\") in search queries will be passed directly to Splunk
    */
   handleEscapedChars?: boolean | undefined;
-  retryRules?: CollectorSplunkRetryRules | undefined;
+  retryRules?: CollectorSplunkRetryRules7 | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  /**
+   * Select or create a stored secret that references your Bearer token
+   */
+  tokenSecret?: string | undefined;
 };
 
+/**
+ * Authentication method for Discover and Collect REST calls
+ */
+export const CollectorSplunkAuthentication6 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  BasicSecret: "basicSecret",
+  /**
+   * Bearer Token
+   */
+  Token: "token",
+  /**
+   * Bearer Token (text secret)
+   */
+  TokenSecret: "tokenSecret",
+} as const;
+/**
+ * Authentication method for Discover and Collect REST calls
+ */
+export type CollectorSplunkAuthentication6 = OpenEnum<
+  typeof CollectorSplunkAuthentication6
+>;
+
+/**
+ * Collector type: splunk
+ */
+export const CollectorSplunkType6 = {
+  Splunk: "splunk",
+} as const;
+/**
+ * Collector type: splunk
+ */
+export type CollectorSplunkType6 = ClosedEnum<typeof CollectorSplunkType6>;
+
+/**
+ * Format of the returned output
+ */
+export const CollectorSplunkOutputMode6 = {
+  Csv: "csv",
+  Json: "json",
+} as const;
+/**
+ * Format of the returned output
+ */
+export type CollectorSplunkOutputMode6 = OpenEnum<
+  typeof CollectorSplunkOutputMode6
+>;
+
+export type CollectorSplunkCollectRequestParam6 = {
+  name: string;
+  /**
+   * JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
+   */
+  value: string;
+};
+
+export type CollectorSplunkCollectRequestHeader6 = {
+  name: string;
+  /**
+   * JavaScript expression to compute the header's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
+   */
+  value: string;
+};
+
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export const CollectorSplunkRetryType6 = {
+  /**
+   * Disabled
+   */
+  None: "none",
+  /**
+   * Backoff
+   */
+  Backoff: "backoff",
+  /**
+   * Static
+   */
+  Static: "static",
+} as const;
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export type CollectorSplunkRetryType6 = OpenEnum<
+  typeof CollectorSplunkRetryType6
+>;
+
+export type CollectorSplunkRetryRules6 = {
+  /**
+   * Algorithm to use when performing HTTP retries
+   */
+  type?: CollectorSplunkRetryType6 | undefined;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+export type CollectorSplunkSplunk6 = {
+  /**
+   * Authentication method for Discover and Collect REST calls
+   */
+  authentication?: CollectorSplunkAuthentication6 | undefined;
+  /**
+   * URL to use for login API call, this call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  username: string;
+  password: string;
+  /**
+   * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
+   */
+  loginBody?: string | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are allowed.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * Collector type: splunk
+   */
+  type: CollectorSplunkType6;
+  /**
+   * Search head base URL. Can be an expression. Default is https://localhost:8089.
+   */
+  searchHead?: string | undefined;
+  /**
+   * Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
+   */
+  search: string;
+  /**
+   * The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
+   */
+  earliest?: string | undefined;
+  /**
+   * The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
+   */
+  latest?: string | undefined;
+  /**
+   * REST API used to create a search
+   */
+  endpoint?: string | undefined;
+  /**
+   * Format of the returned output
+   */
+  outputMode?: CollectorSplunkOutputMode6 | undefined;
+  /**
+   * Optional collect request parameters
+   */
+  collectRequestParams?: Array<CollectorSplunkCollectRequestParam6> | undefined;
+  /**
+   * Optional collect request headers
+   */
+  collectRequestHeaders?:
+    | Array<CollectorSplunkCollectRequestHeader6>
+    | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 for no timeout.
+   */
+  timeout?: number | undefined;
+  /**
+   * Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Disable collector event time filtering when a date range is specified
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Escape characters (\") in search queries will be passed directly to Splunk
+   */
+  handleEscapedChars?: boolean | undefined;
+  retryRules?: CollectorSplunkRetryRules6 | undefined;
+  /**
+   * Select or create a stored secret that references your login credentials
+   */
+  credentialsSecret?: string | undefined;
+  token?: string | undefined;
+  /**
+   * Select or create a stored secret that references your Bearer token
+   */
+  tokenSecret?: string | undefined;
+};
+
+/**
+ * Authentication method for Discover and Collect REST calls
+ */
+export const CollectorSplunkAuthentication5 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  BasicSecret: "basicSecret",
+  /**
+   * Bearer Token
+   */
+  Token: "token",
+  /**
+   * Bearer Token (text secret)
+   */
+  TokenSecret: "tokenSecret",
+} as const;
+/**
+ * Authentication method for Discover and Collect REST calls
+ */
+export type CollectorSplunkAuthentication5 = OpenEnum<
+  typeof CollectorSplunkAuthentication5
+>;
+
+/**
+ * Collector type: splunk
+ */
+export const CollectorSplunkType5 = {
+  Splunk: "splunk",
+} as const;
+/**
+ * Collector type: splunk
+ */
+export type CollectorSplunkType5 = ClosedEnum<typeof CollectorSplunkType5>;
+
+/**
+ * Format of the returned output
+ */
+export const CollectorSplunkOutputMode5 = {
+  Csv: "csv",
+  Json: "json",
+} as const;
+/**
+ * Format of the returned output
+ */
+export type CollectorSplunkOutputMode5 = OpenEnum<
+  typeof CollectorSplunkOutputMode5
+>;
+
+export type CollectorSplunkCollectRequestParam5 = {
+  name: string;
+  /**
+   * JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
+   */
+  value: string;
+};
+
+export type CollectorSplunkCollectRequestHeader5 = {
+  name: string;
+  /**
+   * JavaScript expression to compute the header's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
+   */
+  value: string;
+};
+
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export const CollectorSplunkRetryType5 = {
+  /**
+   * Disabled
+   */
+  None: "none",
+  /**
+   * Backoff
+   */
+  Backoff: "backoff",
+  /**
+   * Static
+   */
+  Static: "static",
+} as const;
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export type CollectorSplunkRetryType5 = OpenEnum<
+  typeof CollectorSplunkRetryType5
+>;
+
+export type CollectorSplunkRetryRules5 = {
+  /**
+   * Algorithm to use when performing HTTP retries
+   */
+  type?: CollectorSplunkRetryType5 | undefined;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+export type CollectorSplunkSplunk5 = {
+  /**
+   * Authentication method for Discover and Collect REST calls
+   */
+  authentication?: CollectorSplunkAuthentication5 | undefined;
+  /**
+   * Select or create a stored secret that references your Bearer token
+   */
+  tokenSecret: string;
+  /**
+   * Collector type: splunk
+   */
+  type: CollectorSplunkType5;
+  /**
+   * Search head base URL. Can be an expression. Default is https://localhost:8089.
+   */
+  searchHead?: string | undefined;
+  /**
+   * Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
+   */
+  search: string;
+  /**
+   * The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
+   */
+  earliest?: string | undefined;
+  /**
+   * The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
+   */
+  latest?: string | undefined;
+  /**
+   * REST API used to create a search
+   */
+  endpoint?: string | undefined;
+  /**
+   * Format of the returned output
+   */
+  outputMode?: CollectorSplunkOutputMode5 | undefined;
+  /**
+   * Optional collect request parameters
+   */
+  collectRequestParams?: Array<CollectorSplunkCollectRequestParam5> | undefined;
+  /**
+   * Optional collect request headers
+   */
+  collectRequestHeaders?:
+    | Array<CollectorSplunkCollectRequestHeader5>
+    | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 for no timeout.
+   */
+  timeout?: number | undefined;
+  /**
+   * Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Disable collector event time filtering when a date range is specified
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Escape characters (\") in search queries will be passed directly to Splunk
+   */
+  handleEscapedChars?: boolean | undefined;
+  retryRules?: CollectorSplunkRetryRules5 | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a stored secret that references your login credentials
+   */
+  credentialsSecret?: string | undefined;
+  token?: string | undefined;
+  /**
+   * URL to use for login API call, this call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
+   */
+  loginBody?: string | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are allowed.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+};
+
+/**
+ * Authentication method for Discover and Collect REST calls
+ */
+export const CollectorSplunkAuthentication4 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  BasicSecret: "basicSecret",
+  /**
+   * Bearer Token
+   */
+  Token: "token",
+  /**
+   * Bearer Token (text secret)
+   */
+  TokenSecret: "tokenSecret",
+} as const;
+/**
+ * Authentication method for Discover and Collect REST calls
+ */
+export type CollectorSplunkAuthentication4 = OpenEnum<
+  typeof CollectorSplunkAuthentication4
+>;
+
+/**
+ * Collector type: splunk
+ */
+export const CollectorSplunkType4 = {
+  Splunk: "splunk",
+} as const;
+/**
+ * Collector type: splunk
+ */
+export type CollectorSplunkType4 = ClosedEnum<typeof CollectorSplunkType4>;
+
+/**
+ * Format of the returned output
+ */
+export const CollectorSplunkOutputMode4 = {
+  Csv: "csv",
+  Json: "json",
+} as const;
+/**
+ * Format of the returned output
+ */
+export type CollectorSplunkOutputMode4 = OpenEnum<
+  typeof CollectorSplunkOutputMode4
+>;
+
+export type CollectorSplunkCollectRequestParam4 = {
+  name: string;
+  /**
+   * JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
+   */
+  value: string;
+};
+
+export type CollectorSplunkCollectRequestHeader4 = {
+  name: string;
+  /**
+   * JavaScript expression to compute the header's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
+   */
+  value: string;
+};
+
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export const CollectorSplunkRetryType4 = {
+  /**
+   * Disabled
+   */
+  None: "none",
+  /**
+   * Backoff
+   */
+  Backoff: "backoff",
+  /**
+   * Static
+   */
+  Static: "static",
+} as const;
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export type CollectorSplunkRetryType4 = OpenEnum<
+  typeof CollectorSplunkRetryType4
+>;
+
+export type CollectorSplunkRetryRules4 = {
+  /**
+   * Algorithm to use when performing HTTP retries
+   */
+  type?: CollectorSplunkRetryType4 | undefined;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+export type CollectorSplunkSplunk4 = {
+  /**
+   * Authentication method for Discover and Collect REST calls
+   */
+  authentication?: CollectorSplunkAuthentication4 | undefined;
+  token: string;
+  /**
+   * Collector type: splunk
+   */
+  type: CollectorSplunkType4;
+  /**
+   * Search head base URL. Can be an expression. Default is https://localhost:8089.
+   */
+  searchHead?: string | undefined;
+  /**
+   * Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
+   */
+  search: string;
+  /**
+   * The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
+   */
+  earliest?: string | undefined;
+  /**
+   * The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
+   */
+  latest?: string | undefined;
+  /**
+   * REST API used to create a search
+   */
+  endpoint?: string | undefined;
+  /**
+   * Format of the returned output
+   */
+  outputMode?: CollectorSplunkOutputMode4 | undefined;
+  /**
+   * Optional collect request parameters
+   */
+  collectRequestParams?: Array<CollectorSplunkCollectRequestParam4> | undefined;
+  /**
+   * Optional collect request headers
+   */
+  collectRequestHeaders?:
+    | Array<CollectorSplunkCollectRequestHeader4>
+    | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 for no timeout.
+   */
+  timeout?: number | undefined;
+  /**
+   * Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Disable collector event time filtering when a date range is specified
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Escape characters (\") in search queries will be passed directly to Splunk
+   */
+  handleEscapedChars?: boolean | undefined;
+  retryRules?: CollectorSplunkRetryRules4 | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a stored secret that references your login credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Select or create a stored secret that references your Bearer token
+   */
+  tokenSecret?: string | undefined;
+  /**
+   * URL to use for login API call, this call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
+   */
+  loginBody?: string | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are allowed.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+};
+
+/**
+ * Authentication method for Discover and Collect REST calls
+ */
+export const CollectorSplunkAuthentication3 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  BasicSecret: "basicSecret",
+  /**
+   * Bearer Token
+   */
+  Token: "token",
+  /**
+   * Bearer Token (text secret)
+   */
+  TokenSecret: "tokenSecret",
+} as const;
+/**
+ * Authentication method for Discover and Collect REST calls
+ */
+export type CollectorSplunkAuthentication3 = OpenEnum<
+  typeof CollectorSplunkAuthentication3
+>;
+
+/**
+ * Collector type: splunk
+ */
+export const CollectorSplunkType3 = {
+  Splunk: "splunk",
+} as const;
+/**
+ * Collector type: splunk
+ */
+export type CollectorSplunkType3 = ClosedEnum<typeof CollectorSplunkType3>;
+
+/**
+ * Format of the returned output
+ */
+export const CollectorSplunkOutputMode3 = {
+  Csv: "csv",
+  Json: "json",
+} as const;
+/**
+ * Format of the returned output
+ */
+export type CollectorSplunkOutputMode3 = OpenEnum<
+  typeof CollectorSplunkOutputMode3
+>;
+
+export type CollectorSplunkCollectRequestParam3 = {
+  name: string;
+  /**
+   * JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
+   */
+  value: string;
+};
+
+export type CollectorSplunkCollectRequestHeader3 = {
+  name: string;
+  /**
+   * JavaScript expression to compute the header's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
+   */
+  value: string;
+};
+
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export const CollectorSplunkRetryType3 = {
+  /**
+   * Disabled
+   */
+  None: "none",
+  /**
+   * Backoff
+   */
+  Backoff: "backoff",
+  /**
+   * Static
+   */
+  Static: "static",
+} as const;
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export type CollectorSplunkRetryType3 = OpenEnum<
+  typeof CollectorSplunkRetryType3
+>;
+
+export type CollectorSplunkRetryRules3 = {
+  /**
+   * Algorithm to use when performing HTTP retries
+   */
+  type?: CollectorSplunkRetryType3 | undefined;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+export type CollectorSplunkSplunk3 = {
+  /**
+   * Authentication method for Discover and Collect REST calls
+   */
+  authentication?: CollectorSplunkAuthentication3 | undefined;
+  /**
+   * Select or create a stored secret that references your login credentials
+   */
+  credentialsSecret: string;
+  /**
+   * Collector type: splunk
+   */
+  type: CollectorSplunkType3;
+  /**
+   * Search head base URL. Can be an expression. Default is https://localhost:8089.
+   */
+  searchHead?: string | undefined;
+  /**
+   * Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
+   */
+  search: string;
+  /**
+   * The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
+   */
+  earliest?: string | undefined;
+  /**
+   * The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
+   */
+  latest?: string | undefined;
+  /**
+   * REST API used to create a search
+   */
+  endpoint?: string | undefined;
+  /**
+   * Format of the returned output
+   */
+  outputMode?: CollectorSplunkOutputMode3 | undefined;
+  /**
+   * Optional collect request parameters
+   */
+  collectRequestParams?: Array<CollectorSplunkCollectRequestParam3> | undefined;
+  /**
+   * Optional collect request headers
+   */
+  collectRequestHeaders?:
+    | Array<CollectorSplunkCollectRequestHeader3>
+    | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 for no timeout.
+   */
+  timeout?: number | undefined;
+  /**
+   * Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Disable collector event time filtering when a date range is specified
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Escape characters (\") in search queries will be passed directly to Splunk
+   */
+  handleEscapedChars?: boolean | undefined;
+  retryRules?: CollectorSplunkRetryRules3 | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  /**
+   * Select or create a stored secret that references your Bearer token
+   */
+  tokenSecret?: string | undefined;
+  /**
+   * URL to use for login API call, this call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
+   */
+  loginBody?: string | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are allowed.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+};
+
+/**
+ * Authentication method for Discover and Collect REST calls
+ */
+export const CollectorSplunkAuthentication2 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  BasicSecret: "basicSecret",
+  /**
+   * Bearer Token
+   */
+  Token: "token",
+  /**
+   * Bearer Token (text secret)
+   */
+  TokenSecret: "tokenSecret",
+} as const;
+/**
+ * Authentication method for Discover and Collect REST calls
+ */
+export type CollectorSplunkAuthentication2 = OpenEnum<
+  typeof CollectorSplunkAuthentication2
+>;
+
+/**
+ * Collector type: splunk
+ */
+export const CollectorSplunkType2 = {
+  Splunk: "splunk",
+} as const;
+/**
+ * Collector type: splunk
+ */
+export type CollectorSplunkType2 = ClosedEnum<typeof CollectorSplunkType2>;
+
+/**
+ * Format of the returned output
+ */
+export const CollectorSplunkOutputMode2 = {
+  Csv: "csv",
+  Json: "json",
+} as const;
+/**
+ * Format of the returned output
+ */
+export type CollectorSplunkOutputMode2 = OpenEnum<
+  typeof CollectorSplunkOutputMode2
+>;
+
+export type CollectorSplunkCollectRequestParam2 = {
+  name: string;
+  /**
+   * JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
+   */
+  value: string;
+};
+
+export type CollectorSplunkCollectRequestHeader2 = {
+  name: string;
+  /**
+   * JavaScript expression to compute the header's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
+   */
+  value: string;
+};
+
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export const CollectorSplunkRetryType2 = {
+  /**
+   * Disabled
+   */
+  None: "none",
+  /**
+   * Backoff
+   */
+  Backoff: "backoff",
+  /**
+   * Static
+   */
+  Static: "static",
+} as const;
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export type CollectorSplunkRetryType2 = OpenEnum<
+  typeof CollectorSplunkRetryType2
+>;
+
+export type CollectorSplunkRetryRules2 = {
+  /**
+   * Algorithm to use when performing HTTP retries
+   */
+  type?: CollectorSplunkRetryType2 | undefined;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+export type CollectorSplunkSplunk2 = {
+  /**
+   * Authentication method for Discover and Collect REST calls
+   */
+  authentication?: CollectorSplunkAuthentication2 | undefined;
+  username: string;
+  password: string;
+  /**
+   * Collector type: splunk
+   */
+  type: CollectorSplunkType2;
+  /**
+   * Search head base URL. Can be an expression. Default is https://localhost:8089.
+   */
+  searchHead?: string | undefined;
+  /**
+   * Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
+   */
+  search: string;
+  /**
+   * The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
+   */
+  earliest?: string | undefined;
+  /**
+   * The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
+   */
+  latest?: string | undefined;
+  /**
+   * REST API used to create a search
+   */
+  endpoint?: string | undefined;
+  /**
+   * Format of the returned output
+   */
+  outputMode?: CollectorSplunkOutputMode2 | undefined;
+  /**
+   * Optional collect request parameters
+   */
+  collectRequestParams?: Array<CollectorSplunkCollectRequestParam2> | undefined;
+  /**
+   * Optional collect request headers
+   */
+  collectRequestHeaders?:
+    | Array<CollectorSplunkCollectRequestHeader2>
+    | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 for no timeout.
+   */
+  timeout?: number | undefined;
+  /**
+   * Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Disable collector event time filtering when a date range is specified
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Escape characters (\") in search queries will be passed directly to Splunk
+   */
+  handleEscapedChars?: boolean | undefined;
+  retryRules?: CollectorSplunkRetryRules2 | undefined;
+  /**
+   * Select or create a stored secret that references your login credentials
+   */
+  credentialsSecret?: string | undefined;
+  token?: string | undefined;
+  /**
+   * Select or create a stored secret that references your Bearer token
+   */
+  tokenSecret?: string | undefined;
+  /**
+   * URL to use for login API call, this call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
+   */
+  loginBody?: string | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are allowed.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+};
+
+/**
+ * Authentication method for Discover and Collect REST calls
+ */
+export const CollectorSplunkAuthentication1 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Basic
+   */
+  Basic: "basic",
+  /**
+   * Basic (credentials secret)
+   */
+  BasicSecret: "basicSecret",
+  /**
+   * Bearer Token
+   */
+  Token: "token",
+  /**
+   * Bearer Token (text secret)
+   */
+  TokenSecret: "tokenSecret",
+} as const;
+/**
+ * Authentication method for Discover and Collect REST calls
+ */
+export type CollectorSplunkAuthentication1 = OpenEnum<
+  typeof CollectorSplunkAuthentication1
+>;
+
+/**
+ * Collector type: splunk
+ */
+export const CollectorSplunkType1 = {
+  Splunk: "splunk",
+} as const;
+/**
+ * Collector type: splunk
+ */
+export type CollectorSplunkType1 = ClosedEnum<typeof CollectorSplunkType1>;
+
+/**
+ * Format of the returned output
+ */
+export const CollectorSplunkOutputMode1 = {
+  Csv: "csv",
+  Json: "json",
+} as const;
+/**
+ * Format of the returned output
+ */
+export type CollectorSplunkOutputMode1 = OpenEnum<
+  typeof CollectorSplunkOutputMode1
+>;
+
+export type CollectorSplunkCollectRequestParam1 = {
+  name: string;
+  /**
+   * JavaScript expression to compute the parameter's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
+   */
+  value: string;
+};
+
+export type CollectorSplunkCollectRequestHeader1 = {
+  name: string;
+  /**
+   * JavaScript expression to compute the header's value, normally enclosed in backticks (`${earliest}`). If a constant, use single quotes ('earliest'). Values without delimiters (earliest) are evaluated as strings.
+   */
+  value: string;
+};
+
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export const CollectorSplunkRetryType1 = {
+  /**
+   * Disabled
+   */
+  None: "none",
+  /**
+   * Backoff
+   */
+  Backoff: "backoff",
+  /**
+   * Static
+   */
+  Static: "static",
+} as const;
+/**
+ * Algorithm to use when performing HTTP retries
+ */
+export type CollectorSplunkRetryType1 = OpenEnum<
+  typeof CollectorSplunkRetryType1
+>;
+
+export type CollectorSplunkRetryRules1 = {
+  /**
+   * Algorithm to use when performing HTTP retries
+   */
+  type?: CollectorSplunkRetryType1 | undefined;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+export type CollectorSplunkSplunk1 = {
+  /**
+   * Authentication method for Discover and Collect REST calls
+   */
+  authentication?: CollectorSplunkAuthentication1 | undefined;
+  /**
+   * Collector type: splunk
+   */
+  type: CollectorSplunkType1;
+  /**
+   * Search head base URL. Can be an expression. Default is https://localhost:8089.
+   */
+  searchHead?: string | undefined;
+  /**
+   * Examples: 'index=myAppLogs level=error channel=myApp' OR '| mstats avg(myStat) as myStat WHERE index=myStatsIndex.'
+   */
+  search: string;
+  /**
+   * The earliest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-16m@m'
+   */
+  earliest?: string | undefined;
+  /**
+   * The latest time boundary for the search. Can be an exact or relative time. Examples: '2022-01-14T12:00:00Z' or '-1m@m'
+   */
+  latest?: string | undefined;
+  /**
+   * REST API used to create a search
+   */
+  endpoint?: string | undefined;
+  /**
+   * Format of the returned output
+   */
+  outputMode?: CollectorSplunkOutputMode1 | undefined;
+  /**
+   * Optional collect request parameters
+   */
+  collectRequestParams?: Array<CollectorSplunkCollectRequestParam1> | undefined;
+  /**
+   * Optional collect request headers
+   */
+  collectRequestHeaders?:
+    | Array<CollectorSplunkCollectRequestHeader1>
+    | undefined;
+  /**
+   * HTTP request inactivity timeout. Use 0 for no timeout.
+   */
+  timeout?: number | undefined;
+  /**
+   * Use round-robin DNS lookup. Suitable when DNS server returns multiple addresses in sort order.
+   */
+  useRoundRobinDns?: boolean | undefined;
+  /**
+   * Disable collector event time filtering when a date range is specified
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as self-signed certificates)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Escape characters (\") in search queries will be passed directly to Splunk
+   */
+  handleEscapedChars?: boolean | undefined;
+  retryRules?: CollectorSplunkRetryRules1 | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Select or create a stored secret that references your login credentials
+   */
+  credentialsSecret?: string | undefined;
+  token?: string | undefined;
+  /**
+   * Select or create a stored secret that references your Bearer token
+   */
+  tokenSecret?: string | undefined;
+  /**
+   * URL to use for login API call, this call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
+   */
+  loginBody?: string | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are allowed.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+};
+
+export type CollectorSplunk =
+  | CollectorSplunkSplunk2
+  | CollectorSplunkSplunk6
+  | CollectorSplunkSplunk3
+  | CollectorSplunkSplunk4
+  | CollectorSplunkSplunk5
+  | CollectorSplunkSplunk7
+  | CollectorSplunkSplunk1;
+
 /** @internal */
-export const CollectorSplunkOutputMode$inboundSchema: z.ZodType<
-  CollectorSplunkOutputMode,
+export const CollectorSplunkAuthentication7$inboundSchema: z.ZodType<
+  CollectorSplunkAuthentication7,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(CollectorSplunkOutputMode);
+> = openEnums.inboundSchema(CollectorSplunkAuthentication7);
 /** @internal */
-export const CollectorSplunkOutputMode$outboundSchema: z.ZodType<
+export const CollectorSplunkAuthentication7$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CollectorSplunkOutputMode
-> = openEnums.outboundSchema(CollectorSplunkOutputMode);
+  CollectorSplunkAuthentication7
+> = openEnums.outboundSchema(CollectorSplunkAuthentication7);
 
 /** @internal */
-export const CollectRequestParam$inboundSchema: z.ZodType<
-  CollectRequestParam,
+export const CollectorSplunkType7$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorSplunkType7
+> = z.nativeEnum(CollectorSplunkType7);
+/** @internal */
+export const CollectorSplunkType7$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorSplunkType7
+> = CollectorSplunkType7$inboundSchema;
+
+/** @internal */
+export const CollectorSplunkOutputMode7$inboundSchema: z.ZodType<
+  CollectorSplunkOutputMode7,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorSplunkOutputMode7);
+/** @internal */
+export const CollectorSplunkOutputMode7$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorSplunkOutputMode7
+> = openEnums.outboundSchema(CollectorSplunkOutputMode7);
+
+/** @internal */
+export const CollectorSplunkCollectRequestParam7$inboundSchema: z.ZodType<
+  CollectorSplunkCollectRequestParam7,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -198,116 +1491,106 @@ export const CollectRequestParam$inboundSchema: z.ZodType<
   value: z.string(),
 });
 /** @internal */
-export type CollectRequestParam$Outbound = {
+export type CollectorSplunkCollectRequestParam7$Outbound = {
   name: string;
   value: string;
 };
 
 /** @internal */
-export const CollectRequestParam$outboundSchema: z.ZodType<
-  CollectRequestParam$Outbound,
+export const CollectorSplunkCollectRequestParam7$outboundSchema: z.ZodType<
+  CollectorSplunkCollectRequestParam7$Outbound,
   z.ZodTypeDef,
-  CollectRequestParam
+  CollectorSplunkCollectRequestParam7
 > = z.object({
   name: z.string(),
   value: z.string(),
 });
 
-export function collectRequestParamToJSON(
-  collectRequestParam: CollectRequestParam,
+export function collectorSplunkCollectRequestParam7ToJSON(
+  collectorSplunkCollectRequestParam7: CollectorSplunkCollectRequestParam7,
 ): string {
   return JSON.stringify(
-    CollectRequestParam$outboundSchema.parse(collectRequestParam),
-  );
-}
-export function collectRequestParamFromJSON(
-  jsonString: string,
-): SafeParseResult<CollectRequestParam, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CollectRequestParam$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectRequestParam' from JSON`,
-  );
-}
-
-/** @internal */
-export const CollectorSplunkCollectRequestHeader$inboundSchema: z.ZodType<
-  CollectorSplunkCollectRequestHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type CollectorSplunkCollectRequestHeader$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CollectorSplunkCollectRequestHeader$outboundSchema: z.ZodType<
-  CollectorSplunkCollectRequestHeader$Outbound,
-  z.ZodTypeDef,
-  CollectorSplunkCollectRequestHeader
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function collectorSplunkCollectRequestHeaderToJSON(
-  collectorSplunkCollectRequestHeader: CollectorSplunkCollectRequestHeader,
-): string {
-  return JSON.stringify(
-    CollectorSplunkCollectRequestHeader$outboundSchema.parse(
-      collectorSplunkCollectRequestHeader,
+    CollectorSplunkCollectRequestParam7$outboundSchema.parse(
+      collectorSplunkCollectRequestParam7,
     ),
   );
 }
-export function collectorSplunkCollectRequestHeaderFromJSON(
+export function collectorSplunkCollectRequestParam7FromJSON(
   jsonString: string,
-): SafeParseResult<CollectorSplunkCollectRequestHeader, SDKValidationError> {
+): SafeParseResult<CollectorSplunkCollectRequestParam7, SDKValidationError> {
   return safeParse(
     jsonString,
     (x) =>
-      CollectorSplunkCollectRequestHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorSplunkCollectRequestHeader' from JSON`,
+      CollectorSplunkCollectRequestParam7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorSplunkCollectRequestParam7' from JSON`,
   );
 }
 
 /** @internal */
-export const CollectorSplunkAuthentication$inboundSchema: z.ZodType<
-  CollectorSplunkAuthentication,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(CollectorSplunkAuthentication);
-/** @internal */
-export const CollectorSplunkAuthentication$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CollectorSplunkAuthentication
-> = openEnums.outboundSchema(CollectorSplunkAuthentication);
-
-/** @internal */
-export const CollectorSplunkRetryType$inboundSchema: z.ZodType<
-  CollectorSplunkRetryType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(CollectorSplunkRetryType);
-/** @internal */
-export const CollectorSplunkRetryType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CollectorSplunkRetryType
-> = openEnums.outboundSchema(CollectorSplunkRetryType);
-
-/** @internal */
-export const CollectorSplunkRetryRules$inboundSchema: z.ZodType<
-  CollectorSplunkRetryRules,
+export const CollectorSplunkCollectRequestHeader7$inboundSchema: z.ZodType<
+  CollectorSplunkCollectRequestHeader7,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: CollectorSplunkRetryType$inboundSchema.default("backoff"),
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorSplunkCollectRequestHeader7$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorSplunkCollectRequestHeader7$outboundSchema: z.ZodType<
+  CollectorSplunkCollectRequestHeader7$Outbound,
+  z.ZodTypeDef,
+  CollectorSplunkCollectRequestHeader7
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorSplunkCollectRequestHeader7ToJSON(
+  collectorSplunkCollectRequestHeader7: CollectorSplunkCollectRequestHeader7,
+): string {
+  return JSON.stringify(
+    CollectorSplunkCollectRequestHeader7$outboundSchema.parse(
+      collectorSplunkCollectRequestHeader7,
+    ),
+  );
+}
+export function collectorSplunkCollectRequestHeader7FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorSplunkCollectRequestHeader7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorSplunkCollectRequestHeader7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorSplunkCollectRequestHeader7' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorSplunkRetryType7$inboundSchema: z.ZodType<
+  CollectorSplunkRetryType7,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorSplunkRetryType7);
+/** @internal */
+export const CollectorSplunkRetryType7$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorSplunkRetryType7
+> = openEnums.outboundSchema(CollectorSplunkRetryType7);
+
+/** @internal */
+export const CollectorSplunkRetryRules7$inboundSchema: z.ZodType<
+  CollectorSplunkRetryRules7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: CollectorSplunkRetryType7$inboundSchema.default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -317,7 +1600,7 @@ export const CollectorSplunkRetryRules$inboundSchema: z.ZodType<
   retryConnectReset: z.any().optional(),
 });
 /** @internal */
-export type CollectorSplunkRetryRules$Outbound = {
+export type CollectorSplunkRetryRules7$Outbound = {
   type: string;
   interval?: any | undefined;
   limit?: any | undefined;
@@ -329,12 +1612,12 @@ export type CollectorSplunkRetryRules$Outbound = {
 };
 
 /** @internal */
-export const CollectorSplunkRetryRules$outboundSchema: z.ZodType<
-  CollectorSplunkRetryRules$Outbound,
+export const CollectorSplunkRetryRules7$outboundSchema: z.ZodType<
+  CollectorSplunkRetryRules7$Outbound,
   z.ZodTypeDef,
-  CollectorSplunkRetryRules
+  CollectorSplunkRetryRules7
 > = z.object({
-  type: CollectorSplunkRetryType$outboundSchema.default("backoff"),
+  type: CollectorSplunkRetryType7$outboundSchema.default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -344,20 +1627,2118 @@ export const CollectorSplunkRetryRules$outboundSchema: z.ZodType<
   retryConnectReset: z.any().optional(),
 });
 
-export function collectorSplunkRetryRulesToJSON(
-  collectorSplunkRetryRules: CollectorSplunkRetryRules,
+export function collectorSplunkRetryRules7ToJSON(
+  collectorSplunkRetryRules7: CollectorSplunkRetryRules7,
 ): string {
   return JSON.stringify(
-    CollectorSplunkRetryRules$outboundSchema.parse(collectorSplunkRetryRules),
+    CollectorSplunkRetryRules7$outboundSchema.parse(collectorSplunkRetryRules7),
   );
 }
-export function collectorSplunkRetryRulesFromJSON(
+export function collectorSplunkRetryRules7FromJSON(
   jsonString: string,
-): SafeParseResult<CollectorSplunkRetryRules, SDKValidationError> {
+): SafeParseResult<CollectorSplunkRetryRules7, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => CollectorSplunkRetryRules$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorSplunkRetryRules' from JSON`,
+    (x) => CollectorSplunkRetryRules7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorSplunkRetryRules7' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorSplunkSplunk7$inboundSchema: z.ZodType<
+  CollectorSplunkSplunk7,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authentication: CollectorSplunkAuthentication7$inboundSchema.default("basic"),
+  loginUrl: z.string().default("`https://localhost:9000/api/v1/auth/login`"),
+  credentialsSecret: z.string(),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  tokenRespAttribute: z.string().default("token"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  type: CollectorSplunkType7$inboundSchema,
+  searchHead: z.string().default("https://localhost:8089"),
+  search: z.string(),
+  earliest: z.string().optional(),
+  latest: z.string().optional(),
+  endpoint: z.string().default("/services/search/v2/jobs/export"),
+  outputMode: CollectorSplunkOutputMode7$inboundSchema.default("json"),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorSplunkCollectRequestParam7$inboundSchema),
+  ).optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorSplunkCollectRequestHeader7$inboundSchema),
+  ).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  handleEscapedChars: z.boolean().default(false),
+  retryRules: z.lazy(() => CollectorSplunkRetryRules7$inboundSchema).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  tokenSecret: z.string().optional(),
+});
+/** @internal */
+export type CollectorSplunkSplunk7$Outbound = {
+  authentication: string;
+  loginUrl: string;
+  credentialsSecret: string;
+  loginBody: string;
+  tokenRespAttribute: string;
+  authHeaderExpr: string;
+  type: string;
+  searchHead: string;
+  search: string;
+  earliest?: string | undefined;
+  latest?: string | undefined;
+  endpoint: string;
+  outputMode: string;
+  collectRequestParams?:
+    | Array<CollectorSplunkCollectRequestParam7$Outbound>
+    | undefined;
+  collectRequestHeaders?:
+    | Array<CollectorSplunkCollectRequestHeader7$Outbound>
+    | undefined;
+  timeout: number;
+  useRoundRobinDns: boolean;
+  disableTimeFilter: boolean;
+  rejectUnauthorized: boolean;
+  handleEscapedChars: boolean;
+  retryRules?: CollectorSplunkRetryRules7$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  tokenSecret?: string | undefined;
+};
+
+/** @internal */
+export const CollectorSplunkSplunk7$outboundSchema: z.ZodType<
+  CollectorSplunkSplunk7$Outbound,
+  z.ZodTypeDef,
+  CollectorSplunkSplunk7
+> = z.object({
+  authentication: CollectorSplunkAuthentication7$outboundSchema.default(
+    "basic",
+  ),
+  loginUrl: z.string().default("`https://localhost:9000/api/v1/auth/login`"),
+  credentialsSecret: z.string(),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  tokenRespAttribute: z.string().default("token"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  type: CollectorSplunkType7$outboundSchema,
+  searchHead: z.string().default("https://localhost:8089"),
+  search: z.string(),
+  earliest: z.string().optional(),
+  latest: z.string().optional(),
+  endpoint: z.string().default("/services/search/v2/jobs/export"),
+  outputMode: CollectorSplunkOutputMode7$outboundSchema.default("json"),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorSplunkCollectRequestParam7$outboundSchema),
+  ).optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorSplunkCollectRequestHeader7$outboundSchema),
+  ).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  handleEscapedChars: z.boolean().default(false),
+  retryRules: z.lazy(() => CollectorSplunkRetryRules7$outboundSchema)
+    .optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  tokenSecret: z.string().optional(),
+});
+
+export function collectorSplunkSplunk7ToJSON(
+  collectorSplunkSplunk7: CollectorSplunkSplunk7,
+): string {
+  return JSON.stringify(
+    CollectorSplunkSplunk7$outboundSchema.parse(collectorSplunkSplunk7),
+  );
+}
+export function collectorSplunkSplunk7FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorSplunkSplunk7, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorSplunkSplunk7$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorSplunkSplunk7' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorSplunkAuthentication6$inboundSchema: z.ZodType<
+  CollectorSplunkAuthentication6,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorSplunkAuthentication6);
+/** @internal */
+export const CollectorSplunkAuthentication6$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorSplunkAuthentication6
+> = openEnums.outboundSchema(CollectorSplunkAuthentication6);
+
+/** @internal */
+export const CollectorSplunkType6$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorSplunkType6
+> = z.nativeEnum(CollectorSplunkType6);
+/** @internal */
+export const CollectorSplunkType6$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorSplunkType6
+> = CollectorSplunkType6$inboundSchema;
+
+/** @internal */
+export const CollectorSplunkOutputMode6$inboundSchema: z.ZodType<
+  CollectorSplunkOutputMode6,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorSplunkOutputMode6);
+/** @internal */
+export const CollectorSplunkOutputMode6$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorSplunkOutputMode6
+> = openEnums.outboundSchema(CollectorSplunkOutputMode6);
+
+/** @internal */
+export const CollectorSplunkCollectRequestParam6$inboundSchema: z.ZodType<
+  CollectorSplunkCollectRequestParam6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorSplunkCollectRequestParam6$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorSplunkCollectRequestParam6$outboundSchema: z.ZodType<
+  CollectorSplunkCollectRequestParam6$Outbound,
+  z.ZodTypeDef,
+  CollectorSplunkCollectRequestParam6
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorSplunkCollectRequestParam6ToJSON(
+  collectorSplunkCollectRequestParam6: CollectorSplunkCollectRequestParam6,
+): string {
+  return JSON.stringify(
+    CollectorSplunkCollectRequestParam6$outboundSchema.parse(
+      collectorSplunkCollectRequestParam6,
+    ),
+  );
+}
+export function collectorSplunkCollectRequestParam6FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorSplunkCollectRequestParam6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorSplunkCollectRequestParam6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorSplunkCollectRequestParam6' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorSplunkCollectRequestHeader6$inboundSchema: z.ZodType<
+  CollectorSplunkCollectRequestHeader6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorSplunkCollectRequestHeader6$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorSplunkCollectRequestHeader6$outboundSchema: z.ZodType<
+  CollectorSplunkCollectRequestHeader6$Outbound,
+  z.ZodTypeDef,
+  CollectorSplunkCollectRequestHeader6
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorSplunkCollectRequestHeader6ToJSON(
+  collectorSplunkCollectRequestHeader6: CollectorSplunkCollectRequestHeader6,
+): string {
+  return JSON.stringify(
+    CollectorSplunkCollectRequestHeader6$outboundSchema.parse(
+      collectorSplunkCollectRequestHeader6,
+    ),
+  );
+}
+export function collectorSplunkCollectRequestHeader6FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorSplunkCollectRequestHeader6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorSplunkCollectRequestHeader6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorSplunkCollectRequestHeader6' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorSplunkRetryType6$inboundSchema: z.ZodType<
+  CollectorSplunkRetryType6,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorSplunkRetryType6);
+/** @internal */
+export const CollectorSplunkRetryType6$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorSplunkRetryType6
+> = openEnums.outboundSchema(CollectorSplunkRetryType6);
+
+/** @internal */
+export const CollectorSplunkRetryRules6$inboundSchema: z.ZodType<
+  CollectorSplunkRetryRules6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: CollectorSplunkRetryType6$inboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+/** @internal */
+export type CollectorSplunkRetryRules6$Outbound = {
+  type: string;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+/** @internal */
+export const CollectorSplunkRetryRules6$outboundSchema: z.ZodType<
+  CollectorSplunkRetryRules6$Outbound,
+  z.ZodTypeDef,
+  CollectorSplunkRetryRules6
+> = z.object({
+  type: CollectorSplunkRetryType6$outboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+
+export function collectorSplunkRetryRules6ToJSON(
+  collectorSplunkRetryRules6: CollectorSplunkRetryRules6,
+): string {
+  return JSON.stringify(
+    CollectorSplunkRetryRules6$outboundSchema.parse(collectorSplunkRetryRules6),
+  );
+}
+export function collectorSplunkRetryRules6FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorSplunkRetryRules6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorSplunkRetryRules6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorSplunkRetryRules6' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorSplunkSplunk6$inboundSchema: z.ZodType<
+  CollectorSplunkSplunk6,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authentication: CollectorSplunkAuthentication6$inboundSchema.default("basic"),
+  loginUrl: z.string().default("`https://localhost:9000/api/v1/auth/login`"),
+  username: z.string(),
+  password: z.string(),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  tokenRespAttribute: z.string().default("token"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  type: CollectorSplunkType6$inboundSchema,
+  searchHead: z.string().default("https://localhost:8089"),
+  search: z.string(),
+  earliest: z.string().optional(),
+  latest: z.string().optional(),
+  endpoint: z.string().default("/services/search/v2/jobs/export"),
+  outputMode: CollectorSplunkOutputMode6$inboundSchema.default("json"),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorSplunkCollectRequestParam6$inboundSchema),
+  ).optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorSplunkCollectRequestHeader6$inboundSchema),
+  ).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  handleEscapedChars: z.boolean().default(false),
+  retryRules: z.lazy(() => CollectorSplunkRetryRules6$inboundSchema).optional(),
+  credentialsSecret: z.string().optional(),
+  token: z.string().optional(),
+  tokenSecret: z.string().optional(),
+});
+/** @internal */
+export type CollectorSplunkSplunk6$Outbound = {
+  authentication: string;
+  loginUrl: string;
+  username: string;
+  password: string;
+  loginBody: string;
+  tokenRespAttribute: string;
+  authHeaderExpr: string;
+  type: string;
+  searchHead: string;
+  search: string;
+  earliest?: string | undefined;
+  latest?: string | undefined;
+  endpoint: string;
+  outputMode: string;
+  collectRequestParams?:
+    | Array<CollectorSplunkCollectRequestParam6$Outbound>
+    | undefined;
+  collectRequestHeaders?:
+    | Array<CollectorSplunkCollectRequestHeader6$Outbound>
+    | undefined;
+  timeout: number;
+  useRoundRobinDns: boolean;
+  disableTimeFilter: boolean;
+  rejectUnauthorized: boolean;
+  handleEscapedChars: boolean;
+  retryRules?: CollectorSplunkRetryRules6$Outbound | undefined;
+  credentialsSecret?: string | undefined;
+  token?: string | undefined;
+  tokenSecret?: string | undefined;
+};
+
+/** @internal */
+export const CollectorSplunkSplunk6$outboundSchema: z.ZodType<
+  CollectorSplunkSplunk6$Outbound,
+  z.ZodTypeDef,
+  CollectorSplunkSplunk6
+> = z.object({
+  authentication: CollectorSplunkAuthentication6$outboundSchema.default(
+    "basic",
+  ),
+  loginUrl: z.string().default("`https://localhost:9000/api/v1/auth/login`"),
+  username: z.string(),
+  password: z.string(),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  tokenRespAttribute: z.string().default("token"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  type: CollectorSplunkType6$outboundSchema,
+  searchHead: z.string().default("https://localhost:8089"),
+  search: z.string(),
+  earliest: z.string().optional(),
+  latest: z.string().optional(),
+  endpoint: z.string().default("/services/search/v2/jobs/export"),
+  outputMode: CollectorSplunkOutputMode6$outboundSchema.default("json"),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorSplunkCollectRequestParam6$outboundSchema),
+  ).optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorSplunkCollectRequestHeader6$outboundSchema),
+  ).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  handleEscapedChars: z.boolean().default(false),
+  retryRules: z.lazy(() => CollectorSplunkRetryRules6$outboundSchema)
+    .optional(),
+  credentialsSecret: z.string().optional(),
+  token: z.string().optional(),
+  tokenSecret: z.string().optional(),
+});
+
+export function collectorSplunkSplunk6ToJSON(
+  collectorSplunkSplunk6: CollectorSplunkSplunk6,
+): string {
+  return JSON.stringify(
+    CollectorSplunkSplunk6$outboundSchema.parse(collectorSplunkSplunk6),
+  );
+}
+export function collectorSplunkSplunk6FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorSplunkSplunk6, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorSplunkSplunk6$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorSplunkSplunk6' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorSplunkAuthentication5$inboundSchema: z.ZodType<
+  CollectorSplunkAuthentication5,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorSplunkAuthentication5);
+/** @internal */
+export const CollectorSplunkAuthentication5$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorSplunkAuthentication5
+> = openEnums.outboundSchema(CollectorSplunkAuthentication5);
+
+/** @internal */
+export const CollectorSplunkType5$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorSplunkType5
+> = z.nativeEnum(CollectorSplunkType5);
+/** @internal */
+export const CollectorSplunkType5$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorSplunkType5
+> = CollectorSplunkType5$inboundSchema;
+
+/** @internal */
+export const CollectorSplunkOutputMode5$inboundSchema: z.ZodType<
+  CollectorSplunkOutputMode5,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorSplunkOutputMode5);
+/** @internal */
+export const CollectorSplunkOutputMode5$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorSplunkOutputMode5
+> = openEnums.outboundSchema(CollectorSplunkOutputMode5);
+
+/** @internal */
+export const CollectorSplunkCollectRequestParam5$inboundSchema: z.ZodType<
+  CollectorSplunkCollectRequestParam5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorSplunkCollectRequestParam5$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorSplunkCollectRequestParam5$outboundSchema: z.ZodType<
+  CollectorSplunkCollectRequestParam5$Outbound,
+  z.ZodTypeDef,
+  CollectorSplunkCollectRequestParam5
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorSplunkCollectRequestParam5ToJSON(
+  collectorSplunkCollectRequestParam5: CollectorSplunkCollectRequestParam5,
+): string {
+  return JSON.stringify(
+    CollectorSplunkCollectRequestParam5$outboundSchema.parse(
+      collectorSplunkCollectRequestParam5,
+    ),
+  );
+}
+export function collectorSplunkCollectRequestParam5FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorSplunkCollectRequestParam5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorSplunkCollectRequestParam5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorSplunkCollectRequestParam5' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorSplunkCollectRequestHeader5$inboundSchema: z.ZodType<
+  CollectorSplunkCollectRequestHeader5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorSplunkCollectRequestHeader5$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorSplunkCollectRequestHeader5$outboundSchema: z.ZodType<
+  CollectorSplunkCollectRequestHeader5$Outbound,
+  z.ZodTypeDef,
+  CollectorSplunkCollectRequestHeader5
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorSplunkCollectRequestHeader5ToJSON(
+  collectorSplunkCollectRequestHeader5: CollectorSplunkCollectRequestHeader5,
+): string {
+  return JSON.stringify(
+    CollectorSplunkCollectRequestHeader5$outboundSchema.parse(
+      collectorSplunkCollectRequestHeader5,
+    ),
+  );
+}
+export function collectorSplunkCollectRequestHeader5FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorSplunkCollectRequestHeader5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorSplunkCollectRequestHeader5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorSplunkCollectRequestHeader5' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorSplunkRetryType5$inboundSchema: z.ZodType<
+  CollectorSplunkRetryType5,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorSplunkRetryType5);
+/** @internal */
+export const CollectorSplunkRetryType5$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorSplunkRetryType5
+> = openEnums.outboundSchema(CollectorSplunkRetryType5);
+
+/** @internal */
+export const CollectorSplunkRetryRules5$inboundSchema: z.ZodType<
+  CollectorSplunkRetryRules5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: CollectorSplunkRetryType5$inboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+/** @internal */
+export type CollectorSplunkRetryRules5$Outbound = {
+  type: string;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+/** @internal */
+export const CollectorSplunkRetryRules5$outboundSchema: z.ZodType<
+  CollectorSplunkRetryRules5$Outbound,
+  z.ZodTypeDef,
+  CollectorSplunkRetryRules5
+> = z.object({
+  type: CollectorSplunkRetryType5$outboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+
+export function collectorSplunkRetryRules5ToJSON(
+  collectorSplunkRetryRules5: CollectorSplunkRetryRules5,
+): string {
+  return JSON.stringify(
+    CollectorSplunkRetryRules5$outboundSchema.parse(collectorSplunkRetryRules5),
+  );
+}
+export function collectorSplunkRetryRules5FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorSplunkRetryRules5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorSplunkRetryRules5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorSplunkRetryRules5' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorSplunkSplunk5$inboundSchema: z.ZodType<
+  CollectorSplunkSplunk5,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authentication: CollectorSplunkAuthentication5$inboundSchema.default("basic"),
+  tokenSecret: z.string(),
+  type: CollectorSplunkType5$inboundSchema,
+  searchHead: z.string().default("https://localhost:8089"),
+  search: z.string(),
+  earliest: z.string().optional(),
+  latest: z.string().optional(),
+  endpoint: z.string().default("/services/search/v2/jobs/export"),
+  outputMode: CollectorSplunkOutputMode5$inboundSchema.default("json"),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorSplunkCollectRequestParam5$inboundSchema),
+  ).optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorSplunkCollectRequestHeader5$inboundSchema),
+  ).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  handleEscapedChars: z.boolean().default(false),
+  retryRules: z.lazy(() => CollectorSplunkRetryRules5$inboundSchema).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  token: z.string().optional(),
+  loginUrl: z.string().default("`https://localhost:9000/api/v1/auth/login`"),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  tokenRespAttribute: z.string().default("token"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+});
+/** @internal */
+export type CollectorSplunkSplunk5$Outbound = {
+  authentication: string;
+  tokenSecret: string;
+  type: string;
+  searchHead: string;
+  search: string;
+  earliest?: string | undefined;
+  latest?: string | undefined;
+  endpoint: string;
+  outputMode: string;
+  collectRequestParams?:
+    | Array<CollectorSplunkCollectRequestParam5$Outbound>
+    | undefined;
+  collectRequestHeaders?:
+    | Array<CollectorSplunkCollectRequestHeader5$Outbound>
+    | undefined;
+  timeout: number;
+  useRoundRobinDns: boolean;
+  disableTimeFilter: boolean;
+  rejectUnauthorized: boolean;
+  handleEscapedChars: boolean;
+  retryRules?: CollectorSplunkRetryRules5$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  token?: string | undefined;
+  loginUrl: string;
+  loginBody: string;
+  tokenRespAttribute: string;
+  authHeaderExpr: string;
+};
+
+/** @internal */
+export const CollectorSplunkSplunk5$outboundSchema: z.ZodType<
+  CollectorSplunkSplunk5$Outbound,
+  z.ZodTypeDef,
+  CollectorSplunkSplunk5
+> = z.object({
+  authentication: CollectorSplunkAuthentication5$outboundSchema.default(
+    "basic",
+  ),
+  tokenSecret: z.string(),
+  type: CollectorSplunkType5$outboundSchema,
+  searchHead: z.string().default("https://localhost:8089"),
+  search: z.string(),
+  earliest: z.string().optional(),
+  latest: z.string().optional(),
+  endpoint: z.string().default("/services/search/v2/jobs/export"),
+  outputMode: CollectorSplunkOutputMode5$outboundSchema.default("json"),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorSplunkCollectRequestParam5$outboundSchema),
+  ).optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorSplunkCollectRequestHeader5$outboundSchema),
+  ).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  handleEscapedChars: z.boolean().default(false),
+  retryRules: z.lazy(() => CollectorSplunkRetryRules5$outboundSchema)
+    .optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  token: z.string().optional(),
+  loginUrl: z.string().default("`https://localhost:9000/api/v1/auth/login`"),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  tokenRespAttribute: z.string().default("token"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+});
+
+export function collectorSplunkSplunk5ToJSON(
+  collectorSplunkSplunk5: CollectorSplunkSplunk5,
+): string {
+  return JSON.stringify(
+    CollectorSplunkSplunk5$outboundSchema.parse(collectorSplunkSplunk5),
+  );
+}
+export function collectorSplunkSplunk5FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorSplunkSplunk5, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorSplunkSplunk5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorSplunkSplunk5' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorSplunkAuthentication4$inboundSchema: z.ZodType<
+  CollectorSplunkAuthentication4,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorSplunkAuthentication4);
+/** @internal */
+export const CollectorSplunkAuthentication4$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorSplunkAuthentication4
+> = openEnums.outboundSchema(CollectorSplunkAuthentication4);
+
+/** @internal */
+export const CollectorSplunkType4$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorSplunkType4
+> = z.nativeEnum(CollectorSplunkType4);
+/** @internal */
+export const CollectorSplunkType4$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorSplunkType4
+> = CollectorSplunkType4$inboundSchema;
+
+/** @internal */
+export const CollectorSplunkOutputMode4$inboundSchema: z.ZodType<
+  CollectorSplunkOutputMode4,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorSplunkOutputMode4);
+/** @internal */
+export const CollectorSplunkOutputMode4$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorSplunkOutputMode4
+> = openEnums.outboundSchema(CollectorSplunkOutputMode4);
+
+/** @internal */
+export const CollectorSplunkCollectRequestParam4$inboundSchema: z.ZodType<
+  CollectorSplunkCollectRequestParam4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorSplunkCollectRequestParam4$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorSplunkCollectRequestParam4$outboundSchema: z.ZodType<
+  CollectorSplunkCollectRequestParam4$Outbound,
+  z.ZodTypeDef,
+  CollectorSplunkCollectRequestParam4
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorSplunkCollectRequestParam4ToJSON(
+  collectorSplunkCollectRequestParam4: CollectorSplunkCollectRequestParam4,
+): string {
+  return JSON.stringify(
+    CollectorSplunkCollectRequestParam4$outboundSchema.parse(
+      collectorSplunkCollectRequestParam4,
+    ),
+  );
+}
+export function collectorSplunkCollectRequestParam4FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorSplunkCollectRequestParam4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorSplunkCollectRequestParam4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorSplunkCollectRequestParam4' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorSplunkCollectRequestHeader4$inboundSchema: z.ZodType<
+  CollectorSplunkCollectRequestHeader4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorSplunkCollectRequestHeader4$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorSplunkCollectRequestHeader4$outboundSchema: z.ZodType<
+  CollectorSplunkCollectRequestHeader4$Outbound,
+  z.ZodTypeDef,
+  CollectorSplunkCollectRequestHeader4
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorSplunkCollectRequestHeader4ToJSON(
+  collectorSplunkCollectRequestHeader4: CollectorSplunkCollectRequestHeader4,
+): string {
+  return JSON.stringify(
+    CollectorSplunkCollectRequestHeader4$outboundSchema.parse(
+      collectorSplunkCollectRequestHeader4,
+    ),
+  );
+}
+export function collectorSplunkCollectRequestHeader4FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorSplunkCollectRequestHeader4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorSplunkCollectRequestHeader4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorSplunkCollectRequestHeader4' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorSplunkRetryType4$inboundSchema: z.ZodType<
+  CollectorSplunkRetryType4,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorSplunkRetryType4);
+/** @internal */
+export const CollectorSplunkRetryType4$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorSplunkRetryType4
+> = openEnums.outboundSchema(CollectorSplunkRetryType4);
+
+/** @internal */
+export const CollectorSplunkRetryRules4$inboundSchema: z.ZodType<
+  CollectorSplunkRetryRules4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: CollectorSplunkRetryType4$inboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+/** @internal */
+export type CollectorSplunkRetryRules4$Outbound = {
+  type: string;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+/** @internal */
+export const CollectorSplunkRetryRules4$outboundSchema: z.ZodType<
+  CollectorSplunkRetryRules4$Outbound,
+  z.ZodTypeDef,
+  CollectorSplunkRetryRules4
+> = z.object({
+  type: CollectorSplunkRetryType4$outboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+
+export function collectorSplunkRetryRules4ToJSON(
+  collectorSplunkRetryRules4: CollectorSplunkRetryRules4,
+): string {
+  return JSON.stringify(
+    CollectorSplunkRetryRules4$outboundSchema.parse(collectorSplunkRetryRules4),
+  );
+}
+export function collectorSplunkRetryRules4FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorSplunkRetryRules4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorSplunkRetryRules4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorSplunkRetryRules4' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorSplunkSplunk4$inboundSchema: z.ZodType<
+  CollectorSplunkSplunk4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authentication: CollectorSplunkAuthentication4$inboundSchema.default("basic"),
+  token: z.string(),
+  type: CollectorSplunkType4$inboundSchema,
+  searchHead: z.string().default("https://localhost:8089"),
+  search: z.string(),
+  earliest: z.string().optional(),
+  latest: z.string().optional(),
+  endpoint: z.string().default("/services/search/v2/jobs/export"),
+  outputMode: CollectorSplunkOutputMode4$inboundSchema.default("json"),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorSplunkCollectRequestParam4$inboundSchema),
+  ).optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorSplunkCollectRequestHeader4$inboundSchema),
+  ).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  handleEscapedChars: z.boolean().default(false),
+  retryRules: z.lazy(() => CollectorSplunkRetryRules4$inboundSchema).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  tokenSecret: z.string().optional(),
+  loginUrl: z.string().default("`https://localhost:9000/api/v1/auth/login`"),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  tokenRespAttribute: z.string().default("token"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+});
+/** @internal */
+export type CollectorSplunkSplunk4$Outbound = {
+  authentication: string;
+  token: string;
+  type: string;
+  searchHead: string;
+  search: string;
+  earliest?: string | undefined;
+  latest?: string | undefined;
+  endpoint: string;
+  outputMode: string;
+  collectRequestParams?:
+    | Array<CollectorSplunkCollectRequestParam4$Outbound>
+    | undefined;
+  collectRequestHeaders?:
+    | Array<CollectorSplunkCollectRequestHeader4$Outbound>
+    | undefined;
+  timeout: number;
+  useRoundRobinDns: boolean;
+  disableTimeFilter: boolean;
+  rejectUnauthorized: boolean;
+  handleEscapedChars: boolean;
+  retryRules?: CollectorSplunkRetryRules4$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  tokenSecret?: string | undefined;
+  loginUrl: string;
+  loginBody: string;
+  tokenRespAttribute: string;
+  authHeaderExpr: string;
+};
+
+/** @internal */
+export const CollectorSplunkSplunk4$outboundSchema: z.ZodType<
+  CollectorSplunkSplunk4$Outbound,
+  z.ZodTypeDef,
+  CollectorSplunkSplunk4
+> = z.object({
+  authentication: CollectorSplunkAuthentication4$outboundSchema.default(
+    "basic",
+  ),
+  token: z.string(),
+  type: CollectorSplunkType4$outboundSchema,
+  searchHead: z.string().default("https://localhost:8089"),
+  search: z.string(),
+  earliest: z.string().optional(),
+  latest: z.string().optional(),
+  endpoint: z.string().default("/services/search/v2/jobs/export"),
+  outputMode: CollectorSplunkOutputMode4$outboundSchema.default("json"),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorSplunkCollectRequestParam4$outboundSchema),
+  ).optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorSplunkCollectRequestHeader4$outboundSchema),
+  ).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  handleEscapedChars: z.boolean().default(false),
+  retryRules: z.lazy(() => CollectorSplunkRetryRules4$outboundSchema)
+    .optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  tokenSecret: z.string().optional(),
+  loginUrl: z.string().default("`https://localhost:9000/api/v1/auth/login`"),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  tokenRespAttribute: z.string().default("token"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+});
+
+export function collectorSplunkSplunk4ToJSON(
+  collectorSplunkSplunk4: CollectorSplunkSplunk4,
+): string {
+  return JSON.stringify(
+    CollectorSplunkSplunk4$outboundSchema.parse(collectorSplunkSplunk4),
+  );
+}
+export function collectorSplunkSplunk4FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorSplunkSplunk4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorSplunkSplunk4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorSplunkSplunk4' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorSplunkAuthentication3$inboundSchema: z.ZodType<
+  CollectorSplunkAuthentication3,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorSplunkAuthentication3);
+/** @internal */
+export const CollectorSplunkAuthentication3$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorSplunkAuthentication3
+> = openEnums.outboundSchema(CollectorSplunkAuthentication3);
+
+/** @internal */
+export const CollectorSplunkType3$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorSplunkType3
+> = z.nativeEnum(CollectorSplunkType3);
+/** @internal */
+export const CollectorSplunkType3$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorSplunkType3
+> = CollectorSplunkType3$inboundSchema;
+
+/** @internal */
+export const CollectorSplunkOutputMode3$inboundSchema: z.ZodType<
+  CollectorSplunkOutputMode3,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorSplunkOutputMode3);
+/** @internal */
+export const CollectorSplunkOutputMode3$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorSplunkOutputMode3
+> = openEnums.outboundSchema(CollectorSplunkOutputMode3);
+
+/** @internal */
+export const CollectorSplunkCollectRequestParam3$inboundSchema: z.ZodType<
+  CollectorSplunkCollectRequestParam3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorSplunkCollectRequestParam3$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorSplunkCollectRequestParam3$outboundSchema: z.ZodType<
+  CollectorSplunkCollectRequestParam3$Outbound,
+  z.ZodTypeDef,
+  CollectorSplunkCollectRequestParam3
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorSplunkCollectRequestParam3ToJSON(
+  collectorSplunkCollectRequestParam3: CollectorSplunkCollectRequestParam3,
+): string {
+  return JSON.stringify(
+    CollectorSplunkCollectRequestParam3$outboundSchema.parse(
+      collectorSplunkCollectRequestParam3,
+    ),
+  );
+}
+export function collectorSplunkCollectRequestParam3FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorSplunkCollectRequestParam3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorSplunkCollectRequestParam3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorSplunkCollectRequestParam3' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorSplunkCollectRequestHeader3$inboundSchema: z.ZodType<
+  CollectorSplunkCollectRequestHeader3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorSplunkCollectRequestHeader3$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorSplunkCollectRequestHeader3$outboundSchema: z.ZodType<
+  CollectorSplunkCollectRequestHeader3$Outbound,
+  z.ZodTypeDef,
+  CollectorSplunkCollectRequestHeader3
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorSplunkCollectRequestHeader3ToJSON(
+  collectorSplunkCollectRequestHeader3: CollectorSplunkCollectRequestHeader3,
+): string {
+  return JSON.stringify(
+    CollectorSplunkCollectRequestHeader3$outboundSchema.parse(
+      collectorSplunkCollectRequestHeader3,
+    ),
+  );
+}
+export function collectorSplunkCollectRequestHeader3FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorSplunkCollectRequestHeader3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorSplunkCollectRequestHeader3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorSplunkCollectRequestHeader3' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorSplunkRetryType3$inboundSchema: z.ZodType<
+  CollectorSplunkRetryType3,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorSplunkRetryType3);
+/** @internal */
+export const CollectorSplunkRetryType3$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorSplunkRetryType3
+> = openEnums.outboundSchema(CollectorSplunkRetryType3);
+
+/** @internal */
+export const CollectorSplunkRetryRules3$inboundSchema: z.ZodType<
+  CollectorSplunkRetryRules3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: CollectorSplunkRetryType3$inboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+/** @internal */
+export type CollectorSplunkRetryRules3$Outbound = {
+  type: string;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+/** @internal */
+export const CollectorSplunkRetryRules3$outboundSchema: z.ZodType<
+  CollectorSplunkRetryRules3$Outbound,
+  z.ZodTypeDef,
+  CollectorSplunkRetryRules3
+> = z.object({
+  type: CollectorSplunkRetryType3$outboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+
+export function collectorSplunkRetryRules3ToJSON(
+  collectorSplunkRetryRules3: CollectorSplunkRetryRules3,
+): string {
+  return JSON.stringify(
+    CollectorSplunkRetryRules3$outboundSchema.parse(collectorSplunkRetryRules3),
+  );
+}
+export function collectorSplunkRetryRules3FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorSplunkRetryRules3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorSplunkRetryRules3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorSplunkRetryRules3' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorSplunkSplunk3$inboundSchema: z.ZodType<
+  CollectorSplunkSplunk3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authentication: CollectorSplunkAuthentication3$inboundSchema.default("basic"),
+  credentialsSecret: z.string(),
+  type: CollectorSplunkType3$inboundSchema,
+  searchHead: z.string().default("https://localhost:8089"),
+  search: z.string(),
+  earliest: z.string().optional(),
+  latest: z.string().optional(),
+  endpoint: z.string().default("/services/search/v2/jobs/export"),
+  outputMode: CollectorSplunkOutputMode3$inboundSchema.default("json"),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorSplunkCollectRequestParam3$inboundSchema),
+  ).optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorSplunkCollectRequestHeader3$inboundSchema),
+  ).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  handleEscapedChars: z.boolean().default(false),
+  retryRules: z.lazy(() => CollectorSplunkRetryRules3$inboundSchema).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  tokenSecret: z.string().optional(),
+  loginUrl: z.string().default("`https://localhost:9000/api/v1/auth/login`"),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  tokenRespAttribute: z.string().default("token"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+});
+/** @internal */
+export type CollectorSplunkSplunk3$Outbound = {
+  authentication: string;
+  credentialsSecret: string;
+  type: string;
+  searchHead: string;
+  search: string;
+  earliest?: string | undefined;
+  latest?: string | undefined;
+  endpoint: string;
+  outputMode: string;
+  collectRequestParams?:
+    | Array<CollectorSplunkCollectRequestParam3$Outbound>
+    | undefined;
+  collectRequestHeaders?:
+    | Array<CollectorSplunkCollectRequestHeader3$Outbound>
+    | undefined;
+  timeout: number;
+  useRoundRobinDns: boolean;
+  disableTimeFilter: boolean;
+  rejectUnauthorized: boolean;
+  handleEscapedChars: boolean;
+  retryRules?: CollectorSplunkRetryRules3$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  tokenSecret?: string | undefined;
+  loginUrl: string;
+  loginBody: string;
+  tokenRespAttribute: string;
+  authHeaderExpr: string;
+};
+
+/** @internal */
+export const CollectorSplunkSplunk3$outboundSchema: z.ZodType<
+  CollectorSplunkSplunk3$Outbound,
+  z.ZodTypeDef,
+  CollectorSplunkSplunk3
+> = z.object({
+  authentication: CollectorSplunkAuthentication3$outboundSchema.default(
+    "basic",
+  ),
+  credentialsSecret: z.string(),
+  type: CollectorSplunkType3$outboundSchema,
+  searchHead: z.string().default("https://localhost:8089"),
+  search: z.string(),
+  earliest: z.string().optional(),
+  latest: z.string().optional(),
+  endpoint: z.string().default("/services/search/v2/jobs/export"),
+  outputMode: CollectorSplunkOutputMode3$outboundSchema.default("json"),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorSplunkCollectRequestParam3$outboundSchema),
+  ).optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorSplunkCollectRequestHeader3$outboundSchema),
+  ).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  handleEscapedChars: z.boolean().default(false),
+  retryRules: z.lazy(() => CollectorSplunkRetryRules3$outboundSchema)
+    .optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  tokenSecret: z.string().optional(),
+  loginUrl: z.string().default("`https://localhost:9000/api/v1/auth/login`"),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  tokenRespAttribute: z.string().default("token"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+});
+
+export function collectorSplunkSplunk3ToJSON(
+  collectorSplunkSplunk3: CollectorSplunkSplunk3,
+): string {
+  return JSON.stringify(
+    CollectorSplunkSplunk3$outboundSchema.parse(collectorSplunkSplunk3),
+  );
+}
+export function collectorSplunkSplunk3FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorSplunkSplunk3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorSplunkSplunk3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorSplunkSplunk3' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorSplunkAuthentication2$inboundSchema: z.ZodType<
+  CollectorSplunkAuthentication2,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorSplunkAuthentication2);
+/** @internal */
+export const CollectorSplunkAuthentication2$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorSplunkAuthentication2
+> = openEnums.outboundSchema(CollectorSplunkAuthentication2);
+
+/** @internal */
+export const CollectorSplunkType2$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorSplunkType2
+> = z.nativeEnum(CollectorSplunkType2);
+/** @internal */
+export const CollectorSplunkType2$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorSplunkType2
+> = CollectorSplunkType2$inboundSchema;
+
+/** @internal */
+export const CollectorSplunkOutputMode2$inboundSchema: z.ZodType<
+  CollectorSplunkOutputMode2,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorSplunkOutputMode2);
+/** @internal */
+export const CollectorSplunkOutputMode2$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorSplunkOutputMode2
+> = openEnums.outboundSchema(CollectorSplunkOutputMode2);
+
+/** @internal */
+export const CollectorSplunkCollectRequestParam2$inboundSchema: z.ZodType<
+  CollectorSplunkCollectRequestParam2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorSplunkCollectRequestParam2$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorSplunkCollectRequestParam2$outboundSchema: z.ZodType<
+  CollectorSplunkCollectRequestParam2$Outbound,
+  z.ZodTypeDef,
+  CollectorSplunkCollectRequestParam2
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorSplunkCollectRequestParam2ToJSON(
+  collectorSplunkCollectRequestParam2: CollectorSplunkCollectRequestParam2,
+): string {
+  return JSON.stringify(
+    CollectorSplunkCollectRequestParam2$outboundSchema.parse(
+      collectorSplunkCollectRequestParam2,
+    ),
+  );
+}
+export function collectorSplunkCollectRequestParam2FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorSplunkCollectRequestParam2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorSplunkCollectRequestParam2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorSplunkCollectRequestParam2' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorSplunkCollectRequestHeader2$inboundSchema: z.ZodType<
+  CollectorSplunkCollectRequestHeader2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorSplunkCollectRequestHeader2$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorSplunkCollectRequestHeader2$outboundSchema: z.ZodType<
+  CollectorSplunkCollectRequestHeader2$Outbound,
+  z.ZodTypeDef,
+  CollectorSplunkCollectRequestHeader2
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorSplunkCollectRequestHeader2ToJSON(
+  collectorSplunkCollectRequestHeader2: CollectorSplunkCollectRequestHeader2,
+): string {
+  return JSON.stringify(
+    CollectorSplunkCollectRequestHeader2$outboundSchema.parse(
+      collectorSplunkCollectRequestHeader2,
+    ),
+  );
+}
+export function collectorSplunkCollectRequestHeader2FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorSplunkCollectRequestHeader2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorSplunkCollectRequestHeader2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorSplunkCollectRequestHeader2' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorSplunkRetryType2$inboundSchema: z.ZodType<
+  CollectorSplunkRetryType2,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorSplunkRetryType2);
+/** @internal */
+export const CollectorSplunkRetryType2$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorSplunkRetryType2
+> = openEnums.outboundSchema(CollectorSplunkRetryType2);
+
+/** @internal */
+export const CollectorSplunkRetryRules2$inboundSchema: z.ZodType<
+  CollectorSplunkRetryRules2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: CollectorSplunkRetryType2$inboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+/** @internal */
+export type CollectorSplunkRetryRules2$Outbound = {
+  type: string;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+/** @internal */
+export const CollectorSplunkRetryRules2$outboundSchema: z.ZodType<
+  CollectorSplunkRetryRules2$Outbound,
+  z.ZodTypeDef,
+  CollectorSplunkRetryRules2
+> = z.object({
+  type: CollectorSplunkRetryType2$outboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+
+export function collectorSplunkRetryRules2ToJSON(
+  collectorSplunkRetryRules2: CollectorSplunkRetryRules2,
+): string {
+  return JSON.stringify(
+    CollectorSplunkRetryRules2$outboundSchema.parse(collectorSplunkRetryRules2),
+  );
+}
+export function collectorSplunkRetryRules2FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorSplunkRetryRules2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorSplunkRetryRules2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorSplunkRetryRules2' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorSplunkSplunk2$inboundSchema: z.ZodType<
+  CollectorSplunkSplunk2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authentication: CollectorSplunkAuthentication2$inboundSchema.default("basic"),
+  username: z.string(),
+  password: z.string(),
+  type: CollectorSplunkType2$inboundSchema,
+  searchHead: z.string().default("https://localhost:8089"),
+  search: z.string(),
+  earliest: z.string().optional(),
+  latest: z.string().optional(),
+  endpoint: z.string().default("/services/search/v2/jobs/export"),
+  outputMode: CollectorSplunkOutputMode2$inboundSchema.default("json"),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorSplunkCollectRequestParam2$inboundSchema),
+  ).optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorSplunkCollectRequestHeader2$inboundSchema),
+  ).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  handleEscapedChars: z.boolean().default(false),
+  retryRules: z.lazy(() => CollectorSplunkRetryRules2$inboundSchema).optional(),
+  credentialsSecret: z.string().optional(),
+  token: z.string().optional(),
+  tokenSecret: z.string().optional(),
+  loginUrl: z.string().default("`https://localhost:9000/api/v1/auth/login`"),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  tokenRespAttribute: z.string().default("token"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+});
+/** @internal */
+export type CollectorSplunkSplunk2$Outbound = {
+  authentication: string;
+  username: string;
+  password: string;
+  type: string;
+  searchHead: string;
+  search: string;
+  earliest?: string | undefined;
+  latest?: string | undefined;
+  endpoint: string;
+  outputMode: string;
+  collectRequestParams?:
+    | Array<CollectorSplunkCollectRequestParam2$Outbound>
+    | undefined;
+  collectRequestHeaders?:
+    | Array<CollectorSplunkCollectRequestHeader2$Outbound>
+    | undefined;
+  timeout: number;
+  useRoundRobinDns: boolean;
+  disableTimeFilter: boolean;
+  rejectUnauthorized: boolean;
+  handleEscapedChars: boolean;
+  retryRules?: CollectorSplunkRetryRules2$Outbound | undefined;
+  credentialsSecret?: string | undefined;
+  token?: string | undefined;
+  tokenSecret?: string | undefined;
+  loginUrl: string;
+  loginBody: string;
+  tokenRespAttribute: string;
+  authHeaderExpr: string;
+};
+
+/** @internal */
+export const CollectorSplunkSplunk2$outboundSchema: z.ZodType<
+  CollectorSplunkSplunk2$Outbound,
+  z.ZodTypeDef,
+  CollectorSplunkSplunk2
+> = z.object({
+  authentication: CollectorSplunkAuthentication2$outboundSchema.default(
+    "basic",
+  ),
+  username: z.string(),
+  password: z.string(),
+  type: CollectorSplunkType2$outboundSchema,
+  searchHead: z.string().default("https://localhost:8089"),
+  search: z.string(),
+  earliest: z.string().optional(),
+  latest: z.string().optional(),
+  endpoint: z.string().default("/services/search/v2/jobs/export"),
+  outputMode: CollectorSplunkOutputMode2$outboundSchema.default("json"),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorSplunkCollectRequestParam2$outboundSchema),
+  ).optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorSplunkCollectRequestHeader2$outboundSchema),
+  ).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  handleEscapedChars: z.boolean().default(false),
+  retryRules: z.lazy(() => CollectorSplunkRetryRules2$outboundSchema)
+    .optional(),
+  credentialsSecret: z.string().optional(),
+  token: z.string().optional(),
+  tokenSecret: z.string().optional(),
+  loginUrl: z.string().default("`https://localhost:9000/api/v1/auth/login`"),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  tokenRespAttribute: z.string().default("token"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+});
+
+export function collectorSplunkSplunk2ToJSON(
+  collectorSplunkSplunk2: CollectorSplunkSplunk2,
+): string {
+  return JSON.stringify(
+    CollectorSplunkSplunk2$outboundSchema.parse(collectorSplunkSplunk2),
+  );
+}
+export function collectorSplunkSplunk2FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorSplunkSplunk2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorSplunkSplunk2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorSplunkSplunk2' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorSplunkAuthentication1$inboundSchema: z.ZodType<
+  CollectorSplunkAuthentication1,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorSplunkAuthentication1);
+/** @internal */
+export const CollectorSplunkAuthentication1$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorSplunkAuthentication1
+> = openEnums.outboundSchema(CollectorSplunkAuthentication1);
+
+/** @internal */
+export const CollectorSplunkType1$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorSplunkType1
+> = z.nativeEnum(CollectorSplunkType1);
+/** @internal */
+export const CollectorSplunkType1$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorSplunkType1
+> = CollectorSplunkType1$inboundSchema;
+
+/** @internal */
+export const CollectorSplunkOutputMode1$inboundSchema: z.ZodType<
+  CollectorSplunkOutputMode1,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorSplunkOutputMode1);
+/** @internal */
+export const CollectorSplunkOutputMode1$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorSplunkOutputMode1
+> = openEnums.outboundSchema(CollectorSplunkOutputMode1);
+
+/** @internal */
+export const CollectorSplunkCollectRequestParam1$inboundSchema: z.ZodType<
+  CollectorSplunkCollectRequestParam1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorSplunkCollectRequestParam1$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorSplunkCollectRequestParam1$outboundSchema: z.ZodType<
+  CollectorSplunkCollectRequestParam1$Outbound,
+  z.ZodTypeDef,
+  CollectorSplunkCollectRequestParam1
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorSplunkCollectRequestParam1ToJSON(
+  collectorSplunkCollectRequestParam1: CollectorSplunkCollectRequestParam1,
+): string {
+  return JSON.stringify(
+    CollectorSplunkCollectRequestParam1$outboundSchema.parse(
+      collectorSplunkCollectRequestParam1,
+    ),
+  );
+}
+export function collectorSplunkCollectRequestParam1FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorSplunkCollectRequestParam1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorSplunkCollectRequestParam1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorSplunkCollectRequestParam1' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorSplunkCollectRequestHeader1$inboundSchema: z.ZodType<
+  CollectorSplunkCollectRequestHeader1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectorSplunkCollectRequestHeader1$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectorSplunkCollectRequestHeader1$outboundSchema: z.ZodType<
+  CollectorSplunkCollectRequestHeader1$Outbound,
+  z.ZodTypeDef,
+  CollectorSplunkCollectRequestHeader1
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectorSplunkCollectRequestHeader1ToJSON(
+  collectorSplunkCollectRequestHeader1: CollectorSplunkCollectRequestHeader1,
+): string {
+  return JSON.stringify(
+    CollectorSplunkCollectRequestHeader1$outboundSchema.parse(
+      collectorSplunkCollectRequestHeader1,
+    ),
+  );
+}
+export function collectorSplunkCollectRequestHeader1FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorSplunkCollectRequestHeader1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorSplunkCollectRequestHeader1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorSplunkCollectRequestHeader1' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorSplunkRetryType1$inboundSchema: z.ZodType<
+  CollectorSplunkRetryType1,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorSplunkRetryType1);
+/** @internal */
+export const CollectorSplunkRetryType1$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorSplunkRetryType1
+> = openEnums.outboundSchema(CollectorSplunkRetryType1);
+
+/** @internal */
+export const CollectorSplunkRetryRules1$inboundSchema: z.ZodType<
+  CollectorSplunkRetryRules1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: CollectorSplunkRetryType1$inboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+/** @internal */
+export type CollectorSplunkRetryRules1$Outbound = {
+  type: string;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+  retryConnectTimeout?: any | undefined;
+  retryConnectReset?: any | undefined;
+};
+
+/** @internal */
+export const CollectorSplunkRetryRules1$outboundSchema: z.ZodType<
+  CollectorSplunkRetryRules1$Outbound,
+  z.ZodTypeDef,
+  CollectorSplunkRetryRules1
+> = z.object({
+  type: CollectorSplunkRetryType1$outboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+  retryConnectTimeout: z.any().optional(),
+  retryConnectReset: z.any().optional(),
+});
+
+export function collectorSplunkRetryRules1ToJSON(
+  collectorSplunkRetryRules1: CollectorSplunkRetryRules1,
+): string {
+  return JSON.stringify(
+    CollectorSplunkRetryRules1$outboundSchema.parse(collectorSplunkRetryRules1),
+  );
+}
+export function collectorSplunkRetryRules1FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorSplunkRetryRules1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorSplunkRetryRules1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorSplunkRetryRules1' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorSplunkSplunk1$inboundSchema: z.ZodType<
+  CollectorSplunkSplunk1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authentication: CollectorSplunkAuthentication1$inboundSchema.default("basic"),
+  type: CollectorSplunkType1$inboundSchema,
+  searchHead: z.string().default("https://localhost:8089"),
+  search: z.string(),
+  earliest: z.string().optional(),
+  latest: z.string().optional(),
+  endpoint: z.string().default("/services/search/v2/jobs/export"),
+  outputMode: CollectorSplunkOutputMode1$inboundSchema.default("json"),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorSplunkCollectRequestParam1$inboundSchema),
+  ).optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorSplunkCollectRequestHeader1$inboundSchema),
+  ).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  handleEscapedChars: z.boolean().default(false),
+  retryRules: z.lazy(() => CollectorSplunkRetryRules1$inboundSchema).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  token: z.string().optional(),
+  tokenSecret: z.string().optional(),
+  loginUrl: z.string().default("`https://localhost:9000/api/v1/auth/login`"),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  tokenRespAttribute: z.string().default("token"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+});
+/** @internal */
+export type CollectorSplunkSplunk1$Outbound = {
+  authentication: string;
+  type: string;
+  searchHead: string;
+  search: string;
+  earliest?: string | undefined;
+  latest?: string | undefined;
+  endpoint: string;
+  outputMode: string;
+  collectRequestParams?:
+    | Array<CollectorSplunkCollectRequestParam1$Outbound>
+    | undefined;
+  collectRequestHeaders?:
+    | Array<CollectorSplunkCollectRequestHeader1$Outbound>
+    | undefined;
+  timeout: number;
+  useRoundRobinDns: boolean;
+  disableTimeFilter: boolean;
+  rejectUnauthorized: boolean;
+  handleEscapedChars: boolean;
+  retryRules?: CollectorSplunkRetryRules1$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  token?: string | undefined;
+  tokenSecret?: string | undefined;
+  loginUrl: string;
+  loginBody: string;
+  tokenRespAttribute: string;
+  authHeaderExpr: string;
+};
+
+/** @internal */
+export const CollectorSplunkSplunk1$outboundSchema: z.ZodType<
+  CollectorSplunkSplunk1$Outbound,
+  z.ZodTypeDef,
+  CollectorSplunkSplunk1
+> = z.object({
+  authentication: CollectorSplunkAuthentication1$outboundSchema.default(
+    "basic",
+  ),
+  type: CollectorSplunkType1$outboundSchema,
+  searchHead: z.string().default("https://localhost:8089"),
+  search: z.string(),
+  earliest: z.string().optional(),
+  latest: z.string().optional(),
+  endpoint: z.string().default("/services/search/v2/jobs/export"),
+  outputMode: CollectorSplunkOutputMode1$outboundSchema.default("json"),
+  collectRequestParams: z.array(
+    z.lazy(() => CollectorSplunkCollectRequestParam1$outboundSchema),
+  ).optional(),
+  collectRequestHeaders: z.array(
+    z.lazy(() => CollectorSplunkCollectRequestHeader1$outboundSchema),
+  ).optional(),
+  timeout: z.number().default(0),
+  useRoundRobinDns: z.boolean().default(false),
+  disableTimeFilter: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(false),
+  handleEscapedChars: z.boolean().default(false),
+  retryRules: z.lazy(() => CollectorSplunkRetryRules1$outboundSchema)
+    .optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  token: z.string().optional(),
+  tokenSecret: z.string().optional(),
+  loginUrl: z.string().default("`https://localhost:9000/api/v1/auth/login`"),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  tokenRespAttribute: z.string().default("token"),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+});
+
+export function collectorSplunkSplunk1ToJSON(
+  collectorSplunkSplunk1: CollectorSplunkSplunk1,
+): string {
+  return JSON.stringify(
+    CollectorSplunkSplunk1$outboundSchema.parse(collectorSplunkSplunk1),
+  );
+}
+export function collectorSplunkSplunk1FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorSplunkSplunk1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorSplunkSplunk1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorSplunkSplunk1' from JSON`,
   );
 }
 
@@ -366,76 +3747,39 @@ export const CollectorSplunk$inboundSchema: z.ZodType<
   CollectorSplunk,
   z.ZodTypeDef,
   unknown
-> = z.object({
-  type: z.literal("splunk"),
-  searchHead: z.string().default("https://localhost:8089"),
-  search: z.string(),
-  earliest: z.string().optional(),
-  latest: z.string().optional(),
-  endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: CollectorSplunkOutputMode$inboundSchema.default("json"),
-  collectRequestParams: z.array(z.lazy(() => CollectRequestParam$inboundSchema))
-    .optional(),
-  collectRequestHeaders: z.array(
-    z.lazy(() => CollectorSplunkCollectRequestHeader$inboundSchema),
-  ).optional(),
-  authentication: CollectorSplunkAuthentication$inboundSchema.default("basic"),
-  timeout: z.number().default(0),
-  useRoundRobinDns: z.boolean().default(false),
-  disableTimeFilter: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(false),
-  handleEscapedChars: z.boolean().default(false),
-  retryRules: z.lazy(() => CollectorSplunkRetryRules$inboundSchema).optional(),
-});
+> = z.union([
+  z.lazy(() => CollectorSplunkSplunk2$inboundSchema),
+  z.lazy(() => CollectorSplunkSplunk6$inboundSchema),
+  z.lazy(() => CollectorSplunkSplunk3$inboundSchema),
+  z.lazy(() => CollectorSplunkSplunk4$inboundSchema),
+  z.lazy(() => CollectorSplunkSplunk5$inboundSchema),
+  z.lazy(() => CollectorSplunkSplunk7$inboundSchema),
+  z.lazy(() => CollectorSplunkSplunk1$inboundSchema),
+]);
 /** @internal */
-export type CollectorSplunk$Outbound = {
-  type: "splunk";
-  searchHead: string;
-  search: string;
-  earliest?: string | undefined;
-  latest?: string | undefined;
-  endpoint: string;
-  outputMode: string;
-  collectRequestParams?: Array<CollectRequestParam$Outbound> | undefined;
-  collectRequestHeaders?:
-    | Array<CollectorSplunkCollectRequestHeader$Outbound>
-    | undefined;
-  authentication: string;
-  timeout: number;
-  useRoundRobinDns: boolean;
-  disableTimeFilter: boolean;
-  rejectUnauthorized: boolean;
-  handleEscapedChars: boolean;
-  retryRules?: CollectorSplunkRetryRules$Outbound | undefined;
-};
+export type CollectorSplunk$Outbound =
+  | CollectorSplunkSplunk2$Outbound
+  | CollectorSplunkSplunk6$Outbound
+  | CollectorSplunkSplunk3$Outbound
+  | CollectorSplunkSplunk4$Outbound
+  | CollectorSplunkSplunk5$Outbound
+  | CollectorSplunkSplunk7$Outbound
+  | CollectorSplunkSplunk1$Outbound;
 
 /** @internal */
 export const CollectorSplunk$outboundSchema: z.ZodType<
   CollectorSplunk$Outbound,
   z.ZodTypeDef,
   CollectorSplunk
-> = z.object({
-  type: z.literal("splunk"),
-  searchHead: z.string().default("https://localhost:8089"),
-  search: z.string(),
-  earliest: z.string().optional(),
-  latest: z.string().optional(),
-  endpoint: z.string().default("/services/search/v2/jobs/export"),
-  outputMode: CollectorSplunkOutputMode$outboundSchema.default("json"),
-  collectRequestParams: z.array(
-    z.lazy(() => CollectRequestParam$outboundSchema),
-  ).optional(),
-  collectRequestHeaders: z.array(
-    z.lazy(() => CollectorSplunkCollectRequestHeader$outboundSchema),
-  ).optional(),
-  authentication: CollectorSplunkAuthentication$outboundSchema.default("basic"),
-  timeout: z.number().default(0),
-  useRoundRobinDns: z.boolean().default(false),
-  disableTimeFilter: z.boolean().default(true),
-  rejectUnauthorized: z.boolean().default(false),
-  handleEscapedChars: z.boolean().default(false),
-  retryRules: z.lazy(() => CollectorSplunkRetryRules$outboundSchema).optional(),
-});
+> = z.union([
+  z.lazy(() => CollectorSplunkSplunk2$outboundSchema),
+  z.lazy(() => CollectorSplunkSplunk6$outboundSchema),
+  z.lazy(() => CollectorSplunkSplunk3$outboundSchema),
+  z.lazy(() => CollectorSplunkSplunk4$outboundSchema),
+  z.lazy(() => CollectorSplunkSplunk5$outboundSchema),
+  z.lazy(() => CollectorSplunkSplunk7$outboundSchema),
+  z.lazy(() => CollectorSplunkSplunk1$outboundSchema),
+]);
 
 export function collectorSplunkToJSON(
   collectorSplunk: CollectorSplunk,
