@@ -95,9 +95,9 @@ import {
   PipelineFunctionGrok$inboundSchema,
 } from "./pipelinefunctiongrok.js";
 import {
-  PipelineFunctionHandlebar,
-  PipelineFunctionHandlebar$inboundSchema,
-} from "./pipelinefunctionhandlebar.js";
+  PipelineFunctionHandlebars,
+  PipelineFunctionHandlebars$inboundSchema,
+} from "./pipelinefunctionhandlebars.js";
 import {
   PipelineFunctionJoin,
   PipelineFunctionJoin$inboundSchema,
@@ -286,7 +286,7 @@ export type PipelineFunctionConf =
   | PipelineFunctionGenStats
   | PipelineFunctionGeoip
   | PipelineFunctionGrok
-  | PipelineFunctionHandlebar
+  | PipelineFunctionHandlebars
   | PipelineFunctionJoin
   | PipelineFunctionJsonUnroll
   | PipelineFunctionLakeExport
@@ -357,7 +357,7 @@ export const PipelineFunctionConf$inboundSchema: z.ZodType<
   PipelineFunctionGenStats$inboundSchema,
   PipelineFunctionGeoip$inboundSchema,
   PipelineFunctionGrok$inboundSchema,
-  PipelineFunctionHandlebar$inboundSchema,
+  PipelineFunctionHandlebars$inboundSchema,
   PipelineFunctionJoin$inboundSchema,
   PipelineFunctionJsonUnroll$inboundSchema,
   PipelineFunctionLakeExport$inboundSchema,

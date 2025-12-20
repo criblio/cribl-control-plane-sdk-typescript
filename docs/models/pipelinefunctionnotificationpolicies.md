@@ -38,6 +38,7 @@ let value: PipelineFunctionNotificationPolicies = {
           [],
         ],
         templateTargetPairs: [],
+        order: 2760.74,
       },
     ],
   },

@@ -5,43 +5,14 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
- * Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
- */
-export const PartitioningScheme = {
-  /**
-   * Defined in Path
-   */
-  None: "none",
-  /**
-   * DDSS
-   */
-  Ddss: "ddss",
-} as const;
-/**
- * Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
- */
-export type PartitioningScheme = OpenEnum<typeof PartitioningScheme>;
-
-export type CollectorS3Extractor = {
-  /**
-   * A token from the template path, such as epoch
-   */
-  key: string;
-  /**
-   * JavaScript expression that receives token under "value" variable, and evaluates to populate event fields. Example: {date: new Date(+value*1000)}
-   */
-  expression: string;
-};
-
-/**
  * AWS authentication method. Choose Auto to use IAM roles.
  */
-export const CollectorS3AuthenticationMethod = {
+export const CollectorS3AuthenticationMethod5 = {
   /**
    * Auto
    */
@@ -58,29 +29,77 @@ export const CollectorS3AuthenticationMethod = {
 /**
  * AWS authentication method. Choose Auto to use IAM roles.
  */
-export type CollectorS3AuthenticationMethod = OpenEnum<
-  typeof CollectorS3AuthenticationMethod
+export type CollectorS3AuthenticationMethod5 = OpenEnum<
+  typeof CollectorS3AuthenticationMethod5
 >;
+
+/**
+ * Collector type: s3
+ */
+export const CollectorS3Type5 = {
+  S3: "s3",
+} as const;
+/**
+ * Collector type: s3
+ */
+export type CollectorS3Type5 = ClosedEnum<typeof CollectorS3Type5>;
+
+/**
+ * Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
+ */
+export const PartitioningScheme5 = {
+  /**
+   * Defined in Path
+   */
+  None: "none",
+  /**
+   * DDSS
+   */
+  Ddss: "ddss",
+} as const;
+/**
+ * Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
+ */
+export type PartitioningScheme5 = OpenEnum<typeof PartitioningScheme5>;
+
+export type CollectorS3Extractor5 = {
+  /**
+   * A token from the template path, such as epoch
+   */
+  key: string;
+  /**
+   * JavaScript expression that receives token under "value" variable, and evaluates to populate event fields. Example: {date: new Date(+value*1000)}
+   */
+  expression: string;
+};
 
 /**
  * Signature version to use for signing S3 requests
  */
-export const CollectorS3SignatureVersion = {
+export const CollectorS3SignatureVersion5 = {
   V2: "v2",
   V4: "v4",
 } as const;
 /**
  * Signature version to use for signing S3 requests
  */
-export type CollectorS3SignatureVersion = OpenEnum<
-  typeof CollectorS3SignatureVersion
+export type CollectorS3SignatureVersion5 = OpenEnum<
+  typeof CollectorS3SignatureVersion5
 >;
 
-export type CollectorS3 = {
+export type CollectorS3S35 = {
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: CollectorS3AuthenticationMethod5 | undefined;
+  /**
+   * Select or create a stored secret that references AWS access key and secret key.
+   */
+  awsSecret?: string | undefined;
   /**
    * Collector type: s3
    */
-  type: "s3";
+  type: CollectorS3Type5;
   /**
    * Name of the predefined Destination that will be used to auto-populate Collector settings
    */
@@ -108,15 +127,11 @@ export type CollectorS3 = {
   /**
    * Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
    */
-  partitioningScheme?: PartitioningScheme | undefined;
+  partitioningScheme?: PartitioningScheme5 | undefined;
   /**
    * Allows using template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)}, will enrich discovery results with a human readable "date" field.
    */
-  extractors?: Array<CollectorS3Extractor> | undefined;
-  /**
-   * AWS authentication method. Choose Auto to use IAM roles.
-   */
-  awsAuthenticationMethod?: CollectorS3AuthenticationMethod | undefined;
+  extractors?: Array<CollectorS3Extractor5> | undefined;
   /**
    * Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint.
    */
@@ -124,7 +139,7 @@ export type CollectorS3 = {
   /**
    * Signature version to use for signing S3 requests
    */
-  signatureVersion?: CollectorS3SignatureVersion | undefined;
+  signatureVersion?: CollectorS3SignatureVersion5 | undefined;
   /**
    * Use AssumeRole credentials
    */
@@ -145,7 +160,10 @@ export type CollectorS3 = {
    * Maximum number of metadata objects to batch before recording as results
    */
   maxBatchSize?: number | undefined;
-  recurse?: any | undefined;
+  /**
+   * Traverse and include files from subdirectories. Leave this option enabled to ensure that all nested directories are searched and their contents collected.
+   */
+  recurse?: boolean | undefined;
   /**
    * Reuse connections between requests to improve performance
    */
@@ -162,24 +180,785 @@ export type CollectorS3 = {
    * Disable Collector event time filtering when a date range is specified
    */
   disableTimeFilter?: boolean | undefined;
+  /**
+   * Access key. If not present, will fall back to env.AWS_ACCESS_KEY_ID, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * Secret key. If not present, will fall back to env.AWS_SECRET_ACCESS_KEY, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
+   */
+  awsSecretKey?: string | undefined;
 };
 
-/** @internal */
-export const PartitioningScheme$inboundSchema: z.ZodType<
-  PartitioningScheme,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(PartitioningScheme);
-/** @internal */
-export const PartitioningScheme$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  PartitioningScheme
-> = openEnums.outboundSchema(PartitioningScheme);
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export const CollectorS3AuthenticationMethod4 = {
+  /**
+   * Auto
+   */
+  Auto: "auto",
+  /**
+   * Manual
+   */
+  Manual: "manual",
+  /**
+   * Secret Key pair
+   */
+  Secret: "secret",
+} as const;
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export type CollectorS3AuthenticationMethod4 = OpenEnum<
+  typeof CollectorS3AuthenticationMethod4
+>;
+
+/**
+ * Collector type: s3
+ */
+export const CollectorS3Type4 = {
+  S3: "s3",
+} as const;
+/**
+ * Collector type: s3
+ */
+export type CollectorS3Type4 = ClosedEnum<typeof CollectorS3Type4>;
+
+/**
+ * Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
+ */
+export const PartitioningScheme4 = {
+  /**
+   * Defined in Path
+   */
+  None: "none",
+  /**
+   * DDSS
+   */
+  Ddss: "ddss",
+} as const;
+/**
+ * Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
+ */
+export type PartitioningScheme4 = OpenEnum<typeof PartitioningScheme4>;
+
+export type CollectorS3Extractor4 = {
+  /**
+   * A token from the template path, such as epoch
+   */
+  key: string;
+  /**
+   * JavaScript expression that receives token under "value" variable, and evaluates to populate event fields. Example: {date: new Date(+value*1000)}
+   */
+  expression: string;
+};
+
+/**
+ * Signature version to use for signing S3 requests
+ */
+export const CollectorS3SignatureVersion4 = {
+  V2: "v2",
+  V4: "v4",
+} as const;
+/**
+ * Signature version to use for signing S3 requests
+ */
+export type CollectorS3SignatureVersion4 = OpenEnum<
+  typeof CollectorS3SignatureVersion4
+>;
+
+export type CollectorS3S34 = {
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: CollectorS3AuthenticationMethod4 | undefined;
+  /**
+   * Access key. If not present, will fall back to env.AWS_ACCESS_KEY_ID, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * Secret key. If not present, will fall back to env.AWS_SECRET_ACCESS_KEY, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * Collector type: s3
+   */
+  type: CollectorS3Type4;
+  /**
+   * Name of the predefined Destination that will be used to auto-populate Collector settings
+   */
+  outputName?: string | undefined;
+  /**
+   * S3 Bucket from which to collect data
+   */
+  bucket: string;
+  /**
+   * Maximum file size for each Parquet chunk
+   */
+  parquetChunkSizeMB?: number | undefined;
+  /**
+   * Maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
+   */
+  parquetChunkDownloadTimeout?: number | undefined;
+  /**
+   * Region from which to retrieve data
+   */
+  region?: string | undefined;
+  /**
+   * Directory where data will be collected. Templating (such as 'myDir/${datacenter}/${host}/${app}/') and time-based tokens (such as 'myOtherDir/${_time:%Y}/${_time:%m}/${_time:%d}/') are supported. Can be a constant (enclosed in quotes) or a JavaScript expression.
+   */
+  path?: string | undefined;
+  /**
+   * Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
+   */
+  partitioningScheme?: PartitioningScheme4 | undefined;
+  /**
+   * Allows using template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)}, will enrich discovery results with a human readable "date" field.
+   */
+  extractors?: Array<CollectorS3Extractor4> | undefined;
+  /**
+   * Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing S3 requests
+   */
+  signatureVersion?: CollectorS3SignatureVersion4 | undefined;
+  /**
+   * Use AssumeRole credentials
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the Assumed Role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Maximum number of metadata objects to batch before recording as results
+   */
+  maxBatchSize?: number | undefined;
+  /**
+   * Traverse and include files from subdirectories. Leave this option enabled to ensure that all nested directories are searched and their contents collected.
+   */
+  recurse?: boolean | undefined;
+  /**
+   * Reuse connections between requests to improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as a self-signed certificate)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself. Resolves errors of the form "discover task initialization failed...error: Forbidden".
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Disable Collector event time filtering when a date range is specified
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Select or create a stored secret that references AWS access key and secret key.
+   */
+  awsSecret?: string | undefined;
+};
+
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export const CollectorS3AuthenticationMethod3 = {
+  /**
+   * Auto
+   */
+  Auto: "auto",
+  /**
+   * Manual
+   */
+  Manual: "manual",
+  /**
+   * Secret Key pair
+   */
+  Secret: "secret",
+} as const;
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export type CollectorS3AuthenticationMethod3 = OpenEnum<
+  typeof CollectorS3AuthenticationMethod3
+>;
+
+/**
+ * Collector type: s3
+ */
+export const CollectorS3Type3 = {
+  S3: "s3",
+} as const;
+/**
+ * Collector type: s3
+ */
+export type CollectorS3Type3 = ClosedEnum<typeof CollectorS3Type3>;
+
+/**
+ * Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
+ */
+export const PartitioningScheme3 = {
+  /**
+   * Defined in Path
+   */
+  None: "none",
+  /**
+   * DDSS
+   */
+  Ddss: "ddss",
+} as const;
+/**
+ * Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
+ */
+export type PartitioningScheme3 = OpenEnum<typeof PartitioningScheme3>;
+
+export type CollectorS3Extractor3 = {
+  /**
+   * A token from the template path, such as epoch
+   */
+  key: string;
+  /**
+   * JavaScript expression that receives token under "value" variable, and evaluates to populate event fields. Example: {date: new Date(+value*1000)}
+   */
+  expression: string;
+};
+
+/**
+ * Signature version to use for signing S3 requests
+ */
+export const CollectorS3SignatureVersion3 = {
+  V2: "v2",
+  V4: "v4",
+} as const;
+/**
+ * Signature version to use for signing S3 requests
+ */
+export type CollectorS3SignatureVersion3 = OpenEnum<
+  typeof CollectorS3SignatureVersion3
+>;
+
+export type CollectorS3S33 = {
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: CollectorS3AuthenticationMethod3 | undefined;
+  /**
+   * Collector type: s3
+   */
+  type: CollectorS3Type3;
+  /**
+   * Name of the predefined Destination that will be used to auto-populate Collector settings
+   */
+  outputName?: string | undefined;
+  /**
+   * S3 Bucket from which to collect data
+   */
+  bucket: string;
+  /**
+   * Maximum file size for each Parquet chunk
+   */
+  parquetChunkSizeMB?: number | undefined;
+  /**
+   * Maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
+   */
+  parquetChunkDownloadTimeout?: number | undefined;
+  /**
+   * Region from which to retrieve data
+   */
+  region?: string | undefined;
+  /**
+   * Directory where data will be collected. Templating (such as 'myDir/${datacenter}/${host}/${app}/') and time-based tokens (such as 'myOtherDir/${_time:%Y}/${_time:%m}/${_time:%d}/') are supported. Can be a constant (enclosed in quotes) or a JavaScript expression.
+   */
+  path?: string | undefined;
+  /**
+   * Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
+   */
+  partitioningScheme?: PartitioningScheme3 | undefined;
+  /**
+   * Allows using template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)}, will enrich discovery results with a human readable "date" field.
+   */
+  extractors?: Array<CollectorS3Extractor3> | undefined;
+  /**
+   * Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing S3 requests
+   */
+  signatureVersion?: CollectorS3SignatureVersion3 | undefined;
+  /**
+   * Use AssumeRole credentials
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the Assumed Role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Maximum number of metadata objects to batch before recording as results
+   */
+  maxBatchSize?: number | undefined;
+  /**
+   * Traverse and include files from subdirectories. Leave this option enabled to ensure that all nested directories are searched and their contents collected.
+   */
+  recurse?: boolean | undefined;
+  /**
+   * Reuse connections between requests to improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as a self-signed certificate)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself. Resolves errors of the form "discover task initialization failed...error: Forbidden".
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Disable Collector event time filtering when a date range is specified
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Access key. If not present, will fall back to env.AWS_ACCESS_KEY_ID, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * Secret key. If not present, will fall back to env.AWS_SECRET_ACCESS_KEY, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references AWS access key and secret key.
+   */
+  awsSecret?: string | undefined;
+};
+
+/**
+ * Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
+ */
+export const PartitioningScheme2 = {
+  /**
+   * Defined in Path
+   */
+  None: "none",
+  /**
+   * DDSS
+   */
+  Ddss: "ddss",
+} as const;
+/**
+ * Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
+ */
+export type PartitioningScheme2 = OpenEnum<typeof PartitioningScheme2>;
+
+/**
+ * Collector type: s3
+ */
+export const CollectorS3Type2 = {
+  S3: "s3",
+} as const;
+/**
+ * Collector type: s3
+ */
+export type CollectorS3Type2 = ClosedEnum<typeof CollectorS3Type2>;
+
+export type CollectorS3Extractor2 = {
+  /**
+   * A token from the template path, such as epoch
+   */
+  key: string;
+  /**
+   * JavaScript expression that receives token under "value" variable, and evaluates to populate event fields. Example: {date: new Date(+value*1000)}
+   */
+  expression: string;
+};
+
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export const CollectorS3AuthenticationMethod2 = {
+  /**
+   * Auto
+   */
+  Auto: "auto",
+  /**
+   * Manual
+   */
+  Manual: "manual",
+  /**
+   * Secret Key pair
+   */
+  Secret: "secret",
+} as const;
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export type CollectorS3AuthenticationMethod2 = OpenEnum<
+  typeof CollectorS3AuthenticationMethod2
+>;
+
+/**
+ * Signature version to use for signing S3 requests
+ */
+export const CollectorS3SignatureVersion2 = {
+  V2: "v2",
+  V4: "v4",
+} as const;
+/**
+ * Signature version to use for signing S3 requests
+ */
+export type CollectorS3SignatureVersion2 = OpenEnum<
+  typeof CollectorS3SignatureVersion2
+>;
+
+export type CollectorS3S32 = {
+  /**
+   * Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
+   */
+  partitioningScheme?: PartitioningScheme2 | undefined;
+  /**
+   * Traverse and include files from subdirectories. Leave this option enabled to ensure that all nested directories are searched and their contents collected.
+   */
+  recurse?: boolean | undefined;
+  /**
+   * Collector type: s3
+   */
+  type: CollectorS3Type2;
+  /**
+   * Name of the predefined Destination that will be used to auto-populate Collector settings
+   */
+  outputName?: string | undefined;
+  /**
+   * S3 Bucket from which to collect data
+   */
+  bucket: string;
+  /**
+   * Maximum file size for each Parquet chunk
+   */
+  parquetChunkSizeMB?: number | undefined;
+  /**
+   * Maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
+   */
+  parquetChunkDownloadTimeout?: number | undefined;
+  /**
+   * Region from which to retrieve data
+   */
+  region?: string | undefined;
+  /**
+   * Directory where data will be collected. Templating (such as 'myDir/${datacenter}/${host}/${app}/') and time-based tokens (such as 'myOtherDir/${_time:%Y}/${_time:%m}/${_time:%d}/') are supported. Can be a constant (enclosed in quotes) or a JavaScript expression.
+   */
+  path?: string | undefined;
+  /**
+   * Allows using template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)}, will enrich discovery results with a human readable "date" field.
+   */
+  extractors?: Array<CollectorS3Extractor2> | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: CollectorS3AuthenticationMethod2 | undefined;
+  /**
+   * Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing S3 requests
+   */
+  signatureVersion?: CollectorS3SignatureVersion2 | undefined;
+  /**
+   * Use AssumeRole credentials
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the Assumed Role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Maximum number of metadata objects to batch before recording as results
+   */
+  maxBatchSize?: number | undefined;
+  /**
+   * Reuse connections between requests to improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as a self-signed certificate)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself. Resolves errors of the form "discover task initialization failed...error: Forbidden".
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Disable Collector event time filtering when a date range is specified
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Access key. If not present, will fall back to env.AWS_ACCESS_KEY_ID, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * Secret key. If not present, will fall back to env.AWS_SECRET_ACCESS_KEY, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references AWS access key and secret key.
+   */
+  awsSecret?: string | undefined;
+};
+
+/**
+ * Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
+ */
+export const PartitioningScheme1 = {
+  /**
+   * Defined in Path
+   */
+  None: "none",
+  /**
+   * DDSS
+   */
+  Ddss: "ddss",
+} as const;
+/**
+ * Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
+ */
+export type PartitioningScheme1 = OpenEnum<typeof PartitioningScheme1>;
+
+/**
+ * Collector type: s3
+ */
+export const CollectorS3Type1 = {
+  S3: "s3",
+} as const;
+/**
+ * Collector type: s3
+ */
+export type CollectorS3Type1 = ClosedEnum<typeof CollectorS3Type1>;
+
+export type CollectorS3Extractor1 = {
+  /**
+   * A token from the template path, such as epoch
+   */
+  key: string;
+  /**
+   * JavaScript expression that receives token under "value" variable, and evaluates to populate event fields. Example: {date: new Date(+value*1000)}
+   */
+  expression: string;
+};
+
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export const CollectorS3AuthenticationMethod1 = {
+  /**
+   * Auto
+   */
+  Auto: "auto",
+  /**
+   * Manual
+   */
+  Manual: "manual",
+  /**
+   * Secret Key pair
+   */
+  Secret: "secret",
+} as const;
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export type CollectorS3AuthenticationMethod1 = OpenEnum<
+  typeof CollectorS3AuthenticationMethod1
+>;
+
+/**
+ * Signature version to use for signing S3 requests
+ */
+export const CollectorS3SignatureVersion1 = {
+  V2: "v2",
+  V4: "v4",
+} as const;
+/**
+ * Signature version to use for signing S3 requests
+ */
+export type CollectorS3SignatureVersion1 = OpenEnum<
+  typeof CollectorS3SignatureVersion1
+>;
+
+export type CollectorS3S31 = {
+  /**
+   * Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
+   */
+  partitioningScheme?: PartitioningScheme1 | undefined;
+  /**
+   * Collector type: s3
+   */
+  type: CollectorS3Type1;
+  /**
+   * Name of the predefined Destination that will be used to auto-populate Collector settings
+   */
+  outputName?: string | undefined;
+  /**
+   * S3 Bucket from which to collect data
+   */
+  bucket: string;
+  /**
+   * Maximum file size for each Parquet chunk
+   */
+  parquetChunkSizeMB?: number | undefined;
+  /**
+   * Maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
+   */
+  parquetChunkDownloadTimeout?: number | undefined;
+  /**
+   * Region from which to retrieve data
+   */
+  region?: string | undefined;
+  /**
+   * Directory where data will be collected. Templating (such as 'myDir/${datacenter}/${host}/${app}/') and time-based tokens (such as 'myOtherDir/${_time:%Y}/${_time:%m}/${_time:%d}/') are supported. Can be a constant (enclosed in quotes) or a JavaScript expression.
+   */
+  path?: string | undefined;
+  /**
+   * Allows using template tokens as context for expressions that enrich discovery results. For example, given a template /path/${epoch}, an extractor under key "epoch" with an expression {date: new Date(+value*1000)}, will enrich discovery results with a human readable "date" field.
+   */
+  extractors?: Array<CollectorS3Extractor1> | undefined;
+  /**
+   * AWS authentication method. Choose Auto to use IAM roles.
+   */
+  awsAuthenticationMethod?: CollectorS3AuthenticationMethod1 | undefined;
+  /**
+   * Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint.
+   */
+  endpoint?: string | undefined;
+  /**
+   * Signature version to use for signing S3 requests
+   */
+  signatureVersion?: CollectorS3SignatureVersion1 | undefined;
+  /**
+   * Use AssumeRole credentials
+   */
+  enableAssumeRole?: boolean | undefined;
+  /**
+   * Amazon Resource Name (ARN) of the role to assume
+   */
+  assumeRoleArn?: string | undefined;
+  /**
+   * External ID to use when assuming role
+   */
+  assumeRoleExternalId?: string | undefined;
+  /**
+   * Duration of the Assumed Role's session, in seconds. Minimum is 900 (15 minutes), default is 3600 (1 hour), and maximum is 43200 (12 hours).
+   */
+  durationSeconds?: number | undefined;
+  /**
+   * Maximum number of metadata objects to batch before recording as results
+   */
+  maxBatchSize?: number | undefined;
+  /**
+   * Traverse and include files from subdirectories. Leave this option enabled to ensure that all nested directories are searched and their contents collected.
+   */
+  recurse?: boolean | undefined;
+  /**
+   * Reuse connections between requests to improve performance
+   */
+  reuseConnections?: boolean | undefined;
+  /**
+   * Reject certificates that cannot be verified against a valid CA (such as a self-signed certificate)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Disable if you can access files within the bucket but not the bucket itself. Resolves errors of the form "discover task initialization failed...error: Forbidden".
+   */
+  verifyPermissions?: boolean | undefined;
+  /**
+   * Disable Collector event time filtering when a date range is specified
+   */
+  disableTimeFilter?: boolean | undefined;
+  /**
+   * Access key. If not present, will fall back to env.AWS_ACCESS_KEY_ID, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
+   */
+  awsApiKey?: string | undefined;
+  /**
+   * Secret key. If not present, will fall back to env.AWS_SECRET_ACCESS_KEY, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
+   */
+  awsSecretKey?: string | undefined;
+  /**
+   * Select or create a stored secret that references AWS access key and secret key.
+   */
+  awsSecret?: string | undefined;
+};
+
+export type CollectorS3 =
+  | CollectorS3S31
+  | CollectorS3S32
+  | CollectorS3S33
+  | CollectorS3S34
+  | CollectorS3S35;
 
 /** @internal */
-export const CollectorS3Extractor$inboundSchema: z.ZodType<
-  CollectorS3Extractor,
+export const CollectorS3AuthenticationMethod5$inboundSchema: z.ZodType<
+  CollectorS3AuthenticationMethod5,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorS3AuthenticationMethod5);
+/** @internal */
+export const CollectorS3AuthenticationMethod5$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorS3AuthenticationMethod5
+> = openEnums.outboundSchema(CollectorS3AuthenticationMethod5);
+
+/** @internal */
+export const CollectorS3Type5$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorS3Type5
+> = z.nativeEnum(CollectorS3Type5);
+/** @internal */
+export const CollectorS3Type5$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorS3Type5
+> = CollectorS3Type5$inboundSchema;
+
+/** @internal */
+export const PartitioningScheme5$inboundSchema: z.ZodType<
+  PartitioningScheme5,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(PartitioningScheme5);
+/** @internal */
+export const PartitioningScheme5$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PartitioningScheme5
+> = openEnums.outboundSchema(PartitioningScheme5);
+
+/** @internal */
+export const CollectorS3Extractor5$inboundSchema: z.ZodType<
+  CollectorS3Extractor5,
   z.ZodTypeDef,
   unknown
 > = z.object({
@@ -187,98 +966,90 @@ export const CollectorS3Extractor$inboundSchema: z.ZodType<
   expression: z.string(),
 });
 /** @internal */
-export type CollectorS3Extractor$Outbound = {
+export type CollectorS3Extractor5$Outbound = {
   key: string;
   expression: string;
 };
 
 /** @internal */
-export const CollectorS3Extractor$outboundSchema: z.ZodType<
-  CollectorS3Extractor$Outbound,
+export const CollectorS3Extractor5$outboundSchema: z.ZodType<
+  CollectorS3Extractor5$Outbound,
   z.ZodTypeDef,
-  CollectorS3Extractor
+  CollectorS3Extractor5
 > = z.object({
   key: z.string(),
   expression: z.string(),
 });
 
-export function collectorS3ExtractorToJSON(
-  collectorS3Extractor: CollectorS3Extractor,
+export function collectorS3Extractor5ToJSON(
+  collectorS3Extractor5: CollectorS3Extractor5,
 ): string {
   return JSON.stringify(
-    CollectorS3Extractor$outboundSchema.parse(collectorS3Extractor),
+    CollectorS3Extractor5$outboundSchema.parse(collectorS3Extractor5),
   );
 }
-export function collectorS3ExtractorFromJSON(
+export function collectorS3Extractor5FromJSON(
   jsonString: string,
-): SafeParseResult<CollectorS3Extractor, SDKValidationError> {
+): SafeParseResult<CollectorS3Extractor5, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => CollectorS3Extractor$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorS3Extractor' from JSON`,
+    (x) => CollectorS3Extractor5$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorS3Extractor5' from JSON`,
   );
 }
 
 /** @internal */
-export const CollectorS3AuthenticationMethod$inboundSchema: z.ZodType<
-  CollectorS3AuthenticationMethod,
+export const CollectorS3SignatureVersion5$inboundSchema: z.ZodType<
+  CollectorS3SignatureVersion5,
   z.ZodTypeDef,
   unknown
-> = openEnums.inboundSchema(CollectorS3AuthenticationMethod);
+> = openEnums.inboundSchema(CollectorS3SignatureVersion5);
 /** @internal */
-export const CollectorS3AuthenticationMethod$outboundSchema: z.ZodType<
+export const CollectorS3SignatureVersion5$outboundSchema: z.ZodType<
   string,
   z.ZodTypeDef,
-  CollectorS3AuthenticationMethod
-> = openEnums.outboundSchema(CollectorS3AuthenticationMethod);
+  CollectorS3SignatureVersion5
+> = openEnums.outboundSchema(CollectorS3SignatureVersion5);
 
 /** @internal */
-export const CollectorS3SignatureVersion$inboundSchema: z.ZodType<
-  CollectorS3SignatureVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(CollectorS3SignatureVersion);
-/** @internal */
-export const CollectorS3SignatureVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CollectorS3SignatureVersion
-> = openEnums.outboundSchema(CollectorS3SignatureVersion);
-
-/** @internal */
-export const CollectorS3$inboundSchema: z.ZodType<
-  CollectorS3,
+export const CollectorS3S35$inboundSchema: z.ZodType<
+  CollectorS3S35,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: z.literal("s3"),
+  awsAuthenticationMethod: CollectorS3AuthenticationMethod5$inboundSchema
+    .default("auto"),
+  awsSecret: z.string().optional(),
+  type: CollectorS3Type5$inboundSchema,
   outputName: z.string().optional(),
   bucket: z.string(),
   parquetChunkSizeMB: z.number().default(5),
   parquetChunkDownloadTimeout: z.number().default(600),
   region: z.string().optional(),
   path: z.string().optional(),
-  partitioningScheme: PartitioningScheme$inboundSchema.default("none"),
-  extractors: z.array(z.lazy(() => CollectorS3Extractor$inboundSchema))
+  partitioningScheme: PartitioningScheme5$inboundSchema.default("none"),
+  extractors: z.array(z.lazy(() => CollectorS3Extractor5$inboundSchema))
     .optional(),
-  awsAuthenticationMethod: CollectorS3AuthenticationMethod$inboundSchema
-    .default("auto"),
   endpoint: z.string().optional(),
-  signatureVersion: CollectorS3SignatureVersion$inboundSchema.default("v4"),
+  signatureVersion: CollectorS3SignatureVersion5$inboundSchema.default("v4"),
   enableAssumeRole: z.boolean().default(false),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().default(3600),
   maxBatchSize: z.number().default(10),
-  recurse: z.any().optional(),
+  recurse: z.boolean().default(true),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   verifyPermissions: z.boolean().default(true),
   disableTimeFilter: z.boolean().default(false),
+  awsApiKey: z.string().optional(),
+  awsSecretKey: z.string().optional(),
 });
 /** @internal */
-export type CollectorS3$Outbound = {
-  type: "s3";
+export type CollectorS3S35$Outbound = {
+  awsAuthenticationMethod: string;
+  awsSecret?: string | undefined;
+  type: string;
   outputName?: string | undefined;
   bucket: string;
   parquetChunkSizeMB: number;
@@ -286,7 +1057,609 @@ export type CollectorS3$Outbound = {
   region?: string | undefined;
   path?: string | undefined;
   partitioningScheme: string;
-  extractors?: Array<CollectorS3Extractor$Outbound> | undefined;
+  extractors?: Array<CollectorS3Extractor5$Outbound> | undefined;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  maxBatchSize: number;
+  recurse: boolean;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  verifyPermissions: boolean;
+  disableTimeFilter: boolean;
+  awsApiKey?: string | undefined;
+  awsSecretKey?: string | undefined;
+};
+
+/** @internal */
+export const CollectorS3S35$outboundSchema: z.ZodType<
+  CollectorS3S35$Outbound,
+  z.ZodTypeDef,
+  CollectorS3S35
+> = z.object({
+  awsAuthenticationMethod: CollectorS3AuthenticationMethod5$outboundSchema
+    .default("auto"),
+  awsSecret: z.string().optional(),
+  type: CollectorS3Type5$outboundSchema,
+  outputName: z.string().optional(),
+  bucket: z.string(),
+  parquetChunkSizeMB: z.number().default(5),
+  parquetChunkDownloadTimeout: z.number().default(600),
+  region: z.string().optional(),
+  path: z.string().optional(),
+  partitioningScheme: PartitioningScheme5$outboundSchema.default("none"),
+  extractors: z.array(z.lazy(() => CollectorS3Extractor5$outboundSchema))
+    .optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: CollectorS3SignatureVersion5$outboundSchema.default("v4"),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxBatchSize: z.number().default(10),
+  recurse: z.boolean().default(true),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  verifyPermissions: z.boolean().default(true),
+  disableTimeFilter: z.boolean().default(false),
+  awsApiKey: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+});
+
+export function collectorS3S35ToJSON(collectorS3S35: CollectorS3S35): string {
+  return JSON.stringify(CollectorS3S35$outboundSchema.parse(collectorS3S35));
+}
+export function collectorS3S35FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorS3S35, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorS3S35$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorS3S35' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorS3AuthenticationMethod4$inboundSchema: z.ZodType<
+  CollectorS3AuthenticationMethod4,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorS3AuthenticationMethod4);
+/** @internal */
+export const CollectorS3AuthenticationMethod4$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorS3AuthenticationMethod4
+> = openEnums.outboundSchema(CollectorS3AuthenticationMethod4);
+
+/** @internal */
+export const CollectorS3Type4$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorS3Type4
+> = z.nativeEnum(CollectorS3Type4);
+/** @internal */
+export const CollectorS3Type4$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorS3Type4
+> = CollectorS3Type4$inboundSchema;
+
+/** @internal */
+export const PartitioningScheme4$inboundSchema: z.ZodType<
+  PartitioningScheme4,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(PartitioningScheme4);
+/** @internal */
+export const PartitioningScheme4$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PartitioningScheme4
+> = openEnums.outboundSchema(PartitioningScheme4);
+
+/** @internal */
+export const CollectorS3Extractor4$inboundSchema: z.ZodType<
+  CollectorS3Extractor4,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+/** @internal */
+export type CollectorS3Extractor4$Outbound = {
+  key: string;
+  expression: string;
+};
+
+/** @internal */
+export const CollectorS3Extractor4$outboundSchema: z.ZodType<
+  CollectorS3Extractor4$Outbound,
+  z.ZodTypeDef,
+  CollectorS3Extractor4
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+
+export function collectorS3Extractor4ToJSON(
+  collectorS3Extractor4: CollectorS3Extractor4,
+): string {
+  return JSON.stringify(
+    CollectorS3Extractor4$outboundSchema.parse(collectorS3Extractor4),
+  );
+}
+export function collectorS3Extractor4FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorS3Extractor4, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorS3Extractor4$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorS3Extractor4' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorS3SignatureVersion4$inboundSchema: z.ZodType<
+  CollectorS3SignatureVersion4,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorS3SignatureVersion4);
+/** @internal */
+export const CollectorS3SignatureVersion4$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorS3SignatureVersion4
+> = openEnums.outboundSchema(CollectorS3SignatureVersion4);
+
+/** @internal */
+export const CollectorS3S34$inboundSchema: z.ZodType<
+  CollectorS3S34,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  awsAuthenticationMethod: CollectorS3AuthenticationMethod4$inboundSchema
+    .default("auto"),
+  awsApiKey: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  type: CollectorS3Type4$inboundSchema,
+  outputName: z.string().optional(),
+  bucket: z.string(),
+  parquetChunkSizeMB: z.number().default(5),
+  parquetChunkDownloadTimeout: z.number().default(600),
+  region: z.string().optional(),
+  path: z.string().optional(),
+  partitioningScheme: PartitioningScheme4$inboundSchema.default("none"),
+  extractors: z.array(z.lazy(() => CollectorS3Extractor4$inboundSchema))
+    .optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: CollectorS3SignatureVersion4$inboundSchema.default("v4"),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxBatchSize: z.number().default(10),
+  recurse: z.boolean().default(true),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  verifyPermissions: z.boolean().default(true),
+  disableTimeFilter: z.boolean().default(false),
+  awsSecret: z.string().optional(),
+});
+/** @internal */
+export type CollectorS3S34$Outbound = {
+  awsAuthenticationMethod: string;
+  awsApiKey?: string | undefined;
+  awsSecretKey?: string | undefined;
+  type: string;
+  outputName?: string | undefined;
+  bucket: string;
+  parquetChunkSizeMB: number;
+  parquetChunkDownloadTimeout: number;
+  region?: string | undefined;
+  path?: string | undefined;
+  partitioningScheme: string;
+  extractors?: Array<CollectorS3Extractor4$Outbound> | undefined;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  maxBatchSize: number;
+  recurse: boolean;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  verifyPermissions: boolean;
+  disableTimeFilter: boolean;
+  awsSecret?: string | undefined;
+};
+
+/** @internal */
+export const CollectorS3S34$outboundSchema: z.ZodType<
+  CollectorS3S34$Outbound,
+  z.ZodTypeDef,
+  CollectorS3S34
+> = z.object({
+  awsAuthenticationMethod: CollectorS3AuthenticationMethod4$outboundSchema
+    .default("auto"),
+  awsApiKey: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  type: CollectorS3Type4$outboundSchema,
+  outputName: z.string().optional(),
+  bucket: z.string(),
+  parquetChunkSizeMB: z.number().default(5),
+  parquetChunkDownloadTimeout: z.number().default(600),
+  region: z.string().optional(),
+  path: z.string().optional(),
+  partitioningScheme: PartitioningScheme4$outboundSchema.default("none"),
+  extractors: z.array(z.lazy(() => CollectorS3Extractor4$outboundSchema))
+    .optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: CollectorS3SignatureVersion4$outboundSchema.default("v4"),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxBatchSize: z.number().default(10),
+  recurse: z.boolean().default(true),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  verifyPermissions: z.boolean().default(true),
+  disableTimeFilter: z.boolean().default(false),
+  awsSecret: z.string().optional(),
+});
+
+export function collectorS3S34ToJSON(collectorS3S34: CollectorS3S34): string {
+  return JSON.stringify(CollectorS3S34$outboundSchema.parse(collectorS3S34));
+}
+export function collectorS3S34FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorS3S34, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorS3S34$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorS3S34' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorS3AuthenticationMethod3$inboundSchema: z.ZodType<
+  CollectorS3AuthenticationMethod3,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorS3AuthenticationMethod3);
+/** @internal */
+export const CollectorS3AuthenticationMethod3$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorS3AuthenticationMethod3
+> = openEnums.outboundSchema(CollectorS3AuthenticationMethod3);
+
+/** @internal */
+export const CollectorS3Type3$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorS3Type3
+> = z.nativeEnum(CollectorS3Type3);
+/** @internal */
+export const CollectorS3Type3$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorS3Type3
+> = CollectorS3Type3$inboundSchema;
+
+/** @internal */
+export const PartitioningScheme3$inboundSchema: z.ZodType<
+  PartitioningScheme3,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(PartitioningScheme3);
+/** @internal */
+export const PartitioningScheme3$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PartitioningScheme3
+> = openEnums.outboundSchema(PartitioningScheme3);
+
+/** @internal */
+export const CollectorS3Extractor3$inboundSchema: z.ZodType<
+  CollectorS3Extractor3,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+/** @internal */
+export type CollectorS3Extractor3$Outbound = {
+  key: string;
+  expression: string;
+};
+
+/** @internal */
+export const CollectorS3Extractor3$outboundSchema: z.ZodType<
+  CollectorS3Extractor3$Outbound,
+  z.ZodTypeDef,
+  CollectorS3Extractor3
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+
+export function collectorS3Extractor3ToJSON(
+  collectorS3Extractor3: CollectorS3Extractor3,
+): string {
+  return JSON.stringify(
+    CollectorS3Extractor3$outboundSchema.parse(collectorS3Extractor3),
+  );
+}
+export function collectorS3Extractor3FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorS3Extractor3, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorS3Extractor3$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorS3Extractor3' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorS3SignatureVersion3$inboundSchema: z.ZodType<
+  CollectorS3SignatureVersion3,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorS3SignatureVersion3);
+/** @internal */
+export const CollectorS3SignatureVersion3$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorS3SignatureVersion3
+> = openEnums.outboundSchema(CollectorS3SignatureVersion3);
+
+/** @internal */
+export const CollectorS3S33$inboundSchema: z.ZodType<
+  CollectorS3S33,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  awsAuthenticationMethod: CollectorS3AuthenticationMethod3$inboundSchema
+    .default("auto"),
+  type: CollectorS3Type3$inboundSchema,
+  outputName: z.string().optional(),
+  bucket: z.string(),
+  parquetChunkSizeMB: z.number().default(5),
+  parquetChunkDownloadTimeout: z.number().default(600),
+  region: z.string().optional(),
+  path: z.string().optional(),
+  partitioningScheme: PartitioningScheme3$inboundSchema.default("none"),
+  extractors: z.array(z.lazy(() => CollectorS3Extractor3$inboundSchema))
+    .optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: CollectorS3SignatureVersion3$inboundSchema.default("v4"),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxBatchSize: z.number().default(10),
+  recurse: z.boolean().default(true),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  verifyPermissions: z.boolean().default(true),
+  disableTimeFilter: z.boolean().default(false),
+  awsApiKey: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+});
+/** @internal */
+export type CollectorS3S33$Outbound = {
+  awsAuthenticationMethod: string;
+  type: string;
+  outputName?: string | undefined;
+  bucket: string;
+  parquetChunkSizeMB: number;
+  parquetChunkDownloadTimeout: number;
+  region?: string | undefined;
+  path?: string | undefined;
+  partitioningScheme: string;
+  extractors?: Array<CollectorS3Extractor3$Outbound> | undefined;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  maxBatchSize: number;
+  recurse: boolean;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  verifyPermissions: boolean;
+  disableTimeFilter: boolean;
+  awsApiKey?: string | undefined;
+  awsSecretKey?: string | undefined;
+  awsSecret?: string | undefined;
+};
+
+/** @internal */
+export const CollectorS3S33$outboundSchema: z.ZodType<
+  CollectorS3S33$Outbound,
+  z.ZodTypeDef,
+  CollectorS3S33
+> = z.object({
+  awsAuthenticationMethod: CollectorS3AuthenticationMethod3$outboundSchema
+    .default("auto"),
+  type: CollectorS3Type3$outboundSchema,
+  outputName: z.string().optional(),
+  bucket: z.string(),
+  parquetChunkSizeMB: z.number().default(5),
+  parquetChunkDownloadTimeout: z.number().default(600),
+  region: z.string().optional(),
+  path: z.string().optional(),
+  partitioningScheme: PartitioningScheme3$outboundSchema.default("none"),
+  extractors: z.array(z.lazy(() => CollectorS3Extractor3$outboundSchema))
+    .optional(),
+  endpoint: z.string().optional(),
+  signatureVersion: CollectorS3SignatureVersion3$outboundSchema.default("v4"),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxBatchSize: z.number().default(10),
+  recurse: z.boolean().default(true),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  verifyPermissions: z.boolean().default(true),
+  disableTimeFilter: z.boolean().default(false),
+  awsApiKey: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+});
+
+export function collectorS3S33ToJSON(collectorS3S33: CollectorS3S33): string {
+  return JSON.stringify(CollectorS3S33$outboundSchema.parse(collectorS3S33));
+}
+export function collectorS3S33FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorS3S33, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorS3S33$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorS3S33' from JSON`,
+  );
+}
+
+/** @internal */
+export const PartitioningScheme2$inboundSchema: z.ZodType<
+  PartitioningScheme2,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(PartitioningScheme2);
+/** @internal */
+export const PartitioningScheme2$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PartitioningScheme2
+> = openEnums.outboundSchema(PartitioningScheme2);
+
+/** @internal */
+export const CollectorS3Type2$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorS3Type2
+> = z.nativeEnum(CollectorS3Type2);
+/** @internal */
+export const CollectorS3Type2$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorS3Type2
+> = CollectorS3Type2$inboundSchema;
+
+/** @internal */
+export const CollectorS3Extractor2$inboundSchema: z.ZodType<
+  CollectorS3Extractor2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+/** @internal */
+export type CollectorS3Extractor2$Outbound = {
+  key: string;
+  expression: string;
+};
+
+/** @internal */
+export const CollectorS3Extractor2$outboundSchema: z.ZodType<
+  CollectorS3Extractor2$Outbound,
+  z.ZodTypeDef,
+  CollectorS3Extractor2
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+
+export function collectorS3Extractor2ToJSON(
+  collectorS3Extractor2: CollectorS3Extractor2,
+): string {
+  return JSON.stringify(
+    CollectorS3Extractor2$outboundSchema.parse(collectorS3Extractor2),
+  );
+}
+export function collectorS3Extractor2FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorS3Extractor2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorS3Extractor2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorS3Extractor2' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorS3AuthenticationMethod2$inboundSchema: z.ZodType<
+  CollectorS3AuthenticationMethod2,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorS3AuthenticationMethod2);
+/** @internal */
+export const CollectorS3AuthenticationMethod2$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorS3AuthenticationMethod2
+> = openEnums.outboundSchema(CollectorS3AuthenticationMethod2);
+
+/** @internal */
+export const CollectorS3SignatureVersion2$inboundSchema: z.ZodType<
+  CollectorS3SignatureVersion2,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorS3SignatureVersion2);
+/** @internal */
+export const CollectorS3SignatureVersion2$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorS3SignatureVersion2
+> = openEnums.outboundSchema(CollectorS3SignatureVersion2);
+
+/** @internal */
+export const CollectorS3S32$inboundSchema: z.ZodType<
+  CollectorS3S32,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  partitioningScheme: PartitioningScheme2$inboundSchema.default("none"),
+  recurse: z.boolean().default(true),
+  type: CollectorS3Type2$inboundSchema,
+  outputName: z.string().optional(),
+  bucket: z.string(),
+  parquetChunkSizeMB: z.number().default(5),
+  parquetChunkDownloadTimeout: z.number().default(600),
+  region: z.string().optional(),
+  path: z.string().optional(),
+  extractors: z.array(z.lazy(() => CollectorS3Extractor2$inboundSchema))
+    .optional(),
+  awsAuthenticationMethod: CollectorS3AuthenticationMethod2$inboundSchema
+    .default("auto"),
+  endpoint: z.string().optional(),
+  signatureVersion: CollectorS3SignatureVersion2$inboundSchema.default("v4"),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxBatchSize: z.number().default(10),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  verifyPermissions: z.boolean().default(true),
+  disableTimeFilter: z.boolean().default(false),
+  awsApiKey: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+});
+/** @internal */
+export type CollectorS3S32$Outbound = {
+  partitioningScheme: string;
+  recurse: boolean;
+  type: string;
+  outputName?: string | undefined;
+  bucket: string;
+  parquetChunkSizeMB: number;
+  parquetChunkDownloadTimeout: number;
+  region?: string | undefined;
+  path?: string | undefined;
+  extractors?: Array<CollectorS3Extractor2$Outbound> | undefined;
   awsAuthenticationMethod: string;
   endpoint?: string | undefined;
   signatureVersion: string;
@@ -295,44 +1668,296 @@ export type CollectorS3$Outbound = {
   assumeRoleExternalId?: string | undefined;
   durationSeconds: number;
   maxBatchSize: number;
-  recurse?: any | undefined;
   reuseConnections: boolean;
   rejectUnauthorized: boolean;
   verifyPermissions: boolean;
   disableTimeFilter: boolean;
+  awsApiKey?: string | undefined;
+  awsSecretKey?: string | undefined;
+  awsSecret?: string | undefined;
 };
 
 /** @internal */
-export const CollectorS3$outboundSchema: z.ZodType<
-  CollectorS3$Outbound,
+export const CollectorS3S32$outboundSchema: z.ZodType<
+  CollectorS3S32$Outbound,
   z.ZodTypeDef,
-  CollectorS3
+  CollectorS3S32
 > = z.object({
-  type: z.literal("s3"),
+  partitioningScheme: PartitioningScheme2$outboundSchema.default("none"),
+  recurse: z.boolean().default(true),
+  type: CollectorS3Type2$outboundSchema,
   outputName: z.string().optional(),
   bucket: z.string(),
   parquetChunkSizeMB: z.number().default(5),
   parquetChunkDownloadTimeout: z.number().default(600),
   region: z.string().optional(),
   path: z.string().optional(),
-  partitioningScheme: PartitioningScheme$outboundSchema.default("none"),
-  extractors: z.array(z.lazy(() => CollectorS3Extractor$outboundSchema))
+  extractors: z.array(z.lazy(() => CollectorS3Extractor2$outboundSchema))
     .optional(),
-  awsAuthenticationMethod: CollectorS3AuthenticationMethod$outboundSchema
+  awsAuthenticationMethod: CollectorS3AuthenticationMethod2$outboundSchema
     .default("auto"),
   endpoint: z.string().optional(),
-  signatureVersion: CollectorS3SignatureVersion$outboundSchema.default("v4"),
+  signatureVersion: CollectorS3SignatureVersion2$outboundSchema.default("v4"),
   enableAssumeRole: z.boolean().default(false),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().default(3600),
   maxBatchSize: z.number().default(10),
-  recurse: z.any().optional(),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   verifyPermissions: z.boolean().default(true),
   disableTimeFilter: z.boolean().default(false),
+  awsApiKey: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  awsSecret: z.string().optional(),
 });
+
+export function collectorS3S32ToJSON(collectorS3S32: CollectorS3S32): string {
+  return JSON.stringify(CollectorS3S32$outboundSchema.parse(collectorS3S32));
+}
+export function collectorS3S32FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorS3S32, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorS3S32$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorS3S32' from JSON`,
+  );
+}
+
+/** @internal */
+export const PartitioningScheme1$inboundSchema: z.ZodType<
+  PartitioningScheme1,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(PartitioningScheme1);
+/** @internal */
+export const PartitioningScheme1$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  PartitioningScheme1
+> = openEnums.outboundSchema(PartitioningScheme1);
+
+/** @internal */
+export const CollectorS3Type1$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorS3Type1
+> = z.nativeEnum(CollectorS3Type1);
+/** @internal */
+export const CollectorS3Type1$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorS3Type1
+> = CollectorS3Type1$inboundSchema;
+
+/** @internal */
+export const CollectorS3Extractor1$inboundSchema: z.ZodType<
+  CollectorS3Extractor1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+/** @internal */
+export type CollectorS3Extractor1$Outbound = {
+  key: string;
+  expression: string;
+};
+
+/** @internal */
+export const CollectorS3Extractor1$outboundSchema: z.ZodType<
+  CollectorS3Extractor1$Outbound,
+  z.ZodTypeDef,
+  CollectorS3Extractor1
+> = z.object({
+  key: z.string(),
+  expression: z.string(),
+});
+
+export function collectorS3Extractor1ToJSON(
+  collectorS3Extractor1: CollectorS3Extractor1,
+): string {
+  return JSON.stringify(
+    CollectorS3Extractor1$outboundSchema.parse(collectorS3Extractor1),
+  );
+}
+export function collectorS3Extractor1FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorS3Extractor1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorS3Extractor1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorS3Extractor1' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorS3AuthenticationMethod1$inboundSchema: z.ZodType<
+  CollectorS3AuthenticationMethod1,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorS3AuthenticationMethod1);
+/** @internal */
+export const CollectorS3AuthenticationMethod1$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorS3AuthenticationMethod1
+> = openEnums.outboundSchema(CollectorS3AuthenticationMethod1);
+
+/** @internal */
+export const CollectorS3SignatureVersion1$inboundSchema: z.ZodType<
+  CollectorS3SignatureVersion1,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(CollectorS3SignatureVersion1);
+/** @internal */
+export const CollectorS3SignatureVersion1$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CollectorS3SignatureVersion1
+> = openEnums.outboundSchema(CollectorS3SignatureVersion1);
+
+/** @internal */
+export const CollectorS3S31$inboundSchema: z.ZodType<
+  CollectorS3S31,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  partitioningScheme: PartitioningScheme1$inboundSchema.default("none"),
+  type: CollectorS3Type1$inboundSchema,
+  outputName: z.string().optional(),
+  bucket: z.string(),
+  parquetChunkSizeMB: z.number().default(5),
+  parquetChunkDownloadTimeout: z.number().default(600),
+  region: z.string().optional(),
+  path: z.string().optional(),
+  extractors: z.array(z.lazy(() => CollectorS3Extractor1$inboundSchema))
+    .optional(),
+  awsAuthenticationMethod: CollectorS3AuthenticationMethod1$inboundSchema
+    .default("auto"),
+  endpoint: z.string().optional(),
+  signatureVersion: CollectorS3SignatureVersion1$inboundSchema.default("v4"),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxBatchSize: z.number().default(10),
+  recurse: z.boolean().default(true),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  verifyPermissions: z.boolean().default(true),
+  disableTimeFilter: z.boolean().default(false),
+  awsApiKey: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+});
+/** @internal */
+export type CollectorS3S31$Outbound = {
+  partitioningScheme: string;
+  type: string;
+  outputName?: string | undefined;
+  bucket: string;
+  parquetChunkSizeMB: number;
+  parquetChunkDownloadTimeout: number;
+  region?: string | undefined;
+  path?: string | undefined;
+  extractors?: Array<CollectorS3Extractor1$Outbound> | undefined;
+  awsAuthenticationMethod: string;
+  endpoint?: string | undefined;
+  signatureVersion: string;
+  enableAssumeRole: boolean;
+  assumeRoleArn?: string | undefined;
+  assumeRoleExternalId?: string | undefined;
+  durationSeconds: number;
+  maxBatchSize: number;
+  recurse: boolean;
+  reuseConnections: boolean;
+  rejectUnauthorized: boolean;
+  verifyPermissions: boolean;
+  disableTimeFilter: boolean;
+  awsApiKey?: string | undefined;
+  awsSecretKey?: string | undefined;
+  awsSecret?: string | undefined;
+};
+
+/** @internal */
+export const CollectorS3S31$outboundSchema: z.ZodType<
+  CollectorS3S31$Outbound,
+  z.ZodTypeDef,
+  CollectorS3S31
+> = z.object({
+  partitioningScheme: PartitioningScheme1$outboundSchema.default("none"),
+  type: CollectorS3Type1$outboundSchema,
+  outputName: z.string().optional(),
+  bucket: z.string(),
+  parquetChunkSizeMB: z.number().default(5),
+  parquetChunkDownloadTimeout: z.number().default(600),
+  region: z.string().optional(),
+  path: z.string().optional(),
+  extractors: z.array(z.lazy(() => CollectorS3Extractor1$outboundSchema))
+    .optional(),
+  awsAuthenticationMethod: CollectorS3AuthenticationMethod1$outboundSchema
+    .default("auto"),
+  endpoint: z.string().optional(),
+  signatureVersion: CollectorS3SignatureVersion1$outboundSchema.default("v4"),
+  enableAssumeRole: z.boolean().default(false),
+  assumeRoleArn: z.string().optional(),
+  assumeRoleExternalId: z.string().optional(),
+  durationSeconds: z.number().default(3600),
+  maxBatchSize: z.number().default(10),
+  recurse: z.boolean().default(true),
+  reuseConnections: z.boolean().default(true),
+  rejectUnauthorized: z.boolean().default(true),
+  verifyPermissions: z.boolean().default(true),
+  disableTimeFilter: z.boolean().default(false),
+  awsApiKey: z.string().optional(),
+  awsSecretKey: z.string().optional(),
+  awsSecret: z.string().optional(),
+});
+
+export function collectorS3S31ToJSON(collectorS3S31: CollectorS3S31): string {
+  return JSON.stringify(CollectorS3S31$outboundSchema.parse(collectorS3S31));
+}
+export function collectorS3S31FromJSON(
+  jsonString: string,
+): SafeParseResult<CollectorS3S31, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectorS3S31$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectorS3S31' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorS3$inboundSchema: z.ZodType<
+  CollectorS3,
+  z.ZodTypeDef,
+  unknown
+> = z.union([
+  z.lazy(() => CollectorS3S31$inboundSchema),
+  z.lazy(() => CollectorS3S32$inboundSchema),
+  z.lazy(() => CollectorS3S33$inboundSchema),
+  z.lazy(() => CollectorS3S34$inboundSchema),
+  z.lazy(() => CollectorS3S35$inboundSchema),
+]);
+/** @internal */
+export type CollectorS3$Outbound =
+  | CollectorS3S31$Outbound
+  | CollectorS3S32$Outbound
+  | CollectorS3S33$Outbound
+  | CollectorS3S34$Outbound
+  | CollectorS3S35$Outbound;
+
+/** @internal */
+export const CollectorS3$outboundSchema: z.ZodType<
+  CollectorS3$Outbound,
+  z.ZodTypeDef,
+  CollectorS3
+> = z.union([
+  z.lazy(() => CollectorS3S31$outboundSchema),
+  z.lazy(() => CollectorS3S32$outboundSchema),
+  z.lazy(() => CollectorS3S33$outboundSchema),
+  z.lazy(() => CollectorS3S34$outboundSchema),
+  z.lazy(() => CollectorS3S35$outboundSchema),
+]);
 
 export function collectorS3ToJSON(collectorS3: CollectorS3): string {
   return JSON.stringify(CollectorS3$outboundSchema.parse(collectorS3));

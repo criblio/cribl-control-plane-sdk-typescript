@@ -83,6 +83,10 @@ export type Policy = {
    * If true, stop evaluating further policies after this one matches
    */
   final?: boolean | undefined;
+  /**
+   * Evaluation order of this policy (lower numbers evaluated first)
+   */
+  order: number;
 };
 
 export type FunctionConfSchemaNotificationPolicies = {
@@ -227,6 +231,7 @@ export const Policy$inboundSchema: z.ZodType<Policy, z.ZodTypeDef, unknown> = z
       z.lazy(() => TemplateTargetPair$inboundSchema),
     ),
     final: z.boolean().default(false),
+    order: z.number(),
   });
 /** @internal */
 export type Policy$Outbound = {
@@ -237,6 +242,7 @@ export type Policy$Outbound = {
   conditions?: Array<Array<Condition$Outbound>> | undefined;
   templateTargetPairs: Array<TemplateTargetPair$Outbound>;
   final: boolean;
+  order: number;
 };
 
 /** @internal */
@@ -253,6 +259,7 @@ export const Policy$outboundSchema: z.ZodType<
     .optional(),
   templateTargetPairs: z.array(z.lazy(() => TemplateTargetPair$outboundSchema)),
   final: z.boolean().default(false),
+  order: z.number(),
 });
 
 export function policyToJSON(policy: Policy): string {

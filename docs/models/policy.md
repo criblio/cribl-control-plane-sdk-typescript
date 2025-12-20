@@ -26,6 +26,7 @@ let value: Policy = {
       targetId: "<id>",
     },
   ],
+  order: 531.93,
 };
 ```
 
@@ -40,3 +41,4 @@ let value: Policy = {
 | `conditions`                                                                                                                       | [models.Condition](../models/condition.md)[][]                                                                                     | :heavy_minus_sign:                                                                                                                 | List of conditions. If ANY condition matches (OR), the policy applies. Each condition is a list of tags that must ALL match (AND). |
 | `templateTargetPairs`                                                                                                              | [models.TemplateTargetPair](../models/templatetargetpair.md)[]                                                                     | :heavy_check_mark:                                                                                                                 | List of targets to route to and the templates to use                                                                               |
 | `final`                                                                                                                            | *boolean*                                                                                                                          | :heavy_minus_sign:                                                                                                                 | If true, stop evaluating further policies after this one matches                                                                   |
+| `order`                                                                                                                            | *number*                                                                                                                           | :heavy_check_mark:                                                                                                                 | Evaluation order of this policy (lower numbers evaluated first)                                                                    |

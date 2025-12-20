@@ -33,6 +33,7 @@ let value: FunctionConfSchemaNotificationPolicies = {
         [],
       ],
       templateTargetPairs: [],
+      order: 2760.74,
     },
   ],
 };

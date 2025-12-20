@@ -570,13 +570,18 @@ async function run() {
       collector: {
         type: "<value>",
         conf: {
+          collectMethod: "get",
+          collectRequestParams: [
+            {
+              name: "<value>",
+              value: "<value>",
+            },
+          ],
           discovery: {
             discoverType: "none",
           },
           collectUrl: "https://shameful-vicinity.com/",
-          collectMethod: "get",
-          collectRequestParams: "<value>",
-          collectBody: "<value>",
+          collectBody: "`{ }`",
           collectRequestHeaders: [
             {
               name: "<value>",
@@ -601,6 +606,28 @@ async function run() {
             codes: "<value>",
             enableHeader: "<value>",
           },
+          username: "Daphnee_Schimmel-Wolf26",
+          password: "qwZ927mZOVqnV8W",
+          credentialsSecret: "<value>",
+          loginUrl: "",
+          loginBody: "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+          tokenRespAttribute: "<value>",
+          authHeaderExpr: "`Bearer ${token}`",
+          authRequestHeaders: [
+            {
+              name: "<value>",
+              value: "<value>",
+            },
+          ],
+          clientSecretParamName: "client_secret",
+          clientSecretParamValue: "<value>",
+          authRequestParams: [
+            {
+              name: "<value>",
+              value: "<value>",
+            },
+          ],
+          textSecret: "<value>",
           type: "health_check",
         },
         destructive: false,
@@ -706,13 +733,18 @@ async function run() {
       collector: {
         type: "<value>",
         conf: {
+          collectMethod: "get",
+          collectRequestParams: [
+            {
+              name: "<value>",
+              value: "<value>",
+            },
+          ],
           discovery: {
             discoverType: "none",
           },
           collectUrl: "https://shameful-vicinity.com/",
-          collectMethod: "get",
-          collectRequestParams: "<value>",
-          collectBody: "<value>",
+          collectBody: "`{ }`",
           collectRequestHeaders: [
             {
               name: "<value>",
@@ -737,6 +769,28 @@ async function run() {
             codes: "<value>",
             enableHeader: "<value>",
           },
+          username: "Daphnee_Schimmel-Wolf26",
+          password: "qwZ927mZOVqnV8W",
+          credentialsSecret: "<value>",
+          loginUrl: "",
+          loginBody: "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+          tokenRespAttribute: "<value>",
+          authHeaderExpr: "`Bearer ${token}`",
+          authRequestHeaders: [
+            {
+              name: "<value>",
+              value: "<value>",
+            },
+          ],
+          clientSecretParamName: "client_secret",
+          clientSecretParamValue: "<value>",
+          authRequestParams: [
+            {
+              name: "<value>",
+              value: "<value>",
+            },
+          ],
+          textSecret: "<value>",
           type: "health_check",
         },
         destructive: false,

@@ -114,10 +114,10 @@ import {
   PipelineFunctionGrok$outboundSchema,
 } from "./pipelinefunctiongrok.js";
 import {
-  PipelineFunctionHandlebar,
-  PipelineFunctionHandlebar$Outbound,
-  PipelineFunctionHandlebar$outboundSchema,
-} from "./pipelinefunctionhandlebar.js";
+  PipelineFunctionHandlebars,
+  PipelineFunctionHandlebars$Outbound,
+  PipelineFunctionHandlebars$outboundSchema,
+} from "./pipelinefunctionhandlebars.js";
 import {
   PipelineFunctionJoin,
   PipelineFunctionJoin$Outbound,
@@ -347,7 +347,7 @@ export type PipelineFunctionConfInput =
   | PipelineFunctionGenStats
   | PipelineFunctionGeoip
   | PipelineFunctionGrok
-  | PipelineFunctionHandlebar
+  | PipelineFunctionHandlebars
   | PipelineFunctionJoin
   | PipelineFunctionJsonUnroll
   | PipelineFunctionLakeExport
@@ -414,7 +414,7 @@ export type PipelineFunctionConfInput$Outbound =
   | PipelineFunctionGenStats$Outbound
   | PipelineFunctionGeoip$Outbound
   | PipelineFunctionGrok$Outbound
-  | PipelineFunctionHandlebar$Outbound
+  | PipelineFunctionHandlebars$Outbound
   | PipelineFunctionJoin$Outbound
   | PipelineFunctionJsonUnroll$Outbound
   | PipelineFunctionLakeExport$Outbound
@@ -485,7 +485,7 @@ export const PipelineFunctionConfInput$outboundSchema: z.ZodType<
   PipelineFunctionGenStats$outboundSchema,
   PipelineFunctionGeoip$outboundSchema,
   PipelineFunctionGrok$outboundSchema,
-  PipelineFunctionHandlebar$outboundSchema,
+  PipelineFunctionHandlebars$outboundSchema,
   PipelineFunctionJoin$outboundSchema,
   PipelineFunctionJsonUnroll$outboundSchema,
   PipelineFunctionLakeExport$outboundSchema,
