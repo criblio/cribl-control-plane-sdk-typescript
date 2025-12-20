@@ -436,16 +436,16 @@ const value: models.PipelineFunctionGrok = {
 };
 ```
 
-### `models.PipelineFunctionHandlebar`
+### `models.PipelineFunctionHandlebars`
 
 ```typescript
-const value: models.PipelineFunctionHandlebar = {
-  id: "handlebar",
-  description: "though physical volunteer pish except equal",
+const value: models.PipelineFunctionHandlebars = {
+  id: "handlebars",
+  description: "quirkily numeracy endow",
   disabled: false,
-  final: false,
+  final: true,
   conf: {
-    templates: {},
+    templates: [],
   },
   groupId: "<id>",
 };
@@ -688,6 +688,7 @@ const value: models.PipelineFunctionNotificationPolicies = {
           [],
         ],
         templateTargetPairs: [],
+        order: 2760.74,
       },
     ],
   },

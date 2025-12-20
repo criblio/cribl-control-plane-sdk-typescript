@@ -8,9 +8,10 @@ import { SavedJobCollectionCollector } from "cribl-control-plane/models";
 let value: SavedJobCollectionCollector = {
   type: "<value>",
   conf: {
+    authType: "manual",
+    connectionString: "<value>",
     type: "azure_blob",
     outputName: "<value>",
-    authType: "manual",
     containerName: "<value>",
     path: "/usr/local/bin",
     extractors: [
@@ -25,6 +26,16 @@ let value: SavedJobCollectionCollector = {
     maxBatchSize: 10,
     parquetChunkSizeMB: 5,
     parquetChunkDownloadTimeout: 600,
+    textSecret: "<value>",
+    storageAccountName: "<value>",
+    tenantId: "<id>",
+    clientId: "<id>",
+    clientTextSecret: "<value>",
+    endpointSuffix: "<value>",
+    azureCloud: "<value>",
+    certificate: {
+      certificateName: "<value>",
+    },
   },
   encoding: "<value>",
 };
