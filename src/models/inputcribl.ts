@@ -4,26 +4,93 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
-import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
-import {
-  PqType,
-  PqType$inboundSchema,
-  PqType$Outbound,
-  PqType$outboundSchema,
-} from "./pqtype.js";
+
+export type InputCriblConnection = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const InputCriblMode = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type InputCriblMode = OpenEnum<typeof InputCriblMode>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const InputCriblCompression = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type InputCriblCompression = OpenEnum<typeof InputCriblCompression>;
+
+export type InputCriblPqControls = {};
+
+export type InputCriblPq = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: InputCriblMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: InputCriblCompression | undefined;
+  pqControls?: InputCriblPqControls | undefined;
+};
+
+export type InputCriblMetadatum = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
 
 export type InputCribl = {
   /**
@@ -55,15 +122,214 @@ export type InputCribl = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<InputCriblConnection> | undefined;
+  pq?: InputCriblPq | undefined;
   filter?: string | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<InputCriblMetadatum> | undefined;
   description?: string | undefined;
 };
+
+/** @internal */
+export const InputCriblConnection$inboundSchema: z.ZodType<
+  InputCriblConnection,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+/** @internal */
+export type InputCriblConnection$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const InputCriblConnection$outboundSchema: z.ZodType<
+  InputCriblConnection$Outbound,
+  z.ZodTypeDef,
+  InputCriblConnection
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function inputCriblConnectionToJSON(
+  inputCriblConnection: InputCriblConnection,
+): string {
+  return JSON.stringify(
+    InputCriblConnection$outboundSchema.parse(inputCriblConnection),
+  );
+}
+export function inputCriblConnectionFromJSON(
+  jsonString: string,
+): SafeParseResult<InputCriblConnection, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputCriblConnection$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCriblConnection' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputCriblMode$inboundSchema: z.ZodType<
+  InputCriblMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputCriblMode);
+/** @internal */
+export const InputCriblMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputCriblMode
+> = openEnums.outboundSchema(InputCriblMode);
+
+/** @internal */
+export const InputCriblCompression$inboundSchema: z.ZodType<
+  InputCriblCompression,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputCriblCompression);
+/** @internal */
+export const InputCriblCompression$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputCriblCompression
+> = openEnums.outboundSchema(InputCriblCompression);
+
+/** @internal */
+export const InputCriblPqControls$inboundSchema: z.ZodType<
+  InputCriblPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+/** @internal */
+export type InputCriblPqControls$Outbound = {};
+
+/** @internal */
+export const InputCriblPqControls$outboundSchema: z.ZodType<
+  InputCriblPqControls$Outbound,
+  z.ZodTypeDef,
+  InputCriblPqControls
+> = z.object({});
+
+export function inputCriblPqControlsToJSON(
+  inputCriblPqControls: InputCriblPqControls,
+): string {
+  return JSON.stringify(
+    InputCriblPqControls$outboundSchema.parse(inputCriblPqControls),
+  );
+}
+export function inputCriblPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputCriblPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputCriblPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCriblPqControls' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputCriblPq$inboundSchema: z.ZodType<
+  InputCriblPq,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: InputCriblMode$inboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputCriblCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputCriblPqControls$inboundSchema).optional(),
+});
+/** @internal */
+export type InputCriblPq$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: InputCriblPqControls$Outbound | undefined;
+};
+
+/** @internal */
+export const InputCriblPq$outboundSchema: z.ZodType<
+  InputCriblPq$Outbound,
+  z.ZodTypeDef,
+  InputCriblPq
+> = z.object({
+  mode: InputCriblMode$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputCriblCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputCriblPqControls$outboundSchema).optional(),
+});
+
+export function inputCriblPqToJSON(inputCriblPq: InputCriblPq): string {
+  return JSON.stringify(InputCriblPq$outboundSchema.parse(inputCriblPq));
+}
+export function inputCriblPqFromJSON(
+  jsonString: string,
+): SafeParseResult<InputCriblPq, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputCriblPq$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCriblPq' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputCriblMetadatum$inboundSchema: z.ZodType<
+  InputCriblMetadatum,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type InputCriblMetadatum$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputCriblMetadatum$outboundSchema: z.ZodType<
+  InputCriblMetadatum$Outbound,
+  z.ZodTypeDef,
+  InputCriblMetadatum
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputCriblMetadatumToJSON(
+  inputCriblMetadatum: InputCriblMetadatum,
+): string {
+  return JSON.stringify(
+    InputCriblMetadatum$outboundSchema.parse(inputCriblMetadatum),
+  );
+}
+export function inputCriblMetadatumFromJSON(
+  jsonString: string,
+): SafeParseResult<InputCriblMetadatum, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputCriblMetadatum$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputCriblMetadatum' from JSON`,
+  );
+}
 
 /** @internal */
 export const InputCribl$inboundSchema: z.ZodType<
@@ -79,10 +345,11 @@ export const InputCribl$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputCriblConnection$inboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputCriblPq$inboundSchema).optional(),
   filter: z.string().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  metadata: z.array(z.lazy(() => InputCriblMetadatum$inboundSchema)).optional(),
   description: z.string().optional(),
 });
 /** @internal */
@@ -95,10 +362,10 @@ export type InputCribl$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
+  connections?: Array<InputCriblConnection$Outbound> | undefined;
+  pq?: InputCriblPq$Outbound | undefined;
   filter?: string | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<InputCriblMetadatum$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -116,10 +383,12 @@ export const InputCribl$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputCriblConnection$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputCriblPq$outboundSchema).optional(),
   filter: z.string().optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(z.lazy(() => InputCriblMetadatum$outboundSchema))
+    .optional(),
   description: z.string().optional(),
 });
 

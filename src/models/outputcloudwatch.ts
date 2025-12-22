@@ -4,33 +4,120 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  AuthenticationMethodOptions,
-  AuthenticationMethodOptions$inboundSchema,
-  AuthenticationMethodOptions$outboundSchema,
-} from "./authenticationmethodoptions.js";
-import {
-  BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
-  BackpressureBehaviorOptions$outboundSchema,
-} from "./backpressurebehavioroptions.js";
-import {
-  CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
-  CompressionOptionsPq$outboundSchema,
-} from "./compressionoptionspq.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
-import {
-  QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
-  QueueFullBehaviorOptions$outboundSchema,
-} from "./queuefullbehavioroptions.js";
+
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export const OutputCloudwatchAuthenticationMethod = {
+  /**
+   * Auto
+   */
+  Auto: "auto",
+  /**
+   * Manual
+   */
+  Manual: "manual",
+  /**
+   * Secret Key pair
+   */
+  Secret: "secret",
+} as const;
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export type OutputCloudwatchAuthenticationMethod = OpenEnum<
+  typeof OutputCloudwatchAuthenticationMethod
+>;
+
+/**
+ * How to handle events when all receivers are exerting backpressure
+ */
+export const OutputCloudwatchBackpressureBehavior = {
+  /**
+   * Block
+   */
+  Block: "block",
+  /**
+   * Drop
+   */
+  Drop: "drop",
+  /**
+   * Persistent Queue
+   */
+  Queue: "queue",
+} as const;
+/**
+ * How to handle events when all receivers are exerting backpressure
+ */
+export type OutputCloudwatchBackpressureBehavior = OpenEnum<
+  typeof OutputCloudwatchBackpressureBehavior
+>;
+
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputCloudwatchMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputCloudwatchMode = OpenEnum<typeof OutputCloudwatchMode>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const OutputCloudwatchCompression = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type OutputCloudwatchCompression = OpenEnum<
+  typeof OutputCloudwatchCompression
+>;
+
+/**
+ * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+ */
+export const OutputCloudwatchQueueFullBehavior = {
+  /**
+   * Block
+   */
+  Block: "block",
+  /**
+   * Drop new data
+   */
+  Drop: "drop",
+} as const;
+/**
+ * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+ */
+export type OutputCloudwatchQueueFullBehavior = OpenEnum<
+  typeof OutputCloudwatchQueueFullBehavior
+>;
 
 export type OutputCloudwatchPqControls = {};
 
@@ -67,7 +154,7 @@ export type OutputCloudwatch = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
+  awsAuthenticationMethod?: OutputCloudwatchAuthenticationMethod | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the CloudWatchLogs is located
@@ -116,7 +203,7 @@ export type OutputCloudwatch = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: BackpressureBehaviorOptions | undefined;
+  onBackpressure?: OutputCloudwatchBackpressureBehavior | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   /**
@@ -134,7 +221,7 @@ export type OutputCloudwatch = {
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: ModeOptions | undefined;
+  pqMode?: OutputCloudwatchMode | undefined;
   /**
    * The maximum number of events to hold in memory before writing the events to disk
    */
@@ -158,13 +245,78 @@ export type OutputCloudwatch = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: CompressionOptionsPq | undefined;
+  pqCompress?: OutputCloudwatchCompression | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
+  pqOnBackpressure?: OutputCloudwatchQueueFullBehavior | undefined;
   pqControls?: OutputCloudwatchPqControls | undefined;
 };
+
+/** @internal */
+export const OutputCloudwatchAuthenticationMethod$inboundSchema: z.ZodType<
+  OutputCloudwatchAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputCloudwatchAuthenticationMethod);
+/** @internal */
+export const OutputCloudwatchAuthenticationMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputCloudwatchAuthenticationMethod
+> = openEnums.outboundSchema(OutputCloudwatchAuthenticationMethod);
+
+/** @internal */
+export const OutputCloudwatchBackpressureBehavior$inboundSchema: z.ZodType<
+  OutputCloudwatchBackpressureBehavior,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputCloudwatchBackpressureBehavior);
+/** @internal */
+export const OutputCloudwatchBackpressureBehavior$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputCloudwatchBackpressureBehavior
+> = openEnums.outboundSchema(OutputCloudwatchBackpressureBehavior);
+
+/** @internal */
+export const OutputCloudwatchMode$inboundSchema: z.ZodType<
+  OutputCloudwatchMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputCloudwatchMode);
+/** @internal */
+export const OutputCloudwatchMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputCloudwatchMode
+> = openEnums.outboundSchema(OutputCloudwatchMode);
+
+/** @internal */
+export const OutputCloudwatchCompression$inboundSchema: z.ZodType<
+  OutputCloudwatchCompression,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputCloudwatchCompression);
+/** @internal */
+export const OutputCloudwatchCompression$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputCloudwatchCompression
+> = openEnums.outboundSchema(OutputCloudwatchCompression);
+
+/** @internal */
+export const OutputCloudwatchQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputCloudwatchQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputCloudwatchQueueFullBehavior);
+/** @internal */
+export const OutputCloudwatchQueueFullBehavior$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputCloudwatchQueueFullBehavior
+> = openEnums.outboundSchema(OutputCloudwatchQueueFullBehavior);
 
 /** @internal */
 export const OutputCloudwatchPqControls$inboundSchema: z.ZodType<
@@ -213,9 +365,8 @@ export const OutputCloudwatch$inboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   logGroupName: z.string(),
   logStreamName: z.string(),
-  awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
-    "auto",
-  ),
+  awsAuthenticationMethod: OutputCloudwatchAuthenticationMethod$inboundSchema
+    .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
@@ -228,20 +379,24 @@ export const OutputCloudwatch$inboundSchema: z.ZodType<
   maxQueueSize: z.number().default(5),
   maxRecordSizeKB: z.number().default(1024),
   flushPeriodSec: z.number().default(1),
-  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
+  onBackpressure: OutputCloudwatchBackpressureBehavior$inboundSchema.default(
+    "block",
+  ),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$inboundSchema.default("error"),
+  pqMode: OutputCloudwatchMode$inboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
+  pqCompress: OutputCloudwatchCompression$inboundSchema.default("none"),
+  pqOnBackpressure: OutputCloudwatchQueueFullBehavior$inboundSchema.default(
+    "block",
+  ),
   pqControls: z.lazy(() => OutputCloudwatchPqControls$inboundSchema).optional(),
 });
 /** @internal */
@@ -298,9 +453,8 @@ export const OutputCloudwatch$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   logGroupName: z.string(),
   logStreamName: z.string(),
-  awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
-    "auto",
-  ),
+  awsAuthenticationMethod: OutputCloudwatchAuthenticationMethod$outboundSchema
+    .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
@@ -313,20 +467,24 @@ export const OutputCloudwatch$outboundSchema: z.ZodType<
   maxQueueSize: z.number().default(5),
   maxRecordSizeKB: z.number().default(1024),
   flushPeriodSec: z.number().default(1),
-  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
+  onBackpressure: OutputCloudwatchBackpressureBehavior$outboundSchema.default(
+    "block",
+  ),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$outboundSchema.default("error"),
+  pqMode: OutputCloudwatchMode$outboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
+  pqCompress: OutputCloudwatchCompression$outboundSchema.default("none"),
+  pqOnBackpressure: OutputCloudwatchQueueFullBehavior$outboundSchema.default(
+    "block",
+  ),
   pqControls: z.lazy(() => OutputCloudwatchPqControls$outboundSchema)
     .optional(),
 });

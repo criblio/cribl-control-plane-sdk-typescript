@@ -5,17 +5,23 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  CriblLakeCollectorConf,
+  CriblLakeCollectorConf$inboundSchema,
+  CriblLakeCollectorConf$Outbound,
+  CriblLakeCollectorConf$outboundSchema,
+} from "./cribllakecollectorconf.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
+/**
+ * CriblLake collector configuration
+ */
 export type CollectorCriblLake = {
   /**
    * Collector type: cribl_lake
    */
   type: "cribl_lake";
-  /**
-   * Lake dataset to collect data from.
-   */
-  dataset: string;
+  conf: CriblLakeCollectorConf;
 };
 
 /** @internal */
@@ -25,12 +31,12 @@ export const CollectorCriblLake$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   type: z.literal("cribl_lake"),
-  dataset: z.string(),
+  conf: CriblLakeCollectorConf$inboundSchema,
 });
 /** @internal */
 export type CollectorCriblLake$Outbound = {
   type: "cribl_lake";
-  dataset: string;
+  conf: CriblLakeCollectorConf$Outbound;
 };
 
 /** @internal */
@@ -40,7 +46,7 @@ export const CollectorCriblLake$outboundSchema: z.ZodType<
   CollectorCriblLake
 > = z.object({
   type: z.literal("cribl_lake"),
-  dataset: z.string(),
+  conf: CriblLakeCollectorConf$outboundSchema,
 });
 
 export function collectorCriblLakeToJSON(

@@ -4,61 +4,194 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  AuthenticationMethodOptionsAuthTokensItems,
-  AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
-  AuthenticationMethodOptionsAuthTokensItems$outboundSchema,
-} from "./authenticationmethodoptionsauthtokensitems.js";
-import {
-  BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
-  BackpressureBehaviorOptions$outboundSchema,
-} from "./backpressurebehavioroptions.js";
-import {
-  CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
-  CompressionOptionsPq$outboundSchema,
-} from "./compressionoptionspq.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  FailedRequestLoggingModeOptions,
-  FailedRequestLoggingModeOptions$inboundSchema,
-  FailedRequestLoggingModeOptions$outboundSchema,
-} from "./failedrequestloggingmodeoptions.js";
-import {
-  ItemsTypeExtraHttpHeaders,
-  ItemsTypeExtraHttpHeaders$inboundSchema,
-  ItemsTypeExtraHttpHeaders$Outbound,
-  ItemsTypeExtraHttpHeaders$outboundSchema,
-} from "./itemstypeextrahttpheaders.js";
-import {
-  ItemsTypeResponseRetrySettings,
-  ItemsTypeResponseRetrySettings$inboundSchema,
-  ItemsTypeResponseRetrySettings$Outbound,
-  ItemsTypeResponseRetrySettings$outboundSchema,
-} from "./itemstyperesponseretrysettings.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
-import {
-  QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
-  QueueFullBehaviorOptions$outboundSchema,
-} from "./queuefullbehavioroptions.js";
-import {
-  RequestFormatOptions,
-  RequestFormatOptions$inboundSchema,
-  RequestFormatOptions$outboundSchema,
-} from "./requestformatoptions.js";
-import {
-  TimeoutRetrySettingsType,
-  TimeoutRetrySettingsType$inboundSchema,
-  TimeoutRetrySettingsType$Outbound,
-  TimeoutRetrySettingsType$outboundSchema,
-} from "./timeoutretrysettingstype.js";
+
+export type OutputHumioHecExtraHttpHeader = {
+  name?: string | undefined;
+  value: string;
+};
+
+/**
+ * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+ */
+export const OutputHumioHecFailedRequestLoggingMode = {
+  /**
+   * Payload
+   */
+  Payload: "payload",
+  /**
+   * Payload + Headers
+   */
+  PayloadAndHeaders: "payloadAndHeaders",
+  /**
+   * None
+   */
+  None: "none",
+} as const;
+/**
+ * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
+ */
+export type OutputHumioHecFailedRequestLoggingMode = OpenEnum<
+  typeof OutputHumioHecFailedRequestLoggingMode
+>;
+
+/**
+ * When set to JSON, the event is automatically formatted with required fields before sending. When set to Raw, only the event's `_raw` value is sent.
+ */
+export const OutputHumioHecRequestFormat = {
+  /**
+   * JSON
+   */
+  Json: "JSON",
+  /**
+   * Raw
+   */
+  Raw: "raw",
+} as const;
+/**
+ * When set to JSON, the event is automatically formatted with required fields before sending. When set to Raw, only the event's `_raw` value is sent.
+ */
+export type OutputHumioHecRequestFormat = OpenEnum<
+  typeof OutputHumioHecRequestFormat
+>;
+
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export const OutputHumioHecAuthenticationMethod = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export type OutputHumioHecAuthenticationMethod = OpenEnum<
+  typeof OutputHumioHecAuthenticationMethod
+>;
+
+export type OutputHumioHecResponseRetrySetting = {
+  /**
+   * The HTTP response status code that will trigger retries
+   */
+  httpStatus: number;
+  /**
+   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
+   */
+  backoffRate?: number | undefined;
+  /**
+   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
+   */
+  maxBackoff?: number | undefined;
+};
+
+export type OutputHumioHecTimeoutRetrySettings = {
+  timeoutRetry?: boolean | undefined;
+  /**
+   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
+   */
+  initialBackoff?: number | undefined;
+  /**
+   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
+   */
+  backoffRate?: number | undefined;
+  /**
+   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
+   */
+  maxBackoff?: number | undefined;
+};
+
+/**
+ * How to handle events when all receivers are exerting backpressure
+ */
+export const OutputHumioHecBackpressureBehavior = {
+  /**
+   * Block
+   */
+  Block: "block",
+  /**
+   * Drop
+   */
+  Drop: "drop",
+  /**
+   * Persistent Queue
+   */
+  Queue: "queue",
+} as const;
+/**
+ * How to handle events when all receivers are exerting backpressure
+ */
+export type OutputHumioHecBackpressureBehavior = OpenEnum<
+  typeof OutputHumioHecBackpressureBehavior
+>;
+
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputHumioHecMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputHumioHecMode = OpenEnum<typeof OutputHumioHecMode>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const OutputHumioHecCompression = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type OutputHumioHecCompression = OpenEnum<
+  typeof OutputHumioHecCompression
+>;
+
+/**
+ * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+ */
+export const OutputHumioHecQueueFullBehavior = {
+  /**
+   * Block
+   */
+  Block: "block",
+  /**
+   * Drop new data
+   */
+  Drop: "drop",
+} as const;
+/**
+ * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+ */
+export type OutputHumioHecQueueFullBehavior = OpenEnum<
+  typeof OutputHumioHecQueueFullBehavior
+>;
 
 export type OutputHumioHecPqControls = {};
 
@@ -123,7 +256,7 @@ export type OutputHumioHec = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
+  extraHttpHeaders?: Array<OutputHumioHecExtraHttpHeader> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -131,7 +264,7 @@ export type OutputHumioHec = {
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
-  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
+  failedRequestLoggingMode?: OutputHumioHecFailedRequestLoggingMode | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -139,16 +272,16 @@ export type OutputHumioHec = {
   /**
    * When set to JSON, the event is automatically formatted with required fields before sending. When set to Raw, only the event's `_raw` value is sent.
    */
-  format?: RequestFormatOptions | undefined;
+  format?: OutputHumioHecRequestFormat | undefined;
   /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
-  authType?: AuthenticationMethodOptionsAuthTokensItems | undefined;
+  authType?: OutputHumioHecAuthenticationMethod | undefined;
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
-  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
+  responseRetrySettings?: Array<OutputHumioHecResponseRetrySetting> | undefined;
+  timeoutRetrySettings?: OutputHumioHecTimeoutRetrySettings | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
@@ -156,7 +289,7 @@ export type OutputHumioHec = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: BackpressureBehaviorOptions | undefined;
+  onBackpressure?: OutputHumioHecBackpressureBehavior | undefined;
   description?: string | undefined;
   /**
    * CrowdStrike Falcon LogScale authentication token
@@ -177,7 +310,7 @@ export type OutputHumioHec = {
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: ModeOptions | undefined;
+  pqMode?: OutputHumioHecMode | undefined;
   /**
    * The maximum number of events to hold in memory before writing the events to disk
    */
@@ -201,13 +334,250 @@ export type OutputHumioHec = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: CompressionOptionsPq | undefined;
+  pqCompress?: OutputHumioHecCompression | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
+  pqOnBackpressure?: OutputHumioHecQueueFullBehavior | undefined;
   pqControls?: OutputHumioHecPqControls | undefined;
 };
+
+/** @internal */
+export const OutputHumioHecExtraHttpHeader$inboundSchema: z.ZodType<
+  OutputHumioHecExtraHttpHeader,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string().optional(),
+  value: z.string(),
+});
+/** @internal */
+export type OutputHumioHecExtraHttpHeader$Outbound = {
+  name?: string | undefined;
+  value: string;
+};
+
+/** @internal */
+export const OutputHumioHecExtraHttpHeader$outboundSchema: z.ZodType<
+  OutputHumioHecExtraHttpHeader$Outbound,
+  z.ZodTypeDef,
+  OutputHumioHecExtraHttpHeader
+> = z.object({
+  name: z.string().optional(),
+  value: z.string(),
+});
+
+export function outputHumioHecExtraHttpHeaderToJSON(
+  outputHumioHecExtraHttpHeader: OutputHumioHecExtraHttpHeader,
+): string {
+  return JSON.stringify(
+    OutputHumioHecExtraHttpHeader$outboundSchema.parse(
+      outputHumioHecExtraHttpHeader,
+    ),
+  );
+}
+export function outputHumioHecExtraHttpHeaderFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputHumioHecExtraHttpHeader, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OutputHumioHecExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputHumioHecExtraHttpHeader' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputHumioHecFailedRequestLoggingMode$inboundSchema: z.ZodType<
+  OutputHumioHecFailedRequestLoggingMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputHumioHecFailedRequestLoggingMode);
+/** @internal */
+export const OutputHumioHecFailedRequestLoggingMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputHumioHecFailedRequestLoggingMode
+> = openEnums.outboundSchema(OutputHumioHecFailedRequestLoggingMode);
+
+/** @internal */
+export const OutputHumioHecRequestFormat$inboundSchema: z.ZodType<
+  OutputHumioHecRequestFormat,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputHumioHecRequestFormat);
+/** @internal */
+export const OutputHumioHecRequestFormat$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputHumioHecRequestFormat
+> = openEnums.outboundSchema(OutputHumioHecRequestFormat);
+
+/** @internal */
+export const OutputHumioHecAuthenticationMethod$inboundSchema: z.ZodType<
+  OutputHumioHecAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputHumioHecAuthenticationMethod);
+/** @internal */
+export const OutputHumioHecAuthenticationMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputHumioHecAuthenticationMethod
+> = openEnums.outboundSchema(OutputHumioHecAuthenticationMethod);
+
+/** @internal */
+export const OutputHumioHecResponseRetrySetting$inboundSchema: z.ZodType<
+  OutputHumioHecResponseRetrySetting,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  httpStatus: z.number(),
+  initialBackoff: z.number().default(1000),
+  backoffRate: z.number().default(2),
+  maxBackoff: z.number().default(10000),
+});
+/** @internal */
+export type OutputHumioHecResponseRetrySetting$Outbound = {
+  httpStatus: number;
+  initialBackoff: number;
+  backoffRate: number;
+  maxBackoff: number;
+};
+
+/** @internal */
+export const OutputHumioHecResponseRetrySetting$outboundSchema: z.ZodType<
+  OutputHumioHecResponseRetrySetting$Outbound,
+  z.ZodTypeDef,
+  OutputHumioHecResponseRetrySetting
+> = z.object({
+  httpStatus: z.number(),
+  initialBackoff: z.number().default(1000),
+  backoffRate: z.number().default(2),
+  maxBackoff: z.number().default(10000),
+});
+
+export function outputHumioHecResponseRetrySettingToJSON(
+  outputHumioHecResponseRetrySetting: OutputHumioHecResponseRetrySetting,
+): string {
+  return JSON.stringify(
+    OutputHumioHecResponseRetrySetting$outboundSchema.parse(
+      outputHumioHecResponseRetrySetting,
+    ),
+  );
+}
+export function outputHumioHecResponseRetrySettingFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputHumioHecResponseRetrySetting, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputHumioHecResponseRetrySetting$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputHumioHecResponseRetrySetting' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputHumioHecTimeoutRetrySettings$inboundSchema: z.ZodType<
+  OutputHumioHecTimeoutRetrySettings,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  timeoutRetry: z.boolean().default(false),
+  initialBackoff: z.number().default(1000),
+  backoffRate: z.number().default(2),
+  maxBackoff: z.number().default(10000),
+});
+/** @internal */
+export type OutputHumioHecTimeoutRetrySettings$Outbound = {
+  timeoutRetry: boolean;
+  initialBackoff: number;
+  backoffRate: number;
+  maxBackoff: number;
+};
+
+/** @internal */
+export const OutputHumioHecTimeoutRetrySettings$outboundSchema: z.ZodType<
+  OutputHumioHecTimeoutRetrySettings$Outbound,
+  z.ZodTypeDef,
+  OutputHumioHecTimeoutRetrySettings
+> = z.object({
+  timeoutRetry: z.boolean().default(false),
+  initialBackoff: z.number().default(1000),
+  backoffRate: z.number().default(2),
+  maxBackoff: z.number().default(10000),
+});
+
+export function outputHumioHecTimeoutRetrySettingsToJSON(
+  outputHumioHecTimeoutRetrySettings: OutputHumioHecTimeoutRetrySettings,
+): string {
+  return JSON.stringify(
+    OutputHumioHecTimeoutRetrySettings$outboundSchema.parse(
+      outputHumioHecTimeoutRetrySettings,
+    ),
+  );
+}
+export function outputHumioHecTimeoutRetrySettingsFromJSON(
+  jsonString: string,
+): SafeParseResult<OutputHumioHecTimeoutRetrySettings, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      OutputHumioHecTimeoutRetrySettings$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OutputHumioHecTimeoutRetrySettings' from JSON`,
+  );
+}
+
+/** @internal */
+export const OutputHumioHecBackpressureBehavior$inboundSchema: z.ZodType<
+  OutputHumioHecBackpressureBehavior,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputHumioHecBackpressureBehavior);
+/** @internal */
+export const OutputHumioHecBackpressureBehavior$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputHumioHecBackpressureBehavior
+> = openEnums.outboundSchema(OutputHumioHecBackpressureBehavior);
+
+/** @internal */
+export const OutputHumioHecMode$inboundSchema: z.ZodType<
+  OutputHumioHecMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputHumioHecMode);
+/** @internal */
+export const OutputHumioHecMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputHumioHecMode
+> = openEnums.outboundSchema(OutputHumioHecMode);
+
+/** @internal */
+export const OutputHumioHecCompression$inboundSchema: z.ZodType<
+  OutputHumioHecCompression,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputHumioHecCompression);
+/** @internal */
+export const OutputHumioHecCompression$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputHumioHecCompression
+> = openEnums.outboundSchema(OutputHumioHecCompression);
+
+/** @internal */
+export const OutputHumioHecQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputHumioHecQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputHumioHecQueueFullBehavior);
+/** @internal */
+export const OutputHumioHecQueueFullBehavior$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputHumioHecQueueFullBehavior
+> = openEnums.outboundSchema(OutputHumioHecQueueFullBehavior);
 
 /** @internal */
 export const OutputHumioHecPqControls$inboundSchema: z.ZodType<
@@ -262,33 +632,40 @@ export const OutputHumioHec$inboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$inboundSchema).optional(),
+  extraHttpHeaders: z.array(
+    z.lazy(() => OutputHumioHecExtraHttpHeader$inboundSchema),
+  ).optional(),
   useRoundRobinDns: z.boolean().default(true),
-  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
+  failedRequestLoggingMode: OutputHumioHecFailedRequestLoggingMode$inboundSchema
     .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  format: RequestFormatOptions$inboundSchema.default("JSON"),
-  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.default(
-    "manual",
-  ),
-  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$inboundSchema)
-    .optional(),
-  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
+  format: OutputHumioHecRequestFormat$inboundSchema.default("JSON"),
+  authType: OutputHumioHecAuthenticationMethod$inboundSchema.default("manual"),
+  responseRetrySettings: z.array(
+    z.lazy(() => OutputHumioHecResponseRetrySetting$inboundSchema),
+  ).optional(),
+  timeoutRetrySettings: z.lazy(() =>
+    OutputHumioHecTimeoutRetrySettings$inboundSchema
+  ).optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
+  onBackpressure: OutputHumioHecBackpressureBehavior$inboundSchema.default(
+    "block",
+  ),
   description: z.string().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$inboundSchema.default("error"),
+  pqMode: OutputHumioHecMode$inboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
+  pqCompress: OutputHumioHecCompression$inboundSchema.default("none"),
+  pqOnBackpressure: OutputHumioHecQueueFullBehavior$inboundSchema.default(
+    "block",
+  ),
   pqControls: z.lazy(() => OutputHumioHecPqControls$inboundSchema).optional(),
 });
 /** @internal */
@@ -307,16 +684,18 @@ export type OutputHumioHec$Outbound = {
   rejectUnauthorized: boolean;
   timeoutSec: number;
   flushPeriodSec: number;
-  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
+  extraHttpHeaders?: Array<OutputHumioHecExtraHttpHeader$Outbound> | undefined;
   useRoundRobinDns: boolean;
   failedRequestLoggingMode: string;
   safeHeaders?: Array<string> | undefined;
   format: string;
   authType: string;
   responseRetrySettings?:
-    | Array<ItemsTypeResponseRetrySettings$Outbound>
+    | Array<OutputHumioHecResponseRetrySetting$Outbound>
     | undefined;
-  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
+  timeoutRetrySettings?:
+    | OutputHumioHecTimeoutRetrySettings$Outbound
+    | undefined;
   responseHonorRetryAfterHeader: boolean;
   onBackpressure: string;
   description?: string | undefined;
@@ -355,34 +734,40 @@ export const OutputHumioHec$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
-    .optional(),
+  extraHttpHeaders: z.array(
+    z.lazy(() => OutputHumioHecExtraHttpHeader$outboundSchema),
+  ).optional(),
   useRoundRobinDns: z.boolean().default(true),
-  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
-    .default("none"),
+  failedRequestLoggingMode:
+    OutputHumioHecFailedRequestLoggingMode$outboundSchema.default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  format: RequestFormatOptions$outboundSchema.default("JSON"),
-  authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema.default(
-    "manual",
-  ),
-  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
-    .optional(),
-  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
+  format: OutputHumioHecRequestFormat$outboundSchema.default("JSON"),
+  authType: OutputHumioHecAuthenticationMethod$outboundSchema.default("manual"),
+  responseRetrySettings: z.array(
+    z.lazy(() => OutputHumioHecResponseRetrySetting$outboundSchema),
+  ).optional(),
+  timeoutRetrySettings: z.lazy(() =>
+    OutputHumioHecTimeoutRetrySettings$outboundSchema
+  ).optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
-  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
+  onBackpressure: OutputHumioHecBackpressureBehavior$outboundSchema.default(
+    "block",
+  ),
   description: z.string().optional(),
   token: z.string().optional(),
   textSecret: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$outboundSchema.default("error"),
+  pqMode: OutputHumioHecMode$outboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
+  pqCompress: OutputHumioHecCompression$outboundSchema.default("none"),
+  pqOnBackpressure: OutputHumioHecQueueFullBehavior$outboundSchema.default(
+    "block",
+  ),
   pqControls: z.lazy(() => OutputHumioHecPqControls$outboundSchema).optional(),
 });
 

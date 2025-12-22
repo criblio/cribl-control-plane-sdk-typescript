@@ -7,37 +7,45 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  AuthenticationMethodOptions,
-  AuthenticationMethodOptions$inboundSchema,
-  AuthenticationMethodOptions$outboundSchema,
-} from "./authenticationmethodoptions.js";
-import {
-  BackpressureBehaviorOptions,
-  BackpressureBehaviorOptions$inboundSchema,
-  BackpressureBehaviorOptions$outboundSchema,
-} from "./backpressurebehavioroptions.js";
-import {
-  CompressionOptionsPq,
-  CompressionOptionsPq$inboundSchema,
-  CompressionOptionsPq$outboundSchema,
-} from "./compressionoptionspq.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ModeOptions,
-  ModeOptions$inboundSchema,
-  ModeOptions$outboundSchema,
-} from "./modeoptions.js";
-import {
-  QueueFullBehaviorOptions,
-  QueueFullBehaviorOptions$inboundSchema,
-  QueueFullBehaviorOptions$outboundSchema,
-} from "./queuefullbehavioroptions.js";
-import {
-  SignatureVersionOptions3,
-  SignatureVersionOptions3$inboundSchema,
-  SignatureVersionOptions3$outboundSchema,
-} from "./signatureversionoptions3.js";
+
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export const OutputKinesisAuthenticationMethod = {
+  /**
+   * Auto
+   */
+  Auto: "auto",
+  /**
+   * Manual
+   */
+  Manual: "manual",
+  /**
+   * Secret Key pair
+   */
+  Secret: "secret",
+} as const;
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export type OutputKinesisAuthenticationMethod = OpenEnum<
+  typeof OutputKinesisAuthenticationMethod
+>;
+
+/**
+ * Signature version to use for signing Kinesis stream requests
+ */
+export const OutputKinesisSignatureVersion = {
+  V2: "v2",
+  V4: "v4",
+} as const;
+/**
+ * Signature version to use for signing Kinesis stream requests
+ */
+export type OutputKinesisSignatureVersion = OpenEnum<
+  typeof OutputKinesisSignatureVersion
+>;
 
 /**
  * Compression type to use for records
@@ -57,6 +65,92 @@ export const OutputKinesisCompression = {
  */
 export type OutputKinesisCompression = OpenEnum<
   typeof OutputKinesisCompression
+>;
+
+/**
+ * How to handle events when all receivers are exerting backpressure
+ */
+export const OutputKinesisBackpressureBehavior = {
+  /**
+   * Block
+   */
+  Block: "block",
+  /**
+   * Drop
+   */
+  Drop: "drop",
+  /**
+   * Persistent Queue
+   */
+  Queue: "queue",
+} as const;
+/**
+ * How to handle events when all receivers are exerting backpressure
+ */
+export type OutputKinesisBackpressureBehavior = OpenEnum<
+  typeof OutputKinesisBackpressureBehavior
+>;
+
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export const OutputKinesisMode = {
+  /**
+   * Error
+   */
+  Error: "error",
+  /**
+   * Backpressure
+   */
+  Always: "always",
+  /**
+   * Always On
+   */
+  Backpressure: "backpressure",
+} as const;
+/**
+ * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
+ */
+export type OutputKinesisMode = OpenEnum<typeof OutputKinesisMode>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const OutputKinesisPqCompressCompression = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type OutputKinesisPqCompressCompression = OpenEnum<
+  typeof OutputKinesisPqCompressCompression
+>;
+
+/**
+ * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+ */
+export const OutputKinesisQueueFullBehavior = {
+  /**
+   * Block
+   */
+  Block: "block",
+  /**
+   * Drop new data
+   */
+  Drop: "drop",
+} as const;
+/**
+ * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
+ */
+export type OutputKinesisQueueFullBehavior = OpenEnum<
+  typeof OutputKinesisQueueFullBehavior
 >;
 
 export type OutputKinesisPqControls = {};
@@ -90,7 +184,7 @@ export type OutputKinesis = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
+  awsAuthenticationMethod?: OutputKinesisAuthenticationMethod | undefined;
   awsSecretKey?: string | undefined;
   /**
    * Region where the Kinesis stream is located
@@ -103,7 +197,7 @@ export type OutputKinesis = {
   /**
    * Signature version to use for signing Kinesis stream requests
    */
-  signatureVersion?: SignatureVersionOptions3 | undefined;
+  signatureVersion?: OutputKinesisSignatureVersion | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -155,7 +249,7 @@ export type OutputKinesis = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: BackpressureBehaviorOptions | undefined;
+  onBackpressure?: OutputKinesisBackpressureBehavior | undefined;
   description?: string | undefined;
   awsApiKey?: string | undefined;
   /**
@@ -177,7 +271,7 @@ export type OutputKinesis = {
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: ModeOptions | undefined;
+  pqMode?: OutputKinesisMode | undefined;
   /**
    * The maximum number of events to hold in memory before writing the events to disk
    */
@@ -201,13 +295,39 @@ export type OutputKinesis = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: CompressionOptionsPq | undefined;
+  pqCompress?: OutputKinesisPqCompressCompression | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
+  pqOnBackpressure?: OutputKinesisQueueFullBehavior | undefined;
   pqControls?: OutputKinesisPqControls | undefined;
 };
+
+/** @internal */
+export const OutputKinesisAuthenticationMethod$inboundSchema: z.ZodType<
+  OutputKinesisAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputKinesisAuthenticationMethod);
+/** @internal */
+export const OutputKinesisAuthenticationMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputKinesisAuthenticationMethod
+> = openEnums.outboundSchema(OutputKinesisAuthenticationMethod);
+
+/** @internal */
+export const OutputKinesisSignatureVersion$inboundSchema: z.ZodType<
+  OutputKinesisSignatureVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputKinesisSignatureVersion);
+/** @internal */
+export const OutputKinesisSignatureVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputKinesisSignatureVersion
+> = openEnums.outboundSchema(OutputKinesisSignatureVersion);
 
 /** @internal */
 export const OutputKinesisCompression$inboundSchema: z.ZodType<
@@ -221,6 +341,58 @@ export const OutputKinesisCompression$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OutputKinesisCompression
 > = openEnums.outboundSchema(OutputKinesisCompression);
+
+/** @internal */
+export const OutputKinesisBackpressureBehavior$inboundSchema: z.ZodType<
+  OutputKinesisBackpressureBehavior,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputKinesisBackpressureBehavior);
+/** @internal */
+export const OutputKinesisBackpressureBehavior$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputKinesisBackpressureBehavior
+> = openEnums.outboundSchema(OutputKinesisBackpressureBehavior);
+
+/** @internal */
+export const OutputKinesisMode$inboundSchema: z.ZodType<
+  OutputKinesisMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputKinesisMode);
+/** @internal */
+export const OutputKinesisMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputKinesisMode
+> = openEnums.outboundSchema(OutputKinesisMode);
+
+/** @internal */
+export const OutputKinesisPqCompressCompression$inboundSchema: z.ZodType<
+  OutputKinesisPqCompressCompression,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputKinesisPqCompressCompression);
+/** @internal */
+export const OutputKinesisPqCompressCompression$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputKinesisPqCompressCompression
+> = openEnums.outboundSchema(OutputKinesisPqCompressCompression);
+
+/** @internal */
+export const OutputKinesisQueueFullBehavior$inboundSchema: z.ZodType<
+  OutputKinesisQueueFullBehavior,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputKinesisQueueFullBehavior);
+/** @internal */
+export const OutputKinesisQueueFullBehavior$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputKinesisQueueFullBehavior
+> = openEnums.outboundSchema(OutputKinesisQueueFullBehavior);
 
 /** @internal */
 export const OutputKinesisPqControls$inboundSchema: z.ZodType<
@@ -268,13 +440,12 @@ export const OutputKinesis$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   streamName: z.string(),
-  awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
-    "auto",
-  ),
+  awsAuthenticationMethod: OutputKinesisAuthenticationMethod$inboundSchema
+    .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptions3$inboundSchema.default("v4"),
+  signatureVersion: OutputKinesisSignatureVersion$inboundSchema.default("v4"),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   enableAssumeRole: z.boolean().default(false),
@@ -287,21 +458,25 @@ export const OutputKinesis$inboundSchema: z.ZodType<
   compression: OutputKinesisCompression$inboundSchema.default("gzip"),
   useListShards: z.boolean().default(false),
   asNdjson: z.boolean().default(true),
-  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
+  onBackpressure: OutputKinesisBackpressureBehavior$inboundSchema.default(
+    "block",
+  ),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
   maxEventsPerFlush: z.number().default(500),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$inboundSchema.default("error"),
+  pqMode: OutputKinesisMode$inboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
+  pqCompress: OutputKinesisPqCompressCompression$inboundSchema.default("none"),
+  pqOnBackpressure: OutputKinesisQueueFullBehavior$inboundSchema.default(
+    "block",
+  ),
   pqControls: z.lazy(() => OutputKinesisPqControls$inboundSchema).optional(),
 });
 /** @internal */
@@ -361,13 +536,12 @@ export const OutputKinesis$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   streamName: z.string(),
-  awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
-    "auto",
-  ),
+  awsAuthenticationMethod: OutputKinesisAuthenticationMethod$outboundSchema
+    .default("auto"),
   awsSecretKey: z.string().optional(),
   region: z.string(),
   endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptions3$outboundSchema.default("v4"),
+  signatureVersion: OutputKinesisSignatureVersion$outboundSchema.default("v4"),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   enableAssumeRole: z.boolean().default(false),
@@ -380,21 +554,25 @@ export const OutputKinesis$outboundSchema: z.ZodType<
   compression: OutputKinesisCompression$outboundSchema.default("gzip"),
   useListShards: z.boolean().default(false),
   asNdjson: z.boolean().default(true),
-  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
+  onBackpressure: OutputKinesisBackpressureBehavior$outboundSchema.default(
+    "block",
+  ),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
   maxEventsPerFlush: z.number().default(500),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: ModeOptions$outboundSchema.default("error"),
+  pqMode: OutputKinesisMode$outboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
-  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
+  pqCompress: OutputKinesisPqCompressCompression$outboundSchema.default("none"),
+  pqOnBackpressure: OutputKinesisQueueFullBehavior$outboundSchema.default(
+    "block",
+  ),
   pqControls: z.lazy(() => OutputKinesisPqControls$outboundSchema).optional(),
 });
 

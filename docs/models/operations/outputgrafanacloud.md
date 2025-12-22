@@ -29,15 +29,15 @@ const value: operations.OutputGrafanaCloudGrafanaCloud1 = {
   prometheusAuth: {
     token: "<value>",
     textSecret: "<value>",
-    username: "Keshaun.Pagac",
-    password: "6tVmZtXY_Yorgje",
+    username: "Shakira_Wisozk",
+    password: "B0RWaZFIYeYi4FE",
     credentialsSecret: "<value>",
   },
   lokiAuth: {
     token: "<value>",
     textSecret: "<value>",
-    username: "Assunta_Kris",
-    password: "pv19FDqWjIgMACL",
+    username: "Myles.Durgan",
+    password: "2zPSMZhEVhRBQno",
     credentialsSecret: "<value>",
   },
   extraHttpHeaders: [
@@ -53,11 +53,11 @@ const value: operations.OutputGrafanaCloudGrafanaCloud1 = {
   ],
   responseRetrySettings: [
     {
-      httpStatus: 8829.54,
+      httpStatus: 2643.26,
     },
   ],
   timeoutRetrySettings: {},
-  description: "huzzah cleaner when baseboard within analyse league gosh",
+  description: "ignorant who where iterate eek keenly frantically gadzooks",
   pqControls: {},
 };
 ```
@@ -89,15 +89,15 @@ const value: operations.OutputGrafanaCloudGrafanaCloud2 = {
   prometheusAuth: {
     token: "<value>",
     textSecret: "<value>",
-    username: "Keshaun.Pagac",
-    password: "6tVmZtXY_Yorgje",
+    username: "Tracy6",
+    password: "vuFdCqosqDsV4Tz",
     credentialsSecret: "<value>",
   },
   lokiAuth: {
     token: "<value>",
     textSecret: "<value>",
-    username: "Assunta_Kris",
-    password: "pv19FDqWjIgMACL",
+    username: "Jerald_Nitzsche6",
+    password: "Cxl1R1HURssSQw7",
     credentialsSecret: "<value>",
   },
   extraHttpHeaders: [
@@ -113,11 +113,12 @@ const value: operations.OutputGrafanaCloudGrafanaCloud2 = {
   ],
   responseRetrySettings: [
     {
-      httpStatus: 8829.54,
+      httpStatus: 5792.69,
     },
   ],
   timeoutRetrySettings: {},
-  description: "grouper towards distant black inside mushy shakily severe",
+  description:
+    "rarely wiggly lively frilly sonar uh-huh except gadzooks pfft relieve",
   pqControls: {},
 };
 ```

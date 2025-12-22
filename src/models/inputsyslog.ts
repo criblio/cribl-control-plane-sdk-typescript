@@ -4,38 +4,156 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
-import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
-import {
-  PqType,
-  PqType$inboundSchema,
-  PqType$Outbound,
-  PqType$outboundSchema,
-} from "./pqtype.js";
-import {
-  TlsSettingsServerSideType,
-  TlsSettingsServerSideType$inboundSchema,
-  TlsSettingsServerSideType$Outbound,
-  TlsSettingsServerSideType$outboundSchema,
-} from "./tlssettingsserversidetype.js";
 
 export const InputSyslogType2 = {
   Syslog: "syslog",
 } as const;
 export type InputSyslogType2 = ClosedEnum<typeof InputSyslogType2>;
+
+export type InputSyslogConnection2 = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const InputSyslogMode2 = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type InputSyslogMode2 = OpenEnum<typeof InputSyslogMode2>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const InputSyslogCompression2 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type InputSyslogCompression2 = OpenEnum<typeof InputSyslogCompression2>;
+
+export type InputSyslogPqControls2 = {};
+
+export type InputSyslogPq2 = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: InputSyslogMode2 | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: InputSyslogCompression2 | undefined;
+  pqControls?: InputSyslogPqControls2 | undefined;
+};
+
+export const InputSyslogMinimumTLSVersion2 = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputSyslogMinimumTLSVersion2 = OpenEnum<
+  typeof InputSyslogMinimumTLSVersion2
+>;
+
+export const InputSyslogMaximumTLSVersion2 = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputSyslogMaximumTLSVersion2 = OpenEnum<
+  typeof InputSyslogMaximumTLSVersion2
+>;
+
+export type InputSyslogTLSSettingsServerSide2 = {
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?: InputSyslogMinimumTLSVersion2 | undefined;
+  maxVersion?: InputSyslogMaximumTLSVersion2 | undefined;
+};
+
+export type InputSyslogMetadatum2 = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
 
 export type InputSyslogSyslog2 = {
   /**
@@ -67,8 +185,8 @@ export type InputSyslogSyslog2 = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<InputSyslogConnection2> | undefined;
+  pq?: InputSyslogPq2 | undefined;
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
    */
@@ -137,11 +255,11 @@ export type InputSyslogSyslog2 = {
    * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
    */
   socketMaxLifespan?: number | undefined;
-  tls?: TlsSettingsServerSideType | undefined;
+  tls?: InputSyslogTLSSettingsServerSide2 | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<InputSyslogMetadatum2> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
@@ -161,6 +279,147 @@ export const InputSyslogType1 = {
   Syslog: "syslog",
 } as const;
 export type InputSyslogType1 = ClosedEnum<typeof InputSyslogType1>;
+
+export type InputSyslogConnection1 = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const InputSyslogMode1 = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type InputSyslogMode1 = OpenEnum<typeof InputSyslogMode1>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const InputSyslogCompression1 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type InputSyslogCompression1 = OpenEnum<typeof InputSyslogCompression1>;
+
+export type InputSyslogPqControls1 = {};
+
+export type InputSyslogPq1 = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: InputSyslogMode1 | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: InputSyslogCompression1 | undefined;
+  pqControls?: InputSyslogPqControls1 | undefined;
+};
+
+export const InputSyslogMinimumTLSVersion1 = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputSyslogMinimumTLSVersion1 = OpenEnum<
+  typeof InputSyslogMinimumTLSVersion1
+>;
+
+export const InputSyslogMaximumTLSVersion1 = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputSyslogMaximumTLSVersion1 = OpenEnum<
+  typeof InputSyslogMaximumTLSVersion1
+>;
+
+export type InputSyslogTLSSettingsServerSide1 = {
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?: InputSyslogMinimumTLSVersion1 | undefined;
+  maxVersion?: InputSyslogMaximumTLSVersion1 | undefined;
+};
+
+export type InputSyslogMetadatum1 = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
 
 export type InputSyslogSyslog1 = {
   /**
@@ -192,8 +451,8 @@ export type InputSyslogSyslog1 = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<InputSyslogConnection1> | undefined;
+  pq?: InputSyslogPq1 | undefined;
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
    */
@@ -262,11 +521,11 @@ export type InputSyslogSyslog1 = {
    * The maximum duration a socket can remain open, even if active. This helps manage resources and mitigate issues caused by TCP pinning. Set to 0 to disable.
    */
   socketMaxLifespan?: number | undefined;
-  tls?: TlsSettingsServerSideType | undefined;
+  tls?: InputSyslogTLSSettingsServerSide1 | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<InputSyslogMetadatum1> | undefined;
   /**
    * Optionally, set the SO_RCVBUF socket option for the UDP socket. This value tells the operating system how many bytes can be buffered in the kernel before events are dropped. Leave blank to use the OS default. Caution: Increasing this value will affect OS memory utilization.
    */
@@ -294,6 +553,302 @@ export const InputSyslogType2$outboundSchema: z.ZodNativeEnum<
 > = InputSyslogType2$inboundSchema;
 
 /** @internal */
+export const InputSyslogConnection2$inboundSchema: z.ZodType<
+  InputSyslogConnection2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+/** @internal */
+export type InputSyslogConnection2$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const InputSyslogConnection2$outboundSchema: z.ZodType<
+  InputSyslogConnection2$Outbound,
+  z.ZodTypeDef,
+  InputSyslogConnection2
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function inputSyslogConnection2ToJSON(
+  inputSyslogConnection2: InputSyslogConnection2,
+): string {
+  return JSON.stringify(
+    InputSyslogConnection2$outboundSchema.parse(inputSyslogConnection2),
+  );
+}
+export function inputSyslogConnection2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSyslogConnection2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSyslogConnection2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSyslogConnection2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSyslogMode2$inboundSchema: z.ZodType<
+  InputSyslogMode2,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputSyslogMode2);
+/** @internal */
+export const InputSyslogMode2$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputSyslogMode2
+> = openEnums.outboundSchema(InputSyslogMode2);
+
+/** @internal */
+export const InputSyslogCompression2$inboundSchema: z.ZodType<
+  InputSyslogCompression2,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputSyslogCompression2);
+/** @internal */
+export const InputSyslogCompression2$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputSyslogCompression2
+> = openEnums.outboundSchema(InputSyslogCompression2);
+
+/** @internal */
+export const InputSyslogPqControls2$inboundSchema: z.ZodType<
+  InputSyslogPqControls2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+/** @internal */
+export type InputSyslogPqControls2$Outbound = {};
+
+/** @internal */
+export const InputSyslogPqControls2$outboundSchema: z.ZodType<
+  InputSyslogPqControls2$Outbound,
+  z.ZodTypeDef,
+  InputSyslogPqControls2
+> = z.object({});
+
+export function inputSyslogPqControls2ToJSON(
+  inputSyslogPqControls2: InputSyslogPqControls2,
+): string {
+  return JSON.stringify(
+    InputSyslogPqControls2$outboundSchema.parse(inputSyslogPqControls2),
+  );
+}
+export function inputSyslogPqControls2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSyslogPqControls2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSyslogPqControls2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSyslogPqControls2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSyslogPq2$inboundSchema: z.ZodType<
+  InputSyslogPq2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: InputSyslogMode2$inboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputSyslogCompression2$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputSyslogPqControls2$inboundSchema).optional(),
+});
+/** @internal */
+export type InputSyslogPq2$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: InputSyslogPqControls2$Outbound | undefined;
+};
+
+/** @internal */
+export const InputSyslogPq2$outboundSchema: z.ZodType<
+  InputSyslogPq2$Outbound,
+  z.ZodTypeDef,
+  InputSyslogPq2
+> = z.object({
+  mode: InputSyslogMode2$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputSyslogCompression2$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputSyslogPqControls2$outboundSchema).optional(),
+});
+
+export function inputSyslogPq2ToJSON(inputSyslogPq2: InputSyslogPq2): string {
+  return JSON.stringify(InputSyslogPq2$outboundSchema.parse(inputSyslogPq2));
+}
+export function inputSyslogPq2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSyslogPq2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSyslogPq2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSyslogPq2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSyslogMinimumTLSVersion2$inboundSchema: z.ZodType<
+  InputSyslogMinimumTLSVersion2,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputSyslogMinimumTLSVersion2);
+/** @internal */
+export const InputSyslogMinimumTLSVersion2$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputSyslogMinimumTLSVersion2
+> = openEnums.outboundSchema(InputSyslogMinimumTLSVersion2);
+
+/** @internal */
+export const InputSyslogMaximumTLSVersion2$inboundSchema: z.ZodType<
+  InputSyslogMaximumTLSVersion2,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputSyslogMaximumTLSVersion2);
+/** @internal */
+export const InputSyslogMaximumTLSVersion2$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputSyslogMaximumTLSVersion2
+> = openEnums.outboundSchema(InputSyslogMaximumTLSVersion2);
+
+/** @internal */
+export const InputSyslogTLSSettingsServerSide2$inboundSchema: z.ZodType<
+  InputSyslogTLSSettingsServerSide2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: InputSyslogMinimumTLSVersion2$inboundSchema.optional(),
+  maxVersion: InputSyslogMaximumTLSVersion2$inboundSchema.optional(),
+});
+/** @internal */
+export type InputSyslogTLSSettingsServerSide2$Outbound = {
+  disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const InputSyslogTLSSettingsServerSide2$outboundSchema: z.ZodType<
+  InputSyslogTLSSettingsServerSide2$Outbound,
+  z.ZodTypeDef,
+  InputSyslogTLSSettingsServerSide2
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: InputSyslogMinimumTLSVersion2$outboundSchema.optional(),
+  maxVersion: InputSyslogMaximumTLSVersion2$outboundSchema.optional(),
+});
+
+export function inputSyslogTLSSettingsServerSide2ToJSON(
+  inputSyslogTLSSettingsServerSide2: InputSyslogTLSSettingsServerSide2,
+): string {
+  return JSON.stringify(
+    InputSyslogTLSSettingsServerSide2$outboundSchema.parse(
+      inputSyslogTLSSettingsServerSide2,
+    ),
+  );
+}
+export function inputSyslogTLSSettingsServerSide2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSyslogTLSSettingsServerSide2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSyslogTLSSettingsServerSide2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSyslogTLSSettingsServerSide2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSyslogMetadatum2$inboundSchema: z.ZodType<
+  InputSyslogMetadatum2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type InputSyslogMetadatum2$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputSyslogMetadatum2$outboundSchema: z.ZodType<
+  InputSyslogMetadatum2$Outbound,
+  z.ZodTypeDef,
+  InputSyslogMetadatum2
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputSyslogMetadatum2ToJSON(
+  inputSyslogMetadatum2: InputSyslogMetadatum2,
+): string {
+  return JSON.stringify(
+    InputSyslogMetadatum2$outboundSchema.parse(inputSyslogMetadatum2),
+  );
+}
+export function inputSyslogMetadatum2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSyslogMetadatum2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSyslogMetadatum2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSyslogMetadatum2' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputSyslogSyslog2$inboundSchema: z.ZodType<
   InputSyslogSyslog2,
   z.ZodTypeDef,
@@ -307,8 +862,9 @@ export const InputSyslogSyslog2$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputSyslogConnection2$inboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputSyslogPq2$inboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   udpPort: z.number().optional(),
   tcpPort: z.number(),
@@ -326,8 +882,9 @@ export const InputSyslogSyslog2$inboundSchema: z.ZodType<
   socketIdleTimeout: z.number().default(0),
   socketEndingMaxWait: z.number().default(30),
   socketMaxLifespan: z.number().default(0),
-  tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  tls: z.lazy(() => InputSyslogTLSSettingsServerSide2$inboundSchema).optional(),
+  metadata: z.array(z.lazy(() => InputSyslogMetadatum2$inboundSchema))
+    .optional(),
   udpSocketRxBufSize: z.number().optional(),
   enableLoadBalancing: z.boolean().default(false),
   description: z.string().optional(),
@@ -343,8 +900,8 @@ export type InputSyslogSyslog2$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
+  connections?: Array<InputSyslogConnection2$Outbound> | undefined;
+  pq?: InputSyslogPq2$Outbound | undefined;
   host: string;
   udpPort?: number | undefined;
   tcpPort: number;
@@ -362,8 +919,8 @@ export type InputSyslogSyslog2$Outbound = {
   socketIdleTimeout: number;
   socketEndingMaxWait: number;
   socketMaxLifespan: number;
-  tls?: TlsSettingsServerSideType$Outbound | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  tls?: InputSyslogTLSSettingsServerSide2$Outbound | undefined;
+  metadata?: Array<InputSyslogMetadatum2$Outbound> | undefined;
   udpSocketRxBufSize?: number | undefined;
   enableLoadBalancing: boolean;
   description?: string | undefined;
@@ -384,8 +941,9 @@ export const InputSyslogSyslog2$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputSyslogConnection2$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputSyslogPq2$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   udpPort: z.number().optional(),
   tcpPort: z.number(),
@@ -403,8 +961,10 @@ export const InputSyslogSyslog2$outboundSchema: z.ZodType<
   socketIdleTimeout: z.number().default(0),
   socketEndingMaxWait: z.number().default(30),
   socketMaxLifespan: z.number().default(0),
-  tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  tls: z.lazy(() => InputSyslogTLSSettingsServerSide2$outboundSchema)
+    .optional(),
+  metadata: z.array(z.lazy(() => InputSyslogMetadatum2$outboundSchema))
+    .optional(),
   udpSocketRxBufSize: z.number().optional(),
   enableLoadBalancing: z.boolean().default(false),
   description: z.string().optional(),
@@ -438,6 +998,302 @@ export const InputSyslogType1$outboundSchema: z.ZodNativeEnum<
 > = InputSyslogType1$inboundSchema;
 
 /** @internal */
+export const InputSyslogConnection1$inboundSchema: z.ZodType<
+  InputSyslogConnection1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+/** @internal */
+export type InputSyslogConnection1$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const InputSyslogConnection1$outboundSchema: z.ZodType<
+  InputSyslogConnection1$Outbound,
+  z.ZodTypeDef,
+  InputSyslogConnection1
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function inputSyslogConnection1ToJSON(
+  inputSyslogConnection1: InputSyslogConnection1,
+): string {
+  return JSON.stringify(
+    InputSyslogConnection1$outboundSchema.parse(inputSyslogConnection1),
+  );
+}
+export function inputSyslogConnection1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSyslogConnection1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSyslogConnection1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSyslogConnection1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSyslogMode1$inboundSchema: z.ZodType<
+  InputSyslogMode1,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputSyslogMode1);
+/** @internal */
+export const InputSyslogMode1$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputSyslogMode1
+> = openEnums.outboundSchema(InputSyslogMode1);
+
+/** @internal */
+export const InputSyslogCompression1$inboundSchema: z.ZodType<
+  InputSyslogCompression1,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputSyslogCompression1);
+/** @internal */
+export const InputSyslogCompression1$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputSyslogCompression1
+> = openEnums.outboundSchema(InputSyslogCompression1);
+
+/** @internal */
+export const InputSyslogPqControls1$inboundSchema: z.ZodType<
+  InputSyslogPqControls1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+/** @internal */
+export type InputSyslogPqControls1$Outbound = {};
+
+/** @internal */
+export const InputSyslogPqControls1$outboundSchema: z.ZodType<
+  InputSyslogPqControls1$Outbound,
+  z.ZodTypeDef,
+  InputSyslogPqControls1
+> = z.object({});
+
+export function inputSyslogPqControls1ToJSON(
+  inputSyslogPqControls1: InputSyslogPqControls1,
+): string {
+  return JSON.stringify(
+    InputSyslogPqControls1$outboundSchema.parse(inputSyslogPqControls1),
+  );
+}
+export function inputSyslogPqControls1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSyslogPqControls1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSyslogPqControls1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSyslogPqControls1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSyslogPq1$inboundSchema: z.ZodType<
+  InputSyslogPq1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: InputSyslogMode1$inboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputSyslogCompression1$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputSyslogPqControls1$inboundSchema).optional(),
+});
+/** @internal */
+export type InputSyslogPq1$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: InputSyslogPqControls1$Outbound | undefined;
+};
+
+/** @internal */
+export const InputSyslogPq1$outboundSchema: z.ZodType<
+  InputSyslogPq1$Outbound,
+  z.ZodTypeDef,
+  InputSyslogPq1
+> = z.object({
+  mode: InputSyslogMode1$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputSyslogCompression1$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputSyslogPqControls1$outboundSchema).optional(),
+});
+
+export function inputSyslogPq1ToJSON(inputSyslogPq1: InputSyslogPq1): string {
+  return JSON.stringify(InputSyslogPq1$outboundSchema.parse(inputSyslogPq1));
+}
+export function inputSyslogPq1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSyslogPq1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSyslogPq1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSyslogPq1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSyslogMinimumTLSVersion1$inboundSchema: z.ZodType<
+  InputSyslogMinimumTLSVersion1,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputSyslogMinimumTLSVersion1);
+/** @internal */
+export const InputSyslogMinimumTLSVersion1$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputSyslogMinimumTLSVersion1
+> = openEnums.outboundSchema(InputSyslogMinimumTLSVersion1);
+
+/** @internal */
+export const InputSyslogMaximumTLSVersion1$inboundSchema: z.ZodType<
+  InputSyslogMaximumTLSVersion1,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputSyslogMaximumTLSVersion1);
+/** @internal */
+export const InputSyslogMaximumTLSVersion1$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputSyslogMaximumTLSVersion1
+> = openEnums.outboundSchema(InputSyslogMaximumTLSVersion1);
+
+/** @internal */
+export const InputSyslogTLSSettingsServerSide1$inboundSchema: z.ZodType<
+  InputSyslogTLSSettingsServerSide1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: InputSyslogMinimumTLSVersion1$inboundSchema.optional(),
+  maxVersion: InputSyslogMaximumTLSVersion1$inboundSchema.optional(),
+});
+/** @internal */
+export type InputSyslogTLSSettingsServerSide1$Outbound = {
+  disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const InputSyslogTLSSettingsServerSide1$outboundSchema: z.ZodType<
+  InputSyslogTLSSettingsServerSide1$Outbound,
+  z.ZodTypeDef,
+  InputSyslogTLSSettingsServerSide1
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: InputSyslogMinimumTLSVersion1$outboundSchema.optional(),
+  maxVersion: InputSyslogMaximumTLSVersion1$outboundSchema.optional(),
+});
+
+export function inputSyslogTLSSettingsServerSide1ToJSON(
+  inputSyslogTLSSettingsServerSide1: InputSyslogTLSSettingsServerSide1,
+): string {
+  return JSON.stringify(
+    InputSyslogTLSSettingsServerSide1$outboundSchema.parse(
+      inputSyslogTLSSettingsServerSide1,
+    ),
+  );
+}
+export function inputSyslogTLSSettingsServerSide1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSyslogTLSSettingsServerSide1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSyslogTLSSettingsServerSide1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSyslogTLSSettingsServerSide1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputSyslogMetadatum1$inboundSchema: z.ZodType<
+  InputSyslogMetadatum1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type InputSyslogMetadatum1$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputSyslogMetadatum1$outboundSchema: z.ZodType<
+  InputSyslogMetadatum1$Outbound,
+  z.ZodTypeDef,
+  InputSyslogMetadatum1
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputSyslogMetadatum1ToJSON(
+  inputSyslogMetadatum1: InputSyslogMetadatum1,
+): string {
+  return JSON.stringify(
+    InputSyslogMetadatum1$outboundSchema.parse(inputSyslogMetadatum1),
+  );
+}
+export function inputSyslogMetadatum1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputSyslogMetadatum1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputSyslogMetadatum1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputSyslogMetadatum1' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputSyslogSyslog1$inboundSchema: z.ZodType<
   InputSyslogSyslog1,
   z.ZodTypeDef,
@@ -451,8 +1307,9 @@ export const InputSyslogSyslog1$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputSyslogConnection1$inboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputSyslogPq1$inboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   udpPort: z.number(),
   tcpPort: z.number().optional(),
@@ -470,8 +1327,9 @@ export const InputSyslogSyslog1$inboundSchema: z.ZodType<
   socketIdleTimeout: z.number().default(0),
   socketEndingMaxWait: z.number().default(30),
   socketMaxLifespan: z.number().default(0),
-  tls: TlsSettingsServerSideType$inboundSchema.optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  tls: z.lazy(() => InputSyslogTLSSettingsServerSide1$inboundSchema).optional(),
+  metadata: z.array(z.lazy(() => InputSyslogMetadatum1$inboundSchema))
+    .optional(),
   udpSocketRxBufSize: z.number().optional(),
   enableLoadBalancing: z.boolean().default(false),
   description: z.string().optional(),
@@ -487,8 +1345,8 @@ export type InputSyslogSyslog1$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
+  connections?: Array<InputSyslogConnection1$Outbound> | undefined;
+  pq?: InputSyslogPq1$Outbound | undefined;
   host: string;
   udpPort: number;
   tcpPort?: number | undefined;
@@ -506,8 +1364,8 @@ export type InputSyslogSyslog1$Outbound = {
   socketIdleTimeout: number;
   socketEndingMaxWait: number;
   socketMaxLifespan: number;
-  tls?: TlsSettingsServerSideType$Outbound | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  tls?: InputSyslogTLSSettingsServerSide1$Outbound | undefined;
+  metadata?: Array<InputSyslogMetadatum1$Outbound> | undefined;
   udpSocketRxBufSize?: number | undefined;
   enableLoadBalancing: boolean;
   description?: string | undefined;
@@ -528,8 +1386,9 @@ export const InputSyslogSyslog1$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputSyslogConnection1$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputSyslogPq1$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   udpPort: z.number(),
   tcpPort: z.number().optional(),
@@ -547,8 +1406,10 @@ export const InputSyslogSyslog1$outboundSchema: z.ZodType<
   socketIdleTimeout: z.number().default(0),
   socketEndingMaxWait: z.number().default(30),
   socketMaxLifespan: z.number().default(0),
-  tls: TlsSettingsServerSideType$outboundSchema.optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  tls: z.lazy(() => InputSyslogTLSSettingsServerSide1$outboundSchema)
+    .optional(),
+  metadata: z.array(z.lazy(() => InputSyslogMetadatum1$outboundSchema))
+    .optional(),
   udpSocketRxBufSize: z.number().optional(),
   enableLoadBalancing: z.boolean().default(false),
   description: z.string().optional(),

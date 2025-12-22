@@ -7,36 +7,82 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  AuthenticationMethodOptions2,
-  AuthenticationMethodOptions2$inboundSchema,
-  AuthenticationMethodOptions2$outboundSchema,
-} from "./authenticationmethodoptions2.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
-import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
-import {
-  PqType,
-  PqType$inboundSchema,
-  PqType$Outbound,
-  PqType$outboundSchema,
-} from "./pqtype.js";
-import {
-  RetryRulesType,
-  RetryRulesType$inboundSchema,
-  RetryRulesType$Outbound,
-  RetryRulesType$outboundSchema,
-} from "./retryrulestype.js";
+
+export type InputWizConnection = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const InputWizMode = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type InputWizMode = OpenEnum<typeof InputWizMode>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const InputWizCompression = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type InputWizCompression = OpenEnum<typeof InputWizCompression>;
+
+export type InputWizPqControls = {};
+
+export type InputWizPq = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: InputWizMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: InputWizCompression | undefined;
+  pqControls?: InputWizPqControls | undefined;
+};
 
 export type ManageState = {};
 
@@ -105,6 +151,85 @@ export type InputWizContentConfig = {
   maxPages?: number | undefined;
 };
 
+export type InputWizMetadatum = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+/**
+ * The algorithm to use when performing HTTP retries
+ */
+export const InputWizRetryType = {
+  /**
+   * Disabled
+   */
+  None: "none",
+  /**
+   * Backoff
+   */
+  Backoff: "backoff",
+  /**
+   * Static
+   */
+  Static: "static",
+} as const;
+/**
+ * The algorithm to use when performing HTTP retries
+ */
+export type InputWizRetryType = OpenEnum<typeof InputWizRetryType>;
+
+export type InputWizRetryRules = {
+  /**
+   * The algorithm to use when performing HTTP retries
+   */
+  type?: InputWizRetryType | undefined;
+  /**
+   * Time interval between failed request and first retry (kickoff). Maximum allowed value is 20,000 ms (1/3 minute).
+   */
+  interval?: number | undefined;
+  /**
+   * The maximum number of times to retry a failed HTTP request
+   */
+  limit?: number | undefined;
+  /**
+   * Base for exponential backoff, e.g., base 2 means that retries will occur after 2, then 4, then 8 seconds, and so on
+   */
+  multiplier?: number | undefined;
+  /**
+   * List of HTTP codes that trigger a retry. Leave empty to use the default list of 429 and 503.
+   */
+  codes?: Array<number> | undefined;
+  /**
+   * Honor any Retry-After header that specifies a delay (in seconds) or a timestamp after which to retry the request. The delay is limited to 20 seconds, even if the Retry-After header specifies a longer delay. When disabled, all Retry-After headers are ignored.
+   */
+  enableHeader?: boolean | undefined;
+  /**
+   * Make a single retry attempt when a connection timeout (ETIMEDOUT) error occurs
+   */
+  retryConnectTimeout?: boolean | undefined;
+  /**
+   * Retry request when a connection reset (ECONNRESET) error occurs
+   */
+  retryConnectReset?: boolean | undefined;
+};
+
+/**
+ * Enter client secret directly, or select a stored secret
+ */
+export const InputWizAuthenticationMethod = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Enter client secret directly, or select a stored secret
+ */
+export type InputWizAuthenticationMethod = OpenEnum<
+  typeof InputWizAuthenticationMethod
+>;
+
 export type InputWiz = {
   /**
    * Unique ID for this input
@@ -135,8 +260,8 @@ export type InputWiz = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<InputWizConnection> | undefined;
+  pq?: InputWizPq | undefined;
   /**
    * The Wiz GraphQL API endpoint. Example: https://api.us1.app.wiz.io/graphql
    */
@@ -177,12 +302,12 @@ export type InputWiz = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  retryRules?: RetryRulesType | undefined;
+  metadata?: Array<InputWizMetadatum> | undefined;
+  retryRules?: InputWizRetryRules | undefined;
   /**
    * Enter client secret directly, or select a stored secret
    */
-  authType?: AuthenticationMethodOptions2 | undefined;
+  authType?: InputWizAuthenticationMethod | undefined;
   description?: string | undefined;
   /**
    * The client secret of the Wiz application
@@ -193,6 +318,163 @@ export type InputWiz = {
    */
   textSecret?: string | undefined;
 };
+
+/** @internal */
+export const InputWizConnection$inboundSchema: z.ZodType<
+  InputWizConnection,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+/** @internal */
+export type InputWizConnection$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const InputWizConnection$outboundSchema: z.ZodType<
+  InputWizConnection$Outbound,
+  z.ZodTypeDef,
+  InputWizConnection
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function inputWizConnectionToJSON(
+  inputWizConnection: InputWizConnection,
+): string {
+  return JSON.stringify(
+    InputWizConnection$outboundSchema.parse(inputWizConnection),
+  );
+}
+export function inputWizConnectionFromJSON(
+  jsonString: string,
+): SafeParseResult<InputWizConnection, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputWizConnection$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWizConnection' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputWizMode$inboundSchema: z.ZodType<
+  InputWizMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputWizMode);
+/** @internal */
+export const InputWizMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputWizMode
+> = openEnums.outboundSchema(InputWizMode);
+
+/** @internal */
+export const InputWizCompression$inboundSchema: z.ZodType<
+  InputWizCompression,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputWizCompression);
+/** @internal */
+export const InputWizCompression$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputWizCompression
+> = openEnums.outboundSchema(InputWizCompression);
+
+/** @internal */
+export const InputWizPqControls$inboundSchema: z.ZodType<
+  InputWizPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+/** @internal */
+export type InputWizPqControls$Outbound = {};
+
+/** @internal */
+export const InputWizPqControls$outboundSchema: z.ZodType<
+  InputWizPqControls$Outbound,
+  z.ZodTypeDef,
+  InputWizPqControls
+> = z.object({});
+
+export function inputWizPqControlsToJSON(
+  inputWizPqControls: InputWizPqControls,
+): string {
+  return JSON.stringify(
+    InputWizPqControls$outboundSchema.parse(inputWizPqControls),
+  );
+}
+export function inputWizPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputWizPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputWizPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWizPqControls' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputWizPq$inboundSchema: z.ZodType<
+  InputWizPq,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: InputWizMode$inboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputWizCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputWizPqControls$inboundSchema).optional(),
+});
+/** @internal */
+export type InputWizPq$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: InputWizPqControls$Outbound | undefined;
+};
+
+/** @internal */
+export const InputWizPq$outboundSchema: z.ZodType<
+  InputWizPq$Outbound,
+  z.ZodTypeDef,
+  InputWizPq
+> = z.object({
+  mode: InputWizMode$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputWizCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputWizPqControls$outboundSchema).optional(),
+});
+
+export function inputWizPqToJSON(inputWizPq: InputWizPq): string {
+  return JSON.stringify(InputWizPq$outboundSchema.parse(inputWizPq));
+}
+export function inputWizPqFromJSON(
+  jsonString: string,
+): SafeParseResult<InputWizPq, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputWizPq$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWizPq' from JSON`,
+  );
+}
 
 /** @internal */
 export const ManageState$inboundSchema: z.ZodType<
@@ -323,6 +605,134 @@ export function inputWizContentConfigFromJSON(
 }
 
 /** @internal */
+export const InputWizMetadatum$inboundSchema: z.ZodType<
+  InputWizMetadatum,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type InputWizMetadatum$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputWizMetadatum$outboundSchema: z.ZodType<
+  InputWizMetadatum$Outbound,
+  z.ZodTypeDef,
+  InputWizMetadatum
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputWizMetadatumToJSON(
+  inputWizMetadatum: InputWizMetadatum,
+): string {
+  return JSON.stringify(
+    InputWizMetadatum$outboundSchema.parse(inputWizMetadatum),
+  );
+}
+export function inputWizMetadatumFromJSON(
+  jsonString: string,
+): SafeParseResult<InputWizMetadatum, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputWizMetadatum$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWizMetadatum' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputWizRetryType$inboundSchema: z.ZodType<
+  InputWizRetryType,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputWizRetryType);
+/** @internal */
+export const InputWizRetryType$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputWizRetryType
+> = openEnums.outboundSchema(InputWizRetryType);
+
+/** @internal */
+export const InputWizRetryRules$inboundSchema: z.ZodType<
+  InputWizRetryRules,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: InputWizRetryType$inboundSchema.default("backoff"),
+  interval: z.number().default(1000),
+  limit: z.number().default(5),
+  multiplier: z.number().default(2),
+  codes: z.array(z.number()).optional(),
+  enableHeader: z.boolean().default(true),
+  retryConnectTimeout: z.boolean().default(false),
+  retryConnectReset: z.boolean().default(false),
+});
+/** @internal */
+export type InputWizRetryRules$Outbound = {
+  type: string;
+  interval: number;
+  limit: number;
+  multiplier: number;
+  codes?: Array<number> | undefined;
+  enableHeader: boolean;
+  retryConnectTimeout: boolean;
+  retryConnectReset: boolean;
+};
+
+/** @internal */
+export const InputWizRetryRules$outboundSchema: z.ZodType<
+  InputWizRetryRules$Outbound,
+  z.ZodTypeDef,
+  InputWizRetryRules
+> = z.object({
+  type: InputWizRetryType$outboundSchema.default("backoff"),
+  interval: z.number().default(1000),
+  limit: z.number().default(5),
+  multiplier: z.number().default(2),
+  codes: z.array(z.number()).optional(),
+  enableHeader: z.boolean().default(true),
+  retryConnectTimeout: z.boolean().default(false),
+  retryConnectReset: z.boolean().default(false),
+});
+
+export function inputWizRetryRulesToJSON(
+  inputWizRetryRules: InputWizRetryRules,
+): string {
+  return JSON.stringify(
+    InputWizRetryRules$outboundSchema.parse(inputWizRetryRules),
+  );
+}
+export function inputWizRetryRulesFromJSON(
+  jsonString: string,
+): SafeParseResult<InputWizRetryRules, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputWizRetryRules$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWizRetryRules' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputWizAuthenticationMethod$inboundSchema: z.ZodType<
+  InputWizAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputWizAuthenticationMethod);
+/** @internal */
+export const InputWizAuthenticationMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputWizAuthenticationMethod
+> = openEnums.outboundSchema(InputWizAuthenticationMethod);
+
+/** @internal */
 export const InputWiz$inboundSchema: z.ZodType<
   InputWiz,
   z.ZodTypeDef,
@@ -336,8 +746,9 @@ export const InputWiz$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputWizConnection$inboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputWizPq$inboundSchema).optional(),
   endpoint: z.string().default("https://api.<region>.app.wiz.io/graphql"),
   authUrl: z.string(),
   authAudienceOverride: z.string().optional(),
@@ -348,9 +759,9 @@ export const InputWiz$inboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().default(3),
   ttl: z.string().default("4h"),
   ignoreGroupJobsLimit: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  retryRules: RetryRulesType$inboundSchema.optional(),
-  authType: AuthenticationMethodOptions2$inboundSchema.default("manual"),
+  metadata: z.array(z.lazy(() => InputWizMetadatum$inboundSchema)).optional(),
+  retryRules: z.lazy(() => InputWizRetryRules$inboundSchema).optional(),
+  authType: InputWizAuthenticationMethod$inboundSchema.default("manual"),
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
@@ -365,8 +776,8 @@ export type InputWiz$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
+  connections?: Array<InputWizConnection$Outbound> | undefined;
+  pq?: InputWizPq$Outbound | undefined;
   endpoint: string;
   authUrl: string;
   authAudienceOverride?: string | undefined;
@@ -377,8 +788,8 @@ export type InputWiz$Outbound = {
   maxMissedKeepAlives: number;
   ttl: string;
   ignoreGroupJobsLimit: boolean;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  retryRules?: RetryRulesType$Outbound | undefined;
+  metadata?: Array<InputWizMetadatum$Outbound> | undefined;
+  retryRules?: InputWizRetryRules$Outbound | undefined;
   authType: string;
   description?: string | undefined;
   clientSecret?: string | undefined;
@@ -399,8 +810,9 @@ export const InputWiz$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputWizConnection$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputWizPq$outboundSchema).optional(),
   endpoint: z.string().default("https://api.<region>.app.wiz.io/graphql"),
   authUrl: z.string(),
   authAudienceOverride: z.string().optional(),
@@ -411,9 +823,9 @@ export const InputWiz$outboundSchema: z.ZodType<
   maxMissedKeepAlives: z.number().default(3),
   ttl: z.string().default("4h"),
   ignoreGroupJobsLimit: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  retryRules: RetryRulesType$outboundSchema.optional(),
-  authType: AuthenticationMethodOptions2$outboundSchema.default("manual"),
+  metadata: z.array(z.lazy(() => InputWizMetadatum$outboundSchema)).optional(),
+  retryRules: z.lazy(() => InputWizRetryRules$outboundSchema).optional(),
+  authType: InputWizAuthenticationMethod$outboundSchema.default("manual"),
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),

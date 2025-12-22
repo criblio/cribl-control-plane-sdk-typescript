@@ -1,22 +1,241 @@
 # Collector
 
-## Example Usage
+Collector config wrapper
+
+
+## Supported Types
+
+### `models.CollectorAzureBlob`
 
 ```typescript
-import { Collector } from "cribl-control-plane/models";
-
-let value: Collector = {
-  type: "<value>",
-  conf: {},
-  encoding: "<value>",
+const value: models.CollectorAzureBlob = {
+  type: "azure_blob",
+  conf: {
+    outputName: "<value>",
+    containerName: "<value>",
+    path: "/var",
+    extractors: [
+      {
+        key: "<key>",
+        expression: "<value>",
+      },
+    ],
+  },
 };
 ```
 
-## Fields
+### `models.CollectorCriblLake`
 
-| Field                                                                                                                                                     | Type                                                                                                                                                      | Required                                                                                                                                                  | Description                                                                                                                                               |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `type`                                                                                                                                                    | *string*                                                                                                                                                  | :heavy_check_mark:                                                                                                                                        | The type of collector to run                                                                                                                              |
-| `conf`                                                                                                                                                    | [models.CollectorSpecificSettings](../models/collectorspecificsettings.md)                                                                                | :heavy_check_mark:                                                                                                                                        | N/A                                                                                                                                                       |
-| `destructive`                                                                                                                                             | *boolean*                                                                                                                                                 | :heavy_minus_sign:                                                                                                                                        | Delete any files collected (where applicable)                                                                                                             |
-| `encoding`                                                                                                                                                | *string*                                                                                                                                                  | :heavy_minus_sign:                                                                                                                                        | Character encoding to use when parsing ingested data. When not set, @{product} will default to UTF-8 but may incorrectly interpret multi-byte characters. |
+```typescript
+const value: models.CollectorCriblLake = {
+  type: "cribl_lake",
+  conf: {
+    dataset: "<value>",
+  },
+};
+```
+
+### `models.CollectorDatabase`
+
+```typescript
+const value: models.CollectorDatabase = {
+  type: "database",
+  conf: {
+    connectionId: "<id>",
+    query: "<value>",
+    defaultBreakers: "Cribl",
+    scheduling: {
+      stateTracking: {
+        enabled: true,
+      },
+    },
+  },
+};
+```
+
+### `models.CollectorFilesystem`
+
+```typescript
+const value: models.CollectorFilesystem = {
+  type: "filesystem",
+  conf: {
+    outputName: "<value>",
+    path: "/Library",
+    extractors: [
+      {
+        key: "<key>",
+        expression: "<value>",
+      },
+    ],
+  },
+};
+```
+
+### `models.CollectorGoogleCloudStorage`
+
+```typescript
+const value: models.CollectorGoogleCloudStorage = {
+  type: "google_cloud_storage",
+  conf: {
+    outputName: "<value>",
+    bucket: "<value>",
+    path: "/var/tmp",
+    extractors: [
+      {
+        key: "<key>",
+        expression: "<value>",
+      },
+    ],
+    endpoint: "<value>",
+  },
+};
+```
+
+### `models.CollectorHealthCheck`
+
+```typescript
+const value: models.CollectorHealthCheck = {
+  type: "health_check",
+  conf: {
+    discovery: {},
+    collectUrl: "https://late-pantyhose.name",
+    collectRequestParams: "<value>",
+    collectBody: "<value>",
+    collectRequestHeaders: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    defaultBreakers: "Cribl",
+    safeHeaders: [
+      "<value 1>",
+      "<value 2>",
+    ],
+    retryRules: {
+      interval: "<value>",
+      limit: "<value>",
+      multiplier: "<value>",
+      codes: "<value>",
+      enableHeader: "<value>",
+    },
+  },
+};
+```
+
+### `models.CollectorRest`
+
+```typescript
+const value: models.CollectorRest = {
+  type: "rest",
+  conf: {
+    discovery: {},
+    collectUrl: "https://easy-republican.com",
+    collectVerb: "<value>",
+    collectRequestParams: "<value>",
+    collectBody: "<value>",
+    collectRequestHeaders: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    pagination: {},
+    safeHeaders: [
+      "<value 1>",
+    ],
+    retryRules: {
+      interval: "<value>",
+      limit: "<value>",
+      multiplier: "<value>",
+      maxIntervalMs: "<value>",
+      codes: "<value>",
+      enableHeader: "<value>",
+      retryConnectTimeout: "<value>",
+      retryConnectReset: "<value>",
+    },
+    scheduling: {
+      stateTracking: {
+        enabled: false,
+      },
+    },
+  },
+};
+```
+
+### `models.CollectorS3`
+
+```typescript
+const value: models.CollectorS3 = {
+  type: "s3",
+  conf: {
+    outputName: "<value>",
+    bucket: "<value>",
+    region: "<value>",
+    path: "/boot",
+    extractors: [
+      {
+        key: "<key>",
+        expression: "<value>",
+      },
+    ],
+    endpoint: "<value>",
+    assumeRoleArn: "<value>",
+    assumeRoleExternalId: "<id>",
+    recurse: "<value>",
+  },
+};
+```
+
+### `models.CollectorScript`
+
+```typescript
+const value: models.CollectorScript = {
+  type: "script",
+  conf: {
+    discoverScript: "<value>",
+    collectScript: "<value>",
+    envVars: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+  },
+};
+```
+
+### `models.CollectorSplunk`
+
+```typescript
+const value: models.CollectorSplunk = {
+  type: "splunk",
+  conf: {
+    search: "<value>",
+    earliest: "<value>",
+    latest: "<value>",
+    collectRequestParams: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    collectRequestHeaders: [
+      {
+        name: "<value>",
+        value: "<value>",
+      },
+    ],
+    retryRules: {
+      interval: "<value>",
+      limit: "<value>",
+      multiplier: "<value>",
+      codes: "<value>",
+      enableHeader: "<value>",
+      retryConnectTimeout: "<value>",
+      retryConnectReset: "<value>",
+    },
+  },
+};
+```
+

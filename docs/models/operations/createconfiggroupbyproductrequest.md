@@ -17,7 +17,7 @@ let value: CreateConfigGroupByProductRequest = {
     estimatedIngestRate: 5120,
     git: {
       commit: "<value>",
-      localChanges: 2849.05,
+      localChanges: 5624.35,
       log: [
         {
           authorEmail: "<value>",

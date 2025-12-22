@@ -4,33 +4,126 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  BackpressureBehaviorOptions1,
-  BackpressureBehaviorOptions1$inboundSchema,
-  BackpressureBehaviorOptions1$outboundSchema,
-} from "./backpressurebehavioroptions1.js";
-import {
-  DiskSpaceProtectionOptions,
-  DiskSpaceProtectionOptions$inboundSchema,
-  DiskSpaceProtectionOptions$outboundSchema,
-} from "./diskspaceprotectionoptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ObjectAclOptions1,
-  ObjectAclOptions1$inboundSchema,
-  ObjectAclOptions1$outboundSchema,
-} from "./objectacloptions1.js";
-import {
-  SignatureVersionOptions5,
-  SignatureVersionOptions5$inboundSchema,
-  SignatureVersionOptions5$outboundSchema,
-} from "./signatureversionoptions5.js";
-import {
-  StorageClassOptions1,
-  StorageClassOptions1$inboundSchema,
-  StorageClassOptions1$outboundSchema,
-} from "./storageclassoptions1.js";
+
+/**
+ * Signature version to use for signing Google Cloud Storage requests
+ */
+export const OutputExabeamSignatureVersion = {
+  V2: "v2",
+  V4: "v4",
+} as const;
+/**
+ * Signature version to use for signing Google Cloud Storage requests
+ */
+export type OutputExabeamSignatureVersion = OpenEnum<
+  typeof OutputExabeamSignatureVersion
+>;
+
+/**
+ * Object ACL to assign to uploaded objects
+ */
+export const OutputExabeamObjectACL = {
+  /**
+   * private
+   */
+  Private: "private",
+  /**
+   * bucket-owner-read
+   */
+  BucketOwnerRead: "bucket-owner-read",
+  /**
+   * bucket-owner-full-control
+   */
+  BucketOwnerFullControl: "bucket-owner-full-control",
+  /**
+   * project-private
+   */
+  ProjectPrivate: "project-private",
+  /**
+   * authenticated-read
+   */
+  AuthenticatedRead: "authenticated-read",
+  /**
+   * public-read
+   */
+  PublicRead: "public-read",
+} as const;
+/**
+ * Object ACL to assign to uploaded objects
+ */
+export type OutputExabeamObjectACL = OpenEnum<typeof OutputExabeamObjectACL>;
+
+/**
+ * Storage class to select for uploaded objects
+ */
+export const OutputExabeamStorageClass = {
+  /**
+   * Standard Storage
+   */
+  Standard: "STANDARD",
+  /**
+   * Nearline Storage
+   */
+  Nearline: "NEARLINE",
+  /**
+   * Coldline Storage
+   */
+  Coldline: "COLDLINE",
+  /**
+   * Archive Storage
+   */
+  Archive: "ARCHIVE",
+} as const;
+/**
+ * Storage class to select for uploaded objects
+ */
+export type OutputExabeamStorageClass = OpenEnum<
+  typeof OutputExabeamStorageClass
+>;
+
+/**
+ * How to handle events when all receivers are exerting backpressure
+ */
+export const OutputExabeamBackpressureBehavior = {
+  /**
+   * Block
+   */
+  Block: "block",
+  /**
+   * Drop
+   */
+  Drop: "drop",
+} as const;
+/**
+ * How to handle events when all receivers are exerting backpressure
+ */
+export type OutputExabeamBackpressureBehavior = OpenEnum<
+  typeof OutputExabeamBackpressureBehavior
+>;
+
+/**
+ * How to handle events when disk space is below the global 'Min free disk space' limit
+ */
+export const OutputExabeamDiskSpaceProtection = {
+  /**
+   * Block
+   */
+  Block: "block",
+  /**
+   * Drop
+   */
+  Drop: "drop",
+} as const;
+/**
+ * How to handle events when disk space is below the global 'Min free disk space' limit
+ */
+export type OutputExabeamDiskSpaceProtection = OpenEnum<
+  typeof OutputExabeamDiskSpaceProtection
+>;
 
 export type OutputExabeam = {
   /**
@@ -73,15 +166,15 @@ export type OutputExabeam = {
   /**
    * Signature version to use for signing Google Cloud Storage requests
    */
-  signatureVersion?: SignatureVersionOptions5 | undefined;
+  signatureVersion?: OutputExabeamSignatureVersion | undefined;
   /**
    * Object ACL to assign to uploaded objects
    */
-  objectACL?: ObjectAclOptions1 | undefined;
+  objectACL?: OutputExabeamObjectACL | undefined;
   /**
    * Storage class to select for uploaded objects
    */
-  storageClass?: StorageClassOptions1 | undefined;
+  storageClass?: OutputExabeamStorageClass | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -113,7 +206,7 @@ export type OutputExabeam = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: BackpressureBehaviorOptions1 | undefined;
+  onBackpressure?: OutputExabeamBackpressureBehavior | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
@@ -121,7 +214,7 @@ export type OutputExabeam = {
   /**
    * How to handle events when disk space is below the global 'Min free disk space' limit
    */
-  onDiskFullBackpressure?: DiskSpaceProtectionOptions | undefined;
+  onDiskFullBackpressure?: OutputExabeamDiskSpaceProtection | undefined;
   /**
    * Maximum uncompressed output file size. Files of this size will be closed and moved to final output location.
    */
@@ -173,6 +266,71 @@ export type OutputExabeam = {
 };
 
 /** @internal */
+export const OutputExabeamSignatureVersion$inboundSchema: z.ZodType<
+  OutputExabeamSignatureVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputExabeamSignatureVersion);
+/** @internal */
+export const OutputExabeamSignatureVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputExabeamSignatureVersion
+> = openEnums.outboundSchema(OutputExabeamSignatureVersion);
+
+/** @internal */
+export const OutputExabeamObjectACL$inboundSchema: z.ZodType<
+  OutputExabeamObjectACL,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputExabeamObjectACL);
+/** @internal */
+export const OutputExabeamObjectACL$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputExabeamObjectACL
+> = openEnums.outboundSchema(OutputExabeamObjectACL);
+
+/** @internal */
+export const OutputExabeamStorageClass$inboundSchema: z.ZodType<
+  OutputExabeamStorageClass,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputExabeamStorageClass);
+/** @internal */
+export const OutputExabeamStorageClass$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputExabeamStorageClass
+> = openEnums.outboundSchema(OutputExabeamStorageClass);
+
+/** @internal */
+export const OutputExabeamBackpressureBehavior$inboundSchema: z.ZodType<
+  OutputExabeamBackpressureBehavior,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputExabeamBackpressureBehavior);
+/** @internal */
+export const OutputExabeamBackpressureBehavior$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputExabeamBackpressureBehavior
+> = openEnums.outboundSchema(OutputExabeamBackpressureBehavior);
+
+/** @internal */
+export const OutputExabeamDiskSpaceProtection$inboundSchema: z.ZodType<
+  OutputExabeamDiskSpaceProtection,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(OutputExabeamDiskSpaceProtection);
+/** @internal */
+export const OutputExabeamDiskSpaceProtection$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  OutputExabeamDiskSpaceProtection
+> = openEnums.outboundSchema(OutputExabeamDiskSpaceProtection);
+
+/** @internal */
 export const OutputExabeam$inboundSchema: z.ZodType<
   OutputExabeam,
   z.ZodTypeDef,
@@ -188,9 +346,9 @@ export const OutputExabeam$inboundSchema: z.ZodType<
   region: z.string(),
   stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
   endpoint: z.string().default("https://storage.googleapis.com"),
-  signatureVersion: SignatureVersionOptions5$inboundSchema.default("v4"),
-  objectACL: ObjectAclOptions1$inboundSchema.default("private"),
-  storageClass: StorageClassOptions1$inboundSchema.optional(),
+  signatureVersion: OutputExabeamSignatureVersion$inboundSchema.default("v4"),
+  objectACL: OutputExabeamObjectACL$inboundSchema.default("private"),
+  storageClass: OutputExabeamStorageClass$inboundSchema.optional(),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   addIdToStagePath: z.boolean().default(true),
@@ -198,11 +356,12 @@ export const OutputExabeam$inboundSchema: z.ZodType<
   maxFileOpenTimeSec: z.number().default(300),
   maxFileIdleTimeSec: z.number().default(30),
   maxOpenFiles: z.number().default(100),
-  onBackpressure: BackpressureBehaviorOptions1$inboundSchema.default("block"),
-  deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: DiskSpaceProtectionOptions$inboundSchema.default(
+  onBackpressure: OutputExabeamBackpressureBehavior$inboundSchema.default(
     "block",
   ),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: OutputExabeamDiskSpaceProtection$inboundSchema
+    .default("block"),
   maxFileSizeMB: z.number().default(10),
   encodedConfiguration: z.string().optional(),
   collectorInstanceId: z.string(),
@@ -273,9 +432,9 @@ export const OutputExabeam$outboundSchema: z.ZodType<
   region: z.string(),
   stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
   endpoint: z.string().default("https://storage.googleapis.com"),
-  signatureVersion: SignatureVersionOptions5$outboundSchema.default("v4"),
-  objectACL: ObjectAclOptions1$outboundSchema.default("private"),
-  storageClass: StorageClassOptions1$outboundSchema.optional(),
+  signatureVersion: OutputExabeamSignatureVersion$outboundSchema.default("v4"),
+  objectACL: OutputExabeamObjectACL$outboundSchema.default("private"),
+  storageClass: OutputExabeamStorageClass$outboundSchema.optional(),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   addIdToStagePath: z.boolean().default(true),
@@ -283,11 +442,12 @@ export const OutputExabeam$outboundSchema: z.ZodType<
   maxFileOpenTimeSec: z.number().default(300),
   maxFileIdleTimeSec: z.number().default(30),
   maxOpenFiles: z.number().default(100),
-  onBackpressure: BackpressureBehaviorOptions1$outboundSchema.default("block"),
-  deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.default(
+  onBackpressure: OutputExabeamBackpressureBehavior$outboundSchema.default(
     "block",
   ),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: OutputExabeamDiskSpaceProtection$outboundSchema
+    .default("block"),
   maxFileSizeMB: z.number().default(10),
   encodedConfiguration: z.string().optional(),
   collectorInstanceId: z.string(),

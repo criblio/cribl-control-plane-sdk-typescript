@@ -4,38 +4,171 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ItemsTypeAuthTokensExt,
-  ItemsTypeAuthTokensExt$inboundSchema,
-  ItemsTypeAuthTokensExt$Outbound,
-  ItemsTypeAuthTokensExt$outboundSchema,
-} from "./itemstypeauthtokensext.js";
-import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
-import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
-import {
-  PqType,
-  PqType$inboundSchema,
-  PqType$Outbound,
-  PqType$outboundSchema,
-} from "./pqtype.js";
-import {
-  TlsSettingsServerSideType,
-  TlsSettingsServerSideType$inboundSchema,
-  TlsSettingsServerSideType$Outbound,
-  TlsSettingsServerSideType$outboundSchema,
-} from "./tlssettingsserversidetype.js";
+
+export type InputHttpConnection = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const InputHttpMode = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type InputHttpMode = OpenEnum<typeof InputHttpMode>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const InputHttpCompression = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type InputHttpCompression = OpenEnum<typeof InputHttpCompression>;
+
+export type InputHttpPqControls = {};
+
+export type InputHttpPq = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: InputHttpMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: InputHttpCompression | undefined;
+  pqControls?: InputHttpPqControls | undefined;
+};
+
+export const InputHttpMinimumTLSVersion = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputHttpMinimumTLSVersion = OpenEnum<
+  typeof InputHttpMinimumTLSVersion
+>;
+
+export const InputHttpMaximumTLSVersion = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputHttpMaximumTLSVersion = OpenEnum<
+  typeof InputHttpMaximumTLSVersion
+>;
+
+export type InputHttpTLSSettingsServerSide = {
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?: InputHttpMinimumTLSVersion | undefined;
+  maxVersion?: InputHttpMaximumTLSVersion | undefined;
+};
+
+export type InputHttpMetadatum = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export type InputHttpAuthTokensExtMetadatum = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export type InputHttpAuthTokensExt = {
+  /**
+   * Shared secret to be provided by any client (Authorization: <token>)
+   */
+  token: string;
+  description?: string | undefined;
+  /**
+   * Fields to add to events referencing this token
+   */
+  metadata?: Array<InputHttpAuthTokensExtMetadatum> | undefined;
+};
 
 export type InputHttp = {
   /**
@@ -67,8 +200,8 @@ export type InputHttp = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<InputHttpConnection> | undefined;
+  pq?: InputHttpPq | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -81,7 +214,7 @@ export type InputHttp = {
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
   authTokens?: Array<string> | undefined;
-  tls?: TlsSettingsServerSideType | undefined;
+  tls?: InputHttpTLSSettingsServerSide | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -142,13 +275,401 @@ export type InputHttp = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<InputHttpMetadatum> | undefined;
   /**
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
-  authTokensExt?: Array<ItemsTypeAuthTokensExt> | undefined;
+  authTokensExt?: Array<InputHttpAuthTokensExt> | undefined;
   description?: string | undefined;
 };
+
+/** @internal */
+export const InputHttpConnection$inboundSchema: z.ZodType<
+  InputHttpConnection,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+/** @internal */
+export type InputHttpConnection$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const InputHttpConnection$outboundSchema: z.ZodType<
+  InputHttpConnection$Outbound,
+  z.ZodTypeDef,
+  InputHttpConnection
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function inputHttpConnectionToJSON(
+  inputHttpConnection: InputHttpConnection,
+): string {
+  return JSON.stringify(
+    InputHttpConnection$outboundSchema.parse(inputHttpConnection),
+  );
+}
+export function inputHttpConnectionFromJSON(
+  jsonString: string,
+): SafeParseResult<InputHttpConnection, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputHttpConnection$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputHttpConnection' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputHttpMode$inboundSchema: z.ZodType<
+  InputHttpMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputHttpMode);
+/** @internal */
+export const InputHttpMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputHttpMode
+> = openEnums.outboundSchema(InputHttpMode);
+
+/** @internal */
+export const InputHttpCompression$inboundSchema: z.ZodType<
+  InputHttpCompression,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputHttpCompression);
+/** @internal */
+export const InputHttpCompression$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputHttpCompression
+> = openEnums.outboundSchema(InputHttpCompression);
+
+/** @internal */
+export const InputHttpPqControls$inboundSchema: z.ZodType<
+  InputHttpPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+/** @internal */
+export type InputHttpPqControls$Outbound = {};
+
+/** @internal */
+export const InputHttpPqControls$outboundSchema: z.ZodType<
+  InputHttpPqControls$Outbound,
+  z.ZodTypeDef,
+  InputHttpPqControls
+> = z.object({});
+
+export function inputHttpPqControlsToJSON(
+  inputHttpPqControls: InputHttpPqControls,
+): string {
+  return JSON.stringify(
+    InputHttpPqControls$outboundSchema.parse(inputHttpPqControls),
+  );
+}
+export function inputHttpPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputHttpPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputHttpPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputHttpPqControls' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputHttpPq$inboundSchema: z.ZodType<
+  InputHttpPq,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: InputHttpMode$inboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputHttpCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputHttpPqControls$inboundSchema).optional(),
+});
+/** @internal */
+export type InputHttpPq$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: InputHttpPqControls$Outbound | undefined;
+};
+
+/** @internal */
+export const InputHttpPq$outboundSchema: z.ZodType<
+  InputHttpPq$Outbound,
+  z.ZodTypeDef,
+  InputHttpPq
+> = z.object({
+  mode: InputHttpMode$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputHttpCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputHttpPqControls$outboundSchema).optional(),
+});
+
+export function inputHttpPqToJSON(inputHttpPq: InputHttpPq): string {
+  return JSON.stringify(InputHttpPq$outboundSchema.parse(inputHttpPq));
+}
+export function inputHttpPqFromJSON(
+  jsonString: string,
+): SafeParseResult<InputHttpPq, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputHttpPq$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputHttpPq' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputHttpMinimumTLSVersion$inboundSchema: z.ZodType<
+  InputHttpMinimumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputHttpMinimumTLSVersion);
+/** @internal */
+export const InputHttpMinimumTLSVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputHttpMinimumTLSVersion
+> = openEnums.outboundSchema(InputHttpMinimumTLSVersion);
+
+/** @internal */
+export const InputHttpMaximumTLSVersion$inboundSchema: z.ZodType<
+  InputHttpMaximumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputHttpMaximumTLSVersion);
+/** @internal */
+export const InputHttpMaximumTLSVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputHttpMaximumTLSVersion
+> = openEnums.outboundSchema(InputHttpMaximumTLSVersion);
+
+/** @internal */
+export const InputHttpTLSSettingsServerSide$inboundSchema: z.ZodType<
+  InputHttpTLSSettingsServerSide,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: InputHttpMinimumTLSVersion$inboundSchema.optional(),
+  maxVersion: InputHttpMaximumTLSVersion$inboundSchema.optional(),
+});
+/** @internal */
+export type InputHttpTLSSettingsServerSide$Outbound = {
+  disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const InputHttpTLSSettingsServerSide$outboundSchema: z.ZodType<
+  InputHttpTLSSettingsServerSide$Outbound,
+  z.ZodTypeDef,
+  InputHttpTLSSettingsServerSide
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: InputHttpMinimumTLSVersion$outboundSchema.optional(),
+  maxVersion: InputHttpMaximumTLSVersion$outboundSchema.optional(),
+});
+
+export function inputHttpTLSSettingsServerSideToJSON(
+  inputHttpTLSSettingsServerSide: InputHttpTLSSettingsServerSide,
+): string {
+  return JSON.stringify(
+    InputHttpTLSSettingsServerSide$outboundSchema.parse(
+      inputHttpTLSSettingsServerSide,
+    ),
+  );
+}
+export function inputHttpTLSSettingsServerSideFromJSON(
+  jsonString: string,
+): SafeParseResult<InputHttpTLSSettingsServerSide, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputHttpTLSSettingsServerSide$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputHttpTLSSettingsServerSide' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputHttpMetadatum$inboundSchema: z.ZodType<
+  InputHttpMetadatum,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type InputHttpMetadatum$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputHttpMetadatum$outboundSchema: z.ZodType<
+  InputHttpMetadatum$Outbound,
+  z.ZodTypeDef,
+  InputHttpMetadatum
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputHttpMetadatumToJSON(
+  inputHttpMetadatum: InputHttpMetadatum,
+): string {
+  return JSON.stringify(
+    InputHttpMetadatum$outboundSchema.parse(inputHttpMetadatum),
+  );
+}
+export function inputHttpMetadatumFromJSON(
+  jsonString: string,
+): SafeParseResult<InputHttpMetadatum, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputHttpMetadatum$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputHttpMetadatum' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputHttpAuthTokensExtMetadatum$inboundSchema: z.ZodType<
+  InputHttpAuthTokensExtMetadatum,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type InputHttpAuthTokensExtMetadatum$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputHttpAuthTokensExtMetadatum$outboundSchema: z.ZodType<
+  InputHttpAuthTokensExtMetadatum$Outbound,
+  z.ZodTypeDef,
+  InputHttpAuthTokensExtMetadatum
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputHttpAuthTokensExtMetadatumToJSON(
+  inputHttpAuthTokensExtMetadatum: InputHttpAuthTokensExtMetadatum,
+): string {
+  return JSON.stringify(
+    InputHttpAuthTokensExtMetadatum$outboundSchema.parse(
+      inputHttpAuthTokensExtMetadatum,
+    ),
+  );
+}
+export function inputHttpAuthTokensExtMetadatumFromJSON(
+  jsonString: string,
+): SafeParseResult<InputHttpAuthTokensExtMetadatum, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputHttpAuthTokensExtMetadatum$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputHttpAuthTokensExtMetadatum' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputHttpAuthTokensExt$inboundSchema: z.ZodType<
+  InputHttpAuthTokensExt,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  token: z.string(),
+  description: z.string().optional(),
+  metadata: z.array(z.lazy(() => InputHttpAuthTokensExtMetadatum$inboundSchema))
+    .optional(),
+});
+/** @internal */
+export type InputHttpAuthTokensExt$Outbound = {
+  token: string;
+  description?: string | undefined;
+  metadata?: Array<InputHttpAuthTokensExtMetadatum$Outbound> | undefined;
+};
+
+/** @internal */
+export const InputHttpAuthTokensExt$outboundSchema: z.ZodType<
+  InputHttpAuthTokensExt$Outbound,
+  z.ZodTypeDef,
+  InputHttpAuthTokensExt
+> = z.object({
+  token: z.string(),
+  description: z.string().optional(),
+  metadata: z.array(
+    z.lazy(() => InputHttpAuthTokensExtMetadatum$outboundSchema),
+  ).optional(),
+});
+
+export function inputHttpAuthTokensExtToJSON(
+  inputHttpAuthTokensExt: InputHttpAuthTokensExt,
+): string {
+  return JSON.stringify(
+    InputHttpAuthTokensExt$outboundSchema.parse(inputHttpAuthTokensExt),
+  );
+}
+export function inputHttpAuthTokensExtFromJSON(
+  jsonString: string,
+): SafeParseResult<InputHttpAuthTokensExt, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputHttpAuthTokensExt$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputHttpAuthTokensExt' from JSON`,
+  );
+}
 
 /** @internal */
 export const InputHttp$inboundSchema: z.ZodType<
@@ -164,12 +685,13 @@ export const InputHttp$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputHttpConnection$inboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputHttpPq$inboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   authTokens: z.array(z.string()).optional(),
-  tls: TlsSettingsServerSideType$inboundSchema.optional(),
+  tls: z.lazy(() => InputHttpTLSSettingsServerSide$inboundSchema).optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -185,8 +707,9 @@ export const InputHttp$inboundSchema: z.ZodType<
   elasticAPI: z.string().default("/elastic"),
   splunkHecAPI: z.string().default("/services/collector"),
   splunkHecAcks: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  authTokensExt: z.array(ItemsTypeAuthTokensExt$inboundSchema).optional(),
+  metadata: z.array(z.lazy(() => InputHttpMetadatum$inboundSchema)).optional(),
+  authTokensExt: z.array(z.lazy(() => InputHttpAuthTokensExt$inboundSchema))
+    .optional(),
   description: z.string().optional(),
 });
 /** @internal */
@@ -199,12 +722,12 @@ export type InputHttp$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
+  connections?: Array<InputHttpConnection$Outbound> | undefined;
+  pq?: InputHttpPq$Outbound | undefined;
   host: string;
   port: number;
   authTokens?: Array<string> | undefined;
-  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  tls?: InputHttpTLSSettingsServerSide$Outbound | undefined;
   maxActiveReq: number;
   maxRequestsPerSocket: number;
   enableProxyHeader: boolean;
@@ -220,8 +743,8 @@ export type InputHttp$Outbound = {
   elasticAPI: string;
   splunkHecAPI: string;
   splunkHecAcks: boolean;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  authTokensExt?: Array<ItemsTypeAuthTokensExt$Outbound> | undefined;
+  metadata?: Array<InputHttpMetadatum$Outbound> | undefined;
+  authTokensExt?: Array<InputHttpAuthTokensExt$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -239,12 +762,13 @@ export const InputHttp$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputHttpConnection$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputHttpPq$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   authTokens: z.array(z.string()).optional(),
-  tls: TlsSettingsServerSideType$outboundSchema.optional(),
+  tls: z.lazy(() => InputHttpTLSSettingsServerSide$outboundSchema).optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -260,8 +784,9 @@ export const InputHttp$outboundSchema: z.ZodType<
   elasticAPI: z.string().default("/elastic"),
   splunkHecAPI: z.string().default("/services/collector"),
   splunkHecAcks: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  authTokensExt: z.array(ItemsTypeAuthTokensExt$outboundSchema).optional(),
+  metadata: z.array(z.lazy(() => InputHttpMetadatum$outboundSchema)).optional(),
+  authTokensExt: z.array(z.lazy(() => InputHttpAuthTokensExt$outboundSchema))
+    .optional(),
   description: z.string().optional(),
 });
 

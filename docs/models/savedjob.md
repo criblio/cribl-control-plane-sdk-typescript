@@ -16,56 +16,63 @@ const value: models.SavedJobCollection = {
   ],
   environment: "<value>",
   schedule: {
-    enabled: true,
+    enabled: false,
     run: {
       type: "collection",
-      earliest: 475.38,
-      latest: 1125.35,
+      earliest: 4703.26,
+      latest: 1623.48,
       timestampTimezone: "<value>",
       timeWarning: {},
     },
   },
   streamtags: [
     "<value 1>",
-    "<value 2>",
-    "<value 3>",
   ],
   collector: {
-    type: "<value>",
+    type: "health_check",
     conf: {
-      authType: "manual",
-      type: "google_cloud_storage",
-      outputName: "<value>",
-      bucket: "<value>",
-      path: "/Applications",
-      extractors: [
+      discovery: {
+        discoverType: "none",
+      },
+      collectUrl: "https://late-pantyhose.name",
+      collectMethod: "get",
+      collectRequestParams: "<value>",
+      collectBody: "<value>",
+      collectRequestHeaders: [
         {
-          key: "<key>",
-          expression: "<value>",
+          name: "<value>",
+          value: "<value>",
         },
       ],
-      endpoint: "<value>",
-      disableTimeFilter: false,
-      recurse: true,
-      maxBatchSize: 10,
-      parquetChunkSizeMB: 5,
-      parquetChunkDownloadTimeout: 600,
-      serviceAccountCredentials: "<value>",
-      textSecret: "<value>",
+      authenticateCollect: false,
+      authentication: "none",
+      timeout: 30,
+      rejectUnauthorized: false,
+      defaultBreakers: "Cribl",
+      safeHeaders: [
+        "<value 1>",
+        "<value 2>",
+      ],
+      retryRules: {
+        type: "backoff",
+        interval: "<value>",
+        limit: "<value>",
+        multiplier: "<value>",
+        codes: "<value>",
+        enableHeader: "<value>",
+      },
     },
-    encoding: "<value>",
   },
   input: {
     breakerRulesets: [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
     ],
     preprocess: {
       command: "<value>",
       args: [
         "<value 1>",
-        "<value 2>",
-        "<value 3>",
       ],
     },
     metadata: [
@@ -127,11 +134,11 @@ const value: models.SavedJobScheduledSearch = {
   ],
   environment: "<value>",
   schedule: {
-    enabled: true,
+    enabled: false,
     run: {
       type: "collection",
-      earliest: 475.38,
-      latest: 1125.35,
+      earliest: 4451.51,
+      latest: 2316.29,
       timestampTimezone: "<value>",
       timeWarning: {},
     },
@@ -139,7 +146,6 @@ const value: models.SavedJobScheduledSearch = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   savedQueryId: "<id>",
 };

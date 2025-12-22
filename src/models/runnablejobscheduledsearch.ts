@@ -4,16 +4,127 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  JobTypeOptionsSavedJobCollection,
-  JobTypeOptionsSavedJobCollection$inboundSchema,
-} from "./jobtypeoptionssavedjobcollection.js";
-import {
-  ScheduleTypeRunnableJobCollection,
-  ScheduleTypeRunnableJobCollection$inboundSchema,
-} from "./scheduletyperunnablejobcollection.js";
+
+export const RunnableJobScheduledSearchJobType = {
+  Collection: "collection",
+  Executor: "executor",
+  ScheduledSearch: "scheduledSearch",
+} as const;
+export type RunnableJobScheduledSearchJobType = OpenEnum<
+  typeof RunnableJobScheduledSearchJobType
+>;
+
+export const RunnableJobScheduledSearchType = {
+  Collection: "collection",
+} as const;
+export type RunnableJobScheduledSearchType = OpenEnum<
+  typeof RunnableJobScheduledSearchType
+>;
+
+/**
+ * Level at which to set task logging
+ */
+export const RunnableJobScheduledSearchLogLevel = {
+  Error: "error",
+  Warn: "warn",
+  Info: "info",
+  Debug: "debug",
+  Silly: "silly",
+} as const;
+/**
+ * Level at which to set task logging
+ */
+export type RunnableJobScheduledSearchLogLevel = OpenEnum<
+  typeof RunnableJobScheduledSearchLogLevel
+>;
+
+export type RunnableJobScheduledSearchTimeWarning = {};
+
+export type RunnableJobScheduledSearchRunSettings = {
+  type?: RunnableJobScheduledSearchType | undefined;
+  /**
+   * Reschedule tasks that failed with non-fatal errors
+   */
+  rescheduleDroppedTasks?: boolean | undefined;
+  /**
+   * Maximum number of times a task can be rescheduled
+   */
+  maxTaskReschedule?: number | undefined;
+  /**
+   * Level at which to set task logging
+   */
+  logLevel?: RunnableJobScheduledSearchLogLevel | undefined;
+  /**
+   * Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
+   */
+  jobTimeout?: string | undefined;
+  /**
+   * Job run mode. Preview will either return up to N matching results, or will run until capture time T is reached. Discovery will gather the list of files to turn into streaming tasks, without running the data collection job. Full Run will run the collection job.
+   */
+  mode?: string | undefined;
+  timeRangeType?: string | undefined;
+  /**
+   * Earliest time to collect data for the selected timezone
+   */
+  earliest?: number | undefined;
+  /**
+   * Latest time to collect data for the selected timezone
+   */
+  latest?: number | undefined;
+  timestampTimezone?: any | undefined;
+  timeWarning?: RunnableJobScheduledSearchTimeWarning | undefined;
+  /**
+   * A filter for tokens in the provided collect path and/or the events being collected
+   */
+  expression?: string | undefined;
+  /**
+   * Limits the bundle size for small tasks. For example,
+   *
+   * @remarks
+   *
+   *         if your lower bundle size is 1MB, you can bundle up to five 200KB files into one task.
+   */
+  minTaskSize?: string | undefined;
+  /**
+   * Limits the bundle size for files above the lower task bundle size. For example, if your upper bundle size is 10MB,
+   *
+   * @remarks
+   *
+   *         you can bundle up to five 2MB files into one task. Files greater than this size will be assigned to individual tasks.
+   */
+  maxTaskSize?: string | undefined;
+};
+
+/**
+ * Configuration for a scheduled job
+ */
+export type RunnableJobScheduledSearchSchedule = {
+  /**
+   * Enable to configure scheduling for this Collector
+   */
+  enabled?: boolean | undefined;
+  /**
+   * Skippable jobs can be delayed, up to their next run time, if the system is hitting concurrency limits
+   */
+  skippable?: boolean | undefined;
+  /**
+   * If Stream Leader (or single instance) restarts, run all missed jobs according to their original schedules
+   */
+  resumeMissed?: boolean | undefined;
+  /**
+   * A cron schedule on which to run this job
+   */
+  cronSchedule?: string | undefined;
+  /**
+   * The maximum number of instances of this scheduled job that may be running at any time
+   */
+  maxConcurrentRuns?: number | undefined;
+  run?: RunnableJobScheduledSearchRunSettings | undefined;
+};
 
 export type RunnableJobScheduledSearch = {
   /**
@@ -21,7 +132,7 @@ export type RunnableJobScheduledSearch = {
    */
   id?: string | undefined;
   description?: string | undefined;
-  type: JobTypeOptionsSavedJobCollection;
+  type: RunnableJobScheduledSearchJobType;
   /**
    * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
    */
@@ -45,7 +156,7 @@ export type RunnableJobScheduledSearch = {
   /**
    * Configuration for a scheduled job
    */
-  schedule?: ScheduleTypeRunnableJobCollection | undefined;
+  schedule?: RunnableJobScheduledSearchSchedule | undefined;
   /**
    * Tags for filtering and grouping in @{product}
    */
@@ -57,6 +168,105 @@ export type RunnableJobScheduledSearch = {
 };
 
 /** @internal */
+export const RunnableJobScheduledSearchJobType$inboundSchema: z.ZodType<
+  RunnableJobScheduledSearchJobType,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(RunnableJobScheduledSearchJobType);
+
+/** @internal */
+export const RunnableJobScheduledSearchType$inboundSchema: z.ZodType<
+  RunnableJobScheduledSearchType,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(RunnableJobScheduledSearchType);
+
+/** @internal */
+export const RunnableJobScheduledSearchLogLevel$inboundSchema: z.ZodType<
+  RunnableJobScheduledSearchLogLevel,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(RunnableJobScheduledSearchLogLevel);
+
+/** @internal */
+export const RunnableJobScheduledSearchTimeWarning$inboundSchema: z.ZodType<
+  RunnableJobScheduledSearchTimeWarning,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+
+export function runnableJobScheduledSearchTimeWarningFromJSON(
+  jsonString: string,
+): SafeParseResult<RunnableJobScheduledSearchTimeWarning, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RunnableJobScheduledSearchTimeWarning$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RunnableJobScheduledSearchTimeWarning' from JSON`,
+  );
+}
+
+/** @internal */
+export const RunnableJobScheduledSearchRunSettings$inboundSchema: z.ZodType<
+  RunnableJobScheduledSearchRunSettings,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: RunnableJobScheduledSearchType$inboundSchema.optional(),
+  rescheduleDroppedTasks: z.boolean().default(true),
+  maxTaskReschedule: z.number().default(1),
+  logLevel: RunnableJobScheduledSearchLogLevel$inboundSchema.default("info"),
+  jobTimeout: z.string().default("0"),
+  mode: z.string().default("list"),
+  timeRangeType: z.string().default("relative"),
+  earliest: z.number().optional(),
+  latest: z.number().optional(),
+  timestampTimezone: z.any().optional(),
+  timeWarning: z.lazy(() => RunnableJobScheduledSearchTimeWarning$inboundSchema)
+    .optional(),
+  expression: z.string().default("true"),
+  minTaskSize: z.string().default("1MB"),
+  maxTaskSize: z.string().default("10MB"),
+});
+
+export function runnableJobScheduledSearchRunSettingsFromJSON(
+  jsonString: string,
+): SafeParseResult<RunnableJobScheduledSearchRunSettings, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RunnableJobScheduledSearchRunSettings$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RunnableJobScheduledSearchRunSettings' from JSON`,
+  );
+}
+
+/** @internal */
+export const RunnableJobScheduledSearchSchedule$inboundSchema: z.ZodType<
+  RunnableJobScheduledSearchSchedule,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().optional(),
+  skippable: z.boolean().default(true),
+  resumeMissed: z.boolean().default(false),
+  cronSchedule: z.string().default("*/5 * * * *"),
+  maxConcurrentRuns: z.number().default(1),
+  run: z.lazy(() => RunnableJobScheduledSearchRunSettings$inboundSchema)
+    .optional(),
+});
+
+export function runnableJobScheduledSearchScheduleFromJSON(
+  jsonString: string,
+): SafeParseResult<RunnableJobScheduledSearchSchedule, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      RunnableJobScheduledSearchSchedule$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RunnableJobScheduledSearchSchedule' from JSON`,
+  );
+}
+
+/** @internal */
 export const RunnableJobScheduledSearch$inboundSchema: z.ZodType<
   RunnableJobScheduledSearch,
   z.ZodTypeDef,
@@ -64,13 +274,14 @@ export const RunnableJobScheduledSearch$inboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   description: z.string().optional(),
-  type: JobTypeOptionsSavedJobCollection$inboundSchema,
+  type: RunnableJobScheduledSearchJobType$inboundSchema,
   ttl: z.string().default("4h"),
   ignoreGroupJobsLimit: z.boolean().default(false),
   removeFields: z.array(z.string()).optional(),
   resumeOnBoot: z.boolean().default(false),
   environment: z.string().optional(),
-  schedule: ScheduleTypeRunnableJobCollection$inboundSchema.optional(),
+  schedule: z.lazy(() => RunnableJobScheduledSearchSchedule$inboundSchema)
+    .optional(),
   streamtags: z.array(z.string()).optional(),
   savedQueryId: z.string(),
 });

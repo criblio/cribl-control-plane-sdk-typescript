@@ -3,15 +3,13 @@
  */
 
 import * as z from "zod/v3";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import {
   CacheConnection,
   CacheConnection$Outbound,
   CacheConnection$outboundSchema,
 } from "./cacheconnection.js";
-import {
-  FormatOptionsCriblLakeDataset,
-  FormatOptionsCriblLakeDataset$outboundSchema,
-} from "./formatoptionscribllakedataset.js";
 import {
   LakeDatasetMetrics,
   LakeDatasetMetrics$Outbound,
@@ -23,13 +21,22 @@ import {
   LakeDatasetSearchConfig$outboundSchema,
 } from "./lakedatasetsearchconfig.js";
 
+export const CriblLakeDatasetUpdateFormat = {
+  Json: "json",
+  Parquet: "parquet",
+  Ddss: "ddss",
+} as const;
+export type CriblLakeDatasetUpdateFormat = OpenEnum<
+  typeof CriblLakeDatasetUpdateFormat
+>;
+
 export type CriblLakeDatasetUpdate = {
   acceleratedFields?: Array<string> | undefined;
   bucketName?: string | undefined;
   cacheConnection?: CacheConnection | undefined;
   deletionStartedAt?: number | undefined;
   description?: string | undefined;
-  format?: FormatOptionsCriblLakeDataset | undefined;
+  format?: CriblLakeDatasetUpdateFormat | undefined;
   httpDAUsed?: boolean | undefined;
   id?: string | undefined;
   metrics?: LakeDatasetMetrics | undefined;
@@ -38,6 +45,13 @@ export type CriblLakeDatasetUpdate = {
   storageLocationId?: string | undefined;
   viewName?: string | undefined;
 };
+
+/** @internal */
+export const CriblLakeDatasetUpdateFormat$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  CriblLakeDatasetUpdateFormat
+> = openEnums.outboundSchema(CriblLakeDatasetUpdateFormat);
 
 /** @internal */
 export type CriblLakeDatasetUpdate$Outbound = {
@@ -67,7 +81,7 @@ export const CriblLakeDatasetUpdate$outboundSchema: z.ZodType<
   cacheConnection: CacheConnection$outboundSchema.optional(),
   deletionStartedAt: z.number().optional(),
   description: z.string().optional(),
-  format: FormatOptionsCriblLakeDataset$outboundSchema.optional(),
+  format: CriblLakeDatasetUpdateFormat$outboundSchema.optional(),
   httpDAUsed: z.boolean().optional(),
   id: z.string().optional(),
   metrics: LakeDatasetMetrics$outboundSchema.optional(),

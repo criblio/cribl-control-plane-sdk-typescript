@@ -1,11 +1,26 @@
 # Os
 
-## Example Usage
+
+## Supported Types
+
+### `models.NodeProvidedInfoOs1`
 
 ```typescript
-import { Os } from "cribl-control-plane/models";
+const value: models.NodeProvidedInfoOs1 = {
+  addresses: [
+    "<value 1>",
+    "<value 2>",
+  ],
+  enabled: true,
+  id: "<id>",
+  version: "<value>",
+};
+```
 
-let value: Os = {
+### `models.NodeProvidedInfoOs2`
+
+```typescript
+const value: models.NodeProvidedInfoOs2 = {
   addresses: [
     "<value 1>",
     "<value 2>",
@@ -14,8 +29,3 @@ let value: Os = {
 };
 ```
 
-## Fields
-
-| Field              | Type               | Required           | Description        |
-| ------------------ | ------------------ | ------------------ | ------------------ |
-| `addresses`        | *string*[]         | :heavy_check_mark: | N/A                |

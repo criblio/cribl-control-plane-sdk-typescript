@@ -48,8 +48,8 @@ let value: CountedInputSplunkHec = {
         passphrase: "<value>",
         certPath: "<value>",
         caPath: "<value>",
-        minVersion: "TLSv1.1",
-        maxVersion: "TLSv1",
+        minVersion: "TLSv1.3",
+        maxVersion: "TLSv1.1",
       },
       enableHealthCheck: "<value>",
       metadata: [

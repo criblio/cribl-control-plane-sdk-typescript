@@ -41,7 +41,7 @@ let value: UpdateOutputByIdRequest = {
     ],
     responseRetrySettings: [
       {
-        httpStatus: 8829.54,
+        httpStatus: 9115.44,
         initialBackoff: 1000,
         backoffRate: 2,
         maxBackoff: 10000,

@@ -17,22 +17,24 @@ const value: models.PackRequestBody1 = {
   source: "<value>",
   tags: {
     dataType: [
-      "decimal",
+      "varchar",
     ],
     domain: [
-      "big-ostrich.net",
-    ],
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
+      "insecure-yogurt.biz",
     ],
     technology: [
       "<value 1>",
       "<value 2>",
+      "<value 3>",
+    ],
+    streamtags: [
+      "<value 1>",
+      "<value 2>",
+      "<value 3>",
     ],
   },
-  allowCustomFunctions: true,
-  force: false,
+  allowCustomFunctions: false,
+  force: true,
 };
 ```
 
@@ -50,22 +52,22 @@ const value: models.PackRequestBody2 = {
   source: "<value>",
   tags: {
     dataType: [
-      "decimal",
+      "bit",
+      "enum",
     ],
     domain: [
-      "big-ostrich.net",
-    ],
-    streamtags: [
-      "<value 1>",
-      "<value 2>",
+      "crafty-pronoun.org",
+      "agitated-millet.net",
     ],
     technology: [
       "<value 1>",
-      "<value 2>",
+    ],
+    streamtags: [
+      "<value 1>",
     ],
   },
-  allowCustomFunctions: true,
-  force: true,
+  allowCustomFunctions: false,
+  force: false,
 };
 ```
 

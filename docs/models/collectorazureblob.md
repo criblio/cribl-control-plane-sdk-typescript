@@ -1,117 +1,31 @@
 # CollectorAzureBlob
 
+AzureBlob collector configuration
 
-## Supported Types
-
-### `models.CollectorAzureBlobAzureBlob1`
+## Example Usage
 
 ```typescript
-const value: models.CollectorAzureBlobAzureBlob1 = {
-  connectionString: "<value>",
+import { CollectorAzureBlob } from "cribl-control-plane/models";
+
+let value: CollectorAzureBlob = {
   type: "azure_blob",
-  outputName: "<value>",
-  containerName: "<value>",
-  path: "/usr/obj",
-  extractors: [
-    {
-      key: "<key>",
-      expression: "<value>",
-    },
-  ],
-  textSecret: "<value>",
-  storageAccountName: "<value>",
-  tenantId: "<id>",
-  clientId: "<id>",
-  clientTextSecret: "<value>",
-  endpointSuffix: "<value>",
-  azureCloud: "<value>",
-  certificate: {
-    certificateName: "<value>",
+  conf: {
+    outputName: "<value>",
+    containerName: "<value>",
+    path: "/var",
+    extractors: [
+      {
+        key: "<key>",
+        expression: "<value>",
+      },
+    ],
   },
 };
 ```
 
-### `models.CollectorAzureBlobAzureBlob2`
+## Fields
 
-```typescript
-const value: models.CollectorAzureBlobAzureBlob2 = {
-  textSecret: "<value>",
-  type: "azure_blob",
-  outputName: "<value>",
-  containerName: "<value>",
-  path: "/usr",
-  extractors: [
-    {
-      key: "<key>",
-      expression: "<value>",
-    },
-  ],
-  connectionString: "<value>",
-  storageAccountName: "<value>",
-  tenantId: "<id>",
-  clientId: "<id>",
-  clientTextSecret: "<value>",
-  endpointSuffix: "<value>",
-  azureCloud: "<value>",
-  certificate: {
-    certificateName: "<value>",
-  },
-};
-```
-
-### `models.CollectorAzureBlobAzureBlob3`
-
-```typescript
-const value: models.CollectorAzureBlobAzureBlob3 = {
-  storageAccountName: "<value>",
-  tenantId: "<id>",
-  clientId: "<id>",
-  clientTextSecret: "<value>",
-  endpointSuffix: "<value>",
-  azureCloud: "<value>",
-  type: "azure_blob",
-  outputName: "<value>",
-  containerName: "<value>",
-  path: "/etc/defaults",
-  extractors: [
-    {
-      key: "<key>",
-      expression: "<value>",
-    },
-  ],
-  connectionString: "<value>",
-  textSecret: "<value>",
-  certificate: {
-    certificateName: "<value>",
-  },
-};
-```
-
-### `models.CollectorAzureBlobAzureBlob4`
-
-```typescript
-const value: models.CollectorAzureBlobAzureBlob4 = {
-  storageAccountName: "<value>",
-  tenantId: "<id>",
-  clientId: "<id>",
-  certificate: {
-    certificateName: "<value>",
-  },
-  azureCloud: "<value>",
-  endpointSuffix: "<value>",
-  type: "azure_blob",
-  outputName: "<value>",
-  containerName: "<value>",
-  path: "/usr/X11R6",
-  extractors: [
-    {
-      key: "<key>",
-      expression: "<value>",
-    },
-  ],
-  connectionString: "<value>",
-  textSecret: "<value>",
-  clientTextSecret: "<value>",
-};
-```
-
+| Field                                                                | Type                                                                 | Required                                                             | Description                                                          |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `type`                                                               | *"azure_blob"*                                                       | :heavy_check_mark:                                                   | Collector type: azure_blob                                           |
+| `conf`                                                               | [models.AzureBlobCollectorConf](../models/azureblobcollectorconf.md) | :heavy_check_mark:                                                   | N/A                                                                  |

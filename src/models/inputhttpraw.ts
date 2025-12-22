@@ -4,38 +4,171 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ItemsTypeAuthTokensExt,
-  ItemsTypeAuthTokensExt$inboundSchema,
-  ItemsTypeAuthTokensExt$Outbound,
-  ItemsTypeAuthTokensExt$outboundSchema,
-} from "./itemstypeauthtokensext.js";
-import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
-import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
-import {
-  PqType,
-  PqType$inboundSchema,
-  PqType$Outbound,
-  PqType$outboundSchema,
-} from "./pqtype.js";
-import {
-  TlsSettingsServerSideType,
-  TlsSettingsServerSideType$inboundSchema,
-  TlsSettingsServerSideType$Outbound,
-  TlsSettingsServerSideType$outboundSchema,
-} from "./tlssettingsserversidetype.js";
+
+export type InputHttpRawConnection = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const InputHttpRawMode = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type InputHttpRawMode = OpenEnum<typeof InputHttpRawMode>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const InputHttpRawCompression = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type InputHttpRawCompression = OpenEnum<typeof InputHttpRawCompression>;
+
+export type InputHttpRawPqControls = {};
+
+export type InputHttpRawPq = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: InputHttpRawMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: InputHttpRawCompression | undefined;
+  pqControls?: InputHttpRawPqControls | undefined;
+};
+
+export const InputHttpRawMinimumTLSVersion = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputHttpRawMinimumTLSVersion = OpenEnum<
+  typeof InputHttpRawMinimumTLSVersion
+>;
+
+export const InputHttpRawMaximumTLSVersion = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputHttpRawMaximumTLSVersion = OpenEnum<
+  typeof InputHttpRawMaximumTLSVersion
+>;
+
+export type InputHttpRawTLSSettingsServerSide = {
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?: InputHttpRawMinimumTLSVersion | undefined;
+  maxVersion?: InputHttpRawMaximumTLSVersion | undefined;
+};
+
+export type InputHttpRawMetadatum = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export type InputHttpRawAuthTokensExtMetadatum = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export type InputHttpRawAuthTokensExt = {
+  /**
+   * Shared secret to be provided by any client (Authorization: <token>)
+   */
+  token: string;
+  description?: string | undefined;
+  /**
+   * Fields to add to events referencing this token
+   */
+  metadata?: Array<InputHttpRawAuthTokensExtMetadatum> | undefined;
+};
 
 export type InputHttpRaw = {
   /**
@@ -67,8 +200,8 @@ export type InputHttpRaw = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<InputHttpRawConnection> | undefined;
+  pq?: InputHttpRawPq | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -81,7 +214,7 @@ export type InputHttpRaw = {
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
   authTokens?: Array<string> | undefined;
-  tls?: TlsSettingsServerSideType | undefined;
+  tls?: InputHttpRawTLSSettingsServerSide | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -137,7 +270,7 @@ export type InputHttpRaw = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<InputHttpRawMetadatum> | undefined;
   /**
    * List of URI paths accepted by this input, wildcards are supported, e.g /api/v* /hook. Defaults to allow all.
    */
@@ -149,9 +282,399 @@ export type InputHttpRaw = {
   /**
    * Shared secrets to be provided by any client (Authorization: <token>). If empty, unauthorized access is permitted.
    */
-  authTokensExt?: Array<ItemsTypeAuthTokensExt> | undefined;
+  authTokensExt?: Array<InputHttpRawAuthTokensExt> | undefined;
   description?: string | undefined;
 };
+
+/** @internal */
+export const InputHttpRawConnection$inboundSchema: z.ZodType<
+  InputHttpRawConnection,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+/** @internal */
+export type InputHttpRawConnection$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const InputHttpRawConnection$outboundSchema: z.ZodType<
+  InputHttpRawConnection$Outbound,
+  z.ZodTypeDef,
+  InputHttpRawConnection
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function inputHttpRawConnectionToJSON(
+  inputHttpRawConnection: InputHttpRawConnection,
+): string {
+  return JSON.stringify(
+    InputHttpRawConnection$outboundSchema.parse(inputHttpRawConnection),
+  );
+}
+export function inputHttpRawConnectionFromJSON(
+  jsonString: string,
+): SafeParseResult<InputHttpRawConnection, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputHttpRawConnection$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputHttpRawConnection' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputHttpRawMode$inboundSchema: z.ZodType<
+  InputHttpRawMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputHttpRawMode);
+/** @internal */
+export const InputHttpRawMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputHttpRawMode
+> = openEnums.outboundSchema(InputHttpRawMode);
+
+/** @internal */
+export const InputHttpRawCompression$inboundSchema: z.ZodType<
+  InputHttpRawCompression,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputHttpRawCompression);
+/** @internal */
+export const InputHttpRawCompression$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputHttpRawCompression
+> = openEnums.outboundSchema(InputHttpRawCompression);
+
+/** @internal */
+export const InputHttpRawPqControls$inboundSchema: z.ZodType<
+  InputHttpRawPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+/** @internal */
+export type InputHttpRawPqControls$Outbound = {};
+
+/** @internal */
+export const InputHttpRawPqControls$outboundSchema: z.ZodType<
+  InputHttpRawPqControls$Outbound,
+  z.ZodTypeDef,
+  InputHttpRawPqControls
+> = z.object({});
+
+export function inputHttpRawPqControlsToJSON(
+  inputHttpRawPqControls: InputHttpRawPqControls,
+): string {
+  return JSON.stringify(
+    InputHttpRawPqControls$outboundSchema.parse(inputHttpRawPqControls),
+  );
+}
+export function inputHttpRawPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputHttpRawPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputHttpRawPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputHttpRawPqControls' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputHttpRawPq$inboundSchema: z.ZodType<
+  InputHttpRawPq,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: InputHttpRawMode$inboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputHttpRawCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputHttpRawPqControls$inboundSchema).optional(),
+});
+/** @internal */
+export type InputHttpRawPq$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: InputHttpRawPqControls$Outbound | undefined;
+};
+
+/** @internal */
+export const InputHttpRawPq$outboundSchema: z.ZodType<
+  InputHttpRawPq$Outbound,
+  z.ZodTypeDef,
+  InputHttpRawPq
+> = z.object({
+  mode: InputHttpRawMode$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputHttpRawCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputHttpRawPqControls$outboundSchema).optional(),
+});
+
+export function inputHttpRawPqToJSON(inputHttpRawPq: InputHttpRawPq): string {
+  return JSON.stringify(InputHttpRawPq$outboundSchema.parse(inputHttpRawPq));
+}
+export function inputHttpRawPqFromJSON(
+  jsonString: string,
+): SafeParseResult<InputHttpRawPq, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputHttpRawPq$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputHttpRawPq' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputHttpRawMinimumTLSVersion$inboundSchema: z.ZodType<
+  InputHttpRawMinimumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputHttpRawMinimumTLSVersion);
+/** @internal */
+export const InputHttpRawMinimumTLSVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputHttpRawMinimumTLSVersion
+> = openEnums.outboundSchema(InputHttpRawMinimumTLSVersion);
+
+/** @internal */
+export const InputHttpRawMaximumTLSVersion$inboundSchema: z.ZodType<
+  InputHttpRawMaximumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputHttpRawMaximumTLSVersion);
+/** @internal */
+export const InputHttpRawMaximumTLSVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputHttpRawMaximumTLSVersion
+> = openEnums.outboundSchema(InputHttpRawMaximumTLSVersion);
+
+/** @internal */
+export const InputHttpRawTLSSettingsServerSide$inboundSchema: z.ZodType<
+  InputHttpRawTLSSettingsServerSide,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: InputHttpRawMinimumTLSVersion$inboundSchema.optional(),
+  maxVersion: InputHttpRawMaximumTLSVersion$inboundSchema.optional(),
+});
+/** @internal */
+export type InputHttpRawTLSSettingsServerSide$Outbound = {
+  disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const InputHttpRawTLSSettingsServerSide$outboundSchema: z.ZodType<
+  InputHttpRawTLSSettingsServerSide$Outbound,
+  z.ZodTypeDef,
+  InputHttpRawTLSSettingsServerSide
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: InputHttpRawMinimumTLSVersion$outboundSchema.optional(),
+  maxVersion: InputHttpRawMaximumTLSVersion$outboundSchema.optional(),
+});
+
+export function inputHttpRawTLSSettingsServerSideToJSON(
+  inputHttpRawTLSSettingsServerSide: InputHttpRawTLSSettingsServerSide,
+): string {
+  return JSON.stringify(
+    InputHttpRawTLSSettingsServerSide$outboundSchema.parse(
+      inputHttpRawTLSSettingsServerSide,
+    ),
+  );
+}
+export function inputHttpRawTLSSettingsServerSideFromJSON(
+  jsonString: string,
+): SafeParseResult<InputHttpRawTLSSettingsServerSide, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputHttpRawTLSSettingsServerSide$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputHttpRawTLSSettingsServerSide' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputHttpRawMetadatum$inboundSchema: z.ZodType<
+  InputHttpRawMetadatum,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type InputHttpRawMetadatum$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputHttpRawMetadatum$outboundSchema: z.ZodType<
+  InputHttpRawMetadatum$Outbound,
+  z.ZodTypeDef,
+  InputHttpRawMetadatum
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputHttpRawMetadatumToJSON(
+  inputHttpRawMetadatum: InputHttpRawMetadatum,
+): string {
+  return JSON.stringify(
+    InputHttpRawMetadatum$outboundSchema.parse(inputHttpRawMetadatum),
+  );
+}
+export function inputHttpRawMetadatumFromJSON(
+  jsonString: string,
+): SafeParseResult<InputHttpRawMetadatum, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputHttpRawMetadatum$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputHttpRawMetadatum' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputHttpRawAuthTokensExtMetadatum$inboundSchema: z.ZodType<
+  InputHttpRawAuthTokensExtMetadatum,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type InputHttpRawAuthTokensExtMetadatum$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputHttpRawAuthTokensExtMetadatum$outboundSchema: z.ZodType<
+  InputHttpRawAuthTokensExtMetadatum$Outbound,
+  z.ZodTypeDef,
+  InputHttpRawAuthTokensExtMetadatum
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputHttpRawAuthTokensExtMetadatumToJSON(
+  inputHttpRawAuthTokensExtMetadatum: InputHttpRawAuthTokensExtMetadatum,
+): string {
+  return JSON.stringify(
+    InputHttpRawAuthTokensExtMetadatum$outboundSchema.parse(
+      inputHttpRawAuthTokensExtMetadatum,
+    ),
+  );
+}
+export function inputHttpRawAuthTokensExtMetadatumFromJSON(
+  jsonString: string,
+): SafeParseResult<InputHttpRawAuthTokensExtMetadatum, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputHttpRawAuthTokensExtMetadatum$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputHttpRawAuthTokensExtMetadatum' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputHttpRawAuthTokensExt$inboundSchema: z.ZodType<
+  InputHttpRawAuthTokensExt,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  token: z.string(),
+  description: z.string().optional(),
+  metadata: z.array(
+    z.lazy(() => InputHttpRawAuthTokensExtMetadatum$inboundSchema),
+  ).optional(),
+});
+/** @internal */
+export type InputHttpRawAuthTokensExt$Outbound = {
+  token: string;
+  description?: string | undefined;
+  metadata?: Array<InputHttpRawAuthTokensExtMetadatum$Outbound> | undefined;
+};
+
+/** @internal */
+export const InputHttpRawAuthTokensExt$outboundSchema: z.ZodType<
+  InputHttpRawAuthTokensExt$Outbound,
+  z.ZodTypeDef,
+  InputHttpRawAuthTokensExt
+> = z.object({
+  token: z.string(),
+  description: z.string().optional(),
+  metadata: z.array(
+    z.lazy(() => InputHttpRawAuthTokensExtMetadatum$outboundSchema),
+  ).optional(),
+});
+
+export function inputHttpRawAuthTokensExtToJSON(
+  inputHttpRawAuthTokensExt: InputHttpRawAuthTokensExt,
+): string {
+  return JSON.stringify(
+    InputHttpRawAuthTokensExt$outboundSchema.parse(inputHttpRawAuthTokensExt),
+  );
+}
+export function inputHttpRawAuthTokensExtFromJSON(
+  jsonString: string,
+): SafeParseResult<InputHttpRawAuthTokensExt, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputHttpRawAuthTokensExt$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputHttpRawAuthTokensExt' from JSON`,
+  );
+}
 
 /** @internal */
 export const InputHttpRaw$inboundSchema: z.ZodType<
@@ -167,12 +690,13 @@ export const InputHttpRaw$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputHttpRawConnection$inboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputHttpRawPq$inboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   authTokens: z.array(z.string()).optional(),
-  tls: TlsSettingsServerSideType$inboundSchema.optional(),
+  tls: z.lazy(() => InputHttpRawTLSSettingsServerSide$inboundSchema).optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -186,10 +710,12 @@ export const InputHttpRaw$inboundSchema: z.ZodType<
   ipDenylistRegex: z.string().default("/^$/"),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().default(10000),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  metadata: z.array(z.lazy(() => InputHttpRawMetadatum$inboundSchema))
+    .optional(),
   allowedPaths: z.array(z.string()).optional(),
   allowedMethods: z.array(z.string()).optional(),
-  authTokensExt: z.array(ItemsTypeAuthTokensExt$inboundSchema).optional(),
+  authTokensExt: z.array(z.lazy(() => InputHttpRawAuthTokensExt$inboundSchema))
+    .optional(),
   description: z.string().optional(),
 });
 /** @internal */
@@ -202,12 +728,12 @@ export type InputHttpRaw$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
+  connections?: Array<InputHttpRawConnection$Outbound> | undefined;
+  pq?: InputHttpRawPq$Outbound | undefined;
   host: string;
   port: number;
   authTokens?: Array<string> | undefined;
-  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  tls?: InputHttpRawTLSSettingsServerSide$Outbound | undefined;
   maxActiveReq: number;
   maxRequestsPerSocket: number;
   enableProxyHeader: boolean;
@@ -221,10 +747,10 @@ export type InputHttpRaw$Outbound = {
   ipDenylistRegex: string;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs: number;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<InputHttpRawMetadatum$Outbound> | undefined;
   allowedPaths?: Array<string> | undefined;
   allowedMethods?: Array<string> | undefined;
-  authTokensExt?: Array<ItemsTypeAuthTokensExt$Outbound> | undefined;
+  authTokensExt?: Array<InputHttpRawAuthTokensExt$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -242,12 +768,14 @@ export const InputHttpRaw$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputHttpRawConnection$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputHttpRawPq$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
   authTokens: z.array(z.string()).optional(),
-  tls: TlsSettingsServerSideType$outboundSchema.optional(),
+  tls: z.lazy(() => InputHttpRawTLSSettingsServerSide$outboundSchema)
+    .optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -261,10 +789,12 @@ export const InputHttpRaw$outboundSchema: z.ZodType<
   ipDenylistRegex: z.string().default("/^$/"),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().default(10000),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(z.lazy(() => InputHttpRawMetadatum$outboundSchema))
+    .optional(),
   allowedPaths: z.array(z.string()).optional(),
   allowedMethods: z.array(z.string()).optional(),
-  authTokensExt: z.array(ItemsTypeAuthTokensExt$outboundSchema).optional(),
+  authTokensExt: z.array(z.lazy(() => InputHttpRawAuthTokensExt$outboundSchema))
+    .optional(),
   description: z.string().optional(),
 });
 

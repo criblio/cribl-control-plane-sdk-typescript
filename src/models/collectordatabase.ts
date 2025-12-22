@@ -3,131 +3,26 @@
  */
 
 import * as z from "zod/v3";
-import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
-  HiddenDefaultBreakersOptions,
-  HiddenDefaultBreakersOptions$inboundSchema,
-  HiddenDefaultBreakersOptions$outboundSchema,
-} from "./hiddendefaultbreakersoptions.js";
+  DatabaseCollectorConf,
+  DatabaseCollectorConf$inboundSchema,
+  DatabaseCollectorConf$Outbound,
+  DatabaseCollectorConf$outboundSchema,
+} from "./databasecollectorconf.js";
+import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
-export type CollectorDatabaseStateTracking = {
-  /**
-   * Enable tracking of collection progress between consecutive scheduled executions.
-   */
-  enabled?: boolean | undefined;
-};
-
-export type CollectorDatabaseScheduling = {
-  stateTracking?: CollectorDatabaseStateTracking | undefined;
-};
-
+/**
+ * Database collector configuration
+ */
 export type CollectorDatabase = {
   /**
    * Collector type: database
    */
   type: "database";
-  /**
-   * Select an existing Connection, or go to Knowledge > Database Connections to add one
-   */
-  connectionId: string;
-  /**
-   * An expression that resolves to the query string for selecting data from the database. Has access to the special ${earliest} and ${latest} variables, which will resolve to the Collector run's start and end time.
-   */
-  query: string;
-  /**
-   * Enforces a basic query validation that allows only a single 'select' statement. Disable for more complex queries or when using semicolons. Caution: Disabling query validation allows DDL and DML statements to be executed, which could be destructive to your database.
-   */
-  queryValidationEnabled?: boolean | undefined;
-  defaultBreakers?: HiddenDefaultBreakersOptions | undefined;
-  scheduling?: CollectorDatabaseScheduling | undefined;
+  conf: DatabaseCollectorConf;
 };
-
-/** @internal */
-export const CollectorDatabaseStateTracking$inboundSchema: z.ZodType<
-  CollectorDatabaseStateTracking,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enabled: z.boolean().optional(),
-});
-/** @internal */
-export type CollectorDatabaseStateTracking$Outbound = {
-  enabled?: boolean | undefined;
-};
-
-/** @internal */
-export const CollectorDatabaseStateTracking$outboundSchema: z.ZodType<
-  CollectorDatabaseStateTracking$Outbound,
-  z.ZodTypeDef,
-  CollectorDatabaseStateTracking
-> = z.object({
-  enabled: z.boolean().optional(),
-});
-
-export function collectorDatabaseStateTrackingToJSON(
-  collectorDatabaseStateTracking: CollectorDatabaseStateTracking,
-): string {
-  return JSON.stringify(
-    CollectorDatabaseStateTracking$outboundSchema.parse(
-      collectorDatabaseStateTracking,
-    ),
-  );
-}
-export function collectorDatabaseStateTrackingFromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorDatabaseStateTracking, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CollectorDatabaseStateTracking$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorDatabaseStateTracking' from JSON`,
-  );
-}
-
-/** @internal */
-export const CollectorDatabaseScheduling$inboundSchema: z.ZodType<
-  CollectorDatabaseScheduling,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  stateTracking: z.lazy(() => CollectorDatabaseStateTracking$inboundSchema)
-    .optional(),
-});
-/** @internal */
-export type CollectorDatabaseScheduling$Outbound = {
-  stateTracking?: CollectorDatabaseStateTracking$Outbound | undefined;
-};
-
-/** @internal */
-export const CollectorDatabaseScheduling$outboundSchema: z.ZodType<
-  CollectorDatabaseScheduling$Outbound,
-  z.ZodTypeDef,
-  CollectorDatabaseScheduling
-> = z.object({
-  stateTracking: z.lazy(() => CollectorDatabaseStateTracking$outboundSchema)
-    .optional(),
-});
-
-export function collectorDatabaseSchedulingToJSON(
-  collectorDatabaseScheduling: CollectorDatabaseScheduling,
-): string {
-  return JSON.stringify(
-    CollectorDatabaseScheduling$outboundSchema.parse(
-      collectorDatabaseScheduling,
-    ),
-  );
-}
-export function collectorDatabaseSchedulingFromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorDatabaseScheduling, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CollectorDatabaseScheduling$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorDatabaseScheduling' from JSON`,
-  );
-}
 
 /** @internal */
 export const CollectorDatabase$inboundSchema: z.ZodType<
@@ -136,25 +31,12 @@ export const CollectorDatabase$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   type: z.literal("database"),
-  connectionId: z.string(),
-  query: z.string(),
-  queryValidationEnabled: z.boolean().default(true),
-  defaultBreakers: HiddenDefaultBreakersOptions$inboundSchema.optional(),
-  __scheduling: z.lazy(() => CollectorDatabaseScheduling$inboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    "__scheduling": "scheduling",
-  });
+  conf: DatabaseCollectorConf$inboundSchema,
 });
 /** @internal */
 export type CollectorDatabase$Outbound = {
   type: "database";
-  connectionId: string;
-  query: string;
-  queryValidationEnabled: boolean;
-  defaultBreakers?: string | undefined;
-  __scheduling?: CollectorDatabaseScheduling$Outbound | undefined;
+  conf: DatabaseCollectorConf$Outbound;
 };
 
 /** @internal */
@@ -164,16 +46,7 @@ export const CollectorDatabase$outboundSchema: z.ZodType<
   CollectorDatabase
 > = z.object({
   type: z.literal("database"),
-  connectionId: z.string(),
-  query: z.string(),
-  queryValidationEnabled: z.boolean().default(true),
-  defaultBreakers: HiddenDefaultBreakersOptions$outboundSchema.optional(),
-  scheduling: z.lazy(() => CollectorDatabaseScheduling$outboundSchema)
-    .optional(),
-}).transform((v) => {
-  return remap$(v, {
-    scheduling: "__scheduling",
-  });
+  conf: DatabaseCollectorConf$outboundSchema,
 });
 
 export function collectorDatabaseToJSON(

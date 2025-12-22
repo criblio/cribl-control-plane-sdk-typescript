@@ -4,66 +4,196 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import { ClosedEnum } from "../types/enums.js";
+import * as openEnums from "../types/enums.js";
+import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  AuthenticationTypeOptionsLokiAuth,
-  AuthenticationTypeOptionsLokiAuth$inboundSchema,
-  AuthenticationTypeOptionsLokiAuth$outboundSchema,
-} from "./authenticationtypeoptionslokiauth.js";
-import {
-  AuthenticationTypeOptionsPrometheusAuth,
-  AuthenticationTypeOptionsPrometheusAuth$inboundSchema,
-  AuthenticationTypeOptionsPrometheusAuth$outboundSchema,
-} from "./authenticationtypeoptionsprometheusauth.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
-import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
-import {
-  ItemsTypeOauthHeaders,
-  ItemsTypeOauthHeaders$inboundSchema,
-  ItemsTypeOauthHeaders$Outbound,
-  ItemsTypeOauthHeaders$outboundSchema,
-} from "./itemstypeoauthheaders.js";
-import {
-  ItemsTypeOauthParams,
-  ItemsTypeOauthParams$inboundSchema,
-  ItemsTypeOauthParams$Outbound,
-  ItemsTypeOauthParams$outboundSchema,
-} from "./itemstypeoauthparams.js";
-import {
-  PqType,
-  PqType$inboundSchema,
-  PqType$Outbound,
-  PqType$outboundSchema,
-} from "./pqtype.js";
-import {
-  TlsSettingsServerSideType,
-  TlsSettingsServerSideType$inboundSchema,
-  TlsSettingsServerSideType$Outbound,
-  TlsSettingsServerSideType$outboundSchema,
-} from "./tlssettingsserversidetype.js";
 
 export const InputGrafanaType2 = {
   Grafana: "grafana",
 } as const;
 export type InputGrafanaType2 = ClosedEnum<typeof InputGrafanaType2>;
 
-export type PrometheusAuth2 = {
+export type InputGrafanaConnection2 = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const InputGrafanaMode2 = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type InputGrafanaMode2 = OpenEnum<typeof InputGrafanaMode2>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const InputGrafanaCompression2 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type InputGrafanaCompression2 = OpenEnum<
+  typeof InputGrafanaCompression2
+>;
+
+export type InputGrafanaPqControls2 = {};
+
+export type InputGrafanaPq2 = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: InputGrafanaMode2 | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: InputGrafanaCompression2 | undefined;
+  pqControls?: InputGrafanaPqControls2 | undefined;
+};
+
+export const InputGrafanaMinimumTLSVersion2 = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputGrafanaMinimumTLSVersion2 = OpenEnum<
+  typeof InputGrafanaMinimumTLSVersion2
+>;
+
+export const InputGrafanaMaximumTLSVersion2 = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputGrafanaMaximumTLSVersion2 = OpenEnum<
+  typeof InputGrafanaMaximumTLSVersion2
+>;
+
+export type InputGrafanaTLSSettingsServerSide2 = {
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?: InputGrafanaMinimumTLSVersion2 | undefined;
+  maxVersion?: InputGrafanaMaximumTLSVersion2 | undefined;
+};
+
+/**
+ * Remote Write authentication type
+ */
+export const InputGrafanaPrometheusAuthAuthenticationType2 = {
+  None: "none",
+  Basic: "basic",
+  CredentialsSecret: "credentialsSecret",
+  Token: "token",
+  TextSecret: "textSecret",
+  Oauth: "oauth",
+} as const;
+/**
+ * Remote Write authentication type
+ */
+export type InputGrafanaPrometheusAuthAuthenticationType2 = OpenEnum<
+  typeof InputGrafanaPrometheusAuthAuthenticationType2
+>;
+
+export type PrometheusAuthOauthParam2 = {
+  /**
+   * OAuth parameter name
+   */
+  name: string;
+  /**
+   * OAuth parameter value
+   */
+  value: string;
+};
+
+export type PrometheusAuthOauthHeader2 = {
+  /**
+   * OAuth header name
+   */
+  name: string;
+  /**
+   * OAuth header value
+   */
+  value: string;
+};
+
+export type InputGrafanaPrometheusAuth2 = {
   /**
    * Remote Write authentication type
    */
-  authType?: AuthenticationTypeOptionsPrometheusAuth | undefined;
+  authType?: InputGrafanaPrometheusAuthAuthenticationType2 | undefined;
   username?: string | undefined;
   password?: string | undefined;
   /**
@@ -105,18 +235,58 @@ export type PrometheusAuth2 = {
   /**
    * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthParams?: Array<ItemsTypeOauthParams> | undefined;
+  oauthParams?: Array<PrometheusAuthOauthParam2> | undefined;
   /**
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
+  oauthHeaders?: Array<PrometheusAuthOauthHeader2> | undefined;
 };
 
-export type LokiAuth2 = {
+/**
+ * Loki logs authentication type
+ */
+export const InputGrafanaLokiAuthAuthenticationType2 = {
+  None: "none",
+  Basic: "basic",
+  CredentialsSecret: "credentialsSecret",
+  Token: "token",
+  TextSecret: "textSecret",
+  Oauth: "oauth",
+} as const;
+/**
+ * Loki logs authentication type
+ */
+export type InputGrafanaLokiAuthAuthenticationType2 = OpenEnum<
+  typeof InputGrafanaLokiAuthAuthenticationType2
+>;
+
+export type LokiAuthOauthParam2 = {
+  /**
+   * OAuth parameter name
+   */
+  name: string;
+  /**
+   * OAuth parameter value
+   */
+  value: string;
+};
+
+export type LokiAuthOauthHeader2 = {
+  /**
+   * OAuth header name
+   */
+  name: string;
+  /**
+   * OAuth header value
+   */
+  value: string;
+};
+
+export type InputGrafanaLokiAuth2 = {
   /**
    * Loki logs authentication type
    */
-  authType?: AuthenticationTypeOptionsLokiAuth | undefined;
+  authType?: InputGrafanaLokiAuthAuthenticationType2 | undefined;
   username?: string | undefined;
   password?: string | undefined;
   /**
@@ -158,11 +328,19 @@ export type LokiAuth2 = {
   /**
    * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthParams?: Array<ItemsTypeOauthParams> | undefined;
+  oauthParams?: Array<LokiAuthOauthParam2> | undefined;
   /**
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
+  oauthHeaders?: Array<LokiAuthOauthHeader2> | undefined;
+};
+
+export type InputGrafanaMetadatum2 = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
 };
 
 export type InputGrafanaGrafana2 = {
@@ -195,8 +373,8 @@ export type InputGrafanaGrafana2 = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<InputGrafanaConnection2> | undefined;
+  pq?: InputGrafanaPq2 | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -205,7 +383,7 @@ export type InputGrafanaGrafana2 = {
    * Port to listen on
    */
   port: number;
-  tls?: TlsSettingsServerSideType | undefined;
+  tls?: InputGrafanaTLSSettingsServerSide2 | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -258,12 +436,12 @@ export type InputGrafanaGrafana2 = {
    * Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'. Either this field or 'Remote Write API endpoint' must be configured.
    */
   lokiAPI?: string | undefined;
-  prometheusAuth?: PrometheusAuth2 | undefined;
-  lokiAuth?: LokiAuth2 | undefined;
+  prometheusAuth?: InputGrafanaPrometheusAuth2 | undefined;
+  lokiAuth?: InputGrafanaLokiAuth2 | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<InputGrafanaMetadatum2> | undefined;
   description?: string | undefined;
 };
 
@@ -272,11 +450,186 @@ export const InputGrafanaType1 = {
 } as const;
 export type InputGrafanaType1 = ClosedEnum<typeof InputGrafanaType1>;
 
-export type PrometheusAuth1 = {
+export type InputGrafanaConnection1 = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const InputGrafanaMode1 = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type InputGrafanaMode1 = OpenEnum<typeof InputGrafanaMode1>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const InputGrafanaCompression1 = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type InputGrafanaCompression1 = OpenEnum<
+  typeof InputGrafanaCompression1
+>;
+
+export type InputGrafanaPqControls1 = {};
+
+export type InputGrafanaPq1 = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: InputGrafanaMode1 | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: InputGrafanaCompression1 | undefined;
+  pqControls?: InputGrafanaPqControls1 | undefined;
+};
+
+export const InputGrafanaMinimumTLSVersion1 = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputGrafanaMinimumTLSVersion1 = OpenEnum<
+  typeof InputGrafanaMinimumTLSVersion1
+>;
+
+export const InputGrafanaMaximumTLSVersion1 = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputGrafanaMaximumTLSVersion1 = OpenEnum<
+  typeof InputGrafanaMaximumTLSVersion1
+>;
+
+export type InputGrafanaTLSSettingsServerSide1 = {
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?: InputGrafanaMinimumTLSVersion1 | undefined;
+  maxVersion?: InputGrafanaMaximumTLSVersion1 | undefined;
+};
+
+/**
+ * Remote Write authentication type
+ */
+export const InputGrafanaPrometheusAuthAuthenticationType1 = {
+  None: "none",
+  Basic: "basic",
+  CredentialsSecret: "credentialsSecret",
+  Token: "token",
+  TextSecret: "textSecret",
+  Oauth: "oauth",
+} as const;
+/**
+ * Remote Write authentication type
+ */
+export type InputGrafanaPrometheusAuthAuthenticationType1 = OpenEnum<
+  typeof InputGrafanaPrometheusAuthAuthenticationType1
+>;
+
+export type PrometheusAuthOauthParam1 = {
+  /**
+   * OAuth parameter name
+   */
+  name: string;
+  /**
+   * OAuth parameter value
+   */
+  value: string;
+};
+
+export type PrometheusAuthOauthHeader1 = {
+  /**
+   * OAuth header name
+   */
+  name: string;
+  /**
+   * OAuth header value
+   */
+  value: string;
+};
+
+export type InputGrafanaPrometheusAuth1 = {
   /**
    * Remote Write authentication type
    */
-  authType?: AuthenticationTypeOptionsPrometheusAuth | undefined;
+  authType?: InputGrafanaPrometheusAuthAuthenticationType1 | undefined;
   username?: string | undefined;
   password?: string | undefined;
   /**
@@ -318,18 +671,58 @@ export type PrometheusAuth1 = {
   /**
    * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthParams?: Array<ItemsTypeOauthParams> | undefined;
+  oauthParams?: Array<PrometheusAuthOauthParam1> | undefined;
   /**
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
+  oauthHeaders?: Array<PrometheusAuthOauthHeader1> | undefined;
 };
 
-export type LokiAuth1 = {
+/**
+ * Loki logs authentication type
+ */
+export const InputGrafanaLokiAuthAuthenticationType1 = {
+  None: "none",
+  Basic: "basic",
+  CredentialsSecret: "credentialsSecret",
+  Token: "token",
+  TextSecret: "textSecret",
+  Oauth: "oauth",
+} as const;
+/**
+ * Loki logs authentication type
+ */
+export type InputGrafanaLokiAuthAuthenticationType1 = OpenEnum<
+  typeof InputGrafanaLokiAuthAuthenticationType1
+>;
+
+export type LokiAuthOauthParam1 = {
+  /**
+   * OAuth parameter name
+   */
+  name: string;
+  /**
+   * OAuth parameter value
+   */
+  value: string;
+};
+
+export type LokiAuthOauthHeader1 = {
+  /**
+   * OAuth header name
+   */
+  name: string;
+  /**
+   * OAuth header value
+   */
+  value: string;
+};
+
+export type InputGrafanaLokiAuth1 = {
   /**
    * Loki logs authentication type
    */
-  authType?: AuthenticationTypeOptionsLokiAuth | undefined;
+  authType?: InputGrafanaLokiAuthAuthenticationType1 | undefined;
   username?: string | undefined;
   password?: string | undefined;
   /**
@@ -371,11 +764,19 @@ export type LokiAuth1 = {
   /**
    * Additional parameters to send in the OAuth login request. @{product} will combine the secret with these parameters, and will send the URL-encoded result in a POST request to the endpoint specified in the 'Login URL'. We'll automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthParams?: Array<ItemsTypeOauthParams> | undefined;
+  oauthParams?: Array<LokiAuthOauthParam1> | undefined;
   /**
    * Additional headers to send in the OAuth login request. @{product} will automatically add the content-type header 'application/x-www-form-urlencoded' when sending this request.
    */
-  oauthHeaders?: Array<ItemsTypeOauthHeaders> | undefined;
+  oauthHeaders?: Array<LokiAuthOauthHeader1> | undefined;
+};
+
+export type InputGrafanaMetadatum1 = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
 };
 
 export type InputGrafanaGrafana1 = {
@@ -408,8 +809,8 @@ export type InputGrafanaGrafana1 = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<InputGrafanaConnection1> | undefined;
+  pq?: InputGrafanaPq1 | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -418,7 +819,7 @@ export type InputGrafanaGrafana1 = {
    * Port to listen on
    */
   port: number;
-  tls?: TlsSettingsServerSideType | undefined;
+  tls?: InputGrafanaTLSSettingsServerSide1 | undefined;
   /**
    * Maximum number of active requests allowed per Worker Process. Set to 0 for unlimited. Caution: Increasing the limit above the default value, or setting it to unlimited, may degrade performance and reduce throughput.
    */
@@ -471,12 +872,12 @@ export type InputGrafanaGrafana1 = {
    * Absolute path on which to listen for Loki logs requests. Defaults to /loki/api/v1/push, which will (in this example) expand as: 'http://<your‑upstream‑URL>:<your‑port>/loki/api/v1/push'. Either this field or 'Remote Write API endpoint' must be configured.
    */
   lokiAPI?: string | undefined;
-  prometheusAuth?: PrometheusAuth1 | undefined;
-  lokiAuth?: LokiAuth1 | undefined;
+  prometheusAuth?: InputGrafanaPrometheusAuth1 | undefined;
+  lokiAuth?: InputGrafanaLokiAuth1 | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<InputGrafanaMetadatum1> | undefined;
   description?: string | undefined;
 };
 
@@ -492,92 +893,370 @@ export const InputGrafanaType2$outboundSchema: z.ZodNativeEnum<
 > = InputGrafanaType2$inboundSchema;
 
 /** @internal */
-export const PrometheusAuth2$inboundSchema: z.ZodType<
-  PrometheusAuth2,
+export const InputGrafanaConnection2$inboundSchema: z.ZodType<
+  InputGrafanaConnection2,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authType: AuthenticationTypeOptionsPrometheusAuth$inboundSchema.default(
-    "none",
-  ),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  token: z.string().optional(),
-  credentialsSecret: z.string().optional(),
-  textSecret: z.string().optional(),
-  loginUrl: z.string().optional(),
-  secretParamName: z.string().optional(),
-  secret: z.string().optional(),
-  tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(ItemsTypeOauthParams$inboundSchema).optional(),
-  oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
+  pipeline: z.string().optional(),
+  output: z.string(),
 });
 /** @internal */
-export type PrometheusAuth2$Outbound = {
-  authType: string;
-  username?: string | undefined;
-  password?: string | undefined;
-  token?: string | undefined;
-  credentialsSecret?: string | undefined;
-  textSecret?: string | undefined;
-  loginUrl?: string | undefined;
-  secretParamName?: string | undefined;
-  secret?: string | undefined;
-  tokenAttributeName?: string | undefined;
-  authHeaderExpr: string;
-  tokenTimeoutSecs: number;
-  oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
+export type InputGrafanaConnection2$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
 };
 
 /** @internal */
-export const PrometheusAuth2$outboundSchema: z.ZodType<
-  PrometheusAuth2$Outbound,
+export const InputGrafanaConnection2$outboundSchema: z.ZodType<
+  InputGrafanaConnection2$Outbound,
   z.ZodTypeDef,
-  PrometheusAuth2
+  InputGrafanaConnection2
 > = z.object({
-  authType: AuthenticationTypeOptionsPrometheusAuth$outboundSchema.default(
-    "none",
-  ),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  token: z.string().optional(),
-  credentialsSecret: z.string().optional(),
-  textSecret: z.string().optional(),
-  loginUrl: z.string().optional(),
-  secretParamName: z.string().optional(),
-  secret: z.string().optional(),
-  tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
+  pipeline: z.string().optional(),
+  output: z.string(),
 });
 
-export function prometheusAuth2ToJSON(
-  prometheusAuth2: PrometheusAuth2,
+export function inputGrafanaConnection2ToJSON(
+  inputGrafanaConnection2: InputGrafanaConnection2,
 ): string {
-  return JSON.stringify(PrometheusAuth2$outboundSchema.parse(prometheusAuth2));
+  return JSON.stringify(
+    InputGrafanaConnection2$outboundSchema.parse(inputGrafanaConnection2),
+  );
 }
-export function prometheusAuth2FromJSON(
+export function inputGrafanaConnection2FromJSON(
   jsonString: string,
-): SafeParseResult<PrometheusAuth2, SDKValidationError> {
+): SafeParseResult<InputGrafanaConnection2, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PrometheusAuth2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PrometheusAuth2' from JSON`,
+    (x) => InputGrafanaConnection2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputGrafanaConnection2' from JSON`,
   );
 }
 
 /** @internal */
-export const LokiAuth2$inboundSchema: z.ZodType<
-  LokiAuth2,
+export const InputGrafanaMode2$inboundSchema: z.ZodType<
+  InputGrafanaMode2,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputGrafanaMode2);
+/** @internal */
+export const InputGrafanaMode2$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputGrafanaMode2
+> = openEnums.outboundSchema(InputGrafanaMode2);
+
+/** @internal */
+export const InputGrafanaCompression2$inboundSchema: z.ZodType<
+  InputGrafanaCompression2,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputGrafanaCompression2);
+/** @internal */
+export const InputGrafanaCompression2$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputGrafanaCompression2
+> = openEnums.outboundSchema(InputGrafanaCompression2);
+
+/** @internal */
+export const InputGrafanaPqControls2$inboundSchema: z.ZodType<
+  InputGrafanaPqControls2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+/** @internal */
+export type InputGrafanaPqControls2$Outbound = {};
+
+/** @internal */
+export const InputGrafanaPqControls2$outboundSchema: z.ZodType<
+  InputGrafanaPqControls2$Outbound,
+  z.ZodTypeDef,
+  InputGrafanaPqControls2
+> = z.object({});
+
+export function inputGrafanaPqControls2ToJSON(
+  inputGrafanaPqControls2: InputGrafanaPqControls2,
+): string {
+  return JSON.stringify(
+    InputGrafanaPqControls2$outboundSchema.parse(inputGrafanaPqControls2),
+  );
+}
+export function inputGrafanaPqControls2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputGrafanaPqControls2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputGrafanaPqControls2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputGrafanaPqControls2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputGrafanaPq2$inboundSchema: z.ZodType<
+  InputGrafanaPq2,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authType: AuthenticationTypeOptionsLokiAuth$inboundSchema.default("none"),
+  mode: InputGrafanaMode2$inboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputGrafanaCompression2$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputGrafanaPqControls2$inboundSchema).optional(),
+});
+/** @internal */
+export type InputGrafanaPq2$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: InputGrafanaPqControls2$Outbound | undefined;
+};
+
+/** @internal */
+export const InputGrafanaPq2$outboundSchema: z.ZodType<
+  InputGrafanaPq2$Outbound,
+  z.ZodTypeDef,
+  InputGrafanaPq2
+> = z.object({
+  mode: InputGrafanaMode2$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputGrafanaCompression2$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputGrafanaPqControls2$outboundSchema).optional(),
+});
+
+export function inputGrafanaPq2ToJSON(
+  inputGrafanaPq2: InputGrafanaPq2,
+): string {
+  return JSON.stringify(InputGrafanaPq2$outboundSchema.parse(inputGrafanaPq2));
+}
+export function inputGrafanaPq2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputGrafanaPq2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputGrafanaPq2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputGrafanaPq2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputGrafanaMinimumTLSVersion2$inboundSchema: z.ZodType<
+  InputGrafanaMinimumTLSVersion2,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputGrafanaMinimumTLSVersion2);
+/** @internal */
+export const InputGrafanaMinimumTLSVersion2$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputGrafanaMinimumTLSVersion2
+> = openEnums.outboundSchema(InputGrafanaMinimumTLSVersion2);
+
+/** @internal */
+export const InputGrafanaMaximumTLSVersion2$inboundSchema: z.ZodType<
+  InputGrafanaMaximumTLSVersion2,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputGrafanaMaximumTLSVersion2);
+/** @internal */
+export const InputGrafanaMaximumTLSVersion2$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputGrafanaMaximumTLSVersion2
+> = openEnums.outboundSchema(InputGrafanaMaximumTLSVersion2);
+
+/** @internal */
+export const InputGrafanaTLSSettingsServerSide2$inboundSchema: z.ZodType<
+  InputGrafanaTLSSettingsServerSide2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: InputGrafanaMinimumTLSVersion2$inboundSchema.optional(),
+  maxVersion: InputGrafanaMaximumTLSVersion2$inboundSchema.optional(),
+});
+/** @internal */
+export type InputGrafanaTLSSettingsServerSide2$Outbound = {
+  disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const InputGrafanaTLSSettingsServerSide2$outboundSchema: z.ZodType<
+  InputGrafanaTLSSettingsServerSide2$Outbound,
+  z.ZodTypeDef,
+  InputGrafanaTLSSettingsServerSide2
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: InputGrafanaMinimumTLSVersion2$outboundSchema.optional(),
+  maxVersion: InputGrafanaMaximumTLSVersion2$outboundSchema.optional(),
+});
+
+export function inputGrafanaTLSSettingsServerSide2ToJSON(
+  inputGrafanaTLSSettingsServerSide2: InputGrafanaTLSSettingsServerSide2,
+): string {
+  return JSON.stringify(
+    InputGrafanaTLSSettingsServerSide2$outboundSchema.parse(
+      inputGrafanaTLSSettingsServerSide2,
+    ),
+  );
+}
+export function inputGrafanaTLSSettingsServerSide2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputGrafanaTLSSettingsServerSide2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputGrafanaTLSSettingsServerSide2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputGrafanaTLSSettingsServerSide2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputGrafanaPrometheusAuthAuthenticationType2$inboundSchema:
+  z.ZodType<
+    InputGrafanaPrometheusAuthAuthenticationType2,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(InputGrafanaPrometheusAuthAuthenticationType2);
+/** @internal */
+export const InputGrafanaPrometheusAuthAuthenticationType2$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    InputGrafanaPrometheusAuthAuthenticationType2
+  > = openEnums.outboundSchema(InputGrafanaPrometheusAuthAuthenticationType2);
+
+/** @internal */
+export const PrometheusAuthOauthParam2$inboundSchema: z.ZodType<
+  PrometheusAuthOauthParam2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type PrometheusAuthOauthParam2$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const PrometheusAuthOauthParam2$outboundSchema: z.ZodType<
+  PrometheusAuthOauthParam2$Outbound,
+  z.ZodTypeDef,
+  PrometheusAuthOauthParam2
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function prometheusAuthOauthParam2ToJSON(
+  prometheusAuthOauthParam2: PrometheusAuthOauthParam2,
+): string {
+  return JSON.stringify(
+    PrometheusAuthOauthParam2$outboundSchema.parse(prometheusAuthOauthParam2),
+  );
+}
+export function prometheusAuthOauthParam2FromJSON(
+  jsonString: string,
+): SafeParseResult<PrometheusAuthOauthParam2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PrometheusAuthOauthParam2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PrometheusAuthOauthParam2' from JSON`,
+  );
+}
+
+/** @internal */
+export const PrometheusAuthOauthHeader2$inboundSchema: z.ZodType<
+  PrometheusAuthOauthHeader2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type PrometheusAuthOauthHeader2$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const PrometheusAuthOauthHeader2$outboundSchema: z.ZodType<
+  PrometheusAuthOauthHeader2$Outbound,
+  z.ZodTypeDef,
+  PrometheusAuthOauthHeader2
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function prometheusAuthOauthHeader2ToJSON(
+  prometheusAuthOauthHeader2: PrometheusAuthOauthHeader2,
+): string {
+  return JSON.stringify(
+    PrometheusAuthOauthHeader2$outboundSchema.parse(prometheusAuthOauthHeader2),
+  );
+}
+export function prometheusAuthOauthHeader2FromJSON(
+  jsonString: string,
+): SafeParseResult<PrometheusAuthOauthHeader2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PrometheusAuthOauthHeader2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PrometheusAuthOauthHeader2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputGrafanaPrometheusAuth2$inboundSchema: z.ZodType<
+  InputGrafanaPrometheusAuth2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: InputGrafanaPrometheusAuthAuthenticationType2$inboundSchema.default(
+    "none",
+  ),
   username: z.string().optional(),
   password: z.string().optional(),
   token: z.string().optional(),
@@ -589,11 +1268,13 @@ export const LokiAuth2$inboundSchema: z.ZodType<
   tokenAttributeName: z.string().optional(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
   tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(ItemsTypeOauthParams$inboundSchema).optional(),
-  oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
+  oauthParams: z.array(z.lazy(() => PrometheusAuthOauthParam2$inboundSchema))
+    .optional(),
+  oauthHeaders: z.array(z.lazy(() => PrometheusAuthOauthHeader2$inboundSchema))
+    .optional(),
 });
 /** @internal */
-export type LokiAuth2$Outbound = {
+export type InputGrafanaPrometheusAuth2$Outbound = {
   authType: string;
   username?: string | undefined;
   password?: string | undefined;
@@ -606,17 +1287,18 @@ export type LokiAuth2$Outbound = {
   tokenAttributeName?: string | undefined;
   authHeaderExpr: string;
   tokenTimeoutSecs: number;
-  oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
+  oauthParams?: Array<PrometheusAuthOauthParam2$Outbound> | undefined;
+  oauthHeaders?: Array<PrometheusAuthOauthHeader2$Outbound> | undefined;
 };
 
 /** @internal */
-export const LokiAuth2$outboundSchema: z.ZodType<
-  LokiAuth2$Outbound,
+export const InputGrafanaPrometheusAuth2$outboundSchema: z.ZodType<
+  InputGrafanaPrometheusAuth2$Outbound,
   z.ZodTypeDef,
-  LokiAuth2
+  InputGrafanaPrometheusAuth2
 > = z.object({
-  authType: AuthenticationTypeOptionsLokiAuth$outboundSchema.default("none"),
+  authType: InputGrafanaPrometheusAuthAuthenticationType2$outboundSchema
+    .default("none"),
   username: z.string().optional(),
   password: z.string().optional(),
   token: z.string().optional(),
@@ -628,20 +1310,253 @@ export const LokiAuth2$outboundSchema: z.ZodType<
   tokenAttributeName: z.string().optional(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
   tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
+  oauthParams: z.array(z.lazy(() => PrometheusAuthOauthParam2$outboundSchema))
+    .optional(),
+  oauthHeaders: z.array(z.lazy(() => PrometheusAuthOauthHeader2$outboundSchema))
+    .optional(),
 });
 
-export function lokiAuth2ToJSON(lokiAuth2: LokiAuth2): string {
-  return JSON.stringify(LokiAuth2$outboundSchema.parse(lokiAuth2));
+export function inputGrafanaPrometheusAuth2ToJSON(
+  inputGrafanaPrometheusAuth2: InputGrafanaPrometheusAuth2,
+): string {
+  return JSON.stringify(
+    InputGrafanaPrometheusAuth2$outboundSchema.parse(
+      inputGrafanaPrometheusAuth2,
+    ),
+  );
 }
-export function lokiAuth2FromJSON(
+export function inputGrafanaPrometheusAuth2FromJSON(
   jsonString: string,
-): SafeParseResult<LokiAuth2, SDKValidationError> {
+): SafeParseResult<InputGrafanaPrometheusAuth2, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => LokiAuth2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'LokiAuth2' from JSON`,
+    (x) => InputGrafanaPrometheusAuth2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputGrafanaPrometheusAuth2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputGrafanaLokiAuthAuthenticationType2$inboundSchema: z.ZodType<
+  InputGrafanaLokiAuthAuthenticationType2,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputGrafanaLokiAuthAuthenticationType2);
+/** @internal */
+export const InputGrafanaLokiAuthAuthenticationType2$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputGrafanaLokiAuthAuthenticationType2
+> = openEnums.outboundSchema(InputGrafanaLokiAuthAuthenticationType2);
+
+/** @internal */
+export const LokiAuthOauthParam2$inboundSchema: z.ZodType<
+  LokiAuthOauthParam2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type LokiAuthOauthParam2$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const LokiAuthOauthParam2$outboundSchema: z.ZodType<
+  LokiAuthOauthParam2$Outbound,
+  z.ZodTypeDef,
+  LokiAuthOauthParam2
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function lokiAuthOauthParam2ToJSON(
+  lokiAuthOauthParam2: LokiAuthOauthParam2,
+): string {
+  return JSON.stringify(
+    LokiAuthOauthParam2$outboundSchema.parse(lokiAuthOauthParam2),
+  );
+}
+export function lokiAuthOauthParam2FromJSON(
+  jsonString: string,
+): SafeParseResult<LokiAuthOauthParam2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => LokiAuthOauthParam2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'LokiAuthOauthParam2' from JSON`,
+  );
+}
+
+/** @internal */
+export const LokiAuthOauthHeader2$inboundSchema: z.ZodType<
+  LokiAuthOauthHeader2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type LokiAuthOauthHeader2$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const LokiAuthOauthHeader2$outboundSchema: z.ZodType<
+  LokiAuthOauthHeader2$Outbound,
+  z.ZodTypeDef,
+  LokiAuthOauthHeader2
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function lokiAuthOauthHeader2ToJSON(
+  lokiAuthOauthHeader2: LokiAuthOauthHeader2,
+): string {
+  return JSON.stringify(
+    LokiAuthOauthHeader2$outboundSchema.parse(lokiAuthOauthHeader2),
+  );
+}
+export function lokiAuthOauthHeader2FromJSON(
+  jsonString: string,
+): SafeParseResult<LokiAuthOauthHeader2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => LokiAuthOauthHeader2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'LokiAuthOauthHeader2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputGrafanaLokiAuth2$inboundSchema: z.ZodType<
+  InputGrafanaLokiAuth2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: InputGrafanaLokiAuthAuthenticationType2$inboundSchema.default(
+    "none",
+  ),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(z.lazy(() => LokiAuthOauthParam2$inboundSchema))
+    .optional(),
+  oauthHeaders: z.array(z.lazy(() => LokiAuthOauthHeader2$inboundSchema))
+    .optional(),
+});
+/** @internal */
+export type InputGrafanaLokiAuth2$Outbound = {
+  authType: string;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr: string;
+  tokenTimeoutSecs: number;
+  oauthParams?: Array<LokiAuthOauthParam2$Outbound> | undefined;
+  oauthHeaders?: Array<LokiAuthOauthHeader2$Outbound> | undefined;
+};
+
+/** @internal */
+export const InputGrafanaLokiAuth2$outboundSchema: z.ZodType<
+  InputGrafanaLokiAuth2$Outbound,
+  z.ZodTypeDef,
+  InputGrafanaLokiAuth2
+> = z.object({
+  authType: InputGrafanaLokiAuthAuthenticationType2$outboundSchema.default(
+    "none",
+  ),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(z.lazy(() => LokiAuthOauthParam2$outboundSchema))
+    .optional(),
+  oauthHeaders: z.array(z.lazy(() => LokiAuthOauthHeader2$outboundSchema))
+    .optional(),
+});
+
+export function inputGrafanaLokiAuth2ToJSON(
+  inputGrafanaLokiAuth2: InputGrafanaLokiAuth2,
+): string {
+  return JSON.stringify(
+    InputGrafanaLokiAuth2$outboundSchema.parse(inputGrafanaLokiAuth2),
+  );
+}
+export function inputGrafanaLokiAuth2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputGrafanaLokiAuth2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputGrafanaLokiAuth2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputGrafanaLokiAuth2' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputGrafanaMetadatum2$inboundSchema: z.ZodType<
+  InputGrafanaMetadatum2,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type InputGrafanaMetadatum2$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputGrafanaMetadatum2$outboundSchema: z.ZodType<
+  InputGrafanaMetadatum2$Outbound,
+  z.ZodTypeDef,
+  InputGrafanaMetadatum2
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputGrafanaMetadatum2ToJSON(
+  inputGrafanaMetadatum2: InputGrafanaMetadatum2,
+): string {
+  return JSON.stringify(
+    InputGrafanaMetadatum2$outboundSchema.parse(inputGrafanaMetadatum2),
+  );
+}
+export function inputGrafanaMetadatum2FromJSON(
+  jsonString: string,
+): SafeParseResult<InputGrafanaMetadatum2, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputGrafanaMetadatum2$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputGrafanaMetadatum2' from JSON`,
   );
 }
 
@@ -659,11 +1574,13 @@ export const InputGrafanaGrafana2$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputGrafanaConnection2$inboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputGrafanaPq2$inboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
-  tls: TlsSettingsServerSideType$inboundSchema.optional(),
+  tls: z.lazy(() => InputGrafanaTLSSettingsServerSide2$inboundSchema)
+    .optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -677,9 +1594,11 @@ export const InputGrafanaGrafana2$inboundSchema: z.ZodType<
   ipDenylistRegex: z.string().default("/^$/"),
   prometheusAPI: z.string().default("/api/prom/push"),
   lokiAPI: z.string().default("/loki/api/v1/push"),
-  prometheusAuth: z.lazy(() => PrometheusAuth2$inboundSchema).optional(),
-  lokiAuth: z.lazy(() => LokiAuth2$inboundSchema).optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  prometheusAuth: z.lazy(() => InputGrafanaPrometheusAuth2$inboundSchema)
+    .optional(),
+  lokiAuth: z.lazy(() => InputGrafanaLokiAuth2$inboundSchema).optional(),
+  metadata: z.array(z.lazy(() => InputGrafanaMetadatum2$inboundSchema))
+    .optional(),
   description: z.string().optional(),
 });
 /** @internal */
@@ -692,11 +1611,11 @@ export type InputGrafanaGrafana2$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
+  connections?: Array<InputGrafanaConnection2$Outbound> | undefined;
+  pq?: InputGrafanaPq2$Outbound | undefined;
   host: string;
   port: number;
-  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  tls?: InputGrafanaTLSSettingsServerSide2$Outbound | undefined;
   maxActiveReq: number;
   maxRequestsPerSocket: number;
   enableProxyHeader: boolean;
@@ -710,9 +1629,9 @@ export type InputGrafanaGrafana2$Outbound = {
   ipDenylistRegex: string;
   prometheusAPI: string;
   lokiAPI: string;
-  prometheusAuth?: PrometheusAuth2$Outbound | undefined;
-  lokiAuth?: LokiAuth2$Outbound | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  prometheusAuth?: InputGrafanaPrometheusAuth2$Outbound | undefined;
+  lokiAuth?: InputGrafanaLokiAuth2$Outbound | undefined;
+  metadata?: Array<InputGrafanaMetadatum2$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -730,11 +1649,13 @@ export const InputGrafanaGrafana2$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputGrafanaConnection2$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputGrafanaPq2$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
-  tls: TlsSettingsServerSideType$outboundSchema.optional(),
+  tls: z.lazy(() => InputGrafanaTLSSettingsServerSide2$outboundSchema)
+    .optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -748,9 +1669,11 @@ export const InputGrafanaGrafana2$outboundSchema: z.ZodType<
   ipDenylistRegex: z.string().default("/^$/"),
   prometheusAPI: z.string().default("/api/prom/push"),
   lokiAPI: z.string().default("/loki/api/v1/push"),
-  prometheusAuth: z.lazy(() => PrometheusAuth2$outboundSchema).optional(),
-  lokiAuth: z.lazy(() => LokiAuth2$outboundSchema).optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  prometheusAuth: z.lazy(() => InputGrafanaPrometheusAuth2$outboundSchema)
+    .optional(),
+  lokiAuth: z.lazy(() => InputGrafanaLokiAuth2$outboundSchema).optional(),
+  metadata: z.array(z.lazy(() => InputGrafanaMetadatum2$outboundSchema))
+    .optional(),
   description: z.string().optional(),
 });
 
@@ -781,92 +1704,370 @@ export const InputGrafanaType1$outboundSchema: z.ZodNativeEnum<
 > = InputGrafanaType1$inboundSchema;
 
 /** @internal */
-export const PrometheusAuth1$inboundSchema: z.ZodType<
-  PrometheusAuth1,
+export const InputGrafanaConnection1$inboundSchema: z.ZodType<
+  InputGrafanaConnection1,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authType: AuthenticationTypeOptionsPrometheusAuth$inboundSchema.default(
-    "none",
-  ),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  token: z.string().optional(),
-  credentialsSecret: z.string().optional(),
-  textSecret: z.string().optional(),
-  loginUrl: z.string().optional(),
-  secretParamName: z.string().optional(),
-  secret: z.string().optional(),
-  tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(ItemsTypeOauthParams$inboundSchema).optional(),
-  oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
+  pipeline: z.string().optional(),
+  output: z.string(),
 });
 /** @internal */
-export type PrometheusAuth1$Outbound = {
-  authType: string;
-  username?: string | undefined;
-  password?: string | undefined;
-  token?: string | undefined;
-  credentialsSecret?: string | undefined;
-  textSecret?: string | undefined;
-  loginUrl?: string | undefined;
-  secretParamName?: string | undefined;
-  secret?: string | undefined;
-  tokenAttributeName?: string | undefined;
-  authHeaderExpr: string;
-  tokenTimeoutSecs: number;
-  oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
+export type InputGrafanaConnection1$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
 };
 
 /** @internal */
-export const PrometheusAuth1$outboundSchema: z.ZodType<
-  PrometheusAuth1$Outbound,
+export const InputGrafanaConnection1$outboundSchema: z.ZodType<
+  InputGrafanaConnection1$Outbound,
   z.ZodTypeDef,
-  PrometheusAuth1
+  InputGrafanaConnection1
 > = z.object({
-  authType: AuthenticationTypeOptionsPrometheusAuth$outboundSchema.default(
-    "none",
-  ),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  token: z.string().optional(),
-  credentialsSecret: z.string().optional(),
-  textSecret: z.string().optional(),
-  loginUrl: z.string().optional(),
-  secretParamName: z.string().optional(),
-  secret: z.string().optional(),
-  tokenAttributeName: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
+  pipeline: z.string().optional(),
+  output: z.string(),
 });
 
-export function prometheusAuth1ToJSON(
-  prometheusAuth1: PrometheusAuth1,
+export function inputGrafanaConnection1ToJSON(
+  inputGrafanaConnection1: InputGrafanaConnection1,
 ): string {
-  return JSON.stringify(PrometheusAuth1$outboundSchema.parse(prometheusAuth1));
+  return JSON.stringify(
+    InputGrafanaConnection1$outboundSchema.parse(inputGrafanaConnection1),
+  );
 }
-export function prometheusAuth1FromJSON(
+export function inputGrafanaConnection1FromJSON(
   jsonString: string,
-): SafeParseResult<PrometheusAuth1, SDKValidationError> {
+): SafeParseResult<InputGrafanaConnection1, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => PrometheusAuth1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PrometheusAuth1' from JSON`,
+    (x) => InputGrafanaConnection1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputGrafanaConnection1' from JSON`,
   );
 }
 
 /** @internal */
-export const LokiAuth1$inboundSchema: z.ZodType<
-  LokiAuth1,
+export const InputGrafanaMode1$inboundSchema: z.ZodType<
+  InputGrafanaMode1,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputGrafanaMode1);
+/** @internal */
+export const InputGrafanaMode1$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputGrafanaMode1
+> = openEnums.outboundSchema(InputGrafanaMode1);
+
+/** @internal */
+export const InputGrafanaCompression1$inboundSchema: z.ZodType<
+  InputGrafanaCompression1,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputGrafanaCompression1);
+/** @internal */
+export const InputGrafanaCompression1$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputGrafanaCompression1
+> = openEnums.outboundSchema(InputGrafanaCompression1);
+
+/** @internal */
+export const InputGrafanaPqControls1$inboundSchema: z.ZodType<
+  InputGrafanaPqControls1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+/** @internal */
+export type InputGrafanaPqControls1$Outbound = {};
+
+/** @internal */
+export const InputGrafanaPqControls1$outboundSchema: z.ZodType<
+  InputGrafanaPqControls1$Outbound,
+  z.ZodTypeDef,
+  InputGrafanaPqControls1
+> = z.object({});
+
+export function inputGrafanaPqControls1ToJSON(
+  inputGrafanaPqControls1: InputGrafanaPqControls1,
+): string {
+  return JSON.stringify(
+    InputGrafanaPqControls1$outboundSchema.parse(inputGrafanaPqControls1),
+  );
+}
+export function inputGrafanaPqControls1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputGrafanaPqControls1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputGrafanaPqControls1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputGrafanaPqControls1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputGrafanaPq1$inboundSchema: z.ZodType<
+  InputGrafanaPq1,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  authType: AuthenticationTypeOptionsLokiAuth$inboundSchema.default("none"),
+  mode: InputGrafanaMode1$inboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputGrafanaCompression1$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputGrafanaPqControls1$inboundSchema).optional(),
+});
+/** @internal */
+export type InputGrafanaPq1$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: InputGrafanaPqControls1$Outbound | undefined;
+};
+
+/** @internal */
+export const InputGrafanaPq1$outboundSchema: z.ZodType<
+  InputGrafanaPq1$Outbound,
+  z.ZodTypeDef,
+  InputGrafanaPq1
+> = z.object({
+  mode: InputGrafanaMode1$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputGrafanaCompression1$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputGrafanaPqControls1$outboundSchema).optional(),
+});
+
+export function inputGrafanaPq1ToJSON(
+  inputGrafanaPq1: InputGrafanaPq1,
+): string {
+  return JSON.stringify(InputGrafanaPq1$outboundSchema.parse(inputGrafanaPq1));
+}
+export function inputGrafanaPq1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputGrafanaPq1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputGrafanaPq1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputGrafanaPq1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputGrafanaMinimumTLSVersion1$inboundSchema: z.ZodType<
+  InputGrafanaMinimumTLSVersion1,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputGrafanaMinimumTLSVersion1);
+/** @internal */
+export const InputGrafanaMinimumTLSVersion1$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputGrafanaMinimumTLSVersion1
+> = openEnums.outboundSchema(InputGrafanaMinimumTLSVersion1);
+
+/** @internal */
+export const InputGrafanaMaximumTLSVersion1$inboundSchema: z.ZodType<
+  InputGrafanaMaximumTLSVersion1,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputGrafanaMaximumTLSVersion1);
+/** @internal */
+export const InputGrafanaMaximumTLSVersion1$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputGrafanaMaximumTLSVersion1
+> = openEnums.outboundSchema(InputGrafanaMaximumTLSVersion1);
+
+/** @internal */
+export const InputGrafanaTLSSettingsServerSide1$inboundSchema: z.ZodType<
+  InputGrafanaTLSSettingsServerSide1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: InputGrafanaMinimumTLSVersion1$inboundSchema.optional(),
+  maxVersion: InputGrafanaMaximumTLSVersion1$inboundSchema.optional(),
+});
+/** @internal */
+export type InputGrafanaTLSSettingsServerSide1$Outbound = {
+  disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const InputGrafanaTLSSettingsServerSide1$outboundSchema: z.ZodType<
+  InputGrafanaTLSSettingsServerSide1$Outbound,
+  z.ZodTypeDef,
+  InputGrafanaTLSSettingsServerSide1
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: InputGrafanaMinimumTLSVersion1$outboundSchema.optional(),
+  maxVersion: InputGrafanaMaximumTLSVersion1$outboundSchema.optional(),
+});
+
+export function inputGrafanaTLSSettingsServerSide1ToJSON(
+  inputGrafanaTLSSettingsServerSide1: InputGrafanaTLSSettingsServerSide1,
+): string {
+  return JSON.stringify(
+    InputGrafanaTLSSettingsServerSide1$outboundSchema.parse(
+      inputGrafanaTLSSettingsServerSide1,
+    ),
+  );
+}
+export function inputGrafanaTLSSettingsServerSide1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputGrafanaTLSSettingsServerSide1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputGrafanaTLSSettingsServerSide1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputGrafanaTLSSettingsServerSide1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputGrafanaPrometheusAuthAuthenticationType1$inboundSchema:
+  z.ZodType<
+    InputGrafanaPrometheusAuthAuthenticationType1,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(InputGrafanaPrometheusAuthAuthenticationType1);
+/** @internal */
+export const InputGrafanaPrometheusAuthAuthenticationType1$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    InputGrafanaPrometheusAuthAuthenticationType1
+  > = openEnums.outboundSchema(InputGrafanaPrometheusAuthAuthenticationType1);
+
+/** @internal */
+export const PrometheusAuthOauthParam1$inboundSchema: z.ZodType<
+  PrometheusAuthOauthParam1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type PrometheusAuthOauthParam1$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const PrometheusAuthOauthParam1$outboundSchema: z.ZodType<
+  PrometheusAuthOauthParam1$Outbound,
+  z.ZodTypeDef,
+  PrometheusAuthOauthParam1
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function prometheusAuthOauthParam1ToJSON(
+  prometheusAuthOauthParam1: PrometheusAuthOauthParam1,
+): string {
+  return JSON.stringify(
+    PrometheusAuthOauthParam1$outboundSchema.parse(prometheusAuthOauthParam1),
+  );
+}
+export function prometheusAuthOauthParam1FromJSON(
+  jsonString: string,
+): SafeParseResult<PrometheusAuthOauthParam1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PrometheusAuthOauthParam1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PrometheusAuthOauthParam1' from JSON`,
+  );
+}
+
+/** @internal */
+export const PrometheusAuthOauthHeader1$inboundSchema: z.ZodType<
+  PrometheusAuthOauthHeader1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type PrometheusAuthOauthHeader1$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const PrometheusAuthOauthHeader1$outboundSchema: z.ZodType<
+  PrometheusAuthOauthHeader1$Outbound,
+  z.ZodTypeDef,
+  PrometheusAuthOauthHeader1
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function prometheusAuthOauthHeader1ToJSON(
+  prometheusAuthOauthHeader1: PrometheusAuthOauthHeader1,
+): string {
+  return JSON.stringify(
+    PrometheusAuthOauthHeader1$outboundSchema.parse(prometheusAuthOauthHeader1),
+  );
+}
+export function prometheusAuthOauthHeader1FromJSON(
+  jsonString: string,
+): SafeParseResult<PrometheusAuthOauthHeader1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => PrometheusAuthOauthHeader1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'PrometheusAuthOauthHeader1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputGrafanaPrometheusAuth1$inboundSchema: z.ZodType<
+  InputGrafanaPrometheusAuth1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: InputGrafanaPrometheusAuthAuthenticationType1$inboundSchema.default(
+    "none",
+  ),
   username: z.string().optional(),
   password: z.string().optional(),
   token: z.string().optional(),
@@ -878,11 +2079,13 @@ export const LokiAuth1$inboundSchema: z.ZodType<
   tokenAttributeName: z.string().optional(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
   tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(ItemsTypeOauthParams$inboundSchema).optional(),
-  oauthHeaders: z.array(ItemsTypeOauthHeaders$inboundSchema).optional(),
+  oauthParams: z.array(z.lazy(() => PrometheusAuthOauthParam1$inboundSchema))
+    .optional(),
+  oauthHeaders: z.array(z.lazy(() => PrometheusAuthOauthHeader1$inboundSchema))
+    .optional(),
 });
 /** @internal */
-export type LokiAuth1$Outbound = {
+export type InputGrafanaPrometheusAuth1$Outbound = {
   authType: string;
   username?: string | undefined;
   password?: string | undefined;
@@ -895,17 +2098,18 @@ export type LokiAuth1$Outbound = {
   tokenAttributeName?: string | undefined;
   authHeaderExpr: string;
   tokenTimeoutSecs: number;
-  oauthParams?: Array<ItemsTypeOauthParams$Outbound> | undefined;
-  oauthHeaders?: Array<ItemsTypeOauthHeaders$Outbound> | undefined;
+  oauthParams?: Array<PrometheusAuthOauthParam1$Outbound> | undefined;
+  oauthHeaders?: Array<PrometheusAuthOauthHeader1$Outbound> | undefined;
 };
 
 /** @internal */
-export const LokiAuth1$outboundSchema: z.ZodType<
-  LokiAuth1$Outbound,
+export const InputGrafanaPrometheusAuth1$outboundSchema: z.ZodType<
+  InputGrafanaPrometheusAuth1$Outbound,
   z.ZodTypeDef,
-  LokiAuth1
+  InputGrafanaPrometheusAuth1
 > = z.object({
-  authType: AuthenticationTypeOptionsLokiAuth$outboundSchema.default("none"),
+  authType: InputGrafanaPrometheusAuthAuthenticationType1$outboundSchema
+    .default("none"),
   username: z.string().optional(),
   password: z.string().optional(),
   token: z.string().optional(),
@@ -917,20 +2121,253 @@ export const LokiAuth1$outboundSchema: z.ZodType<
   tokenAttributeName: z.string().optional(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
   tokenTimeoutSecs: z.number().default(3600),
-  oauthParams: z.array(ItemsTypeOauthParams$outboundSchema).optional(),
-  oauthHeaders: z.array(ItemsTypeOauthHeaders$outboundSchema).optional(),
+  oauthParams: z.array(z.lazy(() => PrometheusAuthOauthParam1$outboundSchema))
+    .optional(),
+  oauthHeaders: z.array(z.lazy(() => PrometheusAuthOauthHeader1$outboundSchema))
+    .optional(),
 });
 
-export function lokiAuth1ToJSON(lokiAuth1: LokiAuth1): string {
-  return JSON.stringify(LokiAuth1$outboundSchema.parse(lokiAuth1));
+export function inputGrafanaPrometheusAuth1ToJSON(
+  inputGrafanaPrometheusAuth1: InputGrafanaPrometheusAuth1,
+): string {
+  return JSON.stringify(
+    InputGrafanaPrometheusAuth1$outboundSchema.parse(
+      inputGrafanaPrometheusAuth1,
+    ),
+  );
 }
-export function lokiAuth1FromJSON(
+export function inputGrafanaPrometheusAuth1FromJSON(
   jsonString: string,
-): SafeParseResult<LokiAuth1, SDKValidationError> {
+): SafeParseResult<InputGrafanaPrometheusAuth1, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) => LokiAuth1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'LokiAuth1' from JSON`,
+    (x) => InputGrafanaPrometheusAuth1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputGrafanaPrometheusAuth1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputGrafanaLokiAuthAuthenticationType1$inboundSchema: z.ZodType<
+  InputGrafanaLokiAuthAuthenticationType1,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputGrafanaLokiAuthAuthenticationType1);
+/** @internal */
+export const InputGrafanaLokiAuthAuthenticationType1$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputGrafanaLokiAuthAuthenticationType1
+> = openEnums.outboundSchema(InputGrafanaLokiAuthAuthenticationType1);
+
+/** @internal */
+export const LokiAuthOauthParam1$inboundSchema: z.ZodType<
+  LokiAuthOauthParam1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type LokiAuthOauthParam1$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const LokiAuthOauthParam1$outboundSchema: z.ZodType<
+  LokiAuthOauthParam1$Outbound,
+  z.ZodTypeDef,
+  LokiAuthOauthParam1
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function lokiAuthOauthParam1ToJSON(
+  lokiAuthOauthParam1: LokiAuthOauthParam1,
+): string {
+  return JSON.stringify(
+    LokiAuthOauthParam1$outboundSchema.parse(lokiAuthOauthParam1),
+  );
+}
+export function lokiAuthOauthParam1FromJSON(
+  jsonString: string,
+): SafeParseResult<LokiAuthOauthParam1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => LokiAuthOauthParam1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'LokiAuthOauthParam1' from JSON`,
+  );
+}
+
+/** @internal */
+export const LokiAuthOauthHeader1$inboundSchema: z.ZodType<
+  LokiAuthOauthHeader1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type LokiAuthOauthHeader1$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const LokiAuthOauthHeader1$outboundSchema: z.ZodType<
+  LokiAuthOauthHeader1$Outbound,
+  z.ZodTypeDef,
+  LokiAuthOauthHeader1
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function lokiAuthOauthHeader1ToJSON(
+  lokiAuthOauthHeader1: LokiAuthOauthHeader1,
+): string {
+  return JSON.stringify(
+    LokiAuthOauthHeader1$outboundSchema.parse(lokiAuthOauthHeader1),
+  );
+}
+export function lokiAuthOauthHeader1FromJSON(
+  jsonString: string,
+): SafeParseResult<LokiAuthOauthHeader1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => LokiAuthOauthHeader1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'LokiAuthOauthHeader1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputGrafanaLokiAuth1$inboundSchema: z.ZodType<
+  InputGrafanaLokiAuth1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  authType: InputGrafanaLokiAuthAuthenticationType1$inboundSchema.default(
+    "none",
+  ),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(z.lazy(() => LokiAuthOauthParam1$inboundSchema))
+    .optional(),
+  oauthHeaders: z.array(z.lazy(() => LokiAuthOauthHeader1$inboundSchema))
+    .optional(),
+});
+/** @internal */
+export type InputGrafanaLokiAuth1$Outbound = {
+  authType: string;
+  username?: string | undefined;
+  password?: string | undefined;
+  token?: string | undefined;
+  credentialsSecret?: string | undefined;
+  textSecret?: string | undefined;
+  loginUrl?: string | undefined;
+  secretParamName?: string | undefined;
+  secret?: string | undefined;
+  tokenAttributeName?: string | undefined;
+  authHeaderExpr: string;
+  tokenTimeoutSecs: number;
+  oauthParams?: Array<LokiAuthOauthParam1$Outbound> | undefined;
+  oauthHeaders?: Array<LokiAuthOauthHeader1$Outbound> | undefined;
+};
+
+/** @internal */
+export const InputGrafanaLokiAuth1$outboundSchema: z.ZodType<
+  InputGrafanaLokiAuth1$Outbound,
+  z.ZodTypeDef,
+  InputGrafanaLokiAuth1
+> = z.object({
+  authType: InputGrafanaLokiAuthAuthenticationType1$outboundSchema.default(
+    "none",
+  ),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  token: z.string().optional(),
+  credentialsSecret: z.string().optional(),
+  textSecret: z.string().optional(),
+  loginUrl: z.string().optional(),
+  secretParamName: z.string().optional(),
+  secret: z.string().optional(),
+  tokenAttributeName: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  tokenTimeoutSecs: z.number().default(3600),
+  oauthParams: z.array(z.lazy(() => LokiAuthOauthParam1$outboundSchema))
+    .optional(),
+  oauthHeaders: z.array(z.lazy(() => LokiAuthOauthHeader1$outboundSchema))
+    .optional(),
+});
+
+export function inputGrafanaLokiAuth1ToJSON(
+  inputGrafanaLokiAuth1: InputGrafanaLokiAuth1,
+): string {
+  return JSON.stringify(
+    InputGrafanaLokiAuth1$outboundSchema.parse(inputGrafanaLokiAuth1),
+  );
+}
+export function inputGrafanaLokiAuth1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputGrafanaLokiAuth1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputGrafanaLokiAuth1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputGrafanaLokiAuth1' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputGrafanaMetadatum1$inboundSchema: z.ZodType<
+  InputGrafanaMetadatum1,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type InputGrafanaMetadatum1$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputGrafanaMetadatum1$outboundSchema: z.ZodType<
+  InputGrafanaMetadatum1$Outbound,
+  z.ZodTypeDef,
+  InputGrafanaMetadatum1
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputGrafanaMetadatum1ToJSON(
+  inputGrafanaMetadatum1: InputGrafanaMetadatum1,
+): string {
+  return JSON.stringify(
+    InputGrafanaMetadatum1$outboundSchema.parse(inputGrafanaMetadatum1),
+  );
+}
+export function inputGrafanaMetadatum1FromJSON(
+  jsonString: string,
+): SafeParseResult<InputGrafanaMetadatum1, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputGrafanaMetadatum1$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputGrafanaMetadatum1' from JSON`,
   );
 }
 
@@ -948,11 +2385,13 @@ export const InputGrafanaGrafana1$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputGrafanaConnection1$inboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputGrafanaPq1$inboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
-  tls: TlsSettingsServerSideType$inboundSchema.optional(),
+  tls: z.lazy(() => InputGrafanaTLSSettingsServerSide1$inboundSchema)
+    .optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -966,9 +2405,11 @@ export const InputGrafanaGrafana1$inboundSchema: z.ZodType<
   ipDenylistRegex: z.string().default("/^$/"),
   prometheusAPI: z.string().default("/api/prom/push"),
   lokiAPI: z.string().default("/loki/api/v1/push"),
-  prometheusAuth: z.lazy(() => PrometheusAuth1$inboundSchema).optional(),
-  lokiAuth: z.lazy(() => LokiAuth1$inboundSchema).optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  prometheusAuth: z.lazy(() => InputGrafanaPrometheusAuth1$inboundSchema)
+    .optional(),
+  lokiAuth: z.lazy(() => InputGrafanaLokiAuth1$inboundSchema).optional(),
+  metadata: z.array(z.lazy(() => InputGrafanaMetadatum1$inboundSchema))
+    .optional(),
   description: z.string().optional(),
 });
 /** @internal */
@@ -981,11 +2422,11 @@ export type InputGrafanaGrafana1$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
+  connections?: Array<InputGrafanaConnection1$Outbound> | undefined;
+  pq?: InputGrafanaPq1$Outbound | undefined;
   host: string;
   port: number;
-  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  tls?: InputGrafanaTLSSettingsServerSide1$Outbound | undefined;
   maxActiveReq: number;
   maxRequestsPerSocket: number;
   enableProxyHeader: boolean;
@@ -999,9 +2440,9 @@ export type InputGrafanaGrafana1$Outbound = {
   ipDenylistRegex: string;
   prometheusAPI: string;
   lokiAPI: string;
-  prometheusAuth?: PrometheusAuth1$Outbound | undefined;
-  lokiAuth?: LokiAuth1$Outbound | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  prometheusAuth?: InputGrafanaPrometheusAuth1$Outbound | undefined;
+  lokiAuth?: InputGrafanaLokiAuth1$Outbound | undefined;
+  metadata?: Array<InputGrafanaMetadatum1$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -1019,11 +2460,13 @@ export const InputGrafanaGrafana1$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputGrafanaConnection1$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputGrafanaPq1$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
-  tls: TlsSettingsServerSideType$outboundSchema.optional(),
+  tls: z.lazy(() => InputGrafanaTLSSettingsServerSide1$outboundSchema)
+    .optional(),
   maxActiveReq: z.number().default(256),
   maxRequestsPerSocket: z.number().int().default(0),
   enableProxyHeader: z.boolean().default(false),
@@ -1037,9 +2480,11 @@ export const InputGrafanaGrafana1$outboundSchema: z.ZodType<
   ipDenylistRegex: z.string().default("/^$/"),
   prometheusAPI: z.string().default("/api/prom/push"),
   lokiAPI: z.string().default("/loki/api/v1/push"),
-  prometheusAuth: z.lazy(() => PrometheusAuth1$outboundSchema).optional(),
-  lokiAuth: z.lazy(() => LokiAuth1$outboundSchema).optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  prometheusAuth: z.lazy(() => InputGrafanaPrometheusAuth1$outboundSchema)
+    .optional(),
+  lokiAuth: z.lazy(() => InputGrafanaLokiAuth1$outboundSchema).optional(),
+  metadata: z.array(z.lazy(() => InputGrafanaMetadatum1$outboundSchema))
+    .optional(),
   description: z.string().optional(),
 });
 

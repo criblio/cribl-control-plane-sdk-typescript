@@ -4,32 +4,87 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  DiskSpoolingType,
-  DiskSpoolingType$inboundSchema,
-  DiskSpoolingType$Outbound,
-  DiskSpoolingType$outboundSchema,
-} from "./diskspoolingtype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
-import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
-import {
-  PqType,
-  PqType$inboundSchema,
-  PqType$Outbound,
-  PqType$outboundSchema,
-} from "./pqtype.js";
+
+export type InputKubeLogsConnection = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const InputKubeLogsMode = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type InputKubeLogsMode = OpenEnum<typeof InputKubeLogsMode>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const InputKubeLogsPqCompression = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type InputKubeLogsPqCompression = OpenEnum<
+  typeof InputKubeLogsPqCompression
+>;
+
+export type InputKubeLogsPqControls = {};
+
+export type InputKubeLogsPq = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: InputKubeLogsMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: InputKubeLogsPqCompression | undefined;
+  pqControls?: InputKubeLogsPqControls | undefined;
+};
 
 export type InputKubeLogsRule = {
   /**
@@ -40,6 +95,51 @@ export type InputKubeLogsRule = {
    * Optional description of this rule's purpose
    */
   description?: string | undefined;
+};
+
+export type InputKubeLogsMetadatum = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+/**
+ * Data compression format. Default is gzip.
+ */
+export const InputKubeLogsPersistenceCompression = {
+  None: "none",
+  Gzip: "gzip",
+} as const;
+/**
+ * Data compression format. Default is gzip.
+ */
+export type InputKubeLogsPersistenceCompression = OpenEnum<
+  typeof InputKubeLogsPersistenceCompression
+>;
+
+export type InputKubeLogsDiskSpooling = {
+  /**
+   * Spool events on disk for Cribl Edge and Search. Default is disabled.
+   */
+  enable?: boolean | undefined;
+  /**
+   * Time period for grouping spooled events. Default is 10m.
+   */
+  timeWindow?: string | undefined;
+  /**
+   * Maximum disk space that can be consumed before older buckets are deleted. Examples: 420MB, 4GB. Default is 1GB.
+   */
+  maxDataSize?: string | undefined;
+  /**
+   * Maximum amount of time to retain data before older buckets are deleted. Examples: 2h, 4d. Default is 24h.
+   */
+  maxDataTime?: string | undefined;
+  /**
+   * Data compression format. Default is gzip.
+   */
+  compress?: InputKubeLogsPersistenceCompression | undefined;
 };
 
 export type InputKubeLogs = {
@@ -72,8 +172,8 @@ export type InputKubeLogs = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<InputKubeLogsConnection> | undefined;
+  pq?: InputKubeLogsPq | undefined;
   /**
    * Time, in seconds, between checks for new containers. Default is 15 secs.
    */
@@ -89,8 +189,8 @@ export type InputKubeLogs = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
-  persistence?: DiskSpoolingType | undefined;
+  metadata?: Array<InputKubeLogsMetadatum> | undefined;
+  persistence?: InputKubeLogsDiskSpooling | undefined;
   /**
    * A list of event-breaking rulesets that will be applied, in order, to the input data stream
    */
@@ -105,6 +205,165 @@ export type InputKubeLogs = {
   enableLoadBalancing?: boolean | undefined;
   description?: string | undefined;
 };
+
+/** @internal */
+export const InputKubeLogsConnection$inboundSchema: z.ZodType<
+  InputKubeLogsConnection,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+/** @internal */
+export type InputKubeLogsConnection$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const InputKubeLogsConnection$outboundSchema: z.ZodType<
+  InputKubeLogsConnection$Outbound,
+  z.ZodTypeDef,
+  InputKubeLogsConnection
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function inputKubeLogsConnectionToJSON(
+  inputKubeLogsConnection: InputKubeLogsConnection,
+): string {
+  return JSON.stringify(
+    InputKubeLogsConnection$outboundSchema.parse(inputKubeLogsConnection),
+  );
+}
+export function inputKubeLogsConnectionFromJSON(
+  jsonString: string,
+): SafeParseResult<InputKubeLogsConnection, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputKubeLogsConnection$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKubeLogsConnection' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputKubeLogsMode$inboundSchema: z.ZodType<
+  InputKubeLogsMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputKubeLogsMode);
+/** @internal */
+export const InputKubeLogsMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputKubeLogsMode
+> = openEnums.outboundSchema(InputKubeLogsMode);
+
+/** @internal */
+export const InputKubeLogsPqCompression$inboundSchema: z.ZodType<
+  InputKubeLogsPqCompression,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputKubeLogsPqCompression);
+/** @internal */
+export const InputKubeLogsPqCompression$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputKubeLogsPqCompression
+> = openEnums.outboundSchema(InputKubeLogsPqCompression);
+
+/** @internal */
+export const InputKubeLogsPqControls$inboundSchema: z.ZodType<
+  InputKubeLogsPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+/** @internal */
+export type InputKubeLogsPqControls$Outbound = {};
+
+/** @internal */
+export const InputKubeLogsPqControls$outboundSchema: z.ZodType<
+  InputKubeLogsPqControls$Outbound,
+  z.ZodTypeDef,
+  InputKubeLogsPqControls
+> = z.object({});
+
+export function inputKubeLogsPqControlsToJSON(
+  inputKubeLogsPqControls: InputKubeLogsPqControls,
+): string {
+  return JSON.stringify(
+    InputKubeLogsPqControls$outboundSchema.parse(inputKubeLogsPqControls),
+  );
+}
+export function inputKubeLogsPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputKubeLogsPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputKubeLogsPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKubeLogsPqControls' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputKubeLogsPq$inboundSchema: z.ZodType<
+  InputKubeLogsPq,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: InputKubeLogsMode$inboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputKubeLogsPqCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputKubeLogsPqControls$inboundSchema).optional(),
+});
+/** @internal */
+export type InputKubeLogsPq$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: InputKubeLogsPqControls$Outbound | undefined;
+};
+
+/** @internal */
+export const InputKubeLogsPq$outboundSchema: z.ZodType<
+  InputKubeLogsPq$Outbound,
+  z.ZodTypeDef,
+  InputKubeLogsPq
+> = z.object({
+  mode: InputKubeLogsMode$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputKubeLogsPqCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputKubeLogsPqControls$outboundSchema).optional(),
+});
+
+export function inputKubeLogsPqToJSON(
+  inputKubeLogsPq: InputKubeLogsPq,
+): string {
+  return JSON.stringify(InputKubeLogsPq$outboundSchema.parse(inputKubeLogsPq));
+}
+export function inputKubeLogsPqFromJSON(
+  jsonString: string,
+): SafeParseResult<InputKubeLogsPq, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputKubeLogsPq$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKubeLogsPq' from JSON`,
+  );
+}
 
 /** @internal */
 export const InputKubeLogsRule$inboundSchema: z.ZodType<
@@ -149,6 +408,112 @@ export function inputKubeLogsRuleFromJSON(
 }
 
 /** @internal */
+export const InputKubeLogsMetadatum$inboundSchema: z.ZodType<
+  InputKubeLogsMetadatum,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type InputKubeLogsMetadatum$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputKubeLogsMetadatum$outboundSchema: z.ZodType<
+  InputKubeLogsMetadatum$Outbound,
+  z.ZodTypeDef,
+  InputKubeLogsMetadatum
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputKubeLogsMetadatumToJSON(
+  inputKubeLogsMetadatum: InputKubeLogsMetadatum,
+): string {
+  return JSON.stringify(
+    InputKubeLogsMetadatum$outboundSchema.parse(inputKubeLogsMetadatum),
+  );
+}
+export function inputKubeLogsMetadatumFromJSON(
+  jsonString: string,
+): SafeParseResult<InputKubeLogsMetadatum, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputKubeLogsMetadatum$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKubeLogsMetadatum' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputKubeLogsPersistenceCompression$inboundSchema: z.ZodType<
+  InputKubeLogsPersistenceCompression,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputKubeLogsPersistenceCompression);
+/** @internal */
+export const InputKubeLogsPersistenceCompression$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputKubeLogsPersistenceCompression
+> = openEnums.outboundSchema(InputKubeLogsPersistenceCompression);
+
+/** @internal */
+export const InputKubeLogsDiskSpooling$inboundSchema: z.ZodType<
+  InputKubeLogsDiskSpooling,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enable: z.boolean().default(false),
+  timeWindow: z.string().default("10m"),
+  maxDataSize: z.string().default("1GB"),
+  maxDataTime: z.string().default("24h"),
+  compress: InputKubeLogsPersistenceCompression$inboundSchema.default("gzip"),
+});
+/** @internal */
+export type InputKubeLogsDiskSpooling$Outbound = {
+  enable: boolean;
+  timeWindow: string;
+  maxDataSize: string;
+  maxDataTime: string;
+  compress: string;
+};
+
+/** @internal */
+export const InputKubeLogsDiskSpooling$outboundSchema: z.ZodType<
+  InputKubeLogsDiskSpooling$Outbound,
+  z.ZodTypeDef,
+  InputKubeLogsDiskSpooling
+> = z.object({
+  enable: z.boolean().default(false),
+  timeWindow: z.string().default("10m"),
+  maxDataSize: z.string().default("1GB"),
+  maxDataTime: z.string().default("24h"),
+  compress: InputKubeLogsPersistenceCompression$outboundSchema.default("gzip"),
+});
+
+export function inputKubeLogsDiskSpoolingToJSON(
+  inputKubeLogsDiskSpooling: InputKubeLogsDiskSpooling,
+): string {
+  return JSON.stringify(
+    InputKubeLogsDiskSpooling$outboundSchema.parse(inputKubeLogsDiskSpooling),
+  );
+}
+export function inputKubeLogsDiskSpoolingFromJSON(
+  jsonString: string,
+): SafeParseResult<InputKubeLogsDiskSpooling, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputKubeLogsDiskSpooling$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputKubeLogsDiskSpooling' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputKubeLogs$inboundSchema: z.ZodType<
   InputKubeLogs,
   z.ZodTypeDef,
@@ -162,13 +527,15 @@ export const InputKubeLogs$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputKubeLogsConnection$inboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputKubeLogsPq$inboundSchema).optional(),
   interval: z.number().default(15),
   rules: z.array(z.lazy(() => InputKubeLogsRule$inboundSchema)).optional(),
   timestamps: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
-  persistence: DiskSpoolingType$inboundSchema.optional(),
+  metadata: z.array(z.lazy(() => InputKubeLogsMetadatum$inboundSchema))
+    .optional(),
+  persistence: z.lazy(() => InputKubeLogsDiskSpooling$inboundSchema).optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().default(10000),
   enableLoadBalancing: z.boolean().default(false),
@@ -184,13 +551,13 @@ export type InputKubeLogs$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
+  connections?: Array<InputKubeLogsConnection$Outbound> | undefined;
+  pq?: InputKubeLogsPq$Outbound | undefined;
   interval: number;
   rules?: Array<InputKubeLogsRule$Outbound> | undefined;
   timestamps: boolean;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
-  persistence?: DiskSpoolingType$Outbound | undefined;
+  metadata?: Array<InputKubeLogsMetadatum$Outbound> | undefined;
+  persistence?: InputKubeLogsDiskSpooling$Outbound | undefined;
   breakerRulesets?: Array<string> | undefined;
   staleChannelFlushMs: number;
   enableLoadBalancing: boolean;
@@ -211,13 +578,16 @@ export const InputKubeLogs$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputKubeLogsConnection$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputKubeLogsPq$outboundSchema).optional(),
   interval: z.number().default(15),
   rules: z.array(z.lazy(() => InputKubeLogsRule$outboundSchema)).optional(),
   timestamps: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
-  persistence: DiskSpoolingType$outboundSchema.optional(),
+  metadata: z.array(z.lazy(() => InputKubeLogsMetadatum$outboundSchema))
+    .optional(),
+  persistence: z.lazy(() => InputKubeLogsDiskSpooling$outboundSchema)
+    .optional(),
   breakerRulesets: z.array(z.string()).optional(),
   staleChannelFlushMs: z.number().default(10000),
   enableLoadBalancing: z.boolean().default(false),

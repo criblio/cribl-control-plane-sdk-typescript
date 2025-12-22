@@ -4,48 +4,152 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  AuthenticationMethodOptions,
-  AuthenticationMethodOptions$inboundSchema,
-  AuthenticationMethodOptions$outboundSchema,
-} from "./authenticationmethodoptions.js";
-import {
-  CheckpointingType,
-  CheckpointingType$inboundSchema,
-  CheckpointingType$Outbound,
-  CheckpointingType$outboundSchema,
-} from "./checkpointingtype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
-import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
-import {
-  PqType,
-  PqType$inboundSchema,
-  PqType$Outbound,
-  PqType$outboundSchema,
-} from "./pqtype.js";
-import {
-  PreprocessTypeSavedJobCollectionInput,
-  PreprocessTypeSavedJobCollectionInput$inboundSchema,
-  PreprocessTypeSavedJobCollectionInput$Outbound,
-  PreprocessTypeSavedJobCollectionInput$outboundSchema,
-} from "./preprocesstypesavedjobcollectioninput.js";
-import {
-  SignatureVersionOptions,
-  SignatureVersionOptions$inboundSchema,
-  SignatureVersionOptions$outboundSchema,
-} from "./signatureversionoptions.js";
+
+export type InputS3Connection = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const InputS3Mode = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type InputS3Mode = OpenEnum<typeof InputS3Mode>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const InputS3Compression = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type InputS3Compression = OpenEnum<typeof InputS3Compression>;
+
+export type InputS3PqControls = {};
+
+export type InputS3Pq = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: InputS3Mode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: InputS3Compression | undefined;
+  pqControls?: InputS3PqControls | undefined;
+};
+
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export const InputS3AuthenticationMethod = {
+  /**
+   * Auto
+   */
+  Auto: "auto",
+  /**
+   * Manual
+   */
+  Manual: "manual",
+  /**
+   * Secret Key pair
+   */
+  Secret: "secret",
+} as const;
+/**
+ * AWS authentication method. Choose Auto to use IAM roles.
+ */
+export type InputS3AuthenticationMethod = OpenEnum<
+  typeof InputS3AuthenticationMethod
+>;
+
+/**
+ * Signature version to use for signing S3 requests
+ */
+export const InputS3SignatureVersion = {
+  V2: "v2",
+  V4: "v4",
+} as const;
+/**
+ * Signature version to use for signing S3 requests
+ */
+export type InputS3SignatureVersion = OpenEnum<typeof InputS3SignatureVersion>;
+
+export type InputS3Preprocess = {
+  disabled?: boolean | undefined;
+  /**
+   * Command to feed the data through (via stdin) and process its output (stdout)
+   */
+  command?: string | undefined;
+  /**
+   * Arguments to be added to the custom command
+   */
+  args?: Array<string> | undefined;
+};
+
+export type InputS3Metadatum = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+export type InputS3Checkpointing = {
+  /**
+   * Resume processing files after an interruption
+   */
+  enabled?: boolean | undefined;
+  /**
+   * The number of times to retry processing when a processing error occurs. If Skip file on error is enabled, this setting is ignored.
+   */
+  retries?: number | undefined;
+};
 
 export type InputS3 = {
   /**
@@ -77,8 +181,8 @@ export type InputS3 = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<InputS3Connection> | undefined;
+  pq?: InputS3Pq | undefined;
   /**
    * The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
    */
@@ -94,7 +198,7 @@ export type InputS3 = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
+  awsAuthenticationMethod?: InputS3AuthenticationMethod | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -107,7 +211,7 @@ export type InputS3 = {
   /**
    * Signature version to use for signing S3 requests
    */
-  signatureVersion?: SignatureVersionOptions | undefined;
+  signatureVersion?: InputS3SignatureVersion | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -168,11 +272,11 @@ export type InputS3 = {
    * Use Assume Role credentials when accessing Amazon SQS
    */
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?: PreprocessTypeSavedJobCollectionInput | undefined;
+  preprocess?: InputS3Preprocess | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<InputS3Metadatum> | undefined;
   /**
    * Maximum file size for each Parquet chunk
    */
@@ -181,7 +285,7 @@ export type InputS3 = {
    * The maximum time allowed for downloading a Parquet chunk. Processing will stop if a chunk cannot be downloaded within the time specified.
    */
   parquetChunkDownloadTimeout?: number | undefined;
-  checkpointing?: CheckpointingType | undefined;
+  checkpointing?: InputS3Checkpointing | undefined;
   /**
    * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
    */
@@ -211,6 +315,318 @@ export type InputS3 = {
 };
 
 /** @internal */
+export const InputS3Connection$inboundSchema: z.ZodType<
+  InputS3Connection,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+/** @internal */
+export type InputS3Connection$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const InputS3Connection$outboundSchema: z.ZodType<
+  InputS3Connection$Outbound,
+  z.ZodTypeDef,
+  InputS3Connection
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function inputS3ConnectionToJSON(
+  inputS3Connection: InputS3Connection,
+): string {
+  return JSON.stringify(
+    InputS3Connection$outboundSchema.parse(inputS3Connection),
+  );
+}
+export function inputS3ConnectionFromJSON(
+  jsonString: string,
+): SafeParseResult<InputS3Connection, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputS3Connection$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputS3Connection' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputS3Mode$inboundSchema: z.ZodType<
+  InputS3Mode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputS3Mode);
+/** @internal */
+export const InputS3Mode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputS3Mode
+> = openEnums.outboundSchema(InputS3Mode);
+
+/** @internal */
+export const InputS3Compression$inboundSchema: z.ZodType<
+  InputS3Compression,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputS3Compression);
+/** @internal */
+export const InputS3Compression$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputS3Compression
+> = openEnums.outboundSchema(InputS3Compression);
+
+/** @internal */
+export const InputS3PqControls$inboundSchema: z.ZodType<
+  InputS3PqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+/** @internal */
+export type InputS3PqControls$Outbound = {};
+
+/** @internal */
+export const InputS3PqControls$outboundSchema: z.ZodType<
+  InputS3PqControls$Outbound,
+  z.ZodTypeDef,
+  InputS3PqControls
+> = z.object({});
+
+export function inputS3PqControlsToJSON(
+  inputS3PqControls: InputS3PqControls,
+): string {
+  return JSON.stringify(
+    InputS3PqControls$outboundSchema.parse(inputS3PqControls),
+  );
+}
+export function inputS3PqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputS3PqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputS3PqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputS3PqControls' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputS3Pq$inboundSchema: z.ZodType<
+  InputS3Pq,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: InputS3Mode$inboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputS3Compression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputS3PqControls$inboundSchema).optional(),
+});
+/** @internal */
+export type InputS3Pq$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: InputS3PqControls$Outbound | undefined;
+};
+
+/** @internal */
+export const InputS3Pq$outboundSchema: z.ZodType<
+  InputS3Pq$Outbound,
+  z.ZodTypeDef,
+  InputS3Pq
+> = z.object({
+  mode: InputS3Mode$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputS3Compression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputS3PqControls$outboundSchema).optional(),
+});
+
+export function inputS3PqToJSON(inputS3Pq: InputS3Pq): string {
+  return JSON.stringify(InputS3Pq$outboundSchema.parse(inputS3Pq));
+}
+export function inputS3PqFromJSON(
+  jsonString: string,
+): SafeParseResult<InputS3Pq, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputS3Pq$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputS3Pq' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputS3AuthenticationMethod$inboundSchema: z.ZodType<
+  InputS3AuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputS3AuthenticationMethod);
+/** @internal */
+export const InputS3AuthenticationMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputS3AuthenticationMethod
+> = openEnums.outboundSchema(InputS3AuthenticationMethod);
+
+/** @internal */
+export const InputS3SignatureVersion$inboundSchema: z.ZodType<
+  InputS3SignatureVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputS3SignatureVersion);
+/** @internal */
+export const InputS3SignatureVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputS3SignatureVersion
+> = openEnums.outboundSchema(InputS3SignatureVersion);
+
+/** @internal */
+export const InputS3Preprocess$inboundSchema: z.ZodType<
+  InputS3Preprocess,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  disabled: z.boolean().default(true),
+  command: z.string().optional(),
+  args: z.array(z.string()).optional(),
+});
+/** @internal */
+export type InputS3Preprocess$Outbound = {
+  disabled: boolean;
+  command?: string | undefined;
+  args?: Array<string> | undefined;
+};
+
+/** @internal */
+export const InputS3Preprocess$outboundSchema: z.ZodType<
+  InputS3Preprocess$Outbound,
+  z.ZodTypeDef,
+  InputS3Preprocess
+> = z.object({
+  disabled: z.boolean().default(true),
+  command: z.string().optional(),
+  args: z.array(z.string()).optional(),
+});
+
+export function inputS3PreprocessToJSON(
+  inputS3Preprocess: InputS3Preprocess,
+): string {
+  return JSON.stringify(
+    InputS3Preprocess$outboundSchema.parse(inputS3Preprocess),
+  );
+}
+export function inputS3PreprocessFromJSON(
+  jsonString: string,
+): SafeParseResult<InputS3Preprocess, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputS3Preprocess$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputS3Preprocess' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputS3Metadatum$inboundSchema: z.ZodType<
+  InputS3Metadatum,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type InputS3Metadatum$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputS3Metadatum$outboundSchema: z.ZodType<
+  InputS3Metadatum$Outbound,
+  z.ZodTypeDef,
+  InputS3Metadatum
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputS3MetadatumToJSON(
+  inputS3Metadatum: InputS3Metadatum,
+): string {
+  return JSON.stringify(
+    InputS3Metadatum$outboundSchema.parse(inputS3Metadatum),
+  );
+}
+export function inputS3MetadatumFromJSON(
+  jsonString: string,
+): SafeParseResult<InputS3Metadatum, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputS3Metadatum$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputS3Metadatum' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputS3Checkpointing$inboundSchema: z.ZodType<
+  InputS3Checkpointing,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  enabled: z.boolean().default(false),
+  retries: z.number().default(5),
+});
+/** @internal */
+export type InputS3Checkpointing$Outbound = {
+  enabled: boolean;
+  retries: number;
+};
+
+/** @internal */
+export const InputS3Checkpointing$outboundSchema: z.ZodType<
+  InputS3Checkpointing$Outbound,
+  z.ZodTypeDef,
+  InputS3Checkpointing
+> = z.object({
+  enabled: z.boolean().default(false),
+  retries: z.number().default(5),
+});
+
+export function inputS3CheckpointingToJSON(
+  inputS3Checkpointing: InputS3Checkpointing,
+): string {
+  return JSON.stringify(
+    InputS3Checkpointing$outboundSchema.parse(inputS3Checkpointing),
+  );
+}
+export function inputS3CheckpointingFromJSON(
+  jsonString: string,
+): SafeParseResult<InputS3Checkpointing, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputS3Checkpointing$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputS3Checkpointing' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputS3$inboundSchema: z.ZodType<InputS3, z.ZodTypeDef, unknown> =
   z.object({
     id: z.string().optional(),
@@ -221,18 +637,19 @@ export const InputS3$inboundSchema: z.ZodType<InputS3, z.ZodTypeDef, unknown> =
     environment: z.string().optional(),
     pqEnabled: z.boolean().default(false),
     streamtags: z.array(z.string()).optional(),
-    connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-    pq: PqType$inboundSchema.optional(),
+    connections: z.array(z.lazy(() => InputS3Connection$inboundSchema))
+      .optional(),
+    pq: z.lazy(() => InputS3Pq$inboundSchema).optional(),
     queueName: z.string(),
     fileFilter: z.string().default("/.*/"),
     awsAccountId: z.string().optional(),
-    awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
+    awsAuthenticationMethod: InputS3AuthenticationMethod$inboundSchema.default(
       "auto",
     ),
     awsSecretKey: z.string().optional(),
     region: z.string().optional(),
     endpoint: z.string().optional(),
-    signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
+    signatureVersion: InputS3SignatureVersion$inboundSchema.default("v4"),
     reuseConnections: z.boolean().default(true),
     rejectUnauthorized: z.boolean().default(true),
     breakerRulesets: z.array(z.string()).optional(),
@@ -248,11 +665,11 @@ export const InputS3$inboundSchema: z.ZodType<InputS3, z.ZodTypeDef, unknown> =
     assumeRoleExternalId: z.string().optional(),
     durationSeconds: z.number().default(3600),
     enableSQSAssumeRole: z.boolean().default(false),
-    preprocess: PreprocessTypeSavedJobCollectionInput$inboundSchema.optional(),
-    metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+    preprocess: z.lazy(() => InputS3Preprocess$inboundSchema).optional(),
+    metadata: z.array(z.lazy(() => InputS3Metadatum$inboundSchema)).optional(),
     parquetChunkSizeMB: z.number().default(5),
     parquetChunkDownloadTimeout: z.number().default(600),
-    checkpointing: CheckpointingType$inboundSchema.optional(),
+    checkpointing: z.lazy(() => InputS3Checkpointing$inboundSchema).optional(),
     pollTimeout: z.number().default(10),
     encoding: z.string().optional(),
     tagAfterProcessing: z.boolean().default(false),
@@ -272,8 +689,8 @@ export type InputS3$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
+  connections?: Array<InputS3Connection$Outbound> | undefined;
+  pq?: InputS3Pq$Outbound | undefined;
   queueName: string;
   fileFilter: string;
   awsAccountId?: string | undefined;
@@ -297,11 +714,11 @@ export type InputS3$Outbound = {
   assumeRoleExternalId?: string | undefined;
   durationSeconds: number;
   enableSQSAssumeRole: boolean;
-  preprocess?: PreprocessTypeSavedJobCollectionInput$Outbound | undefined;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  preprocess?: InputS3Preprocess$Outbound | undefined;
+  metadata?: Array<InputS3Metadatum$Outbound> | undefined;
   parquetChunkSizeMB: number;
   parquetChunkDownloadTimeout: number;
-  checkpointing?: CheckpointingType$Outbound | undefined;
+  checkpointing?: InputS3Checkpointing$Outbound | undefined;
   pollTimeout: number;
   encoding?: string | undefined;
   tagAfterProcessing: boolean;
@@ -326,18 +743,19 @@ export const InputS3$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputS3Connection$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputS3Pq$outboundSchema).optional(),
   queueName: z.string(),
   fileFilter: z.string().default("/.*/"),
   awsAccountId: z.string().optional(),
-  awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
+  awsAuthenticationMethod: InputS3AuthenticationMethod$outboundSchema.default(
     "auto",
   ),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
+  signatureVersion: InputS3SignatureVersion$outboundSchema.default("v4"),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   breakerRulesets: z.array(z.string()).optional(),
@@ -353,11 +771,11 @@ export const InputS3$outboundSchema: z.ZodType<
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().default(3600),
   enableSQSAssumeRole: z.boolean().default(false),
-  preprocess: PreprocessTypeSavedJobCollectionInput$outboundSchema.optional(),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  preprocess: z.lazy(() => InputS3Preprocess$outboundSchema).optional(),
+  metadata: z.array(z.lazy(() => InputS3Metadatum$outboundSchema)).optional(),
   parquetChunkSizeMB: z.number().default(5),
   parquetChunkDownloadTimeout: z.number().default(600),
-  checkpointing: CheckpointingType$outboundSchema.optional(),
+  checkpointing: z.lazy(() => InputS3Checkpointing$outboundSchema).optional(),
   pollTimeout: z.number().default(10),
   encoding: z.string().optional(),
   tagAfterProcessing: z.boolean().default(false),

@@ -4,13 +4,24 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  OtlpVersionOptions,
-  OtlpVersionOptions$inboundSchema,
-  OtlpVersionOptions$outboundSchema,
-} from "./otlpversionoptions.js";
+
+export const FunctionConfSchemaOTLPMetricsOTLPVersion = {
+  /**
+   * 0.10.0
+   */
+  ZeroDot10Dot0: "0.10.0",
+  /**
+   * 1.3.1
+   */
+  OneDot3Dot1: "1.3.1",
+} as const;
+export type FunctionConfSchemaOTLPMetricsOTLPVersion = OpenEnum<
+  typeof FunctionConfSchemaOTLPMetricsOTLPVersion
+>;
 
 export type FunctionConfSchemaOtlpMetrics = {
   /**
@@ -18,12 +29,25 @@ export type FunctionConfSchemaOtlpMetrics = {
    */
   resourceAttributePrefixes?: Array<string> | undefined;
   dropNonMetricEvents?: boolean | undefined;
-  otlpVersion?: OtlpVersionOptions | undefined;
+  otlpVersion?: FunctionConfSchemaOTLPMetricsOTLPVersion | undefined;
   /**
    * Batch OTLP metrics by shared top-level `resource` attributes
    */
   batchOTLPMetrics?: boolean | undefined;
 };
+
+/** @internal */
+export const FunctionConfSchemaOTLPMetricsOTLPVersion$inboundSchema: z.ZodType<
+  FunctionConfSchemaOTLPMetricsOTLPVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(FunctionConfSchemaOTLPMetricsOTLPVersion);
+/** @internal */
+export const FunctionConfSchemaOTLPMetricsOTLPVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  FunctionConfSchemaOTLPMetricsOTLPVersion
+> = openEnums.outboundSchema(FunctionConfSchemaOTLPMetricsOTLPVersion);
 
 /** @internal */
 export const FunctionConfSchemaOtlpMetrics$inboundSchema: z.ZodType<
@@ -33,7 +57,9 @@ export const FunctionConfSchemaOtlpMetrics$inboundSchema: z.ZodType<
 > = z.object({
   resourceAttributePrefixes: z.array(z.string()).optional(),
   dropNonMetricEvents: z.boolean().default(false),
-  otlpVersion: OtlpVersionOptions$inboundSchema.default("0.10.0"),
+  otlpVersion: FunctionConfSchemaOTLPMetricsOTLPVersion$inboundSchema.default(
+    "0.10.0",
+  ),
   batchOTLPMetrics: z.boolean().default(false),
 });
 /** @internal */
@@ -52,7 +78,9 @@ export const FunctionConfSchemaOtlpMetrics$outboundSchema: z.ZodType<
 > = z.object({
   resourceAttributePrefixes: z.array(z.string()).optional(),
   dropNonMetricEvents: z.boolean().default(false),
-  otlpVersion: OtlpVersionOptions$outboundSchema.default("0.10.0"),
+  otlpVersion: FunctionConfSchemaOTLPMetricsOTLPVersion$outboundSchema.default(
+    "0.10.0",
+  ),
   batchOTLPMetrics: z.boolean().default(false),
 });
 

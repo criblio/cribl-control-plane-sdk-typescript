@@ -4,44 +4,350 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  AuthenticationType,
-  AuthenticationType$inboundSchema,
-  AuthenticationType$Outbound,
-  AuthenticationType$outboundSchema,
-} from "./authenticationtype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
-import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
-import {
-  KafkaSchemaRegistryAuthenticationType,
-  KafkaSchemaRegistryAuthenticationType$inboundSchema,
-  KafkaSchemaRegistryAuthenticationType$Outbound,
-  KafkaSchemaRegistryAuthenticationType$outboundSchema,
-} from "./kafkaschemaregistryauthenticationtype.js";
-import {
-  PqType,
-  PqType$inboundSchema,
-  PqType$Outbound,
-  PqType$outboundSchema,
-} from "./pqtype.js";
-import {
-  TlsSettingsClientSideType1,
-  TlsSettingsClientSideType1$inboundSchema,
-  TlsSettingsClientSideType1$Outbound,
-  TlsSettingsClientSideType1$outboundSchema,
-} from "./tlssettingsclientsidetype1.js";
+
+export type InputConfluentCloudConnection = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const InputConfluentCloudMode = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type InputConfluentCloudMode = OpenEnum<typeof InputConfluentCloudMode>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const InputConfluentCloudCompression = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type InputConfluentCloudCompression = OpenEnum<
+  typeof InputConfluentCloudCompression
+>;
+
+export type InputConfluentCloudPqControls = {};
+
+export type InputConfluentCloudPq = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: InputConfluentCloudMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: InputConfluentCloudCompression | undefined;
+  pqControls?: InputConfluentCloudPqControls | undefined;
+};
+
+export const InputConfluentCloudMinimumTLSVersion = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputConfluentCloudMinimumTLSVersion = OpenEnum<
+  typeof InputConfluentCloudMinimumTLSVersion
+>;
+
+export const InputConfluentCloudMaximumTLSVersion = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputConfluentCloudMaximumTLSVersion = OpenEnum<
+  typeof InputConfluentCloudMaximumTLSVersion
+>;
+
+export type InputConfluentCloudTLSSettingsClientSide = {
+  disabled?: boolean | undefined;
+  /**
+   * Reject certificates that are not authorized by a CA in the CA certificate path, or by another
+   *
+   * @remarks
+   *                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
+   */
+  servername?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  /**
+   * Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  minVersion?: InputConfluentCloudMinimumTLSVersion | undefined;
+  maxVersion?: InputConfluentCloudMaximumTLSVersion | undefined;
+};
+
+/**
+ * Credentials to use when authenticating with the schema registry using basic HTTP authentication
+ */
+export type InputConfluentCloudAuth = {
+  disabled?: boolean | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+};
+
+export const InputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion = OpenEnum<
+  typeof InputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion
+>;
+
+export const InputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion = OpenEnum<
+  typeof InputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion
+>;
+
+export type InputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide = {
+  disabled?: boolean | undefined;
+  /**
+   * Reject certificates that are not authorized by a CA in the CA certificate path, or by another
+   *
+   * @remarks
+   *                     trusted CA (such as the system's). Defaults to Enabled. Overrides the toggle from Advanced Settings, when also present.
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Server name for the SNI (Server Name Indication) TLS extension. It must be a host name, and not an IP address.
+   */
+  servername?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on client in which to find CA certificates to verify the server's cert. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  /**
+   * Path on client in which to find the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Path on client in which to find certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  minVersion?:
+    | InputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion
+    | undefined;
+  maxVersion?:
+    | InputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion
+    | undefined;
+};
+
+export type InputConfluentCloudKafkaSchemaRegistryAuthentication = {
+  disabled?: boolean | undefined;
+  /**
+   * URL for accessing the Confluent Schema Registry. Example: http://localhost:8081. To connect over TLS, use https instead of http.
+   */
+  schemaRegistryURL?: string | undefined;
+  /**
+   * Maximum time to wait for a Schema Registry connection to complete successfully
+   */
+  connectionTimeout?: number | undefined;
+  /**
+   * Maximum time to wait for the Schema Registry to respond to a request
+   */
+  requestTimeout?: number | undefined;
+  /**
+   * Maximum number of times to try fetching schemas from the Schema Registry
+   */
+  maxRetries?: number | undefined;
+  /**
+   * Credentials to use when authenticating with the schema registry using basic HTTP authentication
+   */
+  auth?: InputConfluentCloudAuth | undefined;
+  tls?: InputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide | undefined;
+};
+
+/**
+ * Enter credentials directly, or select a stored secret
+ */
+export const InputConfluentCloudAuthenticationMethod = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Enter credentials directly, or select a stored secret
+ */
+export type InputConfluentCloudAuthenticationMethod = OpenEnum<
+  typeof InputConfluentCloudAuthenticationMethod
+>;
+
+export const InputConfluentCloudSASLMechanism = {
+  /**
+   * PLAIN
+   */
+  Plain: "plain",
+  /**
+   * SCRAM-SHA-256
+   */
+  ScramSha256: "scram-sha-256",
+  /**
+   * SCRAM-SHA-512
+   */
+  ScramSha512: "scram-sha-512",
+  /**
+   * GSSAPI/Kerberos
+   */
+  Kerberos: "kerberos",
+} as const;
+export type InputConfluentCloudSASLMechanism = OpenEnum<
+  typeof InputConfluentCloudSASLMechanism
+>;
+
+export type InputConfluentCloudOauthParam = {
+  name: string;
+  value: string;
+};
+
+export type InputConfluentCloudSaslExtension = {
+  name: string;
+  value: string;
+};
+
+/**
+ * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
+ */
+export type InputConfluentCloudAuthentication = {
+  disabled?: boolean | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  /**
+   * Enter credentials directly, or select a stored secret
+   */
+  authType?: InputConfluentCloudAuthenticationMethod | undefined;
+  /**
+   * Select or create a secret that references your credentials
+   */
+  credentialsSecret?: string | undefined;
+  mechanism?: InputConfluentCloudSASLMechanism | undefined;
+  /**
+   * Location of keytab file for authentication principal
+   */
+  keytabLocation?: string | undefined;
+  /**
+   * Authentication principal, such as `kafka_user@example.com`
+   */
+  principal?: string | undefined;
+  /**
+   * Kerberos service class for Kafka brokers, such as `kafka`
+   */
+  brokerServiceClass?: string | undefined;
+  /**
+   * Enable OAuth authentication
+   */
+  oauthEnabled?: boolean | undefined;
+  /**
+   * URL of the token endpoint to use for OAuth authentication
+   */
+  tokenUrl?: string | undefined;
+  /**
+   * Client ID to use for OAuth authentication
+   */
+  clientId?: string | undefined;
+  oauthSecretType?: string | undefined;
+  /**
+   * Select or create a stored text secret
+   */
+  clientTextSecret?: string | undefined;
+  /**
+   * Additional fields to send to the token endpoint, such as scope or audience
+   */
+  oauthParams?: Array<InputConfluentCloudOauthParam> | undefined;
+  /**
+   * Additional SASL extension fields, such as Confluent's logicalCluster or identityPoolId
+   */
+  saslExtensions?: Array<InputConfluentCloudSaslExtension> | undefined;
+};
+
+export type InputConfluentCloudMetadatum = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
 
 export type InputConfluentCloud = {
   /**
@@ -73,13 +379,13 @@ export type InputConfluentCloud = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<InputConfluentCloudConnection> | undefined;
+  pq?: InputConfluentCloudPq | undefined;
   /**
    * List of Confluent Cloud bootstrap servers to use, such as yourAccount.confluent.cloud:9092
    */
   brokers: Array<string>;
-  tls?: TlsSettingsClientSideType1 | undefined;
+  tls?: InputConfluentCloudTLSSettingsClientSide | undefined;
   /**
    * Topic to subscribe to. Warning: To optimize performance, Cribl suggests subscribing each Kafka Source to a single topic only.
    */
@@ -92,7 +398,9 @@ export type InputConfluentCloud = {
    * Leave enabled if you want the Source, upon first subscribing to a topic, to read starting with the earliest available message
    */
   fromBeginning?: boolean | undefined;
-  kafkaSchemaRegistry?: KafkaSchemaRegistryAuthenticationType | undefined;
+  kafkaSchemaRegistry?:
+    | InputConfluentCloudKafkaSchemaRegistryAuthentication
+    | undefined;
   /**
    * Maximum time to wait for a connection to complete successfully
    */
@@ -128,7 +436,7 @@ export type InputConfluentCloud = {
   /**
    * Authentication parameters to use when connecting to brokers. Using TLS is highly recommended.
    */
-  sasl?: AuthenticationType | undefined;
+  sasl?: InputConfluentCloudAuthentication | undefined;
   /**
    * @remarks
    *       Timeout used to detect client failures when using Kafka's group-management facilities.
@@ -177,9 +485,771 @@ export type InputConfluentCloud = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<InputConfluentCloudMetadatum> | undefined;
   description?: string | undefined;
 };
+
+/** @internal */
+export const InputConfluentCloudConnection$inboundSchema: z.ZodType<
+  InputConfluentCloudConnection,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+/** @internal */
+export type InputConfluentCloudConnection$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const InputConfluentCloudConnection$outboundSchema: z.ZodType<
+  InputConfluentCloudConnection$Outbound,
+  z.ZodTypeDef,
+  InputConfluentCloudConnection
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function inputConfluentCloudConnectionToJSON(
+  inputConfluentCloudConnection: InputConfluentCloudConnection,
+): string {
+  return JSON.stringify(
+    InputConfluentCloudConnection$outboundSchema.parse(
+      inputConfluentCloudConnection,
+    ),
+  );
+}
+export function inputConfluentCloudConnectionFromJSON(
+  jsonString: string,
+): SafeParseResult<InputConfluentCloudConnection, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputConfluentCloudConnection$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputConfluentCloudConnection' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputConfluentCloudMode$inboundSchema: z.ZodType<
+  InputConfluentCloudMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputConfluentCloudMode);
+/** @internal */
+export const InputConfluentCloudMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputConfluentCloudMode
+> = openEnums.outboundSchema(InputConfluentCloudMode);
+
+/** @internal */
+export const InputConfluentCloudCompression$inboundSchema: z.ZodType<
+  InputConfluentCloudCompression,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputConfluentCloudCompression);
+/** @internal */
+export const InputConfluentCloudCompression$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputConfluentCloudCompression
+> = openEnums.outboundSchema(InputConfluentCloudCompression);
+
+/** @internal */
+export const InputConfluentCloudPqControls$inboundSchema: z.ZodType<
+  InputConfluentCloudPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+/** @internal */
+export type InputConfluentCloudPqControls$Outbound = {};
+
+/** @internal */
+export const InputConfluentCloudPqControls$outboundSchema: z.ZodType<
+  InputConfluentCloudPqControls$Outbound,
+  z.ZodTypeDef,
+  InputConfluentCloudPqControls
+> = z.object({});
+
+export function inputConfluentCloudPqControlsToJSON(
+  inputConfluentCloudPqControls: InputConfluentCloudPqControls,
+): string {
+  return JSON.stringify(
+    InputConfluentCloudPqControls$outboundSchema.parse(
+      inputConfluentCloudPqControls,
+    ),
+  );
+}
+export function inputConfluentCloudPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputConfluentCloudPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputConfluentCloudPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputConfluentCloudPqControls' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputConfluentCloudPq$inboundSchema: z.ZodType<
+  InputConfluentCloudPq,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: InputConfluentCloudMode$inboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputConfluentCloudCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputConfluentCloudPqControls$inboundSchema)
+    .optional(),
+});
+/** @internal */
+export type InputConfluentCloudPq$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: InputConfluentCloudPqControls$Outbound | undefined;
+};
+
+/** @internal */
+export const InputConfluentCloudPq$outboundSchema: z.ZodType<
+  InputConfluentCloudPq$Outbound,
+  z.ZodTypeDef,
+  InputConfluentCloudPq
+> = z.object({
+  mode: InputConfluentCloudMode$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputConfluentCloudCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputConfluentCloudPqControls$outboundSchema)
+    .optional(),
+});
+
+export function inputConfluentCloudPqToJSON(
+  inputConfluentCloudPq: InputConfluentCloudPq,
+): string {
+  return JSON.stringify(
+    InputConfluentCloudPq$outboundSchema.parse(inputConfluentCloudPq),
+  );
+}
+export function inputConfluentCloudPqFromJSON(
+  jsonString: string,
+): SafeParseResult<InputConfluentCloudPq, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputConfluentCloudPq$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputConfluentCloudPq' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputConfluentCloudMinimumTLSVersion$inboundSchema: z.ZodType<
+  InputConfluentCloudMinimumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputConfluentCloudMinimumTLSVersion);
+/** @internal */
+export const InputConfluentCloudMinimumTLSVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputConfluentCloudMinimumTLSVersion
+> = openEnums.outboundSchema(InputConfluentCloudMinimumTLSVersion);
+
+/** @internal */
+export const InputConfluentCloudMaximumTLSVersion$inboundSchema: z.ZodType<
+  InputConfluentCloudMaximumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputConfluentCloudMaximumTLSVersion);
+/** @internal */
+export const InputConfluentCloudMaximumTLSVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputConfluentCloudMaximumTLSVersion
+> = openEnums.outboundSchema(InputConfluentCloudMaximumTLSVersion);
+
+/** @internal */
+export const InputConfluentCloudTLSSettingsClientSide$inboundSchema: z.ZodType<
+  InputConfluentCloudTLSSettingsClientSide,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  disabled: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  servername: z.string().optional(),
+  certificateName: z.string().optional(),
+  caPath: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  certPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  minVersion: InputConfluentCloudMinimumTLSVersion$inboundSchema.optional(),
+  maxVersion: InputConfluentCloudMaximumTLSVersion$inboundSchema.optional(),
+});
+/** @internal */
+export type InputConfluentCloudTLSSettingsClientSide$Outbound = {
+  disabled: boolean;
+  rejectUnauthorized: boolean;
+  servername?: string | undefined;
+  certificateName?: string | undefined;
+  caPath?: string | undefined;
+  privKeyPath?: string | undefined;
+  certPath?: string | undefined;
+  passphrase?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const InputConfluentCloudTLSSettingsClientSide$outboundSchema: z.ZodType<
+  InputConfluentCloudTLSSettingsClientSide$Outbound,
+  z.ZodTypeDef,
+  InputConfluentCloudTLSSettingsClientSide
+> = z.object({
+  disabled: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  servername: z.string().optional(),
+  certificateName: z.string().optional(),
+  caPath: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  certPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  minVersion: InputConfluentCloudMinimumTLSVersion$outboundSchema.optional(),
+  maxVersion: InputConfluentCloudMaximumTLSVersion$outboundSchema.optional(),
+});
+
+export function inputConfluentCloudTLSSettingsClientSideToJSON(
+  inputConfluentCloudTLSSettingsClientSide:
+    InputConfluentCloudTLSSettingsClientSide,
+): string {
+  return JSON.stringify(
+    InputConfluentCloudTLSSettingsClientSide$outboundSchema.parse(
+      inputConfluentCloudTLSSettingsClientSide,
+    ),
+  );
+}
+export function inputConfluentCloudTLSSettingsClientSideFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputConfluentCloudTLSSettingsClientSide,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputConfluentCloudTLSSettingsClientSide$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputConfluentCloudTLSSettingsClientSide' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputConfluentCloudAuth$inboundSchema: z.ZodType<
+  InputConfluentCloudAuth,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  disabled: z.boolean().default(true),
+  credentialsSecret: z.string().optional(),
+});
+/** @internal */
+export type InputConfluentCloudAuth$Outbound = {
+  disabled: boolean;
+  credentialsSecret?: string | undefined;
+};
+
+/** @internal */
+export const InputConfluentCloudAuth$outboundSchema: z.ZodType<
+  InputConfluentCloudAuth$Outbound,
+  z.ZodTypeDef,
+  InputConfluentCloudAuth
+> = z.object({
+  disabled: z.boolean().default(true),
+  credentialsSecret: z.string().optional(),
+});
+
+export function inputConfluentCloudAuthToJSON(
+  inputConfluentCloudAuth: InputConfluentCloudAuth,
+): string {
+  return JSON.stringify(
+    InputConfluentCloudAuth$outboundSchema.parse(inputConfluentCloudAuth),
+  );
+}
+export function inputConfluentCloudAuthFromJSON(
+  jsonString: string,
+): SafeParseResult<InputConfluentCloudAuth, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputConfluentCloudAuth$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputConfluentCloudAuth' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion$inboundSchema:
+  z.ZodType<
+    InputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(
+    InputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion,
+  );
+/** @internal */
+export const InputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    InputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion
+  > = openEnums.outboundSchema(
+    InputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion,
+  );
+
+/** @internal */
+export const InputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion$inboundSchema:
+  z.ZodType<
+    InputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion,
+    z.ZodTypeDef,
+    unknown
+  > = openEnums.inboundSchema(
+    InputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion,
+  );
+/** @internal */
+export const InputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion$outboundSchema:
+  z.ZodType<
+    string,
+    z.ZodTypeDef,
+    InputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion
+  > = openEnums.outboundSchema(
+    InputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion,
+  );
+
+/** @internal */
+export const InputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide$inboundSchema:
+  z.ZodType<
+    InputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    disabled: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    servername: z.string().optional(),
+    certificateName: z.string().optional(),
+    caPath: z.string().optional(),
+    privKeyPath: z.string().optional(),
+    certPath: z.string().optional(),
+    passphrase: z.string().optional(),
+    minVersion:
+      InputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion$inboundSchema
+        .optional(),
+    maxVersion:
+      InputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion$inboundSchema
+        .optional(),
+  });
+/** @internal */
+export type InputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide$Outbound =
+  {
+    disabled: boolean;
+    rejectUnauthorized: boolean;
+    servername?: string | undefined;
+    certificateName?: string | undefined;
+    caPath?: string | undefined;
+    privKeyPath?: string | undefined;
+    certPath?: string | undefined;
+    passphrase?: string | undefined;
+    minVersion?: string | undefined;
+    maxVersion?: string | undefined;
+  };
+
+/** @internal */
+export const InputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide$outboundSchema:
+  z.ZodType<
+    InputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide$Outbound,
+    z.ZodTypeDef,
+    InputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide
+  > = z.object({
+    disabled: z.boolean().default(true),
+    rejectUnauthorized: z.boolean().default(true),
+    servername: z.string().optional(),
+    certificateName: z.string().optional(),
+    caPath: z.string().optional(),
+    privKeyPath: z.string().optional(),
+    certPath: z.string().optional(),
+    passphrase: z.string().optional(),
+    minVersion:
+      InputConfluentCloudKafkaSchemaRegistryMinimumTLSVersion$outboundSchema
+        .optional(),
+    maxVersion:
+      InputConfluentCloudKafkaSchemaRegistryMaximumTLSVersion$outboundSchema
+        .optional(),
+  });
+
+export function inputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSideToJSON(
+  inputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide:
+    InputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide,
+): string {
+  return JSON.stringify(
+    InputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide$outboundSchema
+      .parse(inputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide),
+  );
+}
+export function inputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSideFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide$inboundSchema
+        .parse(JSON.parse(x)),
+    `Failed to parse 'InputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputConfluentCloudKafkaSchemaRegistryAuthentication$inboundSchema:
+  z.ZodType<
+    InputConfluentCloudKafkaSchemaRegistryAuthentication,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    disabled: z.boolean().default(true),
+    schemaRegistryURL: z.string().default("http://localhost:8081"),
+    connectionTimeout: z.number().default(30000),
+    requestTimeout: z.number().default(30000),
+    maxRetries: z.number().default(1),
+    auth: z.lazy(() => InputConfluentCloudAuth$inboundSchema).optional(),
+    tls: z.lazy(() =>
+      InputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide$inboundSchema
+    ).optional(),
+  });
+/** @internal */
+export type InputConfluentCloudKafkaSchemaRegistryAuthentication$Outbound = {
+  disabled: boolean;
+  schemaRegistryURL: string;
+  connectionTimeout: number;
+  requestTimeout: number;
+  maxRetries: number;
+  auth?: InputConfluentCloudAuth$Outbound | undefined;
+  tls?:
+    | InputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide$Outbound
+    | undefined;
+};
+
+/** @internal */
+export const InputConfluentCloudKafkaSchemaRegistryAuthentication$outboundSchema:
+  z.ZodType<
+    InputConfluentCloudKafkaSchemaRegistryAuthentication$Outbound,
+    z.ZodTypeDef,
+    InputConfluentCloudKafkaSchemaRegistryAuthentication
+  > = z.object({
+    disabled: z.boolean().default(true),
+    schemaRegistryURL: z.string().default("http://localhost:8081"),
+    connectionTimeout: z.number().default(30000),
+    requestTimeout: z.number().default(30000),
+    maxRetries: z.number().default(1),
+    auth: z.lazy(() => InputConfluentCloudAuth$outboundSchema).optional(),
+    tls: z.lazy(() =>
+      InputConfluentCloudKafkaSchemaRegistryTLSSettingsClientSide$outboundSchema
+    ).optional(),
+  });
+
+export function inputConfluentCloudKafkaSchemaRegistryAuthenticationToJSON(
+  inputConfluentCloudKafkaSchemaRegistryAuthentication:
+    InputConfluentCloudKafkaSchemaRegistryAuthentication,
+): string {
+  return JSON.stringify(
+    InputConfluentCloudKafkaSchemaRegistryAuthentication$outboundSchema.parse(
+      inputConfluentCloudKafkaSchemaRegistryAuthentication,
+    ),
+  );
+}
+export function inputConfluentCloudKafkaSchemaRegistryAuthenticationFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  InputConfluentCloudKafkaSchemaRegistryAuthentication,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      InputConfluentCloudKafkaSchemaRegistryAuthentication$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'InputConfluentCloudKafkaSchemaRegistryAuthentication' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputConfluentCloudAuthenticationMethod$inboundSchema: z.ZodType<
+  InputConfluentCloudAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputConfluentCloudAuthenticationMethod);
+/** @internal */
+export const InputConfluentCloudAuthenticationMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputConfluentCloudAuthenticationMethod
+> = openEnums.outboundSchema(InputConfluentCloudAuthenticationMethod);
+
+/** @internal */
+export const InputConfluentCloudSASLMechanism$inboundSchema: z.ZodType<
+  InputConfluentCloudSASLMechanism,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputConfluentCloudSASLMechanism);
+/** @internal */
+export const InputConfluentCloudSASLMechanism$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputConfluentCloudSASLMechanism
+> = openEnums.outboundSchema(InputConfluentCloudSASLMechanism);
+
+/** @internal */
+export const InputConfluentCloudOauthParam$inboundSchema: z.ZodType<
+  InputConfluentCloudOauthParam,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type InputConfluentCloudOauthParam$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputConfluentCloudOauthParam$outboundSchema: z.ZodType<
+  InputConfluentCloudOauthParam$Outbound,
+  z.ZodTypeDef,
+  InputConfluentCloudOauthParam
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputConfluentCloudOauthParamToJSON(
+  inputConfluentCloudOauthParam: InputConfluentCloudOauthParam,
+): string {
+  return JSON.stringify(
+    InputConfluentCloudOauthParam$outboundSchema.parse(
+      inputConfluentCloudOauthParam,
+    ),
+  );
+}
+export function inputConfluentCloudOauthParamFromJSON(
+  jsonString: string,
+): SafeParseResult<InputConfluentCloudOauthParam, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputConfluentCloudOauthParam$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputConfluentCloudOauthParam' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputConfluentCloudSaslExtension$inboundSchema: z.ZodType<
+  InputConfluentCloudSaslExtension,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type InputConfluentCloudSaslExtension$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputConfluentCloudSaslExtension$outboundSchema: z.ZodType<
+  InputConfluentCloudSaslExtension$Outbound,
+  z.ZodTypeDef,
+  InputConfluentCloudSaslExtension
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputConfluentCloudSaslExtensionToJSON(
+  inputConfluentCloudSaslExtension: InputConfluentCloudSaslExtension,
+): string {
+  return JSON.stringify(
+    InputConfluentCloudSaslExtension$outboundSchema.parse(
+      inputConfluentCloudSaslExtension,
+    ),
+  );
+}
+export function inputConfluentCloudSaslExtensionFromJSON(
+  jsonString: string,
+): SafeParseResult<InputConfluentCloudSaslExtension, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputConfluentCloudSaslExtension$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputConfluentCloudSaslExtension' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputConfluentCloudAuthentication$inboundSchema: z.ZodType<
+  InputConfluentCloudAuthentication,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  disabled: z.boolean().default(true),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  authType: InputConfluentCloudAuthenticationMethod$inboundSchema.default(
+    "manual",
+  ),
+  credentialsSecret: z.string().optional(),
+  mechanism: InputConfluentCloudSASLMechanism$inboundSchema.default("plain"),
+  keytabLocation: z.string().optional(),
+  principal: z.string().optional(),
+  brokerServiceClass: z.string().optional(),
+  oauthEnabled: z.boolean().default(false),
+  tokenUrl: z.string().optional(),
+  clientId: z.string().optional(),
+  oauthSecretType: z.string().default("secret"),
+  clientTextSecret: z.string().optional(),
+  oauthParams: z.array(
+    z.lazy(() => InputConfluentCloudOauthParam$inboundSchema),
+  ).optional(),
+  saslExtensions: z.array(
+    z.lazy(() => InputConfluentCloudSaslExtension$inboundSchema),
+  ).optional(),
+});
+/** @internal */
+export type InputConfluentCloudAuthentication$Outbound = {
+  disabled: boolean;
+  username?: string | undefined;
+  password?: string | undefined;
+  authType: string;
+  credentialsSecret?: string | undefined;
+  mechanism: string;
+  keytabLocation?: string | undefined;
+  principal?: string | undefined;
+  brokerServiceClass?: string | undefined;
+  oauthEnabled: boolean;
+  tokenUrl?: string | undefined;
+  clientId?: string | undefined;
+  oauthSecretType: string;
+  clientTextSecret?: string | undefined;
+  oauthParams?: Array<InputConfluentCloudOauthParam$Outbound> | undefined;
+  saslExtensions?: Array<InputConfluentCloudSaslExtension$Outbound> | undefined;
+};
+
+/** @internal */
+export const InputConfluentCloudAuthentication$outboundSchema: z.ZodType<
+  InputConfluentCloudAuthentication$Outbound,
+  z.ZodTypeDef,
+  InputConfluentCloudAuthentication
+> = z.object({
+  disabled: z.boolean().default(true),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  authType: InputConfluentCloudAuthenticationMethod$outboundSchema.default(
+    "manual",
+  ),
+  credentialsSecret: z.string().optional(),
+  mechanism: InputConfluentCloudSASLMechanism$outboundSchema.default("plain"),
+  keytabLocation: z.string().optional(),
+  principal: z.string().optional(),
+  brokerServiceClass: z.string().optional(),
+  oauthEnabled: z.boolean().default(false),
+  tokenUrl: z.string().optional(),
+  clientId: z.string().optional(),
+  oauthSecretType: z.string().default("secret"),
+  clientTextSecret: z.string().optional(),
+  oauthParams: z.array(
+    z.lazy(() => InputConfluentCloudOauthParam$outboundSchema),
+  ).optional(),
+  saslExtensions: z.array(
+    z.lazy(() => InputConfluentCloudSaslExtension$outboundSchema),
+  ).optional(),
+});
+
+export function inputConfluentCloudAuthenticationToJSON(
+  inputConfluentCloudAuthentication: InputConfluentCloudAuthentication,
+): string {
+  return JSON.stringify(
+    InputConfluentCloudAuthentication$outboundSchema.parse(
+      inputConfluentCloudAuthentication,
+    ),
+  );
+}
+export function inputConfluentCloudAuthenticationFromJSON(
+  jsonString: string,
+): SafeParseResult<InputConfluentCloudAuthentication, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputConfluentCloudAuthentication$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputConfluentCloudAuthentication' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputConfluentCloudMetadatum$inboundSchema: z.ZodType<
+  InputConfluentCloudMetadatum,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type InputConfluentCloudMetadatum$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputConfluentCloudMetadatum$outboundSchema: z.ZodType<
+  InputConfluentCloudMetadatum$Outbound,
+  z.ZodTypeDef,
+  InputConfluentCloudMetadatum
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputConfluentCloudMetadatumToJSON(
+  inputConfluentCloudMetadatum: InputConfluentCloudMetadatum,
+): string {
+  return JSON.stringify(
+    InputConfluentCloudMetadatum$outboundSchema.parse(
+      inputConfluentCloudMetadatum,
+    ),
+  );
+}
+export function inputConfluentCloudMetadatumFromJSON(
+  jsonString: string,
+): SafeParseResult<InputConfluentCloudMetadatum, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputConfluentCloudMetadatum$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputConfluentCloudMetadatum' from JSON`,
+  );
+}
 
 /** @internal */
 export const InputConfluentCloud$inboundSchema: z.ZodType<
@@ -195,15 +1265,19 @@ export const InputConfluentCloud$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
+  connections: z.array(
+    z.lazy(() => InputConfluentCloudConnection$inboundSchema),
+  ).optional(),
+  pq: z.lazy(() => InputConfluentCloudPq$inboundSchema).optional(),
   brokers: z.array(z.string()),
-  tls: TlsSettingsClientSideType1$inboundSchema.optional(),
+  tls: z.lazy(() => InputConfluentCloudTLSSettingsClientSide$inboundSchema)
+    .optional(),
   topics: z.array(z.string()),
   groupId: z.string().default("Cribl"),
   fromBeginning: z.boolean().default(true),
-  kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType$inboundSchema
-    .optional(),
+  kafkaSchemaRegistry: z.lazy(() =>
+    InputConfluentCloudKafkaSchemaRegistryAuthentication$inboundSchema
+  ).optional(),
   connectionTimeout: z.number().default(10000),
   requestTimeout: z.number().default(60000),
   maxRetries: z.number().default(5),
@@ -212,7 +1286,8 @@ export const InputConfluentCloud$inboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   authenticationTimeout: z.number().default(10000),
   reauthenticationThreshold: z.number().default(10000),
-  sasl: AuthenticationType$inboundSchema.optional(),
+  sasl: z.lazy(() => InputConfluentCloudAuthentication$inboundSchema)
+    .optional(),
   sessionTimeout: z.number().default(30000),
   rebalanceTimeout: z.number().default(60000),
   heartbeatInterval: z.number().default(3000),
@@ -221,7 +1296,8 @@ export const InputConfluentCloud$inboundSchema: z.ZodType<
   maxBytesPerPartition: z.number().default(1048576),
   maxBytes: z.number().default(10485760),
   maxSocketErrors: z.number().default(0),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  metadata: z.array(z.lazy(() => InputConfluentCloudMetadatum$inboundSchema))
+    .optional(),
   description: z.string().optional(),
 });
 /** @internal */
@@ -234,15 +1310,15 @@ export type InputConfluentCloud$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
+  connections?: Array<InputConfluentCloudConnection$Outbound> | undefined;
+  pq?: InputConfluentCloudPq$Outbound | undefined;
   brokers: Array<string>;
-  tls?: TlsSettingsClientSideType1$Outbound | undefined;
+  tls?: InputConfluentCloudTLSSettingsClientSide$Outbound | undefined;
   topics: Array<string>;
   groupId: string;
   fromBeginning: boolean;
   kafkaSchemaRegistry?:
-    | KafkaSchemaRegistryAuthenticationType$Outbound
+    | InputConfluentCloudKafkaSchemaRegistryAuthentication$Outbound
     | undefined;
   connectionTimeout: number;
   requestTimeout: number;
@@ -252,7 +1328,7 @@ export type InputConfluentCloud$Outbound = {
   backoffRate: number;
   authenticationTimeout: number;
   reauthenticationThreshold: number;
-  sasl?: AuthenticationType$Outbound | undefined;
+  sasl?: InputConfluentCloudAuthentication$Outbound | undefined;
   sessionTimeout: number;
   rebalanceTimeout: number;
   heartbeatInterval: number;
@@ -261,7 +1337,7 @@ export type InputConfluentCloud$Outbound = {
   maxBytesPerPartition: number;
   maxBytes: number;
   maxSocketErrors: number;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<InputConfluentCloudMetadatum$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -279,15 +1355,19 @@ export const InputConfluentCloud$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
+  connections: z.array(
+    z.lazy(() => InputConfluentCloudConnection$outboundSchema),
+  ).optional(),
+  pq: z.lazy(() => InputConfluentCloudPq$outboundSchema).optional(),
   brokers: z.array(z.string()),
-  tls: TlsSettingsClientSideType1$outboundSchema.optional(),
+  tls: z.lazy(() => InputConfluentCloudTLSSettingsClientSide$outboundSchema)
+    .optional(),
   topics: z.array(z.string()),
   groupId: z.string().default("Cribl"),
   fromBeginning: z.boolean().default(true),
-  kafkaSchemaRegistry: KafkaSchemaRegistryAuthenticationType$outboundSchema
-    .optional(),
+  kafkaSchemaRegistry: z.lazy(() =>
+    InputConfluentCloudKafkaSchemaRegistryAuthentication$outboundSchema
+  ).optional(),
   connectionTimeout: z.number().default(10000),
   requestTimeout: z.number().default(60000),
   maxRetries: z.number().default(5),
@@ -296,7 +1376,8 @@ export const InputConfluentCloud$outboundSchema: z.ZodType<
   backoffRate: z.number().default(2),
   authenticationTimeout: z.number().default(10000),
   reauthenticationThreshold: z.number().default(10000),
-  sasl: AuthenticationType$outboundSchema.optional(),
+  sasl: z.lazy(() => InputConfluentCloudAuthentication$outboundSchema)
+    .optional(),
   sessionTimeout: z.number().default(30000),
   rebalanceTimeout: z.number().default(60000),
   heartbeatInterval: z.number().default(3000),
@@ -305,7 +1386,8 @@ export const InputConfluentCloud$outboundSchema: z.ZodType<
   maxBytesPerPartition: z.number().default(1048576),
   maxBytes: z.number().default(10485760),
   maxSocketErrors: z.number().default(0),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(z.lazy(() => InputConfluentCloudMetadatum$outboundSchema))
+    .optional(),
   description: z.string().optional(),
 });
 

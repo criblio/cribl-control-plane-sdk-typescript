@@ -8,24 +8,83 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
-import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
-import {
-  PqType,
-  PqType$inboundSchema,
-  PqType$Outbound,
-  PqType$outboundSchema,
-} from "./pqtype.js";
+
+export type InputWinEventLogsConnection = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const InputWinEventLogsMode = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type InputWinEventLogsMode = OpenEnum<typeof InputWinEventLogsMode>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const InputWinEventLogsCompression = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type InputWinEventLogsCompression = OpenEnum<
+  typeof InputWinEventLogsCompression
+>;
+
+export type InputWinEventLogsPqControls = {};
+
+export type InputWinEventLogsPq = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: InputWinEventLogsMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: InputWinEventLogsCompression | undefined;
+  pqControls?: InputWinEventLogsPqControls | undefined;
+};
 
 /**
  * Read all stored and future event logs, or only future events
@@ -63,6 +122,14 @@ export const EventFormat = {
  */
 export type EventFormat = OpenEnum<typeof EventFormat>;
 
+export type InputWinEventLogsMetadatum = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
 export type InputWinEventLogs = {
   /**
    * Unique ID for this input
@@ -93,8 +160,8 @@ export type InputWinEventLogs = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<InputWinEventLogsConnection> | undefined;
+  pq?: InputWinEventLogsPq | undefined;
   /**
    * Enter the event logs to collect. Run "Get-WinEvent -ListLog *" in PowerShell to see the available logs.
    */
@@ -122,7 +189,7 @@ export type InputWinEventLogs = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<InputWinEventLogsMetadatum> | undefined;
   /**
    * The maximum number of bytes in an event before it is flushed to the pipelines
    */
@@ -137,6 +204,173 @@ export type InputWinEventLogs = {
    */
   disableXmlRendering?: boolean | undefined;
 };
+
+/** @internal */
+export const InputWinEventLogsConnection$inboundSchema: z.ZodType<
+  InputWinEventLogsConnection,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+/** @internal */
+export type InputWinEventLogsConnection$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const InputWinEventLogsConnection$outboundSchema: z.ZodType<
+  InputWinEventLogsConnection$Outbound,
+  z.ZodTypeDef,
+  InputWinEventLogsConnection
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function inputWinEventLogsConnectionToJSON(
+  inputWinEventLogsConnection: InputWinEventLogsConnection,
+): string {
+  return JSON.stringify(
+    InputWinEventLogsConnection$outboundSchema.parse(
+      inputWinEventLogsConnection,
+    ),
+  );
+}
+export function inputWinEventLogsConnectionFromJSON(
+  jsonString: string,
+): SafeParseResult<InputWinEventLogsConnection, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputWinEventLogsConnection$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWinEventLogsConnection' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputWinEventLogsMode$inboundSchema: z.ZodType<
+  InputWinEventLogsMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputWinEventLogsMode);
+/** @internal */
+export const InputWinEventLogsMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputWinEventLogsMode
+> = openEnums.outboundSchema(InputWinEventLogsMode);
+
+/** @internal */
+export const InputWinEventLogsCompression$inboundSchema: z.ZodType<
+  InputWinEventLogsCompression,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputWinEventLogsCompression);
+/** @internal */
+export const InputWinEventLogsCompression$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputWinEventLogsCompression
+> = openEnums.outboundSchema(InputWinEventLogsCompression);
+
+/** @internal */
+export const InputWinEventLogsPqControls$inboundSchema: z.ZodType<
+  InputWinEventLogsPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+/** @internal */
+export type InputWinEventLogsPqControls$Outbound = {};
+
+/** @internal */
+export const InputWinEventLogsPqControls$outboundSchema: z.ZodType<
+  InputWinEventLogsPqControls$Outbound,
+  z.ZodTypeDef,
+  InputWinEventLogsPqControls
+> = z.object({});
+
+export function inputWinEventLogsPqControlsToJSON(
+  inputWinEventLogsPqControls: InputWinEventLogsPqControls,
+): string {
+  return JSON.stringify(
+    InputWinEventLogsPqControls$outboundSchema.parse(
+      inputWinEventLogsPqControls,
+    ),
+  );
+}
+export function inputWinEventLogsPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputWinEventLogsPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputWinEventLogsPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWinEventLogsPqControls' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputWinEventLogsPq$inboundSchema: z.ZodType<
+  InputWinEventLogsPq,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: InputWinEventLogsMode$inboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputWinEventLogsCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputWinEventLogsPqControls$inboundSchema)
+    .optional(),
+});
+/** @internal */
+export type InputWinEventLogsPq$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: InputWinEventLogsPqControls$Outbound | undefined;
+};
+
+/** @internal */
+export const InputWinEventLogsPq$outboundSchema: z.ZodType<
+  InputWinEventLogsPq$Outbound,
+  z.ZodTypeDef,
+  InputWinEventLogsPq
+> = z.object({
+  mode: InputWinEventLogsMode$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputWinEventLogsCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputWinEventLogsPqControls$outboundSchema)
+    .optional(),
+});
+
+export function inputWinEventLogsPqToJSON(
+  inputWinEventLogsPq: InputWinEventLogsPq,
+): string {
+  return JSON.stringify(
+    InputWinEventLogsPq$outboundSchema.parse(inputWinEventLogsPq),
+  );
+}
+export function inputWinEventLogsPqFromJSON(
+  jsonString: string,
+): SafeParseResult<InputWinEventLogsPq, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputWinEventLogsPq$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWinEventLogsPq' from JSON`,
+  );
+}
 
 /** @internal */
 export const ReadMode$inboundSchema: z.ZodType<
@@ -165,6 +399,48 @@ export const EventFormat$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(EventFormat);
 
 /** @internal */
+export const InputWinEventLogsMetadatum$inboundSchema: z.ZodType<
+  InputWinEventLogsMetadatum,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type InputWinEventLogsMetadatum$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputWinEventLogsMetadatum$outboundSchema: z.ZodType<
+  InputWinEventLogsMetadatum$Outbound,
+  z.ZodTypeDef,
+  InputWinEventLogsMetadatum
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputWinEventLogsMetadatumToJSON(
+  inputWinEventLogsMetadatum: InputWinEventLogsMetadatum,
+): string {
+  return JSON.stringify(
+    InputWinEventLogsMetadatum$outboundSchema.parse(inputWinEventLogsMetadatum),
+  );
+}
+export function inputWinEventLogsMetadatumFromJSON(
+  jsonString: string,
+): SafeParseResult<InputWinEventLogsMetadatum, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputWinEventLogsMetadatum$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputWinEventLogsMetadatum' from JSON`,
+  );
+}
+
+/** @internal */
 export const InputWinEventLogs$inboundSchema: z.ZodType<
   InputWinEventLogs,
   z.ZodTypeDef,
@@ -178,15 +454,17 @@ export const InputWinEventLogs$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputWinEventLogsConnection$inboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputWinEventLogsPq$inboundSchema).optional(),
   logNames: z.array(z.string()),
   readMode: ReadMode$inboundSchema.default("newest"),
   eventFormat: EventFormat$inboundSchema.default("json"),
   disableNativeModule: z.boolean().default(false),
   interval: z.number().default(10),
   batchSize: z.number().default(500),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  metadata: z.array(z.lazy(() => InputWinEventLogsMetadatum$inboundSchema))
+    .optional(),
   maxEventBytes: z.number().default(51200),
   description: z.string().optional(),
   disableJsonRendering: z.boolean().default(false),
@@ -202,15 +480,15 @@ export type InputWinEventLogs$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
+  connections?: Array<InputWinEventLogsConnection$Outbound> | undefined;
+  pq?: InputWinEventLogsPq$Outbound | undefined;
   logNames: Array<string>;
   readMode: string;
   eventFormat: string;
   disableNativeModule: boolean;
   interval: number;
   batchSize: number;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<InputWinEventLogsMetadatum$Outbound> | undefined;
   maxEventBytes: number;
   description?: string | undefined;
   disableJsonRendering: boolean;
@@ -231,15 +509,17 @@ export const InputWinEventLogs$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputWinEventLogsConnection$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputWinEventLogsPq$outboundSchema).optional(),
   logNames: z.array(z.string()),
   readMode: ReadMode$outboundSchema.default("newest"),
   eventFormat: EventFormat$outboundSchema.default("json"),
   disableNativeModule: z.boolean().default(false),
   interval: z.number().default(10),
   batchSize: z.number().default(500),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(z.lazy(() => InputWinEventLogsMetadatum$outboundSchema))
+    .optional(),
   maxEventBytes: z.number().default(51200),
   description: z.string().optional(),
   disableJsonRendering: z.boolean().default(false),

@@ -4,37 +4,165 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
+import * as openEnums from "../types/enums.js";
+import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  AuthenticationMethodOptionsAuthTokensItems,
-  AuthenticationMethodOptionsAuthTokensItems$inboundSchema,
-  AuthenticationMethodOptionsAuthTokensItems$outboundSchema,
-} from "./authenticationmethodoptionsauthtokensitems.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-import {
-  ItemsTypeConnections,
-  ItemsTypeConnections$inboundSchema,
-  ItemsTypeConnections$Outbound,
-  ItemsTypeConnections$outboundSchema,
-} from "./itemstypeconnections.js";
-import {
-  ItemsTypeNotificationMetadata,
-  ItemsTypeNotificationMetadata$inboundSchema,
-  ItemsTypeNotificationMetadata$Outbound,
-  ItemsTypeNotificationMetadata$outboundSchema,
-} from "./itemstypenotificationmetadata.js";
-import {
-  PqType,
-  PqType$inboundSchema,
-  PqType$Outbound,
-  PqType$outboundSchema,
-} from "./pqtype.js";
-import {
-  TlsSettingsServerSideType,
-  TlsSettingsServerSideType$inboundSchema,
-  TlsSettingsServerSideType$Outbound,
-  TlsSettingsServerSideType$outboundSchema,
-} from "./tlssettingsserversidetype.js";
+
+export type InputTcpjsonConnection = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export const InputTcpjsonMode = {
+  /**
+   * Smart
+   */
+  Smart: "smart",
+  /**
+   * Always On
+   */
+  Always: "always",
+} as const;
+/**
+ * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+ */
+export type InputTcpjsonMode = OpenEnum<typeof InputTcpjsonMode>;
+
+/**
+ * Codec to use to compress the persisted data
+ */
+export const InputTcpjsonCompression = {
+  /**
+   * None
+   */
+  None: "none",
+  /**
+   * Gzip
+   */
+  Gzip: "gzip",
+} as const;
+/**
+ * Codec to use to compress the persisted data
+ */
+export type InputTcpjsonCompression = OpenEnum<typeof InputTcpjsonCompression>;
+
+export type InputTcpjsonPqControls = {};
+
+export type InputTcpjsonPq = {
+  /**
+   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
+   */
+  mode?: InputTcpjsonMode | undefined;
+  /**
+   * The maximum number of events to hold in memory before writing the events to disk
+   */
+  maxBufferSize?: number | undefined;
+  /**
+   * The number of events to send downstream before committing that Stream has read them
+   */
+  commitFrequency?: number | undefined;
+  /**
+   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
+   */
+  maxFileSize?: string | undefined;
+  /**
+   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
+   */
+  maxSize?: string | undefined;
+  /**
+   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
+   */
+  path?: string | undefined;
+  /**
+   * Codec to use to compress the persisted data
+   */
+  compress?: InputTcpjsonCompression | undefined;
+  pqControls?: InputTcpjsonPqControls | undefined;
+};
+
+export const InputTcpjsonMinimumTLSVersion = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputTcpjsonMinimumTLSVersion = OpenEnum<
+  typeof InputTcpjsonMinimumTLSVersion
+>;
+
+export const InputTcpjsonMaximumTLSVersion = {
+  TLSv1: "TLSv1",
+  TLSv11: "TLSv1.1",
+  TLSv12: "TLSv1.2",
+  TLSv13: "TLSv1.3",
+} as const;
+export type InputTcpjsonMaximumTLSVersion = OpenEnum<
+  typeof InputTcpjsonMaximumTLSVersion
+>;
+
+export type InputTcpjsonTLSSettingsServerSide = {
+  disabled?: boolean | undefined;
+  /**
+   * Require clients to present their certificates. Used to perform client authentication using SSL certs.
+   */
+  requestCert?: boolean | undefined;
+  /**
+   * Reject certificates not authorized by a CA in the CA certificate path or by another trusted CA (such as the system's)
+   */
+  rejectUnauthorized?: boolean | undefined;
+  /**
+   * Regex matching allowable common names in peer certificates' subject attribute
+   */
+  commonNameRegex?: string | undefined;
+  /**
+   * The name of the predefined certificate
+   */
+  certificateName?: string | undefined;
+  /**
+   * Path on server containing the private key to use. PEM format. Can reference $ENV_VARS.
+   */
+  privKeyPath?: string | undefined;
+  /**
+   * Passphrase to use to decrypt private key
+   */
+  passphrase?: string | undefined;
+  /**
+   * Path on server containing certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  certPath?: string | undefined;
+  /**
+   * Path on server containing CA certificates to use. PEM format. Can reference $ENV_VARS.
+   */
+  caPath?: string | undefined;
+  minVersion?: InputTcpjsonMinimumTLSVersion | undefined;
+  maxVersion?: InputTcpjsonMaximumTLSVersion | undefined;
+};
+
+export type InputTcpjsonMetadatum = {
+  name: string;
+  /**
+   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
+   */
+  value: string;
+};
+
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export const InputTcpjsonAuthenticationMethod = {
+  Manual: "manual",
+  Secret: "secret",
+} as const;
+/**
+ * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
+ */
+export type InputTcpjsonAuthenticationMethod = OpenEnum<
+  typeof InputTcpjsonAuthenticationMethod
+>;
 
 export type InputTcpjson = {
   /**
@@ -66,8 +194,8 @@ export type InputTcpjson = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<ItemsTypeConnections> | undefined;
-  pq?: PqType | undefined;
+  connections?: Array<InputTcpjsonConnection> | undefined;
+  pq?: InputTcpjsonPq | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -76,7 +204,7 @@ export type InputTcpjson = {
    * Port to listen on
    */
   port: number;
-  tls?: TlsSettingsServerSideType | undefined;
+  tls?: InputTcpjsonTLSSettingsServerSide | undefined;
   /**
    * Regex matching IP addresses that are allowed to establish a connection
    */
@@ -104,7 +232,7 @@ export type InputTcpjson = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  metadata?: Array<InputTcpjsonMetadatum> | undefined;
   /**
    * Load balance traffic across all Worker Processes
    */
@@ -112,7 +240,7 @@ export type InputTcpjson = {
   /**
    * Select Manual to enter an auth token directly, or select Secret to use a text secret to authenticate
    */
-  authType?: AuthenticationMethodOptionsAuthTokensItems | undefined;
+  authType?: InputTcpjsonAuthenticationMethod | undefined;
   description?: string | undefined;
   /**
    * Shared secret to be provided by any client (in authToken header field). If empty, unauthorized access is permitted.
@@ -123,6 +251,315 @@ export type InputTcpjson = {
    */
   textSecret?: string | undefined;
 };
+
+/** @internal */
+export const InputTcpjsonConnection$inboundSchema: z.ZodType<
+  InputTcpjsonConnection,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+/** @internal */
+export type InputTcpjsonConnection$Outbound = {
+  pipeline?: string | undefined;
+  output: string;
+};
+
+/** @internal */
+export const InputTcpjsonConnection$outboundSchema: z.ZodType<
+  InputTcpjsonConnection$Outbound,
+  z.ZodTypeDef,
+  InputTcpjsonConnection
+> = z.object({
+  pipeline: z.string().optional(),
+  output: z.string(),
+});
+
+export function inputTcpjsonConnectionToJSON(
+  inputTcpjsonConnection: InputTcpjsonConnection,
+): string {
+  return JSON.stringify(
+    InputTcpjsonConnection$outboundSchema.parse(inputTcpjsonConnection),
+  );
+}
+export function inputTcpjsonConnectionFromJSON(
+  jsonString: string,
+): SafeParseResult<InputTcpjsonConnection, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputTcpjsonConnection$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputTcpjsonConnection' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputTcpjsonMode$inboundSchema: z.ZodType<
+  InputTcpjsonMode,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputTcpjsonMode);
+/** @internal */
+export const InputTcpjsonMode$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputTcpjsonMode
+> = openEnums.outboundSchema(InputTcpjsonMode);
+
+/** @internal */
+export const InputTcpjsonCompression$inboundSchema: z.ZodType<
+  InputTcpjsonCompression,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputTcpjsonCompression);
+/** @internal */
+export const InputTcpjsonCompression$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputTcpjsonCompression
+> = openEnums.outboundSchema(InputTcpjsonCompression);
+
+/** @internal */
+export const InputTcpjsonPqControls$inboundSchema: z.ZodType<
+  InputTcpjsonPqControls,
+  z.ZodTypeDef,
+  unknown
+> = z.object({});
+/** @internal */
+export type InputTcpjsonPqControls$Outbound = {};
+
+/** @internal */
+export const InputTcpjsonPqControls$outboundSchema: z.ZodType<
+  InputTcpjsonPqControls$Outbound,
+  z.ZodTypeDef,
+  InputTcpjsonPqControls
+> = z.object({});
+
+export function inputTcpjsonPqControlsToJSON(
+  inputTcpjsonPqControls: InputTcpjsonPqControls,
+): string {
+  return JSON.stringify(
+    InputTcpjsonPqControls$outboundSchema.parse(inputTcpjsonPqControls),
+  );
+}
+export function inputTcpjsonPqControlsFromJSON(
+  jsonString: string,
+): SafeParseResult<InputTcpjsonPqControls, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputTcpjsonPqControls$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputTcpjsonPqControls' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputTcpjsonPq$inboundSchema: z.ZodType<
+  InputTcpjsonPq,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  mode: InputTcpjsonMode$inboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputTcpjsonCompression$inboundSchema.default("none"),
+  pqControls: z.lazy(() => InputTcpjsonPqControls$inboundSchema).optional(),
+});
+/** @internal */
+export type InputTcpjsonPq$Outbound = {
+  mode: string;
+  maxBufferSize: number;
+  commitFrequency: number;
+  maxFileSize: string;
+  maxSize: string;
+  path: string;
+  compress: string;
+  pqControls?: InputTcpjsonPqControls$Outbound | undefined;
+};
+
+/** @internal */
+export const InputTcpjsonPq$outboundSchema: z.ZodType<
+  InputTcpjsonPq$Outbound,
+  z.ZodTypeDef,
+  InputTcpjsonPq
+> = z.object({
+  mode: InputTcpjsonMode$outboundSchema.default("always"),
+  maxBufferSize: z.number().default(1000),
+  commitFrequency: z.number().default(42),
+  maxFileSize: z.string().default("1 MB"),
+  maxSize: z.string().default("5GB"),
+  path: z.string().default("$CRIBL_HOME/state/queues"),
+  compress: InputTcpjsonCompression$outboundSchema.default("none"),
+  pqControls: z.lazy(() => InputTcpjsonPqControls$outboundSchema).optional(),
+});
+
+export function inputTcpjsonPqToJSON(inputTcpjsonPq: InputTcpjsonPq): string {
+  return JSON.stringify(InputTcpjsonPq$outboundSchema.parse(inputTcpjsonPq));
+}
+export function inputTcpjsonPqFromJSON(
+  jsonString: string,
+): SafeParseResult<InputTcpjsonPq, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputTcpjsonPq$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputTcpjsonPq' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputTcpjsonMinimumTLSVersion$inboundSchema: z.ZodType<
+  InputTcpjsonMinimumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputTcpjsonMinimumTLSVersion);
+/** @internal */
+export const InputTcpjsonMinimumTLSVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputTcpjsonMinimumTLSVersion
+> = openEnums.outboundSchema(InputTcpjsonMinimumTLSVersion);
+
+/** @internal */
+export const InputTcpjsonMaximumTLSVersion$inboundSchema: z.ZodType<
+  InputTcpjsonMaximumTLSVersion,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputTcpjsonMaximumTLSVersion);
+/** @internal */
+export const InputTcpjsonMaximumTLSVersion$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputTcpjsonMaximumTLSVersion
+> = openEnums.outboundSchema(InputTcpjsonMaximumTLSVersion);
+
+/** @internal */
+export const InputTcpjsonTLSSettingsServerSide$inboundSchema: z.ZodType<
+  InputTcpjsonTLSSettingsServerSide,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: InputTcpjsonMinimumTLSVersion$inboundSchema.optional(),
+  maxVersion: InputTcpjsonMaximumTLSVersion$inboundSchema.optional(),
+});
+/** @internal */
+export type InputTcpjsonTLSSettingsServerSide$Outbound = {
+  disabled: boolean;
+  requestCert: boolean;
+  rejectUnauthorized: boolean;
+  commonNameRegex: string;
+  certificateName?: string | undefined;
+  privKeyPath?: string | undefined;
+  passphrase?: string | undefined;
+  certPath?: string | undefined;
+  caPath?: string | undefined;
+  minVersion?: string | undefined;
+  maxVersion?: string | undefined;
+};
+
+/** @internal */
+export const InputTcpjsonTLSSettingsServerSide$outboundSchema: z.ZodType<
+  InputTcpjsonTLSSettingsServerSide$Outbound,
+  z.ZodTypeDef,
+  InputTcpjsonTLSSettingsServerSide
+> = z.object({
+  disabled: z.boolean().default(true),
+  requestCert: z.boolean().default(false),
+  rejectUnauthorized: z.boolean().default(true),
+  commonNameRegex: z.string().default("/.*/"),
+  certificateName: z.string().optional(),
+  privKeyPath: z.string().optional(),
+  passphrase: z.string().optional(),
+  certPath: z.string().optional(),
+  caPath: z.string().optional(),
+  minVersion: InputTcpjsonMinimumTLSVersion$outboundSchema.optional(),
+  maxVersion: InputTcpjsonMaximumTLSVersion$outboundSchema.optional(),
+});
+
+export function inputTcpjsonTLSSettingsServerSideToJSON(
+  inputTcpjsonTLSSettingsServerSide: InputTcpjsonTLSSettingsServerSide,
+): string {
+  return JSON.stringify(
+    InputTcpjsonTLSSettingsServerSide$outboundSchema.parse(
+      inputTcpjsonTLSSettingsServerSide,
+    ),
+  );
+}
+export function inputTcpjsonTLSSettingsServerSideFromJSON(
+  jsonString: string,
+): SafeParseResult<InputTcpjsonTLSSettingsServerSide, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputTcpjsonTLSSettingsServerSide$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputTcpjsonTLSSettingsServerSide' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputTcpjsonMetadatum$inboundSchema: z.ZodType<
+  InputTcpjsonMetadatum,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type InputTcpjsonMetadatum$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const InputTcpjsonMetadatum$outboundSchema: z.ZodType<
+  InputTcpjsonMetadatum$Outbound,
+  z.ZodTypeDef,
+  InputTcpjsonMetadatum
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function inputTcpjsonMetadatumToJSON(
+  inputTcpjsonMetadatum: InputTcpjsonMetadatum,
+): string {
+  return JSON.stringify(
+    InputTcpjsonMetadatum$outboundSchema.parse(inputTcpjsonMetadatum),
+  );
+}
+export function inputTcpjsonMetadatumFromJSON(
+  jsonString: string,
+): SafeParseResult<InputTcpjsonMetadatum, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => InputTcpjsonMetadatum$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'InputTcpjsonMetadatum' from JSON`,
+  );
+}
+
+/** @internal */
+export const InputTcpjsonAuthenticationMethod$inboundSchema: z.ZodType<
+  InputTcpjsonAuthenticationMethod,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(InputTcpjsonAuthenticationMethod);
+/** @internal */
+export const InputTcpjsonAuthenticationMethod$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  InputTcpjsonAuthenticationMethod
+> = openEnums.outboundSchema(InputTcpjsonAuthenticationMethod);
 
 /** @internal */
 export const InputTcpjson$inboundSchema: z.ZodType<
@@ -138,22 +575,22 @@ export const InputTcpjson$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
-  pq: PqType$inboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputTcpjsonConnection$inboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputTcpjsonPq$inboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
-  tls: TlsSettingsServerSideType$inboundSchema.optional(),
+  tls: z.lazy(() => InputTcpjsonTLSSettingsServerSide$inboundSchema).optional(),
   ipWhitelistRegex: z.string().default("/.*/"),
   maxActiveCxn: z.number().default(1000),
   socketIdleTimeout: z.number().default(0),
   socketEndingMaxWait: z.number().default(30),
   socketMaxLifespan: z.number().default(0),
   enableProxyHeader: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  metadata: z.array(z.lazy(() => InputTcpjsonMetadatum$inboundSchema))
+    .optional(),
   enableLoadBalancing: z.boolean().default(false),
-  authType: AuthenticationMethodOptionsAuthTokensItems$inboundSchema.default(
-    "manual",
-  ),
+  authType: InputTcpjsonAuthenticationMethod$inboundSchema.default("manual"),
   description: z.string().optional(),
   authToken: z.string().default(""),
   textSecret: z.string().optional(),
@@ -168,18 +605,18 @@ export type InputTcpjson$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
-  pq?: PqType$Outbound | undefined;
+  connections?: Array<InputTcpjsonConnection$Outbound> | undefined;
+  pq?: InputTcpjsonPq$Outbound | undefined;
   host: string;
   port: number;
-  tls?: TlsSettingsServerSideType$Outbound | undefined;
+  tls?: InputTcpjsonTLSSettingsServerSide$Outbound | undefined;
   ipWhitelistRegex: string;
   maxActiveCxn: number;
   socketIdleTimeout: number;
   socketEndingMaxWait: number;
   socketMaxLifespan: number;
   enableProxyHeader: boolean;
-  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  metadata?: Array<InputTcpjsonMetadatum$Outbound> | undefined;
   enableLoadBalancing: boolean;
   authType: string;
   description?: string | undefined;
@@ -201,22 +638,23 @@ export const InputTcpjson$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
-  pq: PqType$outboundSchema.optional(),
+  connections: z.array(z.lazy(() => InputTcpjsonConnection$outboundSchema))
+    .optional(),
+  pq: z.lazy(() => InputTcpjsonPq$outboundSchema).optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number(),
-  tls: TlsSettingsServerSideType$outboundSchema.optional(),
+  tls: z.lazy(() => InputTcpjsonTLSSettingsServerSide$outboundSchema)
+    .optional(),
   ipWhitelistRegex: z.string().default("/.*/"),
   maxActiveCxn: z.number().default(1000),
   socketIdleTimeout: z.number().default(0),
   socketEndingMaxWait: z.number().default(30),
   socketMaxLifespan: z.number().default(0),
   enableProxyHeader: z.boolean().default(false),
-  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  metadata: z.array(z.lazy(() => InputTcpjsonMetadatum$outboundSchema))
+    .optional(),
   enableLoadBalancing: z.boolean().default(false),
-  authType: AuthenticationMethodOptionsAuthTokensItems$outboundSchema.default(
-    "manual",
-  ),
+  authType: InputTcpjsonAuthenticationMethod$outboundSchema.default("manual"),
   description: z.string().optional(),
   authToken: z.string().default(""),
   textSecret: z.string().optional(),
