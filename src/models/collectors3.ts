@@ -7,31 +7,17 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthenticationMethodOptions,
+  AuthenticationMethodOptions$inboundSchema,
+  AuthenticationMethodOptions$outboundSchema,
+} from "./authenticationmethodoptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export const CollectorS3AuthenticationMethod5 = {
-  /**
-   * Auto
-   */
-  Auto: "auto",
-  /**
-   * Manual
-   */
-  Manual: "manual",
-  /**
-   * Secret Key pair
-   */
-  Secret: "secret",
-} as const;
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export type CollectorS3AuthenticationMethod5 = OpenEnum<
-  typeof CollectorS3AuthenticationMethod5
->;
+import {
+  SignatureVersionOptions,
+  SignatureVersionOptions$inboundSchema,
+  SignatureVersionOptions$outboundSchema,
+} from "./signatureversionoptions.js";
 
 /**
  * Collector type: s3
@@ -73,25 +59,11 @@ export type CollectorS3Extractor5 = {
   expression: string;
 };
 
-/**
- * Signature version to use for signing S3 requests
- */
-export const CollectorS3SignatureVersion5 = {
-  V2: "v2",
-  V4: "v4",
-} as const;
-/**
- * Signature version to use for signing S3 requests
- */
-export type CollectorS3SignatureVersion5 = OpenEnum<
-  typeof CollectorS3SignatureVersion5
->;
-
 export type CollectorS3S35 = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: CollectorS3AuthenticationMethod5 | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
   /**
    * Select or create a stored secret that references AWS access key and secret key.
    */
@@ -139,7 +111,7 @@ export type CollectorS3S35 = {
   /**
    * Signature version to use for signing S3 requests
    */
-  signatureVersion?: CollectorS3SignatureVersion5 | undefined;
+  signatureVersion?: SignatureVersionOptions | undefined;
   /**
    * Use AssumeRole credentials
    */
@@ -191,30 +163,6 @@ export type CollectorS3S35 = {
 };
 
 /**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export const CollectorS3AuthenticationMethod4 = {
-  /**
-   * Auto
-   */
-  Auto: "auto",
-  /**
-   * Manual
-   */
-  Manual: "manual",
-  /**
-   * Secret Key pair
-   */
-  Secret: "secret",
-} as const;
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export type CollectorS3AuthenticationMethod4 = OpenEnum<
-  typeof CollectorS3AuthenticationMethod4
->;
-
-/**
  * Collector type: s3
  */
 export const CollectorS3Type4 = {
@@ -254,25 +202,11 @@ export type CollectorS3Extractor4 = {
   expression: string;
 };
 
-/**
- * Signature version to use for signing S3 requests
- */
-export const CollectorS3SignatureVersion4 = {
-  V2: "v2",
-  V4: "v4",
-} as const;
-/**
- * Signature version to use for signing S3 requests
- */
-export type CollectorS3SignatureVersion4 = OpenEnum<
-  typeof CollectorS3SignatureVersion4
->;
-
 export type CollectorS3S34 = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: CollectorS3AuthenticationMethod4 | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
   /**
    * Access key. If not present, will fall back to env.AWS_ACCESS_KEY_ID, or to the metadata endpoint for IAM creds. Optional when running on AWS. This value can be a constant or a JavaScript expression.
    */
@@ -324,7 +258,7 @@ export type CollectorS3S34 = {
   /**
    * Signature version to use for signing S3 requests
    */
-  signatureVersion?: CollectorS3SignatureVersion4 | undefined;
+  signatureVersion?: SignatureVersionOptions | undefined;
   /**
    * Use AssumeRole credentials
    */
@@ -372,30 +306,6 @@ export type CollectorS3S34 = {
 };
 
 /**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export const CollectorS3AuthenticationMethod3 = {
-  /**
-   * Auto
-   */
-  Auto: "auto",
-  /**
-   * Manual
-   */
-  Manual: "manual",
-  /**
-   * Secret Key pair
-   */
-  Secret: "secret",
-} as const;
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export type CollectorS3AuthenticationMethod3 = OpenEnum<
-  typeof CollectorS3AuthenticationMethod3
->;
-
-/**
  * Collector type: s3
  */
 export const CollectorS3Type3 = {
@@ -435,25 +345,11 @@ export type CollectorS3Extractor3 = {
   expression: string;
 };
 
-/**
- * Signature version to use for signing S3 requests
- */
-export const CollectorS3SignatureVersion3 = {
-  V2: "v2",
-  V4: "v4",
-} as const;
-/**
- * Signature version to use for signing S3 requests
- */
-export type CollectorS3SignatureVersion3 = OpenEnum<
-  typeof CollectorS3SignatureVersion3
->;
-
 export type CollectorS3S33 = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: CollectorS3AuthenticationMethod3 | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
   /**
    * Collector type: s3
    */
@@ -497,7 +393,7 @@ export type CollectorS3S33 = {
   /**
    * Signature version to use for signing S3 requests
    */
-  signatureVersion?: CollectorS3SignatureVersion3 | undefined;
+  signatureVersion?: SignatureVersionOptions | undefined;
   /**
    * Use AssumeRole credentials
    */
@@ -592,44 +488,6 @@ export type CollectorS3Extractor2 = {
   expression: string;
 };
 
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export const CollectorS3AuthenticationMethod2 = {
-  /**
-   * Auto
-   */
-  Auto: "auto",
-  /**
-   * Manual
-   */
-  Manual: "manual",
-  /**
-   * Secret Key pair
-   */
-  Secret: "secret",
-} as const;
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export type CollectorS3AuthenticationMethod2 = OpenEnum<
-  typeof CollectorS3AuthenticationMethod2
->;
-
-/**
- * Signature version to use for signing S3 requests
- */
-export const CollectorS3SignatureVersion2 = {
-  V2: "v2",
-  V4: "v4",
-} as const;
-/**
- * Signature version to use for signing S3 requests
- */
-export type CollectorS3SignatureVersion2 = OpenEnum<
-  typeof CollectorS3SignatureVersion2
->;
-
 export type CollectorS3S32 = {
   /**
    * Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
@@ -674,7 +532,7 @@ export type CollectorS3S32 = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: CollectorS3AuthenticationMethod2 | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
   /**
    * Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint.
    */
@@ -682,7 +540,7 @@ export type CollectorS3S32 = {
   /**
    * Signature version to use for signing S3 requests
    */
-  signatureVersion?: CollectorS3SignatureVersion2 | undefined;
+  signatureVersion?: SignatureVersionOptions | undefined;
   /**
    * Use AssumeRole credentials
    */
@@ -773,44 +631,6 @@ export type CollectorS3Extractor1 = {
   expression: string;
 };
 
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export const CollectorS3AuthenticationMethod1 = {
-  /**
-   * Auto
-   */
-  Auto: "auto",
-  /**
-   * Manual
-   */
-  Manual: "manual",
-  /**
-   * Secret Key pair
-   */
-  Secret: "secret",
-} as const;
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export type CollectorS3AuthenticationMethod1 = OpenEnum<
-  typeof CollectorS3AuthenticationMethod1
->;
-
-/**
- * Signature version to use for signing S3 requests
- */
-export const CollectorS3SignatureVersion1 = {
-  V2: "v2",
-  V4: "v4",
-} as const;
-/**
- * Signature version to use for signing S3 requests
- */
-export type CollectorS3SignatureVersion1 = OpenEnum<
-  typeof CollectorS3SignatureVersion1
->;
-
 export type CollectorS3S31 = {
   /**
    * Partitioning scheme used for this dataset. Using a known scheme like DDSS enables more efficient data reading and retrieval.
@@ -851,7 +671,7 @@ export type CollectorS3S31 = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: CollectorS3AuthenticationMethod1 | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
   /**
    * Must point to an S3-compatible endpoint. If empty, defaults to an AWS region-specific endpoint.
    */
@@ -859,7 +679,7 @@ export type CollectorS3S31 = {
   /**
    * Signature version to use for signing S3 requests
    */
-  signatureVersion?: CollectorS3SignatureVersion1 | undefined;
+  signatureVersion?: SignatureVersionOptions | undefined;
   /**
    * Use AssumeRole credentials
    */
@@ -920,19 +740,6 @@ export type CollectorS3 =
   | CollectorS3S33
   | CollectorS3S34
   | CollectorS3S35;
-
-/** @internal */
-export const CollectorS3AuthenticationMethod5$inboundSchema: z.ZodType<
-  CollectorS3AuthenticationMethod5,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(CollectorS3AuthenticationMethod5);
-/** @internal */
-export const CollectorS3AuthenticationMethod5$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CollectorS3AuthenticationMethod5
-> = openEnums.outboundSchema(CollectorS3AuthenticationMethod5);
 
 /** @internal */
 export const CollectorS3Type5$inboundSchema: z.ZodNativeEnum<
@@ -999,26 +806,14 @@ export function collectorS3Extractor5FromJSON(
 }
 
 /** @internal */
-export const CollectorS3SignatureVersion5$inboundSchema: z.ZodType<
-  CollectorS3SignatureVersion5,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(CollectorS3SignatureVersion5);
-/** @internal */
-export const CollectorS3SignatureVersion5$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CollectorS3SignatureVersion5
-> = openEnums.outboundSchema(CollectorS3SignatureVersion5);
-
-/** @internal */
 export const CollectorS3S35$inboundSchema: z.ZodType<
   CollectorS3S35,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  awsAuthenticationMethod: CollectorS3AuthenticationMethod5$inboundSchema
-    .default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
   awsSecret: z.string().optional(),
   type: CollectorS3Type5$inboundSchema,
   outputName: z.string().optional(),
@@ -1031,7 +826,7 @@ export const CollectorS3S35$inboundSchema: z.ZodType<
   extractors: z.array(z.lazy(() => CollectorS3Extractor5$inboundSchema))
     .optional(),
   endpoint: z.string().optional(),
-  signatureVersion: CollectorS3SignatureVersion5$inboundSchema.default("v4"),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
   enableAssumeRole: z.boolean().default(false),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
@@ -1080,8 +875,9 @@ export const CollectorS3S35$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CollectorS3S35
 > = z.object({
-  awsAuthenticationMethod: CollectorS3AuthenticationMethod5$outboundSchema
-    .default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
+    "auto",
+  ),
   awsSecret: z.string().optional(),
   type: CollectorS3Type5$outboundSchema,
   outputName: z.string().optional(),
@@ -1094,7 +890,7 @@ export const CollectorS3S35$outboundSchema: z.ZodType<
   extractors: z.array(z.lazy(() => CollectorS3Extractor5$outboundSchema))
     .optional(),
   endpoint: z.string().optional(),
-  signatureVersion: CollectorS3SignatureVersion5$outboundSchema.default("v4"),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
   enableAssumeRole: z.boolean().default(false),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
@@ -1121,19 +917,6 @@ export function collectorS3S35FromJSON(
     `Failed to parse 'CollectorS3S35' from JSON`,
   );
 }
-
-/** @internal */
-export const CollectorS3AuthenticationMethod4$inboundSchema: z.ZodType<
-  CollectorS3AuthenticationMethod4,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(CollectorS3AuthenticationMethod4);
-/** @internal */
-export const CollectorS3AuthenticationMethod4$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CollectorS3AuthenticationMethod4
-> = openEnums.outboundSchema(CollectorS3AuthenticationMethod4);
 
 /** @internal */
 export const CollectorS3Type4$inboundSchema: z.ZodNativeEnum<
@@ -1200,26 +983,14 @@ export function collectorS3Extractor4FromJSON(
 }
 
 /** @internal */
-export const CollectorS3SignatureVersion4$inboundSchema: z.ZodType<
-  CollectorS3SignatureVersion4,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(CollectorS3SignatureVersion4);
-/** @internal */
-export const CollectorS3SignatureVersion4$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CollectorS3SignatureVersion4
-> = openEnums.outboundSchema(CollectorS3SignatureVersion4);
-
-/** @internal */
 export const CollectorS3S34$inboundSchema: z.ZodType<
   CollectorS3S34,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  awsAuthenticationMethod: CollectorS3AuthenticationMethod4$inboundSchema
-    .default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
   awsApiKey: z.string().optional(),
   awsSecretKey: z.string().optional(),
   type: CollectorS3Type4$inboundSchema,
@@ -1233,7 +1004,7 @@ export const CollectorS3S34$inboundSchema: z.ZodType<
   extractors: z.array(z.lazy(() => CollectorS3Extractor4$inboundSchema))
     .optional(),
   endpoint: z.string().optional(),
-  signatureVersion: CollectorS3SignatureVersion4$inboundSchema.default("v4"),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
   enableAssumeRole: z.boolean().default(false),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
@@ -1281,8 +1052,9 @@ export const CollectorS3S34$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CollectorS3S34
 > = z.object({
-  awsAuthenticationMethod: CollectorS3AuthenticationMethod4$outboundSchema
-    .default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
+    "auto",
+  ),
   awsApiKey: z.string().optional(),
   awsSecretKey: z.string().optional(),
   type: CollectorS3Type4$outboundSchema,
@@ -1296,7 +1068,7 @@ export const CollectorS3S34$outboundSchema: z.ZodType<
   extractors: z.array(z.lazy(() => CollectorS3Extractor4$outboundSchema))
     .optional(),
   endpoint: z.string().optional(),
-  signatureVersion: CollectorS3SignatureVersion4$outboundSchema.default("v4"),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
   enableAssumeRole: z.boolean().default(false),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
@@ -1322,19 +1094,6 @@ export function collectorS3S34FromJSON(
     `Failed to parse 'CollectorS3S34' from JSON`,
   );
 }
-
-/** @internal */
-export const CollectorS3AuthenticationMethod3$inboundSchema: z.ZodType<
-  CollectorS3AuthenticationMethod3,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(CollectorS3AuthenticationMethod3);
-/** @internal */
-export const CollectorS3AuthenticationMethod3$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CollectorS3AuthenticationMethod3
-> = openEnums.outboundSchema(CollectorS3AuthenticationMethod3);
 
 /** @internal */
 export const CollectorS3Type3$inboundSchema: z.ZodNativeEnum<
@@ -1401,26 +1160,14 @@ export function collectorS3Extractor3FromJSON(
 }
 
 /** @internal */
-export const CollectorS3SignatureVersion3$inboundSchema: z.ZodType<
-  CollectorS3SignatureVersion3,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(CollectorS3SignatureVersion3);
-/** @internal */
-export const CollectorS3SignatureVersion3$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CollectorS3SignatureVersion3
-> = openEnums.outboundSchema(CollectorS3SignatureVersion3);
-
-/** @internal */
 export const CollectorS3S33$inboundSchema: z.ZodType<
   CollectorS3S33,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  awsAuthenticationMethod: CollectorS3AuthenticationMethod3$inboundSchema
-    .default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
   type: CollectorS3Type3$inboundSchema,
   outputName: z.string().optional(),
   bucket: z.string(),
@@ -1432,7 +1179,7 @@ export const CollectorS3S33$inboundSchema: z.ZodType<
   extractors: z.array(z.lazy(() => CollectorS3Extractor3$inboundSchema))
     .optional(),
   endpoint: z.string().optional(),
-  signatureVersion: CollectorS3SignatureVersion3$inboundSchema.default("v4"),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
   enableAssumeRole: z.boolean().default(false),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
@@ -1482,8 +1229,9 @@ export const CollectorS3S33$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CollectorS3S33
 > = z.object({
-  awsAuthenticationMethod: CollectorS3AuthenticationMethod3$outboundSchema
-    .default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
+    "auto",
+  ),
   type: CollectorS3Type3$outboundSchema,
   outputName: z.string().optional(),
   bucket: z.string(),
@@ -1495,7 +1243,7 @@ export const CollectorS3S33$outboundSchema: z.ZodType<
   extractors: z.array(z.lazy(() => CollectorS3Extractor3$outboundSchema))
     .optional(),
   endpoint: z.string().optional(),
-  signatureVersion: CollectorS3SignatureVersion3$outboundSchema.default("v4"),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
   enableAssumeRole: z.boolean().default(false),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
@@ -1589,32 +1337,6 @@ export function collectorS3Extractor2FromJSON(
 }
 
 /** @internal */
-export const CollectorS3AuthenticationMethod2$inboundSchema: z.ZodType<
-  CollectorS3AuthenticationMethod2,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(CollectorS3AuthenticationMethod2);
-/** @internal */
-export const CollectorS3AuthenticationMethod2$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CollectorS3AuthenticationMethod2
-> = openEnums.outboundSchema(CollectorS3AuthenticationMethod2);
-
-/** @internal */
-export const CollectorS3SignatureVersion2$inboundSchema: z.ZodType<
-  CollectorS3SignatureVersion2,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(CollectorS3SignatureVersion2);
-/** @internal */
-export const CollectorS3SignatureVersion2$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CollectorS3SignatureVersion2
-> = openEnums.outboundSchema(CollectorS3SignatureVersion2);
-
-/** @internal */
 export const CollectorS3S32$inboundSchema: z.ZodType<
   CollectorS3S32,
   z.ZodTypeDef,
@@ -1631,10 +1353,11 @@ export const CollectorS3S32$inboundSchema: z.ZodType<
   path: z.string().optional(),
   extractors: z.array(z.lazy(() => CollectorS3Extractor2$inboundSchema))
     .optional(),
-  awsAuthenticationMethod: CollectorS3AuthenticationMethod2$inboundSchema
-    .default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
   endpoint: z.string().optional(),
-  signatureVersion: CollectorS3SignatureVersion2$inboundSchema.default("v4"),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
   enableAssumeRole: z.boolean().default(false),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
@@ -1694,10 +1417,11 @@ export const CollectorS3S32$outboundSchema: z.ZodType<
   path: z.string().optional(),
   extractors: z.array(z.lazy(() => CollectorS3Extractor2$outboundSchema))
     .optional(),
-  awsAuthenticationMethod: CollectorS3AuthenticationMethod2$outboundSchema
-    .default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
+    "auto",
+  ),
   endpoint: z.string().optional(),
-  signatureVersion: CollectorS3SignatureVersion2$outboundSchema.default("v4"),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
   enableAssumeRole: z.boolean().default(false),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
@@ -1790,32 +1514,6 @@ export function collectorS3Extractor1FromJSON(
 }
 
 /** @internal */
-export const CollectorS3AuthenticationMethod1$inboundSchema: z.ZodType<
-  CollectorS3AuthenticationMethod1,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(CollectorS3AuthenticationMethod1);
-/** @internal */
-export const CollectorS3AuthenticationMethod1$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CollectorS3AuthenticationMethod1
-> = openEnums.outboundSchema(CollectorS3AuthenticationMethod1);
-
-/** @internal */
-export const CollectorS3SignatureVersion1$inboundSchema: z.ZodType<
-  CollectorS3SignatureVersion1,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(CollectorS3SignatureVersion1);
-/** @internal */
-export const CollectorS3SignatureVersion1$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CollectorS3SignatureVersion1
-> = openEnums.outboundSchema(CollectorS3SignatureVersion1);
-
-/** @internal */
 export const CollectorS3S31$inboundSchema: z.ZodType<
   CollectorS3S31,
   z.ZodTypeDef,
@@ -1831,10 +1529,11 @@ export const CollectorS3S31$inboundSchema: z.ZodType<
   path: z.string().optional(),
   extractors: z.array(z.lazy(() => CollectorS3Extractor1$inboundSchema))
     .optional(),
-  awsAuthenticationMethod: CollectorS3AuthenticationMethod1$inboundSchema
-    .default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
   endpoint: z.string().optional(),
-  signatureVersion: CollectorS3SignatureVersion1$inboundSchema.default("v4"),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
   enableAssumeRole: z.boolean().default(false),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),
@@ -1894,10 +1593,11 @@ export const CollectorS3S31$outboundSchema: z.ZodType<
   path: z.string().optional(),
   extractors: z.array(z.lazy(() => CollectorS3Extractor1$outboundSchema))
     .optional(),
-  awsAuthenticationMethod: CollectorS3AuthenticationMethod1$outboundSchema
-    .default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
+    "auto",
+  ),
   endpoint: z.string().optional(),
-  signatureVersion: CollectorS3SignatureVersion1$outboundSchema.default("v4"),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
   enableAssumeRole: z.boolean().default(false),
   assumeRoleArn: z.string().optional(),
   assumeRoleExternalId: z.string().optional(),

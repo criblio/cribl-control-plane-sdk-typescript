@@ -7,7 +7,80 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  BackpressureBehaviorOptions,
+  BackpressureBehaviorOptions$inboundSchema,
+  BackpressureBehaviorOptions$outboundSchema,
+} from "./backpressurebehavioroptions.js";
+import {
+  CompressionLevelOptions,
+  CompressionLevelOptions$inboundSchema,
+  CompressionLevelOptions$outboundSchema,
+} from "./compressionleveloptions.js";
+import {
+  CompressionOptions2,
+  CompressionOptions2$inboundSchema,
+  CompressionOptions2$outboundSchema,
+} from "./compressionoptions2.js";
+import {
+  CompressionOptionsPq,
+  CompressionOptionsPq$inboundSchema,
+  CompressionOptionsPq$outboundSchema,
+} from "./compressionoptionspq.js";
+import {
+  DataFormatOptions,
+  DataFormatOptions$inboundSchema,
+  DataFormatOptions$outboundSchema,
+} from "./dataformatoptions.js";
+import {
+  DataPageVersionOptions,
+  DataPageVersionOptions$inboundSchema,
+  DataPageVersionOptions$outboundSchema,
+} from "./datapageversionoptions.js";
+import {
+  DiskSpaceProtectionOptions,
+  DiskSpaceProtectionOptions$inboundSchema,
+  DiskSpaceProtectionOptions$outboundSchema,
+} from "./diskspaceprotectionoptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  ItemsTypeKeyValueMetadata,
+  ItemsTypeKeyValueMetadata$inboundSchema,
+  ItemsTypeKeyValueMetadata$Outbound,
+  ItemsTypeKeyValueMetadata$outboundSchema,
+} from "./itemstypekeyvaluemetadata.js";
+import {
+  ItemsTypeResponseRetrySettings,
+  ItemsTypeResponseRetrySettings$inboundSchema,
+  ItemsTypeResponseRetrySettings$Outbound,
+  ItemsTypeResponseRetrySettings$outboundSchema,
+} from "./itemstyperesponseretrysettings.js";
+import {
+  MicrosoftEntraIdAuthenticationEndpointOptionsSasl,
+  MicrosoftEntraIdAuthenticationEndpointOptionsSasl$inboundSchema,
+  MicrosoftEntraIdAuthenticationEndpointOptionsSasl$outboundSchema,
+} from "./microsoftentraidauthenticationendpointoptionssasl.js";
+import {
+  ModeOptions,
+  ModeOptions$inboundSchema,
+  ModeOptions$outboundSchema,
+} from "./modeoptions.js";
+import {
+  ParquetVersionOptions,
+  ParquetVersionOptions$inboundSchema,
+  ParquetVersionOptions$outboundSchema,
+} from "./parquetversionoptions.js";
+import {
+  QueueFullBehaviorOptions,
+  QueueFullBehaviorOptions$inboundSchema,
+  QueueFullBehaviorOptions$outboundSchema,
+} from "./queuefullbehavioroptions.js";
+import {
+  TimeoutRetrySettingsType,
+  TimeoutRetrySettingsType$inboundSchema,
+  TimeoutRetrySettingsType$Outbound,
+  TimeoutRetrySettingsType$outboundSchema,
+} from "./timeoutretrysettingstype.js";
 
 export const IngestionMode = {
   /**
@@ -20,23 +93,6 @@ export const IngestionMode = {
   Streaming: "streaming",
 } as const;
 export type IngestionMode = OpenEnum<typeof IngestionMode>;
-
-/**
- * Endpoint used to acquire authentication tokens from Azure
- */
-export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint = {
-  HttpsLoginMicrosoftonlineCom: "https://login.microsoftonline.com",
-  HttpsLoginMicrosoftonlineUs: "https://login.microsoftonline.us",
-  HttpsLoginPartnerMicrosoftonlineCn:
-    "https://login.partner.microsoftonline.cn",
-} as const;
-/**
- * Endpoint used to acquire authentication tokens from Azure
- */
-export type OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint =
-  OpenEnum<
-    typeof OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint
-  >;
 
 /**
  * The type of OAuth 2.0 client credentials grant flow to use
@@ -62,167 +118,12 @@ export type OutputAzureDataExplorerAuthenticationMethod = OpenEnum<
   typeof OutputAzureDataExplorerAuthenticationMethod
 >;
 
-export type OutputAzureDataExplorerCertificate = {
+export type Certificate = {
   /**
    * The certificate you registered as credentials for your app in the Azure portal
    */
   certificateName?: string | undefined;
 };
-
-/**
- * Format of the output data
- */
-export const OutputAzureDataExplorerDataFormat = {
-  /**
-   * JSON
-   */
-  Json: "json",
-  /**
-   * Raw
-   */
-  Raw: "raw",
-  /**
-   * Parquet
-   */
-  Parquet: "parquet",
-} as const;
-/**
- * Format of the output data
- */
-export type OutputAzureDataExplorerDataFormat = OpenEnum<
-  typeof OutputAzureDataExplorerDataFormat
->;
-
-/**
- * Data compression format to apply to HTTP content before it is delivered
- */
-export const OutputAzureDataExplorerCompressCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Data compression format to apply to HTTP content before it is delivered
- */
-export type OutputAzureDataExplorerCompressCompression = OpenEnum<
-  typeof OutputAzureDataExplorerCompressCompression
->;
-
-/**
- * Compression level to apply before moving files to final destination
- */
-export const OutputAzureDataExplorerCompressionLevel = {
-  /**
-   * Best Speed
-   */
-  BestSpeed: "best_speed",
-  /**
-   * Normal
-   */
-  Normal: "normal",
-  /**
-   * Best Compression
-   */
-  BestCompression: "best_compression",
-} as const;
-/**
- * Compression level to apply before moving files to final destination
- */
-export type OutputAzureDataExplorerCompressionLevel = OpenEnum<
-  typeof OutputAzureDataExplorerCompressionLevel
->;
-
-/**
- * Determines which data types are supported and how they are represented
- */
-export const OutputAzureDataExplorerParquetVersion = {
-  /**
-   * 1.0
-   */
-  Parquet10: "PARQUET_1_0",
-  /**
-   * 2.4
-   */
-  Parquet24: "PARQUET_2_4",
-  /**
-   * 2.6
-   */
-  Parquet26: "PARQUET_2_6",
-} as const;
-/**
- * Determines which data types are supported and how they are represented
- */
-export type OutputAzureDataExplorerParquetVersion = OpenEnum<
-  typeof OutputAzureDataExplorerParquetVersion
->;
-
-/**
- * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
- */
-export const OutputAzureDataExplorerDataPageVersion = {
-  /**
-   * V1
-   */
-  DataPageV1: "DATA_PAGE_V1",
-  /**
-   * V2
-   */
-  DataPageV2: "DATA_PAGE_V2",
-} as const;
-/**
- * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
- */
-export type OutputAzureDataExplorerDataPageVersion = OpenEnum<
-  typeof OutputAzureDataExplorerDataPageVersion
->;
-
-export type OutputAzureDataExplorerKeyValueMetadatum = {
-  key?: string | undefined;
-  value: string;
-};
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputAzureDataExplorerBackpressureBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-  /**
-   * Persistent Queue
-   */
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputAzureDataExplorerBackpressureBehavior = OpenEnum<
-  typeof OutputAzureDataExplorerBackpressureBehavior
->;
-
-/**
- * How to handle events when disk space is below the global 'Min free disk space' limit
- */
-export const OutputAzureDataExplorerDiskSpaceProtection = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when disk space is below the global 'Min free disk space' limit
- */
-export type OutputAzureDataExplorerDiskSpaceProtection = OpenEnum<
-  typeof OutputAzureDataExplorerDiskSpaceProtection
->;
 
 export const PrefixOptional = {
   /**
@@ -294,105 +195,6 @@ export type AdditionalProperty = {
   value: string;
 };
 
-export type OutputAzureDataExplorerResponseRetrySetting = {
-  /**
-   * The HTTP response status code that will trigger retries
-   */
-  httpStatus: number;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-export type OutputAzureDataExplorerTimeoutRetrySettings = {
-  timeoutRetry?: boolean | undefined;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputAzureDataExplorerMode = {
-  /**
-   * Error
-   */
-  Error: "error",
-  /**
-   * Backpressure
-   */
-  Always: "always",
-  /**
-   * Always On
-   */
-  Backpressure: "backpressure",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputAzureDataExplorerMode = OpenEnum<
-  typeof OutputAzureDataExplorerMode
->;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputAzureDataExplorerPqCompressCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputAzureDataExplorerPqCompressCompression = OpenEnum<
-  typeof OutputAzureDataExplorerPqCompressCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputAzureDataExplorerQueueFullBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop new data
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputAzureDataExplorerQueueFullBehavior = OpenEnum<
-  typeof OutputAzureDataExplorerQueueFullBehavior
->;
-
 export type OutputAzureDataExplorerPqControls = {};
 
 export type OutputAzureDataExplorer = {
@@ -437,9 +239,7 @@ export type OutputAzureDataExplorer = {
   /**
    * Endpoint used to acquire authentication tokens from Azure
    */
-  oauthEndpoint?:
-    | OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint
-    | undefined;
+  oauthEndpoint?: MicrosoftEntraIdAuthenticationEndpointOptionsSasl | undefined;
   /**
    * Directory ID (tenant identifier) in Azure Active Directory
    */
@@ -465,19 +265,19 @@ export type OutputAzureDataExplorer = {
    * Select or create a stored text secret
    */
   textSecret?: string | undefined;
-  certificate?: OutputAzureDataExplorerCertificate | undefined;
+  certificate?: Certificate | undefined;
   /**
    * Format of the output data
    */
-  format?: OutputAzureDataExplorerDataFormat | undefined;
+  format?: DataFormatOptions | undefined;
   /**
    * Data compression format to apply to HTTP content before it is delivered
    */
-  compress?: OutputAzureDataExplorerCompressCompression | undefined;
+  compress?: CompressionOptions2 | undefined;
   /**
    * Compression level to apply before moving files to final destination
    */
-  compressionLevel?: OutputAzureDataExplorerCompressionLevel | undefined;
+  compressionLevel?: CompressionLevelOptions | undefined;
   /**
    * Automatically calculate the schema based on the events of each Parquet file generated
    */
@@ -489,11 +289,11 @@ export type OutputAzureDataExplorer = {
   /**
    * Determines which data types are supported and how they are represented
    */
-  parquetVersion?: OutputAzureDataExplorerParquetVersion | undefined;
+  parquetVersion?: ParquetVersionOptions | undefined;
   /**
    * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
    */
-  parquetDataPageVersion?: OutputAzureDataExplorerDataPageVersion | undefined;
+  parquetDataPageVersion?: DataPageVersionOptions | undefined;
   /**
    * The number of rows that every group will contain. The final group can contain a smaller number of rows.
    */
@@ -509,9 +309,7 @@ export type OutputAzureDataExplorer = {
   /**
    * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
    */
-  keyValueMetadata?:
-    | Array<OutputAzureDataExplorerKeyValueMetadatum>
-    | undefined;
+  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata> | undefined;
   /**
    * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
    */
@@ -567,7 +365,7 @@ export type OutputAzureDataExplorer = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputAzureDataExplorerBackpressureBehavior | undefined;
+  onBackpressure?: BackpressureBehaviorOptions | undefined;
   /**
    * Filesystem location in which to buffer files before compressing and moving to final destination. Use performant and stable storage.
    */
@@ -599,9 +397,7 @@ export type OutputAzureDataExplorer = {
   /**
    * How to handle events when disk space is below the global 'Min free disk space' limit
    */
-  onDiskFullBackpressure?:
-    | OutputAzureDataExplorerDiskSpaceProtection
-    | undefined;
+  onDiskFullBackpressure?: DiskSpaceProtectionOptions | undefined;
   /**
    * Add the Output ID value to staging location
    */
@@ -641,12 +437,8 @@ export type OutputAzureDataExplorer = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?:
-    | Array<OutputAzureDataExplorerResponseRetrySetting>
-    | undefined;
-  timeoutRetrySettings?:
-    | OutputAzureDataExplorerTimeoutRetrySettings
-    | undefined;
+  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
@@ -694,7 +486,7 @@ export type OutputAzureDataExplorer = {
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputAzureDataExplorerMode | undefined;
+  pqMode?: ModeOptions | undefined;
   /**
    * The maximum number of events to hold in memory before writing the events to disk
    */
@@ -718,11 +510,11 @@ export type OutputAzureDataExplorer = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputAzureDataExplorerPqCompressCompression | undefined;
+  pqCompress?: CompressionOptionsPq | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputAzureDataExplorerQueueFullBehavior | undefined;
+  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputAzureDataExplorerPqControls | undefined;
 };
 
@@ -740,25 +532,6 @@ export const IngestionMode$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(IngestionMode);
 
 /** @internal */
-export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint$inboundSchema:
-  z.ZodType<
-    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint,
-  );
-/** @internal */
-export const OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint
-  > = openEnums.outboundSchema(
-    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint,
-  );
-
-/** @internal */
 export const OutputAzureDataExplorerAuthenticationMethod$inboundSchema:
   z.ZodType<
     OutputAzureDataExplorerAuthenticationMethod,
@@ -771,179 +544,39 @@ export const OutputAzureDataExplorerAuthenticationMethod$outboundSchema:
     openEnums.outboundSchema(OutputAzureDataExplorerAuthenticationMethod);
 
 /** @internal */
-export const OutputAzureDataExplorerCertificate$inboundSchema: z.ZodType<
-  OutputAzureDataExplorerCertificate,
+export const Certificate$inboundSchema: z.ZodType<
+  Certificate,
   z.ZodTypeDef,
   unknown
 > = z.object({
   certificateName: z.string().optional(),
 });
 /** @internal */
-export type OutputAzureDataExplorerCertificate$Outbound = {
+export type Certificate$Outbound = {
   certificateName?: string | undefined;
 };
 
 /** @internal */
-export const OutputAzureDataExplorerCertificate$outboundSchema: z.ZodType<
-  OutputAzureDataExplorerCertificate$Outbound,
+export const Certificate$outboundSchema: z.ZodType<
+  Certificate$Outbound,
   z.ZodTypeDef,
-  OutputAzureDataExplorerCertificate
+  Certificate
 > = z.object({
   certificateName: z.string().optional(),
 });
 
-export function outputAzureDataExplorerCertificateToJSON(
-  outputAzureDataExplorerCertificate: OutputAzureDataExplorerCertificate,
-): string {
-  return JSON.stringify(
-    OutputAzureDataExplorerCertificate$outboundSchema.parse(
-      outputAzureDataExplorerCertificate,
-    ),
-  );
+export function certificateToJSON(certificate: Certificate): string {
+  return JSON.stringify(Certificate$outboundSchema.parse(certificate));
 }
-export function outputAzureDataExplorerCertificateFromJSON(
+export function certificateFromJSON(
   jsonString: string,
-): SafeParseResult<OutputAzureDataExplorerCertificate, SDKValidationError> {
+): SafeParseResult<Certificate, SDKValidationError> {
   return safeParse(
     jsonString,
-    (x) =>
-      OutputAzureDataExplorerCertificate$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputAzureDataExplorerCertificate' from JSON`,
+    (x) => Certificate$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'Certificate' from JSON`,
   );
 }
-
-/** @internal */
-export const OutputAzureDataExplorerDataFormat$inboundSchema: z.ZodType<
-  OutputAzureDataExplorerDataFormat,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputAzureDataExplorerDataFormat);
-/** @internal */
-export const OutputAzureDataExplorerDataFormat$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputAzureDataExplorerDataFormat
-> = openEnums.outboundSchema(OutputAzureDataExplorerDataFormat);
-
-/** @internal */
-export const OutputAzureDataExplorerCompressCompression$inboundSchema:
-  z.ZodType<OutputAzureDataExplorerCompressCompression, z.ZodTypeDef, unknown> =
-    openEnums.inboundSchema(OutputAzureDataExplorerCompressCompression);
-/** @internal */
-export const OutputAzureDataExplorerCompressCompression$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, OutputAzureDataExplorerCompressCompression> =
-    openEnums.outboundSchema(OutputAzureDataExplorerCompressCompression);
-
-/** @internal */
-export const OutputAzureDataExplorerCompressionLevel$inboundSchema: z.ZodType<
-  OutputAzureDataExplorerCompressionLevel,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputAzureDataExplorerCompressionLevel);
-/** @internal */
-export const OutputAzureDataExplorerCompressionLevel$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputAzureDataExplorerCompressionLevel
-> = openEnums.outboundSchema(OutputAzureDataExplorerCompressionLevel);
-
-/** @internal */
-export const OutputAzureDataExplorerParquetVersion$inboundSchema: z.ZodType<
-  OutputAzureDataExplorerParquetVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputAzureDataExplorerParquetVersion);
-/** @internal */
-export const OutputAzureDataExplorerParquetVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputAzureDataExplorerParquetVersion
-> = openEnums.outboundSchema(OutputAzureDataExplorerParquetVersion);
-
-/** @internal */
-export const OutputAzureDataExplorerDataPageVersion$inboundSchema: z.ZodType<
-  OutputAzureDataExplorerDataPageVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputAzureDataExplorerDataPageVersion);
-/** @internal */
-export const OutputAzureDataExplorerDataPageVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputAzureDataExplorerDataPageVersion
-> = openEnums.outboundSchema(OutputAzureDataExplorerDataPageVersion);
-
-/** @internal */
-export const OutputAzureDataExplorerKeyValueMetadatum$inboundSchema: z.ZodType<
-  OutputAzureDataExplorerKeyValueMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  key: z.string().default(""),
-  value: z.string(),
-});
-/** @internal */
-export type OutputAzureDataExplorerKeyValueMetadatum$Outbound = {
-  key: string;
-  value: string;
-};
-
-/** @internal */
-export const OutputAzureDataExplorerKeyValueMetadatum$outboundSchema: z.ZodType<
-  OutputAzureDataExplorerKeyValueMetadatum$Outbound,
-  z.ZodTypeDef,
-  OutputAzureDataExplorerKeyValueMetadatum
-> = z.object({
-  key: z.string().default(""),
-  value: z.string(),
-});
-
-export function outputAzureDataExplorerKeyValueMetadatumToJSON(
-  outputAzureDataExplorerKeyValueMetadatum:
-    OutputAzureDataExplorerKeyValueMetadatum,
-): string {
-  return JSON.stringify(
-    OutputAzureDataExplorerKeyValueMetadatum$outboundSchema.parse(
-      outputAzureDataExplorerKeyValueMetadatum,
-    ),
-  );
-}
-export function outputAzureDataExplorerKeyValueMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  OutputAzureDataExplorerKeyValueMetadatum,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputAzureDataExplorerKeyValueMetadatum$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'OutputAzureDataExplorerKeyValueMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputAzureDataExplorerBackpressureBehavior$inboundSchema:
-  z.ZodType<
-    OutputAzureDataExplorerBackpressureBehavior,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(OutputAzureDataExplorerBackpressureBehavior);
-/** @internal */
-export const OutputAzureDataExplorerBackpressureBehavior$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, OutputAzureDataExplorerBackpressureBehavior> =
-    openEnums.outboundSchema(OutputAzureDataExplorerBackpressureBehavior);
-
-/** @internal */
-export const OutputAzureDataExplorerDiskSpaceProtection$inboundSchema:
-  z.ZodType<OutputAzureDataExplorerDiskSpaceProtection, z.ZodTypeDef, unknown> =
-    openEnums.inboundSchema(OutputAzureDataExplorerDiskSpaceProtection);
-/** @internal */
-export const OutputAzureDataExplorerDiskSpaceProtection$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, OutputAzureDataExplorerDiskSpaceProtection> =
-    openEnums.outboundSchema(OutputAzureDataExplorerDiskSpaceProtection);
 
 /** @internal */
 export const PrefixOptional$inboundSchema: z.ZodType<
@@ -1104,165 +737,6 @@ export function additionalPropertyFromJSON(
 }
 
 /** @internal */
-export const OutputAzureDataExplorerResponseRetrySetting$inboundSchema:
-  z.ZodType<
-    OutputAzureDataExplorerResponseRetrySetting,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    httpStatus: z.number(),
-    initialBackoff: z.number().default(1000),
-    backoffRate: z.number().default(2),
-    maxBackoff: z.number().default(10000),
-  });
-/** @internal */
-export type OutputAzureDataExplorerResponseRetrySetting$Outbound = {
-  httpStatus: number;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputAzureDataExplorerResponseRetrySetting$outboundSchema:
-  z.ZodType<
-    OutputAzureDataExplorerResponseRetrySetting$Outbound,
-    z.ZodTypeDef,
-    OutputAzureDataExplorerResponseRetrySetting
-  > = z.object({
-    httpStatus: z.number(),
-    initialBackoff: z.number().default(1000),
-    backoffRate: z.number().default(2),
-    maxBackoff: z.number().default(10000),
-  });
-
-export function outputAzureDataExplorerResponseRetrySettingToJSON(
-  outputAzureDataExplorerResponseRetrySetting:
-    OutputAzureDataExplorerResponseRetrySetting,
-): string {
-  return JSON.stringify(
-    OutputAzureDataExplorerResponseRetrySetting$outboundSchema.parse(
-      outputAzureDataExplorerResponseRetrySetting,
-    ),
-  );
-}
-export function outputAzureDataExplorerResponseRetrySettingFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  OutputAzureDataExplorerResponseRetrySetting,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputAzureDataExplorerResponseRetrySetting$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'OutputAzureDataExplorerResponseRetrySetting' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputAzureDataExplorerTimeoutRetrySettings$inboundSchema:
-  z.ZodType<
-    OutputAzureDataExplorerTimeoutRetrySettings,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({
-    timeoutRetry: z.boolean().default(false),
-    initialBackoff: z.number().default(1000),
-    backoffRate: z.number().default(2),
-    maxBackoff: z.number().default(10000),
-  });
-/** @internal */
-export type OutputAzureDataExplorerTimeoutRetrySettings$Outbound = {
-  timeoutRetry: boolean;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputAzureDataExplorerTimeoutRetrySettings$outboundSchema:
-  z.ZodType<
-    OutputAzureDataExplorerTimeoutRetrySettings$Outbound,
-    z.ZodTypeDef,
-    OutputAzureDataExplorerTimeoutRetrySettings
-  > = z.object({
-    timeoutRetry: z.boolean().default(false),
-    initialBackoff: z.number().default(1000),
-    backoffRate: z.number().default(2),
-    maxBackoff: z.number().default(10000),
-  });
-
-export function outputAzureDataExplorerTimeoutRetrySettingsToJSON(
-  outputAzureDataExplorerTimeoutRetrySettings:
-    OutputAzureDataExplorerTimeoutRetrySettings,
-): string {
-  return JSON.stringify(
-    OutputAzureDataExplorerTimeoutRetrySettings$outboundSchema.parse(
-      outputAzureDataExplorerTimeoutRetrySettings,
-    ),
-  );
-}
-export function outputAzureDataExplorerTimeoutRetrySettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  OutputAzureDataExplorerTimeoutRetrySettings,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputAzureDataExplorerTimeoutRetrySettings$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'OutputAzureDataExplorerTimeoutRetrySettings' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputAzureDataExplorerMode$inboundSchema: z.ZodType<
-  OutputAzureDataExplorerMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputAzureDataExplorerMode);
-/** @internal */
-export const OutputAzureDataExplorerMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputAzureDataExplorerMode
-> = openEnums.outboundSchema(OutputAzureDataExplorerMode);
-
-/** @internal */
-export const OutputAzureDataExplorerPqCompressCompression$inboundSchema:
-  z.ZodType<
-    OutputAzureDataExplorerPqCompressCompression,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(OutputAzureDataExplorerPqCompressCompression);
-/** @internal */
-export const OutputAzureDataExplorerPqCompressCompression$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    OutputAzureDataExplorerPqCompressCompression
-  > = openEnums.outboundSchema(OutputAzureDataExplorerPqCompressCompression);
-
-/** @internal */
-export const OutputAzureDataExplorerQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputAzureDataExplorerQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputAzureDataExplorerQueueFullBehavior);
-/** @internal */
-export const OutputAzureDataExplorerQueueFullBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputAzureDataExplorerQueueFullBehavior
-> = openEnums.outboundSchema(OutputAzureDataExplorerQueueFullBehavior);
-
-/** @internal */
 export const OutputAzureDataExplorerPqControls$inboundSchema: z.ZodType<
   OutputAzureDataExplorerPqControls,
   z.ZodTypeDef,
@@ -1314,9 +788,8 @@ export const OutputAzureDataExplorer$inboundSchema: z.ZodType<
   table: z.string(),
   validateDatabaseSettings: z.boolean().default(true),
   ingestMode: IngestionMode$inboundSchema.default("batching"),
-  oauthEndpoint:
-    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint$inboundSchema
-      .default("https://login.microsoftonline.com"),
+  oauthEndpoint: MicrosoftEntraIdAuthenticationEndpointOptionsSasl$inboundSchema
+    .default("https://login.microsoftonline.com"),
   tenantId: z.string(),
   clientId: z.string(),
   scope: z.string(),
@@ -1326,27 +799,20 @@ export const OutputAzureDataExplorer$inboundSchema: z.ZodType<
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
-  certificate: z.lazy(() => OutputAzureDataExplorerCertificate$inboundSchema)
-    .optional(),
-  format: OutputAzureDataExplorerDataFormat$inboundSchema.default("json"),
-  compress: OutputAzureDataExplorerCompressCompression$inboundSchema.default(
-    "gzip",
-  ),
-  compressionLevel: OutputAzureDataExplorerCompressionLevel$inboundSchema
-    .default("best_speed"),
+  certificate: z.lazy(() => Certificate$inboundSchema).optional(),
+  format: DataFormatOptions$inboundSchema.default("json"),
+  compress: CompressionOptions2$inboundSchema.default("gzip"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
   automaticSchema: z.boolean().default(false),
   parquetSchema: z.string().optional(),
-  parquetVersion: OutputAzureDataExplorerParquetVersion$inboundSchema.default(
-    "PARQUET_2_6",
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: DataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
   ),
-  parquetDataPageVersion: OutputAzureDataExplorerDataPageVersion$inboundSchema
-    .default("DATA_PAGE_V2"),
   parquetRowGroupLength: z.number().default(10000),
   parquetPageSize: z.string().default("1MB"),
   shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(
-    z.lazy(() => OutputAzureDataExplorerKeyValueMetadatum$inboundSchema),
-  ).optional(),
+  keyValueMetadata: z.array(ItemsTypeKeyValueMetadata$inboundSchema).optional(),
   enableStatistics: z.boolean().default(true),
   enableWritePageIndex: z.boolean().default(true),
   enablePageChecksum: z.boolean().default(false),
@@ -1360,8 +826,7 @@ export const OutputAzureDataExplorer$inboundSchema: z.ZodType<
   mappingObj: z.string().optional(),
   mappingRef: z.string().optional(),
   ingestUrl: z.string().optional(),
-  onBackpressure: OutputAzureDataExplorerBackpressureBehavior$inboundSchema
-    .default("block"),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
   stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
   fileNameSuffix: z.string().default(
     "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
@@ -1371,8 +836,9 @@ export const OutputAzureDataExplorer$inboundSchema: z.ZodType<
   maxFileIdleTimeSec: z.number().default(30),
   maxOpenFiles: z.number().default(100),
   maxConcurrentFileParts: z.number().default(1),
-  onDiskFullBackpressure:
-    OutputAzureDataExplorerDiskSpaceProtection$inboundSchema.default("block"),
+  onDiskFullBackpressure: DiskSpaceProtectionOptions$inboundSchema.default(
+    "block",
+  ),
   addIdToStagePath: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushImmediately: z.boolean().default(false),
@@ -1384,12 +850,9 @@ export const OutputAzureDataExplorer$inboundSchema: z.ZodType<
   reportMethod: ReportMethod$inboundSchema.default("queue"),
   additionalProperties: z.array(z.lazy(() => AdditionalProperty$inboundSchema))
     .optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputAzureDataExplorerResponseRetrySetting$inboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputAzureDataExplorerTimeoutRetrySettings$inboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
   concurrency: z.number().default(5),
   maxPayloadSizeKB: z.number().default(4096),
@@ -1400,16 +863,14 @@ export const OutputAzureDataExplorer$inboundSchema: z.ZodType<
   keepAlive: z.boolean().default(true),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: OutputAzureDataExplorerMode$inboundSchema.default("error"),
+  pqMode: ModeOptions$inboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputAzureDataExplorerPqCompressCompression$inboundSchema
-    .default("none"),
-  pqOnBackpressure: OutputAzureDataExplorerQueueFullBehavior$inboundSchema
-    .default("block"),
+  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
   pqControls: z.lazy(() => OutputAzureDataExplorerPqControls$inboundSchema)
     .optional(),
 });
@@ -1434,7 +895,7 @@ export type OutputAzureDataExplorer$Outbound = {
   description?: string | undefined;
   clientSecret?: string | undefined;
   textSecret?: string | undefined;
-  certificate?: OutputAzureDataExplorerCertificate$Outbound | undefined;
+  certificate?: Certificate$Outbound | undefined;
   format: string;
   compress: string;
   compressionLevel: string;
@@ -1445,9 +906,7 @@ export type OutputAzureDataExplorer$Outbound = {
   parquetRowGroupLength: number;
   parquetPageSize: string;
   shouldLogInvalidRows?: boolean | undefined;
-  keyValueMetadata?:
-    | Array<OutputAzureDataExplorerKeyValueMetadatum$Outbound>
-    | undefined;
+  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata$Outbound> | undefined;
   enableStatistics: boolean;
   enableWritePageIndex: boolean;
   enablePageChecksum: boolean;
@@ -1480,11 +939,9 @@ export type OutputAzureDataExplorer$Outbound = {
   reportMethod: string;
   additionalProperties?: Array<AdditionalProperty$Outbound> | undefined;
   responseRetrySettings?:
-    | Array<OutputAzureDataExplorerResponseRetrySetting$Outbound>
+    | Array<ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
-  timeoutRetrySettings?:
-    | OutputAzureDataExplorerTimeoutRetrySettings$Outbound
-    | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader: boolean;
   concurrency: number;
   maxPayloadSizeKB: number;
@@ -1524,8 +981,9 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   validateDatabaseSettings: z.boolean().default(true),
   ingestMode: IngestionMode$outboundSchema.default("batching"),
   oauthEndpoint:
-    OutputAzureDataExplorerMicrosoftEntraIDAuthenticationEndpoint$outboundSchema
-      .default("https://login.microsoftonline.com"),
+    MicrosoftEntraIdAuthenticationEndpointOptionsSasl$outboundSchema.default(
+      "https://login.microsoftonline.com",
+    ),
   tenantId: z.string(),
   clientId: z.string(),
   scope: z.string(),
@@ -1535,27 +993,23 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   description: z.string().optional(),
   clientSecret: z.string().optional(),
   textSecret: z.string().optional(),
-  certificate: z.lazy(() => OutputAzureDataExplorerCertificate$outboundSchema)
-    .optional(),
-  format: OutputAzureDataExplorerDataFormat$outboundSchema.default("json"),
-  compress: OutputAzureDataExplorerCompressCompression$outboundSchema.default(
-    "gzip",
+  certificate: z.lazy(() => Certificate$outboundSchema).optional(),
+  format: DataFormatOptions$outboundSchema.default("json"),
+  compress: CompressionOptions2$outboundSchema.default("gzip"),
+  compressionLevel: CompressionLevelOptions$outboundSchema.default(
+    "best_speed",
   ),
-  compressionLevel: OutputAzureDataExplorerCompressionLevel$outboundSchema
-    .default("best_speed"),
   automaticSchema: z.boolean().default(false),
   parquetSchema: z.string().optional(),
-  parquetVersion: OutputAzureDataExplorerParquetVersion$outboundSchema.default(
-    "PARQUET_2_6",
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: DataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
   ),
-  parquetDataPageVersion: OutputAzureDataExplorerDataPageVersion$outboundSchema
-    .default("DATA_PAGE_V2"),
   parquetRowGroupLength: z.number().default(10000),
   parquetPageSize: z.string().default("1MB"),
   shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(
-    z.lazy(() => OutputAzureDataExplorerKeyValueMetadatum$outboundSchema),
-  ).optional(),
+  keyValueMetadata: z.array(ItemsTypeKeyValueMetadata$outboundSchema)
+    .optional(),
   enableStatistics: z.boolean().default(true),
   enableWritePageIndex: z.boolean().default(true),
   enablePageChecksum: z.boolean().default(false),
@@ -1569,8 +1023,7 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   mappingObj: z.string().optional(),
   mappingRef: z.string().optional(),
   ingestUrl: z.string().optional(),
-  onBackpressure: OutputAzureDataExplorerBackpressureBehavior$outboundSchema
-    .default("block"),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
   stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
   fileNameSuffix: z.string().default(
     "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
@@ -1580,8 +1033,9 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   maxFileIdleTimeSec: z.number().default(30),
   maxOpenFiles: z.number().default(100),
   maxConcurrentFileParts: z.number().default(1),
-  onDiskFullBackpressure:
-    OutputAzureDataExplorerDiskSpaceProtection$outboundSchema.default("block"),
+  onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.default(
+    "block",
+  ),
   addIdToStagePath: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushImmediately: z.boolean().default(false),
@@ -1593,12 +1047,9 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   reportMethod: ReportMethod$outboundSchema.default("queue"),
   additionalProperties: z.array(z.lazy(() => AdditionalProperty$outboundSchema))
     .optional(),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputAzureDataExplorerResponseRetrySetting$outboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputAzureDataExplorerTimeoutRetrySettings$outboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(true),
   concurrency: z.number().default(5),
   maxPayloadSizeKB: z.number().default(4096),
@@ -1609,16 +1060,14 @@ export const OutputAzureDataExplorer$outboundSchema: z.ZodType<
   keepAlive: z.boolean().default(true),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: OutputAzureDataExplorerMode$outboundSchema.default("error"),
+  pqMode: ModeOptions$outboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputAzureDataExplorerPqCompressCompression$outboundSchema
-    .default("none"),
-  pqOnBackpressure: OutputAzureDataExplorerQueueFullBehavior$outboundSchema
-    .default("block"),
+  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
   pqControls: z.lazy(() => OutputAzureDataExplorerPqControls$outboundSchema)
     .optional(),
 });

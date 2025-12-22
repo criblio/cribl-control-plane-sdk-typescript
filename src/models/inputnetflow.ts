@@ -4,93 +4,26 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type InputNetflowConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputNetflowMode = {
-  /**
-   * Smart
-   */
-  Smart: "smart",
-  /**
-   * Always On
-   */
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputNetflowMode = OpenEnum<typeof InputNetflowMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputNetflowCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputNetflowCompression = OpenEnum<typeof InputNetflowCompression>;
-
-export type InputNetflowPqControls = {};
-
-export type InputNetflowPq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputNetflowMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputNetflowCompression | undefined;
-  pqControls?: InputNetflowPqControls | undefined;
-};
-
-export type InputNetflowMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
+import {
+  ItemsTypeConnections,
+  ItemsTypeConnections$inboundSchema,
+  ItemsTypeConnections$Outbound,
+  ItemsTypeConnections$outboundSchema,
+} from "./itemstypeconnections.js";
+import {
+  ItemsTypeNotificationMetadata,
+  ItemsTypeNotificationMetadata$inboundSchema,
+  ItemsTypeNotificationMetadata$Outbound,
+  ItemsTypeNotificationMetadata$outboundSchema,
+} from "./itemstypenotificationmetadata.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
 
 export type InputNetflow = {
   /**
@@ -122,8 +55,8 @@ export type InputNetflow = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputNetflowConnection> | undefined;
-  pq?: InputNetflowPq | undefined;
+  connections?: Array<ItemsTypeConnections> | undefined;
+  pq?: PqType | undefined;
   /**
    * Address to bind on. For IPv4 (all addresses), use the default '0.0.0.0'. For IPv6, enter '::' (all addresses) or specify an IP address.
    */
@@ -167,208 +100,9 @@ export type InputNetflow = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputNetflowMetadatum> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
   description?: string | undefined;
 };
-
-/** @internal */
-export const InputNetflowConnection$inboundSchema: z.ZodType<
-  InputNetflowConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-/** @internal */
-export type InputNetflowConnection$Outbound = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/** @internal */
-export const InputNetflowConnection$outboundSchema: z.ZodType<
-  InputNetflowConnection$Outbound,
-  z.ZodTypeDef,
-  InputNetflowConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-export function inputNetflowConnectionToJSON(
-  inputNetflowConnection: InputNetflowConnection,
-): string {
-  return JSON.stringify(
-    InputNetflowConnection$outboundSchema.parse(inputNetflowConnection),
-  );
-}
-export function inputNetflowConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputNetflowConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputNetflowConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputNetflowConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputNetflowMode$inboundSchema: z.ZodType<
-  InputNetflowMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputNetflowMode);
-/** @internal */
-export const InputNetflowMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputNetflowMode
-> = openEnums.outboundSchema(InputNetflowMode);
-
-/** @internal */
-export const InputNetflowCompression$inboundSchema: z.ZodType<
-  InputNetflowCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputNetflowCompression);
-/** @internal */
-export const InputNetflowCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputNetflowCompression
-> = openEnums.outboundSchema(InputNetflowCompression);
-
-/** @internal */
-export const InputNetflowPqControls$inboundSchema: z.ZodType<
-  InputNetflowPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type InputNetflowPqControls$Outbound = {};
-
-/** @internal */
-export const InputNetflowPqControls$outboundSchema: z.ZodType<
-  InputNetflowPqControls$Outbound,
-  z.ZodTypeDef,
-  InputNetflowPqControls
-> = z.object({});
-
-export function inputNetflowPqControlsToJSON(
-  inputNetflowPqControls: InputNetflowPqControls,
-): string {
-  return JSON.stringify(
-    InputNetflowPqControls$outboundSchema.parse(inputNetflowPqControls),
-  );
-}
-export function inputNetflowPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputNetflowPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputNetflowPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputNetflowPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputNetflowPq$inboundSchema: z.ZodType<
-  InputNetflowPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputNetflowMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputNetflowCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputNetflowPqControls$inboundSchema).optional(),
-});
-/** @internal */
-export type InputNetflowPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputNetflowPqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputNetflowPq$outboundSchema: z.ZodType<
-  InputNetflowPq$Outbound,
-  z.ZodTypeDef,
-  InputNetflowPq
-> = z.object({
-  mode: InputNetflowMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputNetflowCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputNetflowPqControls$outboundSchema).optional(),
-});
-
-export function inputNetflowPqToJSON(inputNetflowPq: InputNetflowPq): string {
-  return JSON.stringify(InputNetflowPq$outboundSchema.parse(inputNetflowPq));
-}
-export function inputNetflowPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputNetflowPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputNetflowPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputNetflowPq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputNetflowMetadatum$inboundSchema: z.ZodType<
-  InputNetflowMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type InputNetflowMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputNetflowMetadatum$outboundSchema: z.ZodType<
-  InputNetflowMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputNetflowMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function inputNetflowMetadatumToJSON(
-  inputNetflowMetadatum: InputNetflowMetadatum,
-): string {
-  return JSON.stringify(
-    InputNetflowMetadatum$outboundSchema.parse(inputNetflowMetadatum),
-  );
-}
-export function inputNetflowMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputNetflowMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputNetflowMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputNetflowMetadatum' from JSON`,
-  );
-}
 
 /** @internal */
 export const InputNetflow$inboundSchema: z.ZodType<
@@ -384,9 +118,8 @@ export const InputNetflow$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputNetflowConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputNetflowPq$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number().default(2055),
   enablePassThrough: z.boolean().default(false),
@@ -397,8 +130,7 @@ export const InputNetflow$inboundSchema: z.ZodType<
   v5Enabled: z.boolean().default(true),
   v9Enabled: z.boolean().default(true),
   ipfixEnabled: z.boolean().default(false),
-  metadata: z.array(z.lazy(() => InputNetflowMetadatum$inboundSchema))
-    .optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   description: z.string().optional(),
 });
 /** @internal */
@@ -411,8 +143,8 @@ export type InputNetflow$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputNetflowConnection$Outbound> | undefined;
-  pq?: InputNetflowPq$Outbound | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
   enablePassThrough: boolean;
@@ -423,7 +155,7 @@ export type InputNetflow$Outbound = {
   v5Enabled: boolean;
   v9Enabled: boolean;
   ipfixEnabled: boolean;
-  metadata?: Array<InputNetflowMetadatum$Outbound> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   description?: string | undefined;
 };
 
@@ -441,9 +173,8 @@ export const InputNetflow$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputNetflowConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputNetflowPq$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number().default(2055),
   enablePassThrough: z.boolean().default(false),
@@ -454,8 +185,7 @@ export const InputNetflow$outboundSchema: z.ZodType<
   v5Enabled: z.boolean().default(true),
   v9Enabled: z.boolean().default(true),
   ipfixEnabled: z.boolean().default(false),
-  metadata: z.array(z.lazy(() => InputNetflowMetadatum$outboundSchema))
-    .optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   description: z.string().optional(),
 });
 

@@ -19,8 +19,8 @@ const value: models.RunnableJobCollection = {
     enabled: false,
     run: {
       type: "collection",
-      earliest: 4246.89,
-      latest: 1357.74,
+      earliest: 3143.53,
+      latest: 995.72,
       timestampTimezone: "<value>",
       timeWarning: {},
     },
@@ -33,17 +33,25 @@ const value: models.RunnableJobCollection = {
   collector: {
     type: "<value>",
     conf: {
-      type: "filesystem",
+      authType: "manual",
+      type: "google_cloud_storage",
       outputName: "<value>",
-      path: "/private",
+      bucket: "<value>",
+      path: "/Applications",
       extractors: [
         {
           key: "<key>",
           expression: "<value>",
         },
       ],
+      endpoint: "<value>",
+      disableTimeFilter: false,
       recurse: true,
       maxBatchSize: 10,
+      parquetChunkSizeMB: 5,
+      parquetChunkDownloadTimeout: 600,
+      serviceAccountCredentials: "<value>",
+      textSecret: "<value>",
     },
     encoding: "<value>",
   },
@@ -51,7 +59,6 @@ const value: models.RunnableJobCollection = {
     breakerRulesets: [
       "<value 1>",
       "<value 2>",
-      "<value 3>",
     ],
     preprocess: {
       command: "<value>",
@@ -71,8 +78,8 @@ const value: models.RunnableJobCollection = {
     output: "<value>",
   },
   run: {
-    earliest: 2342.33,
-    latest: 5817.49,
+    earliest: 4246.89,
+    latest: 1357.74,
     timeWarning: {},
     capture: {},
   },
@@ -127,8 +134,8 @@ const value: models.RunnableJobScheduledSearch = {
     enabled: false,
     run: {
       type: "collection",
-      earliest: 2827.78,
-      latest: 2072.76,
+      earliest: 3143.53,
+      latest: 995.72,
       timestampTimezone: "<value>",
       timeWarning: {},
     },
@@ -136,7 +143,6 @@ const value: models.RunnableJobScheduledSearch = {
   streamtags: [
     "<value 1>",
     "<value 2>",
-    "<value 3>",
   ],
   savedQueryId: "<id>",
 };

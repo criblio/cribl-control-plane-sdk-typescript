@@ -16,39 +16,37 @@ let value: PackRequestBody1 = {
   source: "<value>",
   tags: {
     dataType: [
-      "varchar",
+      "decimal",
     ],
     domain: [
-      "insecure-yogurt.biz",
-    ],
-    technology: [
-      "<value 1>",
-      "<value 2>",
-      "<value 3>",
+      "big-ostrich.net",
     ],
     streamtags: [
       "<value 1>",
       "<value 2>",
-      "<value 3>",
+    ],
+    technology: [
+      "<value 1>",
+      "<value 2>",
     ],
   },
-  allowCustomFunctions: false,
-  force: true,
+  allowCustomFunctions: true,
+  force: false,
 };
 ```
 
 ## Fields
 
-| Field                                                                 | Type                                                                  | Required                                                              | Description                                                           |
-| --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------------------- |
-| `id`                                                                  | *string*                                                              | :heavy_check_mark:                                                    | N/A                                                                   |
-| `spec`                                                                | *string*                                                              | :heavy_minus_sign:                                                    | N/A                                                                   |
-| `version`                                                             | *string*                                                              | :heavy_minus_sign:                                                    | N/A                                                                   |
-| `minLogStreamVersion`                                                 | *string*                                                              | :heavy_minus_sign:                                                    | N/A                                                                   |
-| `displayName`                                                         | *string*                                                              | :heavy_minus_sign:                                                    | N/A                                                                   |
-| `author`                                                              | *string*                                                              | :heavy_minus_sign:                                                    | N/A                                                                   |
-| `description`                                                         | *string*                                                              | :heavy_minus_sign:                                                    | N/A                                                                   |
-| `source`                                                              | *string*                                                              | :heavy_minus_sign:                                                    | The source of the pack. If not present, an empty pack will be created |
-| `tags`                                                                | [models.PackRequestBodyTags1](../models/packrequestbodytags1.md)      | :heavy_minus_sign:                                                    | N/A                                                                   |
-| `allowCustomFunctions`                                                | *boolean*                                                             | :heavy_minus_sign:                                                    | N/A                                                                   |
-| `force`                                                               | *boolean*                                                             | :heavy_minus_sign:                                                    | N/A                                                                   |
+| Field                                                                  | Type                                                                   | Required                                                               | Description                                                            |
+| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `id`                                                                   | *string*                                                               | :heavy_check_mark:                                                     | N/A                                                                    |
+| `spec`                                                                 | *string*                                                               | :heavy_minus_sign:                                                     | N/A                                                                    |
+| `version`                                                              | *string*                                                               | :heavy_minus_sign:                                                     | N/A                                                                    |
+| `minLogStreamVersion`                                                  | *string*                                                               | :heavy_minus_sign:                                                     | N/A                                                                    |
+| `displayName`                                                          | *string*                                                               | :heavy_minus_sign:                                                     | N/A                                                                    |
+| `author`                                                               | *string*                                                               | :heavy_minus_sign:                                                     | N/A                                                                    |
+| `description`                                                          | *string*                                                               | :heavy_minus_sign:                                                     | N/A                                                                    |
+| `source`                                                               | *string*                                                               | :heavy_minus_sign:                                                     | The source of the pack. If not present, an empty pack will be created  |
+| `tags`                                                                 | [models.TagsTypePackInstallInfo](../models/tagstypepackinstallinfo.md) | :heavy_minus_sign:                                                     | N/A                                                                    |
+| `allowCustomFunctions`                                                 | *boolean*                                                              | :heavy_minus_sign:                                                     | N/A                                                                    |
+| `force`                                                                | *boolean*                                                              | :heavy_minus_sign:                                                     | N/A                                                                    |

@@ -6,6 +6,14 @@ import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AwsTypeHeartbeatMetadata,
+  AwsTypeHeartbeatMetadata$inboundSchema,
+} from "./awstypeheartbeatmetadata.js";
+import {
+  AzureTypeHeartbeatMetadata,
+  AzureTypeHeartbeatMetadata$inboundSchema,
+} from "./azuretypeheartbeatmetadata.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import { HBCriblInfo, HBCriblInfo$inboundSchema } from "./hbcriblinfo.js";
 import {
@@ -13,83 +21,41 @@ import {
   HeartbeatMetadata$inboundSchema,
 } from "./heartbeatmetadata.js";
 import {
+  HostOsTypeHeartbeatMetadata,
+  HostOsTypeHeartbeatMetadata$inboundSchema,
+} from "./hostostypeheartbeatmetadata.js";
+import {
+  KubeTypeHeartbeatMetadata,
+  KubeTypeHeartbeatMetadata$inboundSchema,
+} from "./kubetypeheartbeatmetadata.js";
+import {
   OutpostNodeInfo,
   OutpostNodeInfo$inboundSchema,
 } from "./outpostnodeinfo.js";
 
-export type NodeProvidedInfoAws = {
-  enabled: boolean;
-  instanceId: string;
-  region: string;
-  tags?: { [k: string]: string } | undefined;
-  type: string;
-  zone: string;
-};
-
-export type NodeProvidedInfoAzure = {
-  enabled: boolean;
-  hostname?: string | undefined;
-  instanceId?: string | undefined;
-  name?: string | undefined;
-  region?: string | undefined;
-  resourceGroup?: string | undefined;
-  subscriptionId?: string | undefined;
-  tags?: { [k: string]: string } | undefined;
-  type?: string | undefined;
-  zone?: string | undefined;
-};
-
-export type NodeProvidedInfoHostOs = {
-  addresses: Array<string>;
-  enabled: boolean;
-  id: string;
-  version: string;
-};
-
-export type NodeProvidedInfoOwner = {
-  kind: string;
-  name: string;
-};
-
-export type NodeProvidedInfoKube = {
-  enabled: boolean;
-  namespace: string;
-  node: string;
-  owner?: NodeProvidedInfoOwner | undefined;
-  pod: string;
-  source: string;
-};
-
-export type NodeProvidedInfoOs2 = {
+export type Os = {
   addresses: Array<string>;
 };
 
-export type NodeProvidedInfoOs1 = {
-  addresses: Array<string>;
-  enabled: boolean;
-  id: string;
-  version: string;
-};
-
-export type Os = NodeProvidedInfoOs1 | NodeProvidedInfoOs2;
+export type OsUnion = HostOsTypeHeartbeatMetadata | Os;
 
 export type NodeProvidedInfo = {
   architecture: string;
-  aws?: NodeProvidedInfoAws | undefined;
-  azure?: NodeProvidedInfoAzure | undefined;
+  aws?: AwsTypeHeartbeatMetadata | undefined;
+  azure?: AzureTypeHeartbeatMetadata | undefined;
   connIp?: string | undefined;
   cpus: number;
   cribl: HBCriblInfo;
   env: { [k: string]: string };
   freeDiskSpace: number;
-  hostOs?: NodeProvidedInfoHostOs | undefined;
+  hostOs?: HostOsTypeHeartbeatMetadata | undefined;
   hostname: string;
   isSaasWorker?: boolean | undefined;
-  kube?: NodeProvidedInfoKube | undefined;
+  kube?: KubeTypeHeartbeatMetadata | undefined;
   localTime?: number | undefined;
   metadata?: HeartbeatMetadata | undefined;
   node: string;
-  os?: NodeProvidedInfoOs1 | NodeProvidedInfoOs2 | undefined;
+  os?: HostOsTypeHeartbeatMetadata | Os | undefined;
   outpost?: OutpostNodeInfo | undefined;
   platform: string;
   release: string;
@@ -98,169 +64,9 @@ export type NodeProvidedInfo = {
 };
 
 /** @internal */
-export const NodeProvidedInfoAws$inboundSchema: z.ZodType<
-  NodeProvidedInfoAws,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enabled: z.boolean(),
-  instanceId: z.string(),
-  region: z.string(),
-  tags: z.record(z.string()).optional(),
-  type: z.string(),
-  zone: z.string(),
-});
-
-export function nodeProvidedInfoAwsFromJSON(
-  jsonString: string,
-): SafeParseResult<NodeProvidedInfoAws, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => NodeProvidedInfoAws$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'NodeProvidedInfoAws' from JSON`,
-  );
-}
-
-/** @internal */
-export const NodeProvidedInfoAzure$inboundSchema: z.ZodType<
-  NodeProvidedInfoAzure,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enabled: z.boolean(),
-  hostname: z.string().optional(),
-  instanceId: z.string().optional(),
-  name: z.string().optional(),
-  region: z.string().optional(),
-  resourceGroup: z.string().optional(),
-  subscriptionId: z.string().optional(),
-  tags: z.record(z.string()).optional(),
-  type: z.string().optional(),
-  zone: z.string().optional(),
-});
-
-export function nodeProvidedInfoAzureFromJSON(
-  jsonString: string,
-): SafeParseResult<NodeProvidedInfoAzure, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => NodeProvidedInfoAzure$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'NodeProvidedInfoAzure' from JSON`,
-  );
-}
-
-/** @internal */
-export const NodeProvidedInfoHostOs$inboundSchema: z.ZodType<
-  NodeProvidedInfoHostOs,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  addresses: z.array(z.string()),
-  enabled: z.boolean(),
-  id: z.string(),
-  version: z.string(),
-});
-
-export function nodeProvidedInfoHostOsFromJSON(
-  jsonString: string,
-): SafeParseResult<NodeProvidedInfoHostOs, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => NodeProvidedInfoHostOs$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'NodeProvidedInfoHostOs' from JSON`,
-  );
-}
-
-/** @internal */
-export const NodeProvidedInfoOwner$inboundSchema: z.ZodType<
-  NodeProvidedInfoOwner,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  kind: z.string(),
-  name: z.string(),
-});
-
-export function nodeProvidedInfoOwnerFromJSON(
-  jsonString: string,
-): SafeParseResult<NodeProvidedInfoOwner, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => NodeProvidedInfoOwner$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'NodeProvidedInfoOwner' from JSON`,
-  );
-}
-
-/** @internal */
-export const NodeProvidedInfoKube$inboundSchema: z.ZodType<
-  NodeProvidedInfoKube,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enabled: z.boolean(),
-  namespace: z.string(),
-  node: z.string(),
-  owner: z.lazy(() => NodeProvidedInfoOwner$inboundSchema).optional(),
-  pod: z.string(),
-  source: z.string(),
-});
-
-export function nodeProvidedInfoKubeFromJSON(
-  jsonString: string,
-): SafeParseResult<NodeProvidedInfoKube, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => NodeProvidedInfoKube$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'NodeProvidedInfoKube' from JSON`,
-  );
-}
-
-/** @internal */
-export const NodeProvidedInfoOs2$inboundSchema: z.ZodType<
-  NodeProvidedInfoOs2,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
+export const Os$inboundSchema: z.ZodType<Os, z.ZodTypeDef, unknown> = z.object({
   addresses: z.array(z.string()),
 });
-
-export function nodeProvidedInfoOs2FromJSON(
-  jsonString: string,
-): SafeParseResult<NodeProvidedInfoOs2, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => NodeProvidedInfoOs2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'NodeProvidedInfoOs2' from JSON`,
-  );
-}
-
-/** @internal */
-export const NodeProvidedInfoOs1$inboundSchema: z.ZodType<
-  NodeProvidedInfoOs1,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  addresses: z.array(z.string()),
-  enabled: z.boolean(),
-  id: z.string(),
-  version: z.string(),
-});
-
-export function nodeProvidedInfoOs1FromJSON(
-  jsonString: string,
-): SafeParseResult<NodeProvidedInfoOs1, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => NodeProvidedInfoOs1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'NodeProvidedInfoOs1' from JSON`,
-  );
-}
-
-/** @internal */
-export const Os$inboundSchema: z.ZodType<Os, z.ZodTypeDef, unknown> = z.union([
-  z.lazy(() => NodeProvidedInfoOs1$inboundSchema),
-  z.lazy(() => NodeProvidedInfoOs2$inboundSchema),
-]);
 
 export function osFromJSON(
   jsonString: string,
@@ -273,29 +79,46 @@ export function osFromJSON(
 }
 
 /** @internal */
+export const OsUnion$inboundSchema: z.ZodType<OsUnion, z.ZodTypeDef, unknown> =
+  z.union([
+    HostOsTypeHeartbeatMetadata$inboundSchema,
+    z.lazy(() => Os$inboundSchema),
+  ]);
+
+export function osUnionFromJSON(
+  jsonString: string,
+): SafeParseResult<OsUnion, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => OsUnion$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'OsUnion' from JSON`,
+  );
+}
+
+/** @internal */
 export const NodeProvidedInfo$inboundSchema: z.ZodType<
   NodeProvidedInfo,
   z.ZodTypeDef,
   unknown
 > = z.object({
   architecture: z.string(),
-  aws: z.lazy(() => NodeProvidedInfoAws$inboundSchema).optional(),
-  azure: z.lazy(() => NodeProvidedInfoAzure$inboundSchema).optional(),
+  aws: AwsTypeHeartbeatMetadata$inboundSchema.optional(),
+  azure: AzureTypeHeartbeatMetadata$inboundSchema.optional(),
   conn_ip: z.string().optional(),
   cpus: z.number(),
   cribl: HBCriblInfo$inboundSchema,
   env: z.record(z.string()),
   freeDiskSpace: z.number(),
-  hostOs: z.lazy(() => NodeProvidedInfoHostOs$inboundSchema).optional(),
+  hostOs: HostOsTypeHeartbeatMetadata$inboundSchema.optional(),
   hostname: z.string(),
   isSaasWorker: z.boolean().optional(),
-  kube: z.lazy(() => NodeProvidedInfoKube$inboundSchema).optional(),
+  kube: KubeTypeHeartbeatMetadata$inboundSchema.optional(),
   localTime: z.number().optional(),
   metadata: HeartbeatMetadata$inboundSchema.optional(),
   node: z.string(),
   os: z.union([
-    z.lazy(() => NodeProvidedInfoOs1$inboundSchema),
-    z.lazy(() => NodeProvidedInfoOs2$inboundSchema),
+    HostOsTypeHeartbeatMetadata$inboundSchema,
+    z.lazy(() => Os$inboundSchema),
   ]).optional(),
   outpost: OutpostNodeInfo$inboundSchema.optional(),
   platform: z.string(),

@@ -5,28 +5,15 @@
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AdditionalPropertiesTypePipelineConfGroups,
+  AdditionalPropertiesTypePipelineConfGroups$inboundSchema,
+} from "./additionalpropertiestypepipelineconfgroups.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 import {
   PipelineFunctionConf,
   PipelineFunctionConf$inboundSchema,
 } from "./pipelinefunctionconf.js";
-import {
-  PipelineFunctionConfInput,
-  PipelineFunctionConfInput$Outbound,
-  PipelineFunctionConfInput$outboundSchema,
-} from "./pipelinefunctionconfinput.js";
-
-export type PipelineGroups = {
-  name: string;
-  /**
-   * Short description of this group
-   */
-  description?: string | undefined;
-  /**
-   * Whether this group is disabled
-   */
-  disabled?: boolean | undefined;
-};
 
 export type PipelineConf = {
   /**
@@ -46,80 +33,15 @@ export type PipelineConf = {
    * List of Functions to pass data through
    */
   functions?: Array<PipelineFunctionConf> | undefined;
-  groups?: { [k: string]: PipelineGroups } | undefined;
+  groups?:
+    | { [k: string]: AdditionalPropertiesTypePipelineConfGroups }
+    | undefined;
 };
 
 export type Pipeline = {
   id: string;
   conf: PipelineConf;
 };
-
-export type ConfInput = {
-  /**
-   * Time (in ms) to wait for an async function to complete processing of a data item
-   */
-  asyncFuncTimeout?: number | undefined;
-  /**
-   * The output destination for events processed by this Pipeline
-   */
-  output?: string | undefined;
-  description?: string | undefined;
-  /**
-   * Tags for filtering and grouping in @{product}
-   */
-  streamtags?: Array<string> | undefined;
-  /**
-   * List of Functions to pass data through
-   */
-  functions?: Array<PipelineFunctionConfInput> | undefined;
-  groups?: { [k: string]: PipelineGroups } | undefined;
-};
-
-export type PipelineInput = {
-  id: string;
-  conf: ConfInput;
-};
-
-/** @internal */
-export const PipelineGroups$inboundSchema: z.ZodType<
-  PipelineGroups,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  description: z.string().optional(),
-  disabled: z.boolean().optional(),
-});
-/** @internal */
-export type PipelineGroups$Outbound = {
-  name: string;
-  description?: string | undefined;
-  disabled?: boolean | undefined;
-};
-
-/** @internal */
-export const PipelineGroups$outboundSchema: z.ZodType<
-  PipelineGroups$Outbound,
-  z.ZodTypeDef,
-  PipelineGroups
-> = z.object({
-  name: z.string(),
-  description: z.string().optional(),
-  disabled: z.boolean().optional(),
-});
-
-export function pipelineGroupsToJSON(pipelineGroups: PipelineGroups): string {
-  return JSON.stringify(PipelineGroups$outboundSchema.parse(pipelineGroups));
-}
-export function pipelineGroupsFromJSON(
-  jsonString: string,
-): SafeParseResult<PipelineGroups, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => PipelineGroups$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'PipelineGroups' from JSON`,
-  );
-}
 
 /** @internal */
 export const PipelineConf$inboundSchema: z.ZodType<
@@ -132,7 +54,8 @@ export const PipelineConf$inboundSchema: z.ZodType<
   description: z.string().optional(),
   streamtags: z.array(z.string()).optional(),
   functions: z.array(PipelineFunctionConf$inboundSchema).optional(),
-  groups: z.record(z.lazy(() => PipelineGroups$inboundSchema)).optional(),
+  groups: z.record(AdditionalPropertiesTypePipelineConfGroups$inboundSchema)
+    .optional(),
 });
 
 export function pipelineConfFromJSON(
@@ -163,52 +86,4 @@ export function pipelineFromJSON(
     (x) => Pipeline$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'Pipeline' from JSON`,
   );
-}
-
-/** @internal */
-export type ConfInput$Outbound = {
-  asyncFuncTimeout?: number | undefined;
-  output: string;
-  description?: string | undefined;
-  streamtags?: Array<string> | undefined;
-  functions?: Array<PipelineFunctionConfInput$Outbound> | undefined;
-  groups?: { [k: string]: PipelineGroups$Outbound } | undefined;
-};
-
-/** @internal */
-export const ConfInput$outboundSchema: z.ZodType<
-  ConfInput$Outbound,
-  z.ZodTypeDef,
-  ConfInput
-> = z.object({
-  asyncFuncTimeout: z.number().int().optional(),
-  output: z.string().default("default"),
-  description: z.string().optional(),
-  streamtags: z.array(z.string()).optional(),
-  functions: z.array(PipelineFunctionConfInput$outboundSchema).optional(),
-  groups: z.record(z.lazy(() => PipelineGroups$outboundSchema)).optional(),
-});
-
-export function confInputToJSON(confInput: ConfInput): string {
-  return JSON.stringify(ConfInput$outboundSchema.parse(confInput));
-}
-
-/** @internal */
-export type PipelineInput$Outbound = {
-  id: string;
-  conf: ConfInput$Outbound;
-};
-
-/** @internal */
-export const PipelineInput$outboundSchema: z.ZodType<
-  PipelineInput$Outbound,
-  z.ZodTypeDef,
-  PipelineInput
-> = z.object({
-  id: z.string(),
-  conf: z.lazy(() => ConfInput$outboundSchema),
-});
-
-export function pipelineInputToJSON(pipelineInput: PipelineInput): string {
-  return JSON.stringify(PipelineInput$outboundSchema.parse(pipelineInput));
 }

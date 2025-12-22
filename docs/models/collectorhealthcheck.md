@@ -159,12 +159,12 @@ const value: models.CollectorHealthCheckHealthCheck3 = {
 };
 ```
 
-### `models.CollectorHealthCheckHealthCheck4`
+### `models.CollectorHealthCheckCollectorHealthCheckPart0Type`
 
 ```typescript
-const value: models.CollectorHealthCheckHealthCheck4 = {
+const value: models.CollectorHealthCheckCollectorHealthCheckPart0Type = {
   discovery: {},
-  collectUrl: "https://every-interchange.name",
+  collectUrl: "https://ashamed-polarisation.name/",
   collectRequestParams: [
     {
       name: "<value>",
@@ -190,8 +190,8 @@ const value: models.CollectorHealthCheckHealthCheck4 = {
     codes: "<value>",
     enableHeader: "<value>",
   },
-  username: "Lorenzo62",
-  password: "iXwhRQA8qBAc3xu",
+  username: "Nyasia_Bradtke",
+  password: "bEOc2FjNoaKxLAI",
   credentialsSecret: "<value>",
   tokenRespAttribute: "<value>",
   authRequestHeaders: [
@@ -212,14 +212,14 @@ const value: models.CollectorHealthCheckHealthCheck4 = {
 };
 ```
 
-### `models.CollectorHealthCheckHealthCheck5`
+### `models.CollectorHealthCheckCollectorHealthCheckPart1Type`
 
 ```typescript
-const value: models.CollectorHealthCheckHealthCheck5 = {
-  username: "Leonie74",
-  password: "eyj860o3MBi3BAT",
+const value: models.CollectorHealthCheckCollectorHealthCheckPart1Type = {
+  username: "Fidel.Hackett10",
+  password: "Vx8D11yo9S6DAX_",
   discovery: {},
-  collectUrl: "https://wicked-bell.net",
+  collectUrl: "https://potable-going.com/",
   collectRequestParams: [
     {
       name: "<value>",
@@ -235,7 +235,6 @@ const value: models.CollectorHealthCheckHealthCheck5 = {
   defaultBreakers: "Cribl",
   safeHeaders: [
     "<value 1>",
-    "<value 2>",
   ],
   retryRules: {
     interval: "<value>",
@@ -264,11 +263,181 @@ const value: models.CollectorHealthCheckHealthCheck5 = {
 };
 ```
 
+### `models.CollectorHealthCheckCollectorHealthCheckPart2Type`
+
+```typescript
+const value: models.CollectorHealthCheckCollectorHealthCheckPart2Type = {
+  credentialsSecret: "<value>",
+  discovery: {},
+  collectUrl: "https://easy-ignorance.info/",
+  collectRequestParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  collectRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  defaultBreakers: "Cribl",
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  retryRules: {
+    interval: "<value>",
+    limit: "<value>",
+    multiplier: "<value>",
+    codes: "<value>",
+    enableHeader: "<value>",
+  },
+  username: "Antonio.Runte35",
+  password: "9thiV63gjYAnQ4P",
+  tokenRespAttribute: "<value>",
+  authRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  clientSecretParamValue: "<value>",
+  authRequestParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  textSecret: "<value>",
+  type: "health_check",
+};
+```
+
+### `models.CollectorHealthCheckHealthCheck4`
+
+```typescript
+const value: models.CollectorHealthCheckHealthCheck4 = {
+  username: "Mitchel_Krajcik",
+  password: "S7jiXwhRQA8qBAc",
+  tokenRespAttribute: "<value>",
+  authRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  discovery: {},
+  collectUrl: "https://upright-tackle.biz/",
+  collectRequestParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  collectRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  defaultBreakers: "Cribl",
+  safeHeaders: [
+    "<value 1>",
+  ],
+  retryRules: {
+    interval: "<value>",
+    limit: "<value>",
+    multiplier: "<value>",
+    codes: "<value>",
+    enableHeader: "<value>",
+  },
+  credentialsSecret: "<value>",
+  clientSecretParamValue: "<value>",
+  authRequestParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  textSecret: "<value>",
+  type: "health_check",
+};
+```
+
+### `models.CollectorHealthCheckHealthCheck5`
+
+```typescript
+const value: models.CollectorHealthCheckHealthCheck5 = {
+  credentialsSecret: "<value>",
+  tokenRespAttribute: "<value>",
+  authRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  discovery: {},
+  collectUrl: "https://excited-valley.info",
+  collectRequestParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  collectRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  defaultBreakers: "Cribl",
+  safeHeaders: [
+    "<value 1>",
+    "<value 2>",
+    "<value 3>",
+  ],
+  retryRules: {
+    interval: "<value>",
+    limit: "<value>",
+    multiplier: "<value>",
+    codes: "<value>",
+    enableHeader: "<value>",
+  },
+  username: "Taryn_Conn77",
+  password: "60o3MBi3BATcZFt",
+  clientSecretParamValue: "<value>",
+  authRequestParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  textSecret: "<value>",
+  type: "health_check",
+};
+```
+
 ### `models.CollectorHealthCheckHealthCheck6`
 
 ```typescript
 const value: models.CollectorHealthCheckHealthCheck6 = {
-  credentialsSecret: "<value>",
+  tokenRespAttribute: "<value>",
+  clientSecretParamValue: "<value>",
+  authRequestParams: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
+  authRequestHeaders: [
+    {
+      name: "<value>",
+      value: "<value>",
+    },
+  ],
   discovery: {},
   collectUrl: "https://nice-gastropod.org/",
   collectRequestParams: [
@@ -297,20 +466,7 @@ const value: models.CollectorHealthCheckHealthCheck6 = {
   },
   username: "Cecilia_Davis",
   password: "DgBMRWmGU2iy6CM",
-  tokenRespAttribute: "<value>",
-  authRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  clientSecretParamValue: "<value>",
-  authRequestParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
+  credentialsSecret: "<value>",
   textSecret: "<value>",
   type: "health_check",
 };
@@ -320,112 +476,8 @@ const value: models.CollectorHealthCheckHealthCheck6 = {
 
 ```typescript
 const value: models.CollectorHealthCheckHealthCheck7 = {
-  username: "Jaiden.Weber21",
-  password: "Y7U3v20yFRFvDFK",
   tokenRespAttribute: "<value>",
-  authRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  discovery: {},
-  collectUrl: "https://happy-lyre.name/",
-  collectRequestParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  defaultBreakers: "Cribl",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  retryRules: {
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-  },
-  credentialsSecret: "<value>",
-  clientSecretParamValue: "<value>",
-  authRequestParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
   textSecret: "<value>",
-  type: "health_check",
-};
-```
-
-### `models.CollectorHealthCheckHealthCheck8`
-
-```typescript
-const value: models.CollectorHealthCheckHealthCheck8 = {
-  credentialsSecret: "<value>",
-  tokenRespAttribute: "<value>",
-  authRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  discovery: {},
-  collectUrl: "https://perfumed-characterization.net/",
-  collectRequestParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  defaultBreakers: "Cribl",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  retryRules: {
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-  },
-  username: "Alda.Oberbrunner45",
-  password: "ZrChtpnJlDU6c4N",
-  clientSecretParamValue: "<value>",
-  authRequestParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  textSecret: "<value>",
-  type: "health_check",
-};
-```
-
-### `models.CollectorHealthCheckHealthCheck9`
-
-```typescript
-const value: models.CollectorHealthCheckHealthCheck9 = {
-  tokenRespAttribute: "<value>",
-  clientSecretParamValue: "<value>",
   authRequestParams: [
     {
       name: "<value>",
@@ -439,7 +491,7 @@ const value: models.CollectorHealthCheckHealthCheck9 = {
     },
   ],
   discovery: {},
-  collectUrl: "https://violent-worth.biz",
+  collectUrl: "https://little-tuba.info/",
   collectRequestParams: [
     {
       name: "<value>",
@@ -463,60 +515,8 @@ const value: models.CollectorHealthCheckHealthCheck9 = {
     codes: "<value>",
     enableHeader: "<value>",
   },
-  username: "Lou54",
-  password: "3y7No7BHSj0NwAH",
-  credentialsSecret: "<value>",
-  textSecret: "<value>",
-  type: "health_check",
-};
-```
-
-### `models.CollectorHealthCheckHealthCheck10`
-
-```typescript
-const value: models.CollectorHealthCheckHealthCheck10 = {
-  tokenRespAttribute: "<value>",
-  textSecret: "<value>",
-  authRequestParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  authRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  discovery: {},
-  collectUrl: "https://stained-tentacle.biz",
-  collectRequestParams: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  collectRequestHeaders: [
-    {
-      name: "<value>",
-      value: "<value>",
-    },
-  ],
-  defaultBreakers: "Cribl",
-  safeHeaders: [
-    "<value 1>",
-    "<value 2>",
-  ],
-  retryRules: {
-    interval: "<value>",
-    limit: "<value>",
-    multiplier: "<value>",
-    codes: "<value>",
-    enableHeader: "<value>",
-  },
-  username: "Sydnie_Cremin",
-  password: "rkDNoXiI06RFocg",
+  username: "Arianna.Wisoky54",
+  password: "v20yFRFvDFKJBTT",
   credentialsSecret: "<value>",
   clientSecretParamValue: "<value>",
   type: "health_check",

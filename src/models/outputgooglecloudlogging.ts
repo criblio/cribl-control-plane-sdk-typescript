@@ -7,7 +7,38 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  BackpressureBehaviorOptions,
+  BackpressureBehaviorOptions$inboundSchema,
+  BackpressureBehaviorOptions$outboundSchema,
+} from "./backpressurebehavioroptions.js";
+import {
+  CompressionOptionsPq,
+  CompressionOptionsPq$inboundSchema,
+  CompressionOptionsPq$outboundSchema,
+} from "./compressionoptionspq.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  GoogleAuthenticationMethodOptions,
+  GoogleAuthenticationMethodOptions$inboundSchema,
+  GoogleAuthenticationMethodOptions$outboundSchema,
+} from "./googleauthenticationmethodoptions.js";
+import {
+  ItemsTypeLogLabels,
+  ItemsTypeLogLabels$inboundSchema,
+  ItemsTypeLogLabels$Outbound,
+  ItemsTypeLogLabels$outboundSchema,
+} from "./itemstypeloglabels.js";
+import {
+  ModeOptions,
+  ModeOptions$inboundSchema,
+  ModeOptions$outboundSchema,
+} from "./modeoptions.js";
+import {
+  QueueFullBehaviorOptions,
+  QueueFullBehaviorOptions$inboundSchema,
+  QueueFullBehaviorOptions$outboundSchema,
+} from "./queuefullbehavioroptions.js";
 
 export const LogLocationType = {
   /**
@@ -47,140 +78,6 @@ export const PayloadFormat = {
  */
 export type PayloadFormat = OpenEnum<typeof PayloadFormat>;
 
-export type LogLabel = {
-  /**
-   * Label name
-   */
-  label: string;
-  /**
-   * JavaScript expression to compute the label's value.
-   */
-  valueExpression: string;
-};
-
-export type ResourceTypeLabel = {
-  /**
-   * Label name
-   */
-  label: string;
-  /**
-   * JavaScript expression to compute the label's value.
-   */
-  valueExpression: string;
-};
-
-/**
- * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
- */
-export const OutputGoogleCloudLoggingGoogleAuthenticationMethod = {
-  /**
-   * Auto
-   */
-  Auto: "auto",
-  /**
-   * Manual
-   */
-  Manual: "manual",
-  /**
-   * Secret
-   */
-  Secret: "secret",
-} as const;
-/**
- * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
- */
-export type OutputGoogleCloudLoggingGoogleAuthenticationMethod = OpenEnum<
-  typeof OutputGoogleCloudLoggingGoogleAuthenticationMethod
->;
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputGoogleCloudLoggingBackpressureBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-  /**
-   * Persistent Queue
-   */
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputGoogleCloudLoggingBackpressureBehavior = OpenEnum<
-  typeof OutputGoogleCloudLoggingBackpressureBehavior
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputGoogleCloudLoggingMode = {
-  /**
-   * Error
-   */
-  Error: "error",
-  /**
-   * Backpressure
-   */
-  Always: "always",
-  /**
-   * Always On
-   */
-  Backpressure: "backpressure",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputGoogleCloudLoggingMode = OpenEnum<
-  typeof OutputGoogleCloudLoggingMode
->;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputGoogleCloudLoggingCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputGoogleCloudLoggingCompression = OpenEnum<
-  typeof OutputGoogleCloudLoggingCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputGoogleCloudLoggingQueueFullBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop new data
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputGoogleCloudLoggingQueueFullBehavior = OpenEnum<
-  typeof OutputGoogleCloudLoggingQueueFullBehavior
->;
-
 export type OutputGoogleCloudLoggingPqControls = {};
 
 export type OutputGoogleCloudLogging = {
@@ -218,7 +115,7 @@ export type OutputGoogleCloudLogging = {
   /**
    * Labels to apply to the log entry
    */
-  logLabels?: Array<LogLabel> | undefined;
+  logLabels?: Array<ItemsTypeLogLabels> | undefined;
   /**
    * JavaScript expression to compute the value of the managed resource type field. Must evaluate to one of the valid values [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types). Defaults to "global".
    */
@@ -226,7 +123,7 @@ export type OutputGoogleCloudLogging = {
   /**
    * Labels to apply to the managed resource. These must correspond to the valid labels for the specified resource type (see [here](https://cloud.google.com/logging/docs/api/v2/resource-list#resource-types)). Otherwise, they will be dropped by Google Cloud Logging.
    */
-  resourceTypeLabels?: Array<ResourceTypeLabel> | undefined;
+  resourceTypeLabels?: Array<ItemsTypeLogLabels> | undefined;
   /**
    * JavaScript expression to compute the value of the severity field. Must evaluate to one of the severity values supported by Google Cloud Logging [here](https://cloud.google.com/logging/docs/reference/v2/rest/v2/LogEntry#logseverity) (case insensitive). Defaults to "DEFAULT".
    */
@@ -238,9 +135,7 @@ export type OutputGoogleCloudLogging = {
   /**
    * Choose Auto to use Google Application Default Credentials (ADC), Manual to enter Google service account credentials directly, or Secret to select or create a stored secret that references Google service account credentials.
    */
-  googleAuthMethod?:
-    | OutputGoogleCloudLoggingGoogleAuthenticationMethod
-    | undefined;
+  googleAuthMethod?: GoogleAuthenticationMethodOptions | undefined;
   /**
    * Contents of service account credentials (JSON keys) file downloaded from Google Cloud. To upload a file, click the upload button at this field's upper right.
    */
@@ -392,7 +287,7 @@ export type OutputGoogleCloudLogging = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputGoogleCloudLoggingBackpressureBehavior | undefined;
+  onBackpressure?: BackpressureBehaviorOptions | undefined;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
@@ -417,7 +312,7 @@ export type OutputGoogleCloudLogging = {
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputGoogleCloudLoggingMode | undefined;
+  pqMode?: ModeOptions | undefined;
   /**
    * The maximum number of events to hold in memory before writing the events to disk
    */
@@ -441,11 +336,11 @@ export type OutputGoogleCloudLogging = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputGoogleCloudLoggingCompression | undefined;
+  pqCompress?: CompressionOptionsPq | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputGoogleCloudLoggingQueueFullBehavior | undefined;
+  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputGoogleCloudLoggingPqControls | undefined;
 };
 
@@ -474,157 +369,6 @@ export const PayloadFormat$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   PayloadFormat
 > = openEnums.outboundSchema(PayloadFormat);
-
-/** @internal */
-export const LogLabel$inboundSchema: z.ZodType<
-  LogLabel,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  label: z.string(),
-  valueExpression: z.string(),
-});
-/** @internal */
-export type LogLabel$Outbound = {
-  label: string;
-  valueExpression: string;
-};
-
-/** @internal */
-export const LogLabel$outboundSchema: z.ZodType<
-  LogLabel$Outbound,
-  z.ZodTypeDef,
-  LogLabel
-> = z.object({
-  label: z.string(),
-  valueExpression: z.string(),
-});
-
-export function logLabelToJSON(logLabel: LogLabel): string {
-  return JSON.stringify(LogLabel$outboundSchema.parse(logLabel));
-}
-export function logLabelFromJSON(
-  jsonString: string,
-): SafeParseResult<LogLabel, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => LogLabel$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'LogLabel' from JSON`,
-  );
-}
-
-/** @internal */
-export const ResourceTypeLabel$inboundSchema: z.ZodType<
-  ResourceTypeLabel,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  label: z.string(),
-  valueExpression: z.string(),
-});
-/** @internal */
-export type ResourceTypeLabel$Outbound = {
-  label: string;
-  valueExpression: string;
-};
-
-/** @internal */
-export const ResourceTypeLabel$outboundSchema: z.ZodType<
-  ResourceTypeLabel$Outbound,
-  z.ZodTypeDef,
-  ResourceTypeLabel
-> = z.object({
-  label: z.string(),
-  valueExpression: z.string(),
-});
-
-export function resourceTypeLabelToJSON(
-  resourceTypeLabel: ResourceTypeLabel,
-): string {
-  return JSON.stringify(
-    ResourceTypeLabel$outboundSchema.parse(resourceTypeLabel),
-  );
-}
-export function resourceTypeLabelFromJSON(
-  jsonString: string,
-): SafeParseResult<ResourceTypeLabel, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ResourceTypeLabel$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ResourceTypeLabel' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputGoogleCloudLoggingGoogleAuthenticationMethod$inboundSchema:
-  z.ZodType<
-    OutputGoogleCloudLoggingGoogleAuthenticationMethod,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    OutputGoogleCloudLoggingGoogleAuthenticationMethod,
-  );
-/** @internal */
-export const OutputGoogleCloudLoggingGoogleAuthenticationMethod$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    OutputGoogleCloudLoggingGoogleAuthenticationMethod
-  > = openEnums.outboundSchema(
-    OutputGoogleCloudLoggingGoogleAuthenticationMethod,
-  );
-
-/** @internal */
-export const OutputGoogleCloudLoggingBackpressureBehavior$inboundSchema:
-  z.ZodType<
-    OutputGoogleCloudLoggingBackpressureBehavior,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(OutputGoogleCloudLoggingBackpressureBehavior);
-/** @internal */
-export const OutputGoogleCloudLoggingBackpressureBehavior$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    OutputGoogleCloudLoggingBackpressureBehavior
-  > = openEnums.outboundSchema(OutputGoogleCloudLoggingBackpressureBehavior);
-
-/** @internal */
-export const OutputGoogleCloudLoggingMode$inboundSchema: z.ZodType<
-  OutputGoogleCloudLoggingMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputGoogleCloudLoggingMode);
-/** @internal */
-export const OutputGoogleCloudLoggingMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputGoogleCloudLoggingMode
-> = openEnums.outboundSchema(OutputGoogleCloudLoggingMode);
-
-/** @internal */
-export const OutputGoogleCloudLoggingCompression$inboundSchema: z.ZodType<
-  OutputGoogleCloudLoggingCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputGoogleCloudLoggingCompression);
-/** @internal */
-export const OutputGoogleCloudLoggingCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputGoogleCloudLoggingCompression
-> = openEnums.outboundSchema(OutputGoogleCloudLoggingCompression);
-
-/** @internal */
-export const OutputGoogleCloudLoggingQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputGoogleCloudLoggingQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputGoogleCloudLoggingQueueFullBehavior);
-/** @internal */
-export const OutputGoogleCloudLoggingQueueFullBehavior$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, OutputGoogleCloudLoggingQueueFullBehavior> =
-    openEnums.outboundSchema(OutputGoogleCloudLoggingQueueFullBehavior);
 
 /** @internal */
 export const OutputGoogleCloudLoggingPqControls$inboundSchema: z.ZodType<
@@ -678,16 +422,14 @@ export const OutputGoogleCloudLogging$inboundSchema: z.ZodType<
   logNameExpression: z.string(),
   sanitizeLogNames: z.boolean().default(false),
   payloadFormat: PayloadFormat$inboundSchema.default("text"),
-  logLabels: z.array(z.lazy(() => LogLabel$inboundSchema)).optional(),
+  logLabels: z.array(ItemsTypeLogLabels$inboundSchema).optional(),
   resourceTypeExpression: z.string().optional(),
-  resourceTypeLabels: z.array(z.lazy(() => ResourceTypeLabel$inboundSchema))
-    .optional(),
+  resourceTypeLabels: z.array(ItemsTypeLogLabels$inboundSchema).optional(),
   severityExpression: z.string().optional(),
   insertIdExpression: z.string().optional(),
-  googleAuthMethod:
-    OutputGoogleCloudLoggingGoogleAuthenticationMethod$inboundSchema.default(
-      "manual",
-    ),
+  googleAuthMethod: GoogleAuthenticationMethodOptions$inboundSchema.default(
+    "manual",
+  ),
   serviceAccountCredentials: z.string().optional(),
   secret: z.string().optional(),
   maxPayloadSizeKB: z.number().default(4096),
@@ -725,23 +467,21 @@ export const OutputGoogleCloudLogging$inboundSchema: z.ZodType<
   traceExpression: z.string().optional(),
   spanIdExpression: z.string().optional(),
   traceSampledExpression: z.string().optional(),
-  onBackpressure: OutputGoogleCloudLoggingBackpressureBehavior$inboundSchema
-    .default("block"),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   logLocationExpression: z.string(),
   payloadExpression: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: OutputGoogleCloudLoggingMode$inboundSchema.default("error"),
+  pqMode: ModeOptions$inboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputGoogleCloudLoggingCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputGoogleCloudLoggingQueueFullBehavior$inboundSchema
-    .default("block"),
+  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
   pqControls: z.lazy(() => OutputGoogleCloudLoggingPqControls$inboundSchema)
     .optional(),
 });
@@ -757,9 +497,9 @@ export type OutputGoogleCloudLogging$Outbound = {
   logNameExpression: string;
   sanitizeLogNames: boolean;
   payloadFormat: string;
-  logLabels?: Array<LogLabel$Outbound> | undefined;
+  logLabels?: Array<ItemsTypeLogLabels$Outbound> | undefined;
   resourceTypeExpression?: string | undefined;
-  resourceTypeLabels?: Array<ResourceTypeLabel$Outbound> | undefined;
+  resourceTypeLabels?: Array<ItemsTypeLogLabels$Outbound> | undefined;
   severityExpression?: string | undefined;
   insertIdExpression?: string | undefined;
   googleAuthMethod: string;
@@ -834,16 +574,14 @@ export const OutputGoogleCloudLogging$outboundSchema: z.ZodType<
   logNameExpression: z.string(),
   sanitizeLogNames: z.boolean().default(false),
   payloadFormat: PayloadFormat$outboundSchema.default("text"),
-  logLabels: z.array(z.lazy(() => LogLabel$outboundSchema)).optional(),
+  logLabels: z.array(ItemsTypeLogLabels$outboundSchema).optional(),
   resourceTypeExpression: z.string().optional(),
-  resourceTypeLabels: z.array(z.lazy(() => ResourceTypeLabel$outboundSchema))
-    .optional(),
+  resourceTypeLabels: z.array(ItemsTypeLogLabels$outboundSchema).optional(),
   severityExpression: z.string().optional(),
   insertIdExpression: z.string().optional(),
-  googleAuthMethod:
-    OutputGoogleCloudLoggingGoogleAuthenticationMethod$outboundSchema.default(
-      "manual",
-    ),
+  googleAuthMethod: GoogleAuthenticationMethodOptions$outboundSchema.default(
+    "manual",
+  ),
   serviceAccountCredentials: z.string().optional(),
   secret: z.string().optional(),
   maxPayloadSizeKB: z.number().default(4096),
@@ -881,25 +619,21 @@ export const OutputGoogleCloudLogging$outboundSchema: z.ZodType<
   traceExpression: z.string().optional(),
   spanIdExpression: z.string().optional(),
   traceSampledExpression: z.string().optional(),
-  onBackpressure: OutputGoogleCloudLoggingBackpressureBehavior$outboundSchema
-    .default("block"),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   logLocationExpression: z.string(),
   payloadExpression: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: OutputGoogleCloudLoggingMode$outboundSchema.default("error"),
+  pqMode: ModeOptions$outboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputGoogleCloudLoggingCompression$outboundSchema.default(
-    "none",
-  ),
-  pqOnBackpressure: OutputGoogleCloudLoggingQueueFullBehavior$outboundSchema
-    .default("block"),
+  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
   pqControls: z.lazy(() => OutputGoogleCloudLoggingPqControls$outboundSchema)
     .optional(),
 });

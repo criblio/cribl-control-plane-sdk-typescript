@@ -33,20 +33,18 @@ let value: CountedPackInfo = {
       spec: "<value>",
       tags: {
         dataType: [
-          "real",
-          "point",
+          "decimal",
         ],
         domain: [
-          "cautious-coliseum.name",
-          "awful-space.net",
+          "big-ostrich.net",
         ],
         streamtags: [
           "<value 1>",
           "<value 2>",
-          "<value 3>",
         ],
         technology: [
           "<value 1>",
+          "<value 2>",
         ],
       },
       version: "<value>",

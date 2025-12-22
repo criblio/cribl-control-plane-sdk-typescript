@@ -674,34 +674,36 @@ const value: models.FunctionGrok = {
 };
 ```
 
-### `models.FunctionHandlebar`
+### `models.FunctionHandlebars`
 
 ```typescript
-const value: models.FunctionHandlebar = {
+const value: models.FunctionHandlebars = {
   filename: "example.file",
-  asyncTimeout: 7688.22,
+  asyncTimeout: 2987.9,
   criblVersion: "<value>",
   disabled: false,
   group: "<value>",
-  handleSignals: false,
-  id: "handlebar",
-  loadTime: 599,
-  modTime: 8171.36,
+  handleSignals: true,
+  id: "handlebars",
+  loadTime: 4175.73,
+  modTime: 7036.04,
   name: "<value>",
   sync: false,
   uischema: {
     "key": "<value>",
     "key1": "<value>",
+    "key2": "<value>",
   },
   version: "<value>",
   schema: {
-    templates: {
-      "key": {
+    templates: [
+      {
+        id: "<id>",
         content: "<value>",
         description:
-          "overconfidently underneath surface amongst shakily afore anneal stoop",
+          "zesty red contrail fiercely international sympathetically yum",
       },
-    },
+    ],
   },
 };
 ```
@@ -1053,6 +1055,7 @@ const value: models.FunctionNotificationPolicies = {
           [],
         ],
         templateTargetPairs: [],
+        order: 2760.74,
       },
     ],
   },

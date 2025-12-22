@@ -19,7 +19,7 @@ let value: CreateSavedJobRequest = {
     resumeOnBoot: false,
     environment: "<value>",
     schedule: {
-      enabled: false,
+      enabled: true,
       skippable: true,
       resumeMissed: false,
       cronSchedule: "*/5 * * * *",
@@ -32,8 +32,8 @@ let value: CreateSavedJobRequest = {
         jobTimeout: "0",
         mode: "list",
         timeRangeType: "relative",
-        earliest: 4703.26,
-        latest: 1623.48,
+        earliest: 475.38,
+        latest: 1125.35,
         timestampTimezone: "<value>",
         timeWarning: {},
         expression: "true",
@@ -49,66 +49,25 @@ let value: CreateSavedJobRequest = {
     collector: {
       type: "<value>",
       conf: {
-        collectMethod: "get",
-        collectRequestParams: [
+        authType: "manual",
+        type: "google_cloud_storage",
+        outputName: "<value>",
+        bucket: "<value>",
+        path: "/Applications",
+        extractors: [
           {
-            name: "<value>",
-            value: "<value>",
+            key: "<key>",
+            expression: "<value>",
           },
         ],
-        discovery: {
-          discoverType: "none",
-        },
-        collectUrl: "https://proper-majority.info/",
-        collectBody: "`{ }`",
-        collectRequestHeaders: [
-          {
-            name: "<value>",
-            value: "<value>",
-          },
-        ],
-        authenticateCollect: false,
-        authentication: "none",
-        timeout: 30,
-        rejectUnauthorized: false,
-        defaultBreakers: "Cribl",
-        safeHeaders: [
-          "<value 1>",
-          "<value 2>",
-          "<value 3>",
-        ],
-        retryRules: {
-          type: "backoff",
-          interval: "<value>",
-          limit: "<value>",
-          multiplier: "<value>",
-          codes: "<value>",
-          enableHeader: "<value>",
-        },
-        username: "Andre.Hills-Reilly62",
-        password: "gwiUSzD5T_NZKTX",
-        credentialsSecret: "<value>",
-        loginUrl: "",
-        loginBody:
-          "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
-        tokenRespAttribute: "<value>",
-        authHeaderExpr: "`Bearer ${token}`",
-        authRequestHeaders: [
-          {
-            name: "<value>",
-            value: "<value>",
-          },
-        ],
-        clientSecretParamName: "client_secret",
-        clientSecretParamValue: "<value>",
-        authRequestParams: [
-          {
-            name: "<value>",
-            value: "<value>",
-          },
-        ],
+        endpoint: "<value>",
+        disableTimeFilter: false,
+        recurse: true,
+        maxBatchSize: 10,
+        parquetChunkSizeMB: 5,
+        parquetChunkDownloadTimeout: 600,
+        serviceAccountCredentials: "<value>",
         textSecret: "<value>",
-        type: "health_check",
       },
       destructive: false,
       encoding: "<value>",
@@ -118,7 +77,6 @@ let value: CreateSavedJobRequest = {
       breakerRulesets: [
         "<value 1>",
         "<value 2>",
-        "<value 3>",
       ],
       staleChannelFlushMs: 10000,
       sendToRoutes: true,
@@ -128,6 +86,7 @@ let value: CreateSavedJobRequest = {
         args: [
           "<value 1>",
           "<value 2>",
+          "<value 3>",
         ],
       },
       throttleRatePerSec: "0",

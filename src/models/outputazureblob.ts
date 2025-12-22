@@ -7,81 +7,59 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthenticationMethodOptions1,
+  AuthenticationMethodOptions1$inboundSchema,
+  AuthenticationMethodOptions1$outboundSchema,
+} from "./authenticationmethodoptions1.js";
+import {
+  BackpressureBehaviorOptions1,
+  BackpressureBehaviorOptions1$inboundSchema,
+  BackpressureBehaviorOptions1$outboundSchema,
+} from "./backpressurebehavioroptions1.js";
+import {
+  CertificateType,
+  CertificateType$inboundSchema,
+  CertificateType$Outbound,
+  CertificateType$outboundSchema,
+} from "./certificatetype.js";
+import {
+  CompressionLevelOptions,
+  CompressionLevelOptions$inboundSchema,
+  CompressionLevelOptions$outboundSchema,
+} from "./compressionleveloptions.js";
+import {
+  CompressionOptions2,
+  CompressionOptions2$inboundSchema,
+  CompressionOptions2$outboundSchema,
+} from "./compressionoptions2.js";
+import {
+  DataFormatOptions,
+  DataFormatOptions$inboundSchema,
+  DataFormatOptions$outboundSchema,
+} from "./dataformatoptions.js";
+import {
+  DataPageVersionOptions,
+  DataPageVersionOptions$inboundSchema,
+  DataPageVersionOptions$outboundSchema,
+} from "./datapageversionoptions.js";
+import {
+  DiskSpaceProtectionOptions,
+  DiskSpaceProtectionOptions$inboundSchema,
+  DiskSpaceProtectionOptions$outboundSchema,
+} from "./diskspaceprotectionoptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * Format of the output data
- */
-export const OutputAzureBlobDataFormat = {
-  /**
-   * JSON
-   */
-  Json: "json",
-  /**
-   * Raw
-   */
-  Raw: "raw",
-  /**
-   * Parquet
-   */
-  Parquet: "parquet",
-} as const;
-/**
- * Format of the output data
- */
-export type OutputAzureBlobDataFormat = OpenEnum<
-  typeof OutputAzureBlobDataFormat
->;
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputAzureBlobBackpressureBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputAzureBlobBackpressureBehavior = OpenEnum<
-  typeof OutputAzureBlobBackpressureBehavior
->;
-
-/**
- * How to handle events when disk space is below the global 'Min free disk space' limit
- */
-export const OutputAzureBlobDiskSpaceProtection = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when disk space is below the global 'Min free disk space' limit
- */
-export type OutputAzureBlobDiskSpaceProtection = OpenEnum<
-  typeof OutputAzureBlobDiskSpaceProtection
->;
-
-export const OutputAzureBlobAuthenticationMethod = {
-  Manual: "manual",
-  Secret: "secret",
-  ClientSecret: "clientSecret",
-  ClientCert: "clientCert",
-} as const;
-export type OutputAzureBlobAuthenticationMethod = OpenEnum<
-  typeof OutputAzureBlobAuthenticationMethod
->;
+import {
+  ItemsTypeKeyValueMetadata,
+  ItemsTypeKeyValueMetadata$inboundSchema,
+  ItemsTypeKeyValueMetadata$Outbound,
+  ItemsTypeKeyValueMetadata$outboundSchema,
+} from "./itemstypekeyvaluemetadata.js";
+import {
+  ParquetVersionOptions,
+  ParquetVersionOptions$inboundSchema,
+  ParquetVersionOptions$outboundSchema,
+} from "./parquetversionoptions.js";
 
 export const BlobAccessTier = {
   /**
@@ -106,100 +84,6 @@ export const BlobAccessTier = {
   Archive: "Archive",
 } as const;
 export type BlobAccessTier = OpenEnum<typeof BlobAccessTier>;
-
-/**
- * Data compression format to apply to HTTP content before it is delivered
- */
-export const OutputAzureBlobCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Data compression format to apply to HTTP content before it is delivered
- */
-export type OutputAzureBlobCompression = OpenEnum<
-  typeof OutputAzureBlobCompression
->;
-
-/**
- * Compression level to apply before moving files to final destination
- */
-export const OutputAzureBlobCompressionLevel = {
-  /**
-   * Best Speed
-   */
-  BestSpeed: "best_speed",
-  /**
-   * Normal
-   */
-  Normal: "normal",
-  /**
-   * Best Compression
-   */
-  BestCompression: "best_compression",
-} as const;
-/**
- * Compression level to apply before moving files to final destination
- */
-export type OutputAzureBlobCompressionLevel = OpenEnum<
-  typeof OutputAzureBlobCompressionLevel
->;
-
-/**
- * Determines which data types are supported and how they are represented
- */
-export const OutputAzureBlobParquetVersion = {
-  /**
-   * 1.0
-   */
-  Parquet10: "PARQUET_1_0",
-  /**
-   * 2.4
-   */
-  Parquet24: "PARQUET_2_4",
-  /**
-   * 2.6
-   */
-  Parquet26: "PARQUET_2_6",
-} as const;
-/**
- * Determines which data types are supported and how they are represented
- */
-export type OutputAzureBlobParquetVersion = OpenEnum<
-  typeof OutputAzureBlobParquetVersion
->;
-
-/**
- * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
- */
-export const OutputAzureBlobDataPageVersion = {
-  /**
-   * V1
-   */
-  DataPageV1: "DATA_PAGE_V1",
-  /**
-   * V2
-   */
-  DataPageV2: "DATA_PAGE_V2",
-} as const;
-/**
- * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
- */
-export type OutputAzureBlobDataPageVersion = OpenEnum<
-  typeof OutputAzureBlobDataPageVersion
->;
-
-export type OutputAzureBlobKeyValueMetadatum = {
-  key?: string | undefined;
-  value: string;
-};
-
-export type OutputAzureBlobCertificate = {
-  /**
-   * The certificate you registered as credentials for your app in the Azure portal
-   */
-  certificateName: string;
-};
 
 export type OutputAzureBlob = {
   /**
@@ -258,7 +142,7 @@ export type OutputAzureBlob = {
   /**
    * Format of the output data
    */
-  format?: OutputAzureBlobDataFormat | undefined;
+  format?: DataFormatOptions | undefined;
   /**
    * JavaScript expression to define the output filename prefix (can be constant)
    */
@@ -294,7 +178,7 @@ export type OutputAzureBlob = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputAzureBlobBackpressureBehavior | undefined;
+  onBackpressure?: BackpressureBehaviorOptions1 | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
@@ -302,22 +186,22 @@ export type OutputAzureBlob = {
   /**
    * How to handle events when disk space is below the global 'Min free disk space' limit
    */
-  onDiskFullBackpressure?: OutputAzureBlobDiskSpaceProtection | undefined;
+  onDiskFullBackpressure?: DiskSpaceProtectionOptions | undefined;
   /**
    * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
    */
   forceCloseOnShutdown?: boolean | undefined;
-  authType?: OutputAzureBlobAuthenticationMethod | undefined;
+  authType?: AuthenticationMethodOptions1 | undefined;
   storageClass?: BlobAccessTier | undefined;
   description?: string | undefined;
   /**
    * Data compression format to apply to HTTP content before it is delivered
    */
-  compress?: OutputAzureBlobCompression | undefined;
+  compress?: CompressionOptions2 | undefined;
   /**
    * Compression level to apply before moving files to final destination
    */
-  compressionLevel?: OutputAzureBlobCompressionLevel | undefined;
+  compressionLevel?: CompressionLevelOptions | undefined;
   /**
    * Automatically calculate the schema based on the events of each Parquet file generated
    */
@@ -329,11 +213,11 @@ export type OutputAzureBlob = {
   /**
    * Determines which data types are supported and how they are represented
    */
-  parquetVersion?: OutputAzureBlobParquetVersion | undefined;
+  parquetVersion?: ParquetVersionOptions | undefined;
   /**
    * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
    */
-  parquetDataPageVersion?: OutputAzureBlobDataPageVersion | undefined;
+  parquetDataPageVersion?: DataPageVersionOptions | undefined;
   /**
    * The number of rows that every group will contain. The final group can contain a smaller number of rows.
    */
@@ -349,7 +233,7 @@ export type OutputAzureBlob = {
   /**
    * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
    */
-  keyValueMetadata?: Array<OutputAzureBlobKeyValueMetadatum> | undefined;
+  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata> | undefined;
   /**
    * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
    */
@@ -410,60 +294,8 @@ export type OutputAzureBlob = {
    * Select or create a stored text secret
    */
   clientTextSecret?: string | undefined;
-  certificate?: OutputAzureBlobCertificate | undefined;
+  certificate?: CertificateType | undefined;
 };
-
-/** @internal */
-export const OutputAzureBlobDataFormat$inboundSchema: z.ZodType<
-  OutputAzureBlobDataFormat,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputAzureBlobDataFormat);
-/** @internal */
-export const OutputAzureBlobDataFormat$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputAzureBlobDataFormat
-> = openEnums.outboundSchema(OutputAzureBlobDataFormat);
-
-/** @internal */
-export const OutputAzureBlobBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputAzureBlobBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputAzureBlobBackpressureBehavior);
-/** @internal */
-export const OutputAzureBlobBackpressureBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputAzureBlobBackpressureBehavior
-> = openEnums.outboundSchema(OutputAzureBlobBackpressureBehavior);
-
-/** @internal */
-export const OutputAzureBlobDiskSpaceProtection$inboundSchema: z.ZodType<
-  OutputAzureBlobDiskSpaceProtection,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputAzureBlobDiskSpaceProtection);
-/** @internal */
-export const OutputAzureBlobDiskSpaceProtection$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputAzureBlobDiskSpaceProtection
-> = openEnums.outboundSchema(OutputAzureBlobDiskSpaceProtection);
-
-/** @internal */
-export const OutputAzureBlobAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputAzureBlobAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputAzureBlobAuthenticationMethod);
-/** @internal */
-export const OutputAzureBlobAuthenticationMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputAzureBlobAuthenticationMethod
-> = openEnums.outboundSchema(OutputAzureBlobAuthenticationMethod);
 
 /** @internal */
 export const BlobAccessTier$inboundSchema: z.ZodType<
@@ -477,141 +309,6 @@ export const BlobAccessTier$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   BlobAccessTier
 > = openEnums.outboundSchema(BlobAccessTier);
-
-/** @internal */
-export const OutputAzureBlobCompression$inboundSchema: z.ZodType<
-  OutputAzureBlobCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputAzureBlobCompression);
-/** @internal */
-export const OutputAzureBlobCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputAzureBlobCompression
-> = openEnums.outboundSchema(OutputAzureBlobCompression);
-
-/** @internal */
-export const OutputAzureBlobCompressionLevel$inboundSchema: z.ZodType<
-  OutputAzureBlobCompressionLevel,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputAzureBlobCompressionLevel);
-/** @internal */
-export const OutputAzureBlobCompressionLevel$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputAzureBlobCompressionLevel
-> = openEnums.outboundSchema(OutputAzureBlobCompressionLevel);
-
-/** @internal */
-export const OutputAzureBlobParquetVersion$inboundSchema: z.ZodType<
-  OutputAzureBlobParquetVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputAzureBlobParquetVersion);
-/** @internal */
-export const OutputAzureBlobParquetVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputAzureBlobParquetVersion
-> = openEnums.outboundSchema(OutputAzureBlobParquetVersion);
-
-/** @internal */
-export const OutputAzureBlobDataPageVersion$inboundSchema: z.ZodType<
-  OutputAzureBlobDataPageVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputAzureBlobDataPageVersion);
-/** @internal */
-export const OutputAzureBlobDataPageVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputAzureBlobDataPageVersion
-> = openEnums.outboundSchema(OutputAzureBlobDataPageVersion);
-
-/** @internal */
-export const OutputAzureBlobKeyValueMetadatum$inboundSchema: z.ZodType<
-  OutputAzureBlobKeyValueMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  key: z.string().default(""),
-  value: z.string(),
-});
-/** @internal */
-export type OutputAzureBlobKeyValueMetadatum$Outbound = {
-  key: string;
-  value: string;
-};
-
-/** @internal */
-export const OutputAzureBlobKeyValueMetadatum$outboundSchema: z.ZodType<
-  OutputAzureBlobKeyValueMetadatum$Outbound,
-  z.ZodTypeDef,
-  OutputAzureBlobKeyValueMetadatum
-> = z.object({
-  key: z.string().default(""),
-  value: z.string(),
-});
-
-export function outputAzureBlobKeyValueMetadatumToJSON(
-  outputAzureBlobKeyValueMetadatum: OutputAzureBlobKeyValueMetadatum,
-): string {
-  return JSON.stringify(
-    OutputAzureBlobKeyValueMetadatum$outboundSchema.parse(
-      outputAzureBlobKeyValueMetadatum,
-    ),
-  );
-}
-export function outputAzureBlobKeyValueMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputAzureBlobKeyValueMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputAzureBlobKeyValueMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputAzureBlobKeyValueMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputAzureBlobCertificate$inboundSchema: z.ZodType<
-  OutputAzureBlobCertificate,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  certificateName: z.string(),
-});
-/** @internal */
-export type OutputAzureBlobCertificate$Outbound = {
-  certificateName: string;
-};
-
-/** @internal */
-export const OutputAzureBlobCertificate$outboundSchema: z.ZodType<
-  OutputAzureBlobCertificate$Outbound,
-  z.ZodTypeDef,
-  OutputAzureBlobCertificate
-> = z.object({
-  certificateName: z.string(),
-});
-
-export function outputAzureBlobCertificateToJSON(
-  outputAzureBlobCertificate: OutputAzureBlobCertificate,
-): string {
-  return JSON.stringify(
-    OutputAzureBlobCertificate$outboundSchema.parse(outputAzureBlobCertificate),
-  );
-}
-export function outputAzureBlobCertificateFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputAzureBlobCertificate, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputAzureBlobCertificate$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputAzureBlobCertificate' from JSON`,
-  );
-}
 
 /** @internal */
 export const OutputAzureBlob$inboundSchema: z.ZodType<
@@ -635,7 +332,7 @@ export const OutputAzureBlob$inboundSchema: z.ZodType<
   partitionExpr: z.string().default(
     "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
   ),
-  format: OutputAzureBlobDataFormat$inboundSchema.default("json"),
+  format: DataFormatOptions$inboundSchema.default("json"),
   baseFileName: z.string().default("`CriblOut`"),
   fileNameSuffix: z.string().default(
     "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
@@ -646,34 +343,27 @@ export const OutputAzureBlob$inboundSchema: z.ZodType<
   maxOpenFiles: z.number().default(100),
   headerLine: z.string().default(""),
   writeHighWaterMark: z.number().default(64),
-  onBackpressure: OutputAzureBlobBackpressureBehavior$inboundSchema.default(
+  onBackpressure: BackpressureBehaviorOptions1$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: DiskSpaceProtectionOptions$inboundSchema.default(
     "block",
   ),
-  deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: OutputAzureBlobDiskSpaceProtection$inboundSchema
-    .default("block"),
   forceCloseOnShutdown: z.boolean().default(false),
-  authType: OutputAzureBlobAuthenticationMethod$inboundSchema.default("manual"),
+  authType: AuthenticationMethodOptions1$inboundSchema.default("manual"),
   storageClass: BlobAccessTier$inboundSchema.default("Inferred"),
   description: z.string().optional(),
-  compress: OutputAzureBlobCompression$inboundSchema.default("gzip"),
-  compressionLevel: OutputAzureBlobCompressionLevel$inboundSchema.default(
-    "best_speed",
-  ),
+  compress: CompressionOptions2$inboundSchema.default("gzip"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
   automaticSchema: z.boolean().default(false),
   parquetSchema: z.string().optional(),
-  parquetVersion: OutputAzureBlobParquetVersion$inboundSchema.default(
-    "PARQUET_2_6",
-  ),
-  parquetDataPageVersion: OutputAzureBlobDataPageVersion$inboundSchema.default(
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: DataPageVersionOptions$inboundSchema.default(
     "DATA_PAGE_V2",
   ),
   parquetRowGroupLength: z.number().default(10000),
   parquetPageSize: z.string().default("1MB"),
   shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(
-    z.lazy(() => OutputAzureBlobKeyValueMetadatum$inboundSchema),
-  ).optional(),
+  keyValueMetadata: z.array(ItemsTypeKeyValueMetadata$inboundSchema).optional(),
   enableStatistics: z.boolean().default(true),
   enableWritePageIndex: z.boolean().default(true),
   enablePageChecksum: z.boolean().default(false),
@@ -689,8 +379,7 @@ export const OutputAzureBlob$inboundSchema: z.ZodType<
   azureCloud: z.string().optional(),
   endpointSuffix: z.string().optional(),
   clientTextSecret: z.string().optional(),
-  certificate: z.lazy(() => OutputAzureBlobCertificate$inboundSchema)
-    .optional(),
+  certificate: CertificateType$inboundSchema.optional(),
 });
 /** @internal */
 export type OutputAzureBlob$Outbound = {
@@ -733,9 +422,7 @@ export type OutputAzureBlob$Outbound = {
   parquetRowGroupLength: number;
   parquetPageSize: string;
   shouldLogInvalidRows?: boolean | undefined;
-  keyValueMetadata?:
-    | Array<OutputAzureBlobKeyValueMetadatum$Outbound>
-    | undefined;
+  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata$Outbound> | undefined;
   enableStatistics: boolean;
   enableWritePageIndex: boolean;
   enablePageChecksum: boolean;
@@ -751,7 +438,7 @@ export type OutputAzureBlob$Outbound = {
   azureCloud?: string | undefined;
   endpointSuffix?: string | undefined;
   clientTextSecret?: string | undefined;
-  certificate?: OutputAzureBlobCertificate$Outbound | undefined;
+  certificate?: CertificateType$Outbound | undefined;
 };
 
 /** @internal */
@@ -776,7 +463,7 @@ export const OutputAzureBlob$outboundSchema: z.ZodType<
   partitionExpr: z.string().default(
     "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
   ),
-  format: OutputAzureBlobDataFormat$outboundSchema.default("json"),
+  format: DataFormatOptions$outboundSchema.default("json"),
   baseFileName: z.string().default("`CriblOut`"),
   fileNameSuffix: z.string().default(
     "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
@@ -787,36 +474,30 @@ export const OutputAzureBlob$outboundSchema: z.ZodType<
   maxOpenFiles: z.number().default(100),
   headerLine: z.string().default(""),
   writeHighWaterMark: z.number().default(64),
-  onBackpressure: OutputAzureBlobBackpressureBehavior$outboundSchema.default(
+  onBackpressure: BackpressureBehaviorOptions1$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.default(
     "block",
   ),
-  deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: OutputAzureBlobDiskSpaceProtection$outboundSchema
-    .default("block"),
   forceCloseOnShutdown: z.boolean().default(false),
-  authType: OutputAzureBlobAuthenticationMethod$outboundSchema.default(
-    "manual",
-  ),
+  authType: AuthenticationMethodOptions1$outboundSchema.default("manual"),
   storageClass: BlobAccessTier$outboundSchema.default("Inferred"),
   description: z.string().optional(),
-  compress: OutputAzureBlobCompression$outboundSchema.default("gzip"),
-  compressionLevel: OutputAzureBlobCompressionLevel$outboundSchema.default(
+  compress: CompressionOptions2$outboundSchema.default("gzip"),
+  compressionLevel: CompressionLevelOptions$outboundSchema.default(
     "best_speed",
   ),
   automaticSchema: z.boolean().default(false),
   parquetSchema: z.string().optional(),
-  parquetVersion: OutputAzureBlobParquetVersion$outboundSchema.default(
-    "PARQUET_2_6",
-  ),
-  parquetDataPageVersion: OutputAzureBlobDataPageVersion$outboundSchema.default(
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: DataPageVersionOptions$outboundSchema.default(
     "DATA_PAGE_V2",
   ),
   parquetRowGroupLength: z.number().default(10000),
   parquetPageSize: z.string().default("1MB"),
   shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(
-    z.lazy(() => OutputAzureBlobKeyValueMetadatum$outboundSchema),
-  ).optional(),
+  keyValueMetadata: z.array(ItemsTypeKeyValueMetadata$outboundSchema)
+    .optional(),
   enableStatistics: z.boolean().default(true),
   enableWritePageIndex: z.boolean().default(true),
   enablePageChecksum: z.boolean().default(false),
@@ -832,8 +513,7 @@ export const OutputAzureBlob$outboundSchema: z.ZodType<
   azureCloud: z.string().optional(),
   endpointSuffix: z.string().optional(),
   clientTextSecret: z.string().optional(),
-  certificate: z.lazy(() => OutputAzureBlobCertificate$outboundSchema)
-    .optional(),
+  certificate: CertificateType$outboundSchema.optional(),
 });
 
 export function outputAzureBlobToJSON(

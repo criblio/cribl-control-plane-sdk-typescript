@@ -4,164 +4,53 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthenticationMethodOptions,
+  AuthenticationMethodOptions$inboundSchema,
+  AuthenticationMethodOptions$outboundSchema,
+} from "./authenticationmethodoptions.js";
+import {
+  CheckpointingType,
+  CheckpointingType$inboundSchema,
+  CheckpointingType$Outbound,
+  CheckpointingType$outboundSchema,
+} from "./checkpointingtype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type InputCrowdstrikeConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputCrowdstrikeMode = {
-  /**
-   * Smart
-   */
-  Smart: "smart",
-  /**
-   * Always On
-   */
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputCrowdstrikeMode = OpenEnum<typeof InputCrowdstrikeMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputCrowdstrikeCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputCrowdstrikeCompression = OpenEnum<
-  typeof InputCrowdstrikeCompression
->;
-
-export type InputCrowdstrikePqControls = {};
-
-export type InputCrowdstrikePq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputCrowdstrikeMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputCrowdstrikeCompression | undefined;
-  pqControls?: InputCrowdstrikePqControls | undefined;
-};
-
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export const InputCrowdstrikeAuthenticationMethod = {
-  /**
-   * Auto
-   */
-  Auto: "auto",
-  /**
-   * Manual
-   */
-  Manual: "manual",
-  /**
-   * Secret Key pair
-   */
-  Secret: "secret",
-} as const;
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export type InputCrowdstrikeAuthenticationMethod = OpenEnum<
-  typeof InputCrowdstrikeAuthenticationMethod
->;
-
-/**
- * Signature version to use for signing S3 requests
- */
-export const InputCrowdstrikeSignatureVersion = {
-  V2: "v2",
-  V4: "v4",
-} as const;
-/**
- * Signature version to use for signing S3 requests
- */
-export type InputCrowdstrikeSignatureVersion = OpenEnum<
-  typeof InputCrowdstrikeSignatureVersion
->;
-
-export type InputCrowdstrikePreprocess = {
-  disabled?: boolean | undefined;
-  /**
-   * Command to feed the data through (via stdin) and process its output (stdout)
-   */
-  command?: string | undefined;
-  /**
-   * Arguments to be added to the custom command
-   */
-  args?: Array<string> | undefined;
-};
-
-export type InputCrowdstrikeMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
-
-export type InputCrowdstrikeCheckpointing = {
-  /**
-   * Resume processing files after an interruption
-   */
-  enabled?: boolean | undefined;
-  /**
-   * The number of times to retry processing when a processing error occurs. If Skip file on error is enabled, this setting is ignored.
-   */
-  retries?: number | undefined;
-};
-
-export const InputCrowdstrikeTagAfterProcessing = {
-  False: "false",
-  True: "true",
-} as const;
-export type InputCrowdstrikeTagAfterProcessing = OpenEnum<
-  typeof InputCrowdstrikeTagAfterProcessing
->;
+import {
+  ItemsTypeConnections,
+  ItemsTypeConnections$inboundSchema,
+  ItemsTypeConnections$Outbound,
+  ItemsTypeConnections$outboundSchema,
+} from "./itemstypeconnections.js";
+import {
+  ItemsTypeNotificationMetadata,
+  ItemsTypeNotificationMetadata$inboundSchema,
+  ItemsTypeNotificationMetadata$Outbound,
+  ItemsTypeNotificationMetadata$outboundSchema,
+} from "./itemstypenotificationmetadata.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
+import {
+  PreprocessTypeSavedJobCollectionInput,
+  PreprocessTypeSavedJobCollectionInput$inboundSchema,
+  PreprocessTypeSavedJobCollectionInput$Outbound,
+  PreprocessTypeSavedJobCollectionInput$outboundSchema,
+} from "./preprocesstypesavedjobcollectioninput.js";
+import {
+  SignatureVersionOptions,
+  SignatureVersionOptions$inboundSchema,
+  SignatureVersionOptions$outboundSchema,
+} from "./signatureversionoptions.js";
+import {
+  TagAfterProcessingOptions,
+  TagAfterProcessingOptions$inboundSchema,
+  TagAfterProcessingOptions$outboundSchema,
+} from "./tagafterprocessingoptions.js";
 
 export type InputCrowdstrike = {
   /**
@@ -193,8 +82,8 @@ export type InputCrowdstrike = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputCrowdstrikeConnection> | undefined;
-  pq?: InputCrowdstrikePq | undefined;
+  connections?: Array<ItemsTypeConnections> | undefined;
+  pq?: PqType | undefined;
   /**
    * The name, URL, or ARN of the SQS queue to read notifications from. When a non-AWS URL is specified, format must be: '{url}/myQueueName'. Example: 'https://host:port/myQueueName'. Value must be a JavaScript expression (which can evaluate to a constant value), enclosed in quotes or backticks. Can be evaluated only at init time. Example referencing a Global Variable: `https://host:port/myQueue-${C.vars.myVar}`.
    */
@@ -210,7 +99,7 @@ export type InputCrowdstrike = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: InputCrowdstrikeAuthenticationMethod | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
   awsSecretKey?: string | undefined;
   /**
    * AWS Region where the S3 bucket and SQS queue are located. Required, unless the Queue entry is a URL or ARN that includes a Region.
@@ -223,7 +112,7 @@ export type InputCrowdstrike = {
   /**
    * Signature version to use for signing S3 requests
    */
-  signatureVersion?: InputCrowdstrikeSignatureVersion | undefined;
+  signatureVersion?: SignatureVersionOptions | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -284,12 +173,12 @@ export type InputCrowdstrike = {
    * Use Assume Role credentials when accessing Amazon SQS
    */
   enableSQSAssumeRole?: boolean | undefined;
-  preprocess?: InputCrowdstrikePreprocess | undefined;
+  preprocess?: PreprocessTypeSavedJobCollectionInput | undefined;
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputCrowdstrikeMetadatum> | undefined;
-  checkpointing?: InputCrowdstrikeCheckpointing | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
+  checkpointing?: CheckpointingType | undefined;
   /**
    * How long to wait for events before trying polling again. The lower the number the higher the AWS bill. The higher the number the longer it will take for the source to react to configuration changes and system restarts.
    */
@@ -304,7 +193,7 @@ export type InputCrowdstrike = {
    * Select or create a stored secret that references your access key and secret key
    */
   awsSecret?: string | undefined;
-  tagAfterProcessing?: InputCrowdstrikeTagAfterProcessing | undefined;
+  tagAfterProcessing?: TagAfterProcessingOptions | undefined;
   /**
    * The key for the S3 object tag applied after processing. This field accepts an expression for dynamic generation.
    */
@@ -314,338 +203,6 @@ export type InputCrowdstrike = {
    */
   processedTagValue?: string | undefined;
 };
-
-/** @internal */
-export const InputCrowdstrikeConnection$inboundSchema: z.ZodType<
-  InputCrowdstrikeConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-/** @internal */
-export type InputCrowdstrikeConnection$Outbound = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/** @internal */
-export const InputCrowdstrikeConnection$outboundSchema: z.ZodType<
-  InputCrowdstrikeConnection$Outbound,
-  z.ZodTypeDef,
-  InputCrowdstrikeConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-export function inputCrowdstrikeConnectionToJSON(
-  inputCrowdstrikeConnection: InputCrowdstrikeConnection,
-): string {
-  return JSON.stringify(
-    InputCrowdstrikeConnection$outboundSchema.parse(inputCrowdstrikeConnection),
-  );
-}
-export function inputCrowdstrikeConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputCrowdstrikeConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputCrowdstrikeConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCrowdstrikeConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCrowdstrikeMode$inboundSchema: z.ZodType<
-  InputCrowdstrikeMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputCrowdstrikeMode);
-/** @internal */
-export const InputCrowdstrikeMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputCrowdstrikeMode
-> = openEnums.outboundSchema(InputCrowdstrikeMode);
-
-/** @internal */
-export const InputCrowdstrikeCompression$inboundSchema: z.ZodType<
-  InputCrowdstrikeCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputCrowdstrikeCompression);
-/** @internal */
-export const InputCrowdstrikeCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputCrowdstrikeCompression
-> = openEnums.outboundSchema(InputCrowdstrikeCompression);
-
-/** @internal */
-export const InputCrowdstrikePqControls$inboundSchema: z.ZodType<
-  InputCrowdstrikePqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type InputCrowdstrikePqControls$Outbound = {};
-
-/** @internal */
-export const InputCrowdstrikePqControls$outboundSchema: z.ZodType<
-  InputCrowdstrikePqControls$Outbound,
-  z.ZodTypeDef,
-  InputCrowdstrikePqControls
-> = z.object({});
-
-export function inputCrowdstrikePqControlsToJSON(
-  inputCrowdstrikePqControls: InputCrowdstrikePqControls,
-): string {
-  return JSON.stringify(
-    InputCrowdstrikePqControls$outboundSchema.parse(inputCrowdstrikePqControls),
-  );
-}
-export function inputCrowdstrikePqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputCrowdstrikePqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputCrowdstrikePqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCrowdstrikePqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCrowdstrikePq$inboundSchema: z.ZodType<
-  InputCrowdstrikePq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputCrowdstrikeMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputCrowdstrikeCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputCrowdstrikePqControls$inboundSchema).optional(),
-});
-/** @internal */
-export type InputCrowdstrikePq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputCrowdstrikePqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputCrowdstrikePq$outboundSchema: z.ZodType<
-  InputCrowdstrikePq$Outbound,
-  z.ZodTypeDef,
-  InputCrowdstrikePq
-> = z.object({
-  mode: InputCrowdstrikeMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputCrowdstrikeCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputCrowdstrikePqControls$outboundSchema)
-    .optional(),
-});
-
-export function inputCrowdstrikePqToJSON(
-  inputCrowdstrikePq: InputCrowdstrikePq,
-): string {
-  return JSON.stringify(
-    InputCrowdstrikePq$outboundSchema.parse(inputCrowdstrikePq),
-  );
-}
-export function inputCrowdstrikePqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputCrowdstrikePq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputCrowdstrikePq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCrowdstrikePq' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCrowdstrikeAuthenticationMethod$inboundSchema: z.ZodType<
-  InputCrowdstrikeAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputCrowdstrikeAuthenticationMethod);
-/** @internal */
-export const InputCrowdstrikeAuthenticationMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputCrowdstrikeAuthenticationMethod
-> = openEnums.outboundSchema(InputCrowdstrikeAuthenticationMethod);
-
-/** @internal */
-export const InputCrowdstrikeSignatureVersion$inboundSchema: z.ZodType<
-  InputCrowdstrikeSignatureVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputCrowdstrikeSignatureVersion);
-/** @internal */
-export const InputCrowdstrikeSignatureVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputCrowdstrikeSignatureVersion
-> = openEnums.outboundSchema(InputCrowdstrikeSignatureVersion);
-
-/** @internal */
-export const InputCrowdstrikePreprocess$inboundSchema: z.ZodType<
-  InputCrowdstrikePreprocess,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  disabled: z.boolean().default(true),
-  command: z.string().optional(),
-  args: z.array(z.string()).optional(),
-});
-/** @internal */
-export type InputCrowdstrikePreprocess$Outbound = {
-  disabled: boolean;
-  command?: string | undefined;
-  args?: Array<string> | undefined;
-};
-
-/** @internal */
-export const InputCrowdstrikePreprocess$outboundSchema: z.ZodType<
-  InputCrowdstrikePreprocess$Outbound,
-  z.ZodTypeDef,
-  InputCrowdstrikePreprocess
-> = z.object({
-  disabled: z.boolean().default(true),
-  command: z.string().optional(),
-  args: z.array(z.string()).optional(),
-});
-
-export function inputCrowdstrikePreprocessToJSON(
-  inputCrowdstrikePreprocess: InputCrowdstrikePreprocess,
-): string {
-  return JSON.stringify(
-    InputCrowdstrikePreprocess$outboundSchema.parse(inputCrowdstrikePreprocess),
-  );
-}
-export function inputCrowdstrikePreprocessFromJSON(
-  jsonString: string,
-): SafeParseResult<InputCrowdstrikePreprocess, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputCrowdstrikePreprocess$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCrowdstrikePreprocess' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCrowdstrikeMetadatum$inboundSchema: z.ZodType<
-  InputCrowdstrikeMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type InputCrowdstrikeMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputCrowdstrikeMetadatum$outboundSchema: z.ZodType<
-  InputCrowdstrikeMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputCrowdstrikeMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function inputCrowdstrikeMetadatumToJSON(
-  inputCrowdstrikeMetadatum: InputCrowdstrikeMetadatum,
-): string {
-  return JSON.stringify(
-    InputCrowdstrikeMetadatum$outboundSchema.parse(inputCrowdstrikeMetadatum),
-  );
-}
-export function inputCrowdstrikeMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputCrowdstrikeMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputCrowdstrikeMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCrowdstrikeMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCrowdstrikeCheckpointing$inboundSchema: z.ZodType<
-  InputCrowdstrikeCheckpointing,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enabled: z.boolean().default(false),
-  retries: z.number().default(5),
-});
-/** @internal */
-export type InputCrowdstrikeCheckpointing$Outbound = {
-  enabled: boolean;
-  retries: number;
-};
-
-/** @internal */
-export const InputCrowdstrikeCheckpointing$outboundSchema: z.ZodType<
-  InputCrowdstrikeCheckpointing$Outbound,
-  z.ZodTypeDef,
-  InputCrowdstrikeCheckpointing
-> = z.object({
-  enabled: z.boolean().default(false),
-  retries: z.number().default(5),
-});
-
-export function inputCrowdstrikeCheckpointingToJSON(
-  inputCrowdstrikeCheckpointing: InputCrowdstrikeCheckpointing,
-): string {
-  return JSON.stringify(
-    InputCrowdstrikeCheckpointing$outboundSchema.parse(
-      inputCrowdstrikeCheckpointing,
-    ),
-  );
-}
-export function inputCrowdstrikeCheckpointingFromJSON(
-  jsonString: string,
-): SafeParseResult<InputCrowdstrikeCheckpointing, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputCrowdstrikeCheckpointing$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputCrowdstrikeCheckpointing' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputCrowdstrikeTagAfterProcessing$inboundSchema: z.ZodType<
-  InputCrowdstrikeTagAfterProcessing,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputCrowdstrikeTagAfterProcessing);
-/** @internal */
-export const InputCrowdstrikeTagAfterProcessing$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputCrowdstrikeTagAfterProcessing
-> = openEnums.outboundSchema(InputCrowdstrikeTagAfterProcessing);
 
 /** @internal */
 export const InputCrowdstrike$inboundSchema: z.ZodType<
@@ -661,20 +218,18 @@ export const InputCrowdstrike$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputCrowdstrikeConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputCrowdstrikePq$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
   queueName: z.string(),
   fileFilter: z.string().default("/.*/"),
   awsAccountId: z.string().optional(),
-  awsAuthenticationMethod: InputCrowdstrikeAuthenticationMethod$inboundSchema
-    .default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: InputCrowdstrikeSignatureVersion$inboundSchema.default(
-    "v4",
-  ),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   breakerRulesets: z.array(z.string()).optional(),
@@ -690,18 +245,15 @@ export const InputCrowdstrike$inboundSchema: z.ZodType<
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().default(3600),
   enableSQSAssumeRole: z.boolean().default(false),
-  preprocess: z.lazy(() => InputCrowdstrikePreprocess$inboundSchema).optional(),
-  metadata: z.array(z.lazy(() => InputCrowdstrikeMetadatum$inboundSchema))
-    .optional(),
-  checkpointing: z.lazy(() => InputCrowdstrikeCheckpointing$inboundSchema)
-    .optional(),
+  preprocess: PreprocessTypeSavedJobCollectionInput$inboundSchema.optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
+  checkpointing: CheckpointingType$inboundSchema.optional(),
   pollTimeout: z.number().default(10),
   encoding: z.string().optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  tagAfterProcessing: InputCrowdstrikeTagAfterProcessing$inboundSchema
-    .optional(),
+  tagAfterProcessing: TagAfterProcessingOptions$inboundSchema.optional(),
   processedTagKey: z.string().optional(),
   processedTagValue: z.string().optional(),
 });
@@ -715,8 +267,8 @@ export type InputCrowdstrike$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputCrowdstrikeConnection$Outbound> | undefined;
-  pq?: InputCrowdstrikePq$Outbound | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   queueName: string;
   fileFilter: string;
   awsAccountId?: string | undefined;
@@ -740,9 +292,9 @@ export type InputCrowdstrike$Outbound = {
   assumeRoleExternalId?: string | undefined;
   durationSeconds: number;
   enableSQSAssumeRole: boolean;
-  preprocess?: InputCrowdstrikePreprocess$Outbound | undefined;
-  metadata?: Array<InputCrowdstrikeMetadatum$Outbound> | undefined;
-  checkpointing?: InputCrowdstrikeCheckpointing$Outbound | undefined;
+  preprocess?: PreprocessTypeSavedJobCollectionInput$Outbound | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
+  checkpointing?: CheckpointingType$Outbound | undefined;
   pollTimeout: number;
   encoding?: string | undefined;
   description?: string | undefined;
@@ -767,20 +319,18 @@ export const InputCrowdstrike$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputCrowdstrikeConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputCrowdstrikePq$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
   queueName: z.string(),
   fileFilter: z.string().default("/.*/"),
   awsAccountId: z.string().optional(),
-  awsAuthenticationMethod: InputCrowdstrikeAuthenticationMethod$outboundSchema
-    .default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
+    "auto",
+  ),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   endpoint: z.string().optional(),
-  signatureVersion: InputCrowdstrikeSignatureVersion$outboundSchema.default(
-    "v4",
-  ),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   breakerRulesets: z.array(z.string()).optional(),
@@ -796,19 +346,15 @@ export const InputCrowdstrike$outboundSchema: z.ZodType<
   assumeRoleExternalId: z.string().optional(),
   durationSeconds: z.number().default(3600),
   enableSQSAssumeRole: z.boolean().default(false),
-  preprocess: z.lazy(() => InputCrowdstrikePreprocess$outboundSchema)
-    .optional(),
-  metadata: z.array(z.lazy(() => InputCrowdstrikeMetadatum$outboundSchema))
-    .optional(),
-  checkpointing: z.lazy(() => InputCrowdstrikeCheckpointing$outboundSchema)
-    .optional(),
+  preprocess: PreprocessTypeSavedJobCollectionInput$outboundSchema.optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
+  checkpointing: CheckpointingType$outboundSchema.optional(),
   pollTimeout: z.number().default(10),
   encoding: z.string().optional(),
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  tagAfterProcessing: InputCrowdstrikeTagAfterProcessing$outboundSchema
-    .optional(),
+  tagAfterProcessing: TagAfterProcessingOptions$outboundSchema.optional(),
   processedTagKey: z.string().optional(),
   processedTagValue: z.string().optional(),
 });

@@ -49,13 +49,13 @@ async function run() {
         "delectable-transom.com",
         "radiant-sightseeing.info",
       ],
-      technology: [
-        "<value 1>",
-      ],
       streamtags: [
         "<value 1>",
         "<value 2>",
         "<value 3>",
+      ],
+      technology: [
+        "<value 1>",
       ],
     },
     allowCustomFunctions: true,
@@ -104,13 +104,13 @@ async function run() {
         "delectable-transom.com",
         "radiant-sightseeing.info",
       ],
-      technology: [
-        "<value 1>",
-      ],
       streamtags: [
         "<value 1>",
         "<value 2>",
         "<value 3>",
+      ],
+      technology: [
+        "<value 1>",
       ],
     },
     allowCustomFunctions: true,
