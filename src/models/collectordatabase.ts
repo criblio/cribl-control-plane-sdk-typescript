@@ -5,17 +5,13 @@
 import * as z from "zod/v3";
 import { remap as remap$ } from "../lib/primitives.js";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const CollectorDatabaseHiddenDefaultBreakers = {
-  Cribl: "Cribl",
-} as const;
-export type CollectorDatabaseHiddenDefaultBreakers = OpenEnum<
-  typeof CollectorDatabaseHiddenDefaultBreakers
->;
+import {
+  HiddenDefaultBreakersOptions,
+  HiddenDefaultBreakersOptions$inboundSchema,
+  HiddenDefaultBreakersOptions$outboundSchema,
+} from "./hiddendefaultbreakersoptions.js";
 
 export type CollectorDatabaseStateTracking = {
   /**
@@ -45,22 +41,9 @@ export type CollectorDatabase = {
    * Enforces a basic query validation that allows only a single 'select' statement. Disable for more complex queries or when using semicolons. Caution: Disabling query validation allows DDL and DML statements to be executed, which could be destructive to your database.
    */
   queryValidationEnabled?: boolean | undefined;
-  defaultBreakers?: CollectorDatabaseHiddenDefaultBreakers | undefined;
+  defaultBreakers?: HiddenDefaultBreakersOptions | undefined;
   scheduling?: CollectorDatabaseScheduling | undefined;
 };
-
-/** @internal */
-export const CollectorDatabaseHiddenDefaultBreakers$inboundSchema: z.ZodType<
-  CollectorDatabaseHiddenDefaultBreakers,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(CollectorDatabaseHiddenDefaultBreakers);
-/** @internal */
-export const CollectorDatabaseHiddenDefaultBreakers$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CollectorDatabaseHiddenDefaultBreakers
-> = openEnums.outboundSchema(CollectorDatabaseHiddenDefaultBreakers);
 
 /** @internal */
 export const CollectorDatabaseStateTracking$inboundSchema: z.ZodType<
@@ -156,8 +139,7 @@ export const CollectorDatabase$inboundSchema: z.ZodType<
   connectionId: z.string(),
   query: z.string(),
   queryValidationEnabled: z.boolean().default(true),
-  defaultBreakers: CollectorDatabaseHiddenDefaultBreakers$inboundSchema
-    .optional(),
+  defaultBreakers: HiddenDefaultBreakersOptions$inboundSchema.optional(),
   __scheduling: z.lazy(() => CollectorDatabaseScheduling$inboundSchema)
     .optional(),
 }).transform((v) => {
@@ -185,8 +167,7 @@ export const CollectorDatabase$outboundSchema: z.ZodType<
   connectionId: z.string(),
   query: z.string(),
   queryValidationEnabled: z.boolean().default(true),
-  defaultBreakers: CollectorDatabaseHiddenDefaultBreakers$outboundSchema
-    .optional(),
+  defaultBreakers: HiddenDefaultBreakersOptions$outboundSchema.optional(),
   scheduling: z.lazy(() => CollectorDatabaseScheduling$outboundSchema)
     .optional(),
 }).transform((v) => {

@@ -7,31 +7,53 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthenticationMethodOptions,
+  AuthenticationMethodOptions$inboundSchema,
+  AuthenticationMethodOptions$outboundSchema,
+} from "./authenticationmethodoptions.js";
+import {
+  BackpressureBehaviorOptions1,
+  BackpressureBehaviorOptions1$inboundSchema,
+  BackpressureBehaviorOptions1$outboundSchema,
+} from "./backpressurebehavioroptions1.js";
+import {
+  DataPageVersionOptions,
+  DataPageVersionOptions$inboundSchema,
+  DataPageVersionOptions$outboundSchema,
+} from "./datapageversionoptions.js";
+import {
+  DiskSpaceProtectionOptions,
+  DiskSpaceProtectionOptions$inboundSchema,
+  DiskSpaceProtectionOptions$outboundSchema,
+} from "./diskspaceprotectionoptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export const OutputSecurityLakeAuthenticationMethod = {
-  /**
-   * Auto
-   */
-  Auto: "auto",
-  /**
-   * Manual
-   */
-  Manual: "manual",
-  /**
-   * Secret Key pair
-   */
-  Secret: "secret",
-} as const;
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export type OutputSecurityLakeAuthenticationMethod = OpenEnum<
-  typeof OutputSecurityLakeAuthenticationMethod
->;
+import {
+  ItemsTypeKeyValueMetadata,
+  ItemsTypeKeyValueMetadata$inboundSchema,
+  ItemsTypeKeyValueMetadata$Outbound,
+  ItemsTypeKeyValueMetadata$outboundSchema,
+} from "./itemstypekeyvaluemetadata.js";
+import {
+  ObjectAclOptions,
+  ObjectAclOptions$inboundSchema,
+  ObjectAclOptions$outboundSchema,
+} from "./objectacloptions.js";
+import {
+  ParquetVersionOptions,
+  ParquetVersionOptions$inboundSchema,
+  ParquetVersionOptions$outboundSchema,
+} from "./parquetversionoptions.js";
+import {
+  ServerSideEncryptionForUploadedObjectsOptions,
+  ServerSideEncryptionForUploadedObjectsOptions$inboundSchema,
+  ServerSideEncryptionForUploadedObjectsOptions$outboundSchema,
+} from "./serversideencryptionforuploadedobjectsoptions.js";
+import {
+  StorageClassOptions,
+  StorageClassOptions$inboundSchema,
+  StorageClassOptions$outboundSchema,
+} from "./storageclassoptions.js";
 
 /**
  * Signature version to use for signing Amazon Security Lake requests
@@ -46,193 +68,6 @@ export const OutputSecurityLakeSignatureVersion = {
 export type OutputSecurityLakeSignatureVersion = OpenEnum<
   typeof OutputSecurityLakeSignatureVersion
 >;
-
-/**
- * Object ACL to assign to uploaded objects
- */
-export const OutputSecurityLakeObjectACL = {
-  /**
-   * Private
-   */
-  Private: "private",
-  /**
-   * Public Read Only
-   */
-  PublicRead: "public-read",
-  /**
-   * Public Read/Write
-   */
-  PublicReadWrite: "public-read-write",
-  /**
-   * Authenticated Read Only
-   */
-  AuthenticatedRead: "authenticated-read",
-  /**
-   * AWS EC2 AMI Read Only
-   */
-  AwsExecRead: "aws-exec-read",
-  /**
-   * Bucket Owner Read Only
-   */
-  BucketOwnerRead: "bucket-owner-read",
-  /**
-   * Bucket Owner Full Control
-   */
-  BucketOwnerFullControl: "bucket-owner-full-control",
-} as const;
-/**
- * Object ACL to assign to uploaded objects
- */
-export type OutputSecurityLakeObjectACL = OpenEnum<
-  typeof OutputSecurityLakeObjectACL
->;
-
-/**
- * Storage class to select for uploaded objects
- */
-export const OutputSecurityLakeStorageClass = {
-  /**
-   * Standard
-   */
-  Standard: "STANDARD",
-  /**
-   * Reduced Redundancy Storage
-   */
-  ReducedRedundancy: "REDUCED_REDUNDANCY",
-  /**
-   * Standard, Infrequent Access
-   */
-  StandardIa: "STANDARD_IA",
-  /**
-   * One Zone, Infrequent Access
-   */
-  OnezoneIa: "ONEZONE_IA",
-  /**
-   * Intelligent Tiering
-   */
-  IntelligentTiering: "INTELLIGENT_TIERING",
-  /**
-   * Glacier Flexible Retrieval
-   */
-  Glacier: "GLACIER",
-  /**
-   * Glacier Instant Retrieval
-   */
-  GlacierIr: "GLACIER_IR",
-  /**
-   * Glacier Deep Archive
-   */
-  DeepArchive: "DEEP_ARCHIVE",
-} as const;
-/**
- * Storage class to select for uploaded objects
- */
-export type OutputSecurityLakeStorageClass = OpenEnum<
-  typeof OutputSecurityLakeStorageClass
->;
-
-export const OutputSecurityLakeServerSideEncryptionForUploadedObjects = {
-  /**
-   * Amazon S3 Managed Key
-   */
-  Aes256: "AES256",
-  /**
-   * AWS KMS Managed Key
-   */
-  AwsKms: "aws:kms",
-} as const;
-export type OutputSecurityLakeServerSideEncryptionForUploadedObjects = OpenEnum<
-  typeof OutputSecurityLakeServerSideEncryptionForUploadedObjects
->;
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputSecurityLakeBackpressureBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputSecurityLakeBackpressureBehavior = OpenEnum<
-  typeof OutputSecurityLakeBackpressureBehavior
->;
-
-/**
- * How to handle events when disk space is below the global 'Min free disk space' limit
- */
-export const OutputSecurityLakeDiskSpaceProtection = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when disk space is below the global 'Min free disk space' limit
- */
-export type OutputSecurityLakeDiskSpaceProtection = OpenEnum<
-  typeof OutputSecurityLakeDiskSpaceProtection
->;
-
-/**
- * Determines which data types are supported and how they are represented
- */
-export const OutputSecurityLakeParquetVersion = {
-  /**
-   * 1.0
-   */
-  Parquet10: "PARQUET_1_0",
-  /**
-   * 2.4
-   */
-  Parquet24: "PARQUET_2_4",
-  /**
-   * 2.6
-   */
-  Parquet26: "PARQUET_2_6",
-} as const;
-/**
- * Determines which data types are supported and how they are represented
- */
-export type OutputSecurityLakeParquetVersion = OpenEnum<
-  typeof OutputSecurityLakeParquetVersion
->;
-
-/**
- * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
- */
-export const OutputSecurityLakeDataPageVersion = {
-  /**
-   * V1
-   */
-  DataPageV1: "DATA_PAGE_V1",
-  /**
-   * V2
-   */
-  DataPageV2: "DATA_PAGE_V2",
-} as const;
-/**
- * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
- */
-export type OutputSecurityLakeDataPageVersion = OpenEnum<
-  typeof OutputSecurityLakeDataPageVersion
->;
-
-export type OutputSecurityLakeKeyValueMetadatum = {
-  key?: string | undefined;
-  value: string;
-};
 
 export type OutputSecurityLake = {
   /**
@@ -268,7 +103,7 @@ export type OutputSecurityLake = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: OutputSecurityLakeAuthenticationMethod | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
   /**
    * Amazon Security Lake service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to Amazon Security Lake-compatible endpoint.
    */
@@ -312,13 +147,13 @@ export type OutputSecurityLake = {
   /**
    * Object ACL to assign to uploaded objects
    */
-  objectACL?: OutputSecurityLakeObjectACL | undefined;
+  objectACL?: ObjectAclOptions | undefined;
   /**
    * Storage class to select for uploaded objects
    */
-  storageClass?: OutputSecurityLakeStorageClass | undefined;
+  storageClass?: StorageClassOptions | undefined;
   serverSideEncryption?:
-    | OutputSecurityLakeServerSideEncryptionForUploadedObjects
+    | ServerSideEncryptionForUploadedObjectsOptions
     | undefined;
   /**
    * ID or ARN of the KMS customer-managed key to use for encryption
@@ -351,7 +186,7 @@ export type OutputSecurityLake = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputSecurityLakeBackpressureBehavior | undefined;
+  onBackpressure?: BackpressureBehaviorOptions1 | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
@@ -359,7 +194,7 @@ export type OutputSecurityLake = {
   /**
    * How to handle events when disk space is below the global 'Min free disk space' limit
    */
-  onDiskFullBackpressure?: OutputSecurityLakeDiskSpaceProtection | undefined;
+  onDiskFullBackpressure?: DiskSpaceProtectionOptions | undefined;
   /**
    * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
    */
@@ -399,11 +234,11 @@ export type OutputSecurityLake = {
   /**
    * Determines which data types are supported and how they are represented
    */
-  parquetVersion?: OutputSecurityLakeParquetVersion | undefined;
+  parquetVersion?: ParquetVersionOptions | undefined;
   /**
    * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
    */
-  parquetDataPageVersion?: OutputSecurityLakeDataPageVersion | undefined;
+  parquetDataPageVersion?: DataPageVersionOptions | undefined;
   /**
    * The number of rows that every group will contain. The final group can contain a smaller number of rows.
    */
@@ -419,7 +254,7 @@ export type OutputSecurityLake = {
   /**
    * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
    */
-  keyValueMetadata?: Array<OutputSecurityLakeKeyValueMetadatum> | undefined;
+  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata> | undefined;
   /**
    * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
    */
@@ -464,19 +299,6 @@ export type OutputSecurityLake = {
 };
 
 /** @internal */
-export const OutputSecurityLakeAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputSecurityLakeAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputSecurityLakeAuthenticationMethod);
-/** @internal */
-export const OutputSecurityLakeAuthenticationMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputSecurityLakeAuthenticationMethod
-> = openEnums.outboundSchema(OutputSecurityLakeAuthenticationMethod);
-
-/** @internal */
 export const OutputSecurityLakeSignatureVersion$inboundSchema: z.ZodType<
   OutputSecurityLakeSignatureVersion,
   z.ZodTypeDef,
@@ -488,148 +310,6 @@ export const OutputSecurityLakeSignatureVersion$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   OutputSecurityLakeSignatureVersion
 > = openEnums.outboundSchema(OutputSecurityLakeSignatureVersion);
-
-/** @internal */
-export const OutputSecurityLakeObjectACL$inboundSchema: z.ZodType<
-  OutputSecurityLakeObjectACL,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputSecurityLakeObjectACL);
-/** @internal */
-export const OutputSecurityLakeObjectACL$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputSecurityLakeObjectACL
-> = openEnums.outboundSchema(OutputSecurityLakeObjectACL);
-
-/** @internal */
-export const OutputSecurityLakeStorageClass$inboundSchema: z.ZodType<
-  OutputSecurityLakeStorageClass,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputSecurityLakeStorageClass);
-/** @internal */
-export const OutputSecurityLakeStorageClass$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputSecurityLakeStorageClass
-> = openEnums.outboundSchema(OutputSecurityLakeStorageClass);
-
-/** @internal */
-export const OutputSecurityLakeServerSideEncryptionForUploadedObjects$inboundSchema:
-  z.ZodType<
-    OutputSecurityLakeServerSideEncryptionForUploadedObjects,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(
-    OutputSecurityLakeServerSideEncryptionForUploadedObjects,
-  );
-/** @internal */
-export const OutputSecurityLakeServerSideEncryptionForUploadedObjects$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    OutputSecurityLakeServerSideEncryptionForUploadedObjects
-  > = openEnums.outboundSchema(
-    OutputSecurityLakeServerSideEncryptionForUploadedObjects,
-  );
-
-/** @internal */
-export const OutputSecurityLakeBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputSecurityLakeBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputSecurityLakeBackpressureBehavior);
-/** @internal */
-export const OutputSecurityLakeBackpressureBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputSecurityLakeBackpressureBehavior
-> = openEnums.outboundSchema(OutputSecurityLakeBackpressureBehavior);
-
-/** @internal */
-export const OutputSecurityLakeDiskSpaceProtection$inboundSchema: z.ZodType<
-  OutputSecurityLakeDiskSpaceProtection,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputSecurityLakeDiskSpaceProtection);
-/** @internal */
-export const OutputSecurityLakeDiskSpaceProtection$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputSecurityLakeDiskSpaceProtection
-> = openEnums.outboundSchema(OutputSecurityLakeDiskSpaceProtection);
-
-/** @internal */
-export const OutputSecurityLakeParquetVersion$inboundSchema: z.ZodType<
-  OutputSecurityLakeParquetVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputSecurityLakeParquetVersion);
-/** @internal */
-export const OutputSecurityLakeParquetVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputSecurityLakeParquetVersion
-> = openEnums.outboundSchema(OutputSecurityLakeParquetVersion);
-
-/** @internal */
-export const OutputSecurityLakeDataPageVersion$inboundSchema: z.ZodType<
-  OutputSecurityLakeDataPageVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputSecurityLakeDataPageVersion);
-/** @internal */
-export const OutputSecurityLakeDataPageVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputSecurityLakeDataPageVersion
-> = openEnums.outboundSchema(OutputSecurityLakeDataPageVersion);
-
-/** @internal */
-export const OutputSecurityLakeKeyValueMetadatum$inboundSchema: z.ZodType<
-  OutputSecurityLakeKeyValueMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  key: z.string().default(""),
-  value: z.string(),
-});
-/** @internal */
-export type OutputSecurityLakeKeyValueMetadatum$Outbound = {
-  key: string;
-  value: string;
-};
-
-/** @internal */
-export const OutputSecurityLakeKeyValueMetadatum$outboundSchema: z.ZodType<
-  OutputSecurityLakeKeyValueMetadatum$Outbound,
-  z.ZodTypeDef,
-  OutputSecurityLakeKeyValueMetadatum
-> = z.object({
-  key: z.string().default(""),
-  value: z.string(),
-});
-
-export function outputSecurityLakeKeyValueMetadatumToJSON(
-  outputSecurityLakeKeyValueMetadatum: OutputSecurityLakeKeyValueMetadatum,
-): string {
-  return JSON.stringify(
-    OutputSecurityLakeKeyValueMetadatum$outboundSchema.parse(
-      outputSecurityLakeKeyValueMetadatum,
-    ),
-  );
-}
-export function outputSecurityLakeKeyValueMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputSecurityLakeKeyValueMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      OutputSecurityLakeKeyValueMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputSecurityLakeKeyValueMetadatum' from JSON`,
-  );
-}
 
 /** @internal */
 export const OutputSecurityLake$inboundSchema: z.ZodType<
@@ -646,8 +326,9 @@ export const OutputSecurityLake$inboundSchema: z.ZodType<
   bucket: z.string(),
   region: z.string(),
   awsSecretKey: z.string().optional(),
-  awsAuthenticationMethod: OutputSecurityLakeAuthenticationMethod$inboundSchema
-    .default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
   endpoint: z.string().optional(),
   signatureVersion: OutputSecurityLakeSignatureVersion$inboundSchema.default(
     "v4",
@@ -660,11 +341,10 @@ export const OutputSecurityLake$inboundSchema: z.ZodType<
   durationSeconds: z.number().default(3600),
   stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
   addIdToStagePath: z.boolean().default(true),
-  objectACL: OutputSecurityLakeObjectACL$inboundSchema.default("private"),
-  storageClass: OutputSecurityLakeStorageClass$inboundSchema.optional(),
+  objectACL: ObjectAclOptions$inboundSchema.default("private"),
+  storageClass: StorageClassOptions$inboundSchema.optional(),
   serverSideEncryption:
-    OutputSecurityLakeServerSideEncryptionForUploadedObjects$inboundSchema
-      .optional(),
+    ServerSideEncryptionForUploadedObjectsOptions$inboundSchema.optional(),
   kmsKeyId: z.string().optional(),
   removeEmptyDirs: z.boolean().default(true),
   baseFileName: z.string().default("`CriblOut`"),
@@ -672,12 +352,11 @@ export const OutputSecurityLake$inboundSchema: z.ZodType<
   maxOpenFiles: z.number().default(100),
   headerLine: z.string().default(""),
   writeHighWaterMark: z.number().default(64),
-  onBackpressure: OutputSecurityLakeBackpressureBehavior$inboundSchema.default(
+  onBackpressure: BackpressureBehaviorOptions1$inboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: DiskSpaceProtectionOptions$inboundSchema.default(
     "block",
   ),
-  deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: OutputSecurityLakeDiskSpaceProtection$inboundSchema
-    .default("block"),
   forceCloseOnShutdown: z.boolean().default(false),
   maxFileOpenTimeSec: z.number().default(300),
   maxFileIdleTimeSec: z.number().default(30),
@@ -687,17 +366,14 @@ export const OutputSecurityLake$inboundSchema: z.ZodType<
   accountId: z.string(),
   customSource: z.string(),
   automaticSchema: z.boolean().default(false),
-  parquetVersion: OutputSecurityLakeParquetVersion$inboundSchema.default(
-    "PARQUET_2_6",
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: DataPageVersionOptions$inboundSchema.default(
+    "DATA_PAGE_V2",
   ),
-  parquetDataPageVersion: OutputSecurityLakeDataPageVersion$inboundSchema
-    .default("DATA_PAGE_V2"),
   parquetRowGroupLength: z.number().default(10000),
   parquetPageSize: z.string().default("1MB"),
   shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(
-    z.lazy(() => OutputSecurityLakeKeyValueMetadatum$inboundSchema),
-  ).optional(),
+  keyValueMetadata: z.array(ItemsTypeKeyValueMetadata$inboundSchema).optional(),
   enableStatistics: z.boolean().default(true),
   enableWritePageIndex: z.boolean().default(true),
   enablePageChecksum: z.boolean().default(false),
@@ -759,9 +435,7 @@ export type OutputSecurityLake$Outbound = {
   parquetRowGroupLength: number;
   parquetPageSize: string;
   shouldLogInvalidRows?: boolean | undefined;
-  keyValueMetadata?:
-    | Array<OutputSecurityLakeKeyValueMetadatum$Outbound>
-    | undefined;
+  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata$Outbound> | undefined;
   enableStatistics: boolean;
   enableWritePageIndex: boolean;
   enablePageChecksum: boolean;
@@ -790,8 +464,9 @@ export const OutputSecurityLake$outboundSchema: z.ZodType<
   bucket: z.string(),
   region: z.string(),
   awsSecretKey: z.string().optional(),
-  awsAuthenticationMethod: OutputSecurityLakeAuthenticationMethod$outboundSchema
-    .default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
+    "auto",
+  ),
   endpoint: z.string().optional(),
   signatureVersion: OutputSecurityLakeSignatureVersion$outboundSchema.default(
     "v4",
@@ -804,11 +479,10 @@ export const OutputSecurityLake$outboundSchema: z.ZodType<
   durationSeconds: z.number().default(3600),
   stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
   addIdToStagePath: z.boolean().default(true),
-  objectACL: OutputSecurityLakeObjectACL$outboundSchema.default("private"),
-  storageClass: OutputSecurityLakeStorageClass$outboundSchema.optional(),
+  objectACL: ObjectAclOptions$outboundSchema.default("private"),
+  storageClass: StorageClassOptions$outboundSchema.optional(),
   serverSideEncryption:
-    OutputSecurityLakeServerSideEncryptionForUploadedObjects$outboundSchema
-      .optional(),
+    ServerSideEncryptionForUploadedObjectsOptions$outboundSchema.optional(),
   kmsKeyId: z.string().optional(),
   removeEmptyDirs: z.boolean().default(true),
   baseFileName: z.string().default("`CriblOut`"),
@@ -816,12 +490,11 @@ export const OutputSecurityLake$outboundSchema: z.ZodType<
   maxOpenFiles: z.number().default(100),
   headerLine: z.string().default(""),
   writeHighWaterMark: z.number().default(64),
-  onBackpressure: OutputSecurityLakeBackpressureBehavior$outboundSchema.default(
+  onBackpressure: BackpressureBehaviorOptions1$outboundSchema.default("block"),
+  deadletterEnabled: z.boolean().default(false),
+  onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.default(
     "block",
   ),
-  deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: OutputSecurityLakeDiskSpaceProtection$outboundSchema
-    .default("block"),
   forceCloseOnShutdown: z.boolean().default(false),
   maxFileOpenTimeSec: z.number().default(300),
   maxFileIdleTimeSec: z.number().default(30),
@@ -831,17 +504,15 @@ export const OutputSecurityLake$outboundSchema: z.ZodType<
   accountId: z.string(),
   customSource: z.string(),
   automaticSchema: z.boolean().default(false),
-  parquetVersion: OutputSecurityLakeParquetVersion$outboundSchema.default(
-    "PARQUET_2_6",
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: DataPageVersionOptions$outboundSchema.default(
+    "DATA_PAGE_V2",
   ),
-  parquetDataPageVersion: OutputSecurityLakeDataPageVersion$outboundSchema
-    .default("DATA_PAGE_V2"),
   parquetRowGroupLength: z.number().default(10000),
   parquetPageSize: z.string().default("1MB"),
   shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(
-    z.lazy(() => OutputSecurityLakeKeyValueMetadatum$outboundSchema),
-  ).optional(),
+  keyValueMetadata: z.array(ItemsTypeKeyValueMetadata$outboundSchema)
+    .optional(),
   enableStatistics: z.boolean().default(true),
   enableWritePageIndex: z.boolean().default(true),
   enablePageChecksum: z.boolean().default(false),

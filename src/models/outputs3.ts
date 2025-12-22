@@ -4,285 +4,74 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthenticationMethodOptions,
+  AuthenticationMethodOptions$inboundSchema,
+  AuthenticationMethodOptions$outboundSchema,
+} from "./authenticationmethodoptions.js";
+import {
+  BackpressureBehaviorOptions1,
+  BackpressureBehaviorOptions1$inboundSchema,
+  BackpressureBehaviorOptions1$outboundSchema,
+} from "./backpressurebehavioroptions1.js";
+import {
+  CompressionLevelOptions,
+  CompressionLevelOptions$inboundSchema,
+  CompressionLevelOptions$outboundSchema,
+} from "./compressionleveloptions.js";
+import {
+  CompressionOptions2,
+  CompressionOptions2$inboundSchema,
+  CompressionOptions2$outboundSchema,
+} from "./compressionoptions2.js";
+import {
+  DataFormatOptions,
+  DataFormatOptions$inboundSchema,
+  DataFormatOptions$outboundSchema,
+} from "./dataformatoptions.js";
+import {
+  DataPageVersionOptions,
+  DataPageVersionOptions$inboundSchema,
+  DataPageVersionOptions$outboundSchema,
+} from "./datapageversionoptions.js";
+import {
+  DiskSpaceProtectionOptions,
+  DiskSpaceProtectionOptions$inboundSchema,
+  DiskSpaceProtectionOptions$outboundSchema,
+} from "./diskspaceprotectionoptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export const OutputS3AuthenticationMethod = {
-  /**
-   * Auto
-   */
-  Auto: "auto",
-  /**
-   * Manual
-   */
-  Manual: "manual",
-  /**
-   * Secret Key pair
-   */
-  Secret: "secret",
-} as const;
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export type OutputS3AuthenticationMethod = OpenEnum<
-  typeof OutputS3AuthenticationMethod
->;
-
-/**
- * Signature version to use for signing S3 requests
- */
-export const OutputS3SignatureVersion = {
-  V2: "v2",
-  V4: "v4",
-} as const;
-/**
- * Signature version to use for signing S3 requests
- */
-export type OutputS3SignatureVersion = OpenEnum<
-  typeof OutputS3SignatureVersion
->;
-
-/**
- * Object ACL to assign to uploaded objects
- */
-export const OutputS3ObjectACL = {
-  /**
-   * Private
-   */
-  Private: "private",
-  /**
-   * Public Read Only
-   */
-  PublicRead: "public-read",
-  /**
-   * Public Read/Write
-   */
-  PublicReadWrite: "public-read-write",
-  /**
-   * Authenticated Read Only
-   */
-  AuthenticatedRead: "authenticated-read",
-  /**
-   * AWS EC2 AMI Read Only
-   */
-  AwsExecRead: "aws-exec-read",
-  /**
-   * Bucket Owner Read Only
-   */
-  BucketOwnerRead: "bucket-owner-read",
-  /**
-   * Bucket Owner Full Control
-   */
-  BucketOwnerFullControl: "bucket-owner-full-control",
-} as const;
-/**
- * Object ACL to assign to uploaded objects
- */
-export type OutputS3ObjectACL = OpenEnum<typeof OutputS3ObjectACL>;
-
-/**
- * Storage class to select for uploaded objects
- */
-export const OutputS3StorageClass = {
-  /**
-   * Standard
-   */
-  Standard: "STANDARD",
-  /**
-   * Reduced Redundancy Storage
-   */
-  ReducedRedundancy: "REDUCED_REDUNDANCY",
-  /**
-   * Standard, Infrequent Access
-   */
-  StandardIa: "STANDARD_IA",
-  /**
-   * One Zone, Infrequent Access
-   */
-  OnezoneIa: "ONEZONE_IA",
-  /**
-   * Intelligent Tiering
-   */
-  IntelligentTiering: "INTELLIGENT_TIERING",
-  /**
-   * Glacier Flexible Retrieval
-   */
-  Glacier: "GLACIER",
-  /**
-   * Glacier Instant Retrieval
-   */
-  GlacierIr: "GLACIER_IR",
-  /**
-   * Glacier Deep Archive
-   */
-  DeepArchive: "DEEP_ARCHIVE",
-} as const;
-/**
- * Storage class to select for uploaded objects
- */
-export type OutputS3StorageClass = OpenEnum<typeof OutputS3StorageClass>;
-
-export const OutputS3ServerSideEncryptionForUploadedObjects = {
-  /**
-   * Amazon S3 Managed Key
-   */
-  Aes256: "AES256",
-  /**
-   * AWS KMS Managed Key
-   */
-  AwsKms: "aws:kms",
-} as const;
-export type OutputS3ServerSideEncryptionForUploadedObjects = OpenEnum<
-  typeof OutputS3ServerSideEncryptionForUploadedObjects
->;
-
-/**
- * Format of the output data
- */
-export const OutputS3DataFormat = {
-  /**
-   * JSON
-   */
-  Json: "json",
-  /**
-   * Raw
-   */
-  Raw: "raw",
-  /**
-   * Parquet
-   */
-  Parquet: "parquet",
-} as const;
-/**
- * Format of the output data
- */
-export type OutputS3DataFormat = OpenEnum<typeof OutputS3DataFormat>;
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputS3BackpressureBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputS3BackpressureBehavior = OpenEnum<
-  typeof OutputS3BackpressureBehavior
->;
-
-/**
- * How to handle events when disk space is below the global 'Min free disk space' limit
- */
-export const OutputS3DiskSpaceProtection = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when disk space is below the global 'Min free disk space' limit
- */
-export type OutputS3DiskSpaceProtection = OpenEnum<
-  typeof OutputS3DiskSpaceProtection
->;
-
-/**
- * Data compression format to apply to HTTP content before it is delivered
- */
-export const OutputS3Compression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Data compression format to apply to HTTP content before it is delivered
- */
-export type OutputS3Compression = OpenEnum<typeof OutputS3Compression>;
-
-/**
- * Compression level to apply before moving files to final destination
- */
-export const OutputS3CompressionLevel = {
-  /**
-   * Best Speed
-   */
-  BestSpeed: "best_speed",
-  /**
-   * Normal
-   */
-  Normal: "normal",
-  /**
-   * Best Compression
-   */
-  BestCompression: "best_compression",
-} as const;
-/**
- * Compression level to apply before moving files to final destination
- */
-export type OutputS3CompressionLevel = OpenEnum<
-  typeof OutputS3CompressionLevel
->;
-
-/**
- * Determines which data types are supported and how they are represented
- */
-export const OutputS3ParquetVersion = {
-  /**
-   * 1.0
-   */
-  Parquet10: "PARQUET_1_0",
-  /**
-   * 2.4
-   */
-  Parquet24: "PARQUET_2_4",
-  /**
-   * 2.6
-   */
-  Parquet26: "PARQUET_2_6",
-} as const;
-/**
- * Determines which data types are supported and how they are represented
- */
-export type OutputS3ParquetVersion = OpenEnum<typeof OutputS3ParquetVersion>;
-
-/**
- * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
- */
-export const OutputS3DataPageVersion = {
-  /**
-   * V1
-   */
-  DataPageV1: "DATA_PAGE_V1",
-  /**
-   * V2
-   */
-  DataPageV2: "DATA_PAGE_V2",
-} as const;
-/**
- * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
- */
-export type OutputS3DataPageVersion = OpenEnum<typeof OutputS3DataPageVersion>;
-
-export type OutputS3KeyValueMetadatum = {
-  key?: string | undefined;
-  value: string;
-};
+import {
+  ItemsTypeKeyValueMetadata,
+  ItemsTypeKeyValueMetadata$inboundSchema,
+  ItemsTypeKeyValueMetadata$Outbound,
+  ItemsTypeKeyValueMetadata$outboundSchema,
+} from "./itemstypekeyvaluemetadata.js";
+import {
+  ObjectAclOptions,
+  ObjectAclOptions$inboundSchema,
+  ObjectAclOptions$outboundSchema,
+} from "./objectacloptions.js";
+import {
+  ParquetVersionOptions,
+  ParquetVersionOptions$inboundSchema,
+  ParquetVersionOptions$outboundSchema,
+} from "./parquetversionoptions.js";
+import {
+  ServerSideEncryptionForUploadedObjectsOptions,
+  ServerSideEncryptionForUploadedObjectsOptions$inboundSchema,
+  ServerSideEncryptionForUploadedObjectsOptions$outboundSchema,
+} from "./serversideencryptionforuploadedobjectsoptions.js";
+import {
+  SignatureVersionOptions,
+  SignatureVersionOptions$inboundSchema,
+  SignatureVersionOptions$outboundSchema,
+} from "./signatureversionoptions.js";
+import {
+  StorageClassOptions,
+  StorageClassOptions$inboundSchema,
+  StorageClassOptions$outboundSchema,
+} from "./storageclassoptions.js";
 
 export type OutputS3 = {
   /**
@@ -321,7 +110,7 @@ export type OutputS3 = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: OutputS3AuthenticationMethod | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
   /**
    * S3 service endpoint. If empty, defaults to the AWS Region-specific endpoint. Otherwise, it must point to S3-compatible endpoint.
    */
@@ -329,7 +118,7 @@ export type OutputS3 = {
   /**
    * Signature version to use for signing S3 requests
    */
-  signatureVersion?: OutputS3SignatureVersion | undefined;
+  signatureVersion?: SignatureVersionOptions | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -369,13 +158,13 @@ export type OutputS3 = {
   /**
    * Object ACL to assign to uploaded objects
    */
-  objectACL?: OutputS3ObjectACL | undefined;
+  objectACL?: ObjectAclOptions | undefined;
   /**
    * Storage class to select for uploaded objects
    */
-  storageClass?: OutputS3StorageClass | undefined;
+  storageClass?: StorageClassOptions | undefined;
   serverSideEncryption?:
-    | OutputS3ServerSideEncryptionForUploadedObjects
+    | ServerSideEncryptionForUploadedObjectsOptions
     | undefined;
   /**
    * ID or ARN of the KMS customer-managed key to use for encryption
@@ -392,7 +181,7 @@ export type OutputS3 = {
   /**
    * Format of the output data
    */
-  format?: OutputS3DataFormat | undefined;
+  format?: DataFormatOptions | undefined;
   /**
    * JavaScript expression to define the output filename prefix (can be constant)
    */
@@ -420,7 +209,7 @@ export type OutputS3 = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputS3BackpressureBehavior | undefined;
+  onBackpressure?: BackpressureBehaviorOptions1 | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
@@ -428,7 +217,7 @@ export type OutputS3 = {
   /**
    * How to handle events when disk space is below the global 'Min free disk space' limit
    */
-  onDiskFullBackpressure?: OutputS3DiskSpaceProtection | undefined;
+  onDiskFullBackpressure?: DiskSpaceProtectionOptions | undefined;
   /**
    * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
    */
@@ -465,11 +254,11 @@ export type OutputS3 = {
   /**
    * Data compression format to apply to HTTP content before it is delivered
    */
-  compress?: OutputS3Compression | undefined;
+  compress?: CompressionOptions2 | undefined;
   /**
    * Compression level to apply before moving files to final destination
    */
-  compressionLevel?: OutputS3CompressionLevel | undefined;
+  compressionLevel?: CompressionLevelOptions | undefined;
   /**
    * Automatically calculate the schema based on the events of each Parquet file generated
    */
@@ -481,11 +270,11 @@ export type OutputS3 = {
   /**
    * Determines which data types are supported and how they are represented
    */
-  parquetVersion?: OutputS3ParquetVersion | undefined;
+  parquetVersion?: ParquetVersionOptions | undefined;
   /**
    * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
    */
-  parquetDataPageVersion?: OutputS3DataPageVersion | undefined;
+  parquetDataPageVersion?: DataPageVersionOptions | undefined;
   /**
    * The number of rows that every group will contain. The final group can contain a smaller number of rows.
    */
@@ -501,7 +290,7 @@ export type OutputS3 = {
   /**
    * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
    */
-  keyValueMetadata?: Array<OutputS3KeyValueMetadatum> | undefined;
+  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata> | undefined;
   /**
    * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
    */
@@ -533,206 +322,6 @@ export type OutputS3 = {
 };
 
 /** @internal */
-export const OutputS3AuthenticationMethod$inboundSchema: z.ZodType<
-  OutputS3AuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputS3AuthenticationMethod);
-/** @internal */
-export const OutputS3AuthenticationMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputS3AuthenticationMethod
-> = openEnums.outboundSchema(OutputS3AuthenticationMethod);
-
-/** @internal */
-export const OutputS3SignatureVersion$inboundSchema: z.ZodType<
-  OutputS3SignatureVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputS3SignatureVersion);
-/** @internal */
-export const OutputS3SignatureVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputS3SignatureVersion
-> = openEnums.outboundSchema(OutputS3SignatureVersion);
-
-/** @internal */
-export const OutputS3ObjectACL$inboundSchema: z.ZodType<
-  OutputS3ObjectACL,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputS3ObjectACL);
-/** @internal */
-export const OutputS3ObjectACL$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputS3ObjectACL
-> = openEnums.outboundSchema(OutputS3ObjectACL);
-
-/** @internal */
-export const OutputS3StorageClass$inboundSchema: z.ZodType<
-  OutputS3StorageClass,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputS3StorageClass);
-/** @internal */
-export const OutputS3StorageClass$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputS3StorageClass
-> = openEnums.outboundSchema(OutputS3StorageClass);
-
-/** @internal */
-export const OutputS3ServerSideEncryptionForUploadedObjects$inboundSchema:
-  z.ZodType<
-    OutputS3ServerSideEncryptionForUploadedObjects,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(OutputS3ServerSideEncryptionForUploadedObjects);
-/** @internal */
-export const OutputS3ServerSideEncryptionForUploadedObjects$outboundSchema:
-  z.ZodType<
-    string,
-    z.ZodTypeDef,
-    OutputS3ServerSideEncryptionForUploadedObjects
-  > = openEnums.outboundSchema(OutputS3ServerSideEncryptionForUploadedObjects);
-
-/** @internal */
-export const OutputS3DataFormat$inboundSchema: z.ZodType<
-  OutputS3DataFormat,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputS3DataFormat);
-/** @internal */
-export const OutputS3DataFormat$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputS3DataFormat
-> = openEnums.outboundSchema(OutputS3DataFormat);
-
-/** @internal */
-export const OutputS3BackpressureBehavior$inboundSchema: z.ZodType<
-  OutputS3BackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputS3BackpressureBehavior);
-/** @internal */
-export const OutputS3BackpressureBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputS3BackpressureBehavior
-> = openEnums.outboundSchema(OutputS3BackpressureBehavior);
-
-/** @internal */
-export const OutputS3DiskSpaceProtection$inboundSchema: z.ZodType<
-  OutputS3DiskSpaceProtection,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputS3DiskSpaceProtection);
-/** @internal */
-export const OutputS3DiskSpaceProtection$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputS3DiskSpaceProtection
-> = openEnums.outboundSchema(OutputS3DiskSpaceProtection);
-
-/** @internal */
-export const OutputS3Compression$inboundSchema: z.ZodType<
-  OutputS3Compression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputS3Compression);
-/** @internal */
-export const OutputS3Compression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputS3Compression
-> = openEnums.outboundSchema(OutputS3Compression);
-
-/** @internal */
-export const OutputS3CompressionLevel$inboundSchema: z.ZodType<
-  OutputS3CompressionLevel,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputS3CompressionLevel);
-/** @internal */
-export const OutputS3CompressionLevel$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputS3CompressionLevel
-> = openEnums.outboundSchema(OutputS3CompressionLevel);
-
-/** @internal */
-export const OutputS3ParquetVersion$inboundSchema: z.ZodType<
-  OutputS3ParquetVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputS3ParquetVersion);
-/** @internal */
-export const OutputS3ParquetVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputS3ParquetVersion
-> = openEnums.outboundSchema(OutputS3ParquetVersion);
-
-/** @internal */
-export const OutputS3DataPageVersion$inboundSchema: z.ZodType<
-  OutputS3DataPageVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputS3DataPageVersion);
-/** @internal */
-export const OutputS3DataPageVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputS3DataPageVersion
-> = openEnums.outboundSchema(OutputS3DataPageVersion);
-
-/** @internal */
-export const OutputS3KeyValueMetadatum$inboundSchema: z.ZodType<
-  OutputS3KeyValueMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  key: z.string().default(""),
-  value: z.string(),
-});
-/** @internal */
-export type OutputS3KeyValueMetadatum$Outbound = {
-  key: string;
-  value: string;
-};
-
-/** @internal */
-export const OutputS3KeyValueMetadatum$outboundSchema: z.ZodType<
-  OutputS3KeyValueMetadatum$Outbound,
-  z.ZodTypeDef,
-  OutputS3KeyValueMetadatum
-> = z.object({
-  key: z.string().default(""),
-  value: z.string(),
-});
-
-export function outputS3KeyValueMetadatumToJSON(
-  outputS3KeyValueMetadatum: OutputS3KeyValueMetadatum,
-): string {
-  return JSON.stringify(
-    OutputS3KeyValueMetadatum$outboundSchema.parse(outputS3KeyValueMetadatum),
-  );
-}
-export function outputS3KeyValueMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputS3KeyValueMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputS3KeyValueMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputS3KeyValueMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
 export const OutputS3$inboundSchema: z.ZodType<
   OutputS3,
   z.ZodTypeDef,
@@ -747,11 +336,11 @@ export const OutputS3$inboundSchema: z.ZodType<
   bucket: z.string(),
   region: z.string().optional(),
   awsSecretKey: z.string().optional(),
-  awsAuthenticationMethod: OutputS3AuthenticationMethod$inboundSchema.default(
+  awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
     "auto",
   ),
   endpoint: z.string().optional(),
-  signatureVersion: OutputS3SignatureVersion$inboundSchema.default("v4"),
+  signatureVersion: SignatureVersionOptions$inboundSchema.default("v4"),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   enableAssumeRole: z.boolean().default(false),
@@ -761,16 +350,16 @@ export const OutputS3$inboundSchema: z.ZodType<
   stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
   addIdToStagePath: z.boolean().default(true),
   destPath: z.string().default(""),
-  objectACL: OutputS3ObjectACL$inboundSchema.default("private"),
-  storageClass: OutputS3StorageClass$inboundSchema.optional(),
+  objectACL: ObjectAclOptions$inboundSchema.default("private"),
+  storageClass: StorageClassOptions$inboundSchema.optional(),
   serverSideEncryption:
-    OutputS3ServerSideEncryptionForUploadedObjects$inboundSchema.optional(),
+    ServerSideEncryptionForUploadedObjectsOptions$inboundSchema.optional(),
   kmsKeyId: z.string().optional(),
   removeEmptyDirs: z.boolean().default(true),
   partitionExpr: z.string().default(
     "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
   ),
-  format: OutputS3DataFormat$inboundSchema.default("json"),
+  format: DataFormatOptions$inboundSchema.default("json"),
   baseFileName: z.string().default("`CriblOut`"),
   fileNameSuffix: z.string().default(
     "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
@@ -779,9 +368,9 @@ export const OutputS3$inboundSchema: z.ZodType<
   maxOpenFiles: z.number().default(100),
   headerLine: z.string().default(""),
   writeHighWaterMark: z.number().default(64),
-  onBackpressure: OutputS3BackpressureBehavior$inboundSchema.default("block"),
+  onBackpressure: BackpressureBehaviorOptions1$inboundSchema.default("block"),
   deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: OutputS3DiskSpaceProtection$inboundSchema.default(
+  onDiskFullBackpressure: DiskSpaceProtectionOptions$inboundSchema.default(
     "block",
   ),
   forceCloseOnShutdown: z.boolean().default(false),
@@ -793,22 +382,18 @@ export const OutputS3$inboundSchema: z.ZodType<
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  compress: OutputS3Compression$inboundSchema.default("gzip"),
-  compressionLevel: OutputS3CompressionLevel$inboundSchema.default(
-    "best_speed",
-  ),
+  compress: CompressionOptions2$inboundSchema.default("gzip"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
   automaticSchema: z.boolean().default(false),
   parquetSchema: z.string().optional(),
-  parquetVersion: OutputS3ParquetVersion$inboundSchema.default("PARQUET_2_6"),
-  parquetDataPageVersion: OutputS3DataPageVersion$inboundSchema.default(
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: DataPageVersionOptions$inboundSchema.default(
     "DATA_PAGE_V2",
   ),
   parquetRowGroupLength: z.number().default(10000),
   parquetPageSize: z.string().default("1MB"),
   shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(
-    z.lazy(() => OutputS3KeyValueMetadatum$inboundSchema),
-  ).optional(),
+  keyValueMetadata: z.array(ItemsTypeKeyValueMetadata$inboundSchema).optional(),
   enableStatistics: z.boolean().default(true),
   enableWritePageIndex: z.boolean().default(true),
   enablePageChecksum: z.boolean().default(false),
@@ -874,7 +459,7 @@ export type OutputS3$Outbound = {
   parquetRowGroupLength: number;
   parquetPageSize: string;
   shouldLogInvalidRows?: boolean | undefined;
-  keyValueMetadata?: Array<OutputS3KeyValueMetadatum$Outbound> | undefined;
+  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata$Outbound> | undefined;
   enableStatistics: boolean;
   enableWritePageIndex: boolean;
   enablePageChecksum: boolean;
@@ -899,11 +484,11 @@ export const OutputS3$outboundSchema: z.ZodType<
   bucket: z.string(),
   region: z.string().optional(),
   awsSecretKey: z.string().optional(),
-  awsAuthenticationMethod: OutputS3AuthenticationMethod$outboundSchema.default(
+  awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
     "auto",
   ),
   endpoint: z.string().optional(),
-  signatureVersion: OutputS3SignatureVersion$outboundSchema.default("v4"),
+  signatureVersion: SignatureVersionOptions$outboundSchema.default("v4"),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   enableAssumeRole: z.boolean().default(false),
@@ -913,16 +498,16 @@ export const OutputS3$outboundSchema: z.ZodType<
   stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
   addIdToStagePath: z.boolean().default(true),
   destPath: z.string().default(""),
-  objectACL: OutputS3ObjectACL$outboundSchema.default("private"),
-  storageClass: OutputS3StorageClass$outboundSchema.optional(),
+  objectACL: ObjectAclOptions$outboundSchema.default("private"),
+  storageClass: StorageClassOptions$outboundSchema.optional(),
   serverSideEncryption:
-    OutputS3ServerSideEncryptionForUploadedObjects$outboundSchema.optional(),
+    ServerSideEncryptionForUploadedObjectsOptions$outboundSchema.optional(),
   kmsKeyId: z.string().optional(),
   removeEmptyDirs: z.boolean().default(true),
   partitionExpr: z.string().default(
     "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
   ),
-  format: OutputS3DataFormat$outboundSchema.default("json"),
+  format: DataFormatOptions$outboundSchema.default("json"),
   baseFileName: z.string().default("`CriblOut`"),
   fileNameSuffix: z.string().default(
     "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
@@ -931,9 +516,9 @@ export const OutputS3$outboundSchema: z.ZodType<
   maxOpenFiles: z.number().default(100),
   headerLine: z.string().default(""),
   writeHighWaterMark: z.number().default(64),
-  onBackpressure: OutputS3BackpressureBehavior$outboundSchema.default("block"),
+  onBackpressure: BackpressureBehaviorOptions1$outboundSchema.default("block"),
   deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: OutputS3DiskSpaceProtection$outboundSchema.default(
+  onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.default(
     "block",
   ),
   forceCloseOnShutdown: z.boolean().default(false),
@@ -945,22 +530,21 @@ export const OutputS3$outboundSchema: z.ZodType<
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  compress: OutputS3Compression$outboundSchema.default("gzip"),
-  compressionLevel: OutputS3CompressionLevel$outboundSchema.default(
+  compress: CompressionOptions2$outboundSchema.default("gzip"),
+  compressionLevel: CompressionLevelOptions$outboundSchema.default(
     "best_speed",
   ),
   automaticSchema: z.boolean().default(false),
   parquetSchema: z.string().optional(),
-  parquetVersion: OutputS3ParquetVersion$outboundSchema.default("PARQUET_2_6"),
-  parquetDataPageVersion: OutputS3DataPageVersion$outboundSchema.default(
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: DataPageVersionOptions$outboundSchema.default(
     "DATA_PAGE_V2",
   ),
   parquetRowGroupLength: z.number().default(10000),
   parquetPageSize: z.string().default("1MB"),
   shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(
-    z.lazy(() => OutputS3KeyValueMetadatum$outboundSchema),
-  ).optional(),
+  keyValueMetadata: z.array(ItemsTypeKeyValueMetadata$outboundSchema)
+    .optional(),
   enableStatistics: z.boolean().default(true),
   enableWritePageIndex: z.boolean().default(true),
   enablePageChecksum: z.boolean().default(false),

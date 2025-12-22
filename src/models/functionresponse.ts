@@ -71,9 +71,9 @@ import {
 import { FunctionGeoip, FunctionGeoip$inboundSchema } from "./functiongeoip.js";
 import { FunctionGrok, FunctionGrok$inboundSchema } from "./functiongrok.js";
 import {
-  FunctionHandlebar,
-  FunctionHandlebar$inboundSchema,
-} from "./functionhandlebar.js";
+  FunctionHandlebars,
+  FunctionHandlebars$inboundSchema,
+} from "./functionhandlebars.js";
 import { FunctionJoin, FunctionJoin$inboundSchema } from "./functionjoin.js";
 import {
   FunctionJsonUnroll,
@@ -226,7 +226,7 @@ export type FunctionResponse =
   | FunctionGenStats
   | FunctionGeoip
   | FunctionGrok
-  | FunctionHandlebar
+  | FunctionHandlebars
   | FunctionJoin
   | FunctionJsonUnroll
   | FunctionLakeExport
@@ -297,7 +297,7 @@ export const FunctionResponse$inboundSchema: z.ZodType<
   FunctionGenStats$inboundSchema,
   FunctionGeoip$inboundSchema,
   FunctionGrok$inboundSchema,
-  FunctionHandlebar$inboundSchema,
+  FunctionHandlebars$inboundSchema,
   FunctionJoin$inboundSchema,
   FunctionJsonUnroll$inboundSchema,
   FunctionLakeExport$inboundSchema,

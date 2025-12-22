@@ -4,15 +4,7 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
-import {
-  Commit,
-  Commit$inboundSchema,
-  Commit$Outbound,
-  Commit$outboundSchema,
-} from "./commit.js";
 import {
   ConfigGroupCloud,
   ConfigGroupCloud$inboundSchema,
@@ -26,69 +18,22 @@ import {
   ConfigGroupLookups$outboundSchema,
 } from "./configgrouplookups.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.)
- */
-export const ConfigGroupEstimatedIngestRate = {
-  /**
-   * 12 MB/sec
-   */
-  Rate12MBPerSec: 1024,
-  /**
-   * 24 MB/sec
-   */
-  Rate24MBPerSec: 2048,
-  /**
-   * 36 MB/sec
-   */
-  Rate36MBPerSec: 3072,
-  /**
-   * 48 MB/sec
-   */
-  Rate48MBPerSec: 4096,
-  /**
-   * 60 MB/sec
-   */
-  Rate60MBPerSec: 5120,
-  /**
-   * 84 MB/sec
-   */
-  Rate84MBPerSec: 7168,
-  /**
-   * 120 MB/sec
-   */
-  Rate120MBPerSec: 10240,
-  /**
-   * 156 MB/sec
-   */
-  Rate156MBPerSec: 13312,
-  /**
-   * 180 MB/sec
-   */
-  Rate180MBPerSec: 15360,
-} as const;
-/**
- * Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.)
- */
-export type ConfigGroupEstimatedIngestRate = OpenEnum<
-  typeof ConfigGroupEstimatedIngestRate
->;
-
-export type ConfigGroupGit = {
-  commit?: string | undefined;
-  localChanges?: number | undefined;
-  log?: Array<Commit> | undefined;
-};
-
-export const ConfigGroupType = {
-  Edge: "edge",
-  Stream: "stream",
-  Search: "search",
-  LakeAccess: "lake_access",
-  LocalSearch: "local_search",
-} as const;
-export type ConfigGroupType = OpenEnum<typeof ConfigGroupType>;
+import {
+  EstimatedIngestRateOptionsConfigGroup,
+  EstimatedIngestRateOptionsConfigGroup$inboundSchema,
+  EstimatedIngestRateOptionsConfigGroup$outboundSchema,
+} from "./estimatedingestrateoptionsconfiggroup.js";
+import {
+  GitTypeConfigGroup,
+  GitTypeConfigGroup$inboundSchema,
+  GitTypeConfigGroup$Outbound,
+  GitTypeConfigGroup$outboundSchema,
+} from "./gittypeconfiggroup.js";
+import {
+  TypeOptionsConfigGroup,
+  TypeOptionsConfigGroup$inboundSchema,
+  TypeOptionsConfigGroup$outboundSchema,
+} from "./typeoptionsconfiggroup.js";
 
 export type ConfigGroup = {
   cloud?: ConfigGroupCloud | undefined;
@@ -98,8 +43,8 @@ export type ConfigGroup = {
   /**
    * Maximum expected volume of data ingested by the @{group}. (This setting is available only on @{group}s consisting of Cribl-managed Cribl.Cloud @{node}s.)
    */
-  estimatedIngestRate?: ConfigGroupEstimatedIngestRate | undefined;
-  git?: ConfigGroupGit | undefined;
+  estimatedIngestRate?: EstimatedIngestRateOptionsConfigGroup | undefined;
+  git?: GitTypeConfigGroup | undefined;
   id: string;
   incompatibleWorkerCount?: number | undefined;
   inherits?: string | undefined;
@@ -112,78 +57,11 @@ export type ConfigGroup = {
   provisioned?: boolean | undefined;
   streamtags?: Array<string> | undefined;
   tags?: string | undefined;
-  type?: ConfigGroupType | undefined;
+  type?: TypeOptionsConfigGroup | undefined;
   upgradeVersion?: string | undefined;
   workerCount?: number | undefined;
   workerRemoteAccess?: boolean | undefined;
 };
-
-/** @internal */
-export const ConfigGroupEstimatedIngestRate$inboundSchema: z.ZodType<
-  ConfigGroupEstimatedIngestRate,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchemaInt(ConfigGroupEstimatedIngestRate);
-/** @internal */
-export const ConfigGroupEstimatedIngestRate$outboundSchema: z.ZodType<
-  number,
-  z.ZodTypeDef,
-  ConfigGroupEstimatedIngestRate
-> = openEnums.outboundSchemaInt(ConfigGroupEstimatedIngestRate);
-
-/** @internal */
-export const ConfigGroupGit$inboundSchema: z.ZodType<
-  ConfigGroupGit,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  commit: z.string().optional(),
-  localChanges: z.number().optional(),
-  log: z.array(Commit$inboundSchema).optional(),
-});
-/** @internal */
-export type ConfigGroupGit$Outbound = {
-  commit?: string | undefined;
-  localChanges?: number | undefined;
-  log?: Array<Commit$Outbound> | undefined;
-};
-
-/** @internal */
-export const ConfigGroupGit$outboundSchema: z.ZodType<
-  ConfigGroupGit$Outbound,
-  z.ZodTypeDef,
-  ConfigGroupGit
-> = z.object({
-  commit: z.string().optional(),
-  localChanges: z.number().optional(),
-  log: z.array(Commit$outboundSchema).optional(),
-});
-
-export function configGroupGitToJSON(configGroupGit: ConfigGroupGit): string {
-  return JSON.stringify(ConfigGroupGit$outboundSchema.parse(configGroupGit));
-}
-export function configGroupGitFromJSON(
-  jsonString: string,
-): SafeParseResult<ConfigGroupGit, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => ConfigGroupGit$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'ConfigGroupGit' from JSON`,
-  );
-}
-
-/** @internal */
-export const ConfigGroupType$inboundSchema: z.ZodType<
-  ConfigGroupType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(ConfigGroupType);
-/** @internal */
-export const ConfigGroupType$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  ConfigGroupType
-> = openEnums.outboundSchema(ConfigGroupType);
 
 /** @internal */
 export const ConfigGroup$inboundSchema: z.ZodType<
@@ -195,8 +73,9 @@ export const ConfigGroup$inboundSchema: z.ZodType<
   configVersion: z.string().optional(),
   deployingWorkerCount: z.number().optional(),
   description: z.string().optional(),
-  estimatedIngestRate: ConfigGroupEstimatedIngestRate$inboundSchema.optional(),
-  git: z.lazy(() => ConfigGroupGit$inboundSchema).optional(),
+  estimatedIngestRate: EstimatedIngestRateOptionsConfigGroup$inboundSchema
+    .optional(),
+  git: GitTypeConfigGroup$inboundSchema.optional(),
   id: z.string(),
   incompatibleWorkerCount: z.number().optional(),
   inherits: z.string().optional(),
@@ -209,7 +88,7 @@ export const ConfigGroup$inboundSchema: z.ZodType<
   provisioned: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
   tags: z.string().optional(),
-  type: ConfigGroupType$inboundSchema.optional(),
+  type: TypeOptionsConfigGroup$inboundSchema.optional(),
   upgradeVersion: z.string().optional(),
   workerCount: z.number().optional(),
   workerRemoteAccess: z.boolean().optional(),
@@ -221,7 +100,7 @@ export type ConfigGroup$Outbound = {
   deployingWorkerCount?: number | undefined;
   description?: string | undefined;
   estimatedIngestRate?: number | undefined;
-  git?: ConfigGroupGit$Outbound | undefined;
+  git?: GitTypeConfigGroup$Outbound | undefined;
   id: string;
   incompatibleWorkerCount?: number | undefined;
   inherits?: string | undefined;
@@ -250,8 +129,9 @@ export const ConfigGroup$outboundSchema: z.ZodType<
   configVersion: z.string().optional(),
   deployingWorkerCount: z.number().optional(),
   description: z.string().optional(),
-  estimatedIngestRate: ConfigGroupEstimatedIngestRate$outboundSchema.optional(),
-  git: z.lazy(() => ConfigGroupGit$outboundSchema).optional(),
+  estimatedIngestRate: EstimatedIngestRateOptionsConfigGroup$outboundSchema
+    .optional(),
+  git: GitTypeConfigGroup$outboundSchema.optional(),
   id: z.string(),
   incompatibleWorkerCount: z.number().optional(),
   inherits: z.string().optional(),
@@ -264,7 +144,7 @@ export const ConfigGroup$outboundSchema: z.ZodType<
   provisioned: z.boolean().optional(),
   streamtags: z.array(z.string()).optional(),
   tags: z.string().optional(),
-  type: ConfigGroupType$outboundSchema.optional(),
+  type: TypeOptionsConfigGroup$outboundSchema.optional(),
   upgradeVersion: z.string().optional(),
   workerCount: z.number().optional(),
   workerRemoteAccess: z.boolean().optional(),

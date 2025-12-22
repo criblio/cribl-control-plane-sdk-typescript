@@ -8,81 +8,34 @@ import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export type InputWefConnection = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export const InputWefMode = {
-  /**
-   * Smart
-   */
-  Smart: "smart",
-  /**
-   * Always On
-   */
-  Always: "always",
-} as const;
-/**
- * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
- */
-export type InputWefMode = OpenEnum<typeof InputWefMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const InputWefCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type InputWefCompression = OpenEnum<typeof InputWefCompression>;
-
-export type InputWefPqControls = {};
-
-export type InputWefPq = {
-  /**
-   * With Smart mode, PQ will write events to the filesystem only when it detects backpressure from the processing engine. With Always On mode, PQ will always write events directly to the queue before forwarding them to the processing engine.
-   */
-  mode?: InputWefMode | undefined;
-  /**
-   * The maximum number of events to hold in memory before writing the events to disk
-   */
-  maxBufferSize?: number | undefined;
-  /**
-   * The number of events to send downstream before committing that Stream has read them
-   */
-  commitFrequency?: number | undefined;
-  /**
-   * The maximum size to store in each queue file before closing and optionally compressing. Enter a numeral with units of KB, MB, etc.
-   */
-  maxFileSize?: string | undefined;
-  /**
-   * The maximum disk space that the queue can consume (as an average per Worker Process) before queueing stops. Enter a numeral with units of KB, MB, etc.
-   */
-  maxSize?: string | undefined;
-  /**
-   * The location for the persistent queue files. To this field's value, the system will append: /<worker-id>/inputs/<input-id>
-   */
-  path?: string | undefined;
-  /**
-   * Codec to use to compress the persisted data
-   */
-  compress?: InputWefCompression | undefined;
-  pqControls?: InputWefPqControls | undefined;
-};
+import {
+  ItemsTypeConnections,
+  ItemsTypeConnections$inboundSchema,
+  ItemsTypeConnections$Outbound,
+  ItemsTypeConnections$outboundSchema,
+} from "./itemstypeconnections.js";
+import {
+  ItemsTypeNotificationMetadata,
+  ItemsTypeNotificationMetadata$inboundSchema,
+  ItemsTypeNotificationMetadata$Outbound,
+  ItemsTypeNotificationMetadata$outboundSchema,
+} from "./itemstypenotificationmetadata.js";
+import {
+  MaximumTlsVersionOptionsKafkaSchemaRegistryTls,
+  MaximumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
+  MaximumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema,
+} from "./maximumtlsversionoptionskafkaschemaregistrytls.js";
+import {
+  MinimumTlsVersionOptionsKafkaSchemaRegistryTls,
+  MinimumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema,
+  MinimumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema,
+} from "./minimumtlsversionoptionskafkaschemaregistrytls.js";
+import {
+  PqType,
+  PqType$inboundSchema,
+  PqType$Outbound,
+  PqType$outboundSchema,
+} from "./pqtype.js";
 
 /**
  * How to authenticate incoming client connections
@@ -102,26 +55,6 @@ export const InputWefAuthenticationMethod = {
  */
 export type InputWefAuthenticationMethod = OpenEnum<
   typeof InputWefAuthenticationMethod
->;
-
-export const InputWefMinimumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputWefMinimumTLSVersion = OpenEnum<
-  typeof InputWefMinimumTLSVersion
->;
-
-export const InputWefMaximumTLSVersion = {
-  TLSv1: "TLSv1",
-  TLSv11: "TLSv1.1",
-  TLSv12: "TLSv1.2",
-  TLSv13: "TLSv1.3",
-} as const;
-export type InputWefMaximumTLSVersion = OpenEnum<
-  typeof InputWefMaximumTLSVersion
 >;
 
 export type MTLSSettings = {
@@ -161,8 +94,8 @@ export type MTLSSettings = {
    * Regex matching allowable common names in peer certificates' subject attribute
    */
   commonNameRegex?: string | undefined;
-  minVersion?: InputWefMinimumTLSVersion | undefined;
-  maxVersion?: InputWefMaximumTLSVersion | undefined;
+  minVersion?: MinimumTlsVersionOptionsKafkaSchemaRegistryTls | undefined;
+  maxVersion?: MaximumTlsVersionOptionsKafkaSchemaRegistryTls | undefined;
   /**
    * Enable OCSP check of certificate
    */
@@ -192,14 +125,6 @@ export const QueryBuilderMode = {
   Xml: "xml",
 } as const;
 export type QueryBuilderMode = OpenEnum<typeof QueryBuilderMode>;
-
-export type SubscriptionMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
-};
 
 export type Query = {
   /**
@@ -254,20 +179,12 @@ export type Subscription = {
   /**
    * Fields to add to events ingested under this subscription
    */
-  metadata?: Array<SubscriptionMetadatum> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
   queries?: Array<Query> | undefined;
   /**
    * The XPath query to use for selecting events
    */
   xmlQuery?: string | undefined;
-};
-
-export type InputWefMetadatum = {
-  name: string;
-  /**
-   * JavaScript expression to compute field's value, enclosed in quotes or backticks. (Can evaluate to a constant.)
-   */
-  value: string;
 };
 
 export type InputWef = {
@@ -300,8 +217,8 @@ export type InputWef = {
   /**
    * Direct connections to Destinations, and optionally via a Pipeline or a Pack
    */
-  connections?: Array<InputWefConnection> | undefined;
-  pq?: InputWefPq | undefined;
+  connections?: Array<ItemsTypeConnections> | undefined;
+  pq?: PqType | undefined;
   /**
    * Address to bind on. Defaults to 0.0.0.0 (all addresses).
    */
@@ -374,170 +291,13 @@ export type InputWef = {
   /**
    * Fields to add to events from this input
    */
-  metadata?: Array<InputWefMetadatum> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata> | undefined;
   description?: string | undefined;
   /**
    * Log a warning if the client certificate authority (CA) fingerprint does not match the expected value. A mismatch prevents Cribl from receiving events from the Windows Event Forwarder.
    */
   logFingerprintMismatch?: boolean | undefined;
 };
-
-/** @internal */
-export const InputWefConnection$inboundSchema: z.ZodType<
-  InputWefConnection,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-/** @internal */
-export type InputWefConnection$Outbound = {
-  pipeline?: string | undefined;
-  output: string;
-};
-
-/** @internal */
-export const InputWefConnection$outboundSchema: z.ZodType<
-  InputWefConnection$Outbound,
-  z.ZodTypeDef,
-  InputWefConnection
-> = z.object({
-  pipeline: z.string().optional(),
-  output: z.string(),
-});
-
-export function inputWefConnectionToJSON(
-  inputWefConnection: InputWefConnection,
-): string {
-  return JSON.stringify(
-    InputWefConnection$outboundSchema.parse(inputWefConnection),
-  );
-}
-export function inputWefConnectionFromJSON(
-  jsonString: string,
-): SafeParseResult<InputWefConnection, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputWefConnection$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputWefConnection' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputWefMode$inboundSchema: z.ZodType<
-  InputWefMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputWefMode);
-/** @internal */
-export const InputWefMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputWefMode
-> = openEnums.outboundSchema(InputWefMode);
-
-/** @internal */
-export const InputWefCompression$inboundSchema: z.ZodType<
-  InputWefCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputWefCompression);
-/** @internal */
-export const InputWefCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputWefCompression
-> = openEnums.outboundSchema(InputWefCompression);
-
-/** @internal */
-export const InputWefPqControls$inboundSchema: z.ZodType<
-  InputWefPqControls,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-/** @internal */
-export type InputWefPqControls$Outbound = {};
-
-/** @internal */
-export const InputWefPqControls$outboundSchema: z.ZodType<
-  InputWefPqControls$Outbound,
-  z.ZodTypeDef,
-  InputWefPqControls
-> = z.object({});
-
-export function inputWefPqControlsToJSON(
-  inputWefPqControls: InputWefPqControls,
-): string {
-  return JSON.stringify(
-    InputWefPqControls$outboundSchema.parse(inputWefPqControls),
-  );
-}
-export function inputWefPqControlsFromJSON(
-  jsonString: string,
-): SafeParseResult<InputWefPqControls, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputWefPqControls$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputWefPqControls' from JSON`,
-  );
-}
-
-/** @internal */
-export const InputWefPq$inboundSchema: z.ZodType<
-  InputWefPq,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  mode: InputWefMode$inboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputWefCompression$inboundSchema.default("none"),
-  pqControls: z.lazy(() => InputWefPqControls$inboundSchema).optional(),
-});
-/** @internal */
-export type InputWefPq$Outbound = {
-  mode: string;
-  maxBufferSize: number;
-  commitFrequency: number;
-  maxFileSize: string;
-  maxSize: string;
-  path: string;
-  compress: string;
-  pqControls?: InputWefPqControls$Outbound | undefined;
-};
-
-/** @internal */
-export const InputWefPq$outboundSchema: z.ZodType<
-  InputWefPq$Outbound,
-  z.ZodTypeDef,
-  InputWefPq
-> = z.object({
-  mode: InputWefMode$outboundSchema.default("always"),
-  maxBufferSize: z.number().default(1000),
-  commitFrequency: z.number().default(42),
-  maxFileSize: z.string().default("1 MB"),
-  maxSize: z.string().default("5GB"),
-  path: z.string().default("$CRIBL_HOME/state/queues"),
-  compress: InputWefCompression$outboundSchema.default("none"),
-  pqControls: z.lazy(() => InputWefPqControls$outboundSchema).optional(),
-});
-
-export function inputWefPqToJSON(inputWefPq: InputWefPq): string {
-  return JSON.stringify(InputWefPq$outboundSchema.parse(inputWefPq));
-}
-export function inputWefPqFromJSON(
-  jsonString: string,
-): SafeParseResult<InputWefPq, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputWefPq$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputWefPq' from JSON`,
-  );
-}
 
 /** @internal */
 export const InputWefAuthenticationMethod$inboundSchema: z.ZodType<
@@ -551,32 +311,6 @@ export const InputWefAuthenticationMethod$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   InputWefAuthenticationMethod
 > = openEnums.outboundSchema(InputWefAuthenticationMethod);
-
-/** @internal */
-export const InputWefMinimumTLSVersion$inboundSchema: z.ZodType<
-  InputWefMinimumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputWefMinimumTLSVersion);
-/** @internal */
-export const InputWefMinimumTLSVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputWefMinimumTLSVersion
-> = openEnums.outboundSchema(InputWefMinimumTLSVersion);
-
-/** @internal */
-export const InputWefMaximumTLSVersion$inboundSchema: z.ZodType<
-  InputWefMaximumTLSVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(InputWefMaximumTLSVersion);
-/** @internal */
-export const InputWefMaximumTLSVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  InputWefMaximumTLSVersion
-> = openEnums.outboundSchema(InputWefMaximumTLSVersion);
 
 /** @internal */
 export const MTLSSettings$inboundSchema: z.ZodType<
@@ -593,8 +327,10 @@ export const MTLSSettings$inboundSchema: z.ZodType<
   certPath: z.string(),
   caPath: z.string(),
   commonNameRegex: z.string().default("/.*/"),
-  minVersion: InputWefMinimumTLSVersion$inboundSchema.optional(),
-  maxVersion: InputWefMaximumTLSVersion$inboundSchema.optional(),
+  minVersion: MinimumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema
+    .optional(),
+  maxVersion: MaximumTlsVersionOptionsKafkaSchemaRegistryTls$inboundSchema
+    .optional(),
   ocspCheck: z.boolean().default(false),
   keytab: z.any().optional(),
   principal: z.any().optional(),
@@ -634,8 +370,10 @@ export const MTLSSettings$outboundSchema: z.ZodType<
   certPath: z.string(),
   caPath: z.string(),
   commonNameRegex: z.string().default("/.*/"),
-  minVersion: InputWefMinimumTLSVersion$outboundSchema.optional(),
-  maxVersion: InputWefMaximumTLSVersion$outboundSchema.optional(),
+  minVersion: MinimumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema
+    .optional(),
+  maxVersion: MaximumTlsVersionOptionsKafkaSchemaRegistryTls$outboundSchema
+    .optional(),
   ocspCheck: z.boolean().default(false),
   keytab: z.any().optional(),
   principal: z.any().optional(),
@@ -680,48 +418,6 @@ export const QueryBuilderMode$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   QueryBuilderMode
 > = openEnums.outboundSchema(QueryBuilderMode);
-
-/** @internal */
-export const SubscriptionMetadatum$inboundSchema: z.ZodType<
-  SubscriptionMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type SubscriptionMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const SubscriptionMetadatum$outboundSchema: z.ZodType<
-  SubscriptionMetadatum$Outbound,
-  z.ZodTypeDef,
-  SubscriptionMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function subscriptionMetadatumToJSON(
-  subscriptionMetadatum: SubscriptionMetadatum,
-): string {
-  return JSON.stringify(
-    SubscriptionMetadatum$outboundSchema.parse(subscriptionMetadatum),
-  );
-}
-export function subscriptionMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<SubscriptionMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => SubscriptionMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'SubscriptionMetadatum' from JSON`,
-  );
-}
 
 /** @internal */
 export const Query$inboundSchema: z.ZodType<Query, z.ZodTypeDef, unknown> = z
@@ -775,8 +471,7 @@ export const Subscription$inboundSchema: z.ZodType<
   targets: z.array(z.string()),
   locale: z.string().default("en-US"),
   querySelector: QueryBuilderMode$inboundSchema.default("simple"),
-  metadata: z.array(z.lazy(() => SubscriptionMetadatum$inboundSchema))
-    .optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   queries: z.array(z.lazy(() => Query$inboundSchema)).optional(),
   xmlQuery: z.string().optional(),
 });
@@ -793,7 +488,7 @@ export type Subscription$Outbound = {
   targets: Array<string>;
   locale: string;
   querySelector: string;
-  metadata?: Array<SubscriptionMetadatum$Outbound> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   queries?: Array<Query$Outbound> | undefined;
   xmlQuery?: string | undefined;
 };
@@ -815,8 +510,7 @@ export const Subscription$outboundSchema: z.ZodType<
   targets: z.array(z.string()),
   locale: z.string().default("en-US"),
   querySelector: QueryBuilderMode$outboundSchema.default("simple"),
-  metadata: z.array(z.lazy(() => SubscriptionMetadatum$outboundSchema))
-    .optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   queries: z.array(z.lazy(() => Query$outboundSchema)).optional(),
   xmlQuery: z.string().optional(),
 });
@@ -835,48 +529,6 @@ export function subscriptionFromJSON(
 }
 
 /** @internal */
-export const InputWefMetadatum$inboundSchema: z.ZodType<
-  InputWefMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type InputWefMetadatum$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const InputWefMetadatum$outboundSchema: z.ZodType<
-  InputWefMetadatum$Outbound,
-  z.ZodTypeDef,
-  InputWefMetadatum
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function inputWefMetadatumToJSON(
-  inputWefMetadatum: InputWefMetadatum,
-): string {
-  return JSON.stringify(
-    InputWefMetadatum$outboundSchema.parse(inputWefMetadatum),
-  );
-}
-export function inputWefMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<InputWefMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => InputWefMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'InputWefMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
 export const InputWef$inboundSchema: z.ZodType<
   InputWef,
   z.ZodTypeDef,
@@ -890,9 +542,8 @@ export const InputWef$inboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputWefConnection$inboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputWefPq$inboundSchema).optional(),
+  connections: z.array(ItemsTypeConnections$inboundSchema).optional(),
+  pq: PqType$inboundSchema.optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number().default(5986),
   authMethod: InputWefAuthenticationMethod$inboundSchema.default("clientCert"),
@@ -911,7 +562,7 @@ export const InputWef$inboundSchema: z.ZodType<
   principal: z.string().optional(),
   allowMachineIdMismatch: z.boolean().default(false),
   subscriptions: z.array(z.lazy(() => Subscription$inboundSchema)),
-  metadata: z.array(z.lazy(() => InputWefMetadatum$inboundSchema)).optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$inboundSchema).optional(),
   description: z.string().optional(),
   logFingerprintMismatch: z.boolean().default(false),
 });
@@ -925,8 +576,8 @@ export type InputWef$Outbound = {
   environment?: string | undefined;
   pqEnabled: boolean;
   streamtags?: Array<string> | undefined;
-  connections?: Array<InputWefConnection$Outbound> | undefined;
-  pq?: InputWefPq$Outbound | undefined;
+  connections?: Array<ItemsTypeConnections$Outbound> | undefined;
+  pq?: PqType$Outbound | undefined;
   host: string;
   port: number;
   authMethod: string;
@@ -945,7 +596,7 @@ export type InputWef$Outbound = {
   principal?: string | undefined;
   allowMachineIdMismatch: boolean;
   subscriptions: Array<Subscription$Outbound>;
-  metadata?: Array<InputWefMetadatum$Outbound> | undefined;
+  metadata?: Array<ItemsTypeNotificationMetadata$Outbound> | undefined;
   description?: string | undefined;
   logFingerprintMismatch: boolean;
 };
@@ -964,9 +615,8 @@ export const InputWef$outboundSchema: z.ZodType<
   environment: z.string().optional(),
   pqEnabled: z.boolean().default(false),
   streamtags: z.array(z.string()).optional(),
-  connections: z.array(z.lazy(() => InputWefConnection$outboundSchema))
-    .optional(),
-  pq: z.lazy(() => InputWefPq$outboundSchema).optional(),
+  connections: z.array(ItemsTypeConnections$outboundSchema).optional(),
+  pq: PqType$outboundSchema.optional(),
   host: z.string().default("0.0.0.0"),
   port: z.number().default(5986),
   authMethod: InputWefAuthenticationMethod$outboundSchema.default("clientCert"),
@@ -985,7 +635,7 @@ export const InputWef$outboundSchema: z.ZodType<
   principal: z.string().optional(),
   allowMachineIdMismatch: z.boolean().default(false),
   subscriptions: z.array(z.lazy(() => Subscription$outboundSchema)),
-  metadata: z.array(z.lazy(() => InputWefMetadatum$outboundSchema)).optional(),
+  metadata: z.array(ItemsTypeNotificationMetadata$outboundSchema).optional(),
   description: z.string().optional(),
   logFingerprintMismatch: z.boolean().default(false),
 });

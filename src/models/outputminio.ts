@@ -4,267 +4,74 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthenticationMethodOptions,
+  AuthenticationMethodOptions$inboundSchema,
+  AuthenticationMethodOptions$outboundSchema,
+} from "./authenticationmethodoptions.js";
+import {
+  BackpressureBehaviorOptions1,
+  BackpressureBehaviorOptions1$inboundSchema,
+  BackpressureBehaviorOptions1$outboundSchema,
+} from "./backpressurebehavioroptions1.js";
+import {
+  CompressionLevelOptions,
+  CompressionLevelOptions$inboundSchema,
+  CompressionLevelOptions$outboundSchema,
+} from "./compressionleveloptions.js";
+import {
+  CompressionOptions2,
+  CompressionOptions2$inboundSchema,
+  CompressionOptions2$outboundSchema,
+} from "./compressionoptions2.js";
+import {
+  DataFormatOptions,
+  DataFormatOptions$inboundSchema,
+  DataFormatOptions$outboundSchema,
+} from "./dataformatoptions.js";
+import {
+  DataPageVersionOptions,
+  DataPageVersionOptions$inboundSchema,
+  DataPageVersionOptions$outboundSchema,
+} from "./datapageversionoptions.js";
+import {
+  DiskSpaceProtectionOptions,
+  DiskSpaceProtectionOptions$inboundSchema,
+  DiskSpaceProtectionOptions$outboundSchema,
+} from "./diskspaceprotectionoptions.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export const OutputMinioAuthenticationMethod = {
-  /**
-   * Auto
-   */
-  Auto: "auto",
-  /**
-   * Manual
-   */
-  Manual: "manual",
-  /**
-   * Secret Key pair
-   */
-  Secret: "secret",
-} as const;
-/**
- * AWS authentication method. Choose Auto to use IAM roles.
- */
-export type OutputMinioAuthenticationMethod = OpenEnum<
-  typeof OutputMinioAuthenticationMethod
->;
-
-/**
- * Signature version to use for signing MinIO requests
- */
-export const OutputMinioSignatureVersion = {
-  V2: "v2",
-  V4: "v4",
-} as const;
-/**
- * Signature version to use for signing MinIO requests
- */
-export type OutputMinioSignatureVersion = OpenEnum<
-  typeof OutputMinioSignatureVersion
->;
-
-/**
- * Object ACL to assign to uploaded objects
- */
-export const OutputMinioObjectACL = {
-  /**
-   * Private
-   */
-  Private: "private",
-  /**
-   * Public Read Only
-   */
-  PublicRead: "public-read",
-  /**
-   * Public Read/Write
-   */
-  PublicReadWrite: "public-read-write",
-  /**
-   * Authenticated Read Only
-   */
-  AuthenticatedRead: "authenticated-read",
-  /**
-   * AWS EC2 AMI Read Only
-   */
-  AwsExecRead: "aws-exec-read",
-  /**
-   * Bucket Owner Read Only
-   */
-  BucketOwnerRead: "bucket-owner-read",
-  /**
-   * Bucket Owner Full Control
-   */
-  BucketOwnerFullControl: "bucket-owner-full-control",
-} as const;
-/**
- * Object ACL to assign to uploaded objects
- */
-export type OutputMinioObjectACL = OpenEnum<typeof OutputMinioObjectACL>;
-
-/**
- * Storage class to select for uploaded objects
- */
-export const OutputMinioStorageClass = {
-  /**
-   * Standard
-   */
-  Standard: "STANDARD",
-  /**
-   * Reduced Redundancy Storage
-   */
-  ReducedRedundancy: "REDUCED_REDUNDANCY",
-} as const;
-/**
- * Storage class to select for uploaded objects
- */
-export type OutputMinioStorageClass = OpenEnum<typeof OutputMinioStorageClass>;
-
-/**
- * Server-side encryption for uploaded objects
- */
-export const OutputMinioServerSideEncryption = {
-  /**
-   * Amazon S3 Managed Key
-   */
-  Aes256: "AES256",
-} as const;
-/**
- * Server-side encryption for uploaded objects
- */
-export type OutputMinioServerSideEncryption = OpenEnum<
-  typeof OutputMinioServerSideEncryption
->;
-
-/**
- * Format of the output data
- */
-export const OutputMinioDataFormat = {
-  /**
-   * JSON
-   */
-  Json: "json",
-  /**
-   * Raw
-   */
-  Raw: "raw",
-  /**
-   * Parquet
-   */
-  Parquet: "parquet",
-} as const;
-/**
- * Format of the output data
- */
-export type OutputMinioDataFormat = OpenEnum<typeof OutputMinioDataFormat>;
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputMinioBackpressureBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputMinioBackpressureBehavior = OpenEnum<
-  typeof OutputMinioBackpressureBehavior
->;
-
-/**
- * How to handle events when disk space is below the global 'Min free disk space' limit
- */
-export const OutputMinioDiskSpaceProtection = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when disk space is below the global 'Min free disk space' limit
- */
-export type OutputMinioDiskSpaceProtection = OpenEnum<
-  typeof OutputMinioDiskSpaceProtection
->;
-
-/**
- * Data compression format to apply to HTTP content before it is delivered
- */
-export const OutputMinioCompression = {
-  None: "none",
-  Gzip: "gzip",
-} as const;
-/**
- * Data compression format to apply to HTTP content before it is delivered
- */
-export type OutputMinioCompression = OpenEnum<typeof OutputMinioCompression>;
-
-/**
- * Compression level to apply before moving files to final destination
- */
-export const OutputMinioCompressionLevel = {
-  /**
-   * Best Speed
-   */
-  BestSpeed: "best_speed",
-  /**
-   * Normal
-   */
-  Normal: "normal",
-  /**
-   * Best Compression
-   */
-  BestCompression: "best_compression",
-} as const;
-/**
- * Compression level to apply before moving files to final destination
- */
-export type OutputMinioCompressionLevel = OpenEnum<
-  typeof OutputMinioCompressionLevel
->;
-
-/**
- * Determines which data types are supported and how they are represented
- */
-export const OutputMinioParquetVersion = {
-  /**
-   * 1.0
-   */
-  Parquet10: "PARQUET_1_0",
-  /**
-   * 2.4
-   */
-  Parquet24: "PARQUET_2_4",
-  /**
-   * 2.6
-   */
-  Parquet26: "PARQUET_2_6",
-} as const;
-/**
- * Determines which data types are supported and how they are represented
- */
-export type OutputMinioParquetVersion = OpenEnum<
-  typeof OutputMinioParquetVersion
->;
-
-/**
- * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
- */
-export const OutputMinioDataPageVersion = {
-  /**
-   * V1
-   */
-  DataPageV1: "DATA_PAGE_V1",
-  /**
-   * V2
-   */
-  DataPageV2: "DATA_PAGE_V2",
-} as const;
-/**
- * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
- */
-export type OutputMinioDataPageVersion = OpenEnum<
-  typeof OutputMinioDataPageVersion
->;
-
-export type OutputMinioKeyValueMetadatum = {
-  key?: string | undefined;
-  value: string;
-};
+import {
+  ItemsTypeKeyValueMetadata,
+  ItemsTypeKeyValueMetadata$inboundSchema,
+  ItemsTypeKeyValueMetadata$Outbound,
+  ItemsTypeKeyValueMetadata$outboundSchema,
+} from "./itemstypekeyvaluemetadata.js";
+import {
+  ObjectAclOptions,
+  ObjectAclOptions$inboundSchema,
+  ObjectAclOptions$outboundSchema,
+} from "./objectacloptions.js";
+import {
+  ParquetVersionOptions,
+  ParquetVersionOptions$inboundSchema,
+  ParquetVersionOptions$outboundSchema,
+} from "./parquetversionoptions.js";
+import {
+  ServerSideEncryptionOptions,
+  ServerSideEncryptionOptions$inboundSchema,
+  ServerSideEncryptionOptions$outboundSchema,
+} from "./serversideencryptionoptions.js";
+import {
+  SignatureVersionOptions6,
+  SignatureVersionOptions6$inboundSchema,
+  SignatureVersionOptions6$outboundSchema,
+} from "./signatureversionoptions6.js";
+import {
+  StorageClassOptions2,
+  StorageClassOptions2$inboundSchema,
+  StorageClassOptions2$outboundSchema,
+} from "./storageclassoptions2.js";
 
 export type OutputMinio = {
   /**
@@ -299,7 +106,7 @@ export type OutputMinio = {
   /**
    * AWS authentication method. Choose Auto to use IAM roles.
    */
-  awsAuthenticationMethod?: OutputMinioAuthenticationMethod | undefined;
+  awsAuthenticationMethod?: AuthenticationMethodOptions | undefined;
   /**
    * Secret key. This value can be a constant or a JavaScript expression, such as `${C.env.SOME_SECRET}`).
    */
@@ -323,19 +130,19 @@ export type OutputMinio = {
   /**
    * Signature version to use for signing MinIO requests
    */
-  signatureVersion?: OutputMinioSignatureVersion | undefined;
+  signatureVersion?: SignatureVersionOptions6 | undefined;
   /**
    * Object ACL to assign to uploaded objects
    */
-  objectACL?: OutputMinioObjectACL | undefined;
+  objectACL?: ObjectAclOptions | undefined;
   /**
    * Storage class to select for uploaded objects
    */
-  storageClass?: OutputMinioStorageClass | undefined;
+  storageClass?: StorageClassOptions2 | undefined;
   /**
    * Server-side encryption for uploaded objects
    */
-  serverSideEncryption?: OutputMinioServerSideEncryption | undefined;
+  serverSideEncryption?: ServerSideEncryptionOptions | undefined;
   /**
    * Reuse connections between requests, which can improve performance
    */
@@ -359,7 +166,7 @@ export type OutputMinio = {
   /**
    * Format of the output data
    */
-  format?: OutputMinioDataFormat | undefined;
+  format?: DataFormatOptions | undefined;
   /**
    * JavaScript expression to define the output filename prefix (can be constant)
    */
@@ -387,7 +194,7 @@ export type OutputMinio = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputMinioBackpressureBehavior | undefined;
+  onBackpressure?: BackpressureBehaviorOptions1 | undefined;
   /**
    * If a file fails to move to its final destination after the maximum number of retries, move it to a designated directory to prevent further errors
    */
@@ -395,7 +202,7 @@ export type OutputMinio = {
   /**
    * How to handle events when disk space is below the global 'Min free disk space' limit
    */
-  onDiskFullBackpressure?: OutputMinioDiskSpaceProtection | undefined;
+  onDiskFullBackpressure?: DiskSpaceProtectionOptions | undefined;
   /**
    * Force all staged files to close during an orderly Node shutdown. This triggers immediate upload of in-progress data — regardless of idle time, file age, or size thresholds — to minimize data loss.
    */
@@ -424,11 +231,11 @@ export type OutputMinio = {
   /**
    * Data compression format to apply to HTTP content before it is delivered
    */
-  compress?: OutputMinioCompression | undefined;
+  compress?: CompressionOptions2 | undefined;
   /**
    * Compression level to apply before moving files to final destination
    */
-  compressionLevel?: OutputMinioCompressionLevel | undefined;
+  compressionLevel?: CompressionLevelOptions | undefined;
   /**
    * Automatically calculate the schema based on the events of each Parquet file generated
    */
@@ -440,11 +247,11 @@ export type OutputMinio = {
   /**
    * Determines which data types are supported and how they are represented
    */
-  parquetVersion?: OutputMinioParquetVersion | undefined;
+  parquetVersion?: ParquetVersionOptions | undefined;
   /**
    * Serialization format of data pages. Note that some reader implementations use Data page V2's attributes to work more efficiently, while others ignore it.
    */
-  parquetDataPageVersion?: OutputMinioDataPageVersion | undefined;
+  parquetDataPageVersion?: DataPageVersionOptions | undefined;
   /**
    * The number of rows that every group will contain. The final group can contain a smaller number of rows.
    */
@@ -460,7 +267,7 @@ export type OutputMinio = {
   /**
    * The metadata of files the Destination writes will include the properties you add here as key-value pairs. Useful for tagging. Examples: "key":"OCSF Event Class", "value":"9001"
    */
-  keyValueMetadata?: Array<OutputMinioKeyValueMetadatum> | undefined;
+  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata> | undefined;
   /**
    * Statistics profile an entire file in terms of minimum/maximum values within data, numbers of nulls, etc. You can use Parquet tools to view statistics.
    */
@@ -492,206 +299,6 @@ export type OutputMinio = {
 };
 
 /** @internal */
-export const OutputMinioAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputMinioAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputMinioAuthenticationMethod);
-/** @internal */
-export const OutputMinioAuthenticationMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputMinioAuthenticationMethod
-> = openEnums.outboundSchema(OutputMinioAuthenticationMethod);
-
-/** @internal */
-export const OutputMinioSignatureVersion$inboundSchema: z.ZodType<
-  OutputMinioSignatureVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputMinioSignatureVersion);
-/** @internal */
-export const OutputMinioSignatureVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputMinioSignatureVersion
-> = openEnums.outboundSchema(OutputMinioSignatureVersion);
-
-/** @internal */
-export const OutputMinioObjectACL$inboundSchema: z.ZodType<
-  OutputMinioObjectACL,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputMinioObjectACL);
-/** @internal */
-export const OutputMinioObjectACL$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputMinioObjectACL
-> = openEnums.outboundSchema(OutputMinioObjectACL);
-
-/** @internal */
-export const OutputMinioStorageClass$inboundSchema: z.ZodType<
-  OutputMinioStorageClass,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputMinioStorageClass);
-/** @internal */
-export const OutputMinioStorageClass$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputMinioStorageClass
-> = openEnums.outboundSchema(OutputMinioStorageClass);
-
-/** @internal */
-export const OutputMinioServerSideEncryption$inboundSchema: z.ZodType<
-  OutputMinioServerSideEncryption,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputMinioServerSideEncryption);
-/** @internal */
-export const OutputMinioServerSideEncryption$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputMinioServerSideEncryption
-> = openEnums.outboundSchema(OutputMinioServerSideEncryption);
-
-/** @internal */
-export const OutputMinioDataFormat$inboundSchema: z.ZodType<
-  OutputMinioDataFormat,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputMinioDataFormat);
-/** @internal */
-export const OutputMinioDataFormat$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputMinioDataFormat
-> = openEnums.outboundSchema(OutputMinioDataFormat);
-
-/** @internal */
-export const OutputMinioBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputMinioBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputMinioBackpressureBehavior);
-/** @internal */
-export const OutputMinioBackpressureBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputMinioBackpressureBehavior
-> = openEnums.outboundSchema(OutputMinioBackpressureBehavior);
-
-/** @internal */
-export const OutputMinioDiskSpaceProtection$inboundSchema: z.ZodType<
-  OutputMinioDiskSpaceProtection,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputMinioDiskSpaceProtection);
-/** @internal */
-export const OutputMinioDiskSpaceProtection$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputMinioDiskSpaceProtection
-> = openEnums.outboundSchema(OutputMinioDiskSpaceProtection);
-
-/** @internal */
-export const OutputMinioCompression$inboundSchema: z.ZodType<
-  OutputMinioCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputMinioCompression);
-/** @internal */
-export const OutputMinioCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputMinioCompression
-> = openEnums.outboundSchema(OutputMinioCompression);
-
-/** @internal */
-export const OutputMinioCompressionLevel$inboundSchema: z.ZodType<
-  OutputMinioCompressionLevel,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputMinioCompressionLevel);
-/** @internal */
-export const OutputMinioCompressionLevel$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputMinioCompressionLevel
-> = openEnums.outboundSchema(OutputMinioCompressionLevel);
-
-/** @internal */
-export const OutputMinioParquetVersion$inboundSchema: z.ZodType<
-  OutputMinioParquetVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputMinioParquetVersion);
-/** @internal */
-export const OutputMinioParquetVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputMinioParquetVersion
-> = openEnums.outboundSchema(OutputMinioParquetVersion);
-
-/** @internal */
-export const OutputMinioDataPageVersion$inboundSchema: z.ZodType<
-  OutputMinioDataPageVersion,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputMinioDataPageVersion);
-/** @internal */
-export const OutputMinioDataPageVersion$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputMinioDataPageVersion
-> = openEnums.outboundSchema(OutputMinioDataPageVersion);
-
-/** @internal */
-export const OutputMinioKeyValueMetadatum$inboundSchema: z.ZodType<
-  OutputMinioKeyValueMetadatum,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  key: z.string().default(""),
-  value: z.string(),
-});
-/** @internal */
-export type OutputMinioKeyValueMetadatum$Outbound = {
-  key: string;
-  value: string;
-};
-
-/** @internal */
-export const OutputMinioKeyValueMetadatum$outboundSchema: z.ZodType<
-  OutputMinioKeyValueMetadatum$Outbound,
-  z.ZodTypeDef,
-  OutputMinioKeyValueMetadatum
-> = z.object({
-  key: z.string().default(""),
-  value: z.string(),
-});
-
-export function outputMinioKeyValueMetadatumToJSON(
-  outputMinioKeyValueMetadatum: OutputMinioKeyValueMetadatum,
-): string {
-  return JSON.stringify(
-    OutputMinioKeyValueMetadatum$outboundSchema.parse(
-      outputMinioKeyValueMetadatum,
-    ),
-  );
-}
-export function outputMinioKeyValueMetadatumFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputMinioKeyValueMetadatum, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputMinioKeyValueMetadatum$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputMinioKeyValueMetadatum' from JSON`,
-  );
-}
-
-/** @internal */
 export const OutputMinio$inboundSchema: z.ZodType<
   OutputMinio,
   z.ZodTypeDef,
@@ -705,18 +312,18 @@ export const OutputMinio$inboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   endpoint: z.string(),
   bucket: z.string(),
-  awsAuthenticationMethod: OutputMinioAuthenticationMethod$inboundSchema
-    .default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$inboundSchema.default(
+    "auto",
+  ),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
   addIdToStagePath: z.boolean().default(true),
   destPath: z.string().optional(),
-  signatureVersion: OutputMinioSignatureVersion$inboundSchema.default("v4"),
-  objectACL: OutputMinioObjectACL$inboundSchema.default("private"),
-  storageClass: OutputMinioStorageClass$inboundSchema.optional(),
-  serverSideEncryption: OutputMinioServerSideEncryption$inboundSchema
-    .optional(),
+  signatureVersion: SignatureVersionOptions6$inboundSchema.default("v4"),
+  objectACL: ObjectAclOptions$inboundSchema.default("private"),
+  storageClass: StorageClassOptions2$inboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryptionOptions$inboundSchema.optional(),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   verifyPermissions: z.boolean().default(true),
@@ -724,7 +331,7 @@ export const OutputMinio$inboundSchema: z.ZodType<
   partitionExpr: z.string().default(
     "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
   ),
-  format: OutputMinioDataFormat$inboundSchema.default("json"),
+  format: DataFormatOptions$inboundSchema.default("json"),
   baseFileName: z.string().default("`CriblOut`"),
   fileNameSuffix: z.string().default(
     "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
@@ -733,11 +340,9 @@ export const OutputMinio$inboundSchema: z.ZodType<
   maxOpenFiles: z.number().default(100),
   headerLine: z.string().default(""),
   writeHighWaterMark: z.number().default(64),
-  onBackpressure: OutputMinioBackpressureBehavior$inboundSchema.default(
-    "block",
-  ),
+  onBackpressure: BackpressureBehaviorOptions1$inboundSchema.default("block"),
   deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: OutputMinioDiskSpaceProtection$inboundSchema.default(
+  onDiskFullBackpressure: DiskSpaceProtectionOptions$inboundSchema.default(
     "block",
   ),
   forceCloseOnShutdown: z.boolean().default(false),
@@ -747,24 +352,18 @@ export const OutputMinio$inboundSchema: z.ZodType<
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  compress: OutputMinioCompression$inboundSchema.default("gzip"),
-  compressionLevel: OutputMinioCompressionLevel$inboundSchema.default(
-    "best_speed",
-  ),
+  compress: CompressionOptions2$inboundSchema.default("gzip"),
+  compressionLevel: CompressionLevelOptions$inboundSchema.default("best_speed"),
   automaticSchema: z.boolean().default(false),
   parquetSchema: z.string().optional(),
-  parquetVersion: OutputMinioParquetVersion$inboundSchema.default(
-    "PARQUET_2_6",
-  ),
-  parquetDataPageVersion: OutputMinioDataPageVersion$inboundSchema.default(
+  parquetVersion: ParquetVersionOptions$inboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: DataPageVersionOptions$inboundSchema.default(
     "DATA_PAGE_V2",
   ),
   parquetRowGroupLength: z.number().default(10000),
   parquetPageSize: z.string().default("1MB"),
   shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(
-    z.lazy(() => OutputMinioKeyValueMetadatum$inboundSchema),
-  ).optional(),
+  keyValueMetadata: z.array(ItemsTypeKeyValueMetadata$inboundSchema).optional(),
   enableStatistics: z.boolean().default(true),
   enableWritePageIndex: z.boolean().default(true),
   enablePageChecksum: z.boolean().default(false),
@@ -824,7 +423,7 @@ export type OutputMinio$Outbound = {
   parquetRowGroupLength: number;
   parquetPageSize: string;
   shouldLogInvalidRows?: boolean | undefined;
-  keyValueMetadata?: Array<OutputMinioKeyValueMetadatum$Outbound> | undefined;
+  keyValueMetadata?: Array<ItemsTypeKeyValueMetadata$Outbound> | undefined;
   enableStatistics: boolean;
   enableWritePageIndex: boolean;
   enablePageChecksum: boolean;
@@ -848,18 +447,18 @@ export const OutputMinio$outboundSchema: z.ZodType<
   streamtags: z.array(z.string()).optional(),
   endpoint: z.string(),
   bucket: z.string(),
-  awsAuthenticationMethod: OutputMinioAuthenticationMethod$outboundSchema
-    .default("auto"),
+  awsAuthenticationMethod: AuthenticationMethodOptions$outboundSchema.default(
+    "auto",
+  ),
   awsSecretKey: z.string().optional(),
   region: z.string().optional(),
   stagePath: z.string().default("$CRIBL_HOME/state/outputs/staging"),
   addIdToStagePath: z.boolean().default(true),
   destPath: z.string().optional(),
-  signatureVersion: OutputMinioSignatureVersion$outboundSchema.default("v4"),
-  objectACL: OutputMinioObjectACL$outboundSchema.default("private"),
-  storageClass: OutputMinioStorageClass$outboundSchema.optional(),
-  serverSideEncryption: OutputMinioServerSideEncryption$outboundSchema
-    .optional(),
+  signatureVersion: SignatureVersionOptions6$outboundSchema.default("v4"),
+  objectACL: ObjectAclOptions$outboundSchema.default("private"),
+  storageClass: StorageClassOptions2$outboundSchema.optional(),
+  serverSideEncryption: ServerSideEncryptionOptions$outboundSchema.optional(),
   reuseConnections: z.boolean().default(true),
   rejectUnauthorized: z.boolean().default(true),
   verifyPermissions: z.boolean().default(true),
@@ -867,7 +466,7 @@ export const OutputMinio$outboundSchema: z.ZodType<
   partitionExpr: z.string().default(
     "C.Time.strftime(_time ? _time : Date.now()/1000, '%Y/%m/%d')",
   ),
-  format: OutputMinioDataFormat$outboundSchema.default("json"),
+  format: DataFormatOptions$outboundSchema.default("json"),
   baseFileName: z.string().default("`CriblOut`"),
   fileNameSuffix: z.string().default(
     "`.${C.env[\"CRIBL_WORKER_ID\"]}.${__format}${__compression === \"gzip\" ? \".gz\" : \"\"}`",
@@ -876,11 +475,9 @@ export const OutputMinio$outboundSchema: z.ZodType<
   maxOpenFiles: z.number().default(100),
   headerLine: z.string().default(""),
   writeHighWaterMark: z.number().default(64),
-  onBackpressure: OutputMinioBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
+  onBackpressure: BackpressureBehaviorOptions1$outboundSchema.default("block"),
   deadletterEnabled: z.boolean().default(false),
-  onDiskFullBackpressure: OutputMinioDiskSpaceProtection$outboundSchema.default(
+  onDiskFullBackpressure: DiskSpaceProtectionOptions$outboundSchema.default(
     "block",
   ),
   forceCloseOnShutdown: z.boolean().default(false),
@@ -890,24 +487,21 @@ export const OutputMinio$outboundSchema: z.ZodType<
   description: z.string().optional(),
   awsApiKey: z.string().optional(),
   awsSecret: z.string().optional(),
-  compress: OutputMinioCompression$outboundSchema.default("gzip"),
-  compressionLevel: OutputMinioCompressionLevel$outboundSchema.default(
+  compress: CompressionOptions2$outboundSchema.default("gzip"),
+  compressionLevel: CompressionLevelOptions$outboundSchema.default(
     "best_speed",
   ),
   automaticSchema: z.boolean().default(false),
   parquetSchema: z.string().optional(),
-  parquetVersion: OutputMinioParquetVersion$outboundSchema.default(
-    "PARQUET_2_6",
-  ),
-  parquetDataPageVersion: OutputMinioDataPageVersion$outboundSchema.default(
+  parquetVersion: ParquetVersionOptions$outboundSchema.default("PARQUET_2_6"),
+  parquetDataPageVersion: DataPageVersionOptions$outboundSchema.default(
     "DATA_PAGE_V2",
   ),
   parquetRowGroupLength: z.number().default(10000),
   parquetPageSize: z.string().default("1MB"),
   shouldLogInvalidRows: z.boolean().optional(),
-  keyValueMetadata: z.array(
-    z.lazy(() => OutputMinioKeyValueMetadatum$outboundSchema),
-  ).optional(),
+  keyValueMetadata: z.array(ItemsTypeKeyValueMetadata$outboundSchema)
+    .optional(),
   enableStatistics: z.boolean().default(true),
   enableWritePageIndex: z.boolean().default(true),
   enablePageChecksum: z.boolean().default(false),

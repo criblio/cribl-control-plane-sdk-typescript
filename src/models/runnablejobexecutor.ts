@@ -4,156 +4,24 @@
 
 import * as z from "zod/v3";
 import { safeParse } from "../lib/schemas.js";
-import * as openEnums from "../types/enums.js";
-import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-export const RunnableJobExecutorJobType = {
-  Collection: "collection",
-  Executor: "executor",
-  ScheduledSearch: "scheduledSearch",
-} as const;
-export type RunnableJobExecutorJobType = OpenEnum<
-  typeof RunnableJobExecutorJobType
->;
-
-export const RunnableJobExecutorType = {
-  Collection: "collection",
-} as const;
-export type RunnableJobExecutorType = OpenEnum<typeof RunnableJobExecutorType>;
-
-/**
- * Level at which to set task logging
- */
-export const RunnableJobExecutorScheduleLogLevel = {
-  Error: "error",
-  Warn: "warn",
-  Info: "info",
-  Debug: "debug",
-  Silly: "silly",
-} as const;
-/**
- * Level at which to set task logging
- */
-export type RunnableJobExecutorScheduleLogLevel = OpenEnum<
-  typeof RunnableJobExecutorScheduleLogLevel
->;
-
-export type RunnableJobExecutorTimeWarning = {};
-
-export type RunnableJobExecutorRunSettings = {
-  type?: RunnableJobExecutorType | undefined;
-  /**
-   * Reschedule tasks that failed with non-fatal errors
-   */
-  rescheduleDroppedTasks?: boolean | undefined;
-  /**
-   * Maximum number of times a task can be rescheduled
-   */
-  maxTaskReschedule?: number | undefined;
-  /**
-   * Level at which to set task logging
-   */
-  logLevel?: RunnableJobExecutorScheduleLogLevel | undefined;
-  /**
-   * Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
-   */
-  jobTimeout?: string | undefined;
-  /**
-   * Job run mode. Preview will either return up to N matching results, or will run until capture time T is reached. Discovery will gather the list of files to turn into streaming tasks, without running the data collection job. Full Run will run the collection job.
-   */
-  mode?: string | undefined;
-  timeRangeType?: string | undefined;
-  /**
-   * Earliest time to collect data for the selected timezone
-   */
-  earliest?: number | undefined;
-  /**
-   * Latest time to collect data for the selected timezone
-   */
-  latest?: number | undefined;
-  timestampTimezone?: any | undefined;
-  timeWarning?: RunnableJobExecutorTimeWarning | undefined;
-  /**
-   * A filter for tokens in the provided collect path and/or the events being collected
-   */
-  expression?: string | undefined;
-  /**
-   * Limits the bundle size for small tasks. For example,
-   *
-   * @remarks
-   *
-   *         if your lower bundle size is 1MB, you can bundle up to five 200KB files into one task.
-   */
-  minTaskSize?: string | undefined;
-  /**
-   * Limits the bundle size for files above the lower task bundle size. For example, if your upper bundle size is 10MB,
-   *
-   * @remarks
-   *
-   *         you can bundle up to five 2MB files into one task. Files greater than this size will be assigned to individual tasks.
-   */
-  maxTaskSize?: string | undefined;
-};
-
-/**
- * Configuration for a scheduled job
- */
-export type RunnableJobExecutorSchedule = {
-  /**
-   * Enable to configure scheduling for this Collector
-   */
-  enabled?: boolean | undefined;
-  /**
-   * Skippable jobs can be delayed, up to their next run time, if the system is hitting concurrency limits
-   */
-  skippable?: boolean | undefined;
-  /**
-   * If Stream Leader (or single instance) restarts, run all missed jobs according to their original schedules
-   */
-  resumeMissed?: boolean | undefined;
-  /**
-   * A cron schedule on which to run this job
-   */
-  cronSchedule?: string | undefined;
-  /**
-   * The maximum number of instances of this scheduled job that may be running at any time
-   */
-  maxConcurrentRuns?: number | undefined;
-  run?: RunnableJobExecutorRunSettings | undefined;
-};
-
-export type RunnableJobExecutorExecutorSpecificSettings = {};
-
-export type RunnableJobExecutorExecutor = {
-  /**
-   * The type of executor to run
-   */
-  type: string;
-  /**
-   * Determines whether or not to write task results to disk
-   */
-  storeTaskResults?: boolean | undefined;
-  conf?: RunnableJobExecutorExecutorSpecificSettings | undefined;
-};
-
-/**
- * Level at which to set task logging
- */
-export const RunnableJobExecutorLogLevel = {
-  Error: "error",
-  Warn: "warn",
-  Info: "info",
-  Debug: "debug",
-  Silly: "silly",
-} as const;
-/**
- * Level at which to set task logging
- */
-export type RunnableJobExecutorLogLevel = OpenEnum<
-  typeof RunnableJobExecutorLogLevel
->;
+import {
+  ExecutorTypeSavedJobExecutor,
+  ExecutorTypeSavedJobExecutor$inboundSchema,
+} from "./executortypesavedjobexecutor.js";
+import {
+  JobTypeOptionsSavedJobCollection,
+  JobTypeOptionsSavedJobCollection$inboundSchema,
+} from "./jobtypeoptionssavedjobcollection.js";
+import {
+  LogLevelOptionsSavedJobCollectionScheduleRun,
+  LogLevelOptionsSavedJobCollectionScheduleRun$inboundSchema,
+} from "./logleveloptionssavedjobcollectionschedulerun.js";
+import {
+  ScheduleTypeRunnableJobCollection,
+  ScheduleTypeRunnableJobCollection$inboundSchema,
+} from "./scheduletyperunnablejobcollection.js";
 
 export type RunnableJobExecutorRun = {
   /**
@@ -167,7 +35,7 @@ export type RunnableJobExecutorRun = {
   /**
    * Level at which to set task logging
    */
-  logLevel?: RunnableJobExecutorLogLevel | undefined;
+  logLevel?: LogLevelOptionsSavedJobCollectionScheduleRun | undefined;
   /**
    * Maximum time the job is allowed to run. Time unit defaults to seconds if not specified (examples: 30, 45s, 15m). Enter 0 for unlimited time.
    */
@@ -180,7 +48,7 @@ export type RunnableJobExecutor = {
    */
   id?: string | undefined;
   description?: string | undefined;
-  type?: RunnableJobExecutorJobType | undefined;
+  type?: JobTypeOptionsSavedJobCollection | undefined;
   /**
    * Time to keep the job's artifacts on disk after job completion. This also affects how long a job is listed in the Job Inspector.
    */
@@ -204,162 +72,14 @@ export type RunnableJobExecutor = {
   /**
    * Configuration for a scheduled job
    */
-  schedule?: RunnableJobExecutorSchedule | undefined;
+  schedule?: ScheduleTypeRunnableJobCollection | undefined;
   /**
    * Tags for filtering and grouping in @{product}
    */
   streamtags?: Array<string> | undefined;
-  executor: RunnableJobExecutorExecutor;
+  executor: ExecutorTypeSavedJobExecutor;
   run: RunnableJobExecutorRun;
 };
-
-/** @internal */
-export const RunnableJobExecutorJobType$inboundSchema: z.ZodType<
-  RunnableJobExecutorJobType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(RunnableJobExecutorJobType);
-
-/** @internal */
-export const RunnableJobExecutorType$inboundSchema: z.ZodType<
-  RunnableJobExecutorType,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(RunnableJobExecutorType);
-
-/** @internal */
-export const RunnableJobExecutorScheduleLogLevel$inboundSchema: z.ZodType<
-  RunnableJobExecutorScheduleLogLevel,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(RunnableJobExecutorScheduleLogLevel);
-
-/** @internal */
-export const RunnableJobExecutorTimeWarning$inboundSchema: z.ZodType<
-  RunnableJobExecutorTimeWarning,
-  z.ZodTypeDef,
-  unknown
-> = z.object({});
-
-export function runnableJobExecutorTimeWarningFromJSON(
-  jsonString: string,
-): SafeParseResult<RunnableJobExecutorTimeWarning, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RunnableJobExecutorTimeWarning$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RunnableJobExecutorTimeWarning' from JSON`,
-  );
-}
-
-/** @internal */
-export const RunnableJobExecutorRunSettings$inboundSchema: z.ZodType<
-  RunnableJobExecutorRunSettings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: RunnableJobExecutorType$inboundSchema.optional(),
-  rescheduleDroppedTasks: z.boolean().default(true),
-  maxTaskReschedule: z.number().default(1),
-  logLevel: RunnableJobExecutorScheduleLogLevel$inboundSchema.default("info"),
-  jobTimeout: z.string().default("0"),
-  mode: z.string().default("list"),
-  timeRangeType: z.string().default("relative"),
-  earliest: z.number().optional(),
-  latest: z.number().optional(),
-  timestampTimezone: z.any().optional(),
-  timeWarning: z.lazy(() => RunnableJobExecutorTimeWarning$inboundSchema)
-    .optional(),
-  expression: z.string().default("true"),
-  minTaskSize: z.string().default("1MB"),
-  maxTaskSize: z.string().default("10MB"),
-});
-
-export function runnableJobExecutorRunSettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<RunnableJobExecutorRunSettings, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RunnableJobExecutorRunSettings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RunnableJobExecutorRunSettings' from JSON`,
-  );
-}
-
-/** @internal */
-export const RunnableJobExecutorSchedule$inboundSchema: z.ZodType<
-  RunnableJobExecutorSchedule,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  enabled: z.boolean().optional(),
-  skippable: z.boolean().default(true),
-  resumeMissed: z.boolean().default(false),
-  cronSchedule: z.string().default("*/5 * * * *"),
-  maxConcurrentRuns: z.number().default(1),
-  run: z.lazy(() => RunnableJobExecutorRunSettings$inboundSchema).optional(),
-});
-
-export function runnableJobExecutorScheduleFromJSON(
-  jsonString: string,
-): SafeParseResult<RunnableJobExecutorSchedule, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RunnableJobExecutorSchedule$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RunnableJobExecutorSchedule' from JSON`,
-  );
-}
-
-/** @internal */
-export const RunnableJobExecutorExecutorSpecificSettings$inboundSchema:
-  z.ZodType<
-    RunnableJobExecutorExecutorSpecificSettings,
-    z.ZodTypeDef,
-    unknown
-  > = z.object({});
-
-export function runnableJobExecutorExecutorSpecificSettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<
-  RunnableJobExecutorExecutorSpecificSettings,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      RunnableJobExecutorExecutorSpecificSettings$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'RunnableJobExecutorExecutorSpecificSettings' from JSON`,
-  );
-}
-
-/** @internal */
-export const RunnableJobExecutorExecutor$inboundSchema: z.ZodType<
-  RunnableJobExecutorExecutor,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: z.string(),
-  storeTaskResults: z.boolean().default(true),
-  conf: z.lazy(() => RunnableJobExecutorExecutorSpecificSettings$inboundSchema)
-    .optional(),
-});
-
-export function runnableJobExecutorExecutorFromJSON(
-  jsonString: string,
-): SafeParseResult<RunnableJobExecutorExecutor, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => RunnableJobExecutorExecutor$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'RunnableJobExecutorExecutor' from JSON`,
-  );
-}
-
-/** @internal */
-export const RunnableJobExecutorLogLevel$inboundSchema: z.ZodType<
-  RunnableJobExecutorLogLevel,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(RunnableJobExecutorLogLevel);
 
 /** @internal */
 export const RunnableJobExecutorRun$inboundSchema: z.ZodType<
@@ -369,7 +89,9 @@ export const RunnableJobExecutorRun$inboundSchema: z.ZodType<
 > = z.object({
   rescheduleDroppedTasks: z.boolean().default(true),
   maxTaskReschedule: z.number().default(1),
-  logLevel: RunnableJobExecutorLogLevel$inboundSchema.default("info"),
+  logLevel: LogLevelOptionsSavedJobCollectionScheduleRun$inboundSchema.default(
+    "info",
+  ),
   jobTimeout: z.string().default("0"),
 });
 
@@ -391,15 +113,15 @@ export const RunnableJobExecutor$inboundSchema: z.ZodType<
 > = z.object({
   id: z.string().optional(),
   description: z.string().optional(),
-  type: RunnableJobExecutorJobType$inboundSchema.optional(),
+  type: JobTypeOptionsSavedJobCollection$inboundSchema.optional(),
   ttl: z.string().default("4h"),
   ignoreGroupJobsLimit: z.boolean().default(false),
   removeFields: z.array(z.string()).optional(),
   resumeOnBoot: z.boolean().default(false),
   environment: z.string().optional(),
-  schedule: z.lazy(() => RunnableJobExecutorSchedule$inboundSchema).optional(),
+  schedule: ScheduleTypeRunnableJobCollection$inboundSchema.optional(),
   streamtags: z.array(z.string()).optional(),
-  executor: z.lazy(() => RunnableJobExecutorExecutor$inboundSchema),
+  executor: ExecutorTypeSavedJobExecutor$inboundSchema,
   run: z.lazy(() => RunnableJobExecutorRun$inboundSchema),
 });
 

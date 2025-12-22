@@ -8,846 +8,34 @@ import * as openEnums from "../types/enums.js";
 import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
-
-/**
- * Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
- */
-export const CollectorHealthCheckAuthentication10 = {
-  None: "none",
-  Basic: "basic",
-  BasicSecret: "basicSecret",
-  Login: "login",
-  LoginSecret: "loginSecret",
-  Oauth: "oauth",
-  OauthSecret: "oauthSecret",
-} as const;
-/**
- * Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
- */
-export type CollectorHealthCheckAuthentication10 = OpenEnum<
-  typeof CollectorHealthCheckAuthentication10
->;
-
-export type CollectorHealthCheckAuthRequestParam10 = {
-  /**
-   * Parameter name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-   */
-  value: string;
-};
-
-export type CollectorHealthCheckAuthRequestHeader10 = {
-  /**
-   * Header name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-   */
-  value: string;
-};
-
-/**
- * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
- */
-export const CollectorHealthCheckDiscoverType10 = {
-  /**
-   * HTTP Request
-   */
-  Http: "http",
-  /**
-   * JSON Response
-   */
-  Json: "json",
-  /**
-   * Item List
-   */
-  List: "list",
-  /**
-   * None
-   */
-  None: "none",
-} as const;
-/**
- * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
- */
-export type CollectorHealthCheckDiscoverType10 = OpenEnum<
-  typeof CollectorHealthCheckDiscoverType10
->;
-
-export type CollectorHealthCheckDiscovery10 = {
-  /**
-   * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
-   */
-  discoverType?: CollectorHealthCheckDiscoverType10 | undefined;
-};
-
-/**
- * Health check HTTP method.
- */
-export const HealthCheckMethod10 = {
-  /**
-   * GET
-   */
-  Get: "get",
-  /**
-   * POST
-   */
-  Post: "post",
-  /**
-   * POST with Body
-   */
-  PostWithBody: "post_with_body",
-} as const;
-/**
- * Health check HTTP method.
- */
-export type HealthCheckMethod10 = OpenEnum<typeof HealthCheckMethod10>;
-
-export type CollectorHealthCheckCollectRequestParam10 = {
-  /**
-   * Parameter name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the parameter value (can be a constant).
-   */
-  value: string;
-};
-
-export type CollectorHealthCheckCollectRequestHeader10 = {
-  /**
-   * Header Name
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the header value (can be a constant).
-   */
-  value: string;
-};
-
-export const CollectorHealthCheckHiddenDefaultBreakers10 = {
-  Cribl: "Cribl",
-} as const;
-export type CollectorHealthCheckHiddenDefaultBreakers10 = OpenEnum<
-  typeof CollectorHealthCheckHiddenDefaultBreakers10
->;
-
-/**
- * The algorithm to use when performing HTTP retries
- */
-export const CollectorHealthCheckRetryType10 = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * The algorithm to use when performing HTTP retries
- */
-export type CollectorHealthCheckRetryType10 = OpenEnum<
-  typeof CollectorHealthCheckRetryType10
->;
-
-export type CollectorHealthCheckRetryRules10 = {
-  /**
-   * The algorithm to use when performing HTTP retries
-   */
-  type?: CollectorHealthCheckRetryType10 | undefined;
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-};
-
-/**
- * Collector type: health_check
- */
-export const CollectorHealthCheckType10 = {
-  HealthCheck: "health_check",
-} as const;
-/**
- * Collector type: health_check
- */
-export type CollectorHealthCheckType10 = ClosedEnum<
-  typeof CollectorHealthCheckType10
->;
-
-export type CollectorHealthCheckHealthCheck10 = {
-  /**
-   * Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
-   */
-  authentication?: CollectorHealthCheckAuthentication10 | undefined;
-  /**
-   * URL to use for the OAuth API call. This call is expected to be a POST.
-   */
-  loginUrl?: string | undefined;
-  /**
-   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
-   */
-  tokenRespAttribute?: string | undefined;
-  /**
-   * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-   */
-  authHeaderExpr?: string | undefined;
-  /**
-   * Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
-   */
-  clientSecretParamName?: string | undefined;
-  /**
-   * Select or create a text secret that contains the client secret's value.
-   */
-  textSecret: string;
-  /**
-   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
-   */
-  authRequestParams?: Array<CollectorHealthCheckAuthRequestParam10> | undefined;
-  /**
-   * Optional authentication request headers.
-   */
-  authRequestHeaders?:
-    | Array<CollectorHealthCheckAuthRequestHeader10>
-    | undefined;
-  discovery?: CollectorHealthCheckDiscovery10 | undefined;
-  /**
-   * Expression to derive URL to use for the health check operation (can be a constant).
-   */
-  collectUrl: string;
-  /**
-   * Health check HTTP method.
-   */
-  collectMethod?: HealthCheckMethod10 | undefined;
-  /**
-   * Optional health check request parameters.
-   */
-  collectRequestParams?:
-    | Array<CollectorHealthCheckCollectRequestParam10>
-    | undefined;
-  /**
-   * Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
-   */
-  collectBody?: string | undefined;
-  /**
-   * Optional health check request headers.
-   */
-  collectRequestHeaders?:
-    | Array<CollectorHealthCheckCollectRequestHeader10>
-    | undefined;
-  /**
-   * Enable to make auth health check call.
-   */
-  authenticateCollect?: boolean | undefined;
-  /**
-   * HTTP request inactivity timeout, use 0 to disable
-   */
-  timeout?: number | undefined;
-  /**
-   * Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-   */
-  rejectUnauthorized?: boolean | undefined;
-  defaultBreakers?: CollectorHealthCheckHiddenDefaultBreakers10 | undefined;
-  /**
-   * List of headers that are safe to log in plain text.
-   */
-  safeHeaders?: Array<string> | undefined;
-  retryRules?: CollectorHealthCheckRetryRules10 | undefined;
-  /**
-   * Login username
-   */
-  username?: string | undefined;
-  /**
-   * Login password
-   */
-  password?: string | undefined;
-  /**
-   * Select or create a stored secret that references your login credentials
-   */
-  credentialsSecret?: string | undefined;
-  /**
-   * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-   */
-  loginBody?: string | undefined;
-  /**
-   * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
-   */
-  clientSecretParamValue?: string | undefined;
-  /**
-   * Collector type: health_check
-   */
-  type: CollectorHealthCheckType10;
-};
-
-/**
- * Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
- */
-export const CollectorHealthCheckAuthentication9 = {
-  None: "none",
-  Basic: "basic",
-  BasicSecret: "basicSecret",
-  Login: "login",
-  LoginSecret: "loginSecret",
-  Oauth: "oauth",
-  OauthSecret: "oauthSecret",
-} as const;
-/**
- * Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
- */
-export type CollectorHealthCheckAuthentication9 = OpenEnum<
-  typeof CollectorHealthCheckAuthentication9
->;
-
-export type CollectorHealthCheckAuthRequestParam9 = {
-  /**
-   * Parameter name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-   */
-  value: string;
-};
-
-export type CollectorHealthCheckAuthRequestHeader9 = {
-  /**
-   * Header name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-   */
-  value: string;
-};
-
-/**
- * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
- */
-export const CollectorHealthCheckDiscoverType9 = {
-  /**
-   * HTTP Request
-   */
-  Http: "http",
-  /**
-   * JSON Response
-   */
-  Json: "json",
-  /**
-   * Item List
-   */
-  List: "list",
-  /**
-   * None
-   */
-  None: "none",
-} as const;
-/**
- * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
- */
-export type CollectorHealthCheckDiscoverType9 = OpenEnum<
-  typeof CollectorHealthCheckDiscoverType9
->;
-
-export type CollectorHealthCheckDiscovery9 = {
-  /**
-   * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
-   */
-  discoverType?: CollectorHealthCheckDiscoverType9 | undefined;
-};
-
-/**
- * Health check HTTP method.
- */
-export const HealthCheckMethod9 = {
-  /**
-   * GET
-   */
-  Get: "get",
-  /**
-   * POST
-   */
-  Post: "post",
-  /**
-   * POST with Body
-   */
-  PostWithBody: "post_with_body",
-} as const;
-/**
- * Health check HTTP method.
- */
-export type HealthCheckMethod9 = OpenEnum<typeof HealthCheckMethod9>;
-
-export type CollectorHealthCheckCollectRequestParam9 = {
-  /**
-   * Parameter name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the parameter value (can be a constant).
-   */
-  value: string;
-};
-
-export type CollectorHealthCheckCollectRequestHeader9 = {
-  /**
-   * Header Name
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the header value (can be a constant).
-   */
-  value: string;
-};
-
-export const CollectorHealthCheckHiddenDefaultBreakers9 = {
-  Cribl: "Cribl",
-} as const;
-export type CollectorHealthCheckHiddenDefaultBreakers9 = OpenEnum<
-  typeof CollectorHealthCheckHiddenDefaultBreakers9
->;
-
-/**
- * The algorithm to use when performing HTTP retries
- */
-export const CollectorHealthCheckRetryType9 = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * The algorithm to use when performing HTTP retries
- */
-export type CollectorHealthCheckRetryType9 = OpenEnum<
-  typeof CollectorHealthCheckRetryType9
->;
-
-export type CollectorHealthCheckRetryRules9 = {
-  /**
-   * The algorithm to use when performing HTTP retries
-   */
-  type?: CollectorHealthCheckRetryType9 | undefined;
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-};
-
-/**
- * Collector type: health_check
- */
-export const CollectorHealthCheckType9 = {
-  HealthCheck: "health_check",
-} as const;
-/**
- * Collector type: health_check
- */
-export type CollectorHealthCheckType9 = ClosedEnum<
-  typeof CollectorHealthCheckType9
->;
-
-export type CollectorHealthCheckHealthCheck9 = {
-  /**
-   * Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
-   */
-  authentication?: CollectorHealthCheckAuthentication9 | undefined;
-  /**
-   * URL to use for the OAuth API call. This call is expected to be a POST.
-   */
-  loginUrl?: string | undefined;
-  /**
-   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
-   */
-  tokenRespAttribute?: string | undefined;
-  /**
-   * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-   */
-  authHeaderExpr?: string | undefined;
-  /**
-   * Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
-   */
-  clientSecretParamName?: string | undefined;
-  /**
-   * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
-   */
-  clientSecretParamValue: string;
-  /**
-   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
-   */
-  authRequestParams?: Array<CollectorHealthCheckAuthRequestParam9> | undefined;
-  /**
-   * Optional authentication request headers.
-   */
-  authRequestHeaders?:
-    | Array<CollectorHealthCheckAuthRequestHeader9>
-    | undefined;
-  discovery?: CollectorHealthCheckDiscovery9 | undefined;
-  /**
-   * Expression to derive URL to use for the health check operation (can be a constant).
-   */
-  collectUrl: string;
-  /**
-   * Health check HTTP method.
-   */
-  collectMethod?: HealthCheckMethod9 | undefined;
-  /**
-   * Optional health check request parameters.
-   */
-  collectRequestParams?:
-    | Array<CollectorHealthCheckCollectRequestParam9>
-    | undefined;
-  /**
-   * Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
-   */
-  collectBody?: string | undefined;
-  /**
-   * Optional health check request headers.
-   */
-  collectRequestHeaders?:
-    | Array<CollectorHealthCheckCollectRequestHeader9>
-    | undefined;
-  /**
-   * Enable to make auth health check call.
-   */
-  authenticateCollect?: boolean | undefined;
-  /**
-   * HTTP request inactivity timeout, use 0 to disable
-   */
-  timeout?: number | undefined;
-  /**
-   * Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-   */
-  rejectUnauthorized?: boolean | undefined;
-  defaultBreakers?: CollectorHealthCheckHiddenDefaultBreakers9 | undefined;
-  /**
-   * List of headers that are safe to log in plain text.
-   */
-  safeHeaders?: Array<string> | undefined;
-  retryRules?: CollectorHealthCheckRetryRules9 | undefined;
-  /**
-   * Login username
-   */
-  username?: string | undefined;
-  /**
-   * Login password
-   */
-  password?: string | undefined;
-  /**
-   * Select or create a stored secret that references your login credentials
-   */
-  credentialsSecret?: string | undefined;
-  /**
-   * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-   */
-  loginBody?: string | undefined;
-  /**
-   * Select or create a text secret that contains the client secret's value.
-   */
-  textSecret?: string | undefined;
-  /**
-   * Collector type: health_check
-   */
-  type: CollectorHealthCheckType9;
-};
-
-/**
- * Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
- */
-export const CollectorHealthCheckAuthentication8 = {
-  None: "none",
-  Basic: "basic",
-  BasicSecret: "basicSecret",
-  Login: "login",
-  LoginSecret: "loginSecret",
-  Oauth: "oauth",
-  OauthSecret: "oauthSecret",
-} as const;
-/**
- * Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
- */
-export type CollectorHealthCheckAuthentication8 = OpenEnum<
-  typeof CollectorHealthCheckAuthentication8
->;
-
-export type CollectorHealthCheckAuthRequestHeader8 = {
-  /**
-   * Header name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-   */
-  value: string;
-};
-
-/**
- * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
- */
-export const CollectorHealthCheckDiscoverType8 = {
-  /**
-   * HTTP Request
-   */
-  Http: "http",
-  /**
-   * JSON Response
-   */
-  Json: "json",
-  /**
-   * Item List
-   */
-  List: "list",
-  /**
-   * None
-   */
-  None: "none",
-} as const;
-/**
- * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
- */
-export type CollectorHealthCheckDiscoverType8 = OpenEnum<
-  typeof CollectorHealthCheckDiscoverType8
->;
-
-export type CollectorHealthCheckDiscovery8 = {
-  /**
-   * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
-   */
-  discoverType?: CollectorHealthCheckDiscoverType8 | undefined;
-};
-
-/**
- * Health check HTTP method.
- */
-export const HealthCheckMethod8 = {
-  /**
-   * GET
-   */
-  Get: "get",
-  /**
-   * POST
-   */
-  Post: "post",
-  /**
-   * POST with Body
-   */
-  PostWithBody: "post_with_body",
-} as const;
-/**
- * Health check HTTP method.
- */
-export type HealthCheckMethod8 = OpenEnum<typeof HealthCheckMethod8>;
-
-export type CollectorHealthCheckCollectRequestParam8 = {
-  /**
-   * Parameter name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the parameter value (can be a constant).
-   */
-  value: string;
-};
-
-export type CollectorHealthCheckCollectRequestHeader8 = {
-  /**
-   * Header Name
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the header value (can be a constant).
-   */
-  value: string;
-};
-
-export const CollectorHealthCheckHiddenDefaultBreakers8 = {
-  Cribl: "Cribl",
-} as const;
-export type CollectorHealthCheckHiddenDefaultBreakers8 = OpenEnum<
-  typeof CollectorHealthCheckHiddenDefaultBreakers8
->;
-
-/**
- * The algorithm to use when performing HTTP retries
- */
-export const CollectorHealthCheckRetryType8 = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * The algorithm to use when performing HTTP retries
- */
-export type CollectorHealthCheckRetryType8 = OpenEnum<
-  typeof CollectorHealthCheckRetryType8
->;
-
-export type CollectorHealthCheckRetryRules8 = {
-  /**
-   * The algorithm to use when performing HTTP retries
-   */
-  type?: CollectorHealthCheckRetryType8 | undefined;
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-};
-
-export type CollectorHealthCheckAuthRequestParam8 = {
-  /**
-   * Parameter name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-   */
-  value: string;
-};
-
-/**
- * Collector type: health_check
- */
-export const CollectorHealthCheckType8 = {
-  HealthCheck: "health_check",
-} as const;
-/**
- * Collector type: health_check
- */
-export type CollectorHealthCheckType8 = ClosedEnum<
-  typeof CollectorHealthCheckType8
->;
-
-export type CollectorHealthCheckHealthCheck8 = {
-  /**
-   * Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
-   */
-  authentication?: CollectorHealthCheckAuthentication8 | undefined;
-  /**
-   * URL to use for the OAuth API call. This call is expected to be a POST.
-   */
-  loginUrl?: string | undefined;
-  /**
-   * Select or create a stored secret that references your login credentials
-   */
-  credentialsSecret: string;
-  /**
-   * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-   */
-  loginBody?: string | undefined;
-  /**
-   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
-   */
-  tokenRespAttribute?: string | undefined;
-  /**
-   * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-   */
-  authHeaderExpr?: string | undefined;
-  /**
-   * Optional authentication request headers.
-   */
-  authRequestHeaders?:
-    | Array<CollectorHealthCheckAuthRequestHeader8>
-    | undefined;
-  discovery?: CollectorHealthCheckDiscovery8 | undefined;
-  /**
-   * Expression to derive URL to use for the health check operation (can be a constant).
-   */
-  collectUrl: string;
-  /**
-   * Health check HTTP method.
-   */
-  collectMethod?: HealthCheckMethod8 | undefined;
-  /**
-   * Optional health check request parameters.
-   */
-  collectRequestParams?:
-    | Array<CollectorHealthCheckCollectRequestParam8>
-    | undefined;
-  /**
-   * Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
-   */
-  collectBody?: string | undefined;
-  /**
-   * Optional health check request headers.
-   */
-  collectRequestHeaders?:
-    | Array<CollectorHealthCheckCollectRequestHeader8>
-    | undefined;
-  /**
-   * Enable to make auth health check call.
-   */
-  authenticateCollect?: boolean | undefined;
-  /**
-   * HTTP request inactivity timeout, use 0 to disable
-   */
-  timeout?: number | undefined;
-  /**
-   * Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
-   */
-  rejectUnauthorized?: boolean | undefined;
-  defaultBreakers?: CollectorHealthCheckHiddenDefaultBreakers8 | undefined;
-  /**
-   * List of headers that are safe to log in plain text.
-   */
-  safeHeaders?: Array<string> | undefined;
-  retryRules?: CollectorHealthCheckRetryRules8 | undefined;
-  /**
-   * Login username
-   */
-  username?: string | undefined;
-  /**
-   * Login password
-   */
-  password?: string | undefined;
-  /**
-   * Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
-   */
-  clientSecretParamName?: string | undefined;
-  /**
-   * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
-   */
-  clientSecretParamValue?: string | undefined;
-  /**
-   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
-   */
-  authRequestParams?: Array<CollectorHealthCheckAuthRequestParam8> | undefined;
-  /**
-   * Select or create a text secret that contains the client secret's value.
-   */
-  textSecret?: string | undefined;
-  /**
-   * Collector type: health_check
-   */
-  type: CollectorHealthCheckType8;
-};
+import {
+  HiddenDefaultBreakersOptions,
+  HiddenDefaultBreakersOptions$inboundSchema,
+  HiddenDefaultBreakersOptions$outboundSchema,
+} from "./hiddendefaultbreakersoptions.js";
+import {
+  ItemsTypeAuthRequestHeaders,
+  ItemsTypeAuthRequestHeaders$inboundSchema,
+  ItemsTypeAuthRequestHeaders$Outbound,
+  ItemsTypeAuthRequestHeaders$outboundSchema,
+} from "./itemstypeauthrequestheaders.js";
+import {
+  ItemsTypeAuthRequestParams,
+  ItemsTypeAuthRequestParams$inboundSchema,
+  ItemsTypeAuthRequestParams$Outbound,
+  ItemsTypeAuthRequestParams$outboundSchema,
+} from "./itemstypeauthrequestparams.js";
+import {
+  ItemsTypeCollectRequestParams,
+  ItemsTypeCollectRequestParams$inboundSchema,
+  ItemsTypeCollectRequestParams$Outbound,
+  ItemsTypeCollectRequestParams$outboundSchema,
+} from "./itemstypecollectrequestparams.js";
+import {
+  RetryTypeOptionsRetryRules,
+  RetryTypeOptionsRetryRules$inboundSchema,
+  RetryTypeOptionsRetryRules$outboundSchema,
+} from "./retrytypeoptionsretryrules.js";
 
 /**
  * Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
@@ -867,17 +55,6 @@ export const CollectorHealthCheckAuthentication7 = {
 export type CollectorHealthCheckAuthentication7 = OpenEnum<
   typeof CollectorHealthCheckAuthentication7
 >;
-
-export type CollectorHealthCheckAuthRequestHeader7 = {
-  /**
-   * Header name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-   */
-  value: string;
-};
 
 /**
  * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
@@ -936,17 +113,6 @@ export const HealthCheckMethod7 = {
  */
 export type HealthCheckMethod7 = OpenEnum<typeof HealthCheckMethod7>;
 
-export type CollectorHealthCheckCollectRequestParam7 = {
-  /**
-   * Parameter name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the parameter value (can be a constant).
-   */
-  value: string;
-};
-
 export type CollectorHealthCheckCollectRequestHeader7 = {
   /**
    * Header Name
@@ -958,42 +124,11 @@ export type CollectorHealthCheckCollectRequestHeader7 = {
   value: string;
 };
 
-export const CollectorHealthCheckHiddenDefaultBreakers7 = {
-  Cribl: "Cribl",
-} as const;
-export type CollectorHealthCheckHiddenDefaultBreakers7 = OpenEnum<
-  typeof CollectorHealthCheckHiddenDefaultBreakers7
->;
-
-/**
- * The algorithm to use when performing HTTP retries
- */
-export const CollectorHealthCheckRetryType7 = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * The algorithm to use when performing HTTP retries
- */
-export type CollectorHealthCheckRetryType7 = OpenEnum<
-  typeof CollectorHealthCheckRetryType7
->;
-
 export type CollectorHealthCheckRetryRules7 = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type?: CollectorHealthCheckRetryType7 | undefined;
+  type?: RetryTypeOptionsRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -1001,28 +136,17 @@ export type CollectorHealthCheckRetryRules7 = {
   enableHeader?: any | undefined;
 };
 
-export type CollectorHealthCheckAuthRequestParam7 = {
-  /**
-   * Parameter name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-   */
-  value: string;
-};
-
 /**
  * Collector type: health_check
  */
-export const CollectorHealthCheckType7 = {
+export const CollectorHealthCheckType8 = {
   HealthCheck: "health_check",
 } as const;
 /**
  * Collector type: health_check
  */
-export type CollectorHealthCheckType7 = ClosedEnum<
-  typeof CollectorHealthCheckType7
+export type CollectorHealthCheckType8 = ClosedEnum<
+  typeof CollectorHealthCheckType8
 >;
 
 export type CollectorHealthCheckHealthCheck7 = {
@@ -1035,18 +159,6 @@ export type CollectorHealthCheckHealthCheck7 = {
    */
   loginUrl?: string | undefined;
   /**
-   * Login username
-   */
-  username: string;
-  /**
-   * Login password
-   */
-  password: string;
-  /**
-   * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-   */
-  loginBody?: string | undefined;
-  /**
    * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
    */
   tokenRespAttribute?: string | undefined;
@@ -1055,11 +167,21 @@ export type CollectorHealthCheckHealthCheck7 = {
    */
   authHeaderExpr?: string | undefined;
   /**
+   * Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
+   */
+  clientSecretParamName?: string | undefined;
+  /**
+   * Select or create a text secret that contains the client secret's value.
+   */
+  textSecret: string;
+  /**
+   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+   */
+  authRequestParams?: Array<ItemsTypeAuthRequestParams> | undefined;
+  /**
    * Optional authentication request headers.
    */
-  authRequestHeaders?:
-    | Array<CollectorHealthCheckAuthRequestHeader7>
-    | undefined;
+  authRequestHeaders?: Array<ItemsTypeAuthRequestHeaders> | undefined;
   discovery?: CollectorHealthCheckDiscovery7 | undefined;
   /**
    * Expression to derive URL to use for the health check operation (can be a constant).
@@ -1072,9 +194,7 @@ export type CollectorHealthCheckHealthCheck7 = {
   /**
    * Optional health check request parameters.
    */
-  collectRequestParams?:
-    | Array<CollectorHealthCheckCollectRequestParam7>
-    | undefined;
+  collectRequestParams?: Array<ItemsTypeCollectRequestParams> | undefined;
   /**
    * Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
    */
@@ -1097,36 +217,36 @@ export type CollectorHealthCheckHealthCheck7 = {
    * Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
    */
   rejectUnauthorized?: boolean | undefined;
-  defaultBreakers?: CollectorHealthCheckHiddenDefaultBreakers7 | undefined;
+  defaultBreakers?: HiddenDefaultBreakersOptions | undefined;
   /**
    * List of headers that are safe to log in plain text.
    */
   safeHeaders?: Array<string> | undefined;
   retryRules?: CollectorHealthCheckRetryRules7 | undefined;
   /**
+   * Login username
+   */
+  username?: string | undefined;
+  /**
+   * Login password
+   */
+  password?: string | undefined;
+  /**
    * Select or create a stored secret that references your login credentials
    */
   credentialsSecret?: string | undefined;
   /**
-   * Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
+   * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
    */
-  clientSecretParamName?: string | undefined;
+  loginBody?: string | undefined;
   /**
    * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
    */
   clientSecretParamValue?: string | undefined;
   /**
-   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
-   */
-  authRequestParams?: Array<CollectorHealthCheckAuthRequestParam7> | undefined;
-  /**
-   * Select or create a text secret that contains the client secret's value.
-   */
-  textSecret?: string | undefined;
-  /**
    * Collector type: health_check
    */
-  type: CollectorHealthCheckType7;
+  type: CollectorHealthCheckType8;
 };
 
 /**
@@ -1205,17 +325,6 @@ export const HealthCheckMethod6 = {
  */
 export type HealthCheckMethod6 = OpenEnum<typeof HealthCheckMethod6>;
 
-export type CollectorHealthCheckCollectRequestParam6 = {
-  /**
-   * Parameter name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the parameter value (can be a constant).
-   */
-  value: string;
-};
-
 export type CollectorHealthCheckCollectRequestHeader6 = {
   /**
    * Header Name
@@ -1227,42 +336,11 @@ export type CollectorHealthCheckCollectRequestHeader6 = {
   value: string;
 };
 
-export const CollectorHealthCheckHiddenDefaultBreakers6 = {
-  Cribl: "Cribl",
-} as const;
-export type CollectorHealthCheckHiddenDefaultBreakers6 = OpenEnum<
-  typeof CollectorHealthCheckHiddenDefaultBreakers6
->;
-
-/**
- * The algorithm to use when performing HTTP retries
- */
-export const CollectorHealthCheckRetryType6 = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * The algorithm to use when performing HTTP retries
- */
-export type CollectorHealthCheckRetryType6 = OpenEnum<
-  typeof CollectorHealthCheckRetryType6
->;
-
 export type CollectorHealthCheckRetryRules6 = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type?: CollectorHealthCheckRetryType6 | undefined;
+  type?: RetryTypeOptionsRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -1270,39 +348,17 @@ export type CollectorHealthCheckRetryRules6 = {
   enableHeader?: any | undefined;
 };
 
-export type CollectorHealthCheckAuthRequestHeader6 = {
-  /**
-   * Header name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-   */
-  value: string;
-};
-
-export type CollectorHealthCheckAuthRequestParam6 = {
-  /**
-   * Parameter name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-   */
-  value: string;
-};
-
 /**
  * Collector type: health_check
  */
-export const CollectorHealthCheckType6 = {
+export const CollectorHealthCheckType7 = {
   HealthCheck: "health_check",
 } as const;
 /**
  * Collector type: health_check
  */
-export type CollectorHealthCheckType6 = ClosedEnum<
-  typeof CollectorHealthCheckType6
+export type CollectorHealthCheckType7 = ClosedEnum<
+  typeof CollectorHealthCheckType7
 >;
 
 export type CollectorHealthCheckHealthCheck6 = {
@@ -1311,9 +367,33 @@ export type CollectorHealthCheckHealthCheck6 = {
    */
   authentication?: CollectorHealthCheckAuthentication6 | undefined;
   /**
-   * Select or create a stored secret that references your login credentials
+   * URL to use for the OAuth API call. This call is expected to be a POST.
    */
-  credentialsSecret: string;
+  loginUrl?: string | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
+   */
+  clientSecretParamName?: string | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
+   */
+  clientSecretParamValue: string;
+  /**
+   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+   */
+  authRequestParams?: Array<ItemsTypeAuthRequestParams> | undefined;
+  /**
+   * Optional authentication request headers.
+   */
+  authRequestHeaders?: Array<ItemsTypeAuthRequestHeaders> | undefined;
   discovery?: CollectorHealthCheckDiscovery6 | undefined;
   /**
    * Expression to derive URL to use for the health check operation (can be a constant).
@@ -1326,9 +406,7 @@ export type CollectorHealthCheckHealthCheck6 = {
   /**
    * Optional health check request parameters.
    */
-  collectRequestParams?:
-    | Array<CollectorHealthCheckCollectRequestParam6>
-    | undefined;
+  collectRequestParams?: Array<ItemsTypeCollectRequestParams> | undefined;
   /**
    * Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
    */
@@ -1351,7 +429,7 @@ export type CollectorHealthCheckHealthCheck6 = {
    * Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
    */
   rejectUnauthorized?: boolean | undefined;
-  defaultBreakers?: CollectorHealthCheckHiddenDefaultBreakers6 | undefined;
+  defaultBreakers?: HiddenDefaultBreakersOptions | undefined;
   /**
    * List of headers that are safe to log in plain text.
    */
@@ -1366,39 +444,13 @@ export type CollectorHealthCheckHealthCheck6 = {
    */
   password?: string | undefined;
   /**
-   * URL to use for the OAuth API call. This call is expected to be a POST.
+   * Select or create a stored secret that references your login credentials
    */
-  loginUrl?: string | undefined;
+  credentialsSecret?: string | undefined;
   /**
    * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
    */
   loginBody?: string | undefined;
-  /**
-   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
-   */
-  tokenRespAttribute?: string | undefined;
-  /**
-   * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-   */
-  authHeaderExpr?: string | undefined;
-  /**
-   * Optional authentication request headers.
-   */
-  authRequestHeaders?:
-    | Array<CollectorHealthCheckAuthRequestHeader6>
-    | undefined;
-  /**
-   * Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
-   */
-  clientSecretParamName?: string | undefined;
-  /**
-   * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
-   */
-  clientSecretParamValue?: string | undefined;
-  /**
-   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
-   */
-  authRequestParams?: Array<CollectorHealthCheckAuthRequestParam6> | undefined;
   /**
    * Select or create a text secret that contains the client secret's value.
    */
@@ -1406,7 +458,7 @@ export type CollectorHealthCheckHealthCheck6 = {
   /**
    * Collector type: health_check
    */
-  type: CollectorHealthCheckType6;
+  type: CollectorHealthCheckType7;
 };
 
 /**
@@ -1485,17 +537,6 @@ export const HealthCheckMethod5 = {
  */
 export type HealthCheckMethod5 = OpenEnum<typeof HealthCheckMethod5>;
 
-export type CollectorHealthCheckCollectRequestParam5 = {
-  /**
-   * Parameter name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the parameter value (can be a constant).
-   */
-  value: string;
-};
-
 export type CollectorHealthCheckCollectRequestHeader5 = {
   /**
    * Header Name
@@ -1507,42 +548,11 @@ export type CollectorHealthCheckCollectRequestHeader5 = {
   value: string;
 };
 
-export const CollectorHealthCheckHiddenDefaultBreakers5 = {
-  Cribl: "Cribl",
-} as const;
-export type CollectorHealthCheckHiddenDefaultBreakers5 = OpenEnum<
-  typeof CollectorHealthCheckHiddenDefaultBreakers5
->;
-
-/**
- * The algorithm to use when performing HTTP retries
- */
-export const CollectorHealthCheckRetryType5 = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * The algorithm to use when performing HTTP retries
- */
-export type CollectorHealthCheckRetryType5 = OpenEnum<
-  typeof CollectorHealthCheckRetryType5
->;
-
 export type CollectorHealthCheckRetryRules5 = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type?: CollectorHealthCheckRetryType5 | undefined;
+  type?: RetryTypeOptionsRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -1550,39 +560,17 @@ export type CollectorHealthCheckRetryRules5 = {
   enableHeader?: any | undefined;
 };
 
-export type CollectorHealthCheckAuthRequestHeader5 = {
-  /**
-   * Header name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-   */
-  value: string;
-};
-
-export type CollectorHealthCheckAuthRequestParam5 = {
-  /**
-   * Parameter name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-   */
-  value: string;
-};
-
 /**
  * Collector type: health_check
  */
-export const CollectorHealthCheckType5 = {
+export const CollectorHealthCheckType6 = {
   HealthCheck: "health_check",
 } as const;
 /**
  * Collector type: health_check
  */
-export type CollectorHealthCheckType5 = ClosedEnum<
-  typeof CollectorHealthCheckType5
+export type CollectorHealthCheckType6 = ClosedEnum<
+  typeof CollectorHealthCheckType6
 >;
 
 export type CollectorHealthCheckHealthCheck5 = {
@@ -1591,13 +579,29 @@ export type CollectorHealthCheckHealthCheck5 = {
    */
   authentication?: CollectorHealthCheckAuthentication5 | undefined;
   /**
-   * Login username
+   * URL to use for the OAuth API call. This call is expected to be a POST.
    */
-  username: string;
+  loginUrl?: string | undefined;
   /**
-   * Login password
+   * Select or create a stored secret that references your login credentials
    */
-  password: string;
+  credentialsSecret: string;
+  /**
+   * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
+   */
+  loginBody?: string | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * Optional authentication request headers.
+   */
+  authRequestHeaders?: Array<ItemsTypeAuthRequestHeaders> | undefined;
   discovery?: CollectorHealthCheckDiscovery5 | undefined;
   /**
    * Expression to derive URL to use for the health check operation (can be a constant).
@@ -1610,9 +614,7 @@ export type CollectorHealthCheckHealthCheck5 = {
   /**
    * Optional health check request parameters.
    */
-  collectRequestParams?:
-    | Array<CollectorHealthCheckCollectRequestParam5>
-    | undefined;
+  collectRequestParams?: Array<ItemsTypeCollectRequestParams> | undefined;
   /**
    * Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
    */
@@ -1635,38 +637,20 @@ export type CollectorHealthCheckHealthCheck5 = {
    * Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
    */
   rejectUnauthorized?: boolean | undefined;
-  defaultBreakers?: CollectorHealthCheckHiddenDefaultBreakers5 | undefined;
+  defaultBreakers?: HiddenDefaultBreakersOptions | undefined;
   /**
    * List of headers that are safe to log in plain text.
    */
   safeHeaders?: Array<string> | undefined;
   retryRules?: CollectorHealthCheckRetryRules5 | undefined;
   /**
-   * Select or create a stored secret that references your login credentials
+   * Login username
    */
-  credentialsSecret?: string | undefined;
+  username?: string | undefined;
   /**
-   * URL to use for the OAuth API call. This call is expected to be a POST.
+   * Login password
    */
-  loginUrl?: string | undefined;
-  /**
-   * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
-   */
-  loginBody?: string | undefined;
-  /**
-   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
-   */
-  tokenRespAttribute?: string | undefined;
-  /**
-   * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
-   */
-  authHeaderExpr?: string | undefined;
-  /**
-   * Optional authentication request headers.
-   */
-  authRequestHeaders?:
-    | Array<CollectorHealthCheckAuthRequestHeader5>
-    | undefined;
+  password?: string | undefined;
   /**
    * Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
    */
@@ -1678,7 +662,7 @@ export type CollectorHealthCheckHealthCheck5 = {
   /**
    * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
    */
-  authRequestParams?: Array<CollectorHealthCheckAuthRequestParam5> | undefined;
+  authRequestParams?: Array<ItemsTypeAuthRequestParams> | undefined;
   /**
    * Select or create a text secret that contains the client secret's value.
    */
@@ -1686,7 +670,7 @@ export type CollectorHealthCheckHealthCheck5 = {
   /**
    * Collector type: health_check
    */
-  type: CollectorHealthCheckType5;
+  type: CollectorHealthCheckType6;
 };
 
 /**
@@ -1765,17 +749,6 @@ export const HealthCheckMethod4 = {
  */
 export type HealthCheckMethod4 = OpenEnum<typeof HealthCheckMethod4>;
 
-export type CollectorHealthCheckCollectRequestParam4 = {
-  /**
-   * Parameter name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the parameter value (can be a constant).
-   */
-  value: string;
-};
-
 export type CollectorHealthCheckCollectRequestHeader4 = {
   /**
    * Header Name
@@ -1787,42 +760,11 @@ export type CollectorHealthCheckCollectRequestHeader4 = {
   value: string;
 };
 
-export const CollectorHealthCheckHiddenDefaultBreakers4 = {
-  Cribl: "Cribl",
-} as const;
-export type CollectorHealthCheckHiddenDefaultBreakers4 = OpenEnum<
-  typeof CollectorHealthCheckHiddenDefaultBreakers4
->;
-
-/**
- * The algorithm to use when performing HTTP retries
- */
-export const CollectorHealthCheckRetryType4 = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * The algorithm to use when performing HTTP retries
- */
-export type CollectorHealthCheckRetryType4 = OpenEnum<
-  typeof CollectorHealthCheckRetryType4
->;
-
 export type CollectorHealthCheckRetryRules4 = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type?: CollectorHealthCheckRetryType4 | undefined;
+  type?: RetryTypeOptionsRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
@@ -1830,39 +772,17 @@ export type CollectorHealthCheckRetryRules4 = {
   enableHeader?: any | undefined;
 };
 
-export type CollectorHealthCheckAuthRequestHeader4 = {
-  /**
-   * Header name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-   */
-  value: string;
-};
-
-export type CollectorHealthCheckAuthRequestParam4 = {
-  /**
-   * Parameter name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-   */
-  value: string;
-};
-
 /**
  * Collector type: health_check
  */
-export const CollectorHealthCheckType4 = {
+export const CollectorHealthCheckType5 = {
   HealthCheck: "health_check",
 } as const;
 /**
  * Collector type: health_check
  */
-export type CollectorHealthCheckType4 = ClosedEnum<
-  typeof CollectorHealthCheckType4
+export type CollectorHealthCheckType5 = ClosedEnum<
+  typeof CollectorHealthCheckType5
 >;
 
 export type CollectorHealthCheckHealthCheck4 = {
@@ -1870,6 +790,34 @@ export type CollectorHealthCheckHealthCheck4 = {
    * Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
    */
   authentication?: CollectorHealthCheckAuthentication4 | undefined;
+  /**
+   * URL to use for the OAuth API call. This call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Login username
+   */
+  username: string;
+  /**
+   * Login password
+   */
+  password: string;
+  /**
+   * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
+   */
+  loginBody?: string | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * Optional authentication request headers.
+   */
+  authRequestHeaders?: Array<ItemsTypeAuthRequestHeaders> | undefined;
   discovery?: CollectorHealthCheckDiscovery4 | undefined;
   /**
    * Expression to derive URL to use for the health check operation (can be a constant).
@@ -1882,9 +830,7 @@ export type CollectorHealthCheckHealthCheck4 = {
   /**
    * Optional health check request parameters.
    */
-  collectRequestParams?:
-    | Array<CollectorHealthCheckCollectRequestParam4>
-    | undefined;
+  collectRequestParams?: Array<ItemsTypeCollectRequestParams> | undefined;
   /**
    * Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
    */
@@ -1907,12 +853,390 @@ export type CollectorHealthCheckHealthCheck4 = {
    * Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
    */
   rejectUnauthorized?: boolean | undefined;
-  defaultBreakers?: CollectorHealthCheckHiddenDefaultBreakers4 | undefined;
+  defaultBreakers?: HiddenDefaultBreakersOptions | undefined;
   /**
    * List of headers that are safe to log in plain text.
    */
   safeHeaders?: Array<string> | undefined;
   retryRules?: CollectorHealthCheckRetryRules4 | undefined;
+  /**
+   * Select or create a stored secret that references your login credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
+   */
+  clientSecretParamName?: string | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+   */
+  authRequestParams?: Array<ItemsTypeAuthRequestParams> | undefined;
+  /**
+   * Select or create a text secret that contains the client secret's value.
+   */
+  textSecret?: string | undefined;
+  /**
+   * Collector type: health_check
+   */
+  type: CollectorHealthCheckType5;
+};
+
+/**
+ * Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
+ */
+export const AuthenticationHealthCheck = {
+  None: "none",
+  Basic: "basic",
+  BasicSecret: "basicSecret",
+  Login: "login",
+  LoginSecret: "loginSecret",
+  Oauth: "oauth",
+  OauthSecret: "oauthSecret",
+} as const;
+/**
+ * Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
+ */
+export type AuthenticationHealthCheck = OpenEnum<
+  typeof AuthenticationHealthCheck
+>;
+
+/**
+ * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
+ */
+export const DiscoverTypeHealthCheck = {
+  /**
+   * HTTP Request
+   */
+  Http: "http",
+  /**
+   * JSON Response
+   */
+  Json: "json",
+  /**
+   * Item List
+   */
+  List: "list",
+  /**
+   * None
+   */
+  None: "none",
+} as const;
+/**
+ * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
+ */
+export type DiscoverTypeHealthCheck = OpenEnum<typeof DiscoverTypeHealthCheck>;
+
+export type DiscoveryHealthCheck = {
+  /**
+   * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
+   */
+  discoverType?: DiscoverTypeHealthCheck | undefined;
+};
+
+/**
+ * Health check HTTP method.
+ */
+export const HealthCheckMethodHealthCheck = {
+  /**
+   * GET
+   */
+  Get: "get",
+  /**
+   * POST
+   */
+  Post: "post",
+  /**
+   * POST with Body
+   */
+  PostWithBody: "post_with_body",
+} as const;
+/**
+ * Health check HTTP method.
+ */
+export type HealthCheckMethodHealthCheck = OpenEnum<
+  typeof HealthCheckMethodHealthCheck
+>;
+
+export type CollectRequestHeaderHealthCheck = {
+  /**
+   * Header Name
+   */
+  name: string;
+  /**
+   * JavaScript expression to compute the header value (can be a constant).
+   */
+  value: string;
+};
+
+export type RetryRulesHealthCheck = {
+  /**
+   * The algorithm to use when performing HTTP retries
+   */
+  type?: RetryTypeOptionsRetryRules | undefined;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+};
+
+/**
+ * Collector type: health_check
+ */
+export const CollectorHealthCheckType4 = {
+  HealthCheck: "health_check",
+} as const;
+/**
+ * Collector type: health_check
+ */
+export type CollectorHealthCheckType4 = ClosedEnum<
+  typeof CollectorHealthCheckType4
+>;
+
+export type CollectorHealthCheckCollectorHealthCheckPart2Type = {
+  /**
+   * Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
+   */
+  authentication?: AuthenticationHealthCheck | undefined;
+  /**
+   * Select or create a stored secret that references your login credentials
+   */
+  credentialsSecret: string;
+  discovery?: DiscoveryHealthCheck | undefined;
+  /**
+   * Expression to derive URL to use for the health check operation (can be a constant).
+   */
+  collectUrl: string;
+  /**
+   * Health check HTTP method.
+   */
+  collectMethod?: HealthCheckMethodHealthCheck | undefined;
+  /**
+   * Optional health check request parameters.
+   */
+  collectRequestParams?: Array<ItemsTypeCollectRequestParams> | undefined;
+  /**
+   * Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
+   */
+  collectBody?: string | undefined;
+  /**
+   * Optional health check request headers.
+   */
+  collectRequestHeaders?: Array<CollectRequestHeaderHealthCheck> | undefined;
+  /**
+   * Enable to make auth health check call.
+   */
+  authenticateCollect?: boolean | undefined;
+  /**
+   * HTTP request inactivity timeout, use 0 to disable
+   */
+  timeout?: number | undefined;
+  /**
+   * Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
+   */
+  rejectUnauthorized?: boolean | undefined;
+  defaultBreakers?: HiddenDefaultBreakersOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text.
+   */
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: RetryRulesHealthCheck | undefined;
+  /**
+   * Login username
+   */
+  username?: string | undefined;
+  /**
+   * Login password
+   */
+  password?: string | undefined;
+  /**
+   * URL to use for the OAuth API call. This call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
+   */
+  loginBody?: string | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * Optional authentication request headers.
+   */
+  authRequestHeaders?: Array<ItemsTypeAuthRequestHeaders> | undefined;
+  /**
+   * Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
+   */
+  clientSecretParamName?: string | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+   */
+  authRequestParams?: Array<ItemsTypeAuthRequestParams> | undefined;
+  /**
+   * Select or create a text secret that contains the client secret's value.
+   */
+  textSecret?: string | undefined;
+  /**
+   * Collector type: health_check
+   */
+  type: CollectorHealthCheckType4;
+};
+
+export type CollectorHealthCheckCollectorHealthCheckPart1Type = {
+  /**
+   * Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
+   */
+  authentication?: AuthenticationHealthCheck | undefined;
+  /**
+   * Login username
+   */
+  username: string;
+  /**
+   * Login password
+   */
+  password: string;
+  discovery?: DiscoveryHealthCheck | undefined;
+  /**
+   * Expression to derive URL to use for the health check operation (can be a constant).
+   */
+  collectUrl: string;
+  /**
+   * Health check HTTP method.
+   */
+  collectMethod?: HealthCheckMethodHealthCheck | undefined;
+  /**
+   * Optional health check request parameters.
+   */
+  collectRequestParams?: Array<ItemsTypeCollectRequestParams> | undefined;
+  /**
+   * Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
+   */
+  collectBody?: string | undefined;
+  /**
+   * Optional health check request headers.
+   */
+  collectRequestHeaders?: Array<CollectRequestHeaderHealthCheck> | undefined;
+  /**
+   * Enable to make auth health check call.
+   */
+  authenticateCollect?: boolean | undefined;
+  /**
+   * HTTP request inactivity timeout, use 0 to disable
+   */
+  timeout?: number | undefined;
+  /**
+   * Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
+   */
+  rejectUnauthorized?: boolean | undefined;
+  defaultBreakers?: HiddenDefaultBreakersOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text.
+   */
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: RetryRulesHealthCheck | undefined;
+  /**
+   * Select or create a stored secret that references your login credentials
+   */
+  credentialsSecret?: string | undefined;
+  /**
+   * URL to use for the OAuth API call. This call is expected to be a POST.
+   */
+  loginUrl?: string | undefined;
+  /**
+   * Template for POST body to send with login request, ${username} and ${password} are used to specify location of these attributes in the message
+   */
+  loginBody?: string | undefined;
+  /**
+   * Path to token attribute in login response body. Nested attributes are OK. Leave blank if the response content type is text/plain; the entire response body will be used to derive the authorization header.
+   */
+  tokenRespAttribute?: string | undefined;
+  /**
+   * JavaScript expression to compute the Authorization header to pass in discover and collect calls. The value ${token} is used to reference the token obtained from login.
+   */
+  authHeaderExpr?: string | undefined;
+  /**
+   * Optional authentication request headers.
+   */
+  authRequestHeaders?: Array<ItemsTypeAuthRequestHeaders> | undefined;
+  /**
+   * Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
+   */
+  clientSecretParamName?: string | undefined;
+  /**
+   * Secret value to add to HTTP requests as the 'client secret' parameter. Stored on disk encrypted, and is automatically added to request parameters
+   */
+  clientSecretParamValue?: string | undefined;
+  /**
+   * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
+   */
+  authRequestParams?: Array<ItemsTypeAuthRequestParams> | undefined;
+  /**
+   * Select or create a text secret that contains the client secret's value.
+   */
+  textSecret?: string | undefined;
+  /**
+   * Collector type: health_check
+   */
+  type: CollectorHealthCheckType4;
+};
+
+export type CollectorHealthCheckCollectorHealthCheckPart0Type = {
+  /**
+   * Authentication method for Discover and Collect REST calls. You can specify API Key–based authentication by adding the appropriate Collect headers.
+   */
+  authentication?: AuthenticationHealthCheck | undefined;
+  discovery?: DiscoveryHealthCheck | undefined;
+  /**
+   * Expression to derive URL to use for the health check operation (can be a constant).
+   */
+  collectUrl: string;
+  /**
+   * Health check HTTP method.
+   */
+  collectMethod?: HealthCheckMethodHealthCheck | undefined;
+  /**
+   * Optional health check request parameters.
+   */
+  collectRequestParams?: Array<ItemsTypeCollectRequestParams> | undefined;
+  /**
+   * Template for POST body to send with the health check request. You can reference parameters from the Discover response, using template params of the form: ${variable}.
+   */
+  collectBody?: string | undefined;
+  /**
+   * Optional health check request headers.
+   */
+  collectRequestHeaders?: Array<CollectRequestHeaderHealthCheck> | undefined;
+  /**
+   * Enable to make auth health check call.
+   */
+  authenticateCollect?: boolean | undefined;
+  /**
+   * HTTP request inactivity timeout, use 0 to disable
+   */
+  timeout?: number | undefined;
+  /**
+   * Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
+   */
+  rejectUnauthorized?: boolean | undefined;
+  defaultBreakers?: HiddenDefaultBreakersOptions | undefined;
+  /**
+   * List of headers that are safe to log in plain text.
+   */
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: RetryRulesHealthCheck | undefined;
   /**
    * Login username
    */
@@ -1944,9 +1268,7 @@ export type CollectorHealthCheckHealthCheck4 = {
   /**
    * Optional authentication request headers.
    */
-  authRequestHeaders?:
-    | Array<CollectorHealthCheckAuthRequestHeader4>
-    | undefined;
+  authRequestHeaders?: Array<ItemsTypeAuthRequestHeaders> | undefined;
   /**
    * Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
    */
@@ -1958,7 +1280,7 @@ export type CollectorHealthCheckHealthCheck4 = {
   /**
    * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
    */
-  authRequestParams?: Array<CollectorHealthCheckAuthRequestParam4> | undefined;
+  authRequestParams?: Array<ItemsTypeAuthRequestParams> | undefined;
   /**
    * Select or create a text secret that contains the client secret's value.
    */
@@ -2026,17 +1348,6 @@ export type CollectorHealthCheckDiscovery3 = {
   discoverType?: CollectorHealthCheckDiscoverType3 | undefined;
 };
 
-export type CollectorHealthCheckCollectRequestParam3 = {
-  /**
-   * Parameter name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the parameter value (can be a constant).
-   */
-  value: string;
-};
-
 export type CollectorHealthCheckCollectRequestHeader3 = {
   /**
    * Header Name
@@ -2067,69 +1378,16 @@ export type CollectorHealthCheckAuthentication3 = OpenEnum<
   typeof CollectorHealthCheckAuthentication3
 >;
 
-export const CollectorHealthCheckHiddenDefaultBreakers3 = {
-  Cribl: "Cribl",
-} as const;
-export type CollectorHealthCheckHiddenDefaultBreakers3 = OpenEnum<
-  typeof CollectorHealthCheckHiddenDefaultBreakers3
->;
-
-/**
- * The algorithm to use when performing HTTP retries
- */
-export const CollectorHealthCheckRetryType3 = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * The algorithm to use when performing HTTP retries
- */
-export type CollectorHealthCheckRetryType3 = OpenEnum<
-  typeof CollectorHealthCheckRetryType3
->;
-
 export type CollectorHealthCheckRetryRules3 = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type?: CollectorHealthCheckRetryType3 | undefined;
+  type?: RetryTypeOptionsRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
   codes?: any | undefined;
   enableHeader?: any | undefined;
-};
-
-export type CollectorHealthCheckAuthRequestHeader3 = {
-  /**
-   * Header name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-   */
-  value: string;
-};
-
-export type CollectorHealthCheckAuthRequestParam3 = {
-  /**
-   * Parameter name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-   */
-  value: string;
 };
 
 /**
@@ -2162,9 +1420,7 @@ export type CollectorHealthCheckHealthCheck3 = {
   /**
    * Optional health check request parameters.
    */
-  collectRequestParams?:
-    | Array<CollectorHealthCheckCollectRequestParam3>
-    | undefined;
+  collectRequestParams?: Array<ItemsTypeCollectRequestParams> | undefined;
   /**
    * Optional health check request headers.
    */
@@ -2187,7 +1443,7 @@ export type CollectorHealthCheckHealthCheck3 = {
    * Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
    */
   rejectUnauthorized?: boolean | undefined;
-  defaultBreakers?: CollectorHealthCheckHiddenDefaultBreakers3 | undefined;
+  defaultBreakers?: HiddenDefaultBreakersOptions | undefined;
   /**
    * List of headers that are safe to log in plain text.
    */
@@ -2224,9 +1480,7 @@ export type CollectorHealthCheckHealthCheck3 = {
   /**
    * Optional authentication request headers.
    */
-  authRequestHeaders?:
-    | Array<CollectorHealthCheckAuthRequestHeader3>
-    | undefined;
+  authRequestHeaders?: Array<ItemsTypeAuthRequestHeaders> | undefined;
   /**
    * Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
    */
@@ -2238,7 +1492,7 @@ export type CollectorHealthCheckHealthCheck3 = {
   /**
    * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
    */
-  authRequestParams?: Array<CollectorHealthCheckAuthRequestParam3> | undefined;
+  authRequestParams?: Array<ItemsTypeAuthRequestParams> | undefined;
   /**
    * Select or create a text secret that contains the client secret's value.
    */
@@ -2270,17 +1524,6 @@ export const HealthCheckMethod2 = {
  * Health check HTTP method.
  */
 export type HealthCheckMethod2 = OpenEnum<typeof HealthCheckMethod2>;
-
-export type CollectorHealthCheckCollectRequestParam2 = {
-  /**
-   * Parameter name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the parameter value (can be a constant).
-   */
-  value: string;
-};
 
 /**
  * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
@@ -2347,69 +1590,16 @@ export type CollectorHealthCheckAuthentication2 = OpenEnum<
   typeof CollectorHealthCheckAuthentication2
 >;
 
-export const CollectorHealthCheckHiddenDefaultBreakers2 = {
-  Cribl: "Cribl",
-} as const;
-export type CollectorHealthCheckHiddenDefaultBreakers2 = OpenEnum<
-  typeof CollectorHealthCheckHiddenDefaultBreakers2
->;
-
-/**
- * The algorithm to use when performing HTTP retries
- */
-export const CollectorHealthCheckRetryType2 = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * The algorithm to use when performing HTTP retries
- */
-export type CollectorHealthCheckRetryType2 = OpenEnum<
-  typeof CollectorHealthCheckRetryType2
->;
-
 export type CollectorHealthCheckRetryRules2 = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type?: CollectorHealthCheckRetryType2 | undefined;
+  type?: RetryTypeOptionsRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
   codes?: any | undefined;
   enableHeader?: any | undefined;
-};
-
-export type CollectorHealthCheckAuthRequestHeader2 = {
-  /**
-   * Header name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-   */
-  value: string;
-};
-
-export type CollectorHealthCheckAuthRequestParam2 = {
-  /**
-   * Parameter name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-   */
-  value: string;
 };
 
 /**
@@ -2433,9 +1623,7 @@ export type CollectorHealthCheckHealthCheck2 = {
   /**
    * Optional health check request parameters.
    */
-  collectRequestParams?:
-    | Array<CollectorHealthCheckCollectRequestParam2>
-    | undefined;
+  collectRequestParams?: Array<ItemsTypeCollectRequestParams> | undefined;
   discovery?: CollectorHealthCheckDiscovery2 | undefined;
   /**
    * Expression to derive URL to use for the health check operation (can be a constant).
@@ -2467,7 +1655,7 @@ export type CollectorHealthCheckHealthCheck2 = {
    * Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
    */
   rejectUnauthorized?: boolean | undefined;
-  defaultBreakers?: CollectorHealthCheckHiddenDefaultBreakers2 | undefined;
+  defaultBreakers?: HiddenDefaultBreakersOptions | undefined;
   /**
    * List of headers that are safe to log in plain text.
    */
@@ -2504,9 +1692,7 @@ export type CollectorHealthCheckHealthCheck2 = {
   /**
    * Optional authentication request headers.
    */
-  authRequestHeaders?:
-    | Array<CollectorHealthCheckAuthRequestHeader2>
-    | undefined;
+  authRequestHeaders?: Array<ItemsTypeAuthRequestHeaders> | undefined;
   /**
    * Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
    */
@@ -2518,7 +1704,7 @@ export type CollectorHealthCheckHealthCheck2 = {
   /**
    * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
    */
-  authRequestParams?: Array<CollectorHealthCheckAuthRequestParam2> | undefined;
+  authRequestParams?: Array<ItemsTypeAuthRequestParams> | undefined;
   /**
    * Select or create a text secret that contains the client secret's value.
    */
@@ -2550,17 +1736,6 @@ export const HealthCheckMethod1 = {
  * Health check HTTP method.
  */
 export type HealthCheckMethod1 = OpenEnum<typeof HealthCheckMethod1>;
-
-export type CollectorHealthCheckCollectRequestParam1 = {
-  /**
-   * Parameter name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the parameter value (can be a constant).
-   */
-  value: string;
-};
 
 /**
  * Defines how task discovery will be performed. Use None to skip the discovery. Use HTTP Request to make a REST call to discover tasks. Use Item List to enumerate items for collect to retrieve. Use JSON Response to manually define discover tasks as a JSON array of objects. Each entry returned by the discover operation will result in a collect task.
@@ -2627,69 +1802,16 @@ export type CollectorHealthCheckAuthentication1 = OpenEnum<
   typeof CollectorHealthCheckAuthentication1
 >;
 
-export const CollectorHealthCheckHiddenDefaultBreakers1 = {
-  Cribl: "Cribl",
-} as const;
-export type CollectorHealthCheckHiddenDefaultBreakers1 = OpenEnum<
-  typeof CollectorHealthCheckHiddenDefaultBreakers1
->;
-
-/**
- * The algorithm to use when performing HTTP retries
- */
-export const CollectorHealthCheckRetryType1 = {
-  /**
-   * Disabled
-   */
-  None: "none",
-  /**
-   * Backoff
-   */
-  Backoff: "backoff",
-  /**
-   * Static
-   */
-  Static: "static",
-} as const;
-/**
- * The algorithm to use when performing HTTP retries
- */
-export type CollectorHealthCheckRetryType1 = OpenEnum<
-  typeof CollectorHealthCheckRetryType1
->;
-
 export type CollectorHealthCheckRetryRules1 = {
   /**
    * The algorithm to use when performing HTTP retries
    */
-  type?: CollectorHealthCheckRetryType1 | undefined;
+  type?: RetryTypeOptionsRetryRules | undefined;
   interval?: any | undefined;
   limit?: any | undefined;
   multiplier?: any | undefined;
   codes?: any | undefined;
   enableHeader?: any | undefined;
-};
-
-export type CollectorHealthCheckAuthRequestHeader1 = {
-  /**
-   * Header name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the header's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-   */
-  value: string;
-};
-
-export type CollectorHealthCheckAuthRequestParam1 = {
-  /**
-   * Parameter name.
-   */
-  name: string;
-  /**
-   * JavaScript expression to compute the parameter's value, normally enclosed in backticks (e.g., `${earliest}`). If a constant, use single quotes (e.g., 'earliest'). Values without delimiters (e.g., earliest) are evaluated as strings.
-   */
-  value: string;
 };
 
 /**
@@ -2713,9 +1835,7 @@ export type CollectorHealthCheckHealthCheck1 = {
   /**
    * Optional health check request parameters.
    */
-  collectRequestParams?:
-    | Array<CollectorHealthCheckCollectRequestParam1>
-    | undefined;
+  collectRequestParams?: Array<ItemsTypeCollectRequestParams> | undefined;
   discovery?: CollectorHealthCheckDiscovery1 | undefined;
   /**
    * Expression to derive URL to use for the health check operation (can be a constant).
@@ -2747,7 +1867,7 @@ export type CollectorHealthCheckHealthCheck1 = {
    * Whether to reject certificates that cannot be verified against a valid CA (e.g., self-signed certificates).
    */
   rejectUnauthorized?: boolean | undefined;
-  defaultBreakers?: CollectorHealthCheckHiddenDefaultBreakers1 | undefined;
+  defaultBreakers?: HiddenDefaultBreakersOptions | undefined;
   /**
    * List of headers that are safe to log in plain text.
    */
@@ -2784,9 +1904,7 @@ export type CollectorHealthCheckHealthCheck1 = {
   /**
    * Optional authentication request headers.
    */
-  authRequestHeaders?:
-    | Array<CollectorHealthCheckAuthRequestHeader1>
-    | undefined;
+  authRequestHeaders?: Array<ItemsTypeAuthRequestHeaders> | undefined;
   /**
    * Parameter name that contains client secret. Defaults to 'client_secret', and is automatically added to request parameters.
    */
@@ -2798,7 +1916,7 @@ export type CollectorHealthCheckHealthCheck1 = {
   /**
    * OAuth request parameters added to the POST body. The Content-Type header will automatically be set to application/x-www-form-urlencoded.
    */
-  authRequestParams?: Array<CollectorHealthCheckAuthRequestParam1> | undefined;
+  authRequestParams?: Array<ItemsTypeAuthRequestParams> | undefined;
   /**
    * Select or create a text secret that contains the client secret's value.
    */
@@ -2810,1577 +1928,16 @@ export type CollectorHealthCheckHealthCheck1 = {
 };
 
 export type CollectorHealthCheck =
+  | CollectorHealthCheckCollectorHealthCheckPart1Type
+  | CollectorHealthCheckHealthCheck4
+  | CollectorHealthCheckCollectorHealthCheckPart2Type
   | CollectorHealthCheckHealthCheck5
-  | CollectorHealthCheckHealthCheck7
   | CollectorHealthCheckHealthCheck6
-  | CollectorHealthCheckHealthCheck8
-  | CollectorHealthCheckHealthCheck9
-  | CollectorHealthCheckHealthCheck10
+  | CollectorHealthCheckHealthCheck7
   | CollectorHealthCheckHealthCheck1
   | CollectorHealthCheckHealthCheck2
   | CollectorHealthCheckHealthCheck3
-  | CollectorHealthCheckHealthCheck4;
-
-/** @internal */
-export const CollectorHealthCheckAuthentication10$inboundSchema: z.ZodType<
-  CollectorHealthCheckAuthentication10,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(CollectorHealthCheckAuthentication10);
-/** @internal */
-export const CollectorHealthCheckAuthentication10$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CollectorHealthCheckAuthentication10
-> = openEnums.outboundSchema(CollectorHealthCheckAuthentication10);
-
-/** @internal */
-export const CollectorHealthCheckAuthRequestParam10$inboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestParam10,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type CollectorHealthCheckAuthRequestParam10$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckAuthRequestParam10$outboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestParam10$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckAuthRequestParam10
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function collectorHealthCheckAuthRequestParam10ToJSON(
-  collectorHealthCheckAuthRequestParam10:
-    CollectorHealthCheckAuthRequestParam10,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckAuthRequestParam10$outboundSchema.parse(
-      collectorHealthCheckAuthRequestParam10,
-    ),
-  );
-}
-export function collectorHealthCheckAuthRequestParam10FromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorHealthCheckAuthRequestParam10, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CollectorHealthCheckAuthRequestParam10$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorHealthCheckAuthRequestParam10' from JSON`,
-  );
-}
-
-/** @internal */
-export const CollectorHealthCheckAuthRequestHeader10$inboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestHeader10,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type CollectorHealthCheckAuthRequestHeader10$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckAuthRequestHeader10$outboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestHeader10$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckAuthRequestHeader10
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function collectorHealthCheckAuthRequestHeader10ToJSON(
-  collectorHealthCheckAuthRequestHeader10:
-    CollectorHealthCheckAuthRequestHeader10,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckAuthRequestHeader10$outboundSchema.parse(
-      collectorHealthCheckAuthRequestHeader10,
-    ),
-  );
-}
-export function collectorHealthCheckAuthRequestHeader10FromJSON(
-  jsonString: string,
-): SafeParseResult<
-  CollectorHealthCheckAuthRequestHeader10,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CollectorHealthCheckAuthRequestHeader10$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'CollectorHealthCheckAuthRequestHeader10' from JSON`,
-  );
-}
-
-/** @internal */
-export const CollectorHealthCheckDiscoverType10$inboundSchema: z.ZodType<
-  CollectorHealthCheckDiscoverType10,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(CollectorHealthCheckDiscoverType10);
-/** @internal */
-export const CollectorHealthCheckDiscoverType10$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CollectorHealthCheckDiscoverType10
-> = openEnums.outboundSchema(CollectorHealthCheckDiscoverType10);
-
-/** @internal */
-export const CollectorHealthCheckDiscovery10$inboundSchema: z.ZodType<
-  CollectorHealthCheckDiscovery10,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  discoverType: CollectorHealthCheckDiscoverType10$inboundSchema.default(
-    "none",
-  ),
-});
-/** @internal */
-export type CollectorHealthCheckDiscovery10$Outbound = {
-  discoverType: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckDiscovery10$outboundSchema: z.ZodType<
-  CollectorHealthCheckDiscovery10$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckDiscovery10
-> = z.object({
-  discoverType: CollectorHealthCheckDiscoverType10$outboundSchema.default(
-    "none",
-  ),
-});
-
-export function collectorHealthCheckDiscovery10ToJSON(
-  collectorHealthCheckDiscovery10: CollectorHealthCheckDiscovery10,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckDiscovery10$outboundSchema.parse(
-      collectorHealthCheckDiscovery10,
-    ),
-  );
-}
-export function collectorHealthCheckDiscovery10FromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorHealthCheckDiscovery10, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CollectorHealthCheckDiscovery10$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorHealthCheckDiscovery10' from JSON`,
-  );
-}
-
-/** @internal */
-export const HealthCheckMethod10$inboundSchema: z.ZodType<
-  HealthCheckMethod10,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(HealthCheckMethod10);
-/** @internal */
-export const HealthCheckMethod10$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  HealthCheckMethod10
-> = openEnums.outboundSchema(HealthCheckMethod10);
-
-/** @internal */
-export const CollectorHealthCheckCollectRequestParam10$inboundSchema: z.ZodType<
-  CollectorHealthCheckCollectRequestParam10,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type CollectorHealthCheckCollectRequestParam10$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckCollectRequestParam10$outboundSchema:
-  z.ZodType<
-    CollectorHealthCheckCollectRequestParam10$Outbound,
-    z.ZodTypeDef,
-    CollectorHealthCheckCollectRequestParam10
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function collectorHealthCheckCollectRequestParam10ToJSON(
-  collectorHealthCheckCollectRequestParam10:
-    CollectorHealthCheckCollectRequestParam10,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckCollectRequestParam10$outboundSchema.parse(
-      collectorHealthCheckCollectRequestParam10,
-    ),
-  );
-}
-export function collectorHealthCheckCollectRequestParam10FromJSON(
-  jsonString: string,
-): SafeParseResult<
-  CollectorHealthCheckCollectRequestParam10,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CollectorHealthCheckCollectRequestParam10$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'CollectorHealthCheckCollectRequestParam10' from JSON`,
-  );
-}
-
-/** @internal */
-export const CollectorHealthCheckCollectRequestHeader10$inboundSchema:
-  z.ZodType<CollectorHealthCheckCollectRequestHeader10, z.ZodTypeDef, unknown> =
-    z.object({
-      name: z.string(),
-      value: z.string(),
-    });
-/** @internal */
-export type CollectorHealthCheckCollectRequestHeader10$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckCollectRequestHeader10$outboundSchema:
-  z.ZodType<
-    CollectorHealthCheckCollectRequestHeader10$Outbound,
-    z.ZodTypeDef,
-    CollectorHealthCheckCollectRequestHeader10
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function collectorHealthCheckCollectRequestHeader10ToJSON(
-  collectorHealthCheckCollectRequestHeader10:
-    CollectorHealthCheckCollectRequestHeader10,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckCollectRequestHeader10$outboundSchema.parse(
-      collectorHealthCheckCollectRequestHeader10,
-    ),
-  );
-}
-export function collectorHealthCheckCollectRequestHeader10FromJSON(
-  jsonString: string,
-): SafeParseResult<
-  CollectorHealthCheckCollectRequestHeader10,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CollectorHealthCheckCollectRequestHeader10$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'CollectorHealthCheckCollectRequestHeader10' from JSON`,
-  );
-}
-
-/** @internal */
-export const CollectorHealthCheckHiddenDefaultBreakers10$inboundSchema:
-  z.ZodType<
-    CollectorHealthCheckHiddenDefaultBreakers10,
-    z.ZodTypeDef,
-    unknown
-  > = openEnums.inboundSchema(CollectorHealthCheckHiddenDefaultBreakers10);
-/** @internal */
-export const CollectorHealthCheckHiddenDefaultBreakers10$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, CollectorHealthCheckHiddenDefaultBreakers10> =
-    openEnums.outboundSchema(CollectorHealthCheckHiddenDefaultBreakers10);
-
-/** @internal */
-export const CollectorHealthCheckRetryType10$inboundSchema: z.ZodType<
-  CollectorHealthCheckRetryType10,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(CollectorHealthCheckRetryType10);
-/** @internal */
-export const CollectorHealthCheckRetryType10$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CollectorHealthCheckRetryType10
-> = openEnums.outboundSchema(CollectorHealthCheckRetryType10);
-
-/** @internal */
-export const CollectorHealthCheckRetryRules10$inboundSchema: z.ZodType<
-  CollectorHealthCheckRetryRules10,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: CollectorHealthCheckRetryType10$inboundSchema.default("backoff"),
-  interval: z.any().optional(),
-  limit: z.any().optional(),
-  multiplier: z.any().optional(),
-  codes: z.any().optional(),
-  enableHeader: z.any().optional(),
-});
-/** @internal */
-export type CollectorHealthCheckRetryRules10$Outbound = {
-  type: string;
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-};
-
-/** @internal */
-export const CollectorHealthCheckRetryRules10$outboundSchema: z.ZodType<
-  CollectorHealthCheckRetryRules10$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckRetryRules10
-> = z.object({
-  type: CollectorHealthCheckRetryType10$outboundSchema.default("backoff"),
-  interval: z.any().optional(),
-  limit: z.any().optional(),
-  multiplier: z.any().optional(),
-  codes: z.any().optional(),
-  enableHeader: z.any().optional(),
-});
-
-export function collectorHealthCheckRetryRules10ToJSON(
-  collectorHealthCheckRetryRules10: CollectorHealthCheckRetryRules10,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckRetryRules10$outboundSchema.parse(
-      collectorHealthCheckRetryRules10,
-    ),
-  );
-}
-export function collectorHealthCheckRetryRules10FromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorHealthCheckRetryRules10, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CollectorHealthCheckRetryRules10$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorHealthCheckRetryRules10' from JSON`,
-  );
-}
-
-/** @internal */
-export const CollectorHealthCheckType10$inboundSchema: z.ZodNativeEnum<
-  typeof CollectorHealthCheckType10
-> = z.nativeEnum(CollectorHealthCheckType10);
-/** @internal */
-export const CollectorHealthCheckType10$outboundSchema: z.ZodNativeEnum<
-  typeof CollectorHealthCheckType10
-> = CollectorHealthCheckType10$inboundSchema;
-
-/** @internal */
-export const CollectorHealthCheckHealthCheck10$inboundSchema: z.ZodType<
-  CollectorHealthCheckHealthCheck10,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  authentication: CollectorHealthCheckAuthentication10$inboundSchema.default(
-    "none",
-  ),
-  loginUrl: z.string().default(""),
-  tokenRespAttribute: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  clientSecretParamName: z.string().default("client_secret"),
-  textSecret: z.string(),
-  authRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestParam10$inboundSchema),
-  ).optional(),
-  authRequestHeaders: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestHeader10$inboundSchema),
-  ).optional(),
-  discovery: z.lazy(() => CollectorHealthCheckDiscovery10$inboundSchema)
-    .optional(),
-  collectUrl: z.string(),
-  collectMethod: HealthCheckMethod10$inboundSchema.default("get"),
-  collectRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckCollectRequestParam10$inboundSchema),
-  ).optional(),
-  collectBody: z.string().default("`{ }`"),
-  collectRequestHeaders: z.array(
-    z.lazy(() => CollectorHealthCheckCollectRequestHeader10$inboundSchema),
-  ).optional(),
-  authenticateCollect: z.boolean().default(false),
-  timeout: z.number().default(30),
-  rejectUnauthorized: z.boolean().default(false),
-  defaultBreakers: CollectorHealthCheckHiddenDefaultBreakers10$inboundSchema
-    .optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  retryRules: z.lazy(() => CollectorHealthCheckRetryRules10$inboundSchema)
-    .optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  credentialsSecret: z.string().optional(),
-  loginBody: z.string().default(
-    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
-  ),
-  clientSecretParamValue: z.string().optional(),
-  type: CollectorHealthCheckType10$inboundSchema,
-});
-/** @internal */
-export type CollectorHealthCheckHealthCheck10$Outbound = {
-  authentication: string;
-  loginUrl: string;
-  tokenRespAttribute?: string | undefined;
-  authHeaderExpr: string;
-  clientSecretParamName: string;
-  textSecret: string;
-  authRequestParams?:
-    | Array<CollectorHealthCheckAuthRequestParam10$Outbound>
-    | undefined;
-  authRequestHeaders?:
-    | Array<CollectorHealthCheckAuthRequestHeader10$Outbound>
-    | undefined;
-  discovery?: CollectorHealthCheckDiscovery10$Outbound | undefined;
-  collectUrl: string;
-  collectMethod: string;
-  collectRequestParams?:
-    | Array<CollectorHealthCheckCollectRequestParam10$Outbound>
-    | undefined;
-  collectBody: string;
-  collectRequestHeaders?:
-    | Array<CollectorHealthCheckCollectRequestHeader10$Outbound>
-    | undefined;
-  authenticateCollect: boolean;
-  timeout: number;
-  rejectUnauthorized: boolean;
-  defaultBreakers?: string | undefined;
-  safeHeaders?: Array<string> | undefined;
-  retryRules?: CollectorHealthCheckRetryRules10$Outbound | undefined;
-  username?: string | undefined;
-  password?: string | undefined;
-  credentialsSecret?: string | undefined;
-  loginBody: string;
-  clientSecretParamValue?: string | undefined;
-  type: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckHealthCheck10$outboundSchema: z.ZodType<
-  CollectorHealthCheckHealthCheck10$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckHealthCheck10
-> = z.object({
-  authentication: CollectorHealthCheckAuthentication10$outboundSchema.default(
-    "none",
-  ),
-  loginUrl: z.string().default(""),
-  tokenRespAttribute: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  clientSecretParamName: z.string().default("client_secret"),
-  textSecret: z.string(),
-  authRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestParam10$outboundSchema),
-  ).optional(),
-  authRequestHeaders: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestHeader10$outboundSchema),
-  ).optional(),
-  discovery: z.lazy(() => CollectorHealthCheckDiscovery10$outboundSchema)
-    .optional(),
-  collectUrl: z.string(),
-  collectMethod: HealthCheckMethod10$outboundSchema.default("get"),
-  collectRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckCollectRequestParam10$outboundSchema),
-  ).optional(),
-  collectBody: z.string().default("`{ }`"),
-  collectRequestHeaders: z.array(
-    z.lazy(() => CollectorHealthCheckCollectRequestHeader10$outboundSchema),
-  ).optional(),
-  authenticateCollect: z.boolean().default(false),
-  timeout: z.number().default(30),
-  rejectUnauthorized: z.boolean().default(false),
-  defaultBreakers: CollectorHealthCheckHiddenDefaultBreakers10$outboundSchema
-    .optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  retryRules: z.lazy(() => CollectorHealthCheckRetryRules10$outboundSchema)
-    .optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  credentialsSecret: z.string().optional(),
-  loginBody: z.string().default(
-    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
-  ),
-  clientSecretParamValue: z.string().optional(),
-  type: CollectorHealthCheckType10$outboundSchema,
-});
-
-export function collectorHealthCheckHealthCheck10ToJSON(
-  collectorHealthCheckHealthCheck10: CollectorHealthCheckHealthCheck10,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckHealthCheck10$outboundSchema.parse(
-      collectorHealthCheckHealthCheck10,
-    ),
-  );
-}
-export function collectorHealthCheckHealthCheck10FromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorHealthCheckHealthCheck10, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CollectorHealthCheckHealthCheck10$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorHealthCheckHealthCheck10' from JSON`,
-  );
-}
-
-/** @internal */
-export const CollectorHealthCheckAuthentication9$inboundSchema: z.ZodType<
-  CollectorHealthCheckAuthentication9,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(CollectorHealthCheckAuthentication9);
-/** @internal */
-export const CollectorHealthCheckAuthentication9$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CollectorHealthCheckAuthentication9
-> = openEnums.outboundSchema(CollectorHealthCheckAuthentication9);
-
-/** @internal */
-export const CollectorHealthCheckAuthRequestParam9$inboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestParam9,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type CollectorHealthCheckAuthRequestParam9$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckAuthRequestParam9$outboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestParam9$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckAuthRequestParam9
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function collectorHealthCheckAuthRequestParam9ToJSON(
-  collectorHealthCheckAuthRequestParam9: CollectorHealthCheckAuthRequestParam9,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckAuthRequestParam9$outboundSchema.parse(
-      collectorHealthCheckAuthRequestParam9,
-    ),
-  );
-}
-export function collectorHealthCheckAuthRequestParam9FromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorHealthCheckAuthRequestParam9, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CollectorHealthCheckAuthRequestParam9$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorHealthCheckAuthRequestParam9' from JSON`,
-  );
-}
-
-/** @internal */
-export const CollectorHealthCheckAuthRequestHeader9$inboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestHeader9,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type CollectorHealthCheckAuthRequestHeader9$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckAuthRequestHeader9$outboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestHeader9$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckAuthRequestHeader9
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function collectorHealthCheckAuthRequestHeader9ToJSON(
-  collectorHealthCheckAuthRequestHeader9:
-    CollectorHealthCheckAuthRequestHeader9,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckAuthRequestHeader9$outboundSchema.parse(
-      collectorHealthCheckAuthRequestHeader9,
-    ),
-  );
-}
-export function collectorHealthCheckAuthRequestHeader9FromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorHealthCheckAuthRequestHeader9, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CollectorHealthCheckAuthRequestHeader9$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorHealthCheckAuthRequestHeader9' from JSON`,
-  );
-}
-
-/** @internal */
-export const CollectorHealthCheckDiscoverType9$inboundSchema: z.ZodType<
-  CollectorHealthCheckDiscoverType9,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(CollectorHealthCheckDiscoverType9);
-/** @internal */
-export const CollectorHealthCheckDiscoverType9$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CollectorHealthCheckDiscoverType9
-> = openEnums.outboundSchema(CollectorHealthCheckDiscoverType9);
-
-/** @internal */
-export const CollectorHealthCheckDiscovery9$inboundSchema: z.ZodType<
-  CollectorHealthCheckDiscovery9,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  discoverType: CollectorHealthCheckDiscoverType9$inboundSchema.default("none"),
-});
-/** @internal */
-export type CollectorHealthCheckDiscovery9$Outbound = {
-  discoverType: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckDiscovery9$outboundSchema: z.ZodType<
-  CollectorHealthCheckDiscovery9$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckDiscovery9
-> = z.object({
-  discoverType: CollectorHealthCheckDiscoverType9$outboundSchema.default(
-    "none",
-  ),
-});
-
-export function collectorHealthCheckDiscovery9ToJSON(
-  collectorHealthCheckDiscovery9: CollectorHealthCheckDiscovery9,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckDiscovery9$outboundSchema.parse(
-      collectorHealthCheckDiscovery9,
-    ),
-  );
-}
-export function collectorHealthCheckDiscovery9FromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorHealthCheckDiscovery9, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CollectorHealthCheckDiscovery9$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorHealthCheckDiscovery9' from JSON`,
-  );
-}
-
-/** @internal */
-export const HealthCheckMethod9$inboundSchema: z.ZodType<
-  HealthCheckMethod9,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(HealthCheckMethod9);
-/** @internal */
-export const HealthCheckMethod9$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  HealthCheckMethod9
-> = openEnums.outboundSchema(HealthCheckMethod9);
-
-/** @internal */
-export const CollectorHealthCheckCollectRequestParam9$inboundSchema: z.ZodType<
-  CollectorHealthCheckCollectRequestParam9,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type CollectorHealthCheckCollectRequestParam9$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckCollectRequestParam9$outboundSchema: z.ZodType<
-  CollectorHealthCheckCollectRequestParam9$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckCollectRequestParam9
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function collectorHealthCheckCollectRequestParam9ToJSON(
-  collectorHealthCheckCollectRequestParam9:
-    CollectorHealthCheckCollectRequestParam9,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckCollectRequestParam9$outboundSchema.parse(
-      collectorHealthCheckCollectRequestParam9,
-    ),
-  );
-}
-export function collectorHealthCheckCollectRequestParam9FromJSON(
-  jsonString: string,
-): SafeParseResult<
-  CollectorHealthCheckCollectRequestParam9,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CollectorHealthCheckCollectRequestParam9$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'CollectorHealthCheckCollectRequestParam9' from JSON`,
-  );
-}
-
-/** @internal */
-export const CollectorHealthCheckCollectRequestHeader9$inboundSchema: z.ZodType<
-  CollectorHealthCheckCollectRequestHeader9,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type CollectorHealthCheckCollectRequestHeader9$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckCollectRequestHeader9$outboundSchema:
-  z.ZodType<
-    CollectorHealthCheckCollectRequestHeader9$Outbound,
-    z.ZodTypeDef,
-    CollectorHealthCheckCollectRequestHeader9
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function collectorHealthCheckCollectRequestHeader9ToJSON(
-  collectorHealthCheckCollectRequestHeader9:
-    CollectorHealthCheckCollectRequestHeader9,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckCollectRequestHeader9$outboundSchema.parse(
-      collectorHealthCheckCollectRequestHeader9,
-    ),
-  );
-}
-export function collectorHealthCheckCollectRequestHeader9FromJSON(
-  jsonString: string,
-): SafeParseResult<
-  CollectorHealthCheckCollectRequestHeader9,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CollectorHealthCheckCollectRequestHeader9$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'CollectorHealthCheckCollectRequestHeader9' from JSON`,
-  );
-}
-
-/** @internal */
-export const CollectorHealthCheckHiddenDefaultBreakers9$inboundSchema:
-  z.ZodType<CollectorHealthCheckHiddenDefaultBreakers9, z.ZodTypeDef, unknown> =
-    openEnums.inboundSchema(CollectorHealthCheckHiddenDefaultBreakers9);
-/** @internal */
-export const CollectorHealthCheckHiddenDefaultBreakers9$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, CollectorHealthCheckHiddenDefaultBreakers9> =
-    openEnums.outboundSchema(CollectorHealthCheckHiddenDefaultBreakers9);
-
-/** @internal */
-export const CollectorHealthCheckRetryType9$inboundSchema: z.ZodType<
-  CollectorHealthCheckRetryType9,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(CollectorHealthCheckRetryType9);
-/** @internal */
-export const CollectorHealthCheckRetryType9$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CollectorHealthCheckRetryType9
-> = openEnums.outboundSchema(CollectorHealthCheckRetryType9);
-
-/** @internal */
-export const CollectorHealthCheckRetryRules9$inboundSchema: z.ZodType<
-  CollectorHealthCheckRetryRules9,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: CollectorHealthCheckRetryType9$inboundSchema.default("backoff"),
-  interval: z.any().optional(),
-  limit: z.any().optional(),
-  multiplier: z.any().optional(),
-  codes: z.any().optional(),
-  enableHeader: z.any().optional(),
-});
-/** @internal */
-export type CollectorHealthCheckRetryRules9$Outbound = {
-  type: string;
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-};
-
-/** @internal */
-export const CollectorHealthCheckRetryRules9$outboundSchema: z.ZodType<
-  CollectorHealthCheckRetryRules9$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckRetryRules9
-> = z.object({
-  type: CollectorHealthCheckRetryType9$outboundSchema.default("backoff"),
-  interval: z.any().optional(),
-  limit: z.any().optional(),
-  multiplier: z.any().optional(),
-  codes: z.any().optional(),
-  enableHeader: z.any().optional(),
-});
-
-export function collectorHealthCheckRetryRules9ToJSON(
-  collectorHealthCheckRetryRules9: CollectorHealthCheckRetryRules9,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckRetryRules9$outboundSchema.parse(
-      collectorHealthCheckRetryRules9,
-    ),
-  );
-}
-export function collectorHealthCheckRetryRules9FromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorHealthCheckRetryRules9, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CollectorHealthCheckRetryRules9$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorHealthCheckRetryRules9' from JSON`,
-  );
-}
-
-/** @internal */
-export const CollectorHealthCheckType9$inboundSchema: z.ZodNativeEnum<
-  typeof CollectorHealthCheckType9
-> = z.nativeEnum(CollectorHealthCheckType9);
-/** @internal */
-export const CollectorHealthCheckType9$outboundSchema: z.ZodNativeEnum<
-  typeof CollectorHealthCheckType9
-> = CollectorHealthCheckType9$inboundSchema;
-
-/** @internal */
-export const CollectorHealthCheckHealthCheck9$inboundSchema: z.ZodType<
-  CollectorHealthCheckHealthCheck9,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  authentication: CollectorHealthCheckAuthentication9$inboundSchema.default(
-    "none",
-  ),
-  loginUrl: z.string().default(""),
-  tokenRespAttribute: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  clientSecretParamName: z.string().default("client_secret"),
-  clientSecretParamValue: z.string(),
-  authRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestParam9$inboundSchema),
-  ).optional(),
-  authRequestHeaders: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestHeader9$inboundSchema),
-  ).optional(),
-  discovery: z.lazy(() => CollectorHealthCheckDiscovery9$inboundSchema)
-    .optional(),
-  collectUrl: z.string(),
-  collectMethod: HealthCheckMethod9$inboundSchema.default("get"),
-  collectRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckCollectRequestParam9$inboundSchema),
-  ).optional(),
-  collectBody: z.string().default("`{ }`"),
-  collectRequestHeaders: z.array(
-    z.lazy(() => CollectorHealthCheckCollectRequestHeader9$inboundSchema),
-  ).optional(),
-  authenticateCollect: z.boolean().default(false),
-  timeout: z.number().default(30),
-  rejectUnauthorized: z.boolean().default(false),
-  defaultBreakers: CollectorHealthCheckHiddenDefaultBreakers9$inboundSchema
-    .optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  retryRules: z.lazy(() => CollectorHealthCheckRetryRules9$inboundSchema)
-    .optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  credentialsSecret: z.string().optional(),
-  loginBody: z.string().default(
-    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
-  ),
-  textSecret: z.string().optional(),
-  type: CollectorHealthCheckType9$inboundSchema,
-});
-/** @internal */
-export type CollectorHealthCheckHealthCheck9$Outbound = {
-  authentication: string;
-  loginUrl: string;
-  tokenRespAttribute?: string | undefined;
-  authHeaderExpr: string;
-  clientSecretParamName: string;
-  clientSecretParamValue: string;
-  authRequestParams?:
-    | Array<CollectorHealthCheckAuthRequestParam9$Outbound>
-    | undefined;
-  authRequestHeaders?:
-    | Array<CollectorHealthCheckAuthRequestHeader9$Outbound>
-    | undefined;
-  discovery?: CollectorHealthCheckDiscovery9$Outbound | undefined;
-  collectUrl: string;
-  collectMethod: string;
-  collectRequestParams?:
-    | Array<CollectorHealthCheckCollectRequestParam9$Outbound>
-    | undefined;
-  collectBody: string;
-  collectRequestHeaders?:
-    | Array<CollectorHealthCheckCollectRequestHeader9$Outbound>
-    | undefined;
-  authenticateCollect: boolean;
-  timeout: number;
-  rejectUnauthorized: boolean;
-  defaultBreakers?: string | undefined;
-  safeHeaders?: Array<string> | undefined;
-  retryRules?: CollectorHealthCheckRetryRules9$Outbound | undefined;
-  username?: string | undefined;
-  password?: string | undefined;
-  credentialsSecret?: string | undefined;
-  loginBody: string;
-  textSecret?: string | undefined;
-  type: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckHealthCheck9$outboundSchema: z.ZodType<
-  CollectorHealthCheckHealthCheck9$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckHealthCheck9
-> = z.object({
-  authentication: CollectorHealthCheckAuthentication9$outboundSchema.default(
-    "none",
-  ),
-  loginUrl: z.string().default(""),
-  tokenRespAttribute: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  clientSecretParamName: z.string().default("client_secret"),
-  clientSecretParamValue: z.string(),
-  authRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestParam9$outboundSchema),
-  ).optional(),
-  authRequestHeaders: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestHeader9$outboundSchema),
-  ).optional(),
-  discovery: z.lazy(() => CollectorHealthCheckDiscovery9$outboundSchema)
-    .optional(),
-  collectUrl: z.string(),
-  collectMethod: HealthCheckMethod9$outboundSchema.default("get"),
-  collectRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckCollectRequestParam9$outboundSchema),
-  ).optional(),
-  collectBody: z.string().default("`{ }`"),
-  collectRequestHeaders: z.array(
-    z.lazy(() => CollectorHealthCheckCollectRequestHeader9$outboundSchema),
-  ).optional(),
-  authenticateCollect: z.boolean().default(false),
-  timeout: z.number().default(30),
-  rejectUnauthorized: z.boolean().default(false),
-  defaultBreakers: CollectorHealthCheckHiddenDefaultBreakers9$outboundSchema
-    .optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  retryRules: z.lazy(() => CollectorHealthCheckRetryRules9$outboundSchema)
-    .optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  credentialsSecret: z.string().optional(),
-  loginBody: z.string().default(
-    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
-  ),
-  textSecret: z.string().optional(),
-  type: CollectorHealthCheckType9$outboundSchema,
-});
-
-export function collectorHealthCheckHealthCheck9ToJSON(
-  collectorHealthCheckHealthCheck9: CollectorHealthCheckHealthCheck9,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckHealthCheck9$outboundSchema.parse(
-      collectorHealthCheckHealthCheck9,
-    ),
-  );
-}
-export function collectorHealthCheckHealthCheck9FromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorHealthCheckHealthCheck9, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CollectorHealthCheckHealthCheck9$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorHealthCheckHealthCheck9' from JSON`,
-  );
-}
-
-/** @internal */
-export const CollectorHealthCheckAuthentication8$inboundSchema: z.ZodType<
-  CollectorHealthCheckAuthentication8,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(CollectorHealthCheckAuthentication8);
-/** @internal */
-export const CollectorHealthCheckAuthentication8$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CollectorHealthCheckAuthentication8
-> = openEnums.outboundSchema(CollectorHealthCheckAuthentication8);
-
-/** @internal */
-export const CollectorHealthCheckAuthRequestHeader8$inboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestHeader8,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type CollectorHealthCheckAuthRequestHeader8$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckAuthRequestHeader8$outboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestHeader8$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckAuthRequestHeader8
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function collectorHealthCheckAuthRequestHeader8ToJSON(
-  collectorHealthCheckAuthRequestHeader8:
-    CollectorHealthCheckAuthRequestHeader8,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckAuthRequestHeader8$outboundSchema.parse(
-      collectorHealthCheckAuthRequestHeader8,
-    ),
-  );
-}
-export function collectorHealthCheckAuthRequestHeader8FromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorHealthCheckAuthRequestHeader8, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CollectorHealthCheckAuthRequestHeader8$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorHealthCheckAuthRequestHeader8' from JSON`,
-  );
-}
-
-/** @internal */
-export const CollectorHealthCheckDiscoverType8$inboundSchema: z.ZodType<
-  CollectorHealthCheckDiscoverType8,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(CollectorHealthCheckDiscoverType8);
-/** @internal */
-export const CollectorHealthCheckDiscoverType8$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CollectorHealthCheckDiscoverType8
-> = openEnums.outboundSchema(CollectorHealthCheckDiscoverType8);
-
-/** @internal */
-export const CollectorHealthCheckDiscovery8$inboundSchema: z.ZodType<
-  CollectorHealthCheckDiscovery8,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  discoverType: CollectorHealthCheckDiscoverType8$inboundSchema.default("none"),
-});
-/** @internal */
-export type CollectorHealthCheckDiscovery8$Outbound = {
-  discoverType: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckDiscovery8$outboundSchema: z.ZodType<
-  CollectorHealthCheckDiscovery8$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckDiscovery8
-> = z.object({
-  discoverType: CollectorHealthCheckDiscoverType8$outboundSchema.default(
-    "none",
-  ),
-});
-
-export function collectorHealthCheckDiscovery8ToJSON(
-  collectorHealthCheckDiscovery8: CollectorHealthCheckDiscovery8,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckDiscovery8$outboundSchema.parse(
-      collectorHealthCheckDiscovery8,
-    ),
-  );
-}
-export function collectorHealthCheckDiscovery8FromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorHealthCheckDiscovery8, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CollectorHealthCheckDiscovery8$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorHealthCheckDiscovery8' from JSON`,
-  );
-}
-
-/** @internal */
-export const HealthCheckMethod8$inboundSchema: z.ZodType<
-  HealthCheckMethod8,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(HealthCheckMethod8);
-/** @internal */
-export const HealthCheckMethod8$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  HealthCheckMethod8
-> = openEnums.outboundSchema(HealthCheckMethod8);
-
-/** @internal */
-export const CollectorHealthCheckCollectRequestParam8$inboundSchema: z.ZodType<
-  CollectorHealthCheckCollectRequestParam8,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type CollectorHealthCheckCollectRequestParam8$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckCollectRequestParam8$outboundSchema: z.ZodType<
-  CollectorHealthCheckCollectRequestParam8$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckCollectRequestParam8
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function collectorHealthCheckCollectRequestParam8ToJSON(
-  collectorHealthCheckCollectRequestParam8:
-    CollectorHealthCheckCollectRequestParam8,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckCollectRequestParam8$outboundSchema.parse(
-      collectorHealthCheckCollectRequestParam8,
-    ),
-  );
-}
-export function collectorHealthCheckCollectRequestParam8FromJSON(
-  jsonString: string,
-): SafeParseResult<
-  CollectorHealthCheckCollectRequestParam8,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CollectorHealthCheckCollectRequestParam8$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'CollectorHealthCheckCollectRequestParam8' from JSON`,
-  );
-}
-
-/** @internal */
-export const CollectorHealthCheckCollectRequestHeader8$inboundSchema: z.ZodType<
-  CollectorHealthCheckCollectRequestHeader8,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type CollectorHealthCheckCollectRequestHeader8$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckCollectRequestHeader8$outboundSchema:
-  z.ZodType<
-    CollectorHealthCheckCollectRequestHeader8$Outbound,
-    z.ZodTypeDef,
-    CollectorHealthCheckCollectRequestHeader8
-  > = z.object({
-    name: z.string(),
-    value: z.string(),
-  });
-
-export function collectorHealthCheckCollectRequestHeader8ToJSON(
-  collectorHealthCheckCollectRequestHeader8:
-    CollectorHealthCheckCollectRequestHeader8,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckCollectRequestHeader8$outboundSchema.parse(
-      collectorHealthCheckCollectRequestHeader8,
-    ),
-  );
-}
-export function collectorHealthCheckCollectRequestHeader8FromJSON(
-  jsonString: string,
-): SafeParseResult<
-  CollectorHealthCheckCollectRequestHeader8,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CollectorHealthCheckCollectRequestHeader8$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'CollectorHealthCheckCollectRequestHeader8' from JSON`,
-  );
-}
-
-/** @internal */
-export const CollectorHealthCheckHiddenDefaultBreakers8$inboundSchema:
-  z.ZodType<CollectorHealthCheckHiddenDefaultBreakers8, z.ZodTypeDef, unknown> =
-    openEnums.inboundSchema(CollectorHealthCheckHiddenDefaultBreakers8);
-/** @internal */
-export const CollectorHealthCheckHiddenDefaultBreakers8$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, CollectorHealthCheckHiddenDefaultBreakers8> =
-    openEnums.outboundSchema(CollectorHealthCheckHiddenDefaultBreakers8);
-
-/** @internal */
-export const CollectorHealthCheckRetryType8$inboundSchema: z.ZodType<
-  CollectorHealthCheckRetryType8,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(CollectorHealthCheckRetryType8);
-/** @internal */
-export const CollectorHealthCheckRetryType8$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CollectorHealthCheckRetryType8
-> = openEnums.outboundSchema(CollectorHealthCheckRetryType8);
-
-/** @internal */
-export const CollectorHealthCheckRetryRules8$inboundSchema: z.ZodType<
-  CollectorHealthCheckRetryRules8,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  type: CollectorHealthCheckRetryType8$inboundSchema.default("backoff"),
-  interval: z.any().optional(),
-  limit: z.any().optional(),
-  multiplier: z.any().optional(),
-  codes: z.any().optional(),
-  enableHeader: z.any().optional(),
-});
-/** @internal */
-export type CollectorHealthCheckRetryRules8$Outbound = {
-  type: string;
-  interval?: any | undefined;
-  limit?: any | undefined;
-  multiplier?: any | undefined;
-  codes?: any | undefined;
-  enableHeader?: any | undefined;
-};
-
-/** @internal */
-export const CollectorHealthCheckRetryRules8$outboundSchema: z.ZodType<
-  CollectorHealthCheckRetryRules8$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckRetryRules8
-> = z.object({
-  type: CollectorHealthCheckRetryType8$outboundSchema.default("backoff"),
-  interval: z.any().optional(),
-  limit: z.any().optional(),
-  multiplier: z.any().optional(),
-  codes: z.any().optional(),
-  enableHeader: z.any().optional(),
-});
-
-export function collectorHealthCheckRetryRules8ToJSON(
-  collectorHealthCheckRetryRules8: CollectorHealthCheckRetryRules8,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckRetryRules8$outboundSchema.parse(
-      collectorHealthCheckRetryRules8,
-    ),
-  );
-}
-export function collectorHealthCheckRetryRules8FromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorHealthCheckRetryRules8, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CollectorHealthCheckRetryRules8$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorHealthCheckRetryRules8' from JSON`,
-  );
-}
-
-/** @internal */
-export const CollectorHealthCheckAuthRequestParam8$inboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestParam8,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type CollectorHealthCheckAuthRequestParam8$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckAuthRequestParam8$outboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestParam8$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckAuthRequestParam8
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function collectorHealthCheckAuthRequestParam8ToJSON(
-  collectorHealthCheckAuthRequestParam8: CollectorHealthCheckAuthRequestParam8,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckAuthRequestParam8$outboundSchema.parse(
-      collectorHealthCheckAuthRequestParam8,
-    ),
-  );
-}
-export function collectorHealthCheckAuthRequestParam8FromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorHealthCheckAuthRequestParam8, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CollectorHealthCheckAuthRequestParam8$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorHealthCheckAuthRequestParam8' from JSON`,
-  );
-}
-
-/** @internal */
-export const CollectorHealthCheckType8$inboundSchema: z.ZodNativeEnum<
-  typeof CollectorHealthCheckType8
-> = z.nativeEnum(CollectorHealthCheckType8);
-/** @internal */
-export const CollectorHealthCheckType8$outboundSchema: z.ZodNativeEnum<
-  typeof CollectorHealthCheckType8
-> = CollectorHealthCheckType8$inboundSchema;
-
-/** @internal */
-export const CollectorHealthCheckHealthCheck8$inboundSchema: z.ZodType<
-  CollectorHealthCheckHealthCheck8,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  authentication: CollectorHealthCheckAuthentication8$inboundSchema.default(
-    "none",
-  ),
-  loginUrl: z.string().default(""),
-  credentialsSecret: z.string(),
-  loginBody: z.string().default(
-    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
-  ),
-  tokenRespAttribute: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  authRequestHeaders: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestHeader8$inboundSchema),
-  ).optional(),
-  discovery: z.lazy(() => CollectorHealthCheckDiscovery8$inboundSchema)
-    .optional(),
-  collectUrl: z.string(),
-  collectMethod: HealthCheckMethod8$inboundSchema.default("get"),
-  collectRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckCollectRequestParam8$inboundSchema),
-  ).optional(),
-  collectBody: z.string().default("`{ }`"),
-  collectRequestHeaders: z.array(
-    z.lazy(() => CollectorHealthCheckCollectRequestHeader8$inboundSchema),
-  ).optional(),
-  authenticateCollect: z.boolean().default(false),
-  timeout: z.number().default(30),
-  rejectUnauthorized: z.boolean().default(false),
-  defaultBreakers: CollectorHealthCheckHiddenDefaultBreakers8$inboundSchema
-    .optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  retryRules: z.lazy(() => CollectorHealthCheckRetryRules8$inboundSchema)
-    .optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  clientSecretParamName: z.string().default("client_secret"),
-  clientSecretParamValue: z.string().optional(),
-  authRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestParam8$inboundSchema),
-  ).optional(),
-  textSecret: z.string().optional(),
-  type: CollectorHealthCheckType8$inboundSchema,
-});
-/** @internal */
-export type CollectorHealthCheckHealthCheck8$Outbound = {
-  authentication: string;
-  loginUrl: string;
-  credentialsSecret: string;
-  loginBody: string;
-  tokenRespAttribute?: string | undefined;
-  authHeaderExpr: string;
-  authRequestHeaders?:
-    | Array<CollectorHealthCheckAuthRequestHeader8$Outbound>
-    | undefined;
-  discovery?: CollectorHealthCheckDiscovery8$Outbound | undefined;
-  collectUrl: string;
-  collectMethod: string;
-  collectRequestParams?:
-    | Array<CollectorHealthCheckCollectRequestParam8$Outbound>
-    | undefined;
-  collectBody: string;
-  collectRequestHeaders?:
-    | Array<CollectorHealthCheckCollectRequestHeader8$Outbound>
-    | undefined;
-  authenticateCollect: boolean;
-  timeout: number;
-  rejectUnauthorized: boolean;
-  defaultBreakers?: string | undefined;
-  safeHeaders?: Array<string> | undefined;
-  retryRules?: CollectorHealthCheckRetryRules8$Outbound | undefined;
-  username?: string | undefined;
-  password?: string | undefined;
-  clientSecretParamName: string;
-  clientSecretParamValue?: string | undefined;
-  authRequestParams?:
-    | Array<CollectorHealthCheckAuthRequestParam8$Outbound>
-    | undefined;
-  textSecret?: string | undefined;
-  type: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckHealthCheck8$outboundSchema: z.ZodType<
-  CollectorHealthCheckHealthCheck8$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckHealthCheck8
-> = z.object({
-  authentication: CollectorHealthCheckAuthentication8$outboundSchema.default(
-    "none",
-  ),
-  loginUrl: z.string().default(""),
-  credentialsSecret: z.string(),
-  loginBody: z.string().default(
-    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
-  ),
-  tokenRespAttribute: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  authRequestHeaders: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestHeader8$outboundSchema),
-  ).optional(),
-  discovery: z.lazy(() => CollectorHealthCheckDiscovery8$outboundSchema)
-    .optional(),
-  collectUrl: z.string(),
-  collectMethod: HealthCheckMethod8$outboundSchema.default("get"),
-  collectRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckCollectRequestParam8$outboundSchema),
-  ).optional(),
-  collectBody: z.string().default("`{ }`"),
-  collectRequestHeaders: z.array(
-    z.lazy(() => CollectorHealthCheckCollectRequestHeader8$outboundSchema),
-  ).optional(),
-  authenticateCollect: z.boolean().default(false),
-  timeout: z.number().default(30),
-  rejectUnauthorized: z.boolean().default(false),
-  defaultBreakers: CollectorHealthCheckHiddenDefaultBreakers8$outboundSchema
-    .optional(),
-  safeHeaders: z.array(z.string()).optional(),
-  retryRules: z.lazy(() => CollectorHealthCheckRetryRules8$outboundSchema)
-    .optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  clientSecretParamName: z.string().default("client_secret"),
-  clientSecretParamValue: z.string().optional(),
-  authRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestParam8$outboundSchema),
-  ).optional(),
-  textSecret: z.string().optional(),
-  type: CollectorHealthCheckType8$outboundSchema,
-});
-
-export function collectorHealthCheckHealthCheck8ToJSON(
-  collectorHealthCheckHealthCheck8: CollectorHealthCheckHealthCheck8,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckHealthCheck8$outboundSchema.parse(
-      collectorHealthCheckHealthCheck8,
-    ),
-  );
-}
-export function collectorHealthCheckHealthCheck8FromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorHealthCheckHealthCheck8, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CollectorHealthCheckHealthCheck8$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorHealthCheckHealthCheck8' from JSON`,
-  );
-}
+  | CollectorHealthCheckCollectorHealthCheckPart0Type;
 
 /** @internal */
 export const CollectorHealthCheckAuthentication7$inboundSchema: z.ZodType<
@@ -4394,52 +1951,6 @@ export const CollectorHealthCheckAuthentication7$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CollectorHealthCheckAuthentication7
 > = openEnums.outboundSchema(CollectorHealthCheckAuthentication7);
-
-/** @internal */
-export const CollectorHealthCheckAuthRequestHeader7$inboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestHeader7,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type CollectorHealthCheckAuthRequestHeader7$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckAuthRequestHeader7$outboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestHeader7$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckAuthRequestHeader7
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function collectorHealthCheckAuthRequestHeader7ToJSON(
-  collectorHealthCheckAuthRequestHeader7:
-    CollectorHealthCheckAuthRequestHeader7,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckAuthRequestHeader7$outboundSchema.parse(
-      collectorHealthCheckAuthRequestHeader7,
-    ),
-  );
-}
-export function collectorHealthCheckAuthRequestHeader7FromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorHealthCheckAuthRequestHeader7, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CollectorHealthCheckAuthRequestHeader7$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorHealthCheckAuthRequestHeader7' from JSON`,
-  );
-}
 
 /** @internal */
 export const CollectorHealthCheckDiscoverType7$inboundSchema: z.ZodType<
@@ -4511,57 +2022,6 @@ export const HealthCheckMethod7$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(HealthCheckMethod7);
 
 /** @internal */
-export const CollectorHealthCheckCollectRequestParam7$inboundSchema: z.ZodType<
-  CollectorHealthCheckCollectRequestParam7,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type CollectorHealthCheckCollectRequestParam7$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckCollectRequestParam7$outboundSchema: z.ZodType<
-  CollectorHealthCheckCollectRequestParam7$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckCollectRequestParam7
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function collectorHealthCheckCollectRequestParam7ToJSON(
-  collectorHealthCheckCollectRequestParam7:
-    CollectorHealthCheckCollectRequestParam7,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckCollectRequestParam7$outboundSchema.parse(
-      collectorHealthCheckCollectRequestParam7,
-    ),
-  );
-}
-export function collectorHealthCheckCollectRequestParam7FromJSON(
-  jsonString: string,
-): SafeParseResult<
-  CollectorHealthCheckCollectRequestParam7,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CollectorHealthCheckCollectRequestParam7$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'CollectorHealthCheckCollectRequestParam7' from JSON`,
-  );
-}
-
-/** @internal */
 export const CollectorHealthCheckCollectRequestHeader7$inboundSchema: z.ZodType<
   CollectorHealthCheckCollectRequestHeader7,
   z.ZodTypeDef,
@@ -4614,34 +2074,12 @@ export function collectorHealthCheckCollectRequestHeader7FromJSON(
 }
 
 /** @internal */
-export const CollectorHealthCheckHiddenDefaultBreakers7$inboundSchema:
-  z.ZodType<CollectorHealthCheckHiddenDefaultBreakers7, z.ZodTypeDef, unknown> =
-    openEnums.inboundSchema(CollectorHealthCheckHiddenDefaultBreakers7);
-/** @internal */
-export const CollectorHealthCheckHiddenDefaultBreakers7$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, CollectorHealthCheckHiddenDefaultBreakers7> =
-    openEnums.outboundSchema(CollectorHealthCheckHiddenDefaultBreakers7);
-
-/** @internal */
-export const CollectorHealthCheckRetryType7$inboundSchema: z.ZodType<
-  CollectorHealthCheckRetryType7,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(CollectorHealthCheckRetryType7);
-/** @internal */
-export const CollectorHealthCheckRetryType7$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CollectorHealthCheckRetryType7
-> = openEnums.outboundSchema(CollectorHealthCheckRetryType7);
-
-/** @internal */
 export const CollectorHealthCheckRetryRules7$inboundSchema: z.ZodType<
   CollectorHealthCheckRetryRules7,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: CollectorHealthCheckRetryType7$inboundSchema.default("backoff"),
+  type: RetryTypeOptionsRetryRules$inboundSchema.default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -4664,7 +2102,7 @@ export const CollectorHealthCheckRetryRules7$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CollectorHealthCheckRetryRules7
 > = z.object({
-  type: CollectorHealthCheckRetryType7$outboundSchema.default("backoff"),
+  type: RetryTypeOptionsRetryRules$outboundSchema.default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -4692,58 +2130,13 @@ export function collectorHealthCheckRetryRules7FromJSON(
 }
 
 /** @internal */
-export const CollectorHealthCheckAuthRequestParam7$inboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestParam7,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
+export const CollectorHealthCheckType8$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorHealthCheckType8
+> = z.nativeEnum(CollectorHealthCheckType8);
 /** @internal */
-export type CollectorHealthCheckAuthRequestParam7$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckAuthRequestParam7$outboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestParam7$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckAuthRequestParam7
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function collectorHealthCheckAuthRequestParam7ToJSON(
-  collectorHealthCheckAuthRequestParam7: CollectorHealthCheckAuthRequestParam7,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckAuthRequestParam7$outboundSchema.parse(
-      collectorHealthCheckAuthRequestParam7,
-    ),
-  );
-}
-export function collectorHealthCheckAuthRequestParam7FromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorHealthCheckAuthRequestParam7, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CollectorHealthCheckAuthRequestParam7$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorHealthCheckAuthRequestParam7' from JSON`,
-  );
-}
-
-/** @internal */
-export const CollectorHealthCheckType7$inboundSchema: z.ZodNativeEnum<
-  typeof CollectorHealthCheckType7
-> = z.nativeEnum(CollectorHealthCheckType7);
-/** @internal */
-export const CollectorHealthCheckType7$outboundSchema: z.ZodNativeEnum<
-  typeof CollectorHealthCheckType7
-> = CollectorHealthCheckType7$inboundSchema;
+export const CollectorHealthCheckType8$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorHealthCheckType8
+> = CollectorHealthCheckType8$inboundSchema;
 
 /** @internal */
 export const CollectorHealthCheckHealthCheck7$inboundSchema: z.ZodType<
@@ -4755,23 +2148,20 @@ export const CollectorHealthCheckHealthCheck7$inboundSchema: z.ZodType<
     "none",
   ),
   loginUrl: z.string().default(""),
-  username: z.string(),
-  password: z.string(),
-  loginBody: z.string().default(
-    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
-  ),
   tokenRespAttribute: z.string().optional(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  authRequestHeaders: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestHeader7$inboundSchema),
-  ).optional(),
+  clientSecretParamName: z.string().default("client_secret"),
+  textSecret: z.string(),
+  authRequestParams: z.array(ItemsTypeAuthRequestParams$inboundSchema)
+    .optional(),
+  authRequestHeaders: z.array(ItemsTypeAuthRequestHeaders$inboundSchema)
+    .optional(),
   discovery: z.lazy(() => CollectorHealthCheckDiscovery7$inboundSchema)
     .optional(),
   collectUrl: z.string(),
   collectMethod: HealthCheckMethod7$inboundSchema.default("get"),
-  collectRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckCollectRequestParam7$inboundSchema),
-  ).optional(),
+  collectRequestParams: z.array(ItemsTypeCollectRequestParams$inboundSchema)
+    .optional(),
   collectBody: z.string().default("`{ }`"),
   collectRequestHeaders: z.array(
     z.lazy(() => CollectorHealthCheckCollectRequestHeader7$inboundSchema),
@@ -4779,37 +2169,34 @@ export const CollectorHealthCheckHealthCheck7$inboundSchema: z.ZodType<
   authenticateCollect: z.boolean().default(false),
   timeout: z.number().default(30),
   rejectUnauthorized: z.boolean().default(false),
-  defaultBreakers: CollectorHealthCheckHiddenDefaultBreakers7$inboundSchema
-    .optional(),
+  defaultBreakers: HiddenDefaultBreakersOptions$inboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() => CollectorHealthCheckRetryRules7$inboundSchema)
     .optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
   credentialsSecret: z.string().optional(),
-  clientSecretParamName: z.string().default("client_secret"),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
   clientSecretParamValue: z.string().optional(),
-  authRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestParam7$inboundSchema),
-  ).optional(),
-  textSecret: z.string().optional(),
-  type: CollectorHealthCheckType7$inboundSchema,
+  type: CollectorHealthCheckType8$inboundSchema,
 });
 /** @internal */
 export type CollectorHealthCheckHealthCheck7$Outbound = {
   authentication: string;
   loginUrl: string;
-  username: string;
-  password: string;
-  loginBody: string;
   tokenRespAttribute?: string | undefined;
   authHeaderExpr: string;
-  authRequestHeaders?:
-    | Array<CollectorHealthCheckAuthRequestHeader7$Outbound>
-    | undefined;
+  clientSecretParamName: string;
+  textSecret: string;
+  authRequestParams?: Array<ItemsTypeAuthRequestParams$Outbound> | undefined;
+  authRequestHeaders?: Array<ItemsTypeAuthRequestHeaders$Outbound> | undefined;
   discovery?: CollectorHealthCheckDiscovery7$Outbound | undefined;
   collectUrl: string;
   collectMethod: string;
   collectRequestParams?:
-    | Array<CollectorHealthCheckCollectRequestParam7$Outbound>
+    | Array<ItemsTypeCollectRequestParams$Outbound>
     | undefined;
   collectBody: string;
   collectRequestHeaders?:
@@ -4821,13 +2208,11 @@ export type CollectorHealthCheckHealthCheck7$Outbound = {
   defaultBreakers?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   retryRules?: CollectorHealthCheckRetryRules7$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
   credentialsSecret?: string | undefined;
-  clientSecretParamName: string;
+  loginBody: string;
   clientSecretParamValue?: string | undefined;
-  authRequestParams?:
-    | Array<CollectorHealthCheckAuthRequestParam7$Outbound>
-    | undefined;
-  textSecret?: string | undefined;
   type: string;
 };
 
@@ -4841,23 +2226,20 @@ export const CollectorHealthCheckHealthCheck7$outboundSchema: z.ZodType<
     "none",
   ),
   loginUrl: z.string().default(""),
-  username: z.string(),
-  password: z.string(),
-  loginBody: z.string().default(
-    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
-  ),
   tokenRespAttribute: z.string().optional(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  authRequestHeaders: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestHeader7$outboundSchema),
-  ).optional(),
+  clientSecretParamName: z.string().default("client_secret"),
+  textSecret: z.string(),
+  authRequestParams: z.array(ItemsTypeAuthRequestParams$outboundSchema)
+    .optional(),
+  authRequestHeaders: z.array(ItemsTypeAuthRequestHeaders$outboundSchema)
+    .optional(),
   discovery: z.lazy(() => CollectorHealthCheckDiscovery7$outboundSchema)
     .optional(),
   collectUrl: z.string(),
   collectMethod: HealthCheckMethod7$outboundSchema.default("get"),
-  collectRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckCollectRequestParam7$outboundSchema),
-  ).optional(),
+  collectRequestParams: z.array(ItemsTypeCollectRequestParams$outboundSchema)
+    .optional(),
   collectBody: z.string().default("`{ }`"),
   collectRequestHeaders: z.array(
     z.lazy(() => CollectorHealthCheckCollectRequestHeader7$outboundSchema),
@@ -4865,19 +2247,18 @@ export const CollectorHealthCheckHealthCheck7$outboundSchema: z.ZodType<
   authenticateCollect: z.boolean().default(false),
   timeout: z.number().default(30),
   rejectUnauthorized: z.boolean().default(false),
-  defaultBreakers: CollectorHealthCheckHiddenDefaultBreakers7$outboundSchema
-    .optional(),
+  defaultBreakers: HiddenDefaultBreakersOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() => CollectorHealthCheckRetryRules7$outboundSchema)
     .optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
   credentialsSecret: z.string().optional(),
-  clientSecretParamName: z.string().default("client_secret"),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
   clientSecretParamValue: z.string().optional(),
-  authRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestParam7$outboundSchema),
-  ).optional(),
-  textSecret: z.string().optional(),
-  type: CollectorHealthCheckType7$outboundSchema,
+  type: CollectorHealthCheckType8$outboundSchema,
 });
 
 export function collectorHealthCheckHealthCheck7ToJSON(
@@ -4982,57 +2363,6 @@ export const HealthCheckMethod6$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(HealthCheckMethod6);
 
 /** @internal */
-export const CollectorHealthCheckCollectRequestParam6$inboundSchema: z.ZodType<
-  CollectorHealthCheckCollectRequestParam6,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type CollectorHealthCheckCollectRequestParam6$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckCollectRequestParam6$outboundSchema: z.ZodType<
-  CollectorHealthCheckCollectRequestParam6$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckCollectRequestParam6
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function collectorHealthCheckCollectRequestParam6ToJSON(
-  collectorHealthCheckCollectRequestParam6:
-    CollectorHealthCheckCollectRequestParam6,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckCollectRequestParam6$outboundSchema.parse(
-      collectorHealthCheckCollectRequestParam6,
-    ),
-  );
-}
-export function collectorHealthCheckCollectRequestParam6FromJSON(
-  jsonString: string,
-): SafeParseResult<
-  CollectorHealthCheckCollectRequestParam6,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CollectorHealthCheckCollectRequestParam6$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'CollectorHealthCheckCollectRequestParam6' from JSON`,
-  );
-}
-
-/** @internal */
 export const CollectorHealthCheckCollectRequestHeader6$inboundSchema: z.ZodType<
   CollectorHealthCheckCollectRequestHeader6,
   z.ZodTypeDef,
@@ -5085,34 +2415,12 @@ export function collectorHealthCheckCollectRequestHeader6FromJSON(
 }
 
 /** @internal */
-export const CollectorHealthCheckHiddenDefaultBreakers6$inboundSchema:
-  z.ZodType<CollectorHealthCheckHiddenDefaultBreakers6, z.ZodTypeDef, unknown> =
-    openEnums.inboundSchema(CollectorHealthCheckHiddenDefaultBreakers6);
-/** @internal */
-export const CollectorHealthCheckHiddenDefaultBreakers6$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, CollectorHealthCheckHiddenDefaultBreakers6> =
-    openEnums.outboundSchema(CollectorHealthCheckHiddenDefaultBreakers6);
-
-/** @internal */
-export const CollectorHealthCheckRetryType6$inboundSchema: z.ZodType<
-  CollectorHealthCheckRetryType6,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(CollectorHealthCheckRetryType6);
-/** @internal */
-export const CollectorHealthCheckRetryType6$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CollectorHealthCheckRetryType6
-> = openEnums.outboundSchema(CollectorHealthCheckRetryType6);
-
-/** @internal */
 export const CollectorHealthCheckRetryRules6$inboundSchema: z.ZodType<
   CollectorHealthCheckRetryRules6,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: CollectorHealthCheckRetryType6$inboundSchema.default("backoff"),
+  type: RetryTypeOptionsRetryRules$inboundSchema.default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -5135,7 +2443,7 @@ export const CollectorHealthCheckRetryRules6$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CollectorHealthCheckRetryRules6
 > = z.object({
-  type: CollectorHealthCheckRetryType6$outboundSchema.default("backoff"),
+  type: RetryTypeOptionsRetryRules$outboundSchema.default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -5163,104 +2471,13 @@ export function collectorHealthCheckRetryRules6FromJSON(
 }
 
 /** @internal */
-export const CollectorHealthCheckAuthRequestHeader6$inboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestHeader6,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
+export const CollectorHealthCheckType7$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorHealthCheckType7
+> = z.nativeEnum(CollectorHealthCheckType7);
 /** @internal */
-export type CollectorHealthCheckAuthRequestHeader6$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckAuthRequestHeader6$outboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestHeader6$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckAuthRequestHeader6
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function collectorHealthCheckAuthRequestHeader6ToJSON(
-  collectorHealthCheckAuthRequestHeader6:
-    CollectorHealthCheckAuthRequestHeader6,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckAuthRequestHeader6$outboundSchema.parse(
-      collectorHealthCheckAuthRequestHeader6,
-    ),
-  );
-}
-export function collectorHealthCheckAuthRequestHeader6FromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorHealthCheckAuthRequestHeader6, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CollectorHealthCheckAuthRequestHeader6$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorHealthCheckAuthRequestHeader6' from JSON`,
-  );
-}
-
-/** @internal */
-export const CollectorHealthCheckAuthRequestParam6$inboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestParam6,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type CollectorHealthCheckAuthRequestParam6$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckAuthRequestParam6$outboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestParam6$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckAuthRequestParam6
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function collectorHealthCheckAuthRequestParam6ToJSON(
-  collectorHealthCheckAuthRequestParam6: CollectorHealthCheckAuthRequestParam6,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckAuthRequestParam6$outboundSchema.parse(
-      collectorHealthCheckAuthRequestParam6,
-    ),
-  );
-}
-export function collectorHealthCheckAuthRequestParam6FromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorHealthCheckAuthRequestParam6, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CollectorHealthCheckAuthRequestParam6$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorHealthCheckAuthRequestParam6' from JSON`,
-  );
-}
-
-/** @internal */
-export const CollectorHealthCheckType6$inboundSchema: z.ZodNativeEnum<
-  typeof CollectorHealthCheckType6
-> = z.nativeEnum(CollectorHealthCheckType6);
-/** @internal */
-export const CollectorHealthCheckType6$outboundSchema: z.ZodNativeEnum<
-  typeof CollectorHealthCheckType6
-> = CollectorHealthCheckType6$inboundSchema;
+export const CollectorHealthCheckType7$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorHealthCheckType7
+> = CollectorHealthCheckType7$inboundSchema;
 
 /** @internal */
 export const CollectorHealthCheckHealthCheck6$inboundSchema: z.ZodType<
@@ -5271,14 +2488,21 @@ export const CollectorHealthCheckHealthCheck6$inboundSchema: z.ZodType<
   authentication: CollectorHealthCheckAuthentication6$inboundSchema.default(
     "none",
   ),
-  credentialsSecret: z.string(),
+  loginUrl: z.string().default(""),
+  tokenRespAttribute: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  clientSecretParamName: z.string().default("client_secret"),
+  clientSecretParamValue: z.string(),
+  authRequestParams: z.array(ItemsTypeAuthRequestParams$inboundSchema)
+    .optional(),
+  authRequestHeaders: z.array(ItemsTypeAuthRequestHeaders$inboundSchema)
+    .optional(),
   discovery: z.lazy(() => CollectorHealthCheckDiscovery6$inboundSchema)
     .optional(),
   collectUrl: z.string(),
   collectMethod: HealthCheckMethod6$inboundSchema.default("get"),
-  collectRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckCollectRequestParam6$inboundSchema),
-  ).optional(),
+  collectRequestParams: z.array(ItemsTypeCollectRequestParams$inboundSchema)
+    .optional(),
   collectBody: z.string().default("`{ }`"),
   collectRequestHeaders: z.array(
     z.lazy(() => CollectorHealthCheckCollectRequestHeader6$inboundSchema),
@@ -5286,39 +2510,34 @@ export const CollectorHealthCheckHealthCheck6$inboundSchema: z.ZodType<
   authenticateCollect: z.boolean().default(false),
   timeout: z.number().default(30),
   rejectUnauthorized: z.boolean().default(false),
-  defaultBreakers: CollectorHealthCheckHiddenDefaultBreakers6$inboundSchema
-    .optional(),
+  defaultBreakers: HiddenDefaultBreakersOptions$inboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() => CollectorHealthCheckRetryRules6$inboundSchema)
     .optional(),
   username: z.string().optional(),
   password: z.string().optional(),
-  loginUrl: z.string().default(""),
+  credentialsSecret: z.string().optional(),
   loginBody: z.string().default(
     "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
   ),
-  tokenRespAttribute: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  authRequestHeaders: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestHeader6$inboundSchema),
-  ).optional(),
-  clientSecretParamName: z.string().default("client_secret"),
-  clientSecretParamValue: z.string().optional(),
-  authRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestParam6$inboundSchema),
-  ).optional(),
   textSecret: z.string().optional(),
-  type: CollectorHealthCheckType6$inboundSchema,
+  type: CollectorHealthCheckType7$inboundSchema,
 });
 /** @internal */
 export type CollectorHealthCheckHealthCheck6$Outbound = {
   authentication: string;
-  credentialsSecret: string;
+  loginUrl: string;
+  tokenRespAttribute?: string | undefined;
+  authHeaderExpr: string;
+  clientSecretParamName: string;
+  clientSecretParamValue: string;
+  authRequestParams?: Array<ItemsTypeAuthRequestParams$Outbound> | undefined;
+  authRequestHeaders?: Array<ItemsTypeAuthRequestHeaders$Outbound> | undefined;
   discovery?: CollectorHealthCheckDiscovery6$Outbound | undefined;
   collectUrl: string;
   collectMethod: string;
   collectRequestParams?:
-    | Array<CollectorHealthCheckCollectRequestParam6$Outbound>
+    | Array<ItemsTypeCollectRequestParams$Outbound>
     | undefined;
   collectBody: string;
   collectRequestHeaders?:
@@ -5332,18 +2551,8 @@ export type CollectorHealthCheckHealthCheck6$Outbound = {
   retryRules?: CollectorHealthCheckRetryRules6$Outbound | undefined;
   username?: string | undefined;
   password?: string | undefined;
-  loginUrl: string;
+  credentialsSecret?: string | undefined;
   loginBody: string;
-  tokenRespAttribute?: string | undefined;
-  authHeaderExpr: string;
-  authRequestHeaders?:
-    | Array<CollectorHealthCheckAuthRequestHeader6$Outbound>
-    | undefined;
-  clientSecretParamName: string;
-  clientSecretParamValue?: string | undefined;
-  authRequestParams?:
-    | Array<CollectorHealthCheckAuthRequestParam6$Outbound>
-    | undefined;
   textSecret?: string | undefined;
   type: string;
 };
@@ -5357,14 +2566,21 @@ export const CollectorHealthCheckHealthCheck6$outboundSchema: z.ZodType<
   authentication: CollectorHealthCheckAuthentication6$outboundSchema.default(
     "none",
   ),
-  credentialsSecret: z.string(),
+  loginUrl: z.string().default(""),
+  tokenRespAttribute: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  clientSecretParamName: z.string().default("client_secret"),
+  clientSecretParamValue: z.string(),
+  authRequestParams: z.array(ItemsTypeAuthRequestParams$outboundSchema)
+    .optional(),
+  authRequestHeaders: z.array(ItemsTypeAuthRequestHeaders$outboundSchema)
+    .optional(),
   discovery: z.lazy(() => CollectorHealthCheckDiscovery6$outboundSchema)
     .optional(),
   collectUrl: z.string(),
   collectMethod: HealthCheckMethod6$outboundSchema.default("get"),
-  collectRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckCollectRequestParam6$outboundSchema),
-  ).optional(),
+  collectRequestParams: z.array(ItemsTypeCollectRequestParams$outboundSchema)
+    .optional(),
   collectBody: z.string().default("`{ }`"),
   collectRequestHeaders: z.array(
     z.lazy(() => CollectorHealthCheckCollectRequestHeader6$outboundSchema),
@@ -5372,29 +2588,18 @@ export const CollectorHealthCheckHealthCheck6$outboundSchema: z.ZodType<
   authenticateCollect: z.boolean().default(false),
   timeout: z.number().default(30),
   rejectUnauthorized: z.boolean().default(false),
-  defaultBreakers: CollectorHealthCheckHiddenDefaultBreakers6$outboundSchema
-    .optional(),
+  defaultBreakers: HiddenDefaultBreakersOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() => CollectorHealthCheckRetryRules6$outboundSchema)
     .optional(),
   username: z.string().optional(),
   password: z.string().optional(),
-  loginUrl: z.string().default(""),
+  credentialsSecret: z.string().optional(),
   loginBody: z.string().default(
     "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
   ),
-  tokenRespAttribute: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  authRequestHeaders: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestHeader6$outboundSchema),
-  ).optional(),
-  clientSecretParamName: z.string().default("client_secret"),
-  clientSecretParamValue: z.string().optional(),
-  authRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestParam6$outboundSchema),
-  ).optional(),
   textSecret: z.string().optional(),
-  type: CollectorHealthCheckType6$outboundSchema,
+  type: CollectorHealthCheckType7$outboundSchema,
 });
 
 export function collectorHealthCheckHealthCheck6ToJSON(
@@ -5499,57 +2704,6 @@ export const HealthCheckMethod5$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(HealthCheckMethod5);
 
 /** @internal */
-export const CollectorHealthCheckCollectRequestParam5$inboundSchema: z.ZodType<
-  CollectorHealthCheckCollectRequestParam5,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type CollectorHealthCheckCollectRequestParam5$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckCollectRequestParam5$outboundSchema: z.ZodType<
-  CollectorHealthCheckCollectRequestParam5$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckCollectRequestParam5
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function collectorHealthCheckCollectRequestParam5ToJSON(
-  collectorHealthCheckCollectRequestParam5:
-    CollectorHealthCheckCollectRequestParam5,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckCollectRequestParam5$outboundSchema.parse(
-      collectorHealthCheckCollectRequestParam5,
-    ),
-  );
-}
-export function collectorHealthCheckCollectRequestParam5FromJSON(
-  jsonString: string,
-): SafeParseResult<
-  CollectorHealthCheckCollectRequestParam5,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CollectorHealthCheckCollectRequestParam5$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'CollectorHealthCheckCollectRequestParam5' from JSON`,
-  );
-}
-
-/** @internal */
 export const CollectorHealthCheckCollectRequestHeader5$inboundSchema: z.ZodType<
   CollectorHealthCheckCollectRequestHeader5,
   z.ZodTypeDef,
@@ -5602,34 +2756,12 @@ export function collectorHealthCheckCollectRequestHeader5FromJSON(
 }
 
 /** @internal */
-export const CollectorHealthCheckHiddenDefaultBreakers5$inboundSchema:
-  z.ZodType<CollectorHealthCheckHiddenDefaultBreakers5, z.ZodTypeDef, unknown> =
-    openEnums.inboundSchema(CollectorHealthCheckHiddenDefaultBreakers5);
-/** @internal */
-export const CollectorHealthCheckHiddenDefaultBreakers5$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, CollectorHealthCheckHiddenDefaultBreakers5> =
-    openEnums.outboundSchema(CollectorHealthCheckHiddenDefaultBreakers5);
-
-/** @internal */
-export const CollectorHealthCheckRetryType5$inboundSchema: z.ZodType<
-  CollectorHealthCheckRetryType5,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(CollectorHealthCheckRetryType5);
-/** @internal */
-export const CollectorHealthCheckRetryType5$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CollectorHealthCheckRetryType5
-> = openEnums.outboundSchema(CollectorHealthCheckRetryType5);
-
-/** @internal */
 export const CollectorHealthCheckRetryRules5$inboundSchema: z.ZodType<
   CollectorHealthCheckRetryRules5,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: CollectorHealthCheckRetryType5$inboundSchema.default("backoff"),
+  type: RetryTypeOptionsRetryRules$inboundSchema.default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -5652,7 +2784,7 @@ export const CollectorHealthCheckRetryRules5$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CollectorHealthCheckRetryRules5
 > = z.object({
-  type: CollectorHealthCheckRetryType5$outboundSchema.default("backoff"),
+  type: RetryTypeOptionsRetryRules$outboundSchema.default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -5680,104 +2812,13 @@ export function collectorHealthCheckRetryRules5FromJSON(
 }
 
 /** @internal */
-export const CollectorHealthCheckAuthRequestHeader5$inboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestHeader5,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
+export const CollectorHealthCheckType6$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorHealthCheckType6
+> = z.nativeEnum(CollectorHealthCheckType6);
 /** @internal */
-export type CollectorHealthCheckAuthRequestHeader5$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckAuthRequestHeader5$outboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestHeader5$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckAuthRequestHeader5
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function collectorHealthCheckAuthRequestHeader5ToJSON(
-  collectorHealthCheckAuthRequestHeader5:
-    CollectorHealthCheckAuthRequestHeader5,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckAuthRequestHeader5$outboundSchema.parse(
-      collectorHealthCheckAuthRequestHeader5,
-    ),
-  );
-}
-export function collectorHealthCheckAuthRequestHeader5FromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorHealthCheckAuthRequestHeader5, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CollectorHealthCheckAuthRequestHeader5$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorHealthCheckAuthRequestHeader5' from JSON`,
-  );
-}
-
-/** @internal */
-export const CollectorHealthCheckAuthRequestParam5$inboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestParam5,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type CollectorHealthCheckAuthRequestParam5$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckAuthRequestParam5$outboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestParam5$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckAuthRequestParam5
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function collectorHealthCheckAuthRequestParam5ToJSON(
-  collectorHealthCheckAuthRequestParam5: CollectorHealthCheckAuthRequestParam5,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckAuthRequestParam5$outboundSchema.parse(
-      collectorHealthCheckAuthRequestParam5,
-    ),
-  );
-}
-export function collectorHealthCheckAuthRequestParam5FromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorHealthCheckAuthRequestParam5, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CollectorHealthCheckAuthRequestParam5$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorHealthCheckAuthRequestParam5' from JSON`,
-  );
-}
-
-/** @internal */
-export const CollectorHealthCheckType5$inboundSchema: z.ZodNativeEnum<
-  typeof CollectorHealthCheckType5
-> = z.nativeEnum(CollectorHealthCheckType5);
-/** @internal */
-export const CollectorHealthCheckType5$outboundSchema: z.ZodNativeEnum<
-  typeof CollectorHealthCheckType5
-> = CollectorHealthCheckType5$inboundSchema;
+export const CollectorHealthCheckType6$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorHealthCheckType6
+> = CollectorHealthCheckType6$inboundSchema;
 
 /** @internal */
 export const CollectorHealthCheckHealthCheck5$inboundSchema: z.ZodType<
@@ -5788,15 +2829,21 @@ export const CollectorHealthCheckHealthCheck5$inboundSchema: z.ZodType<
   authentication: CollectorHealthCheckAuthentication5$inboundSchema.default(
     "none",
   ),
-  username: z.string(),
-  password: z.string(),
+  loginUrl: z.string().default(""),
+  credentialsSecret: z.string(),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  tokenRespAttribute: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authRequestHeaders: z.array(ItemsTypeAuthRequestHeaders$inboundSchema)
+    .optional(),
   discovery: z.lazy(() => CollectorHealthCheckDiscovery5$inboundSchema)
     .optional(),
   collectUrl: z.string(),
   collectMethod: HealthCheckMethod5$inboundSchema.default("get"),
-  collectRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckCollectRequestParam5$inboundSchema),
-  ).optional(),
+  collectRequestParams: z.array(ItemsTypeCollectRequestParams$inboundSchema)
+    .optional(),
   collectBody: z.string().default("`{ }`"),
   collectRequestHeaders: z.array(
     z.lazy(() => CollectorHealthCheckCollectRequestHeader5$inboundSchema),
@@ -5804,39 +2851,33 @@ export const CollectorHealthCheckHealthCheck5$inboundSchema: z.ZodType<
   authenticateCollect: z.boolean().default(false),
   timeout: z.number().default(30),
   rejectUnauthorized: z.boolean().default(false),
-  defaultBreakers: CollectorHealthCheckHiddenDefaultBreakers5$inboundSchema
-    .optional(),
+  defaultBreakers: HiddenDefaultBreakersOptions$inboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() => CollectorHealthCheckRetryRules5$inboundSchema)
     .optional(),
-  credentialsSecret: z.string().optional(),
-  loginUrl: z.string().default(""),
-  loginBody: z.string().default(
-    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
-  ),
-  tokenRespAttribute: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  authRequestHeaders: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestHeader5$inboundSchema),
-  ).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
   clientSecretParamName: z.string().default("client_secret"),
   clientSecretParamValue: z.string().optional(),
-  authRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestParam5$inboundSchema),
-  ).optional(),
+  authRequestParams: z.array(ItemsTypeAuthRequestParams$inboundSchema)
+    .optional(),
   textSecret: z.string().optional(),
-  type: CollectorHealthCheckType5$inboundSchema,
+  type: CollectorHealthCheckType6$inboundSchema,
 });
 /** @internal */
 export type CollectorHealthCheckHealthCheck5$Outbound = {
   authentication: string;
-  username: string;
-  password: string;
+  loginUrl: string;
+  credentialsSecret: string;
+  loginBody: string;
+  tokenRespAttribute?: string | undefined;
+  authHeaderExpr: string;
+  authRequestHeaders?: Array<ItemsTypeAuthRequestHeaders$Outbound> | undefined;
   discovery?: CollectorHealthCheckDiscovery5$Outbound | undefined;
   collectUrl: string;
   collectMethod: string;
   collectRequestParams?:
-    | Array<CollectorHealthCheckCollectRequestParam5$Outbound>
+    | Array<ItemsTypeCollectRequestParams$Outbound>
     | undefined;
   collectBody: string;
   collectRequestHeaders?:
@@ -5848,19 +2889,11 @@ export type CollectorHealthCheckHealthCheck5$Outbound = {
   defaultBreakers?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   retryRules?: CollectorHealthCheckRetryRules5$Outbound | undefined;
-  credentialsSecret?: string | undefined;
-  loginUrl: string;
-  loginBody: string;
-  tokenRespAttribute?: string | undefined;
-  authHeaderExpr: string;
-  authRequestHeaders?:
-    | Array<CollectorHealthCheckAuthRequestHeader5$Outbound>
-    | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
   clientSecretParamName: string;
   clientSecretParamValue?: string | undefined;
-  authRequestParams?:
-    | Array<CollectorHealthCheckAuthRequestParam5$Outbound>
-    | undefined;
+  authRequestParams?: Array<ItemsTypeAuthRequestParams$Outbound> | undefined;
   textSecret?: string | undefined;
   type: string;
 };
@@ -5874,15 +2907,21 @@ export const CollectorHealthCheckHealthCheck5$outboundSchema: z.ZodType<
   authentication: CollectorHealthCheckAuthentication5$outboundSchema.default(
     "none",
   ),
-  username: z.string(),
-  password: z.string(),
+  loginUrl: z.string().default(""),
+  credentialsSecret: z.string(),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  tokenRespAttribute: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authRequestHeaders: z.array(ItemsTypeAuthRequestHeaders$outboundSchema)
+    .optional(),
   discovery: z.lazy(() => CollectorHealthCheckDiscovery5$outboundSchema)
     .optional(),
   collectUrl: z.string(),
   collectMethod: HealthCheckMethod5$outboundSchema.default("get"),
-  collectRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckCollectRequestParam5$outboundSchema),
-  ).optional(),
+  collectRequestParams: z.array(ItemsTypeCollectRequestParams$outboundSchema)
+    .optional(),
   collectBody: z.string().default("`{ }`"),
   collectRequestHeaders: z.array(
     z.lazy(() => CollectorHealthCheckCollectRequestHeader5$outboundSchema),
@@ -5890,28 +2929,18 @@ export const CollectorHealthCheckHealthCheck5$outboundSchema: z.ZodType<
   authenticateCollect: z.boolean().default(false),
   timeout: z.number().default(30),
   rejectUnauthorized: z.boolean().default(false),
-  defaultBreakers: CollectorHealthCheckHiddenDefaultBreakers5$outboundSchema
-    .optional(),
+  defaultBreakers: HiddenDefaultBreakersOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() => CollectorHealthCheckRetryRules5$outboundSchema)
     .optional(),
-  credentialsSecret: z.string().optional(),
-  loginUrl: z.string().default(""),
-  loginBody: z.string().default(
-    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
-  ),
-  tokenRespAttribute: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  authRequestHeaders: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestHeader5$outboundSchema),
-  ).optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
   clientSecretParamName: z.string().default("client_secret"),
   clientSecretParamValue: z.string().optional(),
-  authRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestParam5$outboundSchema),
-  ).optional(),
+  authRequestParams: z.array(ItemsTypeAuthRequestParams$outboundSchema)
+    .optional(),
   textSecret: z.string().optional(),
-  type: CollectorHealthCheckType5$outboundSchema,
+  type: CollectorHealthCheckType6$outboundSchema,
 });
 
 export function collectorHealthCheckHealthCheck5ToJSON(
@@ -6016,57 +3045,6 @@ export const HealthCheckMethod4$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(HealthCheckMethod4);
 
 /** @internal */
-export const CollectorHealthCheckCollectRequestParam4$inboundSchema: z.ZodType<
-  CollectorHealthCheckCollectRequestParam4,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type CollectorHealthCheckCollectRequestParam4$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckCollectRequestParam4$outboundSchema: z.ZodType<
-  CollectorHealthCheckCollectRequestParam4$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckCollectRequestParam4
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function collectorHealthCheckCollectRequestParam4ToJSON(
-  collectorHealthCheckCollectRequestParam4:
-    CollectorHealthCheckCollectRequestParam4,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckCollectRequestParam4$outboundSchema.parse(
-      collectorHealthCheckCollectRequestParam4,
-    ),
-  );
-}
-export function collectorHealthCheckCollectRequestParam4FromJSON(
-  jsonString: string,
-): SafeParseResult<
-  CollectorHealthCheckCollectRequestParam4,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CollectorHealthCheckCollectRequestParam4$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'CollectorHealthCheckCollectRequestParam4' from JSON`,
-  );
-}
-
-/** @internal */
 export const CollectorHealthCheckCollectRequestHeader4$inboundSchema: z.ZodType<
   CollectorHealthCheckCollectRequestHeader4,
   z.ZodTypeDef,
@@ -6119,34 +3097,12 @@ export function collectorHealthCheckCollectRequestHeader4FromJSON(
 }
 
 /** @internal */
-export const CollectorHealthCheckHiddenDefaultBreakers4$inboundSchema:
-  z.ZodType<CollectorHealthCheckHiddenDefaultBreakers4, z.ZodTypeDef, unknown> =
-    openEnums.inboundSchema(CollectorHealthCheckHiddenDefaultBreakers4);
-/** @internal */
-export const CollectorHealthCheckHiddenDefaultBreakers4$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, CollectorHealthCheckHiddenDefaultBreakers4> =
-    openEnums.outboundSchema(CollectorHealthCheckHiddenDefaultBreakers4);
-
-/** @internal */
-export const CollectorHealthCheckRetryType4$inboundSchema: z.ZodType<
-  CollectorHealthCheckRetryType4,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(CollectorHealthCheckRetryType4);
-/** @internal */
-export const CollectorHealthCheckRetryType4$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CollectorHealthCheckRetryType4
-> = openEnums.outboundSchema(CollectorHealthCheckRetryType4);
-
-/** @internal */
 export const CollectorHealthCheckRetryRules4$inboundSchema: z.ZodType<
   CollectorHealthCheckRetryRules4,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: CollectorHealthCheckRetryType4$inboundSchema.default("backoff"),
+  type: RetryTypeOptionsRetryRules$inboundSchema.default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -6169,7 +3125,7 @@ export const CollectorHealthCheckRetryRules4$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CollectorHealthCheckRetryRules4
 > = z.object({
-  type: CollectorHealthCheckRetryType4$outboundSchema.default("backoff"),
+  type: RetryTypeOptionsRetryRules$outboundSchema.default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -6197,104 +3153,13 @@ export function collectorHealthCheckRetryRules4FromJSON(
 }
 
 /** @internal */
-export const CollectorHealthCheckAuthRequestHeader4$inboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestHeader4,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
+export const CollectorHealthCheckType5$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorHealthCheckType5
+> = z.nativeEnum(CollectorHealthCheckType5);
 /** @internal */
-export type CollectorHealthCheckAuthRequestHeader4$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckAuthRequestHeader4$outboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestHeader4$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckAuthRequestHeader4
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function collectorHealthCheckAuthRequestHeader4ToJSON(
-  collectorHealthCheckAuthRequestHeader4:
-    CollectorHealthCheckAuthRequestHeader4,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckAuthRequestHeader4$outboundSchema.parse(
-      collectorHealthCheckAuthRequestHeader4,
-    ),
-  );
-}
-export function collectorHealthCheckAuthRequestHeader4FromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorHealthCheckAuthRequestHeader4, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CollectorHealthCheckAuthRequestHeader4$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorHealthCheckAuthRequestHeader4' from JSON`,
-  );
-}
-
-/** @internal */
-export const CollectorHealthCheckAuthRequestParam4$inboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestParam4,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type CollectorHealthCheckAuthRequestParam4$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckAuthRequestParam4$outboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestParam4$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckAuthRequestParam4
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function collectorHealthCheckAuthRequestParam4ToJSON(
-  collectorHealthCheckAuthRequestParam4: CollectorHealthCheckAuthRequestParam4,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckAuthRequestParam4$outboundSchema.parse(
-      collectorHealthCheckAuthRequestParam4,
-    ),
-  );
-}
-export function collectorHealthCheckAuthRequestParam4FromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorHealthCheckAuthRequestParam4, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CollectorHealthCheckAuthRequestParam4$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorHealthCheckAuthRequestParam4' from JSON`,
-  );
-}
-
-/** @internal */
-export const CollectorHealthCheckType4$inboundSchema: z.ZodNativeEnum<
-  typeof CollectorHealthCheckType4
-> = z.nativeEnum(CollectorHealthCheckType4);
-/** @internal */
-export const CollectorHealthCheckType4$outboundSchema: z.ZodNativeEnum<
-  typeof CollectorHealthCheckType4
-> = CollectorHealthCheckType4$inboundSchema;
+export const CollectorHealthCheckType5$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorHealthCheckType5
+> = CollectorHealthCheckType5$inboundSchema;
 
 /** @internal */
 export const CollectorHealthCheckHealthCheck4$inboundSchema: z.ZodType<
@@ -6305,13 +3170,22 @@ export const CollectorHealthCheckHealthCheck4$inboundSchema: z.ZodType<
   authentication: CollectorHealthCheckAuthentication4$inboundSchema.default(
     "none",
   ),
+  loginUrl: z.string().default(""),
+  username: z.string(),
+  password: z.string(),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  tokenRespAttribute: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authRequestHeaders: z.array(ItemsTypeAuthRequestHeaders$inboundSchema)
+    .optional(),
   discovery: z.lazy(() => CollectorHealthCheckDiscovery4$inboundSchema)
     .optional(),
   collectUrl: z.string(),
   collectMethod: HealthCheckMethod4$inboundSchema.default("get"),
-  collectRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckCollectRequestParam4$inboundSchema),
-  ).optional(),
+  collectRequestParams: z.array(ItemsTypeCollectRequestParams$inboundSchema)
+    .optional(),
   collectBody: z.string().default("`{ }`"),
   collectRequestHeaders: z.array(
     z.lazy(() => CollectorHealthCheckCollectRequestHeader4$inboundSchema),
@@ -6319,39 +3193,33 @@ export const CollectorHealthCheckHealthCheck4$inboundSchema: z.ZodType<
   authenticateCollect: z.boolean().default(false),
   timeout: z.number().default(30),
   rejectUnauthorized: z.boolean().default(false),
-  defaultBreakers: CollectorHealthCheckHiddenDefaultBreakers4$inboundSchema
-    .optional(),
+  defaultBreakers: HiddenDefaultBreakersOptions$inboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() => CollectorHealthCheckRetryRules4$inboundSchema)
     .optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
   credentialsSecret: z.string().optional(),
-  loginUrl: z.string().default(""),
-  loginBody: z.string().default(
-    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
-  ),
-  tokenRespAttribute: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  authRequestHeaders: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestHeader4$inboundSchema),
-  ).optional(),
   clientSecretParamName: z.string().default("client_secret"),
   clientSecretParamValue: z.string().optional(),
-  authRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestParam4$inboundSchema),
-  ).optional(),
+  authRequestParams: z.array(ItemsTypeAuthRequestParams$inboundSchema)
+    .optional(),
   textSecret: z.string().optional(),
-  type: CollectorHealthCheckType4$inboundSchema,
+  type: CollectorHealthCheckType5$inboundSchema,
 });
 /** @internal */
 export type CollectorHealthCheckHealthCheck4$Outbound = {
   authentication: string;
+  loginUrl: string;
+  username: string;
+  password: string;
+  loginBody: string;
+  tokenRespAttribute?: string | undefined;
+  authHeaderExpr: string;
+  authRequestHeaders?: Array<ItemsTypeAuthRequestHeaders$Outbound> | undefined;
   discovery?: CollectorHealthCheckDiscovery4$Outbound | undefined;
   collectUrl: string;
   collectMethod: string;
   collectRequestParams?:
-    | Array<CollectorHealthCheckCollectRequestParam4$Outbound>
+    | Array<ItemsTypeCollectRequestParams$Outbound>
     | undefined;
   collectBody: string;
   collectRequestHeaders?:
@@ -6363,21 +3231,10 @@ export type CollectorHealthCheckHealthCheck4$Outbound = {
   defaultBreakers?: string | undefined;
   safeHeaders?: Array<string> | undefined;
   retryRules?: CollectorHealthCheckRetryRules4$Outbound | undefined;
-  username?: string | undefined;
-  password?: string | undefined;
   credentialsSecret?: string | undefined;
-  loginUrl: string;
-  loginBody: string;
-  tokenRespAttribute?: string | undefined;
-  authHeaderExpr: string;
-  authRequestHeaders?:
-    | Array<CollectorHealthCheckAuthRequestHeader4$Outbound>
-    | undefined;
   clientSecretParamName: string;
   clientSecretParamValue?: string | undefined;
-  authRequestParams?:
-    | Array<CollectorHealthCheckAuthRequestParam4$Outbound>
-    | undefined;
+  authRequestParams?: Array<ItemsTypeAuthRequestParams$Outbound> | undefined;
   textSecret?: string | undefined;
   type: string;
 };
@@ -6391,13 +3248,22 @@ export const CollectorHealthCheckHealthCheck4$outboundSchema: z.ZodType<
   authentication: CollectorHealthCheckAuthentication4$outboundSchema.default(
     "none",
   ),
+  loginUrl: z.string().default(""),
+  username: z.string(),
+  password: z.string(),
+  loginBody: z.string().default(
+    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+  ),
+  tokenRespAttribute: z.string().optional(),
+  authHeaderExpr: z.string().default("`Bearer ${token}`"),
+  authRequestHeaders: z.array(ItemsTypeAuthRequestHeaders$outboundSchema)
+    .optional(),
   discovery: z.lazy(() => CollectorHealthCheckDiscovery4$outboundSchema)
     .optional(),
   collectUrl: z.string(),
   collectMethod: HealthCheckMethod4$outboundSchema.default("get"),
-  collectRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckCollectRequestParam4$outboundSchema),
-  ).optional(),
+  collectRequestParams: z.array(ItemsTypeCollectRequestParams$outboundSchema)
+    .optional(),
   collectBody: z.string().default("`{ }`"),
   collectRequestHeaders: z.array(
     z.lazy(() => CollectorHealthCheckCollectRequestHeader4$outboundSchema),
@@ -6405,30 +3271,17 @@ export const CollectorHealthCheckHealthCheck4$outboundSchema: z.ZodType<
   authenticateCollect: z.boolean().default(false),
   timeout: z.number().default(30),
   rejectUnauthorized: z.boolean().default(false),
-  defaultBreakers: CollectorHealthCheckHiddenDefaultBreakers4$outboundSchema
-    .optional(),
+  defaultBreakers: HiddenDefaultBreakersOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() => CollectorHealthCheckRetryRules4$outboundSchema)
     .optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
   credentialsSecret: z.string().optional(),
-  loginUrl: z.string().default(""),
-  loginBody: z.string().default(
-    "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
-  ),
-  tokenRespAttribute: z.string().optional(),
-  authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  authRequestHeaders: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestHeader4$outboundSchema),
-  ).optional(),
   clientSecretParamName: z.string().default("client_secret"),
   clientSecretParamValue: z.string().optional(),
-  authRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestParam4$outboundSchema),
-  ).optional(),
+  authRequestParams: z.array(ItemsTypeAuthRequestParams$outboundSchema)
+    .optional(),
   textSecret: z.string().optional(),
-  type: CollectorHealthCheckType4$outboundSchema,
+  type: CollectorHealthCheckType5$outboundSchema,
 });
 
 export function collectorHealthCheckHealthCheck4ToJSON(
@@ -6447,6 +3300,620 @@ export function collectorHealthCheckHealthCheck4FromJSON(
     jsonString,
     (x) => CollectorHealthCheckHealthCheck4$inboundSchema.parse(JSON.parse(x)),
     `Failed to parse 'CollectorHealthCheckHealthCheck4' from JSON`,
+  );
+}
+
+/** @internal */
+export const AuthenticationHealthCheck$inboundSchema: z.ZodType<
+  AuthenticationHealthCheck,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(AuthenticationHealthCheck);
+/** @internal */
+export const AuthenticationHealthCheck$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  AuthenticationHealthCheck
+> = openEnums.outboundSchema(AuthenticationHealthCheck);
+
+/** @internal */
+export const DiscoverTypeHealthCheck$inboundSchema: z.ZodType<
+  DiscoverTypeHealthCheck,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(DiscoverTypeHealthCheck);
+/** @internal */
+export const DiscoverTypeHealthCheck$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  DiscoverTypeHealthCheck
+> = openEnums.outboundSchema(DiscoverTypeHealthCheck);
+
+/** @internal */
+export const DiscoveryHealthCheck$inboundSchema: z.ZodType<
+  DiscoveryHealthCheck,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  discoverType: DiscoverTypeHealthCheck$inboundSchema.default("none"),
+});
+/** @internal */
+export type DiscoveryHealthCheck$Outbound = {
+  discoverType: string;
+};
+
+/** @internal */
+export const DiscoveryHealthCheck$outboundSchema: z.ZodType<
+  DiscoveryHealthCheck$Outbound,
+  z.ZodTypeDef,
+  DiscoveryHealthCheck
+> = z.object({
+  discoverType: DiscoverTypeHealthCheck$outboundSchema.default("none"),
+});
+
+export function discoveryHealthCheckToJSON(
+  discoveryHealthCheck: DiscoveryHealthCheck,
+): string {
+  return JSON.stringify(
+    DiscoveryHealthCheck$outboundSchema.parse(discoveryHealthCheck),
+  );
+}
+export function discoveryHealthCheckFromJSON(
+  jsonString: string,
+): SafeParseResult<DiscoveryHealthCheck, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => DiscoveryHealthCheck$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'DiscoveryHealthCheck' from JSON`,
+  );
+}
+
+/** @internal */
+export const HealthCheckMethodHealthCheck$inboundSchema: z.ZodType<
+  HealthCheckMethodHealthCheck,
+  z.ZodTypeDef,
+  unknown
+> = openEnums.inboundSchema(HealthCheckMethodHealthCheck);
+/** @internal */
+export const HealthCheckMethodHealthCheck$outboundSchema: z.ZodType<
+  string,
+  z.ZodTypeDef,
+  HealthCheckMethodHealthCheck
+> = openEnums.outboundSchema(HealthCheckMethodHealthCheck);
+
+/** @internal */
+export const CollectRequestHeaderHealthCheck$inboundSchema: z.ZodType<
+  CollectRequestHeaderHealthCheck,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+/** @internal */
+export type CollectRequestHeaderHealthCheck$Outbound = {
+  name: string;
+  value: string;
+};
+
+/** @internal */
+export const CollectRequestHeaderHealthCheck$outboundSchema: z.ZodType<
+  CollectRequestHeaderHealthCheck$Outbound,
+  z.ZodTypeDef,
+  CollectRequestHeaderHealthCheck
+> = z.object({
+  name: z.string(),
+  value: z.string(),
+});
+
+export function collectRequestHeaderHealthCheckToJSON(
+  collectRequestHeaderHealthCheck: CollectRequestHeaderHealthCheck,
+): string {
+  return JSON.stringify(
+    CollectRequestHeaderHealthCheck$outboundSchema.parse(
+      collectRequestHeaderHealthCheck,
+    ),
+  );
+}
+export function collectRequestHeaderHealthCheckFromJSON(
+  jsonString: string,
+): SafeParseResult<CollectRequestHeaderHealthCheck, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => CollectRequestHeaderHealthCheck$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'CollectRequestHeaderHealthCheck' from JSON`,
+  );
+}
+
+/** @internal */
+export const RetryRulesHealthCheck$inboundSchema: z.ZodType<
+  RetryRulesHealthCheck,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  type: RetryTypeOptionsRetryRules$inboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+});
+/** @internal */
+export type RetryRulesHealthCheck$Outbound = {
+  type: string;
+  interval?: any | undefined;
+  limit?: any | undefined;
+  multiplier?: any | undefined;
+  codes?: any | undefined;
+  enableHeader?: any | undefined;
+};
+
+/** @internal */
+export const RetryRulesHealthCheck$outboundSchema: z.ZodType<
+  RetryRulesHealthCheck$Outbound,
+  z.ZodTypeDef,
+  RetryRulesHealthCheck
+> = z.object({
+  type: RetryTypeOptionsRetryRules$outboundSchema.default("backoff"),
+  interval: z.any().optional(),
+  limit: z.any().optional(),
+  multiplier: z.any().optional(),
+  codes: z.any().optional(),
+  enableHeader: z.any().optional(),
+});
+
+export function retryRulesHealthCheckToJSON(
+  retryRulesHealthCheck: RetryRulesHealthCheck,
+): string {
+  return JSON.stringify(
+    RetryRulesHealthCheck$outboundSchema.parse(retryRulesHealthCheck),
+  );
+}
+export function retryRulesHealthCheckFromJSON(
+  jsonString: string,
+): SafeParseResult<RetryRulesHealthCheck, SDKValidationError> {
+  return safeParse(
+    jsonString,
+    (x) => RetryRulesHealthCheck$inboundSchema.parse(JSON.parse(x)),
+    `Failed to parse 'RetryRulesHealthCheck' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorHealthCheckType4$inboundSchema: z.ZodNativeEnum<
+  typeof CollectorHealthCheckType4
+> = z.nativeEnum(CollectorHealthCheckType4);
+/** @internal */
+export const CollectorHealthCheckType4$outboundSchema: z.ZodNativeEnum<
+  typeof CollectorHealthCheckType4
+> = CollectorHealthCheckType4$inboundSchema;
+
+/** @internal */
+export const CollectorHealthCheckCollectorHealthCheckPart2Type$inboundSchema:
+  z.ZodType<
+    CollectorHealthCheckCollectorHealthCheckPart2Type,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    authentication: AuthenticationHealthCheck$inboundSchema.default("none"),
+    credentialsSecret: z.string(),
+    discovery: z.lazy(() => DiscoveryHealthCheck$inboundSchema).optional(),
+    collectUrl: z.string(),
+    collectMethod: HealthCheckMethodHealthCheck$inboundSchema.default("get"),
+    collectRequestParams: z.array(ItemsTypeCollectRequestParams$inboundSchema)
+      .optional(),
+    collectBody: z.string().default("`{ }`"),
+    collectRequestHeaders: z.array(
+      z.lazy(() => CollectRequestHeaderHealthCheck$inboundSchema),
+    ).optional(),
+    authenticateCollect: z.boolean().default(false),
+    timeout: z.number().default(30),
+    rejectUnauthorized: z.boolean().default(false),
+    defaultBreakers: HiddenDefaultBreakersOptions$inboundSchema.optional(),
+    safeHeaders: z.array(z.string()).optional(),
+    retryRules: z.lazy(() => RetryRulesHealthCheck$inboundSchema).optional(),
+    username: z.string().optional(),
+    password: z.string().optional(),
+    loginUrl: z.string().default(""),
+    loginBody: z.string().default(
+      "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+    ),
+    tokenRespAttribute: z.string().optional(),
+    authHeaderExpr: z.string().default("`Bearer ${token}`"),
+    authRequestHeaders: z.array(ItemsTypeAuthRequestHeaders$inboundSchema)
+      .optional(),
+    clientSecretParamName: z.string().default("client_secret"),
+    clientSecretParamValue: z.string().optional(),
+    authRequestParams: z.array(ItemsTypeAuthRequestParams$inboundSchema)
+      .optional(),
+    textSecret: z.string().optional(),
+    type: CollectorHealthCheckType4$inboundSchema,
+  });
+/** @internal */
+export type CollectorHealthCheckCollectorHealthCheckPart2Type$Outbound = {
+  authentication: string;
+  credentialsSecret: string;
+  discovery?: DiscoveryHealthCheck$Outbound | undefined;
+  collectUrl: string;
+  collectMethod: string;
+  collectRequestParams?:
+    | Array<ItemsTypeCollectRequestParams$Outbound>
+    | undefined;
+  collectBody: string;
+  collectRequestHeaders?:
+    | Array<CollectRequestHeaderHealthCheck$Outbound>
+    | undefined;
+  authenticateCollect: boolean;
+  timeout: number;
+  rejectUnauthorized: boolean;
+  defaultBreakers?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: RetryRulesHealthCheck$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  loginUrl: string;
+  loginBody: string;
+  tokenRespAttribute?: string | undefined;
+  authHeaderExpr: string;
+  authRequestHeaders?: Array<ItemsTypeAuthRequestHeaders$Outbound> | undefined;
+  clientSecretParamName: string;
+  clientSecretParamValue?: string | undefined;
+  authRequestParams?: Array<ItemsTypeAuthRequestParams$Outbound> | undefined;
+  textSecret?: string | undefined;
+  type: string;
+};
+
+/** @internal */
+export const CollectorHealthCheckCollectorHealthCheckPart2Type$outboundSchema:
+  z.ZodType<
+    CollectorHealthCheckCollectorHealthCheckPart2Type$Outbound,
+    z.ZodTypeDef,
+    CollectorHealthCheckCollectorHealthCheckPart2Type
+  > = z.object({
+    authentication: AuthenticationHealthCheck$outboundSchema.default("none"),
+    credentialsSecret: z.string(),
+    discovery: z.lazy(() => DiscoveryHealthCheck$outboundSchema).optional(),
+    collectUrl: z.string(),
+    collectMethod: HealthCheckMethodHealthCheck$outboundSchema.default("get"),
+    collectRequestParams: z.array(ItemsTypeCollectRequestParams$outboundSchema)
+      .optional(),
+    collectBody: z.string().default("`{ }`"),
+    collectRequestHeaders: z.array(
+      z.lazy(() => CollectRequestHeaderHealthCheck$outboundSchema),
+    ).optional(),
+    authenticateCollect: z.boolean().default(false),
+    timeout: z.number().default(30),
+    rejectUnauthorized: z.boolean().default(false),
+    defaultBreakers: HiddenDefaultBreakersOptions$outboundSchema.optional(),
+    safeHeaders: z.array(z.string()).optional(),
+    retryRules: z.lazy(() => RetryRulesHealthCheck$outboundSchema).optional(),
+    username: z.string().optional(),
+    password: z.string().optional(),
+    loginUrl: z.string().default(""),
+    loginBody: z.string().default(
+      "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+    ),
+    tokenRespAttribute: z.string().optional(),
+    authHeaderExpr: z.string().default("`Bearer ${token}`"),
+    authRequestHeaders: z.array(ItemsTypeAuthRequestHeaders$outboundSchema)
+      .optional(),
+    clientSecretParamName: z.string().default("client_secret"),
+    clientSecretParamValue: z.string().optional(),
+    authRequestParams: z.array(ItemsTypeAuthRequestParams$outboundSchema)
+      .optional(),
+    textSecret: z.string().optional(),
+    type: CollectorHealthCheckType4$outboundSchema,
+  });
+
+export function collectorHealthCheckCollectorHealthCheckPart2TypeToJSON(
+  collectorHealthCheckCollectorHealthCheckPart2Type:
+    CollectorHealthCheckCollectorHealthCheckPart2Type,
+): string {
+  return JSON.stringify(
+    CollectorHealthCheckCollectorHealthCheckPart2Type$outboundSchema.parse(
+      collectorHealthCheckCollectorHealthCheckPart2Type,
+    ),
+  );
+}
+export function collectorHealthCheckCollectorHealthCheckPart2TypeFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  CollectorHealthCheckCollectorHealthCheckPart2Type,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorHealthCheckCollectorHealthCheckPart2Type$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'CollectorHealthCheckCollectorHealthCheckPart2Type' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorHealthCheckCollectorHealthCheckPart1Type$inboundSchema:
+  z.ZodType<
+    CollectorHealthCheckCollectorHealthCheckPart1Type,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    authentication: AuthenticationHealthCheck$inboundSchema.default("none"),
+    username: z.string(),
+    password: z.string(),
+    discovery: z.lazy(() => DiscoveryHealthCheck$inboundSchema).optional(),
+    collectUrl: z.string(),
+    collectMethod: HealthCheckMethodHealthCheck$inboundSchema.default("get"),
+    collectRequestParams: z.array(ItemsTypeCollectRequestParams$inboundSchema)
+      .optional(),
+    collectBody: z.string().default("`{ }`"),
+    collectRequestHeaders: z.array(
+      z.lazy(() => CollectRequestHeaderHealthCheck$inboundSchema),
+    ).optional(),
+    authenticateCollect: z.boolean().default(false),
+    timeout: z.number().default(30),
+    rejectUnauthorized: z.boolean().default(false),
+    defaultBreakers: HiddenDefaultBreakersOptions$inboundSchema.optional(),
+    safeHeaders: z.array(z.string()).optional(),
+    retryRules: z.lazy(() => RetryRulesHealthCheck$inboundSchema).optional(),
+    credentialsSecret: z.string().optional(),
+    loginUrl: z.string().default(""),
+    loginBody: z.string().default(
+      "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+    ),
+    tokenRespAttribute: z.string().optional(),
+    authHeaderExpr: z.string().default("`Bearer ${token}`"),
+    authRequestHeaders: z.array(ItemsTypeAuthRequestHeaders$inboundSchema)
+      .optional(),
+    clientSecretParamName: z.string().default("client_secret"),
+    clientSecretParamValue: z.string().optional(),
+    authRequestParams: z.array(ItemsTypeAuthRequestParams$inboundSchema)
+      .optional(),
+    textSecret: z.string().optional(),
+    type: CollectorHealthCheckType4$inboundSchema,
+  });
+/** @internal */
+export type CollectorHealthCheckCollectorHealthCheckPart1Type$Outbound = {
+  authentication: string;
+  username: string;
+  password: string;
+  discovery?: DiscoveryHealthCheck$Outbound | undefined;
+  collectUrl: string;
+  collectMethod: string;
+  collectRequestParams?:
+    | Array<ItemsTypeCollectRequestParams$Outbound>
+    | undefined;
+  collectBody: string;
+  collectRequestHeaders?:
+    | Array<CollectRequestHeaderHealthCheck$Outbound>
+    | undefined;
+  authenticateCollect: boolean;
+  timeout: number;
+  rejectUnauthorized: boolean;
+  defaultBreakers?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: RetryRulesHealthCheck$Outbound | undefined;
+  credentialsSecret?: string | undefined;
+  loginUrl: string;
+  loginBody: string;
+  tokenRespAttribute?: string | undefined;
+  authHeaderExpr: string;
+  authRequestHeaders?: Array<ItemsTypeAuthRequestHeaders$Outbound> | undefined;
+  clientSecretParamName: string;
+  clientSecretParamValue?: string | undefined;
+  authRequestParams?: Array<ItemsTypeAuthRequestParams$Outbound> | undefined;
+  textSecret?: string | undefined;
+  type: string;
+};
+
+/** @internal */
+export const CollectorHealthCheckCollectorHealthCheckPart1Type$outboundSchema:
+  z.ZodType<
+    CollectorHealthCheckCollectorHealthCheckPart1Type$Outbound,
+    z.ZodTypeDef,
+    CollectorHealthCheckCollectorHealthCheckPart1Type
+  > = z.object({
+    authentication: AuthenticationHealthCheck$outboundSchema.default("none"),
+    username: z.string(),
+    password: z.string(),
+    discovery: z.lazy(() => DiscoveryHealthCheck$outboundSchema).optional(),
+    collectUrl: z.string(),
+    collectMethod: HealthCheckMethodHealthCheck$outboundSchema.default("get"),
+    collectRequestParams: z.array(ItemsTypeCollectRequestParams$outboundSchema)
+      .optional(),
+    collectBody: z.string().default("`{ }`"),
+    collectRequestHeaders: z.array(
+      z.lazy(() => CollectRequestHeaderHealthCheck$outboundSchema),
+    ).optional(),
+    authenticateCollect: z.boolean().default(false),
+    timeout: z.number().default(30),
+    rejectUnauthorized: z.boolean().default(false),
+    defaultBreakers: HiddenDefaultBreakersOptions$outboundSchema.optional(),
+    safeHeaders: z.array(z.string()).optional(),
+    retryRules: z.lazy(() => RetryRulesHealthCheck$outboundSchema).optional(),
+    credentialsSecret: z.string().optional(),
+    loginUrl: z.string().default(""),
+    loginBody: z.string().default(
+      "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+    ),
+    tokenRespAttribute: z.string().optional(),
+    authHeaderExpr: z.string().default("`Bearer ${token}`"),
+    authRequestHeaders: z.array(ItemsTypeAuthRequestHeaders$outboundSchema)
+      .optional(),
+    clientSecretParamName: z.string().default("client_secret"),
+    clientSecretParamValue: z.string().optional(),
+    authRequestParams: z.array(ItemsTypeAuthRequestParams$outboundSchema)
+      .optional(),
+    textSecret: z.string().optional(),
+    type: CollectorHealthCheckType4$outboundSchema,
+  });
+
+export function collectorHealthCheckCollectorHealthCheckPart1TypeToJSON(
+  collectorHealthCheckCollectorHealthCheckPart1Type:
+    CollectorHealthCheckCollectorHealthCheckPart1Type,
+): string {
+  return JSON.stringify(
+    CollectorHealthCheckCollectorHealthCheckPart1Type$outboundSchema.parse(
+      collectorHealthCheckCollectorHealthCheckPart1Type,
+    ),
+  );
+}
+export function collectorHealthCheckCollectorHealthCheckPart1TypeFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  CollectorHealthCheckCollectorHealthCheckPart1Type,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorHealthCheckCollectorHealthCheckPart1Type$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'CollectorHealthCheckCollectorHealthCheckPart1Type' from JSON`,
+  );
+}
+
+/** @internal */
+export const CollectorHealthCheckCollectorHealthCheckPart0Type$inboundSchema:
+  z.ZodType<
+    CollectorHealthCheckCollectorHealthCheckPart0Type,
+    z.ZodTypeDef,
+    unknown
+  > = z.object({
+    authentication: AuthenticationHealthCheck$inboundSchema.default("none"),
+    discovery: z.lazy(() => DiscoveryHealthCheck$inboundSchema).optional(),
+    collectUrl: z.string(),
+    collectMethod: HealthCheckMethodHealthCheck$inboundSchema.default("get"),
+    collectRequestParams: z.array(ItemsTypeCollectRequestParams$inboundSchema)
+      .optional(),
+    collectBody: z.string().default("`{ }`"),
+    collectRequestHeaders: z.array(
+      z.lazy(() => CollectRequestHeaderHealthCheck$inboundSchema),
+    ).optional(),
+    authenticateCollect: z.boolean().default(false),
+    timeout: z.number().default(30),
+    rejectUnauthorized: z.boolean().default(false),
+    defaultBreakers: HiddenDefaultBreakersOptions$inboundSchema.optional(),
+    safeHeaders: z.array(z.string()).optional(),
+    retryRules: z.lazy(() => RetryRulesHealthCheck$inboundSchema).optional(),
+    username: z.string().optional(),
+    password: z.string().optional(),
+    credentialsSecret: z.string().optional(),
+    loginUrl: z.string().default(""),
+    loginBody: z.string().default(
+      "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+    ),
+    tokenRespAttribute: z.string().optional(),
+    authHeaderExpr: z.string().default("`Bearer ${token}`"),
+    authRequestHeaders: z.array(ItemsTypeAuthRequestHeaders$inboundSchema)
+      .optional(),
+    clientSecretParamName: z.string().default("client_secret"),
+    clientSecretParamValue: z.string().optional(),
+    authRequestParams: z.array(ItemsTypeAuthRequestParams$inboundSchema)
+      .optional(),
+    textSecret: z.string().optional(),
+    type: CollectorHealthCheckType4$inboundSchema,
+  });
+/** @internal */
+export type CollectorHealthCheckCollectorHealthCheckPart0Type$Outbound = {
+  authentication: string;
+  discovery?: DiscoveryHealthCheck$Outbound | undefined;
+  collectUrl: string;
+  collectMethod: string;
+  collectRequestParams?:
+    | Array<ItemsTypeCollectRequestParams$Outbound>
+    | undefined;
+  collectBody: string;
+  collectRequestHeaders?:
+    | Array<CollectRequestHeaderHealthCheck$Outbound>
+    | undefined;
+  authenticateCollect: boolean;
+  timeout: number;
+  rejectUnauthorized: boolean;
+  defaultBreakers?: string | undefined;
+  safeHeaders?: Array<string> | undefined;
+  retryRules?: RetryRulesHealthCheck$Outbound | undefined;
+  username?: string | undefined;
+  password?: string | undefined;
+  credentialsSecret?: string | undefined;
+  loginUrl: string;
+  loginBody: string;
+  tokenRespAttribute?: string | undefined;
+  authHeaderExpr: string;
+  authRequestHeaders?: Array<ItemsTypeAuthRequestHeaders$Outbound> | undefined;
+  clientSecretParamName: string;
+  clientSecretParamValue?: string | undefined;
+  authRequestParams?: Array<ItemsTypeAuthRequestParams$Outbound> | undefined;
+  textSecret?: string | undefined;
+  type: string;
+};
+
+/** @internal */
+export const CollectorHealthCheckCollectorHealthCheckPart0Type$outboundSchema:
+  z.ZodType<
+    CollectorHealthCheckCollectorHealthCheckPart0Type$Outbound,
+    z.ZodTypeDef,
+    CollectorHealthCheckCollectorHealthCheckPart0Type
+  > = z.object({
+    authentication: AuthenticationHealthCheck$outboundSchema.default("none"),
+    discovery: z.lazy(() => DiscoveryHealthCheck$outboundSchema).optional(),
+    collectUrl: z.string(),
+    collectMethod: HealthCheckMethodHealthCheck$outboundSchema.default("get"),
+    collectRequestParams: z.array(ItemsTypeCollectRequestParams$outboundSchema)
+      .optional(),
+    collectBody: z.string().default("`{ }`"),
+    collectRequestHeaders: z.array(
+      z.lazy(() => CollectRequestHeaderHealthCheck$outboundSchema),
+    ).optional(),
+    authenticateCollect: z.boolean().default(false),
+    timeout: z.number().default(30),
+    rejectUnauthorized: z.boolean().default(false),
+    defaultBreakers: HiddenDefaultBreakersOptions$outboundSchema.optional(),
+    safeHeaders: z.array(z.string()).optional(),
+    retryRules: z.lazy(() => RetryRulesHealthCheck$outboundSchema).optional(),
+    username: z.string().optional(),
+    password: z.string().optional(),
+    credentialsSecret: z.string().optional(),
+    loginUrl: z.string().default(""),
+    loginBody: z.string().default(
+      "`{ \"username\": \"${username}\", \"password\": \"${password}\" }`",
+    ),
+    tokenRespAttribute: z.string().optional(),
+    authHeaderExpr: z.string().default("`Bearer ${token}`"),
+    authRequestHeaders: z.array(ItemsTypeAuthRequestHeaders$outboundSchema)
+      .optional(),
+    clientSecretParamName: z.string().default("client_secret"),
+    clientSecretParamValue: z.string().optional(),
+    authRequestParams: z.array(ItemsTypeAuthRequestParams$outboundSchema)
+      .optional(),
+    textSecret: z.string().optional(),
+    type: CollectorHealthCheckType4$outboundSchema,
+  });
+
+export function collectorHealthCheckCollectorHealthCheckPart0TypeToJSON(
+  collectorHealthCheckCollectorHealthCheckPart0Type:
+    CollectorHealthCheckCollectorHealthCheckPart0Type,
+): string {
+  return JSON.stringify(
+    CollectorHealthCheckCollectorHealthCheckPart0Type$outboundSchema.parse(
+      collectorHealthCheckCollectorHealthCheckPart0Type,
+    ),
+  );
+}
+export function collectorHealthCheckCollectorHealthCheckPart0TypeFromJSON(
+  jsonString: string,
+): SafeParseResult<
+  CollectorHealthCheckCollectorHealthCheckPart0Type,
+  SDKValidationError
+> {
+  return safeParse(
+    jsonString,
+    (x) =>
+      CollectorHealthCheckCollectorHealthCheckPart0Type$inboundSchema.parse(
+        JSON.parse(x),
+      ),
+    `Failed to parse 'CollectorHealthCheckCollectorHealthCheckPart0Type' from JSON`,
   );
 }
 
@@ -6520,57 +3987,6 @@ export function collectorHealthCheckDiscovery3FromJSON(
 }
 
 /** @internal */
-export const CollectorHealthCheckCollectRequestParam3$inboundSchema: z.ZodType<
-  CollectorHealthCheckCollectRequestParam3,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type CollectorHealthCheckCollectRequestParam3$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckCollectRequestParam3$outboundSchema: z.ZodType<
-  CollectorHealthCheckCollectRequestParam3$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckCollectRequestParam3
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function collectorHealthCheckCollectRequestParam3ToJSON(
-  collectorHealthCheckCollectRequestParam3:
-    CollectorHealthCheckCollectRequestParam3,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckCollectRequestParam3$outboundSchema.parse(
-      collectorHealthCheckCollectRequestParam3,
-    ),
-  );
-}
-export function collectorHealthCheckCollectRequestParam3FromJSON(
-  jsonString: string,
-): SafeParseResult<
-  CollectorHealthCheckCollectRequestParam3,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CollectorHealthCheckCollectRequestParam3$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'CollectorHealthCheckCollectRequestParam3' from JSON`,
-  );
-}
-
-/** @internal */
 export const CollectorHealthCheckCollectRequestHeader3$inboundSchema: z.ZodType<
   CollectorHealthCheckCollectRequestHeader3,
   z.ZodTypeDef,
@@ -6636,34 +4052,12 @@ export const CollectorHealthCheckAuthentication3$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(CollectorHealthCheckAuthentication3);
 
 /** @internal */
-export const CollectorHealthCheckHiddenDefaultBreakers3$inboundSchema:
-  z.ZodType<CollectorHealthCheckHiddenDefaultBreakers3, z.ZodTypeDef, unknown> =
-    openEnums.inboundSchema(CollectorHealthCheckHiddenDefaultBreakers3);
-/** @internal */
-export const CollectorHealthCheckHiddenDefaultBreakers3$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, CollectorHealthCheckHiddenDefaultBreakers3> =
-    openEnums.outboundSchema(CollectorHealthCheckHiddenDefaultBreakers3);
-
-/** @internal */
-export const CollectorHealthCheckRetryType3$inboundSchema: z.ZodType<
-  CollectorHealthCheckRetryType3,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(CollectorHealthCheckRetryType3);
-/** @internal */
-export const CollectorHealthCheckRetryType3$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CollectorHealthCheckRetryType3
-> = openEnums.outboundSchema(CollectorHealthCheckRetryType3);
-
-/** @internal */
 export const CollectorHealthCheckRetryRules3$inboundSchema: z.ZodType<
   CollectorHealthCheckRetryRules3,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: CollectorHealthCheckRetryType3$inboundSchema.default("backoff"),
+  type: RetryTypeOptionsRetryRules$inboundSchema.default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -6686,7 +4080,7 @@ export const CollectorHealthCheckRetryRules3$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CollectorHealthCheckRetryRules3
 > = z.object({
-  type: CollectorHealthCheckRetryType3$outboundSchema.default("backoff"),
+  type: RetryTypeOptionsRetryRules$outboundSchema.default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -6714,97 +4108,6 @@ export function collectorHealthCheckRetryRules3FromJSON(
 }
 
 /** @internal */
-export const CollectorHealthCheckAuthRequestHeader3$inboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestHeader3,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type CollectorHealthCheckAuthRequestHeader3$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckAuthRequestHeader3$outboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestHeader3$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckAuthRequestHeader3
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function collectorHealthCheckAuthRequestHeader3ToJSON(
-  collectorHealthCheckAuthRequestHeader3:
-    CollectorHealthCheckAuthRequestHeader3,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckAuthRequestHeader3$outboundSchema.parse(
-      collectorHealthCheckAuthRequestHeader3,
-    ),
-  );
-}
-export function collectorHealthCheckAuthRequestHeader3FromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorHealthCheckAuthRequestHeader3, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CollectorHealthCheckAuthRequestHeader3$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorHealthCheckAuthRequestHeader3' from JSON`,
-  );
-}
-
-/** @internal */
-export const CollectorHealthCheckAuthRequestParam3$inboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestParam3,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type CollectorHealthCheckAuthRequestParam3$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckAuthRequestParam3$outboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestParam3$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckAuthRequestParam3
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function collectorHealthCheckAuthRequestParam3ToJSON(
-  collectorHealthCheckAuthRequestParam3: CollectorHealthCheckAuthRequestParam3,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckAuthRequestParam3$outboundSchema.parse(
-      collectorHealthCheckAuthRequestParam3,
-    ),
-  );
-}
-export function collectorHealthCheckAuthRequestParam3FromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorHealthCheckAuthRequestParam3, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CollectorHealthCheckAuthRequestParam3$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorHealthCheckAuthRequestParam3' from JSON`,
-  );
-}
-
-/** @internal */
 export const CollectorHealthCheckType3$inboundSchema: z.ZodNativeEnum<
   typeof CollectorHealthCheckType3
 > = z.nativeEnum(CollectorHealthCheckType3);
@@ -6824,9 +4127,8 @@ export const CollectorHealthCheckHealthCheck3$inboundSchema: z.ZodType<
   discovery: z.lazy(() => CollectorHealthCheckDiscovery3$inboundSchema)
     .optional(),
   collectUrl: z.string(),
-  collectRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckCollectRequestParam3$inboundSchema),
-  ).optional(),
+  collectRequestParams: z.array(ItemsTypeCollectRequestParams$inboundSchema)
+    .optional(),
   collectRequestHeaders: z.array(
     z.lazy(() => CollectorHealthCheckCollectRequestHeader3$inboundSchema),
   ).optional(),
@@ -6836,8 +4138,7 @@ export const CollectorHealthCheckHealthCheck3$inboundSchema: z.ZodType<
   ),
   timeout: z.number().default(30),
   rejectUnauthorized: z.boolean().default(false),
-  defaultBreakers: CollectorHealthCheckHiddenDefaultBreakers3$inboundSchema
-    .optional(),
+  defaultBreakers: HiddenDefaultBreakersOptions$inboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() => CollectorHealthCheckRetryRules3$inboundSchema)
     .optional(),
@@ -6850,14 +4151,12 @@ export const CollectorHealthCheckHealthCheck3$inboundSchema: z.ZodType<
   ),
   tokenRespAttribute: z.string().optional(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  authRequestHeaders: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestHeader3$inboundSchema),
-  ).optional(),
+  authRequestHeaders: z.array(ItemsTypeAuthRequestHeaders$inboundSchema)
+    .optional(),
   clientSecretParamName: z.string().default("client_secret"),
   clientSecretParamValue: z.string().optional(),
-  authRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestParam3$inboundSchema),
-  ).optional(),
+  authRequestParams: z.array(ItemsTypeAuthRequestParams$inboundSchema)
+    .optional(),
   textSecret: z.string().optional(),
   type: CollectorHealthCheckType3$inboundSchema,
 });
@@ -6868,7 +4167,7 @@ export type CollectorHealthCheckHealthCheck3$Outbound = {
   discovery?: CollectorHealthCheckDiscovery3$Outbound | undefined;
   collectUrl: string;
   collectRequestParams?:
-    | Array<CollectorHealthCheckCollectRequestParam3$Outbound>
+    | Array<ItemsTypeCollectRequestParams$Outbound>
     | undefined;
   collectRequestHeaders?:
     | Array<CollectorHealthCheckCollectRequestHeader3$Outbound>
@@ -6887,14 +4186,10 @@ export type CollectorHealthCheckHealthCheck3$Outbound = {
   loginBody: string;
   tokenRespAttribute?: string | undefined;
   authHeaderExpr: string;
-  authRequestHeaders?:
-    | Array<CollectorHealthCheckAuthRequestHeader3$Outbound>
-    | undefined;
+  authRequestHeaders?: Array<ItemsTypeAuthRequestHeaders$Outbound> | undefined;
   clientSecretParamName: string;
   clientSecretParamValue?: string | undefined;
-  authRequestParams?:
-    | Array<CollectorHealthCheckAuthRequestParam3$Outbound>
-    | undefined;
+  authRequestParams?: Array<ItemsTypeAuthRequestParams$Outbound> | undefined;
   textSecret?: string | undefined;
   type: string;
 };
@@ -6910,9 +4205,8 @@ export const CollectorHealthCheckHealthCheck3$outboundSchema: z.ZodType<
   discovery: z.lazy(() => CollectorHealthCheckDiscovery3$outboundSchema)
     .optional(),
   collectUrl: z.string(),
-  collectRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckCollectRequestParam3$outboundSchema),
-  ).optional(),
+  collectRequestParams: z.array(ItemsTypeCollectRequestParams$outboundSchema)
+    .optional(),
   collectRequestHeaders: z.array(
     z.lazy(() => CollectorHealthCheckCollectRequestHeader3$outboundSchema),
   ).optional(),
@@ -6922,8 +4216,7 @@ export const CollectorHealthCheckHealthCheck3$outboundSchema: z.ZodType<
   ),
   timeout: z.number().default(30),
   rejectUnauthorized: z.boolean().default(false),
-  defaultBreakers: CollectorHealthCheckHiddenDefaultBreakers3$outboundSchema
-    .optional(),
+  defaultBreakers: HiddenDefaultBreakersOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() => CollectorHealthCheckRetryRules3$outboundSchema)
     .optional(),
@@ -6936,14 +4229,12 @@ export const CollectorHealthCheckHealthCheck3$outboundSchema: z.ZodType<
   ),
   tokenRespAttribute: z.string().optional(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  authRequestHeaders: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestHeader3$outboundSchema),
-  ).optional(),
+  authRequestHeaders: z.array(ItemsTypeAuthRequestHeaders$outboundSchema)
+    .optional(),
   clientSecretParamName: z.string().default("client_secret"),
   clientSecretParamValue: z.string().optional(),
-  authRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestParam3$outboundSchema),
-  ).optional(),
+  authRequestParams: z.array(ItemsTypeAuthRequestParams$outboundSchema)
+    .optional(),
   textSecret: z.string().optional(),
   type: CollectorHealthCheckType3$outboundSchema,
 });
@@ -6979,57 +4270,6 @@ export const HealthCheckMethod2$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   HealthCheckMethod2
 > = openEnums.outboundSchema(HealthCheckMethod2);
-
-/** @internal */
-export const CollectorHealthCheckCollectRequestParam2$inboundSchema: z.ZodType<
-  CollectorHealthCheckCollectRequestParam2,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type CollectorHealthCheckCollectRequestParam2$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckCollectRequestParam2$outboundSchema: z.ZodType<
-  CollectorHealthCheckCollectRequestParam2$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckCollectRequestParam2
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function collectorHealthCheckCollectRequestParam2ToJSON(
-  collectorHealthCheckCollectRequestParam2:
-    CollectorHealthCheckCollectRequestParam2,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckCollectRequestParam2$outboundSchema.parse(
-      collectorHealthCheckCollectRequestParam2,
-    ),
-  );
-}
-export function collectorHealthCheckCollectRequestParam2FromJSON(
-  jsonString: string,
-): SafeParseResult<
-  CollectorHealthCheckCollectRequestParam2,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CollectorHealthCheckCollectRequestParam2$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'CollectorHealthCheckCollectRequestParam2' from JSON`,
-  );
-}
 
 /** @internal */
 export const CollectorHealthCheckDiscoverType2$inboundSchema: z.ZodType<
@@ -7153,34 +4393,12 @@ export const CollectorHealthCheckAuthentication2$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(CollectorHealthCheckAuthentication2);
 
 /** @internal */
-export const CollectorHealthCheckHiddenDefaultBreakers2$inboundSchema:
-  z.ZodType<CollectorHealthCheckHiddenDefaultBreakers2, z.ZodTypeDef, unknown> =
-    openEnums.inboundSchema(CollectorHealthCheckHiddenDefaultBreakers2);
-/** @internal */
-export const CollectorHealthCheckHiddenDefaultBreakers2$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, CollectorHealthCheckHiddenDefaultBreakers2> =
-    openEnums.outboundSchema(CollectorHealthCheckHiddenDefaultBreakers2);
-
-/** @internal */
-export const CollectorHealthCheckRetryType2$inboundSchema: z.ZodType<
-  CollectorHealthCheckRetryType2,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(CollectorHealthCheckRetryType2);
-/** @internal */
-export const CollectorHealthCheckRetryType2$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CollectorHealthCheckRetryType2
-> = openEnums.outboundSchema(CollectorHealthCheckRetryType2);
-
-/** @internal */
 export const CollectorHealthCheckRetryRules2$inboundSchema: z.ZodType<
   CollectorHealthCheckRetryRules2,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: CollectorHealthCheckRetryType2$inboundSchema.default("backoff"),
+  type: RetryTypeOptionsRetryRules$inboundSchema.default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -7203,7 +4421,7 @@ export const CollectorHealthCheckRetryRules2$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CollectorHealthCheckRetryRules2
 > = z.object({
-  type: CollectorHealthCheckRetryType2$outboundSchema.default("backoff"),
+  type: RetryTypeOptionsRetryRules$outboundSchema.default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -7231,97 +4449,6 @@ export function collectorHealthCheckRetryRules2FromJSON(
 }
 
 /** @internal */
-export const CollectorHealthCheckAuthRequestHeader2$inboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestHeader2,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type CollectorHealthCheckAuthRequestHeader2$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckAuthRequestHeader2$outboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestHeader2$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckAuthRequestHeader2
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function collectorHealthCheckAuthRequestHeader2ToJSON(
-  collectorHealthCheckAuthRequestHeader2:
-    CollectorHealthCheckAuthRequestHeader2,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckAuthRequestHeader2$outboundSchema.parse(
-      collectorHealthCheckAuthRequestHeader2,
-    ),
-  );
-}
-export function collectorHealthCheckAuthRequestHeader2FromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorHealthCheckAuthRequestHeader2, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CollectorHealthCheckAuthRequestHeader2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorHealthCheckAuthRequestHeader2' from JSON`,
-  );
-}
-
-/** @internal */
-export const CollectorHealthCheckAuthRequestParam2$inboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestParam2,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type CollectorHealthCheckAuthRequestParam2$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckAuthRequestParam2$outboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestParam2$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckAuthRequestParam2
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function collectorHealthCheckAuthRequestParam2ToJSON(
-  collectorHealthCheckAuthRequestParam2: CollectorHealthCheckAuthRequestParam2,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckAuthRequestParam2$outboundSchema.parse(
-      collectorHealthCheckAuthRequestParam2,
-    ),
-  );
-}
-export function collectorHealthCheckAuthRequestParam2FromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorHealthCheckAuthRequestParam2, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CollectorHealthCheckAuthRequestParam2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorHealthCheckAuthRequestParam2' from JSON`,
-  );
-}
-
-/** @internal */
 export const CollectorHealthCheckType2$inboundSchema: z.ZodNativeEnum<
   typeof CollectorHealthCheckType2
 > = z.nativeEnum(CollectorHealthCheckType2);
@@ -7337,9 +4464,8 @@ export const CollectorHealthCheckHealthCheck2$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   collectMethod: HealthCheckMethod2$inboundSchema.default("get"),
-  collectRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckCollectRequestParam2$inboundSchema),
-  ).optional(),
+  collectRequestParams: z.array(ItemsTypeCollectRequestParams$inboundSchema)
+    .optional(),
   discovery: z.lazy(() => CollectorHealthCheckDiscovery2$inboundSchema)
     .optional(),
   collectUrl: z.string(),
@@ -7353,8 +4479,7 @@ export const CollectorHealthCheckHealthCheck2$inboundSchema: z.ZodType<
   ),
   timeout: z.number().default(30),
   rejectUnauthorized: z.boolean().default(false),
-  defaultBreakers: CollectorHealthCheckHiddenDefaultBreakers2$inboundSchema
-    .optional(),
+  defaultBreakers: HiddenDefaultBreakersOptions$inboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() => CollectorHealthCheckRetryRules2$inboundSchema)
     .optional(),
@@ -7367,14 +4492,12 @@ export const CollectorHealthCheckHealthCheck2$inboundSchema: z.ZodType<
   ),
   tokenRespAttribute: z.string().optional(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  authRequestHeaders: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestHeader2$inboundSchema),
-  ).optional(),
+  authRequestHeaders: z.array(ItemsTypeAuthRequestHeaders$inboundSchema)
+    .optional(),
   clientSecretParamName: z.string().default("client_secret"),
   clientSecretParamValue: z.string().optional(),
-  authRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestParam2$inboundSchema),
-  ).optional(),
+  authRequestParams: z.array(ItemsTypeAuthRequestParams$inboundSchema)
+    .optional(),
   textSecret: z.string().optional(),
   type: CollectorHealthCheckType2$inboundSchema,
 });
@@ -7382,7 +4505,7 @@ export const CollectorHealthCheckHealthCheck2$inboundSchema: z.ZodType<
 export type CollectorHealthCheckHealthCheck2$Outbound = {
   collectMethod: string;
   collectRequestParams?:
-    | Array<CollectorHealthCheckCollectRequestParam2$Outbound>
+    | Array<ItemsTypeCollectRequestParams$Outbound>
     | undefined;
   discovery?: CollectorHealthCheckDiscovery2$Outbound | undefined;
   collectUrl: string;
@@ -7404,14 +4527,10 @@ export type CollectorHealthCheckHealthCheck2$Outbound = {
   loginBody: string;
   tokenRespAttribute?: string | undefined;
   authHeaderExpr: string;
-  authRequestHeaders?:
-    | Array<CollectorHealthCheckAuthRequestHeader2$Outbound>
-    | undefined;
+  authRequestHeaders?: Array<ItemsTypeAuthRequestHeaders$Outbound> | undefined;
   clientSecretParamName: string;
   clientSecretParamValue?: string | undefined;
-  authRequestParams?:
-    | Array<CollectorHealthCheckAuthRequestParam2$Outbound>
-    | undefined;
+  authRequestParams?: Array<ItemsTypeAuthRequestParams$Outbound> | undefined;
   textSecret?: string | undefined;
   type: string;
 };
@@ -7423,9 +4542,8 @@ export const CollectorHealthCheckHealthCheck2$outboundSchema: z.ZodType<
   CollectorHealthCheckHealthCheck2
 > = z.object({
   collectMethod: HealthCheckMethod2$outboundSchema.default("get"),
-  collectRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckCollectRequestParam2$outboundSchema),
-  ).optional(),
+  collectRequestParams: z.array(ItemsTypeCollectRequestParams$outboundSchema)
+    .optional(),
   discovery: z.lazy(() => CollectorHealthCheckDiscovery2$outboundSchema)
     .optional(),
   collectUrl: z.string(),
@@ -7439,8 +4557,7 @@ export const CollectorHealthCheckHealthCheck2$outboundSchema: z.ZodType<
   ),
   timeout: z.number().default(30),
   rejectUnauthorized: z.boolean().default(false),
-  defaultBreakers: CollectorHealthCheckHiddenDefaultBreakers2$outboundSchema
-    .optional(),
+  defaultBreakers: HiddenDefaultBreakersOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() => CollectorHealthCheckRetryRules2$outboundSchema)
     .optional(),
@@ -7453,14 +4570,12 @@ export const CollectorHealthCheckHealthCheck2$outboundSchema: z.ZodType<
   ),
   tokenRespAttribute: z.string().optional(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  authRequestHeaders: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestHeader2$outboundSchema),
-  ).optional(),
+  authRequestHeaders: z.array(ItemsTypeAuthRequestHeaders$outboundSchema)
+    .optional(),
   clientSecretParamName: z.string().default("client_secret"),
   clientSecretParamValue: z.string().optional(),
-  authRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestParam2$outboundSchema),
-  ).optional(),
+  authRequestParams: z.array(ItemsTypeAuthRequestParams$outboundSchema)
+    .optional(),
   textSecret: z.string().optional(),
   type: CollectorHealthCheckType2$outboundSchema,
 });
@@ -7496,57 +4611,6 @@ export const HealthCheckMethod1$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   HealthCheckMethod1
 > = openEnums.outboundSchema(HealthCheckMethod1);
-
-/** @internal */
-export const CollectorHealthCheckCollectRequestParam1$inboundSchema: z.ZodType<
-  CollectorHealthCheckCollectRequestParam1,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type CollectorHealthCheckCollectRequestParam1$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckCollectRequestParam1$outboundSchema: z.ZodType<
-  CollectorHealthCheckCollectRequestParam1$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckCollectRequestParam1
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function collectorHealthCheckCollectRequestParam1ToJSON(
-  collectorHealthCheckCollectRequestParam1:
-    CollectorHealthCheckCollectRequestParam1,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckCollectRequestParam1$outboundSchema.parse(
-      collectorHealthCheckCollectRequestParam1,
-    ),
-  );
-}
-export function collectorHealthCheckCollectRequestParam1FromJSON(
-  jsonString: string,
-): SafeParseResult<
-  CollectorHealthCheckCollectRequestParam1,
-  SDKValidationError
-> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CollectorHealthCheckCollectRequestParam1$inboundSchema.parse(
-        JSON.parse(x),
-      ),
-    `Failed to parse 'CollectorHealthCheckCollectRequestParam1' from JSON`,
-  );
-}
 
 /** @internal */
 export const CollectorHealthCheckDiscoverType1$inboundSchema: z.ZodType<
@@ -7670,34 +4734,12 @@ export const CollectorHealthCheckAuthentication1$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(CollectorHealthCheckAuthentication1);
 
 /** @internal */
-export const CollectorHealthCheckHiddenDefaultBreakers1$inboundSchema:
-  z.ZodType<CollectorHealthCheckHiddenDefaultBreakers1, z.ZodTypeDef, unknown> =
-    openEnums.inboundSchema(CollectorHealthCheckHiddenDefaultBreakers1);
-/** @internal */
-export const CollectorHealthCheckHiddenDefaultBreakers1$outboundSchema:
-  z.ZodType<string, z.ZodTypeDef, CollectorHealthCheckHiddenDefaultBreakers1> =
-    openEnums.outboundSchema(CollectorHealthCheckHiddenDefaultBreakers1);
-
-/** @internal */
-export const CollectorHealthCheckRetryType1$inboundSchema: z.ZodType<
-  CollectorHealthCheckRetryType1,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(CollectorHealthCheckRetryType1);
-/** @internal */
-export const CollectorHealthCheckRetryType1$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  CollectorHealthCheckRetryType1
-> = openEnums.outboundSchema(CollectorHealthCheckRetryType1);
-
-/** @internal */
 export const CollectorHealthCheckRetryRules1$inboundSchema: z.ZodType<
   CollectorHealthCheckRetryRules1,
   z.ZodTypeDef,
   unknown
 > = z.object({
-  type: CollectorHealthCheckRetryType1$inboundSchema.default("backoff"),
+  type: RetryTypeOptionsRetryRules$inboundSchema.default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -7720,7 +4762,7 @@ export const CollectorHealthCheckRetryRules1$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CollectorHealthCheckRetryRules1
 > = z.object({
-  type: CollectorHealthCheckRetryType1$outboundSchema.default("backoff"),
+  type: RetryTypeOptionsRetryRules$outboundSchema.default("backoff"),
   interval: z.any().optional(),
   limit: z.any().optional(),
   multiplier: z.any().optional(),
@@ -7748,97 +4790,6 @@ export function collectorHealthCheckRetryRules1FromJSON(
 }
 
 /** @internal */
-export const CollectorHealthCheckAuthRequestHeader1$inboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestHeader1,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type CollectorHealthCheckAuthRequestHeader1$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckAuthRequestHeader1$outboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestHeader1$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckAuthRequestHeader1
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function collectorHealthCheckAuthRequestHeader1ToJSON(
-  collectorHealthCheckAuthRequestHeader1:
-    CollectorHealthCheckAuthRequestHeader1,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckAuthRequestHeader1$outboundSchema.parse(
-      collectorHealthCheckAuthRequestHeader1,
-    ),
-  );
-}
-export function collectorHealthCheckAuthRequestHeader1FromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorHealthCheckAuthRequestHeader1, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CollectorHealthCheckAuthRequestHeader1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorHealthCheckAuthRequestHeader1' from JSON`,
-  );
-}
-
-/** @internal */
-export const CollectorHealthCheckAuthRequestParam1$inboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestParam1,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-/** @internal */
-export type CollectorHealthCheckAuthRequestParam1$Outbound = {
-  name: string;
-  value: string;
-};
-
-/** @internal */
-export const CollectorHealthCheckAuthRequestParam1$outboundSchema: z.ZodType<
-  CollectorHealthCheckAuthRequestParam1$Outbound,
-  z.ZodTypeDef,
-  CollectorHealthCheckAuthRequestParam1
-> = z.object({
-  name: z.string(),
-  value: z.string(),
-});
-
-export function collectorHealthCheckAuthRequestParam1ToJSON(
-  collectorHealthCheckAuthRequestParam1: CollectorHealthCheckAuthRequestParam1,
-): string {
-  return JSON.stringify(
-    CollectorHealthCheckAuthRequestParam1$outboundSchema.parse(
-      collectorHealthCheckAuthRequestParam1,
-    ),
-  );
-}
-export function collectorHealthCheckAuthRequestParam1FromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorHealthCheckAuthRequestParam1, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) =>
-      CollectorHealthCheckAuthRequestParam1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorHealthCheckAuthRequestParam1' from JSON`,
-  );
-}
-
-/** @internal */
 export const CollectorHealthCheckType1$inboundSchema: z.ZodNativeEnum<
   typeof CollectorHealthCheckType1
 > = z.nativeEnum(CollectorHealthCheckType1);
@@ -7854,9 +4805,8 @@ export const CollectorHealthCheckHealthCheck1$inboundSchema: z.ZodType<
   unknown
 > = z.object({
   collectMethod: HealthCheckMethod1$inboundSchema.default("get"),
-  collectRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckCollectRequestParam1$inboundSchema),
-  ).optional(),
+  collectRequestParams: z.array(ItemsTypeCollectRequestParams$inboundSchema)
+    .optional(),
   discovery: z.lazy(() => CollectorHealthCheckDiscovery1$inboundSchema)
     .optional(),
   collectUrl: z.string(),
@@ -7870,8 +4820,7 @@ export const CollectorHealthCheckHealthCheck1$inboundSchema: z.ZodType<
   ),
   timeout: z.number().default(30),
   rejectUnauthorized: z.boolean().default(false),
-  defaultBreakers: CollectorHealthCheckHiddenDefaultBreakers1$inboundSchema
-    .optional(),
+  defaultBreakers: HiddenDefaultBreakersOptions$inboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() => CollectorHealthCheckRetryRules1$inboundSchema)
     .optional(),
@@ -7884,14 +4833,12 @@ export const CollectorHealthCheckHealthCheck1$inboundSchema: z.ZodType<
   ),
   tokenRespAttribute: z.string().optional(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  authRequestHeaders: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestHeader1$inboundSchema),
-  ).optional(),
+  authRequestHeaders: z.array(ItemsTypeAuthRequestHeaders$inboundSchema)
+    .optional(),
   clientSecretParamName: z.string().default("client_secret"),
   clientSecretParamValue: z.string().optional(),
-  authRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestParam1$inboundSchema),
-  ).optional(),
+  authRequestParams: z.array(ItemsTypeAuthRequestParams$inboundSchema)
+    .optional(),
   textSecret: z.string().optional(),
   type: CollectorHealthCheckType1$inboundSchema,
 });
@@ -7899,7 +4846,7 @@ export const CollectorHealthCheckHealthCheck1$inboundSchema: z.ZodType<
 export type CollectorHealthCheckHealthCheck1$Outbound = {
   collectMethod: string;
   collectRequestParams?:
-    | Array<CollectorHealthCheckCollectRequestParam1$Outbound>
+    | Array<ItemsTypeCollectRequestParams$Outbound>
     | undefined;
   discovery?: CollectorHealthCheckDiscovery1$Outbound | undefined;
   collectUrl: string;
@@ -7921,14 +4868,10 @@ export type CollectorHealthCheckHealthCheck1$Outbound = {
   loginBody: string;
   tokenRespAttribute?: string | undefined;
   authHeaderExpr: string;
-  authRequestHeaders?:
-    | Array<CollectorHealthCheckAuthRequestHeader1$Outbound>
-    | undefined;
+  authRequestHeaders?: Array<ItemsTypeAuthRequestHeaders$Outbound> | undefined;
   clientSecretParamName: string;
   clientSecretParamValue?: string | undefined;
-  authRequestParams?:
-    | Array<CollectorHealthCheckAuthRequestParam1$Outbound>
-    | undefined;
+  authRequestParams?: Array<ItemsTypeAuthRequestParams$Outbound> | undefined;
   textSecret?: string | undefined;
   type: string;
 };
@@ -7940,9 +4883,8 @@ export const CollectorHealthCheckHealthCheck1$outboundSchema: z.ZodType<
   CollectorHealthCheckHealthCheck1
 > = z.object({
   collectMethod: HealthCheckMethod1$outboundSchema.default("get"),
-  collectRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckCollectRequestParam1$outboundSchema),
-  ).optional(),
+  collectRequestParams: z.array(ItemsTypeCollectRequestParams$outboundSchema)
+    .optional(),
   discovery: z.lazy(() => CollectorHealthCheckDiscovery1$outboundSchema)
     .optional(),
   collectUrl: z.string(),
@@ -7956,8 +4898,7 @@ export const CollectorHealthCheckHealthCheck1$outboundSchema: z.ZodType<
   ),
   timeout: z.number().default(30),
   rejectUnauthorized: z.boolean().default(false),
-  defaultBreakers: CollectorHealthCheckHiddenDefaultBreakers1$outboundSchema
-    .optional(),
+  defaultBreakers: HiddenDefaultBreakersOptions$outboundSchema.optional(),
   safeHeaders: z.array(z.string()).optional(),
   retryRules: z.lazy(() => CollectorHealthCheckRetryRules1$outboundSchema)
     .optional(),
@@ -7970,14 +4911,12 @@ export const CollectorHealthCheckHealthCheck1$outboundSchema: z.ZodType<
   ),
   tokenRespAttribute: z.string().optional(),
   authHeaderExpr: z.string().default("`Bearer ${token}`"),
-  authRequestHeaders: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestHeader1$outboundSchema),
-  ).optional(),
+  authRequestHeaders: z.array(ItemsTypeAuthRequestHeaders$outboundSchema)
+    .optional(),
   clientSecretParamName: z.string().default("client_secret"),
   clientSecretParamValue: z.string().optional(),
-  authRequestParams: z.array(
-    z.lazy(() => CollectorHealthCheckAuthRequestParam1$outboundSchema),
-  ).optional(),
+  authRequestParams: z.array(ItemsTypeAuthRequestParams$outboundSchema)
+    .optional(),
   textSecret: z.string().optional(),
   type: CollectorHealthCheckType1$outboundSchema,
 });
@@ -8007,29 +4946,29 @@ export const CollectorHealthCheck$inboundSchema: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.union([
+  z.lazy(() => CollectorHealthCheckCollectorHealthCheckPart1Type$inboundSchema),
+  z.lazy(() => CollectorHealthCheckHealthCheck4$inboundSchema),
+  z.lazy(() => CollectorHealthCheckCollectorHealthCheckPart2Type$inboundSchema),
   z.lazy(() => CollectorHealthCheckHealthCheck5$inboundSchema),
-  z.lazy(() => CollectorHealthCheckHealthCheck7$inboundSchema),
   z.lazy(() => CollectorHealthCheckHealthCheck6$inboundSchema),
-  z.lazy(() => CollectorHealthCheckHealthCheck8$inboundSchema),
-  z.lazy(() => CollectorHealthCheckHealthCheck9$inboundSchema),
-  z.lazy(() => CollectorHealthCheckHealthCheck10$inboundSchema),
+  z.lazy(() => CollectorHealthCheckHealthCheck7$inboundSchema),
   z.lazy(() => CollectorHealthCheckHealthCheck1$inboundSchema),
   z.lazy(() => CollectorHealthCheckHealthCheck2$inboundSchema),
   z.lazy(() => CollectorHealthCheckHealthCheck3$inboundSchema),
-  z.lazy(() => CollectorHealthCheckHealthCheck4$inboundSchema),
+  z.lazy(() => CollectorHealthCheckCollectorHealthCheckPart0Type$inboundSchema),
 ]);
 /** @internal */
 export type CollectorHealthCheck$Outbound =
+  | CollectorHealthCheckCollectorHealthCheckPart1Type$Outbound
+  | CollectorHealthCheckHealthCheck4$Outbound
+  | CollectorHealthCheckCollectorHealthCheckPart2Type$Outbound
   | CollectorHealthCheckHealthCheck5$Outbound
-  | CollectorHealthCheckHealthCheck7$Outbound
   | CollectorHealthCheckHealthCheck6$Outbound
-  | CollectorHealthCheckHealthCheck8$Outbound
-  | CollectorHealthCheckHealthCheck9$Outbound
-  | CollectorHealthCheckHealthCheck10$Outbound
+  | CollectorHealthCheckHealthCheck7$Outbound
   | CollectorHealthCheckHealthCheck1$Outbound
   | CollectorHealthCheckHealthCheck2$Outbound
   | CollectorHealthCheckHealthCheck3$Outbound
-  | CollectorHealthCheckHealthCheck4$Outbound;
+  | CollectorHealthCheckCollectorHealthCheckPart0Type$Outbound;
 
 /** @internal */
 export const CollectorHealthCheck$outboundSchema: z.ZodType<
@@ -8037,16 +4976,22 @@ export const CollectorHealthCheck$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CollectorHealthCheck
 > = z.union([
+  z.lazy(() =>
+    CollectorHealthCheckCollectorHealthCheckPart1Type$outboundSchema
+  ),
+  z.lazy(() => CollectorHealthCheckHealthCheck4$outboundSchema),
+  z.lazy(() =>
+    CollectorHealthCheckCollectorHealthCheckPart2Type$outboundSchema
+  ),
   z.lazy(() => CollectorHealthCheckHealthCheck5$outboundSchema),
-  z.lazy(() => CollectorHealthCheckHealthCheck7$outboundSchema),
   z.lazy(() => CollectorHealthCheckHealthCheck6$outboundSchema),
-  z.lazy(() => CollectorHealthCheckHealthCheck8$outboundSchema),
-  z.lazy(() => CollectorHealthCheckHealthCheck9$outboundSchema),
-  z.lazy(() => CollectorHealthCheckHealthCheck10$outboundSchema),
+  z.lazy(() => CollectorHealthCheckHealthCheck7$outboundSchema),
   z.lazy(() => CollectorHealthCheckHealthCheck1$outboundSchema),
   z.lazy(() => CollectorHealthCheckHealthCheck2$outboundSchema),
   z.lazy(() => CollectorHealthCheckHealthCheck3$outboundSchema),
-  z.lazy(() => CollectorHealthCheckHealthCheck4$outboundSchema),
+  z.lazy(() =>
+    CollectorHealthCheckCollectorHealthCheckPart0Type$outboundSchema
+  ),
 ]);
 
 export function collectorHealthCheckToJSON(

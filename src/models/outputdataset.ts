@@ -7,7 +7,55 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  AuthenticationMethodOptions3,
+  AuthenticationMethodOptions3$inboundSchema,
+  AuthenticationMethodOptions3$outboundSchema,
+} from "./authenticationmethodoptions3.js";
+import {
+  BackpressureBehaviorOptions,
+  BackpressureBehaviorOptions$inboundSchema,
+  BackpressureBehaviorOptions$outboundSchema,
+} from "./backpressurebehavioroptions.js";
+import {
+  CompressionOptionsPq,
+  CompressionOptionsPq$inboundSchema,
+  CompressionOptionsPq$outboundSchema,
+} from "./compressionoptionspq.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
+import {
+  FailedRequestLoggingModeOptions,
+  FailedRequestLoggingModeOptions$inboundSchema,
+  FailedRequestLoggingModeOptions$outboundSchema,
+} from "./failedrequestloggingmodeoptions.js";
+import {
+  ItemsTypeExtraHttpHeaders,
+  ItemsTypeExtraHttpHeaders$inboundSchema,
+  ItemsTypeExtraHttpHeaders$Outbound,
+  ItemsTypeExtraHttpHeaders$outboundSchema,
+} from "./itemstypeextrahttpheaders.js";
+import {
+  ItemsTypeResponseRetrySettings,
+  ItemsTypeResponseRetrySettings$inboundSchema,
+  ItemsTypeResponseRetrySettings$Outbound,
+  ItemsTypeResponseRetrySettings$outboundSchema,
+} from "./itemstyperesponseretrysettings.js";
+import {
+  ModeOptions,
+  ModeOptions$inboundSchema,
+  ModeOptions$outboundSchema,
+} from "./modeoptions.js";
+import {
+  QueueFullBehaviorOptions,
+  QueueFullBehaviorOptions$inboundSchema,
+  QueueFullBehaviorOptions$outboundSchema,
+} from "./queuefullbehavioroptions.js";
+import {
+  TimeoutRetrySettingsType,
+  TimeoutRetrySettingsType$inboundSchema,
+  TimeoutRetrySettingsType$Outbound,
+  TimeoutRetrySettingsType$outboundSchema,
+} from "./timeoutretrysettingstype.js";
 
 /**
  * Default value for event severity. If the `sev` or `__severity` fields are set on an event, the first one matching will override this value.
@@ -47,41 +95,6 @@ export const OutputDatasetSeverity = {
  */
 export type OutputDatasetSeverity = OpenEnum<typeof OutputDatasetSeverity>;
 
-export type OutputDatasetResponseRetrySetting = {
-  /**
-   * The HTTP response status code that will trigger retries
-   */
-  httpStatus: number;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
-export type OutputDatasetTimeoutRetrySettings = {
-  timeoutRetry?: boolean | undefined;
-  /**
-   * How long, in milliseconds, Cribl Stream should wait before initiating backoff. Maximum interval is 600,000 ms (10 minutes).
-   */
-  initialBackoff?: number | undefined;
-  /**
-   * Base for exponential backoff. A value of 2 (default) means Cribl Stream will retry after 2 seconds, then 4 seconds, then 8 seconds, etc.
-   */
-  backoffRate?: number | undefined;
-  /**
-   * The maximum backoff interval, in milliseconds, Cribl Stream should apply. Default (and minimum) is 10,000 ms (10 seconds); maximum is 180,000 ms (180 seconds).
-   */
-  maxBackoff?: number | undefined;
-};
-
 /**
  * DataSet site to which events should be sent
  */
@@ -103,135 +116,6 @@ export const DataSetSite = {
  * DataSet site to which events should be sent
  */
 export type DataSetSite = OpenEnum<typeof DataSetSite>;
-
-export type OutputDatasetExtraHttpHeader = {
-  name?: string | undefined;
-  value: string;
-};
-
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export const OutputDatasetFailedRequestLoggingMode = {
-  /**
-   * Payload
-   */
-  Payload: "payload",
-  /**
-   * Payload + Headers
-   */
-  PayloadAndHeaders: "payloadAndHeaders",
-  /**
-   * None
-   */
-  None: "none",
-} as const;
-/**
- * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
- */
-export type OutputDatasetFailedRequestLoggingMode = OpenEnum<
-  typeof OutputDatasetFailedRequestLoggingMode
->;
-
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export const OutputDatasetBackpressureBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop
-   */
-  Drop: "drop",
-  /**
-   * Persistent Queue
-   */
-  Queue: "queue",
-} as const;
-/**
- * How to handle events when all receivers are exerting backpressure
- */
-export type OutputDatasetBackpressureBehavior = OpenEnum<
-  typeof OutputDatasetBackpressureBehavior
->;
-
-/**
- * Enter API key directly, or select a stored secret
- */
-export const OutputDatasetAuthenticationMethod = {
-  Manual: "manual",
-  Secret: "secret",
-} as const;
-/**
- * Enter API key directly, or select a stored secret
- */
-export type OutputDatasetAuthenticationMethod = OpenEnum<
-  typeof OutputDatasetAuthenticationMethod
->;
-
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export const OutputDatasetMode = {
-  /**
-   * Error
-   */
-  Error: "error",
-  /**
-   * Backpressure
-   */
-  Always: "always",
-  /**
-   * Always On
-   */
-  Backpressure: "backpressure",
-} as const;
-/**
- * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
- */
-export type OutputDatasetMode = OpenEnum<typeof OutputDatasetMode>;
-
-/**
- * Codec to use to compress the persisted data
- */
-export const OutputDatasetCompression = {
-  /**
-   * None
-   */
-  None: "none",
-  /**
-   * Gzip
-   */
-  Gzip: "gzip",
-} as const;
-/**
- * Codec to use to compress the persisted data
- */
-export type OutputDatasetCompression = OpenEnum<
-  typeof OutputDatasetCompression
->;
-
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export const OutputDatasetQueueFullBehavior = {
-  /**
-   * Block
-   */
-  Block: "block",
-  /**
-   * Drop new data
-   */
-  Drop: "drop",
-} as const;
-/**
- * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
- */
-export type OutputDatasetQueueFullBehavior = OpenEnum<
-  typeof OutputDatasetQueueFullBehavior
->;
 
 export type OutputDatasetPqControls = {};
 
@@ -280,8 +164,8 @@ export type OutputDataset = {
   /**
    * Automatically retry after unsuccessful response status codes, such as 429 (Too Many Requests) or 503 (Service Unavailable)
    */
-  responseRetrySettings?: Array<OutputDatasetResponseRetrySetting> | undefined;
-  timeoutRetrySettings?: OutputDatasetTimeoutRetrySettings | undefined;
+  responseRetrySettings?: Array<ItemsTypeResponseRetrySettings> | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType | undefined;
   /**
    * Honor any Retry-After header that specifies a delay (in seconds) no longer than 180 seconds after the retry request. @{product} limits the delay to 180 seconds, even if the Retry-After header specifies a longer delay. When enabled, takes precedence over user-configured retry options. When disabled, all Retry-After headers are ignored.
    */
@@ -325,7 +209,7 @@ export type OutputDataset = {
   /**
    * Headers to add to all events
    */
-  extraHttpHeaders?: Array<OutputDatasetExtraHttpHeader> | undefined;
+  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders> | undefined;
   /**
    * Enable round-robin DNS lookup. When a DNS server returns multiple addresses, @{product} will cycle through them in the order returned. For optimal performance, consider enabling this setting for non-load balanced destinations.
    */
@@ -333,7 +217,7 @@ export type OutputDataset = {
   /**
    * Data to log when a request fails. All headers are redacted by default, unless listed as safe headers below.
    */
-  failedRequestLoggingMode?: OutputDatasetFailedRequestLoggingMode | undefined;
+  failedRequestLoggingMode?: FailedRequestLoggingModeOptions | undefined;
   /**
    * List of headers that are safe to log in plain text
    */
@@ -341,11 +225,11 @@ export type OutputDataset = {
   /**
    * How to handle events when all receivers are exerting backpressure
    */
-  onBackpressure?: OutputDatasetBackpressureBehavior | undefined;
+  onBackpressure?: BackpressureBehaviorOptions | undefined;
   /**
    * Enter API key directly, or select a stored secret
    */
-  authType?: OutputDatasetAuthenticationMethod | undefined;
+  authType?: AuthenticationMethodOptions3 | undefined;
   /**
    * Maximum total size of the batches waiting to be sent. If left blank, defaults to 5 times the max body size (if set). If 0, no limit is enforced.
    */
@@ -363,7 +247,7 @@ export type OutputDataset = {
   /**
    * In Error mode, PQ writes events to the filesystem if the Destination is unavailable. In Backpressure mode, PQ writes events to the filesystem when it detects backpressure from the Destination. In Always On mode, PQ always writes events to the filesystem.
    */
-  pqMode?: OutputDatasetMode | undefined;
+  pqMode?: ModeOptions | undefined;
   /**
    * The maximum number of events to hold in memory before writing the events to disk
    */
@@ -387,11 +271,11 @@ export type OutputDataset = {
   /**
    * Codec to use to compress the persisted data
    */
-  pqCompress?: OutputDatasetCompression | undefined;
+  pqCompress?: CompressionOptionsPq | undefined;
   /**
    * How to handle events when the queue is exerting backpressure (full capacity or low disk). 'Block' is the same behavior as non-PQ blocking. 'Drop new data' throws away incoming data, while leaving the contents of the PQ unchanged.
    */
-  pqOnBackpressure?: OutputDatasetQueueFullBehavior | undefined;
+  pqOnBackpressure?: QueueFullBehaviorOptions | undefined;
   pqControls?: OutputDatasetPqControls | undefined;
   /**
    * A 'Log Write Access' API key for the DataSet account
@@ -417,106 +301,6 @@ export const OutputDatasetSeverity$outboundSchema: z.ZodType<
 > = openEnums.outboundSchema(OutputDatasetSeverity);
 
 /** @internal */
-export const OutputDatasetResponseRetrySetting$inboundSchema: z.ZodType<
-  OutputDatasetResponseRetrySetting,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-/** @internal */
-export type OutputDatasetResponseRetrySetting$Outbound = {
-  httpStatus: number;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputDatasetResponseRetrySetting$outboundSchema: z.ZodType<
-  OutputDatasetResponseRetrySetting$Outbound,
-  z.ZodTypeDef,
-  OutputDatasetResponseRetrySetting
-> = z.object({
-  httpStatus: z.number(),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-export function outputDatasetResponseRetrySettingToJSON(
-  outputDatasetResponseRetrySetting: OutputDatasetResponseRetrySetting,
-): string {
-  return JSON.stringify(
-    OutputDatasetResponseRetrySetting$outboundSchema.parse(
-      outputDatasetResponseRetrySetting,
-    ),
-  );
-}
-export function outputDatasetResponseRetrySettingFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputDatasetResponseRetrySetting, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputDatasetResponseRetrySetting$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputDatasetResponseRetrySetting' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputDatasetTimeoutRetrySettings$inboundSchema: z.ZodType<
-  OutputDatasetTimeoutRetrySettings,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-/** @internal */
-export type OutputDatasetTimeoutRetrySettings$Outbound = {
-  timeoutRetry: boolean;
-  initialBackoff: number;
-  backoffRate: number;
-  maxBackoff: number;
-};
-
-/** @internal */
-export const OutputDatasetTimeoutRetrySettings$outboundSchema: z.ZodType<
-  OutputDatasetTimeoutRetrySettings$Outbound,
-  z.ZodTypeDef,
-  OutputDatasetTimeoutRetrySettings
-> = z.object({
-  timeoutRetry: z.boolean().default(false),
-  initialBackoff: z.number().default(1000),
-  backoffRate: z.number().default(2),
-  maxBackoff: z.number().default(10000),
-});
-
-export function outputDatasetTimeoutRetrySettingsToJSON(
-  outputDatasetTimeoutRetrySettings: OutputDatasetTimeoutRetrySettings,
-): string {
-  return JSON.stringify(
-    OutputDatasetTimeoutRetrySettings$outboundSchema.parse(
-      outputDatasetTimeoutRetrySettings,
-    ),
-  );
-}
-export function outputDatasetTimeoutRetrySettingsFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputDatasetTimeoutRetrySettings, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputDatasetTimeoutRetrySettings$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputDatasetTimeoutRetrySettings' from JSON`,
-  );
-}
-
-/** @internal */
 export const DataSetSite$inboundSchema: z.ZodType<
   DataSetSite,
   z.ZodTypeDef,
@@ -528,128 +312,6 @@ export const DataSetSite$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   DataSetSite
 > = openEnums.outboundSchema(DataSetSite);
-
-/** @internal */
-export const OutputDatasetExtraHttpHeader$inboundSchema: z.ZodType<
-  OutputDatasetExtraHttpHeader,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-/** @internal */
-export type OutputDatasetExtraHttpHeader$Outbound = {
-  name?: string | undefined;
-  value: string;
-};
-
-/** @internal */
-export const OutputDatasetExtraHttpHeader$outboundSchema: z.ZodType<
-  OutputDatasetExtraHttpHeader$Outbound,
-  z.ZodTypeDef,
-  OutputDatasetExtraHttpHeader
-> = z.object({
-  name: z.string().optional(),
-  value: z.string(),
-});
-
-export function outputDatasetExtraHttpHeaderToJSON(
-  outputDatasetExtraHttpHeader: OutputDatasetExtraHttpHeader,
-): string {
-  return JSON.stringify(
-    OutputDatasetExtraHttpHeader$outboundSchema.parse(
-      outputDatasetExtraHttpHeader,
-    ),
-  );
-}
-export function outputDatasetExtraHttpHeaderFromJSON(
-  jsonString: string,
-): SafeParseResult<OutputDatasetExtraHttpHeader, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => OutputDatasetExtraHttpHeader$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'OutputDatasetExtraHttpHeader' from JSON`,
-  );
-}
-
-/** @internal */
-export const OutputDatasetFailedRequestLoggingMode$inboundSchema: z.ZodType<
-  OutputDatasetFailedRequestLoggingMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputDatasetFailedRequestLoggingMode);
-/** @internal */
-export const OutputDatasetFailedRequestLoggingMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputDatasetFailedRequestLoggingMode
-> = openEnums.outboundSchema(OutputDatasetFailedRequestLoggingMode);
-
-/** @internal */
-export const OutputDatasetBackpressureBehavior$inboundSchema: z.ZodType<
-  OutputDatasetBackpressureBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputDatasetBackpressureBehavior);
-/** @internal */
-export const OutputDatasetBackpressureBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputDatasetBackpressureBehavior
-> = openEnums.outboundSchema(OutputDatasetBackpressureBehavior);
-
-/** @internal */
-export const OutputDatasetAuthenticationMethod$inboundSchema: z.ZodType<
-  OutputDatasetAuthenticationMethod,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputDatasetAuthenticationMethod);
-/** @internal */
-export const OutputDatasetAuthenticationMethod$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputDatasetAuthenticationMethod
-> = openEnums.outboundSchema(OutputDatasetAuthenticationMethod);
-
-/** @internal */
-export const OutputDatasetMode$inboundSchema: z.ZodType<
-  OutputDatasetMode,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputDatasetMode);
-/** @internal */
-export const OutputDatasetMode$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputDatasetMode
-> = openEnums.outboundSchema(OutputDatasetMode);
-
-/** @internal */
-export const OutputDatasetCompression$inboundSchema: z.ZodType<
-  OutputDatasetCompression,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputDatasetCompression);
-/** @internal */
-export const OutputDatasetCompression$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputDatasetCompression
-> = openEnums.outboundSchema(OutputDatasetCompression);
-
-/** @internal */
-export const OutputDatasetQueueFullBehavior$inboundSchema: z.ZodType<
-  OutputDatasetQueueFullBehavior,
-  z.ZodTypeDef,
-  unknown
-> = openEnums.inboundSchema(OutputDatasetQueueFullBehavior);
-/** @internal */
-export const OutputDatasetQueueFullBehavior$outboundSchema: z.ZodType<
-  string,
-  z.ZodTypeDef,
-  OutputDatasetQueueFullBehavior
-> = openEnums.outboundSchema(OutputDatasetQueueFullBehavior);
 
 /** @internal */
 export const OutputDatasetPqControls$inboundSchema: z.ZodType<
@@ -701,12 +363,9 @@ export const OutputDataset$inboundSchema: z.ZodType<
   serverHostField: z.string().optional(),
   timestampField: z.string().optional(),
   defaultSeverity: OutputDatasetSeverity$inboundSchema.default("info"),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputDatasetResponseRetrySetting$inboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputDatasetTimeoutRetrySettings$inboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$inboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$inboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(false),
   site: DataSetSite$inboundSchema.default("us"),
   concurrency: z.number().default(5),
@@ -716,32 +375,26 @@ export const OutputDataset$inboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputDatasetExtraHttpHeader$inboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$inboundSchema).optional(),
   useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode: OutputDatasetFailedRequestLoggingMode$inboundSchema
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$inboundSchema
     .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  onBackpressure: OutputDatasetBackpressureBehavior$inboundSchema.default(
-    "block",
-  ),
-  authType: OutputDatasetAuthenticationMethod$inboundSchema.default("manual"),
+  onBackpressure: BackpressureBehaviorOptions$inboundSchema.default("block"),
+  authType: AuthenticationMethodOptions3$inboundSchema.default("manual"),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   customUrl: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: OutputDatasetMode$inboundSchema.default("error"),
+  pqMode: ModeOptions$inboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputDatasetCompression$inboundSchema.default("none"),
-  pqOnBackpressure: OutputDatasetQueueFullBehavior$inboundSchema.default(
-    "block",
-  ),
+  pqCompress: CompressionOptionsPq$inboundSchema.default("none"),
+  pqOnBackpressure: QueueFullBehaviorOptions$inboundSchema.default("block"),
   pqControls: z.lazy(() => OutputDatasetPqControls$inboundSchema).optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),
@@ -760,9 +413,9 @@ export type OutputDataset$Outbound = {
   timestampField?: string | undefined;
   defaultSeverity: string;
   responseRetrySettings?:
-    | Array<OutputDatasetResponseRetrySetting$Outbound>
+    | Array<ItemsTypeResponseRetrySettings$Outbound>
     | undefined;
-  timeoutRetrySettings?: OutputDatasetTimeoutRetrySettings$Outbound | undefined;
+  timeoutRetrySettings?: TimeoutRetrySettingsType$Outbound | undefined;
   responseHonorRetryAfterHeader: boolean;
   site: string;
   concurrency: number;
@@ -772,7 +425,7 @@ export type OutputDataset$Outbound = {
   rejectUnauthorized: boolean;
   timeoutSec: number;
   flushPeriodSec: number;
-  extraHttpHeaders?: Array<OutputDatasetExtraHttpHeader$Outbound> | undefined;
+  extraHttpHeaders?: Array<ItemsTypeExtraHttpHeaders$Outbound> | undefined;
   useRoundRobinDns: boolean;
   failedRequestLoggingMode: string;
   safeHeaders?: Array<string> | undefined;
@@ -813,12 +466,9 @@ export const OutputDataset$outboundSchema: z.ZodType<
   serverHostField: z.string().optional(),
   timestampField: z.string().optional(),
   defaultSeverity: OutputDatasetSeverity$outboundSchema.default("info"),
-  responseRetrySettings: z.array(
-    z.lazy(() => OutputDatasetResponseRetrySetting$outboundSchema),
-  ).optional(),
-  timeoutRetrySettings: z.lazy(() =>
-    OutputDatasetTimeoutRetrySettings$outboundSchema
-  ).optional(),
+  responseRetrySettings: z.array(ItemsTypeResponseRetrySettings$outboundSchema)
+    .optional(),
+  timeoutRetrySettings: TimeoutRetrySettingsType$outboundSchema.optional(),
   responseHonorRetryAfterHeader: z.boolean().default(false),
   site: DataSetSite$outboundSchema.default("us"),
   concurrency: z.number().default(5),
@@ -828,32 +478,27 @@ export const OutputDataset$outboundSchema: z.ZodType<
   rejectUnauthorized: z.boolean().default(true),
   timeoutSec: z.number().default(30),
   flushPeriodSec: z.number().default(1),
-  extraHttpHeaders: z.array(
-    z.lazy(() => OutputDatasetExtraHttpHeader$outboundSchema),
-  ).optional(),
+  extraHttpHeaders: z.array(ItemsTypeExtraHttpHeaders$outboundSchema)
+    .optional(),
   useRoundRobinDns: z.boolean().default(false),
-  failedRequestLoggingMode: OutputDatasetFailedRequestLoggingMode$outboundSchema
+  failedRequestLoggingMode: FailedRequestLoggingModeOptions$outboundSchema
     .default("none"),
   safeHeaders: z.array(z.string()).optional(),
-  onBackpressure: OutputDatasetBackpressureBehavior$outboundSchema.default(
-    "block",
-  ),
-  authType: OutputDatasetAuthenticationMethod$outboundSchema.default("manual"),
+  onBackpressure: BackpressureBehaviorOptions$outboundSchema.default("block"),
+  authType: AuthenticationMethodOptions3$outboundSchema.default("manual"),
   totalMemoryLimitKB: z.number().optional(),
   description: z.string().optional(),
   customUrl: z.string().optional(),
   pqStrictOrdering: z.boolean().default(true),
   pqRatePerSec: z.number().default(0),
-  pqMode: OutputDatasetMode$outboundSchema.default("error"),
+  pqMode: ModeOptions$outboundSchema.default("error"),
   pqMaxBufferSize: z.number().default(42),
   pqMaxBackpressureSec: z.number().default(30),
   pqMaxFileSize: z.string().default("1 MB"),
   pqMaxSize: z.string().default("5GB"),
   pqPath: z.string().default("$CRIBL_HOME/state/queues"),
-  pqCompress: OutputDatasetCompression$outboundSchema.default("none"),
-  pqOnBackpressure: OutputDatasetQueueFullBehavior$outboundSchema.default(
-    "block",
-  ),
+  pqCompress: CompressionOptionsPq$outboundSchema.default("none"),
+  pqOnBackpressure: QueueFullBehaviorOptions$outboundSchema.default("block"),
   pqControls: z.lazy(() => OutputDatasetPqControls$outboundSchema).optional(),
   apiKey: z.string().optional(),
   textSecret: z.string().optional(),

@@ -7,6 +7,12 @@ import { safeParse } from "../lib/schemas.js";
 import * as openEnums from "../types/enums.js";
 import { ClosedEnum, OpenEnum } from "../types/enums.js";
 import { Result as SafeParseResult } from "../types/fp.js";
+import {
+  CertificateType,
+  CertificateType$inboundSchema,
+  CertificateType$Outbound,
+  CertificateType$outboundSchema,
+} from "./certificatetype.js";
 import { SDKValidationError } from "./errors/sdkvalidationerror.js";
 
 /**
@@ -24,13 +30,6 @@ export const CollectorAzureBlobAuthenticationMethod4 = {
 export type CollectorAzureBlobAuthenticationMethod4 = OpenEnum<
   typeof CollectorAzureBlobAuthenticationMethod4
 >;
-
-export type CollectorAzureBlobCertificate4 = {
-  /**
-   * The certificate you registered as credentials for your app in the Azure portal
-   */
-  certificateName: string;
-};
 
 /**
  * Collector type: azure_blob
@@ -73,7 +72,7 @@ export type CollectorAzureBlobAzureBlob4 = {
    * The service principal's client ID
    */
   clientId: string;
-  certificate: CollectorAzureBlobCertificate4;
+  certificate: CertificateType;
   /**
    * The Azure cloud to use. Defaults to Azure Public Cloud.
    */
@@ -180,13 +179,6 @@ export type CollectorAzureBlobExtractor3 = {
   expression: string;
 };
 
-export type CollectorAzureBlobCertificate3 = {
-  /**
-   * The certificate you registered as credentials for your app in the Azure portal
-   */
-  certificateName: string;
-};
-
 export type CollectorAzureBlobAzureBlob3 = {
   /**
    * Enter authentication data directly, or select a secret referencing your auth data
@@ -268,7 +260,7 @@ export type CollectorAzureBlobAzureBlob3 = {
    * Text secret
    */
   textSecret?: string | undefined;
-  certificate?: CollectorAzureBlobCertificate3 | undefined;
+  certificate?: CertificateType | undefined;
 };
 
 /**
@@ -309,13 +301,6 @@ export type CollectorAzureBlobExtractor2 = {
    * A JavaScript expression that accesses a corresponding <token> through the value variable and evaluates the token to populate event fields. Example: {date: new Date(+value*1000)}
    */
   expression: string;
-};
-
-export type CollectorAzureBlobCertificate2 = {
-  /**
-   * The certificate you registered as credentials for your app in the Azure portal
-   */
-  certificateName: string;
 };
 
 export type CollectorAzureBlobAzureBlob2 = {
@@ -399,7 +384,7 @@ export type CollectorAzureBlobAzureBlob2 = {
    * The Azure cloud to use. Defaults to Azure Public Cloud.
    */
   azureCloud?: string | undefined;
-  certificate?: CollectorAzureBlobCertificate2 | undefined;
+  certificate?: CertificateType | undefined;
 };
 
 /**
@@ -440,13 +425,6 @@ export type CollectorAzureBlobExtractor1 = {
    * A JavaScript expression that accesses a corresponding <token> through the value variable and evaluates the token to populate event fields. Example: {date: new Date(+value*1000)}
    */
   expression: string;
-};
-
-export type CollectorAzureBlobCertificate1 = {
-  /**
-   * The certificate you registered as credentials for your app in the Azure portal
-   */
-  certificateName: string;
 };
 
 export type CollectorAzureBlobAzureBlob1 = {
@@ -530,7 +508,7 @@ export type CollectorAzureBlobAzureBlob1 = {
    * The Azure cloud to use. Defaults to Azure Public Cloud.
    */
   azureCloud?: string | undefined;
-  certificate?: CollectorAzureBlobCertificate1 | undefined;
+  certificate?: CertificateType | undefined;
 };
 
 export type CollectorAzureBlob =
@@ -551,47 +529,6 @@ export const CollectorAzureBlobAuthenticationMethod4$outboundSchema: z.ZodType<
   z.ZodTypeDef,
   CollectorAzureBlobAuthenticationMethod4
 > = openEnums.outboundSchema(CollectorAzureBlobAuthenticationMethod4);
-
-/** @internal */
-export const CollectorAzureBlobCertificate4$inboundSchema: z.ZodType<
-  CollectorAzureBlobCertificate4,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  certificateName: z.string(),
-});
-/** @internal */
-export type CollectorAzureBlobCertificate4$Outbound = {
-  certificateName: string;
-};
-
-/** @internal */
-export const CollectorAzureBlobCertificate4$outboundSchema: z.ZodType<
-  CollectorAzureBlobCertificate4$Outbound,
-  z.ZodTypeDef,
-  CollectorAzureBlobCertificate4
-> = z.object({
-  certificateName: z.string(),
-});
-
-export function collectorAzureBlobCertificate4ToJSON(
-  collectorAzureBlobCertificate4: CollectorAzureBlobCertificate4,
-): string {
-  return JSON.stringify(
-    CollectorAzureBlobCertificate4$outboundSchema.parse(
-      collectorAzureBlobCertificate4,
-    ),
-  );
-}
-export function collectorAzureBlobCertificate4FromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorAzureBlobCertificate4, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CollectorAzureBlobCertificate4$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorAzureBlobCertificate4' from JSON`,
-  );
-}
 
 /** @internal */
 export const CollectorAzureBlobType4$inboundSchema: z.ZodNativeEnum<
@@ -658,7 +595,7 @@ export const CollectorAzureBlobAzureBlob4$inboundSchema: z.ZodType<
   storageAccountName: z.string(),
   tenantId: z.string(),
   clientId: z.string(),
-  certificate: z.lazy(() => CollectorAzureBlobCertificate4$inboundSchema),
+  certificate: CertificateType$inboundSchema,
   azureCloud: z.string().optional(),
   endpointSuffix: z.string().optional(),
   type: CollectorAzureBlobType4$inboundSchema,
@@ -683,7 +620,7 @@ export type CollectorAzureBlobAzureBlob4$Outbound = {
   storageAccountName: string;
   tenantId: string;
   clientId: string;
-  certificate: CollectorAzureBlobCertificate4$Outbound;
+  certificate: CertificateType$Outbound;
   azureCloud?: string | undefined;
   endpointSuffix?: string | undefined;
   type: string;
@@ -714,7 +651,7 @@ export const CollectorAzureBlobAzureBlob4$outboundSchema: z.ZodType<
   storageAccountName: z.string(),
   tenantId: z.string(),
   clientId: z.string(),
-  certificate: z.lazy(() => CollectorAzureBlobCertificate4$outboundSchema),
+  certificate: CertificateType$outboundSchema,
   azureCloud: z.string().optional(),
   endpointSuffix: z.string().optional(),
   type: CollectorAzureBlobType4$outboundSchema,
@@ -820,47 +757,6 @@ export function collectorAzureBlobExtractor3FromJSON(
 }
 
 /** @internal */
-export const CollectorAzureBlobCertificate3$inboundSchema: z.ZodType<
-  CollectorAzureBlobCertificate3,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  certificateName: z.string(),
-});
-/** @internal */
-export type CollectorAzureBlobCertificate3$Outbound = {
-  certificateName: string;
-};
-
-/** @internal */
-export const CollectorAzureBlobCertificate3$outboundSchema: z.ZodType<
-  CollectorAzureBlobCertificate3$Outbound,
-  z.ZodTypeDef,
-  CollectorAzureBlobCertificate3
-> = z.object({
-  certificateName: z.string(),
-});
-
-export function collectorAzureBlobCertificate3ToJSON(
-  collectorAzureBlobCertificate3: CollectorAzureBlobCertificate3,
-): string {
-  return JSON.stringify(
-    CollectorAzureBlobCertificate3$outboundSchema.parse(
-      collectorAzureBlobCertificate3,
-    ),
-  );
-}
-export function collectorAzureBlobCertificate3FromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorAzureBlobCertificate3, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CollectorAzureBlobCertificate3$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorAzureBlobCertificate3' from JSON`,
-  );
-}
-
-/** @internal */
 export const CollectorAzureBlobAzureBlob3$inboundSchema: z.ZodType<
   CollectorAzureBlobAzureBlob3,
   z.ZodTypeDef,
@@ -889,8 +785,7 @@ export const CollectorAzureBlobAzureBlob3$inboundSchema: z.ZodType<
   parquetChunkDownloadTimeout: z.number().default(600),
   connectionString: z.string().optional(),
   textSecret: z.string().optional(),
-  certificate: z.lazy(() => CollectorAzureBlobCertificate3$inboundSchema)
-    .optional(),
+  certificate: CertificateType$inboundSchema.optional(),
 });
 /** @internal */
 export type CollectorAzureBlobAzureBlob3$Outbound = {
@@ -914,7 +809,7 @@ export type CollectorAzureBlobAzureBlob3$Outbound = {
   parquetChunkDownloadTimeout: number;
   connectionString?: string | undefined;
   textSecret?: string | undefined;
-  certificate?: CollectorAzureBlobCertificate3$Outbound | undefined;
+  certificate?: CertificateType$Outbound | undefined;
 };
 
 /** @internal */
@@ -946,8 +841,7 @@ export const CollectorAzureBlobAzureBlob3$outboundSchema: z.ZodType<
   parquetChunkDownloadTimeout: z.number().default(600),
   connectionString: z.string().optional(),
   textSecret: z.string().optional(),
-  certificate: z.lazy(() => CollectorAzureBlobCertificate3$outboundSchema)
-    .optional(),
+  certificate: CertificateType$outboundSchema.optional(),
 });
 
 export function collectorAzureBlobAzureBlob3ToJSON(
@@ -1036,47 +930,6 @@ export function collectorAzureBlobExtractor2FromJSON(
 }
 
 /** @internal */
-export const CollectorAzureBlobCertificate2$inboundSchema: z.ZodType<
-  CollectorAzureBlobCertificate2,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  certificateName: z.string(),
-});
-/** @internal */
-export type CollectorAzureBlobCertificate2$Outbound = {
-  certificateName: string;
-};
-
-/** @internal */
-export const CollectorAzureBlobCertificate2$outboundSchema: z.ZodType<
-  CollectorAzureBlobCertificate2$Outbound,
-  z.ZodTypeDef,
-  CollectorAzureBlobCertificate2
-> = z.object({
-  certificateName: z.string(),
-});
-
-export function collectorAzureBlobCertificate2ToJSON(
-  collectorAzureBlobCertificate2: CollectorAzureBlobCertificate2,
-): string {
-  return JSON.stringify(
-    CollectorAzureBlobCertificate2$outboundSchema.parse(
-      collectorAzureBlobCertificate2,
-    ),
-  );
-}
-export function collectorAzureBlobCertificate2FromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorAzureBlobCertificate2, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CollectorAzureBlobCertificate2$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorAzureBlobCertificate2' from JSON`,
-  );
-}
-
-/** @internal */
 export const CollectorAzureBlobAzureBlob2$inboundSchema: z.ZodType<
   CollectorAzureBlobAzureBlob2,
   z.ZodTypeDef,
@@ -1105,8 +958,7 @@ export const CollectorAzureBlobAzureBlob2$inboundSchema: z.ZodType<
   clientTextSecret: z.string().optional(),
   endpointSuffix: z.string().optional(),
   azureCloud: z.string().optional(),
-  certificate: z.lazy(() => CollectorAzureBlobCertificate2$inboundSchema)
-    .optional(),
+  certificate: CertificateType$inboundSchema.optional(),
 });
 /** @internal */
 export type CollectorAzureBlobAzureBlob2$Outbound = {
@@ -1130,7 +982,7 @@ export type CollectorAzureBlobAzureBlob2$Outbound = {
   clientTextSecret?: string | undefined;
   endpointSuffix?: string | undefined;
   azureCloud?: string | undefined;
-  certificate?: CollectorAzureBlobCertificate2$Outbound | undefined;
+  certificate?: CertificateType$Outbound | undefined;
 };
 
 /** @internal */
@@ -1162,8 +1014,7 @@ export const CollectorAzureBlobAzureBlob2$outboundSchema: z.ZodType<
   clientTextSecret: z.string().optional(),
   endpointSuffix: z.string().optional(),
   azureCloud: z.string().optional(),
-  certificate: z.lazy(() => CollectorAzureBlobCertificate2$outboundSchema)
-    .optional(),
+  certificate: CertificateType$outboundSchema.optional(),
 });
 
 export function collectorAzureBlobAzureBlob2ToJSON(
@@ -1252,47 +1103,6 @@ export function collectorAzureBlobExtractor1FromJSON(
 }
 
 /** @internal */
-export const CollectorAzureBlobCertificate1$inboundSchema: z.ZodType<
-  CollectorAzureBlobCertificate1,
-  z.ZodTypeDef,
-  unknown
-> = z.object({
-  certificateName: z.string(),
-});
-/** @internal */
-export type CollectorAzureBlobCertificate1$Outbound = {
-  certificateName: string;
-};
-
-/** @internal */
-export const CollectorAzureBlobCertificate1$outboundSchema: z.ZodType<
-  CollectorAzureBlobCertificate1$Outbound,
-  z.ZodTypeDef,
-  CollectorAzureBlobCertificate1
-> = z.object({
-  certificateName: z.string(),
-});
-
-export function collectorAzureBlobCertificate1ToJSON(
-  collectorAzureBlobCertificate1: CollectorAzureBlobCertificate1,
-): string {
-  return JSON.stringify(
-    CollectorAzureBlobCertificate1$outboundSchema.parse(
-      collectorAzureBlobCertificate1,
-    ),
-  );
-}
-export function collectorAzureBlobCertificate1FromJSON(
-  jsonString: string,
-): SafeParseResult<CollectorAzureBlobCertificate1, SDKValidationError> {
-  return safeParse(
-    jsonString,
-    (x) => CollectorAzureBlobCertificate1$inboundSchema.parse(JSON.parse(x)),
-    `Failed to parse 'CollectorAzureBlobCertificate1' from JSON`,
-  );
-}
-
-/** @internal */
 export const CollectorAzureBlobAzureBlob1$inboundSchema: z.ZodType<
   CollectorAzureBlobAzureBlob1,
   z.ZodTypeDef,
@@ -1321,8 +1131,7 @@ export const CollectorAzureBlobAzureBlob1$inboundSchema: z.ZodType<
   clientTextSecret: z.string().optional(),
   endpointSuffix: z.string().optional(),
   azureCloud: z.string().optional(),
-  certificate: z.lazy(() => CollectorAzureBlobCertificate1$inboundSchema)
-    .optional(),
+  certificate: CertificateType$inboundSchema.optional(),
 });
 /** @internal */
 export type CollectorAzureBlobAzureBlob1$Outbound = {
@@ -1346,7 +1155,7 @@ export type CollectorAzureBlobAzureBlob1$Outbound = {
   clientTextSecret?: string | undefined;
   endpointSuffix?: string | undefined;
   azureCloud?: string | undefined;
-  certificate?: CollectorAzureBlobCertificate1$Outbound | undefined;
+  certificate?: CertificateType$Outbound | undefined;
 };
 
 /** @internal */
@@ -1378,8 +1187,7 @@ export const CollectorAzureBlobAzureBlob1$outboundSchema: z.ZodType<
   clientTextSecret: z.string().optional(),
   endpointSuffix: z.string().optional(),
   azureCloud: z.string().optional(),
-  certificate: z.lazy(() => CollectorAzureBlobCertificate1$outboundSchema)
-    .optional(),
+  certificate: CertificateType$outboundSchema.optional(),
 });
 
 export function collectorAzureBlobAzureBlob1ToJSON(
